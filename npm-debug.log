@@ -1,0 +1,178 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'angular-material' ]
+2 info using npm@3.10.8
+3 info using node@v6.9.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData angular-material@^1.1.1
+8 silly fetchNamedPackageData angular-material
+9 silly mapToRegistry name angular-material
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'angular-material',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'angular-material',
+12 silly mapToRegistry   name: 'angular-material',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/angular-material
+14 verbose request uri https://registry.npmjs.org/angular-material
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 13:36:56
+17 verbose request id a0ec7c4eb33f38bf
+18 verbose etag W/"585370da-f3fe"
+19 verbose lastModified Fri, 16 Dec 2016 04:43:06 GMT
+20 http request GET https://registry.npmjs.org/angular-material
+21 http 304 https://registry.npmjs.org/angular-material
+22 verbose headers { date: 'Fri, 27 Jan 2017 18:06:57 GMT',
+22 verbose headers   via: '1.1 varnish',
+22 verbose headers   'cache-control': 'max-age=300',
+22 verbose headers   etag: 'W/"585370da-f3fe"',
+22 verbose headers   age: '17',
+22 verbose headers   connection: 'keep-alive',
+22 verbose headers   'x-served-by': 'cache-atl6236-ATL',
+22 verbose headers   'x-cache': 'HIT',
+22 verbose headers   'x-cache-hits': '1',
+22 verbose headers   'x-timer': 'S1485540417.871743,VS0,VE0',
+22 verbose headers   vary: 'Accept-Encoding' }
+23 silly get cb [ 304,
+23 silly get   { date: 'Fri, 27 Jan 2017 18:06:57 GMT',
+23 silly get     via: '1.1 varnish',
+23 silly get     'cache-control': 'max-age=300',
+23 silly get     etag: 'W/"585370da-f3fe"',
+23 silly get     age: '17',
+23 silly get     connection: 'keep-alive',
+23 silly get     'x-served-by': 'cache-atl6236-ATL',
+23 silly get     'x-cache': 'HIT',
+23 silly get     'x-cache-hits': '1',
+23 silly get     'x-timer': 'S1485540417.871743,VS0,VE0',
+23 silly get     vary: 'Accept-Encoding' } ]
+24 verbose etag https://registry.npmjs.org/angular-material from cache
+25 verbose get saving angular-material to C:\Users\xavier\AppData\Roaming\npm-cache\registry.npmjs.org\angular-material\.cache.json
+26 verbose correctMkdir C:\Users\xavier\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+27 silly install normalizeTree
+28 silly loadCurrentTree Finishing
+29 silly loadIdealTree Starting
+30 silly install loadIdealTree
+31 silly cloneCurrentTree Starting
+32 silly install cloneCurrentTreeToIdealTree
+33 silly cloneCurrentTree Finishing
+34 silly loadShrinkwrap Starting
+35 silly install loadShrinkwrap
+36 silly loadShrinkwrap Finishing
+37 silly loadAllDepsIntoIdealTree Starting
+38 silly install loadAllDepsIntoIdealTree
+39 silly resolveWithNewModule angular-material@1.1.1 checking installable status
+40 silly cache add args [ 'angular-material@^1.1.1', null ]
+41 verbose cache add spec angular-material@^1.1.1
+42 silly cache add parsed spec Result {
+42 silly cache add   raw: 'angular-material@^1.1.1',
+42 silly cache add   scope: null,
+42 silly cache add   escapedName: 'angular-material',
+42 silly cache add   name: 'angular-material',
+42 silly cache add   rawSpec: '^1.1.1',
+42 silly cache add   spec: '>=1.1.1 <2.0.0',
+42 silly cache add   type: 'range' }
+43 silly addNamed angular-material@>=1.1.1 <2.0.0
+44 verbose addNamed ">=1.1.1 <2.0.0" is a valid semver range for angular-material
+45 silly addNameRange { name: 'angular-material',
+45 silly addNameRange   range: '>=1.1.1 <2.0.0',
+45 silly addNameRange   hasData: false }
+46 silly mapToRegistry name angular-material
+47 silly mapToRegistry using default registry
+48 silly mapToRegistry registry https://registry.npmjs.org/
+49 silly mapToRegistry data Result {
+49 silly mapToRegistry   raw: 'angular-material',
+49 silly mapToRegistry   scope: null,
+49 silly mapToRegistry   escapedName: 'angular-material',
+49 silly mapToRegistry   name: 'angular-material',
+49 silly mapToRegistry   rawSpec: '',
+49 silly mapToRegistry   spec: 'latest',
+49 silly mapToRegistry   type: 'tag' }
+50 silly mapToRegistry uri https://registry.npmjs.org/angular-material
+51 verbose addNameRange registry:https://registry.npmjs.org/angular-material not in flight; fetching
+52 verbose get https://registry.npmjs.org/angular-material not expired, no request
+53 silly addNameRange number 2 { name: 'angular-material',
+53 silly addNameRange   range: '>=1.1.1 <2.0.0',
+53 silly addNameRange   hasData: true }
+54 silly addNameRange versions [ 'angular-material',
+54 silly addNameRange   [ '0.7.1',
+54 silly addNameRange     '0.8.0',
+54 silly addNameRange     '0.8.1',
+54 silly addNameRange     '0.8.2',
+54 silly addNameRange     '0.8.3',
+54 silly addNameRange     '0.9.2',
+54 silly addNameRange     '0.9.3',
+54 silly addNameRange     '0.9.4',
+54 silly addNameRange     '0.9.5',
+54 silly addNameRange     '0.9.6',
+54 silly addNameRange     '0.9.7',
+54 silly addNameRange     '0.9.8',
+54 silly addNameRange     '0.10.0',
+54 silly addNameRange     '0.10.1',
+54 silly addNameRange     '0.11.0',
+54 silly addNameRange     '0.11.1',
+54 silly addNameRange     '0.11.2',
+54 silly addNameRange     '0.11.3',
+54 silly addNameRange     '0.11.4',
+54 silly addNameRange     '1.0.0',
+54 silly addNameRange     '1.0.1',
+54 silly addNameRange     '1.0.2',
+54 silly addNameRange     '1.0.4',
+54 silly addNameRange     '1.0.5',
+54 silly addNameRange     '1.0.6',
+54 silly addNameRange     '1.0.7',
+54 silly addNameRange     '1.0.8',
+54 silly addNameRange     '1.1.0-rc4-master-06e7e99',
+54 silly addNameRange     '1.0.9',
+54 silly addNameRange     '1.1.0-rc.5',
+54 silly addNameRange     '1.1.0',
+54 silly addNameRange     '1.1.1' ] ]
+55 silly addNamed angular-material@1.1.1
+56 verbose addNamed "1.1.1" is a plain semver version for angular-material
+57 silly mapToRegistry name angular-material
+58 silly mapToRegistry using default registry
+59 silly mapToRegistry registry https://registry.npmjs.org/
+60 silly mapToRegistry data Result {
+60 silly mapToRegistry   raw: 'angular-material',
+60 silly mapToRegistry   scope: null,
+60 silly mapToRegistry   escapedName: 'angular-material',
+60 silly mapToRegistry   name: 'angular-material',
+60 silly mapToRegistry   rawSpec: '',
+60 silly mapToRegistry   spec: 'latest',
+60 silly mapToRegistry   type: 'tag' }
+61 silly mapToRegistry uri https://registry.npmjs.org/angular-material
+62 verbose addRemoteTarball https://registry.npmjs.org/angular-material/-/angular-material-1.1.1.tgz not in flight; adding
+63 verbose addRemoteTarball [ 'https://registry.npmjs.org/angular-material/-/angular-material-1.1.1.tgz',
+63 verbose addRemoteTarball   'ed12f394ba71a9189d664115624f6787a7439af2' ]
+64 info retry fetch attempt 1 at 13:36:57
+65 info attempt registry request try #1 at 13:36:57
+66 http fetch GET https://registry.npmjs.org/angular-material/-/angular-material-1.1.1.tgz
+67 http fetch 200 https://registry.npmjs.org/angular-material/-/angular-material-1.1.1.tgz
+68 verbose stack Error: kill ENOSYS
+68 verbose stack     at exports._errnoException (util.js:1026:11)
+68 verbose stack     at process.kill (internal/process.js:172:13)
+68 verbose stack     at process.listener (C:\Program Files\nodejs\node_modules\npm\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:86:15)
+68 verbose stack     at emitNone (events.js:91:20)
+68 verbose stack     at process.emit (events.js:185:7)
+68 verbose stack     at processEmit (C:\Program Files\nodejs\node_modules\npm\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:146:32)
+68 verbose stack     at processEmit (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:146:32)
+68 verbose stack     at Signal.wrap.onsignal (internal/process.js:199:44)
+69 verbose cwd C:\Users\xavier\Documents\GitHub\disenador
+70 error Windows_NT 10.0.14393
+71 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "angular-material"
+72 error node v6.9.1
+73 error npm  v3.10.8
+74 error code ENOSYS
+75 error errno ENOSYS
+76 error syscall kill
+77 error kill ENOSYS
+78 error If you need help, you may report this error at:
+78 error     <https://github.com/npm/npm/issues>
+79 verbose exit [ 1, true ]
