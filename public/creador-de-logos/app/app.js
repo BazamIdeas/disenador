@@ -1,5 +1,6 @@
 angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial"])
 
+<<<<<<< HEAD
 .config(function ($stateProvider) {
 
 
@@ -13,3 +14,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
 })
+=======
+.config();
+>>>>>>> origin/front-end
