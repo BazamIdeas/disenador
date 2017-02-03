@@ -1,14 +1,15 @@
-angular.module("disenador-de-logos", ["angular-messages", "angular-ui-router"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial"])
 
-.config(function($stateProvider){
-    
-    
-    var inicio = {
+.config(function ($stateProvider) {
+
+
+    $stateProvider.state({
         name: 'inicio',
-        url: '/',
-        template: '<h3>hello world!</h3>'
-    }
-    
-    
-     $stateProvider.state(inicio);
-});
+        url: '/comenzar',
+        templateUrl: 'app/views/comenzar.tpl',
+        controller: 'comenzarController as comenzar'
+
+    })
+
+
+})
