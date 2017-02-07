@@ -5,8 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./public/');
-
+//var index = require('./public/');
+var rutas = require('./routes/routes.js');
 
 var app = express();
 
@@ -23,8 +23,10 @@ app.use('/angular', express.static(__dirname + '/node_modules/angular'))
 app.use('/angular-messages', express.static(__dirname + '/node_modules/angular-messages'))
 app.use('/angular-ui-router', express.static(__dirname + '/node_modules/angular-ui-router/release'))
 
-app.use('/', index);
 
+
+
+app.use('/app',rutas);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -32,6 +34,8 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
