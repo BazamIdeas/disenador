@@ -1,11 +1,10 @@
-<div flex layout="row" layout-align="center center">
+<div layout="row" layout-align="center">
+    <form flex="30">
 
-    <form>
-
-        <div ng-show="comenzar.mostrar.nombre" layout="column">
+        <div ng-show="comenzar.mostrar.nombre">
 
             <div>
-                <md-input-container class="md-block" flex="100">
+                <md-input-container class="md-block" >
                     <label>Ingrese el nombre de su logo</label>
                     <input ng-model="comenzar.datos.nombre">
                 </md-input-container>
@@ -18,7 +17,7 @@
 
 
 
-        <div ng-show="comenzar.mostrar.categoria" layout="column">
+        <div ng-show="comenzar.mostrar.categoria">
 
             <div>
                 <md-input-container>
@@ -44,5 +43,4 @@
         </div>
 
     </form>
-
 </div>
