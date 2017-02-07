@@ -5,14 +5,14 @@
         <div ng-show="comenzar.mostrar.nombre" layout="column">
 
             <div>
-                <md-input-container class="md-block" flex>
+                <md-input-container class="md-block" flex="100">
                     <label>Ingrese el nombre de su logo</label>
                     <input ng-model="comenzar.datos.nombre">
                 </md-input-container>
             </div>
 
             <div>
-                <md-button class="md-raised" ng-click="comenzar.mostrar.nombre=false; comenzar.mostrar.categoria=true">Siguiente</md-button>
+                <md-button class="md-raised md-primary" ng-click="comenzar.mostrar.nombre=false; comenzar.mostrar.categoria=true">Siguiente</md-button>
             </div>
         </div>
 
