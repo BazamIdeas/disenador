@@ -4,7 +4,7 @@ angular.module("disenador-de-logos")
 
     this.datos = {}
 
-    this.mostrar = {nombre: true}
+    this.mostrar = 1;
 
     this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
 
