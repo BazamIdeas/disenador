@@ -10,3 +10,11 @@ angular.module("disenador-de-logos")
 
 
 }])
+
+.controller('opcionesController', [function() {
+      
+    this.estado = false;
+    
+    this.modoSeleccionado = 'md-scale';
+      
+}]);
