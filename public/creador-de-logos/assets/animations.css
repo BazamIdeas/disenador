@@ -1,0 +1,21 @@
+.pasos {
+    -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    transition-delay: 0.5s;
+}
+
+.pasos.ng-enter {
+    opacity: 0;
+}
+
+.pasos.ng-enter-active {
+    opacity: 1;
+}
+
+.pasos.ng-leave {
+    opacity: 1;
+}
+
+.pasos.ng-leave-active {
+    opacity: 0;
+}
