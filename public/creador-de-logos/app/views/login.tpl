@@ -1,5 +1,5 @@
 <div layout="row" layout-align="center" layout-padding>
-    <form flex="20" class="md-whiteframe-5dp f" layout-padding layout="column">
+    <form flex="20" class="md-whiteframe-5dp margen_formulario_login" layout-padding layout="column">
         <div>
                 <h3 class="text-center">Ingresar</h3>
             <div>   

@@ -10,6 +10,7 @@ app.use('/angular-messages', express.static(__dirname + '/node_modules/angular-m
 app.use('/angular-animate', express.static(__dirname + '/node_modules/angular-animate'))
 app.use('/angular-aria', express.static(__dirname + '/node_modules/angular-aria'))
 app.use('/angular-ui-router', express.static(__dirname + '/node_modules/angular-ui-router/release'))
+app.use('/assets', express.static(__dirname + '/public/creador-de-logos/assets'))
 
 
 app.listen(8080);
