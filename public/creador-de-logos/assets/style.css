@@ -1,3 +1,14 @@
 .margen_formulario_login {margin-right: 1.5%;}
         
 .text-center {text-align: center;}
+
+.titulo_opciones { color:#F44336;}
+
+.borde_derecho_opciones {border-right: 1px solid grey;}
+
+.margen_inferior {margin-bottom: 2%;}
+.margen_izquierdo {margin-left: 2%}
+.margen_derecho {margin-right: 2%;}
+.margen_superior {margin-top: 2%;}
+.scroll{overflow: auto;}
+

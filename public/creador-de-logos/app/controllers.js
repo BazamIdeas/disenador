@@ -11,7 +11,7 @@ angular.module("disenador-de-logos")
 
 }])
 
-.controller('opcionesController', ['$scope','$mdDialog', function ($scope, $mdDialog) {
+.controller('opcionesController', ['$scope', '$mdDialog', function ($scope, $mdDialog) {
 
     this.estado = false;
 
@@ -53,7 +53,7 @@ angular.module("disenador-de-logos")
                 this.status = 'You cancelled the dialog.';
             });
     };
-    
+
     this.Etiquetas = function (ev) {
         $mdDialog.show({
                 controller: DialogController,
@@ -69,7 +69,7 @@ angular.module("disenador-de-logos")
                 this.status = 'You cancelled the dialog.';
             });
     };
-    
+
     this.Caracteristicas = function (ev) {
         $mdDialog.show({
                 controller: DialogController,
@@ -99,4 +99,17 @@ angular.module("disenador-de-logos")
             $mdDialog.hide(answer);
         };
     }
+
+    /* ************* */
+
+    /* Fuentes y Logos */
+
+    this.datos = {
+        iconos: [],
+        fuentes: []
+    }
+    
+    
+
+
 }]);
