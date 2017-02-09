@@ -60,6 +60,39 @@ exports.nuevoCliente =  function(req,res)
 		});
 	}
 
+	exports.modificarCliente =  function(req,res)
+	{
+		var idCliente = req.body.idCliente // cambiar por valor de sesion o por parametro
+
+		cliente.getCliente(idCliente,function(error, data)
+		{
+		//si el usuario existe 
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				//creamos un array con los datos a modificar del cliente
+				var clienteData = [req.body.nombreCliente, req.body.correo, req.body.pass, idCliente];
+					
+				cliente.updateCliente(clienteData,function(error, data)
+				{
+					//si el cliente se ha modificado correctamente
+					if(data)
+					{
+						res.status(200).json(data);
+					}
+					else
+					{
+						res.status(500).json({"msg":"Algo ocurrio"})
+					}
+				});
+			}
+		//no existe
+			else
+			{
+				res.status(404).json({"msg":"No existe"})
+			}
+		});
+	}
+
 exports.borrarCliente =  function(req, res, next) {
 		//id del cliente
 		var id = req.params.id;

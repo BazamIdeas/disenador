@@ -69,7 +69,7 @@ cliente.insertCliente = function(clienteData,callback)
 cliente.updateCliente = function(clienteData, callback)
 {
 	var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ? WHERE idCliente = ?';
-	var par = [clienteData] //parametros
+	var par = clienteData //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -78,7 +78,11 @@ cliente.updateCliente = function(clienteData, callback)
 	  	if(err)	throw err;
 
 	  	//devolvemos el última id insertada
+<<<<<<< HEAD
 	  	else callback(null,{"idInsertado" : "Modificacion exitosa"}); 
+=======
+	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+>>>>>>> origin/backend
 	  	
 	  });
 
