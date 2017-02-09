@@ -3,20 +3,29 @@ var router = express.Router();
 
 var controllers = require('.././controllers');
 
-//rutas de peticion clientes.
+//MODULO CLIENTES
 
 router.get('/clientes', controllers.clientes.listaClientes);
 router.get('/cliente/:id', controllers.clientes.datosCliente);
 router.get('/cliente/borrar/:id', controllers.clientes.borrarCliente);
 router.post("/cliente", controllers.clientes.nuevoCliente);
-<<<<<<< HEAD
+router.post("/cliente/modificar/", controllers.clientes.modificarCliente);
 
-//rutas de peticion de usuarios.
+//MODULO USUARIOS
 
 router.get('/usuarios',controllers.usuarios.listaUsuarios);
 
 
-=======
-router.post("/cliente/modificar/", controllers.clientes.modificarCliente);
->>>>>>> origin/backend
+//MODULO PEDIDOS
+router.get('/pedidos', controllers.pedidos.listaPedidos);
+
+router.get('/pedido/:id', controllers.pedidos.datosPedido);
+router.get('/pedido/borrar/:id', controllers.pedidos.borrarPedido);
+router.post("/pedido", controllers.pedidos.nuevoPedido);
+router.post("/pedido/modificar/", controllers.pedidos.modificarPedido);
+
+
+
+
+
 module.exports = router;

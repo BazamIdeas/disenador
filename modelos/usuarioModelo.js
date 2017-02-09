@@ -4,7 +4,7 @@ var usuarios = {};
 
 usuarios.getUsuarios=function(callback){
 
-	var q = 'SELECT nombreUser, idUsuario, correo, pass FROM clientes ORDER BY idUsuario' ;
+	var q = 'SELECT nombreUser, idUsuario, correo, pass FROM usuarios ORDER BY idUsuario' ;
 
 		DB.getConnection(function(err, connection)
 		{

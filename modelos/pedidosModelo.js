@@ -1,13 +1,13 @@
 var DB=require('./DB.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
-var cliente = {};
+var pedido = {};
  
 
-//obtenemos todos los clientes
-cliente.getClientes = function(callback)
+//obtenemos todos los pedidos
+pedido.getPedidos = function(callback)
 {
-	var q = 'SELECT nombreCliente, idCliente, correo, pass FROM clientes ORDER BY idCliente' 
+	var q = 'SELECT fecha, estado, tipo, logos_idLogo, clientes_idCliente FROM pedidos ORDER BY idPedido' 
 
 	DB.getConnection(function(err, connection)
 	{
@@ -23,10 +23,10 @@ cliente.getClientes = function(callback)
 	});
 }
 
-//obtenemos un cliente por su id
-cliente.getCliente = function(id,callback)
+//obtenemos un pedido por su id
+pedido.getPedido = function(id,callback)
 { 
-	var q = 'SELECT nombreCliente, idCliente, correo, pass FROM clientes WHERE idCliente = ? ' 
+	var q = 'SELECT fecha, estado, tipo, logos_idLogo, clientes_idCliente FROM pedidos WHERE idPedido = ? ' 
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
@@ -44,11 +44,11 @@ cliente.getCliente = function(id,callback)
 }
  
 
-//añadir un nuevo cliente
-cliente.insertCliente = function(clienteData,callback)
+//añadir un nuevo pedido
+pedido.insertPedido = function(pedidoData,callback)
 {
-	var q = 'INSERT INTO clientes SET ? ' 
-	var par = clienteData //parametros
+	var q = 'INSERT INTO pedidos SET ? ' 
+	var par = pedidoData //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -65,11 +65,11 @@ cliente.insertCliente = function(clienteData,callback)
 	});
 }
 
-//actualizar un cliente
-cliente.updateCliente = function(clienteData, callback)
+//actualizar un pedido
+pedido.updatePedido = function(pedidoData, callback)
 {
-	var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ? WHERE idCliente = ?';
-	var par = clienteData //parametros
+	var q = 'UPDATE pedidos SET nombrepedido = ?, correo = ?,  pass = ? WHERE idPedido = ?';
+	var par = pedidoData //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -86,20 +86,20 @@ cliente.updateCliente = function(clienteData, callback)
 }
 
  
-//eliminar un cliente pasando la id a eliminar
-cliente.deleteCliente = function(id, callback)
+//eliminar un pedido pasando la id a eliminar
+pedido.deletePedido = function(id, callback)
 {
-	var q = 'SELECT * FROM clientes WHERE idCliente = ?';
+	var q = 'SELECT * FROM pedidos WHERE idPedido = ?';
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row)
 		{
-	  	 	//si existe la id del cliente a eliminar
-		  	if (typeof row !== 'undefined' && row.length > 0)
+	  	 	//si existe la id del pedido a eliminar
+		  	if(row !== 'undefined' && row.length > 0)
 		  	{
-		  		var qq = 'DELETE FROM clientes WHERE idCliente = ?';
+		  		var qq = 'DELETE FROM pedidos WHERE idPedido = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
 					connection.query( qq , par , function(err, row)
@@ -107,8 +107,7 @@ cliente.deleteCliente = function(id, callback)
 				  	
 				  		if(err)	throw err;
 
-					  	//devolvemos el última id insertada
-					  	else callback(null,{"msg" : 'eliminado'}); 
+					  	else callback(null,{"msg" : "eliminado"}); 
 				  	
 				 	 });
 
@@ -116,7 +115,7 @@ cliente.deleteCliente = function(id, callback)
 				});
 
 		  	}
-		  	else callback(null,{"msg":"no existe el cliente"});
+		  	else callback(null,{"msg":"no existe el pedido"});
 	  	});
 
 	  connection.release();
@@ -125,4 +124,4 @@ cliente.deleteCliente = function(id, callback)
 
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
-module.exports = cliente;
+module.exports = pedido;
