@@ -20,67 +20,103 @@
             </md-fab-actions>
         </md-fab-speed-dial>
     </div>
-
     <div layout="row" layout-align="space-between">
         <div class="scroll" flex="45" class="contenedor_logos md-whiteframe-2dp">
-            <div layout="row" layout-padding layout-align="center">
-                <md-content>
-                    <div><img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/"></div>
-                    <md-icon>create</md-icon>
-                    <md-icon>shopping_cart</md-icon>
+            <div layout="row" layout-padding layout-align="space-around center ">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
                 </md-content>
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
                 </md-content>
-
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
-                </md-content>
-            </div>
-
-            <div layout="row" layout-padding layout-align="center">
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
-                </md-content>
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
-                </md-content>
-
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
                 </md-content>
             </div>
-
-            <div layout="row" layout-padding layout-align="center">
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
+            <div layout="row" layout-padding layout-align="space-around center ">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
                 </md-content>
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
                 </md-content>
-
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
                 </md-content>
             </div>
-
-            <div layout="row" layout-padding layout-align="center">
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
+            <div layout="row" layout-padding layout-align="space-around center ">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
                 </md-content>
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
                 </md-content>
-
-                <md-content layout-padding>
-                    <img class="md-whiteframe-2dp" src="http://lorempixel.com/120/120/">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
+                </md-content>
+            </div>
+            <div layout="row" layout-padding layout-align="space-around center">
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
+                </md-content>
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
+                </md-content>
+                <md-content class="md-whiteframe-2dp" layout-padding>
+                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
+                        <md-icon>create</md-icon>
+                        <md-icon>shopping_cart</md-icon>
+                    </div>
                 </md-content>
             </div>
         </div>
-
         <div layout="row" flex="45" class="md-whiteframe-2dp margen_izquierdo scroll ">
             <div flex="100" layout="row" layout-align="space-around" layout-wrap layout-padding class="contenedor_fuentes text-center">
-
                 <p flex="33" class="Arial">Empresa</p>
                 <p flex="33" class="Helvetica">Empresa</p>
                 <p flex="33" class="Verdana">Empresa</p>
@@ -91,89 +127,8 @@
                 <p flex="33" class="HelveticaNeue-Roman">Empresa</p>
                 <p flex="33" class="Cambria">Empresa</p>
                 <p flex="33" class="Palatino">Empresa</p>
-
-                <p flex="33" class="Arial">Empresa</p>
-                <p flex="33" class="Helvetica">Empresa</p>
-                <p flex="33" class="Verdana">Empresa</p>
-                <p flex="33" class="Trebuchet">Empresa</p>
-                <p flex="33" class="GillSans">Empresa</p>
-                <p flex="33" class="DejaVu_Sans">Empresa</p>
-                <p flex="33" class="Geneva">Empresa</p>
-                <p flex="33" class="HelveticaNeue-Roman">Empresa</p>
-                <p flex="33" class="Cambria">Empresa</p>
-                <p flex="33" class="Palatino">Empresa</p>
-
-                <p flex="33" class="Arial">Empresa</p>
-                <p flex="33" class="Helvetica">Empresa</p>
-                <p flex="33" class="Verdana">Empresa</p>
-                <p flex="33" class="Trebuchet">Empresa</p>
-                <p flex="33" class="GillSans">Empresa</p>
-                <p flex="33" class="DejaVu_Sans">Empresa</p>
-                <p flex="33" class="Geneva">Empresa</p>
-                <p flex="33" class="HelveticaNeue-Roman">Empresa</p>
-                <p flex="33" class="Cambria">Empresa</p>
-                <p flex="33" class="Palatino">Empresa</p>
-
-                <p flex="33" class="Arial">Empresa</p>
-                <p flex="33" class="Helvetica">Empresa</p>
-                <p flex="33" class="Verdana">Empresa</p>
-                <p flex="33" class="Trebuchet">Empresa</p>
-                <p flex="33" class="GillSans">Empresa</p>
-                <p flex="33" class="DejaVu_Sans">Empresa</p>
-                <p flex="33" class="Geneva">Empresa</p>
-                <p flex="33" class="HelveticaNeue-Roman">Empresa</p>
-                <p flex="33" class="Cambria">Empresa</p>
-                <p flex="33" class="Palatino">Empresa</p>
-
-
-                <p flex="33" class="Arial">Empresa</p>
-                <p flex="33" class="Helvetica">Empresa</p>
-                <p flex="33" class="Verdana">Empresa</p>
-                <p flex="33" class="Trebuchet">Empresa</p>
-                <p flex="33" class="GillSans">Empresa</p>
-                <p flex="33" class="DejaVu_Sans">Empresa</p>
-                <p flex="33" class="Geneva">Empresa</p>
-                <p flex="33" class="HelveticaNeue-Roman">Empresa</p>
-                <p flex="33" class="Cambria">Empresa</p>
-                <p flex="33" class="Palatino">Empresa</p>
-
-
-                <p flex="33" class="Arial">Empresa</p>
-                <p flex="33" class="Helvetica">Empresa</p>
-                <p flex="33" class="Verdana">Empresa</p>
-                <p flex="33" class="Trebuchet">Empresa</p>
-                <p flex="33" class="GillSans">Empresa</p>
-                <p flex="33" class="DejaVu_Sans">Empresa</p>
-                <p flex="33" class="Geneva">Empresa</p>
-                <p flex="33" class="HelveticaNeue-Roman">Empresa</p>
-                <p flex="33" class="Cambria">Empresa</p>
-                <p flex="33" class="Palatino">Empresa</p>
-
-                <p flex="33" class="Arial">Empresa</p>
-                <p flex="33" class="Helvetica">Empresa</p>
-                <p flex="33" class="Verdana">Empresa</p>
-                <p flex="33" class="Trebuchet">Empresa</p>
-                <p flex="33" class="GillSans">Empresa</p>
-                <p flex="33" class="DejaVu_Sans">Empresa</p>
-                <p flex="33" class="Geneva">Empresa</p>
-                <p flex="33" class="HelveticaNeue-Roman">Empresa</p>
-                <p flex="33" class="Cambria">Empresa</p>
-                <p flex="33" class="Palatino">Empresa</p>
-
-                <p flex="33" class="Arial">Empresa</p>
-                <p flex="33" class="Helvetica">Empresa</p>
-                <p flex="33" class="Verdana">Empresa</p>
-                <p flex="33" class="Trebuchet">Empresa</p>
-                <p flex="33" class="GillSans">Empresa</p>
-                <p flex="33" class="DejaVu_Sans">Empresa</p>
-                <p flex="33" class="Geneva">Empresa</p>
-                <p flex="33" class="HelveticaNeue-Roman">Empresa</p>
-                <p flex="33" class="Cambria">Empresa</p>
-                <p flex="33" class="Palatino">Empresa</p>
-
             </div>
         </div>
-
     </div>
     <div layout="row" class="margen_superior">
         <div layout="row" flex layout-align="end center">

@@ -113,3 +113,19 @@ angular.module("disenador-de-logos")
 
 
 }]);
+
+
+.controller('procesoController', ['$scope', function ($scope) {
+
+    this.estado = false;
+
+    this.modoSeleccionado = 'md-scale';
+
+    /* Fuentes y Logos */
+
+    this.datos = {
+        iconos: [],
+        fuentes: []
+    }
+    
+}]);
