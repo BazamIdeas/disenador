@@ -141,6 +141,10 @@ angular.module("disenador-de-logos")
     }
 
 
+<<<<<<< HEAD
+=======
+}])
+>>>>>>> origin/front-end
 
 
 }])
@@ -151,6 +155,7 @@ angular.module("disenador-de-logos")
 
     this.modoSeleccionado = 'md-scale';
 
+<<<<<<< HEAD
     /* Fuentes y Logos */
 
     this.datos = {
@@ -159,3 +164,6 @@ angular.module("disenador-de-logos")
     }
 
 }]);
+=======
+}]);
+>>>>>>> origin/front-end
