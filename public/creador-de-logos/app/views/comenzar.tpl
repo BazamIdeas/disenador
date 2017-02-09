@@ -12,7 +12,7 @@
                             <input name="nombre" ng-model="comenzar.datos.nombre" ng-required="true">
                         </md-input-container>
                     </div>
-                    <div flex layout layout-align="center center">
+                    <div flex layout layout-align="end center">
                         <md-button class="md-raised md-primary siguiente" ng-click="comenzar.mostrar=2" ng-show="preferenciasFormulario.nombre.$valid">Siguiente</md-button>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                             </md-select>
                         </md-input-container>
                     </div>
-                    <div flex layout layout-align="center center">
+                    <div flex layout layout-align="space-between center">
                         <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=1">Atras</md-button>
                         <md-button class="md-raised md-primary siguiente" ng-click="comenzar.mostrar=3" ng-show="preferenciasFormulario.categoria.$valid">Siguiente</md-button>
                     </div>
@@ -47,85 +47,26 @@
                             </md-radio-button>
                         </md-radio-group>
                     </div>
-                    <div flex layout layout-align="center center">
+                    <div flex layout layout-align="space-between center">
                         <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=2">Atras</md-button>
                         <md-button class="md-raised md-primary siguiente" ng-click="comenzar.mostrar=4" ng-show="preferenciasFormulario.tipo.$valid">Siguiente</md-button>
                     </div>
                 </div>
                 <div class="pasos" ng-switch-when="4">
-                    <div layout layout-padding>
+                    <div layout layout-padding ng-repeat="prefrerencia in comenzar.datos.preferencias">
                         <div flex layout layout-align="center center">
-                            <span class="md-body-1">Femenino</span>
+                            <span class="md-body-1">{{prefrerencia.nombre1}}</span>
                         </div>
-                        <md-slider flex="50" md-discrete ng-model="algo" step="1" min="1" max="3" aria-label="rating">
+                        <md-slider flex="50" md-discrete ng-model="prefrerencia.valor" step="1" min="1" max="3" aria-label="rating">
                         </md-slider>
                         <div flex layout layout-align="center center">
-                            <span class="md-body-1">Masculino</span>
+                            <span class="md-body-1">{{prefrerencia.nombre2}}</span>
                         </div>
                     </div>
-                    <div layout layout-padding>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Economico</span>
-                        </div>
-                        <md-slider flex="50" md-discrete ng-model="algo" step="1" min="1" max="3" aria-label="rating">
-                        </md-slider>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Lujoso</span>
-                        </div>
-                    </div>
-                    <div layout layout-padding>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Clasico</span>
-                        </div>
-                        <md-slider flex="50" md-discrete ng-model="algo" step="1" min="1" max="3" aria-label="rating">
-                        </md-slider>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Moderno</span>
-                        </div>
-                    </div>
-                    <div layout layout-padding>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Sutil</span>
-                        </div>
-                        <md-slider flex="50" md-discrete ng-model="algo" step="1" min="1" max="3" aria-label="rating">
-                        </md-slider>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Evidente</span>
-                        </div>
-                    </div>
-                    <div layout layout-padding>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Simple</span>
-                        </div>
-                        <md-slider flex="50" md-discrete ng-model="algo" step="1" min="1" max="3" aria-label="rating">
-                        </md-slider>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Detallado</span>
-                        </div>
-                    </div>
-                    <div layout layout-padding>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Joven</span>
-                        </div>
-                        <md-slider flex="50" md-discrete ng-model="algo" step="1" min="1" max="3" aria-label="rating">
-                        </md-slider>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Adulto</span>
-                        </div>
-                    </div>
-                    <div layout layout-padding>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Formal</span>
-                        </div>
-                        <md-slider flex="50" md-discrete ng-model="algo" step="1" min="1" max="3" aria-label="rating">
-                        </md-slider>
-                        <div flex layout layout-align="center center">
-                            <span class="md-body-1">Divertido</span>
-                        </div>
-                    </div>
-                    <div flex layout layout-align="center center">
+                    
+                    <div flex layout layout-align="space-between center">
                         <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=3">Atras</md-button>
-                        <md-button class="md-raised md-accent" ng-click="">Enviar</md-button>
+                        <md-button class="md-raised md-accent" ui-sref="opciones">Enviar</md-button>
                     </div>
                 </div>
             </div>

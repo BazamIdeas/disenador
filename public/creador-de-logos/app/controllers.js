@@ -2,7 +2,38 @@ angular.module("disenador-de-logos")
 
 .controller('comenzarController', [function () {
 
-    this.datos = {}
+    this.datos = {
+        
+        preferencias: [{
+                nombre1: "Femenino",
+                nombre2: "Masculino",
+                valor: 2
+        }, {
+                nombre1: "Economico",
+                nombre2: "Lujoso",
+                valor: 2
+        }, {
+                nombre1: "Clasico",
+                nombre2: "Moderno",
+                valor: 2
+        }, {
+                nombre1: "Sutil",
+                nombre2: "Evidente",
+                valor: 2
+        }, {
+                nombre1: "Simple",
+                nombre2: "Detallado",
+                valor: 2
+        }, {
+                nombre1: "Joven",
+                nombre2: "Adulto",
+                valor: 2
+        }, {
+                nombre1: "Formal",
+                nombre2: "Divertido",
+                valor: 2
+        }]
+    }
 
     this.mostrar = 1;
 
@@ -108,12 +139,11 @@ angular.module("disenador-de-logos")
         iconos: [],
         fuentes: []
     }
-    
-    
 
 
-}]);
 
+
+}])
 
 .controller('procesoController', ['$scope', function ($scope) {
 
@@ -127,5 +157,5 @@ angular.module("disenador-de-logos")
         iconos: [],
         fuentes: []
     }
-    
+
 }]);
