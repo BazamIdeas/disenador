@@ -78,7 +78,7 @@ cliente.updateCliente = function(clienteData, callback)
 	  	if(err)	throw err;
 
 	  	//devolvemos el última id insertada
-	  	else callback(null,{"idInsertado" : result.insertId}); 
+	  	else callback(null,{"idInsertado" : "Modificacion exitosa"}); 
 	  	
 	  });
 
