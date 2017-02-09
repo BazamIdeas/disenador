@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link href="assets/style.css" rel="stylesheet">
     <link href="assets/animation.css" rel="stylesheet">
+    <link href="assets/fuentes.css" rel="stylesheet">
     <script src="/angular/angular.min.js"></script>
     <script src="/angular-messages/angular-messages.min.js"></script>
     <script src="/angular-ui-router/angular-ui-router.min.js"></script>
@@ -18,31 +19,24 @@
 </head>
 
 <body>
-    <!-- header -->
-    <div layout="column" flex>
+
+    <div layout="column">
+        <!-- header -->
         <header flex="10">
             <md-toolbar class="md-hue-2">
                 <div class="md-toolbar-tools">
-
                     <h2 flex md-truncate>Header</h2>
-
                 </div>
             </md-toolbar>
         </header>
         <!-- contenedor principal -->
-        <md-content layout-padding ui-view flex="80" layout="column">
+        <md-content flex="100" layout-padding ui-view layout="column">
         </md-content>
         <!-- Footer -->
-        <footer flex="10" class="text-center">
-            <md-toolbar>
-
-                <div class="md-hue-2" layout="row" layout-align="space-between center">
-                    <div class="logo" flex="30">logo</div>
-                    <p class="copyright" flex="30">Copyright 2017</p>
-                    <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
-                </div>
-
-            </md-toolbar>
+        <footer class="text-center" layout="row" layout-align="space-between center">
+            <div class="logo" flex="30">logo</div>
+            <p class="copyright" flex="30">Copyright 2017</p>
+            <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
         </footer>
     </div>
 </body>
