@@ -1,3 +1,5 @@
+/* desaparicion de los pasos del State Comenzar */
+
 .pasos.ng-animate {
     -webkit-transition: 0.3s linear all;
     transition: 0.3s linear all;
@@ -5,11 +7,11 @@
 }
 
 .pasos.ng-leave {
-    opacity: 1;
+   opacity: 0;
 }
 
 .pasos.ng-leave-active {
-    opacity: 0;
+ 
     display: none;
 }
 
@@ -18,5 +20,25 @@
 }
 
 .pasos.ng-enter-active {
+    opacity: 1;
+}
+
+
+
+
+/* desparacion para los ng-show botones */
+
+.siguiente.ng-hide {
+  opacity: 0;
+}
+
+.siguiente.ng-hide-add,
+.siguiente.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+
+.siguiente{
+    
     opacity: 1;
 }
