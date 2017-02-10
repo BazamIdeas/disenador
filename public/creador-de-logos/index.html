@@ -24,13 +24,17 @@
         <!-- header -->
         <header flex="10">
             <md-toolbar class="md-hue-2">
-                <div class="md-toolbar-tools">
-                    <h2 flex md-truncate>Header</h2>
+                <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
+                    <div><h1>Creador de logos</h1></div>
+                    <div class="login_header">
+                    <ingresar ui-sref="metodo" layout-padding>Ingreso</ingresar>
+                    <registro ui-sref="metodo" layout-padding>Registrar</registro>
+                    </div>
                 </div>
             </md-toolbar>
         </header>
         <!-- contenedor principal -->
-        <md-content flex="100" layout-padding ui-view layout="column">
+        <md-content flex="90" layout-padding ui-view layout="column">
         </md-content>
         <!-- Footer -->
         <footer class="text-center" layout="row" layout-align="space-between center">

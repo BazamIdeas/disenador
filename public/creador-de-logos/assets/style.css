@@ -1,8 +1,16 @@
+/* Header-Footer */
+header{cursor: default;}
+.login_header registro, .login_header ingresar {cursor: pointer;} 
+ingresar:hover, registro:hover {color: orangered;}
 footer{font-size: 12px; background-color: rgb(40,53,147); color: white;}
-.margen_formulario_login {margin-right: 1.5%;}       
+
+/* login */
+
+.margen_formulario_login {margin-right: 1.5%;} 
+
+/* Estilos generales*/
+
 .text-center {text-align: center;}
-.titulo_opciones { color:#F44336;}
-.borde_derecho_opciones {border-right: 1px solid grey;}
 .margen_inferior {margin-bottom: 2%;}
 .margen_izquierdo {margin-left: 2%}
 .margen_derecho {margin-right: 2%;}
@@ -11,7 +19,11 @@ footer{font-size: 12px; background-color: rgb(40,53,147); color: white;}
 .padding_left{padding-left: 8px;}
 .padding_right{padding-right: 8px;}
 .padding_bottom{padding-bottom: 8px;}
-.scroll{overflow: auto;}
+
+/* Opciones Vista */
+
+.titulo_opciones { color:#F44336;}
+.borde_derecho_opciones {border-right: 1px solid grey;}
 .contenedor_fuentes {font-size:20px;}
 .contenedor_fuentes p {cursor:pointer; transition:background 100ms; }
 .contenedor_fuentes p:hover {box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12); background-color: crimson; color: white;}
@@ -21,13 +33,26 @@ footer{font-size: 12px; background-color: rgb(40,53,147); color: white;}
 .innactivo{background:transparent;}
 
 /* paquetes */
+
 paquete {cursor:default;}
-paquete p_header { font-size: 26px; font-weight: bold; text-align: center; color: white; display: block;}
+paquete p_header, metodo_pago p_header { font-size: 26px; font-weight: bold; text-align: center; color: white; display: block;}
 .normal p_header{ background: #b5b5b5;}
 .iniciado p_header { background: #c2a840;}
 .premium p_header {background: #EFB600;}
 p_footer md-icon {cursor:pointer;}
+
+/* Metodos de pagos */
+
+metodo_pago p_header {background: silver;}
+
+/* DashBoard */
+
+.h__seccion_dashboard {background: silver; color: white;}
+
 /* Estilos Scroll Bar */
+
+.scroll{overflow: auto;}
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 1px;
