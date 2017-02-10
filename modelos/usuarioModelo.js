@@ -21,3 +21,5 @@ usuarios.getUsuarios=function(callback){
 
 
 };
+
+module.exports = usuarios;
