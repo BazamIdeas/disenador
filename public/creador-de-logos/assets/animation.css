@@ -1,0 +1,84 @@
+
+
+
+.ui-view-container {
+ -webkit-transition:all 1s ease-in-out;
+    -moz-transition:all 1s ease-in-out;
+    -o-transition:all 1s ease-in-out;
+    transition:all 1s ease-in-out;
+}
+
+[ui-view].ng-enter, [ui-view].ng-leave {
+
+   -webkit-transition:all 1s ease-in-out;
+    -moz-transition:all 1s ease-in-out;
+    -o-transition:all 1s ease-in-out;
+    transition:all 1s ease-in-out;
+}
+
+[ui-view].ng-enter {
+  opacity: 0;
+  
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+ 
+}
+
+[ui-view].ng-leave {
+  opacity: 1; 
+ 
+}
+
+[ui-view].ng-leave-active {
+  opacity: 0;
+
+}
+
+
+
+/* desaparicion de los pasos del State Comenzar */
+
+.pasos.ng-animate {
+    -webkit-transition: 0.3s linear all;
+    transition: 0.3s linear all;
+    transition-delay: 0.5s;
+}
+
+.pasos.ng-leave {
+   opacity: 0;
+}
+
+.pasos.ng-leave-active {
+ 
+    display: none;
+}
+
+.pasos.ng-enter {
+    opacity: 0;
+}
+
+.pasos.ng-enter-active {
+    opacity: 1;
+}
+
+
+
+
+/* desparacion para los ng-show botones */
+
+.siguiente.ng-hide {
+  opacity: 0;
+}
+
+.siguiente.ng-hide-add,
+.siguiente.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+
+.siguiente{
+    
+    opacity: 1;
+}
