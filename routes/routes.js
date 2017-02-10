@@ -14,7 +14,10 @@ router.post("/cliente/modificar/", controllers.clientes.modificarCliente);
 //MODULO USUARIOS
 
 router.get('/usuarios',controllers.usuarios.listaUsuarios);
-
+router.get('/usuario/:id', controllers.usuarios.datosUsuario);
+router.get('/usuario/borrar/:id', controllers.usuarios.borrarUsuario);
+router.post("/usuario", controllers.usuarios.nuevoUsuario);
+router.post("/usuario/modificar/", controllers.usuarios.modificarUsuario);
 
 //MODULO PEDIDOS
 router.get('/pedidos', controllers.pedidos.listaPedidos);
