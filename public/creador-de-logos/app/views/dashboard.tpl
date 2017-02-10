@@ -98,13 +98,13 @@
     
     <div layout="row" class="margen_superior" layout-align="space-between">
         <div flex="45" layout="row" flex layout-align="space-between center">
-            <md-button class="md-raised md-primary" ui-sref="proceso">Editar</md-button>
-            <md-button class="md-raised md-primary" ui-sref="proceso">Descargar</md-button>
+            <md-button class="md-raised md-primary" ui-sref="">Editar</md-button>
+            <md-button class="md-raised md-primary" ui-sref="">Descargar</md-button>
         </div>
         
         <div flex="45" layout="row" flex layout-align="space-between center">
-            <md-button class="md-raised md-primary" ui-sref="proceso">Editar</md-button>
-            <md-button class="md-raised md-primary" ui-sref="proceso">Descargar</md-button>
+            <md-button class="md-raised md-primary" ui-sref="">Editar</md-button>
+            <md-button class="md-raised md-primary" ui-sref="">Descargar</md-button>
         </div>
     </div>
     
