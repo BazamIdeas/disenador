@@ -29,7 +29,7 @@ footer{font-size: 12px; background-color: rgb(40,53,147); color: white;}
 .contenedor_fuentes p:hover {box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12); background-color: crimson; color: white;}
 .contenedor_logos div img:hover { box-shadow: 0 3px 5px -1px rgba(255,235,59,.2), 0 6px 10px 0 rgba(255,235,59,.14), 0 1px 18px 0 rgba(255,235,59,.12);}
 .cont_iconos_logo_opciones md-icon:hover, p_footer md-icon:hover {color: orangered; cursor: pointer;}
-.activo{background:orangered !important;}
+.activo{background:orangered !important; color: white;}
 .innactivo{background:transparent;}
 
 /* paquetes */
