@@ -7,13 +7,27 @@ footer{font-size: 12px; background-color: rgb(40,53,147); color: white;}
 .margen_izquierdo {margin-left: 2%}
 .margen_derecho {margin-right: 2%;}
 .margen_superior {margin-top: 2%;}
+.padding_top{padding-top: 8px;}
+.padding_left{padding-left: 8px;}
+.padding_right{padding-right: 8px;}
+.padding_bottom{padding-bottom: 8px;}
 .scroll{overflow: auto;}
 .contenedor_fuentes {font-size:20px;}
 .contenedor_fuentes p {cursor:pointer; transition:background 100ms; }
 .contenedor_fuentes p:hover {box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12); background-color: crimson; color: white;}
 .contenedor_logos div img:hover { box-shadow: 0 3px 5px -1px rgba(255,235,59,.2), 0 6px 10px 0 rgba(255,235,59,.14), 0 1px 18px 0 rgba(255,235,59,.12);}
-.cont_iconos_logo_opciones md-icon:hover {color: orangered; cursor: pointer;}
+.cont_iconos_logo_opciones md-icon:hover, p_footer md-icon:hover {color: orangered; cursor: pointer;}
+.activo{background:orangered !important;}
+.innactivo{background:transparent;}
 
+/* paquetes */
+paquete {cursor:default;}
+paquete p_header { font-size: 26px; font-weight: bold; text-align: center; color: white; display: block;}
+.normal p_header{ background: #b5b5b5;}
+.iniciado p_header { background: #c2a840;}
+.premium p_header {background: #EFB600;}
+p_footer md-icon {cursor:pointer;}
+/* Estilos Scroll Bar */
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 1px;

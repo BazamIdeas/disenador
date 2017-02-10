@@ -47,6 +47,9 @@ angular.module("disenador-de-logos")
     this.estado = false;
 
     this.modoSeleccionado = 'md-scale';
+    
+    this.activo = 'innactivo';
+    this.innactivo = 'innactivo';
 
     /* Modal */
 
@@ -141,11 +144,6 @@ angular.module("disenador-de-logos")
     }
 
 
-<<<<<<< HEAD
-=======
-}])
->>>>>>> origin/front-end
-
 
 }])
 
@@ -155,15 +153,5 @@ angular.module("disenador-de-logos")
 
     this.modoSeleccionado = 'md-scale';
 
-<<<<<<< HEAD
-    /* Fuentes y Logos */
-
-    this.datos = {
-        iconos: [],
-        fuentes: []
-    }
-
 }]);
-=======
-}]);
->>>>>>> origin/front-end
+

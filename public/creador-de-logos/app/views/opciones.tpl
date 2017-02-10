@@ -1,4 +1,4 @@
-<div flex layout="column">
+<div flex layout="column" ng-cloak>
     <div layout="row" layout-align="center space-between" id="popupContainer" class="margen_inferior">
         <h3 flex="70" class="titulo_opciones" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
         <md-fab-speed-dial flex="20" md-open="false" md-direction="left" ng-class="opciones.modoSeleccionado" ng-click="opciones.estado=true">
@@ -23,116 +23,94 @@
     <div layout="row" layout-align="space-between">
         <div class="scroll" flex="45" class="contenedor_logos md-whiteframe-2dp">
             <div layout="row" layout-padding layout-align="space-around center ">
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
+                </div>
             </div>
             <div layout="row" layout-padding layout-align="space-around center ">
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
+                </div>
             </div>
             <div layout="row" layout-padding layout-align="space-around center ">
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
+                </div>
             </div>
             <div layout="row" layout-padding layout-align="space-around center">
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
-                <md-content class="md-whiteframe-2dp" layout-padding>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
                     <div><img src="http://lorempixel.com/120/120/"></div>
-                    <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones">
-                        <md-icon>create</md-icon>
-                        <md-icon>shopping_cart</md-icon>
-                    </div>
-                </md-content>
+                </div>
             </div>
         </div>
         <div layout="row" flex="45" class="md-whiteframe-2dp margen_izquierdo scroll ">
-            <div flex="100" layout="row" layout-align="space-around" layout-wrap layout-padding class="contenedor_fuentes text-center">
-                <p flex="33" class="Arial">Empresa</p>
-                <p flex="33" class="Helvetica">Empresa</p>
-                <p flex="33" class="Verdana">Empresa</p>
-                <p flex="33" class="Trebuchet">Empresa</p>
-                <p flex="33" class="GillSans">Empresa</p>
-                <p flex="33" class="DejaVu_Sans">Empresa</p>
-                <p flex="33" class="Geneva">Empresa</p>
-                <p flex="33" class="HelveticaNeue-Roman">Empresa</p>
-                <p flex="33" class="Cambria">Empresa</p>
-                <p flex="33" class="Palatino">Empresa</p>
+            <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_fuentes text-center">
+                <div flex="33" layout-padding ng-click="opciones.activo=seleccionado">
+                    <p class="Arial" ng-class="opciones.activo">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="Helvetica">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="Verdana">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="Trebuchet">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="GillSans">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="DejaVu_Sans">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="Geneva">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="HelveticaNeue-Roman">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="Cambria">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="Palatino">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="Cambria">Empresa</p>
+                </div>
+                <div flex="33" layout-padding>
+                    <p class="Palatino">Empresa</p>
+                </div>
             </div>
         </div>
     </div>
     <div layout="row" class="margen_superior">
         <div layout="row" flex layout-align="end center">
-            <md-button class="md-raised md-primary">Siguiente</md-button>
+            <md-button class="md-raised md-primary" ui-sref="proceso">Siguiente</md-button>
         </div>
     </div>
 </div>
