@@ -59,7 +59,8 @@ metodo_pago p_header {background: silver;}
 /* EDITOR */
 
 .logo_icon_editor{width: 32px; height: 32px;}
-.logo_grande_editor_cont {margin-top: 10%;}
+.logo_grande_editor_cont {margin-top: 10%; cursor: pointer;}
+.logo_grande_editor_cont div {cursor: pointer;}
 .logo_grande_editor {width:300px; height:300px; }
 
 /* Estilos Scroll Bar */
