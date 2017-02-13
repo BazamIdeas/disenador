@@ -15,7 +15,7 @@
                     </md-input-container>
                 </div>
                 <div>
-                    <md-button class="md-raised md-primary">Enviar</md-button>
+                    <md-button class="md-raised md-primary" ui-sref="dashboard">Enviar</md-button>
                 </div>
             </div>
         </form>
@@ -40,7 +40,7 @@
                     </md-input-container>
                 </div>
                 <div>
-                    <md-button class="md-raised md-warn">Enviar</md-button>
+                    <md-button class="md-raised md-warn"  ui-sref="dashboard">Enviar</md-button>
                 </div>
             </div>
         </form>
