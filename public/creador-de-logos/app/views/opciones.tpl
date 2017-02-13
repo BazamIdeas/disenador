@@ -69,7 +69,7 @@
         </div>
         <div layout="row" flex="45" class="md-whiteframe-2dp margen_izquierdo scroll ">
             <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_fuentes text-center">
-                <div flex="33" layout-padding ng-click="opciones.activo='activo'">
+                <div flex="33" layout-padding ng-click="opciones.activo=seleccionado">
                     <p class="Arial" ng-class="opciones.activo">Empresa</p>
                 </div>
                 <div flex="33" layout-padding>

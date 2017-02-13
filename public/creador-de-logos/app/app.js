@@ -21,31 +21,26 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         .state({
             name: 'editor',
             url: '/editor',
-            templateUrl: 'app/views/editor.tpl',
-            controller: 'editorController as editor'
+            templateUrl: 'app/views/editor.tpl'
         })
         .state({
             name: 'login',
             url: '/login',
-            templateUrl: 'app/views/login.tpl',
-            controller: 'loginController as login'
+            templateUrl: 'app/views/login.tpl'
         })
         .state({
             name: 'dashboard',
             url: '/area-del-cliente',
-            templateUrl: 'app/views/dashboard.tpl',
-            controller: 'clienteController as cliente'
+            templateUrl: 'app/views/dashboard.tpl'
         })
         .state({
             name: 'paquetes',
             url: '/paquetes',
-            templateUrl: 'app/views/paquetes.tpl',
-        controller: 'paquetesController as paquetes'
+            templateUrl: 'app/views/paquetes.tpl'
         })
         .state({
             name: 'metodo',
             url: '/metodo-de-pago',
-            templateUrl: 'app/views/metodo-de-pago.tpl',
-            controller: 'metodosController as metodos'
+            templateUrl: 'app/views/metodo-de-pago.tpl'
         })
 })
