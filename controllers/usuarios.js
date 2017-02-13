@@ -18,6 +18,7 @@ exports.listaUsuarios = function(req, res, next) {
 
 	}
 
+
 	exports.datosUsuario =  function(req, res, next) {
 		//id del Usuario
 		var id = req.params.id;

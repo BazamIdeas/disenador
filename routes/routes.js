@@ -27,8 +27,19 @@ router.get('/pedido/borrar/:id', controllers.pedidos.borrarPedido);
 router.post("/pedido", controllers.pedidos.nuevoPedido);
 router.post("/pedido/modificar/", controllers.pedidos.modificarPedido);
 
+//MODULO CATEGORIAS
 
+router.get('/categorias', controllers.categorias.listaCategorias);
+router.post("/categorias", controllers.categorias.nuevaCategoria);
+router.post("/categoria/modificar/", controllers.categorias.modificarCategoria);
+router.get('/categoria/borrar/:id', controllers.categorias.borrarCategoria);
 
+//MODULO PREFERENCIA
+
+router.get('/preferencias', controllers.preferencias.listaPreferencias);
+router.post("/preferencias", controllers.preferencias.nuevaPreferencia);
+router.post("/preferencia/modificar/", controllers.preferencias.modificarPreferencia);
+router.get('/preferencia/borrar/:id', controllers.preferencias.borrarPreferencia);
 
 
 module.exports = router;
