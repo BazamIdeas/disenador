@@ -1,35 +1,35 @@
 angular.module("disenador-de-logos")
 
-.controller('comenzarController', ["$state", function ($state) {
+.controller('comenzarController', [function () {
 
     this.datos = {
 
         preferencias: [{
-            nombre1: "Femenino",
+            nombre: "Femenino",
             nombre2: "Masculino",
             valor: 2
         }, {
-            nombre1: "Economico",
+            nombre: "Economico",
             nombre2: "Lujoso",
             valor: 2
         }, {
-            nombre1: "Clasico",
+            nombre: "Clasico",
             nombre2: "Moderno",
             valor: 2
         }, {
-            nombre1: "Sutil",
+            nombre: "Sutil",
             nombre2: "Evidente",
             valor: 2
         }, {
-            nombre1: "Simple",
+            nombre: "Simple",
             nombre2: "Detallado",
             valor: 2
         }, {
-            nombre1: "Joven",
+            nombre: "Joven",
             nombre2: "Adulto",
             valor: 2
         }, {
-            nombre1: "Formal",
+            nombre: "Formal",
             nombre2: "Divertido",
             valor: 2
         }]
@@ -39,13 +39,82 @@ angular.module("disenador-de-logos")
 
     this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
 
-    
+
+
+
 }])
 
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
 
     this.compartir = $stateParams.datos;
-    
+
+
+    this.respuesta = {
+
+        iconos: [{
+                id: 1,
+                url: "../assets/svg/apple.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/audio.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/audiobook.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/book.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/browser.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/calculator.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/certificate.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/chat.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/chemistry.svg",
+                nombre: "X"
+        },
+            {
+                id: 1,
+                url: "../assets/svg/chip.svg",
+                nombre: "X"
+        },
+            {
+                id: 1,
+                url: "../assets/svg/cloud.svg",
+                nombre: "X"
+        },
+            {
+                id: 1,
+                url: "../assets/svg/code.svg",
+                nombre: "X"
+        }],
+
+        fuentes: [{
+            id: 1,
+            url: "../assets/svg/apple.svg",
+            nombre: "X"
+        }]
+
+    }
+
+
+
+
     this.estado = false;
 
     this.modoSeleccionado = 'md-scale';
@@ -122,19 +191,17 @@ angular.module("disenador-de-logos")
             });
     };
 
-    function DialogController($scope, $mdDialog) {
-        $scope.hide = function () {
-            $mdDialog.hide();
-        };
+    $scope.hide = function () {
+        $mdDialog.hide();
+    };
 
-        $scope.cancel = function () {
-            $mdDialog.cancel();
-        };
+    $scope.cancel = function () {
+        $mdDialog.cancel();
+    };
 
-        $scope.answer = function (answer) {
-            $mdDialog.hide(answer);
-        };
-    }
+    $scope.answer = function (answer) {
+        $mdDialog.hide(answer);
+    };
 
     /* ************* */
 
