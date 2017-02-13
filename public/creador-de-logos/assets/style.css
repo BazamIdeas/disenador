@@ -1,9 +1,13 @@
 /* Header-Footer */
-header{cursor: default;}
+
+.trans {background-color:none !important; background-image:url('img/franja-azul.jpg'); background-repeat: no-repeat; background-size: 100% 15%;}
+header, header md-toolbar{cursor: default; background-color:none !important; background-image:url('img/franja-azul.jpg'); background-repeat: repeat; background-size: 100% 600%;}
 .login_header registro, .login_header ingresar {cursor: pointer;} 
 ingresar:hover, registro:hover, .titulo:hover {color: orangered;}
 footer{font-size: 12px; background-color: rgb(40,53,147); color: white;}
 .titulo {cursor: pointer;}
+[class*="md-whiteframe"]{background: rgb(250,250,250);}
+
 
 /* login */
 
@@ -21,8 +25,9 @@ footer{font-size: 12px; background-color: rgb(40,53,147); color: white;}
 .padding_right{padding-right: 8px;}
 .padding_bottom{padding-bottom: 8px;}
 
-/* Opciones Vista */
+/* Opciones Vista */ 
 
+.logo_icon {width: 100px !important; height: 100px !important;}
 .titulo_opciones { color:#F44336;}
 .borde_derecho_opciones {border-right: 1px solid grey;}
 .contenedor_fuentes {font-size:20px;}
@@ -48,7 +53,14 @@ metodo_pago p_header {background: silver;}
 
 /* DashBoard */
 
-.h__seccion_dashboard {background: silver; color: white;}
+.h_seccion_dashboard {background:rgba(223,131,51, 1.00 );color: white; margin:0 !important;}
+
+
+/* EDITOR */
+
+.logo_icon_editor{width: 32px; height: 32px;}
+
+.logo_grande_editor {width:300px; height:300px;}
 
 /* Estilos Scroll Bar */
 
@@ -56,7 +68,7 @@ metodo_pago p_header {background: silver;}
 
 ::-webkit-scrollbar {
   -webkit-appearance: none;
-  width: 1px;
+  width:0;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;

@@ -1,112 +1,104 @@
-<div flex layout="column" ng-cloak>
-    <div layout="row" layout-align="space-between">
-        <div class="scroll" flex="45" class="contenedor_logos md-whiteframe-2dp">
-            <h3 layout-padding class="text-center h__seccion_dashboard">Tus Logos</h3>
-            <div layout="row" layout-padding layout-align="space-around center ">
+<div flex layout="column">
+    <div layout="row" layout-align="space-around">
+        <div flex="45" class="contenedor_logos md-whiteframe-2dp">
+            <h3 layout-padding class="text-center h_seccion_dashboard">Tus Logos</h3>
+        </div>
+        <div flex="45" class="contenedor_logos md-whiteframe-2dp">
+            <h3 layout-padding class="text-center h_seccion_dashboard">Favoritos</h3>
+        </div>
+    </div>
+    <div layout="row" layout-align="space-around">
+        <div flex="45" class="contenedor_logos md-whiteframe-2dp scroll">
+            <div layout="row" layout-padding layout-align="space-around center">
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/apple.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/book.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
-                </div>
-            </div>
-            <div layout="row" layout-padding layout-align="space-around center ">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/browser.svg"></md-icon>
                 </div>
             </div>
             <div layout="row" layout-padding layout-align="space-around center ">
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/certificate.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/calculator.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chat.svg"></md-icon>
+                </div>
+            </div>
+            <div layout="row" layout-padding layout-align="space-around center ">
+                <div class="md-whiteframe-2dp" layout-padding>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chip.svg"></md-icon>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/code.svg"></md-icon>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desk.svg"></md-icon>
                 </div>
             </div>
             <div layout="row" layout-padding layout-align="space-around center">
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desktop.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/exam.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/folder.svg"></md-icon>
                 </div>
             </div>
         </div>
-        <div class="scroll" flex="45" class="contenedor_logos md-whiteframe-2dp">
-            <h3 layout-padding class="text-center h__seccion_dashboard">Favoritos</h3>
-            <div layout="row" layout-padding layout-align="space-around center ">
+        <div flex="45" class="contenedor_logos md-whiteframe-2dp scroll">
+            <div layout="row" layout-padding layout-align="space-around center  ">
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/apple.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/book.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
-                </div>
-            </div>
-            <div layout="row" layout-padding layout-align="space-around center ">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/browser.svg"></md-icon>
                 </div>
             </div>
             <div layout="row" layout-padding layout-align="space-around center ">
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/certificate.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/calculator.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chat.svg"></md-icon>
+                </div>
+            </div>
+            <div layout="row" layout-padding layout-align="space-around center ">
+                <div class="md-whiteframe-2dp" layout-padding>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chip.svg"></md-icon>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/code.svg"></md-icon>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desk.svg"></md-icon>
                 </div>
             </div>
             <div layout="row" layout-padding layout-align="space-around center">
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desktop.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/exam.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/folder.svg"></md-icon>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div layout="row" class="margen_superior" layout-align="space-between">
-        <div flex="45" layout="row" flex layout-align="space-between center">
-            <md-button class="md-raised md-primary" ui-sref="">Editar</md-button>
-            <md-button class="md-raised md-primary" ui-sref="">Descargar</md-button>
-        </div>
-        
-        <div flex="45" layout="row" flex layout-align="space-between center">
-            <md-button class="md-raised md-primary" ui-sref="">Editar</md-button>
-            <md-button class="md-raised md-primary" ui-sref="">Descargar</md-button>
-        </div>
-    </div>
-    
-    
 </div>

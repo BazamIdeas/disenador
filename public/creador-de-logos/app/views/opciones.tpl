@@ -1,6 +1,7 @@
 <div flex layout="column" ng-cloak>
     <div layout="row" layout-align="center space-between" id="popupContainer" class="margen_inferior">
         <h3 flex="70" class="titulo_opciones" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
+        
         <md-fab-speed-dial flex="20" md-open="false" md-direction="left" ng-class="opciones.modoSeleccionado" ng-click="opciones.estado=true">
             <md-fab-trigger>
                 <md-button aria-label="menu" class="md-fab md-warn">
@@ -24,46 +25,46 @@
         <div class="scroll" flex="45" class="contenedor_logos md-whiteframe-2dp">
             <div layout="row" layout-padding layout-align="space-around center ">
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/apple.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/book.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
-                </div>
-            </div>
-            <div layout="row" layout-padding layout-align="space-around center ">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/browser.svg"></md-icon>
                 </div>
             </div>
             <div layout="row" layout-padding layout-align="space-around center ">
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/certificate.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/calculator.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chat.svg"></md-icon>
+                </div>
+            </div>
+            <div layout="row" layout-padding layout-align="space-around center ">
+                <div class="md-whiteframe-2dp" layout-padding>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chip.svg"></md-icon>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/code.svg"></md-icon>
+                </div>
+                <div class="md-whiteframe-2dp" layout-padding>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desk.svg"></md-icon>
                 </div>
             </div>
             <div layout="row" layout-padding layout-align="space-around center">
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desktop.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/exam.svg"></md-icon>
                 </div>
                 <div class="md-whiteframe-2dp" layout-padding>
-                    <div><img src="http://lorempixel.com/120/120/"></div>
+                    <md-icon class="logo_icon" md-svg-src="../assets/svg/folder.svg"></md-icon>
                 </div>
             </div>
         </div>

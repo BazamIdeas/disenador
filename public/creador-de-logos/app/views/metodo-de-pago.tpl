@@ -25,8 +25,10 @@
             </p_footer>
         </metodo_pago>
     </div>
-    <div layout="row" class="margen_superior">
-        <div layout="row" flex layout-align="end center">
+    
+    <div layout="row" class="margen_superior" layout-align="space-between">
+        <div flex layout="row" flex layout-align="space-between center">
+            <md-button class="md-raised md-primary" ui-sref="editor">Atras</md-button>
             <md-button class="md-raised md-primary" ui-sref="dashboard">Siguiente</md-button>
         </div>
     </div>
