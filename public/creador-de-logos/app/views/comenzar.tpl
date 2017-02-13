@@ -66,7 +66,7 @@
                     
                     <div flex layout layout-align="space-between center">
                         <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=3">Atras</md-button>
-                        <md-button class="md-raised md-accent" ui-sref="opciones">Enviar</md-button>
+                        <md-button class="md-raised md-accent" ui-sref="opciones({datos: comenzar.datos})">Enviar</md-button>
                     </div>
                 </div>
             </div>
