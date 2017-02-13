@@ -40,13 +40,12 @@ angular.module("disenador-de-logos")
     this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
 
 
-
-
 }])
 
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
 
     this.compartir = $stateParams.datos;
+
 
 
     this.respuesta = {
@@ -111,8 +110,6 @@ angular.module("disenador-de-logos")
         }]
 
     }
-
-
 
 
     this.estado = false;
@@ -222,4 +219,18 @@ angular.module("disenador-de-logos")
 
     this.modoSeleccionado = 'md-scale';
 
-}]);
+}])
+
+.controller('editorController', ['$scope', function ($scope) {
+
+    this.modoSeleccionado = 'md-scale';
+
+    /* Fab Speed Dial 1 */
+    this.estado1 = false;
+    /* Fab Speed Dial 2 */
+    this.estado2 = false;
+    /* Fab Speed Dial 3 */
+    this.estado3 = false;
+    /* Fab Speed Dial 4 */
+    this.estado4 = false;
+}])
