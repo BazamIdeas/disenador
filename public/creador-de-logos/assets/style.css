@@ -54,13 +54,13 @@ metodo_pago p_header {background: silver;}
 /* DashBoard */
 
 .h_seccion_dashboard {background:rgba(223,131,51, 1.00 );color: white; margin:0 !important;}
-
+.relative {position: absolute; top:4%;}
 
 /* EDITOR */
 
 .logo_icon_editor{width: 32px; height: 32px;}
-
-.logo_grande_editor {width:300px; height:300px;}
+.logo_grande_editor_cont {margin-top: 10%;}
+.logo_grande_editor {width:300px; height:300px; }
 
 /* Estilos Scroll Bar */
 
