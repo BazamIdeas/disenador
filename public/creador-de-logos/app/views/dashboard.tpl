@@ -13,30 +13,6 @@
                 <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
                     <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
             </div>
         </div>
         <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
@@ -44,31 +20,13 @@
                 <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
                     <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
-                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                </div>
             </div>
+        </div>
+    </div>
+    
+    <div layout="row" class="margen_superior" layout-align="space-between">
+        <div flex layout="row" flex layout-align="start center">
+            <md-button class="md-raised md-primary" ui-sref="editor">Atras</md-button>
         </div>
     </div>
 </div>

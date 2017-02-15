@@ -41,7 +41,7 @@ angular.module("disenador-de-logos")
 /* Opciones */
 
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
-    this.compartir = $stateParams.datos;
+    
     this.respuesta = {
         iconos: [{
                 id: 1,
@@ -114,6 +114,7 @@ angular.module("disenador-de-logos")
         // Appending dialog to document.body to cover sidenav in docs app
         // Modal dialogs should fully cover application
         // to prevent interaction outside of dialog
+    
         $mdDialog.show(
             $mdDialog.alert()
             .parent(angular.element(document.querySelector('#popupContainer')))
@@ -170,6 +171,8 @@ angular.module("disenador-de-logos")
                 this.status = 'You cancelled the dialog.';
             });
     };
+    
+    function DialogController($scope, $mdDialog) {
     $scope.hide = function () {
         $mdDialog.hide();
     };
@@ -178,6 +181,8 @@ angular.module("disenador-de-logos")
     };
     $scope.answer = function (answer) {
         $mdDialog.hide(answer);
+    };
+        
     };
     /* ************* */
     /* Fuentes y Logos */
@@ -192,6 +197,27 @@ angular.module("disenador-de-logos")
 .controller('procesoController', ['$scope', function ($scope) {
     this.estado = false;
     this.modoSeleccionado = 'md-scale';
+    
+    this.respuesta = {
+        iconos: [{
+                id: 1,
+                url: "../assets/svg/apple.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/audio.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/audiobook.svg",
+                nombre: "X"
+        }],
+        fuentes: [{
+            id: 1,
+            url: "../assets/svg/apple.svg",
+            nombre: "X"
+        }]
+    }
 }])
 
 /* Editor */

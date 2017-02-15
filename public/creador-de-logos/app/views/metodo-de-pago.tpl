@@ -1,7 +1,14 @@
-<div flex layout="column" ng-cloak>
-    <div flex layout layout-align="space-around center">
+<div flex layout="column" layout-align="space-between" ng-cloak>
+
+    <div layout="row" layout-align="start">
+        <div flex="30" class="contenedor_logos md-whiteframe-2dp">
+            <h3 layout-padding class="text-center h_seccion_dashboard p_header">Compre su logo</h3>
+        </div>
+
+    </div>
+    <div layout layout-align="space-around center">
         <metodo_pago class="md-whiteframe-2dp">
-            <p_header layout-padding>
+            <p_header class="p_header" layout-padding>
                 METODOS DE PAGO
             </p_header>
             <p_body layout-padding>
@@ -25,7 +32,7 @@
             </p_footer>
         </metodo_pago>
     </div>
-    
+
     <div layout="row" class="margen_superior" layout-align="space-between">
         <div flex layout="row" flex layout-align="space-between center">
             <md-button class="md-raised md-primary" ui-sref="editor">Atras</md-button>

@@ -1,9 +1,13 @@
-<md-slider-container ng-disabled="true">
-    <md-slider step="1" min="1" max="4" ng-model="comenzar.mostrar" aria-label="Disabled 1" flex md-discrete ng-readonly="true"></md-slider>
-</md-slider-container>
-<div flex layout="column" layout-align="center" layout-padding>
-    <div layout="row" layout-align="center">
-        <form name="preferenciasFormulario" flex="50">
+<div flex layout="column" ng-cloak layout-align="center">
+
+    <div flex="15" layout="row" layout-align="center">
+
+        <md-slider-container ng-disabled="true" flex="50" class="md-whiteframe-2dp margen_inferior">
+            <md-slider step="1" min="1" max="4" ng-model="comenzar.mostrar" aria-label="Disabled 1" flex md-discrete ng-readonly="true"></md-slider>
+        </md-slider-container>
+    </div>
+    <div flex="85"  layout="row" layout-align="center">
+        <form name="preferenciasFormulario" flex="50" layout-padding>
             <div ng-switch="comenzar.mostrar">
                 <div class="pasos" ng-switch-when="1">
                     <div>
@@ -63,7 +67,7 @@
                             <span class="md-body-1">{{prefrerencia.nombre2}}</span>
                         </div>
                     </div>
-                    
+
                     <div flex layout layout-align="space-between center">
                         <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=3">Atras</md-button>
                         <md-button class="md-raised md-accent" ui-sref="opciones({datos: comenzar.datos})">Enviar</md-button>
