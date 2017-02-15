@@ -42,13 +42,20 @@ angular.module("disenador-de-logos")
 
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
 
-    this.estado_fuente = 'inactivo';
+    
+    this.datosComenzar = $stateParams.datos;
+    
+    
+    
+    this.seleccionado = function(primeraSeleccion, segundaSeleccion){
+        
+        var llaves = Object.keys(primeraSeleccion).length;
+        return llaves;
+        
+    }
+    
 
-    /* ICONOS Y FUENTES */
-
-    this.nombre_logo = 'EMPRESA';
-
-
+    
     this.respuesta = {
         /* ICONOS */
         iconos: [{
@@ -92,13 +99,11 @@ angular.module("disenador-de-logos")
                 id: 1,
                 url: "../assets/svg/chip.svg",
                 nombre: "X"
-        },
-            {
+        }, {
                 id: 1,
                 url: "../assets/svg/cloud.svg",
                 nombre: "X"
-        },
-            {
+        }, {
                 id: 1,
                 url: "../assets/svg/code.svg",
                 nombre: "X"
@@ -162,9 +167,35 @@ angular.module("disenador-de-logos")
             nombre: "X"
         }, ]
     }
+    
+    this.datos = {
+
+        fuentes: {},
+        iconos: {}
+
+    }
+
+    this.agregarElemento = function (indice, valor, tipo) {
+
+
+        if (!this.datos[tipo][indice]) {
+
+            this.datos[tipo][indice] = valor;
+            this.respuesta[tipo][indice].estado = 'activo';
+
+        } else {
+
+            delete this.datos[tipo][indice];
+            this.respuesta[tipo][indice].estado = 'inactivo';
+        }
+
+
+    }
+
+
 
     /* Modal */
-    
+
     this.estado = false;
     this.modoSeleccionado = 'md-scale';
 

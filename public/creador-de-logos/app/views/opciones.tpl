@@ -38,19 +38,20 @@
 
         <div layout="row" flex="45" class="md-whiteframe-2dp margen_izquierdo scroll ">
             <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_fuentes text-center">
-            
-                
-                <div flex="33" layout-padding ng-click="opciones.estado_fuente='activo'" ng-if="opciones.estado_fuente" ng-repeat="fuentes in opciones.respuesta.fuentes">
-                    <p class="fuentes.clase"  ng-class="opciones.estado_fuente">{{opciones.nombre_logo}}</p>
+
+
+                <div flex="33" layout-padding ng-click="opciones.agregarElemento($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.respuesta.fuentes">
+                    <p ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosComenzar.nombre}}</p>
                 </div>
-                
-                
+
+
             </div>
         </div>
     </div>
     <div layout="row" class="margen_superior">
-        <div layout="row" flex layout-align="end center">
-            <md-button class="md-raised md-primary" ui-sref="proceso">Siguiente</md-button>
+        <div layout="row" flex layout-align="space-between center">
+            <md-button class="md-raised md-primary" ui-sref="comenzar({datos: opciones.datosComenzar})">Atrás</md-button>
+            <md-button class="md-raised md-primary siguiente" ng-show="opciones.seleccionado(opciones.datos.fuentes)" ui-sref="proceso({datos: opciones.datos})">Siguiente</md-button>
         </div>
     </div>
 </div>
