@@ -38,79 +38,13 @@
 
         <div layout="row" flex="45" class="md-whiteframe-2dp margen_izquierdo scroll ">
             <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_fuentes text-center">
-                <div flex="33" layout-padding ng-click="opciones.activo='activo'">
-                    <p class="Arial" ng-class="opciones.activo">Empresa</p>
+            
+                
+                <div flex="33" layout-padding ng-click="opciones.estado_fuente='activo'" ng-if="opciones.estado_fuente" ng-repeat="fuentes in opciones.respuesta.fuentes">
+                    <p class="fuentes.clase"  ng-class="opciones.estado_fuente">{{opciones.nombre_logo}}</p>
                 </div>
-                <div flex="33" layout-padding>
-                    <p class="Helvetica">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Verdana">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Trebuchet">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="GillSans">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="DejaVu_Sans">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Geneva">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="HelveticaNeue-Roman">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Cambria">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Palatino">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Cambria">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Palatino">Empresa</p>
-                </div>
-
-                <div flex="33" layout-padding ng-click="opciones.activo='activo'">
-                    <p class="Arial" ng-class="opciones.activo">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Helvetica">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Verdana">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Trebuchet">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="GillSans">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="DejaVu_Sans">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Geneva">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="HelveticaNeue-Roman">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Cambria">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Palatino">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Cambria">Empresa</p>
-                </div>
-                <div flex="33" layout-padding>
-                    <p class="Palatino">Empresa</p>
-                </div>
+                
+                
             </div>
         </div>
     </div>

@@ -41,8 +41,16 @@ angular.module("disenador-de-logos")
 /* Opciones */
 
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
-    
+
+    this.estado_fuente = 'inactivo';
+
+    /* ICONOS Y FUENTES */
+
+    this.nombre_logo = 'EMPRESA';
+
+
     this.respuesta = {
+        /* ICONOS */
         iconos: [{
                 id: 1,
                 url: "../assets/svg/apple.svg",
@@ -95,18 +103,70 @@ angular.module("disenador-de-logos")
                 url: "../assets/svg/code.svg",
                 nombre: "X"
         }],
+        /* FUENTES */
         fuentes: [{
             id: 1,
-            url: "../assets/svg/apple.svg",
+            url: "#",
             nombre: "X"
-        }]
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, ]
     }
-    this.estado = false;
-    this.modoSeleccionado = 'md-scale';
-    this.activo = 'innactivo';
-    this.innactivo = 'innactivo';
 
     /* Modal */
+    
+    this.estado = false;
+    this.modoSeleccionado = 'md-scale';
 
     this.status = '  ';
     this.customFullscreen = false;
@@ -114,7 +174,7 @@ angular.module("disenador-de-logos")
         // Appending dialog to document.body to cover sidenav in docs app
         // Modal dialogs should fully cover application
         // to prevent interaction outside of dialog
-    
+
         $mdDialog.show(
             $mdDialog.alert()
             .parent(angular.element(document.querySelector('#popupContainer')))
@@ -171,25 +231,20 @@ angular.module("disenador-de-logos")
                 this.status = 'You cancelled the dialog.';
             });
     };
-    
+
     function DialogController($scope, $mdDialog) {
-    $scope.hide = function () {
-        $mdDialog.hide();
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+        $scope.answer = function (answer) {
+            $mdDialog.hide(answer);
+        };
+
     };
-    $scope.cancel = function () {
-        $mdDialog.cancel();
-    };
-    $scope.answer = function (answer) {
-        $mdDialog.hide(answer);
-    };
-        
-    };
-    /* ************* */
-    /* Fuentes y Logos */
-    this.datos = {
-        iconos: [],
-        fuentes: []
-    }
+
 }])
 
 /* Proceso */
@@ -197,20 +252,20 @@ angular.module("disenador-de-logos")
 .controller('procesoController', ['$scope', function ($scope) {
     this.estado = false;
     this.modoSeleccionado = 'md-scale';
-    
+
     this.respuesta = {
         iconos: [{
-                id: 1,
-                url: "../assets/svg/apple.svg",
-                nombre: "X"
+            id: 1,
+            url: "../assets/svg/apple.svg",
+            nombre: "X"
         }, {
-                id: 1,
-                url: "../assets/svg/audio.svg",
-                nombre: "X"
+            id: 1,
+            url: "../assets/svg/audio.svg",
+            nombre: "X"
         }, {
-                id: 1,
-                url: "../assets/svg/audiobook.svg",
-                nombre: "X"
+            id: 1,
+            url: "../assets/svg/audiobook.svg",
+            nombre: "X"
         }],
         fuentes: [{
             id: 1,
