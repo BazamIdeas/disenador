@@ -44,7 +44,8 @@ exports.nuevoCliente =  function(req,res)
 			idCliente : null,
 			nombreCliente : req.body.nombreCliente,
 			correo : req.body.correo,
-			pass : req.body.pass
+			pass : req.body.pass,
+			telefono : req.body.telefono
 		};
 		cliente.insertCliente(clienteData,function(error, data)
 		{
@@ -55,7 +56,7 @@ exports.nuevoCliente =  function(req,res)
 			}
 			else
 			{
-				res.status(500).json({"msg":"Algo ocurrio"})
+				res.status(500).json(data)
 			}
 		});
 	}
@@ -70,7 +71,7 @@ exports.nuevoCliente =  function(req,res)
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				//creamos un array con los datos a modificar del cliente
-				var clienteData = [req.body.nombreCliente, req.body.correo, req.body.pass, idCliente];
+				var clienteData = [req.body.nombreCliente, req.body.correo, req.body.pass, req.body.telefono, idCliente];
 					
 				cliente.updateCliente(clienteData,function(error, data)
 				{

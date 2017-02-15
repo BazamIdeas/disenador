@@ -47,28 +47,47 @@ cliente.getCliente = function(id,callback)
 //añadir un nuevo cliente
 cliente.insertCliente = function(clienteData,callback)
 {
-	var q = 'INSERT INTO clientes SET ? ' 
-	var par = clienteData //parametros
+	var q = 'SELECT idCliente FROM clientes WHERE correo = ? ' 
+	var correo = clienteData.correo
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, result){
+		connection.query( q , correo, function(err, row){
 	  	
-	  	if(err)	throw err;
+	  	if (typeof row !== 'undefined' && row.length > 0){
+	  		callback(null,{"msg" : 'cliente ya registrado'});
+	  	}
+	  	
+	  	else{
+	  			var qq = 'INSERT INTO clientes SET ? ' 
+				var par = clienteData //parametros
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
+				DB.getConnection(function(err, connection)
+				{
+					connection.query( qq , par , function(err, result){
+				  	
+				  	if(err)	throw err;
+
+				  	//devolvemos la última id insertada
+				  	else callback(null,{"insertId" : result.insertId}); 
+	  	
+				  });
+
+				  connection.release();
+				});
+	  		} 
 	  	
 	  });
 
 	  connection.release();
 	});
+
 }
 
 //actualizar un cliente
 cliente.updateCliente = function(clienteData, callback)
 {
-	var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ? WHERE idCliente = ?';
+	var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ?, telefono = ? WHERE idCliente = ?';
 	var par = clienteData //parametros
 
 	DB.getConnection(function(err, connection)

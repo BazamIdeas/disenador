@@ -68,7 +68,7 @@ pedido.insertPedido = function(pedidoData,callback)
 //actualizar un pedido
 pedido.updatePedido = function(pedidoData, callback)
 {
-	var q = 'UPDATE pedidos SET nombrepedido = ?, correo = ?,  pass = ? WHERE idPedido = ?';
+	var q = 'UPDATE pedidos SET fecha = ?, estado = ?,  tipo = ?, logos_idLogo = ?, clientes_idCliente = ? WHERE idPedido = ?';
 	var par = pedidoData //parametros
 
 	DB.getConnection(function(err, connection)

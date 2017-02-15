@@ -41,12 +41,12 @@ exports.nuevoPedido =  function(req,res)
 	{
 		//creamos un objeto con los datos a insertar del pedido
 		var pedidoData = {
-			idpedido : null,
+			idPedido : null,
 			fecha : req.body.fecha,
 			estado : req.body.estado,
 			tipo : req.body.tipo,
-			logos_idLogo : req.body.idLogo, // cambiar por id del logo guardado
-			clientes_idCliente : req.body.idCliente, // cambiar por id del logo guardado
+			logos_idLogo : req.body.logos_idLogo, // cambiar por id del logo guardado
+			clientes_idCliente : req.body.clientes_idCliente // cambiar por id del cliente guardado
 		};
 		pedido.insertPedido(pedidoData,function(error, data)
 		{
@@ -64,15 +64,15 @@ exports.nuevoPedido =  function(req,res)
 
 	exports.modificarPedido =  function(req,res)
 	{
-		var idpedido = req.body.idPedido 
+		var idPedido = req.body.idPedido  // 
 
-		pedido.getPedido(idpedido,function(error, data)
+		pedido.getPedido(idPedido,function(error, data)
 		{
 		//si el pedido existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				//creamos un array con los datos a modificar del pedido
-				var pedidoData = [req.body.nombrepedido, req.body.correo, req.body.pass, idpedido];
+				var pedidoData = [req.body.fecha, req.body.estado, req.body.tipo, req.body.logos_idLogo, req.body.clientes_idCliente, idPedido];
 					
 				pedido.updatePedido(pedidoData,function(error, data)
 				{
