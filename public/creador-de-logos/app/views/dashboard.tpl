@@ -8,95 +8,65 @@
         </div>
     </div>
     <div layout="row" layout-align="space-around">
-        <div flex="45" class="contenedor_logos md-whiteframe-2dp scroll">
-            <div layout="row" layout-padding layout-align="space-around center">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/apple.svg"></md-icon>
+        <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
+            <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/book.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/browser.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-            </div>
-            <div layout="row" layout-padding layout-align="space-around center ">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/certificate.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/calculator.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chat.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-            </div>
-            <div layout="row" layout-padding layout-align="space-around center ">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chip.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/code.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desk.svg"></md-icon>
-                </div>
-            </div>
-            <div layout="row" layout-padding layout-align="space-around center">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desktop.svg"></md-icon>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/exam.svg"></md-icon>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/folder.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
             </div>
         </div>
-        <div flex="45" class="contenedor_logos md-whiteframe-2dp scroll">
-            <div layout="row" layout-padding layout-align="space-around center  ">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/apple.svg"></md-icon>
+        <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
+            <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="text-center">
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/book.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/browser.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-            </div>
-            <div layout="row" layout-padding layout-align="space-around center ">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/certificate.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/calculator.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chat.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-            </div>
-            <div layout="row" layout-padding layout-align="space-around center ">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/chip.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/code.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desk.svg"></md-icon>
-                </div>
-            </div>
-            <div layout="row" layout-padding layout-align="space-around center">
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/desktop.svg"></md-icon>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/exam.svg"></md-icon>
-                </div>
-                <div class="md-whiteframe-2dp" layout-padding>
-                    <md-icon class="logo_icon" md-svg-src="../assets/svg/folder.svg"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                    <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
             </div>
         </div>

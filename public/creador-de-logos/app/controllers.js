@@ -1,9 +1,9 @@
 angular.module("disenador-de-logos")
 
+/* Comenzar */
+
 .controller('comenzarController', [function () {
-
     this.datos = {
-
         preferencias: [{
             nombre: "Femenino",
             nombre2: "Masculino",
@@ -34,22 +34,15 @@ angular.module("disenador-de-logos")
             valor: 2
         }]
     }
-
     this.mostrar = 1;
-
     this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
-
-
 }])
 
+/* Opciones */
+
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
-
     this.compartir = $stateParams.datos;
-
-
-
     this.respuesta = {
-
         iconos: [{
                 id: 1,
                 url: "../assets/svg/apple.svg",
@@ -102,20 +95,14 @@ angular.module("disenador-de-logos")
                 url: "../assets/svg/code.svg",
                 nombre: "X"
         }],
-
         fuentes: [{
             id: 1,
             url: "../assets/svg/apple.svg",
             nombre: "X"
         }]
-
     }
-
-
     this.estado = false;
-
     this.modoSeleccionado = 'md-scale';
-
     this.activo = 'innactivo';
     this.innactivo = 'innactivo';
 
@@ -123,7 +110,6 @@ angular.module("disenador-de-logos")
 
     this.status = '  ';
     this.customFullscreen = false;
-
     this.showAlert = function (ev) {
         // Appending dialog to document.body to cover sidenav in docs app
         // Modal dialogs should fully cover application
@@ -139,7 +125,6 @@ angular.module("disenador-de-logos")
             .targetEvent(ev)
         );
     };
-
     this.Categorias = function (ev) {
         $mdDialog.show({
                 controller: DialogController,
@@ -155,7 +140,6 @@ angular.module("disenador-de-logos")
                 this.status = 'You cancelled the dialog.';
             });
     };
-
     this.Etiquetas = function (ev) {
         $mdDialog.show({
                 controller: DialogController,
@@ -171,7 +155,6 @@ angular.module("disenador-de-logos")
                 this.status = 'You cancelled the dialog.';
             });
     };
-
     this.Caracteristicas = function (ev) {
         $mdDialog.show({
                 controller: DialogController,
@@ -187,44 +170,34 @@ angular.module("disenador-de-logos")
                 this.status = 'You cancelled the dialog.';
             });
     };
-
     $scope.hide = function () {
         $mdDialog.hide();
     };
-
     $scope.cancel = function () {
         $mdDialog.cancel();
     };
-
     $scope.answer = function (answer) {
         $mdDialog.hide(answer);
     };
-
     /* ************* */
-
     /* Fuentes y Logos */
-
     this.datos = {
         iconos: [],
         fuentes: []
     }
-
-
-
 }])
+
+/* Proceso */
 
 .controller('procesoController', ['$scope', function ($scope) {
-
     this.estado = false;
-
     this.modoSeleccionado = 'md-scale';
-
 }])
 
+/* Editor */
+
 .controller('editorController', ['$scope', function ($scope) {
-
     this.modoSeleccionado = 'md-scale';
-
     /* Fab Speed Dial 1 */
     this.estado1 = false;
     /* Fab Speed Dial 2 */
@@ -233,4 +206,82 @@ angular.module("disenador-de-logos")
     this.estado3 = false;
     /* Fab Speed Dial 4 */
     this.estado4 = false;
+}])
+
+/* login */
+
+.controller('loginController', ['$scope', function ($scope) {
+
+}])
+
+/* Cliente */
+
+.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
+    this.compartir = $stateParams.datos;
+    this.respuesta = {
+        iconos: [{
+                id: 1,
+                url: "../assets/svg/apple.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/audio.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/audiobook.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/book.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/browser.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/calculator.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/certificate.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/chat.svg",
+                nombre: "X"
+        }, {
+                id: 1,
+                url: "../assets/svg/chemistry.svg",
+                nombre: "X"
+        },
+            {
+                id: 1,
+                url: "../assets/svg/chip.svg",
+                nombre: "X"
+        },
+            {
+                id: 1,
+                url: "../assets/svg/cloud.svg",
+                nombre: "X"
+        },
+            {
+                id: 1,
+                url: "../assets/svg/code.svg",
+                nombre: "X"
+        }]
+    }
+}])
+
+/* Paquetes */
+
+.controller('paquetesController', ['$scope', function ($scope) {
+
+}])
+
+/* Metodos */
+
+.controller('metodosController', ['$scope', function ($scope) {
+
 }])
