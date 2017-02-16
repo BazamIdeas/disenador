@@ -27,8 +27,8 @@
         <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
             <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_logos text-center">
 
-                <div flex="33" layout-padding ng-repeat="icono in opciones.respuesta.iconos" ng-click="opciones.agregarIcono($index, icono, 'iconos')">
-                    <md-icon class="logo_icon"  ng-class="opciones.datos.iconos[$index].estado" md-svg-src="{{icono.url}}"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in opciones.respuesta.iconos" ng-click="opciones.agregarElemento($index, icono, 'iconos')">
+                    <md-icon class="logo_icon icono"  ng-class="opciones.datos.iconos[$index].estado" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
 
             </div>
@@ -38,8 +38,8 @@
             <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_fuentes text-center">
 
 
-                <div flex="33" layout-padding ng-click="opciones.agregarFuente($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.respuesta.fuentes">
-                    <p ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosComenzar.nombre}}</p>
+                <div flex="33" layout-padding ng-click="opciones.agregarElemento($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.respuesta.fuentes">
+                    <p class="fuente" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosComenzar.nombre}}</p>
                 </div>
 
 

@@ -24,15 +24,15 @@
     </div>
 
     <div layout="row" layout-align="center">
-        <div flex="80" layout="row" layout-align="space-around center" layout-wrap layout-padding class="contenedor_fuentes text-center margen_derecho">
-            <div flex="20" layout-padding ng-repeat="icono in proceso.respuesta.iconos" class="md-whiteframe-2dp">
+        <div flex="70" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="text-center">
+            <div flex="30" layout-padding ng-repeat="icono in proceso.respuesta.iconos" ng-mouseenter="proceso.efectoHover($index, icono, 'iconos')" ng-mouseleave="proceso.efectoHover($index, icono, 'iconos')" class="md-whiteframe-2dp margen_derecho margen_inferior logo_pre_final">
                 <div class="cambio">
                     <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                     <div class="text-center" layout-padding>Empresa</div>
                 </div>
-                <div flex layout layout-align="space-around" class="cont_iconos_logo_opciones margen_superior">
-                    <md-icon ui-sref="editor">create</md-icon>
-                    <md-icon ui-sref="paquetes">shopping_cart</md-icon>
+                <div flex layout layout-align="space-around" >
+                    <md-icon ui-sref="editor" class="logo_pre_final" ng-show="proceso.datos.iconos[$index].estado">create</md-icon>
+                    <md-icon ui-sref="paquetes" class="logo_pre_final" ng-show="proceso.datos.iconos[$index].estado">shopping_cart</md-icon>
                 </div>
             </div>
         </div>

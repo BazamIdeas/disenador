@@ -42,20 +42,20 @@ angular.module("disenador-de-logos")
 
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
 
-    
+
     this.datosComenzar = $stateParams.datos;
-    
-    
-    
-    this.seleccionado = function(primeraSeleccion, segundaSeleccion){
-        
+
+
+
+    this.seleccionado = function (primeraSeleccion, segundaSeleccion) {
+
         var llaves = Object.keys(primeraSeleccion).length;
         return llaves;
-        
-    }
-    
 
-    
+    }
+
+
+
     this.respuesta = {
         /* ICONOS */
         iconos: [{
@@ -167,7 +167,7 @@ angular.module("disenador-de-logos")
             nombre: "X"
         }, ]
     }
-    
+
     this.datos = {
 
         fuentes: {},
@@ -175,7 +175,7 @@ angular.module("disenador-de-logos")
 
     }
 
-    this.agregarElemento = function (indice, valor, tipo) {
+    this.agregarElemento= function (indice, valor, tipo) {
 
 
         if (!this.datos[tipo][indice]) {
@@ -297,6 +297,18 @@ angular.module("disenador-de-logos")
             id: 1,
             url: "../assets/svg/audiobook.svg",
             nombre: "X"
+        }, {
+            id: 1,
+            url: "../assets/svg/audiobook.svg",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "../assets/svg/audiobook.svg",
+            nombre: "X"
+        }, {
+            id: 1,
+            url: "../assets/svg/audiobook.svg",
+            nombre: "X"
         }],
         fuentes: [{
             id: 1,
@@ -304,6 +316,31 @@ angular.module("disenador-de-logos")
             nombre: "X"
         }]
     }
+    
+    this.datos = {
+
+        fuentes: {},
+        iconos: {}
+
+    }
+    
+    this.efectoHover= function (indice, valor, tipo) {
+
+
+        if (!this.datos[tipo][indice]) {
+
+            this.datos[tipo][indice] = valor;
+            this.respuesta[tipo][indice].estado = true;
+
+        } else {
+
+            delete this.datos[tipo][indice];
+            this.respuesta[tipo][indice].estado = false;
+        }
+
+
+    }
+    
 }])
 
 /* Editor */

@@ -1,92 +1,294 @@
 /* Header-Footer */
 
-.trans {background-color:none !important; background-image:url('img/franja-azul.jpg'); background-repeat: no-repeat; background-size: 100% 15%;}
-header, header md-toolbar{cursor: default;}
-.login_header registro, .login_header ingresar {cursor: pointer;} 
-ingresar:hover, registro:hover, .titulo:hover {color: orangered;}
-footer{font-size: 12px; background-color: rgb(40,53,147); color: white;}
-.titulo {cursor: pointer;}
-[class*="md-whiteframe"]{background: rgb(250,250,250);}
+.trans {
+    background-color: none !important;
+    background-image: url('img/franja-azul.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 15%;
+}
+div:focus {outline: none !important;}
 
-.white_iconos{background: rgba(223,131,51, 1.00 );}
+header,
+header md-toolbar {
+    cursor: default;
+}
 
-md-content{height: 600px; background-color:rgba(236, 236, 236, 1) !important;}
-.p_header {background-color:#FF9800;}
+.login_header registro,
+.login_header ingresar {
+    cursor: pointer;
+}
+
+ingresar:hover,
+registro:hover,
+.titulo:hover {
+    color: orangered;
+}
+
+footer {
+    font-size: 12px;
+    background-color: rgb(40, 53, 147);
+    color: white;
+}
+
+.titulo {
+    cursor: pointer;
+}
+
+[class*="md-whiteframe"] {
+    background: rgb(250, 250, 250);
+}
+
+.white_iconos {
+    background: rgba(223, 131, 51, 1.00);
+}
+
+md-content {
+    height: 600px;
+    background-color: rgba(236, 236, 236, 1) !important;
+}
+
+.p_header {
+    background-color: #FF9800;
+}
+
 
 /* login */
 
-.margen_formulario_login {margin-right: 1.5%;} 
+.margen_formulario_login {
+    margin-right: 1.5%;
+}
+
 
 /* Estilos generales*/
-*{cursor: default;}
-.text-center {text-align: center;}
-.margen_inferior {margin-bottom: 2%;}
-.margen_izquierdo {margin-left: 2%}
-.margen_derecho {margin-right: 2%;}
-.margen_superior {margin-top: 2%;}
-.padding_top{padding-top: 8px;}
-.padding_left{padding-left: 8px;}
-.padding_right{padding-right: 8px;}
-.padding_bottom{padding-bottom: 8px;}
 
-/* Opciones Vista */ 
+* {
+    cursor: default;
+}
 
-.logo_icon {width: 100px !important; height: 100px !important;}
-.titulo_opciones { color:#F44336; padding: 20px 5px 20px 5px; text-align: center; font-size: 18px}
-.borde_derecho_opciones {border-right: 1px solid grey;}
-.contenedor_fuentes {font-size:20px;}
-.contenedor_fuentes p {cursor:pointer; transition:background 100ms; }
-.contenedor_fuentes p:hover {box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12); background-color: crimson; color: white;}
-.contenedor_logos div img:hover { box-shadow: 0 3px 5px -1px rgba(255,235,59,.2), 0 6px 10px 0 rgba(255,235,59,.14), 0 1px 18px 0 rgba(255,235,59,.12);}
-.cont_iconos_logo_opciones md-icon:hover, p_footer md-icon:hover {color: orangered; cursor: pointer;}
-.activo{background:orangered !important; color: white;}
-.innactivo{background:transparent;}
+.text-center {
+    text-align: center;
+}
+
+.margen_inferior {
+    margin-bottom: 2%;
+}
+
+.margen_izquierdo {
+    margin-left: 2%
+}
+
+.margen_derecho {
+    margin-right: 2%;
+}
+
+.margen_superior {
+    margin-top: 2%;
+}
+
+.padding_top {
+    padding-top: 8px;
+}
+
+.padding_left {
+    padding-left: 8px;
+}
+
+.padding_right {
+    padding-right: 8px;
+}
+
+.padding_bottom {
+    padding-bottom: 8px;
+}
+
+
+/* Opciones Vista */
+
+.logo_icon {
+    width: 100px !important;
+    height: 100px !important;
+    
+}
+
+
+
+.titulo_opciones {
+    color: #F44336;
+    padding: 20px 5px 20px 5px;
+    text-align: center;
+    font-size: 18px
+}
+
+.borde_derecho_opciones {
+    border-right: 1px solid grey;
+}
+
+.contenedor_fuentes {
+    font-size: 20px;
+}
+
+.contenedor_fuentes p {
+    cursor: pointer;
+    transition: all 500ms;
+    border-top-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+
+.contenedor_fuentes p:hover {
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+    background-color: crimson;
+    color: white;
+    border-top-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+}
+
+.contenedor_logos div img:hover {
+    box-shadow: 0 3px 5px -1px rgba(255, 235, 59, .2), 0 6px 10px 0 rgba(255, 235, 59, .14), 0 1px 18px 0 rgba(255, 235, 59, .12);
+}
+
+.cont_iconos_logo_opciones md-icon:hover,
+p_footer md-icon:hover {
+    color: orangered;
+    cursor: pointer;
+}
+
+
+/* CLASES DE SELECCION */
+
+.fuente.activo {
+    background: orangered !important;
+    color: white;
+}
+
+.fuente.inactivo {
+    background: transparent;
+}
+
+.icono.activo {
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+}
+
+.icono.inactivo {
+    box-shadow: none;
+}
+
 
 /* paquetes */
 
-paquete {cursor:default;}
-paquete p_header, metodo_pago p_header { font-size: 26px; font-weight: bold; text-align: center; color: white; display: block;}
-.normal p_header{ background: #b5b5b5;}
-.iniciado p_header { background: #c2a840;}
-.premium p_header {background: #EFB600;}
-p_footer md-icon {cursor:pointer;}
+paquete {
+    cursor: default;
+}
+
+paquete p_header,
+metodo_pago p_header {
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    display: block;
+}
+
+.normal p_header {
+    background: #b5b5b5;
+}
+
+.iniciado p_header {
+    background: #c2a840;
+}
+
+.premium p_header {
+    background: #EFB600;
+}
+
+p_footer md-icon {
+    cursor: pointer;
+}
+
 
 /* Metodos de pagos */
 
-metodo_pago p_header {background: silver;}
+metodo_pago p_header {
+    background: silver;
+}
+
 
 /* DashBoard */
 
-.h_seccion_dashboard {background-color:#FF9800; color: white; margin:0 !important;}
-.relative {position: absolute; top:4%;}
+.h_seccion_dashboard {
+    background-color: #FF9800;
+    color: white;
+    margin: 0 !important;
+}
+
+.relative {
+    position: absolute;
+    top: 4%;
+}
+
 
 /* EDITOR */
 
-.logo_icon_editor{width: 32px; height: 32px;}
-.logo_grande_editor_cont {margin-top: 10%; cursor: pointer;}
-.logo_grande_editor_cont div {cursor: pointer;}
-.logo_grande_editor {width:300px; height:300px; }
+.logo_icon_editor {
+    width: 32px;
+    height: 32px;
+}
+
+.logo_grande_editor_cont {
+    margin-top: 10%;
+    cursor: pointer;
+}
+
+.logo_grande_editor_cont div {
+    cursor: pointer;
+}
+
+.logo_grande_editor {
+    width: 300px;
+    height: 300px;
+}
+
+
+/* PROCESO */
+
+.logo_pre_final { height:210px; }
+
+.efecto_com_inac {
+    display: none;
+    transition: all 1s;
+}
+
+.efecto_compra {
+    display: block !important;
+    transition: all 1s;
+}
+
 
 /* Estilos Scroll Bar */
 
-.scroll{overflow: auto;}
+.scroll {
+    overflow: auto;
+}
 
 ::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width:0;
+    -webkit-appearance: none;
+    width: 0;
 }
+
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .0);
-  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .0);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
 }
 
 ::-moz-scrollbar {
-  -webkit-appearance: none;
-  width: 1px;
+    -webkit-appearance: none;
+    width: 1px;
 }
+
 ::-moz-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .0);
-  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .0);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
 }
