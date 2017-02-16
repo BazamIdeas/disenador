@@ -43,13 +43,13 @@ angular.module("disenador-de-logos")
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
 
 
-    this.datosComenzar = $stateParams.datos;
+    this.datosEstadoAnterior = $stateParams.datos;
 
 
 
     this.seleccionado = function (primeraSeleccion, segundaSeleccion) {
 
-        var llaves = Object.keys(primeraSeleccion).length;
+        var llaves = Object.keys(primeraSeleccion).length * Object.keys(segundaSeleccion).length;
         return llaves;
 
     }
@@ -175,18 +175,32 @@ angular.module("disenador-de-logos")
 
     }
 
-    this.agregarElemento= function (indice, valor, tipo) {
+    this.agregarElemento = function (indice, valor, tipo) {
+        
+        if (Object.keys(this.datos[tipo]).length < 3) {
 
+            if (!this.datos[tipo][indice]) {
 
-        if (!this.datos[tipo][indice]) {
+                this.datos[tipo][indice] = valor;
+                this.respuesta[tipo][indice].estado = 'activo';
 
-            this.datos[tipo][indice] = valor;
-            this.respuesta[tipo][indice].estado = 'activo';
+            } else {
 
+                delete this.datos[tipo][indice];
+                this.respuesta[tipo][indice].estado = 'inactivo';
+            }
         } else {
 
-            delete this.datos[tipo][indice];
-            this.respuesta[tipo][indice].estado = 'inactivo';
+            if (this.datos[tipo][indice]) {
+
+                
+                delete this.datos[tipo][indice];
+                this.respuesta[tipo][indice].estado = 'inactivo';
+
+            } else {
+                
+                return false;
+            }
         }
 
 
@@ -280,7 +294,10 @@ angular.module("disenador-de-logos")
 
 /* Proceso */
 
-.controller('procesoController', ['$scope', function ($scope) {
+.controller('procesoController', ['$scope', '$stateParams', function ($scope, $stateParams) {
+    
+    this.datosEstadoAnterior = $stateParams.datos;
+    
     this.estado = false;
     this.modoSeleccionado = 'md-scale';
 
@@ -316,15 +333,15 @@ angular.module("disenador-de-logos")
             nombre: "X"
         }]
     }
-    
+
     this.datos = {
 
         fuentes: {},
         iconos: {}
 
     }
-    
-    this.efectoHover= function (indice, valor, tipo) {
+
+    this.efectoHover = function (indice, valor, tipo) {
 
 
         if (!this.datos[tipo][indice]) {
@@ -340,7 +357,7 @@ angular.module("disenador-de-logos")
 
 
     }
-    
+
 }])
 
 /* Editor */

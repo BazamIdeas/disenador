@@ -39,7 +39,7 @@
 
 
                 <div flex="33" layout-padding ng-click="opciones.agregarElemento($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.respuesta.fuentes">
-                    <p class="fuente" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosComenzar.nombre}}</p>
+                    <p class="fuente" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.EstadoAnterior.nombre}}</p>
                 </div>
 
 
@@ -48,8 +48,8 @@
     </div>
     <div layout="row" class="margen_superior">
         <div layout="row" flex layout-align="space-between center">
-            <md-button class="md-raised md-primary" ui-sref="comenzar({datos: opciones.datosComenzar})">Atrás</md-button>
-            <md-button class="md-raised md-primary siguiente" ng-show="opciones.seleccionado(opciones.datos.fuentes)" ui-sref="proceso({datos: opciones.datos})">Siguiente</md-button>
+            <md-button class="md-raised md-primary" ui-sref="comenzar">Atrás</md-button>
+            <md-button class="md-raised md-primary siguiente" ng-show="opciones.seleccionado(opciones.datos.fuentes, opciones.datos.iconos)" ui-sref="proceso({datos: {nombre: opciones.datosEstadoAnterior.nombre  , elementos: opciones.datos}})">Siguiente</md-button>
         </div>
     </div>
 </div>

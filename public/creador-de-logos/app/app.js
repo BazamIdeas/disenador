@@ -23,7 +23,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 name: 'proceso',
                 url: '/proceso',
                 templateUrl: 'app/views/proceso.tpl',
-                controller: 'procesoController as proceso'
+                controller: 'procesoController as proceso',
+                params: {
+                    datos: null
+                }
             })
             .state({
                 name: 'editor',
