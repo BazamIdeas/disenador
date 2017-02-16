@@ -70,21 +70,22 @@
     opacity: 1;
 }
 
-/* Contenedor de iconos  */
-.logo_pre_final_iconos.ng-hide {
+/* Iconos de la vista PROCESOS */
+
+.iconos-procesos.ng-hide {
     opacity: 0;
     top: -180px;
 }
 
-.logo_pre_final_iconos.ng-hide-add {
+.iconos-procesos.ng-hide-add {
     transition: all ease-out 0.2s;
 }
 
-.logo_pre_final_iconos.ng-hide-remove {
+.iconos-procesos.ng-hide-remove {
     transition: all ease-in 0.1s;
     transition-delay: 0.2s;
 }
-.logo_pre_final_iconos {
+.iconos-procesos {
     top:-111px;
     opacity: 1;
 }

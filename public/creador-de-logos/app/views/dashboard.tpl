@@ -8,16 +8,16 @@
         </div>
     </div>
     <div layout="row" layout-align="space-around">
-        <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
-            <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding>
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+        <div layout="row" flex="45" class="md-whiteframe-2dp scroll">
+            <div flex="100" layout="row" layout-align="space-around" layout-wrap layout-padding>
+                <div flex="30" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
                     <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
             </div>
         </div>
         <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
             <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="text-center">
-                <div flex="33" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
+                <div flex="30" layout-padding ng-repeat="icono in cliente.respuesta.iconos">
                     <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
             </div>

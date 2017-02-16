@@ -25,7 +25,7 @@
 
     <div layout="row" layout-align="center">
         <div flex="70" layout="row" layout-align="baseline space-around" layout-wrap class="text-center">
-            <div flex="30"  ng-repeat="icono in proceso.respuesta.iconos" ng-mouseenter="proceso.efectoHover($index, icono, 'iconos')" ng-mouseleave="proceso.efectoHover($index, icono, 'iconos')" class="md-whiteframe-2dp margen_derecho margen_inferior contenedor_logos_proceso logo_pre_final" >
+            <div flex="30"  ng-repeat="icono in proceso.respuesta.iconos" ng-mouseenter="proceso.efectoHover($index, icono, 'iconos')" ng-mouseleave="proceso.efectoHover($index, icono, 'iconos')" class="md-whiteframe-2dp margen_derecho margen_inferior contenedor_logos_proceso proceso-content" >
                 <div layput="column" layout-padding layout-align="space-around center">
 
                     <div class="cambio">
@@ -33,8 +33,8 @@
                         <div class="text-center" layout-padding>Empresa</div>
                     </div>
 
-                    <md-icon ui-sref="editor" class="logo_pre_final_iconos siguiente" ng-show="proceso.datos.iconos[$index].estado">create</md-icon>
-                    <md-icon ui-sref="paquetes" class="logo_pre_final_iconos siguiente" ng-show="proceso.datos.iconos[$index].estado">shopping_cart</md-icon>
+                    <md-icon ui-sref="editor" class="iconos-procesos siguiente" ng-show="proceso.datos.iconos[$index].estado">create</md-icon>
+                    <md-icon ui-sref="paquetes" class="iconos-procesos siguiente" ng-show="proceso.datos.iconos[$index].estado">shopping_cart</md-icon>
 
                 </div>
             </div>

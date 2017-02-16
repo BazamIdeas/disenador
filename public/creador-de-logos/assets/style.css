@@ -252,19 +252,19 @@ metodo_pago p_header {
 
 /* PROCESO */
 
-.logo_pre_final {
+.proceso-content {
     height: 154px;
     transition:background ease-in 0.3s ;
 }
 
-.logo_pre_final:hover {
+.proceso-content:hover {
     background-color: rgba(0, 0, 0, .3);
 }
 
 
-.logo_pre_final:hover .cambio {opacity: 0.3;} 
+.proceso-content:hover .cambio {opacity: 0.3;} 
 
-.logo_pre_final_iconos {
+.iconos-procesos {
     position: relative;
     top: calc(-80px - 25px);
     z-index: 99999;
@@ -275,7 +275,7 @@ metodo_pago p_header {
     transition: color 0.3s;
 }
 
-.logo_pre_final_iconos:hover {color: orangered;}
+.iconos-procesos:hover {color: orangered;}
 
 
 /* Estilos Scroll Bar */
