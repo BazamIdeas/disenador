@@ -12,3 +12,34 @@ angular.module("disenador-de-logos")
     }
     return informacion;
 }])
+
+.factory('crearLogoFactory', [function () {
+
+    var logos = [];
+
+    var crear = function (iconos, fuentes) {
+
+        angular.forEach(iconos, function (icono, indice) {
+
+            angular.forEach(fuentes, function (fuente, indice) {
+
+                var logo = {
+
+                    icono: icono.url,
+                    fuente: fuente.url
+
+                };
+
+                logos.push(logo);
+
+            })
+
+        })
+        
+        return logos;
+
+    }
+
+    return crear;
+
+}])

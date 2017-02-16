@@ -25,19 +25,22 @@
 
     <div layout="row" layout-align="center">
         <div flex="70" layout="row" layout-align="baseline space-around" layout-wrap class="text-center">
-            <div flex="30"  ng-repeat="icono in proceso.respuesta.iconos" ng-mouseenter="proceso.efectoHover($index, icono, 'iconos')" ng-mouseleave="proceso.efectoHover($index, icono, 'iconos')" class="md-whiteframe-2dp margen_derecho margen_inferior contenedor_logos_proceso proceso-content" >
-                <div layput="column" layout-padding layout-align="space-around center">
+            
 
-                    <div class="cambio">
-                        <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
-                        <div class="text-center" layout-padding>Empresa</div>
+                <div flex="30" ng-repeat="logo in proceso.logos" ng-mouseenter="proceso.efectoHover($index, logo)" ng-mouseleave="proceso.efectoHover($index, logo)" class="md-whiteframe-2dp margen_derecho margen_inferior contenedor_logos_proceso proceso-content">
+                    <div layput="column" layout-padding layout-align="space-around center">
+
+                        <div class="cambio">
+                            <md-icon class="logo_icon" md-svg-src="{{logo.icono}}"></md-icon>
+                            <div class="text-center" layout-padding>Empresa</div>
+                        </div>
+
+                        <md-icon ui-sref="editor" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>
+                        <md-icon ui-sref="paquetes" class="iconos-procesos siguiente" ng-show="logo.estado">shopping_cart</md-icon>
+
                     </div>
-
-                    <md-icon ui-sref="editor" class="iconos-procesos siguiente" ng-show="proceso.datos.iconos[$index].estado">create</md-icon>
-                    <md-icon ui-sref="paquetes" class="iconos-procesos siguiente" ng-show="proceso.datos.iconos[$index].estado">shopping_cart</md-icon>
-
                 </div>
-            </div>
+           
         </div>
     </div>
 

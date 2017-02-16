@@ -39,7 +39,7 @@
 
 
                 <div flex="33" layout-padding ng-click="opciones.agregarElemento($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.respuesta.fuentes">
-                    <p class="fuente" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.EstadoAnterior.nombre}}</p>
+                    <p class="fuente" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosEstadoAnterior.nombre}}</p>
                 </div>
 
 

@@ -176,7 +176,7 @@ angular.module("disenador-de-logos")
     }
 
     this.agregarElemento = function (indice, valor, tipo) {
-        
+
         if (Object.keys(this.datos[tipo]).length < 3) {
 
             if (!this.datos[tipo][indice]) {
@@ -193,12 +193,12 @@ angular.module("disenador-de-logos")
 
             if (this.datos[tipo][indice]) {
 
-                
+
                 delete this.datos[tipo][indice];
                 this.respuesta[tipo][indice].estado = 'inactivo';
 
             } else {
-                
+
                 return false;
             }
         }
@@ -294,71 +294,35 @@ angular.module("disenador-de-logos")
 
 /* Proceso */
 
-.controller('procesoController', ['$scope', '$stateParams', function ($scope, $stateParams) {
-    
+.controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', function ($scope, $stateParams, crearLogoFactory) {
+
     this.datosEstadoAnterior = $stateParams.datos;
-    
+    this.datos = [];
     this.estado = false;
     this.modoSeleccionado = 'md-scale';
 
-    this.respuesta = {
-        iconos: [{
-            id: 1,
-            url: "../assets/svg/apple.svg",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "../assets/svg/audio.svg",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "../assets/svg/audiobook.svg",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "../assets/svg/audiobook.svg",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "../assets/svg/audiobook.svg",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "../assets/svg/audiobook.svg",
-            nombre: "X"
-        }],
-        fuentes: [{
-            id: 1,
-            url: "../assets/svg/apple.svg",
-            nombre: "X"
-        }]
-    }
-
-    this.datos = {
-
-        fuentes: {},
-        iconos: {}
-
-    }
-
-    this.efectoHover = function (indice, valor, tipo) {
+    this.logos = crearLogoFactory(this.datosEstadoAnterior.elementos.iconos, this.datosEstadoAnterior.elementos.fuentes );
 
 
-        if (!this.datos[tipo][indice]) {
+    this.efectoHover = function (indice, valor) {
 
-            this.datos[tipo][indice] = valor;
-            this.respuesta[tipo][indice].estado = true;
+
+        if (!this.datos[indice]) {
+
+            this.datos[indice] = valor;
+            this.logos[indice].estado = true;
+        
 
         } else {
 
-            delete this.datos[tipo][indice];
-            this.respuesta[tipo][indice].estado = false;
+            delete this.datos[indice];
+            this.logos[indice].estado = false;
         }
 
 
     }
 
-}])
+            }])
 
 /* Editor */
 
