@@ -6,7 +6,10 @@
     background-repeat: no-repeat;
     background-size: 100% 15%;
 }
-div:focus {outline: none !important;}
+
+div:focus {
+    outline: none !important;
+}
 
 header,
 header md-toolbar {
@@ -107,10 +110,7 @@ md-content {
 .logo_icon {
     width: 100px !important;
     height: 100px !important;
-    
 }
-
-
 
 .titulo_opciones {
     color: #F44336;
@@ -252,17 +252,30 @@ metodo_pago p_header {
 
 /* PROCESO */
 
-.logo_pre_final { height:210px; }
-
-.efecto_com_inac {
-    display: none;
-    transition: all 1s;
+.logo_pre_final {
+    height: 154px;
+    transition:background ease-in 0.3s ;
 }
 
-.efecto_compra {
-    display: block !important;
-    transition: all 1s;
+.logo_pre_final:hover {
+    background-color: rgba(0, 0, 0, .3);
 }
+
+
+.logo_pre_final:hover .cambio {opacity: 0.3;} 
+
+.logo_pre_final_iconos {
+    position: relative;
+    top: calc(-80px - 25px);
+    z-index: 99999;
+    color:white;
+    font-size: 50px;
+    margin-right: 15%;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.logo_pre_final_iconos:hover {color: orangered;}
 
 
 /* Estilos Scroll Bar */

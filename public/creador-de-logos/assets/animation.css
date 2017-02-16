@@ -70,15 +70,22 @@
     opacity: 1;
 }
 
-.logo_pre_final.ng-hide {
+/* Contenedor de iconos  */
+.logo_pre_final_iconos.ng-hide {
     opacity: 0;
+    top: -180px;
 }
 
-.logo_pre_final.ng-hide-add,
-.logo_pre_final.ng-hide-remove {
-    transition: all linear 0.2s;
+.logo_pre_final_iconos.ng-hide-add {
+    transition: all ease-out 0.2s;
 }
 
-.logo_pre_final {
+.logo_pre_final_iconos.ng-hide-remove {
+    transition: all ease-in 0.1s;
+    transition-delay: 0.2s;
+}
+.logo_pre_final_iconos {
+    top:-111px;
     opacity: 1;
 }
+
