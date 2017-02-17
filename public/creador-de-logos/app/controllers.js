@@ -60,112 +60,92 @@ angular.module("disenador-de-logos")
         /* ICONOS */
         iconos: [{
                 id: 1,
-                url: "../assets/svg/apple.svg",
+                url: "/creador-de-logos/assets/svg/apple.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/audio.svg",
+                url: "/creador-de-logos/assets/svg/audio.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/audiobook.svg",
+                url: "/creador-de-logos/assets/svg/audiobook.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/book.svg",
+                url: "/creador-de-logos/assets/svg/book.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/browser.svg",
+                url: "/creador-de-logos/assets/svg/browser.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/calculator.svg",
+                url: "/creador-de-logos/assets/svg/calculator.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/certificate.svg",
+                url: "/creador-de-logos/assets/svg/certificate.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/chat.svg",
+                url: "/creador-de-logos/assets/svg/chat.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/chemistry.svg",
+                url: "/creador-de-logos/assets/svg/chemistry.svg",
                 nombre: "X"
         },
             {
                 id: 1,
-                url: "../assets/svg/chip.svg",
+                url: "/creador-de-logos/assets/svg/chip.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/cloud.svg",
+                url: "/creador-de-logos/assets/svg/cloud.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/code.svg",
+                url: "/creador-de-logos/assets/svg/code.svg",
                 nombre: "X"
         }],
         /* FUENTES */
         fuentes: [{
             id: 1,
-            url: "#",
-            nombre: "X"
+            url: "../assets/fonts/Bahiana-Regular.ttf",
+            nombre: "Bahiana-Regular"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
+            id: 2,
+            url: "../assets/fonts/Barrio-Regular.ttf",
+            nombre: "Barrio-Regular"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
+            id: 3,
+            url: "../assets/fonts/CaveatBrush-Regular.ttf",
+            nombre: "CaveatBrush-Regular"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
+            id: 4,
+            url: "../assets/fonts/DellaRespira-Regular.ttf",
+            nombre: "DellaRespira-Regular"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
+            id: 5,
+            url: "../assets/fonts/IndieFlower.ttf",
+            nombre: "IndieFlower"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
+            id: 6,
+            url: "../assets/fonts/Anton-Regular.ttf",
+            nombre: "Anton-Regular"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
+            id: 7,
+            url: "../assets/fonts/FjallaOne-Regular.ttf",
+            nombre: "FjallaOne-Regular"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
+            id: 8,
+            url: "../assets/fonts/Lobster-Regular.ttf",
+            nombre: "Lobster-Regular"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
-        }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
-        }, ]
+            id: 9,
+            url: "../assets/fonts/Pacifico-Regular.ttf",
+            nombre: "Pacifico-Regular"
+        }]
     }
 
     this.datos = {
@@ -301,7 +281,7 @@ angular.module("disenador-de-logos")
     this.estado = false;
     this.modoSeleccionado = 'md-scale';
 
-    this.logos = crearLogoFactory(this.datosEstadoAnterior.elementos.iconos, this.datosEstadoAnterior.elementos.fuentes );
+    this.logos = crearLogoFactory(this.datosEstadoAnterior.elementos.iconos, this.datosEstadoAnterior.elementos.fuentes);
 
 
     this.efectoHover = function (indice, valor) {
@@ -311,7 +291,7 @@ angular.module("disenador-de-logos")
 
             this.datos[indice] = valor;
             this.logos[indice].estado = true;
-        
+
 
         } else {
 

@@ -1,3 +1,10 @@
+<style ng-repeat="fuente in opciones.respuesta.fuentes">
+    @font-face {
+        font-family: {{fuente.nombre}};
+        src: url('{{fuente.url}}');
+    }
+
+</style>
 <div flex layout="column" ng-cloak>
     <div layout="row" layout-align="space-between center" id="popupContainer">
         <h3 flex="40" class="titulo_opciones md-whiteframe-2dp" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
@@ -23,12 +30,12 @@
         </div>
     </div>
     <div layout="row" layout-align="space-around" class="margen_superior">
-        
+
         <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
             <div flex="100" layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_logos text-center">
 
                 <div flex="33" layout-padding ng-repeat="icono in opciones.respuesta.iconos" ng-click="opciones.agregarElemento($index, icono, 'iconos')">
-                    <md-icon class="logo_icon icono"  ng-class="opciones.datos.iconos[$index].estado" md-svg-src="{{icono.url}}"></md-icon>
+                    <md-icon class="logo_icon icono" ng-class="opciones.datos.iconos[$index].estado" md-svg-src="{{icono.url}}"></md-icon>
                 </div>
 
             </div>
@@ -39,7 +46,7 @@
 
 
                 <div flex="33" layout-padding ng-click="opciones.agregarElemento($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.respuesta.fuentes">
-                    <p class="fuente" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosEstadoAnterior.nombre}}</p>
+                    <p class="fuente"ng-style="{'font-family' : fuente.nombre}" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosEstadoAnterior.nombre}}</p>
                 </div>
 
 

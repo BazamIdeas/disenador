@@ -1,3 +1,11 @@
+<style ng-repeat="fuente in proceso.datosEstadoAnterior.elementos.fuentes">
+    @font-face {
+        font-family: {{fuente.nombre}};
+        src: url('{{fuente.url}}');
+    }
+
+</style>
+
 <div flex layout="column" ng-cloak layout-align="space-between">
     <div layout layout-align="space-between center" id="popupContainer">
         <h3 flex="30" class="titulo_opciones md-whiteframe-2dp" md-truncate>ELIJA SU LOGO</h3>
@@ -31,8 +39,8 @@
                     <div layput="column" layout-padding layout-align="space-around center">
 
                         <div class="cambio">
-                            <md-icon class="logo_icon" md-svg-src="{{logo.icono}}"></md-icon>
-                            <div class="text-center" layout-padding>Empresa</div>
+                            <md-icon class="logo_icon" md-svg-src="{{logo.icono.url}}"></md-icon>
+                            <div class="text-center" ng-style="{'font-family' : logo.fuente.nombre}" layout-padding>{{proceso.datosEstadoAnterior.nombre}}</div>
                         </div>
 
                         <md-icon ui-sref="editor" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>

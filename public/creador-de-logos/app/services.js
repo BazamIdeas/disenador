@@ -25,8 +25,8 @@ angular.module("disenador-de-logos")
 
                 var logo = {
 
-                    icono: icono.url,
-                    fuente: fuente.url
+                    icono: icono,
+                    fuente: fuente
 
                 };
 
