@@ -327,7 +327,7 @@ angular.module("disenador-de-logos")
 /* Cliente */
 
 .controller('clienteController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
-    this.compartir = $stateParams.datos;
+    this.datosEstadoAnterior = $stateParams.datos;
     this.respuesta = {
         iconos: [{
                 id: 1,
@@ -381,6 +381,28 @@ angular.module("disenador-de-logos")
                 url: "../assets/svg/code.svg",
                 nombre: "X"
         }]
+    }
+
+
+    this.datos = [];
+    this.estado = false;
+    
+    this.efectoHover = function (indice, valor) {
+
+
+        if (!this.datos[indice]) {
+
+            this.datos[indice] = valor;
+            this.logos[indice].estado = true;
+
+
+        } else {
+
+            delete this.datos[indice];
+            this.logos[indice].estado = false;
+        }
+
+
     }
 }])
 

@@ -1,4 +1,4 @@
-<div flex layout="column" layout-align="space-between" ng-cloak>
+<div flex layout="column" layout-align="space-around" ng-cloak>
 
     <div layout="row" layout-align="start">
         <div flex="30" class="contenedor_logos md-whiteframe-2dp">
