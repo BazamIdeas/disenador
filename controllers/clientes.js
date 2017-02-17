@@ -45,14 +45,15 @@ exports.nuevoCliente =  function(req,res)
 			nombreCliente : req.body.nombreCliente,
 			correo : req.body.correo,
 			pass : req.body.pass,
-			telefono : req.body.telefono
+			telefono : req.body.telefono,
+			pais : req.body.pais
 		};
 		cliente.insertCliente(clienteData,function(error, data)
 		{
 			//si el cliente se ha insertado correctamente mostramos su info
 			if(data && data.insertId)
 			{
-				res.status(200).json(data);
+				res.status(201).json(data);
 			}
 			else
 			{

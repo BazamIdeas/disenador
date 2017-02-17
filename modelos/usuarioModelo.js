@@ -24,7 +24,7 @@ usuario.getUsuarios=function(callback){
 
 usuario.getUsuario = function(id,callback)
 { 
-	var q = 'SELECT nombreUser, idUsuario, correo, pass FROM usuarios WHERE idUsuario = ? ' 
+	var q = 'SELECT nombreUser, idUsuario, correo, pass FROM usuarios WHERE  idUsuario = ?  ' 
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
@@ -42,25 +42,44 @@ usuario.getUsuario = function(id,callback)
 }
  
 
-//añadir un nuevo cliente
-usuario.insertUsuario = function(usuarioData,callback)
+//añadir un nuevo usuario
+usuario.insertUsuario = function(UsuarioData,callback)
 {
-	var q = 'INSERT INTO usuarios SET ? ' 
-	var par = usuarioData //parametros
+	var q = 'SELECT idUsuario FROM usuarios WHERE correo = ? ' 
+	var correo = usuarioData.correo
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, result){
+		connection.query( q , correo, function(err, row){
 	  	
-	  	if(err)	throw err;
+	  	if (typeof row !== 'undefined' && row.length > 0){
+	  		callback(null,{"msg" : 'usuario ya registrado'});
+	  	}
+	  	
+	  	else{
+	  			var qq = 'INSERT INTO usuarios SET ? ' 
+				var par = clienteData //parametros
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
+				DB.getConnection(function(err, connection)
+				{
+					connection.query( qq , par , function(err, result){
+				  	
+				  	if(err)	throw err;
+
+				  	//devolvemos la última id insertada
+				  	else callback(null,{"insertId" : result.insertId}); 
+	  	
+				  });
+
+				  connection.release();
+				});
+	  		} 
 	  	
 	  });
 
 	  connection.release();
 	});
+
 }
 
 //actualizar un cliente

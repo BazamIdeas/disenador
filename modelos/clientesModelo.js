@@ -7,7 +7,7 @@ var cliente = {};
 //obtenemos todos los clientes
 cliente.getClientes = function(callback)
 {
-	var q = 'SELECT nombreCliente, idCliente, correo, pass FROM clientes ORDER BY idCliente' 
+	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes ORDER BY idCliente' 
 
 	DB.getConnection(function(err, connection)
 	{
@@ -26,7 +26,7 @@ cliente.getClientes = function(callback)
 //obtenemos un cliente por su id
 cliente.getCliente = function(id,callback)
 { 
-	var q = 'SELECT nombreCliente, idCliente, correo, pass FROM clientes WHERE idCliente = ? ' 
+	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes WHERE idCliente = ? ' 
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
@@ -87,7 +87,7 @@ cliente.insertCliente = function(clienteData,callback)
 //actualizar un cliente
 cliente.updateCliente = function(clienteData, callback)
 {
-	var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ?, telefono = ? WHERE idCliente = ?';
+	var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ?, telefono = ?, pais = ? WHERE idCliente = ?';
 	var par = clienteData //parametros
 
 	DB.getConnection(function(err, connection)

@@ -21,7 +21,6 @@ router.post("/usuario/modificar/", controllers.usuarios.modificarUsuario);
 
 //MODULO PEDIDOS
 router.get('/pedidos', controllers.pedidos.listaPedidos);
-
 router.get('/pedido/:id', controllers.pedidos.datosPedido);
 router.get('/pedido/borrar/:id', controllers.pedidos.borrarPedido);
 router.post("/pedido", controllers.pedidos.nuevoPedido);
