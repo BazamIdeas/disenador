@@ -1,4 +1,4 @@
-<div flex layout="column" ng-cloak >
+<div flex layout="column" ng-cloak>
     <div layout layout-align="space-around" class="margen_superior">
         <paquete class="md-whiteframe-2dp normal padding_bottom">
             <p_header layout-padding>Normal</p_header>
@@ -34,5 +34,9 @@
             </p_footer>
         </paquete>
     </div>
-</div>
+    <div layout="row" class="margen_superior">
+        <div layout="row" flex layout-align="space-between center">
+            <md-button class="md-raised md-primary" ui-sref="#">Atrás</md-button>
+        </div>
+    </div>
 </div>

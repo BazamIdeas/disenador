@@ -279,18 +279,16 @@ metodo_pago p_header {
 
 /* Estilos Scroll Bar */
 
-.scroll {
-    overflow: auto;
-}
+
 
 ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 0;
+    width:6px;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, .0);
+    background-color: rgba(0, 0, 0, .5);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
 }
 

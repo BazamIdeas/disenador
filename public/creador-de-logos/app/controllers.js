@@ -60,92 +60,68 @@ angular.module("disenador-de-logos")
         /* ICONOS */
         iconos: [{
                 id: 1,
-                url: "/creador-de-logos/assets/svg/apple.svg",
+                url: "assets/svg/apple.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/audio.svg",
+                url: "assets/svg/audio.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/audiobook.svg",
+                url: "assets/svg/audiobook.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/book.svg",
+                url: "assets/svg/book.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/browser.svg",
+                url: "assets/svg/browser.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/calculator.svg",
+                url: "assets/svg/calculator.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/certificate.svg",
+                url: "assets/svg/certificate.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/chat.svg",
+                url: "assets/svg/chat.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/chemistry.svg",
+                url: "assets/svg/chemistry.svg",
                 nombre: "X"
         },
             {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/chip.svg",
+                url: "assets/svg/chip.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/cloud.svg",
+                url: "assets/svg/cloud.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "/creador-de-logos/assets/svg/code.svg",
+                url: "assets/svg/code.svg",
                 nombre: "X"
         }],
         /* FUENTES */
         fuentes: [{
             id: 1,
-            url: "../assets/fonts/Bahiana-Regular.ttf",
-            nombre: "Bahiana-Regular"
+            url: "#",
+            nombre: "X"
         }, {
-            id: 2,
-            url: "../assets/fonts/Barrio-Regular.ttf",
-            nombre: "Barrio-Regular"
+            id: 1,
+            url: "#",
+            nombre: "X"
         }, {
-            id: 3,
-            url: "../assets/fonts/CaveatBrush-Regular.ttf",
-            nombre: "CaveatBrush-Regular"
-        }, {
-            id: 4,
-            url: "../assets/fonts/DellaRespira-Regular.ttf",
-            nombre: "DellaRespira-Regular"
-        }, {
-            id: 5,
-            url: "../assets/fonts/IndieFlower.ttf",
-            nombre: "IndieFlower"
-        }, {
-            id: 6,
-            url: "../assets/fonts/Anton-Regular.ttf",
-            nombre: "Anton-Regular"
-        }, {
-            id: 7,
-            url: "../assets/fonts/FjallaOne-Regular.ttf",
-            nombre: "FjallaOne-Regular"
-        }, {
-            id: 8,
-            url: "../assets/fonts/Lobster-Regular.ttf",
-            nombre: "Lobster-Regular"
-        }, {
-            id: 9,
-            url: "../assets/fonts/Pacifico-Regular.ttf",
-            nombre: "Pacifico-Regular"
-        }]
+            id: 1,
+            url: "#",
+            nombre: "X"
+        }, ]
     }
 
     this.datos = {
@@ -331,54 +307,54 @@ angular.module("disenador-de-logos")
     this.respuesta = {
         iconos: [{
                 id: 1,
-                url: "../assets/svg/apple.svg",
+                url: "assets/svg/apple.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/audio.svg",
+                url: "assets/svg/audio.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/audiobook.svg",
+                url: "assets/svg/audiobook.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/book.svg",
+                url: "assets/svg/book.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/browser.svg",
+                url: "assets/svg/browser.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/calculator.svg",
+                url: "assets/svg/calculator.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/certificate.svg",
+                url: "assets/svg/certificate.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/chat.svg",
+                url: "assets/svg/chat.svg",
                 nombre: "X"
         }, {
                 id: 1,
-                url: "../assets/svg/chemistry.svg",
+                url: "assets/svg/chemistry.svg",
                 nombre: "X"
         },
             {
                 id: 1,
-                url: "../assets/svg/chip.svg",
+                url: "assets/svg/chip.svg",
                 nombre: "X"
         },
             {
                 id: 1,
-                url: "../assets/svg/cloud.svg",
+                url: "assets/svg/cloud.svg",
                 nombre: "X"
         },
             {
                 id: 1,
-                url: "../assets/svg/code.svg",
+                url: "assets/svg/code.svg",
                 nombre: "X"
         }]
     }

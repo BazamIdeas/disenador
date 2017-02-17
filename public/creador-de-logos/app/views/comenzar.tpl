@@ -1,13 +1,13 @@
-<div flex layout="column" ng-cloak layout-align="center">
+<div flex layout="column" ng-cloak layout-align="space-between">
 
-    <div flex="15" layout="row" layout-align="center">
-
-        <md-slider-container ng-disabled="true" flex="50" class="md-whiteframe-2dp margen_inferior">
+    <div layout="row" layout-align="center" class="margen_superior">
+        <md-slider-container flex="50" ng-disabled="true" class="md-whiteframe-2dp margen_inferior">
             <md-slider step="1" min="1" max="4" ng-model="comenzar.mostrar" aria-label="Disabled 1" flex md-discrete ng-readonly="true"></md-slider>
         </md-slider-container>
     </div>
-    <div flex="85"  layout="row" layout-align="center">
-        <form name="preferenciasFormulario" flex="50" layout-padding>
+    <div layout="row" layout-align="center">
+        <div class="row" layout-padding flex="50">
+        <form name="preferenciasFormulario">
             <div ng-switch="comenzar.mostrar">
                 <div class="pasos" ng-switch-when="1">
                     <div>
@@ -58,22 +58,24 @@
                 </div>
                 <div class="pasos" ng-switch-when="4">
                     <div layout layout-padding ng-repeat="prefrerencia in comenzar.datos.preferencias">
-                        <div flex layout layout-align="center center">
+                        <div layout layout-align="center">
                             <span class="md-body-1">{{prefrerencia.nombre}}</span>
                         </div>
                         <md-slider flex="50" md-discrete ng-model="prefrerencia.valor" step="1" min="1" max="3" aria-label="rating">
                         </md-slider>
-                        <div flex layout layout-align="center center">
+                        <div layout layout-align="center center">
                             <span class="md-body-1">{{prefrerencia.nombre2}}</span>
                         </div>
-                    </div>
-
-                    <div flex layout layout-align="space-between center">
-                        <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=3">Atras</md-button>
-                        <md-button class="md-raised md-accent" ui-sref="opciones({datos: comenzar.datos})">Enviar</md-button>
                     </div>
                 </div>
             </div>
         </form>
+        </div>
+    </div>
+    <div layout="row" class="margen_superior">
+        <div layout="row" flex layout-align="space-between center">
+            <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=3">Atras</md-button>
+            <md-button class="md-raised md-accent" ui-sref="opciones({datos: comenzar.datos})">Enviar</md-button>
+        </div>
     </div>
 </div>
