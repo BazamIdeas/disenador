@@ -113,10 +113,12 @@ md-content {
 
 .titulo_opciones {
     color: #F44336;
-    padding: 20px 5px 20px 5px;
+    padding:1%;
     text-align: center;
     font-size: 18px
 }
+
+.titulo_opciones-p {margin: 0; padding: 8% !important;}
 
 .borde_derecho_opciones {
     border-right: 1px solid grey;

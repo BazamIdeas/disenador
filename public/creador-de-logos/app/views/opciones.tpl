@@ -1,11 +1,6 @@
 <style ng-repeat="fuente in opciones.respuesta.fuentes">
     @font-face {
-        font-family: {
-            {
-                fuente.nombre
-            }
-        }
-        ;
+        font-family: {{fuente.nombre}};
         src: url('{{fuente.url}}');
     }
 
@@ -59,3 +54,4 @@
         </div>
     </div>
 </div>
+

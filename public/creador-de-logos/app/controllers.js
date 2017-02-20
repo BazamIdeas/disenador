@@ -193,7 +193,7 @@ angular.module("disenador-de-logos")
     this.hidden = false;
     this.isOpen = false;
     this.hover = false;
-    
+
     this.elementosDialog = [
         {
             name: "Caracteristicas",
@@ -236,12 +236,10 @@ angular.module("disenador-de-logos")
 
 /* Proceso */
 
-.controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', function ($scope, $stateParams, crearLogoFactory) {
+.controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', '$mdDialog', function ($scope, $stateParams, crearLogoFactory, $mdDialog) {
 
     this.datosEstadoAnterior = $stateParams.datos;
     this.datos = [];
-    this.estado = false;
-    this.modoSeleccionado = 'md-scale';
 
     this.logos = crearLogoFactory(this.datosEstadoAnterior.elementos.iconos, this.datosEstadoAnterior.elementos.fuentes);
 
@@ -264,7 +262,19 @@ angular.module("disenador-de-logos")
 
     }
 
+
+    /* Barra */
+
+    this.isOpen = false;
+
+    this.estadoProcesoBarra = {
+        isOpen: false,
+        count: 0,
+        selectedDirection: 'left'
+    };
+
             }])
+
 
 /* Editor */
 
