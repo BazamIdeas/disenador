@@ -1,13 +1,15 @@
 angular.module("disenador-de-logos")
 
-.directive('bazam-svg-text', function () {
+.directive('bazamSvgText', function ($timeout) {
     return {
         restrict: 'AE',
-        priority: 10,
-        template: '{{scope.todo}}',
-        link: function (scope, elem, attrs) {
-            scope.todo = elem;
+        priority: 1000000,
+        template: '<p>Hola</p>',
+        post: function(scope, element, attributes, controller, transcludeFn){
+ 
+             }
+
         }
-        
+
     };
 });
