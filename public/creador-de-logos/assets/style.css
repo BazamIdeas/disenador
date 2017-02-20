@@ -219,6 +219,7 @@ metodo_pago p_header {
     background-color: #FF9800;
     color: white;
     margin: 0 !important;
+    padding-bottom: 3%;
 }
 
 .relative {
@@ -253,28 +254,31 @@ metodo_pago p_header {
 
 .proceso-content {
     height: 154px;
-    transition:background ease-in 0.3s ;
+    transition: background ease-in 0.3s;
 }
 
 .proceso-content:hover {
     background-color: rgba(0, 0, 0, .3);
 }
 
-
-.proceso-content:hover .cambio {opacity: 0.3;} 
+.proceso-content:hover .cambio {
+    opacity: 0.3;
+}
 
 .iconos-procesos {
     position: relative;
     top: calc(-80px - 25px);
     z-index: 99999;
-    color:white;
+    color: white;
     font-size: 50px;
     margin-right: 15%;
     cursor: pointer;
     transition: color 0.3s;
 }
 
-.iconos-procesos:hover {color: orangered;}
+.iconos-procesos:hover {
+    color: orangered;
+}
 
 
 /* Estilos Scroll Bar */
