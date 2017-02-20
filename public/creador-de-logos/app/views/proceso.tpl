@@ -39,7 +39,7 @@
                     <div layput="column" layout-padding layout-align="space-around center">
 
                         <div class="cambio">
-                            <md-icon class="logo_icon" md-svg-src="{{logo.icono.url}}" bazam-svg-text></md-icon>
+                            <md-icon class="logo_icon" md-svg-src="{{logo.icono.url}}"></md-icon>
                             <div class="text-center" ng-style="{'font-family' : logo.fuente.nombre}" layout-padding>{{proceso.datosEstadoAnterior.nombre}}</div>
                         </div>
 
