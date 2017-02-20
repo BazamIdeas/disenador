@@ -111,17 +111,41 @@ angular.module("disenador-de-logos")
         /* FUENTES */
         fuentes: [{
             id: 1,
-            url: "#",
-            nombre: "X"
+            url: "../assets/fonts/Bahiana-Regular.ttf",
+            nombre: "Bahiana-Regular"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
+            id: 2,
+            url: "../assets/fonts/Barrio-Regular.ttf",
+            nombre: "Barrio-Regular"
         }, {
-            id: 1,
-            url: "#",
-            nombre: "X"
-        }, ]
+            id: 3,
+            url: "../assets/fonts/CaveatBrush-Regular.ttf",
+            nombre: "CaveatBrush-Regular"
+        }, {
+            id: 4,
+            url: "../assets/fonts/DellaRespira-Regular.ttf",
+            nombre: "DellaRespira-Regular"
+        }, {
+            id: 5,
+            url: "../assets/fonts/IndieFlower.ttf",
+            nombre: "IndieFlower"
+        }, {
+            id: 6,
+            url: "../assets/fonts/Anton-Regular.ttf",
+            nombre: "Anton-Regular"
+        }, {
+            id: 7,
+            url: "../assets/fonts/FjallaOne-Regular.ttf",
+            nombre: "FjallaOne-Regular"
+        }, {
+            id: 8,
+            url: "../assets/fonts/Lobster-Regular.ttf",
+            nombre: "Lobster-Regular"
+        }, {
+            id: 9,
+            url: "../assets/fonts/Pacifico-Regular.ttf",
+            nombre: "Pacifico-Regular"
+        }]
     }
 
     this.datos = {
@@ -362,7 +386,7 @@ angular.module("disenador-de-logos")
 
     this.datos = [];
     this.estado = false;
-    
+
     this.efectoHover = function (indice, valor) {
 
 

@@ -33,13 +33,14 @@
 /* desaparicion de los pasos del State Comenzar */
 
 .pasos.ng-animate {
-    -webkit-transition: 0.3s linear all;
-    transition: 0.3s linear all;
-    transition-delay: 0.5s;
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+ 
 }
 
 .pasos.ng-leave {
     opacity: 0;
+    display: none;
 }
 
 .pasos.ng-leave-active {
