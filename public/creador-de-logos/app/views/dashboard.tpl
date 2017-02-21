@@ -16,7 +16,8 @@
                             <md-icon class="logo_icon" md-svg-src="{{icono.url}}"></md-icon>
                             <div class="text-center" layout-padding>Empresa</div>
                         </div>
-                        <md-icon ui-sref="paquetes" class="iconos-procesos siguiente" ng-show="cliente.datos.iconos[$index].estado">file_download</md-icon>
+                        <md-icon ui-sref="editor" class="iconos-procesos siguiente" ng-show="cliente.datos.iconos[$index].estado">create</md-icon>
+                        <md-icon ui-sref="descarga" class="iconos-procesos siguiente" ng-show="cliente.datos.iconos[$index].estado">file_download</md-icon>
                     </div>
                 </div>
             </div>
