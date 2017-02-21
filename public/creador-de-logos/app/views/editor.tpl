@@ -3,7 +3,7 @@
         <div layout="row" class="margen_inferior relative" layout-align="center" layout-padding>
             <md-fab-speed-dial md-open="editor.estado1" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado1=true">
                 <md-fab-trigger>
-                    <md-button aria-label="menu" class="md-fab  md-warn">
+                    <md-button aria-label="menu" class="md-fab  md-primary">
                         <md-icon class="logo_icon_editor " md-svg-src="assets/svg/google-glasses.svg"></md-icon>
                     </md-button>
                 </md-fab-trigger>
@@ -21,7 +21,7 @@
             </md-fab-speed-dial>
             <md-fab-speed-dial md-open="editor.estado2" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado2=true">
                 <md-fab-trigger>
-                    <md-button aria-label="menu" class="md-fab md-warn">
+                    <md-button aria-label="menu" class="md-fab md-primary">
                         <md-icon class="logo_icon_editor" md-svg-src="assets/svg/txt.svg"></md-icon>
                     </md-button>
                 </md-fab-trigger>
@@ -39,7 +39,7 @@
             </md-fab-speed-dial>
             <md-fab-speed-dial md-open="editor.estado3" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado3=true">
                 <md-fab-trigger>
-                    <md-button aria-label="menu" class="md-fab md-warn">
+                    <md-button aria-label="menu" class="md-fab md-primary">
                         <md-icon class="logo_icon_editor" md-svg-src="assets/svg/webcam.svg"></md-icon>
                     </md-button>
                 </md-fab-trigger>
@@ -57,7 +57,7 @@
             </md-fab-speed-dial>
             <md-fab-speed-dial md-open="editor.estado4" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado4=true">
                 <md-fab-trigger>
-                    <md-button aria-label="menu" class="md-fab md-warn">
+                    <md-button aria-label="menu" class="md-fab md-primary">
                         <md-icon class="logo_icon_editor" md-svg-src="assets/svg/folder.svg"></md-icon>
                     </md-button>
                 </md-fab-trigger>

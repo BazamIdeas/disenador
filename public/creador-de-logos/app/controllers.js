@@ -387,5 +387,5 @@ angular.module("disenador-de-logos")
 /* Metodos */
 
 .controller('metodosController', ['$scope', function ($scope) {
-
+ this.pago=false;
 }])

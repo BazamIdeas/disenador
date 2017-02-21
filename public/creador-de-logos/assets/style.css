@@ -6,7 +6,7 @@
     background-size: 100% 15%;
 }
 
-div:focus {
+div:focus, md-radio-button:focus, md-radio-group:focus {
     outline: none !important;
 }
 
@@ -47,6 +47,10 @@ footer {
 md-content {
     height: 600px;
     background-color: rgba(236, 236, 236, 1) !important;
+}
+
+.contenedor-de-logos {
+    height: 400px;
 }
 
 .p_header {
@@ -113,9 +117,9 @@ md-content {
 
 .titulo_opciones {
     color: #F44336;
-    padding:1%;
     text-align: center;
-    font-size: 18px
+    font-size: 18px;
+    padding: 2%;
 }
 
 .titulo_opciones-p {margin: 0; padding: 8% !important;}
@@ -221,7 +225,6 @@ metodo_pago p_header {
     background-color: #FF9800;
     color: white;
     margin: 0 !important;
-    padding-bottom: 3%;
 }
 
 .relative {
@@ -267,9 +270,13 @@ metodo_pago p_header {
     opacity: 0.3;
 }
 
+.logos-proceso-content {
+    height: 355px;
+}
+
 .iconos-procesos {
     position: relative;
-    top: calc(-80px - 25px);
+    top: calc(-70px - 25px);
     z-index: 99999;
     color: white;
     font-size: 50px;
