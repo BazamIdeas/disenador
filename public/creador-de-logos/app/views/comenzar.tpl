@@ -2,7 +2,7 @@
 
     <div flex="12" layout="row" layout-align="center" class="margen_inferior margen_superior">
 
-        <md-slider-container ng-disabled="true" flex="50" class="md-whiteframe-2dp ">
+        <md-slider-container ng-disabled="true" flex="50" class="md-whiteframe-2dp">
             <md-slider step="1" min="1" max="4" ng-model="comenzar.mostrar" aria-label="Disabled 1" flex md-discrete ng-readonly="true"></md-slider>
         </md-slider-container>
     </div>

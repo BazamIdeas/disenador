@@ -42,8 +42,7 @@
                     <div layput="column" layout-align="space-around center">
 
                         <div class="cambio">
-                            <md-icon class="logo_icon" md-svg-src="{{logo.icono.url}}"></md-icon>
-                            <div class="text-center" ng-style="{'font-family' : logo.fuente.nombre}" layout-padding>{{proceso.datosEstadoAnterior.nombre}}</div>
+                            <bazam-svg-text class="logo_icon" data-icono="{{logo.icono.elemento}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="256" data-texto-y="600" data-texto="{{proceso.datosEstadoAnterior.nombre}}"></bazam-svg-text>
                         </div>
 
                         <md-icon ui-sref="editor" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>

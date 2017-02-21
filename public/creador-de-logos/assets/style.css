@@ -110,6 +110,10 @@ md-content {
 
 /* Opciones Vista */
 
+bazam-svg-text svg {width: 100px; height: 100px; overflow: visible;}
+bazam-svg-text svg > text {font-size: 100px;}
+
+
 .logo_icon {
     width: 100px !important;
     height: 100px !important;
