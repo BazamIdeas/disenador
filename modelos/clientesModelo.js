@@ -3,6 +3,57 @@ var DB=require('./DB.js');
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var cliente = {};
  
+cliente.verificarCliente = function(clienteData,callback)
+{
+	var q = 'SELECT correo FROM clientes WHERE correo = ?' ;
+	
+	var correo = clienteData[0];
+	var pass = clienteData[1];
+
+		  		
+		DB.getConnection(function(err, connection)
+		{			
+		
+			connection.query( q ,correo, function(err, row){
+		 	 if (typeof row !== 'undefined' && row.length > 0)
+
+		  		{ 
+		  				
+		  		var q2 = 'SELECT nombreCliente FROM clientes WHERE correo = ? AND pass = ?' ;
+		   		
+		   			connection.query( q2 ,clienteData, function(err, row2){
+
+						if(err){
+							throw err;
+		  	
+		  					}else if(row2.length > 0){ 
+		  				
+		  						callback(null,row2);
+		  				
+		  						}else{
+
+		  							callback(null,{"msg":"La contraseña no coincide con este correo"});
+		  				
+		  						}
+		  					
+		  							});
+		  	
+		  					}else{
+		  				 
+		  				 		callback(null,{"msg":"Correo Inexistente"});
+		  				
+		  					     }
+
+		  });
+
+		  connection.release();
+
+		  
+		});
+
+	}
+
+
 
 //obtenemos todos los clientes
 cliente.getClientes = function(callback)
