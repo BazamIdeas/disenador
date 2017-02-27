@@ -2,26 +2,36 @@ var usuario=require('../modelos/usuarioModelo.js');
 
 
 
-
 exports.login =  function(req,res)
 	{
 		//creamos un objeto con los datos a insertar del usuario
 	
-		
-		usuario.verificarUsuario(function(error, data)
+		var usuarioData = [req.body.correo,req.body.pass];
+		usuario.verificarUsuario(usuarioData,function(error, data)
 		{
 			//si el usuario existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				res.status(200).json(data);
+			
+			var jwt = require('jwt-simple');
+			var moment = require('moment');
+			var payload = {
+					sub:data,
+					iat:moment().unix(),
+					exp:moment().add(1,'days').unix()
+				};
+				var x = jwt.encode(payload,'misecretoken');
+				var z = jwt.decode(x,'misecretoken')
+				res.status(200).send(z);
+				
 			}
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No hay usuarios registrados"})
+				res.status(404).json(data);
 			}
 		});
-	}
+	} 
 
 exports.listaUsuarios = function(req, res, next) {
 		

@@ -3,25 +3,62 @@ var DB = require('./DB.js');
 var usuario = {};
 
 
-usuario.verificarUsuario = function(callback)
+usuario.verificarUsuario = function(usuarioData,callback)
 {
-var q = 'SELECT nombreUser, idUsuario, correo, pass FROM usuarios ORDER BY idUsuario' ;
+	var q = 'SELECT correo FROM usuarios WHERE correo = ?' ;
+	
+	var correo = usuarioData[0];
+	var pass = usuarioData[1];
 
+		  		
 		DB.getConnection(function(err, connection)
-		{
-			connection.query( q ,  function(err, rows){
+		{			
+		
+			connection.query( q ,correo, function(err, row){
+		 	 if (typeof row !== 'undefined' && row.length > 0)
+
+		  		{ 
+		  				
+		  		var q2 = 'SELECT nombreUser FROM usuarios WHERE correo = ? AND pass = ?' ;
+		   		
+		   			connection.query( q2 ,usuarioData, function(err, row2){
+
+						if(err){
+							throw err;
 		  	
-		  	if(err)	throw err;
+		  					}else if(row2.length > 0){ 
+		  				
+		  						callback(null,row2);
+		  				
+		  						}else{
+
+		  							callback(null,{"msg":"La contraseña no coincide con este correo"});
+		  				
+		  						}
+		  					
+		  							});
 		  	
-		  	else callback(null, rows);
-		  	
+		  					}else{
+		  				 
+		  				 		callback(null,{"msg":"Correo Inexistente"});
+		  				
+		  					     }
+
 		  });
 
 		  connection.release();
+
+		  
 		});
 
+	}
 
-}
+
+
+		  
+
+			
+
 
 usuario.getUsuarios=function(callback){
 
