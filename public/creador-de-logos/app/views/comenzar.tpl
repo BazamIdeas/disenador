@@ -20,13 +20,14 @@
                         <md-button class="md-raised md-primary siguiente" ng-click="comenzar.mostrar=2" ng-show="preferenciasFormulario.nombre.$valid">Siguiente</md-button>
                     </div>
                 </div>
-                <div class="pasos" ng-switch-when="2">
+                <div class="pasos" ng-switch-when="2" class="select-f">
                     <div>
                         <md-input-container class="md-block">
                             <label>Seleccione una Categoría</label>
-                            <md-select ng-model="comenzar.datos.categoria" name="categoria" ng-required="true">
+                           
+                                <md-select ng-model="comenzar.datos.categoria" name="categoria" ng-required="true">
                                 <md-option ng-value="categoria" ng-repeat="categoria in comenzar.categoriasPosibles">{{categoria}}</md-option>
-                            </md-select>
+                            </md-select> 
                         </md-input-container>
                     </div>
                     <div flex layout layout-align="space-between center">
@@ -34,24 +35,23 @@
                         <md-button class="md-raised md-primary siguiente" ng-click="comenzar.mostrar=3" ng-show="preferenciasFormulario.categoria.$valid">Siguiente</md-button>
                     </div>
                 </div>
-                <div class="pasos" ng-switch-when="3">
-                    <div>
-                        <md-radio-group ng-model="comenzar.datos.tipo" name="tipo" ng-required="true">
-                            <md-radio-button value="1">
-                                Icono
-                                <md-icon class="material-icons"> face </md-icon>
+                <div class="pasos" ng-switch-when="3" layout="column" layout-align="center space-between">
+                    <div layout-padding layout layout-align="space-around">
+                        <md-icon class="material-icons icono_radio"> payment </md-icon>
+                        <md-icon class="material-icons icono_radio"> credit_card </md-icon>
+                        <md-icon class="material-icons icono_radio"> attach_money </md-icon>
+                    </div>
+                    <div layout-padding >
+                        <md-radio-group layout layout-align="space-around" ng-model="comenzar.datos.tipo" name="tipo" ng-required="true">
+                            <md-radio-button layout="column" value="1" ng-click="comenzar.select=true" >
                             </md-radio-button>
-                            <md-radio-button value="2">
-                                Icono y Tipografía
-                                <md-icon class="material-icons"> favorite </md-icon>
+                            <md-radio-button value="2" ng-click="comenzar.select=true">
                             </md-radio-button>
-                            <md-radio-button value="3">
-                                Inicial y Tipografía
-                                <md-icon class="material-icons"> pets </md-icon>
+                            <md-radio-button value="3" ng-click="comenzar.select=true">
                             </md-radio-button>
                         </md-radio-group>
-                    </div>
-                    <div flex layout layout-align="space-between center">
+                                           </div>
+                    <div flex layout layout-align="space-between center" class="botones-select-comen">
                         <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=2">Atras</md-button>
                         <md-button class="md-raised md-primary siguiente" ng-click="comenzar.mostrar=4" ng-show="preferenciasFormulario.tipo.$valid">Siguiente</md-button>
                     </div>
