@@ -24,6 +24,9 @@ angular.module("disenador-de-logos")
             element.children()[0].lastChild.setAttribute("bazam-svg-text-pos", "");
             element.children()[0].lastChild.setAttribute("data-bazam-pos", "proceso.posicion");
             
+            
+            element.children()[0].lastChild.setAttribute("ng-class", "{{proceso.posicion.clase}}");
+            
             //compilar dentro del contexto de angular
             $compile(element.children()[0].lastChild)(scope);
 
@@ -56,20 +59,18 @@ angular.module("disenador-de-logos")
                 element.attr("y", value);
                
                
-  }); */
+  }); 
 
 
 
             scope.$watch("posicion", function (valor) {
                 if (valor != undefined) {
-                    console.log(scope.posicion)
-
                     element.attr("y", scope.posicion.y);
                     element.attr("x", scope.posicion.x)
                 }
             })
 
-
+*/
 
         }
 

@@ -266,23 +266,62 @@ angular.module("disenador-de-logos")
     /*Posiciones */
 
     this.posicion = {
-        x: 256,
-        y: 600
+
+        coordenadas: {
+            x: 256,
+            y: 600
+        },
+        actual: 'bottom',
     }
 
 
 
     this.cambiarPosicion = function (valor) {
 
-        if (valor == 1) {
+        var coordenadas = {}
 
-            this.posicion = {
+        if (valor == 'bottom') {
+
+            coordenadas = {
+                x: 256,
+                y: 600
+            }
+
+        } else if (valor == 'top') {
+
+            coordenadas = {
                 x: 256,
                 y: 0
             }
+
+        } else if (valor == 'right') {
+
+            coordenadas = {
+                x: 512,
+                y: 300
+            }
+
+        } else if (valor == 'left') {
+
+            coordenadas = {
+                x: 0,
+                y: 300
+            }
+
         }
 
+
+
+        this.posicion.coordenadas = coordenadas;
+
+        this.posicion.clase = this.posicion.actual + "-" + valor;
+
+        this.posicion.actual = valor;
+
+
     }
+
+
 
 
     /* Barra */
@@ -295,7 +334,7 @@ angular.module("disenador-de-logos")
         selectedDirection: 'left'
     };
 
-            }])
+}])
 
 
 /* Editor */
