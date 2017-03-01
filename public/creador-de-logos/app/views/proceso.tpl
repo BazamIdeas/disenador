@@ -22,13 +22,18 @@
                 <md-toolbar>
                     <md-fab-actions class="md-toolbar-tools">
                         <md-button aria-label="comment" class="md-icon-button" ng-click="proceso.cambiarPosicion('top')">
-                            <md-icon>book</md-icon>
+                            <md-icon>vertical_align_top</md-icon>
                         </md-button>
-                        <md-button aria-label="label" class="md-icon-button">
-                            <md-icon>label</md-icon>
+                        <md-button aria-label="label" class="md-icon-button" ng-click="proceso.cambiarPosicion('left')">
+                            <md-icon>keyboard_arrow_left
+</md-icon>
                         </md-button>
-                        <md-button aria-label="photo" class="md-icon-button">
-                            <md-icon>photo</md-icon>
+                        <md-button aria-label="photo" class="md-icon-button" ng-click="proceso.cambiarPosicion('right')">
+                            <md-icon>keyboard_arrow_right</md-icon>
+                        </md-button>
+                        
+                        <md-button aria-label="photo" class="md-icon-button" ng-click="proceso.cambiarPosicion('bottom')">
+                            <md-icon>arrow_downward</md-icon>
                         </md-button>
                     </md-fab-actions>
                 </md-toolbar>
