@@ -21,7 +21,7 @@
 
                 <md-toolbar>
                     <md-fab-actions class="md-toolbar-tools">
-                        <md-button aria-label="comment" class="md-icon-button">
+                        <md-button aria-label="comment" class="md-icon-button" ng-click="proceso.cambiarPosicion(1)">
                             <md-icon>book</md-icon>
                         </md-button>
                         <md-button aria-label="label" class="md-icon-button">
@@ -42,7 +42,7 @@
                     <div layput="column" layout-align="space-around center">
 
                         <div class="cambio">
-                            <bazam-svg-text class="logo_icon" data-icono="{{logo.icono.elemento}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="256" data-texto-y="600" data-texto="{{proceso.datosEstadoAnterior.nombre}}"></bazam-svg-text>
+                            <bazam-svg-text  class="logo_icon" bazam-svg-text-pos data-icono="{{logo.icono.elemento}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{posicion.x}}" data-texto-y="{{posicion.y}}" data-texto="BAZAM"></bazam-svg-text>
                         </div>
 
                         <md-icon ui-sref="editor" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>
