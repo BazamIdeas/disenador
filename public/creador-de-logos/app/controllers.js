@@ -271,15 +271,13 @@ angular.module("disenador-de-logos")
             x: 256,
             y: 600
         },
-        actual: 'bottom',
+        actual: 'bottom'
     }
 
 
 
     this.cambiarPosicion = function (valor) {
-
-        var coordenadas = {}
-
+/*
         if (valor == 'bottom') {
 
             coordenadas = {
@@ -309,13 +307,15 @@ angular.module("disenador-de-logos")
             }
 
         }
+        
+        */
 
 
 
         this.posicion.coordenadas = coordenadas;
 
         this.posicion.clase = this.posicion.actual + "-" + valor;
-
+        this.posicion.claseG = this.posicion.actual + "-" + valor + "-g";
         this.posicion.actual = valor;
 
 

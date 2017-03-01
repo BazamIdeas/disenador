@@ -18,16 +18,20 @@ angular.module("disenador-de-logos")
 
             //Creacion del svg y agregado del texto al mismo
 
-            element.append(attributes.icono).children().append(texto);
+            element.append(attributes.icono);
+
+            // element.children()[0].innerHTML;
+
+            element.children().html("<g ng-class='proceso.posicion.claseG'>" + element.children().html() + "</g>");
+            element.children().append(texto);
 
             element.children()[0].lastChild.setAttribute("text-anchor", "middle");
             element.children()[0].lastChild.setAttribute("bazam-svg-text-pos", "");
             element.children()[0].lastChild.setAttribute("data-bazam-pos", "proceso.posicion");
-            
-            
             element.children()[0].lastChild.setAttribute("ng-class", "proceso.posicion.clase");
-            
+
             //compilar dentro del contexto de angular
+            $compile(element.children()[0].firstChild)(scope);
             $compile(element.children()[0].lastChild)(scope);
 
 
