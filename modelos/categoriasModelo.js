@@ -7,7 +7,7 @@ var categoria = {};
 //obtenemos todos los clientes
 categoria.getCategorias = function(callback)
 {
-	var q = 'SELECT idCategoria,nombre FROM categorias ORDER BY idCategoria';
+	var q = 'SELECT idCategoria,nombreCategoria FROM categorias ORDER BY idCategoria';
 
 	DB.getConnection(function(err, connection)
 	{
@@ -25,7 +25,7 @@ categoria.getCategorias = function(callback)
 }
 categoria.getCategoria = function(id,callback)
 { 
-	var q = 'SELECT nombre, idCategoria FROM categorias WHERE idCategoria = ? ' 
+	var q = 'SELECT nombreCategoria, idCategoria FROM categorias WHERE idCategoria = ? ' 
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)

@@ -12,7 +12,7 @@ exports.listaCategorias = function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No hay categorias en la base de datos"})
+				res.status(404).json({"msg":"No hay categorias en la base de datos"});
 			}
 		});
 
