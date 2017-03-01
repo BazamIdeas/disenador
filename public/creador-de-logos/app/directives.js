@@ -25,7 +25,7 @@ angular.module("disenador-de-logos")
             element.children()[0].lastChild.setAttribute("data-bazam-pos", "proceso.posicion");
             
             
-            element.children()[0].lastChild.setAttribute("ng-class", "{{proceso.posicion.clase}}");
+            element.children()[0].lastChild.setAttribute("ng-class", "proceso.posicion.clase");
             
             //compilar dentro del contexto de angular
             $compile(element.children()[0].lastChild)(scope);
