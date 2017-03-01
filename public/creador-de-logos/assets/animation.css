@@ -35,7 +35,6 @@
 .pasos.ng-animate {
     -webkit-transition: 1s linear all;
     transition: 1s linear all;
- 
 }
 
 .pasos.ng-leave {
@@ -71,6 +70,7 @@
     opacity: 1;
 }
 
+
 /* Iconos de la vista PROCESOS */
 
 .iconos-procesos.ng-hide {
@@ -86,8 +86,289 @@
     transition: all ease-in 0.1s;
     transition-delay: 0.2s;
 }
+
 .iconos-procesos {
     top: -50px;
     opacity: 1;
 }
+
+
+
+/* ANIMACIONES TEXTO */
+
+
+
+/* Posicion Inferior */
+
+.bottom-right {
+    -webkit-animation: bottom-right 2s ease 0s 1 normal forwards running;
+    -moz-animation: bottom-right 2s ease 0s 1 normal forwards running;
+    -o-animation: bottom-right 2s ease 0s 1 normal forwards running;
+    animation: bottom-right 2s ease 0s 1 normal forwards running;
+}
+
+@-moz-keyframes bottom-right {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateX(500px) translateY(-250px);
+    }
+}
+
+@-webkit-keyframes bottom-right {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateX(500px) translateY(-250px);
+    }
+}
+
+@-o-keyframes bottom-right {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateX(500px) translateY(-250px);
+    }
+}
+
+@keyframes bottom-right {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateX(500px) translateY(-250px);
+    }
+}
+
+
+/* Inferior izquierda */
+
+.bottom-left{
+    -webkit-animation: bottom-left 2s ease 0s 1 normal forwards running;
+    -moz-animation: bottom-left 2s ease 0s 1 normal forwards running;
+    -o-animation: bottom-left 2s ease 0s 1 normal forwards running;
+    animation: bottom-left 2s ease 0s 1 normal forwards running;
+}
+
+@-moz-keyframes bottom-left {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+            transform: translateX(-500px) translateY(-250px);
+    }
+}
+
+@-webkit-keyframes bottom-left {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+            transform: translateX(-500px) translateY(-250px);
+    }
+}
+
+@-o-keyframes bottom-left {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+            transform: translateX(-500px) translateY(-250px);
+    }
+}
+
+@keyframes bottom-left {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+            transform: translateX(-500px) translateY(-250px);
+    }
+}
+
+/* Inferior top */
+
+.bottom-top {
+    -webkit-animation:bottom-top 2s ease 0s 1 normal forwards running;
+    -moz-animation:bottom-top 2s ease 0s 1 normal forwards running;
+    -o-animation:bottom-top 2s ease 0s 1 normal forwards running;
+    animation:bottom-top 2s ease 0s 1 normal forwards running;
+}
+
+@-moz-keyframes bottom-top {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateY(-640px);
+    }
+}
+
+@-webkit-keyframes bottom-top {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateY(-640px);
+    }
+}
+
+@-o-keyframes bottom-top {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+       transform: translateY(-640px);
+    }
+}
+
+@keyframes bottom-top {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateY(-640px);
+    }
+}
+
+
+/* Posicion Superior */
+
+.top-right {
+    -webkit-animation: top-right 2s ease 0s 1 normal forwards running;
+    -moz-animation: top-right 2s ease 0s 1 normal forwards running;
+    -o-animation: top-right 2s ease 0s 1 normal forwards running;
+    animation: top-right 2s ease 0s 1 normal forwards running;
+}
+
+@-moz-keyframes top-right {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateX(500px) translateY(-250px);
+    }
+}
+
+@-webkit-keyframes top-right {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateX(500px) translateY(-250px);
+    }
+}
+
+@-o-keyframes top-right {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateX(500px) translateY(-250px);
+    }
+}
+
+@keyframes top-right {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateX(500px) translateY(-250px);
+    }
+}
+
+
+/* Superior Izquierda */
+
+.top-left {
+    -webkit-animation: top-left 2s ease 0s 1 normal forwards running;
+    -moz-animation: top-left 2s ease 0s 1 normal forwards running;
+    -o-animation: top-left 2s ease 0s 1 normal forwards running;
+    animation: top-left 2s ease 0s 1 normal forwards running;
+}
+
+@-moz-keyframes top-left {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+            transform: translateX(-500px) translateY(-250px);
+    }
+}
+
+@-webkit-keyframes top-left {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+            transform: translateX(-500px) translateY(-250px);
+    }
+}
+
+@-o-keyframes top-left {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+            transform: translateX(-500px) translateY(-250px);
+    }
+}
+
+@keyframes top-left {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+            transform: translateX(-500px) translateY(-250px);
+    }
+}
+
+/* Superior Abajo */
+
+.top-bottom {
+    -webkit-animation:top-bottom 2s ease 0s 1 normal forwards running;
+    -moz-animation:top-bottom 2s ease 0s 1 normal forwards running;
+    -o-animation:top-bottom 2s ease 0s 1 normal forwards running;
+    animation:top-bottom 2s ease 0s 1 normal forwards running;
+}
+
+@-moz-keyframes top-bottom {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateY(-640px);
+    }
+}
+
+@-webkit-keyframes top-bottom {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateY(-640px);
+    }
+}
+
+@-o-keyframes top-bottom {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+       transform: translateY(-640px);
+    }
+}
+
+@keyframes top-bottom {
+    from {
+        transform: translateX(0px) translateY(0px);
+    }
+    to {
+        transform: translateY(-640px);
+    }
+}
+
 
