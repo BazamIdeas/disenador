@@ -65,14 +65,24 @@ md-content {
     margin-bottom: 5%;
 }
 
+#select_container_3 > md-select-menu > md-content{
+    display: flex !important;
+    flex-direction: column;
+    padding: 0 !important;
+}
+
+.select-auto{
+    flex: 1 1 auto;
+}
+
 .icono_radio {font-size: 70px;}
 
-md-radio-button .md-off, md-radio-button .md-on{
+.radio-f md-radio-button .md-off, .radio-f md-radio-button .md-on{
     top: 20px !important;
     left: 27px !important;
 }
 
-md-radio-button .md-ripple-container{
+.radio-f md-radio-button .md-ripple-container{
     display: none !important;
 }
 
@@ -240,9 +250,6 @@ metodo_pago p_header {
     background: silver;
 }
 
-metodo_pago{
-    height: 30%;
-}
 
 /* DashBoard */
 
@@ -304,8 +311,8 @@ metodo_pago{
     top: calc(-70px - 25px);
     z-index: 99999;
     color: white;
-    font-size: 50px;
-    margin-right: 15%;
+    font-size: 30px;
+    margin-right: 5%;
     cursor: pointer;
     transition: color 0.3s;
 }

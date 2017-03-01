@@ -57,7 +57,7 @@
 
     <div layout="row" class="margen_superior">
         <div layout="row" flex layout-align="start center">
-            <md-button class="md-raised md-primary" ui-sref="proceso">Atras</md-button>
+            <md-button class="md-raised md-primary" ui-sref="opciones">Atras</md-button>
         </div>
     </div>
 </div>
