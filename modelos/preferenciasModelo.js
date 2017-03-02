@@ -7,7 +7,7 @@ var preferencia = {};
 //obtenemos todos las preferencias
 preferencia.getPreferencias = function(callback)
 {
-	var q = 'SELECT idPreferencia,nombre FROM preferencias ORDER BY idPreferencia';
+	var q = 'SELECT idPreferencia, nombre1, nombre2 FROM preferencias ORDER BY idPreferencia';
 
 	DB.getConnection(function(err, connection)
 	{
@@ -25,7 +25,7 @@ preferencia.getPreferencias = function(callback)
 }
 preferencia.getPreferencia = function(id,callback)
 { 
-	var q = 'SELECT nombre, idPreferencia FROM preferencias WHERE idPreferencia = ? ' 
+	var q = 'SELECT nombre1, nombre2, idPreferencia FROM preferencias WHERE idPreferencia = ? ' 
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
@@ -67,7 +67,7 @@ preferencia.insertPreferencia = function(preferenciaData,callback)
 
 preferencia.updatePreferencia = function(preferenciaData, callback)
 {
-	var q = 'UPDATE preferencias SET nombre = ? WHERE idPreferencia = ?';
+	var q = 'UPDATE preferencias SET nombre1 = ?, nombre2 = ? WHERE idPreferencia = ?';
 	var par = preferenciaData //parametros
 
 	DB.getConnection(function(err, connection)

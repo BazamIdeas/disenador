@@ -24,7 +24,7 @@ exports.nuevaCategoria =  function(req,res)
 		//creamos un objeto con los datos a insertar del cliente
 		var categoriaData = {
 			idCategoria : null,
-			nombre: req.body.nombreCategoria,
+			nombreCategoria: req.body.nombreCategoria,
 			
 		};
 		categoria.insertCategoria(categoriaData,function(error, data)
