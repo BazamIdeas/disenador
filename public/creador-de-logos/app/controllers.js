@@ -308,11 +308,13 @@ angular.module("disenador-de-logos")
 
         }
         
-        */
+       
 
 
 
         this.posicion.coordenadas = coordenadas;
+        
+         */
 
         this.posicion.clase = this.posicion.actual + "-" + valor;
         this.posicion.claseG = this.posicion.actual + "-" + valor + "-g";
