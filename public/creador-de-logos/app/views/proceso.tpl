@@ -42,17 +42,14 @@
     </div>
     <div layout layout-align="center" class="margen_superior">
         <div layout="row" flex="60" class="scroll logos-proceso-content">
-            <div flex layout="row" layout-align="space-around" layout-wrap layout-padding class="text-center">
+            <div flex layout="row" layout-align="space-around start" layout-wrap layout-padding class="text-center">
                 <div flex="30" ng-repeat="logo in proceso.logos" ng-mouseenter="proceso.efectoHover($index, logo)" ng-mouseleave="proceso.efectoHover($index, logo)" class="md-whiteframe-2dp margen_inferior contenedor_logos_proceso proceso-content">
-                    <div layput="column" layout-align="space-around center">
-
-                        <div class="cambio">
+                    <div>
+                        <div>
                             <bazam-svg-text  class="logo_icon" bazam-svg-text-pos data-icono="{{logo.icono.elemento}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{proceso.posicion.coordenadas.x}}" data-texto-y="{{proceso.posicion.coordenadas.y}}" data-texto="BAZAM"></bazam-svg-text>
                         </div>
-
                         <md-icon ui-sref="editor" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>
                         <md-icon ui-sref="paquetes" class="iconos-procesos siguiente" ng-show="logo.estado">shopping_cart</md-icon>
-
                     </div>
                 </div>
             </div>

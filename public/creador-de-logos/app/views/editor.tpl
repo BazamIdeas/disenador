@@ -76,17 +76,15 @@
         </div>
     </div>
     <div layout="row" class="logo_grande_editor_cont" layout-align="center" layout-padding>
-        <div layout="row" flex="30" layout-align="center">
-            <div class="md-whiteframe-2dp" layout-padding>
-                <md-icon class="logo_grande_editor" md-svg-src="assets/svg/earth-globe.svg"></md-icon>
-            </div>
+        <div layout="row" flex="30" layout-align="center" class="md-whiteframe-2dp" layout-padding>
+            <md-icon class="logo_grande_editor" md-svg-src="assets/svg/earth-globe.svg"></md-icon>
         </div>
 
-        <div layout="row" flex="10" layout-padding class="color-p-animation">
-            <div layout="column">
-                <color-picker ng-model="editor.color">
+        <div layout="row"  layout-align="center" layout-padding>
+            <div layout="column" class="color-animacion color-animacion-entrada">
+                <color-picker ng-model="editor.color" class="md-whiteframe-2dp" >
                 </color-picker>
-
+                <br>
                 <div width="50px" height="50px" ng-style="{'background-color':editor.color}">Hola</div>
             </div>
         </div>
