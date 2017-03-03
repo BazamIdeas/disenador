@@ -277,44 +277,44 @@ angular.module("disenador-de-logos")
 
 
     this.cambiarPosicion = function (valor) {
-/*
-        if (valor == 'bottom') {
+        /*
+                if (valor == 'bottom') {
 
-            coordenadas = {
-                x: 256,
-                y: 600
-            }
+                    coordenadas = {
+                        x: 256,
+                        y: 600
+                    }
 
-        } else if (valor == 'top') {
+                } else if (valor == 'top') {
 
-            coordenadas = {
-                x: 256,
-                y: 0
-            }
+                    coordenadas = {
+                        x: 256,
+                        y: 0
+                    }
 
-        } else if (valor == 'right') {
+                } else if (valor == 'right') {
 
-            coordenadas = {
-                x: 512,
-                y: 300
-            }
+                    coordenadas = {
+                        x: 512,
+                        y: 300
+                    }
 
-        } else if (valor == 'left') {
+                } else if (valor == 'left') {
 
-            coordenadas = {
-                x: 0,
-                y: 300
-            }
+                    coordenadas = {
+                        x: 0,
+                        y: 300
+                    }
 
-        }
-        
-       
+                }
+                
+               
 
 
 
-        this.posicion.coordenadas = coordenadas;
-        
-         */
+                this.posicion.coordenadas = coordenadas;
+                
+                 */
 
         this.posicion.clase = this.posicion.actual + "-" + valor;
         this.posicion.claseG = this.posicion.actual + "-" + valor + "-g";
@@ -343,14 +343,18 @@ angular.module("disenador-de-logos")
 
 .controller('editorController', ['$scope', function ($scope) {
     this.modoSeleccionado = 'md-scale';
-    /* Fab Speed Dial 1 */
-    this.estado1 = false;
-    /* Fab Speed Dial 2 */
-    this.estado2 = false;
-    /* Fab Speed Dial 3 */
-    this.estado3 = false;
-    /* Fab Speed Dial 4 */
-    this.estado4 = false;
+
+    this.estado = [{
+        estado1: false
+    }, {
+        estado2: false
+    }, {
+        estado3: false
+    }, {
+        estado4: false
+    }]
+
+    
 }])
 
 /* login */

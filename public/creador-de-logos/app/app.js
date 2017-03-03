@@ -1,4 +1,3 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial"])
     .config(function ($stateProvider, $mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .warnPalette('orange')

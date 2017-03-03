@@ -154,6 +154,10 @@ bazam-svg-text svg > text {font-size: 100px;}
     padding: 2%;
 }
 
+.pointer, md-button, md-slider, .logo_icon, md-fab-speed-dial, md-radio-button, md-fab-action-item, button {
+    cursor: pointer;
+}
+
 .titulo_opciones-p {margin: 0; padding: 8% !important;}
 
 .borde_derecho_opciones {

@@ -1,7 +1,7 @@
 <div flex layout="column" layout-align="center " ng-cloak id="popupContainer-editor">
     <div layout="column" layout-align="center center">
         <div layout="row" class="margen_inferior relative" layout-align="center" layout-padding>
-            <md-fab-speed-dial md-open="editor.estado1" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado1=true">
+            <md-fab-speed-dial md-open="editor.estado1" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado1=true">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab  md-primary">
                         <md-icon class="logo_icon_editor " md-svg-src="assets/svg/google-glasses.svg"></md-icon>
@@ -19,7 +19,7 @@
                     </md-button>
                 </md-fab-actions>
             </md-fab-speed-dial>
-            <md-fab-speed-dial md-open="editor.estado2" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado2=true">
+            <md-fab-speed-dial md-open="editor.estado2" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado2=true">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab md-primary">
                         <md-icon class="logo_icon_editor" md-svg-src="assets/svg/txt.svg"></md-icon>
@@ -37,7 +37,7 @@
                     </md-button>
                 </md-fab-actions>
             </md-fab-speed-dial>
-            <md-fab-speed-dial md-open="editor.estado3" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado3=true">
+            <md-fab-speed-dial md-open="editor.estado3" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado3=true">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab md-primary">
                         <md-icon class="logo_icon_editor" md-svg-src="assets/svg/webcam.svg"></md-icon>
@@ -55,7 +55,7 @@
                     </md-button>
                 </md-fab-actions>
             </md-fab-speed-dial>
-            <md-fab-speed-dial md-open="editor.estado4" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado4=true">
+            <md-fab-speed-dial md-open="editor.estado4" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado4=true">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab md-primary">
                         <md-icon class="logo_icon_editor" md-svg-src="assets/svg/folder.svg"></md-icon>
@@ -76,9 +76,24 @@
         </div>
     </div>
     <div layout="row" class="logo_grande_editor_cont" layout-align="center" layout-padding>
-        <div layout="row" layout-align="center" class="md-whiteframe-2dp">
-            <md-icon class="logo_grande_editor" md-svg-src="assets/svg/earth-globe.svg"></md-icon>
+        <div layout="row" flex="30" layout-align="center">
+            <div class="md-whiteframe-2dp" layout-padding>
+                <md-icon class="logo_grande_editor" md-svg-src="assets/svg/earth-globe.svg"></md-icon>
+            </div>
         </div>
+
+        <div layout="row" flex="10" layout-padding class="color-p-animation">
+            <div layout="column">
+                <color-picker ng-model="editor.color">
+                </color-picker>
+
+                <div width="50px" height="50px" ng-style="{'background-color':editor.color}">Hola</div>
+            </div>
+        </div>
+
+
+
+
     </div>
     <div layout="row" class="margen_superior" layout-align="space-between">
         <div flex layout="row" flex layout-align="space-between center">
