@@ -354,11 +354,9 @@ angular.module("disenador-de-logos")
         
      
 
-        angular.forEach(this.activo, function (valor, llaveNoActivo) {
+       
 
-            this.activo[llaveNoActivo] = 'no';
-
-        })
+        this.activo = {};
 
         this.activo[llave] = 'si';
 
