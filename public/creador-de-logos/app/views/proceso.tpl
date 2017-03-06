@@ -26,12 +26,12 @@
                         </md-button>
                         <md-button aria-label="label" class="md-icon-button" ng-click="proceso.cambiarPosicion('left')">
                             <md-icon>keyboard_arrow_left
-</md-icon>
+                            </md-icon>
                         </md-button>
                         <md-button aria-label="photo" class="md-icon-button" ng-click="proceso.cambiarPosicion('right')">
                             <md-icon>keyboard_arrow_right</md-icon>
                         </md-button>
-                        
+
                         <md-button aria-label="photo" class="md-icon-button" ng-click="proceso.cambiarPosicion('bottom')">
                             <md-icon>arrow_downward</md-icon>
                         </md-button>
@@ -46,9 +46,9 @@
                 <div flex="30" ng-repeat="logo in proceso.logos" ng-mouseenter="proceso.efectoHover($index, logo)" ng-mouseleave="proceso.efectoHover($index, logo)" class="md-whiteframe-2dp margen_inferior contenedor_logos_proceso proceso-content">
                     <div>
                         <div>
-                            <bazam-svg-text  class="logo_icon" bazam-svg-text-pos data-icono="{{logo.icono.elemento}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{proceso.posicion.coordenadas.x}}" data-texto-y="{{proceso.posicion.coordenadas.y}}" data-texto="BAZAM"></bazam-svg-text>
+                            <bazam-svg-text class="logo_icon" bazam-svg-text-pos data-icono="{{logo.icono.elemento}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{proceso.posicion.coordenadas.x}}" data-texto-y="{{proceso.posicion.coordenadas.y}}" data-texto="BAZAM"></bazam-svg-text>
                         </div>
-                        <md-icon ui-sref="editor" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>
+                        <md-icon ui-sref="editor({logo: logo, posicion: proceso.posicion, texto: 'BAZAM'})" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>
                         <md-icon ui-sref="paquetes" class="iconos-procesos siguiente" ng-show="logo.estado">shopping_cart</md-icon>
                     </div>
                 </div>

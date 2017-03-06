@@ -32,7 +32,13 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 name: 'editor',
                 url: '/editor',
                 templateUrl: 'app/views/editor.tpl',
-                controller: 'editorController as editor'
+                controller: 'editorController as editor',
+                params: {
+                    logo: null,
+                    posicion: null,
+                    texto: null
+                    
+                }
             })
             .state({
                 name: 'login',

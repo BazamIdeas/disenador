@@ -77,7 +77,7 @@
     </div>
     <div layout="row" class="logo_grande_editor_cont" layout-align="center" layout-padding>
         <div layout="row" flex="30" layout-align="center" class="md-whiteframe-2dp" layout-padding>
-            <md-icon class="logo_grande_editor" md-svg-src="assets/svg/earth-globe.svg"></md-icon>
+            <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.logo.icono.elemento}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="BAZAM" data-bazam-activo="editor.activo"></bazam-svg-text-2>
         </div>
 
         <div layout="row"  layout-align="center" layout-padding>

@@ -341,7 +341,32 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', function ($scope) {
+.controller('editorController', ['$scope', '$stateParams', function ($scope, $stateParams) {
+
+
+    this.logo = $stateParams.logo;
+    this.logo.texto = $stateParams.texto;
+    this.logo.posicion = $stateParams.posicion;
+
+    this.activo = {};
+
+    this.activar = function (llave) {
+        
+     
+
+        angular.forEach(this.activo, function (valor, llaveNoActivo) {
+
+            this.activo[llaveNoActivo] = 'no';
+
+        })
+
+        this.activo[llave] = 'si';
+
+        console.log(this.activo);
+    }
+
+    console.log(this.activo)
+
     this.modoSeleccionado = 'md-scale';
 
     this.estado = [{
@@ -354,7 +379,7 @@ angular.module("disenador-de-logos")
         estado4: false
     }]
 
-    
+
 }])
 
 /* login */
