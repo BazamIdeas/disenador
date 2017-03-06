@@ -1,355 +1,394 @@
-/* Header-Footer */
-
-.trans {
-    background-image: url('img/franja-azul.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 15%;
-}
-
-div:focus, md-radio-button:focus, md-radio-group:focus {
-    outline: none !important;
-}
-
-header,
-header md-toolbar {
-    cursor: default;
-}
-
-.login_header registro,
-.login_header ingresar {
-    cursor: pointer;
-}
-
-ingresar:hover,
-registro:hover,
-.titulo:hover {
-    color: orangered;
-}
-
-footer {
-    font-size: 12px;
-    background-color: rgb(40, 53, 147);
-    color: white;
-}
-
-.titulo {
-    cursor: pointer;
-}
-
-[class*="md-whiteframe"] {
-    background: rgb(250, 250, 250);
-}
-
-.white_iconos {
-    background: rgba(223, 131, 51, 1.00);
-}
-
-md-content {
-    height: 600px;
-    background-color: rgba(236, 236, 236, 1) !important;
-}
-
-
-.contenedor-de-logos {
-    height: 400px;
-}
-
-.p_header {
-    background-color: #FF9800;
-}
-
-/* Comenzar */
-
-.botones-select-comen {
-    margin-top: 11%;
-    margin-bottom: 5%;
-}
-
-#select_container_3 > md-select-menu > md-content{
-    display: flex !important;
-    flex-direction: column;
-    padding: 0 !important;
-}
-
-.select-auto{
-    flex: 1 1 auto;
-}
-
-.icono_radio {font-size: 70px;}
-
-.radio-f md-radio-button .md-off, .radio-f md-radio-button .md-on{
-    top: 20px !important;
-    left: 27px !important;
-}
-
-.radio-f md-radio-button .md-ripple-container{
-    display: none !important;
-}
-
-/* login */
-
-.margen_formulario_login {
-    margin-right: 1.5%;
-}
-
-
-/* Estilos generales*/
-
-* {
-    cursor: default;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.margen_inferior {
-    margin-bottom: 2%;
-}
-
-.margen_izquierdo {
-    margin-left: 2%
-}
-
-.margen_derecho {
-    margin-right: 2%;
-}
-
-.margen_superior {
-    margin-top: 2%;
-}
-
-.padding_top {
-    padding-top: 8px;
-}
-
-.padding_left {
-    padding-left: 8px;
-}
-
-.padding_right {
-    padding-right: 8px;
-}
-
-.padding_bottom {
-    padding-bottom: 8px;
-}
-
-
-/* Opciones Vista */
-
-bazam-svg-text svg {width: 100px; height: 100px; overflow: visible;}
-bazam-svg-text svg > text {font-size: 100px;}
-
-
-.logo_icon {
-    width: 100px !important;
-    height: 100px !important;
-}
-
-.titulo_opciones {
-    color: #F44336;
-    text-align: center;
-    font-size: 18px;
-    padding: 2%;
-}
-
-.pointer, md-button, md-slider, .logo_icon, md-fab-speed-dial, md-radio-button, md-fab-action-item, button {
-    cursor: pointer;
-}
-
-.titulo_opciones-p {margin: 0; padding: 8% !important;}
-
-.borde_derecho_opciones {
-    border-right: 1px solid grey;
-}
-
-.contenedor_fuentes {
-    font-size: 20px;
-}
-
-.contenedor_fuentes p {
-    cursor: pointer;
-    transition: all 500ms;
-    border-top-left-radius: 100px;
-    border-bottom-right-radius: 100px;
-}
-
-.contenedor_fuentes p:hover {
-    border-top-left-radius: 0;
-    border-bottom-right-radius: 0;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
-    background-color: crimson;
-    color: white;
-    border-top-right-radius: 100px;
-    border-bottom-left-radius: 100px;
-}
-
-.contenedor_logos div img:hover {
-    box-shadow: 0 3px 5px -1px rgba(255, 235, 59, .2), 0 6px 10px 0 rgba(255, 235, 59, .14), 0 1px 18px 0 rgba(255, 235, 59, .12);
-}
-
-.cont_iconos_logo_opciones md-icon:hover,
-p_footer md-icon:hover {
-    color: orangered;
-    cursor: pointer;
-}
-
-
-/* CLASES DE SELECCION */
-
-.fuente.activo {
-    background: orangered !important;
-    color: white;
-}
-
-.fuente.inactivo {
-    background: transparent;
-}
-
-.icono.activo {
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
-}
-
-.icono.inactivo {
-    box-shadow: none;
-}
-
-
-/* paquetes */
-
-paquete {
-    cursor: default;
-}
-
-paquete p_header,
-metodo_pago p_header {
-    font-size: 26px;
-    font-weight: bold;
-    text-align: center;
-    color: white;
-    display: block;
-}
-
-.normal p_header {
-    background: #b5b5b5;
-}
-
-.iniciado p_header {
-    background: #c2a840;
-}
-
-.premium p_header {
-    background: #EFB600;
-}
-
-p_footer md-icon {
-    cursor: pointer;
-}
-
-
-/* Metodos de pagos */
-
-metodo_pago p_header {
-    background: silver;
-}
-
-
-/* DashBoard */
-
-.h_seccion_dashboard {
-    background-color: #FF9800;
-    color: white;
-    margin: 0 !important;
-}
-
-.relative {
-    position: absolute;
-    top: 4%;
-}
-
-
-/* EDITOR */
-
-.logo_icon_editor {
-    width: 32px;
-    height: 32px;
-}
-
-.logo_grande_editor_cont {
-    margin-top: 10%;
-    cursor: pointer;
-}
-
-.logo_grande_editor_cont div {
-    cursor: pointer;
-}
-
-.logo_grande_editor {
-    width: 300px;
-    height: 300px;
-}
-
-
-/* PROCESO */
-
-.proceso-content {
-    height: 154px;
-    transition: background ease-in 0.3s;
-}
-
-.proceso-content:hover {
-    background-color: rgba(0, 0, 0, .3);
-}
-
-.proceso-content:hover .cambio {
-    opacity: 0.3;
-}
-
-.logos-proceso-content {
-    height: 355px;
-}
-
-.iconos-procesos {
-    position: relative;
-    top: calc(-70px - 25px);
-    z-index: 99999;
-    color: white;
-    font-size: 30px;
-    margin-right: 5%;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.iconos-procesos:hover {
-    color: orangered;
-}
-
-
-/* Estilos Scroll Bar */
-
-.scroll {
-    overflow: auto;
-}
-
-::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 0;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, .0);
-    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
-}
-
-::-moz-scrollbar {
-    -webkit-appearance: none;
-    width: 1px;
-}
-
-::-moz-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, .0);
-    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
-}
+    /* Header-Footer */
+    
+    .trans {
+        background-image: url('img/franja-azul.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 15%;
+    }
+    
+    div:focus,
+    md-radio-button:focus,
+    md-radio-group:focus {
+        outline: none !important;
+    }
+    
+    header,
+    header md-toolbar {
+        cursor: default;
+    }
+    
+    .login_header registro,
+    .login_header ingresar {
+        cursor: pointer;
+    }
+    
+    ingresar:hover,
+    registro:hover,
+    .titulo:hover {
+        color: orangered;
+    }
+    
+    footer {
+        font-size: 12px;
+        background-color: rgb(40, 53, 147);
+        color: white;
+    }
+    
+    .titulo {
+        cursor: pointer;
+    }
+    
+    [class*="md-whiteframe"] {
+        background: rgb(250, 250, 250);
+    }
+    
+    .white_iconos {
+        background: rgba(223, 131, 51, 1.00);
+    }
+    
+    md-content {
+        height: 600px;
+        background-color: rgba(236, 236, 236, 1) !important;
+    }
+    
+    .contenedor-de-logos {
+        height: 400px;
+    }
+    
+    .p_header {
+        background-color: #FF9800;
+    }
+    /* Comenzar */
+    
+    .botones-select-comen {
+        margin-top: 11%;
+        margin-bottom: 5%;
+    }
+    
+    #select_container_3>md-select-menu>md-content {
+        display: flex !important;
+        flex-direction: column;
+        padding: 0 !important;
+    }
+    
+    .select-auto {
+        flex: 1 1 auto;
+    }
+    
+    .icono_radio {
+        font-size: 70px;
+    }
+    
+    .radio-f md-radio-button .md-off,
+    .radio-f md-radio-button .md-on {
+        top: 20px !important;
+        left: 27px !important;
+    }
+    
+    .radio-f md-radio-button .md-ripple-container {
+        display: none !important;
+    }
+    /* login */
+    
+    .margen_formulario_login {
+        margin-right: 1.5%;
+    }
+    /* Estilos generales*/
+    
+    * {
+        cursor: default;
+    }
+    
+    .text-center {
+        text-align: center;
+    }
+    
+    .margen_inferior {
+        margin-bottom: 2%;
+    }
+    
+    .margen_izquierdo {
+        margin-left: 2%
+    }
+    
+    .margen_derecho {
+        margin-right: 2%;
+    }
+    
+    .margen_superior {
+        margin-top: 2%;
+    }
+    
+    .padding_top {
+        padding-top: 8px;
+    }
+    
+    .padding_left {
+        padding-left: 8px;
+    }
+    
+    .padding_right {
+        padding-right: 8px;
+    }
+    
+    .padding_bottom {
+        padding-bottom: 8px;
+    }
+    /* Opciones Vista */
+    
+    bazam-svg-text svg {
+        width: 100px;
+        height: 100px;
+        overflow: visible;
+    }
+    
+    bazam-svg-text svg>text {
+        font-size: 100px;
+    }
+    
+    .logo_icon {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    .titulo_opciones {
+        color: #F44336;
+        text-align: center;
+        font-size: 18px;
+        padding: 2%;
+    }
+    
+    .pointer,
+    md-button,
+    md-slider,
+    .logo_icon,
+    md-fab-speed-dial,
+    md-radio-button,
+    md-fab-action-item,
+    button {
+        cursor: pointer;
+    }
+    
+    .titulo_opciones-p {
+        margin: 0;
+        padding: 8% !important;
+    }
+    
+    .borde_derecho_opciones {
+        border-right: 1px solid grey;
+    }
+    
+    .contenedor_fuentes {
+        font-size: 20px;
+    }
+    
+    .contenedor_fuentes p {
+        cursor: pointer;
+        transition: all 500ms;
+        border-top-left-radius: 100px;
+        border-bottom-right-radius: 100px;
+    }
+    
+    .contenedor_fuentes p:hover {
+        border-top-left-radius: 0;
+        border-bottom-right-radius: 0;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+        background-color: crimson;
+        color: white;
+        border-top-right-radius: 100px;
+        border-bottom-left-radius: 100px;
+    }
+    
+    .contenedor_logos div img:hover {
+        box-shadow: 0 3px 5px -1px rgba(255, 235, 59, .2), 0 6px 10px 0 rgba(255, 235, 59, .14), 0 1px 18px 0 rgba(255, 235, 59, .12);
+    }
+    
+    .cont_iconos_logo_opciones md-icon:hover,
+    p_footer md-icon:hover {
+        color: orangered;
+        cursor: pointer;
+    }
+    /* CLASES DE SELECCION */
+    
+    .fuente.activo {
+        background: orangered !important;
+        color: white;
+    }
+    
+    .fuente.inactivo {
+        background: transparent;
+    }
+    
+    .icono.activo {
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    }
+    
+    .icono.inactivo {
+        box-shadow: none;
+    }
+    /* paquetes */
+    
+    paquete {
+        cursor: default;
+    }
+    
+    paquete p_header,
+    metodo_pago p_header {
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        display: block;
+    }
+    
+    .normal p_header {
+        background: #b5b5b5;
+    }
+    
+    .iniciado p_header {
+        background: #c2a840;
+    }
+    
+    .premium p_header {
+        background: #EFB600;
+    }
+    
+    p_footer md-icon {
+        cursor: pointer;
+    }
+    /* Metodos de pagos */
+    
+    metodo_pago p_header {
+        background: silver;
+    }
+    /* DashBoard */
+    
+    .h_seccion_dashboard {
+        background-color: #FF9800;
+        color: white;
+        margin: 0 !important;
+    }
+    
+    .relative {
+        position: absolute;
+        top: 4%;
+    }
+    /* EDITOR */
+    
+    .logo_icon_editor {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .logo_grande_editor_cont {
+        margin-top: 10%;
+        cursor: pointer;
+    }
+    
+    .logo_grande_editor_cont div {
+        cursor: pointer;
+    }
+    
+    .logo_grande_editor {
+        width: 300px;
+        height: 300px;
+    }
+    /* PROCESO */
+    
+    .proceso-content {
+        height: 140px;
+        transition: background ease-in 0.3s;
+    }
+    
+    .cont-logo-pe {
+        height: 100%;
+    }
+    
+    .proceso-content:hover {
+        background-color: rgba(0, 0, 0, .3);
+    }
+    
+    .proceso-content:hover .cambio {
+        opacity: 0.3;
+    }
+    
+    .logos-proceso-content {
+        height: 355px;
+    }
+    
+    .iconos-procesos {
+        position: relative;
+        top: calc(-70px - 25px);
+        z-index: 99999;
+        color: white;
+        font-size: 30px;
+        margin-right: 5%;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+    
+    .iconos-procesos:hover {
+        color: orangered;
+    }
+    /* SVG */
+    
+    bazam-svg-text svg {}
+    
+    bazam-svg-text svg g text {
+        font-size: 100%;
+    }
+    
+    bazam-svg-text svg g {
+        font-size: 100px;
+    }
+    
+    path[data-bazam-activo]:hover {
+        stroke: cornflowerblue;
+        stroke-width: 2px;
+        outline: none;
+    }
+    
+    path[data-bazam-activo='si']:focus {
+        stroke: #4CAF50;
+        stroke-width: 2px;
+        outline: none !important;
+    }
+    
+    bazam-svg-text svg g:nth-child(2) {
+        -webkit-transform: translateX(0%) translateY(100%) scale(0.9);
+        -ms-transform: translateX(0%) translateY(100%) scale(0.9);
+        transform: translateX(0%) translateY(100%) scale(0.9);
+    }
+    
+    bazam-svg-text svg g:nth-child(1) {
+        -webkit-transform: translateX(0%) translateY(10%) scale(1.1);
+        -ms-transform: translateX(0%) translateY(10%) scale(1.1);
+        transform: translateX(0%) translateY(10%) scale(1.1);
+    }
+    /* Estilos Scroll Bar */
+    
+    .scroll {
+        overflow: auto;
+    }
+    
+     ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 0;
+    }
+    
+     ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, .0);
+        -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    }
+    
+     ::-moz-scrollbar {
+        -webkit-appearance: none;
+        width: 1px;
+    }
+    
+     ::-moz-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, .0);
+        -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    }

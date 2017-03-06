@@ -33,10 +33,10 @@
             </md-fab-speed-dial>
         </div>
     </div>
-    <div layout layout-xs="column" layout-sm="column" layout-align-xs="center" layout-align="space-around" class="margen_inferior contenedor-de-logos">
-        <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
+    <div layout layout-align="space-around" class="margen_inferior contenedor-de-logos">
+        <div layout-lg="row" flex="45" class="md-whiteframe-2dp scroll ">
             <div flex layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_logos text-center">
-                <div flex="33" flex-xs="50" layout-padding ng-repeat="icono in opciones.respuesta.iconos" ng-click="opciones.agregarElemento($index, icono, 'iconos')">
+                <div flex="33" layout-padding ng-repeat="icono in opciones.respuesta.iconos" ng-click="opciones.agregarElemento($index, icono, 'iconos')">
                     <md-icon class="logo_icon icono" ng-class="opciones.datos.iconos[$index].estado"  md-svg-src="data:image/svg+xml,  {{icono.elemento}}"></md-icon>
                 </div>
             </div>
