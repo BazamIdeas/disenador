@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="pasos" ng-switch-when="2" >
-                    <div 
+                    <div> 
                         <md-input-container class="md-block">
                             <label>Seleccione una Categoría</label>
                            
@@ -38,17 +38,14 @@
                 </div>
                 <div class="pasos" ng-switch-when="3" layout="column" layout-align="center space-between">
                     <div layout-padding layout layout-align="space-around">
-                        <md-icon class="material-icons icono_radio"> payment </md-icon>
-                        <md-icon class="material-icons icono_radio"> credit_card </md-icon>
-                        <md-icon class="material-icons icono_radio"> attach_money </md-icon>
+                        <md-icon class="material-icons icono_radio" style="width: 100px; height: 100px;" md-svg-src="/creador-de-logos/assets/iconos_temporales/Imagen2.svg"></md-icon> 
+                        <md-icon class="material-icons icono_radio" style="width: 100px; height: 100px;" md-svg-src="/creador-de-logos/assets/iconos_temporales/Imagen1.svg"></md-icon>
                     </div>
                     <div layout-padding class="radio-f">
                         <md-radio-group layout layout-align="space-around" ng-model="comenzar.datos.tipo" name="tipo" ng-required="true">
                             <md-radio-button layout="column" value="1" ng-click="comenzar.select=true" >
                             </md-radio-button>
                             <md-radio-button value="2" ng-click="comenzar.select=true">
-                            </md-radio-button>
-                            <md-radio-button value="3" ng-click="comenzar.select=true">
                             </md-radio-button>
                         </md-radio-group>
                                            </div>

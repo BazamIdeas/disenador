@@ -29,7 +29,9 @@ angular.module("disenador-de-logos")
 
             svg.lastChild.appendChild(texto);
             svg.lastChild.children[0].setAttribute("text-anchor", "middle");
+            svg.lastChild.children[0].setAttribute("font-family", attributes.fuente);
 
+            
             //compilar dentro del contexto de angular
             $compile(svg.firstChild)(scope);
             $compile(svg.lastChild)(scope);
@@ -94,7 +96,8 @@ angular.module("disenador-de-logos")
 
             svg.lastChild.appendChild(texto);
             svg.lastChild.children[0].setAttribute("text-anchor", "middle");
-
+            svg.lastChild.children[0].setAttribute("font-family", attributes.fuente);
+            
             //compilar dentro del contexto de angular
             $compile(svg.firstChild)(scope);
             $compile(svg.lastChild)(scope);
@@ -124,7 +127,10 @@ angular.module("disenador-de-logos")
 
 
                     if (attributes.bazamActivo == 'si') {
+                        
                         element.attr("style", "fill: " + valor);
+                        
+                    
                     }
 
 
