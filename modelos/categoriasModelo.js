@@ -67,7 +67,7 @@ categoria.insertCategoria= function(categoriaData,callback)
 
 categoria.updateCategoria = function(categoriaData, callback)
 {
-	var q = 'UPDATE categorias SET nombre = ? WHERE idCategoria = ?';
+	var q = 'UPDATE categorias SET nombreCategoria = ? WHERE idCategoria = ?';
 	var par = categoriaData //parametros
 
 	DB.getConnection(function(err, connection)

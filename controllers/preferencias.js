@@ -24,7 +24,8 @@ exports.nuevaPreferencia =  function(req,res)
 		//creamos un objeto con los datos a insertar del cliente
 		var preferenciaData = {
 			idPreferencia : null,
-			nombre: req.body.nombrePreferencia,
+			nombre1: req.body.nombre1,
+			nombre2: req.body.nombre2
 			
 		};
 		preferencia.insertPreferencia(preferenciaData,function(error, data)
@@ -53,7 +54,7 @@ exports.nuevaPreferencia =  function(req,res)
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				//creamos un array con los datos a modificar del cliente
-				var preferenciaData = [req.body.nombrePreferencia, idPreferencia];
+				var preferenciaData = [req.body.nombre1, req.body.nombre2,  idPreferencia];
 					
 				preferencia.updatePreferencia(preferenciaData,function(error, data)
 				{

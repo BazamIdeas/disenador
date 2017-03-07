@@ -8,7 +8,7 @@ var pedido = {};
 //obtenemos todos los pedidos
 pedido.getPedidos = function(callback)
 {
-	var q = 'SELECT fecha, estado, tipo, logos_idLogo, clientes_idCliente FROM pedidos ORDER BY idPedido' 
+	var q = 'SELECT idPedido, fecha, estado, tipoP, idLogo, logo, idCliente, nombreCliente, correo, telefono, pais, nombreCategoria FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria ORDER BY idPedido' 
 
 	DB.getConnection(function(err, connection)
 	{
@@ -27,8 +27,8 @@ pedido.getPedidos = function(callback)
 //obtenemos un pedido por su id
 pedido.getPedido = function(id,callback)
 { 
-	var q = 'SELECT fecha, estado, tipo, logos_idLogo, clientes_idCliente FROM pedidos WHERE idPedido = ? ' 
-	var par = [id] //parametros
+	var q = 'SELECT idPedido, fecha, estado, tipoP, idLogo, logo, idCliente, nombreCliente, correo, telefono, pais, nombreCategoria FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria WHERE idPedido = ?'
+ 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -37,6 +37,26 @@ pedido.getPedido = function(id,callback)
 	  	if(err)	throw err;
 	  	
 	  	else callback(null, row);
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+
+//obtenemos los pedidos por id del cliente
+pedido.getPedidosCliente = function(id,callback)
+{ 
+	var q = 'SELECT idPedido, fecha, estado, tipoP, idLogo, logo, nombreCategoria FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria WHERE idCliente = 1 ' 
+	var par = [id] //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, rows){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, rows);
 	  	
 	  });
 
@@ -69,7 +89,27 @@ pedido.insertPedido = function(pedidoData,callback)
 //actualizar un pedido
 pedido.updatePedido = function(pedidoData, callback)
 {
-	var q = 'UPDATE pedidos SET fecha = ?, estado = ?,  tipo = ?, logos_idLogo = ?, clientes_idCliente = ? WHERE idPedido = ?';
+	var q = 'UPDATE pedidos SET fecha = ?, estado = ?,  tipoP = ? WHERE idPedido = ?';
+	var par = pedidoData //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+
+	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+
+//actualizar estado del pedido
+pedido.cambiarEstado = function(pedidoData, callback)
+{
+	var q = 'UPDATE pedidos SET estado = ? WHERE idPedido = ?';
 	var par = pedidoData //parametros
 
 	DB.getConnection(function(err, connection)
