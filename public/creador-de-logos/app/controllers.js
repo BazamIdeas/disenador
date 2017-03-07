@@ -350,20 +350,20 @@ angular.module("disenador-de-logos")
 
     this.activo = {};
 
-    this.activar = function (llave) {
+    this.activar = function (llave) { 
+
+        if (!this.mostrar) {
+            
+            this.mostrar = 'color-animacion-entrada';
+        }
         
-     
-
-       
-
         this.activo = {};
 
         this.activo[llave] = 'si';
+        
+         
 
-        console.log(this.activo);
     }
-
-    console.log(this.activo)
 
     this.modoSeleccionado = 'md-scale';
 
