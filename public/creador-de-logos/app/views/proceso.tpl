@@ -1,6 +1,11 @@
 <style ng-repeat="fuente in proceso.datosEstadoAnterior.elementos.fuentes">
     @font-face {
-        font-family: {{fuente.nombre}};
+        font-family: {
+            {
+                fuente.nombre
+            }
+        }
+        ;
         src: url('{{fuente.url}}');
     }
 
@@ -40,21 +45,20 @@
             </md-fab-toolbar>
         </div>
     </div>
-    <div layout layout-align="center" class="margen_superior">
-        <div layout="row" flex="60" class="scroll logos-proceso-content" >
-            <div flex layout="row" layout-align="space-around" layout-wrap class="text-center">
-                <div flex="30" ng-repeat="logo in proceso.logos" ng-mouseenter="proceso.efectoHover($index, logo)" ng-mouseleave="proceso.efectoHover($index, logo)" class="md-whiteframe-2dp margen_inferior contenedor_logos_proceso proceso-content">
+    <div layout layout-align="center">
+        <div layout="row" flex="60" class="scroll">
+            <div class="contenedor-logo-proceso">
+                <div ng-repeat="logo in proceso.logos" ng-mouseenter="proceso.efectoHover($index, logo)" ng-mouseleave="proceso.efectoHover($index, logo)" class="md-whiteframe-2dp margen_inferior svg-proceso contenedor_logos_proceso proceso-content">
                     <div>
-                        <div class="cont-logo-pe">
-                            <bazam-svg-text bazam-svg-text-pos data-icono="{{logo.icono.elemento}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{proceso.posicion.coordenadas.x}}" data-texto-y="{{proceso.posicion.coordenadas.y}}" data-texto="BAZAM"></bazam-svg-text>
-                        </div>
-                        <md-icon ui-sref="editor({logo: logo, posicion: proceso.posicion, texto: 'BAZAM'})" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>
-                        <md-icon ui-sref="paquetes" class="iconos-procesos siguiente" ng-show="logo.estado">shopping_cart</md-icon>
+                        <bazam-svg-text bazam-svg-text-pos data-icono="{{logo.icono.elemento}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{proceso.posicion.coordenadas.x}}" data-texto-y="{{proceso.posicion.coordenadas.y}}" data-texto="BAZAM"></bazam-svg-text>
                     </div>
+                    <md-icon ui-sref="editor({logo: logo, posicion: proceso.posicion, texto: 'BAZAM'})" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>
+                    <md-icon ui-sref="paquetes" class="iconos-procesos siguiente icono-p-p" ng-show="logo.estado">shopping_cart</md-icon>
                 </div>
             </div>
         </div>
     </div>
+
 
 
     <div layout="row" class="margen_superior">

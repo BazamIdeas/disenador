@@ -4,7 +4,7 @@
             <md-fab-speed-dial md-open="editor.estado1" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado1=true">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab  md-primary">
-                        <md-icon class="logo_icon_editor " md-svg-src="assets/svg/google-glasses.svg"></md-icon>
+                        <md-icon class="logo_icon_editor ">view_stream</md-icon>
                     </md-button>
                 </md-fab-trigger>
                 <md-fab-actions>
@@ -27,38 +27,35 @@
                 </md-fab-trigger>
                 <md-fab-actions>
                     <md-button aria-label="Face" class="md-fab md-raised md-mini" ng-click="editor.Categorias($event)">
-                        <md-icon>face</md-icon>
+                        <md-icon>format_align_left
+</md-icon>
                     </md-button>
                     <md-button aria-label="Label" class="md-fab md-raised md-mini" ng-click="editor.Etiquetas($event)">
-                        <md-icon>label</md-icon>
+                        <md-icon>format_align_right</md-icon>
                     </md-button>
                     <md-button aria-label="Algo" class="md-fab md-raised md-mini" ng-click="editor.Caracteristicas($event)">
-                        <md-icon>lightbulb_outline</md-icon>
+                        <md-icon>format_align_center</md-icon>
+                    </md-button>
+                    
+                    <md-button aria-label="Algo" class="md-fab md-raised md-mini" ng-click="editor.Caracteristicas($event)">
+                        <md-icon>vertical_align_top</md-icon>
                     </md-button>
                 </md-fab-actions>
             </md-fab-speed-dial>
             <md-fab-speed-dial md-open="editor.estado3" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado3=true">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab md-primary">
-                        <md-icon class="logo_icon_editor" md-svg-src="assets/svg/webcam.svg"></md-icon>
+                        <md-icon class="logo_icon_editor" >remove_red_eye
+</md-icon>
                     </md-button>
                 </md-fab-trigger>
                 <md-fab-actions>
-                    <md-button aria-label="Face" class="md-fab md-raised md-mini" ng-click="editor.Categorias($event)">
-                        <md-icon>face</md-icon>
-                    </md-button>
-                    <md-button aria-label="Label" class="md-fab md-raised md-mini" ng-click="editor.Etiquetas($event)">
-                        <md-icon>label</md-icon>
-                    </md-button>
-                    <md-button aria-label="Algo" class="md-fab md-raised md-mini" ng-click="editor.Caracteristicas($event)">
-                        <md-icon>lightbulb_outline</md-icon>
-                    </md-button>
                 </md-fab-actions>
             </md-fab-speed-dial>
             <md-fab-speed-dial md-open="editor.estado4" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado4=true">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab md-primary">
-                        <md-icon class="logo_icon_editor" md-svg-src="assets/svg/folder.svg"></md-icon>
+                        <md-icon class="logo_icon_editor">save</md-icon>
                     </md-button>
                 </md-fab-trigger>
                 <md-fab-actions>

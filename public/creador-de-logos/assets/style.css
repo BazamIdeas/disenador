@@ -81,8 +81,7 @@
     
     .radio-f md-radio-button .md-off,
     .radio-f md-radio-button .md-on {
-        top: 20px !important;
-        left: 27px !important;
+        <
     }
     
     .radio-f md-radio-button .md-ripple-container {
@@ -137,10 +136,11 @@
     /* Opciones Vista */
     
     bazam-svg-text svg {
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: 80%;
         overflow: visible;
     }
+
     
     bazam-svg-text svg>text {
         font-size: 100px;
@@ -290,8 +290,8 @@
     }
     
     .logo_grande_editor {
-        width: 300px;
-        height: 300px;
+        width: 70%;
+        height: 50%;
     }
     /* PROCESO */
     
@@ -300,12 +300,29 @@
         transition: background ease-in 0.3s;
     }
     
+    .svg-proceso {
+        width: 30%;
+        height: 30%;
+        position: relative;
+    }
+    
+    .contenedor-logo-proceso {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        height:auto;
+        z-index: 9999999;
+    }
+    
     .cont-logo-pe {
         height: 100%;
     }
     
     .proceso-content:hover {
-        background-color: rgba(0, 0, 0, .3);
+        background-color: rgba(0, 0, 0, .5);
     }
     
     .proceso-content:hover .cambio {
@@ -316,12 +333,19 @@
         height: 355px;
     }
     
+    .icono-p-p {
+        left: 50% !important;
+    }
+    
     .iconos-procesos {
-        position: relative;
-        top: calc(-70px - 25px);
+        position: absolute;
+        left: 30%;
+        top: 40%;
+        color: brown;
+        opacity: 1;
         z-index: 99999;
         color: white;
-        font-size: 30px;
+        font-size: 35px;
         margin-right: 5%;
         cursor: pointer;
         transition: color 0.3s;
@@ -332,23 +356,23 @@
     }
     /* SVG */
     
-    bazam-svg-text svg {}
-    
-    bazam-svg-text svg g text {
+    svg g text {
         font-size: 100%;
     }
     
-    bazam-svg-text svg g {
-        font-size: 100px;
+    svg g {
+        font-size: 70px;
     }
     
-    path[data-bazam-activo]:hover {
+    path[data-bazam-activo]:hover,
+    circle[data-bazam-activo]:hover {
         stroke: cornflowerblue;
         stroke-width: 2px;
         outline: none;
     }
     
-    path[data-bazam-activo='si']:focus {
+    path[data-bazam-activo='si']:focus,
+    circle[data-bazam-activo='si']:focus {
         stroke: #4CAF50;
         stroke-width: 2px;
         outline: none !important;
@@ -360,9 +384,7 @@
         transform: scale(.9);
     }
     
-    bazam-svg-text svg g:nth-child(1) {
-        
-    }
+    bazam-svg-text svg g:nth-child(1) {}
     /* Estilos Scroll Bar */
     
     .scroll {

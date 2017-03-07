@@ -269,7 +269,7 @@ angular.module("disenador-de-logos")
 
         coordenadas: {
             x: 256,
-            y: 716
+            y: 600
         },
         actual: 'bottom'
     }
