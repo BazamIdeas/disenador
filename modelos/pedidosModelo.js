@@ -3,6 +3,7 @@ var DB=require('./DB.js');
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var pedido = {};
  
+ 
 
 //obtenemos todos los pedidos
 pedido.getPedidos = function(callback)
@@ -13,7 +14,7 @@ pedido.getPedidos = function(callback)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
+	  	if(err)	throw err; 
 	  	
 	  	else callback(null, rows);
 	  	

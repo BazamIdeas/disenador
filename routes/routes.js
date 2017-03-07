@@ -42,4 +42,6 @@ router.post("/preferencia/modificar/", controllers.preferencias.modificarPrefere
 router.get('/preferencia/borrar/:id', controllers.preferencias.borrarPreferencia);
 
 
+router.get('/email',controllers.emails.enviar_email);
+
 module.exports = router;
