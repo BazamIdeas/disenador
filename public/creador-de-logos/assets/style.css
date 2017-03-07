@@ -140,7 +140,6 @@
         height: 80%;
         overflow: visible;
     }
-
     
     bazam-svg-text svg>text {
         font-size: 100px;
@@ -281,17 +280,21 @@
     }
     
     .logo_grande_editor_cont {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 450px;
         margin-top: 10%;
-        cursor: pointer;
     }
     
-    .logo_grande_editor_cont div {
-        cursor: pointer;
+    .color-animacion md-input-container {
+        margin-top: 0;
     }
     
-    .logo_grande_editor {
-        width: 70%;
-        height: 50%;
+    .logo_grande_editor_cont div svg {
+        cursor: pointer;
+        width: 100%;
     }
     /* PROCESO */
     
@@ -313,7 +316,7 @@
         justify-content: space-around;
         align-items: center;
         flex-wrap: wrap;
-        height:auto;
+        height: auto;
         z-index: 9999999;
     }
     
@@ -355,6 +358,10 @@
         color: orangered;
     }
     /* SVG */
+    
+    svg {
+        overflow: visible;
+    }
     
     svg g text {
         font-size: 100%;

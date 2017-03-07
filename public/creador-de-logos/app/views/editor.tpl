@@ -28,7 +28,7 @@
                 <md-fab-actions>
                     <md-button aria-label="Face" class="md-fab md-raised md-mini" ng-click="editor.Categorias($event)">
                         <md-icon>format_align_left
-</md-icon>
+                        </md-icon>
                     </md-button>
                     <md-button aria-label="Label" class="md-fab md-raised md-mini" ng-click="editor.Etiquetas($event)">
                         <md-icon>format_align_right</md-icon>
@@ -36,7 +36,7 @@
                     <md-button aria-label="Algo" class="md-fab md-raised md-mini" ng-click="editor.Caracteristicas($event)">
                         <md-icon>format_align_center</md-icon>
                     </md-button>
-                    
+
                     <md-button aria-label="Algo" class="md-fab md-raised md-mini" ng-click="editor.Caracteristicas($event)">
                         <md-icon>vertical_align_top</md-icon>
                     </md-button>
@@ -45,8 +45,8 @@
             <md-fab-speed-dial md-open="editor.estado3" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado3=true">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab md-primary">
-                        <md-icon class="logo_icon_editor" >remove_red_eye
-</md-icon>
+                        <md-icon class="logo_icon_editor">remove_red_eye
+                        </md-icon>
                     </md-button>
                 </md-fab-trigger>
                 <md-fab-actions>
@@ -72,15 +72,16 @@
             </md-fab-speed-dial>
         </div>
     </div>
-    <div layout="row" class="logo_grande_editor_cont" layout-align="center">
-        <div layout="row" flex="30" layout-align="center start" class="md-whiteframe-2dp">
+    <div class="logo_grande_editor_cont">
+        <div class="md-whiteframe-2dp">
             <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.logo.icono.elemento}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="BAZAM" data-bazam-activo="editor.activo"></bazam-svg-text-2>
         </div>
-        <div layout="row" layout-align="center" layout-padding>
-            <div layout="column" class="color-animacion color-animacion-entrada">
-                <color-picker ng-model="editor.color" class="md-whiteframe-2dp">
-                </color-picker>
-            </div>
+        <div class="color-animacion color-animacion-entrada">
+            <md-input-container class="md-block md-whiteframe-2dp layout-padding">
+                <input name="fuente" ng-required="true" ng-model="editor.logo.texto">
+            </md-input-container>
+            <color-picker ng-model="editor.color" class="md-whiteframe-2dp">
+            </color-picker>
         </div>
     </div>
     <div layout="row" class="margen_superior" layout-align="space-between">
