@@ -49,10 +49,9 @@
             </div>
         </div>
     </div>
-    <div layout="row">
-        <div layout="row" flex layout-align="space-between center">
+    <div layout="row" layout-align="space-between">            
             <md-button class="md-raised md-primary" ui-sref="comenzar">Atrás</md-button>
-            <md-button class="md-raised md-primary siguiente" ng-show="opciones.seleccionado(opciones.datos.fuentes, opciones.datos.iconos)" ui-sref="proceso({datos: {nombre: opciones.datosEstadoAnterior.nombre  , elementos: opciones.datos}})">Siguiente</md-button>
+            <md-button class="md-raised md-primary siguiente" ng-show="opciones.seleccionado(opciones.datos.fuentes, opciones.datos.iconos)" ui-sref="proceso({datos: {nombre: opciones.datosEstadoAnterior.nombre  , elementos: opciones.datos}})"  ng-click="comenzar.actualizarDatos(editor.datosEstado)">Siguiente</md-button>
         </div>
     </div>
 </div>
