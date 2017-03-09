@@ -36,7 +36,6 @@
                     <md-button aria-label="Algo" class="md-fab md-raised md-mini" ng-click="editor.Caracteristicas($event)">
                         <md-icon>format_align_center</md-icon>
                     </md-button>
-
                     <md-button aria-label="Algo" class="md-fab md-raised md-mini" ng-click="editor.Caracteristicas($event)">
                         <md-icon>vertical_align_top</md-icon>
                     </md-button>
@@ -76,12 +75,16 @@
         <div class="md-whiteframe-2dp">
             <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.logo.icono.elemento}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="BAZAM" data-bazam-activo="editor.activo"></bazam-svg-text-2>
         </div>
-        <div class="color-animacion color-animacion-entrada">
+        <div>
+            <div class="layout-padding">
             <md-input-container class="md-block md-whiteframe-2dp layout-padding">
                 <input name="fuente" ng-required="true" ng-model="editor.logo.texto">
             </md-input-container>
-            <color-picker ng-model="editor.color" class="md-whiteframe-2dp">
-            </color-picker>
+            </div>
+            <div class="color-animacion">
+                <color-picker ng-model="editor.color" class="md-whiteframe-2dp">
+                </color-picker>
+            </div>
         </div>
     </div>
     <div layout="row" class="margen_superior" layout-align="space-between">

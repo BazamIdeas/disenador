@@ -35,11 +35,32 @@ angular.module("disenador-de-logos")
             })
 
         })
-        
+
         return logos;
 
     }
 
     return crear;
+
+}])
+
+.factory('LS', ['$window','$rootScope', function($window, $rootScope) {
+    /*
+    angular.element($window).on('storage', function (event) {
+        if (event.key === 'my-storage') {
+            $rootScope.$apply();
+        }
+    });
+    */
+    
+    return {
+        definir: function (llave, valor) {
+            $window.localStorage.setItem(llave, JSON.stringify(valor));
+            return this;
+        },
+        obtener: function (llave) {
+            return $window.localStorage.getItem(llave);
+        }
+    };
 
 }])
