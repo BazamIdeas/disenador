@@ -84,10 +84,10 @@ angular.module("disenador-de-logos")
 
                 svg.firstChild.childNodes[llave].setAttribute("bazam-cambio-color", "");
                 svg.firstChild.childNodes[llave].setAttribute("data-color", "editor.color");
-                svg.firstChild.childNodes[llave].setAttribute("data-bazam-activo", "{{editor.activo[" + llave + "]}}");
-                svg.firstChild.childNodes[llave].setAttribute("ng-click", "editor.activar(" + llave + ")");
+                svg.firstChild.childNodes[llave].setAttribute("data-bazam-activo", "{{editor.activo.elementos[" + llave + "]}}");
+                svg.firstChild.childNodes[llave].setAttribute("ng-click", "editor.activar('elemento', " + llave + ")");
 
-                //scope.bazamActivo[llave] = 'no';
+               
 
             });
 
@@ -97,8 +97,16 @@ angular.module("disenador-de-logos")
             svg.lastChild.appendChild(texto);
             svg.lastChild.children[0].setAttribute("text-anchor", "middle");
             svg.lastChild.children[0].setAttribute("font-family", attributes.fuente);
+            
+            //directiva de cambio de texto
             svg.lastChild.children[0].setAttribute("bazam-cambio-texto", "");
             svg.lastChild.children[0].setAttribute("data-texto", "{{editor.logo.texto}}");
+            
+            //directiva de cambio de color del texto
+            svg.lastChild.children[0].setAttribute("bazam-cambio-color", "");            
+            svg.lastChild.children[0].setAttribute("data-color", "editor.color");
+            svg.lastChild.children[0].setAttribute("data-bazam-activo", "{{editor.activo.texto}}");
+            svg.lastChild.children[0].setAttribute("ng-click", "editor.activar('texto')");
 
             //compilar dentro del contexto de angular
             $compile(svg.firstChild)(scope);
