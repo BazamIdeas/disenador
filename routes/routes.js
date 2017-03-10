@@ -45,5 +45,12 @@ router.post("/preferencia", controllers.preferencias.nuevaPreferencia);
 router.post("/preferencia/modificar/", controllers.preferencias.modificarPreferencia);
 router.get('/preferencia/borrar/:id', controllers.preferencias.borrarPreferencia);
 
+//MODULO ELEMENTOS
+
+router.get('/elementos/iconos', controllers.elementos.listaIconosPref);
+//router.post("/preferencia", controllers.preferencias.nuevaPreferencia);
+//router.post("/preferencia/modificar/", controllers.preferencias.modificarPreferencia);
+//router.get('/preferencia/borrar/:id', controllers.preferencias.borrarPreferencia);
+
 
 module.exports = router;
