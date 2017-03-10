@@ -54,7 +54,6 @@ router.get('/etiqueta/borrar/:id', controllers.etiquetas.borrarEtiqueta);
 
 //Envio de emails
 router.get('/email',controllers.emails.enviar_email);
-<<<<<<< HEAD
 
 //MODULO ELEMENTOS
 
@@ -62,8 +61,5 @@ router.get('/elementos/iconos', controllers.elementos.listaIconosPref);
 //router.post("/preferencia", controllers.preferencias.nuevaPreferencia);
 //router.post("/preferencia/modificar/", controllers.preferencias.modificarPreferencia);
 //router.get('/preferencia/borrar/:id', controllers.preferencias.borrarPreferencia);
-
-=======
->>>>>>> origin/backend
 
 module.exports = router;
