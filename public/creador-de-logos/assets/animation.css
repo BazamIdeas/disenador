@@ -1507,7 +1507,7 @@
     
     .color-animacion {
         transform: scale(0);
-        margin-left: 2%;
+        margin: 0px;
     }
     
     .color-animacion-entrada {

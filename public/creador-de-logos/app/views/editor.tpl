@@ -1,6 +1,19 @@
-<div flex layout="column" layout-align="center " ng-cloak id="popupContainer-editor">
-    <div layout="column" layout-align="center center">
-        <div layout="row" class="margen_inferior relative" layout-align="center" layout-padding>
+<style ng-repeat="fuente in proceso.datosEstadoAnterior.elementos.fuentes">
+    @font-face {
+        font-family: {
+            {
+                fuente.nombre
+            }
+        }
+        ;
+        src: url('{{fuente.url}}');
+    }
+
+</style>
+
+<div flex layout="column" ng-cloak layout-align="space-between" id="popupContainer-editor">
+    <div layout layout="column" layout-align="center">
+        <div layout="row" class="relative" layout-align="center" layout-padding>
             <md-fab-speed-dial md-open="editor.estado1" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado1=true">
                 <md-fab-trigger>
                     <md-button aria-label="menu" class="md-fab  md-primary">
@@ -71,23 +84,24 @@
             </md-fab-speed-dial>
         </div>
     </div>
+
     <div class="logo_grande_editor_cont">
-        <div class="md-whiteframe-2dp">
+        <div class="md-whiteframe-2dp logo-editor">
             <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.logo.icono.elemento}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo"></bazam-svg-text-2>
         </div>
-        <div>
-            <div class="layout-padding">
-            <md-input-container class="md-block md-whiteframe-2dp layout-padding">
-                <input name="fuente" ng-required="true" ng-model="editor.logo.texto"  ng-class="editor.mostrar">
-            </md-input-container>
+        <div class="edicion">
+            <div>
+                <md-input-container class="md-block md-whiteframe-2dp layout-padding">
+                    <input name="fuente" ng-required="true" ng-model="editor.logo.texto" ng-class="editor.mostrar">
+                </md-input-container>
             </div>
-            <div class="color-animacion" >
+            <div class="color-animacion">
                 <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
                 </color-picker>
             </div>
         </div>
     </div>
-    <div layout="row" class="margen_superior" layout-align="space-between">
+    <div layout="row" layout-align="space-between">
         <div flex layout="row" flex layout-align="space-between center">
             <md-button class="md-raised md-primary" ui-sref="proceso">Atras</md-button>
             <md-button class="md-raised md-primary" ui-sref="metodo">Comprar</md-button>
