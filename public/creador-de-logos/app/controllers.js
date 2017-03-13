@@ -42,6 +42,12 @@ angular.module("disenador-de-logos")
     this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
 }])
 
+.controller('analisisController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", function ($scope, $mdDialog, $stateParams, LS, $state) {
+
+
+}])
+
+
 /* Opciones */
 
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", "$sce", "LS", "$state", function ($scope, $mdDialog, $stateParams, $sce, LS, $state) {
@@ -59,7 +65,7 @@ angular.module("disenador-de-logos")
     } else if (LS.obtener($state.current.name)) {
 
         this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
-    }else{
+    } else {
         $state.go('comenzar');
     }
 
@@ -129,39 +135,39 @@ angular.module("disenador-de-logos")
         /* FUENTES */
         fuentes: [{
             id: 1,
-            url: "../assets/fonts/Bahiana-Regular.ttf",
+            url: "../creador-de-logos/assets/fonts/Bahiana-Regular.ttf",
             nombre: "Bahiana-Regular"
         }, {
             id: 2,
-            url: "../assets/fonts/Barrio-Regular.ttf",
+            url: "../creador-de-logos/assets/fonts/Barrio-Regular.ttf",
             nombre: "Barrio-Regular"
         }, {
             id: 3,
-            url: "../assets/fonts/CaveatBrush-Regular.ttf",
+            url: "../creador-de-logos/assets/fonts/CaveatBrush-Regular.ttf",
             nombre: "CaveatBrush-Regular"
         }, {
             id: 4,
-            url: "../assets/fonts/DellaRespira-Regular.ttf",
+            url: "../creador-de-logos/assets/fonts/DellaRespira-Regular.ttf",
             nombre: "DellaRespira-Regular"
         }, {
             id: 5,
-            url: "../assets/fonts/IndieFlower.ttf",
+            url: "../creador-de-logos/assets/fonts/IndieFlower.ttf",
             nombre: "IndieFlower"
         }, {
             id: 6,
-            url: "../assets/fonts/Anton-Regular.ttf",
+            url: "../creador-de-logos/assets/fonts/Anton-Regular.ttf",
             nombre: "Anton-Regular"
         }, {
             id: 7,
-            url: "../assets/fonts/FjallaOne-Regular.ttf",
+            url: "../creador-de-logos/assets/fonts/FjallaOne-Regular.ttf",
             nombre: "FjallaOne-Regular"
         }, {
             id: 8,
-            url: "../assets/fonts/Lobster-Regular.ttf",
+            url: "../creador-de-logos/assets/fonts/Lobster-Regular.ttf",
             nombre: "Lobster-Regular"
         }, {
             id: 9,
-            url: "../assets/fonts/Pacifico-Regular.ttf",
+            url: "../creador-de-logos/assets/fonts/Pacifico-Regular.ttf",
             nombre: "Pacifico-Regular"
         }]
     }
@@ -254,13 +260,8 @@ angular.module("disenador-de-logos")
 
 /* Proceso */
 
-.controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', '$mdDialog', 'LS', function ($scope, $stateParams, crearLogoFactory, $mdDialog, LS) {
+.controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', '$mdDialog', 'LS', '$state', function ($scope, $stateParams, crearLogoFactory, $mdDialog, LS, $state) {
 
-<<<<<<< HEAD
-    this.datosEstadoAnterior = $stateParams.datos;
-    
-    alert(this.datosEstadoAnterior);
-=======
     /* LOCAL STORAGE */
 
     this.definirInfo = function (llave, datos) {
@@ -274,12 +275,11 @@ angular.module("disenador-de-logos")
     } else if (LS.obtener($state.current.name)) {
 
         this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
-    }else{
+    } else {
         $state.go('opciones');
     }
 
     /* *************** */
->>>>>>> origin/front-end
 
     this.datos = [];
 
@@ -383,26 +383,45 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', function ($scope, $stateParams) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', function ($scope, $stateParams, $state, LS) {
+    
+    /* LOCAL STORAGE  /*
 
+    this.definirInfo = function (llave, datos) {
+        return LS.definir(llave, datos);
+    }
+
+    if ($stateParams.datos) {
+        this.definirInfo($state.current.name, $stateParams.datos);
+        this.datosEstadoAnterior = $stateParams.datos;
+
+    } else if (LS.obtener($state.current.name)) {
+
+        this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
+    } else {
+        $state.go('proceso');
+    }
+
+    /* *************** */
+    
+    
     this.logo = $stateParams.logo;
     this.logo.texto = $stateParams.texto;
     this.logo.posicion = $stateParams.posicion;
 
     this.activo = {
-        
+
         elementos: {},
         texto: null
-        
+
     };
 
-<<<<<<< HEAD
     this.activar = function (tipo, llave = false) {
 
         if (tipo == 'elemento') {
-          
+
             this.activo.texto = null;
-            
+
             if (!this.mostrar) {
 
                 this.mostrar = 'color-animacion-entrada';
@@ -411,33 +430,13 @@ angular.module("disenador-de-logos")
             this.activo.elementos = {};
 
             this.activo.elementos[llave] = 'si';
-        }
-        
-        else if (tipo == 'texto'){
-            
+        } else if (tipo == 'texto') {
+
             this.activo.texto = 'si';
-            
+
             this.activo.elementos = {};
-            
+
         }
-
-
-=======
-
-    this.activar = function (llave) {
-
-        if (!this.mostrar) {
-
-            this.mostrar = 'color-animacion-entrada';
-        }
-
-        this.activo = {};
-
-        this.activo[llave] = 'si';
-
-
->>>>>>> origin/front-end
-
     }
 
     this.modoSeleccionado = 'md-scale';

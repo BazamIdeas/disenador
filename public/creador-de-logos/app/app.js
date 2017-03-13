@@ -11,6 +11,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 controller: 'comenzarController as comenzar'
             })
             .state({
+                name: 'analisis',
+                url: '/analisis',
+                templateUrl: 'app/views/analisis.tpl',
+                controller: 'analisisController as analisis',
+                params: {
+                    datos: null
+                }
+            })
+            .state({
                 name: 'opciones',
                 url: '/opciones',
                 templateUrl: 'app/views/opciones.tpl',
