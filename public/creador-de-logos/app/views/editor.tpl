@@ -77,11 +77,11 @@
         </div>
         <div>
             <div class="layout-padding">
-            <md-input-container class="md-block md-whiteframe-2dp layout-padding">
-                <input name="fuente" ng-required="true" ng-model="editor.logo.texto"  ng-class="editor.mostrar">
+            <md-input-container class="md-block md-whiteframe-2dp layout-padding color-animacion" ng-class="editor.mostrar.texto">
+                <input name="fuente" ng-required="true" ng-model="editor.logo.texto"  >
             </md-input-container>
             </div>
-            <div class="color-animacion" >
+            <div class="color-animacion"  ng-class="editor.mostrar.color">
                 <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
                 </color-picker>
             </div>

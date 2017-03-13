@@ -1508,17 +1508,19 @@
     /*  Animacion Color Picker */
     
     .color-animacion {
-        /* transform: scale(0); */
+        transform: scale(0);
         margin-left: 2%;
     }
-    /*
+   
     .color-animacion-entrada {
-        -webkit-animation: color-animation-e 1s ease 0.5s reverse forwards running;
-        -moz-animation: color-animation-e 1s ease 0.5s reverse forwards running;
-        -o-animation: color-animation-e 1s ease 0.5s reverse forwards running;
-        animation: color-animation-e 1s ease 0.5s reverse forwards running;
+        
+        -webkit-animation: color-animation-e 0.5s ease 0.5s reverse forwards running;
+        -moz-animation: color-animation-e 0.5s ease 0.5s reverse forwards running;
+        -o-animation: color-animation-e 0.5s ease 0.5s reverse forwards running;
+        animation: color-animation-e 0.5s ease 0.5s reverse forwards running;
+    
     }
-    */
+  
     
     @-moz-keyframes color-animation-e {
         from {

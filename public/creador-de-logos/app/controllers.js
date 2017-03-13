@@ -384,7 +384,7 @@ angular.module("disenador-de-logos")
 /* Editor */
 
 .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', function ($scope, $stateParams, $state, LS) {
-    
+
     /* LOCAL STORAGE  /*
 
     this.definirInfo = function (llave, datos) {
@@ -403,8 +403,8 @@ angular.module("disenador-de-logos")
     }
 
     /* *************** */
-    
-    
+
+
     this.logo = $stateParams.logo;
     this.logo.texto = $stateParams.texto;
     this.logo.posicion = $stateParams.posicion;
@@ -412,29 +412,56 @@ angular.module("disenador-de-logos")
     this.activo = {
 
         elementos: {},
-        texto: null
+        texto: ''
 
     };
+
+    this.mostrar = {}
 
     this.activar = function (tipo, llave = false) {
 
         if (tipo == 'elemento') {
 
-            this.activo.texto = null;
+            this.activo.texto = '';
 
-            if (!this.mostrar) {
+            if (!this.mostrar.color) {
 
-                this.mostrar = 'color-animacion-entrada';
+                this.mostrar.color = 'color-animacion-entrada';
+            }
+
+            if (this.mostrar.texto) {
+
+                this.mostrar.texto = 'color-animacion-salida'
             }
 
             this.activo.elementos = {};
 
             this.activo.elementos[llave] = 'si';
+
         } else if (tipo == 'texto') {
 
-            this.activo.texto = 'si';
 
             this.activo.elementos = {};
+
+
+
+            if (!this.mostrar.texto || this.mostrar.texto == 'color-animacion-salida') {
+
+                this.mostrar.texto = 'color-animacion-entrada';
+
+            }
+
+
+            if (!this.mostrar.color) {
+
+                this.mostrar.color = 'color-animacion-entrada';
+            }
+
+
+
+
+
+            this.activo.texto = 'si';
 
         }
     }
