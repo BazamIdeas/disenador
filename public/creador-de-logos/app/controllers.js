@@ -285,7 +285,6 @@ angular.module("disenador-de-logos")
 
     this.logos = crearLogoFactory(this.datosEstadoAnterior.elementos.iconos, this.datosEstadoAnterior.elementos.fuentes);
 
-
     this.efectoHover = function (indice, valor) {
 
 
@@ -385,29 +384,29 @@ angular.module("disenador-de-logos")
 
 .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', function ($scope, $stateParams, $state, LS) {
 
-    /* LOCAL STORAGE  /*
+    /* LOCAL STORAGE */
 
     this.definirInfo = function (llave, datos) {
         return LS.definir(llave, datos);
     }
 
-    if ($stateParams.datos) {
-        this.definirInfo($state.current.name, $stateParams.datos);
-        this.datosEstadoAnterior = $stateParams.datos;
+    if ($stateParams.logo && $stateParams.posicion && $stateParams.texto ) {
+        this.definirInfo($state.current.name, $stateParams);
+        this.datosEstadoAnterior = $stateParams;
 
     } else if (LS.obtener($state.current.name)) {
 
         this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
     } else {
-        $state.go('proceso');
+        $state.go('opciones');
     }
 
     /* *************** */
-
-
-    this.logo = $stateParams.logo;
-    this.logo.texto = $stateParams.texto;
-    this.logo.posicion = $stateParams.posicion;
+    
+    
+    this.logo = this.datosEstadoAnterior.logo;
+    this.logo.texto = this.datosEstadoAnterior.texto;
+    this.logo.posicion = this.datosEstadoAnterior.posicion;
 
     this.activo = {
 
