@@ -1,31 +1,19 @@
 var DB=require('./DB.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
-<<<<<<< HEAD:modelos/elementosModelo.js
 var elemento = {};
-=======
-var pedido = {};
  
- 
->>>>>>> origin/backend:modelos/pedidosModelo.js
 
 elemento.getElementos = function( datos, callback)
 {
 	var q = 'SELECT elementos.idElemento, elementos.nombre, elementos.url FROM elementos INNER JOIN elementos_has_preferencias ON elementos_has_preferencias.elementos_idElemento = elementos.idElemento WHERE elementos_has_preferencias.preferencias_idPreferencia = ? AND elementos_has_preferencias.valor = ? AND elementos.categorias_idCategoria = ? AND elementos.tipo = ?' ;
 
 	DB.getConnection(function(err, connection)
-<<<<<<< HEAD:modelos/elementosModelo.js
 	{ //cmienzo del for
 		
 		connection.query( q ,datos, function(err, rows){
 
 	  	if(err)	throw err;
-=======
-	{
-		connection.query( q ,  function(err, rows){
-	  	
-	  	if(err)	throw err; 
->>>>>>> origin/backend:modelos/pedidosModelo.js
 	  	
 	  	else 
 	  	callback(null, rows);

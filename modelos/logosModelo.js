@@ -88,7 +88,7 @@ logo.updateLogo = function(logoData, callback)
 //comprar un logo Guardado
 logo.cambiarTipo = function(logoData, callback)
 {
-	var q = 'UPDATE logos SET tipo = ? WHERE idLogo = ?';
+	var q = 'UPDATE logos SET tipoLogo = ? WHERE idLogo = ?';
 	var par = logoData //parametros
 
 	DB.getConnection(function(err, connection)
