@@ -1,4 +1,6 @@
 var pedido=require('../modelos/pedidosModelo.js');
+var logo=require('../modelos/logosModelo.js');
+var moment = require('moment');
 
 exports.listaPedidos = function(req, res, next) {
 		pedido.getPedidos(function(error, data)
@@ -58,25 +60,87 @@ exports.datosPedidosCliente =  function(req, res, next) {
 exports.nuevoPedido =  function(req,res)
 	{
 		//creamos un objeto con los datos a insertar del pedido
-		var pedidoData = {
-			idPedido : null,
-			fecha : req.body.fecha,
-			estado : req.body.estado,
-			tipoP : req.body.tipoP,
-			logos_idLogo : req.body.logos_idLogo, // cambiar por id del logo guardado
+
+		var logoData = {
+			idLogo : null,
+			tipoLogo : 'Descargable',
+			logo : req.body.logo,
+			clientes_idCliente : req.body.idCliente,
+			elementos_idElemento : req.body.idElemento
 		};
-		pedido.insertPedido(pedidoData,function(error, data)
+
+
+		logo.insertLogo(logoData,function(error, data)
 		{
 			//si el pedido se ha insertado correctamente mostramos su info
 			if(data && data.insertId)
 			{
-				res.status(201).json(data);
+					var pedidoData = {
+					idPedido : null,
+					fecha : moment().format("YYYY-MM-DD"),
+					estado : 'EN ESPERA',
+					tipoP : '1',
+					logos_idLogo : data.insertId, // id del logo guardado
+					};
+
+				pedido.insertPedido(pedidoData,function(error, data)
+				{
+					//si el pedido se ha insertado correctamente mostramos su info
+					if(data && data.insertId)
+					{
+						res.status(201).json(data);
+					}
+					else
+					{
+						res.status(500).json({"msg":"Algo ocurrio"})
+					}
+				});
 			}
 			else
 			{
 				res.status(500).json({"msg":"Algo ocurrio"})
 			}
 		});
+
+		
+	}
+
+	exports.nuevoPedidoGuardado =  function(req,res)
+	{
+			var pedidoData = {
+					idPedido : null,
+					fecha : moment().format("YYYY-MM-DD"),
+					estado : 'EN ESPERA',
+					tipoP : '1',
+					logos_idLogo : req.body.idLogo, // id del logo guardado
+					};
+
+				pedido.insertPedido(pedidoData,function(error, data)
+				{
+					//si el pedido se ha insertado correctamente mostramos su info
+					if(data && data.insertId)
+					{
+						var logoData = ['Descargable', req.body.idLogo];
+					
+						logo.cambiarTipo(logoData,function(error, data)
+						{
+							//si el pedido se ha modificado correctamente
+							if(data)
+							{
+								res.status(200).json(data);
+							}
+							else
+							{
+								res.status(500).json({"msg":"Algo ocurrio"})
+							}
+						});
+					}
+					else
+					{
+						res.status(500).json({"msg":"Algo ocurrio"})
+					}
+				});
+		
 	}
 
 	exports.modificarPedido =  function(req,res)

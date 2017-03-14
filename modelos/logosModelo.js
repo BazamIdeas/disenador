@@ -7,11 +7,30 @@ var logo = {};
 //obtenemos todos los logos
 logo.getLogos = function(callback)
 {
-	var q = 'SELECT fecha, estado, tipo, logos_idLogo, clientes_idCliente FROM logos ORDER BY idLogo' 
+	var q = 'SELECT idLogo, tipoLogo, logo, clientes_idCliente FROM logos ORDER BY idLogo' 
 
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q ,  function(err, rows){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, rows);
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+
+//obtenemos los logos guardados por un cliente
+logo.getLogosTipo = function(par,callback)
+{
+	var q = 'SELECT idLogo, tipoLogo, logo FROM logos WHERE tipoLogo = ? and clientes_idCliente = ? ORDER BY idLogo'  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par, function(err, rows){
 	  	
 	  	if(err)	throw err;
 	  	

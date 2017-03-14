@@ -27,6 +27,7 @@ router.get('/pedido/:id', controllers.pedidos.datosPedido);
 router.get('/pedidosCliente/:id', controllers.pedidos.datosPedidosCliente);
 router.get('/pedido/borrar/:id', controllers.pedidos.borrarPedido);
 router.post("/pedido", controllers.pedidos.nuevoPedido);
+router.post("/pedido/guardado/", controllers.pedidos.nuevoPedidoGuardado);
 router.post("/pedido/modificar/", controllers.pedidos.modificarPedido);
 router.post("/pedido/cambiar/", controllers.pedidos.cambiarEstado);
 
@@ -55,11 +56,16 @@ router.get('/etiqueta/borrar/:id', controllers.etiquetas.borrarEtiqueta);
 //Envio de emails
 router.get('/email',controllers.emails.enviar_email);
 
-//MODULO ELEMENTOS
 
+//MODULO ELEMENTOS
 router.get('/elementos/iconos', controllers.elementos.listaIconosPref);
 //router.post("/preferencia", controllers.preferencias.nuevaPreferencia);
 //router.post("/preferencia/modificar/", controllers.preferencias.modificarPreferencia);
 //router.get('/preferencia/borrar/:id', controllers.preferencias.borrarPreferencia);
+
+//MODULO LOGOS
+router.get('/logos/guardados/:id', controllers.logos.listaLogosGuardados);
+
+
 
 module.exports = router;
