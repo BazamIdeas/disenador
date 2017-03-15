@@ -24,12 +24,16 @@
     "angular-material": "^1.1.1",
     "angular-messages": "^1.6.1",
     "angular-ui-router": "^0.4.2",
+    "async": "^2.1.5",
     "body-parser": "^1.16.0",
     "cookie-parser": "^1.4.3",
     "css-font-loader": "^0.2.6",
     "express": "^4.14.0",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.17.1",
     "morgan": "^1.7.0",
     "mysql": "^2.13.0",
+    "nodemailer": "^3.1.4",
     "path": "^0.12.7",
     "serve-favicon": "^2.3.2"
   }
