@@ -1513,10 +1513,10 @@
     
     .color-animacion-entrada {
         
-        -webkit-animation: color-animation-e 0.5s ease 0.5s reverse forwards running;
-        -moz-animation: color-animation-e 0.5s ease 0.5s reverse forwards running;
-        -o-animation: color-animation-e 0.5s ease 0.5s reverse forwards running;
-        animation: color-animation-e 0.5s ease 0.5s reverse forwards running;
+        -webkit-animation: color-animation-e 0.5s ease 0s reverse forwards running;
+        -moz-animation: color-animation-e 0.5s ease 0s reverse forwards running;
+        -o-animation: color-animation-e 0.5s ease 0s reverse forwards running;
+        animation: color-animation-e 0.5s ease 0s reverse forwards running;
     
     }
     
@@ -1528,6 +1528,7 @@
         to {
             opacity: 0;
             transform: scale(0);
+            display: none;
         }
     }
     
@@ -1539,6 +1540,7 @@
         to {
             opacity: 0;
             transform: scale(0);
+            display: none;
         }
     }
     
@@ -1550,6 +1552,7 @@
         to {
             opacity: 0;
             transform: scale(0);
+            display: none;
         }
     }
     
@@ -1561,6 +1564,7 @@
         to {
             opacity: 0;
             transform: scale(0);
+            display: none;
         }
     }
     
@@ -1579,6 +1583,7 @@
         to {
             opacity: 0;
             transform: scale(0);
+            display: none;
         }
     }
     
@@ -1590,6 +1595,7 @@
         to {
             opacity: 0;
             transform: scale(0);
+            display: none;
         }
     }
     
@@ -1601,6 +1607,7 @@
         to {
             opacity: 0;
             transform: scale(0);
+            display: none;
         }
     }
     
@@ -1612,6 +1619,7 @@
         to {
             opacity: 0;
             transform: scale(0);
+            display: none;
         }
     }
     /* LOADER */
