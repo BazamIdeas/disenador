@@ -302,19 +302,22 @@ metodo_pago p_header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 450px;
-    margin-top: 5%;
+    margin-top: 9%;
+    margin-bottom: 2%;
 }
 
-.edicion{
-    width:35% !important;  
-    margin:0px auto 0px 10%; 
+.edicion {
+    width: 35% !important;
+    margin: 0px auto 0px 10%;
+    align-self: flex-start;
 }
 
-.logo-editor{
-    margin:0 0 0 auto;  
-    width: 25%;
+.logo-editor {
+    margin: 0 0 0 auto;
+    width: 22%;
+    align-self: flex-start;
 }
+
 
 }
 .color-animacion md-input-container {
