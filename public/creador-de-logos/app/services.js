@@ -1,5 +1,25 @@
 angular.module("disenador-de-logos")
 
+
+/*-------------------------- Services --------------------------*/
+
+
+.service('categoriasService', ["$http" ,function($http){
+    
+    
+    this.listaCategorias = $http.get("/app/categorias").then(function(res){
+        
+        return res.data
+    });
+    
+    
+}])
+
+
+
+
+
+/*--------------------------- Factories aislados ------------------*/
 .factory('compartirFactory', [function () {
     var estados = [];
     var informacion = {

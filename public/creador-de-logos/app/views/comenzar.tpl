@@ -27,7 +27,7 @@
                             <label>Seleccione una Categoría</label>
                            
                             <md-select ng-model="comenzar.datos.categoria" name="categoria" ng-required="true">
-                                <md-option class="select-auto" ng-value="categoria" ng-repeat="categoria in comenzar.categoriasPosibles">{{categoria}}</md-option>
+                                <md-option class="select-auto" ng-value="categoria.idCategoria" ng-repeat="categoria in comenzar.categoriasPosibles">{{categoria.nombreCategoria}}</md-option>
                             </md-select> 
                         </md-input-container>
                     </div>

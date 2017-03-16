@@ -2,10 +2,11 @@ angular.module("disenador-de-logos")
 
 /* Comenzar */
 
-.controller('comenzarController', [function () {
+.controller('comenzarController', ["categoriasService", function (categoriasService) {
 
-
-
+    this.categoriasPosibles = categoriasService.listaCategorias;
+    
+    console.log(this.categoriasPosibles);
 
     this.datos = {
         preferencias: [{
@@ -39,7 +40,7 @@ angular.module("disenador-de-logos")
         }]
     }
     this.mostrar = 1;
-    this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
+    //this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
 }])
 
 .controller('analisisController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", function ($scope, $mdDialog, $stateParams, LS, $state) {
