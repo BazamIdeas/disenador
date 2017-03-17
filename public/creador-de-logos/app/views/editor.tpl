@@ -75,9 +75,7 @@
                 
                 <md-select ng-model="editor.logo.fuente.nombre" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{'font-family' : editor.fuente}">
                     <md-option ng-value="fuente" ng-style="{'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes" ng-click="cambiarFuente(fuente.nombre)">{{fuente.nombre}}</md-option>
-                </md-select>
-                
-                
+                </md-select>                
             </div>
 
             <div>

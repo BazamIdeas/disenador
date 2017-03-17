@@ -5,7 +5,7 @@ angular.module("disenador-de-logos")
 .controller('comenzarController', ["categoriasService", function (categoriasService) {
 
     this.categoriasPosibles = categoriasService.listaCategorias;
-    
+
     console.log(this.categoriasPosibles);
 
     this.datos = {
@@ -480,47 +480,47 @@ angular.module("disenador-de-logos")
 
     $scope.fuente = null;
     $scope.fuentes = null;
-    
-    this.cambiarFuente = function(fuente){
-         this.logo.fuente.nombre = fuente;
+
+    this.cambiarFuente = function (fuente) {
+        this.logo.fuente.nombre = fuente;
     };
 
-   this.fuentes = [{
-            id: 1,
-            url: "../creador-de-logos/assets/fonts/Bahiana-Regular.ttf",
-            nombre: "Bahiana-Regular"
+    this.fuentes = [{
+        id: 1,
+        url: "../creador-de-logos/assets/fonts/Bahiana-Regular.ttf",
+        nombre: "Bahiana-Regular"
         }, {
-            id: 2,
-            url: "../creador-de-logos/assets/fonts/Barrio-Regular.ttf",
-            nombre: "Barrio-Regular"
+        id: 2,
+        url: "../creador-de-logos/assets/fonts/Barrio-Regular.ttf",
+        nombre: "Barrio-Regular"
         }, {
-            id: 3,
-            url: "../creador-de-logos/assets/fonts/CaveatBrush-Regular.ttf",
-            nombre: "CaveatBrush-Regular"
+        id: 3,
+        url: "../creador-de-logos/assets/fonts/CaveatBrush-Regular.ttf",
+        nombre: "CaveatBrush-Regular"
         }, {
-            id: 4,
-            url: "../creador-de-logos/assets/fonts/DellaRespira-Regular.ttf",
-            nombre: "DellaRespira-Regular"
+        id: 4,
+        url: "../creador-de-logos/assets/fonts/DellaRespira-Regular.ttf",
+        nombre: "DellaRespira-Regular"
         }, {
-            id: 5,
-            url: "../creador-de-logos/assets/fonts/IndieFlower.ttf",
-            nombre: "IndieFlower"
+        id: 5,
+        url: "../creador-de-logos/assets/fonts/IndieFlower.ttf",
+        nombre: "IndieFlower"
         }, {
-            id: 6,
-            url: "../creador-de-logos/assets/fonts/Anton-Regular.ttf",
-            nombre: "Anton-Regular"
+        id: 6,
+        url: "../creador-de-logos/assets/fonts/Anton-Regular.ttf",
+        nombre: "Anton-Regular"
         }, {
-            id: 7,
-            url: "../creador-de-logos/assets/fonts/FjallaOne-Regular.ttf",
-            nombre: "FjallaOne-Regular"
+        id: 7,
+        url: "../creador-de-logos/assets/fonts/FjallaOne-Regular.ttf",
+        nombre: "FjallaOne-Regular"
         }, {
-            id: 8,
-            url: "../creador-de-logos/assets/fonts/Lobster-Regular.ttf",
-            nombre: "Lobster-Regular"
+        id: 8,
+        url: "../creador-de-logos/assets/fonts/Lobster-Regular.ttf",
+        nombre: "Lobster-Regular"
         }, {
-            id: 9,
-            url: "../creador-de-logos/assets/fonts/Pacifico-Regular.ttf",
-            nombre: "Pacifico-Regular"
+        id: 9,
+        url: "../creador-de-logos/assets/fonts/Pacifico-Regular.ttf",
+        nombre: "Pacifico-Regular"
         }]
 
 }])
@@ -528,7 +528,7 @@ angular.module("disenador-de-logos")
 /* login */
 
 .controller('loginController', ['$scope', function ($scope) {
-
+    this.mostrarForm = 1;
 }])
 
 /* Cliente */

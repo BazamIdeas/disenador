@@ -22,10 +22,7 @@
 
 </head>
 
-<body>
-
-    <div layout="column">
-        <!-- header -->
+<body
         <header>
             <md-toolbar class="md-hue-2">
                 <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
@@ -33,7 +30,9 @@
                         <h1 class="titulo" ui-sref="comenzar">Creador de logos</h1>
                     </div>
                     <div class="login_header">
-                        <ingresar ui-sref="login" layout-padding>Acceder</ingresar>
+                        <ingresar ui-sref="login" layout-padding>
+                        <md-icon class="material-icons icono_radio" style="width:50px; height: 50px;" md-svg-src="assets/svg/user.svg"></md-icon> 
+                        Acceder</ingresar>
                     </div>
                 </div>
             </md-toolbar>
@@ -47,7 +46,6 @@
             <p class="copyright" flex="30">Copyright 2017</p>
             <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
         </footer>
-    </div>
 </body>
 
 </html>
