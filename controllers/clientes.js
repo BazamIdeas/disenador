@@ -86,7 +86,7 @@ exports.nuevoCliente =  function(req,res)
 			//si el cliente se ha insertado correctamente mostramos su info
 			if(data && data.insertId)
 			{
-				res.status(201).json(data);
+				res.status(200).json(data);
 			}
 			else
 			{

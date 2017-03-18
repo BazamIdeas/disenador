@@ -12,7 +12,11 @@ var rutas = require('./routes/routes.js');
 
 var app = express();
 
-app.use('/', express.static(__dirname + '/public/'))
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/angular', express.static(__dirname + '/node_modules/angular'))
 app.use('/angular-material', express.static(__dirname + '/node_modules/angular-material'))
@@ -49,3 +53,4 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(8080);
+module.exports = app;
