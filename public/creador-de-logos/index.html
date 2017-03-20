@@ -9,6 +9,7 @@
     <link href="assets/fuentes.css" rel="stylesheet">
     <link href="/angular-color-picker/angular-color-picker.css" rel="stylesheet">
     <script src="/angular/angular.min.js"></script>
+    <script src="/satellizer/satellizer.js"></script>
     <script src="/angular-messages/angular-messages.min.js"></script>
     <script src="/angular-ui-router/angular-ui-router.min.js"></script>
     <script src="/angular-animate/angular-animate.min.js"></script>
@@ -26,7 +27,7 @@
 
     <div layout="column">
         <!-- header -->
-        <header>
+        <header ng-controller="headerController as header">
             <md-toolbar class="md-hue-2">
                 <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
                     <div>

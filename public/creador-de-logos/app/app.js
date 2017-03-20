@@ -1,9 +1,14 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker"])
-    .config(function ($stateProvider, $mdThemingProvider) {
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "satellizer"])
+    .config(function ($stateProvider, $mdThemingProvider, $authProvider) {
+
+        /*------------------Material Angular --------------*/
+
         $mdThemingProvider.theme('default')
             .warnPalette('orange')
-    
-    
+
+
+        /*------------------------ Ui router states ----------------------*/
+
         $stateProvider.state({
                 name: 'comenzar',
                 url: '/comenzar',
@@ -46,7 +51,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     logo: null,
                     posicion: null,
                     texto: null
-                    
+
                 }
             })
             .state({
@@ -73,4 +78,31 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 templateUrl: 'app/views/metodo-de-pago.tpl',
                 controller: 'metodosController as metodos'
             })
+
+        /*------------------------Satellizer Auth tokens ----------------------*/
+        $authProvider.loginUrl = "/app/loginClientes";
+        $authProvider.signupUrl = "/app/cliente";
+        $authProvider.tokenName = "token";
+        $authProvider.tokenPrefix = "bazam"
+
+
+        $authProvider.facebook({
+            clientId: '1290458044369395'
+        });
+
+
+
     })
+
+
+.run(function ($rootScope, $state) {
+
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
+        $rootScope.anterior = fromState;
+
+        if (fromState.name) {
+            console.log(fromState)
+        }
+    })
+})

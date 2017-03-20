@@ -82,12 +82,12 @@ angular.module("disenador-de-logos")
 
                 var llaveNueva = 'elemento' + llave;
 
-                svg.firstChild.childNodes[llave].setAttribute("bazam-cambio-color", "");
+                svg.firstChild.childNodes[llave].setAttribute("bazam-cambio-color-fuente", "");
                 svg.firstChild.childNodes[llave].setAttribute("data-color", "editor.color");
                 svg.firstChild.childNodes[llave].setAttribute("data-bazam-activo", "{{editor.activo.elementos[" + llave + "]}}");
                 svg.firstChild.childNodes[llave].setAttribute("ng-click", "editor.activar('elemento', " + llave + ")");
 
-               
+
 
             });
 
@@ -97,14 +97,17 @@ angular.module("disenador-de-logos")
             svg.lastChild.appendChild(texto);
             svg.lastChild.children[0].setAttribute("text-anchor", "middle");
             svg.lastChild.children[0].setAttribute("font-family", attributes.fuente);
-            
+
             //directiva de cambio de texto
             svg.lastChild.children[0].setAttribute("bazam-cambio-texto", "");
             svg.lastChild.children[0].setAttribute("data-texto", "{{editor.logo.texto}}");
-            
+
             //directiva de cambio de color del texto
-            svg.lastChild.children[0].setAttribute("bazam-cambio-color", "");            
+            svg.lastChild.children[0].setAttribute("bazam-cambio-color-fuente", "");
             svg.lastChild.children[0].setAttribute("data-color", "editor.color");
+            svg.lastChild.children[0].setAttribute("data-fuente", "editor.logo.fuente.nombre");
+
+
             svg.lastChild.children[0].setAttribute("data-bazam-activo", "{{editor.activo.texto}}");
             svg.lastChild.children[0].setAttribute("ng-click", "editor.activar('texto')");
 
@@ -122,32 +125,33 @@ angular.module("disenador-de-logos")
 .directive('bazamCambioTexto', function () {
 
     return {
-        
+
         restrict: 'AE',
-        link: function(scope, element, attributes){
-            
-            attributes.$observe('texto',function(valor){
-                
+        link: function (scope, element, attributes) {
+
+            attributes.$observe('texto', function (valor) {
+
                 element.text(valor);
-                
+
             })
-            
+
         }
-        
-    
-        
+
+
+
     }
 
 })
 
 
-.directive('bazamCambioColor', function ($compile) {
+.directive('bazamCambioColorFuente', function ($compile) {
     return {
 
         restrict: 'AE',
         scope: {
 
-            color: "=color"
+            color: "=color",
+            fuente: "=fuente"
 
         },
         link: function (scope, element, attributes) {
@@ -158,12 +162,31 @@ angular.module("disenador-de-logos")
 
 
                     if (attributes.bazamActivo == 'si') {
-
-                        element.attr("style", "fill: " + valor);
-
+                        
+                        if(scope.fuente){
+                            
+                            element.attr("style", "fill: " + valor + "; font-family: " + scope.fuente);
+                        
+                        }
+                        
+                        else {
+                            
+                            element.attr("style", "fill: " + valor )
+                        }
 
                     }
 
+
+                }
+
+
+            })
+
+            scope.$watch("fuente", function (valor) {
+
+                if (valor) {
+
+                    element.attr("style", "fill: " + scope.color + "; font-family: " + valor);
 
                 }
 
@@ -175,3 +198,4 @@ angular.module("disenador-de-logos")
     }
 
 })
+
