@@ -47,7 +47,8 @@ footer {
 }
 
 md-content {
-    height: 600px;
+    min-height: 650px;
+    height: auto;
     background-color: rgba(236, 236, 236, 1) !important;
 }
 
@@ -97,7 +98,10 @@ md-content {
     margin-right: 1.5%;
 }
 
-
+.login-link-h6 {
+    margin-left: 5px;
+    color: rgb(57,73,171);
+}
 /* Estilos generales*/
 
 * {
@@ -408,6 +412,27 @@ bazam-svg-text svg g:nth-child(2) {
     transform: scale(.9);
 }
 bazam-svg-text svg g:nth-child(1) {}
+
+/*LOGIN*/
+.social-facebook {
+    background-color: #3b5998 !important;
+    color: white !important;
+}
+.social-gmail {
+    background-color: #c71610 !important;
+}
+.login-social {
+    margin-top: 2%;
+}
+.login-social p {
+    font-family: fantasy;
+    letter-spacing: 3px;
+}
+.hr-login {
+    width: 40%;
+    border: 1px solid rgba(169, 169, 169, 0.42);
+    border-style: inset;
+}
 
 /* Estilos Scroll Bar */
 .scroll {

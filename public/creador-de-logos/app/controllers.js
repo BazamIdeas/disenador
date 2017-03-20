@@ -34,6 +34,7 @@ angular.module("disenador-de-logos")
 
     /*----XXX -----*/
 
+
     this.datos = {
         preferencias: [{
             nombre: "Femenino",
@@ -553,6 +554,7 @@ angular.module("disenador-de-logos")
 
 /* login */
 
+
 .controller('loginController', ['$scope', '$auth', function ($scope, $auth) {
 
     this.datosRegistrar = {}
@@ -594,6 +596,10 @@ angular.module("disenador-de-logos")
 
 
     console.log($auth.isAuthenticated())
+    
+    
+     this.mostrarForm = 1;
+
 
 
 }])
