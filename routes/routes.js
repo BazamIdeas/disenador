@@ -10,7 +10,7 @@ router.get('/cliente/:id', controllers.clientes.datosCliente);
 router.get('/cliente/borrar/:id', controllers.clientes.borrarCliente);
 router.post("/cliente", controllers.clientes.nuevoCliente);
 router.post("/cliente/modificar/", controllers.clientes.modificarCliente);
-router.post('/loginClientes',controllers.clientes.login);
+router.post('/loginClientes',controllers.clientes.login,controllers.tokenMiddleware.auntentificarToken);
 
 //MODULO USUARIOS
 router.post('/loginUsuarios',controllers.usuarios.login);
