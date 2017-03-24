@@ -8,7 +8,7 @@
         </md-slider-container>
     </div>
     <div flex="85" layout="row" layout-align="center center">
-        <form name="preferenciasFormulario" flex="50" layout-align="center center" layout-padding class="md-whiteframe-2dp">
+        <form name="preferenciasFormulario" flex="50" layout-align="center center" layout-padding class="md-whiteframe-4dp">
             <div ng-switch="comenzar.mostrar">
                 <div class="pasos" ng-switch-when="1">
                     <div>

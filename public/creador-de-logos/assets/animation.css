@@ -1695,56 +1695,104 @@
         outline-style: dashed;
         outline-color: red;
         outline-offset: 5px;
-        -webkit-animation: borde-text 0.5s ease-out 0s infinite alternate forwards running;
-        -moz-animation: borde-text 0.5s ease-out 0s infinite alternate forwards running;
-        -o-animation: borde-text 0.5s ease-out 0s infinite alternate forwards running;
-        animation: borde-text 0.5s ease-out 0s infinite alternate forwards running;
+    }
+
+
+#preloader6{
+    position:relative;
+    width: 152px;
+    height: 152px;
+    animation: preloader_6 5s infinite linear;
+}
+#preloader6 span{
+    width:75px;
+    height:75px;
+    position:absolute;
+    background:red;
+    display:block;
+    animation: preloader_6_span 1s infinite linear;
+}
+#preloader6 span:nth-child(1){
+background:#4fc3f7;
+ 
+}
+#preloader6 span:nth-child(2){
+left:77px;
+background:#00b8d4;
+    animation-delay: .2s;
+ 
+}
+#preloader6 span:nth-child(3){
+top:77px;
+background:#1976d2;
+    animation-delay: .4s;
+}
+#preloader6 span:nth-child(4){
+top:77px;
+left:77px;
+background:#80d8ff;
+    animation-delay: .6s;
+}
+@keyframes preloader_6_span {
+   0% { transform:scale(1); }
+   50% { transform:scale(0.5); }
+   100% { transform:scale(1); }
+}
+
+
+.texto-animacion-entrada {
+        
+        -webkit-animation: texto-animation-e 0.5s ease 0s reverse forwards running;
+        -moz-animation: texto-animation-e 1.5s ease 0s reverse forwards running;
+        -o-animation: texto-animation-e 1.5s ease 0s reverse forwards running;
+        animation: texto-animation-e 1.5s ease 0s reverse forwards running;
+    
     }
     
-    @-moz-keyframes borde-text {
+    @-moz-keyframes texto-animation-e {
         from {
-            outline-color: red;
-        }
-        50% {
-            outline-color: blue;
+            opacity: 1;
+            transform: scale(1);
         }
         to {
-            outline-color: green;
+            opacity: 0;
+            transform: scale(0);
+            display: none;
         }
     }
     
-    @-webkit-keyframes borde-text {
+    @-webkit-keyframes texto-animation-e {
         from {
-            outline-color: red;
-        }
-        50% {
-            outline-color: blue;
+            opacity: 1;
+            transform: scale(1);
         }
         to {
-            outline-color: green;
+            opacity: 0;
+            transform: scale(0);
+            display: none;
         }
     }
     
-    @-o-keyframes borde-text {
+    @-o-keyframes texto-animation-e {
         from {
-            outline-color: red;
-        }
-        50% {
-            outline-color: blue;
+            opacity: 1;
+            transform: scale(1);
         }
         to {
-            outline-color: green;
+            opacity: 0;
+            transform: scale(0);
+            display: none;
         }
     }
     
-    @keyframes borde-text {
+    @keyframes texto-animation-e {
         from {
-            outline-color: red;
-        }
-        50% {
-            outline-color: blue;
+            opacity: 1;
+            transform: scale(1);
         }
         to {
-            outline-color: green;
+            opacity: 0;
+            transform: scale(0);
+            display: none;
         }
     }

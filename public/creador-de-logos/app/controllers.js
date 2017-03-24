@@ -72,7 +72,7 @@ angular.module("disenador-de-logos")
 
 .controller('analisisController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", function ($scope, $mdDialog, $stateParams, LS, $state) {
 
-
+    this.animacionTexto = 1;
 }])
 
 

@@ -60,7 +60,6 @@
                     </div>
                     <div layout layout-align="space-between">
                         <md-button class="md-raised md-primary" ui-sref="dashboard">Enviar</md-button>
-                        <md-button class="md-raised md-warn" ng-click="login.mostrarForm=1">Regresar</md-button>
                     </div>
                     <div layout layout-wrap>
                         <h5 layout="row">Ya tienes una cuenta? </h5>
