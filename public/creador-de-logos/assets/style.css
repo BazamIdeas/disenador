@@ -456,3 +456,10 @@ bazam-svg-text svg g:nth-child(1) {}
     background-color: rgba(0, 0, 0, .0);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
 }
+
+/* Analisis */
+
+.loader-cont {
+    height: 500px;
+}
+
