@@ -1741,12 +1741,11 @@ background:#80d8ff;
 
 
 .texto-animacion-entrada {
-        
+        color: #00b8d4;
         -webkit-animation: texto-animation-e 0.5s ease 0s reverse forwards running;
         -moz-animation: texto-animation-e 1.5s ease 0s reverse forwards running;
         -o-animation: texto-animation-e 1.5s ease 0s reverse forwards running;
         animation: texto-animation-e 1.5s ease 0s reverse forwards running;
-    
     }
     
     @-moz-keyframes texto-animation-e {

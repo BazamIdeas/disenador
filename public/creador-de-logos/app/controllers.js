@@ -70,9 +70,17 @@ angular.module("disenador-de-logos")
     //this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
 }])
 
-.controller('analisisController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", function ($scope, $mdDialog, $stateParams, LS, $state) {
-
-    this.animacionTexto = 1;
+.controller('analisisController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", "$interval", function ($scope, $mdDialog, $stateParams, LS, $state, $interval) {
+    var bz = this;
+    bz.animacionTexto = 1;
+    $interval(function () {
+            if (bz.animacionTexto == 4) {
+                $state.go('opciones', {datos: $stateParams.datos});
+            } else {
+                bz.animacionTexto = bz.animacionTexto + 1;
+            }
+            }, 3000);
+    
 }])
 
 
@@ -583,30 +591,30 @@ angular.module("disenador-de-logos")
 
 
 
-       /* if (metodo != 'interno' && !datos) {
+        /* if (metodo != 'interno' && !datos) {
 
-            $auth.authenticate(metodo)
-                .then(function () {
+             $auth.authenticate(metodo)
+                 .then(function () {
 
-                    console.log("funciona")
-                })
-                .catch(function (res) {
-                 
-                });
-        } else {*/
+                     console.log("funciona")
+                 })
+                 .catch(function (res) {
+                  
+                 });
+         } else {*/
 
-            $auth.login(datos)
-            
-                .then(function (res) {
-                    
-                    console.log($auth.isAuthenticated())
-                
-                })
-                .catch(function (res) {
-                     console.log(res)
-                })
+        $auth.login(datos)
 
-//        }
+        .then(function (res) {
+
+                console.log($auth.isAuthenticated())
+
+            })
+            .catch(function (res) {
+                console.log(res)
+            })
+
+        //        }
 
     }
 
