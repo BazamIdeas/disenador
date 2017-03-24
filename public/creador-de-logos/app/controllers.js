@@ -71,10 +71,17 @@ angular.module("disenador-de-logos")
 }])
 
 .controller('analisisController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", "$interval", function ($scope, $mdDialog, $stateParams, LS, $state, $interval) {
+    var promise;
     var bz = this;
     bz.animacionTexto = 1;
-    $interval(function () {
+    
+    bz.stop = function() {
+      $interval.cancel(promise);
+    };
+    
+    promise = $interval(function () {
             if (bz.animacionTexto == 4) {
+                bz.stop();
                 $state.go('opciones', {datos: $stateParams.datos});
             } else {
                 bz.animacionTexto = bz.animacionTexto + 1;

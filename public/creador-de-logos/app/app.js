@@ -99,10 +99,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
-        $rootScope.anterior = fromState;
+       /* $rootScope.anterior = fromState;
 
         if (fromState.name) {
             console.log(fromState)
-        }
+        }*/
+        
+       
     })
 })
