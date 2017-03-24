@@ -16,9 +16,9 @@ angular.module("disenador-de-logos")
 .controller('comenzarController', ["categoriasService", function (categoriasService) {
 
     /*------ CORREGIR --------*/
-    
+
     var bz = this;
-    
+
     bz.categoriasPosibles = []
 
     categoriasService.listaCategorias.then(function (res) {
@@ -558,47 +558,63 @@ angular.module("disenador-de-logos")
 .controller('loginController', ['$scope', '$auth', function ($scope, $auth) {
 
     this.datosRegistrar = {}
+    this.datoslogin = {}
 
     this.registrar = function (datos) {
 
         console.log(datos)
 
         $auth.signup(datos)
-            .then(function () {
+            .then(function (res) {
 
-                console.log("funciono")
+                console.log(res.data)
 
 
             })
             .catch(function (response) {
-                console.log(response)
+                console.log(res.data)
 
             })
-
 
     }
 
 
-    this.login = function (metodo) {
+    this.login = function (metodo, datos = false) {
 
 
 
-        return $auth.authenticate(metodo)
-            .then(function () {
+       /* if (metodo != 'interno' && !datos) {
 
-                console.log("funciona")
-            })
-            .catch(function (response) {
-                // Something went wrong.
-            });
+            $auth.authenticate(metodo)
+                .then(function () {
+
+                    console.log("funciona")
+                })
+                .catch(function (res) {
+                 
+                });
+        } else {*/
+
+            $auth.login(datos)
+            
+                .then(function (res) {
+                    
+                    console.log($auth.isAuthenticated())
+                
+                })
+                .catch(function (res) {
+                     console.log(res)
+                })
+
+//        }
 
     }
 
 
     console.log($auth.isAuthenticated())
-    
-    
-     this.mostrarForm = 1;
+
+
+    this.mostrarForm = 1;
 
 
 

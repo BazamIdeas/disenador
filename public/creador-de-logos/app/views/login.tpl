@@ -6,13 +6,13 @@
                     <h3 class="text-center">Ingresar</h3>
                     <div>
                         <md-input-container class="md-block">
-                            <label>Usuario</label>
-                            <input>
+                            <label>Correo</label>
+                            <input type="text" ng-model="login.datosLogin.correo">
                         </md-input-container>
 
                         <md-input-container class="md-block">
                             <label>Contraseña</label>
-                            <input>
+                            <input type="password" ng-model="login.datosLogin.pass">
                         </md-input-container>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                         <h6>No tienes una cuenta?</h6>
                         <h6 class="login-link-h6" ng-click="login.mostrarForm=2"><b>Registrate</b></h6>
                     </div>
-                    <md-button class="md-raised md-primary" ui-sref="dashboard">Enviar</md-button>
+                    <md-button class="md-raised md-primary" ng-click="login.login('interno', login.datosLogin)">Enviar</md-button>
                 </div>
                 <div class="login-social">
                     <div layout layout-align="center center">
@@ -46,20 +46,32 @@
                     <div layout="column" layout-align="space-around">
                         <md-input-container class="md-block">
                             <label>Nombre</label>
-                            <input>
+                            <input type="text" ng-model="login.datosRegistrar.nombreCliente">
                         </md-input-container>
 
                         <md-input-container class="md-block">
                             <label>Correo</label>
-                            <input>
+                            <input type="text" ng-model="login.datosRegistrar.correo">
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>Contraseña</label>
-                            <input>
+                            <input type="password" ng-model="login.datosRegistrar.pass">
+
                         </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Teléfono</label>
+                            <input type="text" ng-model="login.datosRegistrar.telefono">
+
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>País</label>
+                            <input type="text" ng-model="login.datosRegistrar.pais">
+
+                        </md-input-container>
+                        
                     </div>
                     <div layout layout-align="space-between">
-                        <md-button class="md-raised md-primary" ui-sref="dashboard">Enviar</md-button>
+                        <md-button class="md-raised md-primary" ng-click="login.registrar(login.datosRegistrar)">Enviar</md-button>
                         <md-button class="md-raised md-warn" ng-click="login.mostrarForm=1">Regresar</md-button>
                     </div>
                     <div layout layout-wrap>
@@ -85,7 +97,7 @@
                     </md-input-container>
                 </div>
                 <div layout layout-align="space-between">
-                    <md-button class="md-raised md-primary" ui-sref="dashboard">Enviar</md-button>
+                    <md-button class="md-raised md-primary">Enviar</md-button>
                     <md-button class="md-raised md-primary" ng-click="login.mostrarForm=1">Regresar</md-button>
                 </div>
             </form>

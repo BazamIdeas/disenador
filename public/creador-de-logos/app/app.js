@@ -83,7 +83,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         $authProvider.loginUrl = "/app/loginClientes";
         $authProvider.signupUrl = "/app/cliente";
         $authProvider.tokenName = "token";
-        $authProvider.tokenPrefix = "bazam"
+        $authProvider.tokenPrefix = "bazam";
 
 
         $authProvider.facebook({

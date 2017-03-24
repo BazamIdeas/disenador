@@ -73,14 +73,14 @@ exports.datosCliente =  function(req, res, next) {
 exports.nuevoCliente =  function(req,res)
 	{
 		//creamos un objeto con los datos a insertar del cliente
-		var clienteData = {
-			idCliente : null,
+		var clienteData = req.body/*{
+
 			nombreCliente : req.body.nombreCliente,
 			correo : req.body.correo,
 			pass : req.body.pass,
 			telefono : req.body.telefono,
 			pais : req.body.pais
-		};
+		}*/;
 		cliente.insertCliente(clienteData,function(error, data)
 		{
 			//si el cliente se ha insertado correctamente mostramos su info
