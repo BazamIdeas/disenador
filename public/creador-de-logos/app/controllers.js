@@ -2,10 +2,15 @@ angular.module("disenador-de-logos")
 
 /* header */
 
-.controller('headerController', ["$state", function () {
+.controller('headerController', ["$state", 'Auth', function ($state, Auth) {
 
+    var bz = this;
 
+    bz.autorizado = Auth.$getAuth();
 
+    Auth.$onAuthStateChanged(function (firebaseUser) {
+        bz.autorizado = firebaseUser;
+    });
 
 
 }])
@@ -74,20 +79,22 @@ angular.module("disenador-de-logos")
     var promise;
     var bz = this;
     bz.animacionTexto = 1;
-    
-    bz.stop = function() {
-      $interval.cancel(promise);
+
+    bz.stop = function () {
+        $interval.cancel(promise);
     };
-    
+
     promise = $interval(function () {
-            if (bz.animacionTexto == 4) {
-                bz.stop();
-                $state.go('opciones', {datos: $stateParams.datos});
-            } else {
-                bz.animacionTexto = bz.animacionTexto + 1;
-            }
-            }, 3000);
-    
+        if (bz.animacionTexto == 4) {
+            bz.stop();
+            $state.go('opciones', {
+                datos: $stateParams.datos
+            });
+        } else {
+            bz.animacionTexto = bz.animacionTexto + 1;
+        }
+    }, 3000);
+
 }])
 
 
@@ -570,63 +577,41 @@ angular.module("disenador-de-logos")
 /* login */
 
 
-.controller('loginController', ['$scope', '$auth', function ($scope, $auth) {
+.controller('loginController', ['$scope', '$http', 'Auth', '$rootScope', '$state', function ($scope, $http, Auth, $rootScope, $state) {
 
-    this.datosRegistrar = {}
-    this.datoslogin = {}
+    this.auth = Auth;
+
+    this.datos = {
+
+        registrar: {},
+        login: {}
+
+    };
 
     this.registrar = function (datos) {
 
-        console.log(datos)
+        Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
+            .then(function (firebaseUser) {
+            
+                console.error(firebaseUser);
 
-        $auth.signup(datos)
-            .then(function (res) {
+            }).catch(function (error) {
+                console.error(error);
+            });
 
-                console.log(res.data)
 
-
-            })
-            .catch(function (response) {
-                console.log(res.data)
-
-            })
 
     }
-
 
     this.login = function (metodo, datos = false) {
 
-
-
-        /* if (metodo != 'interno' && !datos) {
-
-             $auth.authenticate(metodo)
-                 .then(function () {
-
-                     console.log("funciona")
-                 })
-                 .catch(function (res) {
-                  
-                 });
-         } else {*/
-
-        $auth.login(datos)
-
-        .then(function (res) {
-
-                console.log($auth.isAuthenticated())
-
-            })
-            .catch(function (res) {
-                console.log(res)
-            })
-
-        //        }
+        Auth.$signInWithEmailAndPassword(datos.correo, datos.pass).then(function (firebaseUser) {
+            $state.go($rootScope.anterior);
+        }).catch(function (error) {
+            console.error("Authentication failed:", error);
+        });
 
     }
-
-
-    console.log($auth.isAuthenticated())
 
 
     this.mostrarForm = 1;
@@ -637,7 +622,7 @@ angular.module("disenador-de-logos")
 
 /* Cliente */
 
-.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", function ($scope, $mdDialog, $stateParams) {
+.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'currentAuth', function ($scope, $mdDialog, $stateParams, currentAuth) {
     this.datosEstadoAnterior = $stateParams.datos;
     this.respuesta = {
         iconos: [{
@@ -719,12 +704,12 @@ angular.module("disenador-de-logos")
 
 /* Paquetes */
 
-.controller('paquetesController', ['$scope', function ($scope) {
+.controller('paquetesController', ['$scope', 'currentAuth', function ($scope, currentAuth) {
 
 }])
 
 /* Metodos */
 
-.controller('metodosController', ['$scope', function ($scope) {
+.controller('metodosController', ['$scope', 'currentAuth', function ($scope, currentAuth) {
     this.pago = false;
 }])

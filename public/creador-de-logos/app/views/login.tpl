@@ -7,12 +7,12 @@
                     <div>
                         <md-input-container class="md-block">
                             <label>Correo</label>
-                            <input type="text" ng-model="login.datosLogin.correo">
+                            <input type="text" ng-model="login.datos.login.correo">
                         </md-input-container>
 
                         <md-input-container class="md-block">
                             <label>Contraseña</label>
-                            <input type="password" ng-model="login.datosLogin.pass">
+                            <input type="password" ng-model="login.datos.login.pass">
                         </md-input-container>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                         <h6>No tienes una cuenta?</h6>
                         <h6 class="login-link-h6" ng-click="login.mostrarForm=2"><b>Registrate</b></h6>
                     </div>
-                    <md-button class="md-raised md-primary" ng-click="login.login('interno', login.datosLogin)">Enviar</md-button>
+                    <md-button class="md-raised md-primary" ng-click="login.login('interno', login.datos.login)">Enviar</md-button>
                 </div>
                 <div class="login-social">
                     <div layout layout-align="center center">
@@ -31,7 +31,7 @@
                         <hr class="hr-login">
                     </div>
                     <div layout="column" layout-align="center">
-                        <md-button class="md-warn md-raised social-facebook md-block">
+                        <md-button class="md-warn md-raised social-facebook md-block" ng-click="login.auth.$signOut()">
                             <md-icon class="material-icons icono_radio" style="width:12px; height: 12px; margin-right:10px;" md-svg-src="assets/svg/facebook.svg"></md-icon>Ingresa con Facebook</md-button>
                         <md-button class="md-primary md-raised social-gmail md-block">
                             <md-icon class="material-icons icono_radio" style="width:12px; height: 12px; margin-right:10px;" md-svg-src="assets/svg/gmail.svg"></md-icon>Ingresa con Gmail</md-button>
@@ -46,32 +46,32 @@
                     <div layout="column" layout-align="space-around">
                         <md-input-container class="md-block">
                             <label>Nombre</label>
-                            <input type="text" ng-model="login.datosRegistrar.nombreCliente">
+                            <input type="text" ng-model="login.datos.registrar.nombreCliente">
                         </md-input-container>
 
                         <md-input-container class="md-block">
                             <label>Correo</label>
-                            <input type="text" ng-model="login.datosRegistrar.correo">
+                            <input type="text" ng-model="login.datos.registrar.correo">
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>Contraseña</label>
-                            <input type="password" ng-model="login.datosRegistrar.pass">
+                            <input type="password" ng-model="login.datos.registrar.pass">
 
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>Teléfono</label>
-                            <input type="text" ng-model="login.datosRegistrar.telefono">
+                            <input type="text" ng-model="login.datos.registrar.telefono">
 
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>País</label>
-                            <input type="text" ng-model="login.datosRegistrar.pais">
+                            <input type="text" ng-model="login.datos.registrar.pais">
 
                         </md-input-container>
                         
                     </div>
                     <div layout layout-align="space-between">
-                        <md-button class="md-raised md-primary" ng-click="login.registrar(login.datosRegistrar)">Enviar</md-button>
+                        <md-button class="md-raised md-primary" ng-click="login.registrar(login.datos.registrar)">Enviar</md-button>
                         <md-button class="md-raised md-warn" ng-click="login.mostrarForm=1">Regresar</md-button>
                     </div>
                     <div layout layout-wrap>

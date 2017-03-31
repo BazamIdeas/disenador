@@ -8,18 +8,44 @@
     <link href="assets/animation.css" rel="stylesheet">
     <link href="assets/fuentes.css" rel="stylesheet">
     <link href="/angular-color-picker/angular-color-picker.css" rel="stylesheet">
+    
+    <!--Firebase -->
+    <script src="/firebase/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCuhuK9OS2qmpA0HuJvqKjUuhpkRVvW1Zg",
+            authDomain: "bargiotti-inventario.firebaseapp.com",
+            databaseURL: "https://bargiotti-inventario.firebaseio.com",
+            storageBucket: "bargiotti-inventario.appspot.com",
+            messagingSenderId: "919616935999"
+        };
+        firebase.initializeApp(config);
+
+    </script>
+    
+    <!--Librerias core de angualarJS -->
     <script src="/angular/angular.min.js"></script>
-    <script src="/satellizer/satellizer.js"></script>
     <script src="/angular-messages/angular-messages.min.js"></script>
-    <script src="/angular-ui-router/angular-ui-router.min.js"></script>
     <script src="/angular-animate/angular-animate.min.js"></script>
     <script src="/angular-aria/angular-aria.min.js"></script>
+
+    
+    
+
+    <!--Librerias 3er party angularJS -->
+    <script src="/angularfire/angularfire.min.js"></script>
+    <script src="/angular-ui-router/angular-ui-router.min.js"></script>
     <script src="/angular-material/angular-material.min.js"></script>
     <script src="/angular-color-picker/angular-color-picker.js"></script>
+
+    <!--Archivos App diseñador -->
     <script src="app/app.js"></script>
     <script src="app/services.js"></script>
     <script src="app/controllers.js"></script>
     <script src="app/directives.js"></script>
+
+
 
 </head>
 
@@ -32,11 +58,17 @@
                     <div>
                         <h1 class="titulo" ui-sref="comenzar">Creador de logos</h1>
                     </div>
-                    <div class="login_header">
-                        <ingresar ui-sref="login" layout-padding>
-                        <md-icon class="material-icons icono_radio" style="width:50px; height: 50px;" md-svg-src="assets/svg/user.svg"></md-icon> 
-                        Acceder</ingresar>
+                    <div ng-switch="header.autorizado" class="login_header">
+                        <ingresar ng-switch-when="null" ui-sref="login" layout-padding>
+                            <md-icon class="material-icons icono_radio" style="width:50px; height: 50px;" md-svg-src="assets/svg/user.svg"></md-icon>
+                            Iniciar</ingresar>
+
+                        <ingresar ng-switch-default ui-sref="dashboard" layout-padding>
+                            <md-icon class="material-icons icono_radio" style="width:50px; height: 50px;" md-svg-src="assets/svg/user.svg"></md-icon>
+                            Acceder</ingresar>
                     </div>
+
+
                 </div>
             </md-toolbar>
         </header>
@@ -49,7 +81,9 @@
             <p class="copyright" flex="30">Copyright 2017</p>
             <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
         </footer>
-        </div>
+    </div>
 </body>
+
+
 
 </html>

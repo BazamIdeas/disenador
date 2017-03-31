@@ -81,3 +81,8 @@ angular.module("disenador-de-logos")
     };
 
 }])
+
+.factory("Auth", ["$firebaseAuth",
+  function($firebaseAuth) {
+    return $firebaseAuth();
+  }])
