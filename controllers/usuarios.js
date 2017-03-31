@@ -12,7 +12,9 @@ exports.login =  function(req,res)
 			//si el usuario existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-			
+
+				
+		
 			var jwt = require('jwt-simple');
 			var moment = require('moment');
 			var payload = {

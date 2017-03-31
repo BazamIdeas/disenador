@@ -17,14 +17,14 @@ exports.aad = function(req,res){
 }
 
 
-exports.auntentificarToken = function(req,res){
+exports.auntentificarToken = function(req,res,next){
 	
 			if(typeof req.token !== 'undefined' && req.token.length > 0){
 				
 				var token = req.token;
 				var z = jwt.decode(token,'misecretoken');
 			
-					if(z.exp < moment().unix()){
+					if(z.exp <= moment().unix()){
 						
 						res.status(403).send('super sesion expirada');
 					
@@ -47,6 +47,7 @@ exports.auntentificarToken = function(req,res){
 				res.status(200).send(x);
 			}
 		}
+
 
 
 exports.prueba = function(req,res){	
