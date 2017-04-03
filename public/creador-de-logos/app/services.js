@@ -7,42 +7,43 @@ angular.module("disenador-de-logos")
 .service('categoriasService', ["$http", function ($http) {
 
 
-    this.listaCategorias =  $http.get("/app/categorias");
+    this.listaCategorias = $http.get("/app/categorias");
 
 
 }])
 
 
 
-.service('preferenciasService', ["$http", function($http){
-    
-    
-      this.listaPreferencias =  $http.get("/app/preferencias");
-    
-    
+.service('preferenciasService', ["$http", function ($http) {
+
+
+    this.listaPreferencias = $http.get("/app/preferencias");
+
+
 }])
 
 
-.service('elementosService', ["$http", function($http){
-    
-    this.listaSegunPref = function(datos){ 
-        
-           return $http.post("/app/elementos/busqueda", datos)
-                
-                .then(function(res){
-                
-                console.log(res);
-            }, function(res){
-               
-               console.log(res);
-               
-           })
-                
-                .catch(function(res){
-                
-               console.log(res);
-                
-                })
+.service('elementosService', ["$http", function ($http) {
+
+    this.listaSegunPref = function (datos) {
+
+        return $http.post("/app/elementos/busqueda", datos)
+
+        .then(function (res) {
+            console.log("x");
+            console.log(res);
+            
+        }, function (res) {
+            console.log("error");
+            console.log(res);
+
+        })
+
+        .catch(function (res) {
+             console.log("catch");
+            console.log(res);
+
+        })
     }
 }])
 
@@ -117,6 +118,6 @@ angular.module("disenador-de-logos")
 }])
 
 .factory("Auth", ["$firebaseAuth",
-  function($firebaseAuth) {
-    return $firebaseAuth();
+  function ($firebaseAuth) {
+        return $firebaseAuth();
   }])

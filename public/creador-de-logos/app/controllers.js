@@ -105,10 +105,7 @@ angular.module("disenador-de-logos")
     
     
     
-    elementosService.listaSegunPref($stateParams.datos).then(function(res){ 
-    bz.x = res;
-    
-    }, function(){});
+    elementosService.listaSegunPref($stateParams.datos);
     
     
 /*
