@@ -14,8 +14,10 @@ angular.module("disenador-de-logos")
 
 
 
+.service('preferenciasService', ["$http", function($http){
     
     
+      this.listaPreferencias =  $http.get("/app/preferencias");
     
     
 }])
