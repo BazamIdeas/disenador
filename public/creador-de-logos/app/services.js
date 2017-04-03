@@ -7,9 +7,17 @@ angular.module("disenador-de-logos")
 .service('categoriasService', ["$http", function ($http) {
 
 
-    this.listaCategorias =  $http.get("/app/categorias")
+    this.listaCategorias =  $http.get("/app/categorias");
 
 
+}])
+
+
+
+    
+    
+    
+    
 }])
 
 

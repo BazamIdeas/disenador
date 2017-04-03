@@ -18,30 +18,16 @@ angular.module("disenador-de-logos")
 
 /* Comenzar */
 
-.controller('comenzarController', ["categoriasService", function (categoriasService) {
+.controller('comenzarController', ["categoriasService", "preferenciasService", function (categoriasService, preferenciasService) {
 
-    /*------ CORREGIR --------*/
+     var bz = this;
 
-    var bz = this;
-
-    bz.categoriasPosibles = []
-
-    categoriasService.listaCategorias.then(function (res) {
-
-        angular.forEach(res.data, function (valor, llave) {
-
-            bz.categoriasPosibles.push(valor);
-
-
-        })
-
-    })
-
-    /*----XXX -----*/
-
-
-    this.datos = {
-        preferencias: [{
+    
+     bz.datos = {
+         
+         preferencias: []
+         
+       /* preferencias: [{
             nombre: "Femenino",
             nombre2: "Masculino",
             valor: 2
@@ -69,8 +55,45 @@ angular.module("disenador-de-logos")
             nombre: "Formal",
             nombre2: "Divertido",
             valor: 2
-        }]
+        }]*/
     }
+    
+    /*------ CORREGIR --------*/
+
+   
+    bz.categoriasPosibles = [];
+            
+    bz.preferencias = [];
+
+    categoriasService.listaCategorias.then(function (res) {
+
+        angular.forEach(res.data, function (valor, llave) {
+
+            bz.categoriasPosibles.push(valor);
+
+
+        })
+
+    })
+    
+    preferenciasService.listaPreferencias.then(function (res) {
+
+        angular.forEach(res.data, function (valor, llave) {
+            valor.valor = 2;
+            bz.datos.preferencias.push(valor);
+
+
+        })
+
+    })
+    
+    
+    
+
+    /*----XXX -----*/
+
+
+   
     this.mostrar = 1;
     //this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
 }])

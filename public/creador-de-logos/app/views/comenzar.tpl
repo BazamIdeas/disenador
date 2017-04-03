@@ -57,7 +57,7 @@
                 <div class="pasos" ng-switch-when="4">
                     <div layout ng-repeat="prefrerencia in comenzar.datos.preferencias">
                         <div flex layout layout-align="center center">
-                            <span class="md-body-1">{{prefrerencia.nombre}}</span>
+                            <span class="md-body-1">{{prefrerencia.nombre1}}</span>
                         </div>
                         <md-slider flex="50" md-discrete ng-model="prefrerencia.valor" step="1" min="1" max="3" aria-label="rating">
                         </md-slider>
