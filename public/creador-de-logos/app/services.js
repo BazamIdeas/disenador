@@ -23,6 +23,30 @@ angular.module("disenador-de-logos")
 }])
 
 
+.service('elementosService', ["$http", function($http){
+    
+    this.listaSegunPref = function(datos){ 
+        
+           return $http.post("/app/elementos/busqueda", datos)
+                
+                .then(function(res){
+                
+                console.log(res);
+            }, function(res){
+               
+               console.log(res);
+               
+           })
+                
+                .catch(function(res){
+                
+               console.log(res);
+                
+                })
+    }
+}])
+
+
 
 
 

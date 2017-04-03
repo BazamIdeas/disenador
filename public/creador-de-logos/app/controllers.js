@@ -98,11 +98,20 @@ angular.module("disenador-de-logos")
     //this.categoriasPosibles = ['Primera', 'Segunda', 'Tercera'];
 }])
 
-.controller('analisisController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", "$interval", function ($scope, $mdDialog, $stateParams, LS, $state, $interval) {
+.controller('analisisController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", "$interval", "elementosService", function ($scope, $mdDialog, $stateParams, LS, $state, $interval, elementosService) {
     var promise;
     var bz = this;
     bz.animacionTexto = 1;
-
+    
+    
+    
+    elementosService.listaSegunPref($stateParams.datos).then(function(res){ 
+    bz.x = res;
+    
+    }, function(){});
+    
+    
+/*
     bz.stop = function () {
         $interval.cancel(promise);
     };
@@ -116,7 +125,7 @@ angular.module("disenador-de-logos")
         } else {
             bz.animacionTexto = bz.animacionTexto + 1;
         }
-    }, 3000);
+    }, 3000);*/
 
 }])
 

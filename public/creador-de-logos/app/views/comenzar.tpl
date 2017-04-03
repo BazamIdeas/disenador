@@ -43,9 +43,9 @@
                     </div>
                     <div layout-padding class="radio-f">
                         <md-radio-group layout layout-align="space-around" ng-model="comenzar.datos.tipo" name="tipo" ng-required="true">
-                            <md-radio-button layout="column" value="1" ng-click="comenzar.select=true" >
+                            <md-radio-button layout="column" value="ICONO" ng-click="comenzar.select=true" >
                             </md-radio-button>
-                            <md-radio-button value="2" ng-click="comenzar.select=true">
+                            <md-radio-button value="ICONO2" ng-click="comenzar.select=true">
                             </md-radio-button>
                         </md-radio-group>
                                            </div>
