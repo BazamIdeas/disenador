@@ -11,7 +11,7 @@ router.get('/cliente/borrar/:id', controllers.clientes.borrarCliente);
 router.post("/cliente", controllers.clientes.nuevoCliente,controllers.firebase.crearCliente);
 router.post("/cliente/modificar/", controllers.clientes.modificarCliente);
 router.post('/loginCliente',controllers.clientes.login,controllers.firebase.autenticarCliente);
-router.post('/salirCliente',controllers.firebase.salirSesion);
+//router.post('/salirCliente',controllers.firebase.salirSesion);
 //LOGIN PARA CLIENTE 
 /*
 router.post('/crearCliente',,controllers.firebase.crearUsuario);
