@@ -8,19 +8,22 @@ exports.login =  function(req,res,next)
 		var clienteData = [req.body.correo,req.body.pass];
 		cliente.verificarCliente(clienteData,function(error, data)
 		{
-			//si el usuario existe 
+			//si el usuario existe  
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				req.datos=data;
-				req.token=req.body.token;
+				
+				req.correo= clienteData[0];
+				req.pass= clienteData[1];
 				next();
+				//req.pass=;
+				
 				
 		
 			}
 		//no existe
 			else
 			{
-				res.status(404).json(data);
+				res.status(500).json(data);
 			}
 		});
 	} 
@@ -37,7 +40,7 @@ exports.listaClientes = function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No hay clientes registrados"})
+				res.status(500).json({"msg":"No hay clientes registrados"})
 			}
 		});
 
@@ -50,20 +53,22 @@ exports.datosCliente =  function(req, res, next) {
 		{
 		//si el usuario existe 
 			if (typeof data !== 'undefined' && data.length > 0)
-			{
+			{	
+
+				//next();
 				res.status(200).json(data);
 			}
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No Encontrado"})
+				res.status(500).json({"msg":"No Encontrado"})
 			}
 		});
 
 	}
 
 
-exports.nuevoCliente =  function(req,res)
+exports.nuevoCliente =  function(req,res,next)
 	{
 		//creamos un objeto con los datos a insertar del cliente
 		var clienteData = req.body/*{
@@ -77,13 +82,15 @@ exports.nuevoCliente =  function(req,res)
 		cliente.insertCliente(clienteData,function(error, data)
 		{
 			//si el cliente se ha insertado correctamente mostramos su info
-			if(data && data.insertId)
+			if(data && data)
 			{
-				res.status(200).json(data);
+
+				
+				next();
 			}
 			else
 			{
-				res.status(500).json(data)
+				res.status(500).json(error)
 			}
 		});
 	}
@@ -116,7 +123,7 @@ exports.nuevoCliente =  function(req,res)
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No existe"})
+				res.status(500).json({"msg":"No existe"})
 			}
 		});
 	}

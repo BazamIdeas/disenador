@@ -8,10 +8,17 @@ var controllers = require('.././controllers');
 router.get('/clientes', controllers.clientes.listaClientes);
 router.get('/cliente/:id', controllers.clientes.datosCliente);
 router.get('/cliente/borrar/:id', controllers.clientes.borrarCliente);
-router.post("/cliente", controllers.clientes.nuevoCliente);
+router.post("/cliente", controllers.clientes.nuevoCliente,controllers.firebase.crearCliente);
 router.post("/cliente/modificar/", controllers.clientes.modificarCliente);
-router.post('/loginClientes',controllers.clientes.login,controllers.tokenMiddleware.auntentificarToken);
-
+router.post('/loginCliente',controllers.clientes.login,controllers.firebase.autenticarCliente);
+router.post('/salirCliente',controllers.firebase.salirSesion);
+//LOGIN PARA CLIENTE 
+/*
+router.post('/crearCliente',,controllers.firebase.crearUsuario);
+router.post('/entrarCliente',controllers.clientes.login,controllers.firebase.autenticarUsuario);
+router.post('/salirCliente',controllers.firebase.salirSesion);
+router.post('/loginClientes',controllers.clientes.login,);
+*/
 //MODULO USUARIOS
 router.post('/loginUsuarios',controllers.usuarios.login);
 //router.get('/private',controllers.tokenMiddleware.autentificarToken);
