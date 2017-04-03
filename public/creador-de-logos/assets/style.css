@@ -63,6 +63,12 @@ md-content {
 
 /* Comenzar */
 
+.texto-informativo p {
+    font-size: 28px;
+    color: #2196F3;
+    font-weight: bold;
+}
+
 .botones-select-comen {
     margin-top: 11%;
     margin-bottom: 5%;
@@ -100,8 +106,10 @@ md-content {
 
 .login-link-h6 {
     margin-left: 5px;
-    color: rgb(57,73,171);
+    color: rgb(57, 73, 171);
 }
+
+
 /* Estilos generales*/
 
 * {
@@ -296,34 +304,126 @@ metodo_pago p_header {
 
 /* EDITOR */
 
+.contenedor-editor {
+    display: flex;
+    width: 100%;
+    height: 70%;
+}
+
 .logo_icon_editor {
     width: 32px;
     height: 32px;
 }
 
-.logo_grande_editor_cont {
-    cursor: pointer;
+.editor-lienzo {
+    display: flex;
+    flex: 1 1;
+    padding: 0 5% 0 5%;
+}
+
+.menu-editor {
+    width: 7%;
+    background-color: #3f4652;
+    color: white !important;
+}
+
+.cont-logo-editor {
+    width: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 9%;
-    margin-bottom: 2%;
-}
-
-.edicion {
-    width: 35% !important;
-    margin: 0px auto 0px 10%;
-    align-self: flex-start;
 }
 
 .logo-editor {
-    margin: 0 0 0 auto;
-    width: 22%;
-    align-self: flex-start;
+    width: 40%;
+}
+
+.edicion {
+    margin-left: 1%;
+    margin-top: 5%;
+    color: #4dbdd6;
+}
+
+.menu-editor .menu-link:hover {
+    background-color: #009688;
+}
+
+.elemento {
+    position: absolute;
+    left: 100%;
+    top: 0%;
+    height: auto;
+    width: 250px;
+    background: #49bbbb;
+}
+
+.elemento md-input-container.md-default-theme .md-input,
+.elemento md-input-container .md-input {
+    color: white !important;
+}
+
+md-input-container.color-animacion .md-input {
+    padding: 18px 6px !important;
+}
+
+.elemento .color-animacion input {
+    width: 100%;
+    padding: 6px 5px;
+    font-size: 15px;
+}
+
+.menu-editor.activo {
+    width: 17%;
+}
+
+.menu-editor .menu-link {
+    padding: 1% 0% 1% 5%;
+    display: flex;
+    align-items: center;
+    background-color: #3f4652;
+    position: relative;
+    transition: all 1s;
+}
+
+.menu-link.activo {
+    background-color: #009688;
+}
+
+.propiedades {
+    display: flex;
+    background: #d0d0d0;
+    justify-content: space-around;
+}
+
+.propiedades div {
+    padding: 8px;
+    color: black;
+    width: 33%;
+    text-align: center;
+}
+
+.elemento input,
+.elemento md-select,
+.elemento h4 {
+    padding-left: 5% !important;
+}
+
+.elemento input,
+.elemento md-select {
+    background: #5ad8d8;
+}
+
+.propiedades div:hover {
+    background: #607d8b;
+}
+
+.margen_completo {
+    margin: 1%;
 }
 
 
-}
+
+
 .color-animacion md-input-container {
     margin-top: 0;
 }
@@ -440,16 +540,16 @@ bazam-svg-text svg g:nth-child(1) {}
 }
  ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 0;
+    width: 5px;
 }
  ::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, .0);
+    background-color: rgb(40, 53, 147);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
 }
  ::-moz-scrollbar {
     -webkit-appearance: none;
-    width: 1px;
+    width: 4px;
 }
  ::-moz-scrollbar-thumb {
     border-radius: 4px;
@@ -458,8 +558,6 @@ bazam-svg-text svg g:nth-child(1) {}
 }
 
 /* Analisis */
-
 .loader-cont {
     height: 500px;
 }
-

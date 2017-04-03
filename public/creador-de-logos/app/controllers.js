@@ -127,6 +127,7 @@ angular.module("disenador-de-logos")
 }])
 
 
+
 /* Opciones */
 
 .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", "$sce", "LS", "$state", function ($scope, $mdDialog, $stateParams, $sce, LS, $state) {
@@ -481,6 +482,24 @@ angular.module("disenador-de-logos")
     }
 
     /* *************** */
+    
+    this.menuActivo = {fuente: 'inactivo', posiciones: 'inactivo'};
+    
+    this.menulink = function (mswitch, activo) {
+        this.menu = mswitch;
+        if(activo == 1){
+            this.menuActivo.fuente = 'activo';
+            this.menuActivo.posiciones = 'inactivo';
+        }else if (activo == 2) {
+            this.menuActivo.posiciones = 'activo';
+            this.menuActivo.fuente = 'inactivo';
+        }else if(activo == 'fuera'){
+            this.menu = 0;
+            this.menuActivo.posiciones = 'inactivo';
+            this.menuActivo.fuente = 'inactivo';
+        }
+    }
+
 
 
     this.logo = this.datosEstadoAnterior.logo;
@@ -600,6 +619,11 @@ angular.module("disenador-de-logos")
         url: "../creador-de-logos/assets/fonts/Pacifico-Regular.ttf",
         nombre: "Pacifico-Regular"
         }]
+
+}])
+
+.controller('previsualizarController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", "$interval", function ($scope, $mdDialog, $stateParams, LS, $state, $interval) {
+
 
 }])
 

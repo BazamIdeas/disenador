@@ -54,6 +54,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 }
             })
             .state({
+                name: 'previsualizar',
+                url: '/previsualizar',
+                templateUrl: 'app/views/previsualizar.tpl',
+                controller: 'previsualizarController as previsualizar',
+                params: {
+                    datos: null
+                }
+            })
+            .state({
                 name: 'login',
                 url: '/login',
                 templateUrl: 'app/views/login.tpl',
@@ -99,12 +108,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-        
-        
-        
-        
 
-     
+
+
+
+
+
     })
 
 
@@ -113,7 +122,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
         $rootScope.anterior = fromState;
-      
+
 
 
     });
@@ -123,8 +132,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         // We can catch the error thrown when the $requireSignIn promise is rejected
         // and redirect the user back to the home page
         if (error === "AUTH_REQUIRED") {
-            
-            
+
+
             $state.go("login");
         }
     });
