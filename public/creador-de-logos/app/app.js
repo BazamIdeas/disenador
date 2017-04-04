@@ -1,4 +1,4 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64"])
     .config(function ($stateProvider, $mdThemingProvider) {
 
         /*------------------Material Angular --------------*/

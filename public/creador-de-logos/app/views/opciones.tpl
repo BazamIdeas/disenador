@@ -1,4 +1,4 @@
-<style ng-repeat="fuente in opciones.respuesta.fuentes">
+<style ng-repeat="fuente in opciones.datosEstadoAnterior.respuesta.fuentes">
     @font-face {
         font-family: {{fuente.nombre}};
         src: url('{{fuente.url}}');
@@ -36,14 +36,14 @@
     <div layout layout-align="space-around" class="margen_inferior contenedor-de-logos">
         <div layout-lg="row" flex="45" class="md-whiteframe-2dp scroll ">
             <div flex layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_logos text-center">
-                <div flex="33" layout-padding ng-repeat="icono in opciones.respuesta.iconos" ng-click="opciones.agregarElemento($index, icono, 'iconos')">
-                    <md-icon class="logo_icon icono" ng-class="opciones.datos.iconos[$index].estado"  md-svg-src="data:image/svg+xml,  {{icono.elemento}}"></md-icon>
+                <div flex="33" layout-padding ng-repeat="icono in opciones.datosEstadoAnterior.respuesta.iconos" ng-click="opciones.agregarElemento($index, icono, 'iconos')">
+                    <md-icon class="logo_icon icono" ng-class="opciones.datos.iconos[$index].estado"  md-svg-src="data:image/svg+xml;base64,{{icono.svg}}"></md-icon>
                 </div>
             </div>
         </div>
         <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
             <div flex layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_fuentes text-center">
-                <div flex="33" layout-padding ng-click="opciones.agregarElemento($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.respuesta.fuentes">
+                <div flex="33" layout-padding ng-click="opciones.agregarElemento($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.datosEstadoAnterior.respuesta.fuentes">
                     <p class="fuente" ng-style="{'font-family' : fuente.nombre}" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosEstadoAnterior.nombre}}</p>
                 </div>
             </div>

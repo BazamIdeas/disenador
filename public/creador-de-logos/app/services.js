@@ -30,18 +30,18 @@ angular.module("disenador-de-logos")
         return $http.post("/app/elementos/busqueda", datos)
 
         .then(function (res) {
-            console.log("x");
-            console.log(res);
+            
+            return res;
             
         }, function (res) {
             console.log("error");
-            console.log(res);
+       
 
         })
 
         .catch(function (res) {
              console.log("catch");
-            console.log(res);
+    
 
         })
     }
