@@ -191,7 +191,7 @@ angular.module("disenador-de-logos")
         url: "../creador-de-logos/assets/fonts/Pacifico-Regular.ttf",
         nombre: "Pacifico-Regular"
         }];
-    
+
     this.datos = {
 
         fuentes: {},
@@ -284,14 +284,14 @@ angular.module("disenador-de-logos")
 
 .controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', '$mdDialog', 'LS', '$state', '$base64', function ($scope, $stateParams, crearLogoFactory, $mdDialog, LS, $state, $base64) {
 
-    
-    this.base64 = function(icono){
-        
+
+    this.base64 = function (icono) {
+
         return $base64.decode(icono);
-        
+
     }
-    
-    
+
+
     /* LOCAL STORAGE */
 
     this.definirInfo = function (llave, datos) {
@@ -413,11 +413,11 @@ angular.module("disenador-de-logos")
 /* Editor */
 
 .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', function ($scope, $stateParams, $state, LS, $timeout, $base64) {
-    
-     this.base64 = function(icono){
-        
+
+    this.base64 = function (icono) {
+
         return $base64.decode(icono);
-        
+
     }
 
     /* LOCAL STORAGE */
@@ -618,12 +618,20 @@ angular.module("disenador-de-logos")
     this.login = function (metodo, datos = false) {
 
         Auth.$signInWithEmailAndPassword(datos.correo, datos.pass).then(function (firebaseUser) {
+            console.log(firebaseUser);
             $state.go($rootScope.anterior);
         }).catch(function (error) {
             console.error("Authentication failed:", error);
         });
 
     }
+
+
+    Auth.$getAuth().getToken( /* forceRefresh */ true).then(function (idToken) {
+        console.log(idToken);
+    }).catch(function (error) {
+        // Handle error
+    });
 
 
     this.mostrarForm = 1;

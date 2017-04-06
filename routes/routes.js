@@ -5,16 +5,13 @@ var controllers = require('.././controllers');
 
 //MODULO CLIENTES
 
-router.get('/clientes',controllers.firebase.comprobarEstadoCliente, controllers.clientes.listaClientes);
+router.post('/clientes/',controllers.firebase.comprobarEstadoCliente, controllers.clientes.listaClientes);
 router.get('/cliente/:id', controllers.clientes.datosCliente);
 router.get('/cliente/borrar/:id', controllers.clientes.borrarCliente);
 router.post("/cliente", controllers.clientes.nuevoCliente,controllers.firebase.crearCliente);
 router.post("/cliente/modificar/", controllers.clientes.modificarCliente);
 router.post('/loginCliente',controllers.clientes.login,controllers.firebase.autenticarCliente);
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/front-end
 //router.post('/salirCliente',controllers.firebase.salirSesion);
 //LOGIN PARA CLIENTE 
 /*
