@@ -39,8 +39,27 @@ exports.autenticarCliente = function(req,res){
 	.catch(error => res.status(500).send(error));
 	}	
 
-exports.comprobarEstadoCliente=function(req,res){
+exports.comprobarEstadoCliente=function(req,res,next){
 
+auth.verifyIdToken(idToken)
+	.then(user =>  var uid = user.sub; res.status(200).send('exitoso',uid))
+	.catch(error => res.status(500).send(error));
+	
+	}	
+
+
+
+
+/*	firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+  	next();
+   
+
+  }else{
+  	res.status(500).send('no esta logueado');
+  }
+});
+*/
 }
 
 exports.salirSesionCliente = function(req,res){
