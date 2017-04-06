@@ -11,7 +11,10 @@ router.get('/cliente/borrar/:id', controllers.clientes.borrarCliente);
 router.post("/cliente", controllers.clientes.nuevoCliente,controllers.firebase.crearCliente);
 router.post("/cliente/modificar/", controllers.clientes.modificarCliente);
 router.post('/loginCliente',controllers.clientes.login,controllers.firebase.autenticarCliente);
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/front-end
 //router.post('/salirCliente',controllers.firebase.salirSesion);
 //LOGIN PARA CLIENTE 
 /*
@@ -30,14 +33,14 @@ router.post("/usuario", controllers.usuarios.nuevoUsuario);
 router.post("/usuario/modificar/", controllers.usuarios.modificarUsuario);
 
 //MODULO PEDIDOS
-router.get('/pedidos', controllers.pedidos.listaPedidos);
-router.get('/pedido/:id', controllers.pedidos.datosPedido);
-router.get('/pedidosCliente/:id', controllers.pedidos.datosPedidosCliente);
-router.get('/pedido/borrar/:id', controllers.pedidos.borrarPedido);
-router.post("/pedido", controllers.pedidos.nuevoPedido);
-router.post("/pedido/guardado/", controllers.pedidos.nuevoPedidoGuardado);
-router.post("/pedido/modificar/", controllers.pedidos.modificarPedido);
-router.post("/pedido/cambiar/", controllers.pedidos.cambiarEstado);
+router.get('/pedidos', controllers.pedidos.listaPedidos);//lista todos los pedidos
+router.get('/pedido/:id', controllers.pedidos.datosPedido);//muestra los datos de un pedido por su id
+router.get('/pedidosCliente/:id', controllers.pedidos.datosPedidosCliente);//muestra la lista de pedidos de un cliente
+router.get('/pedido/borrar/:id', controllers.pedidos.borrarPedido);//borra un pedido
+router.post("/pedido", controllers.pedidos.nuevoPedido);//crea un pedido primero guardando el logo 
+router.post("/pedido/guardado/", controllers.pedidos.nuevoPedidoGuardado);//crea un pedido de un logo ya guardado
+router.post("/pedido/modificar/", controllers.pedidos.modificarPedido);// modifica los datos de un pedido
+router.post("/pedido/cambiar/", controllers.pedidos.cambiarEstado);// cambia de estado al pedido
 
 
 //MODULO CATEGORIAS
@@ -66,14 +69,19 @@ router.get('/email',controllers.emails.enviar_email);
 
 
 //MODULO ELEMENTOS
-router.get('/elementos/iconos', controllers.elementos.listaIconosPref);
-//router.post("/preferencia", controllers.preferencias.nuevaPreferencia);
-//router.post("/preferencia/modificar/", controllers.preferencias.modificarPreferencia);
-//router.get('/preferencia/borrar/:id', controllers.preferencias.borrarPreferencia);
+router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
+router.post("/elementos/categorias", controllers.elementos.listaElemCat);
 
 //MODULO LOGOS
 router.get('/logos/guardados/:id', controllers.logos.listaLogosGuardados);
+router.get('/logos/descargables/:id', controllers.logos.listaLogosDescargables);
+router.get('/logo/:id', controllers.logos.datosLogo);//muestra los datos de un logo por su id
+router.post("/logo/guardar/", controllers.logos.guardar);
+router.post("/logo/modificar/", controllers.logos.modificarLogo);
+router.post("/logo/descargar/", controllers.logos.descargar);
 
+//PARA PRUEBAS
+//router.post("/logos/prueba/", controllers.logos.prueba);
 
 
 module.exports = router;

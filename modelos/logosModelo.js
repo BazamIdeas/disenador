@@ -23,7 +23,7 @@ logo.getLogos = function(callback)
 	});
 }
 
-//obtenemos los logos guardados por un cliente
+//obtenemos los logos guardados o comprados por un cliente
 logo.getLogosTipo = function(par,callback)
 {
 	var q = 'SELECT idLogo, tipoLogo, logo FROM logos WHERE tipoLogo = ? and clientes_idCliente = ? ORDER BY idLogo'  
@@ -45,7 +45,7 @@ logo.getLogosTipo = function(par,callback)
 //obtenemos un logo por su id
 logo.getLogo = function(id,callback)
 { 
-	var q = 'SELECT fecha, estado, tipo, logos_idLogo, clientes_idCliente FROM logos WHERE idLogo = ? ' 
+	var q = 'SELECT tipoLogo, logo, clientes_idCliente, elementos_idElemento FROM logos WHERE idLogo = ? ' 
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
