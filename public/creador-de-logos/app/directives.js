@@ -72,7 +72,7 @@ angular.module("disenador-de-logos")
 
             //directiva que escucha cambios de color para los hijos del primer g
 
-            // svg.firstChild.setAttribute("bazam-cambio-color", "")
+            //svg.firstChild.setAttribute("bazam-cambio-color", "")
             //svg.firstChild.setAttribute("data-color", "editor.color")
 
 
@@ -82,12 +82,17 @@ angular.module("disenador-de-logos")
 
                 var llaveNueva = 'elemento' + llave;
 
-                svg.firstChild.childNodes[llave].setAttribute("bazam-cambio-color-fuente", "");
-                svg.firstChild.childNodes[llave].setAttribute("data-color", "editor.color");
-                svg.firstChild.childNodes[llave].setAttribute("data-bazam-activo", "{{editor.activo.elementos[" + llave + "]}}");
-                svg.firstChild.childNodes[llave].setAttribute("ng-click", "editor.activar('elemento', " + llave + ")");
-
-
+                var fragmentoSvg = svg.firstChild.childNodes[llave];
+                
+                //si es nodo tipo "elemento"
+                if (fragmentoSvg.nodeType == 1) {
+                    
+                    fragmentoSvg.setAttribute("bazam-cambio-color-fuente", "");
+                    fragmentoSvg.setAttribute("data-color", "editor.color");
+                    fragmentoSvg.setAttribute("data-bazam-activo", "{{editor.activo.elementos[" + llave + "]}}");
+                    fragmentoSvg.setAttribute("ng-click", "editor.activar('elemento', " + llave + ")");
+                
+                }
 
             });
 
@@ -162,16 +167,14 @@ angular.module("disenador-de-logos")
 
 
                     if (attributes.bazamActivo == 'si') {
-                        
-                        if(scope.fuente){
-                            
+
+                        if (scope.fuente) {
+
                             element.attr("style", "fill: " + valor + "; font-family: " + scope.fuente);
-                        
-                        }
-                        
-                        else {
-                            
-                            element.attr("style", "fill: " + valor )
+
+                        } else {
+
+                            element.attr("style", "fill: " + valor)
                         }
 
                     }
@@ -198,4 +201,3 @@ angular.module("disenador-de-logos")
     }
 
 })
-

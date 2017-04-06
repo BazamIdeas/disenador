@@ -466,13 +466,15 @@ angular.module("disenador-de-logos")
     this.logo.texto = this.datosEstadoAnterior.texto;
     this.logo.posicion = this.datosEstadoAnterior.posicion;
 
+    /*********** Estado activo o inactivo de los elementos **********/
+    
     this.activo = {
 
         elementos: {},
         texto: ''
 
     };
-
+    
     this.mostrar = {}
 
     this.activar = function (tipo, llave = false) {
@@ -522,6 +524,11 @@ angular.module("disenador-de-logos")
 
         }
     }
+    
+    
+    /***********************/
+    
+    
 
     this.modoSeleccionado = 'md-scale';
 
