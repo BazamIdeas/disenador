@@ -1,4 +1,4 @@
-<div flex layout="column" ng-cloak layout-align="center">
+<div flex layout="column" ng-cloak>
 
     <div flex="12" layout="row" layout-align="center" class="margen_inferior margen_superior">
 
@@ -6,7 +6,7 @@
              <md-slider flex class="md-warn" ng-model="comenzar.mostrar" md-discrete step="1" min="1" max="4" aria-label="rating" ng-readonly="true">
         </md-slider-container>
     </div>
-    <div flex="85" layout="column" layout-align="start" ng-switch="comenzar.mostrar">
+    <div layout="column" layout-align="start" ng-switch="comenzar.mostrar">
         <div class="texto-informativo" layout flex="14" layout-align="center">
             <div layout flex="60" layout-align="center">
                 <p ng-switch-when="1">Ingrese el nombre de su logo</p>
@@ -62,7 +62,7 @@
                             <md-button class="md-raised md-primary siguiente" ng-click="comenzar.mostrar=4" ng-show="preferenciasFormulario.tipo.$valid">Siguiente</md-button>
                         </div>
                     </div>
-                    <div class="pasos" ng-switch-when="4">
+                    <div class="pasos preferencias" ng-switch-when="4">
                         <div layout ng-repeat="prefrerencia in comenzar.datos.preferencias">
                             <div flex layout layout-align="center center">
                                 <span class="md-body-1">{{prefrerencia.nombre1}}</span>

@@ -440,22 +440,23 @@ angular.module("disenador-de-logos")
     /* *************** */
 
     this.menuActivo = {
-        fuente: 'inactivo',
-        posiciones: 'inactivo'
+        fuente: null,
+        posiciones: null,
+        elemento: null
     };
 
     this.menulink = function (mswitch, activo) {
         this.menu = mswitch;
-        if (activo == 1) {
+        if (activo == 'fuente') {
             this.menuActivo.fuente = 'activo';
-            this.menuActivo.posiciones = 'inactivo';
-        } else if (activo == 2) {
+            this.menuActivo.posiciones = null;
+        } else if (activo == 'posiciones') {
+            this.menuActivo.fuente = null;
             this.menuActivo.posiciones = 'activo';
-            this.menuActivo.fuente = 'inactivo';
-        } else if (activo == 'fuera') {
+        } else {
             this.menu = 0;
-            this.menuActivo.posiciones = 'inactivo';
-            this.menuActivo.fuente = 'inactivo';
+            this.menuActivo.posiciones = null;
+            this.menuActivo.fuente = null;
         }
     }
 

@@ -3,12 +3,11 @@
         font-family: {{fuente.nombre}};
         src: url('{{fuente.url}}');
     }
-
 </style>
 
 <div flex layout="column" ng-cloak layout-align="space-around" id="popupContainer-editor" ng-switch="editor.menu">
 
-    <div layout layout-align="end" ng-click="editor.menulink(0, 'fuera')">
+    <div layout layout-align="end" ng-click="editor.menulink(0, 'hide')">
         <div layout="row" class="relative" layout-align="center" layout-padding>
             <md-fab-speed-dial md-open="editor.estado3" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado3=true">
                 <md-fab-trigger ui-sref="previsualizar">
@@ -26,7 +25,7 @@
                 </md-fab-trigger>
             </md-fab-speed-dial>
             <md-fab-speed-dial md-open="editor.estado2" md-direction="down" ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado2=true">
-                <md-fab-trigger>
+                <md-fab-trigger ui-sref="metodo">
                     <md-button aria-label="menu" class="md-fab md-primary">
                         <md-icon class="logo_icon_editor">shopping_cart</md-icon>
                     </md-button>
@@ -37,7 +36,7 @@
 
     <div class="contenedor-editor">
         <div class="menu-editor md-whiteframe-2dp">
-            <div class="menu-link" ng-click="editor.menulink(1, 1)" ng-class="editor.menuActivo.fuente">
+            <div class="menu-link" ng-click="editor.menulink(1,'fuente', 'elemento')" ng-class="editor.menuActivo.fuente">
                 <h4>Texto</h4>
                 <div class="elemento md-whiteframe-2dp" ng-switch-when="1">
                     <div>
@@ -69,22 +68,25 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="menu-link" ng-click="editor.menulink(2, 2)" ng-class="editor.menuActivo.posiciones">
+
+            <div class="menu-link" ng-click="editor.menulink(2, 'posiciones')" ng-class="editor.menuActivo.posiciones">
                 <h4>Posiciones</h4>
 
                 <div class="elemento md-whiteframe-2dp" ng-switch-when="2">
-                     <div>
+                    <div>
                         <h4>Posicion</h4>
                         <div class="propiedades">
                             <div class="bold">
-                                <B>LEFT</B>
+                                <B>IZQUIERDA</B>
                             </div>
                             <div class="cursiva">
-                                <B>RIGHT</B>
+                                <B>DERECHO</B>
                             </div>
                             <div class="subrayado">
-                                <B>BOTTOM</B>
+                                <B>ARRIBA</B>
+                            </div>
+                            <div class="subrayado">
+                                <B>ABAJO</B>
                             </div>
                         </div>
                     </div>
@@ -93,13 +95,13 @@
         </div>
         <div class="editor-lienzo">
 
-            <div class="cont-logo-editor md-whiteframe-2dp" >
+            <div class="cont-logo-editor md-whiteframe-2dp">
                 <div class="logo-editor">
                     <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo"></bazam-svg-text-2>
                 </div>
             </div>
 
-            <div class="edicion" ng-click="editor.menulink(0, 'fuera')">
+            <div class="edicion" ng-click="editor.menulink(0, 'hide')">
                 <div class="color-animacion">
                     <!-- ng-class="editor.mostrar.color" -->
                     <h3>EDITA EL COLOR DEL LOGO O TEXTO</h3>
@@ -112,7 +114,7 @@
         </div>
     </div>
 
-    <div layout="row" layout-align="space-between"  ng-click="editor.menulink(0, 'fuera')">
+    <div layout="row" layout-align="space-between">
         <div flex layout="row" flex layout-align="space-between center">
             <md-button class="md-raised md-primary" ui-sref="proceso">Atras</md-button>
         </div>

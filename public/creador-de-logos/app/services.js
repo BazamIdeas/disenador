@@ -97,14 +97,6 @@ angular.module("disenador-de-logos")
 }])
 
 .factory('LS', ['$window', '$rootScope', function ($window, $rootScope) {
-    /*
-    angular.element($window).on('storage', function (event) {
-        if (event.key === 'my-storage') {
-            $rootScope.$apply();
-        }
-    });
-    */
-
     return {
         definir: function (llave, valor) {
             $window.localStorage.setItem(llave, JSON.stringify(valor));

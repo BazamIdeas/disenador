@@ -1,4 +1,4 @@
-<div layout="column" flex class="loader-cont" layout-align="center center">
+<div layout="column" flex layout-align="center center">
     <div layout layout-align="center" class="loader-textos" ng-switch="analisis.animacionTexto">
         
         <h2 ng-switch-when="1" class=" texto-animacion-entrada pasos">Verificando los datos</h2>

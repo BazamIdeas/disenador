@@ -353,8 +353,12 @@ metodo_pago p_header {
     left: 100%;
     top: 0%;
     height: auto;
-    width: 250px;
+    width:auto;
     background: #49bbbb;
+}
+
+.menu-editor div, .menu-editor h4, .menu-editor b {
+    cursor: pointer;
 }
 
 .elemento md-input-container.md-default-theme .md-input,
@@ -558,6 +562,4 @@ bazam-svg-text svg g:nth-child(1) {}
 }
 
 /* Analisis */
-.loader-cont {
-    height: 500px;
-}
+
