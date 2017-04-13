@@ -73,7 +73,7 @@ md-content {
 
 .ayuda {
     position: absolute;
-        right: 1%;
+    right: 1%;
     top: 3%;
 }
 
@@ -116,7 +116,6 @@ img.imagen-loader {
     width: auto !important;
     height: auto !important;
 }
-
 
 #select_container_3>md-select-menu>md-content {
     display: flex !important;
@@ -205,7 +204,7 @@ bazam-svg-text svg {
     overflow: visible;
 }
 
-.text-white{
+.text-white {
     color: white !important;
 }
 
@@ -355,7 +354,9 @@ metodo_pago p_header {
 .contenedor-editor {
     display: flex;
     width: 100%;
-    height: 70%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .logo_icon_editor {
@@ -363,23 +364,19 @@ metodo_pago p_header {
     height: 32px;
 }
 
-.editor-lienzo {
-    display: flex;
-    flex: 1 1;
-    padding: 0 5% 0 5%;
-}
-
-.menu-editor {
-    width: 7%;
-    background-color: #3f4652;
-    color: white !important;
-}
-
 .cont-logo-editor {
-    width: 70%;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    flex-direction: column;
+}
+
+.botones-editor {
+    display: flex;
+    margin: 0%;
+    width: 100%;
+    justify-content:flex-end;
 }
 
 .logo-editor {
@@ -392,23 +389,63 @@ metodo_pago p_header {
     color: #4dbdd6;
 }
 
+
+/* MENU */
+
+.menu {
+    width: 50%;
+    display: flex;
+}
+
+.menu-editor {
+    width: 30%;
+    background-color: #166d98;
+    color: white !important;
+}
+
 .menu-editor .menu-link:hover {
-    background-color: #009688;
+    background-color: #0081c2;
+}
+
+.elementos {
+    WIDTH: 70%;
+}
+
+.elemento md-input-container {
+    margin: 0px;
+    height: 25px;
 }
 
 .elemento {
-    position: absolute;
-    left: 100%;
-    top: 0%;
-    height: auto;
+    height: 100%;
     width: auto;
     background: #49bbbb;
 }
 
-.menu-editor div,
-.menu-editor h4,
-.menu-editor b {
+.menu-link div h4 {
+    font-size: 17px;
+    margin: 0px;
+}
+
+.menu-link>div {
+    text-align: center;
+}
+
+.menu-link div md-icon {
+    font-size: 40px;
+    width: auto;
+    height: auto;
+    color: white;
+}
+
+.menu div,
+.menu h4,
+.menu b {
     cursor: pointer;
+}
+
+.elemento h4 {
+    color: white;
 }
 
 .elemento md-input-container.md-default-theme .md-input,
@@ -431,12 +468,14 @@ md-input-container.color-animacion .md-input {
 }
 
 .menu-editor .menu-link {
-    padding: 1% 0% 1% 5%;
+    padding: 0;
     display: flex;
     align-items: center;
-    background-color: #3f4652;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
     transition: all 1s;
+    height: 15%;
 }
 
 .menu-link.activo {
@@ -460,6 +499,10 @@ md-input-container.color-animacion .md-input {
 .elemento md-select,
 .elemento h4 {
     padding-left: 5% !important;
+}
+
+.elemento h4 {
+    width: 60%;
 }
 
 .elemento input,
