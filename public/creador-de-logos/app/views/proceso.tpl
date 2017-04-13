@@ -11,34 +11,7 @@
         <div flex="20">
             <h3 class="titulo_opciones titulo_opciones-p  md-whiteframe-2dp" md-truncate>ELIJE TU LOGO</h3>
         </div>
-        <div flex="80">
-            <md-fab-toolbar md-open="estadoProcesoBarra.isOpen" count="estadoProcesoBarra.count" md-direction="left">
-                <md-fab-trigger class="align-with-text">
-                    <md-button aria-label="menu" class="md-fab md-primary">
-                        <md-icon>build</md-icon>
-                    </md-button>
-                </md-fab-trigger>
-
-                <md-toolbar>
-                    <md-fab-actions class="md-toolbar-tools">
-                        <md-button aria-label="comment" class="md-icon-button" ng-click="proceso.cambiarPosicion('top')">
-                            <md-icon>vertical_align_top</md-icon>
-                        </md-button>
-                        <md-button aria-label="label" class="md-icon-button" ng-click="proceso.cambiarPosicion('left')">
-                            <md-icon>keyboard_arrow_left
-                            </md-icon>
-                        </md-button>
-                        <md-button aria-label="photo" class="md-icon-button" ng-click="proceso.cambiarPosicion('right')">
-                            <md-icon>keyboard_arrow_right</md-icon>
-                        </md-button>
-
-                        <md-button aria-label="photo" class="md-icon-button" ng-click="proceso.cambiarPosicion('bottom')">
-                            <md-icon>arrow_downward</md-icon>
-                        </md-button>
-                    </md-fab-actions>
-                </md-toolbar>
-            </md-fab-toolbar>
-        </div>
+        <span flex></span>
     </div>
     <div layout layout-align="center">
         <div layout="row" flex="60" class="scroll">

@@ -1,10 +1,24 @@
 <div flex layout="column" ng-cloak>
 
-    <div flex="12" layout="row" layout-align="center" class="margen_inferior margen_superior">
-
-        <md-slider-container ng-disabled="true" flex="50" class="md-whiteframe-2dp">       
-             <md-slider flex class="md-warn" ng-model="comenzar.mostrar" md-discrete step="1" min="1" max="4" aria-label="rating" ng-readonly="true">
-        </md-slider-container>
+    <div flex="12" layout="row" style="margin-top:3%;" class="margen_inferior">
+        <div flex layout layout-align="center">
+            <md-slider-container ng-disabled="true" flex="50" class="md-whiteframe-2dp slider-comenzar">
+                <md-slider flex class="md-warn" ng-model="comenzar.mostrar" md-discrete step="1" min="1" max="4" aria-label="rating" ng-readonly="true">
+            </md-slider-container>
+        </div>
+        <div flex="none" class="ayuda">
+            <md-icon ng-click="comenzar.cambiarMenu()" class="material-icons icono_radio" style="width: 10px; height: 10px;">help_outline</md-icon>
+        </div>
+        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+            <md-toolbar class="transparencia">
+                <div class="md-toolbar-tools">
+                    <div>AYUDA</div>
+                </div>
+            </md-toolbar>
+            <div>
+                <md-button class="md-primary md-hue-2" ng-click="comenzar.cambiarMenu()">CERRAR</md-button>
+            </div>
+        </md-sidenav>
     </div>
     <div layout="column" layout-align="start" ng-switch="comenzar.mostrar">
         <div class="texto-informativo" layout flex="14" layout-align="center">
@@ -20,9 +34,14 @@
                 <div>
                     <div class="pasos" ng-switch-when="1">
                         <div>
-                            <md-input-container class="md-block">
+                            <md-input-container class="md-block input-comenzar">
                                 <label>Ingrese el nombre de su logo</label>
                                 <input name="nombre" ng-model="comenzar.datos.nombre" ng-required="true">
+                            </md-input-container>
+
+                            <md-input-container class="md-block input-comenzar">
+                                <label>Eslogan</label>
+                                <input name="nombre" ng-model="comenzar.datos.eslogan" maxlength="15">
                             </md-input-container>
                         </div>
                         <div flex layout layout-align="end center">
@@ -44,20 +63,48 @@
                             <md-button class="md-raised md-primary siguiente" ng-click="comenzar.mostrar=3" ng-show="preferenciasFormulario.categoria.$valid">Siguiente</md-button>
                         </div>
                     </div>
-                    <div class="pasos" ng-switch-when="3" layout="column" layout-align="center space-between">
-                        <div layout-padding layout layout-align="space-around">
-                            <md-icon class="material-icons icono_radio" style="width: 100px; height: 100px;" md-svg-src="/creador-de-logos/assets/iconos_temporales/Imagen2.svg"></md-icon>
-                            <md-icon class="material-icons icono_radio" style="width: 100px; height: 100px;" md-svg-src="/creador-de-logos/assets/iconos_temporales/Imagen1.svg"></md-icon>
+                    <div class="pasos" ng-switch-when="3" layout="column">
+                        <div layout-padding layout="column">
+                            <div layout layout-align="space-around">
+                                <div class="tipo-logo">
+                                    <div class="tipo-logo-icon">
+                                        <md-icon>font_download</md-icon>
+                                    </div>
+                                    <div>
+                                        <h3>ICONO</h3>
+                                        <p>Una forma facil de recordar en el centro de su logo.</p>
+                                    </div>
+                                </div>
+                                <div class="tipo-logo">
+                                    <div class="tipo-logo-icon">
+                                        <md-icon>font_download</md-icon>
+                                    </div>
+                                    <div>
+                                        <h3>NOMBRE</h3>
+                                        <p>Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.</p>
+                                    </div>
+                                </div><div class="tipo-logo">
+                                    <div class="tipo-logo-icon">
+                                        <md-icon>font_download</md-icon>
+                                    </div>
+                                    <div>
+                                        <h3>INICIAL</h3>
+                                        <p>Una letra como el elemento principal de su logo.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div layout-padding class="radio-f">
                             <md-radio-group layout layout-align="space-around" ng-model="comenzar.datos.tipo" name="tipo" ng-required="true">
-                                <md-radio-button layout="column" value="ICONO" ng-click="comenzar.select=true">
+                                <md-radio-button value="ICONO" ng-click="comenzar.select=true">
                                 </md-radio-button>
                                 <md-radio-button value="ICONO2" ng-click="comenzar.select=true">
                                 </md-radio-button>
+                                <md-radio-button value="ICONO3" ng-click="comenzar.select=true">
+                                </md-radio-button>
                             </md-radio-group>
                         </div>
-                        <div flex layout layout-align="space-between center" class="botones-select-comen">
+                        <div layout layout-align="space-between center" class="margen_superior">
                             <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=2">Atras</md-button>
                             <md-button class="md-raised md-primary siguiente" ng-click="comenzar.mostrar=4" ng-show="preferenciasFormulario.tipo.$valid">Siguiente</md-button>
                         </div>
