@@ -60,6 +60,7 @@ router.get('/email',controllers.emails.enviar_email);
 //MODULO ELEMENTOS
 router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
 router.post("/elementos/categorias", controllers.elementos.listaElemCat);
+router.post("/elementos/nuevo/icono", controllers.elementos.nuevoElementoIcono);
 
 //MODULO LOGOS
 router.get('/logos/guardados/:id', controllers.logos.listaLogosGuardados);

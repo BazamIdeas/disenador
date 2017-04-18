@@ -1,5 +1,6 @@
 var pedido=require('../modelos/pedidosModelo.js');
 var logo=require('../modelos/logosModelo.js');
+var elemento=require('../modelos/elementosModelo.js');
 var moment = require('moment');
 
 exports.listaPedidos = function(req, res, next) {
@@ -63,8 +64,9 @@ exports.nuevoPedido =  function(req,res)
 
 		var logoData = {
 			idLogo : null,
-			tipoLogo : 'Descargable',
+			estado : 'Descargable',
 			logo : req.body.logo,
+			tipoLogo : req.body.tipoLogo,
 			clientes_idCliente : req.body.idCliente,
 			elementos_idElemento : req.body.idElemento
 		};
@@ -88,7 +90,20 @@ exports.nuevoPedido =  function(req,res)
 					//si el pedido se ha insertado correctamente mostramos su info
 					if(data && data.insertId)
 					{
-						res.status(201).json(data);
+						var elementoData = [1, req.body.idElemento];
+					
+						elemento.cambiarEstado(elementoData,function(error, data)
+						{
+							//si el pedido se ha modificado correctamente
+							if(data)
+							{
+								res.status(200).json(data);
+							}
+							else
+							{
+								res.status(500).json({"msg":"Algo ocurrio"})
+							}
+						});
 					}
 					else
 					{
@@ -122,12 +137,25 @@ exports.nuevoPedido =  function(req,res)
 					{
 						var logoData = ['Descargable', req.body.idLogo];
 					
-						logo.cambiarTipo(logoData,function(error, data)
+						logo.cambiarEstado(logoData,function(error, data)
 						{
 							//si el pedido se ha modificado correctamente
 							if(data)
 							{
-								res.status(200).json(data);
+								var elementoData = [1, req.body.idElemento];
+					
+								elemento.cambiarEstado(elementoData,function(error, data)
+								{
+									//si el pedido se ha modificado correctamente
+									if(data)
+									{
+										res.status(200).json(data);
+									}
+									else
+									{
+										res.status(500).json({"msg":"Algo ocurrio"})
+									}
+								});
 							}
 							else
 							{
