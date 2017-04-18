@@ -356,7 +356,6 @@ metodo_pago p_header {
     width: 100%;
     height: 100%;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .logo_icon_editor {
@@ -374,7 +373,7 @@ metodo_pago p_header {
 
 .botones-editor {
     display: flex;
-    margin: 0%;
+    margin: 2% 0 4% 0;
     width: 100%;
     justify-content:flex-end;
 }
@@ -399,7 +398,7 @@ metodo_pago p_header {
 
 .menu-editor {
     width: 30%;
-    background-color: #166d98;
+    background-color: #283593;
     color: white !important;
 }
 
@@ -419,7 +418,7 @@ metodo_pago p_header {
 .elemento {
     height: 100%;
     width: auto;
-    background: #49bbbb;
+    background: rgb(0, 129, 194);
 }
 
 .menu-link div h4 {
@@ -432,7 +431,7 @@ metodo_pago p_header {
 }
 
 .menu-link div md-icon {
-    font-size: 40px;
+    font-size: 35px;
     width: auto;
     height: auto;
     color: white;
@@ -495,10 +494,14 @@ md-input-container.color-animacion .md-input {
     text-align: center;
 }
 
-.elemento input,
-.elemento md-select,
-.elemento h4 {
+.elemento input, .elemento .md-select-value, .elemento h4 {
     padding-left: 5% !important;
+}
+
+
+.elemento md-select.md-default-theme:not([disabled]):focus .md-select-value, .elemento md-select:not([disabled]):focus .md-select-value {
+    border-bottom-color: rgb(255, 255, 255);
+    color: rgba(255, 255, 255, 0.87);
 }
 
 .elemento h4 {
@@ -506,8 +509,15 @@ md-input-container.color-animacion .md-input {
 }
 
 .elemento input,
-.elemento md-select {
-    background: #5ad8d8;
+.elemento md-select, .elemento .md-select-value {
+    background: rgb(0, 129, 194);
+    color: white !important;
+}
+
+.elemento > :first-child md-icon {
+    background: #283593;
+    padding: 4px;
+    border-radius: 50%;
 }
 
 .menu-link .elemento {

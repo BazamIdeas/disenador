@@ -24,7 +24,7 @@ router.post("/cliente/modificar/",controllers.firebase.comprobarEstadoCliente, c
 //MODULO USUARIOS
 //
 //no espera parametros
-router.get('/usuarios',controllers.firebase.comprobarEstadoClientecontrollers.usuarios.listaUsuarios);
+router.get('/usuarios',controllers.firebase.comprobarEstadoCliente, controllers.usuarios.listaUsuarios);
 //parametro por get que debe ser el id del cliente.
 router.get('/usuario/:id',controllers.firebase.comprobarEstadoCliente, controllers.usuarios.datosUsuario);
 //parametro por get que debe ser el id del cliente.
