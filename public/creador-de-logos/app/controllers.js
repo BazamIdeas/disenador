@@ -18,7 +18,7 @@ angular.module("disenador-de-logos")
 
 /* Comenzar */
 
-.controller('comenzarController', ["categoriasService", "preferenciasService", function (categoriasService, preferenciasService) {
+.controller('comenzarController', ["categoriasService", "preferenciasService", "$mdSidenav", function (categoriasService, preferenciasService, $mdSidenav) {
 
     var bz = this;
 
@@ -29,6 +29,11 @@ angular.module("disenador-de-logos")
     }
 
     /*------ CORREGIR --------*/
+
+    bz.cambiarMenu = function (lugar) {
+
+        return $mdSidenav('right').toggle();
+    }
 
 
     bz.categoriasPosibles = [];
@@ -121,8 +126,9 @@ angular.module("disenador-de-logos")
 
 /* Opciones */
 
-.controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", "$sce", "LS", "$state", function ($scope, $mdDialog, $stateParams, $sce, LS, $state) {
+.controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", "$sce", "LS", "$state", "categoriasService", function ($scope, $mdDialog, $stateParams, $sce, LS, $state, categoriasService) {
 
+    var bz = this;
 
 
 
@@ -232,52 +238,92 @@ angular.module("disenador-de-logos")
 
     }
 
+    /* CATEGORIAS EXISTENTES */
+    this.categoria = this.datosEstadoAnterior.categoria;
+    this.categoriasPosibles = [];
+
+    categoriasService.listaCategorias.then(function (res) {
+
+        angular.forEach(res.data, function (valor, llave) {
+
+            bz.categoriasPosibles.push(valor);
 
 
-    /* Modal */
+        })
 
-    this.hidden = false;
-    this.isOpen = false;
-    this.hover = false;
+    })
 
-    this.elementosDialog = [
-        {
-            name: "Caracteristicas",
-            icon: "face",
-            direction: "bottom"
+    bz.mostrarDialogos = function (ev, nombre, id) {
+
+        bz.mostrarDialogo(ev);
+        bz.dialogos(nombre, id);
+
+    }
+
+    bz.configuraciones = {
+        preferencias: {
+            id: '1',
+            nombre: 'Preferencias',
+            icono: 'alarm_add'
         },
-        {
-            name: "Etiquetas",
-            icon: "label",
-            direction: "top"
-        },
-        {
-            name: "Categorias",
-            icon: "lightbulb_outline",
-            direction: "bottom"
+        categorias: {
+            id: '2',
+            nombre: 'Categorias',
+            icono: 'alarm_add'
         }
-      ];
+    }
 
-    this.abrirDialogo = function ($event, elementoDialog) {
-
+    bz.mostrarDialogo = function (ev) {
         $mdDialog.show({
-            clickOutsideToClose: true,
-            controller: function ($mdDialog) {
-
-                this.elementoDialog = elementoDialog;
-
-                this.cerrarDialogo = function () {
-                    $mdDialog.cancel();
-                };
-                this.enviarDialogo = function () {
-                    $mdDialog.hide();
-                };
-            },
-            controllerAs: 'dialog',
-            templateUrl: 'app/views/dialogos/dialogoOpciones.tpl',
-            targetEvent: $event
-        });
+                controller: DialogController,
+                templateUrl: 'app/views/dialogos/dialogoOpciones.tpl',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                fullscreen: $scope.customFullscreen
+            })
+            .then(function (answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                $scope.status = 'You cancelled the dialog.';
+            });
     };
+
+    bz.pestana = {
+        nombre: '',
+        id: ''
+    };
+    bz.preferencias = this.datosEstadoAnterior.preferencias;
+
+    bz.dialogos = function (nombre, id) {
+        bz.pestana.nombre = nombre;
+        bz.pestana.id = id;
+    }
+
+    function DialogController($scope, $mdDialog, LS) {
+        $scope.categoria = bz.categoria;
+        $scope.categorias = bz.categoriasPosibles;
+        $scope.pestana = bz.pestana;
+        $scope.preferencias = bz.preferencias;
+
+        $scope.dialogosCuerpos = $scope.pestana.id
+
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function (llave, datos) {
+            $mdDialog.cancel();
+            LS.definir(llave, datos);
+        };
+
+        $scope.answer = function (answer) {
+            $mdDialog.hide(answer);
+        };
+    }
+
+
+
 }])
 
 /* Proceso */
@@ -439,33 +485,18 @@ angular.module("disenador-de-logos")
 
     /* *************** */
 
-    this.menuActivo = {
-        fuente: null,
-        posiciones: null,
-        elemento: null
-    };
+    /* MENU EDITOR */
+    this.menu = 1;
+    this.menuItem = function (mswitch) {
 
-    this.menulink = function (mswitch, activo) {
         this.menu = mswitch;
-        if (activo == 'fuente') {
-            this.menuActivo.fuente = 'activo';
-            this.menuActivo.posiciones = null;
-        } else if (activo == 'posiciones') {
-            this.menuActivo.fuente = null;
-            this.menuActivo.posiciones = 'activo';
-        } else {
-            this.menu = 0;
-            this.menuActivo.posiciones = null;
-            this.menuActivo.fuente = null;
-        }
     }
 
-
+    /* *************** */
 
     this.logo = this.datosEstadoAnterior.logo;
     this.logo.texto = this.datosEstadoAnterior.texto;
     this.logo.posicion = this.datosEstadoAnterior.posicion;
-
 
 
 
@@ -497,7 +528,6 @@ angular.module("disenador-de-logos")
     
 
     /******************************/
-
 
     /*********** Estado activo o inactivo de los elementos **********/
 

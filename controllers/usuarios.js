@@ -2,39 +2,6 @@ var usuario=require('../modelos/usuarioModelo.js');
 
 
 
-exports.login =  function(req,res)
-	{
-		//creamos un objeto con los datos a insertar del usuario
-	
-		var usuarioData = [req.body.correo,req.body.pass];
-		usuario.verificarUsuario(usuarioData,function(error, data)
-		{
-			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-
-				
-		
-			var jwt = require('jwt-simple');
-			var moment = require('moment');
-			var payload = {
-					sub:data,
-					iat:moment().unix(),
-					exp:moment().add(1,'days').unix()
-				};
-				var x = jwt.encode(payload,'misecretoken');
-				var z = jwt.decode(x,'misecretoken')
-				res.status(200).send(z);
-				
-			}
-		//no existe
-			else
-			{
-				res.status(404).json(data);
-			}
-		});
-	} 
-
 exports.listaUsuarios = function(req, res, next) {
 		
 		usuario.getUsuarios(function(error, data)
@@ -77,12 +44,7 @@ exports.listaUsuarios = function(req, res, next) {
 exports.nuevoUsuario =  function(req,res)
 	{
 		//creamos un objeto con los datos a insertar del usuario
-		var usuarioData = {
-			idUsuario : null,
-			nombreUser : req.body.nombreUser,
-			correo : req.body.correo,
-			pass : req.body.pass
-		};
+		var usuarioData = req.body;
 		usuario.insertUsuario(usuarioData,function(error, data)
 		{
 			//si el usuario se ha insertado correctamente mostramos su info
@@ -106,8 +68,8 @@ exports.nuevoUsuario =  function(req,res)
 		//si el usuario existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				//creamos un array con los datos a modificar del usuario
-				var usuarioData = [req.body.nombreUser, req.body.correo, req.body.pass, idUsuario];
+				
+				var usuarioData = req.body;
 					
 				usuario.updateUsuario(usuarioData,function(error, data)
 				{

@@ -31,7 +31,7 @@ exports.crearCliente = function (req, res) {
 
     //var serviceAccount = require("./prueba-064cb79dba28.json");
 
-    firebase.auth().createUserWithEmailAndPassword(email, pass)
+    admin.auth().createUserWithEmailAndPassword(email, pass)
         .then(user => res.status(200).send('exito'))
         .catch(error => res.status(500).send('error'));
 
@@ -58,7 +58,7 @@ exports.comprobarEstadoCliente = function (req, res, next) {
             next();
             // ...
         }).catch(function (error) {
-            console.log("gfgf");
+            res.status(500).send('fallo');
         });
 
 }
