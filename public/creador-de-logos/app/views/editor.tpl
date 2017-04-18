@@ -193,7 +193,7 @@
                 </div>
 
                 <div>
-                   
+                    <md-icon ng-repeat="compararador in editor.comparadores track by $index" class="logo_icon icono" md-svg-src="data:image/svg+xml;base64,{{comparador}}" ng-click="editor.recuperar(comparador)"></md-icon>
                 </div>
             </div>
         </div>
@@ -206,7 +206,7 @@
                     <md-icon class="logo_icon_editor">save</md-icon>
                 </md-button>
             </div>
-            <div ng-class="editor.modoSeleccionado" ng-click="editor.estado.estado2=true" ui-sref="metodo">
+            <div ng-class="editor.modoSeleccionado" ui-sref="metodo">
                 <md-button class="md-fab md-primary">
                     <md-icon class="logo_icon_editor">shopping_cart</md-icon>
                 </md-button>
@@ -219,7 +219,7 @@
         </div>
         <div>
             <md-button class="md-raised md-primary" ui-sref="proceso">Atras</md-button>
-            <md-icon class="logo_icon icono" md-svg-src="data:image/svg+xml;base64,{{comparador}}" ng-click="editor.recuperar(comparador)"></md-icon>
+            <md-button class="md-raised md-primary"  ng-click="editor.guardar('comparar')">build</md-button>
         </div>
     </div>
 </div>
