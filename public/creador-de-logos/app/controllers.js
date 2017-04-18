@@ -466,15 +466,48 @@ angular.module("disenador-de-logos")
     this.logo.texto = this.datosEstadoAnterior.texto;
     this.logo.posicion = this.datosEstadoAnterior.posicion;
 
-    /*********** Estado activo o inactivo de los elementos **********/
+
+
+
+    /**********logos copias********/
+    this.comparadores = [];
     
+    
+    this.tipoGuardar = "";
+    
+    this.guardarComparar = 0;
+
+    //guarda un logo en el listado de logos comparativos
+    this.guardar = function (tipo) {
+
+
+        //acepta dos tipos de guardado, comprar y comparar
+        this.tipoGuardar = tipo;
+        this.guardarComparar++;
+
+    }
+    
+    this.recuperar = function(clon){
+        
+        
+        this.logo.icono.svg = clon;
+        
+    }
+    
+    
+
+    /******************************/
+
+
+    /*********** Estado activo o inactivo de los elementos **********/
+
     this.activo = {
 
         elementos: {},
         texto: ''
 
     };
-    
+
     this.mostrar = {}
 
     this.activar = function (tipo, llave = false) {
@@ -524,11 +557,11 @@ angular.module("disenador-de-logos")
 
         }
     }
-    
-    
+
+
     /***********************/
-    
-    
+
+
 
     this.modoSeleccionado = 'md-scale';
 

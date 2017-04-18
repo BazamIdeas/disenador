@@ -10,7 +10,7 @@ angular.module("disenador-de-logos")
     this.listaCategorias = $http.get("/app/categorias");
 
 
-}])
+    }])
 
 
 
@@ -20,7 +20,7 @@ angular.module("disenador-de-logos")
     this.listaPreferencias = $http.get("/app/preferencias");
 
 
-}])
+    }])
 
 
 .service('elementosService', ["$http", function ($http) {
@@ -30,28 +30,80 @@ angular.module("disenador-de-logos")
         return $http.post("/app/elementos/busqueda", datos)
 
         .then(function (res) {
-            
+
             return res;
-            
+
         }, function (res) {
             console.log("error");
-       
+
 
         })
 
         .catch(function (res) {
-             console.log("catch");
-    
+            console.log("catch");
+
 
         })
     }
-}])
+    }])
 
 
 
 
 
 /*--------------------------- Factories aislados ------------------*/
+
+.factory('compararLogosFactory', [function () {
+
+    var logos = {
+        
+        comparar: [],
+        comprar: ""
+                
+    };
+
+    var informacion = {
+
+        definir: function (valor, tipo) {
+            
+             if(tipo == "comprar"){
+                
+                logos.comprar = valor;
+                
+            }
+            
+            else if (tipo == "comparar")
+                
+            {
+                logos.comparar.push(valor)
+            }
+
+            
+
+        },
+
+        obtener: function (tipo) {
+            
+            if(tipo == "comprar"){
+                
+                return logos.comprar;
+                
+            }
+            
+            else if (tipo == "comparar")
+            {
+                return logos.comparar;
+            }
+        }
+
+    }
+
+    return informacion;
+
+
+
+    }])
+
 .factory('compartirFactory', [function () {
     var estados = [];
     var informacion = {
@@ -63,7 +115,7 @@ angular.module("disenador-de-logos")
         }
     }
     return informacion;
-}])
+    }])
 
 .factory('crearLogoFactory', [function () {
 
@@ -94,7 +146,7 @@ angular.module("disenador-de-logos")
 
     return crear;
 
-}])
+    }])
 
 .factory('LS', ['$window', '$rootScope', function ($window, $rootScope) {
     return {
@@ -107,9 +159,9 @@ angular.module("disenador-de-logos")
         }
     };
 
-}])
+    }])
 
 .factory("Auth", ["$firebaseAuth",
-  function ($firebaseAuth) {
+                      function ($firebaseAuth) {
         return $firebaseAuth();
-  }])
+                      }])

@@ -93,12 +93,21 @@
                 </div>
             </div>
         </div>
+        
+        <!--- comparadores -->
+        <div flex="33" layout-padding ng-repeat="comparador in editor.comparadores">
+                    <md-icon class="logo_icon icono" md-svg-src="data:image/svg+xml;base64,{{comparador}}" ng-click="editor.recuperar(comparador)"></md-icon>
+                </div>
+        <!-- -->
         <div class="editor-lienzo">
 
             <div class="cont-logo-editor md-whiteframe-2dp">
                 <div class="logo-editor">
-                   <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo"></bazam-svg-text-2>
+                   <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo" data-guardar="editor.guardarComparar" data-comparadores="editor.comparadores" data-tipo-guardar="editor.tipoGuardar"></bazam-svg-text-2>
                 </div>
+                
+                
+                <md-button class="md-raised md-primary" ng-click="editor.guardar('comparar')">guardar</md-button>
             </div>
 
             <div class="edicion" ng-click="editor.menulink(0, 'hide')">

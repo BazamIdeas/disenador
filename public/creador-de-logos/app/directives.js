@@ -51,75 +51,132 @@ angular.module("disenador-de-logos")
              bazamActivo: "=bazamActivo"
          },*/
         link: function (scope, element, attributes) {
+            var nuevoScope = scope.$new()
 
-
-            var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
-
-            texto.setAttributeNS(null, "x", attributes.textoX);
-            texto.setAttributeNS(null, "y", attributes.textoY);
-
-            var textoNode = document.createTextNode(attributes.texto);
-
-            texto.appendChild(textoNode);
-
-            //Creacion del svg y agregado del texto al mismo
-
-            element.append(attributes.icono);
-
-            element.children().html("<g ng-class='proceso.posicion.claseG'>" + element.children().html() + "</g><g ng-class='proceso.posicion.clase'></g>");
-
-            var svg = element.children()[0];
-
-            //directiva que escucha cambios de color para los hijos del primer g
-
-            //svg.firstChild.setAttribute("bazam-cambio-color", "")
-            //svg.firstChild.setAttribute("data-color", "editor.color")
-
-
-            //evento click a cada hijo del primer g tag
-
-            angular.forEach(svg.firstChild.childNodes, function (valor, llave) {
-
-                var llaveNueva = 'elemento' + llave;
-
-                var fragmentoSvg = svg.firstChild.childNodes[llave];
+            attributes.$observe('icono', function () {
                 
-                //si es nodo tipo "elemento"
-                if (fragmentoSvg.nodeType == 1) {
+                
+
+                if (element.children()[0]) {
                     
-                    fragmentoSvg.setAttribute("bazam-cambio-color-fuente", "");
-                    fragmentoSvg.setAttribute("data-color", "editor.color");
-                    fragmentoSvg.setAttribute("data-bazam-activo", "{{editor.activo.elementos[" + llave + "]}}");
-                    fragmentoSvg.setAttribute("ng-click", "editor.activar('elemento', " + llave + ")");
-                
+
+                    element.children().remove();
+
+                    element.append(attributes.icono);
+
+                    var svg = element.children()[0];
+
+                    svg.setAttribute("bazam-guardar-comparar", "");
+                    svg.setAttribute("data-guardar", "{{" + attributes.guardar + "}}");
+                    svg.setAttribute("data-comparadores", attributes.comparadores);
+                    svg.setAttribute("data-tipo-guardar", "{{" + attributes.tipoGuardar + "}}");
+
+                    //evento click a cada hijo del primer g tag
+
+                    angular.forEach(svg.firstChild.childNodes, function (valor, llave) {
+
+                        var llaveNueva = 'elemento' + llave;
+
+                        var fragmentoSvg = svg.firstChild.childNodes[llave];
+
+                        //si es nodo tipo "elemento"
+                        if (fragmentoSvg.nodeType == 1) {
+
+                            fragmentoSvg.setAttribute("bazam-cambio-color-fuente", "");
+                            fragmentoSvg.setAttribute("data-color", "editor.color");
+                            fragmentoSvg.setAttribute("data-bazam-activo", "{{editor.activo.elementos[" + llave + "]}}");
+                            fragmentoSvg.setAttribute("ng-click", "editor.activar('elemento', " + llave + ")");
+
+                        }
+
+                    });
+
+                    //directiva de cambio de texto
+                    svg.lastChild.children[0].setAttribute("bazam-cambio-texto", "");
+                    svg.lastChild.children[0].setAttribute("data-texto", "{{editor.logo.texto}}");
+
+                    //directiva de cambio de color del texto
+                    svg.lastChild.children[0].setAttribute("bazam-cambio-color-fuente", "");
+                    svg.lastChild.children[0].setAttribute("data-color", "editor.color");
+                    svg.lastChild.children[0].setAttribute("data-fuente", "editor.logo.fuente.nombre");
+                    svg.lastChild.children[0].setAttribute("data-bazam-activo", "{{editor.activo.texto}}");
+                    svg.lastChild.children[0].setAttribute("ng-click", "editor.activar('texto')");
+
+                    
+                    //compilar dentro del contexto de angular
+                  
+                    $compile(svg)(nuevoScope);
+
+
+                } else {
+                    var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+                    texto.setAttributeNS(null, "x", attributes.textoX);
+                    texto.setAttributeNS(null, "y", attributes.textoY);
+
+                    var textoNode = document.createTextNode(attributes.texto);
+
+                    texto.appendChild(textoNode);
+
+                    //Creacion del svg y agregado del texto al mismo
+
+                    element.append(attributes.icono);
+
+                    element.children().html("<g ng-class='proceso.posicion.claseG'>" + element.children().html() + "</g><g ng-class='proceso.posicion.clase'></g>");
+
+                    var svg = element.children()[0];
+
+                    svg.setAttribute("bazam-guardar-comparar", "");
+                    svg.setAttribute("data-guardar", "{{" + attributes.guardar + "}}");
+                    svg.setAttribute("data-comparadores", attributes.comparadores);
+                    svg.setAttribute("data-tipo-guardar", "{{" + attributes.tipoGuardar + "}}");
+
+
+                    //evento click a cada hijo del primer g tag
+
+                    angular.forEach(svg.firstChild.childNodes, function (valor, llave) {
+
+                        var llaveNueva = 'elemento' + llave;
+
+                        var fragmentoSvg = svg.firstChild.childNodes[llave];
+
+                        //si es nodo tipo "elemento"
+                        if (fragmentoSvg.nodeType == 1) {
+
+                            fragmentoSvg.setAttribute("bazam-cambio-color-fuente", "");
+                            fragmentoSvg.setAttribute("data-color", "editor.color");
+                            fragmentoSvg.setAttribute("data-bazam-activo", "{{editor.activo.elementos[" + llave + "]}}");
+                            fragmentoSvg.setAttribute("ng-click", "editor.activar('elemento', " + llave + ")");
+
+                        }
+
+                    });
+
+                    // console.log(scope.bazamActivo);
+
+
+                    svg.lastChild.appendChild(texto);
+                    svg.lastChild.children[0].setAttribute("text-anchor", "middle");
+                    svg.lastChild.children[0].setAttribute("font-family", attributes.fuente);
+
+                    //directiva de cambio de texto
+                    svg.lastChild.children[0].setAttribute("bazam-cambio-texto", "");
+                    svg.lastChild.children[0].setAttribute("data-texto", "{{editor.logo.texto}}");
+
+                    //directiva de cambio de color del texto
+                    svg.lastChild.children[0].setAttribute("bazam-cambio-color-fuente", "");
+                    svg.lastChild.children[0].setAttribute("data-color", "editor.color");
+                    svg.lastChild.children[0].setAttribute("data-fuente", "editor.logo.fuente.nombre");
+
+
+                    svg.lastChild.children[0].setAttribute("data-bazam-activo", "{{editor.activo.texto}}");
+                    svg.lastChild.children[0].setAttribute("ng-click", "editor.activar('texto')");
+
+                    //compilar dentro del contexto de angular
+                    
+                    $compile(svg)(nuevoScope );
                 }
-
-            });
-
-            // console.log(scope.bazamActivo);
-
-
-            svg.lastChild.appendChild(texto);
-            svg.lastChild.children[0].setAttribute("text-anchor", "middle");
-            svg.lastChild.children[0].setAttribute("font-family", attributes.fuente);
-
-            //directiva de cambio de texto
-            svg.lastChild.children[0].setAttribute("bazam-cambio-texto", "");
-            svg.lastChild.children[0].setAttribute("data-texto", "{{editor.logo.texto}}");
-
-            //directiva de cambio de color del texto
-            svg.lastChild.children[0].setAttribute("bazam-cambio-color-fuente", "");
-            svg.lastChild.children[0].setAttribute("data-color", "editor.color");
-            svg.lastChild.children[0].setAttribute("data-fuente", "editor.logo.fuente.nombre");
-
-
-            svg.lastChild.children[0].setAttribute("data-bazam-activo", "{{editor.activo.texto}}");
-            svg.lastChild.children[0].setAttribute("ng-click", "editor.activar('texto')");
-
-            //compilar dentro del contexto de angular
-            $compile(svg.firstChild)(scope);
-            $compile(svg.lastChild)(scope);
-
+            })
 
         }
 
@@ -201,3 +258,123 @@ angular.module("disenador-de-logos")
     }
 
 })
+
+.directive("bazamGuardarComparar", ["compararLogosFactory", "$base64", function (compararLogosFactory, $base64) {
+
+
+    return {
+
+        restrict: 'AE',
+        scope: {
+
+            comparadores: "=comparadores",
+
+        },
+
+        link: function (scope, element, attributes) {
+
+            var cant = 0;
+
+            attributes.$observe("guardar", function (valor) {
+
+                if (cant) {
+
+                    if (valor) {
+
+                        if (element[0].tagName == "svg") {
+
+
+                            var clon = element.clone();
+
+                            //remover atributos del tag svg
+                            clon.removeAttr("bazam-guardar-comparar");
+                            clon.removeAttr("data-guardar");
+                            clon.removeAttr("class");
+
+                            var svg_clonado = clon[0];
+
+                            //remover atributos de los g globales
+                            svg_clonado.firstChild.removeAttribute("ng-class");
+                            svg_clonado.lastChild.removeAttribute("ng-class");
+
+
+                            //remover atributos de los hijos del primer g
+                            angular.forEach(svg_clonado.firstChild.childNodes, function (valor, llave) {
+
+                                var fragmentoSvg = svg_clonado.firstChild.childNodes[llave];
+
+                                //si es nodo tipo "elemento"
+                                if (fragmentoSvg.nodeType == 1) {
+
+                                    fragmentoSvg.removeAttribute("bazam-cambio-color-fuente");
+                                    fragmentoSvg.removeAttribute("data-color");
+                                    fragmentoSvg.removeAttribute("data-bazam-activo");
+                                    fragmentoSvg.removeAttribute("ng-click");
+                                    fragmentoSvg.removeAttribute("class");
+
+                                }
+
+                            })
+
+                            //remover atributos del primer 
+                            angular.forEach(svg_clonado.lastChild.childNodes, function (valor, llave) {
+
+                                var fragmentoSvg = svg_clonado.lastChild.childNodes[llave];
+
+
+                                fragmentoSvg.removeAttribute("bazam-cambio-texto");
+                                fragmentoSvg.removeAttribute("data-texto");
+                                fragmentoSvg.removeAttribute("bazam-cambio-color-fuente");
+                                fragmentoSvg.removeAttribute("data-color");
+                                fragmentoSvg.removeAttribute("data-bazam-activo");
+                                fragmentoSvg.removeAttribute("data-fuente");
+                                fragmentoSvg.removeAttribute("ng-click");
+                                fragmentoSvg.removeAttribute("class");
+
+
+
+                            })
+
+                            var tipo = attributes.tipoGuardar;
+
+                            compararLogosFactory.definir($base64.encode(svg_clonado.outerHTML), tipo);
+
+                            var logosGuardados = compararLogosFactory.obtener(tipo);
+
+                            console.log(tipo)
+
+                            if (tipo == "comparar") {
+
+
+
+                                scope.comparadores.push(logosGuardados[logosGuardados.length - 1]);
+
+                            } else if (tipo == "comprar")
+
+                            {
+
+                                //scope.
+
+                            }
+
+
+
+
+
+
+                        }
+                    }
+                } else {
+                    cant++;
+                }
+
+            })
+
+
+        }
+
+    }
+
+
+
+}])
