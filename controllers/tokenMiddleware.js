@@ -1,24 +1,62 @@
+
 var jwt = require('jwt-simple');
-var moment = require ('moment');
-var auth = require('./usuarios.js');
+var moment = require('moment');
 
-exports.auntentificarToken = function(req,res,next){
+exports.aad = function(req,res){
 
-	if(!req.z){
-		res.send('no tienes autorizacion');
-		console.log('no tienes autorizacion');
-	}
-
-	var token = header.authorization.split(" ")[1];
-	var payload = jwt.decode(token,"misecretoken")
-	if(payload.exp < moment().unix()){
-		res.send('super sesion expirada');
-	}
-
-	req.user = payload.sub
-	next();
+	
+	
+		var jwt = require('jwt-simple');
+		var moment = require ('moment');
+		var z = jwt.decode(req.token,'misecretoken');
+		res.status(200).send(z);
+	/*
+	*/
+	
 
 }
 
+
+exports.auntentificarToken = function(req,res,next){
+	
+			if(typeof req.token !== 'undefined' && req.token.length > 0){
+				
+				var token = req.token;
+				var z = jwt.decode(token,'misecretoken');
+			
+					if(z.exp <= moment().unix()){
+						
+						res.status(403).send('super sesion expirada');
+					
+							}else{
+					
+								res.status(200).send(z);
+				
+							}
+								
+							}else{
+
+				
+
+	var payload = {
+					sub:req.datos,
+					iat:moment().unix(),
+					exp:moment().add(1,'days').unix()
+				};
+				var x = jwt.encode(payload,'misecretoken');
+				res.status(200).send(x);
+			}
+		}
+
+
+
+exports.prueba = function(req,res){	
+	
+		var token = req.token;
+		var z = jwt.decode(token,'misecretoken');
+
+	res.status(200).send(z);
+
+}
 
 

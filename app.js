@@ -9,20 +9,26 @@ var bodyParser = require('body-parser');
 //var index = require('./public/');
 var rutas = require('./routes/routes.js');
 
+
 var app = express();
 
-
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/angular', express.static(__dirname + '/node_modules/angular'))
+app.use('/angular-material', express.static(__dirname + '/node_modules/angular-material'))
 app.use('/angular-messages', express.static(__dirname + '/node_modules/angular-messages'))
+app.use('/angular-animate', express.static(__dirname + '/node_modules/angular-animate'))
+app.use('/angular-aria', express.static(__dirname + '/node_modules/angular-aria'))
+app.use('/angularfire', express.static(__dirname + '/node_modules/angularfire/dist'))
+app.use('/firebase', express.static(__dirname + '/node_modules/firebase'))
 app.use('/angular-ui-router', express.static(__dirname + '/node_modules/angular-ui-router/release'))
+app.use('/assets', express.static(__dirname + '/public/creador-de-logos/assets'))
+app.use('/angular-color-picker', express.static(__dirname + '/node_modules/angular-color-picker'))
+app.use('/angular-base64', express.static(__dirname + '/node_modules/angular-base64'))
 
 
 
@@ -48,5 +54,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(8080)
+app.listen(8080);
 module.exports = app;
