@@ -6,8 +6,11 @@
         </div>
 
     </div>
-    <div layout layout-align="space-around center">
-        <metodo_pago class="md-whiteframe-2dp">
+    <div layout layout-align="space-around center" ng-switch="metodos.compras">
+
+        <paypal-button env="metodos.opts.env" client="metodos.opts.client" payment="metodos.opts.payment" commit="metodos.opts.commit" on-authorize="metodos.opts.onAuthorize"></paypal-button>
+
+        <metodo_pago class="md-whiteframe-2dp" ng-switch-when='1'>
             <p_header class="p_header" layout-padding>
                 METODOS DE PAGO
             </p_header>
@@ -31,6 +34,17 @@
 
             </p_footer>
         </metodo_pago>
+        <mensaje-compra ng-switch-when='2'>
+            Exitoso
+        </mensaje-compra>
+        
+        <mensaje-compra ng-switch-when='3'>
+            Falido
+        </mensaje-compra>
+        
+        <mensaje-compra ng-switch-when='4'>
+            Completo fallo
+        </mensaje-compra>
     </div>
 
     <div layout="row" class="margen_superior" layout-align="space-between">

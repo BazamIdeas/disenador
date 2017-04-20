@@ -573,7 +573,7 @@ angular.module("disenador-de-logos")
 
     //guarda un logo en el listado de logos comparativos
     this.guardar = function (tipo) {
-        
+
         //acepta dos tipos de guardado, comprar y comparar
         this.tipoGuardar = tipo;
         this.guardarComparar++;
@@ -647,15 +647,17 @@ angular.module("disenador-de-logos")
         url: "../creador-de-logos/assets/fonts/Pacifico-Regular.ttf",
         nombre: "Pacifico-Regular"
         }]
-    
-        bz.fabEditor = false;
 
-        bz.cambiarMenu = function (lugar) {
+    bz.fabEditor = false;
 
-            return $mdSidenav('right').toggle();
-        }
-        
-        bz.fondo="blanco";
+    bz.cambiarMenu = function (lugar) {
+
+        return $mdSidenav('right').toggle();
+    }
+
+    bz.fondo = "blanco";
+
+
 
 }])
 
@@ -804,6 +806,62 @@ angular.module("disenador-de-logos")
 
 /* Metodos */
 
-.controller('metodosController', ['$scope', 'currentAuth', function ($scope, currentAuth) {
+.controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$mdDialog', function ($scope, currentAuth, pedidosService, $mdDialog) {
+    
+    var bz = this;
+    
+    bz.compras = 1;
+    
     this.pago = false;
+
+
+
+    this.opts = {
+        env: 'sandbox',
+        client: {
+            sandbox: 'AVpLm3Mj781_AAa4M5gArCwllQ2LIv5WT6qccHJOjdbOMFOz_6fQmItQQbCWvXeeG3TS1qBA6a8_8NoV'
+        },
+
+        payment: function () {
+            var env = this.props.env;
+            var client = this.props.client;
+            return paypal.rest.payment.create(env, client, {
+                transactions: [{
+                        amount: {
+                            total: '1.00',
+                            currency: 'USD'
+                        }
+                    }]
+            });
+        },
+        commit: true, // Optional: show a 'Pay Now' button in the checkout flow
+        onAuthorize: function (data, actions) {
+            // Optional: display a confirmation page here
+            return actions.payment.execute().then(function (res) {
+
+                pedidosService.nuevoPedido().then(function (res) {
+
+                   bz.compras = 2;
+
+                }).catch(function (res) {
+                    
+                    bz.compras = 3;
+                    console.log("pago realizado mediante paypal, fallo al comprar, reembolsar")
+
+                })
+
+            }).catch(function (res) {
+                
+                bz.compras = 3;
+                console.log("fallo con el pago de paypal")
+
+            });
+        }
+    };
+
+ 
+
+
+
+
 }])
