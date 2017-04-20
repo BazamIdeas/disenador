@@ -54,11 +54,11 @@ angular.module("disenador-de-logos")
             var nuevoScope = scope.$new()
 
             attributes.$observe('icono', function () {
-                
-                
+
+
 
                 if (element.children()[0]) {
-                    
+
 
                     element.children().remove();
 
@@ -67,7 +67,7 @@ angular.module("disenador-de-logos")
                     var svg = element.children()[0];
 
                     svg.setAttribute("bazam-guardar-comparar", "");
-                    svg.setAttribute("data-guardar", "{{" + attributes.guardar + "}}");
+                    svg.setAttribute("data-guardar", attributes.guardar);
                     svg.setAttribute("data-comparadores", attributes.comparadores);
                     svg.setAttribute("data-tipo-guardar", "{{" + attributes.tipoGuardar + "}}");
 
@@ -102,9 +102,9 @@ angular.module("disenador-de-logos")
                     svg.lastChild.children[0].setAttribute("data-bazam-activo", "{{editor.activo.texto}}");
                     svg.lastChild.children[0].setAttribute("ng-click", "editor.activar('texto')");
 
-                    
+
                     //compilar dentro del contexto de angular
-                  
+
                     $compile(svg)(nuevoScope);
 
 
@@ -127,7 +127,7 @@ angular.module("disenador-de-logos")
                     var svg = element.children()[0];
 
                     svg.setAttribute("bazam-guardar-comparar", "");
-                    svg.setAttribute("data-guardar", "{{" + attributes.guardar + "}}");
+                    svg.setAttribute("data-guardar", attributes.guardar);
                     svg.setAttribute("data-comparadores", attributes.comparadores);
                     svg.setAttribute("data-tipo-guardar", "{{" + attributes.tipoGuardar + "}}");
 
@@ -173,8 +173,8 @@ angular.module("disenador-de-logos")
                     svg.lastChild.children[0].setAttribute("ng-click", "editor.activar('texto')");
 
                     //compilar dentro del contexto de angular
-                    
-                    $compile(svg)(nuevoScope );
+
+                    $compile(svg)(nuevoScope);
                 }
             })
 
@@ -204,6 +204,8 @@ angular.module("disenador-de-logos")
     }
 
 })
+
+
 
 
 .directive('bazamCambioColorFuente', function ($compile) {
@@ -268,6 +270,7 @@ angular.module("disenador-de-logos")
         scope: {
 
             comparadores: "=comparadores",
+            guardar: "=guardar"
 
         },
 
@@ -275,11 +278,12 @@ angular.module("disenador-de-logos")
 
             var cant = 0;
 
-            attributes.$observe("guardar", function (valor) {
+
+            var detener = scope.$watch("guardar", function (valor, viejoValor) {
 
                 if (cant) {
 
-                    if (valor) {
+                    if (valor !== viejoValor) {
 
                         if (element[0].tagName == "svg") {
 
@@ -290,6 +294,9 @@ angular.module("disenador-de-logos")
                             clon.removeAttr("bazam-guardar-comparar");
                             clon.removeAttr("data-guardar");
                             clon.removeAttr("class");
+                            clon.removeAttr("data-comparadores");
+                            clon.removeAttr("data-tipo-guardar");
+
 
                             var svg_clonado = clon[0];
 
@@ -337,38 +344,28 @@ angular.module("disenador-de-logos")
 
                             var tipo = attributes.tipoGuardar;
 
-                            compararLogosFactory.definir($base64.encode(svg_clonado.outerHTML), tipo);
+                            //compararLogosFactory.definir($base64.encode(svg_clonado.outerHTML), tipo);
 
-                            var logosGuardados = compararLogosFactory.obtener(tipo);
+                            // var logosGuardados = compararLogosFactory.obtener(tipo);
 
-                            console.log(tipo)
 
                             if (tipo == "comparar") {
 
-
-
-                                scope.comparadores.push(logosGuardados[logosGuardados.length - 1]);
+                                scope.comparadores.push($base64.encode(svg_clonado.outerHTML));
 
                             } else if (tipo == "comprar")
 
                             {
-
                                 //scope.
-
                             }
-
-
-
-
-
-
                         }
                     }
+
                 } else {
                     cant++;
                 }
 
-            })
+            }, true)
 
 
         }

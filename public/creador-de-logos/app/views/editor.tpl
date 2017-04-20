@@ -299,7 +299,7 @@
 
                     <md-fab-actions>
                         <md-button aria-label="Twitter" class="md-fab md-raised md-mini ">
-                            <md-icon aria-label="Twitter">share</md-icon>
+                            <md-icon aria-label="Twitter" md-svg-src="/app/assets/svg-no-borrar/twitter-logo-silhouette.svg"></md-icon>
                         </md-button>
                         <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
                             <md-icon aria-label="Facebook">share</md-icon>
