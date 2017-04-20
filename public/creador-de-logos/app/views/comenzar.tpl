@@ -1,26 +1,13 @@
 <div flex layout="column" ng-cloak>
 
-    <div flex="12" layout="row" style="margin-top:3%;" class="margen_inferior">
+    <div layout="row" style="margin-top:3%;" class="margen_inferior">
         <div flex layout layout-align="center">
             <md-slider-container ng-disabled="true" flex="50" class="md-whiteframe-2dp slider-comenzar">
                 <md-slider flex class="md-warn" ng-model="comenzar.mostrar" md-discrete step="1" min="1" max="4" aria-label="rating" ng-readonly="true">
             </md-slider-container>
         </div>
-        <div flex="none" class="ayuda">
-            <md-icon ng-click="comenzar.cambiarMenu()" class="material-icons icono_radio" style="width: 10px; height: 10px;">help_outline</md-icon>
-        </div>
-        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
-            <md-toolbar class="transparencia">
-                <div class="md-toolbar-tools">
-                    <div>AYUDA</div>
-                </div>
-            </md-toolbar>
-            <div>
-                <md-button class="md-primary md-hue-2" ng-click="comenzar.cambiarMenu()">CERRAR</md-button>
-            </div>
-        </md-sidenav>
     </div>
-    <div layout="column" layout-align="start" ng-switch="comenzar.mostrar">
+    <div flex="none" layout="column" ng-switch="comenzar.mostrar">
         <div class="texto-informativo" layout flex="14" layout-align="center">
             <div layout flex="60" layout-align="center">
                 <p ng-switch-when="1">Ingrese el nombre de su logo</p>
@@ -32,7 +19,7 @@
         <div layout layout-align="center">
             <form name="preferenciasFormulario" flex="60" layout-padding class="md-whiteframe-2dp">
                 <div>
-                    <div class="pasos" ng-switch-when="1">
+                    <div  class="pasos" ng-switch-when="1">
                         <div>
                             <md-input-container class="md-block input-comenzar">
                                 <label>Ingrese el nombre de su logo</label>
@@ -40,7 +27,7 @@
                             </md-input-container>
 
                             <md-input-container class="md-block input-comenzar">
-                                <label>Eslogan</label>
+                                <label>Eslogan (Opcional)</label>
                                 <input name="nombre" ng-model="comenzar.datos.eslogan" maxlength="15">
                             </md-input-container>
                         </div>

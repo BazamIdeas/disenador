@@ -1688,14 +1688,6 @@
             transform: rotate(360deg);
         }
     }
-    
-    text:focus {
-        outline: -webkit-focus-ring-color auto 3px;
-        outline-color: -webkit-focus-ring-color;
-        outline-style: dashed;
-        outline-color: red;
-        outline-offset: 5px;
-    }
 
 
 #preloader6{

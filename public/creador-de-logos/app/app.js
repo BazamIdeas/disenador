@@ -54,15 +54,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 }
             })
             .state({
-                name: 'previsualizar',
-                url: '/previsualizar',
-                templateUrl: 'app/views/previsualizar.tpl',
-                controller: 'previsualizarController as previsualizar',
-                params: {
-                    datos: null
-                }
-            })
-            .state({
                 name: 'login',
                 url: '/login',
                 templateUrl: 'app/views/login.tpl',

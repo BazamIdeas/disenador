@@ -458,7 +458,9 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', function ($scope, $stateParams, $state, LS, $timeout, $base64) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav) {
+
+    var bz = this;
 
     this.base64 = function (icono) {
 
@@ -502,10 +504,10 @@ angular.module("disenador-de-logos")
 
     /**********logos copias********/
     this.comparadores = [];
-    
-    
+
+
     this.tipoGuardar = "";
-    
+
     this.guardarComparar = 0;
 
     //guarda un logo en el listado de logos comparativos
@@ -517,15 +519,15 @@ angular.module("disenador-de-logos")
         this.guardarComparar++;
 
     }
-    
-    this.recuperar = function(clon){
-        
-        
+
+    this.recuperar = function (clon) {
+
+
         this.logo.icono.svg = clon;
-        
+
     }
-    
-    
+
+
 
     /******************************/
 
@@ -591,20 +593,6 @@ angular.module("disenador-de-logos")
 
     /***********************/
 
-
-
-    this.modoSeleccionado = 'md-scale';
-
-    this.estado = [{
-        estado1: false
-    }, {
-        estado2: false
-    }, {
-        estado3: false
-    }, {
-        estado4: false
-    }]
-
     $scope.fuente = null;
     $scope.fuentes = null;
 
@@ -649,6 +637,15 @@ angular.module("disenador-de-logos")
         url: "../creador-de-logos/assets/fonts/Pacifico-Regular.ttf",
         nombre: "Pacifico-Regular"
         }]
+    
+        bz.fabEditor = false;
+
+        bz.cambiarMenu = function (lugar) {
+
+            return $mdSidenav('right').toggle();
+        }
+        
+        bz.fondo="blanco";
 
 }])
 

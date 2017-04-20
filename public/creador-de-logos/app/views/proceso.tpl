@@ -17,7 +17,7 @@
         <div layout="row" flex="60" class="scroll">
             <div class="contenedor-logo-proceso">
                 <div ng-repeat="logo in proceso.logos" ng-mouseenter="proceso.efectoHover($index, logo)" ng-mouseleave="proceso.efectoHover($index, logo)" class="md-whiteframe-2dp margen_inferior svg-proceso contenedor_logos_proceso proceso-content">
-                    <div>
+                    <div class="svg">
                         <bazam-svg-text bazam-svg-text-pos data-icono="{{proceso.base64(logo.icono.svg)}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{proceso.posicion.coordenadas.x}}" data-texto-y="{{proceso.posicion.coordenadas.y}}" data-texto="{{proceso.datosEstadoAnterior.nombre}}"></bazam-svg-text>
                     </div>
                     <md-icon ui-sref="editor({logo:logo, posicion: proceso.posicion, texto: proceso.datosEstadoAnterior.nombre})" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>

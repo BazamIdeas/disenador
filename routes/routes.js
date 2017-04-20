@@ -48,15 +48,15 @@ router.post("/pedido/cambiar/",controllers.firebase.comprobarEstadoCliente, cont
 
 //MODULO CATEGORIAS
 
-router.get('/categorias',controllers.firebase.comprobarEstadoCliente, controllers.categorias.listaCategorias);
-router.post("/categoria",controllers.firebase.comprobarEstadoCliente, controllers.categorias.nuevaCategoria);
+router.get('/categorias', controllers.categorias.listaCategorias);
+router.post("/categoria", controllers.categorias.nuevaCategoria);
 router.post("/categoria/modificar/",controllers.firebase.comprobarEstadoCliente, controllers.categorias.modificarCategoria);
 router.get('/categoria/borrar/:id',controllers.firebase.comprobarEstadoCliente, controllers.categorias.borrarCategoria);
 
 //MODULO PREFERENCIA
 
-router.get('/preferencias',controllers.firebase.comprobarEstadoCliente, controllers.preferencias.listaPreferencias);
-router.post("/preferencia",controllers.firebase.comprobarEstadoCliente, controllers.preferencias.nuevaPreferencia);
+router.get('/preferencias', controllers.preferencias.listaPreferencias);
+router.post("/preferencia", controllers.preferencias.nuevaPreferencia);
 router.post("/preferencia/modificar/",controllers.firebase.comprobarEstadoCliente, controllers.preferencias.modificarPreferencia);
 router.get('/preferencia/borrar/:id',controllers.firebase.comprobarEstadoCliente, controllers.preferencias.borrarPreferencia);
 
@@ -72,8 +72,8 @@ router.get('/email',controllers.firebase.comprobarEstadoCliente,controllers.emai
 
 
 //MODULO ELEMENTOS
-router.post('/elementos/busqueda',controllers.firebase.comprobarEstadoCliente, controllers.elementos.listaSegunPref);
-router.post("/elementos/categorias",controllers.firebase.comprobarEstadoCliente, controllers.elementos.listaElemCat);
+router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
+router.post("/elementos/categorias", controllers.elementos.listaElemCat);
 
 //MODULO LOGOS
 router.get('/logos/guardados/:id',controllers.firebase.comprobarEstadoCliente, controllers.logos.listaLogosGuardados);

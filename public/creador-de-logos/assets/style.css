@@ -58,6 +58,12 @@ md-content {
     background-color: #FF9800;
 }
 
+.material-icon {
+    width: auto;
+    height: auto;
+    font-size: 30px;
+}
+
 
 /* Comenzar */
 
@@ -65,6 +71,11 @@ md-content {
     font-size: 28px;
     color: #2196F3;
     font-weight: bold;
+}
+
+.input-comenzar:nth-child(1) {
+    font-size: 20px;
+    margin: 3% 0 0% 0 !important;
 }
 
 .slider-comenzar {
@@ -78,7 +89,8 @@ md-content {
 }
 
 .input-comenzar {
-    margin: 1% 0 1% 0 !important;
+    margin: 0% 0 0% 0;
+    font-size: 13px;
 }
 
 .ayuda md-icon {
@@ -213,8 +225,8 @@ bazam-svg-text svg>text {
 }
 
 .logo_icon {
-    width: 100px !important;
-    height: 100px !important;
+    width: 100px;
+    height: 100px;
 }
 
 .titulo_opciones {
@@ -365,21 +377,33 @@ metodo_pago p_header {
 
 .cont-logo-editor {
     width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    background: rgb(255, 255, 255);
+    /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#b3bead', GradientType=0);
+    /* IE6-9 */
 }
 
 .botones-editor {
     display: flex;
-    margin: 2% 0 4% 0;
+    margin: 0% 0 4% 0;
     width: 100%;
-    justify-content:flex-end;
+    justify-content: flex-end;
 }
 
 .logo-editor {
     width: 40%;
+    margin-top: 2%;
 }
 
 .edicion {
@@ -391,6 +415,11 @@ metodo_pago p_header {
 
 /* MENU */
 
+.logo_previsualizar {
+    width: 90%;
+    margin: 10% 0 10% 0;
+}
+
 .menu {
     width: 50%;
     display: flex;
@@ -398,8 +427,9 @@ metodo_pago p_header {
 
 .menu-editor {
     width: 30%;
-    background-color: #283593;
-    color: white !important;
+    background-color: #262c57;
+    overflow: scroll;
+    color: white;
 }
 
 .menu-editor .menu-link:hover {
@@ -410,6 +440,15 @@ metodo_pago p_header {
     WIDTH: 70%;
 }
 
+p.elemento-texto-ayuda {
+    width: 90%;
+    margin: 5% auto auto auto;
+    text-align: justify;
+    color: #E91E63;
+    text-transform: initial;
+    font-weight: bold;
+}
+
 .elemento md-input-container {
     margin: 0px;
     height: 25px;
@@ -418,7 +457,8 @@ metodo_pago p_header {
 .elemento {
     height: 100%;
     width: auto;
-    background: rgb(0, 129, 194);
+    background: #bdbfcc;
+    overflow: scroll;
 }
 
 .menu-link div h4 {
@@ -443,15 +483,6 @@ metodo_pago p_header {
     cursor: pointer;
 }
 
-.elemento h4 {
-    color: white;
-}
-
-.elemento md-input-container.md-default-theme .md-input,
-.elemento md-input-container .md-input {
-    color: white !important;
-}
-
 md-input-container.color-animacion .md-input {
     padding: 18px 6px !important;
 }
@@ -460,6 +491,19 @@ md-input-container.color-animacion .md-input {
     width: 100%;
     padding: 6px 5px;
     font-size: 15px;
+}
+
+.elemento-prev {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.elementos md-icon.logo_icon.icono.ng-scope {
+    margin-bottom: 15%;
+    margin-top: 5%;
+    width: 90%;
 }
 
 .menu-editor.activo {
@@ -487,21 +531,15 @@ md-input-container.color-animacion .md-input {
     justify-content: space-around;
 }
 
-.propiedades div {
-    padding: 8px;
-    color: black;
-    width: 50%;
-    text-align: center;
-}
-
-.elemento input, .elemento .md-select-value, .elemento h4 {
+.elemento input,
+.elemento .md-select-value,
+.elemento h4 {
     padding-left: 5% !important;
 }
 
-
-.elemento md-select.md-default-theme:not([disabled]):focus .md-select-value, .elemento md-select:not([disabled]):focus .md-select-value {
+.elemento md-select.md-default-theme:not([disabled]):focus .md-select-value,
+.elemento md-select:not([disabled]):focus .md-select-value {
     border-bottom-color: rgb(255, 255, 255);
-    color: rgba(255, 255, 255, 0.87);
 }
 
 .elemento h4 {
@@ -509,12 +547,12 @@ md-input-container.color-animacion .md-input {
 }
 
 .elemento input,
-.elemento md-select, .elemento .md-select-value {
-    background: rgb(0, 129, 194);
-    color: white !important;
+.elemento md-select,
+.elemento .md-select-value {
+    background: #bdbfcc;
 }
 
-.elemento > :first-child md-icon {
+.elemento> :first-child md-icon {
     background: #283593;
     padding: 4px;
     border-radius: 50%;
@@ -524,12 +562,16 @@ md-input-container.color-animacion .md-input {
     min-width: 250px;
 }
 
-.propiedades div:hover {
-    background: #607d8b;
-}
-
 .margen_completo {
     margin: 1%;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.cursiva {
+    font-style: italic;
 }
 
 .color-animacion md-input-container {
@@ -539,6 +581,41 @@ md-input-container.color-animacion .md-input {
 .logo_grande_editor_cont div svg {
     cursor: pointer;
     width: 100%;
+}
+
+.tono-background {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 6px;
+    margin-right: .5%;
+    width: 11%;
+}
+
+.tono-background .negro {
+    background: black;
+    width: 60px;
+    height: 30px;
+    border: 4px solid #262829;
+    border-radius: 5px;
+    color: transparent;
+    cursor: pointer;
+}
+
+.tono-background .blanco {
+    background: silver;
+    width: 60px;
+    height: 30px;
+    border: 4px solid #ffffff;
+    border-radius: 5px;
+    color: transparent;
+    cursor: pointer;
+}
+
+.cont-logo-editor.negro {
+    background: black;
 }
 
 
@@ -553,6 +630,12 @@ md-input-container.color-animacion .md-input {
     width: 30%;
     height: 30%;
     position: relative;
+}
+
+.contenedor-logo-proceso .svg {
+    width: 50%;
+    max-height: 80%;
+    margin: 6% auto 0 auto;
 }
 
 .contenedor-logo-proceso {
@@ -611,8 +694,9 @@ svg {
     overflow: visible;
 }
 
-svg g text {
-    font-size: 100%;
+.contenedor-logo-proceso svg g text {
+    font-size: 200%;
+    transform: translateY(150PX);
 }
 
 svg g {
