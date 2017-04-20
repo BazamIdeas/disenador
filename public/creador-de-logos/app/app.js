@@ -1,4 +1,4 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", "paypal-button"])
     .config(function ($stateProvider, $mdThemingProvider) {
 
         /*------------------Material Angular --------------*/
