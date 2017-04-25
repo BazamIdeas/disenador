@@ -1,6 +1,6 @@
-<div flex layout="column">
+<div flex layout="column" ng-cloak>
     <div layout="row" layout-align="center" ng-switch="login.mostrarForm">
-        <div flex="25" ng-switch-when="1" layout-padding class="md-whiteframe-5dp margen_superior margen-inferior pasos">
+        <div flex="25" ng-switch-when="1" layout-padding class="md-whiteframe-5dp margen_superior margen_inferior pasos formularios-login">
             <form>
                 <div>
                     <h3 class="text-center">Ingresar</h3>
@@ -20,7 +20,7 @@
                     <h6 ng-click="login.mostrarForm=3">Olvidaste tu contraseña? <b class="login-link-h6">Recuperar</b></h6>
                     <div layout layout-wrap>
                         <h6>No tienes una cuenta?</h6>
-                        <h6 class="login-link-h6" ng-click="login.mostrarForm=2"><b>Registrate</b></h6>
+                        <h6 ng-click="login.mostrarForm=2"><b  class="login-link-h6">Registrate</b></h6>
                     </div>
                     <md-button class="md-raised md-primary" ng-click="login.login('interno', login.datos.login)">Enviar</md-button>
                 </div>
@@ -39,11 +39,11 @@
                 </div>
             </form>
         </div>
-        <div ng-switch-when="2" layout-padding flex="25" class="md-whiteframe-5dp margen_superior margen-inferior pasos">
+        <div ng-switch-when="2" layout-padding flex="25" class="md-whiteframe-5dp margen_superior margen_inferior pasos">
             <form>
                 <div layout="column" layout-align="space-between">
                     <h3 class="text-center">Registrar</h3>
-                    <div layout="column" layout-align="space-around">
+                    <div>
                         <md-input-container class="md-block">
                             <label>Nombre</label>
                             <input type="text" ng-model="login.datos.registrar.nombreCliente">
@@ -60,7 +60,7 @@
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>Teléfono</label>
-                            <input type="text" ng-model="login.datos.registrar.telefono">
+                            <input type="number" ng-model="login.datos.registrar.telefono">
 
                         </md-input-container>
                         <md-input-container class="md-block">
@@ -68,16 +68,15 @@
                             <input type="text" ng-model="login.datos.registrar.pais">
 
                         </md-input-container>
-                        
-                    </div>
-                    <div layout layout-align="space-between">
-                        <md-button class="md-raised md-primary" ng-click="login.registrar(login.datos.registrar)">Enviar</md-button>
-                        <md-button class="md-raised md-warn" ng-click="login.mostrarForm=1">Regresar</md-button>
                     </div>
                     <div layout layout-wrap>
                         <h5 layout="row">Ya tienes una cuenta? </h5>
                         <h6 class="login-link-h6"><b ng-click="login.mostrarForm=1"> Ingresa</b></h6>
                     </div>
+                    <div layout layout-align="end">
+                        <md-button class="md-raised md-primary" ng-click="login.registrar(login.datos.registrar)">Enviar</md-button>
+                    </div>
+                   
                 </div>
             </form>
         </div>

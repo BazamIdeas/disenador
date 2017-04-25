@@ -5,6 +5,20 @@
             <md-slider-container ng-disabled="true" flex="50" class="md-whiteframe-2dp slider-comenzar">
                 <md-slider flex class="md-warn" ng-model="comenzar.mostrar" md-discrete step="1" min="1" max="4" aria-label="rating" ng-readonly="true">
             </md-slider-container>
+            <div class="ayuda" ng-click="comenzar.cambiarMenu()">
+                <md-icon>help_outline</md-icon>
+            </div>
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+                <md-toolbar class="transparencia">
+                    <div class="md-toolbar-tools">
+                        <div>AYUDA</div>
+                    </div>
+                </md-toolbar>
+                <div>
+                    <md-button class="md-primary md-hue-2" ng-click="comenzar.cambiarMenu()">CERRAR</md-button>
+                </div>
+            </md-sidenav>
         </div>
     </div>
     <div flex="none" layout="column" ng-switch="comenzar.mostrar">
@@ -19,16 +33,16 @@
         <div layout layout-align="center">
             <form name="preferenciasFormulario" flex="60" layout-padding class="md-whiteframe-2dp">
                 <div>
-                    <div  class="pasos" ng-switch-when="1">
+                    <div class="pasos" ng-switch-when="1">
                         <div>
                             <md-input-container class="md-block input-comenzar">
                                 <label>Ingrese el nombre de su logo</label>
-                                <input name="nombre" ng-model="comenzar.datos.nombre" ng-required="true">
+                                <input name="nombre" ng-model="comenzar.datos.nombre" ng-required="true" maxlength="12" minlength="1">
                             </md-input-container>
 
                             <md-input-container class="md-block input-comenzar">
                                 <label>Eslogan (Opcional)</label>
-                                <input name="nombre" ng-model="comenzar.datos.eslogan" maxlength="15">
+                                <input name="nombre" ng-model="comenzar.datos.eslogan" maxlength="16" minlength="1">
                             </md-input-container>
                         </div>
                         <div flex layout layout-align="end center">
@@ -70,7 +84,8 @@
                                         <h3>NOMBRE</h3>
                                         <p>Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.</p>
                                     </div>
-                                </div><div class="tipo-logo">
+                                </div>
+                                <div class="tipo-logo">
                                     <div class="tipo-logo-icon">
                                         <md-icon>font_download</md-icon>
                                     </div>
