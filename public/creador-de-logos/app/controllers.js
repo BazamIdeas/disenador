@@ -857,7 +857,7 @@ angular.module("disenador-de-logos")
     
     var bz = this;
 
-    bz.mostrar = 1;
+    bz.mostrar = 'inicial';
     
     bz.compras = 1;
     

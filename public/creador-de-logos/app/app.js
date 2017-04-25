@@ -139,7 +139,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             name: 'metodo',
             url: '/metodo-de-pago',
             templateUrl: 'app/views/metodo-de-pago.tpl',
-            controller: 'metodosController as metodos',
+            controller: 'metodosController as metodo',
             resolve: {
                 "currentAuth": ["Auth", function (Auth) {
                     // $requireSignIn returns a promise so the resolve waits for it to complete

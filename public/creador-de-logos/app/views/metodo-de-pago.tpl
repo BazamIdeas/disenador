@@ -7,7 +7,7 @@
     </div>
     <div layout layout-align="center">
         <div flex="50" layout="column" class="md-whiteframe-2dp" layout-padding>
-            <div layout layout-align="space-around" ng-switch-when="1">
+            <div layout layout-align="space-around" ng-switch-when="inicial">
                 <div class="tipo-logo" ng-click="metodo.mostrar=2">
                     <div class="tipo-logo-icon">
                         <md-icon>font_download</md-icon>
@@ -55,14 +55,15 @@
                             <input type="number" ng-model="codigo" required maxlength="3">
                         </md-input-container>
                     </div>
-                    <div>
+                    <div layout layout-align="space-between">
                         <md-button class="md-raised md-primary siguiente">PAGAR</md-button>
+                         <md-button class="md-raised md-primary siguiente" ng-click="metodo.mostrar='inicial'">METODOS</md-button>
                     </div>
                 </form>
             </div>
             <div ng-switch-when="3">
                 <div ng-switch="metodo.mostrar">
-                    <paypal-button env="metodos.opts.env" client="metodos.opts.client" payment="metodos.opts.payment" commit="metodos.opts.commit" on-authorize="metodos.opts.onAuthorize"></paypal-button>
+                    <paypal-button env="metodo.opts.env" client="metodo.opts.client" payment="metodo.opts.payment" commit="metodo.opts.commit" on-authorize="metodo.opts.onAuthorize"></paypal-button>
                     <mensaje-compra ng-switch-when='2'>
                         Exitoso
                     </mensaje-compra>
