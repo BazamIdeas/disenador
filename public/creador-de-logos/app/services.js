@@ -50,48 +50,80 @@ angular.module("disenador-de-logos")
 
 
 
+.service("pedidosService", ["$http", "$q", function ($http, $q) {
+
+
+    this.nuevoPedido = function (logoSVG, idPagoPaypal, idCliente, idElemento) {
+        
+        var defered = $q.defer();
+        
+        var promise = defered.promise;
+        
+       
+       
+        datos = {
+            idPago: idPagoPaypal,
+            idCliente: idCliente,
+            idElemento: idElemento,
+            logo: logoSVG
+        }
+
+        $http.post("/pedido", datos).then(function(res){
+            
+            
+             defered.resolve(res);
+            
+        }).catch(function(res){
+            
+             deferred.reject(res);
+            
+        })
+
+        
+        return promise;
+
+    }
+
+
+}])
+
 
 /*--------------------------- Factories aislados ------------------*/
 
 .factory('compararLogosFactory', [function () {
 
     var logos = {
-        
+
         comparar: [],
         comprar: ""
-                
+
     };
 
     var informacion = {
 
         definir: function (valor, tipo) {
-            
-             if(tipo == "comprar"){
-                
+
+            if (tipo == "comprar") {
+
                 logos.comprar = valor;
-                
-            }
-            
-            else if (tipo == "comparar")
-                
+
+            } else if (tipo == "comparar")
+
             {
                 logos.comparar.push(valor)
             }
 
-            
+
 
         },
 
         obtener: function (tipo) {
-            
-            if(tipo == "comprar"){
-                
+
+            if (tipo == "comprar") {
+
                 return logos.comprar;
-                
-            }
-            
-            else if (tipo == "comparar")
-            {
+
+            } else if (tipo == "comparar") {
                 return logos.comparar;
             }
         }

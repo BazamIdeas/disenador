@@ -346,6 +346,12 @@ p_footer md-icon {
 
 /* Metodos de pagos */
 
+.titulo-blanco {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
 metodo_pago p_header {
     background: silver;
 }

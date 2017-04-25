@@ -1,13 +1,13 @@
-<div flex layout="column" ng-cloak layout-align="center" ng-switch="metodo.mostrar">
+<div flex layout="column" ng-cloak layout-align="start" ng-switch="metodo.mostrar">
 
     <div layout layout-align="center">
-        <div flex="60" layout layout-align="center" class="margen_superio texto-informativo">
-            <p>COMPRE SU LOGO</p>
+        <div flex="60" layout layout-align="center" class="margen_superio">
+            <p class="titulo-blanco">COMPRE SU LOGO</p>
         </div>
     </div>
     <div layout layout-align="center">
         <div flex="50" layout="column" class="md-whiteframe-2dp" layout-padding>
-            <div layout layout-align="space-around">
+            <div layout layout-align="space-around" ng-switch-when="1">
                 <div class="tipo-logo" ng-click="metodo.mostrar=2">
                     <div class="tipo-logo-icon">
                         <md-icon>font_download</md-icon>
@@ -17,7 +17,7 @@
                         <p>Una forma facil de recordar en el centro de su logo.</p>
                     </div>
                 </div>
-                <div class="tipo-logo" ng-click="metodo.mostrar='paypal'">
+                <div class="tipo-logo" ng-click="metodo.mostrar=3">
                     <div class="tipo-logo-icon">
                         <md-icon>font_download</md-icon>
                     </div>
@@ -59,6 +59,22 @@
                         <md-button class="md-raised md-primary siguiente">PAGAR</md-button>
                     </div>
                 </form>
+            </div>
+            <div ng-switch-when="3">
+                <div ng-switch="metodo.mostrar">
+                    <paypal-button env="metodos.opts.env" client="metodos.opts.client" payment="metodos.opts.payment" commit="metodos.opts.commit" on-authorize="metodos.opts.onAuthorize"></paypal-button>
+                    <mensaje-compra ng-switch-when='2'>
+                        Exitoso
+                    </mensaje-compra>
+
+                    <mensaje-compra ng-switch-when='3'>
+                        Falido
+                    </mensaje-compra>
+
+                    <mensaje-compra ng-switch-when='4'>
+                        Completo fallo
+                    </mensaje-compra>
+                </div>
             </div>
         </div>
     </div>

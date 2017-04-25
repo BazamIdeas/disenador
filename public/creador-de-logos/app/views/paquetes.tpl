@@ -1,6 +1,11 @@
 <div flex layout="column" ng-cloak>
     <div layout layout-align="space-around" class="margen_superior">
+            
+
+        
         <paquete class="md-whiteframe-2dp normal padding_bottom">
+            
+        
             <p_header layout-padding>Normal</p_header>
             <p_body layout-padding>
                 <p>

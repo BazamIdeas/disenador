@@ -1,6 +1,14 @@
 var pedido=require('../modelos/pedidosModelo.js');
 var logo=require('../modelos/logosModelo.js');
 var moment = require('moment');
+var paypal_api = require('paypal-rest-sdk');
+
+var config_opts = {
+    'host': 'api.sandbox.paypal.com',
+    'port': '',
+    'client_id': 'AVpLm3Mj781_AAa4M5gArCwllQ2LIv5WT6qccHJOjdbOMFOz_6fQmItQQbCWvXeeG3TS1qBA6a8_8NoV',
+    'client_secret': 'EO-vJ68bnGFvig7xhITyMgtSYH24fb6tJqYL7VPFEdJ38B6cz0R6m-Bo3GMhYyVtCBkh6KLzW4k1KDlD'
+};
 
 exports.listaPedidos = function(req, res, next) {
 		pedido.getPedidos(function(error, data)
@@ -59,7 +67,19 @@ exports.datosPedidosCliente =  function(req, res, next) {
 
 exports.nuevoPedido =  function(req,res)
 	{
-		//creamos un objeto con los datos a insertar del pedido
+    
+    saleId = req.body.idPago
+    
+    paypal_api.sale.get(saleId, config_opts, function (get_err, get_res) {
+    if (get_err) {
+        throw get_res;
+    }
+
+    if (get_res) {
+        
+        console.log(JSON.stringify(get_res));
+        
+        		//creamos un objeto con los datos a insertar del pedido
 
 		var logoData = {
 			idLogo : null,
@@ -101,8 +121,12 @@ exports.nuevoPedido =  function(req,res)
 				res.status(500).json({"msg":"Algo ocurrio"})
 			}
 		});
+    }
 
-		
+    });
+    
+    
+	
 	}
 
 	exports.nuevoPedidoGuardado =  function(req,res)

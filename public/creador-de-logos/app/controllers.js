@@ -853,10 +853,59 @@ angular.module("disenador-de-logos")
 
 /* Metodos */
 
-.controller('metodosController', ['$scope', 'currentAuth', function ($scope, currentAuth) {
+.controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$mdDialog', function ($scope, currentAuth, pedidosService, $mdDialog) {
     
     var bz = this;
+
+    bz.mostrar = 1;
     
-    this.mostrar = 2;
+    bz.compras = 1;
     
+    this.pago = false;
+
+
+
+    this.opts = {
+        env: 'sandbox',
+        client: {
+            sandbox: 'AVpLm3Mj781_AAa4M5gArCwllQ2LIv5WT6qccHJOjdbOMFOz_6fQmItQQbCWvXeeG3TS1qBA6a8_8NoV'
+        },
+
+        payment: function () {
+            var env = this.props.env;
+            var client = this.props.client;
+            return paypal.rest.payment.create(env, client, {
+                transactions: [{
+                        amount: {
+                            total: '1.00',
+                            currency: 'USD'
+                        }
+                    }]
+            });
+        },
+        commit: true, // Optional: show a 'Pay Now' button in the checkout flow
+        onAuthorize: function (data, actions) {
+            // Optional: display a confirmation page here
+            return actions.payment.execute().then(function (res) {
+
+                pedidosService.nuevoPedido().then(function (res) {
+
+                   bz.compras = 2;
+
+                }).catch(function (res) {
+                    
+                    bz.compras = 3;
+                    console.log("pago realizado mediante paypal, fallo al comprar, reembolsar")
+
+                })
+
+            }).catch(function (res) {
+                
+                bz.compras = 3;
+                console.log("fallo con el pago de paypal")
+
+            });
+        }
+    };
+
 }])
