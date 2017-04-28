@@ -17,10 +17,12 @@
 
                         <md-input-container class="md-block">
                             <label>Contraseña</label>
+                            <input type="password" ng-model="login.datos.login.pass" name="pass" required ng-minlength="6">
                         </md-input-container>
                         
                         <div ng-messages="formLogin.pass.$error" style="color:maroon" role="alert" ng-show="formLogin.$submitted">
                             <div ng-message="required">Este campo es requerido.</div>
+                            <div ng-message="minlength">Debe contener minimo 6 caracteres</div>
                         </div>
                     </div>
                 </div>
@@ -30,6 +32,7 @@
                         <h6>No tienes una cuenta?</h6>
                         <h6 class="login-link-h6" ng-click="login.mostrarForm=2"><b>Registrate</b></h6>
                     </div>
+                    <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
                 </div>
                 <div class="login-social">
                     <div layout layout-align="center center">
