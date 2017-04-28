@@ -1,4 +1,4 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", "paypal-button"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64"])
     .config(function ($stateProvider, $mdThemingProvider) {
 
         /*------------------Material Angular --------------*/
@@ -56,6 +56,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             .state({
                 name: 'login',
                 url: '/login',
+                params: {
+                    origen: null,
+                    destino: null,
+                    parametrosDestino: null
+                },
                 templateUrl: 'app/views/login.tpl',
                 controller: 'loginController as login'
             })
@@ -90,6 +95,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 name: 'metodo',
                 url: '/metodo-de-pago',
                 templateUrl: 'app/views/metodo-de-pago.tpl',
+                params: {
+
+                    logoSvg64: null,
+                    idFuente: null,
+                    idPrecio: 1,
+                    idIcono: null,
+                    tipoLogo: null
+
+                },
                 controller: 'metodosController as metodos',
                 resolve: {
                     "currentAuth": ["Auth", function (Auth) {
@@ -125,7 +139,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         if (error === "AUTH_REQUIRED") {
 
 
-            $state.go("login");
+            $state.go("login", ({
+                origen: fromState.name,
+                destino: toState.name,
+                parametrosDestino: toParams
+            }));
         }
     });
 })

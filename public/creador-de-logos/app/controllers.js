@@ -669,9 +669,13 @@ angular.module("disenador-de-logos")
 /* login */
 
 
-.controller('loginController', ['$scope', '$http', 'Auth', '$rootScope', '$state', function ($scope, $http, Auth, $rootScope, $state) {
+.controller('loginController', ['$scope', '$http', '$rootScope', '$state', "$stateParams", "clientesService", function ($scope, $http, $rootScope, $state, $stateParams, clientesService) {
 
-    this.auth = Auth;
+
+    this.salir = function () {
+        clientesService.salir();
+    }
+
 
     this.datos = {
 
@@ -682,33 +686,61 @@ angular.module("disenador-de-logos")
 
     this.registrar = function (datos) {
 
-        Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
-            .then(function (firebaseUser) {
+        /*  Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
+              .then(function (firebaseUser) {
 
-                console.error(firebaseUser);
+                  console.error(firebaseUser);
 
-            }).catch(function (error) {
-                console.error(error);
-            });
+              }).catch(function (error) {
+                  console.error(error);
+              });
+              */
 
+        clientesService.registrar(datos).then(function (res) {
 
+            console.log("funciono")
+
+        })
+
+        .catch(function (res) {
+
+            console.log("fallo")
+
+        })
 
     }
 
-    this.login = function (metodo, datos = false) {
 
-        Auth.$signInWithEmailAndPassword(datos.correo, datos.pass).then(function (firebaseUser) {
-            console.log(firebaseUser);
-            $state.go($rootScope.anterior);
-        }).catch(function (error) {
-            console.error("Authentication failed:", error);
-        });
+    this.login = function (metodo, datos, valido) {
+
+        if (valido) {
+            
+            clientesService.login(metodo, datos).then(function (res) {
+
+                if ($stateParams.destino) {
+
+                    if ($stateParams.origen == "editor" && $stateParams.destino == "metodo") {
+
+                        $state.go($stateParams.destino, $stateParams.parametrosDestino);
+
+                    } else {
+
+                        $state.go($stateParams.destino);
+                    }
+
+                } else {
+                    console.log("algo")
+
+                }
+
+            }).catch(function (res) {
+
+                console.error("Authentication failed:", res);
+
+            })
+        }
 
     }
-
-
-
-
 
     this.mostrarForm = 1;
 
@@ -806,60 +838,16 @@ angular.module("disenador-de-logos")
 
 /* Metodos */
 
-.controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$mdDialog', function ($scope, currentAuth, pedidosService, $mdDialog) {
-    
+.controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$stateParams', function ($scope, currentAuth, pedidosService, $stateParams) {
+
     var bz = this;
-    
-    bz.compras = 1;
-    
-    this.pago = false;
+
+    bz.pago = false;
 
 
 
-    this.opts = {
-        env: 'sandbox',
-        client: {
-            sandbox: 'AVpLm3Mj781_AAa4M5gArCwllQ2LIv5WT6qccHJOjdbOMFOz_6fQmItQQbCWvXeeG3TS1qBA6a8_8NoV'
-        },
 
-        payment: function () {
-            var env = this.props.env;
-            var client = this.props.client;
-            return paypal.rest.payment.create(env, client, {
-                transactions: [{
-                        amount: {
-                            total: '1.00',
-                            currency: 'USD'
-                        }
-                    }]
-            });
-        },
-        commit: true, // Optional: show a 'Pay Now' button in the checkout flow
-        onAuthorize: function (data, actions) {
-            // Optional: display a confirmation page here
-            return actions.payment.execute().then(function (res) {
 
-                pedidosService.nuevoPedido().then(function (res) {
-
-                   bz.compras = 2;
-
-                }).catch(function (res) {
-                    
-                    bz.compras = 3;
-                    console.log("pago realizado mediante paypal, fallo al comprar, reembolsar")
-
-                })
-
-            }).catch(function (res) {
-                
-                bz.compras = 3;
-                console.log("fallo con el pago de paypal")
-
-            });
-        }
-    };
-
- 
 
 
 

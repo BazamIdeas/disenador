@@ -4,6 +4,10 @@ angular.module("disenador-de-logos")
 /*-------------------------- Services --------------------------*/
 
 
+/***************************/
+/*******CATEGORIAS**********/
+/***************************/
+
 .service('categoriasService', ["$http", function ($http) {
 
 
@@ -14,6 +18,10 @@ angular.module("disenador-de-logos")
 
 
 
+/***************************/
+/******PREFERENCIAS*********/
+/***************************/
+
 .service('preferenciasService', ["$http", function ($http) {
 
 
@@ -21,6 +29,12 @@ angular.module("disenador-de-logos")
 
 
     }])
+
+
+/***************************/
+/*********ELEMENTOS*********/
+/***************************/
+
 
 
 .service('elementosService', ["$http", function ($http) {
@@ -33,10 +47,6 @@ angular.module("disenador-de-logos")
 
             return res;
 
-        }, function (res) {
-            console.log("error");
-
-
         })
 
         .catch(function (res) {
@@ -48,44 +58,130 @@ angular.module("disenador-de-logos")
     }])
 
 
-
+/*********************/
+/********PEDIDOS******/
+/*********************/
 
 .service("pedidosService", ["$http", "$q", function ($http, $q) {
 
 
-    this.nuevoPedido = function (logoSVG, idPagoPaypal, idCliente, idElemento) {
-        
+    this.paypal = function (tipoPago, logoSVG, idCliente, idElemento, tTarjeta = false, nTarjeta = false, expire_month = false, expire_year = false) {
+
         var defered = $q.defer();
-        
+
         var promise = defered.promise;
-        
-       
-       
+
+
+
         datos = {
-            idPago: idPagoPaypal,
             idCliente: idCliente,
             idElemento: idElemento,
-            logo: logoSVG
+            logo: logoSVG,
+            idPrecio: 1,
+            localidad: null,
+            tipoLogo: "Logo y nombre", 
+            tipoPago: tipoPago
+        }
+        
+        if(tipoPago == "credit_card"){
+            
+            datos.tTarjeta = tTarjeta;
+            datos.nTarjeta = nTarjeta;
+            datos.expire_month = expire_month;
+            datos.expire_year = expire_year;
+            
         }
 
-        $http.post("/pedido", datos).then(function(res){
-            
-            
-             defered.resolve(res);
-            
-        }).catch(function(res){
-            
-             deferred.reject(res);
-            
+        $http.post("/app/pedido", datos).then(function (res) {
+
+
+            defered.resolve(res);
+
+        }).catch(function (res) {
+
+            deferred.reject(res);
+
         })
 
-        
+
+        return promise;
+
+    }
+    
+   
+}])
+/***************************************/
+/***************CLIENTES****************/
+/***************************************/
+
+
+
+.service('clientesService', ['$http', '$q', 'Auth', function ($http, $q, Auth) {
+
+
+    this.registrar = function (datos) {
+
+        var defered = $q.defer();
+
+        var promise = defered.promise;
+
+        Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
+            .then(function (firebaseUser) {
+
+
+                $http.post("/app/cliente", datos).then(function (res) {
+
+                        defered.resolve(res);
+
+                    })
+                    .catch(function (res) {
+
+                        defered.reject(res);
+                    })
+
+
+            }).catch(function (res) {
+                defered.reject(res)
+            });
+
+        return promise;
+
+
+    }
+
+    this.login = function (metodo, datos = false) {
+
+        var defered = $q.defer();
+
+        var promise = defered.promise;
+
+
+        Auth.$signInWithEmailAndPassword(datos.correo, datos.pass).then(function (firebaseUser) {
+
+            defered.resolve(firebaseUser);
+
+        })
+
+        .catch(function (res) {
+
+            defered.reject(res);
+
+        })
+
         return promise;
 
     }
 
 
+    this.salir = function () {
+
+        Auth.$signOut()
+
+    }
+
+
 }])
+
 
 
 /*--------------------------- Factories aislados ------------------*/

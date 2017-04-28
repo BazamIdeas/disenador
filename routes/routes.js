@@ -6,7 +6,7 @@ var controllers = require('.././controllers');
 //MODULO CLIENTES
 
 //no espera parametros
-router.get('/clientes',controllers.firebase.comprobarEstadoCliente, controllers.clientes.listaClientes);
+router.get('/clientes', controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
 router.get('/cliente/:id',controllers.firebase.comprobarEstadoCliente, controllers.clientes.datosCliente);
 //parametro por get que debe ser el id del cliente.

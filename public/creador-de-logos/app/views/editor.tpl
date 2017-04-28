@@ -318,7 +318,7 @@
                     <md-icon class="logo_icon_editor material-icon">save</md-icon>
                 </md-button>
             </div>
-            <div ui-sref="metodo">
+            <div ui-sref="metodo({ logoSvg64: 'jvgdjvjdgsjgsrh', idFuente: null, idPrecio: 1, idIcono: null, tipoLogo: null})">
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Comprar</md-tooltip>
                     <md-icon class="logo_icon_editor material-icon" style="font-size: 30px;width: auto; height: auto;">shopping_cart</md-icon>
