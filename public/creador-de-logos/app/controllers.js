@@ -367,13 +367,13 @@ angular.module("disenador-de-logos")
         if (!this.datos[indice]) {
 
             this.datos[indice] = valor;
-            this.logos[indice].estado = true;
+            this.icono[indice].estado = true;
 
 
         } else {
 
             delete this.datos[indice];
-            this.logos[indice].estado = false;
+            this.icono[indice].estado = false;
         }
 
 
@@ -767,6 +767,7 @@ angular.module("disenador-de-logos")
 
 .controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'currentAuth', function ($scope, $mdDialog, $stateParams, currentAuth) {
     this.datosEstadoAnterior = $stateParams.datos;
+    
     this.respuesta = {
         iconos: [{
                 id: 1,
@@ -826,6 +827,8 @@ angular.module("disenador-de-logos")
     this.datos = [];
     this.estado = false;
 
+        /* EFECTO HOVER */
+        
     this.efectoHover = function (indice, valor) {
 
 
@@ -843,6 +846,7 @@ angular.module("disenador-de-logos")
 
 
     }
+    
 }])
 
 /* Paquetes */
@@ -854,13 +858,13 @@ angular.module("disenador-de-logos")
 /* Metodos */
 
 .controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$mdDialog', function ($scope, currentAuth, pedidosService, $mdDialog) {
-    
+
     var bz = this;
 
     bz.mostrar = 'inicial';
-    
+
     bz.compras = 1;
-    
+
     this.pago = false;
 
 
@@ -876,10 +880,10 @@ angular.module("disenador-de-logos")
             var client = this.props.client;
             return paypal.rest.payment.create(env, client, {
                 transactions: [{
-                        amount: {
-                            total: '1.00',
-                            currency: 'USD'
-                        }
+                    amount: {
+                        total: '1.00',
+                        currency: 'USD'
+                    }
                     }]
             });
         },
@@ -890,17 +894,17 @@ angular.module("disenador-de-logos")
 
                 pedidosService.nuevoPedido().then(function (res) {
 
-                   bz.compras = 2;
+                    bz.compras = 2;
 
                 }).catch(function (res) {
-                    
+
                     bz.compras = 3;
                     console.log("pago realizado mediante paypal, fallo al comprar, reembolsar")
 
                 })
 
             }).catch(function (res) {
-                
+
                 bz.compras = 3;
                 console.log("fallo con el pago de paypal")
 
@@ -908,4 +912,10 @@ angular.module("disenador-de-logos")
         }
     };
 
+}])
+
+/* Administras logo */
+
+.controller('administrarController', ['$scope', 'currentAuth', function ($scope, currentAuth) {
+    
 }])

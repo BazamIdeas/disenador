@@ -22,18 +22,6 @@ header md-toolbar {
     cursor: pointer;
 }
 
-ingresar:hover,
-registro:hover,
-.titulo:hover {
-    color: orangered;
-}
-
-footer {
-    font-size: 12px;
-    background-color: rgb(40, 53, 147);
-    color: white;
-}
-
 .titulo {
     cursor: pointer;
 }
@@ -114,7 +102,7 @@ md-content {
     border: 1px solid white;
 }
 
-.tipo-logo:hover {
+.metodo-de-pago .tipo-logo:hover {
     border: 1px solid #4d2828;
 }
 
@@ -356,13 +344,17 @@ metodo_pago p_header {
     background: silver;
 }
 
-.credito {
-    background-color: #eeecec;
-    color: silver;
-    padding: 2%;
+.credito p {
+    color: #0081c2;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 0;
 }
 
-
+footer{
+    background: #283593;
+    color: white;
+}
 /* DashBoard */
 
 .h_seccion_dashboard {
@@ -374,6 +366,14 @@ metodo_pago p_header {
 .relative {
     position: absolute;
     top: 4%;
+}
+
+.cliente-logo {
+    transition: background ease-in 0.3s;
+}
+
+.cliente-logo:hover {
+    background-color: rgba(0, 0, 0, .7);
 }
 
 
@@ -674,7 +674,7 @@ md-input-container.color-animacion .md-input {
 }
 
 .proceso-content:hover {
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .7);
 }
 
 .proceso-content:hover .cambio {
@@ -691,20 +691,21 @@ md-input-container.color-animacion .md-input {
 
 .iconos-procesos {
     position: absolute;
-    left: 30%;
-    top: 40%;
+    right: 39%;
+    top: 38%;
     color: brown;
     opacity: 1;
     z-index: 99999;
+    border-radius: 50%;
     color: white;
+    background: #b1b1b1;
     font-size: 35px;
-    margin-right: 5%;
+    width: auto;
+    height: auto;
     cursor: pointer;
     transition: color 0.3s;
-}
-
-.iconos-procesos:hover {
-    color: orangered;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    padding: 4%;
 }
 
 
@@ -855,17 +856,32 @@ bazam-svg-text svg g:nth-child(1) {}
     align-items: center;
 }
 
+.elemento-prev-editor {
+    width: 90%;
+    flex-direction: column;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
 .ir-editor {
-    background: silver;
+    background: #eae5e5;
     border-radius: 50%;
     color: white;
-    padding: 0.3%;
+    padding: 0.8%;
     position: absolute;
-    top: 50%;
+    top: 3%;
     -webkit-animation: boton-prev-2 .8s linear 0s infinite alternate;
     -moz-animation: boton-prev-2.8s linear 0s infinite alternate;
     -o-animation: boton-prev-2.8s linear 0s infinite alternate;
     animation: boton-prev-2 .8s linear 0s infinite alternate;
+}
+
+.ir-editor:hover {
+    background: #d3d3d3;
 }
 
 @-moz-keyframes boton-prev-2 {
@@ -918,4 +934,76 @@ bazam-svg-text svg g:nth-child(1) {}
     text-align: center;
     color: #03A9F4;
     font-size: 2.4pc;
+}
+
+
+/* ADMINISTRAR */
+
+.logo-datos {
+    WIDTH: 100%;
+    display: flex;
+}
+
+.logo-datos md-icon {
+    height: 30%;
+    width: 50%;
+    margin: auto;
+}
+
+.titulo-adm p {
+    padding: 10px;
+    text-align: center;
+    color: white;
+    background: #283593;
+    margin: 0;
+}
+
+.colores {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.color {
+    display: flex;
+    justify-content: space-between;
+}
+
+.color .barra {
+    width: 25%;
+    background-color: #E91E63;
+    color: transparent;
+}
+
+.fuente-adm p {
+    margin: 0;
+}
+
+.fuente-adm> :last-child {
+    text-align: center;
+}
+
+.logos-tamanos {
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    padding: 0;
+    height: 400px;
+    overflow: auto;
+}
+
+.logos-tamanos md-icon {
+    height: 25%;
+    width: 100%;
+    margin: auto;
+}
+
+.parte-gris {
+    background: silver;
+    width: 40%;
+    text-align: center;
+    padding: 8px;
+}
+
+.tit, .administrar-logo{
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
+        background: rgb(250, 250, 250);
 }

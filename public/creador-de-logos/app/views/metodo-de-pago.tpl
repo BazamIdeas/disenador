@@ -5,9 +5,9 @@
             <p class="titulo-blanco">COMPRE SU LOGO</p>
         </div>
     </div>
-    <div layout layout-align="center">
+    <div layout layout-align="center" class="metodo-de-pago">
         <div flex="50" layout="column" class="md-whiteframe-2dp" layout-padding>
-            <div layout layout-align="space-around" ng-switch-when="inicial">
+            <div layout layout-align="space-around" ng-switch-when="inicial" >
                 <div class="tipo-logo" ng-click="metodo.mostrar=2">
                     <div class="tipo-logo-icon">
                         <md-icon>font_download</md-icon>
@@ -17,7 +17,7 @@
                         <p>Una forma facil de recordar en el centro de su logo.</p>
                     </div>
                 </div>
-                <div class="tipo-logo" ng-click="metodo.mostrar=3">
+                <div class="tipo-logo">
                     <div class="tipo-logo-icon">
                         <md-icon>font_download</md-icon>
                     </div>
@@ -60,22 +60,6 @@
                          <md-button class="md-raised md-primary siguiente" ng-click="metodo.mostrar='inicial'">METODOS</md-button>
                     </div>
                 </form>
-            </div>
-            <div ng-switch-when="3">
-                <div ng-switch="metodo.mostrar">
-                    <paypal-button env="metodo.opts.env" client="metodo.opts.client" payment="metodo.opts.payment" commit="metodo.opts.commit" on-authorize="metodo.opts.onAuthorize"></paypal-button>
-                    <mensaje-compra ng-switch-when='2'>
-                        Exitoso
-                    </mensaje-compra>
-
-                    <mensaje-compra ng-switch-when='3'>
-                        Falido
-                    </mensaje-compra>
-
-                    <mensaje-compra ng-switch-when='4'>
-                        Completo fallo
-                    </mensaje-compra>
-                </div>
             </div>
         </div>
     </div>

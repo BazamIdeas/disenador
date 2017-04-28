@@ -148,6 +148,19 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
             }
         })
+        .state({
+            name: 'administrar',
+            url: '/administrar',
+            templateUrl: 'app/views/administrarLogo.tpl',
+            controller: 'administrarController as administrar',
+            resolve: {
+                "currentAuth": ["Auth", function (Auth) {
+                    // $requireSignIn returns a promise so the resolve waits for it to complete
+                    // If the promise is rejected, it will throw a $stateChangeError (see above)
+                    return Auth.$requireSignIn();
+                    }]
+            }
+        })
 
 
 

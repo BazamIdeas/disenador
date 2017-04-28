@@ -247,7 +247,7 @@
                     <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
                 </div>
 
-                <div class="elemento-prev">
+                <div class="elemento-prev-editor">
                     <md-icon ng-repeat="comparador in editor.comparadores track by $index" class="logo_comparar icono md-whiteframe-2dp" md-svg-src="data:image/svg+xml;base64,{{comparador}}" ng-click="editor.recuperar(comparador)"></md-icon>
                 </div>
             </div>
@@ -284,7 +284,7 @@
                     </md-fab-actions>
                 </md-fab-speed-dial>
             </div>
-            <div>
+            <div ui-sref="area-del-cliente">
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Guardar</md-tooltip>
                     <md-icon class=" material-icon">save</md-icon>
@@ -303,6 +303,7 @@
                     <md-icon ng-click="editor.cambiarMenu()" class="material-icon">help_outline</md-icon>
                 </md-button>
             </div>
+            
             <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
                 <md-toolbar class="transparencia">
                     <div class="md-toolbar-tools">
@@ -326,7 +327,7 @@
             </md-button>
         </div>
         <div style="position: absolute; top: 0;">
-            <md-button class="md-raised md-primary">
+            <md-button class="md-raised md-primary"  ng-click="editor.guardar('comparar')">
                 <md-tooltip md-direction="right" md-visible="tooltipVisible">Comparar</md-tooltip>
                 <md-icon>filter</md-icon>
             </md-button>
