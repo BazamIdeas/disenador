@@ -7,7 +7,7 @@ var logo = {};
 //obtenemos todos los logos
 logo.getLogos = function(callback)
 {
-	var q = 'SELECT idLogo, tipoLogo, logo, clientes_idCliente FROM logos ORDER BY idLogo' 
+	var q = 'SELECT * FROM logos ORDER BY idLogo' 
 
 	DB.getConnection(function(err, connection)
 	{
@@ -26,7 +26,7 @@ logo.getLogos = function(callback)
 //obtenemos los logos guardados o comprados por un cliente
 logo.getLogosTipo = function(par,callback)
 {
-	var q = 'SELECT idLogo, tipoLogo, logo FROM logos WHERE tipoLogo = ? and clientes_idCliente = ? ORDER BY idLogo'  
+	var q = 'SELECT * FROM logos WHERE estado = ? and clientes_idCliente = ? ORDER BY idLogo'  
 
 	DB.getConnection(function(err, connection)
 	{
@@ -45,7 +45,7 @@ logo.getLogosTipo = function(par,callback)
 //obtenemos un logo por su id
 logo.getLogo = function(id,callback)
 { 
-	var q = 'SELECT tipoLogo, logo, clientes_idCliente, elementos_idElemento FROM logos WHERE idLogo = ? ' 
+	var q = 'SELECT estado, tipoLogo, logo, clientes_idCliente, elementos_idElemento FROM logos WHERE idLogo = ? ' 
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
@@ -105,9 +105,9 @@ logo.updateLogo = function(logoData, callback)
 }
 
 //comprar un logo Guardado
-logo.cambiarTipo = function(logoData, callback)
+logo.cambiarEstado = function(logoData, callback)
 {
-	var q = 'UPDATE logos SET tipoLogo = ? WHERE idLogo = ?';
+	var q = 'UPDATE logos SET estado = ? WHERE idLogo = ?';
 	var par = logoData //parametros
 
 	DB.getConnection(function(err, connection)

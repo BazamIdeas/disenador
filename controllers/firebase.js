@@ -1,10 +1,12 @@
 var admin = require("firebase-admin");
+var configuracion = require("../configuracion.js");
 var serviceAccount = require("../disenador-d5b62fb393d6.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://disenador-c5d8f.firebaseio.com"
 });
+
 
 /*var config = {
     apiKey: "AIzaSyCs7eX86t3KIQm4H-32pd8_hOwsGNGmpo0",
@@ -50,6 +52,7 @@ exports.autenticarCliente = function (req, res) {
 
 exports.comprobarEstadoCliente = function (req, res, next) {
 
+    if (configuracion.seguridad){
     var token = req.body.token;
 
 
@@ -60,7 +63,10 @@ exports.comprobarEstadoCliente = function (req, res, next) {
         }).catch(function (error) {
             res.status(500).send('fallo');
         });
-
+    }
+    else{
+        next();
+    }
 }
 
 
