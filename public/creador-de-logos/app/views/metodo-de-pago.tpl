@@ -1,54 +1,70 @@
-<div flex layout="column" layout-align="space-between" ng-cloak>
+<div flex layout="column" ng-cloak layout-align="start" ng-switch="metodo.mostrar">
 
-    <div layout="row" layout-align="start" class="margen_superior">
-        <div flex="30" class="contenedor_logos md-whiteframe-2dp">
-            <h3 layout-padding class="text-center h_seccion_dashboard p_header">Compre su logo</h3>
+    <div layout layout-align="center">
+        <div flex="60" layout layout-align="center" class="margen_superio">
+            <p class="titulo-blanco">COMPRE SU LOGO</p>
         </div>
-
     </div>
-    <div layout layout-align="space-around center" ng-switch="metodos.compras">
+    <div layout layout-align="center" class="metodo-de-pago">
+        <div flex="50" layout="column" class="md-whiteframe-2dp" layout-padding>
+            <div layout layout-align="space-around" ng-switch-when="inicial" >
+                <div class="tipo-logo" ng-click="metodo.mostrar=2">
+                    <div class="tipo-logo-icon">
+                        <md-icon>font_download</md-icon>
+                    </div>
+                    <div>
+                        <h3>Tarjeta de Credito</h3>
+                        <p>Una forma facil de recordar en el centro de su logo.</p>
+                    </div>
+                </div>
+                <div class="tipo-logo">
+                    <div class="tipo-logo-icon">
+                        <md-icon>font_download</md-icon>
+                    </div>
+                    <div>
+                        <h3>Paypal</h3>
+                        <p>Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.</p>
+                    </div>
+                </div>
+            </div>
 
-        <paypal-button env="metodos.opts.env" client="metodos.opts.client" payment="metodos.opts.payment" commit="metodos.opts.commit" on-authorize="metodos.opts.onAuthorize"></paypal-button>
-
-        <metodo_pago class="md-whiteframe-2dp" ng-switch-when='1'>
-            <p_header class="p_header" layout-padding>
-                METODOS DE PAGO
-            </p_header>
-            <p_body layout-padding>
-                <md-radio-group layout ng-model="metodo_p.datos.tipo" name="tipo" ng-required="true">
-                    <md-radio-button value="1" ng-click="metodo.pago=true">
-                        Paypal
-                        <md-icon class="material-icons"> payment </md-icon>
-                    </md-radio-button>
-                    <md-radio-button value="2" ng-click="metodo.pago=true">
-                        Tarjeta de credito
-                        <md-icon class="material-icons"> credit_card </md-icon>
-                    </md-radio-button>
-                    <md-radio-button value="3" ng-click="metodo.pago=true">
-                        Transferencia
-                        <md-icon class="material-icons"> attach_money </md-icon>
-                    </md-radio-button>
-                </md-radio-group>
-            </p_body>
-            <p_footer layout layout-align="center center">
-
-            </p_footer>
-        </metodo_pago>
-        <mensaje-compra ng-switch-when='2'>
-            Exitoso
-        </mensaje-compra>
-        
-        <mensaje-compra ng-switch-when='3'>
-            Falido
-        </mensaje-compra>
-        
-        <mensaje-compra ng-switch-when='4'>
-            Completo fallo
-        </mensaje-compra>
+            <div ng-switch-when="2" class="pasos">
+                <form class="credito" name="creditForm" layout="column">
+                    <p class="text-center">TARJETA DE CREDITO</p>
+                    <div layout>
+                        <md-input-container flex>
+                            <label>Nombre del titular</label>
+                            <input type="text" ng-model="nombreTitular" required>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Número de la tarjeta</label>
+                            <input type="number" ng-model="numeroLargo" required maxlength="18">
+                        </md-input-container>
+                    </div>
+                    <div>
+                        <md-input-container>
+                            <label>Mes</label>
+                            <input type="number" ng-model="mes" required maxlength="2">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Año</label>
+                            <input type="number" ng-model="ano" required maxlength="2">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Código de seguridad</label>
+                            <input type="number" ng-model="codigo" required maxlength="3">
+                        </md-input-container>
+                    </div>
+                    <div layout layout-align="space-between">
+                        <md-button class="md-raised md-primary siguiente">PAGAR</md-button>
+                         <md-button class="md-raised md-primary siguiente" ng-click="metodo.mostrar='inicial'">METODOS</md-button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div layout="row" class="margen_superior" layout-align="space-between">
-        <div flex layout="row" flex layout-align="space-between center">
+    <div layout layout-align="center">
+        <div flex="50" layout="row" flex layout-align="space-between center">
             <md-button class="md-raised md-primary" ui-sref="editor">Atras</md-button>
             <md-button ng-show="metodo.pago" class="md-raised md-primary siguiente" ui-sref="dashboard">Siguiente</md-button>
         </div>

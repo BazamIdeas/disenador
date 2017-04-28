@@ -29,6 +29,7 @@ app.use('/angular-ui-router', express.static(__dirname + '/node_modules/angular-
 app.use('/assets', express.static(__dirname + '/public/creador-de-logos/assets'))
 app.use('/angular-color-picker', express.static(__dirname + '/node_modules/angular-color-picker'))
 app.use('/angular-base64', express.static(__dirname + '/node_modules/angular-base64'))
+app.use('/angular-social', express.static(__dirname + '/node_modules/angular-socialshare/dist'))
 
 
 
