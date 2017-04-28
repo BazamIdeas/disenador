@@ -166,7 +166,7 @@ exports.nuevoPedido =  function(req,res)
 											    }
 											}
 											if (req.body.tipoPago == "paypal"){
-												res.json(data.link)
+												res.redirect(data.link)
 											}
 											else{
 												res.status(404).json(data)
@@ -224,7 +224,7 @@ exports.nuevoPedido =  function(req,res)
 						}
 						else
 						{
-							res.redirect(configuracion.dashboard+"?pago=false");
+							res.redirect(configuracion.dashboard+"?pago=true");
 						}
 					});
 				}
