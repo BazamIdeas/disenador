@@ -16,7 +16,7 @@
             <div class="menu-link" ng-click="editor.menuItem(1)" ng-class="editor.menuActivo">
                 <div>
                     <md-icon>font_download</md-icon>
-                    <h4>Texto</h4>
+                    <h4>Nombre</h4>
                 </div>
             </div>
 
@@ -38,13 +38,6 @@
                     <h4>Colores</h4>
                 </div>
             </div>
-            <div class="menu-link" ng-click="editor.menuItem(5)" ng-class="editor.menuActivo">
-                <div>
-                    <md-icon>remove_red_eye</md-icon>
-                    <h4>Previsualizar</h4>
-                </div>
-            </div>
-
             <div class="menu-link" ng-click="editor.menuItem(6)" ng-class="editor.menuActivo">
                 <div>
                     <md-icon>filter</md-icon>
@@ -220,7 +213,7 @@
                         <h4>Categoria</h4>
                     </div>
 
-                    <md-select ng-model="categoria">
+                    <md-select ng-model="editor.categoria">
                         <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in editor.categoriasPosibles">{{categoria.nombreCategoria}}</md-option>
                     </md-select>
 
@@ -248,30 +241,6 @@
 
             <!-- Fin elemento -->
 
-            <div class="elemento md-whiteframe-2dp" ng-switch-when="5">
-                <div layout layout-align="space-between">
-                    <h4>Previsualizar</h4>
-                    <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
-                </div>
-
-                <div class="elemento-prev">
-                    <div class="md-whiteframe-2dp layout-padding logo_previsualizar" >
-                        <bazam-svg-text-2 bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo" data-guardar="editor.guardarComparar" data-comparadores="editor.comparadores" data-tipo-guardar="editor.tipoGuardar"></bazam-svg-text-2>
-                    </div>
-                    <div class="md-whiteframe-2dp layout-padding logo_previsualizar" >
-                        <bazam-svg-text-2 bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo" data-guardar="editor.guardarComparar" data-comparadores="editor.comparadores" data-tipo-guardar="editor.tipoGuardar"></bazam-svg-text-2>
-                    </div>
-                    <div class="md-whiteframe-2dp layout-padding logo_previsualizar" >
-                        <bazam-svg-text-2 bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo" data-guardar="editor.guardarComparar" data-comparadores="editor.comparadores" data-tipo-guardar="editor.tipoGuardar"></bazam-svg-text-2>
-                    </div>
-                    <div class="md-whiteframe-2dp layout-padding logo_previsualizar" >
-                        <bazam-svg-text-2 bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo" data-guardar="editor.guardarComparar" data-comparadores="editor.comparadores" data-tipo-guardar="editor.tipoGuardar"></bazam-svg-text-2>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fin elemento -->
-
             <div class="elemento md-whiteframe-2dp" ng-switch-when="6">
                 <div layout layout-align="space-between">
                     <h4>Mis Comparaciones</h4>
@@ -279,7 +248,7 @@
                 </div>
 
                 <div class="elemento-prev">
-                    <md-icon ng-repeat="comparador in editor.comparadores track by $index" class="logo_icon icono" md-svg-src="data:image/svg+xml;base64,{{comparador}}" ng-click="editor.recuperar(comparador)"></md-icon>
+                    <md-icon ng-repeat="comparador in editor.comparadores track by $index" class="logo_comparar icono md-whiteframe-2dp" md-svg-src="data:image/svg+xml;base64,{{comparador}}" ng-click="editor.recuperar(comparador)"></md-icon>
                 </div>
             </div>
         </div>
@@ -291,7 +260,7 @@
     <div class="contenedor-editor" id="popupContainer-editor">
         <div class="botones-editor">
             <div>
-                <md-fab-speed-dial md-open="editor.fabEditor" md-direction="left" ng-class="md-scale" ng-click="editor.fabEditor=true" ng-mouseleave="editor.fabEditor=false">
+                <md-fab-speed-dial md-open="editor.fabEditor" md-direction="left" class="md-scale" ng-click="editor.fabEditor=true" ng-mouseleave="editor.fabEditor=false">
                     <md-fab-trigger>
                         <md-button class="md-fab md-primary">
                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Compartir</md-tooltip>
@@ -300,14 +269,17 @@
                     </md-fab-trigger>
 
                     <md-fab-actions>
-                        <md-button aria-label="Twitter" class="md-fab md-raised md-mini ">
-                            <md-icon aria-label="Twitter" md-svg-src="/app/assets/svg-no-borrar/twitter-logo-silhouette.svg"></md-icon>
+                        <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Twitter</md-tooltip>
+                            <md-icon aria-label="Twitter" md-svg-src="assets/svg-no-borrar/twitter-logo-silhouette.svg" socialshare socialshare-provider="twitter"></md-icon>
                         </md-button>
                         <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
-                            <md-icon aria-label="Facebook">share</md-icon>
+                            <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Facebook</md-tooltip>
+                            <md-icon aria-label="facebook" md-svg-src="assets/svg-no-borrar/facebook-letter-logo.svg" socialshare socialshare-provider="facebook"></md-icon>
                         </md-button>
                         <md-button aria-label="Google Hangout" class="md-fab md-raised md-mini">
-                            <md-icon aria-label="Google Hangout">share</md-icon>
+                            <md-tooltip md-direction="left" md-visible="tooltipVisible">Email</md-tooltip>
+                            <md-icon aria-label="email" md-svg-src="assets/svg-no-borrar/mail.svg" socialshare socialshare-provider="email"></md-icon>
                         </md-button>
                     </md-fab-actions>
                 </md-fab-speed-dial>
@@ -315,20 +287,20 @@
             <div>
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Guardar</md-tooltip>
-                    <md-icon class="logo_icon_editor material-icon">save</md-icon>
+                    <md-icon class=" material-icon">save</md-icon>
                 </md-button>
             </div>
             <div ui-sref="metodo">
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Comprar</md-tooltip>
-                    <md-icon class="logo_icon_editor material-icon" style="font-size: 30px;width: auto; height: auto;">shopping_cart</md-icon>
+                    <md-icon class=" material-icon">shopping_cart</md-icon>
                 </md-button>
             </div>
 
             <div>
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Ayuda</md-tooltip>
-                    <md-icon ng-click="editor.cambiarMenu()" class="material-icon" style="font-size: 30px;width: auto; height: auto;">help_outline</md-icon>
+                    <md-icon ng-click="editor.cambiarMenu()" class="material-icon">help_outline</md-icon>
                 </md-button>
             </div>
             <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
@@ -343,13 +315,19 @@
             </md-sidenav>
         </div>
         <div class="cont-logo-editor" ng-class="editor.fondo">
-            <div class="logo-editor">
+            <div id="logo-share" class="logo-editor">
                 <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo" data-guardar="editor.guardarComparar" data-comparadores="editor.comparadores" data-tipo-guardar="editor.tipoGuardar"></bazam-svg-text-2>
             </div>
         </div>
-        <div style="position: absolute; bottom: 0;">
-            <md-button class="md-raised md-primary" ng-click="editor.guardar('comparar')">
-                <md-tooltip md-direction="top" md-visible="tooltipVisible">Comparar</md-tooltip>
+        <div style="position: absolute;top: 7%;" ui-sref="previsualizar({datos: editor.logo.icono.svg})">
+            <md-button class="md-raised md-primary" >
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Previsualizar</md-tooltip>
+                <md-icon>remove_red_eye</md-icon>
+            </md-button>
+        </div>
+        <div style="position: absolute; top: 0;">
+            <md-button class="md-raised md-primary">
+                <md-tooltip md-direction="right" md-visible="tooltipVisible">Comparar</md-tooltip>
                 <md-icon>filter</md-icon>
             </md-button>
         </div>

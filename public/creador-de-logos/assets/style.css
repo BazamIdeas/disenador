@@ -61,7 +61,7 @@ md-content {
 .material-icon {
     width: auto;
     height: auto;
-    font-size: 30px;
+    font-size: 27px;
 }
 
 
@@ -111,7 +111,11 @@ md-content {
     padding: 2%;
     color: white;
     text-align: center;
-    margin-right: 1%;
+    border: 1px solid white;
+}
+
+.tipo-logo:hover {
+    border: 1px solid #4d2828;
 }
 
 .tipo-logo p {
@@ -342,8 +346,20 @@ p_footer md-icon {
 
 /* Metodos de pagos */
 
+.titulo-blanco {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
 metodo_pago p_header {
     background: silver;
+}
+
+.credito {
+    background-color: #eeecec;
+    color: silver;
+    padding: 2%;
 }
 
 
@@ -368,11 +384,6 @@ metodo_pago p_header {
     width: 100%;
     height: 100%;
     flex-direction: column;
-}
-
-.logo_icon_editor {
-    width: 32px;
-    height: 32px;
 }
 
 .cont-logo-editor {
@@ -415,9 +426,16 @@ metodo_pago p_header {
 
 /* MENU */
 
-.logo_previsualizar {
+.logo_previsualizar md-icon {
+    width: 100%;
+    height: 30%;
+    max-height: 80%;
+}
+
+.logo_comparar {
     width: 90%;
-    margin: 10% 0 10% 0;
+    margin: 10% auto 10% auto;
+    height: 40%;
 }
 
 .menu {
@@ -493,13 +511,6 @@ md-input-container.color-animacion .md-input {
     font-size: 15px;
 }
 
-.elemento-prev {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-}
-
 .elementos md-icon.logo_icon.icono.ng-scope {
     margin-bottom: 15%;
     margin-top: 5%;
@@ -527,8 +538,17 @@ md-input-container.color-animacion .md-input {
 
 .propiedades {
     display: flex;
+    text-align: center;
+}
+
+.propiedades div {
+    width: 50%;
     background: #d0d0d0;
-    justify-content: space-around;
+    cursor: pointer;
+}
+
+.propiedades div:hover {
+    background: #f3f3f3;
 }
 
 .elemento input,
@@ -615,7 +635,7 @@ md-input-container.color-animacion .md-input {
 }
 
 .cont-logo-editor.negro {
-    background: black;
+    background: #161515;
 }
 
 
@@ -737,6 +757,10 @@ bazam-svg-text svg g:nth-child(1) {}
     background-color: #c71610 !important;
 }
 
+.formularios-login h6 {
+    margin: 7px 0;
+}
+
 .login-social {
     margin-top: 2%;
 }
@@ -798,4 +822,100 @@ bazam-svg-text svg g:nth-child(1) {}
     width: auto !important;
     color: #4fc3f7;
     margin-bottom: 5%;
+}
+
+
+/* PREVISUALIZAR */
+
+.gradient {
+    background: rgb(255, 255, 255);
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#b3bead', GradientType=0);
+}
+
+.plantilla {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    padding: 1%;
+}
+
+.elemento-prev {
+    height: 50%;
+    width: 30%;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    margin-bottom: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ir-editor {
+    background: silver;
+    border-radius: 50%;
+    color: white;
+    padding: 0.3%;
+    position: absolute;
+    top: 50%;
+    -webkit-animation: boton-prev-2 .8s linear 0s infinite alternate;
+    -moz-animation: boton-prev-2.8s linear 0s infinite alternate;
+    -o-animation: boton-prev-2.8s linear 0s infinite alternate;
+    animation: boton-prev-2 .8s linear 0s infinite alternate;
+}
+
+@-moz-keyframes boton-prev-2 {
+    from {
+        left: 1.4%;
+    }
+    to {
+        left: 1%;
+    }
+}
+
+@-webkit-keyframes boton-prev-2 {
+    from {
+        left: 1.4%;
+    }
+    to {
+        left: 1%;
+    }
+}
+
+@-o-keyframes boton-prev-2 {
+    from {
+        left: 1.4%;
+    }
+    to {
+        left: 1%;
+    }
+}
+
+@keyframes boton-prev-2 {
+    from {
+        left: 1.4%;
+    }
+    to {
+        left: 1%;
+    }
+}
+
+.ir-previsualizar {
+    background: silver;
+    border-radius: 50%;
+    color: white;
+    padding: 0.3%;
+    right: 25%;
+    position: absolute;
+    bottom: 0;
+}
+
+.titulo-prev p {
+    text-align: center;
+    color: #03A9F4;
+    font-size: 2.4pc;
 }

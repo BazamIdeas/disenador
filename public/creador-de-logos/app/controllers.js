@@ -71,7 +71,7 @@ angular.module("disenador-de-logos")
 
     this.mostrar = 1;
 
-}])
+            }])
 
 .controller('analisisController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", "$interval", "elementosService", "$base64", function ($scope, $mdDialog, $stateParams, LS, $state, $interval, elementosService, $base64) {
 
@@ -458,7 +458,7 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare) {
 
     var bz = this;
 
@@ -598,8 +598,6 @@ angular.module("disenador-de-logos")
 
     }
 
-
-
     /******************************/
 
 
@@ -657,12 +655,61 @@ angular.module("disenador-de-logos")
 
     bz.fondo = "blanco";
 
-
+    /* CATEGORIAS EXISTENTES */
+    this.categoria = this.datosEstadoAnterior.logo.icono.categorias_idCategoria;
+    this.categoriasPosibles = [];
+    categoriasService.listaCategorias.then(function (res) {
+        angular.forEach(res.data, function (valor, llave) {
+            bz.categoriasPosibles.push(valor);
+        })
+    })
 
 }])
 
-.controller('previsualizarController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", "$interval", function ($scope, $mdDialog, $stateParams, LS, $state, $interval) {
+.controller('previsualizarController', ['$scope', '$mdDialog', "$stateParams", "LS", "$state", "$interval", "$base64", function ($scope, $mdDialog, $stateParams, LS, $state, $interval, $base64) {
 
+    var bz = this;
+
+    /* PREVIZUALIZAR */
+
+    bz.svg = $stateParams.datos;
+
+    console.log(bz.datos);
+
+    bz.modeloPrevisualizar = [
+        {
+            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        }
+    ]
 
 }])
 
@@ -809,6 +856,8 @@ angular.module("disenador-de-logos")
 .controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$mdDialog', function ($scope, currentAuth, pedidosService, $mdDialog) {
     
     var bz = this;
+
+    bz.mostrar = 'inicial';
     
     bz.compras = 1;
     
@@ -858,10 +907,5 @@ angular.module("disenador-de-logos")
             });
         }
     };
-
- 
-
-
-
 
 }])
