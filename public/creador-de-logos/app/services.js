@@ -63,7 +63,8 @@ angular.module("disenador-de-logos")
 /*********************/
 
 .service("pedidosService", ["$http", "$q", function ($http, $q) {
-
+    
+    this.idCliente = 1;
 
     this.paypal = function (tipoPago, logoSVG, idCliente, idElemento, tTarjeta = false, nTarjeta = false, expire_month = false, expire_year = false) {
 
@@ -78,7 +79,7 @@ angular.module("disenador-de-logos")
             idElemento: idElemento,
             logo: logoSVG,
             idPrecio: 1,
-            localidad: null,
+            localidad: 'nulo',
             tipoLogo: "Logo y nombre", 
             tipoPago: tipoPago
         }
@@ -110,6 +111,7 @@ angular.module("disenador-de-logos")
     
    
 }])
+
 /***************************************/
 /***************CLIENTES****************/
 /***************************************/

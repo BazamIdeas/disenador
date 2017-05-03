@@ -122,8 +122,8 @@ exports.nuevoPedido =  function(req,res)
 
 											datosPago.tTarjeta = req.body.tTarjeta,
 											datosPago.nTarjeta = req.body.nTarjeta,
-											datosPago.expire_month =  req.body.month,
-											datosPago.expire_year = req.body.year
+											datosPago.expire_month =  req.body.expire_month,
+											datosPago.expire_year = req.body.expire_year
 										}
 									/////ENVIAR PAGO
 										
@@ -166,7 +166,7 @@ exports.nuevoPedido =  function(req,res)
 											    }
 											}
 											if (req.body.tipoPago == "paypal"){
-												res.redirect(data.link)
+												res.json(data.link)
 											}
 											else{
 												res.status(404).json(data)
