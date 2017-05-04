@@ -351,10 +351,12 @@ metodo_pago p_header {
     margin-bottom: 0;
 }
 
-footer{
+footer {
     background: #283593;
     color: white;
 }
+
+
 /* DashBoard */
 
 .h_seccion_dashboard {
@@ -378,6 +380,36 @@ footer{
 
 
 /* EDITOR */
+
+.x-y md-icon,
+.mas-menos div {
+    width: auto;
+    font-size: 48px;
+    height: auto;
+    border-radius: 50%;
+    margin: 1%;
+    color: white;
+    background-color: #262c57;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+}
+
+.x-y md-icon:hover,
+.mas-menos div:hover {
+    background-color: #3F51B5;
+
+}
+
+.mas-menos div {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.padding {
+    padding-left: 0 !important;
+}
 
 .contenedor-editor {
     display: flex;
@@ -554,7 +586,7 @@ md-input-container.color-animacion .md-input {
 .elemento input,
 .elemento .md-select-value,
 .elemento h4 {
-    padding-left: 5% !important;
+    padding-left: 5%;
 }
 
 .elemento md-select.md-default-theme:not([disabled]):focus .md-select-value,
@@ -1003,7 +1035,8 @@ bazam-svg-text svg g:nth-child(1) {}
     padding: 8px;
 }
 
-.tit, .administrar-logo{
-    box-shadow: 0 1px 5px 0 rgba(0,0,0,0), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
-        background: rgb(250, 250, 250);
+.tit,
+.administrar-logo {
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    background: rgb(250, 250, 250);
 }

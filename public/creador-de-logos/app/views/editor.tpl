@@ -6,8 +6,8 @@
 
 </style>
 <div layout layout-fill>
-    
-   
+
+
 
     <!-- --------------------------  MENU -------------------------------------- -->
 
@@ -30,12 +30,6 @@
                 <div>
                     <md-icon>stars</md-icon>
                     <h4>Icono</h4>
-                </div>
-            </div>
-            <div class="menu-link" ng-click="editor.menuItem(3)" ng-class="editor.menuActivo">
-                <div>
-                    <md-icon>color_lens</md-icon>
-                    <h4>Colores</h4>
                 </div>
             </div>
             <div class="menu-link" ng-click="editor.menuItem(6)" ng-class="editor.menuActivo">
@@ -72,35 +66,35 @@
                     </md-select>
                 </div>
 
-                <div>
-                    <h4>Tamaño</h4>
-                    <div layout layout-align="center">
-                        <md-slider flex="90" md-discrete ng-model="editor.nombre.tamano" step="1" min="1" max="30" aria-label="rating">
-                        </md-slider>
-                    </div>
+                <div layout class="text-center">
+                    <h4 flex="50" class="padding">Posición</h4>
+                    <h4 flex="50" class="padding">Tamaño</h4>
                 </div>
 
-                <div>
-                    <h4>Posición</h4>
-                    <div class="x-y ">
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1">X</span>
+                <div layout>
+                    <div flex="50" class="x-y">
+                        <div>
+                            <div layout layout-align="center center">
+                                <md-icon>keyboard_arrow_left</md-icon>
+                                <md-icon>keyboard_arrow_up</md-icon>
+                                
                             </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.nombre.x" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
+                            <div layout layout-align="center">
+                                <md-icon>keyboard_arrow_down</md-icon>
+                                <md-icon>keyboard_arrow_right</md-icon>
+                            </div>
                         </div>
 
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1"> Y</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.nombre.y" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
+                        <div></div>
+                    </div>
 
+                    <div flex="50" layout="column" class="mas-menos" layout-align="center center">
+                            <div>
+                                +
+                            </div>
+                            <div>
+                                -
+                            </div>
                     </div>
                 </div>
                 <div>
@@ -112,6 +106,15 @@
                         <div class="cursiva">
                             <p>Cursiva</p>
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <div layout layout-align="space-between">
+                        <h4>Edita el Color</h4>
+                    </div>
+                    <div layout layout-align="center">
+                        <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        </color-picker>
                     </div>
                 </div>
             </div>
@@ -134,35 +137,35 @@
                     </md-select>
                 </div>
 
-                <div>
-                    <h4>Tamaño</h4>
-                    <div layout layout-align="center center">
-                        <md-slider flex="90" md-discrete ng-model="editor.slogan.tamano" step="1" min="1" max="20" aria-label="rating">
-                        </md-slider>
-                    </div>
+                <div layout class="text-center">
+                    <h4 flex="50" class="padding">Posición</h4>
+                    <h4 flex="50" class="padding">Tamaño</h4>
                 </div>
 
-                <div>
-                    <h4>Posición</h4>
-                    <div class="x-y ">
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1">X</span>
+                <div layout>
+                    <div flex="50" class="x-y">
+                        <div>
+                            <div layout layout-align="center center">
+                                <md-icon>keyboard_arrow_left</md-icon>
+                                <md-icon>keyboard_arrow_up</md-icon>
+                                
                             </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.nombre.x" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
+                            <div layout layout-align="center">
+                                <md-icon>keyboard_arrow_down</md-icon>
+                                <md-icon>keyboard_arrow_right</md-icon>
+                            </div>
                         </div>
 
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1"> Y</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.nombre.y" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
+                        <div></div>
+                    </div>
 
+                    <div flex="50" layout="column" class="mas-menos" layout-align="center center">
+                            <div>
+                                +
+                            </div>
+                            <div>
+                                -
+                            </div>
                     </div>
                 </div>
 
@@ -177,38 +180,54 @@
                         </div>
                     </div>
                 </div>
+
+                <div>
+                    <div layout layout-align="space-between">
+                        <h4>Edita el Color</h4>
+                    </div>
+                    <div layout layout-align="center">
+                        <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        </color-picker>
+                    </div>
+                </div>
             </div>
 
             <!-- Fin elemento -->
 
             <div class="elemento md-whiteframe-2dp" ng-switch-when="2">
-                <div layout layout-align="space-between">
-                    <h4>Posición</h4>
-                    <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
+                <div layout class="text-center">
+                    <h4 flex="50" class="padding">Posición</h4>
+                    <h4 flex="50" class="padding">Tamaño</h4>
+                </div>
+
+                <div layout>
+                    <div flex="50" class="x-y">
+                        <div>
+                            <div layout layout-align="center center">
+                                <md-icon>keyboard_arrow_left</md-icon>
+                                <md-icon>keyboard_arrow_up</md-icon>
+                                
+                            </div>
+                            <div layout layout-align="center">
+                                <md-icon>keyboard_arrow_down</md-icon>
+                                <md-icon>keyboard_arrow_right</md-icon>
+                            </div>
+                        </div>
+
+                        <div></div>
+                    </div>
+
+                    <div flex="50" layout="column" class="mas-menos" layout-align="center center">
+                            <div>
+                                +
+                            </div>
+                            <div>
+                                -
+                            </div>
+                    </div>
                 </div>
 
                 <div>
-                    <div class="x-y ">
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1">X</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.logo.x" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
-
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1"> Y</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.logo.y" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
-
-                    </div>
-
                     <div>
                         <h4>Categoria</h4>
                     </div>
@@ -223,20 +242,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Fin elemento -->
-
-            <div class="elemento md-whiteframe-2dp" ng-switch-when="3">
-                <div layout layout-align="space-between">
-                    <h4>Edita el Color</h4>
-                    <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
+                <div>
+                    <div layout layout-align="space-between">
+                        <h4>Edita el Color</h4>
+                    </div>
+                    <div layout layout-align="center">
+                        <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        </color-picker>
+                    </div>
                 </div>
-                <div layout layout-align="center">
-                    <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
-                    </color-picker>
-                </div>
-                <p class="elemento-texto-ayuda">*Selecciona el elemento al que quieres cambiar de color</p>
             </div>
 
             <!-- Fin elemento -->
@@ -290,7 +305,7 @@
                     <md-icon class=" material-icon">save</md-icon>
                 </md-button>
             </div>
-<!--             logoSvg64: 'jvgdjvjdgsjgsrh', idFuente: null, idPrecio: 1, idIcono: null, tipoLogo: null-->
+            <!--             logoSvg64: 'jvgdjvjdgsjgsrh', idFuente: null, idPrecio: 1, idIcono: null, tipoLogo: null-->
             <div ui-sref="metodo({ logoSvg64: editor.logo.icono.svg, idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo})">
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Comprar</md-tooltip>
@@ -304,7 +319,7 @@
                     <md-icon ng-click="editor.cambiarMenu()" class="material-icon">help_outline</md-icon>
                 </md-button>
             </div>
-            
+
             <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
                 <md-toolbar class="transparencia">
                     <div class="md-toolbar-tools">
@@ -322,13 +337,13 @@
             </div>
         </div>
         <div style="position: absolute;top: 7%;" ui-sref="previsualizar({datos: editor.logo.icono.svg})">
-            <md-button class="md-raised md-primary" >
+            <md-button class="md-raised md-primary">
                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Previsualizar</md-tooltip>
                 <md-icon>remove_red_eye</md-icon>
             </md-button>
         </div>
         <div style="position: absolute; top: 0;">
-            <md-button class="md-raised md-primary"  ng-click="editor.guardar('comparar')">
+            <md-button class="md-raised md-primary" ng-click="editor.guardar('comparar')">
                 <md-tooltip md-direction="right" md-visible="tooltipVisible">Comparar</md-tooltip>
                 <md-icon>filter</md-icon>
             </md-button>
