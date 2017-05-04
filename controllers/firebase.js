@@ -1,4 +1,5 @@
 var admin = require("firebase-admin");
+var cliente=require('../modelos/clientesModelo.js');
 var configuracion = require("../configuracion.js");
 var serviceAccount = require("../disenador-d5b62fb393d6.json");
 
@@ -58,13 +59,28 @@ exports.comprobarEstadoCliente = function (req, res, next) {
 
     admin.auth().verifyIdToken(token)
         .then(function (decodedToken) {
-            next();
+            var uid = decodedToken.uid
+            cliente.obtenerIdCliente(uid,function(error, data)
+            {
+            //si el cliente existe 
+            if (typeof data !== 'undefined' && data.length > 0)
+            {
+                req.idCliente = data.idCliente
+                next();
+            }
+        //no existe
+            else
+            {
+                res.status(500).json({"msg":"error de uid"})
+            }
+             });         
             // ...
         }).catch(function (error) {
-            res.status(500).send('fallo');
+            res.status(500).json('fallo');
         });
     }
     else{
+        req.idCliente = 1;
         next();
     }
 }

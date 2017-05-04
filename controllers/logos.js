@@ -14,7 +14,7 @@ exports.guardar =  function(req,res)
 			estado : 'Editable',
 			logo : req.body.logo,
 			tipoLogo: req.body.tipoLogo,
-			clientes_idCliente : req.body.idCliente,
+			clientes_idCliente : req.idCliente,
 			elementos_idElemento : req.body.idElemento
 		};
 
@@ -56,7 +56,7 @@ exports.datosLogo =  function(req, res, next) {
 
 exports.listaLogosGuardados = function(req, res, next) {
 		
-		var par = ["Editable",req.params.id]
+		var par = ["Editable",req.idCliente]
 
 		logo.getLogosTipo(par,function(error, data)
 		{
@@ -68,7 +68,7 @@ exports.listaLogosGuardados = function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No hay logos guardados por el cliente"})
+				res.status(404).json({"msg":"No hay logos guardados por el cliente "})
 			}
 		});
 
@@ -76,7 +76,7 @@ exports.listaLogosGuardados = function(req, res, next) {
 
 exports.listaLogosDescargables = function(req, res, next) {
 		
-		var par = ["Descargable",req.params.id]
+		var par = ["Descargable",req.idCliente]
 
 		logo.getLogosTipo(par,function(error, data)
 		{

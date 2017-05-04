@@ -193,6 +193,26 @@ cliente.deleteCliente = function(id, callback)
 	});
 }
 
+//obtenemos un cliente por su id
+cliente.obtenerIdCliente = function(uid,callback)
+{ 
+	var q = 'SELECT idCliente FROM clientes WHERE uid = ? ' 
+	var par = [uid] //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, row);
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = cliente;
