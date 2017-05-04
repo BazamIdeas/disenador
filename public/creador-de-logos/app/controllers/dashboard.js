@@ -3,86 +3,76 @@ angular.module("disenador-de-logos")
 
 /* Cliente */
 
-.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'currentAuth', function ($scope, $mdDialog, $stateParams, currentAuth) {
-    this.datosEstadoAnterior = $stateParams.datos;
-    
-    this.respuesta = {
-        iconos: [{
-                id: 1,
-                url: "assets/svg/apple.svg",
-                nombre: "X"
-        }, {
-                id: 1,
-                url: "assets/svg/audio.svg",
-                nombre: "X"
-        }, {
-                id: 1,
-                url: "assets/svg/audiobook.svg",
-                nombre: "X"
-        }, {
-                id: 1,
-                url: "assets/svg/book.svg",
-                nombre: "X"
-        }, {
-                id: 1,
-                url: "assets/svg/browser.svg",
-                nombre: "X"
-        }, {
-                id: 1,
-                url: "assets/svg/calculator.svg",
-                nombre: "X"
-        }, {
-                id: 1,
-                url: "assets/svg/certificate.svg",
-                nombre: "X"
-        }, {
-                id: 1,
-                url: "assets/svg/chat.svg",
-                nombre: "X"
-        }, {
-                id: 1,
-                url: "assets/svg/chemistry.svg",
-                nombre: "X"
-        },
-            {
-                id: 1,
-                url: "assets/svg/chip.svg",
-                nombre: "X"
-        },
-            {
-                id: 1,
-                url: "assets/svg/cloud.svg",
-                nombre: "X"
-        },
-            {
-                id: 1,
-                url: "assets/svg/code.svg",
-                nombre: "X"
-        }]
+.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'currentAuth', 'logosService', '$state', 'LS', function ($scope, $mdDialog, $stateParams, currentAuth, logosService, $state, LS) {
+
+    var bz = this;
+
+    /* LOCAL STORAGE */
+
+    this.definirInfo = function (llave, datos) {
+        return LS.definir(llave, datos);
     }
 
+    if ($stateParams) {
+        this.definirInfo($state.current.name, $stateParams);
+        this.datosEstadoAnterior = $stateParams;
+
+    } else if (LS.obtener($state.current.name)) {
+
+        this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
+    } else {
+        $state.go('opciones');
+    }
+
+    /* *************** */
 
     this.datos = [];
     this.estado = false;
 
-        /* EFECTO HOVER */
-        
-    this.efectoHover = function (indice, valor) {
+    /* EFECTO HOVER */
+    
+    this.datos ={indice: '', estado: ''};
 
+    this.efectoHover = function (indice, valor) {
 
         if (!this.datos[indice]) {
 
-            this.datos[indice] = valor;
-            this.logos[indice].estado = true;
-
+            this.datos.indice[indice] = valor;
+            this.datos.estado = true;
 
         } else {
 
-            delete this.datos[indice];
-            this.logos[indice].estado = false;
+            delete this.datos.indice[indice];
+            this.datos.estado = false;
         }
-
 
     }
     
+    /* LISTAR LOGOS */
+    
+    
+    bz.lGuardados;
+    bz.lDescargados;
+    
+    bz.mostrarG = function (id) {
+        logosService.mostrarGuardados(id).then(function(res){
+            bz.lGuardados = res.data;
+        }).catch(function(res){
+            
+        })
+    }
+
+    bz.mostrarD = function (id) {
+        logosService.mostrarDescargables(id).then(function(res){
+            bz.lDescargados = res.data;
+        }).catch(function(res){
+            
+        })
+    }
+     
+    bz.mostrarD(1);
+    bz.mostrarG(1);
+
+
+
 }])

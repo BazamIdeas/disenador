@@ -3,11 +3,29 @@ angular.module("disenador-de-logos")
 /* Metodos */
 
 
-.controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$mdDialog', '$stateParams', '$state', '$window', function ($scope, currentAuth, pedidosService, $mdDialog, $stateParams, $state, $window) {
+.controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$mdDialog', '$stateParams', '$state', '$window', 'SweetAlert', 'LS', function ($scope, currentAuth, pedidosService, $mdDialog, $stateParams, $state, $window, SweetAlert, LS) {
 
     var bz = this;
+    
+     /* LOCAL STORAGE */
 
-    bz.infoLogo = $stateParams;
+    this.definirInfo = function (llave, datos) {
+        return LS.definir(llave, datos);
+    }
+
+    if ($stateParams) {
+        this.definirInfo($state.current.name, $stateParams);
+        this.datosEstadoAnterior = $stateParams;
+
+    } else if (LS.obtener($state.current.name)) {
+
+        this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
+    } else {
+        $state.go('opciones');
+    }
+
+    /* *************** */
+
     bz.mostrar = 'inicial';
     bz.compras = 1;
 
@@ -22,6 +40,10 @@ angular.module("disenador-de-logos")
         })
 
     }
+    
+   this.mostrarAlerta = function(){
+       SweetAlert.swal("No disponible", "Utiliza la opcion de paypal!", "error");
+   }
 
 
 

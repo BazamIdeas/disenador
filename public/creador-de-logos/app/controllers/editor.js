@@ -2,9 +2,16 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth) {
 
     var bz = this;
+
+
+    bz.autorizado = Auth.$getAuth();
+
+    Auth.$onAuthStateChanged(function (firebaseUser) {
+        bz.autorizado = firebaseUser;
+    });
 
     this.base64 = function (icono) {
 
@@ -208,4 +215,20 @@ angular.module("disenador-de-logos")
         })
     })
 
+    /* LOGOS */
+
+    bz.gLogo = function (idLogo, estado, logo, tipoLogo, clientes_idCliente, elementos_idElemento, autorizado) {
+
+        if (autorizado) {
+
+            logosService.guardarLogo(idLogo, estado, logo, tipoLogo, clientes_idCliente, elementos_idElemento).then(function (res) {
+                console.log(res);
+
+                SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
+            })
+
+        }else{
+            SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
+        }
+    }
 }])

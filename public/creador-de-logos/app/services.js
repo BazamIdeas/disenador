@@ -63,7 +63,7 @@ angular.module("disenador-de-logos")
 /*********************/
 
 .service("pedidosService", ["$http", "$q", function ($http, $q) {
-    
+
     this.idCliente = 1;
 
     this.paypal = function (tipoPago, logoSVG, idCliente, idElemento, tTarjeta = false, nTarjeta = false, expire_month = false, expire_year = false) {
@@ -80,17 +80,17 @@ angular.module("disenador-de-logos")
             logo: logoSVG,
             idPrecio: 1,
             localidad: 'nulo',
-            tipoLogo: "Logo y nombre", 
+            tipoLogo: "Logo y nombre",
             tipoPago: tipoPago
         }
-        
-        if(tipoPago == "credit_card"){
-            
+
+        if (tipoPago == "credit_card") {
+
             datos.tTarjeta = tTarjeta;
             datos.nTarjeta = nTarjeta;
             datos.expire_month = expire_month;
             datos.expire_year = expire_year;
-            
+
         }
 
         $http.post("/app/pedido", datos).then(function (res) {
@@ -108,8 +108,8 @@ angular.module("disenador-de-logos")
         return promise;
 
     }
-    
-   
+
+
 }])
 
 /***************************************/
@@ -295,3 +295,86 @@ angular.module("disenador-de-logos")
                       function ($firebaseAuth) {
         return $firebaseAuth();
                       }])
+
+
+/*********************/
+/***** Logos *********/
+/*********************/
+
+.service("logosService", ["$http", "$q", function ($http, $q) {
+
+    this.guardarLogo = function (idLogo, estado, logo, tipoLogo, clientes_idCliente, elementos_idElemento) {
+
+        var defered = $q.defer();
+
+        var promise = defered.promise;
+
+        datos = {
+            idClogo: idLogo,
+            estado: estado,
+            logo: logo,
+            tipoLogo: tipoLogo,
+            clientes_idCliente: clientes_idCliente,
+            elementos_idElemento: elementos_idElemento,
+        }
+
+        $http.post("/app/logo/guardar", datos).then(function (res) {
+
+
+            defered.resolve(res);
+
+        }).catch(function (res) {
+
+            defered.reject(res);
+
+        })
+
+
+        return promise;
+
+    }
+
+
+    this.mostrarGuardados = function (id) {
+
+        var defered = $q.defer();
+
+        var promise = defered.promise;
+
+        $http.get("/app/logos/guardados/" + id).then(function (res) {
+
+
+            defered.resolve(res);
+
+        }).catch(function (res) {
+
+            defered.reject(res);
+
+        })
+
+
+        return promise;
+
+    }
+
+    this.mostrarDescargables = function (id) {
+
+        var defered = $q.defer();
+
+        var promise = defered.promise;
+
+        $http.get("/app/logos/descargables/" + id).then(function (res) {
+
+
+            defered.resolve(res);
+
+        }).catch(function (res) {
+
+            defered.reject(res);
+
+        })
+
+        return promise;
+    }
+
+}])

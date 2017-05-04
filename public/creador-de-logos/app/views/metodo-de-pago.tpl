@@ -8,7 +8,7 @@
     <div layout layout-align="center" class="metodo-de-pago">
         <div flex="50" layout="column" class="md-whiteframe-2dp" layout-padding>
             <div layout layout-align="space-around" ng-switch-when="inicial">
-                <div class="tipo-logo" ng-click="metodo.mostrar=2">
+                <div class="tipo-logo" ng-click="metodo.mostrarAlerta()">
                     <div class="tipo-logo-icon">
                         <md-icon>font_download</md-icon>
                     </div>
@@ -17,7 +17,7 @@
                         <p>Una forma facil de recordar en el centro de su logo.</p>
                     </div>
                 </div>
-                <div class="tipo-logo" ng-click="metodo.pedido('paypal', metodo.infoLogo.logoSvg64, 1, metodo.infoLogo.idIcono)">
+                <div class="tipo-logo">
                     <div class="tipo-logo-icon">
                         <md-icon>font_download</md-icon>
                     </div>
@@ -62,7 +62,7 @@
                     </div>
                     <div layout layout-align="space-between">
                         <md-button class="md-raised md-primary siguiente" ng-click="metodo.mostrar='inicial'">METODOS</md-button>
-                        <md-button class="md-raised md-primary siguiente" ng-click="metodo.pedido('credit_card', metodo.infoLogo.logoSvg64, 1, metodo.infoLogo.idIcono, tTarjeta, numeroT, mes, year)">PAGAR</md-button>
+                        <md-button class="md-raised md-primary siguiente" ng-click="metodo.pedido('credit_card', metodo.datosEstadoAnterior.logoSvg64, 1, metodo.datosEstadoAnterior.idIcono, tTarjeta, numeroT, mes, year)">PAGAR</md-button>
                     </div>
                 </form>
             </div>

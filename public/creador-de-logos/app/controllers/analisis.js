@@ -38,7 +38,7 @@ angular.module("disenador-de-logos")
             } else {
                 bz.animacionTexto = bz.animacionTexto + 1;
             }
-        }, 3000);
+        }, 2000);
 
     });
 
