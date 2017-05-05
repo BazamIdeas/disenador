@@ -67,7 +67,7 @@
                     <div class="pasos" ng-switch-when="3" layout="column">
                         <div layout-padding layout="column">
                             <div layout layout-align="space-around">
-                                <div class="tipo-logo">
+                                <div class="tipo-logo" ng-click="comenzar.datos.tipo='ICONO'">
                                     <div class="tipo-logo-icon">
                                         <md-icon>font_download</md-icon>
                                     </div>
@@ -76,7 +76,7 @@
                                         <p>Una forma facil de recordar en el centro de su logo.</p>
                                     </div>
                                 </div>
-                                <div class="tipo-logo">
+                                <div class="tipo-logo" ng-click="comenzar.datos.tipo='NOMBRE'">
                                     <div class="tipo-logo-icon">
                                         <md-icon>font_download</md-icon>
                                     </div>
@@ -85,7 +85,7 @@
                                         <p>Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.</p>
                                     </div>
                                 </div>
-                                <div class="tipo-logo">
+                                <div class="tipo-logo" ng-click="comenzar.datos.tipo='INICIAL'">
                                     <div class="tipo-logo-icon">
                                         <md-icon>font_download</md-icon>
                                     </div>
@@ -96,13 +96,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div layout-padding class="radio-f">
+                        <div layout-padding class="radio-f" >
                             <md-radio-group layout layout-align="space-around" ng-model="comenzar.datos.tipo" name="tipo" ng-required="true">
-                                <md-radio-button value="ICONO" ng-click="comenzar.select=true">
+                                <md-radio-button value="ICONO">
                                 </md-radio-button>
-                                <md-radio-button value="ICONO2" ng-click="comenzar.select=true">
+                                <md-radio-button value="NOMBRE">
                                 </md-radio-button>
-                                <md-radio-button value="ICONO3" ng-click="comenzar.select=true">
+                                <md-radio-button value="INICIAL">
                                 </md-radio-button>
                             </md-radio-group>
                         </div>

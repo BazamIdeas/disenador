@@ -66,36 +66,38 @@
                     </md-select>
                 </div>
 
-                <div layout class="text-center">
-                    <h4 flex="50" class="padding">Posición</h4>
-                    <h4 flex="50" class="padding">Tamaño</h4>
+                <!-- POSICIONES-->
+
+                <div>
+                    <h4>Posición</h4>
                 </div>
 
-                <div layout>
-                    <div flex="50" class="x-y">
-                        <div>
-                            <div layout layout-align="center center">
-                                <md-icon>keyboard_arrow_left</md-icon>
-                                <md-icon>keyboard_arrow_up</md-icon>
-                                
-                            </div>
-                            <div layout layout-align="center">
-                                <md-icon>keyboard_arrow_down</md-icon>
-                                <md-icon>keyboard_arrow_right</md-icon>
-                            </div>
-                        </div>
+                <div>
+                    <md-button>
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                    <md-button>
+                        <md-icon>keyboard_arrow_up</md-icon>
+                    </md-button>
 
-                        <div></div>
-                    </div>
+                    <md-button>
+                        <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                    <md-button>
+                        <md-icon>keyboard_arrow_right</md-icon>
+                    </md-button>
+                </div>
 
-                    <div flex="50" layout="column" class="mas-menos" layout-align="center center">
-                            <div>
-                                +
-                            </div>
-                            <div>
-                                -
-                            </div>
-                    </div>
+                <div>
+                    <h4>Tamaño</h4>
+                </div>
+                <div layout class="mas-menos">
+                    <md-button>
+                        +
+                    </md-button>
+                    <md-button>
+                        -
+                    </md-button>
                 </div>
                 <div>
                     <h4>Propiedades</h4>
@@ -137,36 +139,38 @@
                     </md-select>
                 </div>
 
-                <div layout class="text-center">
-                    <h4 flex="50" class="padding">Posición</h4>
-                    <h4 flex="50" class="padding">Tamaño</h4>
+                <!-- POSICIONES-->
+
+                <div>
+                    <h4>Posición</h4>
                 </div>
 
-                <div layout>
-                    <div flex="50" class="x-y">
-                        <div>
-                            <div layout layout-align="center center">
-                                <md-icon>keyboard_arrow_left</md-icon>
-                                <md-icon>keyboard_arrow_up</md-icon>
-                                
-                            </div>
-                            <div layout layout-align="center">
-                                <md-icon>keyboard_arrow_down</md-icon>
-                                <md-icon>keyboard_arrow_right</md-icon>
-                            </div>
-                        </div>
+                <div>
+                    <md-button>
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                    <md-button>
+                        <md-icon>keyboard_arrow_up</md-icon>
+                    </md-button>
 
-                        <div></div>
-                    </div>
+                    <md-button>
+                        <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                    <md-button>
+                        <md-icon>keyboard_arrow_right</md-icon>
+                    </md-button>
+                </div>
 
-                    <div flex="50" layout="column" class="mas-menos" layout-align="center center">
-                            <div>
-                                +
-                            </div>
-                            <div>
-                                -
-                            </div>
-                    </div>
+                <div>
+                    <h4>Tamaño</h4>
+                </div>
+                <div layout class="mas-menos">
+                    <md-button>
+                        +
+                    </md-button>
+                    <md-button>
+                        -
+                    </md-button>
                 </div>
 
                 <div>
@@ -195,37 +199,41 @@
             <!-- Fin elemento -->
 
             <div class="elemento md-whiteframe-2dp" ng-switch-when="2">
-                <div layout class="text-center">
-                    <h4 flex="50" class="padding">Posición</h4>
-                    <h4 flex="50" class="padding">Tamaño</h4>
+
+                <!-- POSICIONES-->
+
+                <div>
+                    <h4>Posición</h4>
                 </div>
 
-                <div layout>
-                    <div flex="50" class="x-y">
-                        <div>
-                            <div layout layout-align="center center">
-                                <md-icon>keyboard_arrow_left</md-icon>
-                                <md-icon>keyboard_arrow_up</md-icon>
-                                
-                            </div>
-                            <div layout layout-align="center">
-                                <md-icon>keyboard_arrow_down</md-icon>
-                                <md-icon>keyboard_arrow_right</md-icon>
-                            </div>
-                        </div>
+                <div>
+                    <md-button>
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                    <md-button>
+                        <md-icon>keyboard_arrow_up</md-icon>
+                    </md-button>
 
-                        <div></div>
-                    </div>
-
-                    <div flex="50" layout="column" class="mas-menos" layout-align="center center">
-                            <div>
-                                +
-                            </div>
-                            <div>
-                                -
-                            </div>
-                    </div>
+                    <md-button>
+                        <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                    <md-button>
+                        <md-icon>keyboard_arrow_right</md-icon>
+                    </md-button>
                 </div>
+
+                <div>
+                    <h4>Tamaño</h4>
+                </div>
+                <div layout class="mas-menos">
+                    <md-button>
+                        +
+                    </md-button>
+                    <md-button>
+                        -
+                    </md-button>
+                </div>
+
 
                 <div>
                     <div>
@@ -314,13 +322,48 @@
             </div>
 
             <div>
-                <md-button class="md-fab md-primary">
-                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Ayuda</md-tooltip>
-                    <md-icon ng-click="editor.cambiarMenu()" class="material-icon">help_outline</md-icon>
+                <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu(previsualizar)">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Previsualizar</md-tooltip>
+                    <md-icon class="material-icon">remove_red_eye</md-icon>
                 </md-button>
             </div>
 
-            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="previsualizar" style="width:40%;">
+                <md-toolbar class="transparencia">
+                    <div class="md-toolbar-tools">
+                        <div>PREVISUALIZAR</div>
+                    </div>
+                </md-toolbar>
+
+                <div flex layout="column" ng-cloak class="gradient previsualizar">
+                    <div class="titulo-prev">
+                        <p>DETALLA TU LOGO EN DISTINTAS PLANTILLAS</p>
+                    </div>
+                    <div class="plantilla">
+                        <div class="elemento-prev md-whiteframe-2dp" ng-repeat="previsualizar in editor.modeloPrevisualizar" identidad="{{previsualizar.nombre}}" style="background:url('{{previsualizar.url}}')">
+                            <div class="layout-padding logo_previsualizar">
+                                <md-icon md-svg-src="data:image/svg+xml;base64,{{prev.svg}}"></md-icon>
+                            </div>
+                            <div>
+                                <texto>{{prev.texto}}</texto>
+                            </div>
+                        </div>
+
+                        <div>
+                            <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
+                        </div>
+                    </div>
+                </div>
+            </md-sidenav>
+
+            <div>
+                <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu(ayuda)">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Ayuda</md-tooltip>
+                    <md-icon class="material-icon">help_outline</md-icon>
+                </md-button>
+            </div>
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="ayuda">
                 <md-toolbar class="transparencia">
                     <div class="md-toolbar-tools">
                         <div>AYUDA</div>
@@ -335,12 +378,6 @@
             <div id="logo-share" class="logo-editor">
                 <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo" data-guardar="editor.guardarComparar" data-comparadores="editor.comparadores" data-tipo-guardar="editor.tipoGuardar"></bazam-svg-text-2>
             </div>
-        </div>
-        <div style="position: absolute;top: 7%;" ui-sref="previsualizar({datos: editor.logo.icono.svg})">
-            <md-button class="md-raised md-primary">
-                <md-tooltip md-direction="top" md-visible="tooltipVisible">Previsualizar</md-tooltip>
-                <md-icon>remove_red_eye</md-icon>
-            </md-button>
         </div>
         <div style="position: absolute; top: 0;">
             <md-button class="md-raised md-primary" ng-click="editor.guardar('comparar')">

@@ -22,15 +22,8 @@ angular.module("disenador-de-logos")
 
         bz.datos.respuesta.iconos = res.data;
 
-
-
-        /*  angular.forEach(bz.datos.respuesta.iconos, function (valor, llave) {
-              
-              bz.datos.respuesta.iconos[llave].svg =   $base64.decode(valor.svg);
-          })*/
-
         promise = $interval(function () {
-            if (bz.animacionTexto == 4) {
+            if (bz.animacionTexto == 2) {
                 bz.stop();
                 $state.go('opciones', {
                     datos: $stateParams.datos
@@ -38,7 +31,7 @@ angular.module("disenador-de-logos")
             } else {
                 bz.animacionTexto = bz.animacionTexto + 1;
             }
-        }, 2000);
+        }, 2500);
 
     });
 

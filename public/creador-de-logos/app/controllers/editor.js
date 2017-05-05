@@ -199,9 +199,9 @@ angular.module("disenador-de-logos")
 
     bz.fabEditor = false;
 
-    bz.cambiarMenu = function (lugar) {
+    bz.cambiarMenu = function (id) {
 
-        return $mdSidenav('right').toggle();
+        return $mdSidenav(id).toggle();
     }
 
     bz.fondo = "blanco";
@@ -231,4 +231,42 @@ angular.module("disenador-de-logos")
             SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
         }
     }
+    
+    
+    /* PREVISUALIZAR */
+    
+    bz.modeloPrevisualizar = [
+        {
+            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        }
+    ]
 }])

@@ -26,21 +26,31 @@ angular.module("disenador-de-logos")
 
     /* *************** */
 
-    this.datos = [];
+    this.datosDescargables = [];
+    this.datosGuardados = [];
 
     /* EFECTO HOVER */
 
-    this.efectoHover = function (indice, valor) {
+    this.efectoHover = function (indice, valor, tipo) {
 
         if (!this.datos[indice]) {
-
-            this.datos[indice] = valor;
-            this.lGuardados[indice].estado = true;
+            if (tipo == 'guardados') {
+                this.datosGuardados[indice] = valor;
+                this.lGuardados[indice].estado = true;
+            } else {
+                this.datosDescargables[indice] = valor;
+                this.lDescargables[indice].estado = true;
+            }
 
         } else {
 
-            delete this.datos[indice];
-            this.lGuardados[indice].estado = false;
+            if (tipo == 'guardados') {
+                delete this.datosGuardados[indice];
+                this.lGuardados[indice].estado = true;
+            } else {
+                delete this.datosDescargables[indice];
+                this.lDescargables[indice].estado = false;
+            }
         }
 
     }
@@ -61,7 +71,7 @@ angular.module("disenador-de-logos")
 
     bz.mostrarD = function (id) {
         logosService.mostrarDescargables(id).then(function (res) {
-            bz.lComprados= res.data;
+            bz.lComprados = res.data;
         }).catch(function (res) {
 
         })
