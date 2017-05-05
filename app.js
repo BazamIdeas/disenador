@@ -32,6 +32,7 @@ app.use('/angular-base64', express.static(__dirname + '/node_modules/angular-bas
 app.use('/angular-social', express.static(__dirname + '/node_modules/angular-socialshare/dist'))
 app.use('/angular-sweetalert', express.static(__dirname + '/node_modules/angular-sweetalert'))
 app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'))
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'))
 
 
 

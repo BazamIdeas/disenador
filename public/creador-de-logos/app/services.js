@@ -129,8 +129,9 @@ angular.module("disenador-de-logos")
 
         Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
             .then(function (firebaseUser) {
-
-
+                
+                datos.uid = firebaseUser.uid;
+            
                 $http.post("/app/cliente", datos).then(function (res) {
 
                         defered.resolve(res);

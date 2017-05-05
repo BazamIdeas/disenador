@@ -48,6 +48,9 @@
         </div>
 
         <div class="elementos" layout-fill>
+            <!---------------->
+            <!---- TEXTO ----->
+            <!---------------->
             <div class="elemento md-whiteframe-2dp" ng-switch-when="1">
                 <div>
                     <div layout layout-align="space-between">
@@ -72,40 +75,41 @@
                     <h4>Posición</h4>
                 </div>
 
-                <div>
+                <div>       
                     <md-button>
-                        <md-icon>keyboard_arrow_left</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('x', false , 'icono')">keyboard_arrow_left</md-icon>
                     </md-button>
                     <md-button>
-                        <md-icon>keyboard_arrow_up</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('y', false, 'icono')">keyboard_arrow_up</md-icon>
                     </md-button>
 
+
                     <md-button>
-                        <md-icon>keyboard_arrow_down</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('y', true, 'icono')">keyboard_arrow_down</md-icon>
                     </md-button>
                     <md-button>
-                        <md-icon>keyboard_arrow_right</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('x', true, 'icono')">keyboard_arrow_right</md-icon>
                     </md-button>
                 </div>
 
                 <div>
                     <h4>Tamaño</h4>
                 </div>
-                <div layout class="mas-menos">
-                    <md-button>
+                <div layout class="mas-menos" >
+                    <md-button ng-click="editor.modificarEscala(editor.escala, true)">
                         +
                     </md-button>
-                    <md-button>
+                    <md-button ng-click="editor.modificarEscala(editor.escala, false)">
                         -
                     </md-button>
                 </div>
                 <div>
                     <h4>Propiedades</h4>
                     <div class="propiedades">
-                        <div class="bold">
+                        <div class="bold" ng-click="editor.modificarPropiedadTexto('bold')">
                             <p>Bold</p>
                         </div>
-                        <div class="cursiva">
+                        <div class="cursiva" ng-click="editor.modificarPropiedadTexto('cursive')">
                             <p>Cursiva</p>
                         </div>
                     </div>
@@ -115,7 +119,7 @@
                         <h4>Edita el Color</h4>
                     </div>
                     <div layout layout-align="center">
-                        <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        <color-picker ng-model="editor.colorTexto" class="md-whiteframe-2dp" ng-class="editor.mostrar">
                         </color-picker>
                     </div>
                 </div>
@@ -147,17 +151,18 @@
 
                 <div>
                     <md-button>
-                        <md-icon>keyboard_arrow_left</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('x', false , 'icono')">keyboard_arrow_left</md-icon>
                     </md-button>
                     <md-button>
-                        <md-icon>keyboard_arrow_up</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('y', false, 'icono')">keyboard_arrow_up</md-icon>
                     </md-button>
 
+
                     <md-button>
-                        <md-icon>keyboard_arrow_down</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('y', true, 'icono')">keyboard_arrow_down</md-icon>
                     </md-button>
                     <md-button>
-                        <md-icon>keyboard_arrow_right</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('x', true, 'icono')">keyboard_arrow_right</md-icon>
                     </md-button>
                 </div>
 
@@ -165,10 +170,10 @@
                     <h4>Tamaño</h4>
                 </div>
                 <div layout class="mas-menos">
-                    <md-button>
+                    <md-button ng-click="editor.modificarEscala(editor.escala, true)">
                         +
                     </md-button>
-                    <md-button>
+                    <md-button ng-click="editor.modificarEscala(editor.escala, false)">
                         -
                     </md-button>
                 </div>
@@ -208,17 +213,18 @@
 
                 <div>
                     <md-button>
-                        <md-icon>keyboard_arrow_left</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('x', false , 'icono')">keyboard_arrow_left</md-icon>
                     </md-button>
                     <md-button>
-                        <md-icon>keyboard_arrow_up</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('y', false, 'icono')">keyboard_arrow_up</md-icon>
                     </md-button>
 
+
                     <md-button>
-                        <md-icon>keyboard_arrow_down</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('y', true, 'icono')">keyboard_arrow_down</md-icon>
                     </md-button>
                     <md-button>
-                        <md-icon>keyboard_arrow_right</md-icon>
+                        <md-icon ng-click="editor.modificarPosicion('x', true, 'icono')">keyboard_arrow_right</md-icon>
                     </md-button>
                 </div>
 
@@ -226,10 +232,10 @@
                     <h4>Tamaño</h4>
                 </div>
                 <div layout class="mas-menos">
-                    <md-button>
+                    <md-button ng-click="editor.modificarEscala(editor.escala, true)">
                         +
                     </md-button>
-                    <md-button>
+                    <md-button ng-click="editor.modificarEscala(editor.escala, false)">
                         -
                     </md-button>
                 </div>
@@ -256,7 +262,7 @@
                         <h4>Edita el Color</h4>
                     </div>
                     <div layout layout-align="center">
-                        <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        <color-picker ng-model="editor.colorIcono" class="md-whiteframe-2dp" ng-class="editor.mostrar">
                         </color-picker>
                     </div>
                 </div>
@@ -376,7 +382,8 @@
         </div>
         <div class="cont-logo-editor" ng-class="editor.fondo">
             <div id="logo-share" class="logo-editor">
-                <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo" data-guardar="editor.guardarComparar" data-comparadores="editor.comparadores" data-tipo-guardar="editor.tipoGuardar"></bazam-svg-text-2>
+
+                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente.nombre" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto"></bazam-svg>
             </div>
         </div>
         <div style="position: absolute; top: 0;">

@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter) {
 
     var bz = this;
 
@@ -50,107 +50,6 @@ angular.module("disenador-de-logos")
     this.logo = this.datosEstadoAnterior.logo;
     this.logo.texto = this.datosEstadoAnterior.texto;
     this.logo.posicion = this.datosEstadoAnterior.posicion;
-
-
-    /*********** Estado activo o inactivo de los elementos **********/
-
-    this.activo = {
-
-        elementos: {},
-        texto: ''
-
-    };
-
-    this.mostrar = {}
-
-    this.activar = function (tipo, llave = false) {
-
-        if (tipo == 'elemento') {
-
-            this.activo.texto = '';
-
-            if (!this.mostrar.color) {
-
-                this.mostrar.color = 'color-animacion-entrada';
-            }
-
-            if (this.mostrar.texto) {
-
-                this.mostrar.texto = 'color-animacion-salida'
-            }
-
-            this.activo.elementos = {};
-
-            this.activo.elementos[llave] = 'si';
-
-        } else if (tipo == 'texto') {
-
-
-            this.activo.elementos = {};
-
-
-
-            if (!this.mostrar.texto || this.mostrar.texto == 'color-animacion-salida') {
-
-                this.mostrar.texto = 'color-animacion-entrada';
-
-            }
-
-
-            if (!this.mostrar.color) {
-
-                this.mostrar.color = 'color-animacion-entrada';
-            }
-
-
-
-
-
-            this.activo.texto = 'si';
-
-        }
-    }
-
-
-    /***********************/
-
-    /**********logos copias********/
-    this.comparadores = [];
-
-
-    this.tipoGuardar = "comparar";
-
-    this.guardarComparar = 0;
-
-    //guarda un logo en el listado de logos comparativos
-    this.guardar = function (tipo) {
-
-        //acepta dos tipos de guardado, comprar y comparar
-        this.tipoGuardar = tipo;
-        this.guardarComparar++;
-
-
-    }
-
-    this.recuperar = function (clon) {
-        /* REVISAR */
-        this.color = ""
-
-        this.activo = {
-
-            elementos: {},
-            texto: ''
-
-        };
-        /*----------*/
-
-        this.logo.icono.svg = clon;
-
-
-    }
-
-    /******************************/
-
 
     $scope.fuente = null;
     $scope.fuentes = null;
@@ -227,7 +126,7 @@ angular.module("disenador-de-logos")
                 SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
             })
 
-        }else{
+        } else {
             SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
         }
     }
@@ -269,4 +168,113 @@ angular.module("disenador-de-logos")
             nombre: 'carta'
         }
     ]
+
+    
+    ///////////////////////////////////////
+    /////posicion para icono y texto///////
+    ///////////////////////////////////////
+
+    bz.posicionTexto = {
+        x: 0,
+        y: 0
+    }
+
+    bz.posicionIcono = {
+        x: 0,
+        y: 0
+    }
+       
+    bz.modificarPosicion = function (coordenada, accion, objetivo) {
+
+        if (objetivo == "texto") {
+
+            bz.posicionTexto[coordenada] = (accion) ? bz.posicionTexto[coordenada] + 10 : bz.posicionTexto[coordenada] - 10;
+
+        } else if (objetivo == "icono") {
+
+            bz.posicionIcono[coordenada] = (accion) ? bz.posicionIcono[coordenada] + 10 : bz.posicionIcono[coordenada] - 10;
+
+        }
+
+
+    }
+    
+    
+    
+    //////////////////////////////
+    /////escala para el icono/////
+    //////////////////////////////
+    
+    bz.escala = 1;
+    
+    bz.modificarEscala = function (escala, accion) {
+
+        escala = parseFloat($filter('number')(escala, 1));
+
+        if (accion) {
+
+            if (escala <= 2) {
+
+                bz.escala = escala + 0.1;
+            }
+
+        } else {
+
+            if (escala >= 0.5) {
+
+                bz.escala = escala - 0.1;
+
+            }
+
+        }
+
+    }
+    
+    
+    
+    ////////////////////////////
+    ////tamano de la fuente/////
+    ////////////////////////////
+    bz.tamano = 0;
+    
+    bz.modificarTamano = function (tamano, accion) {
+
+        if (accion) {
+            
+            if (tamano < 200){
+                
+                bz.tamano = tamano + 4;
+                
+            }
+                
+        } else {
+            
+            if (tamano > 0){
+                
+                bz.tamano = tamano - 4;
+                
+            }
+            
+        }
+
+    }
+    
+    /////////////////////////////////
+    ////propiedades de la fuente/////
+    /////////////////////////////////  
+    bz.propiedadesTexto = {
+        
+        bold: false,
+        cursive: false        
+        
+    }
+    
+    
+    bz.modificarPropiedadTexto = function(propiedad){
+        
+        
+        bz.propiedadesTexto[propiedad] = (bz.propiedadesTexto[propiedad]) ? false : true; 
+        console.log(bz.propiedadesTexto[propiedad])
+    }
+
 }])
