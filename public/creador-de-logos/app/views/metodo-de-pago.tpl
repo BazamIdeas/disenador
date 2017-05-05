@@ -17,7 +17,7 @@
                         <p>Una forma facil de recordar en el centro de su logo.</p>
                     </div>
                 </div>
-                <div class="tipo-logo">
+                <div class="tipo-logo" ng-click="metodo.pedido('paypal', metodo.datosEstadoAnterior.logoSvg64, metodo.datosEstadoAnterior.idIcono)">
                     <div class="tipo-logo-icon">
                         <md-icon>font_download</md-icon>
                     </div>

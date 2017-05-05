@@ -79,8 +79,8 @@ router.post("/elementos/categorias", controllers.elementos.listaElemCat);
 router.post("/elementos/nuevo/icono", controllers.elementos.nuevoElementoIcono);
 
 //MODULO LOGOS
-router.get('/logos/guardados/:id',controllers.firebase.comprobarEstadoCliente, controllers.logos.listaLogosGuardados);
-router.get('/logos/descargables/:id',controllers.firebase.comprobarEstadoCliente, controllers.logos.listaLogosDescargables);
+router.post('/logos/guardados/',controllers.firebase.comprobarEstadoCliente, controllers.logos.listaLogosGuardados);
+router.post('/logos/descargables/',controllers.firebase.comprobarEstadoCliente, controllers.logos.listaLogosDescargables);
 router.get('/logo/:id',controllers.firebase.comprobarEstadoCliente, controllers.logos.datosLogo);//muestra los datos de un logo por su id
 router.post("/logo/guardar/", controllers.firebase.comprobarEstadoCliente,controllers.logos.guardar);
 router.post("/logo/modificar/",controllers.firebase.comprobarEstadoCliente, controllers.logos.modificarLogo);

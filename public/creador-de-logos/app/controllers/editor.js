@@ -5,14 +5,11 @@ angular.module("disenador-de-logos")
 .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter) {
 
     var bz = this;
-
-
-    bz.autorizado = Auth.$getAuth();
-
+    
     Auth.$onAuthStateChanged(function (firebaseUser) {
         bz.autorizado = firebaseUser;
     });
-
+    
     this.base64 = function (icono) {
 
         return $base64.decode(icono);
@@ -116,13 +113,11 @@ angular.module("disenador-de-logos")
 
     /* LOGOS */
 
-    bz.gLogo = function (idLogo, estado, logo, tipoLogo, clientes_idCliente, elementos_idElemento, autorizado) {
+    bz.gLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
 
-        if (autorizado) {
+        if (firebaseUser) {
 
-            logosService.guardarLogo(idLogo, estado, logo, tipoLogo, clientes_idCliente, elementos_idElemento).then(function (res) {
-                console.log(res);
-
+            logosService.guardarLogo(idLogo, estado, logo, tipoLogo, firebaseUser, idElemento).then(function (res) {
                 SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
             })
 

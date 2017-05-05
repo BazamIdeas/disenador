@@ -62,11 +62,11 @@ angular.module("disenador-de-logos")
 /********PEDIDOS******/
 /*********************/
 
-.service("pedidosService", ["$http", "$q", function ($http, $q) {
+.service("pedidosService", ["$http", "$q", "Auth",  function ($http, $q, Auth) {
 
     this.idCliente = 1;
 
-    this.paypal = function (tipoPago, logoSVG, idCliente, idElemento, tTarjeta = false, nTarjeta = false, expire_month = false, expire_year = false) {
+    this.paypal = function (tipoPago, logoSVG, idElemento, tTarjeta = false, nTarjeta = false, expire_month = false, expire_year = false) {
 
         var defered = $q.defer();
 
@@ -75,7 +75,7 @@ angular.module("disenador-de-logos")
 
 
         datos = {
-            idCliente: idCliente,
+            token: Auth.$getAuth().j,
             idElemento: idElemento,
             logo: logoSVG,
             idPrecio: 1,
@@ -302,22 +302,24 @@ angular.module("disenador-de-logos")
 /***** Logos *********/
 /*********************/
 
-.service("logosService", ["$http", "$q", function ($http, $q) {
+.service("logosService", ["$http", "$q", "Auth", function ($http, $q, Auth) {
+    
 
-    this.guardarLogo = function (idLogo, estado, logo, tipoLogo, clientes_idCliente, elementos_idElemento) {
-
+    this.guardarLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
+        
         var defered = $q.defer();
 
         var promise = defered.promise;
-
-        datos = {
-            idClogo: idLogo,
+        
+        var datos = {
+            idlogo: idLogo,
             estado: estado,
             logo: logo,
             tipoLogo: tipoLogo,
-            clientes_idCliente: clientes_idCliente,
-            elementos_idElemento: elementos_idElemento,
+            token: firebaseUser.j,
+            idElemento: idElemento,
         }
+        console.log(datos)
 
         $http.post("/app/logo/guardar", datos).then(function (res) {
 
@@ -336,13 +338,14 @@ angular.module("disenador-de-logos")
     }
 
 
-    this.mostrarGuardados = function (id) {
+    this.mostrarGuardados = function (token) {
 
         var defered = $q.defer();
 
         var promise = defered.promise;
+        
 
-        $http.get("/app/logos/guardados/" + id).then(function (res) {
+        $http.post("/app/logos/guardados/", {token: token}).then(function (res) {
 
 
             defered.resolve(res);
@@ -358,13 +361,13 @@ angular.module("disenador-de-logos")
 
     }
 
-    this.mostrarDescargables = function (id) {
+    this.mostrarComprados = function (token) {
 
         var defered = $q.defer();
 
         var promise = defered.promise;
 
-        $http.get("/app/logos/descargables/" + id).then(function (res) {
+        $http.post("/app/logos/descargables/", {token: token}).then(function (res) {
 
 
             defered.resolve(res);

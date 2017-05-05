@@ -13,7 +13,7 @@ angular.module("disenador-de-logos")
         return LS.definir(llave, datos);
     }
 
-    if ($stateParams) {
+    if ($stateParams.logoSvg64 && $stateParams.idFuente && $stateParams.idPrecio && $stateParams.idIcono && $stateParams.tipoLogo) {
         this.definirInfo($state.current.name, $stateParams);
         this.datosEstadoAnterior = $stateParams;
 
@@ -21,7 +21,7 @@ angular.module("disenador-de-logos")
 
         this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
     } else {
-        $state.go('opciones');
+        $state.go('editor');
     }
 
     /* *************** */
@@ -29,8 +29,8 @@ angular.module("disenador-de-logos")
     bz.mostrar = 'inicial';
     bz.compras = 1;
 
-    bz.pedido = function (tipoPago, logoSVG, idCliente, idElemento, tTarjeta, nTarjeta, expire_month, expire_year) {
-        pedidosService.paypal(tipoPago, logoSVG, idCliente, idElemento, tTarjeta, nTarjeta, expire_month, expire_year).then(function (res) {
+    bz.pedido = function (tipoPago, logoSVG, idElemento, tTarjeta, nTarjeta, expire_month, expire_year) {
+        pedidosService.paypal(tipoPago, logoSVG, idElemento, tTarjeta, nTarjeta, expire_month, expire_year).then(function (res) {
             if (tipoPago = 'credit_card') {
                 console.log(res.msg)
             } else {

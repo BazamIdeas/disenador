@@ -1,5 +1,6 @@
 var elemento=require('../modelos/elementosModelo.js');
 var async = require("async");
+var base64 = require('base-64');
 
 // FUNCION QUE DEVUELVE LOS ICONOS SEGUN 
 exports.listaSegunPref = function(req, res, next) {
@@ -133,28 +134,35 @@ exports.listaElemCat =  function(req, res, next) {
 	exports.nuevoElementoIcono =  function(req, res) {
 		//id del pedido
 		//var  req.body.nombredelcampo
+
+		str = req.body.svg
+		dd = str.replace(/.*<svg version=/, "<svg version=");
+		dd2 = base64.encode(dd.replace('xmlns=', 'width="100%" xmlns='));
+		//svg =  base64.decode(dd2) ;
+		//res.send(svg)
+
 		var elem = {
 			idElemento : null,
 			nombre : req.body.nombre,
 			url : null,
-			svg : req.body.svg,
+			svg : dd2,
 			color : null,
 			tipo : 'ICONO',
 			comprado : 0,
-			categoria : req.body.categoria
+			categorias_idCategoria : req.body.categoria
 		};
 
 		elemento.insertElemento(elem, function(error, data)
 		{
 		//si el pedido existe 
-			if (typeof data !== 'undefined' && data.length > 0)
+			if (data && data.insertId)
 			{
 				res.status(200).json(data);
 			}
 		//no existe
 			else
 			{
-				res.status(500).json(data)
+				res.status(404).json(data)
 			}
 		});
 

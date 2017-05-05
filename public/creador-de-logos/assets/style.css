@@ -141,6 +141,14 @@ img.imagen-loader {
     padding: 0;
 }
 
+.menu-desactivado {
+    background: #bdbfcc;
+}
+
+.menu-desactivado:hover {
+    background: #bdbfcc !important;
+}
+
 
 /* login */
 
@@ -474,8 +482,7 @@ footer {
 }
 
 .logo-editor {
-    width: 40%;
-    margin-top: 2%;
+    width:100%;
 }
 
 .edicion {
@@ -500,7 +507,7 @@ footer {
 }
 
 .menu {
-    width: 50%;
+    width: 60%;
     display: flex;
 }
 
@@ -672,27 +679,29 @@ md-input-container.color-animacion .md-input {
     justify-content: space-around;
     margin-bottom: 6px;
     margin-right: .5%;
-    width: 11%;
+    width: 18%;
+}
+.tono-background .negro, .tono-background .blanco, .tono-background .regilla{
+    width: 60px;
+    height: 40px;
+    border-radius: 5px;
+    color: transparent;
+    cursor: pointer;
 }
 
 .tono-background .negro {
     background: black;
-    width: 60px;
-    height: 30px;
     border: 4px solid #262829;
-    border-radius: 5px;
-    color: transparent;
-    cursor: pointer;
+}
+
+.tono-background .regilla{
+   background-image:url(img/Recurso%201.png) !important;
+   border: 4px solid #ffffff;
 }
 
 .tono-background .blanco {
     background: silver;
-    width: 60px;
-    height: 30px;
     border: 4px solid #ffffff;
-    border-radius: 5px;
-    color: transparent;
-    cursor: pointer;
 }
 
 .cont-logo-editor.negro {
