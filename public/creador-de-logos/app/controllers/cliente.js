@@ -27,49 +27,46 @@ angular.module("disenador-de-logos")
     /* *************** */
 
     this.datos = [];
-    this.estado = false;
 
     /* EFECTO HOVER */
-    
-    this.datos ={indice: '', estado: ''};
 
     this.efectoHover = function (indice, valor) {
 
         if (!this.datos[indice]) {
 
-            this.datos.indice[indice] = valor;
-            this.datos.estado = true;
+            this.datos[indice] = valor;
+            this.lGuardados[indice].estado = true;
 
         } else {
 
-            delete this.datos.indice[indice];
-            this.datos.estado = false;
+            delete this.datos[indice];
+            this.lGuardados[indice].estado = false;
         }
 
     }
-    
+
     /* LISTAR LOGOS */
-    
-    
+
+
     bz.lGuardados;
-    bz.lDescargados;
-    
+    bz.lComprados;
+
     bz.mostrarG = function (id) {
-        logosService.mostrarGuardados(id).then(function(res){
+        logosService.mostrarGuardados(id).then(function (res) {
             bz.lGuardados = res.data;
-        }).catch(function(res){
-            
+        }).catch(function (res) {
+
         })
     }
 
     bz.mostrarD = function (id) {
-        logosService.mostrarDescargables(id).then(function(res){
-            bz.lDescargados = res.data;
-        }).catch(function(res){
-            
+        logosService.mostrarDescargables(id).then(function (res) {
+            bz.lComprados= res.data;
+        }).catch(function (res) {
+
         })
     }
-     
+
     bz.mostrarD(1);
     bz.mostrarG(1);
 

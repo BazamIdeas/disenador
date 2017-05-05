@@ -80,6 +80,24 @@
         transition: all ease-in 0.1s;
         transition-delay: 0s;
     }
+
+    /* Iconos de la vista CLIENTE */
+    
+    .iconos-cliente.ng-hide {
+        opacity: 1;
+        top: -20;
+    }
+    
+    .iconos-cliente.ng-hide-add {
+        transition: all ease-out 0.1s;
+    }
+    
+    .iconos-cliente.ng-hide-remove {
+        transition: all ease-in 0.1s;
+        transition-delay: 0s;
+    }
+
+
     
     .color-animacion {
         /* transform: scale(0); */

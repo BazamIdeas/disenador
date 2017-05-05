@@ -113,7 +113,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
     .state({
             name: 'dashboard',
             url: '/area-del-cliente',
-            templateUrl: 'app/views/dashboard.tpl',
+            templateUrl: 'app/views/cliente.tpl',
             controller: 'clienteController as cliente',
             resolve: {
                 "currentAuth": ["Auth", function (Auth) {

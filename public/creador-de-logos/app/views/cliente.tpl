@@ -12,27 +12,23 @@
         
         <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
             <div flex layout="row" layout-align="space-around" layout-wrap layout-padding class="text-center">
-                
-                
-                <div flex="30" ng-repeat="icono in cliente.lDescargados" class="contenedor_logos_proceso cliente-logo" ng-mouseenter="cliente.efectoHover($index, logo)" ng-mouseleave="cliente.efectoHover($index, logo)">
+                <div flex="30" ng-repeat="logo in cliente.lComprados" class="svg-proceso contenedor_logos_proceso proceso-content" ng-mouseenter="cliente.efectoHover($index, logo)" ng-mouseleave="cliente.efectoHover($index, logo)">
                     <div>
-                        <md-icon class="logo_icon" ng-class="editor.datos.iconos[$index].estado" md-svg-src="data:image/svg+xml;base64,{{icono.logo}}"></md-icon>
+                        <md-icon class="logo_icon" md-svg-src="data:image/svg+xml;base64,{{logo.logo}}"></md-icon>
                     </div>
-                    <md-icon class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>
+                    <md-icon class="iconos-cliente" ng-show="logo.estado">create</md-icon>
                 </div>
-                <h1 ng-show="!cliente.lDescargados">No has comprado ningun logo</h1>
-                
-                
+                <h1 ng-show="!cliente.lComprados">No has comprado ningun logo</h1>
             </div>
         </div>
         
         <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
             <div flex layout="row" layout-align="space-around" layout-wrap layout-padding class="text-center">
-                <div flex="30" ng-repeat="icono in cliente.lGuardados" class="contenedor_logos_proceso cliente-logo" ng-mouseenter="cliente.efectoHover($index, logo)" ng-mouseleave="cliente.efectoHover($index, logo)">
+                <div flex="30" ng-repeat="logo in cliente.lGuardados" class="svg-proceso contenedor_logos_proceso proceso-content" ng-mouseenter="cliente.efectoHover($index, logo)" ng-mouseleave="cliente.efectoHover($index, logo)">
                     <div>
-                        <md-icon class="logo_icon" md-svg-src="data:image/svg+xml;base64,{{icono.logo}}"></md-icon>
+                        <md-icon class="logo_icon" md-svg-src="data:image/svg+xml;base64,{{logo.logo}}"></md-icon>
                     </div>
-                    <md-icon class="iconos-procesos siguiente" ng-show="datos.estado">create</md-icon>
+                    <md-icon class="iconos-cliente" ng-show="logo.estado">create</md-icon>
                 </div>
                 
                 <h1 ng-show="!cliente.lGuardados">No has guardado ningun logo</h1>
