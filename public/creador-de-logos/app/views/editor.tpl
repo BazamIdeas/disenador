@@ -5,7 +5,7 @@
     }
 
 </style>
-<div layout layout-fill>
+<div layout layout-fill id="Previsu">
 
 
 
@@ -347,7 +347,7 @@
             </div>
 
             <div>
-                <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu('previsualizar')">
+                <md-button class="md-fab md-primary" ng-click="editor.mostrarDialogo($event)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Previsualizar</md-tooltip>
                     <md-icon class="material-icon">remove_red_eye</md-icon>
                 </md-button>
@@ -361,6 +361,7 @@
             </div>
 
             <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" style="width:40%;" ng-switch="editor.tipoNav">
+                <!--
                 <div ng-switch-when="previsualizar">
                     <md-toolbar class="transparencia">
                         <div class="md-toolbar-tools">
@@ -372,15 +373,12 @@
                         <div class="titulo-prev">
                             <p>DETALLA TU LOGO EN DISTINTAS PLANTILLAS</p>
                         </div>
-                        <!--
-                        <div class="elemento-prev md-whiteframe-2dp" ng-repeat="previsualizar in editor.modeloPrevisualizar" identidad="{{previsualizar.nombre}}" style="background:url('{{previsualizar.url}}')">
 
--->
                         <div class="plantilla">
-                                <div class="layout-padding logo_previsualizar">
-                                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index">
+                            <div class="elemento-prev md-whiteframe-2dp" ng-repeat="previsualizar in editor.modeloPrevisualizar" identidad="{{previsualizar.nombre}}" style="background:url('{{previsualizar.url}}')">
+                                    <bazam-visualizar data-svg="editor.svgFinal">
                                     </bazam-visualizar>
-                                </div>
+                            </div>
                         </div>
                         <div>
                             <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
@@ -389,9 +387,11 @@
 
                     </div>
 
-
-
+                
                 </div>
+
+                -->
+
                 <div ng-switch-when="ayuda">
 
                     <md-toolbar class="transparencia">

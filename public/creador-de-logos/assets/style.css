@@ -989,9 +989,11 @@ bazam-svg-text svg g:nth-child(1) {}
 }
 
 .elemento-prev {
-    height: 50%;
-    width: 100%;
-    background-size: cover !important;
+    height: 48%;
+    width: 76%;
+    margin: auto;
+    background-position-x: 50% !important;
+    background-size: contain !important;
     background-repeat: no-repeat !important;
     margin-bottom: 4%;
     display: flex;

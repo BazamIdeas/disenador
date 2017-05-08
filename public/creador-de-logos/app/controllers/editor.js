@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$sce', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $sce) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$sce', '$mdDialog', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $sce, $mdDialog) {
 
     var bz = this;
 
@@ -15,13 +15,13 @@ angular.module("disenador-de-logos")
         return $base64.decode(icono);
 
     }
-    
-    this.sce = function(sanear){
-        
-        
+
+    this.sce = function (sanear) {
+
+
         //return $sce.getTrusted
-        
-        
+
+
     }
 
     /* LOCAL STORAGE */
@@ -66,7 +66,7 @@ angular.module("disenador-de-logos")
     this.menu = 0;
     this.efectoClick = function (index, elemento) {
         this.menu = index;
-        if (!this.elementosMenu[index]){
+        if (!this.elementosMenu[index]) {
             this.elementosMenu[index].estado = 'activo';
         } else {
             this.elementosMenu[index].estado = false;
@@ -161,42 +161,6 @@ angular.module("disenador-de-logos")
     }
 
 
-    /* PREVISUALIZAR */
-
-    bz.modeloPrevisualizar = [
-        {
-            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
-        },
-        {
-            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-            nombre: 'carta'
-        }, {
-            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-            nombre: 'carta'
-        }, {
-            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
-        },
-        {
-            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
-        },
-        {
-            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-            nombre: 'carta'
-        }, {
-            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-            nombre: 'carta'
-        }, {
-            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
-        },
-        {
-            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
-        }
-    ]
 
 
     ///////////////////////////////////////
@@ -305,20 +269,86 @@ angular.module("disenador-de-logos")
         bz.propiedadesTexto[propiedad] = (bz.propiedadesTexto[propiedad]) ? false : true;
 
     }
-    
-    
+
+
     /////////////////////////////////////////////////////////////////////////
     ////Disparar el guardado de un svg como copia de comparacion/////////////
     /////////////////////////////////////////////////////////////////////////
-    
+
     bz.comparaciones = [];
 
     bz.comparar = true;
-    
-    bz.realizarComparacion = function(valor){
+
+    bz.realizarComparacion = function (valor) {
         bz.menu = 3;
         bz.comparar = (valor) ? false : true;
-        
+
+    }
+
+    /* PREVISUALIZAR */
+    
+     bz.modeloPrevisualizar = [
+        {
+            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
+            nombre: 'carta'
+        }, {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        },
+        {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta'
+        }
+    ]
+
+    bz.mostrarDialogo = function (ev) {
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: 'app/views/dialogos/previsualizar.tpl',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: $scope.customFullscreen
+        })
+    };
+
+    function DialogController($scope, $mdDialog, LS) {
+        $scope.svgD = bz.svgFinal;
+        $scope.modeloPrev = bz.modeloPrevisualizar;
+
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function (llave, datos) {
+            $mdDialog.cancel();
+            LS.definir(llave, datos);
+        };
+
+        $scope.answer = function (answer) {
+            $mdDialog.hide(answer);
+        };
     }
 
 }])

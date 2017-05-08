@@ -9,8 +9,8 @@ angular.module("disenador-de-logos")
 
     Auth.$onAuthStateChanged(function (firebaseUser) {
         bz.autorizado = firebaseUser;
-        bz.mostrarC(bz.autorizado.j);
-        bz.mostrarG(bz.autorizado.j);
+        bz.mostrarC(bz.autorizado.Pd);
+        bz.mostrarG(bz.autorizado.Pd);
     });
 
     /* LOCAL STORAGE */
