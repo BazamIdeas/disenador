@@ -75,7 +75,7 @@ angular.module("disenador-de-logos")
 
 
         datos = {
-            token: Auth.$getAuth().j,
+            token: Auth.$getAuth().auth,
             idElemento: idElemento,
             logo: logoSVG,
             idPrecio: 1,
@@ -316,7 +316,7 @@ angular.module("disenador-de-logos")
             estado: estado,
             logo: logo,
             tipoLogo: tipoLogo,
-            token: firebaseUser.j,
+            token: firebaseUser.auth,
             idElemento: idElemento,
         }
         console.log(datos)
