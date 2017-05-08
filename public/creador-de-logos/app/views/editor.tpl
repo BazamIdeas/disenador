@@ -285,8 +285,8 @@
                     <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
 
 
-                    <md-icon md-svg-src="data:image/svg+xml, {{ editor.sce(comparacion) }}" ng-repeat="comparacion in editor.comparaciones track by $index">
-                    </md-icon>
+                    <bazam-visualizar data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index">
+                    </bazam-visualizar>
 
                    
                 </div>
