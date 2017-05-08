@@ -63,7 +63,9 @@ angular.module("disenador-de-logos")
             escala: "=escala",
             cursive: "=cursive",
             bold: "=bold",
-            svgFinal: "=svgFinal"
+            svgFinal: "=svgFinal",
+            comparaciones: "=comparaciones",
+            comparar: "=comparar"
 
         },
         controller: function ($scope)
@@ -157,8 +159,7 @@ angular.module("disenador-de-logos")
 
                 //agregamos el svg a la variable de compra
                 scope.svgFinal = element.html();
-                
-                console.log(scope.svgFinal)
+
 
                 //evento para los hijos directos de seccion-icono
                 element.find("g[data-seccion-icono] > [data-indice]").on("click", function () {
@@ -360,11 +361,31 @@ angular.module("disenador-de-logos")
                         //agregamos el svg a la variable de compra
                         scope.svgFinal = element.html();
                         
-                        
-                        console.log(scope.svgFinal)
+                      
 
                     }
 
+                })
+                
+                
+                /////////////////////////////////////////////////////
+                ////// Vigilamos si debemos comparar/////////////////
+                /////////////////////////////////////////////////////
+                
+                
+                
+                scope.$watch("comparar", function(nuevoValor, viejoValor){
+                    
+                    
+                    if (nuevoValor !== viejoValor) {
+                     
+                        
+                        scope.comparaciones.push(scope.svgFinal);
+                        
+                        
+                    }
+                    
+                    
                 })
 
             }

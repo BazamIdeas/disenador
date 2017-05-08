@@ -50,6 +50,7 @@ angular.module("disenador-de-logos")
         if (valido) {
             
             clientesService.login(metodo, datos).then(function (res) {
+                
 
                 if ($stateParams.destino) {
 
@@ -63,7 +64,7 @@ angular.module("disenador-de-logos")
                     }
 
                 } else {
-                    console.log("algo")
+                    console.log("params vacios")
 
                 }
 

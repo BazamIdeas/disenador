@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <div class="menu-link menu-desactivado"  ng-class="editor.menuActivo">
+            <div class="menu-link menu-desactivado" ng-class="editor.menuActivo">
                 <!-- ng-click="editor.menuItem(4)" -->
                 <div>
                     <md-icon>font_download</md-icon>
@@ -259,7 +259,7 @@
                         </color-picker>
                     </div>
                 </div>
-                
+
                 <div>
                     <div>
                         <h4>Categoria</h4>
@@ -283,6 +283,12 @@
                 <div layout layout-align="space-between">
                     <h4>Mis Comparaciones</h4>
                     <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
+
+
+                    <md-icon md-svg-src="data:image/svg+xml, {{ editor.sce(comparacion) }}" ng-repeat="comparacion in editor.comparaciones track by $index">
+                    </md-icon>
+
+                   
                 </div>
 
                 <div class="elemento-prev-editor">
@@ -328,7 +334,7 @@
                     <md-icon class=" material-icon">save</md-icon>
                 </md-button>
             </div>
-            <!--             logoSvg64: 'jvgdjvjdgsjgsrh', idFuente: null, idPrecio: 1, idIcono: null, tipoLogo: null-->
+
             <div ui-sref="metodo({ logoSvg64: editor.svgFinal, idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo})">
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Comprar</md-tooltip>
@@ -392,11 +398,11 @@
         <div class="cont-logo-editor" ng-class="editor.fondo">
             <div id="logo-share" class="logo-editor">
 
-                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente.nombre" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal"></bazam-svg>
+                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente.nombre" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar"></bazam-svg>
             </div>
         </div>
         <div style="position: absolute; top: 0;">
-            <md-button class="md-raised md-primary" ng-click="editor.guardar('comparar')">
+            <md-button class="md-raised md-primary" ng-click="editor.realizarComparacion(editor.comparar)">
                 <md-tooltip md-direction="right" md-visible="tooltipVisible">Comparar</md-tooltip>
                 <md-icon>filter</md-icon>
             </md-button>
