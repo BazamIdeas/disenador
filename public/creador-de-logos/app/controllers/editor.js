@@ -10,9 +10,15 @@ angular.module("disenador-de-logos")
         bz.autorizado = firebaseUser;
     });
 
-    this.base64 = function (icono) {
+    bz.base64 = function (icono) {
 
         return $base64.decode(icono);
+
+    }
+    
+    bz.codificar = function (icono) {
+
+        return $base64.encode(icono);
 
     }
 
@@ -148,6 +154,8 @@ angular.module("disenador-de-logos")
     /* LOGOS */
 
     bz.gLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
+        
+        logo = bz.codificar(logo);
 
         if (firebaseUser) {
 
@@ -290,35 +298,39 @@ angular.module("disenador-de-logos")
      bz.modeloPrevisualizar = [
         {
             url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
+            nombre: 'carta',
+            ancho: '80%'
         },
         {
             url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-            nombre: 'carta'
+            nombre: 'carta',
+            ancho: '80%'
         }, {
             url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-            nombre: 'carta'
+            nombre: 'carta',
+            ancho: '55%'
         }, {
             url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
+            nombre: 'carta',
+            ancho: '80%'
         },
         {
             url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
+            nombre: 'carta',
+            ancho: '80%'
         },
         {
             url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-            nombre: 'carta'
+            nombre: 'carta',
+            ancho: '80%'
         }, {
             url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-            nombre: 'carta'
+            nombre: 'carta',
+            ancho: '55%'
         }, {
             url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
-        },
-        {
-            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta'
+            nombre: 'carta',
+            ancho: '80%'
         }
     ]
 

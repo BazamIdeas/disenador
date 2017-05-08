@@ -26,7 +26,8 @@
             <div flex layout="row" layout-align="space-around" layout-wrap layout-padding class="text-center">
                 <div flex="30" ng-repeat="logo in cliente.lGuardados" class="svg-proceso contenedor_logos_proceso proceso-content" ng-mouseenter="cliente.efectoHoverG($index, logo)" ng-mouseleave="cliente.efectoHoverG($index, logo)">
                     <div>
-                        <md-icon class="logo_icon" md-svg-src="data:image/svg+xml;base64,{{logo.logo}}"></md-icon>
+                        <bazam-visualizar class="logo_icon" data-svg="cliente.base64(logo.logo)">
+                    </bazam-visualizar>
                     </div>
                     <md-icon class="iconos-cliente" ng-show="logo.estado">create</md-icon>
                 </div>
