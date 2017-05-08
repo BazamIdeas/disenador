@@ -55,11 +55,12 @@ exports.comprobarEstadoCliente = function (req, res, next) {
 
     if (configuracion.seguridad){
     var token = req.body.token;
-
+    console.log(token)
 
     admin.auth().verifyIdToken(token)
         .then(function (decodedToken) {
             var uid = decodedToken.uid
+            console.log(uid)
             cliente.obtenerIdCliente(uid,function(error, data)
             {
             //si el cliente existe 
@@ -71,16 +72,16 @@ exports.comprobarEstadoCliente = function (req, res, next) {
         //no existe
             else
             {
-                res.status(500).json({"msg":"error de uid"})
+                res.status(404).json({"msg":"error de uid"})
             }
              });         
             // ...
         }).catch(function (error) {
-            res.status(500).json('fallo');
+            res.status(500).json('fallo al decodificar el token');
         });
     }
     else{
-        req.idCliente = 1;
+        req.idCliente = 3;
         next();
     }
 }
