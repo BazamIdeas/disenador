@@ -55,10 +55,11 @@ exports.comprobarEstadoCliente = function (req, res, next) {
 
     if (configuracion.seguridad){
         var token = req.body.token
-    console.log(token)
+    console.log(req.body)
 
     admin.auth().verifyIdToken(token)
         .then(function (decodedToken) {
+            
             var uid = decodedToken.uid
             console.log(uid)
             cliente.obtenerIdCliente(uid,function(error, data)
