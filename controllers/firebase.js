@@ -54,10 +54,10 @@ exports.autenticarCliente = function (req, res) {
 exports.comprobarEstadoCliente = function (req, res, next) {
 
     if (configuracion.seguridad){
-    var token = req.body.token;
+        var token = req.body.token
     console.log(token)
 
-    admin.auth().verifyIdToken(req.body.token)
+    admin.auth().verifyIdToken(token)
         .then(function (decodedToken) {
             var uid = decodedToken.uid
             console.log(uid)
@@ -66,7 +66,8 @@ exports.comprobarEstadoCliente = function (req, res, next) {
             //si el cliente existe 
             if (typeof data !== 'undefined' && data.length > 0)
             {
-                
+                req.idCliente = data[0].idCliente;
+                next()
             }
         //no existe
             else
