@@ -68,12 +68,13 @@ pago.realizarPago = function(datos,callback)
         }]
       };
     }
-    //console.log(payment.payer.funding_instruments[0])
-    //console.log(payment.transactions[0].amount)
+    console.log(payment.payer.funding_instruments[0])
+    console.log(payment.transactions[0].amount)
       paypal.payment.create(payment, function (error, payment) {
       if (error) {
         callback(null,{"res":false,"msg":"error al validar los datos"});
         console.log(error);
+          
       } else {
         if(payment.payer.payment_method === 'paypal') {
           console.log(payment);

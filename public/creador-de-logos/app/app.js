@@ -1,4 +1,4 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", '720kb.socialshare', "paypal-button"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
 
 .config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider) {
 
@@ -102,17 +102,18 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 datos: null
             }
         })
-        .state({
-            name: 'login',
-            url: '/login',
-            templateUrl: 'app/views/login.tpl',
-            controller: 'loginController as login'
-        })
+
+    .state({
+        name: 'login',
+        url: '/login',
+        templateUrl: 'app/views/login.tpl',
+        controller: 'loginController as login'
+    })
 
     .state({
             name: 'dashboard',
             url: '/area-del-cliente',
-            templateUrl: 'app/views/dashboard.tpl',
+            templateUrl: 'app/views/cliente.tpl',
             controller: 'clienteController as cliente',
             resolve: {
                 "currentAuth": ["Auth", function (Auth) {
@@ -139,7 +140,30 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             name: 'metodo',
             url: '/metodo-de-pago',
             templateUrl: 'app/views/metodo-de-pago.tpl',
+            params: {
+
+                logoSvg64: null,
+                idFuente: null,
+                idPrecio: 1,
+                idIcono: null,
+                tipoLogo: null
+
+            },
             controller: 'metodosController as metodo',
+            resolve: {
+                "currentAuth": ["Auth", function (Auth) {
+                    // $requireSignIn returns a promise so the resolve waits for it to complete
+                    // If the promise is rejected, it will throw a $stateChangeError (see above)
+                    return Auth.$requireSignIn();
+
+                    }]
+            }
+        })
+        .state({
+            name: 'administrar',
+            url: '/administrar',
+            templateUrl: 'app/views/administrarLogo.tpl',
+            controller: 'administrarController as administrar',
             resolve: {
                 "currentAuth": ["Auth", function (Auth) {
                     // $requireSignIn returns a promise so the resolve waits for it to complete
@@ -174,7 +198,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         if (error === "AUTH_REQUIRED") {
 
 
-            $state.go("login");
+            $state.go("login", ({
+                origen: fromState.name,
+                destino: toState.name,
+                parametrosDestino: toParams
+            }));
         }
     });
 })

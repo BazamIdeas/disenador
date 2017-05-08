@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="ir-editor">
+        <div class="ir-editor md-whiteframe-2dp">
             <md-icon ui-sref="editor" class="material-icon">keyboard_arrow_left</md-icon>
         </div>
     </div>

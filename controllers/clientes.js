@@ -82,11 +82,11 @@ exports.nuevoCliente =  function(req,res,next)
 		cliente.insertCliente(clienteData,function(error, data)
 		{
 			//si el cliente se ha insertado correctamente mostramos su info
-			if(data && data)
+			if(data && data.insertId)
 			{
 
 				
-				next();
+				res.status(200).json(data.insertId)
 			}
 			else
 			{

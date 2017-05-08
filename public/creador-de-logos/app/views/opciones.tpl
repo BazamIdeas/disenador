@@ -1,28 +1,19 @@
 <style ng-repeat="fuente in opciones.datosEstadoAnterior.respuesta.fuentes">
     @font-face {
-        font-family: {{fuente.nombre }};
-    src: url('{{fuente.url}}');}
+        font-family: '{{fuente.nombre}}';
+        src: url('{{fuente.url}}');
+    }
+
 </style>
 <div layout="column" ng-cloak layout-align="space-between">
     <div layout layout-align="space-between" id="popupContainer" class="margen_inferior">
         <div flex="40">
             <h3 class="titulo_opciones md-whiteframe-2dp" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
         </div>
-        <div flex layout layout-align="end">
-            <md-fab-speed-dial md-open="true" md-direction="left" ng-class="md-fling">
-                <md-fab-trigger>
-                    <md-button aria-label="menu" class="md-fab md-warn">
-                        <md-icon class="text-white">build</md-icon>
-                    </md-button>
-                </md-fab-trigger>
-
-                <md-fab-actions>
-                    <md-button ng-repeat="configuracion in opciones.configuraciones" ng-click="opciones.mostrarDialogos($event, configuracion.nombre, $index)" id-dialogo="configuracion.id" aria-label="configuracion.nombre" class="md-fab md-primary md-mini">
-                        <md-tooltip md-direction="top" md-visible="tooltipVisible" >{{configuracion.nombre}}</md-tooltip>
-                        <md-icon>{{configuracion.icono}}</md-icon>
-                    </md-button>
-                </md-fab-actions>
-            </md-fab-speed-dial>
+        <div flex layout layout-align="end center ">
+            <div ng-repeat="configuracion in opciones.configuraciones" ng-click="opciones.mostrarDialogos($event, configuracion.nombre, $index)" id-dialogo="configuracion.id" class="categorias md-whiteframe-2dp">
+                {{configuracion.nombre}}
+            </div>
         </div>
     </div>
     <div layout layout-align="space-around" class="contenedor-de-logos">

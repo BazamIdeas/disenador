@@ -6,8 +6,8 @@
 
 </style>
 <div layout layout-fill>
-    
-   
+
+
 
     <!-- --------------------------  MENU -------------------------------------- -->
 
@@ -20,7 +20,8 @@
                 </div>
             </div>
 
-            <div class="menu-link" ng-click="editor.menuItem(4)" ng-class="editor.menuActivo">
+            <div class="menu-link menu-desactivado"  ng-class="editor.menuActivo">
+                <!-- ng-click="editor.menuItem(4)" -->
                 <div>
                     <md-icon>font_download</md-icon>
                     <h4>Slogan</h4>
@@ -30,12 +31,6 @@
                 <div>
                     <md-icon>stars</md-icon>
                     <h4>Icono</h4>
-                </div>
-            </div>
-            <div class="menu-link" ng-click="editor.menuItem(3)" ng-class="editor.menuActivo">
-                <div>
-                    <md-icon>color_lens</md-icon>
-                    <h4>Colores</h4>
                 </div>
             </div>
             <div class="menu-link" ng-click="editor.menuItem(6)" ng-class="editor.menuActivo">
@@ -54,11 +49,13 @@
         </div>
 
         <div class="elementos" layout-fill>
+            <!---------------->
+            <!---- NOMBRE ----->
+            <!---------------->
             <div class="elemento md-whiteframe-2dp" ng-switch-when="1">
                 <div>
                     <div layout layout-align="space-between">
-                        <h4>Texto</h4>
-                        <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
+                        <h4>MODIFICAR NOMBRE</h4>
                     </div>
                     <md-input-container class="md-block">
                         <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto">
@@ -72,55 +69,71 @@
                     </md-select>
                 </div>
 
-                <div>
-                    <h4>Tamaño</h4>
-                    <div layout layout-align="center">
-                        <md-slider flex="90" md-discrete ng-model="editor.nombre.tamano" step="1" min="1" max="30" aria-label="rating">
-                        </md-slider>
-                    </div>
-                </div>
+                <!-- POSICIONES-->
 
                 <div>
                     <h4>Posición</h4>
-                    <div class="x-y ">
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1">X</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.nombre.x" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
+                </div>
 
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1"> Y</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.nombre.y" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
+                <div>
+                    <md-button ng-click="editor.modificarPosicion('x', false , 'texto')">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                    <md-button ng-click="editor.modificarPosicion('y', false, 'texto')">
+                        <md-icon>keyboard_arrow_up</md-icon>
+                    </md-button>
 
-                    </div>
+
+                    <md-button ng-click="editor.modificarPosicion('y', true, 'texto')">
+                        <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                    <md-button ng-click="editor.modificarPosicion('x', true, 'texto')">
+                        <md-icon>keyboard_arrow_right</md-icon>
+                    </md-button>
+                </div>
+
+                <div>
+                    <h4>Tamaño</h4>
+                </div>
+                <div layout class="mas-menos">
+                    <md-button ng-click="editor.modificarTamano(editor.tamano, true)">
+                        +
+                    </md-button>
+                    <md-button ng-click="editor.modificarTamano(editor.tamano, false)">
+                        -
+                    </md-button>
                 </div>
                 <div>
                     <h4>Propiedades</h4>
                     <div class="propiedades">
-                        <div class="bold">
+                        <div class="bold" ng-click="editor.modificarPropiedadTexto('bold')">
                             <p>Bold</p>
                         </div>
-                        <div class="cursiva">
+                        <div class="cursiva" ng-click="editor.modificarPropiedadTexto('cursive')">
                             <p>Cursiva</p>
                         </div>
                     </div>
                 </div>
+                <div>
+                    <div layout layout-align="space-between">
+                        <h4>Edita el Color</h4>
+                    </div>
+                    <div layout layout-align="center">
+                        <color-picker ng-model="editor.colorTexto" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        </color-picker>
+                    </div>
+                </div>
             </div>
-            <!-- Fin elemento -->
+
+            <!---------------->
+            <!---- SLOGAN ---->
+            <!---------------->
+
+
             <div class="elemento md-whiteframe-2dp" ng-switch-when="4">
                 <div>
                     <div layout layout-align="space-between">
-                        <h4>Texto</h4>
-                        <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
+                        <h4>MODIFICAR SLOGAN</h4>
                     </div>
                     <md-input-container class="md-block">
                         <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto">
@@ -134,36 +147,39 @@
                     </md-select>
                 </div>
 
-                <div>
-                    <h4>Tamaño</h4>
-                    <div layout layout-align="center center">
-                        <md-slider flex="90" md-discrete ng-model="editor.slogan.tamano" step="1" min="1" max="20" aria-label="rating">
-                        </md-slider>
-                    </div>
-                </div>
+                <!-- POSICIONES-->
 
                 <div>
                     <h4>Posición</h4>
-                    <div class="x-y ">
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1">X</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.nombre.x" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
+                </div>
 
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1"> Y</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.nombre.y" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
+                <div>
+                    <md-button>
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                    <md-button>
+                        <md-icon>keyboard_arrow_up</md-icon>
+                    </md-button>
 
-                    </div>
+
+                    <md-button>
+                        <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                    <md-button>
+                        <md-icon>keyboard_arrow_right</md-icon>
+                    </md-button>
+                </div>
+
+                <div>
+                    <h4>Tamaño</h4>
+                </div>
+                <div layout class="mas-menos">
+                    <md-button>
+                        +
+                    </md-button>
+                    <md-button>
+                        -
+                    </md-button>
                 </div>
 
                 <div>
@@ -177,38 +193,74 @@
                         </div>
                     </div>
                 </div>
+
+                <div>
+                    <div layout layout-align="space-between">
+                        <h4>Edita el Color</h4>
+                    </div>
+                    <div layout layout-align="center">
+                        <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        </color-picker>
+                    </div>
+                </div>
             </div>
 
-            <!-- Fin elemento -->
+            <!---------------->
+            <!---- ICONO ----->
+            <!---------------->
 
             <div class="elemento md-whiteframe-2dp" ng-switch-when="2">
+
                 <div layout layout-align="space-between">
+                    <h4>MODIFICAR ICONO</h4>
+                </div>
+
+                <!-- POSICIONES-->
+
+                <div>
                     <h4>Posición</h4>
-                    <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
                 </div>
 
                 <div>
-                    <div class="x-y ">
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1">X</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.logo.x" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
+                    <md-button ng-click="editor.modificarPosicion('x', false , 'icono')">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                    <md-button ng-click="editor.modificarPosicion('y', false, 'icono')">
+                        <md-icon>keyboard_arrow_up</md-icon>
+                    </md-button>
 
-                        <div layout>
-                            <div flex layout layout-align="center center">
-                                <span class="md-body-1"> Y</span>
-                            </div>
-                            <md-slider flex="70" md-discrete ng-model="editor.logo.y" step="1" min="1" max="200" aria-label="rating">
-                            </md-slider>
-                            <span flex> </span>
-                        </div>
 
+                    <md-button ng-click="editor.modificarPosicion('y', true, 'icono')">
+                        <md-icon>keyboard_arrow_down</md-icon>
+                    </md-button>
+                    <md-button ng-click="editor.modificarPosicion('x', true, 'icono')">
+                        <md-icon>keyboard_arrow_right</md-icon>
+                    </md-button>
+                </div>
+
+                <div>
+                    <h4>Tamaño</h4>
+                </div>
+                <div layout class="mas-menos">
+                    <md-button ng-click="editor.modificarEscala(editor.escala, true)">
+                        +
+                    </md-button>
+                    <md-button ng-click="editor.modificarEscala(editor.escala, false)">
+                        -
+                    </md-button>
+                </div>
+
+                <div>
+                    <div layout layout-align="space-between">
+                        <h4>Edita el Color</h4>
                     </div>
-
+                    <div layout layout-align="center">
+                        <color-picker ng-model="editor.colorIcono" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        </color-picker>
+                    </div>
+                </div>
+                
+                <div>
                     <div>
                         <h4>Categoria</h4>
                     </div>
@@ -227,28 +279,14 @@
 
             <!-- Fin elemento -->
 
-            <div class="elemento md-whiteframe-2dp" ng-switch-when="3">
-                <div layout layout-align="space-between">
-                    <h4>Edita el Color</h4>
-                    <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
-                </div>
-                <div layout layout-align="center">
-                    <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
-                    </color-picker>
-                </div>
-                <p class="elemento-texto-ayuda">*Selecciona el elemento al que quieres cambiar de color</p>
-            </div>
-
-            <!-- Fin elemento -->
-
             <div class="elemento md-whiteframe-2dp" ng-switch-when="6">
                 <div layout layout-align="space-between">
                     <h4>Mis Comparaciones</h4>
                     <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
                 </div>
 
-                <div class="elemento-prev">
-                    <md-icon ng-repeat="comparador in editor.comparadores track by $index" class="logo_comparar icono md-whiteframe-2dp" md-svg-src="data:image/svg+xml;base64,{{comparador}}" ng-click="editor.recuperar(comparador)"></md-icon>
+                <div class="elemento-prev-editor">
+
                 </div>
             </div>
         </div>
@@ -285,25 +323,62 @@
                 </md-fab-speed-dial>
             </div>
             <div>
-                <md-button class="md-fab md-primary">
+                <md-button class="md-fab md-primary" ng-click="editor.gLogo( null, 'Editable', editor.logo.icono.svg, editor.logo.icono.tipo, editor.autorizado, editor.logo.icono.idElemento)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Guardar</md-tooltip>
                     <md-icon class=" material-icon">save</md-icon>
                 </md-button>
             </div>
-            <div ui-sref="metodo">
+            <!--             logoSvg64: 'jvgdjvjdgsjgsrh', idFuente: null, idPrecio: 1, idIcono: null, tipoLogo: null-->
+            <div ui-sref="metodo({ logoSvg64: editor.logo.icono.svg, idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo})">
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Comprar</md-tooltip>
-                    <md-icon class=" material-icon">shopping_cart</md-icon>
+                    <md-icon class="material-icon">shopping_cart</md-icon>
                 </md-button>
             </div>
 
             <div>
-                <md-button class="md-fab md-primary">
-                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Ayuda</md-tooltip>
-                    <md-icon ng-click="editor.cambiarMenu()" class="material-icon">help_outline</md-icon>
+                <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu(previsualizar)">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Previsualizar</md-tooltip>
+                    <md-icon class="material-icon">remove_red_eye</md-icon>
                 </md-button>
             </div>
-            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="previsualizar" style="width:40%;">
+                <md-toolbar class="transparencia">
+                    <div class="md-toolbar-tools">
+                        <div>PREVISUALIZAR</div>
+                    </div>
+                </md-toolbar>
+
+                <div flex layout="column" ng-cloak class="gradient previsualizar">
+                    <div class="titulo-prev">
+                        <p>DETALLA TU LOGO EN DISTINTAS PLANTILLAS</p>
+                    </div>
+                    <div class="plantilla">
+                        <div class="elemento-prev md-whiteframe-2dp" ng-repeat="previsualizar in editor.modeloPrevisualizar" identidad="{{previsualizar.nombre}}" style="background:url('{{previsualizar.url}}')">
+                            <div class="layout-padding logo_previsualizar">
+                                <!--<md-icon md-svg-src="data:image/svg+xml;base64,{{prev.svg}}"></md-icon>-->
+                            </div>
+                            <div>
+                                <texto>{{prev.texto}}</texto>
+                            </div>
+                        </div>
+
+                        <div>
+                            <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
+                        </div>
+                    </div>
+                </div>
+            </md-sidenav>
+
+            <div>
+                <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu(ayuda)">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Ayuda</md-tooltip>
+                    <md-icon class="material-icon">help_outline</md-icon>
+                </md-button>
+            </div>
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="ayuda">
                 <md-toolbar class="transparencia">
                     <div class="md-toolbar-tools">
                         <div>AYUDA</div>
@@ -316,23 +391,19 @@
         </div>
         <div class="cont-logo-editor" ng-class="editor.fondo">
             <div id="logo-share" class="logo-editor">
-                <bazam-svg-text-2 class="logo_grande_editor" bazam-svg-text-pos data-icono="{{editor.base64(editor.logo.icono.svg)}}" data-fuente="{{editor.logo.fuente.nombre}}" data-texto-x="{{editor.logo.posicion.coordenadas.x}}" data-texto-y="{{editor.logo.posicion.coordenadas.y}}" data-texto="editor.logo.texto" data-bazam-activo="editor.activo" data-guardar="editor.guardarComparar" data-comparadores="editor.comparadores" data-tipo-guardar="editor.tipoGuardar"></bazam-svg-text-2>
+
+                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente.nombre" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto"></bazam-svg>
             </div>
         </div>
-        <div style="position: absolute;top: 7%;" ui-sref="previsualizar({datos: editor.logo.icono.svg})">
-            <md-button class="md-raised md-primary" >
-                <md-tooltip md-direction="top" md-visible="tooltipVisible">Previsualizar</md-tooltip>
-                <md-icon>remove_red_eye</md-icon>
-            </md-button>
-        </div>
         <div style="position: absolute; top: 0;">
-            <md-button class="md-raised md-primary">
+            <md-button class="md-raised md-primary" ng-click="editor.guardar('comparar')">
                 <md-tooltip md-direction="right" md-visible="tooltipVisible">Comparar</md-tooltip>
                 <md-icon>filter</md-icon>
             </md-button>
         </div>
 
         <div class="tono-background" style="position: absolute;">
+            <div class="regilla" ng-click="editor.fondo='regilla'">.</div>
             <div class="negro" ng-click="editor.fondo='negro'">.</div>
             <div class="blanco" ng-click="editor.fondo='blanco'">.</div>
         </div>

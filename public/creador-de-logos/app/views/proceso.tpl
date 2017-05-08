@@ -21,7 +21,6 @@
                         <bazam-svg-text bazam-svg-text-pos data-icono="{{proceso.base64(logo.icono.svg)}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{proceso.posicion.coordenadas.x}}" data-texto-y="{{proceso.posicion.coordenadas.y}}" data-texto="{{proceso.datosEstadoAnterior.nombre}}"></bazam-svg-text>
                     </div>
                     <md-icon ui-sref="editor({logo:logo, posicion: proceso.posicion, texto: proceso.datosEstadoAnterior.nombre})" class="iconos-procesos siguiente" ng-show="logo.estado">create</md-icon>
-                    <md-icon ui-sref="paquetes" class="iconos-procesos siguiente icono-p-p" ng-show="logo.estado">shopping_cart</md-icon>
                 </div>
             </div>
         </div>

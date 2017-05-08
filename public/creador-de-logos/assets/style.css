@@ -22,18 +22,6 @@ header md-toolbar {
     cursor: pointer;
 }
 
-ingresar:hover,
-registro:hover,
-.titulo:hover {
-    color: orangered;
-}
-
-footer {
-    font-size: 12px;
-    background-color: rgb(40, 53, 147);
-    color: white;
-}
-
 .titulo {
     cursor: pointer;
 }
@@ -114,7 +102,7 @@ md-content {
     border: 1px solid white;
 }
 
-.tipo-logo:hover {
+.metodo-de-pago .tipo-logo:hover {
     border: 1px solid #4d2828;
 }
 
@@ -147,13 +135,18 @@ img.imagen-loader {
     font-size: 70px;
 }
 
-.radio-f md-radio-button .md-off,
-.radio-f md-radio-button .md-on {
-    <
+.radio-f {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
 }
 
-.radio-f md-radio-button .md-ripple-container {
-    display: none !important;
+.menu-desactivado {
+    background: #bdbfcc;
+}
+
+.menu-desactivado:hover {
+    background: #bdbfcc !important;
 }
 
 
@@ -218,6 +211,17 @@ bazam-svg-text svg {
     width: 100%;
     height: 80%;
     overflow: visible;
+}
+
+.categorias {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 4%;
+    padding: 8px;
+    font-size: 20px;
+    color: #f44336;
+    cursor: pointer;
 }
 
 .text-white {
@@ -356,10 +360,16 @@ metodo_pago p_header {
     background: silver;
 }
 
-.credito {
-    background-color: #eeecec;
-    color: silver;
-    padding: 2%;
+.credito p {
+    color: #0081c2;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 0;
+}
+
+footer {
+    background: #283593;
+    color: white;
 }
 
 
@@ -376,8 +386,67 @@ metodo_pago p_header {
     top: 4%;
 }
 
+.cliente-logo {
+    transition: background ease-in 0.3s;
+}
+
+.cliente-logo:hover {
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.iconos-cliente {
+    position: absolute;
+    right: 39%;
+    top: 30%;
+    opacity: 1;
+    z-index: 99999;
+    border-radius: 50%;
+    color: white;
+    background: #0081c2;
+    font-size: 35px;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    transition: color 0.3s;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    padding: 4%;
+}
+
 
 /* EDITOR */
+
+.previsualizar {}
+
+.mas-menos div {
+    width: auto;
+    justify-content: center;
+    font-size: 40px;
+    height: auto;
+    margin: 1%;
+    color: rgba(0, 0, 0, 0.54);
+    background-color: rgba(158, 158, 158, 0.33);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+}
+
+.mas-menos div:hover {
+    background-color: #3F51B5;
+}
+
+.mas-menos div {
+    width: 30%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mas-menos .md-button .md-ripple-container {
+    width: 100%;
+}
+
+.padding {
+    padding-left: 0 !important;
+}
 
 .contenedor-editor {
     display: flex;
@@ -413,8 +482,7 @@ metodo_pago p_header {
 }
 
 .logo-editor {
-    width: 40%;
-    margin-top: 2%;
+    width:100%;
 }
 
 .edicion {
@@ -439,7 +507,7 @@ metodo_pago p_header {
 }
 
 .menu {
-    width: 50%;
+    width: 60%;
     display: flex;
 }
 
@@ -554,7 +622,7 @@ md-input-container.color-animacion .md-input {
 .elemento input,
 .elemento .md-select-value,
 .elemento h4 {
-    padding-left: 5% !important;
+    padding-left: 5%;
 }
 
 .elemento md-select.md-default-theme:not([disabled]):focus .md-select-value,
@@ -611,27 +679,29 @@ md-input-container.color-animacion .md-input {
     justify-content: space-around;
     margin-bottom: 6px;
     margin-right: .5%;
-    width: 11%;
+    width: 18%;
+}
+.tono-background .negro, .tono-background .blanco, .tono-background .regilla{
+    width: 60px;
+    height: 40px;
+    border-radius: 5px;
+    color: transparent;
+    cursor: pointer;
 }
 
 .tono-background .negro {
     background: black;
-    width: 60px;
-    height: 30px;
     border: 4px solid #262829;
-    border-radius: 5px;
-    color: transparent;
-    cursor: pointer;
+}
+
+.tono-background .regilla{
+   background-image:url(img/Recurso%201.png) !important;
+   border: 4px solid #ffffff;
 }
 
 .tono-background .blanco {
     background: silver;
-    width: 60px;
-    height: 30px;
     border: 4px solid #ffffff;
-    border-radius: 5px;
-    color: transparent;
-    cursor: pointer;
 }
 
 .cont-logo-editor.negro {
@@ -674,7 +744,7 @@ md-input-container.color-animacion .md-input {
 }
 
 .proceso-content:hover {
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .7);
 }
 
 .proceso-content:hover .cambio {
@@ -691,20 +761,21 @@ md-input-container.color-animacion .md-input {
 
 .iconos-procesos {
     position: absolute;
-    left: 30%;
-    top: 40%;
+    right: 39%;
+    top: 38%;
     color: brown;
     opacity: 1;
     z-index: 99999;
+    border-radius: 50%;
     color: white;
+    background: #0081c2;
     font-size: 35px;
-    margin-right: 5%;
+    width: auto;
+    height: auto;
     cursor: pointer;
     transition: color 0.3s;
-}
-
-.iconos-procesos:hover {
-    color: orangered;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    padding: 4%;
 }
 
 
@@ -846,26 +917,41 @@ bazam-svg-text svg g:nth-child(1) {}
 
 .elemento-prev {
     height: 50%;
-    width: 30%;
+    width: 100%;
     background-size: cover !important;
     background-repeat: no-repeat !important;
-    margin-bottom: 1%;
+    margin-bottom: 4%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.elemento-prev-editor {
+    width: 90%;
+    flex-direction: column;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
 .ir-editor {
-    background: silver;
+    background: #eae5e5;
     border-radius: 50%;
     color: white;
-    padding: 0.3%;
+    padding: 0.8%;
     position: absolute;
-    top: 50%;
+    top: 3%;
     -webkit-animation: boton-prev-2 .8s linear 0s infinite alternate;
     -moz-animation: boton-prev-2.8s linear 0s infinite alternate;
     -o-animation: boton-prev-2.8s linear 0s infinite alternate;
     animation: boton-prev-2 .8s linear 0s infinite alternate;
+}
+
+.ir-editor:hover {
+    background: #d3d3d3;
 }
 
 @-moz-keyframes boton-prev-2 {
@@ -917,5 +1003,78 @@ bazam-svg-text svg g:nth-child(1) {}
 .titulo-prev p {
     text-align: center;
     color: #03A9F4;
-    font-size: 2.4pc;
+    font-size: 1pc;
+}
+
+
+/* ADMINISTRAR */
+
+.logo-datos {
+    WIDTH: 100%;
+    display: flex;
+}
+
+.logo-datos md-icon {
+    height: 30%;
+    width: 50%;
+    margin: auto;
+}
+
+.titulo-adm p {
+    padding: 10px;
+    text-align: center;
+    color: white;
+    background: #283593;
+    margin: 0;
+}
+
+.colores {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.color {
+    display: flex;
+    justify-content: space-between;
+}
+
+.color .barra {
+    width: 25%;
+    background-color: #E91E63;
+    color: transparent;
+}
+
+.fuente-adm p {
+    margin: 0;
+}
+
+.fuente-adm> :last-child {
+    text-align: center;
+}
+
+.logos-tamanos {
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    padding: 0;
+    height: 400px;
+    overflow: auto;
+}
+
+.logos-tamanos md-icon {
+    height: 25%;
+    width: 100%;
+    margin: auto;
+}
+
+.parte-gris {
+    background: silver;
+    width: 40%;
+    text-align: center;
+    padding: 8px;
+}
+
+.tit,
+.administrar-logo {
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    background: rgb(250, 250, 250);
 }
