@@ -99,7 +99,7 @@ angular.module("disenador-de-logos")
 
         }).catch(function (res) {
 
-            deferred.reject(res);
+            defered.reject(res);
 
         })
 

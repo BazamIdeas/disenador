@@ -12,13 +12,13 @@
 
             <div class="plantilla">
                 <div class="elemento-prev md-whiteframe-2dp" ng-repeat="previsualizar in modeloPrev" identidad="{{previsualizar.nombre}}" style="background:url('{{previsualizar.url}}')">
-                    <bazam-visualizar data-svg="svgD">
+                    <bazam-visualizar data-svg="svgD" style="width:{{previsualizar.ancho}};">
                     </bazam-visualizar>
                 </div>
             </div>
             <div layout class="margen_superior">
                 <div layout="row" flex layout-align="end">
-                    <md-button class="md-primary  md-accent" ng-click="cancel()">Cerrar</md-button>
+                    <md-button class="md-primary  md-raised" ng-click="cancel()">Cerrar</md-button>
                 </div>
             </div>
     </md-dialog-content>

@@ -3,9 +3,15 @@ angular.module("disenador-de-logos")
 
 /* Cliente */
 
-.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'currentAuth', 'logosService', '$state', 'LS', "Auth", function ($scope, $mdDialog, $stateParams, currentAuth, logosService, $state, LS, Auth) {
+.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'currentAuth', 'logosService', '$state', 'LS', "Auth", '$base64', function ($scope, $mdDialog, $stateParams, currentAuth, logosService, $state, LS, Auth, $base64) {
 
     var bz = this;
+
+    bz.base64 = function (icono) {
+
+        return $base64.decode(icono);
+
+    }
 
     Auth.$onAuthStateChanged(function (firebaseUser) {
         bz.autorizado = firebaseUser;
@@ -38,13 +44,13 @@ angular.module("disenador-de-logos")
     /* EFECTO HOVER */
 
     this.efectoHoverG = function (indice, valor) {
-        if(!this.datosGuardados[indice]) {
-            
+        if (!this.datosGuardados[indice]) {
+
             this.datosGuardados[indice] = valor;
             this.lGuardados[indice].estado = true;
-            
+
         } else {
-            
+
             delete this.datosGuardados[indice];
             this.lGuardados[indice].estado = false;
         }

@@ -339,7 +339,7 @@
                 </md-button>
             </div>
 
-            <div ui-sref="metodo({ logoSvg64: editor.svgFinal, idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo})">
+            <div ui-sref="metodo({ logoSvg64: editor.codificar(editor.svgFinal), idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo})">
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Comprar</md-tooltip>
                     <md-icon class="material-icon">shopping_cart</md-icon>
