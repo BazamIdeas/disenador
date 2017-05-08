@@ -62,7 +62,8 @@ angular.module("disenador-de-logos")
             iconoPosicion: "=iconoPosicion",
             escala: "=escala",
             cursive: "=cursive",
-            bold: "=bold"
+            bold: "=bold",
+            svgFinal: "=svgFinal"
 
         },
         controller: function ($scope)
@@ -116,39 +117,48 @@ angular.module("disenador-de-logos")
         },
         link: {
             pre: function (scope, element, attributes) {
-                
-                
-                
+
+
+
                 //encerramos el contenido en el svg
                 element.find("[data-seccion-icono], [data-seccion-texto]").wrapAll(scope.svgTag);
-                
+
                 //viewbox del nuevo svg
                 var viewBox = element.children().attr("viewBox").split(" ");
-                
+
                 //el valor Y se aumenta 20% para permitir la entrada del texto
-                viewBox[3] = parseInt(viewBox[3]) * 1.20;   
-                
+                viewBox[3] = parseInt(viewBox[3]) * 1.20;
+
                 //posicion del texto
-                var posicionTexto = {x: parseInt(viewBox[2]) / 2, y: viewBox[3] * 0.95}
-                
+                var posicionTexto = {
+                    x: parseInt(viewBox[2]) / 2,
+                    y: viewBox[3] * 0.95
+                }
+
                 //el valor X se aumenta x2
                 viewBox[2] = parseInt(viewBox[2]) * 2;
                 viewBox[0] = (-1 * (viewBox[2] * 0.25)) + parseInt(viewBox[0]);
-                
+
                 var viewBoxFinal = viewBox.join(" ");
-                
+
                 element.children().attr("viewBox", viewBoxFinal)
-                
+
                 //buscamos la seccion que contendra el icono y lo agregamos
                 element.find("[data-seccion-icono]").append(scope.seccionInterna);
 
                 //buscamos la seccion que contendra el texto y lo agregamos
-                element.find("[data-seccion-texto]").append("<text x='"+posicionTexto.x+"' y='"+posicionTexto.y+"' text-anchor='middle' style='font-family: " + scope.fuente + ";'>" + scope.texto + "</text>")
+                element.find("[data-seccion-texto]").append("<text x='" + posicionTexto.x + "' y='" + posicionTexto.y + "' text-anchor='middle' style='font-family: " + scope.fuente + ";'>" + scope.texto + "</text>")
 
             },
             post: function (scope, element, attributes) {
 
-                element.html(element.html())
+                //reinsertamos el svg para permitir que se muestre
+                element.html(element.html());
+
+                //agregamos el svg a la variable de compra
+                scope.svgFinal = element.html();
+                
+                console.log(scope.svgFinal)
 
                 //evento para los hijos directos de seccion-icono
                 element.find("g[data-seccion-icono] > [data-indice]").on("click", function () {
@@ -181,10 +191,16 @@ angular.module("disenador-de-logos")
                         //cambiamos el color al correcto
                         element.find("g[data-seccion-icono] > [data-indice=" + indice + "]").css("fill", nuevoValor);
 
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
+
                     }
+
+
+
                 })
-                
-                
+
+
                 ////////////////////////////////////////////
                 //vigilamos el cambio de color del texto////
                 ////////////////////////////////////////////
@@ -194,6 +210,10 @@ angular.module("disenador-de-logos")
 
                         //cambiamos el color al correcto
                         element.find("g[data-seccion-texto] > text:first-child").css("fill", nuevoValor);
+
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
+
 
                     }
                 })
@@ -208,6 +228,10 @@ angular.module("disenador-de-logos")
                         //cambiamos el color al correcto
                         element.find("g[data-seccion-texto] > text:first-child").text(nuevoValor);
 
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
+
+
                     }
                 })
 
@@ -220,6 +244,10 @@ angular.module("disenador-de-logos")
 
                         //cambiamos la font-family al correcto
                         element.find("g[data-seccion-texto] > text:first-child").css("font-family", nuevoValor);
+
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
+
 
                     }
 
@@ -238,6 +266,10 @@ angular.module("disenador-de-logos")
                         //cambiamos la font-family al correcto
                         element.find("g[data-seccion-texto] > text:first-child").css("font-size", tamano + "px");
 
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
+
+
                     }
                 })
 
@@ -250,12 +282,16 @@ angular.module("disenador-de-logos")
 
 
                         element.find("g[data-seccion-texto] > text:first-child").css("transform", "translate(" + nuevoValor.x + "px," + nuevoValor.y + "px )");
+
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
+
                     }
 
 
                 })
 
-                
+
                 ///////////////////////////////////////////////
                 ///vigilamos el cambio de tamaño del icono/////
                 ///////////////////////////////////////////////
@@ -264,6 +300,9 @@ angular.module("disenador-de-logos")
                     if (nuevoValor !== viejoValor) {
 
                         element.find("g[data-seccion-icono]").css("transform", "scale(" + nuevoValor + "," + nuevoValor + ") translate(" + scope.iconoPosicion.x + "px," + scope.iconoPosicion.y + "px)");
+
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
 
                     }
 
@@ -275,18 +314,21 @@ angular.module("disenador-de-logos")
                 scope.$watchCollection("iconoPosicion", function (nuevoValor, viejoValor) {
 
                     if (nuevoValor !== viejoValor) {
-                        
+
                         element.find("g[data-seccion-icono]").css("transform", "scale(" + scope.escala + "," + scope.escala + ") translate(" + nuevoValor.x + "px," + nuevoValor.y + "px)");
+
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
 
                     }
 
                 })
-                
+
                 /////////////////////////////////////////////////
                 ///vigilamos el cambio de grosor del texto///////
                 /////////////////////////////////////////////////
-                
-                 scope.$watch("cursive", function (nuevoValor, viejoValor) {
+
+                scope.$watch("cursive", function (nuevoValor, viejoValor) {
 
                     if (nuevoValor !== viejoValor) {
 
@@ -294,23 +336,32 @@ angular.module("disenador-de-logos")
 
                         element.find("g[data-seccion-texto] > text:first-child").css("font-style", cursiva);
 
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
+
                     }
 
                 })
-                 
-                 
+
+
                 /////////////////////////////////////////////////
                 ///vigilamos el cambio de tematica del texto/////
                 /////////////////////////////////////////////////
-                 
-                 
-                 scope.$watch("bold", function (nuevoValor, viejoValor) {
+
+
+                scope.$watch("bold", function (nuevoValor, viejoValor) {
 
                     if (nuevoValor !== viejoValor) {
-                        
+
                         var grosor = (nuevoValor) ? "bold" : "normal";
 
-                        element.find("g[data-seccion-texto] > text:first-child").css("font-weight", grosor);
+                        element.find("g[data-seccion-texto] > text:first-child").css("font-weight", grosor); 
+                        
+                        //agregamos el svg a la variable de compra
+                        scope.svgFinal = element.html();
+                        
+                        
+                        console.log(scope.svgFinal)
 
                     }
 
@@ -320,4 +371,3 @@ angular.module("disenador-de-logos")
         }
     }
 })
-
