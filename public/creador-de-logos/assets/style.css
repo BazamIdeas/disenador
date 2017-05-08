@@ -462,6 +462,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    overflow: hidden;
     background: rgb(255, 255, 255);
     /* Old browsers */
     background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
@@ -482,7 +483,7 @@ footer {
 }
 
 .logo-editor {
-    width:100%;
+    width: 100%;
 }
 
 .edicion {
@@ -518,7 +519,7 @@ footer {
     color: white;
 }
 
-.menu-editor .menu-link:hover {
+.menu-editor .menu-link:hover, .menu-editor .menu-link.activo {
     background-color: #0081c2;
 }
 
@@ -681,7 +682,10 @@ md-input-container.color-animacion .md-input {
     margin-right: .5%;
     width: 18%;
 }
-.tono-background .negro, .tono-background .blanco, .tono-background .regilla{
+
+.tono-background .negro,
+.tono-background .blanco,
+.tono-background .regilla {
     width: 60px;
     height: 40px;
     border-radius: 5px;
@@ -694,9 +698,13 @@ md-input-container.color-animacion .md-input {
     border: 4px solid #262829;
 }
 
-.tono-background .regilla{
-   background-image:url(img/Recurso%201.png) !important;
-   border: 4px solid #ffffff;
+.regilla {
+    background: url(img/Recurso%201.png);
+}
+
+.tono-background .regilla {
+    background: url(img/Recurso%201.png);
+    border: 4px solid #ffffff;
 }
 
 .tono-background .blanco {
@@ -707,6 +715,71 @@ md-input-container.color-animacion .md-input {
 .cont-logo-editor.negro {
     background: #161515;
 }
+
+.arrows {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.double-arrow {
+    margin: 2% 0;
+}
+
+.arrows button,
+.mas-menos button {
+    margin: .1% 4px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+    background: rgb(58, 141, 183);
+    cursor: pointer;
+    min-height: 36px;
+    min-width:65px;
+    line-height: 36px;
+    vertical-align: middle;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 2px;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+    border: 0;
+    padding: 0 6px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    font-style: inherit;
+    font-variant: inherit;
+    font-family: inherit;
+    text-decoration: none;
+    overflow: hidden;
+    -webkit-transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+    transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+}
+
+.mas-menos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 13%;
+}
+
+.arrows button:hover,
+.mas-menos button:hover {
+   background-color: rgba(58, 141, 183, 0.59);
+}
+
+.arrows md-icon,
+.mas-menos button {
+   color: white;
+}
+
 
 
 /* PROCESO */
