@@ -1007,7 +1007,7 @@ bazam-svg-text svg g:nth-child(1) {}
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin:2% auto;
 }
 
 .ir-editor {

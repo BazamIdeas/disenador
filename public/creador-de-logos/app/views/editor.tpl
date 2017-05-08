@@ -13,7 +13,7 @@
 
     <div class="menu" ng-switch="editor.menu">
         <div class="menu-editor md-whiteframe-2dp">
-            <div class="menu-link" ng-class="elemento.estado" ng-repeat="elemento in editor.elementosMenu" ng-click="editor.efectoClick($index, elemento)">
+            <div class="menu-link {{elemento.estadoF}}" ng-class="elemento.estado" ng-repeat="elemento in editor.elementosMenu" ng-click="editor.efectoClick($index, elemento)">
                 <div>
                     <md-icon>{{elemento.icono}}</md-icon>
                     <h4>{{elemento.nombre}}</h4>
@@ -293,17 +293,10 @@
             <div class="elemento md-whiteframe-2dp" ng-switch-when="3">
                 <div layout layout-align="space-between">
                     <h4>Mis Comparaciones</h4>
-                    <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
-
-
-                    <bazam-visualizar data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index">
-                    </bazam-visualizar>
-
-                   
                 </div>
-
-                <div class="elemento-prev-editor">
-
+                <div layout="column">
+                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index">
+                    </bazam-visualizar>
                 </div>
             </div>
         </div>
@@ -379,17 +372,15 @@
                         <div class="titulo-prev">
                             <p>DETALLA TU LOGO EN DISTINTAS PLANTILLAS</p>
                         </div>
+                        <!--
+                        <div class="elemento-prev md-whiteframe-2dp" ng-repeat="previsualizar in editor.modeloPrevisualizar" identidad="{{previsualizar.nombre}}" style="background:url('{{previsualizar.url}}')">
+
+-->
                         <div class="plantilla">
-                            <div class="elemento-prev md-whiteframe-2dp" ng-repeat="previsualizar in editor.modeloPrevisualizar" identidad="{{previsualizar.nombre}}" style="background:url('{{previsualizar.url}}')">
                                 <div class="layout-padding logo_previsualizar">
-                                    <!--<md-icon md-svg-src="data:image/svg+xml;base64,{{prev.svg}}"></md-icon>-->
+                                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index">
+                                    </bazam-visualizar>
                                 </div>
-                                <div>
-                                    <texto>{{prev.texto}}</texto>
-                                </div>
-                            </div>
-
-
                         </div>
                         <div>
                             <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
@@ -421,7 +412,6 @@
         </div>
         <div class="cont-logo-editor" ng-class="editor.fondo">
             <div id="logo-share" class="logo-editor">
-
                 <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente.nombre" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar"></bazam-svg>
             </div>
         </div>

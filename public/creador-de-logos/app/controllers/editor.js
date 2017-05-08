@@ -50,7 +50,8 @@ angular.module("disenador-de-logos")
         nombre: 'Nombre',
     }, {
         icono: 'font_download',
-        nombre: 'Slogan'
+        nombre: 'Slogan',
+        estadoF: 'menu-desactivado',
     }, {
         icono: 'stars',
         nombre: 'Icono'
@@ -315,7 +316,7 @@ angular.module("disenador-de-logos")
     bz.comparar = true;
     
     bz.realizarComparacion = function(valor){
-        
+        bz.menu = 3;
         bz.comparar = (valor) ? false : true;
         
     }
