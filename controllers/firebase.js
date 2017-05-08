@@ -57,7 +57,7 @@ exports.comprobarEstadoCliente = function (req, res, next) {
     var token = req.body.token;
     console.log(token)
 
-    admin.auth().verifyIdToken(token)
+    admin.auth().verifyIdToken(req.body.token)
         .then(function (decodedToken) {
             var uid = decodedToken.uid
             console.log(uid)
@@ -66,8 +66,7 @@ exports.comprobarEstadoCliente = function (req, res, next) {
             //si el cliente existe 
             if (typeof data !== 'undefined' && data.length > 0)
             {
-                req.idCliente = data.idCliente
-                next();
+                
             }
         //no existe
             else
@@ -77,7 +76,7 @@ exports.comprobarEstadoCliente = function (req, res, next) {
              });         
             // ...
         }).catch(function (error) {
-            res.status(500).json('fallo al decodificar el token');
+            res.status(500).json(error);
         });
     }
     else{
