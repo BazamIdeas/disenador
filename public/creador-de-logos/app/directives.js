@@ -46,7 +46,7 @@ angular.module("disenador-de-logos")
 
 
 
-.directive('bazamSvg', function ($compile, $document) {
+.directive('bazamSvg', function () {
     return {
         restrict: 'AE',
         template: "<g data-seccion-icono></g><g data-seccion-texto></g>",
@@ -63,7 +63,9 @@ angular.module("disenador-de-logos")
             escala: "=escala",
             cursive: "=cursive",
             bold: "=bold",
-            svgFinal: "=svgFinal"
+            svgFinal: "=svgFinal",
+            comparaciones: "=comparaciones",
+            comparar: "=comparar"
 
         },
         controller: function ($scope)
@@ -157,8 +159,7 @@ angular.module("disenador-de-logos")
 
                 //agregamos el svg a la variable de compra
                 scope.svgFinal = element.html();
-                
-                console.log(scope.svgFinal)
+
 
                 //evento para los hijos directos de seccion-icono
                 element.find("g[data-seccion-icono] > [data-indice]").on("click", function () {
@@ -355,19 +356,59 @@ angular.module("disenador-de-logos")
 
                         var grosor = (nuevoValor) ? "bold" : "normal";
 
-                        element.find("g[data-seccion-texto] > text:first-child").css("font-weight", grosor); 
-                        
+                        element.find("g[data-seccion-texto] > text:first-child").css("font-weight", grosor);
+
                         //agregamos el svg a la variable de compra
                         scope.svgFinal = element.html();
-                        
-                        
-                        console.log(scope.svgFinal)
+
+
 
                     }
+
+                })
+
+
+                /////////////////////////////////////////////////////
+                ////// Vigilamos si debemos comparar/////////////////
+                /////////////////////////////////////////////////////
+
+
+
+                scope.$watch("comparar", function (nuevoValor, viejoValor) {
+
+
+                    if (nuevoValor !== viejoValor) {
+
+
+                        scope.comparaciones.push(scope.svgFinal);
+
+
+                    }
+
 
                 })
 
             }
         }
     }
+})
+
+.directive('bazamVisualizar', function () {
+
+    return {
+        restrict: 'AE',
+        scope: {
+
+            svg: "=svg"
+
+        },
+        link: function (scope, element, attributes) {
+            console.log(scope.svg);
+            element.html(scope.svg);
+            element.html(element.html());
+
+
+        }
+    }
+
 })

@@ -73,9 +73,8 @@ angular.module("disenador-de-logos")
         var promise = defered.promise;
 
 
-
         datos = {
-            token: Auth.$getAuth().j,
+            token: Auth.$getAuth().Pd,
             idElemento: idElemento,
             logo: logoSVG,
             idPrecio: 1,
@@ -316,10 +315,9 @@ angular.module("disenador-de-logos")
             estado: estado,
             logo: logo,
             tipoLogo: tipoLogo,
-            token: firebaseUser.j,
+            token: firebaseUser.Pd,
             idElemento: idElemento,
         }
-        console.log(datos)
 
         $http.post("/app/logo/guardar", datos).then(function (res) {
 

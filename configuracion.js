@@ -13,7 +13,7 @@ var produccion = {
 };
 
 var desarrollo = {
-	"seguridad" : false,
+	"seguridad" : true,
 	"puerto" : "8080",
 	"url": "http://localhost:8080",
 	"dashboard": "/creador-de-logos#!/area-del-cliente",

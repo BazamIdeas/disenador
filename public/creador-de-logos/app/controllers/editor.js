@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$sce', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $sce) {
 
     var bz = this;
 
@@ -14,6 +14,14 @@ angular.module("disenador-de-logos")
 
         return $base64.decode(icono);
 
+    }
+    
+    this.sce = function(sanear){
+        
+        
+        //return $sce.getTrusted
+        
+        
     }
 
     /* LOCAL STORAGE */
@@ -296,7 +304,20 @@ angular.module("disenador-de-logos")
         bz.propiedadesTexto[propiedad] = (bz.propiedadesTexto[propiedad]) ? false : true;
 
     }
+    
+    
+    /////////////////////////////////////////////////////////////////////////
+    ////Disparar el guardado de un svg como copia de comparacion/////////////
+    /////////////////////////////////////////////////////////////////////////
+    
+    bz.comparaciones = [];
 
-
+    bz.comparar = true;
+    
+    bz.realizarComparacion = function(valor){
+        
+        bz.comparar = (valor) ? false : true;
+        
+    }
 
 }])

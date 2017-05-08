@@ -107,7 +107,13 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         name: 'login',
         url: '/login',
         templateUrl: 'app/views/login.tpl',
-        controller: 'loginController as login'
+        controller: 'loginController as login',
+        params: {
+            
+            origen: null,
+            destino: null,
+            parametrosDestino: null
+        }
     })
 
     .state({
@@ -187,8 +193,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
         $rootScope.anterior = fromState;
 
-
-
     });
 
 
@@ -196,7 +200,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         // We can catch the error thrown when the $requireSignIn promise is rejected
         // and redirect the user back to the home page
         if (error === "AUTH_REQUIRED") {
-
 
             $state.go("login", ({
                 origen: fromState.name,
