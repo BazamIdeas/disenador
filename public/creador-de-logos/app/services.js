@@ -343,7 +343,7 @@ angular.module("disenador-de-logos")
         var promise = defered.promise;
         
 
-        $http.post("/app/logos/guardados/", {token: token}).then(function (res) {
+        $http.post("/app/logos/guardados", {token: token}).then(function (res) {
 
 
             defered.resolve(res);
@@ -365,7 +365,7 @@ angular.module("disenador-de-logos")
 
         var promise = defered.promise;
 
-        $http.post("/app/logos/descargables/", {token: token}).then(function (res) {
+        $http.post("/app/logos/descargables", {token: token}).then(function (res) {
 
 
             defered.resolve(res);

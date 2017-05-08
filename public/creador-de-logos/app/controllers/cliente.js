@@ -10,7 +10,11 @@ angular.module("disenador-de-logos")
     Auth.$onAuthStateChanged(function (firebaseUser) {
         bz.autorizado = firebaseUser;
         bz.mostrarC(bz.autorizado.Pd);
+<<<<<<< HEAD
         bz.mostrarG(bz.autorizado.j);
+=======
+        bz.mostrarG(bz.autorizado.Pd);
+>>>>>>> refs/remotes/origin/front-end
     });
 
     /* LOCAL STORAGE */

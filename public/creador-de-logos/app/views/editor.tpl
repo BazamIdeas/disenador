@@ -5,7 +5,7 @@
     }
 
 </style>
-<div layout layout-fill>
+<div layout layout-fill id="Previsu">
 
 
 
@@ -13,37 +13,10 @@
 
     <div class="menu" ng-switch="editor.menu">
         <div class="menu-editor md-whiteframe-2dp">
-            <div class="menu-link" ng-click="editor.menuItem(1)" ng-class="editor.menuActivo">
+            <div class="menu-link {{elemento.estadoF}}" ng-class="elemento.estado" ng-repeat="elemento in editor.elementosMenu" ng-click="editor.efectoClick($index, elemento)">
                 <div>
-                    <md-icon>font_download</md-icon>
-                    <h4>Nombre</h4>
-                </div>
-            </div>
-
-            <div class="menu-link menu-desactivado" ng-class="editor.menuActivo">
-                <!-- ng-click="editor.menuItem(4)" -->
-                <div>
-                    <md-icon>font_download</md-icon>
-                    <h4>Slogan</h4>
-                </div>
-            </div>
-            <div class="menu-link" ng-click="editor.menuItem(2)" ng-class="editor.menuActivo">
-                <div>
-                    <md-icon>stars</md-icon>
-                    <h4>Icono</h4>
-                </div>
-            </div>
-            <div class="menu-link" ng-click="editor.menuItem(6)" ng-class="editor.menuActivo">
-                <div>
-                    <md-icon>filter</md-icon>
-                    <h4>Comparaciones</h4>
-                </div>
-            </div>
-
-            <div class="menu-link" ui-sref="proceso">
-                <div>
-                    <md-icon>arrow_back</md-icon>
-                    <h4>Atras</h4>
+                    <md-icon>{{elemento.icono}}</md-icon>
+                    <h4>{{elemento.nombre}}</h4>
                 </div>
             </div>
         </div>
@@ -52,7 +25,7 @@
             <!---------------->
             <!---- NOMBRE ----->
             <!---------------->
-            <div class="elemento md-whiteframe-2dp" ng-switch-when="1">
+            <div class="elemento md-whiteframe-2dp" ng-switch-when="0">
                 <div>
                     <div layout layout-align="space-between">
                         <h4>MODIFICAR NOMBRE</h4>
@@ -71,37 +44,50 @@
 
                 <!-- POSICIONES-->
 
-                <div>
-                    <h4>Posición</h4>
-                </div>
+                <div layout>
+                    <div flex="70">
+                        <div>
+                            <h4>Mover</h4>
+                        </div>
 
-                <div>
-                    <md-button ng-click="editor.modificarPosicion('x', false , 'texto')">
-                        <md-icon>keyboard_arrow_left</md-icon>
-                    </md-button>
-                    <md-button ng-click="editor.modificarPosicion('y', false, 'texto')">
-                        <md-icon>keyboard_arrow_up</md-icon>
-                    </md-button>
+                        <div class="arrows">
+                            <div class="arrow-center">
+                                <button ng-click="editor.modificarPosicion('y', false, 'texto')">
+                            <md-icon>keyboard_arrow_up</md-icon>
+                        </button>
+                            </div>
+                            <div class="double-arrow">
+                                <button ng-click="editor.modificarPosicion('x', false , 'texto')">
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </button>
 
+                                <button ng-click="editor.modificarPosicion('x', true, 'texto')">
+                            <md-icon>keyboard_arrow_right</md-icon>
+                        </button>
+                            </div>
 
-                    <md-button ng-click="editor.modificarPosicion('y', true, 'texto')">
-                        <md-icon>keyboard_arrow_down</md-icon>
-                    </md-button>
-                    <md-button ng-click="editor.modificarPosicion('x', true, 'texto')">
-                        <md-icon>keyboard_arrow_right</md-icon>
-                    </md-button>
-                </div>
+                            <div class="arrow-center">
+                                <button ng-click="editor.modificarPosicion('y', true, 'texto')">
+                            <md-icon>keyboard_arrow_down</md-icon>
+                        </button>
+                            </div>
+                        </div>
 
-                <div>
-                    <h4>Tamaño</h4>
-                </div>
-                <div layout class="mas-menos">
-                    <md-button ng-click="editor.modificarTamano(editor.tamano, true)">
-                        +
-                    </md-button>
-                    <md-button ng-click="editor.modificarTamano(editor.tamano, false)">
-                        -
-                    </md-button>
+                    </div>
+
+                    <div flex="20">
+                        <div>
+                            <h4>Tamaño</h4>
+                        </div>
+                        <div class="mas-menos">
+                            <md-button ng-click="editor.modificarTamano(editor.tamano, true)">
+                                +
+                            </md-button>
+                            <md-button ng-click="editor.modificarTamano(editor.tamano, false)">
+                                -
+                            </md-button>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <h4>Propiedades</h4>
@@ -130,7 +116,7 @@
             <!---------------->
 
 
-            <div class="elemento md-whiteframe-2dp" ng-switch-when="4">
+            <div class="elemento md-whiteframe-2dp" ng-switch-when="1">
                 <div>
                     <div layout layout-align="space-between">
                         <h4>MODIFICAR SLOGAN</h4>
@@ -148,38 +134,50 @@
                 </div>
 
                 <!-- POSICIONES-->
+                <div layout>
+                    <div flex="70">
+                        <div>
+                            <h4>Mover</h4>
+                        </div>
 
-                <div>
-                    <h4>Posición</h4>
-                </div>
+                        <div class="arrows">
+                            <div class="arrow-center">
+                                <button>
+                            <md-icon>keyboard_arrow_up</md-icon>
+                        </button>
+                            </div>
+                            <div class="double-arrow">
+                                <button>
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </button>
 
-                <div>
-                    <md-button>
-                        <md-icon>keyboard_arrow_left</md-icon>
-                    </md-button>
-                    <md-button>
-                        <md-icon>keyboard_arrow_up</md-icon>
-                    </md-button>
+                                <button>
+                            <md-icon>keyboard_arrow_right</md-icon>
+                        </button>
+                            </div>
 
+                            <div class="arrow-center">
+                                <button>
+                            <md-icon>keyboard_arrow_down</md-icon>
+                        </button>
+                            </div>
+                        </div>
 
-                    <md-button>
-                        <md-icon>keyboard_arrow_down</md-icon>
-                    </md-button>
-                    <md-button>
-                        <md-icon>keyboard_arrow_right</md-icon>
-                    </md-button>
-                </div>
+                    </div>
 
-                <div>
-                    <h4>Tamaño</h4>
-                </div>
-                <div layout class="mas-menos">
-                    <md-button>
-                        +
-                    </md-button>
-                    <md-button>
-                        -
-                    </md-button>
+                    <div flex="20">
+                        <div>
+                            <h4>Tamaño</h4>
+                        </div>
+                        <div class="mas-menos">
+                            <md-button>
+                                +
+                            </md-button>
+                            <md-button>
+                                -
+                            </md-button>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
@@ -217,37 +215,50 @@
 
                 <!-- POSICIONES-->
 
-                <div>
-                    <h4>Posición</h4>
-                </div>
+                <div layout>
+                    <div flex="70">
+                        <div>
+                            <h4>Mover</h4>
+                        </div>
 
-                <div>
-                    <md-button ng-click="editor.modificarPosicion('x', false , 'icono')">
-                        <md-icon>keyboard_arrow_left</md-icon>
-                    </md-button>
-                    <md-button ng-click="editor.modificarPosicion('y', false, 'icono')">
-                        <md-icon>keyboard_arrow_up</md-icon>
-                    </md-button>
+                        <div class="arrows">
+                            <div class="arrow-center">
+                                <button ng-click="editor.modificarPosicion('y', false, 'icono')">
+                            <md-icon>keyboard_arrow_up</md-icon>
+                        </button>
+                            </div>
+                            <div class="double-arrow">
+                                <button ng-click="editor.modificarPosicion('x', false , 'icono')">
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </button>
 
+                                <button ng-click="editor.modificarPosicion('x', true, 'icono')">
+                            <md-icon>keyboard_arrow_right</md-icon>
+                        </button>
+                            </div>
 
-                    <md-button ng-click="editor.modificarPosicion('y', true, 'icono')">
-                        <md-icon>keyboard_arrow_down</md-icon>
-                    </md-button>
-                    <md-button ng-click="editor.modificarPosicion('x', true, 'icono')">
-                        <md-icon>keyboard_arrow_right</md-icon>
-                    </md-button>
-                </div>
+                            <div class="arrow-center">
+                                <button ng-click="editor.modificarPosicion('y', true, 'icono')">
+                            <md-icon>keyboard_arrow_down</md-icon>
+                        </button>
+                            </div>
+                        </div>
 
-                <div>
-                    <h4>Tamaño</h4>
-                </div>
-                <div layout class="mas-menos">
-                    <md-button ng-click="editor.modificarEscala(editor.escala, true)">
-                        +
-                    </md-button>
-                    <md-button ng-click="editor.modificarEscala(editor.escala, false)">
-                        -
-                    </md-button>
+                    </div>
+
+                    <div flex="20">
+                        <div>
+                            <h4>Tamaño</h4>
+                        </div>
+                        <div class="mas-menos">
+                            <md-button ng-click="editor.modificarEscala(editor.escala, true)">
+                                +
+                            </md-button>
+                            <md-button ng-click="editor.modificarEscala(editor.escala, false)">
+                                -
+                            </md-button>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
@@ -279,20 +290,13 @@
 
             <!-- Fin elemento -->
 
-            <div class="elemento md-whiteframe-2dp" ng-switch-when="6">
+            <div class="elemento md-whiteframe-2dp" ng-switch-when="3">
                 <div layout layout-align="space-between">
                     <h4>Mis Comparaciones</h4>
-                    <!-- <md-icon class="text-white" ng-click="editor.menuItem(0)">keyboard_arrow_left</md-icon> -->
-
-
-                    <bazam-visualizar data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index">
-                    </bazam-visualizar>
-
-                   
                 </div>
-
-                <div class="elemento-prev-editor">
-
+                <div layout="column">
+                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index">
+                    </bazam-visualizar>
                 </div>
             </div>
         </div>
@@ -329,7 +333,7 @@
                 </md-fab-speed-dial>
             </div>
             <div>
-                <md-button class="md-fab md-primary" ng-click="editor.gLogo( null, 'Editable', editor.logo.icono.svg, editor.logo.icono.tipo, editor.autorizado, editor.logo.icono.idElemento)">
+                <md-button class="md-fab md-primary" ng-click="editor.gLogo( null, 'Editable', editor.svgFinal, editor.logo.icono.tipo, editor.autorizado, editor.logo.icono.idElemento)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Guardar</md-tooltip>
                     <md-icon class=" material-icon">save</md-icon>
                 </md-button>
@@ -343,61 +347,71 @@
             </div>
 
             <div>
-                <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu(previsualizar)">
+                <md-button class="md-fab md-primary" ng-click="editor.mostrarDialogo($event)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Previsualizar</md-tooltip>
                     <md-icon class="material-icon">remove_red_eye</md-icon>
                 </md-button>
             </div>
 
-            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="previsualizar" style="width:40%;">
-                <md-toolbar class="transparencia">
-                    <div class="md-toolbar-tools">
-                        <div>PREVISUALIZAR</div>
-                    </div>
-                </md-toolbar>
-
-                <div flex layout="column" ng-cloak class="gradient previsualizar">
-                    <div class="titulo-prev">
-                        <p>DETALLA TU LOGO EN DISTINTAS PLANTILLAS</p>
-                    </div>
-                    <div class="plantilla">
-                        <div class="elemento-prev md-whiteframe-2dp" ng-repeat="previsualizar in editor.modeloPrevisualizar" identidad="{{previsualizar.nombre}}" style="background:url('{{previsualizar.url}}')">
-                            <div class="layout-padding logo_previsualizar">
-                                <!--<md-icon md-svg-src="data:image/svg+xml;base64,{{prev.svg}}"></md-icon>-->
-                            </div>
-                            <div>
-                                <texto>{{prev.texto}}</texto>
-                            </div>
-                        </div>
-
-                        <div>
-                            <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
-                        </div>
-                    </div>
-                </div>
-            </md-sidenav>
-
             <div>
-                <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu(ayuda)">
+                <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu('ayuda')">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Ayuda</md-tooltip>
                     <md-icon class="material-icon">help_outline</md-icon>
                 </md-button>
             </div>
 
-            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="ayuda">
-                <md-toolbar class="transparencia">
-                    <div class="md-toolbar-tools">
-                        <div>AYUDA</div>
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" style="width:40%;" ng-switch="editor.tipoNav">
+                <!--
+                <div ng-switch-when="previsualizar">
+                    <md-toolbar class="transparencia">
+                        <div class="md-toolbar-tools">
+                            <div>PREVISUALIZAR</div>
+                        </div>
+                    </md-toolbar>
+
+                    <div flex layout="column" ng-cloak class="gradient previsualizar">
+                        <div class="titulo-prev">
+                            <p>DETALLA TU LOGO EN DISTINTAS PLANTILLAS</p>
+                        </div>
+
+                        <div class="plantilla">
+                            <div class="elemento-prev md-whiteframe-2dp" ng-repeat="previsualizar in editor.modeloPrevisualizar" identidad="{{previsualizar.nombre}}" style="background:url('{{previsualizar.url}}')">
+                                    <bazam-visualizar data-svg="editor.svgFinal">
+                                    </bazam-visualizar>
+                            </div>
+                        </div>
+                        <div>
+                            <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
+                        </div>
+
+
                     </div>
-                </md-toolbar>
-                <div>
-                    <md-button class="md-primary md-hue-2" ng-click="editor.cambiarMenu()">CERRAR</md-button>
+
+                
                 </div>
+
+                -->
+
+                <div ng-switch-when="ayuda">
+
+                    <md-toolbar class="transparencia">
+                        <div class="md-toolbar-tools">
+                            <div>AYUDA</div>
+                        </div>
+                    </md-toolbar>
+
+                    <div>
+                        <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
+                    </div>
+
+                </div>
+
+
             </md-sidenav>
+
         </div>
         <div class="cont-logo-editor" ng-class="editor.fondo">
             <div id="logo-share" class="logo-editor">
-
                 <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente.nombre" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar"></bazam-svg>
             </div>
         </div>

@@ -2,26 +2,26 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$sce', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $sce) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$sce', '$mdDialog', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $sce, $mdDialog) {
 
     var bz = this;
-    
+
     Auth.$onAuthStateChanged(function (firebaseUser) {
         bz.autorizado = firebaseUser;
     });
-    
+
     this.base64 = function (icono) {
 
         return $base64.decode(icono);
 
     }
-    
-    this.sce = function(sanear){
-        
-        
+
+    this.sce = function (sanear) {
+
+
         //return $sce.getTrusted
-        
-        
+
+
     }
 
     /* LOCAL STORAGE */
@@ -44,13 +44,35 @@ angular.module("disenador-de-logos")
     /* *************** */
 
     /* MENU EDITOR */
-    this.menu = 1;
-    this.menuItem = function (mswitch) {
 
-        this.menu = mswitch;
+    this.elementosMenu = [{
+        icono: 'font_download',
+        nombre: 'Nombre',
+    }, {
+        icono: 'font_download',
+        nombre: 'Slogan',
+        estadoF: 'menu-desactivado',
+    }, {
+        icono: 'stars',
+        nombre: 'Icono'
+    }, {
+        icono: 'filter',
+        nombre: 'Comparaciones'
+    }, {
+        icono: 'keyboard_arrow_left',
+        nombre: 'Atras'
+    }];
+
+    this.menu = 0;
+    this.efectoClick = function (index, elemento) {
+        this.menu = index;
+        if (!this.elementosMenu[index]) {
+            this.elementosMenu[index].estado = 'activo';
+        } else {
+            this.elementosMenu[index].estado = false;
+        }
     }
 
-    /* *************** */
 
     this.logo = this.datosEstadoAnterior.logo;
     this.logo.texto = this.datosEstadoAnterior.texto;
@@ -103,9 +125,13 @@ angular.module("disenador-de-logos")
 
     bz.fabEditor = false;
 
-    bz.cambiarMenu = function (id) {
-
-        return $mdSidenav(id).toggle();
+    bz.cambiarMenu = function (tipo) {
+        if (tipo == null) {
+            bz.tipoNav = bz.tipoNav;
+        } else {
+            bz.tipoNav = tipo;
+        }
+        return $mdSidenav('right').toggle();
     }
 
     bz.fondo = "blanco";
@@ -133,11 +159,135 @@ angular.module("disenador-de-logos")
             SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
         }
     }
-    
-    
+
+
+
+
+    ///////////////////////////////////////
+    /////posicion para icono y texto///////
+    ///////////////////////////////////////
+
+    bz.posicionTexto = {
+        x: 0,
+        y: 0
+    }
+
+    bz.posicionIcono = {
+        x: 0,
+        y: 0
+    }
+
+    bz.modificarPosicion = function (coordenada, accion, objetivo) {
+
+        if (objetivo == "texto") {
+
+            bz.posicionTexto[coordenada] = (accion) ? bz.posicionTexto[coordenada] + 10 : bz.posicionTexto[coordenada] - 10;
+
+        } else if (objetivo == "icono") {
+
+            bz.posicionIcono[coordenada] = (accion) ? bz.posicionIcono[coordenada] + 10 : bz.posicionIcono[coordenada] - 10;
+
+        }
+
+
+    }
+
+
+
+    //////////////////////////////
+    /////escala para el icono/////
+    //////////////////////////////
+
+    bz.escala = 1;
+
+    bz.modificarEscala = function (escala, accion) {
+
+        escala = parseFloat($filter('number')(escala, 1));
+
+        if (accion) {
+
+            if (escala <= 2) {
+
+                bz.escala = escala + 0.1;
+            }
+
+        } else {
+
+            if (escala >= 0.5) {
+
+                bz.escala = escala - 0.1;
+
+            }
+
+        }
+
+    }
+
+
+
+    ////////////////////////////
+    ////tamano de la fuente/////
+    ////////////////////////////
+    bz.tamano = 0;
+
+    bz.modificarTamano = function (tamano, accion) {
+
+        if (accion) {
+
+            if (tamano < 200) {
+
+                bz.tamano = tamano + 4;
+
+            }
+
+        } else {
+
+            if (tamano > 0) {
+
+                bz.tamano = tamano - 4;
+
+            }
+
+        }
+
+    }
+
+    /////////////////////////////////
+    ////propiedades de la fuente/////
+    /////////////////////////////////  
+    bz.propiedadesTexto = {
+
+        bold: false,
+        cursive: false
+
+    }
+
+
+    bz.modificarPropiedadTexto = function (propiedad) {
+
+
+        bz.propiedadesTexto[propiedad] = (bz.propiedadesTexto[propiedad]) ? false : true;
+
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////
+    ////Disparar el guardado de un svg como copia de comparacion/////////////
+    /////////////////////////////////////////////////////////////////////////
+
+    bz.comparaciones = [];
+
+    bz.comparar = true;
+
+    bz.realizarComparacion = function (valor) {
+        bz.menu = 3;
+        bz.comparar = (valor) ? false : true;
+
+    }
+
     /* PREVISUALIZAR */
     
-    bz.modeloPrevisualizar = [
+     bz.modeloPrevisualizar = [
         {
             url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
             nombre: 'carta'
@@ -172,129 +322,33 @@ angular.module("disenador-de-logos")
         }
     ]
 
-    
-    ///////////////////////////////////////
-    /////posicion para icono y texto///////
-    ///////////////////////////////////////
+    bz.mostrarDialogo = function (ev) {
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: 'app/views/dialogos/previsualizar.tpl',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: $scope.customFullscreen
+        })
+    };
 
-    bz.posicionTexto = {
-        x: 0,
-        y: 0
+    function DialogController($scope, $mdDialog, LS) {
+        $scope.svgD = bz.svgFinal;
+        $scope.modeloPrev = bz.modeloPrevisualizar;
+
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function (llave, datos) {
+            $mdDialog.cancel();
+            LS.definir(llave, datos);
+        };
+
+        $scope.answer = function (answer) {
+            $mdDialog.hide(answer);
+        };
     }
-
-    bz.posicionIcono = {
-        x: 0,
-        y: 0
-    }
-       
-    bz.modificarPosicion = function (coordenada, accion, objetivo) {
-
-        if (objetivo == "texto") {
-
-            bz.posicionTexto[coordenada] = (accion) ? bz.posicionTexto[coordenada] + 10 : bz.posicionTexto[coordenada] - 10;
-
-        } else if (objetivo == "icono") {
-
-            bz.posicionIcono[coordenada] = (accion) ? bz.posicionIcono[coordenada] + 10 : bz.posicionIcono[coordenada] - 10;
-
-        }
-
-
-    }
-    
-    
-    
-    //////////////////////////////
-    /////escala para el icono/////
-    //////////////////////////////
-    
-    bz.escala = 1;
-    
-    bz.modificarEscala = function (escala, accion) {
-
-        escala = parseFloat($filter('number')(escala, 1));
-
-        if (accion) {
-
-            if (escala <= 2) {
-
-                bz.escala = escala + 0.1;
-            }
-
-        } else {
-
-            if (escala >= 0.5) {
-
-                bz.escala = escala - 0.1;
-
-            }
-
-        }
-
-    }
-    
-    
-    
-    ////////////////////////////
-    ////tamano de la fuente/////
-    ////////////////////////////
-    bz.tamano = 0;
-    
-    bz.modificarTamano = function (tamano, accion) {
-
-        if (accion) {
-            
-            if (tamano < 200){
-                
-                bz.tamano = tamano + 4;
-                
-            }
-                
-        } else {
-            
-            if (tamano > 0){
-                
-                bz.tamano = tamano - 4;
-                
-            }
-            
-        }
-
-    }
-    
-    /////////////////////////////////
-    ////propiedades de la fuente/////
-    /////////////////////////////////  
-    bz.propiedadesTexto = {
-        
-        bold: false,
-        cursive: false        
-        
-    }
-    
-    
-    bz.modificarPropiedadTexto = function(propiedad){
-        
-        
-        bz.propiedadesTexto[propiedad] = (bz.propiedadesTexto[propiedad]) ? false : true; 
-
-    }
-    
-    
-    /////////////////////////////////////////////////////////////////////////
-    ////Disparar el guardado de un svg como copia de comparacion/////////////
-    /////////////////////////////////////////////////////////////////////////
-    
-    bz.comparaciones = [];
-
-    bz.comparar = true;
-    
-    bz.realizarComparacion = function(valor){
-        
-        bz.comparar = (valor) ? false : true;
-        
-    }
-    
-    
 
 }])
