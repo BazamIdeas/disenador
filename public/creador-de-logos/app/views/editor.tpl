@@ -329,7 +329,7 @@
                 </md-button>
             </div>
             <!--             logoSvg64: 'jvgdjvjdgsjgsrh', idFuente: null, idPrecio: 1, idIcono: null, tipoLogo: null-->
-            <div ui-sref="metodo({ logoSvg64: editor.logo.icono.svg, idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo})">
+            <div ui-sref="metodo({ logoSvg64: editor.svgFinal, idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo})">
                 <md-button class="md-fab md-primary">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Comprar</md-tooltip>
                     <md-icon class="material-icon">shopping_cart</md-icon>
@@ -392,7 +392,7 @@
         <div class="cont-logo-editor" ng-class="editor.fondo">
             <div id="logo-share" class="logo-editor">
 
-                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente.nombre" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto"></bazam-svg>
+                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente.nombre" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal"></bazam-svg>
             </div>
         </div>
         <div style="position: absolute; top: 0;">

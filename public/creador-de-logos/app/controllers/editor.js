@@ -269,7 +269,9 @@ angular.module("disenador-de-logos")
         
         
         bz.propiedadesTexto[propiedad] = (bz.propiedadesTexto[propiedad]) ? false : true; 
-        console.log(bz.propiedadesTexto[propiedad])
+
     }
+    
+    
 
 }])
