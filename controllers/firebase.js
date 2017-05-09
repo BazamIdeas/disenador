@@ -54,33 +54,35 @@ exports.autenticarCliente = function (req, res) {
 exports.comprobarEstadoCliente = function (req, res, next) {
 
     if (configuracion.seguridad){
-    var token = req.body.token;
-
+        var token = req.body.token
+    console.log(req.body)
 
     admin.auth().verifyIdToken(token)
         .then(function (decodedToken) {
+            
             var uid = decodedToken.uid
+            console.log(uid)
             cliente.obtenerIdCliente(uid,function(error, data)
             {
             //si el cliente existe 
             if (typeof data !== 'undefined' && data.length > 0)
             {
-                req.idCliente = data.idCliente
-                next();
+                req.idCliente = data[0].idCliente;
+                next()
             }
         //no existe
             else
             {
-                res.status(500).json({"msg":"error de uid"})
+                res.status(404).json({"msg":"error de uid"})
             }
              });         
             // ...
         }).catch(function (error) {
-            res.status(500).json('fallo');
+            res.status(500).json(error);
         });
     }
     else{
-        req.idCliente = 1;
+        req.idCliente = 3;
         next();
     }
 }
