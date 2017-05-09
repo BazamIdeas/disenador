@@ -44,8 +44,8 @@ router.post("/pedido",controllers.firebase.comprobarEstadoCliente, controllers.p
 router.post("/pedido/guardado/",controllers.firebase.comprobarEstadoCliente, controllers.pedidos.nuevoPedidoGuardado);//crea un pedido de un logo ya guardado
 router.post("/pedido/modificar/",controllers.firebase.comprobarEstadoCliente, controllers.pedidos.modificarPedido);// modifica los datos de un pedido
 router.post("/pedido/cambiar/",controllers.firebase.comprobarEstadoCliente, controllers.pedidos.cambiarEstado);// cambia de estado al pedido
-router.get("/pedido/pagado/:idElemento/:idLogo/",controllers.firebase.comprobarEstadoCliente, controllers.pedidos.cambioEstadoPagado);// cambia de estado al pedido
-router.get("/pedido/noPago/",controllers.firebase.comprobarEstadoCliente, controllers.pedidos.noPago);// cambia de estado al pedido
+router.get("/pedido/pagado/:idElemento/:idLogo/", controllers.pedidos.cambioEstadoPagado);// cambia de estado al pedido
+router.get("/pedido/noPago/", controllers.pedidos.noPago);// cambia de estado al pedido
 
 
 //MODULO CATEGORIAS
