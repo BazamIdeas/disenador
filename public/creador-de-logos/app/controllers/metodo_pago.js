@@ -30,10 +30,14 @@ angular.module("disenador-de-logos")
     bz.compras = 1;
 
     bz.pedido = function (tipoPago, logoSVG, idElemento, tTarjeta, nTarjeta, expire_month, expire_year) {
+        
+        
         pedidosService.paypal(tipoPago, logoSVG, idElemento, tTarjeta, nTarjeta, expire_month, expire_year).then(function (res) {
-            if (tipoPago = 'credit_card') {
-                console.log(res.msg)
+            if (tipoPago == 'credit_card') {
+            
             } else {
+                
+               
                 $window.location.href = res.data;
             }
 
