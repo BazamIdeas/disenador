@@ -64,9 +64,6 @@ angular.module("disenador-de-logos")
     }, {
         icono: 'filter',
         nombre: 'Comparaciones'
-    }, {
-        icono: 'keyboard_arrow_left',
-        nombre: 'Atras'
     }];
 
     this.menu = 0;

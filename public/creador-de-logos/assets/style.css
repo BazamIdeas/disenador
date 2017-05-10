@@ -1,5 +1,33 @@
 /* Header-Footer */
 
+.menu-header{
+    position: absolute;
+    background: #fafafa;
+    right: 0%;
+    top: 100%;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
+    color: black;
+    font-size: 16px;
+    text-align: right;
+    width: 10%;
+}
+
+.icono-header{
+    font-size: 40px;
+    width: auto;
+    height: auto;
+}
+
+.menu-header p {
+    padding: 10% 5%;
+    margin: 0;
+}
+
+.menu-header p:hover {
+    background: #283593;
+    color: white;
+}
+
 .trans {
     background-image: url('img/franja-azul.jpg');
     background-repeat: no-repeat;
@@ -55,6 +83,12 @@ md-content {
 
 /* Comenzar */
 
+.tipo-logo:hover, .tipo-logo:focus {
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
+    background-color: #0081c2;
+
+}
+
 .texto-informativo p {
     font-size: 28px;
     color: #2196F3;
@@ -99,11 +133,7 @@ md-content {
     padding: 2%;
     color: white;
     text-align: center;
-    border: 1px solid white;
-}
-
-.metodo-de-pago .tipo-logo:hover {
-    border: 1px solid #4d2828;
+    border: 5px solid white;
 }
 
 .tipo-logo p {
@@ -318,6 +348,10 @@ p_footer md-icon:hover {
 
 /* paquetes */
 
+.metodo-de-pago .titulo {
+    font-size: 20px;
+}
+
 paquete {
     cursor: default;
 }
@@ -519,7 +553,7 @@ footer {
     color: white;
 }
 
-.menu-editor .menu-link:hover, .menu-editor .menu-link.activo {
+.menu-editor .menu-link:hover, .menu-editor .menu-link:focus {
     background-color: #0081c2;
 }
 

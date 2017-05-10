@@ -6,7 +6,16 @@
         </div>
     </div>
     <div layout layout-align="center" class="metodo-de-pago">
-        <div flex="50" layout="column" class="md-whiteframe-2dp" layout-padding>
+        <div flex="50" layout="column" layout-align="center" class="md-whiteframe-2dp" layout-padding style="height:300px;">
+            <div layout="column" layout-align="center center" ng-show="metodo.loaderCircular">
+                <div>
+                <md-progress-circular md-mode="indeterminate"  md-diameter="70"></md-progress-circular>
+                </div>
+                <div>
+                <p class="titulo">PROCESANDO SU PAGO</p>
+                </div>
+
+            </div>
             <div layout layout-align="space-around" ng-switch-when="inicial">
                 <div class="tipo-logo" ng-click="metodo.mostrarAlerta()">
                     <div class="tipo-logo-icon">

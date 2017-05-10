@@ -65,38 +65,19 @@
                         </div>
                     </div>
                     <div class="pasos" ng-switch-when="3" layout="column">
-                        <div layout-padding layout="column">
-                            <div layout layout-align="space-around">
-                                <div class="tipo-logo" ng-click="comenzar.datos.tipo='ICONO'">
-                                    <div class="tipo-logo-icon">
-                                        <md-icon>font_download</md-icon>
-                                    </div>
-                                    <div>
-                                        <h3>ICONO</h3>
-                                        <p>Una forma facil de recordar en el centro de su logo.</p>
-                                    </div>
+                        <div layout layout-align="space-around">
+                            <div class="tipo-logo {{icono.estado}}" ng-click="comenzar.selectA($index, icono.tipo)" ng-repeat="icono in comenzar.iconos">
+                                <div class="tipo-logo-icon">
+                                    <md-icon>font_download</md-icon>
                                 </div>
-                                <div class="tipo-logo" ng-click="comenzar.datos.tipo='NOMBRE'">
-                                    <div class="tipo-logo-icon">
-                                        <md-icon>font_download</md-icon>
-                                    </div>
-                                    <div>
-                                        <h3>NOMBRE</h3>
-                                        <p>Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.</p>
-                                    </div>
-                                </div>
-                                <div class="tipo-logo" ng-click="comenzar.datos.tipo='INICIAL'">
-                                    <div class="tipo-logo-icon">
-                                        <md-icon>font_download</md-icon>
-                                    </div>
-                                    <div>
-                                        <h3>INICIAL</h3>
-                                        <p>Una letra como el elemento principal de su logo.</p>
-                                    </div>
+                                <div>
+                                    <h3>{{icono.tipo}}</h3>
+                                    <p>{{icono.descripcion}}</p>
                                 </div>
                             </div>
                         </div>
-                        <div layout-padding class="radio-f" >
+
+                        <div layout-padding class="radio-f">
                             <md-radio-group layout layout-align="space-around" ng-model="comenzar.datos.tipo" name="tipo" ng-required="true">
                                 <md-radio-button value="ICONO">
                                 </md-radio-button>

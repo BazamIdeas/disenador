@@ -403,7 +403,6 @@ angular.module("disenador-de-logos")
 
         },
         link: function (scope, element, attributes) {
-            console.log(scope.svg);
             element.html(scope.svg);
             element.html(element.html());
 
