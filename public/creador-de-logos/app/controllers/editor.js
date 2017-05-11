@@ -296,38 +296,38 @@ angular.module("disenador-de-logos")
         {
             url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
             nombre: 'carta',
-            ancho: '80%'
+            ancho: '70%'
         },
         {
             url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
             nombre: 'carta',
-            ancho: '80%'
+            ancho: '70%'
         }, {
             url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
             nombre: 'carta',
-            ancho: '55%'
+            ancho: '50%'
         }, {
             url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
             nombre: 'carta',
-            ancho: '80%'
+            ancho: '70%'
         },
         {
             url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
             nombre: 'carta',
-            ancho: '80%'
+            ancho: '70%'
         },
         {
             url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
             nombre: 'carta',
-            ancho: '80%'
+            ancho: '70%'
         }, {
             url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
             nombre: 'carta',
-            ancho: '55%'
+            ancho: '50%'
         }, {
             url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
             nombre: 'carta',
-            ancho: '80%'
+            ancho: '70%'
         }
     ]
 
