@@ -94,7 +94,7 @@ angular.module("disenador-de-logos")
 
         $http.post("/app/pedido", datos).then(function (res) {
 
-
+            
             defered.resolve(res);
 
         }).catch(function (res) {

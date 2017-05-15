@@ -15,18 +15,10 @@ angular.module("disenador-de-logos")
         return $base64.decode(icono);
 
     }
-    
+
     bz.codificar = function (icono) {
 
         return $base64.encode(icono);
-
-    }
-
-    this.sce = function (sanear) {
-
-
-        //return $sce.getTrusted
-
 
     }
 
@@ -87,9 +79,6 @@ angular.module("disenador-de-logos")
     $scope.fuente = null;
     $scope.fuentes = null;
 
-    this.cambiarFuente = function (fuente) {
-        this.logo.fuente.nombre = fuente;
-    };
 
     this.fuentes = [{
         id: 1,
@@ -154,7 +143,7 @@ angular.module("disenador-de-logos")
     /* LOGOS */
 
     bz.gLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
-        
+
         logo = bz.codificar(logo);
 
         if (firebaseUser) {
@@ -293,9 +282,54 @@ angular.module("disenador-de-logos")
 
     }
 
-    /* PREVISUALIZAR */
+
+
+    /////////////////////////////////////
+    ////// Mostrar Visualizaciones///////
+    /////////////////////////////////////
+    bz.visualizacionUsada = false;
+
+    bz.visualizaciones = [];
+
+    bz.visualizar = function (valor) {
+        
+         bz.visualizacionUsada = false;
+
+        bz.visualizaciones.pop();
+
+        bz.visualizaciones.push(valor);
+
+    }
+
+
+    /////////////////////////////////////
+    ///// Realizar Restauraciones ///////
+    /////////////////////////////////////
     
-     bz.modeloPrevisualizar = [
+    bz.restauracionIniciada = false;
+
+    bz.restauraciones = [];
+
+    bz.realizarRestauracion = function (restauracion) {
+         bz.visualizacionUsada = true;
+        
+        if (bz.restauracionIniciada == false) {
+            bz.restauracionIniciada = true;
+        }
+
+        if (bz.restauraciones.length) {
+            bz.restauraciones.pop();
+        }
+        bz.restauraciones.push(restauracion);
+
+
+    }
+
+
+
+    /* PREVISUALIZAR */
+
+    bz.modeloPrevisualizar = [
         {
             url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
             nombre: 'carta',

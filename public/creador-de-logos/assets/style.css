@@ -483,7 +483,7 @@ footer {
 }
 
 .logo-editor {
-    width: 100%;
+    width: 50%;
 }
 
 .edicion {
@@ -855,7 +855,7 @@ md-input-container.color-animacion .md-input {
 /* SVG */
 
 svg {
-    overflow: visible;
+    overflow: hidden;
 }
 
 .contenedor-logo-proceso svg g text {

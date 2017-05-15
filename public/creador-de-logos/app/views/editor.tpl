@@ -38,7 +38,7 @@
                 <div>
                     <h4>Fuente</h4>
                     <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{'font-family' : editor.fuente}">
-                        <md-option ng-value="fuente" ng-style="{'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes" ng-click="cambiarFuente(fuente.nombre)">{{fuente.nombre}}</md-option>
+                        <md-option ng-value="fuente" ng-style="{'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes">{{fuente.nombre}}</md-option>
                     </md-select>
                 </div>
 
@@ -295,7 +295,7 @@
                     <h4>Mis Comparaciones</h4>
                 </div>
                 <div layout="column">
-                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index">
+                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index" ng-click="editor.visualizar(comparacion)">
                     </bazam-visualizar>
                 </div>
             </div>
@@ -411,8 +411,24 @@
 
         </div>
         <div class="cont-logo-editor" ng-class="editor.fondo">
-            <div id="logo-share" class="logo-editor">
-                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente.nombre" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar"></bazam-svg>
+            
+            <!--- directiva si se utiliza un svg nunca modificado ---->
+            
+            <div id="logo-share" class="logo-editor md-whiteframe-2dp" ng-if="!editor.restauracionIniciada">
+                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar"></bazam-svg>
+            </div>
+            
+            
+            <!---- Directiva si se utiliza un svg modificado  --->
+            
+            <div id="logo-share" class="logo-editor md-whiteframe-2dp" ng-repeat="restauracion in editor.restauraciones">
+                <bazam-svg-modificado data-svg="restauracion" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar"></bazam-svg-modificado>
+            </div>
+            
+            
+            <!------- directiva si existen visualizaciones ------>
+            <div class="logo-editor md-whiteframe-2dp" ng-repeat="visualizacion in editor.visualizaciones"  ng-if="!editor.visualizacionUsada">
+                <bazam-visualizar data-svg="visualizacion" ng-click="editor.realizarRestauracion(visualizacion)"></bazam-visualizar>
             </div>
         </div>
         <div style="position: absolute; top: 0;">
