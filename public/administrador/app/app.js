@@ -48,6 +48,12 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
             templateUrl: 'app/views/usuario.tpl',
             controller: 'usuarioController as usuario'
         })
+        .state({
+            name: 'categorias',
+            url: 'categorias',
+            templateUrl: 'app/views/categorias.tpl',
+            controller: 'categoriasController as categorias'
+        })
     })
 
 

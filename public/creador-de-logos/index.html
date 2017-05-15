@@ -79,11 +79,11 @@
                             Ingresar
                         </ingresar>
 
-                        <ingresar ng-switch-default ng-mouseenter="header.hmenuMostrar = true">
+                        <ingresar ng-switch-default ng-click="header.menuMostrar()">
                             <div>
                                 <md-icon class="icono-header">account_circle</md-icon>
                             </div>
-                            <div ng-show="header.hmenuMostrar" class="menu-header" ng-mouseleave="header.hmenuMostrar = false">
+                            <div ng-show="header.hmenuMostrar" class="menu-header">
                                 <div ui-sref="dashboard"><p>Mis logos</p></div>
                                 <div ng-click="header.salir()"><p>Cerrar sesion</p></div>
                             </div>
