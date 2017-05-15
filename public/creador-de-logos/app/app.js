@@ -178,6 +178,13 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
             }
         })
+        .state({
+            name: 'landing',
+            url: '/landing',
+            templateUrl: 'app/views/landing.tpl',
+            controller: 'landingController as landing',
+            
+        })
 
 
 
