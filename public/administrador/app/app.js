@@ -1,5 +1,6 @@
-angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64"])
-    .config(function ($stateProvider, $mdThemingProvider) {
+angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
+
+.config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider) {
 
         /*------------------Material Angular --------------*/
 
@@ -10,11 +11,43 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
         /*------------------------ Ui router states ----------------------*/
 
         $stateProvider.state({
-                name: '/dashboard',
-                url: '/dashboard',
-                templateUrl: 'app/views/dashboard.tpl',
-                controller: 'dashboardController as dashboard'
-            })
+            name: 'cliente',
+            url: 'cliente',
+            templateUrl: 'app/views/cliente.tpl',
+            controller: 'clienteController as cliente'
+        }).state({
+            name: 'iconos',
+            url: 'iconos',
+            templateUrl: 'app/views/iconos.tpl',
+            controller: 'iconosController as iconos'
+        }).state({
+            name: 'pedidos',
+            url: 'pedidos',
+            templateUrl: 'app/views/pedidos.tpl',
+            controller: 'pedidosController as pedidos'
+        }).state({
+            name: 'fuentes',
+            url: 'fuentes',
+            templateUrl: 'app/views/fuentes.tpl',
+            controller: 'fuentesController as fuentes'
+        }).state({
+            name: 'administrar',
+            url: 'administrar',
+            templateUrl: 'app/views/administrar.tpl',
+            controller: 'administrarController as administrar'
+        })
+        .state({
+            name: 'login',
+            url: 'login',
+            templateUrl: 'app/views/login.tpl',
+            controller: 'loginController as login'
+        })
+        .state({
+            name: 'usuario',
+            url: 'usuario',
+            templateUrl: 'app/views/usuario.tpl',
+            controller: 'usuarioController as usuario'
+        })
     })
 
 

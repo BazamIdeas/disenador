@@ -13,10 +13,17 @@
 
     <div class="menu" ng-switch="editor.menu">
         <div class="menu-editor md-whiteframe-2dp">
-            <div class="menu-link {{elemento.estadoF}}" ng-class="elemento.estado" ng-repeat="elemento in editor.elementosMenu" ng-click="editor.efectoClick($index, elemento)">
+            <div class="menu-link {{elemento.estadoF}}" ng-class="elemento.estado" ng-repeat="elemento in editor.elementosMenu" ng-click="editor.efectoClick($index, elemento )">
                 <div>
                     <md-icon>{{elemento.icono}}</md-icon>
                     <h4>{{elemento.nombre}}</h4>
+                </div>
+            </div>
+            
+            <div class="menu-link" ui-sref="proceso">
+                <div>
+                    <md-icon>keyboard_arrow_left</md-icon>
+                    <h4>Atras</h4>
                 </div>
             </div>
         </div>

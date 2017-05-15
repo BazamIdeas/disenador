@@ -1,7 +1,7 @@
-<div flex layout="column" ng-cloak>
-    <div layout="row" layout-align="center" ng-switch="login.mostrarForm">
+<div flex layout="column" ng-cloak >
+    <div layout="row" layout-align="center" ng-switch="login.mostrarForm" class="margen_superior margen_inferior">
 
-        <div flex="25" ng-switch-when="1" layout-padding class="md-whiteframe-5dp margen_superior margen-inferior pasos formularios-login">
+        <div flex="25" ng-switch-when="1" layout-padding class="md-whiteframe-5dp pasos formularios-login">
             <form name="formLogin" ng-submit="login.login('interno', login.datos.login, formLogin.$valid)" novalidate>
 
                 <div>
@@ -43,12 +43,13 @@
                         <hr class="hr-login">
                     </div>
                     <div layout="column" layout-align="center">
-                        <md-button class="md-warn md-raised social-facebook md-block" ng-click="login.salir()">
+                        <md-button class="md-warn md-raised social-facebook md-block">
                             <md-icon class="material-icons icono_radio" style="width:12px; height: 12px; margin-right:10px;" md-svg-src="assets/svg/facebook.svg"></md-icon>Ingresa con Facebook</md-button>
                         <md-button class="md-primary md-raised social-gmail md-block">
                             <md-icon class="material-icons icono_radio" style="width:12px; height: 12px; margin-right:10px;" md-svg-src="assets/svg/gmail.svg"></md-icon>Ingresa con Gmail</md-button>
                     </div>
                 </div>
+                <div layout layout-align="center" ng-show="login.loaderCargando" class="margen_superior"><md-progress-circular md-mode="indeterminate"  md-diameter="40"></md-progress-circular></div>
             </form>
         </div>
 
@@ -81,19 +82,14 @@
                         </md-input-container>
 
                     </div>
-                    <div layout layout-align="space-between">
+                    <div layout>
                         <md-button class="md-raised md-primary" ng-click="login.registrar(login.datos.registrar)">Enviar</md-button>
-                        <md-button class="md-raised md-warn" ng-click="login.mostrarForm=1">Regresar</md-button>
-
                     </div>
+                    <div layout layout-align="center" ng-show="login.loaderCargando" class="margen_superior"><md-progress-circular md-mode="indeterminate"  md-diameter="40"></md-progress-circular></div>
                     <div layout layout-wrap>
                         <h5 layout="row">Ya tienes una cuenta? </h5>
                         <h6 class="login-link-h6"><b ng-click="login.mostrarForm=1"> Ingresa</b></h6>
                     </div>
-                    <div layout layout-align="end">
-                        <md-button class="md-raised md-primary" ng-click="login.registrar(login.datos.registrar)">Enviar</md-button>
-                    </div>
-                   
                 </div>
             </form>
         </div>
