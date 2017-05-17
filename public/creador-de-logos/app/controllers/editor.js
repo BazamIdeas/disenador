@@ -211,9 +211,6 @@ angular.module("disenador-de-logos")
 
         }, 100);
 
-
-
-
     }
 
 
@@ -228,7 +225,7 @@ angular.module("disenador-de-logos")
 
         bz.interval = $interval(function () {
 
-            escala = parseFloat($filter('number')(escala, 1));
+            escala = parseFloat($filter('number')(bz.escala, 1));
 
             if (accion) {
 
