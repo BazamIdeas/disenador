@@ -198,20 +198,20 @@
                         </div>
                         <div class="arrows ">
                             <div class="arrow-center ">
-                                <button ng-click="editor.modificarPosicion( 'y', false, 'icono') ">
+                                <button ng-mousedown="editor.modificarPosicion( 'y', false, 'icono') " ng-mouseup="editor.detenerIntervalo()">
                                     <md-icon>keyboard_arrow_up</md-icon>
                                 </button>
                             </div>
                             <div class="double-arrow ">
-                                <button ng-click="editor.modificarPosicion( 'x', false , 'icono') ">
+                                <button ng-mousedown="editor.modificarPosicion( 'x', false , 'icono') " ng-mouseup="editor.detenerIntervalo()">
                                     <md-icon>keyboard_arrow_left</md-icon>
                                 </button>
-                                <button ng-click="editor.modificarPosicion( 'x', true, 'icono') ">
+                                <button ng-mousedown="editor.modificarPosicion( 'x', true, 'icono') " ng-mouseup="editor.detenerIntervalo()">
                                     <md-icon>keyboard_arrow_right</md-icon>
                                 </button>
                             </div>
                             <div class="arrow-center ">
-                                <button ng-click="editor.modificarPosicion( 'y', true, 'icono') ">
+                                <button ng-mousedown="editor.modificarPosicion( 'y', true, 'icono') " ng-mouseup="editor.detenerIntervalo()">
                                     <md-icon>keyboard_arrow_down</md-icon>
                                 </button>
                             </div>
@@ -222,10 +222,10 @@
                             <h4>Tamaño</h4>
                         </div>
                         <div class="mas-menos">
-                            <md-button ng-click="editor.modificarEscala(editor.escala, true) ">
+                            <md-button ng-mousedown="editor.modificarEscala(editor.escala, true) " ng-mouseup="editor.detenerIntervalo()">
                                 +
                             </md-button>
-                            <md-button ng-click="editor.modificarEscala(editor.escala, false) ">
+                            <md-button ng-mousedown="editor.modificarEscala(editor.escala, false) " ng-mouseup="editor.detenerIntervalo()">
                                 -
                             </md-button>
                         </div>
@@ -249,7 +249,7 @@
                     </md-select>
                     <div layout class="margen_superior ">
                         <div layout="row " flex layout-align="end ">
-                            <md-button class="md-primary md-raised " ng-click="cancel( 'categoria', categoria) ">Cambiar</md-button>
+                            <md-button class="md-primary md-raised" ng-click="cancel('categoria', categoria)">Cambiar</md-button>
                         </div>
                     </div>
                 </div>
