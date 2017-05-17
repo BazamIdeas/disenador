@@ -21,6 +21,16 @@ angular.module("disenador-de-logos")
         return $base64.encode(icono);
 
     }
+    
+    /* COMPRAR LOGO */
+    
+    bz.comprarLogo = function(svgFinal, idFuente, idPrecio, idIcono, tipoLogo){
+        
+        var svg = bz.codificar(svgFinal)
+        var datos = {svgFinal, idFuente, idPrecio, idIcono, tipoLogo}
+        
+        $state.go('',datos);
+    }
 
     /* LOCAL STORAGE */
 

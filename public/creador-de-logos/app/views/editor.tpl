@@ -105,18 +105,14 @@
             <!---------------->
             <!---- SLOGAN ---->
             <!---------------->
-            <div class="elemento md-whiteframe-2dp " ng-switch-when="1 ">
+            <div class="elemento md-whiteframe-2dp " ng-switch-when="1">
                 <div>
                     <div layout layout-align="space-between ">
                         <h4>MODIFICAR SLOGAN</h4>
                     </div>
-<<<<<<< HEAD
-                    <md-input-container class="md-block ">
-                        <input name="fuente " maxlength="12 " ng-required="true " ng-model="editor.logo.texto ">
-=======
+
                     <md-input-container class="md-block">
                         <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto" aria-label="fuente">
->>>>>>> origin/front-end
                     </md-input-container>
                 </div>
                 <div>
@@ -126,18 +122,18 @@
                     </md-select>
                 </div>
                 <!-- POSICIONES-->
-                <div layout>
-                    <div flex="70 ">
+               <div layout>
+                    <div flex="70">
                         <div>
                             <h4>Mover</h4>
                         </div>
-                        <div class="arrows ">
-                            <div class="arrow-center ">
+                        <div class="arrows">
+                            <div class="arrow-center">
                                 <button>
                                     <md-icon>keyboard_arrow_up</md-icon>
                                 </button>
                             </div>
-                            <div class="double-arrow ">
+                            <div class="double-arrow">
                                 <button>
                                     <md-icon>keyboard_arrow_left</md-icon>
                                 </button>
@@ -145,18 +141,18 @@
                                     <md-icon>keyboard_arrow_right</md-icon>
                                 </button>
                             </div>
-                            <div class="arrow-center ">
+                            <div class="arrow-center">
                                 <button>
                                     <md-icon>keyboard_arrow_down</md-icon>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div flex="20 ">
+                    <div flex="20">
                         <div>
                             <h4>Tamaño</h4>
                         </div>
-                        <div class="mas-menos ">
+                        <div class="mas-menos">
                             <md-button>
                                 +
                             </md-button>
@@ -190,13 +186,13 @@
             <!---------------->
             <!---- ICONO ----->
             <!---------------->
-            <div class="elemento md-whiteframe-2dp " ng-switch-when="2 ">
+            <div class="elemento md-whiteframe-2dp" ng-switch-when="2">
                 <div layout layout-align="space-between ">
                     <h4>MODIFICAR ICONO</h4>
                 </div>
                 <!-- POSICIONES-->
                 <div layout>
-                    <div flex="70 ">
+                    <div flex="70">
                         <div>
                             <h4>Mover</h4>
                         </div>
@@ -221,11 +217,11 @@
                             </div>
                         </div>
                     </div>
-                    <div flex="20 ">
+                    <div flex="20">
                         <div>
                             <h4>Tamaño</h4>
                         </div>
-                        <div class="mas-menos ">
+                        <div class="mas-menos">
                             <md-button ng-click="editor.modificarEscala(editor.escala, true) ">
                                 +
                             </md-button>
@@ -259,12 +255,12 @@
                 </div>
             </div>
             <!-- Fin elemento -->
-            <div class="elemento md-whiteframe-2dp " ng-switch-when="3 ">
-                <div layout layout-align="space-between ">
+            <div class="elemento md-whiteframe-2dp" ng-switch-when="3">
+                <div layout layout-align="space-between">
                     <h4>Mis Comparaciones</h4>
                 </div>
-                <div layout="column ">
-                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp " data-svg="comparacion " ng-repeat="comparacion in editor.comparaciones track by $index " ng-click="editor.visualizar(comparacion) ">
+                <div layout="column">
+                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion " ng-repeat="comparacion in editor.comparaciones track by $index " ng-click="editor.visualizar(comparacion)">
                     </bazam-visualizar>
                 </div>
             </div>
@@ -274,7 +270,7 @@
     <div class="contenedor-editor " id="popupContainer-editor ">
         <div class="botones-editor ">
             <div>
-                <md-fab-speed-dial md-open="editor.fabEditor " md-direction="left " class="md-scale " ng-click="editor.fabEditor=true " ng-mouseleave="editor.fabEditor=false ">
+                <md-fab-speed-dial md-open="editor.fabEditor" md-direction="left " class="md-scale " ng-click="editor.fabEditor=true " ng-mouseleave="editor.fabEditor=false ">
                     <md-fab-trigger>
                         <md-button class="md-fab md-primary ">
                             <md-tooltip md-direction="top " md-visible="tooltipVisible ">Compartir</md-tooltip>
@@ -282,17 +278,17 @@
                         </md-button>
                     </md-fab-trigger>
                     <md-fab-actions>
-                        <md-button aria-label="Twitter " class="md-fab md-raised md-mini ">
-                            <md-tooltip md-direction="top " md-visible="tooltipVisible ">Twitter</md-tooltip>
-                            <md-icon aria-label="Twitter " md-svg-src="assets/svg-no-borrar/twitter-logo-silhouette.svg " socialshare socialshare-provider="twitter "></md-icon>
+                        <md-button aria-label="Twitter" class="md-fab md-raised md-mini ">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible ">Twitter</md-tooltip>
+                            <md-icon aria-label="Twitter" md-svg-src="assets/svg-no-borrar/twitter-logo-silhouette.svg" socialshare socialshare-provider="twitter"></md-icon>
                         </md-button>
-                        <md-button aria-label="Facebook " class="md-fab md-raised md-mini ">
-                            <md-tooltip md-direction="bottom " md-visible="tooltipVisible ">Facebook</md-tooltip>
-                            <md-icon aria-label="facebook " md-svg-src="assets/svg-no-borrar/facebook-letter-logo.svg " socialshare socialshare-provider="facebook "></md-icon>
+                        <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Facebook</md-tooltip>
+                            <md-icon aria-label="facebook" md-svg-src="assets/svg-no-borrar/facebook-letter-logo.svg" socialshare socialshare-provider="facebook"></md-icon>
                         </md-button>
-                        <md-button aria-label="Google Hangout " class="md-fab md-raised md-mini ">
-                            <md-tooltip md-direction="left " md-visible="tooltipVisible ">Email</md-tooltip>
-                            <md-icon aria-label="email " md-svg-src="assets/svg-no-borrar/mail.svg " socialshare socialshare-provider="email "></md-icon>
+                        <md-button aria-label="Google Hangout " class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="left " md-visible="tooltipVisible">Email</md-tooltip>
+                            <md-icon aria-label="email" md-svg-src="assets/svg-no-borrar/mail.svg" socialshare socialshare-provider="email"></md-icon>
                         </md-button>
                     </md-fab-actions>
                 </md-fab-speed-dial>
@@ -303,48 +299,28 @@
                     <md-icon class=" material-icon ">save</md-icon>
                 </md-button>
             </div>
-            <div ui-sref="metodo({ logoSvg64: editor.codificar(editor.svgFinal), idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo}) ">
+            <!--
+            ui-sref="metodo({ logoSvg64: editor.codificar(editor.svgFinal), idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo})">
+            -->
+            <div ui-sref="metodo({ logoSvg64: editor.codificar(editor.svgFinal), idFuente: editor.logo.fuente.id, idPrecio: 1, idIcono: editor.logo.icono.idElemento, tipoLogo: editor.logo.icono.tipo})">
                 <md-button class="md-fab md-primary ">
                     <md-tooltip md-direction="top " md-visible="tooltipVisible ">Comprar</md-tooltip>
                     <md-icon class="material-icon ">shopping_cart</md-icon>
                 </md-button>
             </div>
             <div>
-                <md-button class="md-fab md-primary " ng-click="editor.mostrarDialogo($event) ">
+                <md-button class="md-fab md-primary " ng-click="editor.mostrarDialogo($event)">
                     <md-tooltip md-direction="top " md-visible="tooltipVisible ">Previsualizar</md-tooltip>
                     <md-icon class="material-icon ">remove_red_eye</md-icon>
                 </md-button>
             </div>
             <div>
-                <md-button class="md-fab md-primary " ng-click="editor.cambiarMenu( 'ayuda') ">
+                <md-button class="md-fab md-primary " ng-click="editor.cambiarMenu( 'ayuda')">
                     <md-tooltip md-direction="top " md-visible="tooltipVisible ">Ayuda</md-tooltip>
                     <md-icon class="material-icon ">help_outline</md-icon>
                 </md-button>
             </div>
-            <md-sidenav class="md-sidenav-right md-whiteframe-4dp " md-component-id="right " style="width:40%; " ng-switch="editor.tipoNav ">
-                <!--
-<div ng-switch-when="previsualizar ">
-<md-toolbar class="transparencia ">
-<div class="md-toolbar-tools ">
-<div>PREVISUALIZAR</div>
-</div>
-</md-toolbar>
-<div flex layout="column " ng-cloak class="gradient previsualizar ">
-<div class="titulo-prev ">
-<p>DETALLA TU LOGO EN DISTINTAS PLANTILLAS</p>
-</div>
-<div class="plantilla ">
-<div class="elemento-prev md-whiteframe-2dp " ng-repeat="previsualizar in editor.modeloPrevisualizar " identidad="{{previsualizar.nombre}} " style="background:url( '{{previsualizar.url}}') ">
-<bazam-visualizar data-svg="editor.svgFinal ">
-</bazam-visualizar>
-</div>
-</div>
-<div>
-<md-button class="md-raised md-primary " ng-click="editor.cambiarMenu() ">CERRAR</md-button>
-</div>
-</div>
-</div>
--->
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp " md-component-id="right" style="width:40%; " ng-switch="editor.tipoNav ">
                 <div ng-switch-when="ayuda ">
                     <md-toolbar class="transparencia ">
                         <div class="md-toolbar-tools ">

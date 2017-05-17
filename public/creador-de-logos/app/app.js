@@ -38,8 +38,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 'socialsharesBcc': ''
             }
     }
-  //and so on ...
-  ]);
+
+
+  ])
 
     /*------------------Material Angular --------------*/
 
