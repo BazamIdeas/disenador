@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$sce', '$mdDialog', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $sce, $mdDialog) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$mdDialog', '$interval', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $mdDialog, $interval) {
 
     var bz = this;
 
@@ -156,6 +156,18 @@ angular.module("disenador-de-logos")
 
 
 
+    //////////////////////////////////////
+    ///////////INTERVALO GLOBAL///////////
+    //////////////////////////////////////
+
+    bz.interval = null;
+
+    bz.detenerIntervalo = function () {
+
+        $interval.cancel(bz.interval)
+
+    }
+
 
     ///////////////////////////////////////
     /////posicion para icono y texto///////
@@ -173,15 +185,23 @@ angular.module("disenador-de-logos")
 
     bz.modificarPosicion = function (coordenada, accion, objetivo) {
 
-        if (objetivo == "texto") {
 
-            bz.posicionTexto[coordenada] = (accion) ? bz.posicionTexto[coordenada] + 10 : bz.posicionTexto[coordenada] - 10;
+        bz.interval = $interval(function () {
 
-        } else if (objetivo == "icono") {
 
-            bz.posicionIcono[coordenada] = (accion) ? bz.posicionIcono[coordenada] + 10 : bz.posicionIcono[coordenada] - 10;
+            if (objetivo == "texto") {
 
-        }
+                bz.posicionTexto[coordenada] = (accion) ? bz.posicionTexto[coordenada] + 10 : bz.posicionTexto[coordenada] - 10;
+
+            } else if (objetivo == "icono") {
+
+                bz.posicionIcono[coordenada] = (accion) ? bz.posicionIcono[coordenada] + 10 : bz.posicionIcono[coordenada] - 10;
+
+            }
+
+        }, 100);
+
+
 
 
     }
@@ -196,24 +216,28 @@ angular.module("disenador-de-logos")
 
     bz.modificarEscala = function (escala, accion) {
 
-        escala = parseFloat($filter('number')(escala, 1));
+        bz.interval = $interval(function () {
 
-        if (accion) {
+            escala = parseFloat($filter('number')(escala, 1));
 
-            if (escala <= 2) {
+            if (accion) {
 
-                bz.escala = escala + 0.1;
+                if (escala <= 2) {
+
+                    bz.escala = escala + 0.1;
+                }
+
+            } else {
+
+                if (escala >= 0.5) {
+
+                    bz.escala = escala - 0.1;
+
+                }
+
             }
 
-        } else {
-
-            if (escala >= 0.5) {
-
-                bz.escala = escala - 0.1;
-
-            }
-
-        }
+        }, 100);
 
     }
 
@@ -224,25 +248,30 @@ angular.module("disenador-de-logos")
     ////////////////////////////
     bz.tamano = 0;
 
-    bz.modificarTamano = function (tamano, accion) {
 
-        if (accion) {
+    bz.modificarTamano = function (accion) {
 
-            if (tamano < 200) {
+        bz.interval = $interval(function () {
 
-                bz.tamano = tamano + 4;
+            if (accion) {
+
+                if (bz.tamano < 200) {
+
+                    bz.tamano = bz.tamano + 4;
+
+                }
+
+            } else {
+
+                if (bz.tamano > 0) {
+
+                    bz.tamano = bz.tamano - 4;
+
+                }
 
             }
 
-        } else {
-
-            if (tamano > 0) {
-
-                bz.tamano = tamano - 4;
-
-            }
-
-        }
+        }, 100);
 
     }
 
@@ -289,8 +318,8 @@ angular.module("disenador-de-logos")
     bz.visualizaciones = [];
 
     bz.visualizar = function (valor) {
-        
-         bz.visualizacionUsada = false;
+
+        bz.visualizacionUsada = false;
 
         bz.visualizaciones.pop();
 
@@ -302,14 +331,14 @@ angular.module("disenador-de-logos")
     /////////////////////////////////////
     ///// Realizar Restauraciones ///////
     /////////////////////////////////////
-    
+
     bz.restauracionIniciada = false;
 
     bz.restauraciones = [];
 
     bz.realizarRestauracion = function (restauracion) {
-         bz.visualizacionUsada = true;
-        
+        bz.visualizacionUsada = true;
+
         if (bz.restauracionIniciada == false) {
             bz.restauracionIniciada = true;
         }
