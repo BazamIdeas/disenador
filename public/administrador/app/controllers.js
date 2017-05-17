@@ -40,10 +40,29 @@ angular.module("administrador")
 
 }])
 
-.controller('clienteController', ["$state", "$mdSidenav", "clientesService", '$scope', function ($state, $mdSidenav, clientesService, $scope) {
+.controller('clienteController', ["$state", "$mdSidenav", "clientesService", '$scope', 'pedidosService', function ($state, $mdSidenav, clientesService, $scope, pedidosService) {
     var bz = this;
 
     bz.clientes = [];
+    bz.datoPedido = [];
+    bz.mostrarPedido = false;
+    bz.loaderMostrar = true;
+
+    bz.pedidoCliente = function (id) {
+
+        if (!bz.mostrarPedido) {
+            bz.mostrarPedido = true;
+        } else {
+            bz.mostrarPedido = false;
+        }
+
+        pedidosService.pedidoEspecifico(id).then(function (res) {
+            bz.loaderMostrar = false;
+            console.log(res)
+        })
+
+
+    }
 
     bz.listarC = function () {
 
@@ -54,6 +73,7 @@ angular.module("administrador")
         }
 
         clientesService.listarClientes.then(function (res) {
+            bz.loaderMostrar = false;
             angular.forEach(res.data, function (valor, llave) {
                 bz.clientes.push(valor);
 
@@ -94,6 +114,8 @@ angular.module("administrador")
     bz.elementos = [];
 
     bz.mostrarP = false;
+    
+    bz.filtros= [{nombre: 'En espera'},{nombre: 'Completado'}]
 
     bz.listaP = function (id) {
         if (!bz.mostrarP) {
@@ -216,3 +238,12 @@ angular.module("administrador")
 
 
 }])
+
+.controller('categoriasController', ["$state", "$mdSidenav", "$mdDialog", '$scope', function ($state, $mdSidenav, $mdMenu, $scope) {
+
+    var bz = this;
+
+
+
+}])
+

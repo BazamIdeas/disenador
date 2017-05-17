@@ -18,8 +18,18 @@ angular.module("disenador-de-logos")
         bz.autorizado = firebaseUser;
     });
     
-    bz.hmenuMostrar = false;
+    bz.menuMostrar = function(){
+     if(bz.hmenuMostrar){
+         bz.hmenuMostrar = false;
+     }  else{
+         bz.hmenuMostrar = true;
+     }
+    }
     
+}])
 
+.controller('landingController', ["$state", 'Auth', '$mdPanel', 'clientesService', 'SweetAlert', function ($state, $mdPanel, SweetAlert) {
 
+    
+    
 }])

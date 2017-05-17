@@ -9,7 +9,16 @@
     color: black;
     font-size: 16px;
     text-align: right;
-    width: 10%;
+    width: 12%;
+    z-index:9999999999;
+}
+
+.md-button.md-fab {
+    z-index: initial !important;
+}
+
+md-icon:focus{
+    outline-color: transparent;
 }
 
 .icono-header{
@@ -29,9 +38,14 @@
 }
 
 .trans {
-    background-image: url('img/franja-azul.jpg');
+    /* background-image: url('img/franja-azul.jpg'); */
     background-repeat: no-repeat;
     background-size: 100% 15%;
+        background: rgb(255, 255, 255);
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#b3bead', GradientType=0);
 }
 
 div:focus,
@@ -518,6 +532,7 @@ footer {
 
 .logo-editor {
     width: 50%;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
 }
 
 .edicion {
@@ -746,7 +761,7 @@ md-input-container.color-animacion .md-input {
     border: 4px solid #ffffff;
 }
 
-.cont-logo-editor.negro {
+.logo-editor.negro {
     background: #161515;
 }
 
@@ -1015,20 +1030,17 @@ bazam-svg-text svg g:nth-child(1) {}
 
 .plantilla {
     display: flex;
-    justify-content: space-between;
-    width: 90%;
-    margin: 0 auto;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
     flex-wrap: wrap;
-    padding: 1%;
 }
 
 .elemento-prev {
-    height: 48%;
-    width: 76%;
-    margin: auto;
-    background-position-x: 50% !important;
-    background-size: contain !important;
-    background-repeat: no-repeat !important;
+    height: 75%;
+    width: 90%;
+    background-size: cover !important;
+    background-repeat: repeat-x !important;
     margin-bottom: 4%;
     display: flex;
     justify-content: center;

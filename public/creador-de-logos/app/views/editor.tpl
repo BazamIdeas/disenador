@@ -31,7 +31,7 @@
                         <h4>MODIFICAR NOMBRE</h4>
                     </div>
                     <md-input-container class="md-block">
-                        <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto">
+                        <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto" aria-label="fuente">
                     </md-input-container>
                 </div>
                 <div>
@@ -110,8 +110,13 @@
                     <div layout layout-align="space-between ">
                         <h4>MODIFICAR SLOGAN</h4>
                     </div>
+<<<<<<< HEAD
                     <md-input-container class="md-block ">
                         <input name="fuente " maxlength="12 " ng-required="true " ng-model="editor.logo.texto ">
+=======
+                    <md-input-container class="md-block">
+                        <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto" aria-label="fuente">
+>>>>>>> origin/front-end
                     </md-input-container>
                 </div>
                 <div>
@@ -352,14 +357,21 @@
                 </div>
             </md-sidenav>
         </div>
-        <div class="cont-logo-editor " ng-class="editor.fondo ">
+
+        <div class="cont-logo-editor">
+            
             <!--- directiva si se utiliza un svg nunca modificado ---->
-            <div id="logo-share " class="logo-editor md-whiteframe-2dp " ng-if="!editor.restauracionIniciada ">
-                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg) " data-color-icono="editor.colorIcono " data-texto="editor.logo.texto " data-fuente="editor.logo.fuente " data-tamano-fuente="editor.tamano " data-texto-posicion="editor.posicionTexto " data-escala="editor.escala " data-icono-posicion="editor.posicionIcono " data-bold="editor.propiedadesTexto.bold " data-cursive="editor.propiedadesTexto.cursive " data-color-texto="editor.colorTexto " data-svg-final="editor.svgFinal " data-comparaciones="editor.comparaciones " data-comparar="editor.comparar "></bazam-svg>
+            
+            <div id="logo-share" class="logo-editor margen_superior" ng-class="editor.fondo" ng-if="!editor.restauracionIniciada">
+                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar"></bazam-svg>
+
             </div>
             <!---- Directiva si se utiliza un svg modificado  --->
-            <div id="logo-share " class="logo-editor md-whiteframe-2dp " ng-repeat="restauracion in editor.restauraciones ">
-                <bazam-svg-modificado data-svg="restauracion " data-color-icono="editor.colorIcono " data-texto="editor.logo.texto " data-fuente="editor.logo.fuente " data-tamano-fuente="editor.tamano " data-texto-posicion="editor.posicionTexto " data-escala="editor.escala " data-icono-posicion="editor.posicionIcono " data-bold="editor.propiedadesTexto.bold " data-cursive="editor.propiedadesTexto.cursive " data-color-texto="editor.colorTexto " data-svg-final="editor.svgFinal " data-comparaciones="editor.comparaciones " data-comparar="editor.comparar "></bazam-svg-modificado>
+
+            
+            <div id="logo-share" class="logo-editor" ng-class="editor.fondo" ng-repeat="restauracion in editor.restauraciones">
+                <bazam-svg-modificado data-svg="restauracion" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar"></bazam-svg-modificado>
+
             </div>
             <!------- directiva si existen visualizaciones ------>
             <div class="logo-editor md-whiteframe-2dp " ng-repeat="visualizacion in editor.visualizaciones "  ng-if="!editor.visualizacionUsada ">

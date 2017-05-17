@@ -22,6 +22,7 @@
             messagingSenderId: "1055336431388"
         };
         firebase.initializeApp(config);
+
     </script>
 
     <!---jQuery --->
@@ -66,43 +67,47 @@
 </head>
 
 <body>
-    <div layout="column">
-        <!-- header -->
-        <header ng-controller="headerController as header">
-            <md-toolbar class="md-hue-2">
-                <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
-                    <div layout>
-                        <md-icon class="icono-header" ui-sref="comenzar">mode_edit</md-icon>
-                    </div>
-                    <div ng-switch="header.autorizado" class="login_header">
-                        <ingresar ng-switch-when="null" ui-sref="login" layout-padding>
-                            Ingresar
-                        </ingresar>
-
-                        <ingresar ng-switch-default ng-mouseenter="header.hmenuMostrar = true">
-                            <div>
-                                <md-icon class="icono-header">account_circle</md-icon>
-                            </div>
-                            <div ng-show="header.hmenuMostrar" class="menu-header" ng-mouseleave="header.hmenuMostrar = false">
-                                <div ui-sref="dashboard"><p>Mis logos</p></div>
-                                <div ng-click="header.salir()"><p>Cerrar sesion</p></div>
-                            </div>
-                        </ingresar>
-                    </div>
+    <!-- header -->
+    <header ng-controller="headerController as header">
+        <md-toolbar class="md-hue-2">
+            <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
+                <div layout>
+                    <md-icon class="icono-header" ui-sref="comenzar">mode_edit</md-icon>
                 </div>
-            </md-toolbar>
-        </header>
-        <!-- contenedor principal -->
-        <md-content ui-view layout="row" class="trans" style="min-height:100%; height:auto;">
+                <div ng-switch="header.autorizado" class="login_header">
+                    <ingresar ng-switch-when="null" ui-sref="login" layout-padding>
+                        Ingresar
+                    </ingresar>
 
-        </md-content>
+                    <ingresar ng-switch-default ng-click="header.menuMostrar()">
+                        <div>
+                            <md-icon class="icono-header">account_circle</md-icon>
+                        </div>
+                        <div ng-show="header.hmenuMostrar" class="menu-header">
+                            <div ui-sref="dashboard">
+                                <p>Mis logos</p>
+                            </div>
+                            <div ng-click="header.salir()">
+                                <p>Cerrar sesion</p>
+                            </div>
+                        </div>
+                    </ingresar>
+                </div>
+            </div>
+        </md-toolbar>
+    </header>
+    <!-- contenedor principal -->
+    <md-content ui-view layout="row" class="trans" layout-fill>
 
-    </div>
+    </md-content>
+
     <!-- Footer -->
-    <footer class="text-center" layout="row" layout-align="space-between center">
-        <div class="logo" flex="30">logo</div>
-        <p class="copyright" flex="30">Copyright 2017</p>
-        <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
+    <footer class="text-center">
+        <md-toolbar class="md-hue-2" layout="row" layout-align="space-between center">
+            <div class="logo" flex="30">logo</div>
+            <p class="copyright" flex="30">Copyright 2017</p>
+            <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
+        </md-toolbar>
     </footer>
 </body>
 
