@@ -2,15 +2,16 @@ angular.module("disenador-de-logos")
 
 /* Comenzar */
 
-.controller('comenzarController', ["categoriasService", "preferenciasService", "$mdSidenav", function (categoriasService, preferenciasService, $mdSidenav) {
+.controller('comenzarController', ["categoriasService", "preferenciasService", "$mdSidenav", '$stateParams', function (categoriasService, preferenciasService, $mdSidenav, $stateParams) {
 
     var bz = this;
-
 
     bz.datos = {
 
         preferencias: []
     }
+    
+    bz.datos.nombre = $stateParams.datos;
 
     /*------ CORREGIR --------*/
 

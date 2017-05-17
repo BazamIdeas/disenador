@@ -28,7 +28,7 @@ angular.module("disenador-de-logos")
     
 }])
 
-.controller('landingController', ["$state", 'Auth', '$mdPanel', 'clientesService', 'SweetAlert', function ($state, $mdPanel, SweetAlert) {
+.controller('landingController', ["$state", 'Auth', '$mdPanel', 'clientesService', 'SweetAlert', '$stateParams', function ($state, $mdPanel, SweetAlert, $stateParams) {
 
     
     

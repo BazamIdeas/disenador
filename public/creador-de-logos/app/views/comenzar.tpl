@@ -107,7 +107,7 @@
                         <div layout class="margen_superior">
                             <div layout="row" flex layout-align="space-between end">
                                 <md-button class="md-raised md-primary" ng-click="comenzar.mostrar=3">Atras</md-button>
-                                <md-button class="md-raised md-accent" ui-sref="analisis({datos: comenzar.datos})" ng-click="definir()">Enviar</md-button>
+                                <md-button class="md-raised md-accent" ui-sref="analisis({datos: comenzar.datos})">Enviar</md-button>
                             </div>
                         </div>
                     </div>

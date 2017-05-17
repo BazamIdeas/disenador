@@ -53,7 +53,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             name: 'comenzar',
             url: '/comenzar',
             templateUrl: 'app/views/comenzar.tpl',
-            controller: 'comenzarController as comenzar'
+            controller: 'comenzarController as comenzar',
+            params: {
+                datos: null
+            }
         })
         .state({
             name: 'analisis',
@@ -109,7 +112,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         templateUrl: 'app/views/login.tpl',
         controller: 'loginController as login',
         params: {
-            
+
             origen: null,
             destino: null,
             parametrosDestino: null
@@ -183,7 +186,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             url: '/landing',
             templateUrl: 'app/views/landing.tpl',
             controller: 'landingController as landing',
-            
+
         })
 
 
