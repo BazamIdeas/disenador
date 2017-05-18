@@ -295,7 +295,7 @@
                 </md-fab-speed-dial>
             </div>
             <div>
-                <md-button class="md-fab md-primary" ng-click="editor.gLogo( null, 'Editable', editor.svgFinal, editor.logo.icono.tipo, editor.autorizado, editor.logo.icono.idElemento)">
+                <md-button class="md-fab md-primary" ng-click="editor.gLogo( null, 'Editable', editor.codificar(editor.svgFinal), editor.logo.icono.tipo, editor.autorizado, editor.logo.icono.idElemento)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Guardar</md-tooltip>
                     <md-icon class=" material-icon">save</md-icon>
                 </md-button>

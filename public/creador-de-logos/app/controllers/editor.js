@@ -21,16 +21,8 @@ angular.module("disenador-de-logos")
         return $base64.encode(icono);
 
     }
-    
-    /* COMPRAR LOGO */
-    
-    bz.comprarLogo = function(svgFinal, idFuente, idPrecio, idIcono, tipoLogo){
-        
-        var svg = bz.codificar(svgFinal)
-        var datos = {svgFinal, idFuente, idPrecio, idIcono, tipoLogo}
-        
-        $state.go('',datos);
-    }
+
+  
 
     /* LOCAL STORAGE */
 
@@ -151,16 +143,18 @@ angular.module("disenador-de-logos")
 
     bz.gLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
 
-        logo = bz.codificar(logo);
-
         if (firebaseUser) {
 
             logosService.guardarLogo(idLogo, estado, logo, tipoLogo, firebaseUser, idElemento).then(function (res) {
+                
                 SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
+                
             })
 
         } else {
+            
             SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
+            
         }
     }
 
@@ -195,6 +189,7 @@ angular.module("disenador-de-logos")
 
     bz.modificarPosicion = function (coordenada, accion, objetivo) {
 
+        bz.detenerIntervalo();
 
         bz.interval = $interval(function () {
 
@@ -222,6 +217,8 @@ angular.module("disenador-de-logos")
     bz.escala = 1;
 
     bz.modificarEscala = function (escala, accion) {
+
+        bz.detenerIntervalo();
 
         bz.interval = $interval(function () {
 
@@ -257,6 +254,8 @@ angular.module("disenador-de-logos")
 
 
     bz.modificarTamano = function (accion) {
+
+        bz.detenerIntervalo();
 
         bz.interval = $interval(function () {
 

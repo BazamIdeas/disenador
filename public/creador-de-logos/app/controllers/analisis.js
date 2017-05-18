@@ -11,7 +11,7 @@ angular.module("disenador-de-logos")
 
     bz.datos = $stateParams.datos;
 
-    bz.datos.respuesta = [];
+    bz.datos.respuesta = {};
 
     bz.stop = function () {
         $interval.cancel(promise);
@@ -19,7 +19,7 @@ angular.module("disenador-de-logos")
 
 
     elementosService.listaSegunPref($stateParams.datos).then(function (res) {
-
+        
         bz.datos.respuesta.iconos = res.data;
 
         promise = $interval(function () {

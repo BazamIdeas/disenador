@@ -117,7 +117,7 @@ angular.module("disenador-de-logos")
             });
             //union del nuevo contenido
             $scope.seccionInterna = $scope.seccionInternaElementos.join("");
-            
+
             // TAMAÑO FUENTE
             $scope.tamano = 70;
 
@@ -179,7 +179,10 @@ angular.module("disenador-de-logos")
 
                 //evento para los hijos directos de seccion-icono
                 element.find("g[data-seccion-icono] [data-indice]:not(g)").on("click", function () {
-
+                    
+                    $(".seleccionado").removeClass("seleccionado");
+                    $(this).addClass("seleccionado");
+                    
                     //obtenemos el indice que es espejo del array
                     var indiceParte = $(this).attr("data-indice");
 
@@ -280,10 +283,10 @@ angular.module("disenador-de-logos")
                 ///////////////////////////////////////////////////////
                 scope.$watch("tamanoFuente", function (nuevoValor, viejoValor) {
 
-                    if (nuevoValor !== viejoValor) {                        
-                                                                        
+                    if (nuevoValor !== viejoValor) {
+
                         var tamano = nuevoValor + scope.tamano;
-                        
+
                         //cambiamos la font-family al correcto
                         element.find("g[data-seccion-texto] > text:first-child").css("font-size", tamano + "px");
 
@@ -471,10 +474,71 @@ angular.module("disenador-de-logos")
             }
 
 
-            //verificamos 
+            if (atributosIconoG.indexOf("translate") != -1) {
+                //console.log("hola")
+                //obtenemos un array con los translate
+                var posicion = atributosIconoG.split("translate(")[1].split(")", 1)[0].split(",");
+
+                $scope.iconoPosicion = {
+
+                    x: parseInt(posicion[0].split("px")[0]),
+                    y: parseInt(posicion[1].split("px")[0])
+
+                }
+
+
+                //console.log($scope.iconoPosicion)
+
+            } else { //si no existe, el translate es 0,0
+                //console.log("adrios")
+                $scope.iconoPosicion = {
+                    x: 0,
+                    y: 0
+                };
+
+            }
+
+
+
+
+
+            //verificamos que [data-seccion-texto] tenga un atributo transform: translate
+            var atributosTextoG = $scope.svg.split("data-seccion-texto")[1].split(">")[1];
+            if (atributosTextoG.indexOf("translate") != -1) {
+
+                //obtenemos un array con los translate
+                var posicion = atributosTextoG.split("translate(")[1].split(")", 1)[0].split(",");
+
+                $scope.textoPosicion = {
+
+                    x: parseInt(posicion[0].split("px")[0]),
+                    y: parseInt(posicion[1].split("px")[0])
+
+                }
+            } else { //si no existe, el translate es 0,0
+
+                $scope.textoPosicion = {
+                    x: 0,
+                    y: 0
+                };
+
+            }
+
+
+
+
+
+
+
+
+            //verificamos el tamaño de la fuente y lo actualizamos en base al svg
             $scope.tamano = parseInt($scope.tamano = $scope.svg.split("data-seccion-texto")[1].split("font-size: ")[1].split("px", 1)[0]);
-            
-            $scope.tamanoFuente = $scope.tamano - 70;  
+
+            $scope.tamanoFuente = $scope.tamano - 70;
+
+
+
+
 
         },
         link: {
