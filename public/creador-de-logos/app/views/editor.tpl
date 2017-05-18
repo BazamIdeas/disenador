@@ -112,13 +112,13 @@
                     </div>
 
                     <md-input-container class="md-block">
-                        <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto" aria-label="fuente">
+                        <input name="fuente" maxlength="12" ng-required="true" aria-label="fuente">
                     </md-input-container>
                 </div>
                 <div>
                     <h4>Fuente</h4>
                     <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{ 'font-family' : editor.fuente}" aria-label="fuentes">
-                        <md-option ng-value="fuente" ng-style="{ 'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes" ng-click="cambiarFuente(fuente.nombre)">{{fuente.nombre}}</md-option>
+                        <md-option ng-value="fuente" ng-style="{ 'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes">{{fuente.nombre}}</md-option>
                     </md-select>
                 </div>
                 <!-- POSICIONES-->
@@ -178,7 +178,7 @@
                         <h4>Edita el Color</h4>
                     </div>
                     <div layout layout-align="center">
-                        <color-picker ng-model="editor.color" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        <color-picker class="md-whiteframe-2dp" >
                         </color-picker>
                     </div>
                 </div>

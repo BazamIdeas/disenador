@@ -38,6 +38,27 @@ angular.module("disenador-de-logos")
 
     /* *************** */
 
+    bz.lGuardados;
+    bz.lComprados;
+
+    /* LISTAR LOGOS */
+
+    bz.mostrarG = function (token) {
+        logosService.mostrarGuardados(token).then(function (res) {
+            bz.lGuardados = res.data;
+        }).catch(function (res) {
+            bz.notifyG = true;
+        })
+    }
+
+    bz.mostrarC = function (token) {
+        logosService.mostrarComprados(token).then(function (res) {
+            bz.lComprados = res.data;
+        }).catch(function (res) {
+            bz.notifyC = true;
+        })
+    }
+
     this.datosComprados = [];
     this.datosGuardados = [];
 
@@ -67,28 +88,6 @@ angular.module("disenador-de-logos")
             delete this.datosComprados[indice];
             this.lComprados[indice].estado = false;
         }
-    }
-
-    /* LISTAR LOGOS */
-
-
-    bz.lGuardados;
-    bz.lComprados;
-
-    bz.mostrarG = function (token) {
-        logosService.mostrarGuardados(token).then(function (res) {
-            bz.lGuardados = res.data;
-        }).catch(function (res) {
-
-        })
-    }
-
-    bz.mostrarC = function (token) {
-        logosService.mostrarComprados(token).then(function (res) {
-            bz.lComprados = res.data;
-        }).catch(function (res) {
-
-        })
     }
 
 
