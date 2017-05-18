@@ -1,4 +1,4 @@
-<div layout="column" flex class="back-landing">
+<div layout="column" flex>
     <div style="min-height:90%;" layout="column" layout-align="center">
         <div layout class="seccion-landing-uno layout-padding">
             <div flex>
@@ -11,12 +11,14 @@
                 <div>
                     <md-input-container class="md-block">
                         <label for="nombre">INGRESA EL NOMBRE DE TU LOGO</label>
-                        <input type="text" name="nombre" ng-model="nombreLogo" aria-label="nombre" maxlength="12" minlength="1">
+                        <input type="text" name="nombre" ng-model="comienzo.nombreLogo" aria-label="nombre" maxlength="12" minlength="1">
                     </md-input-container>
                     <div layout layout-align="end">
-                        <md-button class="boton-enviar" ui-sref="comenzar({datos:nombreLogo})">
-                            DISEÑAR LOGO
-                        </md-button>
+                        <a href="creador-de-logos/#!/comenzar?nombre={{comienzo.nombreLogo}}">
+                            <md-button class="boton-enviar">
+                                DISEÑAR LOGO
+                            </md-button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -55,20 +57,21 @@
             </div>
         </div>
     </div>
-    <div class="text-center text-white">
-        <h2>ALGUNOS EJEMPLOS</h2>
-    </div>
-    <div layout-align="center" class="seccion-landing-tres ">
-
-        <div layout flex layout-align="space-around" class="layout-padding">
-            <div flex="30">
-                <img src="../../assets/img/casa.jpg">
-            </div>
-            <div flex="30">
-                <img src="../../assets/img/casa.jpg">
-            </div>
-            <div flex="30">
-                <img src="../../assets/img/casa.jpg">
+    <div class="seccion-landing-tres" layout="column" layout-align="center">
+        <div class="text-center text-white">
+            <p class="titulo">ALGUNOS EJEMPLOS</p>
+        </div>
+        <div layout-align="center">
+            <div layout flex layout-align="space-around" class="layout-padding">
+                <div flex="30">
+                    <img src="/landing/assets/img/ejemplo-uno.jpg">
+                </div>
+                <div flex="30">
+                    <img src="/landing/assets/img/ejemplo-dos.jpg">
+                </div>
+                <div flex="30">
+                    <img src="/landing/assets/img/ejemplo-tres.jpg">
+                </div>
             </div>
         </div>
     </div>

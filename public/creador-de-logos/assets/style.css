@@ -49,7 +49,7 @@ header:before {
     width: 100%;
     height: 60px;
     bottom: -60px;
-    background-image: url(../assets/img/shadow3.png);
+    background-image: url('/landing/assets/img/shadow3.png');
     background-size: 100% 100%;
 }
 
@@ -997,9 +997,9 @@ bazam-svg-text svg g:nth-child(1) {}
 
  ::-webkit-scrollbar-thumb {
     border-radius: 0px;
-    background-color: rgb(40, 53, 147);
-    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
-}
+   /* background-color: rgb(40, 53, 147);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0); */
+     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122,153,217)), color-stop(0.72, rgb(73,125,189)), color-stop(0.86, rgb(28,58,148)));
 
  ::-moz-scrollbar {
     -webkit-appearance: none;
@@ -1238,7 +1238,7 @@ bazam-svg-text svg g:nth-child(1) {}
     background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
     background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(236, 236, 236, 1) 40%, rgba(179, 190, 173, 1) 100%);
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#b3bead', GradientType=0);
-    min-height: 35%;
+    min-height: 60%;
     position: relative;
 }
 
@@ -1296,24 +1296,24 @@ bazam-svg-text svg g:nth-child(1) {}
     margin: 0 0 2% 0;
 }
 
-.formulario-landing,
 .formulario-landing .md-button {
     color: white !important;
     border: 1px solid;
 }
 
 .formulario-landing input,
-.formulario-landing label, .formulario-landing .md-input-focused label{
+.formulario-landing label,
+.formulario-landing .md-input-focused label {
     color: white !important;
 }
 
-
-.formulario-landing input{
-    border-bottom:1px solid white !important;
+.formulario-landing input {
+    border-bottom: 1px solid white !important;
 }
 
-.formulario-landing input:focus, .formulario-landing input:active{
-    border-bottom:1px solid white !important;
+.formulario-landing input:focus,
+.formulario-landing input:active {
+    border-bottom: 1px solid white !important;
 }
 
 .hr-land {
@@ -1328,5 +1328,3 @@ p.hr-p {
     color: #171515;
     margin: 0;
 }
-
-

@@ -262,6 +262,7 @@
                 <div layout="column">
                     <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index" ng-click="editor.visualizar(comparacion)">
                     </bazam-visualizar>
+                    <div ng-show="!editor.comparaciones.length" layout-padding><h5>No existe ninguna comparacion</h5></div>
                 </div>
             </div>
         </div>
