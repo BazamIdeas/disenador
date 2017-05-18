@@ -180,6 +180,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     // If the promise is rejected, it will throw a $stateChangeError (see above)
                     return Auth.$requireSignIn();
                     }]
+            },
+            params: {
+                datos: null
             }
         })
         .state({
