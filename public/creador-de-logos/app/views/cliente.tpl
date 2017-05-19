@@ -40,7 +40,7 @@
                         <bazam-visualizar class="logo_icon" data-svg="cliente.base64(logo.logo)">
                         </bazam-visualizar>
                     </div>
-                    <md-icon class="iconos-cliente" ng-show="logo.estado" ui-sref="editor({logo:logo.logo})">create</md-icon>
+                    <md-icon class="iconos-cliente" ng-show="logo.estado" ui-sref="editor({logoModificado: cliente.base64(logo.logo)})">create</md-icon>
                 </div>
 
                 <div layout="column" layout-align="center center" ng-hide="cliente.lGuardados">

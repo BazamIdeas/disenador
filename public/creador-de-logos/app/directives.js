@@ -440,6 +440,8 @@ angular.module("disenador-de-logos")
             //$scope.fuente.nombre = $scope.svg.split("data-seccion-texto")[1].split("font-family: ")[1].split(";")[0];
 
             $scope.elementosIndices = [];
+            
+            console.log($scope.svg)
 
             //obtenemos texto del svg
             $scope.texto = $scope.svg.split("data-seccion-texto")[1].split("font-family: ")[1].split(">")[1].split("</t")[0];

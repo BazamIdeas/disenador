@@ -94,7 +94,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             params: {
                 logo: null,
                 posicion: null,
-                texto: null
+                texto: null,
+                logoModificado: null
             }
         })
         .state({

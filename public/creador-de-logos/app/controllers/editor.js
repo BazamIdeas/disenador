@@ -22,23 +22,88 @@ angular.module("disenador-de-logos")
 
     }
 
-  
 
-    /* LOCAL STORAGE */
+    /////////////////////////////////////
+    ////// Mostrar Visualizaciones///////
+    /////////////////////////////////////
 
+
+    bz.visualizacionUsada = false;
+
+    bz.visualizaciones = [];
+
+    bz.visualizar = function (valor) {
+
+        bz.visualizacionUsada = false;
+
+        bz.visualizaciones.pop();
+
+        bz.visualizaciones.push(valor);
+
+    }
+
+
+    /////////////////////////////////////
+    ///// Realizar Restauraciones ///////
+    /////////////////////////////////////
+
+    bz.restauracionIniciada = false;
+
+    bz.restauraciones = [];
+
+    bz.realizarRestauracion = function (restauracion) {
+        bz.visualizacionUsada = true;
+
+        if (bz.restauracionIniciada == false) {
+            bz.restauracionIniciada = true;
+        }
+
+        if (bz.restauraciones.length) {
+            bz.restauraciones.pop();
+        }
+        bz.restauraciones.push(restauracion);
+
+
+    }
+
+
+    //////////////////////////////////////////////
+    ///////////////LOCAL STORAGE//////////////////
+    //////////////////////////////////////////////
     this.definirInfo = function (llave, datos) {
         return LS.definir(llave, datos);
     }
 
-    if ($stateParams.logo && $stateParams.posicion && $stateParams.texto) {
-        this.definirInfo($state.current.name, $stateParams);
-        this.datosEstadoAnterior = $stateParams;
 
-    } else if (LS.obtener($state.current.name)) {
+    if ($stateParams.logoModificado) {
 
-        this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
+
+        bz.restauracionIniciada = true;
+
+
+        bz.restauraciones.push($stateParams.logoModificado);
+
+
+
     } else {
-        $state.go('opciones');
+
+        if ($stateParams.logo && $stateParams.posicion && $stateParams.texto) {
+            this.definirInfo($state.current.name, $stateParams);
+            this.datosEstadoAnterior = $stateParams;
+
+        } else if (LS.obtener($state.current.name)) {
+
+            this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
+        } else {
+            $state.go('opciones');
+        }
+
+        this.logo = this.datosEstadoAnterior.logo;
+        this.logo.texto = this.datosEstadoAnterior.texto;
+        this.logo.posicion = this.datosEstadoAnterior.posicion;
+        
+         this.categoria = this.datosEstadoAnterior.logo.icono.categorias_idCategoria;
+
     }
 
     /* *************** */
@@ -71,9 +136,7 @@ angular.module("disenador-de-logos")
     }
 
 
-    this.logo = this.datosEstadoAnterior.logo;
-    this.logo.texto = this.datosEstadoAnterior.texto;
-    this.logo.posicion = this.datosEstadoAnterior.posicion;
+
 
     $scope.fuente = null;
     $scope.fuentes = null;
@@ -131,7 +194,7 @@ angular.module("disenador-de-logos")
     bz.fondo = "blanco";
 
     /* CATEGORIAS EXISTENTES */
-    this.categoria = this.datosEstadoAnterior.logo.icono.categorias_idCategoria;
+   
     this.categoriasPosibles = [];
     categoriasService.listaCategorias.then(function (res) {
         angular.forEach(res.data, function (valor, llave) {
@@ -146,15 +209,15 @@ angular.module("disenador-de-logos")
         if (firebaseUser) {
 
             logosService.guardarLogo(idLogo, estado, logo, tipoLogo, firebaseUser, idElemento).then(function (res) {
-                
+
                 SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
-                
+
             })
 
         } else {
-            
+
             SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
-            
+
         }
     }
 
@@ -313,51 +376,6 @@ angular.module("disenador-de-logos")
         bz.comparar = (valor) ? false : true;
 
     }
-
-
-
-    /////////////////////////////////////
-    ////// Mostrar Visualizaciones///////
-    /////////////////////////////////////
-    bz.visualizacionUsada = false;
-
-    bz.visualizaciones = [];
-
-    bz.visualizar = function (valor) {
-
-        bz.visualizacionUsada = false;
-
-        bz.visualizaciones.pop();
-
-        bz.visualizaciones.push(valor);
-
-    }
-
-
-    /////////////////////////////////////
-    ///// Realizar Restauraciones ///////
-    /////////////////////////////////////
-
-    bz.restauracionIniciada = false;
-
-    bz.restauraciones = [];
-
-    bz.realizarRestauracion = function (restauracion) {
-        bz.visualizacionUsada = true;
-
-        if (bz.restauracionIniciada == false) {
-            bz.restauracionIniciada = true;
-        }
-
-        if (bz.restauraciones.length) {
-            bz.restauraciones.pop();
-        }
-        bz.restauraciones.push(restauracion);
-
-
-    }
-
-
 
     /* PREVISUALIZAR */
 
