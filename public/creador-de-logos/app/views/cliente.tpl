@@ -17,10 +17,9 @@
                         <bazam-visualizar class="logo_icon" data-svg="cliente.base64(elemento.logo)">
                         </bazam-visualizar>
                     </div>
-                    <!--
                     <md-icon class="iconos-cliente" ng-show="elemento.mostrar" 
-                    ui-sref="administrar({datos:{id:elemento.idLogo,logo: cliente.codificar(elemento.logo)}})">vertical_align_bottom</md-icon>
-                    -->
+                    ui-sref="administrar({datos:{id:elemento.idLogo,logo: elemento.logo}})">vertical_align_bottom</md-icon>
+                    
                 </div>
                 <div layout="column" layout-align="center center" ng-hide="cliente.lComprados">
                     <div ng-hide="cliente.notifyC">

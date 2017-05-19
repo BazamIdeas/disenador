@@ -1164,6 +1164,12 @@ bazam-svg-text svg g:nth-child(1) {}
 .logo-datos {
     WIDTH: 100%;
     display: flex;
+    justify-content: center;
+}
+
+.logo-descargar{
+    height: 150px;
+    position: relative;
 }
 
 .titulo.administrar-t {

@@ -84,7 +84,7 @@ router.post('/logos/descargables/',controllers.firebase.comprobarEstadoCliente, 
 router.get('/logo/:id',controllers.firebase.comprobarEstadoCliente, controllers.logos.datosLogo);//muestra los datos de un logo por su id
 router.post("/logo/guardar/", controllers.firebase.comprobarEstadoCliente,controllers.logos.guardar);
 router.post("/logo/modificar/",controllers.firebase.comprobarEstadoCliente, controllers.logos.modificarLogo);
-router.post("/logo/descargar/",controllers.firebase.comprobarEstadoCliente, controllers.logos.descargar);
+router.post("/logo/descargar/", controllers.logos.descargar);
 
 //PARA PRUEBAS
 //router.post("/logos/prueba/", controllers.logos.prueba);

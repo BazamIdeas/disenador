@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* Administras logo */
 
-.controller('administrarController', ['$scope', 'currentAuth', '$stateParams', '$state', 'LS', '$base64', function ($scope, currentAuth, $stateParams, $state, LS, $base64) {
+.controller('administrarController', ['$scope', 'currentAuth', '$stateParams', '$state', 'LS', '$base64', 'logosService', function ($scope, currentAuth, $stateParams, $state, LS, $base64, logosService) {
 
     var bz = this;
 
@@ -36,5 +36,36 @@ angular.module("disenador-de-logos")
     }
 
     bz.info = this.datosEstadoAnterior;
+
+    
+    bz.descargarL = function (idLogo, ancho) {
+        logosService.descargarLogo(idLogo, ancho).then(function (res) {
+            bz.url = res.data;
+            console.log(bz.url)
+        }).catch(function (res) {
+            console.log('No funciona');
+        })
+    }
+    
+    bz.medidas = [{ancho: 300},{ancho: 400},{ancho: 500}];
+
+
+
+    /* EFECTO HOVER */
+
+    this.elementos = [];
+
+    this.efectoHover = function (indice, valor) {
+        if (!this.elementos[indice]) {
+            this.elementos[indice] = valor;
+            this.medidas[indice].mostrar = true;
+        } else {
+            delete this.elementos[indice];
+            this.medidas[indice].mostrar = false;
+        }
+    }
+
+
+
 
 }])
