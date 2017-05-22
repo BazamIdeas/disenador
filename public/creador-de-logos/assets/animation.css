@@ -98,6 +98,20 @@
     }
 
 
+    /* Iconos de la vista ADMINISTRAR */
+    
+    .iconos-administrar.ng-hide {
+        opacity: 1;
+    }
+    
+    .iconos-administrar.ng-hide-add {
+    }
+    
+    .iconos-administrar.ng-hide-remove {
+
+    }
+
+
     
     .color-animacion {
         /* transform: scale(0); */

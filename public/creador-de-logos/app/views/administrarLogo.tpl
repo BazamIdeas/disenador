@@ -37,12 +37,12 @@
 
             <div flex="50" class="md-whiteframe-2dp scroll ">
                 <div flex layout="row" layout-align="space-around" layout-wrap layout-padding class="text-center">
-                    <div flex="30" ng-repeat="elemento in administrar.medidas" class="logo-descargar" ng-mouseenter="administrar.efectoHover($index, elemento)" ng-mouseleave="administrar.efectoHover($index, elemento)">
+                    <div flex="40" ng-repeat="elemento in administrar.medidas" class="logo-descargar" ng-mouseenter="administrar.efectoHover($index, elemento)" ng-mouseleave="administrar.efectoHover($index, elemento)">
                         <div>
                             <bazam-visualizar data-svg="administrar.base64(administrar.info.logo)">
                             </bazam-visualizar>
                         </div>
-                        <md-icon class="iconos-cliente" ng-show="elemento.mostrar" ng-click="administrar.descargarL(administrar.info.id, elemento.ancho)">vertical_align_bottom</md-icon>
+                        <md-button class="iconos-administrar" ng-show="elemento.mostrar" ng-click="administrar.descargarL(administrar.info.id, elemento.ancho)">300PX</md-button>
                     </div>
                 </div>
             </div>
