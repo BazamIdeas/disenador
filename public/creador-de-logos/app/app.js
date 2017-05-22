@@ -52,12 +52,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     $stateProvider.state({
             name: 'comenzar',
-            url: '/comenzar',
+            url: '/comenzar?nombreLogo',
             templateUrl: 'app/views/comenzar.tpl',
             controller: 'comenzarController as comenzar',
-            params: {
-                datos: null
-            }
         })
         .state({
             name: 'analisis',

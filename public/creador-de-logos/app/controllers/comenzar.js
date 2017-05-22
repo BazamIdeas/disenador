@@ -11,7 +11,7 @@ angular.module("disenador-de-logos")
         preferencias: []
     }
     
-    bz.datos.nombre = $stateParams.datos;
+    bz.datos.nombre = $stateParams.nombreLogo;
 
     /*------ CORREGIR --------*/
 
