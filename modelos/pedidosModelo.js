@@ -7,7 +7,7 @@ var pedido = {};
 //obtenemos todos los pedidos
 pedido.getPedidos = function(callback)
 {
-	var q = 'SELECT idPedido, fecha, estado, tipoP, idLogo, logo, idCliente, nombreCliente, correo, telefono, pais, nombreCategoria FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria ORDER BY idPedido' 
+	var q = 'SELECT idPedido, fecha, pedidos.estado, tipoP, idLogo, logo, idCliente, nombreCliente, correo, telefono, pais, nombreCategoria FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria ORDER BY idPedido' 
 
 	DB.getConnection(function(err, connection)
 	{
@@ -26,7 +26,7 @@ pedido.getPedidos = function(callback)
 //obtenemos un pedido por su id
 pedido.getPedido = function(id,callback)
 { 
-	var q = 'SELECT idPedido, fecha, estado, tipoP, idLogo, logo, idCliente, nombreCliente, correo, telefono, pais, nombreCategoria FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria WHERE idPedido = ?'
+	var q = 'SELECT idPedido, fecha, pedidos.estado, tipoP, idLogo, logo, idCliente, nombreCliente, correo, telefono, pais, nombreCategoria FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria WHERE idPedido = ?'
  	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
@@ -46,7 +46,7 @@ pedido.getPedido = function(id,callback)
 //obtenemos los pedidos por id del cliente
 pedido.getPedidosCliente = function(id,callback)
 { 
-	var q = 'SELECT idPedido, fecha, estado, tipoP, idLogo, logo, nombreCategoria FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria WHERE idCliente = 1 ' 
+	var q = 'SELECT idPedido, fecha, pedidos.estado, tipoP, idLogo, logo, nombreCategoria FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria WHERE idCliente = 1 ' 
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
@@ -88,7 +88,7 @@ pedido.insertPedido = function(pedidoData,callback)
 //actualizar un pedido
 pedido.updatePedido = function(pedidoData, callback)
 {
-	var q = 'UPDATE pedidos SET fecha = ?, estado = ?,  tipoP = ? WHERE idPedido = ?';
+	var q = 'UPDATE pedidos SET fecha = ?, estado = ? WHERE idPedido = ?';
 	var par = pedidoData //parametros
 
 	DB.getConnection(function(err, connection)
