@@ -44,7 +44,13 @@ exports.listaUsuarios = function(req, res, next) {
 exports.nuevoUsuario =  function(req,res)
 	{
 		//creamos un objeto con los datos a insertar del usuario
-		var usuarioData = req.body;
+		var usuarioData = {
+			idUsuario : null,
+			uid: req.body.uid,
+			nombreUser:req.body.nombreUser,
+			correo : req.body.correo,
+			pass : req.body.pass
+		};
 		usuario.insertUsuario(usuarioData,function(error, data)
 		{
 			//si el usuario se ha insertado correctamente mostramos su info

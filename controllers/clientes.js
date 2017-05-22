@@ -23,7 +23,7 @@ exports.login =  function(req,res,next)
 		//no existe
 			else
 			{
-				res.status(500).json(data);
+				res.status(404).json(data);
 			}
 		});
 	} 
@@ -40,7 +40,7 @@ exports.listaClientes = function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(500).json({"msg":"No hay clientes registrados"})
+				res.status(404).json({"msg":"No hay clientes registrados"})
 			}
 		});
 
@@ -61,7 +61,7 @@ exports.datosCliente =  function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(500).json({"msg":"No Encontrado"})
+				res.status(404).json({"msg":"No Encontrado"})
 			}
 		});
 
@@ -105,7 +105,7 @@ exports.nuevoCliente =  function(req,res,next)
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				//creamos un array con los datos a modificar del cliente
-				var clienteData = [req.body.nombreCliente, req.body.correo, req.body.pass, req.body.telefono, idCliente];
+				var clienteData = [req.body.nombreCliente, req.body.correo, req.body.pass, req.body.telefono, req.body.pais, idCliente];
 					
 				cliente.updateCliente(clienteData,function(error, data)
 				{

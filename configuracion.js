@@ -1,8 +1,8 @@
 
 var produccion = {
-	"seguridad" : true,
+	"seguridad" : false,
 	"puerto" : "4001",
-	"url": "http://localhost:8080",
+	"url": "front.liderlogo.info",
 	"dashboard": "/creador-de-logos#!/area-del-cliente",
     "paypal" : {
     "host" : "api.sandbox.paypal.com",
@@ -13,7 +13,7 @@ var produccion = {
 };
 
 var desarrollo = {
-	"seguridad" : true,
+	"seguridad" : false,
 	"puerto" : "8080",
 	"url": "http://localhost:8080",
 	"dashboard": "/creador-de-logos#!/area-del-cliente",
