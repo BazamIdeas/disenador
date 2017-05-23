@@ -43,6 +43,7 @@
                             </bazam-visualizar>
                         </div>
                         <md-button class="iconos-administrar" ng-show="elemento.mostrar" ng-click="administrar.descargarL(administrar.info.id, elemento.ancho)">300PX</md-button>
+                        <a ng-href="elemento.url" download ng-show="elemento.estado">DESCARGAR</a>
                     </div>
                 </div>
             </div>

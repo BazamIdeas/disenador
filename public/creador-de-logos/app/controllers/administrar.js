@@ -37,26 +37,29 @@ angular.module("disenador-de-logos")
 
     bz.info = this.datosEstadoAnterior;
 
-    
-    bz.descargarL = function (idLogo, ancho) {
+
+    bz.descargarL = function (indice, idLogo, ancho) {
         logosService.descargarLogo(idLogo, ancho).then(function (res) {
             bz.url = res.data.svg;
-            
             bz.url = bz.url.replace('public/', '');
             
-            bz.url = 'http://' + location.host +'/'+ bz.url;
+            bz.elementos[indice].url = 'http://' + location.host + '/' + bz.url;
             
+            if (bz.descargar.url) {
+                bz.elementos[indice].estado = true;
+            }
+
             // $window.location.href = bz.url;
-            
-            $window.open(bz.url, "_blank");
-            
-            
+            // $window.open(bz.url, "_blank");
+
         }).catch(function (res) {
             console.log('No funciona');
         })
     }
-    
-    bz.medidas = [{ancho: 300}];
+
+    bz.medidas = [{
+        ancho: 300
+    }];
 
 
 
