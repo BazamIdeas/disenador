@@ -13,7 +13,7 @@ angular.module("disenador-de-logos")
         login: {}
 
     };
-    
+
     bz.loaderCargando = false;
     this.registrar = function (datos) {
 
@@ -43,15 +43,22 @@ angular.module("disenador-de-logos")
 
 
     this.login = function (metodo, datos, valido) {
+
         if (valido) {
+
             bz.loaderCargando = true;
+
             clientesService.login(metodo, datos).then(function (res) {
 
-
                 if ($stateParams.destino) {
+                    
 
                     if ($stateParams.origen == "editor" && $stateParams.destino == "metodo") {
 
+                        $state.go($stateParams.destino, $stateParams.parametrosDestino);
+
+                    } else if ($stateParams.origen == "editor" && $stateParams.destino == "editor") {
+                        
                         $state.go($stateParams.destino, $stateParams.parametrosDestino);
 
                     } else {

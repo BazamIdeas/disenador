@@ -548,16 +548,20 @@ footer {
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
 }
 
-.logo-editor:hover [data-indice]:not(.seleccionado){
-    
+
+/* TRANSPARENCIA */
+
+.principal.logo-editor:hover [data-indice]:not(.seleccionado) {
     opacity: 0.4;
 }
 
-.logo-editor:hover [data-indice]:hover{
-    
+.principal.logo-editor:hover [data-indice]:hover {
     opacity: 1;
     cursor: pointer;
-    
+}
+
+.principal.logo-editor:hover .seleccionado {
+    opacity: 1;
 }
 
 .edicion {
@@ -1009,10 +1013,11 @@ bazam-svg-text svg g:nth-child(1) {}
 
  ::-webkit-scrollbar-thumb {
     border-radius: 0px;
-   /* background-color: rgb(40, 53, 147);
+    /* background-color: rgb(40, 53, 147);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0); */
-     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122,153,217)), color-stop(0.72, rgb(73,125,189)), color-stop(0.86, rgb(28,58,148)));
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122, 153, 217)), color-stop(0.72, rgb(73, 125, 189)), color-stop(0.86, rgb(28, 58, 148)));
 }
+
  ::-moz-scrollbar {
     -webkit-appearance: none;
     width: 4px;
@@ -1159,20 +1164,30 @@ bazam-svg-text svg g:nth-child(1) {}
 .logo-datos {
     WIDTH: 100%;
     display: flex;
+    justify-content: center;
+}
+
+.logo-descargar{
+    height: 150px;
+    position: relative;
+}
+
+.titulo.administrar-t {
+    font-size: 40px;
+    color: white;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    text-shadow: 1px 1px 1px;
+    letter-spacing: 3px;
+    font-weight: bold;
 }
 
 .logo-datos md-icon {
     height: 30%;
     width: 50%;
     margin: auto;
-}
-
-.titulo-adm p {
-    padding: 10px;
-    text-align: center;
-    color: white;
-    background: #283593;
-    margin: 0;
 }
 
 .colores {
@@ -1201,10 +1216,15 @@ bazam-svg-text svg g:nth-child(1) {}
 }
 
 .logos-tamanos {
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
     padding: 0;
     height: 400px;
     overflow: auto;
+}
+
+.titulo.info {
+    text-align: center;
+    font-size: 30px;
+    padding: 2% 0;
 }
 
 .logos-tamanos md-icon {

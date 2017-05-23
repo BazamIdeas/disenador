@@ -77,13 +77,9 @@ angular.module("disenador-de-logos")
 
     if ($stateParams.logoModificado) {
 
-
         bz.restauracionIniciada = true;
 
-
         bz.restauraciones.push($stateParams.logoModificado);
-
-
 
     } else {
 
@@ -101,8 +97,8 @@ angular.module("disenador-de-logos")
         this.logo = this.datosEstadoAnterior.logo;
         this.logo.texto = this.datosEstadoAnterior.texto;
         this.logo.posicion = this.datosEstadoAnterior.posicion;
-        
-         this.categoria = this.datosEstadoAnterior.logo.icono.categorias_idCategoria;
+
+        this.categoria = this.datosEstadoAnterior.logo.icono.categorias_idCategoria;
 
     }
 
@@ -194,7 +190,7 @@ angular.module("disenador-de-logos")
     bz.fondo = "blanco";
 
     /* CATEGORIAS EXISTENTES */
-   
+
     this.categoriasPosibles = [];
     categoriasService.listaCategorias.then(function (res) {
         angular.forEach(res.data, function (valor, llave) {
@@ -206,6 +202,7 @@ angular.module("disenador-de-logos")
 
     bz.gLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
 
+        //si el usuario esta logeado
         if (firebaseUser) {
 
             logosService.guardarLogo(idLogo, estado, logo, tipoLogo, firebaseUser, idElemento).then(function (res) {
@@ -214,9 +211,19 @@ angular.module("disenador-de-logos")
 
             })
 
-        } else {
+        } else { //si el usuario no esta logeado 
 
-            SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
+            $state.go("login", ({
+                origen: $state.current.name,
+                destino: $state.current.name,
+                parametrosDestino: {
+
+                    logoModificado: bz.base64(logo),
+                    
+                }
+            }));
+
+            //SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
 
         }
     }
