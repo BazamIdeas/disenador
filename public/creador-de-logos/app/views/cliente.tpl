@@ -44,14 +44,14 @@
                 </div>
 
                 <div layout="column" layout-align="center center" ng-hide="cliente.lGuardados">
-                    <div>
-                        <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+                    <div ng-hide="cliente.notifyG">
+                        <div>
+                            <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+                        </div>
+                        <p class="titulo">Cargando</p>
                     </div>
-                    <div>
-                        <p class="titulo" ng-show="cliente.notifyG">No has guardado ningun logo</p>
-                    </div>
-                    <div>
-                        <p class="titulo" ng-hide="cliente.notifyG">Cargando</p>
+                    <div ng-show="cliente.notifyG">
+                        <p class="titulo">No has guardado ningun logo </p>
                     </div>
                 </div>
             </div>

@@ -38,34 +38,17 @@ angular.module("disenador-de-logos")
     bz.info = this.datosEstadoAnterior;
 
 
-    bz.descargarL = function (indice, idLogo, ancho) {
-        logosService.descargarLogo(idLogo, ancho).then(function (res) {
-            bz.url = res.data.svg;
-            bz.url = bz.url.replace('public/', '');
-            
-            bz.elementos[indice].url = 'http://' + location.host + '/' + bz.url;
-            
-            if (bz.descargar.url) {
-                bz.elementos[indice].estado = true;
-            }
-
-            // $window.location.href = bz.url;
-            // $window.open(bz.url, "_blank");
-
-        }).catch(function (res) {
-            console.log('No funciona');
-        })
-    }
-
     bz.medidas = [{
         ancho: 300
+    }, {
+        ancho: 400
+    }, {
+        ancho: 500
     }];
 
-
+    this.elementos = [];
 
     /* EFECTO HOVER */
-
-    this.elementos = [];
 
     this.efectoHover = function (indice, valor) {
         if (!this.elementos[indice]) {
@@ -77,6 +60,35 @@ angular.module("disenador-de-logos")
         }
     }
 
+    bz.descargarL = function (indice, idLogo, ancho) {
+
+        logosService.descargarLogo(idLogo, ancho).then(function (res) {
+
+            bz.url = res.data.svg;
+            bz.url = bz.url.replace('public/', '');
+            bz.medidas[indice].url = 'http://' + location.host + '/' + bz.url;
+
+            if (bz.medidas[indice].url) {
+                bz.medidas[indice].estado = true;
+
+                var logo = document.getElementById('logoD' + indice);
+
+                var link = document.createElement('a');
+
+                link.setAttribute('download', bz.url);
+                link.setAttribute('href', bz.medidas[indice].url);
+                link.innerHTML = 'Descargar';
+
+                logo.appendChild(link);
+            }
+
+            // $window.location.href = bz.url;
+            // $window.open(bz.url, "_blank");
+
+        }).catch(function (res) {
+            console.log(res);
+        })
+    }
 
 
 

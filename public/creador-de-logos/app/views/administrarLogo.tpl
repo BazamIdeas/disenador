@@ -13,7 +13,9 @@
     <div layout layout-align="center">
         <div flex="80" layout class="administrar-logo md-whiteframe-2dp layout-padding" layout-align="space-around">
             <div flex="40">
-                <div class="logo-datos">
+                
+                <div class="h_seccion_dashboard md-whiteframe-2dp text-center" layout-padding>DATOS GENERALES</div>
+                <div class="logo-datos md-whiteframe-2dp">
                     <bazam-visualizar data-svg="administrar.base64(administrar.info.logo)">
                     </bazam-visualizar>
                 </div>
@@ -35,15 +37,16 @@
                 </div>
             </div>
 
-            <div flex="50" class="md-whiteframe-2dp scroll ">
-                <div flex layout="row" layout-align="space-around" layout-wrap layout-padding class="text-center">
-                    <div flex="40" ng-repeat="elemento in administrar.medidas" class="logo-descargar" ng-mouseenter="administrar.efectoHover($index, elemento)" ng-mouseleave="administrar.efectoHover($index, elemento)">
-                        <div>
-                            <bazam-visualizar data-svg="administrar.base64(administrar.info.logo)">
-                            </bazam-visualizar>
-                        </div>
-                        <md-button class="iconos-administrar" ng-show="elemento.mostrar" ng-click="administrar.descargarL(administrar.info.id, elemento.ancho)">300PX</md-button>
-                        <a ng-href="elemento.url" download ng-show="elemento.estado">DESCARGAR</a>
+            <div flex="50" class="scroll ">
+                <div class="h_seccion_dashboard md-whiteframe-2dp text-center" layout-padding>MEDIDAS</div>
+                <div flex layout="row" layout-align="space-around" layout-wrap class="md-whiteframe-2dp text-center layout-padding" style="    min-height: 65%;" >
+                    <div flex="30" ng-repeat="elemento in administrar.medidas" class="logo-descargar" ng-mouseenter="administrar.efectoHover($index, elemento)" ng-mouseleave="administrar.efectoHover($index, elemento)">
+
+                        <bazam-visualizar data-svg="administrar.base64(administrar.info.logo)">
+                        </bazam-visualizar>
+
+                        <md-button class="iconos-administrar" ng-click="administrar.descargarL($index,administrar.info.id, elemento.ancho)">{{elemento.ancho}}PX</md-button>
+                        <div id="logoD{{$index}}" class="desca" ng-show="elemento.estado"></div>
                     </div>
                 </div>
             </div>

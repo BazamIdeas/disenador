@@ -105,9 +105,11 @@
     }
     
     .iconos-administrar.ng-hide-add {
+        background: rgba(0, 0, 0, 0.78);
     }
     
     .iconos-administrar.ng-hide-remove {
+        background: rgba(0, 0, 0, 0.78);
 
     }
 
