@@ -86,7 +86,7 @@ router.get('/logo/:id',controllers.firebase.comprobarEstado, controllers.logos.d
 router.post("/logo/guardar/", controllers.firebase.comprobarEstado,controllers.logos.guardar);
 router.post("/logo/modificar/",controllers.firebase.comprobarEstado, controllers.logos.modificarLogo);
 router.post("/logo/descargar/",controllers.firebase.comprobarEstado, controllers.logos.descargar);
->>>>>>> refs/remotes/origin/backend
+
 
 //PARA PRUEBAS
 //router.post("/logos/prueba/", controllers.logos.prueba);
