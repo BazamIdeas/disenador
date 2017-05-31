@@ -62,7 +62,7 @@ angular.module("disenador-de-logos")
 /********PEDIDOS******/
 /*********************/
 
-.service("pedidosService", ["$http", "$q", "Auth",  function ($http, $q, Auth) {
+.service("pedidosService", ["$http", "$q", "Auth", function ($http, $q, Auth) {
 
     this.idCliente = 1;
 
@@ -128,9 +128,9 @@ angular.module("disenador-de-logos")
 
         Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
             .then(function (firebaseUser) {
-                
+
                 datos.uid = firebaseUser.uid;
-            
+
                 $http.post("/app/cliente", datos).then(function (res) {
 
                         defered.resolve(res);
@@ -302,14 +302,14 @@ angular.module("disenador-de-logos")
 /*********************/
 
 .service("logosService", ["$http", "$q", "Auth", function ($http, $q, Auth) {
-    
+
 
     this.guardarLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
-        
+
         var defered = $q.defer();
 
         var promise = defered.promise;
-        
+
         var datos = {
             idlogo: idLogo,
             estado: estado,
@@ -341,9 +341,11 @@ angular.module("disenador-de-logos")
         var defered = $q.defer();
 
         var promise = defered.promise;
-        
 
-        $http.post("/app/logos/guardados", {token: token}).then(function (res) {
+
+        $http.post("/app/logos/guardados", {
+            token: token
+        }).then(function (res) {
 
 
             defered.resolve(res);
@@ -365,7 +367,9 @@ angular.module("disenador-de-logos")
 
         var promise = defered.promise;
 
-        $http.post("/app/logos/descargables", {token: token}).then(function (res) {
+        $http.post("/app/logos/descargables", {
+            token: token
+        }).then(function (res) {
 
 
             defered.resolve(res);
@@ -377,6 +381,31 @@ angular.module("disenador-de-logos")
         })
 
         return promise;
+    }
+
+    this.descargarLogo = function (idLogo, ancho) {
+
+        var defered = $q.defer();
+
+        var promise = defered.promise;
+
+        var datos = {
+            idLogo: idLogo,
+            ancho: ancho
+        }
+
+        $http.post("/app/logo/descargar/", datos).then(function (res) {
+
+            defered.resolve(res);
+
+        }).catch(function (res) {
+
+            defered.reject(res);
+
+        })
+
+        return promise;
+
     }
 
 }])

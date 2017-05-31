@@ -13,6 +13,12 @@ angular.module("disenador-de-logos")
 
     }
 
+    bz.codificar = function (icono) {
+
+        return $base64.encode(icono);
+
+    }
+
     Auth.$onAuthStateChanged(function (firebaseUser) {
         bz.autorizado = firebaseUser;
         bz.mostrarC(bz.autorizado.Pd);
@@ -38,6 +44,27 @@ angular.module("disenador-de-logos")
 
     /* *************** */
 
+    bz.lGuardados;
+    bz.lComprados;
+
+    /* LISTAR LOGOS */
+
+    bz.mostrarG = function (token) {
+        logosService.mostrarGuardados(token).then(function (res) {
+            bz.lGuardados = res.data;
+        }).catch(function (res) {
+            bz.notifyG = true;
+        })
+    }
+
+    bz.mostrarC = function (token) {
+        logosService.mostrarComprados(token).then(function (res) {
+            bz.lComprados = res.data;
+        }).catch(function (res) {
+            bz.notifyC = true;
+        })
+    }
+
     this.datosComprados = [];
     this.datosGuardados = [];
 
@@ -45,14 +72,11 @@ angular.module("disenador-de-logos")
 
     this.efectoHoverG = function (indice, valor) {
         if (!this.datosGuardados[indice]) {
-
             this.datosGuardados[indice] = valor;
-            this.lGuardados[indice].estado = true;
-
+            this.lGuardados[indice].mostrar = true;
         } else {
-
             delete this.datosGuardados[indice];
-            this.lGuardados[indice].estado = false;
+            this.lGuardados[indice].mostrar = false;
         }
     }
 
@@ -62,33 +86,11 @@ angular.module("disenador-de-logos")
 
         if (!this.datosComprados[indice]) {
             this.datosComprados[indice] = valor;
-            this.lComprados[indice].estado = true;
+            this.lComprados[indice].mostrar = true;
         } else {
             delete this.datosComprados[indice];
-            this.lComprados[indice].estado = false;
+            this.lComprados[indice].mostrar = false;
         }
-    }
-
-    /* LISTAR LOGOS */
-
-
-    bz.lGuardados;
-    bz.lComprados;
-
-    bz.mostrarG = function (token) {
-        logosService.mostrarGuardados(token).then(function (res) {
-            bz.lGuardados = res.data;
-        }).catch(function (res) {
-
-        })
-    }
-
-    bz.mostrarC = function (token) {
-        logosService.mostrarComprados(token).then(function (res) {
-            bz.lComprados = res.data;
-        }).catch(function (res) {
-
-        })
     }
 
 

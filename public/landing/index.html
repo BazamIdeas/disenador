@@ -1,0 +1,89 @@
+<html lang="es" ng-app="landing">
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/angular-material/angular-material.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link href="assets/style.css" rel="stylesheet">
+    <link href="assets/animation.css" rel="stylesheet">
+    <link href="/angular-color-picker/angular-color-picker.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/sweetalert/sweet-alert.css">
+
+    <!--Firebase -->
+    <script src="/firebase/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCs7eX86t3KIQm4H-32pd8_hOwsGNGmpo0",
+            authDomain: "disenador-c5d8f.firebaseapp.com",
+            databaseURL: "https://disenador-c5d8f.firebaseio.com",
+            projectId: "disenador-c5d8f",
+            storageBucket: "disenador-c5d8f.appspot.com",
+            messagingSenderId: "1055336431388"
+        };
+        firebase.initializeApp(config);
+
+    </script>
+
+    <!---jQuery --->
+    <script src="/jquery/jquery.min.js"></script>
+
+    <!--Librerias core de angualarJS -->
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular-messages/angular-messages.min.js"></script>
+    <script src="/angular-animate/angular-animate.min.js"></script>
+    <script src="/angular-aria/angular-aria.min.js"></script>
+
+    <!--Librerias 3r party angularJS -->
+    <script src="/angularfire/angularfire.min.js"></script>
+    <script src="/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="/angular-material/angular-material.min.js"></script>
+    <script src="/angular-color-picker/angular-color-picker.js"></script>
+    <script src="/angular-base64/angular-base64.min.js"></script>
+    <script src="/angular-social/angular-socialshare.js"></script>
+    <script src="/angular-sweetalert/SweetAlert.min.js"></script>
+    <script src="/sweetalert/sweet-alert.min.js"></script>
+
+
+    <!--Archivos App diseñador -->
+    <script src="app/app.js"></script>
+
+    <!-- Controladores -->
+    <script src="app/controllers/controllers.js"></script>
+
+</head>
+
+<body class="back-landing">
+    <!-- header -->
+    <header ng-controller="headerController as header">
+        <md-toolbar class="header">
+            <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
+                <div layout>
+                    LIDERLOGO
+                </div>
+                <div class="login_header">
+                    <ingresar layout-padding>
+                       <a href="http://localhost:8080/creador-de-logos/#!/login">
+                        Ingresar
+                        </a>
+                    </ingresar>
+                </div>
+            </div>
+        </md-toolbar>
+    </header>
+    <!-- contenedor principal -->
+    <md-content ui-view layout="row" class="trans">
+
+    </md-content>
+
+    <!-- Footer -->
+    <footer class="text-center" layout="row" layout-align="space-between center">
+            <div class="logo" flex="30">logo</div>
+            <p class="copyright" flex="30">Copyright 2017</p>
+            <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
+    </footer>
+</body>
+
+
+
+</html>

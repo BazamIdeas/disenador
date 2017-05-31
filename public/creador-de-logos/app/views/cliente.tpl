@@ -14,11 +14,22 @@
             <div flex layout="row" layout-align="space-around" layout-wrap layout-padding class="text-center">
                 <div flex="30" ng-repeat="logo in cliente.lComprados" class="svg-proceso contenedor_logos_proceso proceso-content" ng-mouseenter="cliente.efectoHoverC($index, logo)" ng-mouseleave="cliente.efectoHoverC($index, logo)">
                     <div>
-                        <md-icon class="logo_icon" md-svg-src="data:image/svg+xml;base64,{{logo.logo}}"></md-icon>
+                        <bazam-visualizar class="logo_icon" data-svg="cliente.base64(logo.logo)">
+                        </bazam-visualizar>
                     </div>
-                    <md-icon class="iconos-cliente" ng-show="logo.estado">create</md-icon>
+                    <md-icon class="iconos-cliente" ng-show="logo.estado" ui-sref="administrar({logo:logo.logo})">create</md-icon>
                 </div>
-                <h1 ng-hide="cliente.lComprados">No has comprado ningun logo</h1>
+                <div layout="column" layout-align="center center" ng-hide="cliente.lComprados">
+                    <div ng-hide="cliente.notifyC">
+                        <div>
+                            <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+                        </div>
+                        <p class="titulo">Cargando</p>
+                    </div>
+                    <div ng-show="cliente.notifyC">
+                        <p class="titulo">No has comprado ningun logo </p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -27,12 +38,22 @@
                 <div flex="30" ng-repeat="logo in cliente.lGuardados" class="svg-proceso contenedor_logos_proceso proceso-content" ng-mouseenter="cliente.efectoHoverG($index, logo)" ng-mouseleave="cliente.efectoHoverG($index, logo)">
                     <div>
                         <bazam-visualizar class="logo_icon" data-svg="cliente.base64(logo.logo)">
-                    </bazam-visualizar>
+                        </bazam-visualizar>
                     </div>
-                    <md-icon class="iconos-cliente" ng-show="logo.estado">create</md-icon>
+                    <md-icon class="iconos-cliente" ng-show="logo.estado" ui-sref="editor({logoModificado: cliente.base64(logo.logo)})">create</md-icon>
                 </div>
 
-                <h1 ng-hide="cliente.lGuardados">No has guardado ningun logo</h1>
+                <div layout="column" layout-align="center center" ng-hide="cliente.lGuardados">
+                    <div ng-hide="cliente.notifyG">
+                        <div>
+                            <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+                        </div>
+                        <p class="titulo">Cargando</p>
+                    </div>
+                    <div ng-show="cliente.notifyG">
+                        <p class="titulo">No has guardado ningun logo </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

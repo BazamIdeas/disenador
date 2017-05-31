@@ -38,8 +38,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 'socialsharesBcc': ''
             }
     }
-  //and so on ...
-  ]);
+
+
+  ])
 
     /*------------------Material Angular --------------*/
 
@@ -51,9 +52,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     $stateProvider.state({
             name: 'comenzar',
-            url: '/comenzar',
+            url: '/comenzar?nombreLogo',
             templateUrl: 'app/views/comenzar.tpl',
-            controller: 'comenzarController as comenzar'
+            controller: 'comenzarController as comenzar',
         })
         .state({
             name: 'analisis',
@@ -90,7 +91,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             params: {
                 logo: null,
                 posicion: null,
-                texto: null
+                texto: null,
+                logoModificado: null
             }
         })
         .state({
@@ -109,7 +111,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         templateUrl: 'app/views/login.tpl',
         controller: 'loginController as login',
         params: {
-            
+
             origen: null,
             destino: null,
             parametrosDestino: null
@@ -176,7 +178,17 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     // If the promise is rejected, it will throw a $stateChangeError (see above)
                     return Auth.$requireSignIn();
                     }]
+            },
+            params: {
+                datos: null
             }
+        })
+        .state({
+            name: 'landing',
+            url: '/landing',
+            templateUrl: 'app/views/landing.tpl',
+            controller: 'landingController as landing',
+
         })
 
 

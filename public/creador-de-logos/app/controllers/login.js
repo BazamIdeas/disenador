@@ -3,13 +3,9 @@ angular.module("disenador-de-logos")
 /* login */
 
 
-.controller('loginController', ['$scope', '$http', '$rootScope', '$state', "$stateParams", "clientesService", function ($scope, $http, $rootScope, $state, $stateParams, clientesService) {
+.controller('loginController', ['$scope', '$http', '$rootScope', '$state', "$stateParams", "clientesService", "SweetAlert", function ($scope, $http, $rootScope, $state, $stateParams, clientesService, SweetAlert) {
 
-
-    this.salir = function () {
-        clientesService.salir();
-    }
-
+    var bz = this;
 
     this.datos = {
 
@@ -18,6 +14,7 @@ angular.module("disenador-de-logos")
 
     };
 
+    bz.loaderCargando = false;
     this.registrar = function (datos) {
 
         /*  Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
@@ -30,15 +27,15 @@ angular.module("disenador-de-logos")
               });
               */
 
+
+        bz.loaderCargando = true;
         clientesService.registrar(datos).then(function (res) {
-
-            console.log("funciono")
-
+            console.log(res + 'funciono')
         })
 
         .catch(function (res) {
 
-            console.log("fallo")
+            SweetAlert.swal("Error al registrar", "Revisa tu conexion a internet!", "error");
 
         })
 
@@ -48,14 +45,20 @@ angular.module("disenador-de-logos")
     this.login = function (metodo, datos, valido) {
 
         if (valido) {
-            
+
+            bz.loaderCargando = true;
+
             clientesService.login(metodo, datos).then(function (res) {
-                
 
                 if ($stateParams.destino) {
+                    
 
                     if ($stateParams.origen == "editor" && $stateParams.destino == "metodo") {
 
+                        $state.go($stateParams.destino, $stateParams.parametrosDestino);
+
+                    } else if ($stateParams.origen == "editor" && $stateParams.destino == "editor") {
+                        
                         $state.go($stateParams.destino, $stateParams.parametrosDestino);
 
                     } else {
@@ -64,12 +67,29 @@ angular.module("disenador-de-logos")
                     }
 
                 } else {
-                    console.log("params vacios")
-
+                    SweetAlert.swal({
+                            title: "Te has logueado con Exito", //Bold text
+                            text: "A donde deseas ir?", //light text
+                            type: "success", //type -- adds appropiriate icon
+                            showCancelButton: true, // displays cancel btton
+                            confirmButtonColor: "#283593",
+                            cancelButtonColor: "#283593",
+                            confirmButtonText: "Mis logos",
+                            cancelButtonText: "Comenzar!",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        },
+                        function (isConfirm) { //Function that triggers on user action.
+                            if (isConfirm) {
+                                $state.go('dashboard')
+                            } else {
+                                $state.go('comenzar')
+                            }
+                        })
                 }
 
             }).catch(function (res) {
-
+                SweetAlert.swal("Error al ingresar", "Revisa tu conexion a internet!", "error");
                 console.error("Authentication failed:", res);
 
             })

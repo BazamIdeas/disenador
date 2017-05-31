@@ -1,4 +1,4 @@
-<md-dialog aria-label="pestana.nombre" flex="40">
+<md-dialog aria-label="pestana.nombre" flex="50">
     <md-toolbar class="transparencia">
         <div class="md-toolbar-tools">
             <div>PREVISUALIZAR</div>

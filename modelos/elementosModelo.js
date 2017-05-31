@@ -65,6 +65,26 @@ elemento.insertElemento = function(datos,callback)
 	});
 }
 
+elemento.insertFuente = function(datos,callback)
+{
+	var q = 'INSERT INTO elementos SET ? ' 
+	var fuen = datos //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , fuen , function(err, result){
+	  	
+	  	if(err)	throw err;
+
+	  	//devolvemos la última id insertada
+	  	else callback(null,{"insertId" : result.insertId}); 
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+
 elemento.cambiarEstado = function(data, callback)
 {
 	var q = 'UPDATE elementos SET comprado = ? WHERE idElemento = ?';
