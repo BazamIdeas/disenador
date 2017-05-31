@@ -73,10 +73,27 @@ router.get('/etiqueta/borrar/:id',controllers.firebase.comprobarEstadoCliente, c
 router.get('/email',controllers.firebase.comprobarEstadoCliente,controllers.emails.enviar_email);
 
 
-//MODULO ELEMENTOS
+//MODULO ELEMENTOSS
 router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
 router.post("/elementos/categorias", controllers.elementos.listaElemCat);
-router.post("/elementos/nuevo/icono", controllers.elementos.nuevoElementoIcono);
+router.post("/elemento/icono", controllers.elementos.nuevoElemento); //ruta para icono
+router.post("/elemento/fuente", multipartMiddleware, controllers.elementos.nuevoElementoFuente);
+
+//MODULO PRECIOS
+router.get('/impuestos', controllers.impuesto.listaImpuesto);
+router.post("/impuesto", controllers.impuesto.nuevoImpuesto);
+router.post("/impuesto/modificar/", controllers.impuesto.modificarImpuesto);
+router.get('/impuesto/borrar/:id', controllers.impuesto.borrarImpuesto);
+
+//MODULO  DE PLANES
+
+router.get("/planes/precios", controllers.planes.listarPlanes);// lista planes y precios
+router.post("/plan", controllers.planes.nuevoPlan); // ingresar Nuevo y un precio
+router.get ("/planes", controllers.planes.selectPlan);// selecciona plan
+router.post("/plan/precios", controllers.planes.nuevoPrecio); // inserta nuevos precio para un plan seleccionado
+router.post("/plan/modificar/", controllers.planes.modificarPlan);
+//router.get('/plan/borrar/:id', controllers.planes.borrarPlan);
+
 
 //MODULO LOGOS
 router.post('/logos/guardados/',controllers.firebase.comprobarEstadoCliente, controllers.logos.listaLogosGuardados);
