@@ -53,13 +53,6 @@ usuario.verificarUsuario = function(usuarioData,callback)
 
 	}
 
-
-
-		  
-
-			
-
-
 usuario.getUsuarios=function(callback){
 
 	var q = 'SELECT nombreUser, idUsuario, correo, pass FROM usuarios ORDER BY idUsuario' ;
@@ -101,10 +94,10 @@ usuario.getUsuario = function(id,callback)
  
 
 //añadir un nuevo usuario
-usuario.insertUsuario = function(UsuarioData,callback)
+usuario.insertUsuario = function(usuarioData,callback)
 {
 	var q = 'SELECT idUsuario FROM usuarios WHERE correo = ? ' 
-	var correo = usuarioData.correo
+	var correo = [usuarioData.correo]
 
 	DB.getConnection(function(err, connection)
 	{
@@ -116,7 +109,7 @@ usuario.insertUsuario = function(UsuarioData,callback)
 	  	
 	  	else{
 	  			var qq = 'INSERT INTO usuarios SET ? ' 
-				var par = clienteData //parametros
+				var par = usuarioData //parametros
 
 				DB.getConnection(function(err, connection)
 				{
