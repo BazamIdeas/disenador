@@ -6,9 +6,9 @@ var controllers = require('.././controllers');
 //MODULO CLIENTES
 
 //no espera parametros
-router.post('/clientes', controllers.clientes.listaClientes);
+router.get('/clientes', controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
-router.post('/cliente/:id',controllers.firebase.comprobarEstado, controllers.clientes.datosCliente);
+router.get('/cliente/:id',controllers.firebase.comprobarEstado, controllers.clientes.datosCliente);
 //parametro por get que debe ser el id del cliente.
 router.get('/cliente/borrar/:id',controllers.firebase.comprobarEstado, controllers.clientes.borrarCliente);
 //"valor"	
@@ -24,11 +24,11 @@ router.post("/cliente/modificar/",controllers.firebase.comprobarEstado, controll
 //MODULO USUARIOS
 //
 //no espera parametros
-router.post('/usuarios',controllers.firebase.comprobarEstado, controllers.usuarios.listaUsuarios);
+router.get('/usuarios',controllers.firebase.comprobarEstado, controllers.usuarios.listaUsuarios);
 //parametro por get que debe ser el id del cliente.
-router.post('/usuario/:id',controllers.firebase.comprobarEstado, controllers.usuarios.datosUsuario);
+router.get('/usuario/:id',controllers.firebase.comprobarEstado, controllers.usuarios.datosUsuario);
 //parametro por get que debe ser el id del cliente.
-router.post('/usuario/borrar/:id',controllers.firebase.comprobarEstado, controllers.usuarios.borrarUsuario);
+router.get('/usuario/borrar/:id',controllers.firebase.comprobarEstado, controllers.usuarios.borrarUsuario);
 // idUsuario : valor,nombreUser : valor,correo : valor,	pass : valor
 router.post("/usuario", controllers.usuarios.nuevoUsuario);
 //los mismos datos que la ruta /usuario
@@ -73,10 +73,27 @@ router.get('/etiqueta/borrar/:id',controllers.firebase.comprobarEstado, controll
 router.get('/email',controllers.firebase.comprobarEstado,controllers.emails.enviar_email);
 
 
-//MODULO ELEMENTOS
+//MODULO ELEMENTOSS
 router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
 router.post("/elementos/categorias", controllers.elementos.listaElemCat);
-router.post("/elementos/nuevo/icono", controllers.elementos.nuevoElementoIcono);
+router.post("/elemento/icono", controllers.elementos.nuevoElemento); //ruta para icono
+router.post("/elemento/fuente", multipartMiddleware, controllers.elementos.nuevoElementoFuente);
+
+//MODULO PRECIOS
+router.get('/impuestos', controllers.impuesto.listaImpuesto);
+router.post("/impuesto", controllers.impuesto.nuevoImpuesto);
+router.post("/impuesto/modificar/", controllers.impuesto.modificarImpuesto);
+router.get('/impuesto/borrar/:id', controllers.impuesto.borrarImpuesto);
+
+//MODULO  DE PLANES
+
+router.get("/planes/precios", controllers.planes.listarPlanes);// lista planes y precios
+router.post("/plan", controllers.planes.nuevoPlan); // ingresar Nuevo y un precio
+router.get ("/planes", controllers.planes.selectPlan);// selecciona plan
+router.post("/plan/precios", controllers.planes.nuevoPrecio); // inserta nuevos precio para un plan seleccionado
+router.post("/plan/modificar/", controllers.planes.modificarPlan);
+//router.get('/plan/borrar/:id', controllers.planes.borrarPlan);
+
 
 //MODULO LOGOS
 router.post('/logos/guardados/',controllers.firebase.comprobarEstado, controllers.logos.listaLogosGuardados);
