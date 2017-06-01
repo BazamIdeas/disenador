@@ -32,6 +32,7 @@
     "async": "^2.1.5",
     "base-64": "^0.1.0",
     "body-parser": "^1.16.0",
+    "connect-multiparty": "^2.0.0",
     "cookie-parser": "^1.4.3",
     "css-font-loader": "^0.2.6",
     "express": "^4.14.0",

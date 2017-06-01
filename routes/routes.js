@@ -1,16 +1,18 @@
 var express = require('express');
 var router = express.Router();
-
+var fs=require('fs');
 var controllers = require('.././controllers');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart;
 
 //MODULO CLIENTES
 
 //no espera parametros
-router.get('/clientes', controllers.clientes.listaClientes);
+router.post('/clientes', controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
-router.get('/cliente/:id',controllers.firebase.comprobarEstado, controllers.clientes.datosCliente);
+router.post('/cliente/:id',controllers.firebase.comprobarEstado, controllers.clientes.datosCliente);
 //parametro por get que debe ser el id del cliente.
-router.get('/cliente/borrar/:id',controllers.firebase.comprobarEstado, controllers.clientes.borrarCliente);
+router.post('/cliente/borrar/:id',controllers.firebase.comprobarEstado, controllers.clientes.borrarCliente);
 //"valor"	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
 router.post("/cliente", controllers.clientes.nuevoCliente);
@@ -76,14 +78,14 @@ router.get('/email',controllers.firebase.comprobarEstado,controllers.emails.envi
 //MODULO ELEMENTOSS
 router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
 router.post("/elementos/categorias", controllers.elementos.listaElemCat);
-router.post("/elemento/icono", controllers.elementos.nuevoElemento); //ruta para icono
+router.post("/elemento/icono", controllers.elementos.nuevoElementoIcono); //ruta para icono
 router.post("/elemento/fuente", multipartMiddleware, controllers.elementos.nuevoElementoFuente);
 
 //MODULO PRECIOS
-router.get('/impuestos', controllers.impuesto.listaImpuesto);
-router.post("/impuesto", controllers.impuesto.nuevoImpuesto);
-router.post("/impuesto/modificar/", controllers.impuesto.modificarImpuesto);
-router.get('/impuesto/borrar/:id', controllers.impuesto.borrarImpuesto);
+router.get('/impuestos', controllers.impuestos.listaImpuesto);
+router.post("/impuesto", controllers.impuestos.nuevoImpuesto);
+router.post("/impuesto/modificar/", controllers.impuestos.modificarImpuesto);
+router.get('/impuesto/borrar/:id', controllers.impuestos.borrarImpuesto);
 
 //MODULO  DE PLANES
 
