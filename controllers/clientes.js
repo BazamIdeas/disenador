@@ -1,4 +1,5 @@
 var cliente=require('../modelos/clientesModelo.js');
+var services=require('../services');
 
 
 exports.login =  function(req,res,next)
@@ -12,13 +13,12 @@ exports.login =  function(req,res,next)
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				
-				req.correo= clienteData[0];
-				req.pass= clienteData[1];
-				next();
-				//req.pass=;
-				
-				
-		
+				res.status(200).json({
+					'nombre':data[0].nombreCliente,
+					'token':services.crearToken(data.idCliente,"cliente")
+				})
+				//res.status(200).json(data)
+
 			}
 		//no existe
 			else
@@ -29,7 +29,7 @@ exports.login =  function(req,res,next)
 	} 
 
 
-exports.listaClientes = function(req, res, next) {
+exports.listaClientes = function(req, res) {
 		cliente.getClientes(function(error, data)
 		{
 			//si el usuario existe 
@@ -48,6 +48,7 @@ exports.listaClientes = function(req, res, next) {
 
 exports.datosCliente =  function(req, res, next) {
 		//id del cliente
+		
 		var id = req.params.id;
 		cliente.getCliente(id,function(error, data)
 		{
@@ -71,26 +72,27 @@ exports.datosCliente =  function(req, res, next) {
 exports.nuevoCliente =  function(req,res,next)
 	{
 		//creamos un objeto con los datos a insertar del cliente
-		var clienteData = req.body/*{
-
+		var clienteData = {
 			nombreCliente : req.body.nombreCliente,
 			correo : req.body.correo,
 			pass : req.body.pass,
 			telefono : req.body.telefono,
 			pais : req.body.pais
-		}*/;
+		};
+
 		cliente.insertCliente(clienteData,function(error, data)
 		{
 			//si el cliente se ha insertado correctamente mostramos su info
 			if(data && data.insertId)
 			{
-
-				
-				res.status(200).json(data.insertId)
+				res.status(200).json({
+					'nombre':req.body.nombreCliente,
+					'token':services.crearToken(data.insertId,"cliente")
+				})
 			}
 			else
 			{
-				res.status(500).json(error)
+				res.status(500).json(data)
 			}
 		});
 	}
@@ -98,7 +100,7 @@ exports.nuevoCliente =  function(req,res,next)
 	exports.modificarCliente =  function(req,res)
 	{
 		var idCliente = req.body.idCliente // cambiar por valor de sesion o por parametro
-
+		
 		cliente.getCliente(idCliente,function(error, data)
 		{
 		//si el usuario existe 

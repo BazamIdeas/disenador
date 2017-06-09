@@ -1,5 +1,32 @@
 var usuario=require('../modelos/usuarioModelo.js');
+var services=require('../services');
 
+exports.login =  function(req,res,next)
+	{
+		//creamos un objeto con los datos a insertar del usuario
+	
+		var usuarioData = [req.body.correo,req.body.pass];
+
+		usuario.verificarUsuario(usuarioData,function(error, data)
+		{
+			//si el usuario existe  
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				
+				res.status(200).json({
+					'nombre':data[0].nombreUser,
+					'token':services.crearToken(data.idUsuario,"admin")
+				})
+				//res.status(200).json(data)
+
+			}
+		//no existe
+			else
+			{
+				res.status(404).json(data);
+			}
+		});
+	} 
 
 
 exports.listaUsuarios = function(req, res, next) {
@@ -46,7 +73,6 @@ exports.nuevoUsuario =  function(req,res)
 		//creamos un objeto con los datos a insertar del usuario
 		var usuarioData = {
 			idUsuario : null,
-			uid: req.body.uid,
 			nombreUser:req.body.nombreUser,
 			correo : req.body.correo,
 			pass : req.body.pass
@@ -56,11 +82,14 @@ exports.nuevoUsuario =  function(req,res)
 			//si el usuario se ha insertado correctamente mostramos su info
 			if(data && data.insertId)
 			{
-				res.status(200).json(data);
+				res.status(200).json({
+					'nombre':req.body.nombreUser,
+					'token':services.crearToken(data.insertId,"admin")
+				})
 			}
 			else
 			{
-				res.status(500).json({"msg":"Algo ocurrio"})
+				res.status(404).json(data)
 			}
 		});
 	}
@@ -75,7 +104,7 @@ exports.nuevoUsuario =  function(req,res)
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				
-				var usuarioData = req.body;
+				var usuarioData = [req.body.nombreUser,req.body.pass,req.body.idUsuario];
 					
 				usuario.updateUsuario(usuarioData,function(error, data)
 				{

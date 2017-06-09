@@ -19,7 +19,7 @@ usuario.verificarUsuario = function(usuarioData,callback)
 
 		  		{ 
 		  				
-		  		var q2 = 'SELECT nombreUser FROM usuarios WHERE correo = ? AND pass = ?' ;
+		  		var q2 = 'SELECT * FROM usuarios WHERE correo = ? AND pass = ?' ;
 		   		
 		   			connection.query( q2 ,usuarioData, function(err, row2){
 
@@ -95,7 +95,7 @@ usuario.getUsuario = function(id,callback)
 
 //añadir un nuevo usuario
 usuario.insertUsuario = function(usuarioData,callback)
-{
+{console.log(usuarioData)
 	var q = 'SELECT idUsuario FROM usuarios WHERE correo = ? ' 
 	var correo = [usuarioData.correo]
 
@@ -134,10 +134,10 @@ usuario.insertUsuario = function(usuarioData,callback)
 }
 
 //actualizar un cliente
-usuario.updateUsuario = function(clienteData, callback)
+usuario.updateUsuario = function(usuarioData, callback)
 {
-	var q = 'UPDATE usuarios SET nombreUser = ?, correo = ?,  pass = ? WHERE idUsuario = ?';
-	var par = clienteData //parametros
+	var q = 'UPDATE usuarios SET nombreUser = ?,  pass = ? WHERE idUsuario = ?';
+	var par = usuarioData //parametros
 
 	DB.getConnection(function(err, connection)
 	{

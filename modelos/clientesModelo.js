@@ -19,7 +19,7 @@ cliente.verificarCliente = function(clienteData,callback)
 
 		  		{ 
 		  				
-		  		var q2 = 'SELECT nombreCliente FROM clientes WHERE correo = ? AND pass = ?' ;
+		  		var q2 = 'SELECT * FROM clientes WHERE correo = ? AND pass = ?' ;
 		   		
 		   			connection.query( q2 ,clienteData, function(err, row2){
 
@@ -44,9 +44,9 @@ cliente.verificarCliente = function(clienteData,callback)
 		  				
 		  					     }
 
-		  });
+				 });
 
-		  connection.release();
+				  connection.release();
 
 		  
 		});
@@ -105,7 +105,7 @@ cliente.insertCliente = function(clienteData,callback)
 	{
 		connection.query( q , correo, function(err, row){
 	  	
-	  	if (typeof row !== 'undefined' && row.length > 0){
+	  	if (row.length > 0){
 	  		callback(null,{"msg" : 'cliente ya registrado'});
 	  	}
 	  	
@@ -138,6 +138,7 @@ cliente.insertCliente = function(clienteData,callback)
 //actualizar un cliente
 cliente.updateCliente = function(clienteData, callback)
 {
+	
 	var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ?, telefono = ?, pais = ? WHERE idCliente = ?';
 	var par = clienteData //parametros
 

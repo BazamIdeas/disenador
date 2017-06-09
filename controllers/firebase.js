@@ -48,6 +48,10 @@ exports.comprobarEstado = function (req, res, next) {
 
 
 
+exports.comprobar = function (req, res, next) {
+
+    console.log('Cookies: ', req.cookies)
+}
 
 
 

@@ -3,22 +3,23 @@ var router = express.Router();
 var fs=require('fs');
 var controllers = require('.././controllers');
 var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart;
+var multipartMiddleware = multipart();
+var middleware = require('./middleware');
 
 //MODULO CLIENTES
-
 //no espera parametros
-router.post('/clientes', controllers.clientes.listaClientes);
+router.get('/clientes',  middleware.validar, controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
-router.post('/cliente/:id',controllers.firebase.comprobarEstado, controllers.clientes.datosCliente);
+router.get('/cliente/:id',controllers.firebase.comprobarEstado, controllers.clientes.datosCliente);
 //parametro por get que debe ser el id del cliente.
 router.post('/cliente/borrar/:id',controllers.firebase.comprobarEstado, controllers.clientes.borrarCliente);
 //"valor"	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
 router.post("/cliente", controllers.clientes.nuevoCliente);
 //los mismos datos que la ruta /cliente
-router.post("/cliente/modificar/",controllers.firebase.comprobarEstado, controllers.clientes.modificarCliente);
+router.post("/cliente/modificar",controllers.firebase.comprobarEstado, controllers.clientes.modificarCliente);
 //correo, contraseña => email, pass
+router.post("/cliente/login",controllers.clientes.login);
 
 
 
@@ -26,7 +27,7 @@ router.post("/cliente/modificar/",controllers.firebase.comprobarEstado, controll
 //MODULO USUARIOS
 //
 //no espera parametros
-router.get('/usuarios',controllers.firebase.comprobarEstado, controllers.usuarios.listaUsuarios);
+router.get('/usuarios', middleware.validar, controllers.usuarios.listaUsuarios);
 //parametro por get que debe ser el id del cliente.
 router.get('/usuario/:id',controllers.firebase.comprobarEstado, controllers.usuarios.datosUsuario);
 //parametro por get que debe ser el id del cliente.
@@ -35,19 +36,19 @@ router.get('/usuario/borrar/:id',controllers.firebase.comprobarEstado, controlle
 router.post("/usuario", controllers.usuarios.nuevoUsuario);
 //los mismos datos que la ruta /usuario
 router.post("/usuario/modificar/", controllers.usuarios.modificarUsuario);
-
+router.post("/usuario/login",controllers.usuarios.login);
 
 //MODULO PEDIDOS
 router.get('/pedidos',controllers.firebase.comprobarEstado, controllers.pedidos.listaPedidos);//lista todos los pedidos
 router.get('/pedido/:id',controllers.firebase.comprobarEstado, controllers.pedidos.datosPedido);//muestra los datos de un pedido por su id
-router.get('/pedidosCliente/:id',controllers.firebase.comprobarEstado, controllers.pedidos.datosPedidosCliente);//muestra la lista de pedidos de un cliente
+router.get('/pedidos/cliente/:id',controllers.firebase.comprobarEstado, controllers.pedidos.datosPedidosCliente);//muestra la lista de pedidos de un cliente
 router.get('/pedido/borrar/:id',controllers.firebase.comprobarEstado, controllers.pedidos.borrarPedido);//borra un pedido
 router.post("/pedido",controllers.firebase.comprobarEstado, controllers.pedidos.nuevoPedido);//crea un pedido primero guardando el logo 
 router.post("/pedido/guardado/",controllers.firebase.comprobarEstado, controllers.pedidos.nuevoPedidoGuardado);//crea un pedido de un logo ya guardado
 router.post("/pedido/modificar/",controllers.firebase.comprobarEstado, controllers.pedidos.modificarPedido);// modifica los datos de un pedido
 router.post("/pedido/cambiar/",controllers.firebase.comprobarEstado, controllers.pedidos.cambiarEstado);// cambia de estado al pedido
-router.get("/pedido/pagado/:idElemento/:idLogo/", controllers.pedidos.cambioEstadoPagado);// cambia de estado al pedido
-router.get("/pedido/noPago/", controllers.pedidos.noPago);// cambia de estado al pedido
+router.get("/pedido/pagado/:idElemento/:idLogo/:tipo", controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
+router.get("/pedido/noPago/", controllers.pedidos.noPago);// RUTAS INTERNAS
 
 
 //MODULO CATEGORIAS
@@ -106,7 +107,7 @@ router.post("/logo/modificar/",controllers.firebase.comprobarEstado, controllers
 router.post("/logo/descargar/",controllers.firebase.comprobarEstado, controllers.logos.descargar);
 
 //PARA PRUEBAS
-//router.post("/logos/prueba/", controllers.logos.prueba);
+router.get("/logos/prueba", controllers.firebase.comprobar);
 
 
 module.exports = router;
