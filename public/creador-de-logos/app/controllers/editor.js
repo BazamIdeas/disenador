@@ -75,13 +75,13 @@ angular.module("disenador-de-logos")
     }
 
 
-    if ($stateParams.logoModificado) {
+    if ($stateParams.logoModificado) { //si es un logo previamente modificado
 
         bz.restauracionIniciada = true;
 
-        bz.restauraciones.push($stateParams.logoModificado);
+        bz.restauraciones.push($stateParams.logoModificado.svg);
 
-    } else {
+    } else { //si no es logo modificado, se revisa el localStorage
 
         if ($stateParams.logo && $stateParams.posicion && $stateParams.texto) {
             this.definirInfo($state.current.name, $stateParams);
