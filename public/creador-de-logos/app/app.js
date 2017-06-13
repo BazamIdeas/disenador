@@ -1,4 +1,4 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
 
 .config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider) {
 
@@ -124,11 +124,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             templateUrl: 'app/views/cliente.tpl',
             controller: 'clienteController as cliente',
             resolve: {
-                "currentAuth": ["Auth", function (Auth) {
-                    // $requireSignIn returns a promise so the resolve waits for it to complete
-                    // If the promise is rejected, it will throw a $stateChangeError (see above)
-                    return Auth.$requireSignIn();
-                    }]
+                "currentAuth": ["$q", "clientesService",function ($q, clientesService) {
+                    
+                    if (!clientesService.autorizado()){
+                        
+                        return q.$reject("AUTH_REQUIRED");
+                        
+                    }
+
+                }]
             }
         })
         .state({
@@ -137,11 +141,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             templateUrl: 'app/views/paquetes.tpl',
             controller: 'paquetesController as paquetes',
             resolve: {
-                "currentAuth": ["Auth", function (Auth) {
-                    // $requireSignIn returns a promise so the resolve waits for it to complete
-                    // If the promise is rejected, it will throw a $stateChangeError (see above)
-                    return Auth.$requireSignIn();
-                    }]
+                "currentAuth": ["$q", "clientesService",function ($q, clientesService) {
+                    
+                    if (!clientesService.autorizado()){
+                        
+                        return q.$reject("AUTH_REQUIRED");
+                        
+                    }
+
+                }]
             }
         })
         .state({
@@ -159,12 +167,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             },
             controller: 'metodosController as metodo',
             resolve: {
-                "currentAuth": ["Auth", function (Auth) {
-                    // $requireSignIn returns a promise so the resolve waits for it to complete
-                    // If the promise is rejected, it will throw a $stateChangeError (see above)
-                    return Auth.$requireSignIn();
+                "currentAuth": ["$q", "clientesService",function ($q, clientesService) {
+                    
+                    if (!clientesService.autorizado()){
+                        
+                        return q.$reject("AUTH_REQUIRED");
+                        
+                    }
 
-                    }]
+                }]
             }
         })
         .state({
@@ -173,11 +184,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             templateUrl: 'app/views/administrarLogo.tpl',
             controller: 'administrarController as administrar',
             resolve: {
-                "currentAuth": ["Auth", function (Auth) {
-                    // $requireSignIn returns a promise so the resolve waits for it to complete
-                    // If the promise is rejected, it will throw a $stateChangeError (see above)
-                    return Auth.$requireSignIn();
-                    }]
+                "currentAuth": ["$q", "clientesService",function ($q, clientesService) {
+                    
+                    if (!clientesService.autorizado()){
+                        
+                        return q.$reject("AUTH_REQUIRED");
+                        
+                    }
+
+                }]
             },
             params: {
                 datos: null
@@ -203,7 +218,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
-        $rootScope.anterior = fromState;
+        
 
     });
 

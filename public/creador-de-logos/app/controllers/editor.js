@@ -2,13 +2,13 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$mdDialog', '$interval', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $mdDialog, $interval) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval) {
 
     var bz = this;
 
-    Auth.$onAuthStateChanged(function (firebaseUser) {
+    /*Auth.$onAuthStateChanged(function (firebaseUser) {
         bz.autorizado = firebaseUser;
-    });
+    });*/
 
     bz.base64 = function (icono) {
 

@@ -3,7 +3,7 @@ angular.module("disenador-de-logos")
 
 /* Cliente */
 
-.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'currentAuth', 'logosService', '$state', 'LS', "Auth", '$base64', function ($scope, $mdDialog, $stateParams, currentAuth, logosService, $state, LS, Auth, $base64) {
+.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'logosService', '$state', 'LS', '$base64', 'currentAuth', function ($scope, $mdDialog, $stateParams, logosService, $state, LS, $base64, currentAuth) {
 
     var bz = this;
 
@@ -19,11 +19,11 @@ angular.module("disenador-de-logos")
 
     }
 
-    Auth.$onAuthStateChanged(function (firebaseUser) {
+  /*  Auth.$onAuthStateChanged(function (firebaseUser) {
         bz.autorizado = firebaseUser;
         bz.mostrarC(bz.autorizado.Pd);
         bz.mostrarG(bz.autorizado.Pd);
-    });
+    });*/
 
     /* LOCAL STORAGE */
 

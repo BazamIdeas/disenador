@@ -3,7 +3,7 @@ angular.module("disenador-de-logos")
 /* Metodos */
 
 
-.controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$mdDialog', '$stateParams', '$state', '$window', 'SweetAlert', 'LS', function ($scope, currentAuth, pedidosService, $mdDialog, $stateParams, $state, $window, SweetAlert, LS) {
+.controller('metodosController', ['$scope', 'pedidosService', '$mdDialog', '$stateParams', '$state', '$window', 'SweetAlert', 'LS', function ($scope, pedidosService, $mdDialog, $stateParams, $state, $window, SweetAlert, LS) {
 
     var bz = this;
     
