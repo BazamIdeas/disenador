@@ -32,7 +32,7 @@
 
                 <div layout class="margen_superior">
                     <div layout="row" flex layout-align="end">
-                        <md-button class="md-primary  md-accent" ng-click="cancel('NuevaPreferencia', preferencias)">Enviar</md-button>
+                        <md-button class="md-primary  md-accent" ng-click="cancel()">Enviar</md-button>
                     </div>
                 </div>
             </div>
