@@ -1,6 +1,7 @@
 var elemento=require('../modelos/elementosModelo.js');
 var async = require("async");
 var base64 = require('base-64');
+var fs=require('fs');
 
 // FUNCION QUE DEVUELVE LOS ICONOS SEGUN 
 exports.listaSegunPref = function(req, res, next) {
@@ -166,5 +167,57 @@ exports.listaElemCat =  function(req, res, next) {
 			}
 		});
 
+	}
+
+		// Nuevo elemento Fuente 
+	exports.nuevoElementoFuente =  function(req, res) {
+		var tmp_path=req.files.mifuente.path;
+		var tipo=req.files.mifuente.type;
+		console.log(tmp_path);
+
+		if((tipo=='application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-eot')){
+			console.log(tipo);
+			var nombrefuente=req.files.mifuente.name;
+			var targer_path = './public/fuente/' + nombrefuente;
+			fs.rename(tmp_path, targer_path, function(err){
+				fs.unlink(tmp_path, function (err){
+
+					var fuente = {
+						idElemento : null,
+						nombre : req.body.nombre,
+						url : targer_path,
+						svg : null,
+						color : null,
+						tipo : req.body.tipo,
+						comprado : 0,
+						categorias_idcategoria : req.body.categoria
+								}
+
+
+
+								console.log(fuente);
+
+					elemento.insertFuente(fuente, function(error, data)
+						{		
+		//si el pedido existe 
+						if (typeof data !== 'undefined' && data.length > 0)
+						{
+						res.status(200).json(data);
+					}
+		//no existe
+					else
+					{
+				//res.status(500).json(data);
+				res.status(500).json("Regitro Almacenado", data)
+				}
+				});
+					//res.send('')
+					console.log('listo');
+				});
+			});
+
+		}else{
+			res.status(404).json({"msg":"Archivo no Soportado"})
+		}
 	}
 

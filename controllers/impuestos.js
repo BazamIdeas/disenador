@@ -1,4 +1,4 @@
-var impuesto=require('../modelos/impuestoModelo.js');
+var impuesto=require('../modelos/impuestosModelo.js');
 
 exports.listaImpuesto = function(req, res, next) {
 		

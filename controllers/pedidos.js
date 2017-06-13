@@ -7,8 +7,10 @@ var configuracion=require('../configuracion.js');
 var moment = require('moment');
 
 exports.listaPedidos = function(req, res, next) {
+
 		pedido.getPedidos(function(error, data)
 		{
+			
 			//si el usuario existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
@@ -99,84 +101,50 @@ exports.nuevoPedido =  function(req,res)
 							/// PAGO AQUI
 							//////////////////////
 							
-							precio.getPrecio(idPrecio,function(error, data)
+							precio.getPrecio(req.body.idPrecio,function(error, data)
 								{
 								if (typeof data !== 'undefined' && data.length > 0)
 								{
 									var plan = data;
+									elemento.getElemento(req.body.idElemento,function(error, data){
 
-									////IDENTIFICAR VARIABLES DEL PAGO
-									if (req.body.tipoPago){
-										 var datosPago = {
-											tipoPago : req.body.tipoPago,
-											precio : plan[0].precio,
-											moneda : plan[0].moneda,
-											localidad : req.body.localidad,
-											descripcion : "Diseño de logo - "+plan[0].plan, 
-											localidad : req.body.localidad,
-											idLogo : idLogo,
-											idElemento : req.body.idElemento
-											}
+										if (typeof data !== 'undefined' && data.length > 0){
+											
+											if (req.body.tipoPago)
+											{
+											 var datosPago = {
+												tipoPago : req.body.tipoPago,
+												precio : plan[0].precio,
+												moneda : plan[0].moneda,
+												localidad : req.body.localidad,
+												descripcion : "Diseño de logo - "+plan[0].plan, 
+												localidad : req.body.localidad,
+												idLogo : req.body.idLogo,
+												idElemento : req.body.idElemento,
+												tipoElemento : data[0].tipo
+												}
 
-										if (req.body.tipoPago == "credit_card"){
+												/////ENVIAR PAGO
+												if (req.body.tipoPago == "paypal"){
 
-											datosPago.tTarjeta = req.body.tTarjeta,
-											datosPago.nTarjeta = req.body.nTarjeta,
-											datosPago.expire_month =  req.body.expire_month,
-											datosPago.expire_year = req.body.expire_year
-										}
-									/////ENVIAR PAGO
-										
-										pago.realizarPago(datosPago,function(error, data){
-
-											if (req.body.tipoPago == "credit_card"){
-												if (data.res == "approved") {
-													//// cambiar estado al icono
-													var elementoData = [1, req.body.idElemento];
-						
-													elemento.cambiarEstado(elementoData,function(error, data)
-													{
-														if(data)
-														{
-														//////cambiar estado al logo a descargable
-															var logoData = ["Descargable", idLogo];
-							
-															logo.cambiarEstado(logoData,function(error, data)
-															{
-															
-																if(data)
-																{
-																	////////////////////////////// ENVIAR CORREO AQUI
-																		res.status(200).json({"res":true,"msg":"Pago aprobado"});
-																}
-																else
-																{
-																	res.status(404).json({"msg":"Algo ocurrio en cambio de estado de logo"})
-																}
-															});
-														}
-														else
-														{
-															res.status(404).json({"msg":"Algo ocurrio en cambio de icono"})
-														}
+													pago.paypal(datosPago,function(error, data){
+															res.json(data.link)
 													});
-											    }
-											    else{
-											    	res.status(404).json({"res":false,"msg":"El pago no fue aceptado"})
-											    }
-											}
-											if (req.body.tipoPago == "paypal"){
-												res.json(data.link)
+
+												}
+
 											}
 											else{
-												res.status(404).json(data)
-											}
-										});
+												res.status(404).json({"msg":"No existe el medio de pago"})
+											}	
 
-									}
-									else{
-										res.status(404).json({"msg":"No existe el medio de pago"})
-									}
+										}
+										else{
+											res.status(404).json({"msg":"No existe el elemento"})
+										}
+									});
+									////IDENTIFICAR VARIABLES DEL PAGO
+									
 									
 								}
 								//no existe
@@ -203,10 +171,98 @@ exports.nuevoPedido =  function(req,res)
 
 	}
 
+	exports.nuevoPedidoGuardado =  function(req,res) /// ARREGLARRRRR
+	{
+			var pedidoData = {
+						idPedido : null,
+						fecha : moment().format("YYYY-MM-DD"),
+						estado : 'EN ESPERA',
+						logos_idLogo :  req.body.idLogo, // id del logo guardado
+						impuestos_localidad : req.body.localidad,
+						precios_idPrecio : req.body.idPrecio
+						};
+
+					pedido.insertPedido(pedidoData,function(error, data)
+					{
+						//si el pedido se ha insertado correctamente mostramos su info
+						if(data && data.insertId)
+						{
+							/// PAGO AQUI
+							//////////////////////
+							
+							precio.getPrecio(req.body.idPrecio,function(error, data)
+								{
+								if (typeof data !== 'undefined' && data.length > 0)
+								{
+									var plan = data;
+									elemento.getElementoLogo(req.body.idLogo,function(error, data){
+
+										if (typeof data !== 'undefined' && data.length > 0){
+											
+											if (req.body.tipoPago)
+											{
+											 var datosPago = {
+												tipoPago : req.body.tipoPago,
+												precio : plan[0].precio,
+												moneda : plan[0].moneda,
+												localidad : req.body.localidad,
+												descripcion : "Diseño de logo - "+plan[0].plan, 
+												localidad : req.body.localidad,
+												idLogo : req.body.idLogo,
+												idElemento : data[0].idElemento,
+												tipoElemento : data[0].tipo
+												}
+
+												/////ENVIAR PAGO
+												if (req.body.tipoPago == "paypal"){
+
+													pago.paypal(datosPago,function(error, data){
+															res.json(data.link)
+													});
+
+												}
+
+											}
+											else{
+												res.status(404).json({"msg":"No existe el medio de pago"})
+											}	
+
+										}
+										else{
+											res.status(404).json({"msg":"No existe el elemento"})
+										}
+									});
+									////IDENTIFICAR VARIABLES DEL PAGO
+									
+									
+								}
+								//no existe
+								else
+								{
+									res.status(404).json({"msg":"No existe el plan"})
+								}
+
+								});
+						//////////////////////////////////
+						}
+						else
+						{
+							res.status(500).json({"msg":"Algo ocurrio al crear pedido"})
+						}
+					});
+		
+	}
+
 	exports.cambioEstadoPagado = function(req,res)
 
 	{
-		var elementoData = [1, req.params.idElemento];
+		if(req.params.tipo == "ICONO"){
+			var elementoData = [1, req.params.idElemento];
+		}
+		else{
+			var elementoData = [0, req.params.idElemento];
+		}
+		
 		elemento.cambiarEstado(elementoData,function(error, data)
 			{
 				if(data)
@@ -240,57 +296,6 @@ exports.nuevoPedido =  function(req,res)
 	{
 		res.redirect(configuracion.dashboard+"?pago=false");
 
-	}
-
-	exports.nuevoPedidoGuardado =  function(req,res) /// ARREGLARRRRR
-	{
-			var pedidoData = {
-					idPedido : null,
-					fecha : moment().format("YYYY-MM-DD"),
-					estado : 'EN ESPERA',
-					tipoP : '1',
-					logos_idLogo : req.body.idLogo, // id del logo guardado
-					};
-
-				pedido.insertPedido(pedidoData,function(error, data)
-				{
-					//si el pedido se ha insertado correctamente mostramos su info
-					if(data && data.insertId)
-					{
-						var logoData = ['Descargable', req.body.idLogo];
-					
-						logo.cambiarEstado(logoData,function(error, data)
-						{
-							//si el pedido se ha modificado correctamente
-							if(data)
-							{
-								var elementoData = [1, req.body.idElemento];
-					
-								elemento.cambiarEstado(elementoData,function(error, data)
-								{
-									//si el pedido se ha modificado correctamente
-									if(data)
-									{
-										res.status(200).json(data);
-									}
-									else
-									{
-										res.status(500).json({"msg":"Algo ocurrio"})
-									}
-								});
-							}
-							else
-							{
-								res.status(500).json({"msg":"Algo ocurrio"})
-							}
-						});
-					}
-					else
-					{
-						res.status(500).json({"msg":"Algo ocurrio"})
-					}
-				});
-		
 	}
 
 	exports.modificarPedido =  function(req,res)
