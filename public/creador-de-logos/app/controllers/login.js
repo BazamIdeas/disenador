@@ -7,26 +7,19 @@ angular.module("disenador-de-logos")
 
     var bz = this;
 
+    bz.loaderCargando = false;
+
+    /* objeto datos vacios */
     this.datos = {
 
         registrar: {},
         login: {}
 
-    };
-
-    bz.loaderCargando = false;
-    this.registrar = function (datos) {
-
-        /*  Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
-              .then(function (firebaseUser) {
-
-                  console.error(firebaseUser);
-
-              }).catch(function (error) {
-                  console.error(error);
-              });
-              */
-
+    }; 
+    
+    /* FUNCION REGISTRAR */
+    
+     this.registrar = function (datos) {
 
         bz.loaderCargando = true;
         clientesService.registrar(datos).then(function (res) {
@@ -40,15 +33,16 @@ angular.module("disenador-de-logos")
         })
 
     }
-
-
-    this.login = function (metodo, datos, valido) {
+     
+    /* FUNCION LOGIN */
+    
+    this.login = function (datos, valido) {
 
         if (valido) {
 
             bz.loaderCargando = true;
 
-            clientesService.login(metodo, datos).then(function (res) {
+            clientesService.login(datos).then(function (res) {
 
                 if ($stateParams.destino) {
                     

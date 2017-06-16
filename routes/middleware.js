@@ -2,7 +2,7 @@
 var jwt = require('jwt-simple');
 var moment = require('moment');
 var configuracion = require('../configuracion.js');
-
+var services=require('../services');
 
 exports.validar = function(req,res,next){
 	
@@ -32,4 +32,10 @@ exports.validar = function(req,res,next){
       res.status(400).json({"Mensaje":"Token invalido"});
     }
 
+}
+
+exports.decodificar = function(req,res,next){
+    
+	return res.json(jwt.decode(req.headers.auth, configuracion.secret))
+	
 }

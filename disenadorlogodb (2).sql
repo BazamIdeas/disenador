@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2017 a las 00:57:25
+-- Tiempo de generación: 13-06-2017 a las 15:23:21
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -59,21 +59,25 @@ INSERT INTO `categorias` (`idCategoria`, `nombreCategoria`) VALUES
 
 CREATE TABLE IF NOT EXISTS `clientes` (
 `idCliente` int(11) NOT NULL,
-  `uid` varchar(255) NOT NULL,
   `nombreCliente` varchar(45) NOT NULL,
   `correo` varchar(45) NOT NULL,
   `pass` varchar(45) NOT NULL,
   `telefono` varchar(45) NOT NULL,
   `pais` varchar(45) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`idCliente`, `uid`, `nombreCliente`, `correo`, `pass`, `telefono`, `pais`) VALUES
-(1, '', 'Cliente 1', 'correo@gmail.com', 'passssssssss', '0909090090090', 'Haiti'),
-(2, '', 'Cliente 2', 'correo2@gmail.com', 'paaaassss2', '34534455555', 'Colombia');
+INSERT INTO `clientes` (`idCliente`, `nombreCliente`, `correo`, `pass`, `telefono`, `pais`) VALUES
+(1, 'Cis', 'cis2@gmail.com', '123456789', '123456789', 'Venezuela'),
+(2, 'Cis nuevo', 'cis@gmail.com', '123456789', '123456789', 'Venezuela'),
+(3, 'Cis m', '', '123456789', '123456789', 'Venezuela'),
+(4, 'Cis nuevo', 'cisi1@gmail.com', '123456789', '123456789', 'Venezuela'),
+(5, 'Cis nuevo', 'cisi33@gmail.com', '123456789', '123456789', 'Venezuela'),
+(6, 'Cis token', 'cisi433@gmail.com', '123456789', '123456789', 'Venezuela'),
+(7, 'Cis token', 'cisi4t33@gmail.com', '123456789', '123456789', 'Venezuela');
 
 -- --------------------------------------------------------
 
@@ -197,7 +201,18 @@ CREATE TABLE IF NOT EXISTS `logos` (
   `tipoLogo` enum('Logo y nombre','Tipografico','Solo nombre','') NOT NULL,
   `clientes_idCliente` int(11) NOT NULL,
   `elementos_idElemento` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `logos`
+--
+
+INSERT INTO `logos` (`idLogo`, `estado`, `logo`, `tipoLogo`, `clientes_idCliente`, `elementos_idElemento`) VALUES
+(2, 'Descargable', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI', 'Logo y nombre', 1, 74),
+(3, 'Editable', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI', 'Logo y nombre', 1, 74),
+(4, 'Editable', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI', 'Logo y nombre', 1, 74),
+(5, 'Editable', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI', 'Logo y nombre', 1, 74),
+(6, 'Editable', 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI', 'Logo y nombre', 1, 74);
 
 -- --------------------------------------------------------
 
@@ -224,7 +239,21 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   `logos_idLogo` int(11) NOT NULL,
   `impuestos_localidad` varchar(4) NOT NULL,
   `precios_idPrecio` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`idPedido`, `fecha`, `estado`, `logos_idLogo`, `impuestos_localidad`, `precios_idPrecio`) VALUES
+(2, '2017-06-07', 'EN ESPERA', 3, 'nulo', 1),
+(3, '2017-06-08', 'EN ESPERA', 2, 'nulo', 1),
+(4, '2017-06-08', 'EN ESPERA', 2, 'nulo', 1),
+(5, '2017-06-08', 'EN ESPERA', 2, 'nulo', 1),
+(6, '2017-06-08', 'EN ESPERA', 2, 'nulo', 1),
+(7, '2017-06-08', 'EN ESPERA', 4, 'nulo', 1),
+(8, '2017-06-08', 'EN ESPERA', 5, 'nulo', 1),
+(9, '2017-06-08', 'EN ESPERA', 6, 'nulo', 1);
 
 -- --------------------------------------------------------
 
@@ -254,6 +283,7 @@ CREATE TABLE IF NOT EXISTS `precios` (
 `idPrecio` int(11) NOT NULL,
   `precio` float NOT NULL,
   `moneda` varchar(4) NOT NULL,
+  `estatus` tinyint(1) DEFAULT '0',
   `planes_idPlan` int(11) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
@@ -261,8 +291,8 @@ CREATE TABLE IF NOT EXISTS `precios` (
 -- Volcado de datos para la tabla `precios`
 --
 
-INSERT INTO `precios` (`idPrecio`, `precio`, `moneda`, `planes_idPlan`) VALUES
-(1, 15, 'USD', 1);
+INSERT INTO `precios` (`idPrecio`, `precio`, `moneda`, `estatus`, `planes_idPlan`) VALUES
+(1, 15, 'USD', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -314,7 +344,20 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nombreUser` varchar(45) NOT NULL,
   `correo` varchar(45) NOT NULL,
   `pass` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`idUsuario`, `nombreUser`, `correo`, `pass`) VALUES
+(1, 'user 11', 'cisliderlogofreelance@gmail.com', '123123213231'),
+(2, 'user', 'user5@gmail.com', '123123213231'),
+(3, 'user', 'user@gmail.com', '123123213231'),
+(4, 'user', 'use44r@gmail.com', '123123213231'),
+(5, 'user', 'use424r@gmail.com', '123123213231'),
+(6, 'user', 'use4243r@gmail.com', '123123213231'),
+(7, 'user', 'use42343r@gmail.com', '123123213231');
 
 --
 -- Índices para tablas volcadas
@@ -372,7 +415,7 @@ ALTER TABLE `impuestos`
 -- Indices de la tabla `logos`
 --
 ALTER TABLE `logos`
- ADD PRIMARY KEY (`idLogo`,`elementos_idElemento`), ADD KEY `fk_logos_clientes_idx` (`clientes_idCliente`), ADD KEY `fk_logos_elementos1_idx` (`elementos_idElemento`);
+ ADD PRIMARY KEY (`idLogo`), ADD KEY `fk_logos_clientes_idx` (`clientes_idCliente`), ADD KEY `fk_logos_elementos1_idx` (`elementos_idElemento`);
 
 --
 -- Indices de la tabla `pagos`
@@ -434,7 +477,7 @@ MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `elementos`
 --
@@ -449,7 +492,7 @@ MODIFY `idEtiqueta` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `logos`
 --
 ALTER TABLE `logos`
-MODIFY `idLogo` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `idLogo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
@@ -459,7 +502,7 @@ MODIFY `idpagos` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `planes`
 --
@@ -484,7 +527,7 @@ MODIFY `idSubcripcion` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- Restricciones para tablas volcadas
 --

@@ -6,18 +6,12 @@ angular.module("disenador-de-logos")
 
     this.salir = function () {
         SweetAlert.swal("Has cerrado sesion", "Vuelve pronto!", "success");
-        $state.go('comenzar');
         clientesService.salir();
     }
 
     var bz = this;
 
     bz.autorizado = clientesService.autorizado();
-
-    /*
-    Auth.$onAuthStateChanged(function (firebaseUser) {
-        bz.autorizado = firebaseUser;
-    });*/
 
     $scope.$watch('$root.objectoCliente', function (valor, nuevoValor) {
         if (valor !== nuevoValor) {
@@ -33,6 +27,7 @@ angular.module("disenador-de-logos")
             bz.hmenuMostrar = true;
         }
     }
+    
 
 }])
 
