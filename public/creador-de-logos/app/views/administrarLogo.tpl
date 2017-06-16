@@ -46,6 +46,9 @@
                         </bazam-visualizar>
 
                         <md-button class="iconos-administrar" ng-click="administrar.descargarL($index,administrar.info.id, elemento.ancho)">{{elemento.ancho}}PX</md-button>
+                        <div class="desca" ng-show="elemento.progreso" layout layout-align="center">
+                        <md-progress-circular md-diameter="30" class="md-accent md-hue-3"></md-progress-circular>
+                        </div>
                         <div id="logoD{{$index}}" class="desca" ng-show="elemento.estado"></div>
                     </div>
                 </div>

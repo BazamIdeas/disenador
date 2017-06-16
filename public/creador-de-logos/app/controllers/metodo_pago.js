@@ -3,11 +3,11 @@ angular.module("disenador-de-logos")
 /* Metodos */
 
 
-.controller('metodosController', ['$scope', 'currentAuth', 'pedidosService', '$mdDialog', '$stateParams', '$state', '$window', 'SweetAlert', 'LS', function ($scope, currentAuth, pedidosService, $mdDialog, $stateParams, $state, $window, SweetAlert, LS) {
+.controller('metodosController', ['$scope', 'pedidosService', '$mdDialog', '$stateParams', '$state', '$window', 'SweetAlert', 'LS', '$rootScope', function ($scope, pedidosService, $mdDialog, $stateParams, $state, $window, SweetAlert, LS, $rootScope) {
 
     var bz = this;
-    
-     /* LOCAL STORAGE */
+
+    /* LOCAL STORAGE */
 
     this.definirInfo = function (llave, datos) {
         return LS.definir(llave, datos);
@@ -26,6 +26,8 @@ angular.module("disenador-de-logos")
 
     /* *************** */
 
+
+
     bz.mostrar = 'inicial';
     bz.compras = 1;
 
@@ -34,7 +36,7 @@ angular.module("disenador-de-logos")
         bz.loaderCircular = true;
         pedidosService.paypal(tipoPago, logoSVG, idElemento, tTarjeta, nTarjeta, expire_month, expire_year).then(function (res) {
             if (tipoPago == 'credit_card') {
-            
+
             } else {
                 $window.location.href = res.data;
             }
@@ -42,10 +44,22 @@ angular.module("disenador-de-logos")
         })
 
     }
-    
-   this.mostrarAlerta = function(){
-       SweetAlert.swal("No disponible", "Utiliza la opcion de paypal!", "error");
-   }
+
+    this.mostrarAlerta = function () {
+        SweetAlert.swal("No disponible", "Utiliza la opcion de paypal!", "error");
+    }
+
+
+    /* AUTORIZADO */
+
+    $scope.$watch('$root.objectoCliente', function (valor, nuevoValor) {
+        if (valor !== nuevoValor) {
+            if($rootScope.objectoCliente == false){
+                $window.localStorage.removeItem('bzToken');
+                $state.go('login');
+            }
+        }
+    });
 
 
 

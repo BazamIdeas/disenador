@@ -2,13 +2,13 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$mdDialog', '$interval', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $mdDialog, $interval) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval) {
 
     var bz = this;
 
-    Auth.$onAuthStateChanged(function (firebaseUser) {
+    /*Auth.$onAuthStateChanged(function (firebaseUser) {
         bz.autorizado = firebaseUser;
-    });
+    });*/
 
     bz.base64 = function (icono) {
 
@@ -75,13 +75,13 @@ angular.module("disenador-de-logos")
     }
 
 
-    if ($stateParams.logoModificado) {
+    if ($stateParams.logoModificado) { //si es un logo previamente modificado
 
         bz.restauracionIniciada = true;
 
-        bz.restauraciones.push($stateParams.logoModificado);
+        bz.restauraciones.push($stateParams.logoModificado.svg);
 
-    } else {
+    } else { //si no es logo modificado, se revisa el localStorage
 
         if ($stateParams.logo && $stateParams.posicion && $stateParams.texto) {
             this.definirInfo($state.current.name, $stateParams);

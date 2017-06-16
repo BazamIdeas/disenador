@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* Administras logo */
 
-.controller('administrarController', ['$scope', 'currentAuth', '$stateParams', '$state', 'LS', '$base64', 'logosService', '$window', function ($scope, currentAuth, $stateParams, $state, LS, $base64, logosService, $window) {
+.controller('administrarController', ['$scope', '$stateParams', '$state', 'LS', '$base64', 'logosService', '$window', function ($scope, $stateParams, $state, LS, $base64, logosService, $window) {
 
     var bz = this;
 
@@ -61,6 +61,8 @@ angular.module("disenador-de-logos")
     }
 
     bz.descargarL = function (indice, idLogo, ancho) {
+        
+        bz.medidas[indice].progreso = true;
 
         logosService.descargarLogo(idLogo, ancho).then(function (res) {
 
@@ -69,6 +71,7 @@ angular.module("disenador-de-logos")
             bz.medidas[indice].url = 'http://' + location.host + '/' + bz.url;
 
             if (bz.medidas[indice].url) {
+                bz.medidas[indice].progreso = false;
                 bz.medidas[indice].estado = true;
 
                 var logo = document.getElementById('logoD' + indice);

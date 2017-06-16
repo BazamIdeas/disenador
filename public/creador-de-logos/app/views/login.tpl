@@ -1,13 +1,13 @@
 <div flex layout="column" ng-cloak >
     <div layout="row" layout-align="center" ng-switch="login.mostrarForm" class="margen_superior margen_inferior">
         <div flex="25" ng-switch-when="1" layout-padding class="md-whiteframe-5dp pasos formularios-login">
-            <form name="formLogin" ng-submit="login.login('interno', login.datos.login, formLogin.$valid)" novalidate>
+            <form name="formLogin" ng-submit="login.login(login.datos.login, formLogin.$valid)" novalidate>
                 <div>
                     <h3 class="text-center">Ingresar</h3>
                     <div>
                         <md-input-container class="md-block">
                             <label>Correo</label>
-                            <input type="text" ng-model="login.datos.login.correo" name="correo" required ng-minlength="3">
+                            <input type="email" ng-model="login.datos.login.correo" name="correo" required ng-minlength="3">
                         </md-input-container>
                         <div ng-messages="formLogin.correo.$error" style="color:maroon" role="alert" ng-show="formLogin.$submitted">
                             <div ng-message="required">Este campo es requerido.</div>

@@ -62,7 +62,7 @@ angular.module("disenador-de-logos")
 /********PEDIDOS******/
 /*********************/
 
-.service("pedidosService", ["$http", "$q", "Auth", function ($http, $q, Auth) {
+.service("pedidosService", ["$http", "$q", function ($http, $q) {
 
     this.idCliente = 1;
 
@@ -74,7 +74,6 @@ angular.module("disenador-de-logos")
 
 
         datos = {
-            token: Auth.$getAuth().Pd,
             idElemento: idElemento,
             logo: logoSVG,
             idPrecio: 1,
@@ -93,7 +92,6 @@ angular.module("disenador-de-logos")
         }
 
         $http.post("/app/pedido", datos).then(function (res) {
-
 
             defered.resolve(res);
 
@@ -117,7 +115,7 @@ angular.module("disenador-de-logos")
 
 
 
-.service('clientesService', ['$http', '$q', 'Auth', function ($http, $q, Auth) {
+.service('clientesService', ['$http', '$q', '$window', '$rootScope', function ($http, $q, $window, $rootScope) {
 
 
     this.registrar = function (datos) {
@@ -126,58 +124,75 @@ angular.module("disenador-de-logos")
 
         var promise = defered.promise;
 
-        Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
-            .then(function (firebaseUser) {
+        $http.post("/app/cliente", datos).then(function (res) {
 
-                datos.uid = firebaseUser.uid;
+                defered.resolve(res);
 
-                $http.post("/app/cliente", datos).then(function (res) {
+            })
+            .catch(function (res) {
 
-                        defered.resolve(res);
-
-                    })
-                    .catch(function (res) {
-
-                        defered.reject(res);
-                    })
-
-
-            }).catch(function (res) {
-                defered.reject(res)
-            });
+                defered.reject(res);
+            })
 
         return promise;
 
 
     }
 
-    this.login = function (metodo, datos = false) {
+    this.login = function (datos) {
 
         var defered = $q.defer();
 
         var promise = defered.promise;
 
+        $http.post("/app/usuario/login", datos)
 
-        Auth.$signInWithEmailAndPassword(datos.correo, datos.pass).then(function (firebaseUser) {
+        .then(function (res) {
 
-            defered.resolve(firebaseUser);
+                $window.localStorage.setItem('bzToken', JSON.stringify(res.data));
+                $rootScope.objectoCliente = res.data;
 
-        })
+                defered.resolve();
 
-        .catch(function (res) {
+            })
+            .catch(function (res) {
+                $window.localStorage.removeItem('bzToken');
+                defered.reject()
+            })
 
-            defered.reject(res);
-
-        })
 
         return promise;
 
     }
 
+    this.autorizado = function () {
+
+        if ($rootScope.objectoCliente) {
+
+            return $rootScope.objectoCliente;
+
+        } else {
+
+            if ($window.localStorage.getItem('bzToken')) {
+
+                $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
+
+                return $rootScope.objectoCliente;
+
+            } else {
+
+                return false;
+
+            }
+
+        }
+
+    }
 
     this.salir = function () {
 
-        Auth.$signOut()
+        $rootScope.objectoCliente = false;
+        $window.localStorage.removeItem('bzToken');
 
     }
 
@@ -291,17 +306,13 @@ angular.module("disenador-de-logos")
 
     }])
 
-.factory("Auth", ["$firebaseAuth",
-                      function ($firebaseAuth) {
-        return $firebaseAuth();
-                      }])
 
 
 /*********************/
 /***** Logos *********/
 /*********************/
 
-.service("logosService", ["$http", "$q", "Auth", function ($http, $q, Auth) {
+.service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
 
 
     this.guardarLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
@@ -315,7 +326,6 @@ angular.module("disenador-de-logos")
             estado: estado,
             logo: logo,
             tipoLogo: tipoLogo,
-            token: firebaseUser.Pd,
             idElemento: idElemento,
         }
 
@@ -336,16 +346,14 @@ angular.module("disenador-de-logos")
     }
 
 
-    this.mostrarGuardados = function (token) {
+    this.mostrarGuardados = function () {
 
         var defered = $q.defer();
 
         var promise = defered.promise;
 
 
-        $http.post("/app/logos/guardados", {
-            token: token
-        }).then(function (res) {
+        $http.post("/app/logos/guardados").then(function (res) {
 
 
             defered.resolve(res);
@@ -367,9 +375,7 @@ angular.module("disenador-de-logos")
 
         var promise = defered.promise;
 
-        $http.post("/app/logos/descargables", {
-            token: token
-        }).then(function (res) {
+        $http.post("/app/logos/descargables").then(function (res) {
 
 
             defered.resolve(res);
@@ -409,3 +415,37 @@ angular.module("disenador-de-logos")
     }
 
 }])
+
+.factory('AuthInterceptor', function ($window, $q, $rootScope) {
+    function salir() {
+        $rootScope.objectoCliente = false;
+        $window.localStorage.removeItem('bzToken');
+    }
+    function autorizado() {
+        if ($rootScope.objectoCliente) {
+            return $rootScope.objectoCliente;
+        } else {
+            if ($window.localStorage.getItem('bzToken')) {
+                $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
+                return $rootScope.objectoCliente;
+            } else {
+                return false;
+            }
+        }
+    }
+    return {
+        request: function (config) {
+            config.headers = config.headers || {};
+            if (autorizado()) {
+                config.headers.auth = autorizado().token;
+            }
+            return config || $q.when(config);
+        },
+        response: function (response) {
+            if (response.status === 401 || response.status === 403) {
+                salir();
+            }
+            return response || $q.when(response);
+        }
+    };
+});

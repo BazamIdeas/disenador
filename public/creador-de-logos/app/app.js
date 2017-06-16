@@ -1,46 +1,49 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
 
-.config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider) {
+.config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider, $httpProvider) {
 
     /* COMPARTIR EN REDES SOCIALES */
 
     socialshareConfProvider.configure([
-        {
-            'provider': 'twitter',
-            'conf': {
-                'url': 'http://720kb.net',
-                'text': '720kb is enough',
-                'via': 'npm',
-                'hashtags': 'Creador de logos, LIDERLOGO',
-                'trigger': 'click'
-            }
+            {
+                'provider': 'twitter',
+                'conf': {
+                    'url': 'http://720kb.net',
+                    'text': '720kb is enough',
+                    'via': 'npm',
+                    'hashtags': 'Creador de logos, LIDERLOGO',
+                    'trigger': 'click'
+                }
     },
-        {
-            'provider': 'facebook',
-            'conf': {
-                'url': 'http://720kb.net',
-                'trigger': 'click',
-                'socialshareUrl': 'http://720kb.net',
-                'socialshareText': 'Creador de logos',
-                'socialshareTitle': 'Creador de logos',
-                'socialshareDescription': 'Creador de logos',
-                'socialsharemedia': '#logo-share',
-                'socialshareHashtags': ''
-            }
+            {
+                'provider': 'facebook',
+                'conf': {
+                    'url': 'http://720kb.net',
+                    'trigger': 'click',
+                    'socialshareUrl': 'http://720kb.net',
+                    'socialshareText': 'Creador de logos',
+                    'socialshareTitle': 'Creador de logos',
+                    'socialshareDescription': 'Creador de logos',
+                    'socialsharemedia': '#logo-share',
+                    'socialshareHashtags': ''
+                }
     }, {
-            'provider': 'email',
-            'conf': {
-                'trigger': 'click',
-                'socialsharesSubject': 'Creador de logos',
-                'socialsharesBody': 'Hola',
-                'socialsharesTo': 'luisdtc2696@gmail.com',
-                'socialsharesCc': '',
-                'socialsharesBcc': ''
-            }
+                'provider': 'email',
+                'conf': {
+                    'trigger': 'click',
+                    'socialsharesSubject': 'Creador de logos',
+                    'socialsharesBody': 'Hola',
+                    'socialsharesTo': 'luisdtc2696@gmail.com',
+                    'socialsharesCc': '',
+                    'socialsharesBcc': ''
+                }
     }
 
 
   ])
+    
+        /* INTERCEPTADOR */
+    $httpProvider.interceptors.push('AuthInterceptor');
 
     /*------------------Material Angular --------------*/
 
@@ -115,6 +118,17 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             origen: null,
             destino: null,
             parametrosDestino: null
+        },
+        resolve: {
+            "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                if (clientesService.autorizado()) {
+
+                    return $q.reject("LOGOUT_REQUIRED");
+
+                }
+
+                }]
         }
     })
 
@@ -124,11 +138,26 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             templateUrl: 'app/views/cliente.tpl',
             controller: 'clienteController as cliente',
             resolve: {
-                "currentAuth": ["Auth", function (Auth) {
-                    // $requireSignIn returns a promise so the resolve waits for it to complete
-                    // If the promise is rejected, it will throw a $stateChangeError (see above)
-                    return Auth.$requireSignIn();
-                    }]
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
+            },
+            resolve: {
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
             }
         })
         .state({
@@ -137,11 +166,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             templateUrl: 'app/views/paquetes.tpl',
             controller: 'paquetesController as paquetes',
             resolve: {
-                "currentAuth": ["Auth", function (Auth) {
-                    // $requireSignIn returns a promise so the resolve waits for it to complete
-                    // If the promise is rejected, it will throw a $stateChangeError (see above)
-                    return Auth.$requireSignIn();
-                    }]
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
             }
         })
         .state({
@@ -159,12 +192,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             },
             controller: 'metodosController as metodo',
             resolve: {
-                "currentAuth": ["Auth", function (Auth) {
-                    // $requireSignIn returns a promise so the resolve waits for it to complete
-                    // If the promise is rejected, it will throw a $stateChangeError (see above)
-                    return Auth.$requireSignIn();
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
-                    }]
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
             }
         })
         .state({
@@ -173,11 +209,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             templateUrl: 'app/views/administrarLogo.tpl',
             controller: 'administrarController as administrar',
             resolve: {
-                "currentAuth": ["Auth", function (Auth) {
-                    // $requireSignIn returns a promise so the resolve waits for it to complete
-                    // If the promise is rejected, it will throw a $stateChangeError (see above)
-                    return Auth.$requireSignIn();
-                    }]
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
             },
             params: {
                 datos: null
@@ -203,7 +243,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
-        $rootScope.anterior = fromState;
+
 
     });
 
@@ -218,6 +258,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 destino: toState.name,
                 parametrosDestino: toParams
             }));
+        } else if (error === "LOGOUT_REQUIRED") {
+            $state.go('dashboard');
         }
     });
 })
