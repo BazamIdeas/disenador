@@ -100,7 +100,6 @@ router.post("/plan/modificar/", controllers.planes.modificarPlan);
 
 
 //MODULO LOGOS
-<<<<<<< HEAD
 router.post('/logos/guardados/', middleware.validar, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables/', middleware.validar, controllers.logos.listaLogosDescargables);
 router.get('/logo/:id', middleware.validar, controllers.logos.datosLogo);//muestra los datos de un logo por su id
