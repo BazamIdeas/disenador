@@ -1,8 +1,8 @@
 <div flex layout layout-margin layout-align="none start">
     <div flex="50" class="listar">
-          
+
         <!-- LISTAR CATEGORIAS -->
-           
+
         <div class="paneles individual md-whiteframe-2dp">
             <div layout layout-align="space-around center" layout-padding>
                 <h3 flex ng-click="categorias.listar('categoria')">Categorias</h3>
@@ -30,9 +30,9 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- LISTAR PREFERENCIAS -->
-        
+
         <div class="paneles individual md-whiteframe-2dp">
             <div layout layout-align="space-around center" layout-padding>
                 <h3 flex ng-click="categorias.listar('preferencia')">Preferencias</h3>
@@ -71,17 +71,20 @@
 
 
         <div ng-switch-when="1">
-            <div layout-padding>
-                <h3>Modificar Categoria</h3>
+            <div layout layout-align="space-around center" layout-padding>
+                <h3 flex>Modificar Categoria</h3>
+                <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
             </div>
             <div layout-padding class="formularios-login pasos">
-                <form ng-submit="categorias.modificar(categorias.datos.modCategoria, 'categoria')" novalidate>
+                <form ng-submit="categorias.modificarElemento(categorias.datos.modCategoria, 'categoria')" novalidate>
                     <div layout="column" layout-align="space-between">
                         <h3 class="text-center">Modificar {{categorias.modNombre}}</h3>
                         <div>
                             <md-input-container class="md-block">
                                 <label>Nombre</label>
-                                <input type="text" ng-model="categorias.datos.modCategoria.nombre" name="nombre">
+                                <input type="text" ng-model="categorias.datos.modCategoria.nombreCategoria" name="nombre">
                             </md-input-container>
                         </div>
                         <div layout>
@@ -100,11 +103,14 @@
 
 
         <div ng-switch-when="2">
-            <div layout-padding>
-                <h3>Modificar Preferencia</h3>
+            <div layout layout-align="space-around center" layout-padding>
+                <h3 flex>Modificar Preferencia</h3>
+                <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
             </div>
             <div layout-padding class="formularios-login pasos">
-                <form ng-submit="categorias.modificarEm(categorias.datos.modPreferencia, 'preferencia')" novalidate>
+                <form ng-submit="categorias.modificarElemento(categorias.datos.modPreferencia, 'preferencia')" novalidate>
                     <div layout="column" layout-align="space-between">
                         <h3 class="text-center">Modificar {{categorias.modNombre}}</h3>
                         <div>
@@ -146,7 +152,7 @@
                         <div>
                             <md-input-container class="md-block">
                                 <label>Nombre</label>
-                                <input type="text" ng-model="categorias.datos.nuevaCategoria.nombre" name="nombre">
+                                <input type="text" ng-model="categorias.datos.nuevaCategoria.nombreCategoria" name="nombre">
                             </md-input-container>
                         </div>
                         <div layout>
@@ -164,12 +170,12 @@
         <div ng-switch-when="4">
             <div layout layout-align="space-between center" layout-padding>
                 <h3>Nueva Preferencia</h3>
-                <md-button ng-click="categorias.opcionesCategorias = 0"  style="margin:0;">
+                <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>
             </div>
             <div layout-padding class="formularios-login pasos">
-                <form ng-submit="categorias.modificarEm(categorias.datos.nuevaPreferencia, 'preferencia')" novalidate>
+                <form ng-submit="categorias.crear(categorias.datos.nuevaPreferencia, 'preferencia')" novalidate>
                     <div layout="column" layout-align="space-between">
                         <h3 class="text-center">Nueva Preferencia</h3>
                         <div>

@@ -1,25 +1,30 @@
 <div flex layout="row" layout-margin layout-align="none start">
     <div flex="50" class="paneles principal md-whiteframe-2dp listar">
-        <div layout-padding ng-click="cliente.listarC()">
-            <h3>Listar Clientes</h3>
+        <div layout layout-align="space-between center" layout-padding>
+            <h3 flex ng-click="cliente.listarC()">LISTAR CLIENTES</h3>
+            <md-button ng-click="cliente.mostrarC = false" style="margin:0;">
+                <md-icon>keyboard_arrow_left</md-icon>
+            </md-button>
         </div>
-        <div class="tabla" ng-show="cliente.mostrarC">
-            <div>Nombre:</div>
-            <div>Correo:</div>
-            <div>Telefono:</div>
-            <div>Acciones:</div>
-        </div>
-        <div layout="column" class="content-scroll" ng-show="cliente.mostrarC">
-            <div layout layout-align="center" ng-show="cliente.loaderMostrar" class="margen_superior">
-                <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+        <div ng-show="cliente.mostrarC">
+            <div class="tabla">
+                <div>Nombre:</div>
+                <div>Correo:</div>
+                <div>Telefono:</div>
+                <div>Acciones:</div>
             </div>
-            <div ng-repeat="elemento in cliente.clientes" class="elemento">
-                <div class="tabla-campo">
-                    <div class="nombre">{{elemento.nombreCliente}}</div>
-                    <div>{{elemento.correo}}</div>
-                    <div>{{elemento.telefono}}</div>
-                    <div>
-                        <md-button class="md-primary md-raised" ng-click="cliente.pedidosCliente(elemento.idCliente, $index)">Pedidos</md-button>
+            <div layout="column" class="content-scroll">
+                <div layout layout-align="center" ng-show="cliente.loaderMostrar" class="margen_superior">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                </div>
+                <div ng-repeat="elemento in cliente.clientes" class="elemento">
+                    <div class="tabla-campo">
+                        <div class="nombre">{{elemento.nombreCliente}}</div>
+                        <div>{{elemento.correo}}</div>
+                        <div>{{elemento.telefono}}</div>
+                        <div>
+                            <md-button class="md-primary md-raised" ng-click="cliente.pedidosCliente(elemento.idCliente)">Pedidos</md-button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -27,8 +32,11 @@
     </div>
 
     <div flex="40" class="paneles md-whiteframe-2dp listar" ng-show="cliente.mostrarPedido">
-        <div layout-padding ng-click="">
-            <h3>Pedidos del Cliente</h3>
+        <div layout layout-align="space-between center" layout-padding>
+            <h3>PEDIDOS CLIENTE</h3>
+            <md-button ng-click="cliente.mostrarPedido = false" style="margin:0;">
+                <md-icon>keyboard_arrow_left</md-icon>
+            </md-button>
         </div>
         <div layout="column" class="content-scroll">
             <div ng-repeat="pedido in cliente.pedidosC" class="elemento">

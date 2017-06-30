@@ -112,11 +112,7 @@ angular.module("administrador")
     bz.pedidosCliente = function (id, $index) {
 
         bz.pedidosC = [];
-        if (!bz.mostrarPedido) {
-            bz.mostrarPedido = true;
-        } else {
-            bz.mostrarPedido = false;
-        }
+        bz.mostrarPedido = true;
 
         pedidosService.pedidosCliente(id).then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
@@ -370,7 +366,7 @@ angular.module("administrador")
 
 }])
 
-.controller('categoriasController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'categoriasService', function ($state, $mdSidenav, $mdMenu, $scope, categoriasService) {
+.controller('categoriasController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'categoriasService', 'SweetAlert', function ($state, $mdSidenav, $mdMenu, $scope, categoriasService, SweetAlert) {
 
     var bz = this;
     bz.opcionesCategorias = 0;
@@ -429,10 +425,10 @@ angular.module("administrador")
 
         if (opcion == 'categoria') {
             bz.opcionesCategorias = 1;
-            bz.datos.modCategoria.id = id;
+            bz.datos.modCategoria.idCategoria = id;
         } else {
             bz.opcionesCategorias = 2;
-            bz.datos.modPreferencia.id = id;
+            bz.datos.modPreferencia.idPreferencia = id;
         }
 
         if (!bz.mostrarOpciones) {
@@ -448,17 +444,19 @@ angular.module("administrador")
 
         if (opcion == 'categoria') {
             categoriasService.modificarCategoria(datos).then(function (res) {
-                    console.log(res)
+                    SweetAlert.swal("Genial!!", "Modificación Exitosa!", "success");
                 })
                 .catch(function (res) {
                     console.log(res)
+                    SweetAlert.swal("Error al Modificar", res.data.msg, "error");
                 })
         } else {
-            categoriasService.modificaPreferencias(datos).then(function (res) {
-                    console.log(res)
+            categoriasService.modificarPreferencia(datos).then(function (res) {
+                    SweetAlert.swal("Genial!!", "Modificación Exitosa!", "success");
                 })
                 .catch(function (res) {
                     console.log(res)
+                    SweetAlert.swal("Error al Modificar", res.data.msg, "error");
                 })
         }
     }
@@ -468,20 +466,25 @@ angular.module("administrador")
     bz.crear = function (datos, opcion) {
         if (opcion == 'categoria') {
             categoriasService.nuevaCategoria(datos).then(function (res) {
-                    console.log(res)
+                    SweetAlert.swal("Genial!!", "Registro Exitoso!", "success");
                 })
                 .catch(function (res) {
+                    SweetAlert.swal("Error al Registrar", res.data.msg, "error");
                     console.log(res)
                 })
         } else {
             categoriasService.nuevaPreferencia(datos).then(function (res) {
-                    console.log(res)
+                    SweetAlert.swal("Genial!!", "Registro Exitoso!", "success");
                 })
                 .catch(function (res) {
+                    SweetAlert.swal("Error al Registrar", res.data.msg, "error");
                     console.log(res)
                 })
         }
     }
+
+
+
 
 
 }])

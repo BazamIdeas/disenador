@@ -188,11 +188,11 @@ angular.module("administrador")
     this.listarCategorias = $http.get("/app/categorias");
 
     this.modificarCategoria = function (datos) {
-        return $http.post('app/categoria/modificar/', datos);
+        return $http.post('/app/categoria/modificar/', datos);
     }
 
     this.nuevaCategoria = function (datos) {
-        return $http.post('app/categoria', datos);
+        return $http.post('/app/categoria', datos);
     }
     
     /* PREFERENCIAS */
@@ -200,11 +200,11 @@ angular.module("administrador")
     this.listarPreferencias = $http.get("/app/preferencias");
 
     this.modificarPreferencia = function (datos) {
-        return $http.post('app/preferencia/modificar/', datos);
+        return $http.post('/app/preferencia/modificar/', datos);
     }
 
     this.nuevaPreferencia = function (datos) {
-        return $http.post('app/preferencia', datos);
+        return $http.post('/app/preferencia', datos);
     }
 
 }])
