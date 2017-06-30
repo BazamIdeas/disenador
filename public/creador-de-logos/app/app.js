@@ -1,48 +1,48 @@
 angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
 
-.config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider, $httpProvider) {
+.config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider, $httpProvider, $urlRouterProvider) {
 
     /* COMPARTIR EN REDES SOCIALES */
 
     socialshareConfProvider.configure([
-            {
-                'provider': 'twitter',
-                'conf': {
-                    'url': 'http://720kb.net',
-                    'text': '720kb is enough',
-                    'via': 'npm',
-                    'hashtags': 'Creador de logos, LIDERLOGO',
-                    'trigger': 'click'
-                }
+        {
+            'provider': 'twitter',
+            'conf': {
+                'url': 'http://720kb.net',
+                'text': '720kb is enough',
+                'via': 'npm',
+                'hashtags': 'Creador de logos, LIDERLOGO',
+                'trigger': 'click'
+            }
     },
-            {
-                'provider': 'facebook',
-                'conf': {
-                    'url': 'http://720kb.net',
-                    'trigger': 'click',
-                    'socialshareUrl': 'http://720kb.net',
-                    'socialshareText': 'Creador de logos',
-                    'socialshareTitle': 'Creador de logos',
-                    'socialshareDescription': 'Creador de logos',
-                    'socialsharemedia': '#logo-share',
-                    'socialshareHashtags': ''
-                }
+        {
+            'provider': 'facebook',
+            'conf': {
+                'url': 'http://720kb.net',
+                'trigger': 'click',
+                'socialshareUrl': 'http://720kb.net',
+                'socialshareText': 'Creador de logos',
+                'socialshareTitle': 'Creador de logos',
+                'socialshareDescription': 'Creador de logos',
+                'socialsharemedia': '#logo-share',
+                'socialshareHashtags': ''
+            }
     }, {
-                'provider': 'email',
-                'conf': {
-                    'trigger': 'click',
-                    'socialsharesSubject': 'Creador de logos',
-                    'socialsharesBody': 'Hola',
-                    'socialsharesTo': 'luisdtc2696@gmail.com',
-                    'socialsharesCc': '',
-                    'socialsharesBcc': ''
-                }
+            'provider': 'email',
+            'conf': {
+                'trigger': 'click',
+                'socialsharesSubject': 'Creador de logos',
+                'socialsharesBody': 'Hola',
+                'socialsharesTo': 'luisdtc2696@gmail.com',
+                'socialsharesCc': '',
+                'socialsharesBcc': ''
+            }
     }
 
 
   ])
-    
-        /* INTERCEPTADOR */
+
+    /* INTERCEPTADOR */
     $httpProvider.interceptors.push('AuthInterceptor');
 
     /*------------------Material Angular --------------*/
@@ -114,7 +114,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         templateUrl: 'app/views/login.tpl',
         controller: 'loginController as login',
         params: {
-
             origen: null,
             destino: null,
             parametrosDestino: null
@@ -137,17 +136,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             url: '/area-del-cliente',
             templateUrl: 'app/views/cliente.tpl',
             controller: 'clienteController as cliente',
-            resolve: {
-                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                    if (!clientesService.autorizado()) {
-
-                        return $q.reject("AUTH_REQUIRED");
-
-                    }
-
-                }]
-            },
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
@@ -223,18 +211,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 datos: null
             }
         })
-        .state({
-            name: 'landing',
-            url: '/landing',
-            templateUrl: 'app/views/landing.tpl',
-            controller: 'landingController as landing',
-
-        })
 
 
-
-
-
+    $urlRouterProvider.otherwise('comenzar');
 
 })
 

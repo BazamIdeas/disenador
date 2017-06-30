@@ -62,23 +62,24 @@ angular.module("disenador-de-logos")
 /********PEDIDOS******/
 /*********************/
 
-.service("pedidosService", ["$http", "$q", function ($http, $q) {
-
-    this.idCliente = 1;
+.service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
 
     this.paypal = function (tipoPago, logoSVG, idElemento, tTarjeta = false, nTarjeta = false, expire_month = false, expire_year = false) {
 
         var defered = $q.defer();
 
         var promise = defered.promise;
+        
+        var cliente = $rootScope.objectoCliente.id;
 
 
-        datos = {
+        var datos = {
             idElemento: idElemento,
             logo: logoSVG,
             idPrecio: 1,
             localidad: 'nulo',
             tipoLogo: "Logo y nombre",
+            idCliente: 1,
             tipoPago: tipoPago
         }
 
@@ -145,7 +146,7 @@ angular.module("disenador-de-logos")
 
         var promise = defered.promise;
 
-        $http.post("/app/usuario/login", datos)
+        $http.post("/app/cliente/login", datos)
 
         .then(function (res) {
 
@@ -315,7 +316,7 @@ angular.module("disenador-de-logos")
 .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
 
 
-    this.guardarLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
+    this.guardarLogo = function (idLogo, estado, logo, tipoLogo,idElemento) {
 
         var defered = $q.defer();
 
@@ -326,11 +327,11 @@ angular.module("disenador-de-logos")
             estado: estado,
             logo: logo,
             tipoLogo: tipoLogo,
+            idCliente: 1,
             idElemento: idElemento,
         }
 
         $http.post("/app/logo/guardar", datos).then(function (res) {
-
 
             defered.resolve(res);
 
@@ -369,7 +370,7 @@ angular.module("disenador-de-logos")
 
     }
 
-    this.mostrarComprados = function (token) {
+    this.mostrarComprados = function () {
 
         var defered = $q.defer();
 

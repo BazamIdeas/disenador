@@ -2,13 +2,9 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', 'clientesService', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval, clientesService) {
 
     var bz = this;
-
-    /*Auth.$onAuthStateChanged(function (firebaseUser) {
-        bz.autorizado = firebaseUser;
-    });*/
 
     bz.base64 = function (icono) {
 
@@ -200,12 +196,13 @@ angular.module("disenador-de-logos")
 
     /* LOGOS */
 
-    bz.gLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
+    bz.autorizado = clientesService.autorizado();
+    bz.gLogo = function (idLogo, estado, logo, tipoLogo, idElemento) {
 
         //si el usuario esta logeado
-        if (firebaseUser) {
+        if (bz.autorizado) {
 
-            logosService.guardarLogo(idLogo, estado, logo, tipoLogo, firebaseUser, idElemento).then(function (res) {
+            logosService.guardarLogo(idLogo, estado, logo, tipoLogo, idElemento).then(function (res) {
 
                 SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
 
@@ -219,12 +216,9 @@ angular.module("disenador-de-logos")
                 parametrosDestino: {
 
                     logoModificado: bz.base64(logo),
-                    
+
                 }
             }));
-
-            //SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
-
         }
     }
 
@@ -444,9 +438,8 @@ angular.module("disenador-de-logos")
             $mdDialog.hide();
         };
 
-        $scope.cancel = function (llave, datos) {
+        $scope.cancel = function () {
             $mdDialog.cancel();
-            LS.definir(llave, datos);
         };
 
         $scope.answer = function (answer) {

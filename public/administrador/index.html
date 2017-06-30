@@ -9,22 +9,8 @@
     <link href="assets/fuentes.css" rel="stylesheet">
     <link href="/angular-color-picker/angular-color-picker.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/sweetalert/sweet-alert.css">
+    <title>ADMINISTRADOR | LIDERLOGO</title>
 
-    <!--Firebase -->
-    <script src="/firebase/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyCs7eX86t3KIQm4H-32pd8_hOwsGNGmpo0",
-            authDomain: "disenador-c5d8f.firebaseapp.com",
-            databaseURL: "https://disenador-c5d8f.firebaseio.com",
-            projectId: "disenador-c5d8f",
-            storageBucket: "disenador-c5d8f.appspot.com",
-            messagingSenderId: "1055336431388"
-        };
-        firebase.initializeApp(config);
-
-    </script>
     <script src="/jquery/jquery.min.js"></script>
 
     <!--Librerias core de angualarJS -->
@@ -53,10 +39,10 @@
 
 <body>
     <div layout="row" flex ng-controller="sidenavController as sidenav">
-        <md-sidenav class="transparencia md-whiteframe-24dp" md-is-locked-open="$mdMedia('gt-md')" md-component-id="left" md-whiteframe="4" ng-show="sidenav.autorizado">
+        <md-sidenav class="transparencia md-whiteframe-24dp" md-is-locked-open="$mdMedia('gt-md')" md-component-id="left" md-whiteframe="4" ng-if="sidenav.autorizado">
             <md-toolbar class="transparencia">
                 <div class="md-toolbar-tools">
-                    <div>LOGO</div>
+                    <div>LIDERLOGO</div>
                 </div>
             </md-toolbar>
             <md-list ng-cloak layout="column">
@@ -81,12 +67,12 @@
                     <md-icon>settings</md-icon>
                     Administrar
                 </md-item>
-                
+
                 <md-item class="menuItem" ui-sref="usuario">
                     <md-icon>person</md-icon>
                     Usuario
                 </md-item>
-                
+
                 <md-item class="menuItem" ui-sref="categorias">
                     <md-icon>settings</md-icon>
                     Categorias
@@ -96,22 +82,25 @@
 
         <div layout="row" flex>
             <div layout="column" layout-fill>
-                <header flex="10" ng-controller="headerController as header" class="md-whiteframe-8dp">
+                <header ng-controller="headerController as header">
                     <md-toolbar class="transparencia">
-                        <div layout flex layout-align="space-between center" layout-padding>
-                            <div layout>
-                                Administrador
+                        <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
+                            <div ng-if="!header.autorizado">
+                                <div>LIDERLOGO</div>
+                            </div>
+                            <div ng-if="header.autorizado">
+                                <div>{{header.nombreEstado}}</div>
                             </div>
                             <div ng-switch="header.autorizado" class="login_header">
-                                <ingresar ng-switch-when="null" ui-sref="login" layout-padding>
+                                <ingresar ng-switch-when="false" ui-sref="login" layout-padding>
                                     Ingresar
                                 </ingresar>
 
-                                <ingresar ng-switch-default ng-mouseenter="header.hmenuMostrar = true">
+                                <ingresar ng-switch-default ng-click="header.menuMostrar()">
                                     <div>
                                         <md-icon class="icono-header">account_circle</md-icon>
                                     </div>
-                                    <div ng-show="header.hmenuMostrar" class="menu-header" ng-mouseleave="header.hmenuMostrar = false">
+                                    <div ng-show="header.hmenuMostrar" class="menu-header">
                                         <div ng-click="header.salir()">
                                             <p>Cerrar sesion</p>
                                         </div>
@@ -126,12 +115,14 @@
 
 
                 </md-content>
-
+                <!-- 
                 <footer flex="5" class="transparencia text-white text-center md-whiteframe-8dp" layout="row" layout-align="space-between center">
                     <div class="logo" flex="30">logo</div>
                     <p class="copyright" flex="30">Copyright 2017</p>
                     <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
                 </footer>
+                
+                -->
             </div>
 
         </div>
