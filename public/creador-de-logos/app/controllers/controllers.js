@@ -13,11 +13,14 @@ angular.module("disenador-de-logos")
 
     bz.autorizado = clientesService.autorizado();
 
+
     $scope.$watch('$root.objectoCliente', function (valor, nuevoValor) {
         if (valor !== nuevoValor) {
             bz.autorizado = $rootScope.objectoCliente;
         }
     });
+
+    console.log(bz.autorizado);
 
 
     bz.menuMostrar = function () {
@@ -27,12 +30,6 @@ angular.module("disenador-de-logos")
             bz.hmenuMostrar = true;
         }
     }
-    
-
-}])
-
-.controller('landingController', ["$state", '$mdPanel', 'clientesService', 'SweetAlert', '$stateParams', function ($state, $mdPanel, SweetAlert, $stateParams) {
-
 
 
 }])

@@ -1,67 +1,156 @@
 angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
 
-.config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider) {
+.config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider, $httpProvider, $urlRouterProvider) {
 
-        /*------------------Material Angular --------------*/
+    /*------------------Material Angular --------------*/
 
-        $mdThemingProvider.theme('default')
-            .warnPalette('orange')
+    $mdThemingProvider.theme('default')
+        .warnPalette('orange')
 
 
-        /*------------------------ Ui router states ----------------------*/
+    /* INTERCEPTADOR */
+    $httpProvider.interceptors.push('AuthInterceptor');
 
-        $stateProvider.state({
+    /*------------------------ Ui router states ----------------------*/
+
+    $stateProvider.state({
             name: 'cliente',
             url: 'cliente',
             templateUrl: 'app/views/cliente.tpl',
-            controller: 'clienteController as cliente'
+            controller: 'clienteController as cliente',
+            resolve: {
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
+            }
         }).state({
             name: 'iconos',
             url: 'iconos',
             templateUrl: 'app/views/iconos.tpl',
-            controller: 'iconosController as iconos'
+            controller: 'iconosController as iconos',
+            resolve: {
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
+            }
         }).state({
             name: 'pedidos',
             url: 'pedidos',
             templateUrl: 'app/views/pedidos.tpl',
-            controller: 'pedidosController as pedidos'
+            controller: 'pedidosController as pedidos',
+            resolve: {
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
+            }
         }).state({
             name: 'fuentes',
             url: 'fuentes',
             templateUrl: 'app/views/fuentes.tpl',
-            controller: 'fuentesController as fuentes'
+            controller: 'fuentesController as fuentes',
+            resolve: {
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
+            }
         }).state({
             name: 'administrar',
             url: 'administrar',
             templateUrl: 'app/views/administrar.tpl',
-            controller: 'administrarController as administrar'
+            controller: 'administrarController as administrar',
+            resolve: {
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
+            }
         })
         .state({
             name: 'login',
-            url: 'login',
+            url: '',
             templateUrl: 'app/views/login.tpl',
-            controller: 'loginController as login'
+            controller: 'loginController as login',
+            resolve: {
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (clientesService.autorizado()) {
+
+                        return $q.reject("LOGOUT_REQUIRED");
+
+                    }
+
+                }]
+            }
         })
         .state({
             name: 'usuario',
             url: 'usuario',
             templateUrl: 'app/views/usuario.tpl',
-            controller: 'usuarioController as usuario'
+            controller: 'usuarioController as usuario',
+            resolve: {
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
+            }
         })
         .state({
             name: 'categorias',
             url: 'categorias',
             templateUrl: 'app/views/categorias.tpl',
-            controller: 'categoriasController as categorias'
+            controller: 'categoriasController as categorias',
+            resolve: {
+                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                    if (!clientesService.autorizado()) {
+
+                        return $q.reject("AUTH_REQUIRED");
+
+                    }
+
+                }]
+            }
         })
-    })
+})
 
 
 .run(function ($rootScope, $state) {
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
-        $rootScope.anterior = fromState;
 
 
 
@@ -73,8 +162,13 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
         // and redirect the user back to the home page
         if (error === "AUTH_REQUIRED") {
 
-
-            $state.go("login");
+            $state.go("login", ({
+                origen: fromState.name,
+                destino: toState.name,
+                parametrosDestino: toParams
+            }));
+        } else if (error === "LOGOUT_REQUIRED") {
+            $state.go('login');
         }
     });
 })

@@ -15,7 +15,7 @@ var produccion = {
 
 var desarrollo = {
     "secret":"unaclavemuysegura",
-	"seguridad" : false,
+	"seguridad" :false,
 	"puerto" : "8080",
 	"url": "http://localhost:8080",
 	"dashboard": "/creador-de-logos#!/area-del-cliente",

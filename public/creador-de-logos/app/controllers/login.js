@@ -23,11 +23,12 @@ angular.module("disenador-de-logos")
 
         bz.loaderCargando = true;
         clientesService.registrar(datos).then(function (res) {
+            bz.loaderCargando = false;
             console.log(res + 'funciono')
         })
 
         .catch(function (res) {
-
+            bz.loaderCargando = false;
             SweetAlert.swal("Error al registrar", "Revisa tu conexion a internet!", "error");
 
         })
@@ -83,6 +84,7 @@ angular.module("disenador-de-logos")
                 }
 
             }).catch(function (res) {
+                bz.loaderCargando = false;
                 SweetAlert.swal("Error al ingresar", "Revisa tu conexion a internet!", "error");
                 console.error("Authentication failed:", res);
 
