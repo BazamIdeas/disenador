@@ -14,11 +14,9 @@
                         <input type="text" name="nombre" ng-model="comienzo.nombreLogo" aria-label="nombre" maxlength="12" minlength="1">
                     </md-input-container>
                     <div layout layout-align="end">
-                        <a href="creador-de-logos/#!/comenzar?nombre={{comienzo.nombreLogo}}">
-                            <md-button class="boton-enviar">
-                                DISEÑAR LOGO
-                            </md-button>
-                        </a>
+                        <md-button class="boton-enviar" ng-click="comienzo.enviarComenzar(comienzo.nombreLogo)">
+                            DISEÑAR LOGO
+                        </md-button>
                     </div>
                 </div>
             </div>

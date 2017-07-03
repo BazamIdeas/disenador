@@ -12,14 +12,12 @@
 
         <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
             <div flex layout="row" layout-align="space-around" layout-wrap layout-padding class="text-center">
-                <div flex="30" ng-repeat="elemento in cliente.lComprados" class="svg-proceso contenedor_logos_proceso proceso-content" ng-mouseenter="cliente.efectoHoverC($index, elemento)" ng-mouseleave="cliente.efectoHoverC($index, elemento)">
+                <div flex="30" ng-repeat="logo in cliente.lComprados" class="svg-proceso contenedor_logos_proceso proceso-content" ng-mouseenter="cliente.efectoHoverC($index, logo)" ng-mouseleave="cliente.efectoHoverC($index, logo)">
                     <div>
-                        <bazam-visualizar class="logo_icon" data-svg="cliente.base64(elemento.logo)">
+                        <bazam-visualizar class="logo_icon" data-svg="cliente.base64(logo.logo)">
                         </bazam-visualizar>
                     </div>
-                    <md-icon class="iconos-cliente" ng-show="elemento.mostrar" 
-                    ui-sref="administrar({datos:{id:elemento.idLogo,logo: elemento.logo}})">vertical_align_bottom</md-icon>
-                    
+                    <md-icon class="iconos-cliente" ng-show="logo.estado" ui-sref="administrar({logo:logo.logo})">create</md-icon>
                 </div>
                 <div layout="column" layout-align="center center" ng-hide="cliente.lComprados">
                     <div ng-hide="cliente.notifyC">
@@ -42,7 +40,7 @@
                         <bazam-visualizar class="logo_icon" data-svg="cliente.base64(logo.logo)">
                         </bazam-visualizar>
                     </div>
-                    <md-icon class="iconos-cliente" ng-show="logo.mostrar" ui-sref="editor({logo:logo.logo})">create</md-icon>
+                    <md-icon class="iconos-cliente" ng-show="logo.estado" ui-sref="editor({logoModificado: {svg: cliente.base64(logo.logo), tipoLogo: logo.tipoLogo, idElemento: logo.elementos_idElemento}})">create</md-icon>
                 </div>
 
                 <div layout="column" layout-align="center center" ng-hide="cliente.lGuardados">

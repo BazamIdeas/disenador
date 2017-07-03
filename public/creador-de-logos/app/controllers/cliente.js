@@ -3,7 +3,7 @@ angular.module("disenador-de-logos")
 
 /* Cliente */
 
-.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'currentAuth', 'logosService', '$state', 'LS', "Auth", '$base64', function ($scope, $mdDialog, $stateParams, currentAuth, logosService, $state, LS, Auth, $base64) {
+.controller('clienteController', ['$scope', '$mdDialog', "$stateParams", 'logosService', '$state', 'LS', '$base64', 'currentAuth', '$rootScope', '$window', function ($scope, $mdDialog, $stateParams, logosService, $state, LS, $base64, currentAuth, $rootScope, $window) {
 
     var bz = this;
 
@@ -18,12 +18,6 @@ angular.module("disenador-de-logos")
         return $base64.encode(icono);
 
     }
-
-    Auth.$onAuthStateChanged(function (firebaseUser) {
-        bz.autorizado = firebaseUser;
-        bz.mostrarC(bz.autorizado.Pd);
-        bz.mostrarG(bz.autorizado.Pd);
-    });
 
     /* LOCAL STORAGE */
 
@@ -93,6 +87,16 @@ angular.module("disenador-de-logos")
         }
     }
 
+    /* AUTORIZADO */
+
+    $scope.$watch('$root.objectoCliente', function (valor, nuevoValor) {
+        if (valor !== nuevoValor) {
+            if ($rootScope.objectoCliente == false) {
+                $window.localStorage.removeItem('bzToken');
+                $state.go('login');
+            }
+        }
+    });
 
 
 }])

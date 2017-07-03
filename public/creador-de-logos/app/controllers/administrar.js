@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* Administras logo */
 
-.controller('administrarController', ['$scope', 'currentAuth', '$stateParams', '$state', 'LS', '$base64', 'logosService', function ($scope, currentAuth, $stateParams, $state, LS, $base64, logosService) {
+.controller('administrarController', ['$scope', '$stateParams', '$state', 'LS', '$base64', 'logosService', '$window', function ($scope, $stateParams, $state, LS, $base64, logosService, $window) {
 
     var bz = this;
 
@@ -37,23 +37,18 @@ angular.module("disenador-de-logos")
 
     bz.info = this.datosEstadoAnterior;
 
-    
-    bz.descargarL = function (idLogo, ancho) {
-        logosService.descargarLogo(idLogo, ancho).then(function (res) {
-            bz.url = res.data;
-            console.log(bz.url)
-        }).catch(function (res) {
-            console.log('No funciona');
-        })
-    }
-    
-    bz.medidas = [{ancho: 300},{ancho: 400},{ancho: 500}];
 
-
-
-    /* EFECTO HOVER */
+    bz.medidas = [{
+        ancho: 300
+    }, {
+        ancho: 400
+    }, {
+        ancho: 500
+    }];
 
     this.elementos = [];
+
+    /* EFECTO HOVER */
 
     this.efectoHover = function (indice, valor) {
         if (!this.elementos[indice]) {
@@ -65,6 +60,38 @@ angular.module("disenador-de-logos")
         }
     }
 
+    bz.descargarL = function (indice, idLogo, ancho) {
+        
+        bz.medidas[indice].progreso = true;
+
+        logosService.descargarLogo(idLogo, ancho).then(function (res) {
+
+            bz.url = res.data.svg;
+            bz.url = bz.url.replace('public/', '');
+            bz.medidas[indice].url = 'http://' + location.host + '/' + bz.url;
+
+            if (bz.medidas[indice].url) {
+                bz.medidas[indice].progreso = false;
+                bz.medidas[indice].estado = true;
+
+                var logo = document.getElementById('logoD' + indice);
+
+                var link = document.createElement('a');
+
+                link.setAttribute('download', bz.url);
+                link.setAttribute('href', bz.medidas[indice].url);
+                link.innerHTML = 'Descargar';
+
+                logo.appendChild(link);
+            }
+
+            // $window.location.href = bz.url;
+            // $window.open(bz.url, "_blank");
+
+        }).catch(function (res) {
+            console.log(res);
+        })
+    }
 
 
 

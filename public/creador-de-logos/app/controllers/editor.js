@@ -2,13 +2,9 @@ angular.module("disenador-de-logos")
 
 /* Editor */
 
-.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', 'Auth', '$filter', '$mdDialog', '$interval', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, Auth, $filter, $mdDialog, $interval) {
+.controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', 'clientesService', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval, clientesService) {
 
     var bz = this;
-
-    Auth.$onAuthStateChanged(function (firebaseUser) {
-        bz.autorizado = firebaseUser;
-    });
 
     bz.base64 = function (icono) {
 
@@ -22,23 +18,84 @@ angular.module("disenador-de-logos")
 
     }
 
-  
 
-    /* LOCAL STORAGE */
+    /////////////////////////////////////
+    ////// Mostrar Visualizaciones///////
+    /////////////////////////////////////
 
+
+    bz.visualizacionUsada = false;
+
+    bz.visualizaciones = [];
+
+    bz.visualizar = function (valor) {
+
+        bz.visualizacionUsada = false;
+
+        bz.visualizaciones.pop();
+
+        bz.visualizaciones.push(valor);
+
+    }
+
+
+    /////////////////////////////////////
+    ///// Realizar Restauraciones ///////
+    /////////////////////////////////////
+
+    bz.restauracionIniciada = false;
+
+    bz.restauraciones = [];
+
+    bz.realizarRestauracion = function (restauracion) {
+        bz.visualizacionUsada = true;
+
+        if (bz.restauracionIniciada == false) {
+            bz.restauracionIniciada = true;
+        }
+
+        if (bz.restauraciones.length) {
+            bz.restauraciones.pop();
+        }
+        bz.restauraciones.push(restauracion);
+
+
+    }
+
+
+    //////////////////////////////////////////////
+    ///////////////LOCAL STORAGE//////////////////
+    //////////////////////////////////////////////
     this.definirInfo = function (llave, datos) {
         return LS.definir(llave, datos);
     }
 
-    if ($stateParams.logo && $stateParams.posicion && $stateParams.texto) {
-        this.definirInfo($state.current.name, $stateParams);
-        this.datosEstadoAnterior = $stateParams;
 
-    } else if (LS.obtener($state.current.name)) {
+    if ($stateParams.logoModificado) { //si es un logo previamente modificado
 
-        this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
-    } else {
-        $state.go('opciones');
+        bz.restauracionIniciada = true;
+
+        bz.restauraciones.push($stateParams.logoModificado.svg);
+
+    } else { //si no es logo modificado, se revisa el localStorage
+
+        if ($stateParams.logo && $stateParams.posicion && $stateParams.texto) {
+            this.definirInfo($state.current.name, $stateParams);
+            this.datosEstadoAnterior = $stateParams;
+
+        } else if (LS.obtener($state.current.name)) {
+
+            this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
+        } else {
+            $state.go('opciones');
+        }
+
+        this.logo = this.datosEstadoAnterior.logo;
+        this.logo.texto = this.datosEstadoAnterior.texto;
+        this.logo.posicion = this.datosEstadoAnterior.posicion;
+
+        this.categoria = this.datosEstadoAnterior.logo.icono.categorias_idCategoria;
+
     }
 
     /* *************** */
@@ -71,9 +128,7 @@ angular.module("disenador-de-logos")
     }
 
 
-    this.logo = this.datosEstadoAnterior.logo;
-    this.logo.texto = this.datosEstadoAnterior.texto;
-    this.logo.posicion = this.datosEstadoAnterior.posicion;
+
 
     $scope.fuente = null;
     $scope.fuentes = null;
@@ -131,7 +186,7 @@ angular.module("disenador-de-logos")
     bz.fondo = "blanco";
 
     /* CATEGORIAS EXISTENTES */
-    this.categoria = this.datosEstadoAnterior.logo.icono.categorias_idCategoria;
+
     this.categoriasPosibles = [];
     categoriasService.listaCategorias.then(function (res) {
         angular.forEach(res.data, function (valor, llave) {
@@ -141,20 +196,29 @@ angular.module("disenador-de-logos")
 
     /* LOGOS */
 
-    bz.gLogo = function (idLogo, estado, logo, tipoLogo, firebaseUser, idElemento) {
+    bz.autorizado = clientesService.autorizado();
+    bz.gLogo = function (idLogo, estado, logo, tipoLogo, idElemento) {
 
-        if (firebaseUser) {
+        //si el usuario esta logeado
+        if (bz.autorizado) {
 
-            logosService.guardarLogo(idLogo, estado, logo, tipoLogo, firebaseUser, idElemento).then(function (res) {
-                
+            logosService.guardarLogo(idLogo, estado, logo, tipoLogo, idElemento).then(function (res) {
+
                 SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
-                
+
             })
 
-        } else {
-            
-            SweetAlert.swal("No disponible", "Tienes que ingresar primero!", "error");
-            
+        } else { //si el usuario no esta logeado 
+
+            $state.go("login", ({
+                origen: $state.current.name,
+                destino: $state.current.name,
+                parametrosDestino: {
+
+                    logoModificado: bz.base64(logo),
+
+                }
+            }));
         }
     }
 
@@ -314,51 +378,6 @@ angular.module("disenador-de-logos")
 
     }
 
-
-
-    /////////////////////////////////////
-    ////// Mostrar Visualizaciones///////
-    /////////////////////////////////////
-    bz.visualizacionUsada = false;
-
-    bz.visualizaciones = [];
-
-    bz.visualizar = function (valor) {
-
-        bz.visualizacionUsada = false;
-
-        bz.visualizaciones.pop();
-
-        bz.visualizaciones.push(valor);
-
-    }
-
-
-    /////////////////////////////////////
-    ///// Realizar Restauraciones ///////
-    /////////////////////////////////////
-
-    bz.restauracionIniciada = false;
-
-    bz.restauraciones = [];
-
-    bz.realizarRestauracion = function (restauracion) {
-        bz.visualizacionUsada = true;
-
-        if (bz.restauracionIniciada == false) {
-            bz.restauracionIniciada = true;
-        }
-
-        if (bz.restauraciones.length) {
-            bz.restauraciones.pop();
-        }
-        bz.restauraciones.push(restauracion);
-
-
-    }
-
-
-
     /* PREVISUALIZAR */
 
     bz.modeloPrevisualizar = [
@@ -419,9 +438,8 @@ angular.module("disenador-de-logos")
             $mdDialog.hide();
         };
 
-        $scope.cancel = function (llave, datos) {
+        $scope.cancel = function () {
             $mdDialog.cancel();
-            LS.definir(llave, datos);
         };
 
         $scope.answer = function (answer) {

@@ -8,7 +8,7 @@ var pago = {};
 
 paypal.configure(configuracion.paypal);
 
-pago.realizarPago = function(datos,callback)
+pago.paypal = function(datos,callback)
 { 
   var confirmacion;
   /// VERIFICAR IMPUESTO
@@ -27,7 +27,7 @@ pago.realizarPago = function(datos,callback)
           "payment_method": "paypal"
         },
        "redirect_urls": {
-        "return_url": configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/",
+        "return_url": configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipo+"/",
         "cancel_url": configuracion.url+"/app/pedido/noPago/"
         },
         "transactions": [{

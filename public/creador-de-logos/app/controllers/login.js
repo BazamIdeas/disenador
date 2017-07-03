@@ -7,51 +7,53 @@ angular.module("disenador-de-logos")
 
     var bz = this;
 
+    bz.loaderCargando = false;
+
+    /* objeto datos vacios */
     this.datos = {
 
         registrar: {},
         login: {}
 
-    };
+    }; 
     
-    bz.loaderCargando = false;
-    this.registrar = function (datos) {
-
-        /*  Auth.$createUserWithEmailAndPassword(datos.correo, datos.pass)
-              .then(function (firebaseUser) {
-
-                  console.error(firebaseUser);
-
-              }).catch(function (error) {
-                  console.error(error);
-              });
-              */
-
+    /* FUNCION REGISTRAR */
+    
+     this.registrar = function (datos) {
 
         bz.loaderCargando = true;
         clientesService.registrar(datos).then(function (res) {
+            bz.loaderCargando = false;
             console.log(res + 'funciono')
         })
 
         .catch(function (res) {
-
+            bz.loaderCargando = false;
             SweetAlert.swal("Error al registrar", "Revisa tu conexion a internet!", "error");
 
         })
 
     }
+     
+    /* FUNCION LOGIN */
+    
+    this.login = function (datos, valido) {
 
-
-    this.login = function (metodo, datos, valido) {
         if (valido) {
-            bz.loaderCargando = true;
-            clientesService.login(metodo, datos).then(function (res) {
 
+            bz.loaderCargando = true;
+
+            clientesService.login(datos).then(function (res) {
 
                 if ($stateParams.destino) {
+                    
 
                     if ($stateParams.origen == "editor" && $stateParams.destino == "metodo") {
 
+                        $state.go($stateParams.destino, $stateParams.parametrosDestino);
+
+                    } else if ($stateParams.origen == "editor" && $stateParams.destino == "editor") {
+                        
                         $state.go($stateParams.destino, $stateParams.parametrosDestino);
 
                     } else {
@@ -82,6 +84,7 @@ angular.module("disenador-de-logos")
                 }
 
             }).catch(function (res) {
+                bz.loaderCargando = false;
                 SweetAlert.swal("Error al ingresar", "Revisa tu conexion a internet!", "error");
                 console.error("Authentication failed:", res);
 

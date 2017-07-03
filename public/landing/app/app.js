@@ -1,6 +1,6 @@
 angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
 
-.config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider) {
+.config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider,  $urlRouterProvider) {
 
     /* COMPARTIR EN REDES SOCIALES */
 
@@ -51,13 +51,14 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
     /*------------------------ Ui router states ----------------------*/
 
     $stateProvider.state({
-            name: 'comienzo',
-            url: '/',
-            templateUrl: 'app/views/comienzo.tpl',
-            controller: 'comienzoController as comienzo',
-            params: {
-                datos: null
-            }
-        })
-        
+        name: 'comienzo',
+        url: '',
+        templateUrl: 'app/views/comienzo.tpl',
+        controller: 'comienzoController as comienzo',
+        params: {
+            datos: null
+        }
+    })
+
+    $urlRouterProvider.otherwise('');
 })

@@ -182,19 +182,10 @@ angular.module("disenador-de-logos")
         $scope.pestana = bz.pestana;
         $scope.preferencias = bz.preferencias;
 
-        $scope.dialogosCuerpos = $scope.pestana.id
-
-        $scope.hide = function () {
-            $mdDialog.hide();
-        };
+        $scope.dialogosCuerpos = $scope.pestana.id;
 
         $scope.cancel = function (llave, datos) {
             $mdDialog.cancel();
-            LS.definir(llave, datos);
-        };
-
-        $scope.answer = function (answer) {
-            $mdDialog.hide(answer);
         };
     }
 
