@@ -27,6 +27,6 @@ var desarrollo = {
   }
 };
 
-var configuracion = desarrollo;
+var configuracion = produccion;
 
 module.exports = configuracion;
