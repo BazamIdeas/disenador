@@ -13,7 +13,7 @@
             <div ng-show="categorias.mostrarC">
 
                 <div layout class="elemento">
-                    <md-input-container flex style="margin-bottom:0;">
+                    <md-input-container flex style="margin-bottom: 0;height: 35px;">
                         <input type="text" ng-model="categorias.buscarC" class="md-block" aria-label="filtro" placeholder="Buscar:">
                     </md-input-container>
                 </div>
@@ -48,7 +48,7 @@
             </div>
             <div ng-show="categorias.mostrarPre">
                 <div layout class="elemento">
-                    <md-input-container flex style="margin-bottom:0;">
+                    <md-input-container flex style="margin-bottom: 0;height: 35px;">
                         <input type="text" ng-model="categorias.buscarP" class="md-block" aria-label="filtro" placeholder="Buscar:">
                     </md-input-container>
                 </div>

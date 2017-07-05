@@ -7,8 +7,8 @@
             <h3>Listar Pedidos</h3>
         </div>
         <div ng-show="pedidos.mostrarP">
-            <div layout class="elemento" style="margin: 0;border-bottom: 1px solid #d6d2d2;">
-                <md-input-container flex style="margin-bottom:0;">
+            <div layout class="elemento">
+                <md-input-container flex style="margin-bottom: 0;height: 35px;">
                     <input type="text" ng-model="pedidos.filtrosActivos.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
                 </md-input-container>
             </div>
@@ -68,7 +68,7 @@
         </div>
         <div layout="column" class="content-scroll">
             <div ng-repeat="pedido in pedidos.pedidoDetalle" class="elemento nopadding">
-                <div class="estado-pedido pequeno {{pedido.estado}}"></div>
+                <div class="estado-pedido {{pedido.estado}}"></div>
                 <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
                     <div flex="45"><b>Cliente:</b> {{pedido.nombreCliente}}</div>
                     <div flex="45"><b>Fecha:</b> {{pedido.fecha | date : shortDate }}</div>
@@ -91,6 +91,13 @@
 
                             <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'EN ESPERA')" value="EN ESPERA">
                                 EN ESPERA
+                            </md-option>
+                            <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'CANCELADO')" value="CANCELADO">
+                                CANCELADO
+                            </md-option>
+                            
+                            <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'EN PROCESO')" value="EN PROCESO">
+                                EN PROCESO
                             </md-option>
                         </md-select>
                     </md-input-container>

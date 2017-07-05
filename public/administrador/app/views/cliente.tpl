@@ -7,9 +7,9 @@
             </md-button>
         </div>
         <div ng-show="cliente.mostrarC">
-           <div layout class="elemento">
-                <md-input-container flex style="margin-bottom:0;">
-                   <input type="text" ng-model="cliente.buscar" class="md-block" aria-label="filtro" placeholder="Buscar:">
+            <div layout class="elemento">
+                <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                    <input type="text" ng-model="cliente.buscar" class="md-block" aria-label="filtro" placeholder="Buscar:">
                 </md-input-container>
             </div>
             <div class="tabla">
@@ -45,7 +45,7 @@
         </div>
         <div layout="column" class="content-scroll">
             <div ng-repeat="pedido in cliente.pedidosC" class="elemento nopadding">
-               <div class="estado-pedido {{pedido.estado}}"></div>
+                <div class="estado-pedido {{pedido.estado}}"></div>
                 <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
                     <div flex="45"><b>Cliente:</b> {{pedido.nombreCliente}}</div>
                     <div flex="45"><b>Telefono:</b> {{pedido.telefono}}</div>
@@ -59,13 +59,20 @@
                 <div layout layout-padding>
                     <md-input-container class="md-block" flex="50">
                         <label>CAMBIAR ESTADO</label>
-                        <md-select ng-model="pedido.estado" aria-label="estado">
+                        <md-select ng-model="cliente.estado" aria-label="estado">
                             <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'COMPLETADO')" value="COMPLETADO">
                                 COMPLETADO
                             </md-option>
 
                             <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'EN ESPERA')" value="EN ESPERA">
                                 EN ESPERA
+                            </md-option>
+                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'CANCELADO')" value="CANCELADO">
+                                CANCELADO
+                            </md-option>
+
+                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'EN PROCESO')" value="EN PROCESO">
+                                EN PROCESO
                             </md-option>
                         </md-select>
                     </md-input-container>

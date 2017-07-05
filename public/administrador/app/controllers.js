@@ -78,7 +78,7 @@ angular.module("administrador")
     /* LISTAR TODOS LOS CLIENTES */
 
     bz.listarC = function () {
-
+        bz.clientes = [];
         if (!bz.mostrarC) {
             bz.mostrarC = true;
         } else {
@@ -189,7 +189,7 @@ angular.module("administrador")
         }]
     };
 
-    bz.filtrosActivos ;
+    bz.filtrosActivos;
 
     /* LISTA DE TODOS LOS PEDIDOS */
 
