@@ -11,6 +11,12 @@
                 </md-button>
             </div>
             <div ng-show="categorias.mostrarC">
+
+                <div layout class="elemento">
+                    <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                        <input type="text" ng-model="categorias.buscarC" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                    </md-input-container>
+                </div>
                 <div class="tabla">
                     <div>Nombre:</div>
                     <div>Acciones:</div>
@@ -19,7 +25,7 @@
                     <div layout layout-align="center" ng-show="categorias.loaderMostrar" class="margen_superior">
                         <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
                     </div>
-                    <div ng-repeat="elemento in categorias.cats track by $index" class="elemento">
+                    <div ng-repeat="elemento in categorias.cats | filter:categorias.buscarC" class="elemento">
                         <div class="tabla-campo">
                             <div class="nombre">{{elemento.nombreCategoria}}</div>
                             <div>
@@ -41,6 +47,11 @@
                 </md-button>
             </div>
             <div ng-show="categorias.mostrarPre">
+                <div layout class="elemento">
+                    <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                        <input type="text" ng-model="categorias.buscarP" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                    </md-input-container>
+                </div>
                 <div class="tabla">
                     <div>Nombre 1:</div>
                     <div>Nombre 2:</div>
@@ -50,7 +61,7 @@
                     <div layout layout-align="center" ng-show="categorias.loaderMostrar" class="margen_superior">
                         <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
                     </div>
-                    <div ng-repeat="elemento in categorias.prefs track by $index" class="elemento">
+                    <div ng-repeat="elemento in categorias.prefs | filter:categorias.buscarP" class="elemento">
                         <div class="tabla-campo">
                             <div class="nombre">{{elemento.nombre1}}</div>
                             <div class="nombre">{{elemento.nombre2}}</div>
