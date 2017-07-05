@@ -1,7 +1,7 @@
 
 var produccion = {
     "secret":"unaclavemuysegura",
-	"seguridad" : false,
+	"seguridad" : true,
 	"puerto" : "4001",
 	"url": "front.liderlogo.info",
 	"dashboard": "/creador-de-logos#!/area-del-cliente",
@@ -15,7 +15,7 @@ var produccion = {
 
 var desarrollo = {
     "secret":"unaclavemuysegura",
-	"seguridad" :false,
+	"seguridad" :true,
 	"puerto" : "8080",
 	"url": "http://localhost:8080",
 	"dashboard": "/creador-de-logos#!/area-del-cliente",
@@ -27,6 +27,6 @@ var desarrollo = {
   }
 };
 
-var configuracion = produccion;
+var configuracion = desarrollo;
 
 module.exports = configuracion;
