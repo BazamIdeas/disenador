@@ -1,26 +1,34 @@
 <div flex layout layout-margin layout-align="none start">
-   
+
     <!-- LISTAR PEDIDOS -->
-       
+
     <div flex="60" class="paneles md-whiteframe-2dp listar">
         <div layout-padding ng-click="pedidos.listaP()">
             <h3>Listar Pedidos</h3>
         </div>
         <div ng-show="pedidos.mostrarP">
+            <div layout class="elemento" style="margin: 0;border-bottom: 1px solid #d6d2d2;">
+                <md-input-container flex style="margin-bottom:0;">
+                    <input type="text" ng-model="pedidos.filtrosActivos.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                </md-input-container>
+            </div>
             <div layout class="elemento">
                 <div flex="20" style="margin: auto;">Filtrar por: </div>
                 <md-input-container flex style="margin:0;">
                     <md-select ng-model="pedidos.filtrosActivos.estado" class="md-block" aria-label="filtro">
+                        <md-option ng-value="TODOS" selected>TODOS</md-option>
                         <md-option ng-value="estado.nombre" ng-repeat="estado in pedidos.filtros.estados">{{estado.nombre}}</md-option>
                     </md-select>
                 </md-input-container>
                 <md-input-container flex style="margin:0;">
                     <md-select ng-model="pedidos.filtrosActivos.pais" class="md-block" aria-label="filtro">
+                        <md-option ng-value="TODOS" selected>TODOS</md-option>
                         <md-option ng-value="pais.nombre" ng-repeat="pais in pedidos.filtros.paises">{{pais.nombre}}</md-option>
                     </md-select>
                 </md-input-container>
                 <md-input-container flex style="margin:0;">
                     <md-select ng-model="pedidos.filtrosActivos.plan" class="md-block" aria-label="filtro">
+                        <md-option ng-value="TODOS" selected>TODOS</md-option>
                         <md-option ng-value="plan.nombre" ng-repeat="plan in pedidos.filtros.planes">{{plan.nombre}}</md-option>
                     </md-select>
                 </md-input-container>
@@ -33,8 +41,9 @@
                 <div>Acciones:</div>
             </div>
             <div layout="column" class="content-scroll">
-                <div ng-repeat="elemento in pedidos.elementos | filter:pedidos.filtrosActivos:false" class="elemento">
-                    <div class="tabla-campo">
+                <div ng-repeat="elemento in pedidos.elementos | filter:pedidos.filtrosActivos" class="elemento nopadding">
+                    <div class="estado-pedido pequeno {{elemento.estado}}"></div>
+                    <div class="tabla-campo" layout-padding>
                         <div>{{elemento.nombreCliente}}</div>
                         <div>{{elemento.plan}}</div>
                         <div>{{elemento.estado}}</div>
@@ -50,7 +59,7 @@
             </div>
         </div>
     </div>
-     
+
     <!-- DETALLES PEDIDOS -->
 
     <div flex="35" class="paneles md-whiteframe-2dp listar" ng-show="pedidos.mostrarD">
@@ -58,8 +67,9 @@
             <h3>DETALLES</h3>
         </div>
         <div layout="column" class="content-scroll">
-            <div ng-repeat="pedido in pedidos.pedidoDetalle track by $index" class="elemento">
-                <div layout layout-align="space-arund" layout-wrap class="datos-elemento">
+            <div ng-repeat="pedido in pedidos.pedidoDetalle" class="elemento nopadding">
+                <div class="estado-pedido pequeno {{pedido.estado}}"></div>
+                <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
                     <div flex="45"><b>Cliente:</b> {{pedido.nombreCliente}}</div>
                     <div flex="45"><b>Fecha:</b> {{pedido.fecha | date : shortDate }}</div>
                     <div flex="45"><b>Correo:</b> {{pedido.correo}}</div>
@@ -71,7 +81,7 @@
                     <div flex="45"><b>Moneda:</b> {{pedido.moneda}}</div>
                     <div flex="45"><b>Categoria:</b> {{pedido.nombreCategoria}}</div>
                 </div>
-                <div layout>
+                <div layout layout-padding>
                     <md-input-container class="md-block" flex="50">
                         <label>CAMBIAR ESTADO</label>
                         <md-select ng-model="pedido.estado" aria-label="estado">

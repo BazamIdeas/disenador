@@ -6,27 +6,29 @@
         <div class="paneles individual md-whiteframe-2dp">
             <div layout layout-align="space-between center" layout-padding>
                 <h3 ng-click="usuario.listarU()">LISTAR USUARIOS</h3>
-                <!--
-                <md-button ng-click="usuario.refrescar('listaUsuarios')" style="margin:0;">
-                    <md-icon>keyboard_arrow_left</md-icon>
-                </md-button>
-                -->
             </div>
-            <div class="tabla" ng-show="usuario.mostrarU">
-                <div>Nombre:</div>
-                <div style="flex:2;">Correo:</div>
-                <div>Acciones:</div>
-            </div>
-            <div layout="column" class="content-scroll" ng-show="usuario.mostrarU">
-                <div layout layout-align="center" ng-show="usuario.loaderMostrar" class="margen_superior">
-                    <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+            <div ng-show="usuario.mostrarU">
+                <div layout class="elemento">
+                    <md-input-container flex style="margin-bottom:0;">
+                        <input type="text" ng-model="usuario.buscar" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                    </md-input-container>
                 </div>
-                <div ng-repeat="elemento in usuario.usuarios track by $index" class="elemento">
-                    <div class="tabla-campo">
-                        <div class="nombre">{{elemento.nombreUser}}</div>
-                        <div style="flex:2;">{{elemento.correo}}</div>
-                        <div>
-                            <md-button class="md-primary md-raised" ng-click="usuario.modificarUsuario(elemento.idUsuario, elemento.nombreUser)">MODIFICAR</md-button>
+                <div class="tabla">
+                    <div>Nombre:</div>
+                    <div style="flex:2;">Correo:</div>
+                    <div>Acciones:</div>
+                </div>
+                <div layout="column" class="content-scroll">
+                    <div layout layout-align="center" ng-show="usuario.loaderMostrar" class="margen_superior">
+                        <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                    </div>
+                    <div ng-repeat="elemento in usuario.usuarios | filter:usuario.buscar" class="elemento">
+                        <div class="tabla-campo">
+                            <div class="nombre">{{elemento.nombreUser}}</div>
+                            <div style="flex:2;">{{elemento.correo}}</div>
+                            <div>
+                                <md-button class="md-primary md-raised" ng-click="usuario.modificarUsuario(elemento.idUsuario, elemento.nombreUser)">MODIFICAR</md-button>
+                            </div>
                         </div>
                     </div>
                 </div>

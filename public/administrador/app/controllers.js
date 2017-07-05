@@ -72,6 +72,8 @@ angular.module("administrador")
     bz.mostrarPedido = false;
     bz.pedidosC = [];
 
+    bz.filtrosActivos;
+
 
     /* LISTAR TODOS LOS CLIENTES */
 
@@ -187,7 +189,7 @@ angular.module("administrador")
         }]
     };
 
-    bz.filtrosActivos;
+    bz.filtrosActivos ;
 
     /* LISTA DE TODOS LOS PEDIDOS */
 
