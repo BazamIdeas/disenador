@@ -69,9 +69,6 @@ angular.module("disenador-de-logos")
         var defered = $q.defer();
 
         var promise = defered.promise;
-        
-        var cliente = $rootScope.objectoCliente.id;
-
 
         var datos = {
             idElemento: idElemento,
@@ -135,7 +132,6 @@ angular.module("disenador-de-logos")
             })
 
         return promise;
-
 
     }
 
@@ -345,47 +341,16 @@ angular.module("disenador-de-logos")
     }
 
 
-    this.mostrarGuardados = function () {
-
-        var defered = $q.defer();
-
-        var promise = defered.promise;
-
-
-        $http.post("/app/logos/guardados").then(function (res) {
-
-
-            defered.resolve(res);
-
-        }).catch(function (res) {
-
-            defered.reject(res);
-
-        })
-
-
-        return promise;
+    this.mostrarGuardados = function(){
+        
+         return $http.post("/app/logos/guardados/");
 
     }
 
-    this.mostrarComprados = function () {
+    this.mostrarComprados = function(){
+        
+         return $http.post("/app/logos/descargables/");
 
-        var defered = $q.defer();
-
-        var promise = defered.promise;
-
-        $http.post("/app/logos/descargables").then(function (res) {
-
-
-            defered.resolve(res);
-
-        }).catch(function (res) {
-
-            defered.reject(res);
-
-        })
-
-        return promise;
     }
 
     this.descargarLogo = function (idLogo, ancho) {

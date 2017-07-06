@@ -1,4 +1,4 @@
-<div flex layout="column" ng-cloak >
+<div flex layout="column" ng-cloak>
     <div layout="row" layout-align="center" ng-switch="login.mostrarForm" class="margen_superior margen_inferior">
         <div flex="25" ng-switch-when="1" layout-padding class="md-whiteframe-5dp pasos formularios-login">
             <form name="formLogin" ng-submit="login.login(login.datos.login, formLogin.$valid)" novalidate>
@@ -28,7 +28,7 @@
                     <h6 ng-click="login.mostrarForm=3">Olvidaste tu contraseña? <b class="login-link-h6">Recuperar</b></h6>
                     <div layout layout-wrap>
                         <h6>No tienes una cuenta?</h6>
-                        <h6 ng-click="login.mostrarForm=2"><b  class="login-link-h6">Registrate</b></h6>
+                        <h6 ng-click="login.mostrarForm=2"><b class="login-link-h6">Registrate</b></h6>
                     </div>
                     <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
                 </div>
@@ -45,39 +45,46 @@
                             <md-icon class="material-icons icono_radio" style="width:12px; height: 12px; margin-right:10px;" md-svg-src="assets/svg/gmail.svg"></md-icon>Ingresa con Gmail</md-button>
                     </div>
                 </div>
-                <div layout layout-align="center" ng-show="login.loaderCargando" class="margen_superior"><md-progress-circular md-mode="indeterminate"  md-diameter="40"></md-progress-circular></div>
+                <div layout layout-align="center" ng-show="login.loaderCargando" class="margen_superior">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                </div>
             </form>
         </div>
         <div ng-switch-when="2" layout-padding flex="25" class="md-whiteframe-5dp margen_superior margen-inferior pasos">
-            <form name="formRegistro">
+            <form name="formRegistro" ng-submit="login.registrar(login.datos.registrar)">
                 <div layout="column" layout-align="space-between">
                     <h3 class="text-center">Registrar</h3>
                     <div>
                         <md-input-container class="md-block">
                             <label>Nombre</label>
-                            <input type="text" ng-model="login.datos.registrar.nombreCliente" name="nombre">
+                            <input type="text" ng-model="login.datos.registrar.nombreCliente" name="nombre" required>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>Correo</label>
-                            <input type="email" ng-model="login.datos.registrar.correo" name="correo">
+                            <input type="email" ng-model="login.datos.registrar.correo" name="correo" required>
                         </md-input-container>
+                        <div ng-messages="formRegistro.correo.$error" style="color:maroon" role="alert" ng-show="formLogin.$submitted">
+                            <div ng-message="required">Por Favor Ingrese un correo valido.</div>
+                        </div>
                         <md-input-container class="md-block">
                             <label>Contraseña</label>
-                            <input type="password" ng-model="login.datos.registrar.pass" name="pass">
+                            <input type="password" ng-model="login.datos.registrar.pass" name="pass" required>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>Teléfono</label>
-                            <input type="text" ng-model="login.datos.registrar.telefono" name="telefono">
+                            <input type="tel" ng-model="login.datos.registrar.telefono" name="telefono" required>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>País</label>
-                            <input type="text" ng-model="login.datos.registrar.pais" name="pais">
+                            <input type="text" ng-model="login.datos.registrar.pais" name="pais" required>
                         </md-input-container>
                     </div>
                     <div layout>
-                        <md-button class="md-raised md-primary" ng-click="login.registrar(login.datos.registrar)">Enviar</md-button>
+                        <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
                     </div>
-                    <div layout layout-align="center" ng-show="login.loaderCargando" class="margen_superior"><md-progress-circular md-mode="indeterminate"  md-diameter="40"></md-progress-circular></div>
+                    <div layout layout-align="center" ng-show="login.loaderCargando" class="margen_superior">
+                        <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                    </div>
                     <div layout layout-wrap>
                         <h5 layout="row">Ya tienes una cuenta? </h5>
                         <h6 class="login-link-h6"><b ng-click="login.mostrarForm=1"> Ingresa</b></h6>

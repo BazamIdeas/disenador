@@ -38,26 +38,28 @@ angular.module("disenador-de-logos")
 
     /* *************** */
 
-    bz.lGuardados;
-    bz.lComprados;
-
     /* LISTAR LOGOS */
 
-    bz.mostrarG = function (token) {
-        logosService.mostrarGuardados(token).then(function (res) {
+    bz.mostrarG = function () {
+        logosService.mostrarGuardados().then(function (res) {
             bz.lGuardados = res.data;
         }).catch(function (res) {
             bz.notifyG = true;
         })
     }
 
-    bz.mostrarC = function (token) {
-        logosService.mostrarComprados(token).then(function (res) {
+    bz.mostrarC = function () {
+        logosService.mostrarComprados().then(function (res) {
+            console.log(res)
             bz.lComprados = res.data;
         }).catch(function (res) {
             bz.notifyC = true;
         })
     }
+    
+    bz.mostrarG();
+    bz.mostrarC();
+    
 
     this.datosComprados = [];
     this.datosGuardados = [];

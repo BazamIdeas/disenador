@@ -15,28 +15,56 @@ angular.module("disenador-de-logos")
         registrar: {},
         login: {}
 
-    }; 
-    
+    };
+
     /* FUNCION REGISTRAR */
-    
-     this.registrar = function (datos) {
+
+    this.registrar = function (datos) {
 
         bz.loaderCargando = true;
         clientesService.registrar(datos).then(function (res) {
-            bz.loaderCargando = false;
-            console.log(res + 'funciono')
-        })
+                bz.loaderCargando = false;
+                if ($stateParams.destino) {
 
-        .catch(function (res) {
-            bz.loaderCargando = false;
-            SweetAlert.swal("Error al registrar", "Revisa tu conexion a internet!", "error");
 
-        })
+                    if ($stateParams.origen == "editor" && $stateParams.destino == "metodo") {
+
+                        $state.go($stateParams.destino, $stateParams.parametrosDestino);
+
+                    } else if ($stateParams.origen == "editor" && $stateParams.destino == "editor") {
+
+                        $state.go($stateParams.destino, $stateParams.parametrosDestino);
+
+                    } else {
+
+                        $state.go($stateParams.destino);
+                    }
+
+                } else {
+                    SweetAlert.swal({
+                            title: "Te has Registrado con Exito", //Bold text
+                            type: "success", //type -- adds appropiriate icon
+                            confirmButtonColor: "#283593",
+                            confirmButtonText: "COMENZAR",
+                            closeOnConfirm: true,
+                        },
+                        function (isConfirm) { //Function that triggers on user action.
+                            if (isConfirm) {
+                                $state.go('comenzar')
+                            }
+                        })
+                }
+            })
+            .catch(function (res) {
+                bz.loaderCargando = false;
+                console.log(res)
+                SweetAlert.swal("Error al registrar", res.data.msg, "error");
+            })
 
     }
-     
+
     /* FUNCION LOGIN */
-    
+
     this.login = function (datos, valido) {
 
         if (valido) {
@@ -46,14 +74,14 @@ angular.module("disenador-de-logos")
             clientesService.login(datos).then(function (res) {
 
                 if ($stateParams.destino) {
-                    
+
 
                     if ($stateParams.origen == "editor" && $stateParams.destino == "metodo") {
 
                         $state.go($stateParams.destino, $stateParams.parametrosDestino);
 
                     } else if ($stateParams.origen == "editor" && $stateParams.destino == "editor") {
-                        
+
                         $state.go($stateParams.destino, $stateParams.parametrosDestino);
 
                     } else {

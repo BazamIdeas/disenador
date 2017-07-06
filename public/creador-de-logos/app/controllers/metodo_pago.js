@@ -38,7 +38,10 @@ angular.module("disenador-de-logos")
             if (tipoPago == 'credit_card') {
 
             } else {
-                $window.location.href = res.data;
+                console.log(res.data)
+                /*
+                $window.location.href = ;
+                */
             }
 
         })
