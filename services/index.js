@@ -4,7 +4,6 @@ var moment = require('moment');
 var configuracion = require('../configuracion.js');
 
 exports.crearToken = function(id,tipo){
-	
 	const datos	= {
 		id : id,
 		ini: moment().unix(),

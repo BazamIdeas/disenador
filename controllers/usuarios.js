@@ -15,7 +15,7 @@ exports.login =  function(req,res,next)
 				
 				res.status(200).json({
 					'nombre':data[0].nombreUser,
-					'token':services.crearToken(data.idUsuario,"admin")
+					'token':services.crearToken(data[0].idUsuario,"admin")
 				})
 				//res.status(200).json(data)
 
