@@ -75,7 +75,7 @@ angular.module("disenador-de-logos")
 
         bz.restauracionIniciada = true;
 
-        bz.restauraciones.push($stateParams.logoModificado.svg);
+        bz.restauraciones.push($stateParams.logoModificado);
 
     } else { //si no es logo modificado, se revisa el localStorage
 
