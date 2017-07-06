@@ -79,7 +79,6 @@ angular.module("disenador-de-logos")
             idPrecio: 1,
             localidad: 'nulo',
             tipoLogo: "Logo y nombre",
-            idCliente: 1,
             tipoPago: tipoPago
         }
 
@@ -327,7 +326,6 @@ angular.module("disenador-de-logos")
             estado: estado,
             logo: logo,
             tipoLogo: tipoLogo,
-            idCliente: 1,
             idElemento: idElemento,
         }
 

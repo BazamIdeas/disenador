@@ -75,7 +75,14 @@ angular.module("disenador-de-logos")
 
         bz.restauracionIniciada = true;
 
-        bz.restauraciones.push($stateParams.logoModificado);
+        bz.restauraciones.push($stateParams.logoModificado.svg);
+
+        bz.logo = {
+            icono: {}
+        }
+
+        bz.logo.icono.tipo = $stateParams.logoModificado.tipo;
+        bz.logo.icono.idElemento = $stateParams.logoModificado.idElemento;
 
     } else { //si no es logo modificado, se revisa el localStorage
 
@@ -215,7 +222,11 @@ angular.module("disenador-de-logos")
                 destino: $state.current.name,
                 parametrosDestino: {
 
-                    logoModificado: bz.base64(logo),
+                    logoModificado: {
+                        svg: bz.base64(logo),
+                        tipo: tipoLogo,
+                        idElemento: idElemento
+                    },
 
                 }
             }));
