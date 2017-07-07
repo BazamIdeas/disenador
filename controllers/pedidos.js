@@ -300,12 +300,7 @@ exports.nuevoPedido =  function(req,res)
 	exports.noPago = function(req,res)
 	{
 		
-		console.log(req.params.tk)
-		res.setHeader("Location", configuracion.dashboard+"?pago=true");
-		
-		res.setHeader("auth", req.params.tk);
-
-		res.end();
+		res.redirect(configuracion.dashboard+"?pago=true");
 
 	}
 

@@ -21,7 +21,7 @@ var configuracion = {
     	"seguridad" :true,
     	"puerto" : "8080",
     	"url": "http://localhost:8080",
-    	"dashboard": "/app/prueba",
+    	"dashboard": "/creador-de-logos#!/area-del-cliente",
     	"paypal" : {
         "host" : "api.sandbox.paypal.com",
         "port" : "",            
