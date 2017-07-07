@@ -42,8 +42,51 @@ exports.validar = function(req,res,next){
 	}
 }
 
+exports.validarGetCliente = function(req,res,next){
+
+	if(configuracion.seguridad){
+		
+		if(!req.params.tk){
+			return res.status(403).json({"mensaje":"No autorizado"})
+		}
+
+		const token = req.params.tk
+
+		try {
+	      	const datos = jwt.decode(token, configuracion.secret)
+
+		    if (datos.final <= moment().unix()){
+				return res.status(401).json({"mensaje":"El acceso ha expirado"})
+			}
+
+			if (datos.tipo = "cliente"){
+				req.idCliente = datos.id
+			}
+
+			else {
+				return res.status(403).json({"mensaje":"No autorizado"})
+			}
+			//console.log(datos)
+			next()
+	    } catch (e) {
+	      res.status(400).json({"Mensaje":"Token invalido"});
+	    }
+	}
+
+	else{
+		req.idUsuario = 1
+		req.idCliente = 1
+		next()
+	}
+}
+
 exports.decodificar = function(req,res,next){
-    
-	return res.json(jwt.decode(req.headers.auth, configuracion.secret))
-	
+    try {
+		return res.json(jwt.decode(req.headers.auth, configuracion.secret))
+	}
+
+	catch (e) {
+	      res.status(400).json({"Mensaje":"Token invalido",
+	  							"token":req.headers});
+	}
 }

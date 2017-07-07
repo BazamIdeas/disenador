@@ -27,9 +27,10 @@ pago.paypal = function(datos,callback)
           "payment_method": "paypal"
         },
        "redirect_urls": {
-        "return_url": configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipo+"/",
-        "cancel_url": configuracion.url+"/app/pedido/noPago/"
+        "return_url": configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/",
+        "cancel_url": configuracion.url+"/app/pedido/no/pago/"+datos.token+"/"
         },
+
         "transactions": [{
             "amount": {
                 "total": parseInt(total),
@@ -73,7 +74,7 @@ pago.paypal = function(datos,callback)
       paypal.payment.create(payment, function (error, payment) {
       if (error) {
         callback(null,{"res":false,"msg":"error al validar los datos"});
-        console.log(error);
+        //console.log(error);
           
       } else {
         if(payment.payer.payment_method === 'paypal') {

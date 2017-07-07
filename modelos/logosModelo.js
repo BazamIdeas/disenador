@@ -109,7 +109,7 @@ logo.cambiarEstado = function(logoData, callback)
 {
 	var q = 'UPDATE logos SET estado = ? WHERE idLogo = ?';
 	var par = logoData //parametros
-
+	
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row){
