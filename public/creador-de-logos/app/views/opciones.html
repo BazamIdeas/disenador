@@ -5,16 +5,20 @@
     }
 
 </style>
-<div layout="column" ng-cloak layout-align="space-between">
-    <div layout layout-align="space-between" id="popupContainer" class="margen_inferior">
-        <div flex="40">
-            <h3 class="titulo_opciones md-whiteframe-2dp" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
+<div layout="column" ng-cloak>
+    <div layout layout-align="center" id="popupContainer" class="margen_inferior">
+        <div>
+            <h3 class="titulo_opciones" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
         </div>
+         <!--
         <div flex layout layout-align="end center ">
+          
             <div ng-repeat="configuracion in opciones.configuraciones" ng-click="opciones.mostrarDialogos($event, configuracion.nombre, $index)" id-dialogo="configuracion.id" class="categorias md-whiteframe-2dp">
                 {{configuracion.nombre}}
             </div>
+           
         </div>
+         -->
     </div>
     <div layout layout-align="space-around" class="contenedor-de-logos">
         <div layout-lg="row" flex="45" class="md-whiteframe-2dp scroll ">
@@ -32,7 +36,7 @@
             </div>
         </div>
     </div>
-    <div layout="row" layout-align="space-between">
+    <div layout="row" layout-align="space-between" style="padding: 0 2%;">
         <md-button class="md-raised md-primary" ui-sref="comenzar">Atrás</md-button>
         <md-button class="md-raised md-primary siguiente" ng-show="opciones.seleccionado(opciones.datos.fuentes, opciones.datos.iconos)" ui-sref="proceso({datos: {nombre: opciones.datosEstadoAnterior.nombre  , elementos: opciones.datos}})">Siguiente</md-button>
     </div>

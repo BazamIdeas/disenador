@@ -4,8 +4,8 @@
         <!-- LISTAR CATEGORIAS -->
 
         <div class="paneles individual md-whiteframe-2dp">
-            <div layout layout-align="space-around center" layout-padding>
-                <h3 flex ng-click="categorias.listar('categoria')">Categorias</h3>
+            <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                <texto flex ng-click="categorias.listar('categoria')">LISTADO DE CATEGORIAS</texto>
                 <md-button class="md-primary md-fab md-mini" ng-click="categorias.opcionesCategorias = 3" style="margin:0;">
                     <md-icon>add</md-icon>
                 </md-button>
@@ -29,7 +29,7 @@
                         <div class="tabla-campo">
                             <div class="nombre">{{elemento.nombreCategoria}}</div>
                             <div>
-                                <md-button class="md-primary md-raised" ng-click="categorias.modificarEm(elemento.idCategoria, elemento.nombreCategoria, 'categoria')">MODIFICAR</md-button>
+                                <md-button class="md-primary md-raised" style="margin-left:auto;" ng-click="categorias.modificarEm(elemento.idCategoria, elemento.nombreCategoria, 'categoria')">MODIFICAR</md-button>
                             </div>
                         </div>
                     </div>
@@ -40,8 +40,8 @@
         <!-- LISTAR PREFERENCIAS -->
 
         <div class="paneles individual md-whiteframe-2dp">
-            <div layout layout-align="space-around center" layout-padding>
-                <h3 flex ng-click="categorias.listar('preferencia')">Preferencias</h3>
+            <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                <texto flex ng-click="categorias.listar('preferencia')">LISTADO DE PREFERENCIAS</texto>
                 <md-button class="md-primary md-fab md-mini" ng-click="categorias.opcionesCategorias = 4" style="margin:0;">
                     <md-icon>add</md-icon>
                 </md-button>
@@ -82,8 +82,8 @@
 
 
         <div ng-switch-when="1">
-            <div layout layout-align="space-around center" layout-padding>
-                <h3 flex>Modificar Categoria</h3>
+            <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                <texto>Modificar Categoria</texto>
                 <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>
@@ -114,8 +114,8 @@
 
 
         <div ng-switch-when="2">
-            <div layout layout-align="space-around center" layout-padding>
-                <h3 flex>Modificar Preferencia</h3>
+            <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                <texto>Modificar Preferencia</texto>
                 <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>

@@ -56,10 +56,9 @@ angular.module("disenador-de-logos")
     this.posicion = {
 
         coordenadas: {
-            x: 256,
-            y: 600
-        },
-        actual: 'bottom'
+            x:'',
+            y:''
+        }
     }
 
 

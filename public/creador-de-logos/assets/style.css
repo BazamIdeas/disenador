@@ -301,10 +301,10 @@ bazam-svg-text svg>text {
 }
 
 .titulo_opciones {
-    color: #F44336;
+    color: #ffffff;
     text-align: center;
-    font-size: 18px;
-    padding: 2%;
+    font-size: 1.8rem;
+    margin: 3% 0;
 }
 
 .pointer,
@@ -439,6 +439,24 @@ footer {
 
 /* DashBoard */
 
+.cliente-content {
+    transition: background ease-in 0.3s;
+}
+
+.cliente-content:hover {
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.svg-cliente {
+    width: 30%;
+    position: relative;
+    margin-bottom: 1%;
+}
+
+.logo_icon_cliente{
+    display: block;
+}
+
 .h_seccion_dashboard {
     background-color: #FF9800;
     color: white;
@@ -461,7 +479,7 @@ footer {
 .iconos-cliente {
     position: absolute;
     right: 35%;
-    top: 30%;
+    top: 35%;
     opacity: 1;
     z-index: 99999;
     border-radius: 50%;
@@ -498,17 +516,6 @@ footer {
     background: rgba(0, 0, 0, 0.78);
     padding: 8px;
     
-}
-
-.iconos-administrar.md-button.md-default-theme:not([disabled]).md-focused,
-.iconos-administrar.md-button:not([disabled]).md-focused,
-.iconos-administrar.md-button.md-default-theme:not([disabled]):hover,
-.md-button:not([disabled]):hover {
-    background-color: rgba(0, 0, 0, 0.78) !important;
-}
-
-.iconos-administrar:hover {
-    background: rgba(0, 0, 0, 0.78);
 }
 
 
@@ -631,9 +638,15 @@ footer {
 }
 
 .menu-editor .menu-link:hover,
-.menu-editor .menu-link:focus {
+.menu-editor .menu-link:focus{
     background-color: #0081c2;
 }
+
+.menu-editor .menu-link.activo {
+    background-color: #0081c2;
+}
+
+
 
 .elementos {
     WIDTH: 70%;
@@ -649,8 +662,7 @@ p.elemento-texto-ayuda {
 }
 
 .elemento md-input-container {
-    margin: 0px;
-    height: 25px;
+    margin-bottom: 0px;
 }
 
 .elemento {
@@ -732,10 +744,18 @@ md-input-container.color-animacion .md-input {
     background: #f3f3f3;
 }
 
-.elemento input,
-.elemento .md-select-value,
-.elemento h4 {
-    padding-left: 5%;
+.menu texto {
+    padding: 16px 0;
+    text-align: center;
+    display: block;
+    width: 90%;
+    font-weight: bold;
+    margin: auto;
+    font-size: 20px;
+}
+
+.divisor{
+    margin-top: 5%;
 }
 
 .elemento md-select.md-default-theme:not([disabled]):focus .md-select-value,
@@ -743,14 +763,19 @@ md-input-container.color-animacion .md-input {
     border-bottom-color: rgb(255, 255, 255);
 }
 
-.elemento h4 {
-    width: 60%;
-}
-
 .elemento input,
 .elemento md-select,
 .elemento .md-select-value {
     background: #bdbfcc;
+}
+
+.titulo-menu-item {
+    background: orangered !important;
+    padding: 16px 0;
+    color: white;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 .elemento> :first-child md-icon {
@@ -784,30 +809,14 @@ md-input-container.color-animacion .md-input {
     width: 100%;
 }
 
-.tono-background {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 6px;
-    margin-right: .5%;
-    width: 18%;
-}
-
 .tono-background .negro,
 .tono-background .blanco,
 .tono-background .regilla {
-    width: 60px;
-    height: 40px;
-    border-radius: 5px;
     color: transparent;
-    cursor: pointer;
 }
 
-.tono-background .negro {
+.tono-background .negro, .negro.md-button:not([disabled]):hover {
     background: black;
-    border: 4px solid #262829;
 }
 
 .regilla {
@@ -815,17 +824,15 @@ md-input-container.color-animacion .md-input {
 }
 
 .tono-background .regilla {
-    background: url(img/Recurso%201.png);
-    border: 4px solid #ffffff;
+    background: url(img/Recurso%201.png) !important;
 }
 
 .tono-background .blanco {
-    background: silver;
-    border: 4px solid #ffffff;
+    background: silver !important;
 }
 
 .logo-editor.negro {
-    background: #161515;
+    background: #161515 !important;
 }
 
 .arrows {
@@ -896,7 +903,6 @@ md-input-container.color-animacion .md-input {
 /* PROCESO */
 
 .proceso-content {
-    height: 140px;
     transition: background ease-in 0.3s;
 }
 
@@ -907,18 +913,10 @@ md-input-container.color-animacion .md-input {
     margin-bottom: 1%;
 }
 
-.contenedor-logo-proceso .svg {
-    width: 50%;
-    max-height: 80%;
-    margin: 6% auto 0 auto;
-}
-
 .contenedor-logo-proceso {
     width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-around;
-    align-items: center;
     flex-wrap: wrap;
     height: auto;
     z-index: 9999999;
@@ -970,15 +968,6 @@ svg {
     overflow: hidden;
 }
 
-.contenedor-logo-proceso svg g text {
-    font-size: 200%;
-    transform: translateY(150PX);
-}
-
-svg g {
-    font-size: 70px;
-}
-
 path[data-bazam-activo]:hover,
 circle[data-bazam-activo]:hover {
     stroke: cornflowerblue;
@@ -992,15 +981,6 @@ circle[data-bazam-activo='si']:focus {
     stroke-width: 2px;
     outline: none !important;
 }
-
-bazam-svg-text svg g:nth-child(2) {
-    -webkit-transform: scale(.9);
-    -ms-transform: scale(.9);
-    transform: scale(.9);
-}
-
-bazam-svg-text svg g:nth-child(1) {}
-
 
 /*LOGIN*/
 
@@ -1039,16 +1019,16 @@ bazam-svg-text svg g:nth-child(1) {}
     overflow: auto;
 }
 
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 10px;
+    width: 7px;
+    margin: 0;
     transition: all 2s;
+    border: 0;
 }
 
  ::-webkit-scrollbar-thumb {
     border-radius: 0px;
-    /* background-color: rgb(40, 53, 147);
-    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0); */
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122, 153, 217)), color-stop(0.72, rgb(73, 125, 189)), color-stop(0.86, rgb(28, 58, 148)));
 }
 

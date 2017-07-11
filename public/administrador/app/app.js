@@ -15,8 +15,8 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 
     $stateProvider.state({
             name: 'cliente',
-            url: 'cliente',
-            templateUrl: 'app/views/cliente.tpl',
+            url: '/cliente',
+            templateUrl: 'app/views/cliente.html',
             controller: 'clienteController as cliente',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -31,8 +31,8 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
             }
         }).state({
             name: 'iconos',
-            url: 'iconos',
-            templateUrl: 'app/views/iconos.tpl',
+            url: '/iconos',
+            templateUrl: 'app/views/iconos.html',
             controller: 'iconosController as iconos',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -47,8 +47,8 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
             }
         }).state({
             name: 'pedidos',
-            url: 'pedidos',
-            templateUrl: 'app/views/pedidos.tpl',
+            url: '/pedidos',
+            templateUrl: 'app/views/pedidos.html',
             controller: 'pedidosController as pedidos',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -63,8 +63,8 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
             }
         }).state({
             name: 'fuentes',
-            url: 'fuentes',
-            templateUrl: 'app/views/fuentes.tpl',
+            url: '/fuentes',
+            templateUrl: 'app/views/fuentes.html',
             controller: 'fuentesController as fuentes',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -79,8 +79,8 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
             }
         }).state({
             name: 'administrar',
-            url: 'administrar',
-            templateUrl: 'app/views/administrar.tpl',
+            url: '/administrar',
+            templateUrl: 'app/views/administrar.html',
             controller: 'administrarController as administrar',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -96,8 +96,8 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
         })
         .state({
             name: 'login',
-            url: '',
-            templateUrl: 'app/views/login.tpl',
+            url: '/',
+            templateUrl: 'app/views/login.html',
             controller: 'loginController as login',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -113,8 +113,8 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
         })
         .state({
             name: 'usuario',
-            url: 'usuario',
-            templateUrl: 'app/views/usuario.tpl',
+            url: '/usuario',
+            templateUrl: 'app/views/usuario.html',
             controller: 'usuarioController as usuario',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -130,8 +130,8 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
         })
         .state({
             name: 'categorias',
-            url: 'categorias',
-            templateUrl: 'app/views/categorias.tpl',
+            url: '/categorias',
+            templateUrl: 'app/views/categorias.html',
             controller: 'categoriasController as categorias',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -145,6 +145,8 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                 }]
             }
         })
+    
+        $urlRouterProvider.otherwise('/pedidos');
 })
 
 

@@ -37,6 +37,9 @@ angular.module("disenador-de-logos")
     }
 
     /* *************** */
+    
+    bz.lGuardados;
+    bz.lComprados;
 
     /* LISTAR LOGOS */
 
@@ -50,7 +53,6 @@ angular.module("disenador-de-logos")
 
     bz.mostrarC = function () {
         logosService.mostrarComprados().then(function (res) {
-            console.log(res)
             bz.lComprados = res.data;
         }).catch(function (res) {
             bz.notifyC = true;

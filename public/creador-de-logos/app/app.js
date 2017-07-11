@@ -56,13 +56,13 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
     $stateProvider.state({
             name: 'comenzar',
             url: '/comenzar?nombreLogo',
-            templateUrl: 'app/views/comenzar.tpl',
+            templateUrl: 'app/views/comenzar.html',
             controller: 'comenzarController as comenzar',
         })
         .state({
             name: 'analisis',
             url: '/analisis',
-            templateUrl: 'app/views/analisis.tpl',
+            templateUrl: 'app/views/analisis.html',
             controller: 'analisisController as analisis',
             params: {
                 datos: null
@@ -71,7 +71,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         .state({
             name: 'opciones',
             url: '/opciones',
-            templateUrl: 'app/views/opciones.tpl',
+            templateUrl: 'app/views/opciones.html',
             controller: 'opcionesController as opciones',
             params: {
                 datos: null
@@ -80,7 +80,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         .state({
             name: 'proceso',
             url: '/proceso',
-            templateUrl: 'app/views/proceso.tpl',
+            templateUrl: 'app/views/proceso.html',
             controller: 'procesoController as proceso',
             params: {
                 datos: null
@@ -89,7 +89,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         .state({
             name: 'editor',
             url: '/editor',
-            templateUrl: 'app/views/editor.tpl',
+            templateUrl: 'app/views/editor.html',
             controller: 'editorController as editor',
             params: {
                 logo: null,
@@ -101,7 +101,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         .state({
             name: 'previsualizar',
             url: '/previsualizar',
-            templateUrl: 'app/views/previsualizar.tpl',
+            templateUrl: 'app/views/previsualizar.html',
             controller: 'previsualizarController as prev',
             params: {
                 datos: null
@@ -111,7 +111,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
     .state({
         name: 'login',
         url: '/login',
-        templateUrl: 'app/views/login.tpl',
+        templateUrl: 'app/views/login.html',
         controller: 'loginController as login',
         params: {
             origen: null,
@@ -134,7 +134,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
     .state({
             name: 'dashboard',
             url: '/area-del-cliente',
-            templateUrl: 'app/views/cliente.tpl',
+            templateUrl: 'app/views/cliente.html',
             controller: 'clienteController as cliente',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -151,7 +151,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         .state({
             name: 'paquetes',
             url: '/paquetes',
-            templateUrl: 'app/views/paquetes.tpl',
+            templateUrl: 'app/views/paquetes.html',
             controller: 'paquetesController as paquetes',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -168,7 +168,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         .state({
             name: 'metodo',
             url: '/metodo-de-pago',
-            templateUrl: 'app/views/metodo-de-pago.tpl',
+            templateUrl: 'app/views/metodo-de-pago.html',
             params: {
 
                 logoSvg64: null,
@@ -194,7 +194,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         .state({
             name: 'administrar',
             url: '/administrar',
-            templateUrl: 'app/views/administrarLogo.tpl',
+            templateUrl: 'app/views/administrarLogo.html',
             controller: 'administrarController as administrar',
             resolve: {
                 "currentAuth": ["$q", "clientesService", function ($q, clientesService) {

@@ -96,7 +96,7 @@ md-icon {
     margin-bottom: 1%;
 }
 
-.listar .elemento.nopadding{
+.listar .elemento.nopadding {
     padding: 0 !important;
 }
 
@@ -145,7 +145,7 @@ md-icon {
 
 .content-scroll {
     overflow: scroll;
-    height:55%;
+    height: 55%;
 }
 
 .scroll {
@@ -223,31 +223,52 @@ md-icon {
 
 /* CLIENTE */
 
+.titulo-modulo texto {
+    font-size: 20px;
+    color: #f9f9f9;
+    font-weight: bold;
+    display: block;
+}
+
 .paneles.individual {
     margin-bottom: 2%;
 }
 
 .tabla {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-around;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     font-weight: bold;
     padding: 8px;
     background: #f5f7f6;
 }
 
 .tabla div {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
 }
 
 .tabla-campo {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .tabla-campo>div {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     word-break: break-all;
     padding: 0 8px 0 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
 }
 
 .datos-elemento>div {
@@ -257,39 +278,58 @@ md-icon {
 .mensaje-resultado {
     width: 100%;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     font-size: 1.5rem;
 }
 
-.mensaje-resultado.pequeno{
+.mensaje-resultado.pequeno {
     font-size: 1rem;
 }
 
 .estado-pedido.COMPLETADO {
-    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+    background: grey;
     height: 8px;
 }
 
 .estado-pedido.EN.ESPERA {
     height: 8px;
-    background-image: -webkit-linear-gradient(330deg, #abecd6 0%, #fbed96 100%);
-    background-image: -o-linear-gradient(330deg, #abecd6 0%, #fbed96 100%);
-    background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
-
+    background: darkorange;
 }
 
 .estado-pedido.CANCELADO {
-    background-image: -webkit-linear-gradient(left, #d7d2cc 0%, #304352 100%);
-    background-image: -o-linear-gradient(left, #d7d2cc 0%, #304352 100%);
-    background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
-    height:8px;
+    background: darkred;
+    height: 8px;
 }
 
 .estado-pedido.EN.PROCESO {
-    height:8px;
-    background-image: -webkit-linear-gradient(left, #f83600 0%, #f9d423 100%);
-    background-image: -o-linear-gradient(left, #f83600 0%, #f9d423 100%);
-    background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+    height: 8px;
+    background: darkgreen;
+}
+
+texto.COMPLETADO {
+    color: grey;
+}
+
+texto.EN.ESPERA {
+    color: darkorange;
+}
+
+texto.CANCELADO {
+    color: darkred;
+}
+
+texto.EN.PROCESO {
+    color: darkgreen;
+}
+
+.lista .elemento.true {
+    background: rgb(187, 189, 185);
 }

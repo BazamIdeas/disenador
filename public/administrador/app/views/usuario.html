@@ -4,8 +4,8 @@
         <!-- LISTAR USUARIOS -->
 
         <div class="paneles individual md-whiteframe-2dp">
-            <div layout layout-align="space-between center" layout-padding>
-                <h3 ng-click="usuario.listarU()">LISTAR USUARIOS</h3>
+            <div layout layout-align="none center" layout-padding ng-click="usuario.listarU()" class="titulo-modulo">
+                <texto>LISTAR USUARIOS</texto>
             </div>
             <div ng-show="usuario.mostrarU">
                 <div layout class="elemento">
@@ -38,13 +38,10 @@
         <!-- REGISTRAR USUARIO -->
 
         <div class="paneles individual md-whiteframe-2dp">
-            <div layout layout-align="space-around center" layout-padding>
-                <h3 flex ng-click="usuario.mostrarRegistro = true">Registrar Usuario</h3>
-                <md-button ng-click="usuario.mostrarRegistro = false" style="margin:0;">
-                    <md-icon>keyboard_arrow_left</md-icon>
-                </md-button>
+            <div layout layout-align="none center" layout-padding ng-click="usuario.mostrarR = !usuario.mostrarR" class="titulo-modulo">
+                <texto>REGISTRO USUARIO</texto>
             </div>
-            <div ng-show="usuario.mostrarRegistro" layout-padding class="formularios-login pasos">
+            <div ng-if="usuario.mostrarR" layout-padding class="formularios-login pasos">
                 <form id="formularioRegistro" name="formRegistro" ng-submit="usuario.registrarU(usuario.datos.registrar)" novalidate>
                     <div layout="column" layout-align="space-between">
                         <h3 class="text-center">Registrar</h3>
@@ -85,8 +82,8 @@
 
         <!-- MODIFICAR USUARIOS -->
 
-        <div layout layout-align="space-between center" layout-padding>
-            <h3>MODIFICAR USUARIO</h3>
+        <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+            <texto>MODIFICAR USUARIO</texto>
             <md-button ng-click="usuario.mostrarMo = false" style="margin:0;">
                 <md-icon>keyboard_arrow_left</md-icon>
             </md-button>

@@ -115,7 +115,7 @@ angular.module("disenador-de-logos")
     }, {
         icono: 'font_download',
         nombre: 'Slogan',
-        estadoF: 'menu-desactivado',
+        estado: 'menu-desactivado',
     }, {
         icono: 'stars',
         nombre: 'Icono'
@@ -125,7 +125,16 @@ angular.module("disenador-de-logos")
     }];
 
     this.menu = 0;
-    this.efectoClick = function (index, elemento) {
+    this.efectoClick = function (index, elemento, event) {
+
+        var elementosLista = document.querySelectorAll('.menu-editor .menu-link.activo');
+        var elementoActual = event.currentTarget;
+
+        for (i = 0; i < elementosLista.length; i++) {
+                elementosLista[i].classList.remove('activo');
+        }
+        elementoActual.classList.add('activo');
+
         this.menu = index;
         if (!this.elementosMenu[index]) {
             this.elementosMenu[index].estado = 'activo';
