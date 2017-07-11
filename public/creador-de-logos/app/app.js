@@ -213,7 +213,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         })
 
 
-    $urlRouterProvider.otherwise('comenzar');
+    $urlRouterProvider.otherwise('/comenzar');
 
 })
 

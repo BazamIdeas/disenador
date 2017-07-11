@@ -504,7 +504,7 @@ footer {
     color: white;
     font-size: 35px;
     width: 100%;
-    height: 80%;
+    height: 100%;
     cursor: pointer;
     transition: color 0.3s;
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
@@ -515,7 +515,12 @@ footer {
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
     background: rgba(0, 0, 0, 0.78);
     padding: 8px;
-    
+    margin-top: 4%;
+}
+
+.desca a {
+    text-decoration: none;
+    color: white;
 }
 
 
@@ -1182,15 +1187,12 @@ circle[data-bazam-activo='si']:focus {
 }
 
 .logo-descargar {
-    height: 25%;
     position: relative;
 }
 
 .logo-descargar bazam-visualizar {
-    width: 100%;
     display: block;
     margin: auto;
-    height: 90%;
 }
 
 .logo-descargar a:hover  {

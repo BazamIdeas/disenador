@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-06-2017 a las 15:23:21
+-- Tiempo de generación: 06-07-2017 a las 16:15:45
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `pass` varchar(45) NOT NULL,
   `telefono` varchar(45) NOT NULL,
   `pais` varchar(45) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `clientes`
@@ -77,7 +77,8 @@ INSERT INTO `clientes` (`idCliente`, `nombreCliente`, `correo`, `pass`, `telefon
 (4, 'Cis nuevo', 'cisi1@gmail.com', '123456789', '123456789', 'Venezuela'),
 (5, 'Cis nuevo', 'cisi33@gmail.com', '123456789', '123456789', 'Venezuela'),
 (6, 'Cis token', 'cisi433@gmail.com', '123456789', '123456789', 'Venezuela'),
-(7, 'Cis token', 'cisi4t33@gmail.com', '123456789', '123456789', 'Venezuela');
+(7, 'Cis token', 'cisi4t33@gmail.com', '123456789', '123456789', 'Venezuela'),
+(8, 'Cis token', 'cisi47t33@gmail.com', '123456789', '123456789', 'Venezuela');
 
 -- --------------------------------------------------------
 
@@ -239,21 +240,22 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   `logos_idLogo` int(11) NOT NULL,
   `impuestos_localidad` varchar(4) NOT NULL,
   `precios_idPrecio` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `pedidos`
 --
 
 INSERT INTO `pedidos` (`idPedido`, `fecha`, `estado`, `logos_idLogo`, `impuestos_localidad`, `precios_idPrecio`) VALUES
-(2, '2017-06-07', 'EN ESPERA', 3, 'nulo', 1),
+(2, '2017-06-07', 'COMPLETADO', 3, 'nulo', 1),
 (3, '2017-06-08', 'EN ESPERA', 2, 'nulo', 1),
 (4, '2017-06-08', 'EN ESPERA', 2, 'nulo', 1),
 (5, '2017-06-08', 'EN ESPERA', 2, 'nulo', 1),
 (6, '2017-06-08', 'EN ESPERA', 2, 'nulo', 1),
 (7, '2017-06-08', 'EN ESPERA', 4, 'nulo', 1),
 (8, '2017-06-08', 'EN ESPERA', 5, 'nulo', 1),
-(9, '2017-06-08', 'EN ESPERA', 6, 'nulo', 1);
+(9, '2017-06-08', 'EN ESPERA', 6, 'nulo', 1),
+(10, '2017-06-16', 'EN ESPERA', 2, 'nulo', 1);
 
 -- --------------------------------------------------------
 
@@ -351,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idUsuario`, `nombreUser`, `correo`, `pass`) VALUES
-(1, 'user 11', 'cisliderlogofreelance@gmail.com', '123123213231'),
+(1, 'user 11', 'cisliderlogofreelance@gmail.com', '123456789'),
 (2, 'user', 'user5@gmail.com', '123123213231'),
 (3, 'user', 'user@gmail.com', '123123213231'),
 (4, 'user', 'use44r@gmail.com', '123123213231'),
@@ -477,7 +479,7 @@ MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `elementos`
 --
@@ -502,7 +504,7 @@ MODIFY `idpagos` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `planes`
 --
