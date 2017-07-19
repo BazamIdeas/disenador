@@ -53,18 +53,18 @@
                     <md-input-container class="md-block" flex="50">
                         <label>CAMBIAR ESTADO</label>
                         <md-select ng-model="cliente.estado" aria-label="estado">
-                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'COMPLETADO')" value="COMPLETADO">
+                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'COMPLETADO', $index)" value="COMPLETADO">
                                 COMPLETADO
                             </md-option>
 
-                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'EN ESPERA')" value="EN ESPERA">
+                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'EN ESPERA', $index)" value="EN ESPERA">
                                 EN ESPERA
                             </md-option>
-                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'CANCELADO')" value="CANCELADO">
+                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'CANCELADO', $index)" value="CANCELADO">
                                 CANCELADO
                             </md-option>
 
-                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'EN PROCESO')" value="EN PROCESO">
+                            <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, 'EN PROCESO', $index)" value="EN PROCESO">
                                 EN PROCESO
                             </md-option>
                         </md-select>

@@ -67,7 +67,8 @@ angular.module("disenador-de-logos")
             bold: "=bold",
             svgFinal: "=svgFinal",
             comparaciones: "=comparaciones",
-            comparar: "=comparar"
+            comparar: "=comparar",
+            switch: "=switch"
 
         },
         controller: function ($scope)
@@ -176,10 +177,13 @@ angular.module("disenador-de-logos")
                 //agregamos el svg a la variable de compra
                 scope.svgFinal = element.html();
 
+                element.find("g:last-child").on('click', function(){
+                    scope.switch = 0;
+                })
 
                 //evento para los hijos directos de seccion-icono
                 element.find("g[data-seccion-icono] [data-indice]:not(g)").on("click", function () {
-                    
+                    scope.switch = 2;
                     $(".seleccionado").removeClass("seleccionado");
                     $(this).addClass("seleccionado");
                     
@@ -415,7 +419,7 @@ angular.module("disenador-de-logos")
 .directive('bazamSvgModificado', function () {
     return {
         restrict: 'AE',
-        template: "<g data-seccion-icono></g><g data-seccion-texto></g>",
+        template: "<g data-seccion-icono ></g><g data-seccion-texto></g>",
         scope: {
 
             svg: "=svg",
@@ -556,7 +560,6 @@ angular.module("disenador-de-logos")
 
                 //agregamos el svg a la variable de compra
                 scope.svgFinal = element.html();
-
 
                 //evento para los hijos directos de seccion-icono
                 element.find("g[data-seccion-icono] [data-indice]:not(g)").on("click", function () {

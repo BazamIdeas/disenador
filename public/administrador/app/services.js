@@ -194,6 +194,10 @@ angular.module("administrador")
     this.nuevaCategoria = function (datos) {
         return $http.post('/app/categoria', datos);
     }
+
+    this.eliminarCategoria = function (id) {
+        return $http.get('/app/categoria/borrar/' + id);
+    }
     
     /* PREFERENCIAS */
 
@@ -205,6 +209,10 @@ angular.module("administrador")
 
     this.nuevaPreferencia = function (datos) {
         return $http.post('/app/preferencia', datos);
+    }
+
+    this.eliminarPreferencia = function (id) {
+        return $http.get('/app/preferencia/borrar/' + id);
     }
 
 }])

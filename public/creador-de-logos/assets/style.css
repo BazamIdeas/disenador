@@ -270,7 +270,7 @@ img.imagen-loader {
 
 /* Opciones Vista */
 
-bazam-svg-text svg {
+.contenedor_logos bazam-svg-text svg {
     width: 100%;
     height: 80%;
     overflow: visible;
@@ -913,9 +913,18 @@ md-input-container.color-animacion .md-input {
 
 .svg-proceso {
     width: 30%;
-    height: 30%;
+    padding:1% 0;
     position: relative;
     margin-bottom: 1%;
+}
+
+.contenedor-logo-proceso svg >:last-child {
+    font-size: 10rem;
+}
+
+.contenedor-logo-proceso .svg{
+    width: 70%;
+    margin: auto;
 }
 
 .contenedor-logo-proceso {

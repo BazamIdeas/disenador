@@ -51,13 +51,16 @@ angular.module("disenador-de-logos")
 
     bz.iconos = [ {
         tipo: 'ICONO Y NOMBRE',
-        descripcion: 'Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.'
+        descripcion: 'Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.',
+        enviar:'ICONO'
     },{
         tipo: 'TIPOGRAFICO',
-        descripcion: 'Una forma facil de recordar en el centro de su logo.'
+        descripcion: 'Una forma facil de recordar en el centro de su logo.',
+        enviar:'TIPOGRAFICO'
     }, {
         tipo: 'INICIAL Y NOMBRE',
-        descripcion: 'Una letra como el elemento principal de su logo.'
+        descripcion: 'Una letra como el elemento principal de su logo.',
+        enviar:'INICIAL'
     }]
 
     bz.selectA = function (index , tipo) {

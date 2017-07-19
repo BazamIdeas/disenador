@@ -29,7 +29,12 @@
                         <div class="tabla-campo">
                             <div class="nombre">{{elemento.nombreCategoria}}</div>
                             <div>
-                                <md-button class="md-primary md-raised" style="margin-left:auto;" ng-click="categorias.modificarEm(elemento.idCategoria, elemento.nombreCategoria, 'categoria')">MODIFICAR</md-button>
+                                <div>
+                                    <md-button class="md-primary md-raised" ng-click="categorias.eliminar(elemento.idCategoria, 'categoria', $index)">ELIMINAR</md-button>
+                                </div>
+                                <div>
+                                    <md-button class="md-primary md-raised" ng-click="categorias.modificarEm(elemento.idCategoria, elemento.nombreCategoria, 'categoria', $index)">MODIFICAR</md-button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,7 +71,10 @@
                             <div class="nombre">{{elemento.nombre1}}</div>
                             <div class="nombre">{{elemento.nombre2}}</div>
                             <div>
-                                <md-button class="md-primary md-raised" ng-click="categorias.modificarEm(elemento.idPreferencia, elemento.nombre1+' y '+ elemento.nombre2, 'preferencia')">MODIFICAR</md-button>
+                                <md-button class="md-primary md-raised" ng-click="categorias.eliminar(elemento.idPreferencia, 'preferencia', $index)">ELIMINAR</md-button>
+                            </div>
+                            <div>
+                                <md-button class="md-primary md-raised" ng-click="categorias.modificarEm(elemento.idPreferencia, elemento.nombre1+' y '+ elemento.nombre2, 'preferencia', $index)">MODIFICAR</md-button>
                             </div>
                         </div>
                     </div>
@@ -150,8 +158,8 @@
 
 
         <div ng-switch-when="3">
-            <div layout layout-align="space-between center" layout-padding>
-                <h3>Nueva Categoria</h3>
+            <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                <texto>Nueva Categoria</texto>
                 <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>
@@ -179,8 +187,8 @@
 
 
         <div ng-switch-when="4">
-            <div layout layout-align="space-between center" layout-padding>
-                <h3>Nueva Preferencia</h3>
+            <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                <texto>Nueva Preferencia</texto>
                 <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>

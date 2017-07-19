@@ -121,9 +121,10 @@ angular.module("administrador")
 
         /* CAMBIAR ESTADO PEDIDO */
 
-        bz.cambiarEstado = function (id, estado) {
+        bz.cambiarEstado = function (id, estado, index) {
             pedidosService.cambiarEstado(id, estado).then(function (res) {
                 SweetAlert.swal("Estado cambiado!", res.msg, "success");
+                bz.pedidosC[index].estado = estado;
             })
         }
 
@@ -222,6 +223,8 @@ angular.module("administrador")
 
         bz.pedidoDetalles = function (id, index) {
 
+            bz.pedidoActivoIndex = index;
+
             bz.mostrarD = true;
             bz.pedidoDetalle = [];
             pedidosService.datosPedido(id).then(function (res) {
@@ -247,9 +250,11 @@ angular.module("administrador")
 
         /* CAMBIAR ESTADO PEDIDO */
 
-        bz.cambiarEstado = function (id, estado) {
+        bz.cambiarEstado = function (id, estado, index) {
             pedidosService.cambiarEstado(id, estado).then(function (res) {
                 SweetAlert.swal("Estado cambiado!", "", "success");
+                bz.pedidoDetalle[index].estado = estado;
+                bz.elementos[bz.pedidoActivoIndex].estado = estado;
             })
         }
 
@@ -392,6 +397,7 @@ angular.module("administrador")
 
         bz.listar = function (que) {
 
+            bz.opcionesCategorias = 0;
             if (que == 'categoria') {
                 bz.cats = [];
                 bz.mostrarC = !bz.mostrarC;
@@ -417,7 +423,9 @@ angular.module("administrador")
 
         /* MODIFICAR */
 
-        bz.modificarEm = function (id, nombre, opcion) {
+        bz.modificarEm = function (id, nombre, opcion, index) {
+
+            bz.elementoActivoIndex = index;
 
             if (opcion == 'categoria') {
                 bz.opcionesCategorias = 1;
@@ -436,6 +444,8 @@ angular.module("administrador")
             if (opcion == 'categoria') {
                 categoriasService.modificarCategoria(datos).then(function (res) {
                         SweetAlert.swal("Genial!!", "Modificación Exitosa!", "success");
+                        bz.cats[bz.elementoActivoIndex].nombreCategoria = datos.nombreCategoria;
+                        bz.modNombre = datos.nombreCategoria;
                     })
                     .catch(function (res) {
                         console.log(res)
@@ -444,6 +454,9 @@ angular.module("administrador")
             } else {
                 categoriasService.modificarPreferencia(datos).then(function (res) {
                         SweetAlert.swal("Genial!!", "Modificación Exitosa!", "success");
+                        bz.prefs[bz.elementoActivoIndex].nombre1 = datos.nombre1;
+                        bz.prefs[bz.elementoActivoIndex].nombre2 = datos.nombre2;
+                        bz.modNombre = datos.nombre1 + ' y ' + datos.nombre2;
                     })
                     .catch(function (res) {
                         console.log(res)
@@ -458,17 +471,41 @@ angular.module("administrador")
             if (opcion == 'categoria') {
                 categoriasService.nuevaCategoria(datos).then(function (res) {
                         SweetAlert.swal("Genial!!", "Registro Exitoso!", "success");
+                        datos.idCategoria = res.data.insertId;
+                        bz.cats.push(datos);
+                    })
+                    .catch(function (res) {
+                        SweetAlert.swal("Error al Registrar", res.data.msg, "error");
+                    })
+            } else {
+                categoriasService.nuevaPreferencia(datos).then(function (res) {
+                        SweetAlert.swal("Genial!!", "Registro Exitoso!", "success");
+                        datos.idPreferencia = res.data.insertId;
+                        bz.prefs.push(datos);
                     })
                     .catch(function (res) {
                         SweetAlert.swal("Error al Registrar", res.data.msg, "error");
                         console.log(res)
                     })
-            } else {
-                categoriasService.nuevaPreferencia(datos).then(function (res) {
-                        SweetAlert.swal("Genial!!", "Registro Exitoso!", "success");
+            }
+        }
+
+        /* ELIMINAR */
+
+        bz.eliminar = function (id, opcion) {
+            if (opcion == 'categoria') {
+                categoriasService.eliminarCategoria(id).then(function (res) {
+                        SweetAlert.swal("Eliminada!!", res.data.msg, "success");
                     })
                     .catch(function (res) {
-                        SweetAlert.swal("Error al Registrar", res.data.msg, "error");
+                        SweetAlert.swal("Error al Eliminar", res.data.msg, "error");
+                    })
+            } else {
+                categoriasService.eliminarPreferencia(id).then(function (res) {
+                        SweetAlert.swal("Eliminada!!", res.data.msg, "success");
+                    })
+                    .catch(function (res) {
+                        SweetAlert.swal("Error al Eliminar", res.data.msg, "error");
                         console.log(res)
                     })
             }
