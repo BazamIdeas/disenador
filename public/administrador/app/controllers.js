@@ -141,16 +141,6 @@ angular.module("administrador")
 
 
 }])
-
-    .controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', function ($state, $mdSidenav, $mdMenu, $scope) {
-
-        var bz = this;
-
-
-
-}])
-
-
     .controller('administrarController', ["$state", "$mdSidenav", "$mdDialog", '$scope', function ($state, $mdSidenav, $mdMenu, $scope) {
 
         var bz = this;
@@ -257,12 +247,6 @@ angular.module("administrador")
                 bz.elementos[bz.pedidoActivoIndex].estado = estado;
             })
         }
-
-}])
-
-    .controller('fuentesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', function ($state, $mdSidenav, $mdMenu, $scope) {
-
-        var bz = this;
 
 }])
 
@@ -511,4 +495,37 @@ angular.module("administrador")
             }
         }
 
+}])
+
+.controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'icono_fuente', function ($state, $mdSidenav, $mdMenu, $scope, icono_fuente) {
+
+        var bz = this;
+
+        /* objeto datos vacios */
+        this.datos = {
+            registro: {}
+        };
+
+        bz.nuevoIcono = function(datos){
+            icono_fuente.nuevoIcono(datos).then(function(res){
+                console.log(res)
+            }).catch(function(res){
+                console.log(res)
+            })
+        }
+
+
+}])
+
+.controller('fuentesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'icono_fuente', function ($state, $mdSidenav, $mdMenu, $scope, icono_fuente) {
+
+        var bz = this;
+ 
+        bz.nuevoFuente = function(icono){
+            icono_fuente.nuevoIcono(datos).then(function(res){
+                console.log(res)
+            }).catch(function(res){
+                console.log(res)
+            })
+        }
 }])

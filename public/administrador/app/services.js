@@ -141,14 +141,6 @@ angular.module("administrador")
 
 }])
 
-
-/* SERVICIO PARA PROCESO DE ICONOS */
-
-.service('iconosService', ['$http', function ($http) {
-
-
-}])
-
 /* SERVICIO PARA PROCESO DE PEDIDOS */
 
 
@@ -251,4 +243,18 @@ angular.module("administrador")
             return response || $q.when(response);
         }
     };
-});
+})
+
+/* SERVICIO PARA ICONOS */
+
+.service('icono-fuente', ['$http', function ($http) {
+
+    this.nuevoIcono = function (datos) {
+        return $http.post('/app/elemento/icono', datos);
+    }
+
+    this.nuevoFuente = function (datos) {
+        return $http.post('/app/elemento/fuente', datos);
+    }
+
+}]);

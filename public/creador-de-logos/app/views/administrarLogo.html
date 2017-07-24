@@ -41,9 +41,9 @@
                 <div flex layout="row" layout-align="space-around" layout-wrap class="md-whiteframe-2dp text-center layout-padding" style="    min-height: 65%;">
                     <div flex="30" ng-repeat="elemento in administrar.medidas" ng-mouseenter="administrar.efectoHover($index, elemento)" ng-mouseleave="administrar.efectoHover($index, elemento)">
                         <div class="logo-descargar">
-                            <bazam-visualizar data-svg="administrar.base64(administrar.info.logo)">
+                            <bazam-visualizar data-svg="administrar.base64(administrar.info.logo)" class="logo{{elemento.ancho}}">
                             </bazam-visualizar>
-                            <md-button class="iconos-administrar" ng-click="administrar.descargarL($index,administrar.info.idLogo, elemento.ancho)">{{elemento.ancho}}PX</md-button>
+                            <md-button class="iconos-administrar" ng-click="administrar.descargar(administrar.info.idLogo, elemento.ancho)">{{elemento.ancho}}PX</md-button>
                         </div>
                         <div class="desca" ng-show="elemento.progreso" layout layout-align="center">
                             <md-progress-circular md-diameter="30" class="md-accent md-hue-3"></md-progress-circular>
@@ -55,8 +55,8 @@
         </div>
     </div>
     <div layout layout-align="center">
-        <div flex="80" layout="row" layout-align="space-between">
-        <md-button class="md-raised md-primary" ui-sref="dashboard">Atrás</md-button>
-        </div>
+            <div flex="80" layout="row" layout-align="space-between">
+                <md-button class="md-raised md-primary" ui-sref="dashboard">Atrás</md-button>
+            </div>
     </div>
 </div>

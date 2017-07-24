@@ -40,9 +40,9 @@ angular.module("disenador-de-logos")
         bz.medidas = [{
             ancho: 300
         }, {
-            ancho: 400
+            ancho: 1000
         }, {
-            ancho: 500
+            ancho: 1500
         }];
 
         this.elementos = [];
@@ -59,36 +59,33 @@ angular.module("disenador-de-logos")
             }
         }
 
-        bz.descargarL = function (indice, idLogo, ancho) {
-
-            bz.medidas[indice].progreso = true;
+        bz.descargar = function(idLogo, ancho){
 
             logosService.descargarLogo(idLogo, ancho).then(function (res) {
+                /* NOMBRE */
+                bz.nombre = res.data.png;
+                bz.nombre = bz.nombre.replace('public/tmp/','');
 
-                console.log(res)
+                /* DESCARGAR */
 
-                bz.url = res.data.svg;
-                bz.url = bz.url.replace('public/', '');
-                bz.medidas[indice].url = 'http://' + location.host + '/' + bz.url;
+                if (bz.nombre) {
+                    var logo = angular.element(".logo"+ancho+" svg");
+/*
+                    if(ancho = 300){
+                        logo.attr('preserveAspectRatio',"xMidYMid meet");
+                        logo.attr('width', ancho);
+                        logo.attr('height', ancho);
 
-                if (bz.medidas[indice].url) {
-                    bz.medidas[indice].progreso = false;
-                    bz.medidas[indice].estado = true;
-
-                    var logo = document.getElementById('logoD' + indice);
-
-                    var link = document.createElement('a');
-
-                    link.setAttribute('download', bz.url);
-                    link.setAttribute('href', bz.medidas[indice].url);
-                    link.innerHTML = 'DESCARGAR';
-
-                    logo.innerHTML = '';
-                    logo.appendChild(link);
+                        var width = logo.attr('width') * 1.5;
+                        var height = logo.attr('height') * 1.5;
+                        
+                        var viewbox = '0 0 '+ width+' '+height;
+                        logo.attr('viewbox', viewbox)
+                    }
+  */
+                    saveSvgAsPng(logo[0], bz.nombre, {scale: 2}); 
+                    
                 }
-
-                // $window.location.href = bz.url;
-                // $window.open(bz.url, "_blank");
 
             }).catch(function (res) {
                 console.log(res);
