@@ -247,7 +247,7 @@ angular.module("administrador")
 
 /* SERVICIO PARA ICONOS */
 
-.service('icono-fuente', ['$http', function ($http) {
+.service('iconoFuente', ['$http', function ($http) {
 
     this.nuevoIcono = function (datos) {
         return $http.post('/app/elemento/icono', datos);

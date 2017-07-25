@@ -1,9 +1,9 @@
 <div flex layout="row" layout-margin layout-align="none start">
     <div flex="60" class="paneles principal md-whiteframe-2dp listar">
-        <div layout layout-align="none center" layout-padding ng-click="iconos.mostrarN = !iconos.mostrarN" class="titulo-modulo">
+        <div layout layout-align="none center" layout-padding ng-click="iconos.mostrarR = !iconos.mostrarR" class="titulo-modulo">
             <texto>REGISTRO ICONO</texto>
         </div>
-        <div ng-if="iconos.mostrarN" layout-padding class="formularios-login pasos">
+        <div ng-if="iconos.mostrarR" layout-padding class="formularios-login pasos">
             <form id="formularioRegistro" name="formRegistro" ng-submit="iconos.nuevoIcono(iconos.datos.registro)" novalidate>
                 <div layout="column" layout-align="space-between">
                     <h3 class="text-center">Nuevo Icono</h3>
@@ -12,18 +12,23 @@
                             <label>NOMBRE</label>
                             <input type="text" ng-model="iconos.datos.registro.nombre" name="nombre">
                         </md-input-container>
-                        <md-input-container class="md-block">
-                            <label>SVG</label>
-                            <input type="text" ng-model="iconos.datos.registro.svg" name="svg">
-                        </md-input-container>
+                        <input type="file" ng-model="iconos.datos.registro.svg" name="svg">
+                        <div>
                         <md-input-container class="md-block">
                             <label>CATEGORIA</label>
-                            <input type="text" ng-model="iconos.datos.registro.categoria" name="categoria">
+                            <md-select ng-model="iconos.datos.registro.categoria" name="categoria" ng-required="true">
+                                <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in iconos.categorias">{{categoria.nombreCategoria}}</md-option>
+                            </md-select>
                         </md-input-container>
+                        </div>
+                        <div>
                         <md-input-container class="md-block">
                             <label>PREFERENCIA</label>
-                            <input type="text" ng-model="iconos.datos.registro.preferencia" name="categoria">
+                            <md-select ng-model="iconos.datos.registro.preferencia" name="preferencia" ng-required="true">
+                                <md-option ng-value="preferencia.idPreferencia" ng-repeat="preferencia in iconos.preferencias">{{preferencia.nombre1}} y {{preferencia.nombre2}}</md-option>
+                            </md-select>
                         </md-input-container>
+                        </div>
                     </div>
                     <div layout>
                         <md-button class="md-raised md-primary" type="submit">Enviar</md-button>

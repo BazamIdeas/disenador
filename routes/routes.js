@@ -77,7 +77,7 @@ router.get('/etiqueta/borrar/:id', middleware.validar, controllers.etiquetas.bor
 router.get('/email', middleware.validar,controllers.emails.enviar_email);
 
 
-//MODULO ELEMENTOSS
+//MODULO ELEMENTOS
 router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
 router.post("/elementos/categorias", controllers.elementos.listaElemCat);
 router.post("/elemento/icono", controllers.elementos.nuevoElementoIcono); //ruta para icono

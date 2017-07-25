@@ -497,7 +497,42 @@ angular.module("administrador")
 
 }])
 
-.controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'icono_fuente', function ($state, $mdSidenav, $mdMenu, $scope, icono_fuente) {
+.controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService) {
+
+        var bz = this;
+        bz.mostrarR = false;
+
+        /* objeto datos vacios */
+        this.datos = {
+            registro: {}
+        };
+
+        bz.categorias = [];
+        bz.preferencias = [];
+
+        bz.nuevoIcono = function(datos){
+            iconoFuente.nuevoIcono(datos).then(function(res){
+                console.log(res)
+            }).catch(function(res){
+                console.log(res)
+            })
+        }
+
+        categoriasService.listarCategorias.then(function (res) {
+            angular.forEach(res.data, function (valor, llave) {
+                bz.categorias.push(valor);
+            })
+        })
+
+        categoriasService.listarPreferencias.then(function (res) {
+            angular.forEach(res.data, function (valor, llave) {
+                bz.preferencias.push(valor);
+            })
+        })
+
+}])
+
+.controller('fuentesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService) {
 
         var bz = this;
 
@@ -505,21 +540,6 @@ angular.module("administrador")
         this.datos = {
             registro: {}
         };
-
-        bz.nuevoIcono = function(datos){
-            icono_fuente.nuevoIcono(datos).then(function(res){
-                console.log(res)
-            }).catch(function(res){
-                console.log(res)
-            })
-        }
-
-
-}])
-
-.controller('fuentesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'icono_fuente', function ($state, $mdSidenav, $mdMenu, $scope, icono_fuente) {
-
-        var bz = this;
  
         bz.nuevoFuente = function(icono){
             icono_fuente.nuevoIcono(datos).then(function(res){
@@ -528,4 +548,18 @@ angular.module("administrador")
                 console.log(res)
             })
         }
+
+        bz.categorias = [];
+        bz.preferencias = [];
+        categoriasService.listarCategorias.then(function (res) {
+            angular.forEach(res.data, function (valor, llave) {
+                bz.categorias.push(valor);
+            })
+        })
+
+        categoriasService.listarPreferencias.then(function (res) {
+            angular.forEach(res.data, function (valor, llave) {
+                bz.preferencias.push(valor);
+            })
+        })
 }])
