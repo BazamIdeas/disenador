@@ -4,3 +4,4 @@ node_modules
 public/assets/icons/
 poiinonbkjn.png
 tmp/
+.svg

@@ -72,11 +72,13 @@ angular.module("administrador")
     bz.mostrarPedido = false;
     bz.pedidosC = [];
 
+    bz.filtrosActivos;
+
 
     /* LISTAR TODOS LOS CLIENTES */
 
     bz.listarC = function () {
-
+        bz.clientes = [];
         if (!bz.mostrarC) {
             bz.mostrarC = true;
         } else {
