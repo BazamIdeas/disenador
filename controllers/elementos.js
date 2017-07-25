@@ -133,16 +133,15 @@ exports.listaElemCat =  function(req, res, next) {
 	}
 
 	exports.nuevoElementoIcono =  function(req, res) {
-		//id del pedido
-		//var  req.body.nombredelcampo
-
-		str = req.body.svg
+		
+		var svg_path=req.files.misvg.path;
+		var tiposvg=req.files.misvg.type;
+		if(tiposvg=='image/svg+xml'){
+		fs.readFile(svg_path, function(error, contenido){
+			var str = (contenido.toString());
 		dd = str.replace(/.*<svg version=/, "<svg version=");
 		dd2 = base64.encode(dd.replace('xmlns=', 'width="100%" xmlns='));
-		//svg =  base64.decode(dd2) ;
-		//res.send(svg)
-
-		var elem = {
+/**/	var elem = {
 			idElemento : null,
 			nombre : req.body.nombre,
 			url : null,
@@ -158,6 +157,27 @@ exports.listaElemCat =  function(req, res, next) {
 		//si el pedido existe 
 			if (data && data.insertId)
 			{
+
+				for (x in datoPrefe){
+					elecat  = {
+						elementos_idElemento : data.insertId,
+						preferencias_idPreferencia : datoPrefe[x].idPreferencia,
+						valor : datoPrefe[x].valor
+							}
+
+					elemento.getElementosInpref(elecat, function(error, datapref)
+							{
+							
+								if (error)
+								{
+									res.status(500).json(error);
+								}
+							
+								
+							});
+
+					
+				}//fin del for
 				res.status(200).json(data);
 			}
 		//no existe
@@ -166,7 +186,11 @@ exports.listaElemCat =  function(req, res, next) {
 				res.status(404).json(data)
 			}
 		});
-
+		});
+		
+		}else{
+			res.status(404).json({"msg":"Archivo no Soportado"})
+		}
 	}
 
 		// Nuevo elemento Fuente 
@@ -174,6 +198,7 @@ exports.listaElemCat =  function(req, res, next) {
 		var tmp_path=req.files.mifuente.path;
 		var tipo=req.files.mifuente.type;
 		console.log(tmp_path);
+
 
 		if((tipo=='application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-eot')){
 			console.log(tipo);
@@ -202,13 +227,15 @@ exports.listaElemCat =  function(req, res, next) {
 		//si el pedido existe 
 						if (typeof data !== 'undefined' && data.length > 0)
 						{
+								//REVISAR ID E INSERTAR EN LA TABLA ELEMENTO HAS PREFERENCIA
+
 						res.status(200).json(data);
 					}
 		//no existe
 					else
 					{
 				//res.status(500).json(data);
-				res.status(500).json("Regitro Almacenado", data)
+				res.status(500).json({"msg":"Regitro Almacenado", data})
 				}
 				});
 					//res.send('')
@@ -219,5 +246,11 @@ exports.listaElemCat =  function(req, res, next) {
 		}else{
 			res.status(404).json({"msg":"Archivo no Soportado"})
 		}
+
+
+			
+
+
+
 	}
 

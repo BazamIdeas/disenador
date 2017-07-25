@@ -24,43 +24,6 @@ elemento.getElementos = function( datos, callback)
 	});
 }
 
-elemento.getElemento = function(id,callback)
-{ 
-	var q = 'SELECT  * FROM elementos  WHERE idElemento = ?' 
- 	var par = [id] //parametros
-
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, row){
-	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
-
-	  connection.release();
-	});
-}
-
-elemento.getElementoLogo = function(id,callback)
-{ 
-	var q = 'SELECT  * FROM elementos INNER JOIN logos on elementos_idElemento = idElemento WHERE idLogo = ?' 
- 	var par = [id] //parametros
-
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, row){
-	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
-
-	  connection.release();
-	});
-}
 
 elemento.getElementosIncat = function( datos, callback)
 {
@@ -101,7 +64,27 @@ elemento.insertElemento = function(datos,callback)
 	  connection.release();
 	});
 }
+elemento.getElementosInpref = function( datos, callback)
+			{
+				var q = 'INSERT INTO elementos_has_preferencias SET ? ' 
+				var elePrefer = datos
 
+				DB.getConnection(function(err, connection)
+				{
+				
+					
+					connection.query( q ,elePrefer, function(err, result){
+
+				  	if(err)	throw err;
+				  	
+				  	else 
+				  		callback(null,{"insertId" : result.insertId}); 
+				  	
+				  });
+
+				  connection.release();
+				});
+			}
 elemento.insertFuente = function(datos,callback)
 {
 	var q = 'INSERT INTO elementos SET ? ' 
