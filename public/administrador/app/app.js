@@ -1,4 +1,4 @@
-angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
+angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert', 'ngFileUpload'])
 
 .config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider, $httpProvider, $urlRouterProvider) {
 

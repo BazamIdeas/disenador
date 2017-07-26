@@ -12,7 +12,7 @@
                             <label>NOMBRE</label>
                             <input type="text" ng-model="iconos.datos.registro.nombre" name="nombre">
                         </md-input-container>
-                        <input type="file" ng-model="iconos.datos.registro.svg" name="svg">
+                        <div class="button" ngf-select ng-model="iconos.datos.registro.misvg" name="misvg" ngf-max-size="20MB" ngf-pattern="'image/svg+xml'" required>SELECCIONA UN SVG</div>
                         <div>
                         <md-input-container class="md-block">
                             <label>CATEGORIA</label>

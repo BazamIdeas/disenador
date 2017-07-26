@@ -83,7 +83,8 @@ exports.nuevoPedido =  function(req,res)
 				//si el logo se ha insertado correctamente 
 				if(data && data.insertId)
 				{
-					idLogo = data.insertId;
+					idLogo2 = data.insertId;
+
 						var pedidoData = {
 						idPedido : null,
 						fecha : moment().format("YYYY-MM-DD"),
@@ -119,9 +120,10 @@ exports.nuevoPedido =  function(req,res)
 												localidad : req.body.localidad,
 												descripcion : "Diseño de logo - "+plan[0].plan, 
 												localidad : req.body.localidad,
-												idLogo : req.body.idLogo,
+												idLogo : idLogo2,
 												idElemento : req.body.idElemento,
-												tipoElemento : data[0].tipo
+												tipoElemento : data[0].tipo.replace(" ",""),
+												token : req.headers.auth
 												}
 
 												/////ENVIAR PAGO
@@ -210,7 +212,8 @@ exports.nuevoPedido =  function(req,res)
 												localidad : req.body.localidad,
 												idLogo : req.body.idLogo,
 												idElemento : data[0].idElemento,
-												tipoElemento : data[0].tipo
+												tipoElemento : data[0].tipo.replace(" ",""),
+												token : req.headers.auth
 												}
 
 												/////ENVIAR PAGO
@@ -265,6 +268,7 @@ exports.nuevoPedido =  function(req,res)
 		
 		elemento.cambiarEstado(elementoData,function(error, data)
 			{
+				
 				if(data)
 				{
 				//////cambiar estado al logo a descargable
@@ -275,6 +279,7 @@ exports.nuevoPedido =  function(req,res)
 					
 						if(data)
 						{
+							
 							////////////////////////////// ENVIAR CORREO AQUI
 								 res.redirect(configuracion.dashboard+"?pago=true");
 						}
@@ -294,7 +299,8 @@ exports.nuevoPedido =  function(req,res)
 
 	exports.noPago = function(req,res)
 	{
-		res.redirect(configuracion.dashboard+"?pago=false");
+		
+		res.redirect(configuracion.dashboard+"?pago=true");
 
 	}
 

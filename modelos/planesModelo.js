@@ -8,7 +8,7 @@ var planes = {};
 
 planes.getPlanes = function(callback)
 {
-	var q = 'SELECT planes.plan, precios.idPrecio, precios.precio,precios.moneda FROM planes INNER JOIN precios ON planes.idPlan = precios.planes_idPlan WHERE precios.status = 1 ORDER BY planes.idPlan';
+	var q = 'SELECT planes.plan, planes.idPlan, precios.idPrecio, precios.precio,precios.moneda FROM planes INNER JOIN precios ON planes.idPlan = precios.planes_idPlan WHERE precios.status = 1 ORDER BY planes.idPlan';
 
 	DB.getConnection(function(err, connection)
 	{

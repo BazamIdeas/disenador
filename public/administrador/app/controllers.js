@@ -17,7 +17,6 @@ angular.module("administrador")
         /* VERIFICA SI EL USUARIO ESTA AUTORIZADO Y LO VIGILA */
 
         bz.autorizado = clientesService.autorizado();
-        console.log($rootScope.objectoCliente)
 
         $scope.$watch('$root.objectoCliente', function (valor, nuevoValor) {
             if (valor !== nuevoValor) {
@@ -79,7 +78,7 @@ angular.module("administrador")
             bz.mostrarC = !bz.mostrarC;
             bz.mostrarPedido = false;
 
-            clientesServiceAdmin.listarClientes.then(function (res) {
+            clientesServiceAdmin.listarClientes().then(function (res) {
                     bz.loaderMostrar = false;
                     angular.forEach(res.data, function (valor, llave) {
                         bz.clientes.push(valor);
@@ -116,6 +115,7 @@ angular.module("administrador")
                 bz.validarP = false;
             }).catch(function(res){
                 bz.validarP = true;
+                console.log(res)
             })
         }
 
@@ -123,8 +123,10 @@ angular.module("administrador")
 
         bz.cambiarEstado = function (id, estado, index) {
             pedidosService.cambiarEstado(id, estado).then(function (res) {
-                SweetAlert.swal("Estado cambiado!", res.msg, "success");
+                SweetAlert.swal("Estado cambiado!",'', "success");
                 bz.pedidosC[index].estado = estado;
+            }).catch(function(res){
+                console.log(res)
             })
         }
 
@@ -141,15 +143,80 @@ angular.module("administrador")
 
 
 }])
-    .controller('administrarController', ["$state", "$mdSidenav", "$mdDialog", '$scope', function ($state, $mdSidenav, $mdMenu, $scope) {
+.controller('administrarController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'monedasValue', 'paisesValue', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, monedasValue, paisesValue) {
 
-        var bz = this;
+    var bz = this;
+
+    this.datos = {
+        impuestos:[],
+        planes: [],
+        nuevoPlan: {},
+        nuevoPrecioPlan:{},
+        nuevoImpuesto:{},
+        accionesVista: 0
+    };
+
+    bz.monedas = monedasValue;
+    bz.paises = paisesValue;
 
 
+    /* FUNCION PARA LISTAR PLANES Y IMPUESTOS */
+
+    bz.mostrarPlanes = false;
+    bz.mostrarImpuestos = false;
+
+    bz.listar = function(opcion){
+        console.log(opcion)
+        administrarService.listar(opcion).then(function(res){
+            if(opcion == 'planes'){
+                bz.mostrarPlanes = !bz.mostrarPlanes;
+                bz.datos.planes = res;
+            }else if(opcion == 'impuestos'){
+                bz.mostrarImpuestos = !bz.mostrarImpuestos;
+                bz.datos.impuestos = res;
+            }
+        }).catch(function(res){
+            console.log(res)
+        })
+    }
+
+    /* FUNCION PARA MOSTRAR UN PLAN */
+
+    bz.nuevoPrecio = function(index){
+        bz.datos.nuevoPrecioPlan.idplan = bz.datos.planes[index].idPlan;
+        bz.datos.nuevoPrecioPlan.idprecio = bz.datos.planes[index].idPrecio;
+        bz.datos.accionesVista = 3;
+    }
+
+    /* FUNCION PARA AGREGAR UN PLAN O IMPUESTO O PRECIO */
+
+    bz.agregar = function(opcion, datos){
+        console.log(datos)
+        administrarService.agregar(opcion,datos).then(function(res){
+            console.log(res)
+
+        }).catch(function(res){
+             console.log(res)
+        })
+    }
+
+
+
+    /* FUNCION PARA MODIFICAR UN PLAN O IMPUESTO */
+
+    bz.modificar = function(opcion, datos){
+        administrarService.modificar(opcion,datos).then(function(res){
+
+            bz.datos.planes.push(datos);
+            console.log(res)
+        }).catch(function(res){
+             console.log(res)
+        })
+    }
 
 }])
 
-    .controller('pedidosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'pedidosService', 'SweetAlert', function ($state, $mdSidenav, $mdMenu, $scope, pedidosService, SweetAlert) {
+.controller('pedidosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'pedidosService', 'SweetAlert', function ($state, $mdSidenav, $mdMenu, $scope, pedidosService, SweetAlert) {
 
         var bz = this;
         bz.elementos = [];
@@ -197,7 +264,7 @@ angular.module("administrador")
             bz.mostrarP = !bz.mostrarP;
             bz.mostrarD = false
 
-            pedidosService.listarPedidos.then(function (res) {
+            pedidosService.listarPedidos().then(function (res) {
                 angular.forEach(res.data, function (valor, llave) {
                     bz.elementos.push(valor);
                     bz.elementos[llave].estadoE = false; 
@@ -300,7 +367,7 @@ angular.module("administrador")
             bz.mostrarU = !bz.mostrarU;
             bz.usuarios = [];
 
-            clientesServiceAdmin.listarUsuarios.then(function (res) {
+            clientesServiceAdmin.listarUsuarios().then(function (res) {
                     bz.loaderMostrar = false;
                     angular.forEach(res.data, function (valor, llave) {
                         bz.usuarios.push(valor);
@@ -385,7 +452,7 @@ angular.module("administrador")
             if (que == 'categoria') {
                 bz.cats = [];
                 bz.mostrarC = !bz.mostrarC;
-                categoriasService.listarCategorias.then(function (res) {
+                categoriasService.listarCategorias().then(function (res) {
                     angular.forEach(res.data, function (valor, llave) {
                         bz.cats.push(valor);
                     })
@@ -393,7 +460,7 @@ angular.module("administrador")
             } else {
                 bz.prefs = [];
                 bz.mostrarPre = !bz.mostrarPre;
-                categoriasService.listarPreferencias.then(function (res) {
+                categoriasService.listarPreferencias().then(function (res) {
                     angular.forEach(res.data, function (valor, llave) {
                         bz.prefs.push(valor);
                     })
@@ -497,7 +564,7 @@ angular.module("administrador")
 
 }])
 
-.controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService) {
+.controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService, Upload) {
 
         var bz = this;
         bz.mostrarR = false;
@@ -516,15 +583,16 @@ angular.module("administrador")
             }).catch(function(res){
                 console.log(res)
             })
+            
         }
 
-        categoriasService.listarCategorias.then(function (res) {
+        categoriasService.listarCategorias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
                 bz.categorias.push(valor);
             })
         })
 
-        categoriasService.listarPreferencias.then(function (res) {
+        categoriasService.listarPreferencias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
                 bz.preferencias.push(valor);
             })
@@ -535,29 +603,30 @@ angular.module("administrador")
 .controller('fuentesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService) {
 
         var bz = this;
+        bz.mostrarR = false;
 
         /* objeto datos vacios */
         this.datos = {
             registro: {}
         };
- 
-        bz.nuevoFuente = function(icono){
-            icono_fuente.nuevoIcono(datos).then(function(res){
+
+        bz.nuevaFuente = function(datos){
+            iconoFuente.nuevaFuente(datos).then(function(res){
                 console.log(res)
             }).catch(function(res){
-                console.log(res)
             })
         }
-
+        
         bz.categorias = [];
         bz.preferencias = [];
-        categoriasService.listarCategorias.then(function (res) {
+
+        categoriasService.listarCategorias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
                 bz.categorias.push(valor);
             })
         })
 
-        categoriasService.listarPreferencias.then(function (res) {
+        categoriasService.listarPreferencias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
                 bz.preferencias.push(valor);
             })

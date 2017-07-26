@@ -1,29 +1,213 @@
-<div layout layout-align="space-around" layout-padding>
-<div flex="30" layout="column" class="paneles md-whiteframe-2dp listar">
-    <div>
-        <h3>Planes</h3>
-    </div>
-    <div>
-        LOREM
-    </div>
-</div>
+<div flex layout layout-margin layout-align="none start">
+    <div flex="50" class="listar">
 
-<div flex="30" layout="column"  class="paneles md-whiteframe-2dp listar">
-    <div>
-        <h3>Impuestos</h3>
-    </div>
-    <div>
-        LOREM
-    </div>
-</div>
+        <!-- LISTAR PLANES -->
 
-<div flex="30" layout="column"  class="paneles md-whiteframe-2dp listar">
-    <div>
-        <h3>Precios</h3>
+        <div class="paneles individual md-whiteframe-2dp">
+            <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                <texto flex ng-click="administrar.listar('planes')">LISTADO DE PLANES</texto>
+                <md-button class="md-primary md-fab md-mini" ng-click="administrar.datos.accionesVista = 1" style="margin:0;">
+                    <md-icon>add</md-icon>
+                </md-button>
+            </div>
+            <div ng-show="administrar.mostrarPlanes">
+
+                <div layout class="elemento">
+                    <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                        <input type="text" ng-model="administrar.buscarPlanes" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                    </md-input-container>
+                </div>
+                <div class="tabla">
+                    <div>Nombre:</div>
+                    <div>Acciones:</div>
+                </div>
+                <div layout="column" class="content-scroll">
+                    <div ng-repeat="elemento in administrar.datos.planes | filter:administrar.buscarPlanes" class="elemento">
+                        <div class="tabla-campo">
+                            <div class="nombre">{{elemento.plan}}</div>
+                            <div>
+                                <div>
+                                    <md-button class="md-fab md-warn" ng-click="administrar.modificar('nombrePlan',$index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Nombre del Plan</md-tooltip>
+                                        <md-icon class="material-icon">build</md-icon>
+                                    </md-button>
+                                </div>
+                                <div>
+                                    <md-button class="md-fab md-primary" ng-click="administrar.mostrar('preciosPlan', $index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver precios de un Plan</md-tooltip>
+                                        <md-icon class="material-icon">remove_red_eye</md-icon>
+                                    </md-button>
+                                </div>
+
+                                <div>
+                                    <md-button class="md-fab md-primary" ng-click="administrar.nuevoPrecio($index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Agregar Nuevo Precio</md-tooltip>
+                                        <md-icon class="material-icon">add</md-icon>
+                                    </md-button>
+                                </div>
+                                <div>
+                                    <md-button class="md-fab md-primary" ng-click="administrar.bloquearPlan($index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear Plan</md-tooltip>
+                                        <md-icon class="material-icon">lock</md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTAR IMPUESTOS -->
+
+        <div class="paneles individual md-whiteframe-2dp">
+            <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                <texto flex ng-click="administrar.listar('impuestos')">LISTADO DE IMPUESTOS</texto>
+                <md-button class="md-primary md-fab md-mini" ng-click="administrar.datos.accionesVista = 2" style="margin:0;">
+                    <md-icon>add</md-icon>
+                </md-button>
+            </div>
+            <div ng-show="administrar.mostrarImpuestos">
+
+                <div layout class="elemento">
+                    <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                        <input type="text" ng-model="administrar.buscarImpuestos" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                    </md-input-container>
+                </div>
+                <div class="tabla">
+                    <div>Localidad:</div>
+                    <div>Impuesto:</div>
+                    <div>Acciones:</div>
+                </div>
+                <div layout="column" class="content-scroll">
+                    <div ng-repeat="elemento in administrar.datos.impuestos | filter:administrar.buscarImpuestos" class="elemento">
+                        <div class="tabla-campo">
+                            <div class="nombre">{{elemento.impuesto}}</div>
+                            <div class="nombre">{{elemento.localidad}}</div>
+                            <div>
+                                <div>
+                                    <md-button class="md-primary md-raised" ng-click="administrar.eliminar('impuesto')">ELIMINAR</md-button>
+                                </div>
+                                <div>
+                                    <md-button class="md-primary md-raised" ng-click="administrar.modificar('impuesto')">MODIFICAR</md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        LOREM
+    <div flex="40">
+        <div class="paneles md-whiteframe-2dp listar" ng-switch="administrar.datos.accionesVista">
+
+            <!-- CREAR PLAN -->
+
+            <div ng-switch-when="1">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>NUEVO PLAN</texto>
+                    <md-button ng-click="administrar.datos.accionesVista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.agregar('plan',administrar.datos.nuevoPlan)" novalidate>
+                        <div layout="column" layout-align="space-between">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre</label>
+                                    <input type="text" ng-model="administrar.datos.nuevoPlan.nombre" name="nombre">
+                                </md-input-container>
+                            </div>
+                            <md-input-container class="md-block">
+                                <label>MONEDAS</label>
+                                <md-select ng-model="administrar.datos.nuevoPlan.moneda" name="moneda" ng-required="true">
+                                    <md-option ng-value="{{moneda}}" ng-repeat="moneda in administrar.monedas">{{moneda}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Precio</label>
+                                    <input type="text" ng-model="administrar.datos.nuevoPlan.precio" name="precio">
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- CREAR IMPUESTO -->
+
+            <div ng-switch-when="2">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>NUEVO IMPUESTO</texto>
+                    <md-button ng-click="administrar.datos.accionesVista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.agregar('impuesto',administrar.datos.nuevoImpuesto)" novalidate>
+                        <div layout="column" layout-align="space-between">
+                            <md-input-container class="md-block">
+                                <label>Localidad</label>
+                                <md-select ng-model="administrar.datos.nuevoImpuesto.localidad" name="localidad" ng-required="true">
+                                    <md-option ng-value="{{codigo}}" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Impuesto</label>
+                                    <input type="text" ng-model="administrar.datos.nuevoImpuesto.impuesto" name="precio">
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- AGREGAR UN NUEVO PRECIO A UN PLAN -->
+
+            <div ng-switch-when="3">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>AGREGAR NUEVO PRECIO</texto>
+                    <md-button ng-click="administrar.datos.accionesVista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="administrar.agregar('nuevoPrecioPlan',administrar.datos.nuevoPrecioPlan)" novalidate>
+                        <div layout="column" layout-align="space-between">
+                            <md-input-container class="md-block">
+                                <label>Localidad</label>
+                                <md-select ng-model="administrar.datos.nuevoImpuesto.localidad" name="localidad" ng-required="true">
+                                    <md-option ng-value="{{codigo}}" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>MONEDA</label>
+                                <md-select ng-model="administrar.datos.nuevoPrecioPlan.moneda" name="moneda" ng-required="true">
+                                    <md-option ng-value="moneda" ng-repeat="moneda in administrar.monedas">{{moneda}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Precio</label>
+                                    <input type="text" ng-model="administrar.datos.nuevoPrecioPlan.precio" name="precio">
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-    
 </div>

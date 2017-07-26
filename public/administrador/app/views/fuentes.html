@@ -4,7 +4,7 @@
             <texto>REGISTRO FUENTE</texto>
         </div>
         <div ng-if="fuentes.mostrarR" layout-padding class="formularios-login pasos">
-            <form id="formularioRegistro" name="formRegistro" ng-submit="fuentes.nuevoIcono(fuentes.datos.registro)" novalidate>
+            <form id="formularioRegistro" name="formRegistro" ng-submit="fuentes.nuevaFuente(fuentes.datos.registro)" novalidate>
                 <div layout="column" layout-align="space-between">
                     <h3 class="text-center">Nueva Fuente</h3>
                     <div>
@@ -12,7 +12,7 @@
                             <label>NOMBRE</label>
                             <input type="text" ng-model="fuentes.datos.registro.nombre" name="nombre">
                         </md-input-container>
-                        <input type="file" ng-model="fuentes.datos.registro.fuente" name="fuente">
+                        <div class="button" ngf-select ng-model="fuentes.datos.registro.mifuente" name="mifuente" ngf-max-size="40MB" required>SELECCIONA UNA FUENTE</div>
                         <div>
                         <md-input-container class="md-block">
                             <label>CATEGORIA</label>
