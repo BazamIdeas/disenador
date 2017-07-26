@@ -4,8 +4,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 
     /*------------------Material Angular --------------*/
 
-    $mdThemingProvider.theme('default')
-        .warnPalette('orange')
+    $mdThemingProvider.theme('default').warnPalette('light-blue')
 
 
     /* INTERCEPTADOR */

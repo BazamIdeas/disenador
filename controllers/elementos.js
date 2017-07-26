@@ -199,7 +199,6 @@ exports.listaElemCat =  function(req, res, next) {
 		var tipo=req.files.mifuente.type;
 		console.log(tmp_path);
 
-		console.log(req.files.mifuente)
 
 		if((tipo=='application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-eot')){
 			console.log(tipo);

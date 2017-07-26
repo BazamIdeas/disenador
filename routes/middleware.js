@@ -42,8 +42,14 @@ exports.validar = function(req,res,next){
 	}
 }
 
+
 exports.decodificar = function(req,res,next){
-    
-	return res.json(jwt.decode(req.headers.auth, configuracion.secret))
-	
+    try {
+		return res.json(jwt.decode(req.headers.auth, configuracion.secret))
+	}
+
+	catch (e) {
+	      res.status(400).json({"Mensaje":"Token invalido",
+	  							"token":req.headers});
+	}
 }

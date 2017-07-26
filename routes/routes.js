@@ -95,8 +95,10 @@ router.get("/planes/precios", controllers.planes.listarPlanes);// lista planes y
 router.post("/plan", controllers.planes.nuevoPlan); // ingresar Nuevo y un precio
 router.get ("/planes", controllers.planes.selectPlan);// selecciona plan
 router.post("/plan/precios", controllers.planes.nuevoPrecio); // inserta nuevos precio para un plan seleccionado
-router.post("/plan/modificar/", controllers.planes.modificarPlan);
+router.post("/precio/modificar/", controllers.planes.modificarPlan);
 //router.get('/plan/borrar/:id', controllers.planes.borrarPlan);
+// ruta para ver precios de un plan
+// ruta para cambiar nombre de un plan
 
 
 //MODULO LOGOS
