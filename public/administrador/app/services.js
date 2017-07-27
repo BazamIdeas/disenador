@@ -1171,7 +1171,7 @@ angular.module("administrador")
                 })
                 .catch(function (res) {
 
-                    defered.reject(res);
+                    defered.reject(res.data.msg);
                 })
 
             return promise;
@@ -1195,7 +1195,7 @@ angular.module("administrador")
                 })
                 .catch(function (res) {
                     $window.localStorage.removeItem('bzToken');
-                    defered.reject()
+                    defered.reject(res.data.msg);
                 })
 
 
@@ -1249,7 +1249,7 @@ angular.module("administrador")
                 })
                 .catch(function (res) {
 
-                    defered.reject(res);
+                     defered.reject(res.data.msg);
                 })
 
             return promise;
@@ -1275,7 +1275,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                 defered.reject(res.data.msg);
 
             })
 
@@ -1294,7 +1294,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                 defered.reject(res.data.msg);
 
             })
 
@@ -1313,7 +1313,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg);
 
             })
             return promise;
@@ -1338,7 +1338,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg); 
 
             })
             return promise;
@@ -1399,7 +1399,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg);
 
             })
             return promise;
@@ -1425,7 +1425,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg);
 
             })
             return promise;
@@ -1441,7 +1441,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg);
 
             })
             return promise;
@@ -1457,7 +1457,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+               defered.reject(res.data.msg);
 
             })
             return promise;
@@ -1491,7 +1491,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg);
 
             })
             return promise;
@@ -1507,7 +1507,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg);
 
             })
             return promise;
@@ -1523,7 +1523,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg);
 
             })
             return promise;
@@ -1629,7 +1629,7 @@ angular.module("administrador")
             $http.get(ruta).then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
-                defered.reject(res.data.msg);
+                defered.reject(res);
             })
             return promise;
         }
@@ -1654,7 +1654,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res.data.msg);
+                defered.reject(res);
 
             })
             return promise;
@@ -1678,7 +1678,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg);
 
             })
 
@@ -1697,7 +1697,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject(res.data.msg);
 
             })
             return promise;
@@ -1708,23 +1708,9 @@ angular.module("administrador")
     /* NOTIFICACION */
 
     .service('notificacionService', ['$http', '$q', '$mdToast', function ($http, $q, $mdToast) {
-   
-        var bz = this;
-
-        bz.showCustomToast = function() {
-            $mdToast.show({
-            hideDelay   : 3000,
-            position    : 'top right',
-            controller  : 'ToastCtrl',
-            templateUrl : 'toast-template.html'
-            });
-        };
-
-        bz.mensaje = function(mensaje) {
+        this.mensaje = function(mensaje) {
             $mdToast.show($mdToast.simple().textContent(mensaje).position('top right').hideDelay(3000));
-        };
-
-
+        }
     }])
 
 

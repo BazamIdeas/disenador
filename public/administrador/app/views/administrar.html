@@ -1,4 +1,4 @@
-<div flex layout layout-margin layout-align="none start">
+<div flex layout layout-margin layout-align="none start" id="toast">
     <div flex="50" class="listar">
 
         <!-- LISTAR PLANES -->
@@ -22,7 +22,7 @@
                     <div>Acciones:</div>
                 </div>
                 <div layout="column" class="content-scroll">
-                    <div ng-repeat="elemento in administrar.datos.planes | filter:administrar.buscarPlanes" class="elemento">
+                    <div ng-repeat="elemento in administrar.datos.planes | filter:administrar.buscarPlanes track by $index" class="elemento">
                         <div class="tabla-campo">
                             <div class="nombre">{{elemento.plan}}</div>
                             <div>
@@ -80,7 +80,7 @@
                     <div>Acciones:</div>
                 </div>
                 <div layout="column" class="content-scroll">
-                    <div ng-repeat="elemento in administrar.datos.impuestos | filter:administrar.buscarImpuestos" class="elemento">
+                    <div ng-repeat="elemento in administrar.datos.impuestos | filter:administrar.buscarImpuestos track by $index" class="elemento">
                         <div class="tabla-campo">
                             <div class="nombre">{{elemento.impuesto}}</div>
                             <div class="nombre">{{elemento.localidad}}</div>
@@ -128,7 +128,7 @@
                             <md-input-container class="md-block">
                                 <label>MONEDAS</label>
                                 <md-select ng-model="administrar.datos.nuevoPlan.moneda" name="moneda" ng-required="true">
-                                    <md-option ng-value="moneda.code" ng-repeat="moneda in administrar.monedas">{{moneda.nombre}}</md-option>
+                                    <md-option ng-value="moneda.code" ng-repeat="moneda in administrar.monedas">{{moneda.nombre}} - {{moneda.symbol}}</md-option>
                                 </md-select>
                             </md-input-container>
                             <div>

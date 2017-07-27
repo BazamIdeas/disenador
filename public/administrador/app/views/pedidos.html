@@ -44,7 +44,12 @@
                         <div>{{elemento.estado}}</div>
                         <div>{{elemento.pais}}</div>
                         <div>
-                            <md-button class="md-primary md-raised" ng-click="pedidos.pedidoDetalles(elemento.idPedido, $index)">DETALLES</md-button>
+                            <div>
+                                <md-button class="md-fab md-mini md-warn" ng-click="pedidos.pedidoDetalles(elemento.idPedido, $index)">
+                                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Detalles Pedido</md-tooltip>
+                                    <md-icon class="material-icon">keyboard_arrow_right</md-icon>
+                                </md-button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,7 +94,7 @@
                             <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'CANCELADO', $index)" value="CANCELADO">
                                 CANCELADO
                             </md-option>
-                            
+
                             <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'EN PROCESO', $index)" value="EN PROCESO">
                                 EN PROCESO
                             </md-option>
