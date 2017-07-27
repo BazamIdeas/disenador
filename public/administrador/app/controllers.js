@@ -143,7 +143,7 @@ angular.module("administrador")
 
 
 }])
-.controller('administrarController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'monedasValue', 'paisesValue', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, monedasValue, paisesValue) {
+.controller('administrarController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'paisesValue', 'monedasValue', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, paisesValue, monedasValue, notificacionService) {
 
     var bz = this;
 
@@ -155,10 +155,8 @@ angular.module("administrador")
         nuevoImpuesto:{},
         accionesVista: 0
     };
-
     bz.monedas = monedasValue;
     bz.paises = paisesValue;
-
 
     /* FUNCION PARA LISTAR PLANES Y IMPUESTOS */
 
@@ -166,7 +164,6 @@ angular.module("administrador")
     bz.mostrarImpuestos = false;
 
     bz.listar = function(opcion){
-        console.log(opcion)
         administrarService.listar(opcion).then(function(res){
             if(opcion == 'planes'){
                 bz.mostrarPlanes = !bz.mostrarPlanes;
@@ -176,15 +173,14 @@ angular.module("administrador")
                 bz.datos.impuestos = res;
             }
         }).catch(function(res){
-            console.log(res)
+            bz.mostrarNotificacion(res);
         })
     }
 
-    /* FUNCION PARA MOSTRAR UN PLAN */
+    /* FUNCION PARA MOSTRAR FORMULARIO DE NUEVO PRECIO */
 
     bz.nuevoPrecio = function(index){
         bz.datos.nuevoPrecioPlan.idplan = bz.datos.planes[index].idPlan;
-        bz.datos.nuevoPrecioPlan.idprecio = bz.datos.planes[index].idPrecio;
         bz.datos.accionesVista = 3;
     }
 
@@ -193,24 +189,19 @@ angular.module("administrador")
     bz.agregar = function(opcion, datos){
         console.log(datos)
         administrarService.agregar(opcion,datos).then(function(res){
-            console.log(res)
-
+            notificacionService.mensaje('Peticion Realizada');  
         }).catch(function(res){
-             console.log(res)
+             bz.mostrarNotificacion(res)
         })
     }
-
-
 
     /* FUNCION PARA MODIFICAR UN PLAN O IMPUESTO */
 
     bz.modificar = function(opcion, datos){
         administrarService.modificar(opcion,datos).then(function(res){
-
             bz.datos.planes.push(datos);
-            console.log(res)
         }).catch(function(res){
-             console.log(res)
+             bz.mostrarNotificacion(res)
         })
     }
 

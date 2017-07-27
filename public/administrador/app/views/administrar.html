@@ -86,10 +86,16 @@
                             <div class="nombre">{{elemento.localidad}}</div>
                             <div>
                                 <div>
-                                    <md-button class="md-primary md-raised" ng-click="administrar.eliminar('impuesto')">ELIMINAR</md-button>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.eliminar('impuesto')">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar</md-tooltip>
+                                        <md-icon class="material-icon">close</md-icon>
+                                    </md-button>
                                 </div>
                                 <div>
-                                    <md-button class="md-primary md-raised" ng-click="administrar.modificar('impuesto')">MODIFICAR</md-button>
+                                    <md-button class="md-fab md-mini md-warn" nng-click="administrar.modificar('impuesto')">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
+                                        <md-icon class="material-icon">add</md-icon>
+                                    </md-button>
                                 </div>
                             </div>
                         </div>
@@ -111,18 +117,18 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="categorias.agregar('plan',administrar.datos.nuevoPlan)" novalidate>
+                    <form ng-submit="administrar.agregar('plan',administrar.datos.nuevoPlan)" novalidate>
                         <div layout="column" layout-align="space-between">
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Nombre</label>
-                                    <input type="text" ng-model="administrar.datos.nuevoPlan.nombre" name="nombre">
+                                    <input type="text" ng-model="administrar.datos.nuevoPlan.plan" name="nombre">
                                 </md-input-container>
                             </div>
                             <md-input-container class="md-block">
                                 <label>MONEDAS</label>
                                 <md-select ng-model="administrar.datos.nuevoPlan.moneda" name="moneda" ng-required="true">
-                                    <md-option ng-value="{{moneda}}" ng-repeat="moneda in administrar.monedas">{{moneda}}</md-option>
+                                    <md-option ng-value="moneda.code" ng-repeat="moneda in administrar.monedas">{{moneda.nombre}}</md-option>
                                 </md-select>
                             </md-input-container>
                             <div>
@@ -149,12 +155,12 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="categorias.agregar('impuesto',administrar.datos.nuevoImpuesto)" novalidate>
+                    <form ng-submit="administrar.agregar('impuesto',administrar.datos.nuevoImpuesto)" novalidate>
                         <div layout="column" layout-align="space-between">
                             <md-input-container class="md-block">
                                 <label>Localidad</label>
                                 <md-select ng-model="administrar.datos.nuevoImpuesto.localidad" name="localidad" ng-required="true">
-                                    <md-option ng-value="{{codigo}}" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
+                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
                                 </md-select>
                             </md-input-container>
                             <div>
@@ -186,13 +192,13 @@
                             <md-input-container class="md-block">
                                 <label>Localidad</label>
                                 <md-select ng-model="administrar.datos.nuevoImpuesto.localidad" name="localidad" ng-required="true">
-                                    <md-option ng-value="{{codigo}}" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
+                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
                                 </md-select>
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>MONEDA</label>
                                 <md-select ng-model="administrar.datos.nuevoPrecioPlan.moneda" name="moneda" ng-required="true">
-                                    <md-option ng-value="moneda" ng-repeat="moneda in administrar.monedas">{{moneda}}</md-option>
+                                    <md-option ng-value="moneda.code" ng-repeat="moneda in administrar.monedas">{{moneda.nombre}}</md-option>
                                 </md-select>
                             </md-input-container>
                             <div>
