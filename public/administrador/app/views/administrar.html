@@ -27,13 +27,13 @@
                             <div class="nombre">{{elemento.plan}}</div>
                             <div>
                                 <div>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.modificar('nombrePlan',$index)">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.mostrar('nombrePlan', elemento.idPlan)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Nombre del Plan</md-tooltip>
                                         <md-icon class="material-icon">build</md-icon>
                                     </md-button>
                                 </div>
                                 <div>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.mostrar('preciosPlan', $index)">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.mostrar('preciosPlan', elemento.idPlan)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver precios de un Plan</md-tooltip>
                                         <md-icon class="material-icon">remove_red_eye</md-icon>
                                     </md-button>
@@ -82,8 +82,8 @@
                 <div layout="column" class="content-scroll">
                     <div ng-repeat="elemento in administrar.datos.impuestos | filter:administrar.buscarImpuestos track by $index" class="elemento">
                         <div class="tabla-campo">
-                            <div class="nombre">{{elemento.impuesto}}</div>
                             <div class="nombre">{{elemento.localidad}}</div>
+                            <div class="nombre">{{elemento.impuesto}}</div>
                             <div>
                                 <div>
                                     <md-button class="md-fab md-mini md-warn" ng-click="administrar.eliminar('impuesto')">
@@ -92,7 +92,7 @@
                                     </md-button>
                                 </div>
                                 <div>
-                                    <md-button class="md-fab md-mini md-warn" nng-click="administrar.modificar('impuesto')">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.mostrar('impuesto')">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                                         <md-icon class="material-icon">add</md-icon>
                                     </md-button>
@@ -103,6 +103,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <div flex="40">
         <div class="paneles md-whiteframe-2dp listar" ng-switch="administrar.datos.accionesVista">
@@ -205,6 +206,90 @@
                                 <md-input-container class="md-block">
                                     <label>Precio</label>
                                     <input type="text" ng-model="administrar.datos.nuevoPrecioPlan.precio" name="precio">
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- VER PRECIOS DE UN PLAN -->
+
+            <div ng-switch-when="4" class="paneles md-whiteframe-2dp listar">
+                <div layout-padding class="titulo-modulo">
+                    <texto>DETALLES</texto>
+                </div>
+                <div layout="column" class="content-scroll">
+                    <div class="elemento nopadding">
+                        <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
+                            <div flex="45"><b>Localidad:</b> USD</div>
+                            <div flex="45"><b>Precio:</b> 40$</div>
+                        </div>
+                        <div layout layout-align="space-between center">
+                            <md-input-container style="margin-bottom:0;" flex>
+                                <label>Nuevo Precio</label>
+                                <input type="text" name="NuevoPrecio">
+                            </md-input-container>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Modificar</md-button>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODIFICAR NOMBRE PLAN -->
+
+            <div ng-switch-when="5">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>CAMBIAR NOMBRE</texto>
+                    <md-button ng-click="administrar.datos.accionesVista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="administrar.modificar('nombrePlan', administrar.datos.modificarNombrePlan)" novalidate>
+                        <div layout="column" layout-align="space-between">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre</label>
+                                    <input type="text" ng-model="administrar.datos.modificarNombrePlan.plan" name="nombre">
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MODIFICAR IMPUESTO -->
+
+            <div ng-switch-when="6">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>MODIFICAR IMPUESTO</texto>
+                    <md-button ng-click="administrar.datos.accionesVista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="administrar.modificar('impuesto',administrar.datos.modificarImpuesto)" novalidate>
+                        <div layout="column" layout-align="space-between">
+                            <md-input-container class="md-block">
+                                <label>Localidad</label>
+                                <md-select ng-model="administrar.datos.modificarImpuesto.localidad" name="localidad" ng-required="true">
+                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Impuesto</label>
+                                    <input type="text" ng-model="administrar.datos.modificarImpuesto.impuesto" name="precio">
                                 </md-input-container>
                             </div>
                             <div layout>

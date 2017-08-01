@@ -151,8 +151,11 @@ angular.module("administrador")
         impuestos:[],
         planes: [],
         nuevoPlan: {},
+        modificarNombrePlan: {},
+        modificarImpuesto:{},
         nuevoPrecioPlan:{},
         nuevoImpuesto:{},
+        planDetalles:{},
         accionesVista: 0
     };
     bz.monedas = monedasValue;
@@ -164,6 +167,7 @@ angular.module("administrador")
     bz.mostrarImpuestos = false;
 
     bz.listar = function(opcion){
+        bz.datos.accionesVista = 0;
         administrarService.listar(opcion).then(function(res){
             if(opcion == 'planes'){
                 bz.mostrarPlanes = !bz.mostrarPlanes;
@@ -212,6 +216,26 @@ angular.module("administrador")
         }).catch(function(res){
             notificacionService.mensaje(res);
         })
+    }
+
+    /* FUNCION PARA MOSTRAR TODOS LOS PRECIOS DE UN PLAN */
+
+    bz.mostrar = function(opcion, id){
+        if(opcion == 'nombrePlan'){
+            bz.datos.accionesVista = 5;
+        }else if(opcion == 'preciosPlan'){
+            bz.datos.accionesVista = 4;
+        }else if(opcion == 'impuesto'){
+            bz.datos.accionesVista = 6;
+        }
+        
+        /*
+        administrarService.mostrar(id).then(function(){
+
+        }).catch(function(){
+
+        })
+        */
     }
 
 }])
