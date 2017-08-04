@@ -59,6 +59,7 @@ header:before {
     background-size: 100% 15%;
     min-height: 100%;
     height: auto;
+    overflow: hidden;
 }
 
 div:focus,
@@ -229,6 +230,13 @@ img.imagen-loader {
 
 .text-center {
     text-align: center;
+}
+
+.text-justify {
+    text-align:justify;
+}
+.seccion-ayuda{
+    border-bottom:1px solid grey; margin-bottom:1%; text-align: justify;
 }
 
 .margen_inferior {

@@ -2,11 +2,15 @@ angular.module("disenador-de-logos")
 
 /* Opciones */
 
-.controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", "$sce", "LS", "$state", "categoriasService", function ($scope, $mdDialog, $stateParams, $sce, LS, $state, categoriasService) {
+.controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", "$sce", "LS", "$state", "categoriasService", '$mdSidenav', function ($scope, $mdDialog, $stateParams, $sce, LS, $state, categoriasService, $mdSidenav) {
 
     var bz = this;
 
+   
+    bz.cambiarMenu = function (lugar) {
 
+        return $mdSidenav('right').toggle();
+    }
 
     /* LOCAL STORAGE */
 

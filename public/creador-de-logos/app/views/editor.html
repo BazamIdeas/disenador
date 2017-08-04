@@ -3,7 +3,6 @@
         font-family: '{{fuente.nombre}}';
         src: url('{{fuente.url}}');
     }
-
 </style>
 <div layout layout-fill id="Previsu">
     <!-- --------------------------  MENU -------------------------------------- -->
@@ -46,7 +45,8 @@
 
                 <div>
                     <texto>Fuente</texto>
-                    <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{'font-family' : editor.fuente}" aria-label="fuentes">
+                    <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{'font-family' : editor.fuente}"
+                        aria-label="fuentes">
                         <md-option ng-value="fuente" ng-style="{'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes">{{fuente.nombre}}</md-option>
                     </md-select>
                 </div>
@@ -139,7 +139,8 @@
                 </div>
                 <div>
                     <texto>Fuente</texto>
-                    <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{ 'font-family' : editor.fuente}" aria-label="fuentes">
+                    <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{ 'font-family' : editor.fuente}"
+                        aria-label="fuentes">
                         <md-option ng-value="fuente" ng-style="{ 'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes">{{fuente.nombre}}</md-option>
                     </md-select>
                 </div>
@@ -302,7 +303,8 @@
                         </md-button>
                     </div>
                     -->
-                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index" ng-click="editor.visualizar(comparacion)">
+                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index"
+                        ng-click="editor.visualizar(comparacion)">
                     </bazam-visualizar>
                     <div ng-show="!editor.comparaciones.length" layout-padding style="text-align:center;">
                         <texto>No existe ninguna comparacion</texto>
@@ -388,21 +390,48 @@
                     </md-button>
                 </div>
                 <div>
-                    <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu( 'ayuda')">
+                    <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu()">
                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Ayuda</md-tooltip>
                         <md-icon class="material-icon">help_outline</md-icon>
                     </md-button>
                 </div>
-                <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" style="width:40%;" ng-switch="editor.tipoNav">
-                    <div ng-switch-when="ayuda">
-                        <md-toolbar class="transparencia">
-                            <div class="md-toolbar-tools">
-                                <div>AYUDA</div>
-                            </div>
-                        </md-toolbar>
-                        <div>
-                            <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
+                <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" style="width:40%;">
+                    <md-toolbar class="transparencia">
+                        <div class="md-toolbar-tools">
+                            <div>AYUDA</div>
                         </div>
+                    </md-toolbar>
+                    <div class="seccion-ayuda" layout-padding >
+                        <h2 style="text-transform:uppercase;">TEXTO</h2>
+                        <h4>1: Has un click al texto para empezar a editarlo.</h4>
+                        <h4>2: Puedes cambiar su color, tamaño y moverlo a travez del lienzo.</h4>
+                    </div>
+
+                    <div class="seccion-ayuda" layout-padding >
+                        <h2 style="text-transform:uppercase;">ICONO</h2>
+                        <h4>1: Has un click a alguna parte del icono para empezar a editarlo.</h4>
+                        <h4>2: Puedes cambiar su color, tamaño y moverlo a travez del lienzo.</h4>
+                        <h4>3: Puedes cambiar el fondo de tu lienzo presionando el siguiente boton.</h4>
+                        <img src="/creador-de-logos/assets/img/fondo.jpg" alt="fondo">
+                        <h4>Tendras 3 opciones, modo regilla, oscuro y gris.</h4>
+                    </div>
+
+                    <div class="seccion-ayuda" layout-padding>
+                        <h2 style="text-transform:uppercase;">COMPARACIONES</h2>
+                        <h4>1: Para hacer la comparacion de un logo preciona el boton el siguiente boton.</h4>
+                        <img src="/creador-de-logos/assets/img/comparar.jpg" alt="comparar">
+                        <h4>2: Al presionarlo se mostrara la ventana de comparaciones. Y veras una version de el logo que estas creando.</h4>
+                        <img src="/creador-de-logos/assets/img/ventana-comparar.jpg" alt="comparar">
+                        <h4>3: Cuando desees usarla presiona el elemento. Y se cambiara por tu lienzo actual.</h4>
+                    </div>
+
+                    <div class="seccion-ayuda" layout-padding>
+                        <h2 style="text-transform:uppercase;">PREVISUALIZAR LOGO</h2>
+                        <h4>1: Para mostrar como quedará su logo en distintas plantillas presione el siguiente boton.</h4>
+                        <img src="/creador-de-logos/assets/img/previsualizar.jpg" alt="previsualizar">
+                    </div>
+                    <div>
+                        <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
                     </div>
                 </md-sidenav>
             </div>
@@ -413,13 +442,21 @@
             <!--- directiva si se utiliza un svg nunca modificado ---->
 
             <div id="logo-share" class="principal logo-editor" ng-class="editor.fondo" ng-if="!editor.restauracionIniciada">
-                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar" data-switch="editor.menu"></bazam-svg>
+                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto"
+                    data-fuente="editor.logo.fuente" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto"
+                    data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold"
+                    data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal"
+                    data-comparaciones="editor.comparaciones" data-comparar="editor.comparar" data-switch="editor.menu"></bazam-svg>
             </div>
             <!---- Directiva si se utiliza un svg modificado  --->
 
 
             <div class="principal logo-editor" ng-class="editor.fondo" ng-repeat="restauracion in editor.restauraciones">
-                <bazam-svg-modificado data-svg="restauracion" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones" data-comparar="editor.comparar"></bazam-svg-modificado>
+                <bazam-svg-modificado data-svg="restauracion" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
+                    data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala"
+                    data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive"
+                    data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones"
+                    data-comparar="editor.comparar"></bazam-svg-modificado>
             </div>
             <!------- directiva si existen visualizaciones ------>
             <div class="logo-editor md-whiteframe-2dp" ng-repeat="visualizacion in editor.visualizaciones" ng-if="!editor.visualizacionUsada">

@@ -20,8 +20,6 @@ angular.module("disenador-de-logos")
         }
     });
 
-    console.log(bz.autorizado);
-
 
     bz.menuMostrar = function () {
         if (bz.hmenuMostrar) {

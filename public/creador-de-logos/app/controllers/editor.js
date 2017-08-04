@@ -194,12 +194,8 @@ angular.module("disenador-de-logos")
 
     bz.fabEditor = false;
 
-    bz.cambiarMenu = function (tipo) {
-        if (tipo == null) {
-            bz.tipoNav = bz.tipoNav;
-        } else {
-            bz.tipoNav = tipo;
-        }
+    bz.cambiarMenu = function (lugar) {
+
         return $mdSidenav('right').toggle();
     }
 

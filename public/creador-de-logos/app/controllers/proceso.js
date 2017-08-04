@@ -2,11 +2,17 @@ angular.module("disenador-de-logos")
 
 /* Proceso */
 
-.controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', '$mdDialog', 'LS', '$state', '$base64', function ($scope, $stateParams, crearLogoFactory, $mdDialog, LS, $state, $base64) {
+.controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', '$mdDialog', 'LS', '$state', '$base64', '$mdSidenav', function ($scope, $stateParams, crearLogoFactory, $mdDialog, LS, $state, $base64, $mdSidenav) {
 
-
+    var bz = this;
+    
     this.base64 = function (icono) {
         return $base64.decode(icono);
+    }
+
+    bz.cambiarMenu = function (lugar) {
+
+        return $mdSidenav('right').toggle();
     }
 
     /* LOCAL STORAGE */

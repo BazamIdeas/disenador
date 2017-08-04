@@ -3,14 +3,13 @@
         font-family: '{{fuente.nombre}}';
         src: url('{{fuente.url}}');
     }
-
 </style>
 <div layout="column" ng-cloak>
     <div layout layout-align="center" id="popupContainer" class="margen_inferior">
         <div>
             <h3 class="titulo_opciones" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
         </div>
-         <!--
+        <!--
         <div flex layout layout-align="end center ">
           
             <div ng-repeat="configuracion in opciones.configuraciones" ng-click="opciones.mostrarDialogos($event, configuracion.nombre, $index)" id-dialogo="configuracion.id" class="categorias md-whiteframe-2dp">
@@ -19,6 +18,25 @@
            
         </div>
          -->
+
+        <div class="ayuda" ng-click="opciones.cambiarMenu()">
+            <md-icon>help_outline</md-icon>
+        </div>
+
+        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" style="width:40%;">
+            <md-toolbar class="transparencia">
+                <div class="md-toolbar-tools">
+                    <div>AYUDA</div>
+                </div>
+            </md-toolbar>
+            <div class="seccion-ayuda" layout-padding>
+                <h4>1: Puedes seleccionar 3 tipos de iconos y 3 tipos de fuentes.</h4>
+                <h4>2: Al tener tu seleccion lista presiona en el boton de siguiente.</h4>
+            </div>
+            <div>
+                <md-button class="md-raised md-primary" ng-click="opciones.cambiarMenu()">CERRAR</md-button>
+            </div>
+        </md-sidenav>
     </div>
     <div layout layout-align="space-around" class="contenedor-de-logos">
         <div layout-lg="row" flex="45" class="md-whiteframe-2dp scroll ">
@@ -38,6 +56,7 @@
     </div>
     <div layout="row" layout-align="space-between" style="padding: 0 2%;">
         <md-button class="md-raised md-primary" ui-sref="comenzar">Atrás</md-button>
-        <md-button class="md-raised md-primary siguiente" ng-show="opciones.seleccionado(opciones.datos.fuentes, opciones.datos.iconos)" ui-sref="proceso({datos: {nombre: opciones.datosEstadoAnterior.nombre  , elementos: opciones.datos}})">Siguiente</md-button>
+        <md-button class="md-raised md-primary siguiente" ng-show="opciones.seleccionado(opciones.datos.fuentes, opciones.datos.iconos)"
+            ui-sref="proceso({datos: {nombre: opciones.datosEstadoAnterior.nombre  , elementos: opciones.datos}})">Siguiente</md-button>
     </div>
 </div>
