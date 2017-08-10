@@ -80,7 +80,7 @@ router.get('/email', middleware.validar,controllers.emails.enviar_email);
 //MODULO ELEMENTOS
 router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
 router.post("/elementos/categorias", controllers.elementos.listaElemCat);
-router.post("/elemento/icono", controllers.elementos.nuevoElementoIcono); //ruta para icono
+router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono
 router.post("/elemento/fuente", multipartMiddleware, controllers.elementos.nuevoElementoFuente);
 
 //MODULO PRECIOS

@@ -18,6 +18,9 @@ angular.module("administrador")
 
         bz.autorizado = clientesService.autorizado();
 
+        /* MOSTRAR TOKEN 
+        console.log(bz.autorizado.token)
+        */
         $scope.$watch('$root.objectoCliente', function (valor, nuevoValor) {
             if (valor !== nuevoValor) {
                 bz.autorizado = $rootScope.objectoCliente;
@@ -33,7 +36,7 @@ angular.module("administrador")
             bz.nombreEstado = $rootScope.objectoCliente.nombre;
         }
 
-}])
+    }])
 
     .controller('sidenavController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'clientesService', '$rootScope', function ($state, $mdSidenav, $mdDialog, $scope, clientesService, $rootScope) {
 
@@ -54,7 +57,7 @@ angular.module("administrador")
             return $mdSidenav('left').toggle();
         }
 
-}])
+    }])
 
     .controller('clienteController', ["$state", "$mdSidenav", "clientesServiceAdmin", '$scope', 'pedidosService', 'SweetAlert', '$window', 'notificacionService', function ($state, $mdSidenav, clientesServiceAdmin, $scope, pedidosService, SweetAlert, $window, notificacionService) {
         var bz = this;
@@ -82,14 +85,14 @@ angular.module("administrador")
                     bz.loaderMostrar = false;
                     angular.forEach(res.data, function (valor, llave) {
                         bz.clientes.push(valor);
-                        bz.clientes[llave].estadoE = false; 
+                        bz.clientes[llave].estadoE = false;
                     })
                 })
                 .catch(function (res) {
-                   notificacionService.mensaje(res);
+                    notificacionService.mensaje(res);
                 })
         }
-        
+
         bz.listarC()
 
         /* ELIMINAR CLIENTE */
@@ -113,7 +116,7 @@ angular.module("administrador")
                     bz.pedidosC.push(valor);
                 })
                 bz.validarP = false;
-            }).catch(function(res){
+            }).catch(function (res) {
                 bz.validarP = true;
                 notificacionService.mensaje(res);
             })
@@ -125,122 +128,161 @@ angular.module("administrador")
             pedidosService.cambiarEstado(id, estado).then(function (res) {
                 notificacionService.mensaje('Estado Cambiado!');
                 bz.pedidosC[index].estado = estado;
-            }).catch(function(res){
+            }).catch(function (res) {
                 notificacionService.mensaje(res);
             })
         }
 
-        bz.activar = function(event){
-           var elementosLista = document.querySelectorAll('.lista .elemento.true');
-           var elementoActual = event.currentTarget;
+        bz.activar = function (event) {
+            var elementosLista = document.querySelectorAll('.lista .elemento.true');
+            var elementoActual = event.currentTarget;
 
             for (i = 0; i < elementosLista.length; i++) {
                 elementosLista[i].classList.remove('true');
             }
-            
+
             elementoActual.classList.add('true');
         }
 
 
-}])
-.controller('administrarController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'paisesValue', 'monedasValue', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, paisesValue, monedasValue, notificacionService) {
+    }])
+    .controller('administrarController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'paisesValue', 'monedasValue', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, paisesValue, monedasValue, notificacionService) {
 
-    var bz = this;
+        var bz = this;
 
-    this.datos = {
-        impuestos:[],
-        planes: [],
-        nuevoPlan: {},
-        modificarNombrePlan: {},
-        modificarImpuesto:{},
-        nuevoPrecioPlan:{},
-        nuevoImpuesto:{},
-        planDetalles:{},
-        accionesVista: 0
-    };
-    bz.monedas = monedasValue;
-    bz.paises = paisesValue;
+        this.datos = {
+            impuestos: [],
+            planes: [],
+            nuevoPlan: {},
+            modificarNombrePlan: {},
+            modificarImpuesto: {},
+            nuevoPrecioPlan: {},
+            nuevoImpuesto: {},
+            planDetalles: {},
+            accionesVista: 0
+        };
+        bz.monedas = monedasValue;
+        bz.paises = paisesValue;
 
-    /* FUNCION PARA LISTAR PLANES Y IMPUESTOS */
+        /* FUNCION PARA LISTAR PLANES Y IMPUESTOS */
 
-    bz.mostrarPlanes = false;
-    bz.mostrarImpuestos = false;
+        bz.mostrarPlanes = false;
+        bz.mostrarImpuestos = false;
 
-    bz.listar = function(opcion){
-        bz.datos.accionesVista = 0;
-        administrarService.listar(opcion).then(function(res){
-            if(opcion == 'planes'){
-                bz.mostrarPlanes = !bz.mostrarPlanes;
-                bz.datos.planes = res;
-            }else if(opcion == 'impuestos'){
-                bz.mostrarImpuestos = !bz.mostrarImpuestos;
-                bz.datos.impuestos = res;
-            }
-        }).catch(function(res){
-            notificacionService.mensaje(res);
-        })
-    }
-
-    /* FUNCION PARA MOSTRAR FORMULARIO DE NUEVO PRECIO */
-
-    bz.nuevoPrecio = function(index){
-        bz.datos.nuevoPrecioPlan.idplan = bz.datos.planes[index].idPlan;
-        bz.datos.accionesVista = 3;
-    } 
-
-    /* FUNCION PARA AGREGAR UN PLAN O IMPUESTO O PRECIO */
-
-    bz.agregar = function(opcion, datos){
-        console.log(datos)
-        administrarService.agregar(opcion,datos).then(function(res){
-            if(opcion == 'impuesto'){
-                bz.datos.impuestos.push(datos);
-                bz.datos.nuevoImpuesto = {};
-            }else if(opcion == 'plan'){
-                bz.datos.planes.push(datos);
-                bz.datos.nuevoPlan = {};
-            }else if(opcion == 'nuevoPrecioPlan'){
-               
-            }
-            notificacionService.mensaje('Peticion Realizada!');  
-        }).catch(function(res){
-            console.log(res)
-        })
-    }
-
-    /* FUNCION PARA MODIFICAR UN PLAN O IMPUESTO */
-
-    bz.modificar = function(opcion, datos){
-        administrarService.modificar(opcion,datos).then(function(res){
-            console.log(res)
-        }).catch(function(res){
-            notificacionService.mensaje(res);
-        })
-    }
-
-    /* FUNCION PARA MOSTRAR TODOS LOS PRECIOS DE UN PLAN */
-
-    bz.mostrar = function(opcion, id){
-        if(opcion == 'nombrePlan'){
-            bz.datos.accionesVista = 5;
-        }else if(opcion == 'preciosPlan'){
-            bz.datos.accionesVista = 4;
-        }else if(opcion == 'impuesto'){
-            bz.datos.accionesVista = 6;
+        bz.listar = function (opcion) {
+            bz.datos.accionesVista = 0;
+            administrarService.listar(opcion).then(function (res) {
+                if (opcion == 'planes') {
+                    bz.mostrarPlanes = !bz.mostrarPlanes;
+                    bz.datos.planes = res;
+                } else if (opcion == 'impuestos') {
+                    bz.mostrarImpuestos = !bz.mostrarImpuestos;
+                    bz.datos.impuestos = res;
+                }
+            }).catch(function (res) {
+                notificacionService.mensaje(res);
+            })
         }
-        
-        /*
-        administrarService.mostrar(id).then(function(){
 
-        }).catch(function(){
+        /* FUNCION PARA MOSTRAR FORMULARIO DE NUEVO PRECIO */
 
-        })
-        */
-    }
+        bz.nuevoPrecio = function (index) {
+            bz.datos.nuevoPrecioPlan.idplan = bz.datos.planes[index].idPlan;
+            bz.datos.accionesVista = 3;
+        }
 
-}])
+        /* FUNCION PARA AGREGAR UN PLAN O IMPUESTO O PRECIO */
 
-.controller('pedidosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'pedidosService', 'SweetAlert', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, pedidosService, SweetAlert, notificacionService) {
+        bz.agregar = function (opcion, datos, validacion) {
+            if(opcion == 'impuesto'){
+                angular.forEach(bz.datos.impuestos, function(valor) {
+                    if(valor.localidad == datos.localidad){
+                        validacion = false;
+                        bz.localidadVal = 'Esta Localidad Ya esta en uso';
+                    }
+                });
+                
+            }else if(opcion == 'plan'){
+                angular.forEach(bz.datos.planes, function(valor) {
+                    if(valor.plan == datos.plan){
+                        validacion = false;
+                        bz.localidadVal2 = 'Esta Nombre Ya esta en uso';
+                    }
+                });
+            }
+
+            if (validacion) {
+                
+                administrarService.agregar(opcion, datos).then(function (res) {
+                    if (opcion == 'impuesto') {
+                        bz.datos.impuestos.push(datos);
+                        bz.datos.nuevoImpuesto = {};
+                    } else if (opcion == 'plan') {
+                        bz.datos.planes.push(datos);
+                        bz.datos.nuevoPlan = {};
+                    } else if (opcion == 'nuevoPrecioPlan') {
+
+                    }
+                    notificacionService.mensaje('Peticion Realizada!');
+                    bz.localidadVal = ' ';
+                }).catch(function (res) {
+                    console.log(res)
+                })
+            }
+        }
+
+        /* FUNCION PARA MODIFICAR UN PLAN O IMPUESTO */
+
+        bz.modificar = function (opcion, datos, validacion) {
+            if (validacion) {
+                administrarService.modificar(opcion, datos).then(function (res) {
+                    if (opcion == 'impuesto') {
+                        bz.datos.impuestos[bz.index].impuesto = datos.impuesto;
+                        document.getElementById('nombreimpuesto').reset();
+                    }
+                }).catch(function (res) {
+                    notificacionService.mensaje(res);
+                })
+            }
+        }
+
+        /* FUNCION PARA MOSTRAR TODOS LOS PRECIOS DE UN PLAN */
+
+        bz.mostrar = function (opcion, datos, index) {
+            if (opcion == 'nombrePlan') {
+                bz.datos.accionesVista = 5;
+            } else if (opcion == 'preciosPlan') {
+                bz.datos.accionesVista = 4;
+            } else if (opcion == 'impuesto') {
+                bz.index = index;
+                bz.datos.modificarImpuesto.localidad = datos;
+                bz.datos.accionesVista = 6;
+            }
+
+            /*
+            administrarService.mostrar(id).then(function(){
+
+            }).catch(function(){
+
+            })
+            */
+        }
+
+        bz.borrar = function (opcion, id, index) {
+            administrarService.borrar(opcion, id).then(function(res){
+                notificacionService.mensaje('Impuesto Eliminado!');
+                delete bz.datos.impuestos[index];
+                bz.listar('impuestos');
+
+            }).catch(function(res){
+                notificacionService.mensaje(res);
+                console.log(res)
+            })
+        }
+
+    }])
+
+    .controller('pedidosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'pedidosService', 'SweetAlert', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, pedidosService, SweetAlert, notificacionService) {
 
         var bz = this;
         bz.elementos = [];
@@ -251,27 +293,27 @@ angular.module("administrador")
         bz.filtros = {
             estados: [{
                 nombre: 'COMPLETADO'
-        }, {
+            }, {
                 nombre: 'EN ESPERA'
-        }, {
+            }, {
                 nombre: 'EN PROCESO'
-        }, {
+            }, {
                 nombre: 'CANCELADO'
-        }],
+            }],
             paises: [{
                 nombre: 'Venezuela'
-        }, {
+            }, {
                 nombre: 'Chile'
-        }, {
+            }, {
                 nombre: 'Ecuador'
-        }],
+            }],
             planes: [{
                 nombre: 'Plan Basico'
-        }, {
+            }, {
                 nombre: 'Plan Premium'
-        }, {
+            }, {
                 nombre: 'Plan Comodo'
-        }]
+            }]
         };
 
         bz.filtrosActivos;
@@ -291,11 +333,11 @@ angular.module("administrador")
             pedidosService.listarPedidos().then(function (res) {
                 angular.forEach(res.data, function (valor, llave) {
                     bz.elementos.push(valor);
-                    bz.elementos[llave].estadoE = false; 
+                    bz.elementos[llave].estadoE = false;
                 })
             })
         }
-        
+
         bz.listaP();
 
 
@@ -317,14 +359,14 @@ angular.module("administrador")
             })
         }
 
-        bz.activar = function(event){
-           var elementosLista = document.querySelectorAll('.lista .elemento.true');
-           var elementoActual = event.currentTarget;
+        bz.activar = function (event) {
+            var elementosLista = document.querySelectorAll('.lista .elemento.true');
+            var elementoActual = event.currentTarget;
 
             for (i = 0; i < elementosLista.length; i++) {
                 elementosLista[i].classList.remove('true');
             }
-            
+
             elementoActual.classList.add('true');
         }
 
@@ -339,7 +381,7 @@ angular.module("administrador")
             })
         }
 
-}])
+    }])
 
     .controller('loginController', ['$scope', '$http', '$rootScope', '$state', "$stateParams", "clientesService", 'SweetAlert', 'notificacionService', function ($scope, $http, $rootScope, $state, $stateParams, clientesService, SweetAlert, notificacionService) {
 
@@ -376,7 +418,7 @@ angular.module("administrador")
             }
 
         }
-}])
+    }])
 
     .controller('usuarioController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'clientesServiceAdmin', 'clientesService', 'SweetAlert', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, clientesServiceAdmin, clientesService, SweetAlert, notificacionService) {
 
@@ -401,7 +443,7 @@ angular.module("administrador")
                     notificacionService.mensaje(res);
                 })
         }
-        
+
         bz.listarU()
 
         /* objeto datos vacios */
@@ -414,43 +456,55 @@ angular.module("administrador")
 
         /* REGISTRAR ADMINISTRADOR */
 
-        bz.registrarU = function (datos) {
-            bz.loaderCargando = true;
-            clientesService.registrar(datos).then(function (res) {
-                    bz.loaderCargando = false;
-                    SweetAlert.swal("Genial", "Registro Exitoso!", "success");
-                    document.getElementById("formularioRegistro").reset()
-                })
-                .catch(function (res) {
-                    bz.loaderCargando = false;
-                    notificacionService.mensaje(res);
-                })
+        bz.registrarU = function (datos, validado) {
+            if (validado) {
+                bz.loaderCargando = true;
+                clientesService.registrar(datos).then(function (res) {
+                        bz.loaderCargando = false;
+                        SweetAlert.swal("Genial", "Registro Exitoso!", "success");
+                        document.getElementById("formularioRegistro").reset()
+                    })
+                    .catch(function (res) {
+                        bz.loaderCargando = false;
+                        notificacionService.mensaje(res);
+                    })
+            }
         }
 
         /* MODIFICAR UN USUARIO */
 
-        bz.modificarUsuario = function (id, nombre) {
+        bz.modificarUsuario = function (id, nombre, index) {
 
             bz.mostrarMo = !bz.mostrarMo;
             bz.uMod = nombre;
-            bz.usuarioId = id;
+            bz.idUsuario = id;
+
+            bz.datos.modificar.idUsuario = id;
+
+            bz.index = index;
+
         }
 
-        bz.modificarU = function (datos) {
-            clientesService.modificarU(datos).then(function (res) {
-                bz.loaderCargando = false;
-                notificacionService.mensaje('Modificacion Exitosa!');
-                document.getElementById("formularioModificar").reset();
-            }).catch(function (res) {
-                notificacionService.mensaje(res);
-                bz.loaderCargando = false;
-            })
+        bz.modificarU = function (datos, validado) {
+            if (validado) {
+                clientesService.modificarU(datos).then(function (res) {
+                    bz.loaderCargando = false;
+                    bz.usuarios[bz.index].nombreUser = datos.nombreUser;
+                    bz.uMod = datos.nombreUser;
+                    console.log(res)
+                    notificacionService.mensaje('Modificacion Exitosa!');
+                    document.getElementById("formularioModificar").reset();
+                }).catch(function (res) {
+                    notificacionService.mensaje(res);
+                    bz.loaderCargando = false;
+                })
+            }
         }
 
 
 
 
-}])
+    }])
 
     .controller('categoriasController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'categoriasService', 'SweetAlert', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, categoriasService, SweetAlert, notificacionService) {
 
@@ -474,7 +528,7 @@ angular.module("administrador")
 
             bz.opcionesCategorias = 0;
             if (que == 'categoria') {
-                if(ocultar == true){
+                if (ocultar == true) {
                     bz.mostrarC = !bz.mostrarC;
                 }
                 bz.cats = [];
@@ -484,8 +538,8 @@ angular.module("administrador")
                     })
                 })
             } else {
-                if(ocultar == true){
-                   bz.mostrarPre = !bz.mostrarPre;
+                if (ocultar == true) {
+                    bz.mostrarPre = !bz.mostrarPre;
                 }
                 bz.prefs = [];
                 categoriasService.listarPreferencias().then(function (res) {
@@ -497,7 +551,7 @@ angular.module("administrador")
             }
 
         }
-        
+
         bz.listar('categoria')
 
         /* MODIFICAR */
@@ -592,9 +646,9 @@ angular.module("administrador")
             }
         }
 
-}])
+    }])
 
-.controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService, Upload, notificacionService) {
+    .controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService, Upload, notificacionService) {
 
         var bz = this;
         bz.mostrarR = false;
@@ -607,13 +661,12 @@ angular.module("administrador")
         bz.categorias = [];
         bz.preferencias = [];
 
-        bz.nuevoIcono = function(datos){
-            iconoFuente.nuevoIcono(datos).then(function(res){
+        bz.nuevoIcono = function (datos) {
+            iconoFuente.nuevoIcono(datos).then(function (res) {
                 console.log(res)
-            }).catch(function(res){
+            }).catch(function (res) {
                 console.log(res)
             })
-            
         }
 
         categoriasService.listarCategorias().then(function (res) {
@@ -624,13 +677,14 @@ angular.module("administrador")
 
         categoriasService.listarPreferencias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
-                bz.preferencias.push(valor);
+                    bz.preferencias.push(valor);
             })
+            bz.datos.registro.datoPrefe = bz.preferencias;
         })
 
-}])
+    }])
 
-.controller('fuentesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService, notificacionService) {
+    .controller('fuentesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService, notificacionService) {
 
         var bz = this;
         bz.mostrarR = false;
@@ -640,13 +694,12 @@ angular.module("administrador")
             registro: {}
         };
 
-        bz.nuevaFuente = function(datos){
-            iconoFuente.nuevaFuente(datos).then(function(res){
+        bz.nuevaFuente = function (datos) {
+            iconoFuente.nuevaFuente(datos).then(function (res) {
                 console.log(res)
-            }).catch(function(res){
-            })
+            }).catch(function (res) {})
         }
-        
+
         bz.categorias = [];
         bz.preferencias = [];
 
@@ -660,5 +713,7 @@ angular.module("administrador")
             angular.forEach(res.data, function (valor, llave) {
                 bz.preferencias.push(valor);
             })
+
+            bz.datos.registro.datoPrefe = bz.preferencias;
         })
-}])
+    }])

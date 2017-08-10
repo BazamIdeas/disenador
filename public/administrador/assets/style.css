@@ -337,3 +337,19 @@ texto.EN.PROCESO {
 .lista .elemento.true {
     background: rgb(187, 189, 185);
 }
+
+.inputArchivo {
+    padding: 10px 5px;
+    border: 1px solid silver;
+    color: #5d5d5d;
+    display: flex;
+    justify-content: space-between;
+    background: #e8e8e8;
+    align-items: center;
+}
+
+.inputArchivo md-icon {
+    color: #5d5d5d;
+    margin: initial;
+    padding: 0;
+}

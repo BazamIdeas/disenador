@@ -1375,7 +1375,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res.data.msg);
+                defered.reject(res);
 
             })
             return promise;
@@ -1553,17 +1553,18 @@ angular.module("administrador")
 
         this.nuevoIcono = function (datos) {
 
-            var archivo = datos.misvg;
-            delete datos.misvg;
-
             var defered = $q.defer();
             var promise = defered.promise;
 
+            /* Ver si se envia el archivo 
+            console.log(datos)
+            */
+
             Upload.upload({
-                url: '/app/elemento/icono',
+                url: '/app/elemento/icono/',
                 method: 'POST',
                 file: {
-                    misvg: archivo
+                    misvg: datos.misvg
                 },
                 data: datos
             }).then(function (res) {
@@ -1572,27 +1573,28 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res.data.msg);
+                defered.reject(res);
 
             })
             return promise;
         }
 
         this.nuevaFuente = function (datos) {
-            datos.mifuente.type = "application/x-font-ttf";
-            var archivo = datos.mifuente;
-
-            console.log(datos.mifuente)
-            delete datos.mifuente;
 
             var defered = $q.defer();
             var promise = defered.promise;
 
+            datos.mifuente.type = 'application/x-font-ttf';
+
+            /* Ver si se envia el archivo 
+            console.log(datos)
+            */
+            
             Upload.upload({
-                url: '/app/elemento/fuente',
+                url: '/app/elemento/fuente/',
                 method: 'POST',
                 file: {
-                    mifuente: archivo
+                    misvg: datos.mifuente
                 },
                 data: datos
             }).then(function (res) {
@@ -1601,7 +1603,7 @@ angular.module("administrador")
 
             }).catch(function (res) {
 
-                defered.reject(res.data.msg);
+                defered.reject(res);
 
             })
             return promise;
@@ -1687,17 +1689,23 @@ angular.module("administrador")
 
         /* ELIMINAR IMPUESTO */
 
-        this.eliminarImpuesto = function (id) {
+        this.borrar = function (opcion, id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/impuesto/borrar/' + id).then(function (res) {
+            if (opcion == 'precioPlan') {
+                var ruta = '/app/precio/borrar/';
+            } else if (opcion == 'impuesto') {
+                var ruta = '/app/impuesto/borrar/';
+            }
+
+            $http.get(ruta + id).then(function (res) {
 
                 defered.resolve(res);
 
             }).catch(function (res) {
 
-                defered.reject(res.data.msg);
+                defered.reject(res);
 
             })
             return promise;

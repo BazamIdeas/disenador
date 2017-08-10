@@ -86,13 +86,13 @@
                             <div class="nombre">{{elemento.impuesto}}</div>
                             <div>
                                 <div>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.eliminar('impuesto')">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.borrar('impuesto', elemento.localidad, $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar</md-tooltip>
                                         <md-icon class="material-icon">close</md-icon>
                                     </md-button>
                                 </div>
                                 <div>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.mostrar('impuesto')">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="administrar.mostrar('impuesto', elemento.localidad, $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                                         <md-icon class="material-icon">add</md-icon>
                                     </md-button>
@@ -105,6 +105,8 @@
         </div>
 
     </div>
+
+        <!-- ACCIONES VISTA -->
     <div flex="40">
         <div class="paneles md-whiteframe-2dp listar" ng-switch="administrar.datos.accionesVista">
 
@@ -118,29 +120,50 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="administrar.agregar('plan',administrar.datos.nuevoPlan)" novalidate>
+                    <form ng-submit="administrar.agregar('plan',administrar.datos.nuevoPlan, nuevoplan.$valid)" novalidate name="nuevoplan">
                         <div layout="column" layout-align="space-between">
-                            <div>
-                                <md-input-container class="md-block">
-                                    <label>Nombre</label>
-                                    <input type="text" ng-model="administrar.datos.nuevoPlan.plan" name="nombre">
-                                </md-input-container>
+                            <md-input-container class="md-block" style="margin-bottom:0;">
+                                <label>Nombre</label>
+                                <input type="text" ng-model="administrar.datos.nuevoPlan.plan" name="plan" required>
+                            </md-input-container>
+                            
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoplan.plan.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
                             </div>
                             <md-input-container class="md-block">
                                 <label>MONEDAS</label>
-                                <md-select ng-model="administrar.datos.nuevoPlan.moneda" name="moneda" ng-required="true">
+                                <md-select ng-model="administrar.datos.nuevoPlan.moneda" name="moneda" ng-required="true" required>
                                     <md-option ng-value="moneda.code" ng-repeat="moneda in administrar.monedas">{{moneda.nombre}} - {{moneda.symbol}}</md-option>
                                 </md-select>
                             </md-input-container>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoplan.moneda.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <!--
+                            <md-input-container class="md-block">
+                                <label>Localidad</label>
+                                <md-select ng-model="administrar.datos.nuevoPlan.isoPais" name="isoPais" ng-required="true">
+                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            -->
+                           
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Precio</label>
-                                    <input type="text" ng-model="administrar.datos.nuevoPlan.precio" name="precio">
+                                    <input type="number" ng-model="administrar.datos.nuevoPlan.precio" name="precio" required>
                                 </md-input-container>
+                            </div>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoplan.precio.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
                             </div>
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
                             </div>
+                            <div class="validad-localidad"><h5>{{administrar.localidadVal2}}</h5></div>
                         </div>
                     </form>
                 </div>
@@ -156,19 +179,24 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="administrar.agregar('impuesto',administrar.datos.nuevoImpuesto)" novalidate>
+                    <form ng-submit="administrar.agregar('impuesto',administrar.datos.nuevoImpuesto, nuevoimpuesto.$valid)" novalidate name="nuevoimpuesto">
                         <div layout="column" layout-align="space-between">
                             <md-input-container class="md-block">
                                 <label>Localidad</label>
                                 <md-select ng-model="administrar.datos.nuevoImpuesto.localidad" name="localidad" ng-required="true">
-                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
+                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}} - {{codigo}}</md-option>
                                 </md-select>
                             </md-input-container>
+                            <div class="validad-localidad"><h5>{{administrar.localidadVal}}</h5></div>
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Impuesto</label>
-                                    <input type="text" ng-model="administrar.datos.nuevoImpuesto.impuesto" name="precio">
+                                    <input type="number" ng-model="administrar.datos.nuevoImpuesto.impuesto" name="impuesto" required>
                                 </md-input-container>
+                            </div>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoimpuesto.impuesto.$error" style="color:maroon" role="alert" ng-show="nuevoimpuesto.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
                             </div>
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
@@ -188,7 +216,8 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="administrar.agregar('nuevoPrecioPlan',administrar.datos.nuevoPrecioPlan)" novalidate>
+                    <form ng-submit="administrar.agregar('nuevoPrecioPlan',administrar.datos.nuevoPrecioPlan, nuevoimpuesto.$valid)" novalidate
+                        name="nuevoprecioplan">
                         <div layout="column" layout-align="space-between">
                             <md-input-container class="md-block">
                                 <label>Localidad</label>
@@ -205,8 +234,12 @@
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Precio</label>
-                                    <input type="text" ng-model="administrar.datos.nuevoPrecioPlan.precio" name="precio">
+                                    <input type="numbre" ng-model="administrar.datos.nuevoPrecioPlan.precio" name="precio" required>
                                 </md-input-container>
+                            </div>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoprecioplan.precio.$error" style="color:maroon" role="alert" ng-show="nuevoprecioplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
                             </div>
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
@@ -219,8 +252,11 @@
             <!-- VER PRECIOS DE UN PLAN -->
 
             <div ng-switch-when="4" class="paneles md-whiteframe-2dp listar">
-                <div layout-padding class="titulo-modulo">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
                     <texto>DETALLES</texto>
+                    <md-button ng-click="administrar.datos.accionesVista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
                 </div>
                 <div layout="column" class="content-scroll">
                     <div class="elemento nopadding">
@@ -237,7 +273,7 @@
                                 <md-button class="md-raised md-primary" type="submit">Modificar</md-button>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -252,13 +288,18 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="administrar.modificar('nombrePlan', administrar.datos.modificarNombrePlan)" novalidate>
+                    <form ng-submit="administrar.modificar('nombrePlan', administrar.datos.modificarNombrePlan, nombreplan.$valid)" novalidate
+                        name="nombreplan">
                         <div layout="column" layout-align="space-between">
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Nombre</label>
-                                    <input type="text" ng-model="administrar.datos.modificarNombrePlan.plan" name="nombre">
+                                    <input type="text" ng-model="administrar.datos.modificarNombrePlan.plan" name="nombre" required>
                                 </md-input-container>
+                            </div>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nombreplan.plan.$error" style="color:maroon" role="alert" ng-show="nombreplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
                             </div>
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
@@ -278,19 +319,19 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="administrar.modificar('impuesto',administrar.datos.modificarImpuesto)" novalidate>
+                    <form ng-submit="administrar.modificar('impuesto',administrar.datos.modificarImpuesto, nombreimpuesto.$valid)" novalidate
+                        name="nombreimpuesto" id="nombreimpuesto">
                         <div layout="column" layout-align="space-between">
-                            <md-input-container class="md-block">
-                                <label>Localidad</label>
-                                <md-select ng-model="administrar.datos.modificarImpuesto.localidad" name="localidad" ng-required="true">
-                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in administrar.paises">{{localidad}}</md-option>
-                                </md-select>
-                            </md-input-container>
+
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Impuesto</label>
-                                    <input type="text" ng-model="administrar.datos.modificarImpuesto.impuesto" name="precio">
+                                    <input type="number" ng-model="administrar.datos.modificarImpuesto.impuesto" name="precio">
                                 </md-input-container>
+                            </div>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nombreimpuesto.impuesto.$error" style="color:maroon" role="alert" ng-show="nombreimpuesto.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
                             </div>
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>

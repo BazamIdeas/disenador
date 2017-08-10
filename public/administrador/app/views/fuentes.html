@@ -1,5 +1,5 @@
 <div flex layout="row" layout-margin layout-align="none start">
-    <div flex="60" class="paneles principal md-whiteframe-2dp listar">
+    <div flex="50" class="paneles principal md-whiteframe-2dp listar">
         <div layout layout-align="none center" layout-padding ng-click="fuentes.mostrarR = !fuentes.mostrarR" class="titulo-modulo">
             <texto>REGISTRO FUENTE</texto>
         </div>
@@ -12,7 +12,7 @@
                             <label>NOMBRE</label>
                             <input type="text" ng-model="fuentes.datos.registro.nombre" name="nombre">
                         </md-input-container>
-                        <div class="button" ngf-select ng-model="fuentes.datos.registro.mifuente" name="mifuente" ngf-max-size="40MB" required>SELECCIONA UNA FUENTE</div>
+                         <div class="button inputArchivo" ngf-select ng-model="fuentes.datos.registro.mifuente" name="mifuente" ngf-max-size="40MB" required><div>SELECCIONA UNA FUENTE</div><md-icon>attach_file</md-icon></div>
                         <div>
                         <md-input-container class="md-block">
                             <label>CATEGORIA</label>
@@ -22,12 +22,18 @@
                         </md-input-container>
                         </div>
                         <div>
-                        <md-input-container class="md-block">
-                            <label>PREFERENCIA</label>
-                            <md-select ng-model="fuentes.datos.registro.preferencia" name="preferencia" ng-required="true">
-                                <md-option ng-value="preferencia.idPreferencia" ng-repeat="preferencia in fuentes.preferencias">{{preferencia.nombre1}} y {{preferencia.nombre2}}</md-option>
-                            </md-select>
-                        </md-input-container>
+                            <br>
+                            <div><h4>PREFERENCIAS</h4></div>
+                            <div layout ng-repeat="preferencia in fuentes.preferencias">
+                                <div flex layout layout-align="center center">
+                                    <span class="md-body-1">{{preferencia.nombre1}}</span>
+                                </div>
+                                <md-slider flex="50" md-discrete ng-model="fuentes.datos.registro.datoPrefe[$index].valor" ng-value="2" min="1" max="3" aria-label="rating">
+                                </md-slider>
+                                <div flex layout layout-align="center center">
+                                    <span class="md-body-1">{{preferencia.nombre2}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div layout>
