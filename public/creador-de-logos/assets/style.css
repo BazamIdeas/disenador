@@ -1,3 +1,51 @@
+:root{
+    /* HELPS */
+    --padding-top:3%;
+    --padding-left:3%;
+    --padding-right:3%;
+    --padding-bottom:3%;
+    --margin-top:3%;
+    --margin-left:3%;
+    --margin-right:3%;
+    --margin-bottom:3%;
+}
+
+.margen_inferior {
+    margin-bottom: var(--margin-bottom);
+}
+
+.margen_izquierdo {
+    margin-left:var(--margin-left);
+}
+
+.margen_derecho {
+    margin-right:var(--margin-right);
+}
+
+.margen_superior {
+    margin-top:var(--margin-top);
+}
+
+.margen-cero {
+    margin: 0;
+}
+
+.padding_top {
+    padding-top:var(--padding-top);
+}
+
+.padding_left {
+    padding-left:var(--padding-left);
+}
+
+.padding_right {
+    padding-right:var(--padding-right);
+}
+
+.padding_bottom {
+    padding-bottom:var(--padding-bottom);
+}
+
 /* Header-Footer */
 
 .menu-header {
@@ -40,7 +88,6 @@ md-icon:focus {
 header {
     position: relative;
 }
-
 header:before {
     content: '.';
     position: absolute;
@@ -55,7 +102,8 @@ header:before {
 
 .trans {
     background-image: url('img/franja-azul.jpg');
-    background-repeat: no-repeat;
+    background-color: transparent;
+    background-repeat:repeat-y;
     background-size: 100% 15%;
     min-height: 100%;
     height: auto;
@@ -237,42 +285,6 @@ img.imagen-loader {
 }
 .seccion-ayuda{
     border-bottom:1px solid grey; margin-bottom:1%; text-align: justify;
-}
-
-.margen_inferior {
-    margin-bottom: 2%;
-}
-
-.margen_izquierdo {
-    margin-left: 2%
-}
-
-.margen_derecho {
-    margin-right: 2%;
-}
-
-.margen_superior {
-    margin-top: 2%;
-}
-
-.margen-cero {
-    margin: 0;
-}
-
-.padding_top {
-    padding-top: 8px;
-}
-
-.padding_left {
-    padding-left: 8px;
-}
-
-.padding_right {
-    padding-right: 8px;
-}
-
-.padding_bottom {
-    padding-bottom: 8px;
 }
 
 

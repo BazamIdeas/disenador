@@ -1,46 +1,54 @@
-<div flex layout="row" layout-margin layout-align="none start">
-    <div flex="50" class="paneles principal md-whiteframe-2dp listar">
-        <div layout layout-align="none center" layout-padding ng-click="fuentes.mostrarR = !fuentes.mostrarR" class="titulo-modulo">
-            <texto>REGISTRO FUENTE</texto>
-        </div>
-        <div ng-if="fuentes.mostrarR" layout-padding class="formularios-login pasos">
-            <form id="formularioRegistro" name="formRegistro" ng-submit="fuentes.nuevaFuente(fuentes.datos.registro)" novalidate>
-                <div layout="column" layout-align="space-between">
-                    <h3 class="text-center">Nueva Fuente</h3>
-                    <div>
-                        <md-input-container class="md-block">
-                            <label>NOMBRE</label>
-                            <input type="text" ng-model="fuentes.datos.registro.nombre" name="nombre">
-                        </md-input-container>
-                         <div class="button inputArchivo" ngf-select ng-model="fuentes.datos.registro.mifuente" name="mifuente" ngf-max-size="40MB" required><div>SELECCIONA UNA FUENTE</div><md-icon>attach_file</md-icon></div>
+<div class="row start-xs">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="paneles principal md-whiteframe-2dp listar">
+            <div layout layout-align="none center" layout-padding ng-click="fuentes.mostrarR = !fuentes.mostrarR" class="titulo-modulo">
+                <texto>REGISTRO FUENTE</texto>
+            </div>
+            <div ng-if="fuentes.mostrarR" layout-padding class="formularios-login pasos">
+                <form id="formularioRegistro" name="formRegistro" ng-submit="fuentes.nuevaFuente(fuentes.datos.registro)" novalidate>
+                    <div layout="column" layout-align="space-between">
+                        <h3 class="text-center">Nueva Fuente</h3>
                         <div>
-                        <md-input-container class="md-block">
-                            <label>CATEGORIA</label>
-                            <md-select ng-model="fuentes.datos.registro.categoria" name="categoria" ng-required="true">
-                                <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in fuentes.categorias">{{categoria.nombreCategoria}}</md-option>
-                            </md-select>
-                        </md-input-container>
-                        </div>
-                        <div>
-                            <br>
-                            <div><h4>PREFERENCIAS</h4></div>
-                            <div layout ng-repeat="preferencia in fuentes.preferencias">
-                                <div flex layout layout-align="center center">
-                                    <span class="md-body-1">{{preferencia.nombre1}}</span>
+                            <md-input-container class="md-block">
+                                <label>NOMBRE</label>
+                                <input type="text" ng-model="fuentes.datos.registro.nombre" name="nombre">
+                            </md-input-container>
+                            <div class="button inputArchivo" ngf-select ng-model="fuentes.datos.registro.mifuente" name="mifuente" ngf-max-size="40MB"
+                                required>
+                                <div>SELECCIONA UNA FUENTE</div>
+                                <md-icon>attach_file</md-icon>
+                            </div>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>CATEGORIA</label>
+                                    <md-select ng-model="fuentes.datos.registro.categoria" name="categoria" ng-required="true">
+                                        <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in fuentes.categorias">{{categoria.nombreCategoria}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <br>
+                                <div>
+                                    <h4>PREFERENCIAS</h4>
                                 </div>
-                                <md-slider flex="50" md-discrete ng-model="fuentes.datos.registro.datoPrefe[$index].valor" ng-value="2" min="1" max="3" aria-label="rating">
-                                </md-slider>
-                                <div flex layout layout-align="center center">
-                                    <span class="md-body-1">{{preferencia.nombre2}}</span>
+                                <div layout ng-repeat="preferencia in fuentes.preferencias">
+                                    <div flex layout layout-align="center center">
+                                        <span class="md-body-1">{{preferencia.nombre1}}</span>
+                                    </div>
+                                    <md-slider flex="50" md-discrete ng-model="fuentes.datos.registro.datoPrefe[$index].valor" ng-value="2" min="1" max="3" aria-label="rating">
+                                    </md-slider>
+                                    <div flex layout layout-align="center center">
+                                        <span class="md-body-1">{{preferencia.nombre2}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div layout>
+                            <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                        </div>
                     </div>
-                    <div layout>
-                        <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>

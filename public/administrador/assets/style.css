@@ -1,7 +1,73 @@
+:root{
+    /* HELPS */
+    --padding-editor:16px;
+    --padding-top:16px;
+    --padding-left:16px;
+    --padding-right:16px;
+    --padding-bottom:16px;
+    --margin-top:16px;
+    --margin-left:16px;
+    --margin-right:16px;
+    --margin-bottom:16px;
+    background: transparent;
+
+
+}
+
+.margen_inferior {
+    margin-bottom: var(--margin-bottom);
+}
+
+.margen_izquierdo {
+    margin-left:var(--margin-left);
+}
+
+.margen_derecho {
+    margin-right:var(--margin-right);
+}
+
+.margen_superior {
+    margin-top:var(--margin-top);
+}
+
+.margen-cero {
+    margin: 0;
+}
+
+.padding-cero{
+    padding: 0 !important;
+}
+
+.padding_top {
+    padding-top:var(--padding-top);
+}
+
+.padding_left {
+    padding-left:var(--padding-left);
+}
+
+.padding_right {
+    padding-right:var(--padding-right);
+}
+
+.padding_bottom {
+    padding-bottom:var(--padding-bottom);
+}
+
+
+
 /* INDEX */
 
-body {
-    background: url(../assets/img/blur-bg.jpg) center center;
+hmtl, body{
+        overflow-x: hidden;
+            background: url(../assets/img/blur-bg.jpg) center center !important;
+        background-color: rgba(250, 250, 250, 0) !important;
+        background-repeat: repeat;
+
+}
+
+.transparente{
+    background-color: transparent !important;
 }
 
 .menu-header {
@@ -35,6 +101,11 @@ body {
 
 .transparencia {
     background-color: rgba(0, 0, 0, .5) !important;
+}
+
+.transparencia-sin-fondo{
+     background-color:transparent !important;   
+     box-shadow: none;
 }
 
 .paneles {
@@ -352,4 +423,8 @@ texto.EN.PROCESO {
     color: #5d5d5d;
     margin: initial;
     padding: 0;
+}
+
+.plan0{
+    background:silver !important ;
 }

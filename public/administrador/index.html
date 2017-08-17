@@ -1,6 +1,7 @@
 <html lang="es" ng-app="administrador">
 
 <head>
+    <link rel="shortcut icon" href="/administrador/assets/img/user.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
@@ -9,6 +10,7 @@
     <link href="assets/fuentes.css" rel="stylesheet">
     <link href="/angular-color-picker/angular-color-picker.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/sweetalert/sweet-alert.css">
+    <link rel="stylesheet" href="/administrador/assets/flexboxgrid.css" type="text/css">
     <title>ADMINISTRADOR | LIDERLOGO</title>
 
     <script src="/jquery/jquery.min.js"></script>
@@ -40,49 +42,58 @@
 </head>
 
 <body>
-    <div layout="row" flex ng-controller="sidenavController as sidenav">
-        <md-sidenav class="transparencia md-whiteframe-24dp" md-is-locked-open="$mdMedia('gt-md')" md-component-id="left" md-whiteframe="4" ng-if="sidenav.autorizado">
-            <md-toolbar class="transparencia">
-                <div class="md-toolbar-tools">
-                    <div>LIDERLOGO</div>
-                </div>
-            </md-toolbar>
-            <md-list ng-cloak layout="column">
-                <md-item class="menuItem" ui-sref="pedidos">
-                    <md-icon>add_shopping_cart</md-icon>
-                    Pedidos
-                </md-item>
-                <md-item class="menuItem" ui-sref="cliente">
-                    <md-icon>person</md-icon>
-                    Clientes
-                </md-item>
-                <md-item class="menuItem" ui-sref="categorias">
-                    <md-icon>settings</md-icon>
-                    Categorias
-                </md-item>
-                <md-item class="menuItem" ui-sref="iconos">
-                    <md-icon>stars</md-icon>
-                    Iconos
-                </md-item>
-                <md-item class="menuItem" ui-sref="fuentes">
-                    <md-icon>font_download</md-icon>
-                    Fuentes
-                </md-item>
-                <md-item class="menuItem" ui-sref="administrar">
-                    <md-icon>settings</md-icon>
-                    Administrar
-                </md-item>
-                <md-item class="menuItem" ui-sref="usuario">
-                    <md-icon>person</md-icon>
-                    Usuario
-                </md-item>
-            </md-list>
-        </md-sidenav>
+    <div class="row" ng-controller="sidenavController as sidenav">
+        <div class="col-sm-2 padding-cero transparencia md-whiteframe-24dp">
+            <md-sidenav style="width: 100%;" class="transparencia" md-component-id="left" md-whiteframe="4" ng-if="sidenav.autorizado">
+                <md-toolbar class="transparencia-sin-fondo">
+                    <div class="md-toolbar-tools">
+                        <div>LIDERLOGO</div>
+                    </div>
+                </md-toolbar>
+                <md-list ng-cloak layout="column">
+                    <md-item class="menuItem" ui-sref="pedidos">
+                        <md-icon>add_shopping_cart</md-icon>
+                        Pedidos
+                    </md-item>
+                    <md-item class="menuItem" ui-sref="cliente">
+                        <md-icon>person</md-icon>
+                        Clientes
+                    </md-item>
+                    <md-item class="menuItem" ui-sref="categorias">
+                        <md-icon>settings</md-icon>
+                        Categorias
+                    </md-item>
+                    <md-item class="menuItem" ui-sref="iconos">
+                        <md-icon>stars</md-icon>
+                        Iconos
+                    </md-item>
+                    <md-item class="menuItem" ui-sref="fuentes">
+                        <md-icon>font_download</md-icon>
+                        Fuentes
+                    </md-item>
+                    <md-item class="menuItem" ui-sref="administrar">
+                        <md-icon>settings</md-icon>
+                        Administrar
+                    </md-item>
+                    <md-item class="menuItem" ui-sref="usuario">
+                        <md-icon>person</md-icon>
+                        Usuario
+                    </md-item>
+                </md-list>
+            </md-sidenav>
+        </div>
 
-        <div layout="row" flex>
-            <div layout="column" layout-fill>
+
+
+        <div class="col-xs-12 padding-cero">
+            <div class="box">
                 <header ng-controller="headerController as header">
-                    <md-toolbar class="transparencia">
+                    <md-toolbar class="transparencia" layout layout-align="none center">
+                        <div layout-padding>
+                            <div ng-click="sidenav.cambiarMenu()" style="max-width:40px;">
+                               <md-icon>menu</md-icon>
+                            </div>
+                        </div>
                         <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
                             <div ng-if="!header.autorizado">
                                 <div>LIDERLOGO</div>
@@ -96,7 +107,7 @@
                                 </ingresar>
 
                                 <ingresar ng-switch-default ng-click="header.menuMostrar()">
-                                    <div>
+                                    <div layout-padding>
                                         <md-icon class="icono-header">account_circle</md-icon>
                                     </div>
                                     <div ng-show="header.hmenuMostrar" class="menu-header">
@@ -108,13 +119,14 @@
                             </div>
                         </div>
                     </md-toolbar>
-                </header>
+                </header >
                 <!-- contenedor principal -->
-                <md-content flex ui-view class="not-background" ng-cloak>
+                <md-content flex ui-view ng-cloak class="padding_top transparente">
 
 
                 </md-content>
-                <!-- 
+            </div>
+            <!-- 
                 <footer flex="5" class="transparencia text-white text-center md-whiteframe-8dp" layout="row" layout-align="space-between center">
                     <div class="logo" flex="30">logo</div>
                     <p class="copyright" flex="30">Copyright 2017</p>
@@ -122,9 +134,9 @@
                 </footer>
                 
                 -->
-            </div>
-
         </div>
+
+    </div>
     </div>
 
 </body>

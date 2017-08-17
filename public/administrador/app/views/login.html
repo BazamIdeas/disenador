@@ -1,6 +1,6 @@
-<div flex layout="column">
-    <div layout="row" layout-align="center" ng-switch="login.mostrarForm" class="margen_superior margen_inferior">
-        <div flex="25" ng-switch-default layout-padding class="pasos formularios-login">
+
+    <div class="row center-xs margen_superior" ng-switch="login.mostrarForm">
+        <div ng-switch-default class="col-xs-10 col-sm-4 col-md-3 pasos formularios-login md-whiteframe-6dp">
             <form name="formLogin" ng-submit="login.login(login.datos.login, formLogin.$valid)" novalidate>
                 <div>
                     <h3 class="text-center">Ingresar</h3>

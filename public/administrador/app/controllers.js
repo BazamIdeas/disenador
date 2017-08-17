@@ -118,7 +118,7 @@ angular.module("administrador")
                 bz.validarP = false;
             }).catch(function (res) {
                 bz.validarP = true;
-                notificacionService.mensaje(res);
+                notificacionService.mensaje('No existen pedidos de este cliente.');
             })
         }
 
@@ -159,7 +159,9 @@ angular.module("administrador")
             nuevoPrecioPlan: {},
             nuevoImpuesto: {},
             planDetalles: {},
-            accionesVista: 0
+            accionesVista: 0,
+            bloquearPlan: {},
+            preciosPlan:[]
         };
         bz.monedas = monedasValue;
         bz.paises = paisesValue;
@@ -169,14 +171,23 @@ angular.module("administrador")
         bz.mostrarPlanes = false;
         bz.mostrarImpuestos = false;
 
-        bz.listar = function (opcion) {
+        bz.listar = function (opcion, cerrar) {
             bz.datos.accionesVista = 0;
             administrarService.listar(opcion).then(function (res) {
                 if (opcion == 'planes') {
                     bz.mostrarPlanes = !bz.mostrarPlanes;
                     bz.datos.planes = res;
+                    for(i = 0; i < bz.datos.planes.length; i++){
+                        if (bz.datos.planes[i].status == 1) {
+                            bz.datos.planes[i].estado = true;
+                        }else{
+                            bz.datos.planes[i].estado = false;
+                        }
+                    };
                 } else if (opcion == 'impuestos') {
-                    bz.mostrarImpuestos = !bz.mostrarImpuestos;
+                    if(!cerrar){
+                        bz.mostrarImpuestos = !bz.mostrarImpuestos;
+                    }
                     bz.datos.impuestos = res;
                 }
             }).catch(function (res) {
@@ -184,35 +195,30 @@ angular.module("administrador")
             })
         }
 
-        /* FUNCION PARA MOSTRAR FORMULARIO DE NUEVO PRECIO */
-
-        bz.nuevoPrecio = function (index) {
-            bz.datos.nuevoPrecioPlan.idplan = bz.datos.planes[index].idPlan;
-            bz.datos.accionesVista = 3;
-        }
-
         /* FUNCION PARA AGREGAR UN PLAN O IMPUESTO O PRECIO */
 
         bz.agregar = function (opcion, datos, validacion) {
-            if(opcion == 'impuesto'){
-                angular.forEach(bz.datos.impuestos, function(valor) {
-                    if(valor.localidad == datos.localidad){
+            if (opcion == 'impuesto') {
+                angular.forEach(bz.datos.impuestos, function (valor) {
+                    if (valor.localidad == datos.localidad) {
                         validacion = false;
                         bz.localidadVal = 'Esta Localidad Ya esta en uso';
                     }
                 });
-                
-            }else if(opcion == 'plan'){
-                angular.forEach(bz.datos.planes, function(valor) {
-                    if(valor.plan == datos.plan){
+
+            } else if (opcion == 'plan') {
+                angular.forEach(bz.datos.planes, function (valor) {
+                    if (valor.plan == datos.plan) {
                         validacion = false;
                         bz.localidadVal2 = 'Esta Nombre Ya esta en uso';
                     }
                 });
+            }else if(opcion == 'nuevoPrecioPlan'){
+                validacion = true;
             }
 
             if (validacion) {
-                
+
                 administrarService.agregar(opcion, datos).then(function (res) {
                     if (opcion == 'impuesto') {
                         bz.datos.impuestos.push(datos);
@@ -221,7 +227,9 @@ angular.module("administrador")
                         bz.datos.planes.push(datos);
                         bz.datos.nuevoPlan = {};
                     } else if (opcion == 'nuevoPrecioPlan') {
-
+                        document.getElementById('nuevoPrecioPlan').reset();
+                        bz.datos.nuevoPrecioPlan = {};
+                        bz.datos.accionesVista = 0;
                     }
                     notificacionService.mensaje('Peticion Realizada!');
                     bz.localidadVal = ' ';
@@ -239,11 +247,25 @@ angular.module("administrador")
                     if (opcion == 'impuesto') {
                         bz.datos.impuestos[bz.index].impuesto = datos.impuesto;
                         document.getElementById('nombreimpuesto').reset();
+                    } else if (opcion == 'nombrePlan') {
+                        bz.datos.planes[bz.index].plan = datos.plan;
+                        document.getElementById('nombrePlan').reset();
                     }
+                    notificacionService.mensaje('Peticion Realizada.');
                 }).catch(function (res) {
                     notificacionService.mensaje(res);
                 })
             }
+        }
+
+        bz.modificarPrecioPlan = function (datos) {
+                administrarService.modificarPrecioPlan(datos).then(function (res) {
+                    console.log(res)
+                    notificacionService.mensaje('Peticion Realizada.');
+                }).catch(function (res) {
+                    console.log(res)
+                    notificacionService.mensaje(res);
+                })
         }
 
         /* FUNCION PARA MOSTRAR TODOS LOS PRECIOS DE UN PLAN */
@@ -251,8 +273,19 @@ angular.module("administrador")
         bz.mostrar = function (opcion, datos, index) {
             if (opcion == 'nombrePlan') {
                 bz.datos.accionesVista = 5;
+                bz.index = index;
+                bz.datos.modificarNombrePlan.idplan = datos;
+            } else if (opcion == 'nuevoPrecioPlan') {
+                bz.datos.nuevoPrecioPlan.idplan = datos;
+                bz.datos.accionesVista = 3;
             } else if (opcion == 'preciosPlan') {
-                bz.datos.accionesVista = 4;
+                bz.datos.preciosPlan = [];
+                administrarService.listarPrecios(datos).then(function(res){
+                    bz.datos.preciosPlan = res;
+                    bz.datos.accionesVista = 4;
+                }).catch(function(res){
+                    console.log(res)
+                })
             } else if (opcion == 'impuesto') {
                 bz.index = index;
                 bz.datos.modificarImpuesto.localidad = datos;
@@ -269,13 +302,30 @@ angular.module("administrador")
         }
 
         bz.borrar = function (opcion, id, index) {
-            administrarService.borrar(opcion, id).then(function(res){
-                notificacionService.mensaje('Impuesto Eliminado!');
+            administrarService.borrar(opcion, id).then(function (res) {
                 delete bz.datos.impuestos[index];
-                bz.listar('impuestos');
-
-            }).catch(function(res){
+                bz.listar('impuestos', true);
+                notificacionService.mensaje('Impuesto Borrado!');
+            }).catch(function (res) {
                 notificacionService.mensaje(res);
+                console.log(res)
+            })
+        }
+
+        bz.bloquearPlan = function (opcion, id, index) {
+            bz.datos.bloquearPlan.idplan = id;
+            if (opcion == 'bloquear') {
+                bz.datos.accionesVista = 0;
+                bz.datos.bloquearPlan.status = 0;
+                bz.datos.planes[index].estado = false;
+            } else if (opcion == 'desbloquear') {
+                bz.datos.bloquearPlan.status = 1;
+                bz.datos.planes[index].estado = true;
+            }
+            administrarService.bloquearPlan(opcion, bz.datos.bloquearPlan).then(function (res) {
+                bz.datos.planes[index].status = bz.datos.bloquearPlan.status;
+                bz.datos.bloquearPlan = {};
+            }).catch(function (res) {
                 console.log(res)
             })
         }
@@ -335,6 +385,10 @@ angular.module("administrador")
                     bz.elementos.push(valor);
                     bz.elementos[llave].estadoE = false;
                 })
+
+            }).catch(function () {
+                bz.valPedidos = true;
+                notificacionService.mensaje('No existen pedidos.');
             })
         }
 
@@ -355,7 +409,7 @@ angular.module("administrador")
                     bz.pedidoDetalle.push(valor);
                 })
             }).catch(function (res) {
-                notificacionService.mensaje(res);
+                notificacionService.mensaje('No existen pedidos para este cliente.');
             })
         }
 
@@ -677,7 +731,7 @@ angular.module("administrador")
 
         categoriasService.listarPreferencias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
-                    bz.preferencias.push(valor);
+                bz.preferencias.push(valor);
             })
             bz.datos.registro.datoPrefe = bz.preferencias;
         })
