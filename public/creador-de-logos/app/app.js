@@ -44,11 +44,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     /* INTERCEPTADOR */
     $httpProvider.interceptors.push('AuthInterceptor');
-
+    
     /*------------------Material Angular --------------*/
 
-    $mdThemingProvider.theme('default')
-        .warnPalette('orange')
+    $mdThemingProvider.theme('default').warnPalette('orange')
 
 
     /*------------------------ Ui router states ----------------------*/
@@ -149,21 +148,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             }
         })
         .state({
-            name: 'paquetes',
-            url: '/paquetes',
-            templateUrl: 'app/views/paquetes.html',
-            controller: 'paquetesController as paquetes',
-            resolve: {
-                "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                    if (!clientesService.autorizado()) {
-
-                        return $q.reject("AUTH_REQUIRED");
-
-                    }
-
-                }]
-            }
+            name: 'planes',
+            url: '/planes',
+            templateUrl: 'app/views/planes.html',
+            controller: 'planesController as pla',
         })
         .state({
             name: 'metodo',

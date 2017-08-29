@@ -1,19 +1,13 @@
-<div flex layout="column">
-    <div layout="row" layout-align="space-around" class="margen_superior">
-        <div flex="45" class="contenedor_logos md-whiteframe-2dp">
+<div class="row around-xs margen_inferior margen_superior">
+    <div class="col-xs-12 col-md-5 margen_inferior">
+        <div>
             <h3 layout-padding class="text-center h_seccion_dashboard">MIS LOGOS</h3>
         </div>
-        <div flex="45" class="contenedor_logos md-whiteframe-2dp">
-            <h3 layout-padding class="text-center h_seccion_dashboard">GUARDADOS</h3>
-        </div>
-    </div>
-    <div layout="row" layout-align="space-around" class="contenedor-de-logos margen_inferior">
-
         <!-- LOGOS COMPRADOS -->
-
-        <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
+        <div class="md-whiteframe-2dp scroll contenedor-de-logos">
             <div flex layout="row" layout-align="space-around start" layout-wrap layout-padding class="text-center">
-                <div flex="30" ng-repeat="logo in cliente.lComprados" class="svg-cliente cliente-content" ng-mouseenter="cliente.efectoHoverC($index, logo)" ng-mouseleave="cliente.efectoHoverC($index, logo)">
+                <div flex="30" ng-repeat="logo in cliente.lComprados" class="svg-cliente cliente-content" ng-mouseenter="cliente.efectoHoverC($index, logo)"
+                    ng-mouseleave="cliente.efectoHoverC($index, logo)">
                     <div>
                         <bazam-visualizar class="logo_icon_cliente" data-svg="cliente.base64(logo.logo)">
                         </bazam-visualizar>
@@ -33,10 +27,14 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
+    <div class="col-xs-12 col-md-5">
+        <h3 layout-padding class="text-center h_seccion_dashboard">GUARDADOS</h3>
+        <div class="md-whiteframe-2dp scroll contenedor-de-logos">
             <div flex layout="row" layout-align="space-around start" layout-wrap layout-padding class="text-center">
-                <div flex="30" ng-repeat="logo in cliente.lGuardados" class="svg-cliente cliente-content" ng-mouseenter="cliente.efectoHoverG($index, logo)" ng-mouseleave="cliente.efectoHoverG($index, logo)">
+                <div flex="30" ng-repeat="logo in cliente.lGuardados" class="svg-cliente cliente-content" ng-mouseenter="cliente.efectoHoverG($index, logo)"
+                    ng-mouseleave="cliente.efectoHoverG($index, logo)">
                     <div>
                         <bazam-visualizar class="logo_icon_cliente" data-svg="cliente.base64(logo.logo)">
                         </bazam-visualizar>
@@ -59,10 +57,9 @@
         </div>
     </div>
 
-
-    <div layout="row" class="margen_superior" layout-align="space-between">
-        <div flex layout="row" flex layout-align="start center">
-            <md-button class="md-raised md-primary" ui-sref="editor">Atras</md-button>
-        </div>
+</div>
+<div class="row between-xs margen_superior">
+    <div flex layout="row" flex layout-align="start center">
+        <md-button class="md-raised md-primary" ui-sref="editor">Atras</md-button>
     </div>
 </div>

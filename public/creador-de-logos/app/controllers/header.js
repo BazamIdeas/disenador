@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* header */
 
-.controller('headerController', ["$state", '$mdPanel', 'clientesService', 'SweetAlert', '$rootScope', '$scope', function ($state, $mdPanel, clientesService, SweetAlert, $rootScope, $scope) {
+.controller('headerController', ["$state", '$mdPanel', 'clientesService', 'SweetAlert', '$rootScope', '$scope', 'ipService', function ($state, $mdPanel, clientesService, SweetAlert, $rootScope, $scope, ipService) {
 
     this.salir = function () {
         SweetAlert.swal("Has cerrado sesion", "Vuelve pronto!", "success");
@@ -19,8 +19,7 @@ angular.module("disenador-de-logos")
             bz.autorizado = $rootScope.objectoCliente;
         }
     });
-
-
+    
     bz.menuMostrar = function () {
         if (bz.hmenuMostrar) {
             bz.hmenuMostrar = false;
@@ -28,6 +27,5 @@ angular.module("disenador-de-logos")
             bz.hmenuMostrar = true;
         }
     }
-
 
 }])

@@ -8,7 +8,7 @@ var planes = {};
 
 planes.getPlanes = function(callback)
 {
-	var q = 'SELECT planes.plan, precios.idPrecio, precios.precio,precios.moneda, precios.isoPais FROM planes INNER JOIN precios ON planes.idPlan = precios.planes_idPlan WHERE precios.status = 1 and planes.status = 1 ORDER BY planes.idPlan';
+	var q = 'SELECT planes.plan, precios.idPrecio, precios.precio,precios.moneda, precios.isoPais, planes.info FROM planes INNER JOIN precios ON planes.idPlan = precios.planes_idPlan WHERE precios.status = 1 and planes.status = 1 ORDER BY planes.idPlan';
 
 	DB.getConnection(function(err, connection)
 	{
@@ -48,6 +48,25 @@ planes.insertPlan = function(planNombre, callback)
 planes.getselectPlanes = function(callback)
 {
 	var q = 'SELECT * FROM planes  ORDER BY plan';
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q ,  function(err, rows){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, rows);
+	  	
+	  });
+
+	  connection.release();
+	});
+
+}
+
+planes.getPlanesWithPrices = function(callback)
+{
+	var q =  'SELECT * FROM planes INNER JOIN precios ON planes.idPlan = precios.planes_idPlan WHERE precios.status = 1 and planes.status = 1 ORDER BY planes.plan';
 
 	DB.getConnection(function(err, connection)
 	{
@@ -168,7 +187,7 @@ planes.cambiarEstado = function(dato, callback)
 
 planes.cambiarNombre = function(dato, callback)
 {
-	var q = 'UPDATE planes SET plan = ? WHERE idPlan = ?';
+	var q = 'UPDATE planes SET plan = ?, info = ? WHERE idPlan = ?';
 	var par = dato; //parametros
 
 	DB.getConnection(function(err, connection)

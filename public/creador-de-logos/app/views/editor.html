@@ -4,9 +4,9 @@
         src: url('{{fuente.url}}');
     }
 </style>
-<div layout layout-fill id="Previsu">
+<div class="row" id="Previsu">
     <!-- --------------------------  MENU -------------------------------------- -->
-    <div class="menu" ng-switch="editor.menu">
+    <div class="menu col-sm-1 col-md-5 nopadding" ng-switch="editor.menu">
         <div class="menu-editor md-whiteframe-2dp">
             <div class="menu-link {{elemento.estado}}" ng-repeat="elemento in editor.elementosMenu" ng-click="editor.efectoClick($index, elemento, $event)">
                 <div>
@@ -21,13 +21,18 @@
                 </div>
             </div>
         </div>
-        <div class="elementos" layout-fill>
+        <div class="elementos">
             <!---------------->
             <!---- NOMBRE ----->
             <!---------------->
             <div class="elemento md-whiteframe-2dp" ng-switch-when="0">
-                <div class="titulo-menu-item">
+                <div class="titulo-menu-item" layout layout-align="between">
                     <texto>OPCIONES DE NOMBRE</texto>
+                    <div class="cerrar-menu-editor" ng-click="editor.hideMenu()">
+                        <md-button class="md-fab md-raised md-mini md-button">
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </md-button>
+                    </div>
                 </div>
 
                 <!-- OPCION -->
@@ -120,13 +125,21 @@
                         </color-picker>
                     </div>
                 </div>
+                <div class="cerrar-menu-editor" ng-click="editor.hideMenu()" layout layout-align="end" layout-padding>
+                    <md-button class="md-raised md-primary">CERRAR</md-button>
+                </div>
             </div>
             <!---------------->
             <!---- SLOGAN ---->
             <!---------------->
             <div class="elemento md-whiteframe-2dp" ng-switch-when="1">
-                <div class="titulo-menu-item">
+                <div class="titulo-menu-item" layout layout-align="between">
                     <texto>OPCIONES DE SLOGAN</texto>
+                    <div class="cerrar-menu-editor" ng-click="editor.hideMenu()">
+                        <md-button class="md-fab md-raised md-mini md-button">
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </md-button>
+                    </div>
                 </div>
                 <div>
                     <div layout layout-align="space-between">
@@ -207,14 +220,23 @@
                         </color-picker>
                     </div>
                 </div>
+                <div class="cerrar-menu-editor" ng-click="editor.hideMenu()" layout layout-align="end" layout-padding>
+                    <md-button class="md-raised md-primary">CERRAR</md-button>
+                </div>
             </div>
             <!---------------->
             <!---- ICONO ----->
             <!---------------->
             <div class="elemento md-whiteframe-2dp" ng-switch-when="2">
-                <div class="titulo-menu-item">
+                <div class="titulo-menu-item" layout layout-align="between">
                     <texto>OPCIONES DE ICONO</texto>
+                    <div class="cerrar-menu-editor" ng-click="editor.hideMenu()">
+                            <md-button class="md-fab md-raised md-mini md-button">
+                                <md-icon>keyboard_arrow_left</md-icon>
+                            </md-button>
+                        </div>
                 </div>
+                
                 <!-- POSICIONES-->
                 <div layout>
                     <div flex="65">
@@ -280,6 +302,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="cerrar-menu-editor" ng-click="editor.hideMenu()" layout layout-align="end" layout-padding>
+                    <md-button class="md-raised md-primary">CERRAR</md-button>
+                </div>
             </div>
             <!-- Fin elemento -->
 
@@ -287,8 +312,13 @@
             <!---- COMPARAR -->
             <!---------------->
             <div class="elemento md-whiteframe-2dp" ng-switch-when="3">
-                <div class="titulo-menu-item">
+                <div class="titulo-menu-item" layout layout-align="between">
                     <texto>COMPARACIONES</texto>
+                    <div class="cerrar-menu-editor" ng-click="editor.hideMenu()">
+                        <md-button class="md-fab md-raised md-mini md-button">
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </md-button>
+                    </div>
                 </div>
                 <div layout="column">
                     <!--
@@ -310,21 +340,26 @@
                         <texto>No existe ninguna comparacion</texto>
                     </div>
                 </div>
+                <div class="cerrar-menu-editor" ng-click="editor.hideMenu()" layout layout-align="end" layout-padding>
+                    <md-button class="md-raised md-primary">CERRAR</md-button>
+                </div>
             </div>
         </div>
     </div>
     <!-- --------------------------  EDITOR -------------------------------------- -->
-    <div class="contenedor-editor" id="popupContainer-editor">
-        <div layout layout-align="space-between">
-            <div layout>
+    <div class="contenedor-editor col-sm-11 col-md-7 nopadding" id="popupContainer-editor">
+        <div class="row around-xs">
+            <div class="col-xs-5 row">
                 <div>
+
                     <md-button class="md-fab md-primary" ng-click="editor.realizarComparacion(editor.comparar)">
                         <md-tooltip md-direction="right" md-visible="tooltipVisible">Comparar</md-tooltip>
                         <md-icon>filter</md-icon>
                     </md-button>
                 </div>
-                <div class="tono-background">
-                    <md-fab-speed-dial md-open="editor.fabEditor2" md-direction="right" class="md-scale" ng-click="editor.fabEditor2=true" ng-mouseleave="editor.fabEditor2=false">
+                <div class="tono-background" style="position:relative;">
+                    <md-fab-speed-dial style="position:absolute;" md-open="editor.fabEditor2" md-direction="right" class="md-scale" ng-click="editor.fabEditor2=true"
+                        ng-mouseleave="editor.fabEditor2=false">
                         <md-fab-trigger>
                             <md-button class="md-fab md-primary">
                                 <md-tooltip md-direction="bottom" md-visible="tooltipVisible">FONDO</md-tooltip>
@@ -345,12 +380,13 @@
                     </md-fab-speed-dial>
                 </div>
             </div>
-            <div class="botones-editor">
-                <div>
-                    <md-fab-speed-dial md-open="editor.fabEditor" md-direction="left" class="md-scale" ng-click="editor.fabEditor=true" ng-mouseleave="editor.fabEditor=false">
+            <div class="botones-editor col-xs-7 row end-xs">
+                <div style="position:relative;">
+                    <md-fab-speed-dial style="position:absolute;" md-open="editor.fabEditor" md-direction="Down" class="md-scale" ng-click="editor.fabEditor=true"
+                        ng-mouseleave="editor.fabEditor=false">
                         <md-fab-trigger>
                             <md-button class="md-fab md-primary">
-                                <md-tooltip md-direction="top" md-visible="tooltipVisible">Compartir</md-tooltip>
+                                <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Compartir</md-tooltip>
                                 <md-icon class="material-icon">share</md-icon>
                             </md-button>
                         </md-fab-trigger>
@@ -401,13 +437,13 @@
                             <div>AYUDA</div>
                         </div>
                     </md-toolbar>
-                    <div class="seccion-ayuda" layout-padding >
+                    <div class="seccion-ayuda" layout-padding>
                         <h2 style="text-transform:uppercase;">TEXTO</h2>
                         <h4>1: Has un click al texto para empezar a editarlo.</h4>
                         <h4>2: Puedes cambiar su color, tamaño y moverlo a travez del lienzo.</h4>
                     </div>
 
-                    <div class="seccion-ayuda" layout-padding >
+                    <div class="seccion-ayuda" layout-padding>
                         <h2 style="text-transform:uppercase;">ICONO</h2>
                         <h4>1: Has un click a alguna parte del icono para empezar a editarlo.</h4>
                         <h4>2: Puedes cambiar su color, tamaño y moverlo a travez del lienzo.</h4>
@@ -420,7 +456,9 @@
                         <h2 style="text-transform:uppercase;">COMPARACIONES</h2>
                         <h4>1: Para hacer la comparacion de un logo preciona el boton el siguiente boton.</h4>
                         <img src="/creador-de-logos/assets/img/comparar.jpg" alt="comparar">
-                        <h4>2: Al presionarlo se mostrara la ventana de comparaciones. Y veras una version de el logo que estas creando.</h4>
+                        <h4>2: Al presionarlo se mostrara la ventana de comparaciones. Y veras una version de el logo que estas
+                            creando.
+                        </h4>
                         <img src="/creador-de-logos/assets/img/ventana-comparar.jpg" alt="comparar">
                         <h4>3: Cuando desees usarla presiona el elemento. Y se cambiara por tu lienzo actual.</h4>
                     </div>

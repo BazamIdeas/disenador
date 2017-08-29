@@ -4,58 +4,70 @@
         src: url('{{fuente.url}}');
     }
 </style>
-<div layout="column" ng-cloak>
-    <div layout layout-align="center" id="popupContainer" class="margen_inferior">
-        <div>
-            <h3 class="titulo_opciones" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
-        </div>
-        <!--
-        <div flex layout layout-align="end center ">
-          
-            <div ng-repeat="configuracion in opciones.configuraciones" ng-click="opciones.mostrarDialogos($event, configuracion.nombre, $index)" id-dialogo="configuracion.id" class="categorias md-whiteframe-2dp">
-                {{configuracion.nombre}}
-            </div>
-           
-        </div>
-         -->
-
-        <div class="ayuda" ng-click="opciones.cambiarMenu()">
-            <md-icon>help_outline</md-icon>
-        </div>
-
-        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" style="width:40%;">
-            <md-toolbar class="transparencia">
-                <div class="md-toolbar-tools">
-                    <div>AYUDA</div>
-                </div>
-            </md-toolbar>
-            <div class="seccion-ayuda" layout-padding>
-                <h4>1: Puedes seleccionar 3 tipos de iconos y 3 tipos de fuentes.</h4>
-                <h4>2: Al tener tu seleccion lista presiona en el boton de siguiente.</h4>
-            </div>
+<div class="row start-xs center-xs">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div layout layout-align="center" id="popupContainer" class="margen_inferior">
             <div>
-                <md-button class="md-raised md-primary" ng-click="opciones.cambiarMenu()">CERRAR</md-button>
+                <h3 class="titulo_opciones" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
             </div>
-        </md-sidenav>
+            <!--
+                    <div flex layout layout-align="end center ">
+                      
+                        <div ng-repeat="configuracion in opciones.configuraciones" ng-click="opciones.mostrarDialogos($event, configuracion.nombre, $index)" id-dialogo="configuracion.id" class="categorias md-whiteframe-2dp">
+                            {{configuracion.nombre}}
+                        </div>
+                       
+                    </div>
+                     -->
+
+            <div class="ayuda" ng-click="opciones.cambiarMenu()">
+                <md-icon>help_outline</md-icon>
+            </div>
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" style="width:40%;">
+                <md-toolbar class="transparencia">
+                    <div class="md-toolbar-tools">
+                        <div>AYUDA</div>
+                    </div>
+                </md-toolbar>
+                <div class="seccion-ayuda" layout-padding>
+                    <h4>1: Puedes seleccionar 3 tipos de iconos y 3 tipos de fuentes.</h4>
+                    <h4>2: Al tener tu seleccion lista presiona en el boton de siguiente.</h4>
+                </div>
+                <div>
+                    <md-button class="md-raised md-primary" ng-click="opciones.cambiarMenu()">CERRAR</md-button>
+                </div>
+            </md-sidenav>
+        </div>
     </div>
-    <div layout layout-align="space-around" class="contenedor-de-logos">
-        <div layout-lg="row" flex="45" class="md-whiteframe-2dp scroll ">
-            <div flex layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_logos text-center">
-                <div flex="33" layout-padding ng-repeat="icono in opciones.datosEstadoAnterior.respuesta.iconos" ng-click="opciones.agregarElemento($index, icono, 'iconos')">
-                    <md-icon class="logo_icon icono" ng-class="opciones.datos.iconos[$index].estado" md-svg-src="data:image/svg+xml;base64,{{icono.svg}}"></md-icon>
+</div>
+
+<div class="row start-xs center-xs around-md">
+    <div class="col-xs-10 col-md-5 md-whiteframe-2dp scroll contenedor-de-logos">
+        <div flex layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_logos text-center">
+            <div flex="33" layout-padding ng-repeat="icono in opciones.datosEstadoAnterior.respuesta.iconos" ng-click="opciones.agregarElemento($index, icono, 'iconos')">
+                <div class="logo_icon icono" ng-class="opciones.datos.iconos[$index].estado">
+                    <bazam-visualizar data-svg="opciones.base64(icono.svg)"></bazam-visualizar>
                 </div>
             </div>
         </div>
-        <div layout="row" flex="45" class="md-whiteframe-2dp scroll ">
-            <div flex layout="row" layout-align="baseline space-around" layout-wrap layout-padding class="contenedor_fuentes text-center">
-                <div flex="33" layout-padding ng-click="opciones.agregarElemento($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.datosEstadoAnterior.respuesta.fuentes">
-                    <p class="fuente" ng-style="{'font-family' : fuente.nombre}" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosEstadoAnterior.nombre}}</p>
+    </div>
+    <div class="col-xs-10 col-md-5  md-whiteframe-2dp scroll contenedor_fuentes">
+        <div class="row around-xs middle-xs text-center">
+            <div class="col-xs-4" layout-padding ng-click="opciones.agregarElemento($index, fuente, 'fuentes')" ng-repeat="fuente in opciones.datosEstadoAnterior.respuesta.fuentes">
+                <div class="box">
+                    <p layout-padding class="fuente" ng-style="{'font-family' : fuente.nombre}" ng-class="opciones.datos.fuentes[$index].estado">{{opciones.datosEstadoAnterior.nombre}}</p>
                 </div>
             </div>
         </div>
     </div>
-    <div layout="row" layout-align="space-between" style="padding: 0 2%;">
+</div>
+
+<div class="row between-xs">
+    <div>
         <md-button class="md-raised md-primary" ui-sref="comenzar">Atrás</md-button>
+    </div>
+    <div>
         <md-button class="md-raised md-primary siguiente" ng-show="opciones.seleccionado(opciones.datos.fuentes, opciones.datos.iconos)"
             ui-sref="proceso({datos: {nombre: opciones.datosEstadoAnterior.nombre  , elementos: opciones.datos}})">Siguiente</md-button>
     </div>

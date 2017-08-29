@@ -154,21 +154,27 @@
                             </md-input-container>
 
                             <div>
-                                <md-input-container class="md-block">
+                                <md-input-container class="md-block" style="margin-bottom:0px;">
                                     <label>Precio</label>
                                     <input type="number" ng-model="administrar.datos.nuevoPlan.precio" name="precio" required>
                                 </md-input-container>
                             </div>
+
                             <!-- VALIDACION -->
                             <div ng-messages="nuevoplan.precio.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
                                 <div ng-message="required">Este campo es requerido.</div>
                             </div>
+                            <md-input-container class="md-block">
+                                <label>Info del plan</label>
+                                <textarea ng-model="administrar.datos.nuevoPlan.info" md-maxlength="800" rows="5" name="info" required md-select-on-focus></textarea>
+                            </md-input-container>
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
                             </div>
                             <div class="validad-localidad">
                                 <h5>{{administrar.localidadVal2}}</h5>
                             </div>
+
                         </div>
                     </form>
                 </div>
@@ -276,13 +282,13 @@
                             <div>{{elemento.moneda}} {{elemento.precio}}</div>
                         </div>
                         <div layout layout-align="space-between center">
-                                <md-input-container style="margin-bottom:0;" flex>
-                                    <label>Nuevo Precio</label>
-                                    <input type="text" ng-model="elemento.precio" name="NuevoPrecio">
-                                </md-input-container>
-                                <div layout>
-                                    <md-button class="md-raised md-primary" type="submit" ng-click="administrar.modificarPrecioPlan(elemento)">Modificar</md-button>
-                                </div>
+                            <md-input-container style="margin-bottom:0;" flex>
+                                <label>Nuevo Precio</label>
+                                <input type="text" ng-model="elemento.precio" name="NuevoPrecio">
+                            </md-input-container>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="administrar.modificarPrecioPlan(elemento)">Modificar</md-button>
+                            </div>
                         </div>
                     </div>
                     <div ng-if="pedidos.valPedidos" class="mensaje-resultado">
@@ -295,7 +301,7 @@
 
             <div ng-switch-when="5">
                 <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
-                    <texto>CAMBIAR NOMBRE</texto>
+                    <texto>MODIFICAR PLAN</texto>
                     <md-button ng-click="administrar.datos.accionesVista = 0" style="margin:0;">
                         <md-icon>keyboard_arrow_left</md-icon>
                     </md-button>
@@ -310,6 +316,11 @@
                                     <input type="text" ng-model="administrar.datos.modificarNombrePlan.plan" name="nombre" required>
                                 </md-input-container>
                             </div>
+
+                            <md-input-container class="md-block">
+                                <label>Info del plan</label>
+                                <textarea ng-model="administrar.datos.modificarNombrePlan.info" md-maxlength="800" rows="5" name="info" required md-select-on-focus></textarea>
+                            </md-input-container>
                             <!-- VALIDACION -->
                             <div ng-messages="nombreplan.plan.$error" style="color:maroon" role="alert" ng-show="nombreplan.$submitted">
                                 <div ng-message="required">Este campo es requerido.</div>

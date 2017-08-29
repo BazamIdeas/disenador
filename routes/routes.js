@@ -92,7 +92,7 @@ router.post("/impuesto/modificar/", controllers.impuestos.modificarImpuesto);
 router.get('/impuesto/borrar/:id', controllers.impuestos.borrarImpuesto);
 
 //MODULO  DE PLANES
-
+router.get("/planesAll", controllers.planes.getPlanesWithPrices);
 router.get("/planes/precios", controllers.planes.listarPlanes); // lista planes y precios activos LISTO
 router.post("/plan", multipartMiddleware, controllers.planes.nuevoPlan); // ingresar Nuevo y un precio
 router.get("/planes", controllers.planes.selectPlan); // selecciona plan

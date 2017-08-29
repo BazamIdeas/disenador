@@ -380,6 +380,49 @@ angular.module("disenador-de-logos")
 
 }])
 
+/*********************/
+/***** planes *********/
+/*********************/
+
+.service("planesService", ["$http", "$q", function ($http, $q) {
+    
+    this.listar = function () {
+        
+        var defered = $q.defer();
+        var promise = defered.promise;
+    
+        $http.get('/app/planesAll').then(function (res) {
+            defered.resolve(res.data);
+        }).catch(function (res) {
+            defered.reject(res);
+        })
+        return promise;
+    }
+    
+}])
+
+/*********************/
+/***** planes *********/
+/*********************/
+
+.service("ipService", ["$http", "$q", function ($http, $q) {
+    
+    this.obtenerDatos = function () {
+        var defered = $q.defer();
+        var promise = defered.promise;
+    
+        $http.get("http://ip-api.com/json/").then(function(res) {
+            defered.resolve(res.data);
+        }).catch(function (res) {
+            defered.reject(res);
+        })
+        return promise;
+    }
+}])
+
+
+
+
 .factory('AuthInterceptor', function ($window, $q, $rootScope) {
     function salir() {
         $rootScope.objectoCliente = false;
@@ -399,11 +442,18 @@ angular.module("disenador-de-logos")
     }
     return {
         request: function (config) {
-            config.headers = config.headers || {};
-            if (autorizado()) {
-                config.headers.auth = autorizado().token;
+
+            if(config.url == 'http://ip-api.com/json/'){
+                return config;
+            }else{
+                config.headers = config.headers || {};
+                if (autorizado()) {
+                    config.headers.auth = autorizado().token;
+                }
+                
+                return config || $q.when(config);
             }
-            return config || $q.when(config);
+
         },
         response: function (response) {
             if (response.status === 401 || response.status === 403) {

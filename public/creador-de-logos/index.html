@@ -9,6 +9,7 @@
     <link href="/angular-color-picker/angular-color-picker.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/sweetalert/sweet-alert.css">
     <link rel="stylesheet" href="/administrador/assets/flexboxgrid.css" type="text/css">
+    <link rel="stylesheet" href="/creador-de-logos/assets/font-awesome.min.css" type="text/css">
 
     <!---jQuery --->
     <script src="/jquery/jquery.min.js"></script>
@@ -45,7 +46,7 @@
     <script src="app/controllers/previsualizar.js"></script>
     <script src="app/controllers/login.js"></script>
     <script src="app/controllers/cliente.js"></script>
-    <script src="app/controllers/paquetes.js"></script>
+    <script src="app/controllers/planes.js"></script>
     <script src="app/controllers/metodo_pago.js"></script>
     <script src="app/controllers/administrar.js"></script>
 
@@ -53,45 +54,49 @@
 
 <body>
     <!-- header -->
-    <header ng-controller="headerController as header">
-        <md-toolbar class="md-hue-2">
-            <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
-                <div layout>
-                    <md-icon class="icono-header" ui-sref="comenzar">mode_edit</md-icon>
-                </div>
-                <div ng-switch="header.autorizado" class="login_header">
-                    <ingresar ng-switch-when="false" ui-sref="login" layout-padding>
-                        Ingresar
-                    </ingresar>
+    <div class="row">
+        <header ng-controller="headerController as header" class="col-xs-12 nopadding" style="z-index: 9;">
+            <md-toolbar class="md-hue-2">
+                <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
+                    <div layout>
+                        <div style="font-size: 30px;text-shadow: 0px 1px;" ui-sref="comenzar">LIDERLOGO</div>
+                    </div>
+                    <div ng-switch="header.autorizado" class="login_header">
+                        <ingresar ng-switch-when="false" ui-sref="login" layout-padding>
+                            Ingresar
+                        </ingresar>
 
-                    <ingresar ng-switch-default ng-click="header.menuMostrar()">
-                        <div>
-                            <md-icon class="icono-header">account_circle</md-icon>
-                        </div>
-                        <div ng-show="header.hmenuMostrar" class="menu-header">
-                            <div ui-sref="dashboard">
-                                <p>Mis logos</p>
+                        <ingresar ng-switch-default ng-click="header.menuMostrar()">
+                            <div>
+                                <md-icon class="icono-header">account_circle</md-icon>
                             </div>
-                            <div ng-click="header.salir()">
-                                <p>Cerrar sesion</p>
+                            <div ng-show="header.hmenuMostrar" class="menu-header">
+                                <div ui-sref="dashboard">
+                                    <p>Mis logos</p>
+                                </div>
+                                <div ng-click="header.salir()">
+                                    <p>Cerrar sesion</p>
+                                </div>
                             </div>
-                        </div>
-                    </ingresar>
+                        </ingresar>
+                    </div>
                 </div>
-            </div>
-        </md-toolbar>
-    </header>
+            </md-toolbar>
+        </header>
+    </div>
+
     <!-- contenedor principal -->
-    <md-content ui-view layout="row" class="trans">
+    <md-content flex ui-view class="trans">
 
     </md-content>
 
-    <!-- Footer -->
+    <!-- Footer 
     <footer class="text-center" layout="row" layout-align="space-between center">
             <div class="logo" flex="30">logo</div>
             <p class="copyright" flex="30">Copyright 2017</p>
             <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
     </footer>
+    -->
 </body>
 
 

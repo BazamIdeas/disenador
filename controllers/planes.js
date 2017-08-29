@@ -22,13 +22,13 @@ exports.nuevoPlan = function (req, res) {
 	var pnomdat = {
 		idPlan: null,
 		plan: req.body.plan,
-		status: 1
+		status: 1,
+		info:req.body.info
 	}
 
 	planes.insertPlan(pnomdat, function (error, data) {
 		//si la etiqueta se ha insertado correctamente mostramos su info
 		if (data && data.insertId) {
-			res.status(200).json(data);
 
 			var planPrecio = {
 				idPrecio: null,
@@ -37,7 +37,6 @@ exports.nuevoPlan = function (req, res) {
 				isoPais: req.body.pais,
 				planes_idPlan: data.insertId
 			};
-
 
 			planes.insertPrecio(planPrecio, function (error, data) {
 				//si la etiqueta se ha insertado correctamente mostramos su info
@@ -79,6 +78,22 @@ exports.selectPlan = function (req, res, next) {
 
 }
 
+exports.getPlanesWithPrices = function (req, res, next) {
+	
+	planes.getPlanesWithPrices(function (error, data) {
+
+			if (typeof data !== 'undefined' && data.length > 0) {
+				res.status(200).json(data);
+			}
+
+			else {
+				res.status(404).json({
+					"msg": "No hay resgitro de planes en la base de datos"
+				})
+			}
+		});
+	
+}
 
 exports.nuevoPrecio = function (req, res) {
 
@@ -183,7 +198,7 @@ exports.statusPlan = function (req, res) {
 }
 
 exports.nombrePlanActualizar = function (req, res) {
-	var dato = [req.body.plan, req.body.idplan];
+	var dato = [req.body.plan, req.body.info, req.body.idplan];
 	//status : req.body.codicion
 	console.log(dato);
 

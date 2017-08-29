@@ -186,13 +186,13 @@ exports.nuevoElementoIcono = function (req, res) {
 	}
 }
 
-// Nuevo elemento Fuente 
 exports.nuevoElementoFuente = function (req, res) {
-	/*console.log(req.body);*/
-	/*console.log(req.files);*/
-	var datoPrefe = req.body.datoPrefe
+	var tmp_path = req.files.mifuente.name;
+	var datoPrefe = req.body.datoPrefe;
 	var tmp_path = req.files.mifuente.path;
 	var tipo = req.files.mifuente.name;
+
+	console.log(tipo);
 
 	if(tipo.includes('ttf')){
 		tipo = 'application/x-font-ttf';
@@ -222,8 +222,9 @@ exports.nuevoElementoFuente = function (req, res) {
 				console.log(fuente);
 
 				elemento.insertFuente(fuente, function (error, data) {
-					//si el pedido existe 
-					if (typeof data !== 'undefined' && data.length > 0) {
+
+					if (data && data.insertId) {
+
 						for (x in datoPrefe) {
 							elecat = {
 								elementos_idElemento: data.insertId,
@@ -239,18 +240,17 @@ exports.nuevoElementoFuente = function (req, res) {
 
 
 							});
-						}
+
+
+						} //fin del for
 						res.status(200).json(data);
 					}
 					//no existe
 					else {
-						//res.status(500).json(data);
-						res.status(500).json({
-							"msg": "Regitro Almacenado", data})
+						res.status(404).json(data)
 					}
+
 				});
-				//res.send('')
-				console.log('listo');
 			});
 		});
 
@@ -259,10 +259,4 @@ exports.nuevoElementoFuente = function (req, res) {
 			"msg": "Archivo no Soportado"
 		})
 	}
-
-
-
-
-
-
 }

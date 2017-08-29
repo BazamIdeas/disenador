@@ -112,12 +112,12 @@ angular.module("disenador-de-logos")
     this.elementosMenu = [{
         icono: 'font_download',
         nombre: 'Nombre',  
-        estado:'activo',
+        estado:'activo'
 
     },{
-        icono: 'font_download',
+        icono: 'create',
         nombre: 'Slogan',
-        estado: 'menu-desactivado',
+        estado: 'menu-desactivado'
     },{
         icono: 'stars',
         nombre: 'Icono'
@@ -126,8 +126,17 @@ angular.module("disenador-de-logos")
         nombre: 'Comparaciones'
     }];
 
+    this.hideMenu = function(){    
+        l = document.querySelector('.elementos');
+        l.style.display = 'none';
+    }
+
     this.menu = 0;
     this.efectoClick = function (index, elemento, event) {
+        if(screen.width <= 980 || document.querySelector('.elementos').style.width != 'block'){
+            l = document.querySelector('.elementos');
+            l.style.display = 'block';
+        }
         
         if(event){
             var elementosLista = document.querySelectorAll('.menu-editor .menu-link.activo');
