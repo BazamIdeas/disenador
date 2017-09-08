@@ -56,7 +56,7 @@ exports.datosLogo =  function(req, res, next) {
 
 exports.listaLogosGuardados = function(req, res, next) {
 		
-		var par = ["Editable",req.body.idCliente]
+		var par = ["Editable",req.idCliente]
 
 		logo.getLogosTipo(par,function(error, data)
 		{
@@ -76,7 +76,7 @@ exports.listaLogosGuardados = function(req, res, next) {
 
 exports.listaLogosDescargables = function(req, res, next) {
 		
-		var par = ["Descargable",req.body.idCliente]
+		var par = ["Descargable",req.idCliente]
 
 		logo.getLogosTipo(par,function(error, data)
 		{
