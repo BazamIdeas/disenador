@@ -1,26 +1,27 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
+var fs=require('fs');
 var controllers = require('.././controllers');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
+var middleware = require('./middleware');
+var configuracion=require('../configuracion.js');
+
 
 //MODULO CLIENTES
-
 //no espera parametros
-router.get('/clientes', multipartMiddleware, controllers.clientes.listaClientes);
+router.get('/clientes',  middleware.validar, controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
-router.get('/cliente/:id', multipartMiddleware, controllers.clientes.datosCliente);
+router.get('/cliente/:id', middleware.validar, controllers.clientes.datosCliente);
 //parametro por get que debe ser el id del cliente.
-router.post('/cliente/borrar/:id', multipartMiddleware, controllers.clientes.borrarCliente);
+router.post('/cliente/borrar/:id', middleware.validar, controllers.clientes.borrarCliente);
 //"valor"	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
-router.post("/cliente", multipartMiddleware, controllers.clientes.nuevoCliente);
+router.post("/cliente", controllers.clientes.nuevoCliente);
 //los mismos datos que la ruta /cliente
-router.post("/cliente/modificar/", multipartMiddleware, controllers.clientes.modificarCliente);
+router.post("/cliente/modificar", middleware.validar, controllers.clientes.modificarCliente);
 //correo, contraseña => email, pass
-
-router.post("/cliente/login", multipartMiddleware, controllers.clientes.login);
+router.post("/cliente/login",controllers.clientes.login);
 
 
 
@@ -28,30 +29,28 @@ router.post("/cliente/login", multipartMiddleware, controllers.clientes.login);
 //MODULO USUARIOS
 //
 //no espera parametros
-router.get('/usuarios', multipartMiddleware, controllers.usuarios.listaUsuarios);
+router.get('/usuarios', middleware.validar, controllers.usuarios.listaUsuarios);
 //parametro por get que debe ser el id del cliente.
-router.get('/usuario/:id', multipartMiddleware, controllers.usuarios.datosUsuario);
+router.get('/usuario/:id', middleware.validar, controllers.usuarios.datosUsuario);
 //parametro por get que debe ser el id del cliente.
-router.get('/usuario/borrar/:id', multipartMiddleware, controllers.usuarios.borrarUsuario);
+router.get('/usuario/borrar/:id', middleware.validar, controllers.usuarios.borrarUsuario);
 // idUsuario : valor,nombreUser : valor,correo : valor,	pass : valor
-router.post("/usuario", multipartMiddleware, controllers.usuarios.nuevoUsuario);
+router.post("/usuario", controllers.usuarios.nuevoUsuario);
 //los mismos datos que la ruta /usuario
-router.post("/usuario/modificar/", multipartMiddleware, controllers.usuarios.modificarUsuario);
-
-router.post("/usuario/login", multipartMiddleware, controllers.usuarios.login);
-
+router.post("/usuario/modificar/", controllers.usuarios.modificarUsuario);
+router.post("/usuario/login",controllers.usuarios.login);
 
 //MODULO PEDIDOS
-router.get('/pedidos', multipartMiddleware, controllers.pedidos.listaPedidos); //lista todos los pedidos
-router.get('/pedido/:id', multipartMiddleware, controllers.pedidos.datosPedido); //muestra los datos de un pedido por su id
-router.get('/pedidosCliente/:id', multipartMiddleware, controllers.pedidos.datosPedidosCliente); //muestra la lista de pedidos de un cliente
-router.get('/pedido/borrar/:id', multipartMiddleware, controllers.pedidos.borrarPedido); //borra un pedido
-router.post("/pedido", multipartMiddleware, controllers.pedidos.nuevoPedido); //crea un pedido primero guardando el logo 
-router.post("/pedido/guardado/", multipartMiddleware, controllers.pedidos.nuevoPedidoGuardado); //crea un pedido de un logo ya guardado
-router.post("/pedido/modificar/", multipartMiddleware, controllers.pedidos.modificarPedido); // modifica los datos de un pedido
-router.post("/pedido/cambiar/", multipartMiddleware, controllers.pedidos.cambiarEstado); // cambia de estado al pedido
-router.get("/pedido/pagado/:idElemento/:idLogo/", controllers.pedidos.cambioEstadoPagado); // cambia de estado al pedido
-router.get("/pedido/noPago/", controllers.pedidos.noPago); // cambia de estado al pedido
+router.get('/pedidos', middleware.validar, controllers.pedidos.listaPedidos);//lista todos los pedidos
+router.get('/pedido/:id', middleware.validar, controllers.pedidos.datosPedido);//muestra los datos de un pedido por su id
+router.get('/pedidos/cliente/:id', middleware.validar, controllers.pedidos.datosPedidosCliente);//muestra la lista de pedidos de un cliente
+router.get('/pedido/borrar/:id', middleware.validar, controllers.pedidos.borrarPedido);//borra un pedido
+router.post("/pedido", middleware.validar, controllers.pedidos.nuevoPedido);//crea un pedido primero guardando el logo 
+router.post("/pedido/guardado/", middleware.validar, controllers.pedidos.nuevoPedidoGuardado);//crea un pedido de un logo ya guardado
+router.post("/pedido/modificar/", middleware.validar, controllers.pedidos.modificarPedido);// modifica los datos de un pedido
+router.post("/pedido/cambiar/", middleware.validar, controllers.pedidos.cambiarEstado);// cambia de estado al pedido
+router.get("/pedido/pagado/:idElemento/:idLogo/:tipo/:tk", controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
+router.get("/pedido/no/pago/:tk", controllers.pedidos.noPago);// RUTAS INTERNAS
 
 
 //MODULO CATEGORIAS
@@ -113,7 +112,7 @@ router.post("/logo/modificar/", multipartMiddleware, controllers.logos.modificar
 router.post("/logo/descargar/", multipartMiddleware, controllers.logos.descargar);
 
 //PARA PRUEBAS
-router.post("/logos/prueba/", middleware.validar, controllers.logos.prueba);
+router.get("/prueba", middleware.decodificar);
 
 
 module.exports = router;
