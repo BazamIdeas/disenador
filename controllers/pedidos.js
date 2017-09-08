@@ -72,7 +72,7 @@ exports.nuevoPedido =  function(req,res)
 		estado : 'Editable',
 		logo : req.body.logo,
 		tipoLogo : req.body.tipoLogo,
-		clientes_idCliente : req.idCliente,
+		clientes_idCliente : req.body.idCliente,
 		elementos_idElemento : req.body.idElemento
 		};
 
@@ -107,7 +107,7 @@ exports.nuevoPedido =  function(req,res)
 								if (typeof data !== 'undefined' && data.length > 0)
 								{
 									var plan = data;
-									elemento.getElemento(req.body.idElemento,function(error, data){
+									elemento.getElementos(req.body.idElemento,function(error, data){
 
 										if (typeof data !== 'undefined' && data.length > 0){
 											
@@ -119,7 +119,6 @@ exports.nuevoPedido =  function(req,res)
 												moneda : plan[0].moneda,
 												localidad : req.body.localidad,
 												descripcion : "Diseño de logo - "+plan[0].plan, 
-												localidad : req.body.localidad,
 												idLogo : idLogo2,
 												idElemento : req.body.idElemento,
 												tipoElemento : data[0].tipo.replace(" ",""),

@@ -70,7 +70,7 @@
                             <div>
                                 <md-icon class="icono-header">account_circle</md-icon>
                             </div>
-                            <div ng-show="header.hmenuMostrar" class="menu-header">
+                            <div ng-show="header.hmenuMostrar" class="menu-header" ng-mouseleave="header.menuMostrar()">
                                 <div ui-sref="dashboard">
                                     <p>Mis logos</p>
                                 </div>

@@ -205,7 +205,7 @@ exports.nuevoElementoFuente = function (req, res) {
 	if ((tipo == 'application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-eot')) {
 
 		var nombrefuente = req.files.mifuente.name;
-		var targer_path = './public/fuente/' + nombrefuente;
+		var targer_path = './fuentes/' + nombrefuente;
 		fs.rename(tmp_path, targer_path, function (err) {
 			fs.unlink(tmp_path, function (err) {
 
@@ -215,7 +215,7 @@ exports.nuevoElementoFuente = function (req, res) {
 					url: targer_path,
 					svg: null,
 					color: null,
-					tipo: tipo,
+					tipo: 'FUENTE',
 					comprado: 0,
 					categorias_idcategoria: req.body.categoria
 				}

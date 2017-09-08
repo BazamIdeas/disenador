@@ -23,7 +23,6 @@ angular.module("disenador-de-logos")
 
             return $mdSidenav('right').toggle();
         }
-
         /* LOCAL STORAGE */
 
         this.definirInfo = function (llave, datos) {
@@ -32,11 +31,11 @@ angular.module("disenador-de-logos")
 
         if ($stateParams.datos) {
             this.definirInfo($state.current.name, $stateParams.datos);
-            this.datosEstadoAnterior = $stateParams.datos;
+            bz.datosEstadoAnterior = $stateParams.datos;
 
         } else if (LS.obtener($state.current.name)) {
 
-            this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
+            bz.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
         } else {
             $state.go('comenzar');
         }
@@ -50,45 +49,6 @@ angular.module("disenador-de-logos")
             return llaves;
 
         }
-
-
-        this.datosEstadoAnterior.respuesta.fuentes = [{
-            id: 1,
-            url: "../creador-de-logos/assets/fonts/Bahiana-Regular.ttf",
-            nombre: "Bahiana-Regular"
-        }, {
-            id: 2,
-            url: "../creador-de-logos/assets/fonts/Barrio-Regular.ttf",
-            nombre: "Barrio-Regular"
-        }, {
-            id: 3,
-            url: "../creador-de-logos/assets/fonts/CaveatBrush-Regular.ttf",
-            nombre: "CaveatBrush-Regular"
-        }, {
-            id: 4,
-            url: "../creador-de-logos/assets/fonts/DellaRespira-Regular.ttf",
-            nombre: "DellaRespira-Regular"
-        }, {
-            id: 5,
-            url: "../creador-de-logos/assets/fonts/IndieFlower.ttf",
-            nombre: "IndieFlower"
-        }, {
-            id: 6,
-            url: "../creador-de-logos/assets/fonts/Anton-Regular.ttf",
-            nombre: "Anton-Regular"
-        }, {
-            id: 7,
-            url: "../creador-de-logos/assets/fonts/FjallaOne-Regular.ttf",
-            nombre: "FjallaOne-Regular"
-        }, {
-            id: 8,
-            url: "../creador-de-logos/assets/fonts/Lobster-Regular.ttf",
-            nombre: "Lobster-Regular"
-        }, {
-            id: 9,
-            url: "../creador-de-logos/assets/fonts/Pacifico-Regular.ttf",
-            nombre: "Pacifico-Regular"
-        }];
 
         this.datos = {
 
@@ -104,13 +64,13 @@ angular.module("disenador-de-logos")
                 if (!this.datos[tipo][indice]) {
 
                     this.datos[tipo][indice] = valor;
-                    this.datosEstadoAnterior.respuesta[tipo][indice].estado = 'activo';
+                    bz.datosEstadoAnterior.respuesta[tipo][indice].estado = 'activo';
 
                 } else {
 
                     delete this.datos[tipo][indice];
 
-                    this.datosEstadoAnterior.respuesta[tipo][indice].estado = 'inactivo';
+                    bz.datosEstadoAnterior.respuesta[tipo][indice].estado = 'inactivo';
                 }
             } else {
 
@@ -119,7 +79,7 @@ angular.module("disenador-de-logos")
 
                     delete this.datos[tipo][indice];
 
-                    this.datosEstadoAnterior.respuesta[tipo][indice].estado = 'inactivo';
+                    bz.datosEstadoAnterior.respuesta[tipo][indice].estado = 'inactivo';
 
                 } else {
 
@@ -131,44 +91,20 @@ angular.module("disenador-de-logos")
         }
 
         /* CATEGORIAS EXISTENTES */
-        this.categoria = this.datosEstadoAnterior.categoria;
-        this.categoriasPosibles = [];
+        bz.categoria = bz.datosEstadoAnterior.categoria;
+        bz.categoriasPosibles = [];
 
         categoriasService.listaCategorias.then(function (res) {
-
             angular.forEach(res.data, function (valor, llave) {
-
                 bz.categoriasPosibles.push(valor);
-
-
             })
 
         })
 
-        bz.mostrarDialogos = function (ev, nombre, id) {
-
-            bz.mostrarDialogo(ev);
-            bz.dialogos(nombre, id);
-
-        }
-
-        bz.configuraciones = {
-            preferencias: {
-                id: '1',
-                nombre: 'Preferencias',
-                icono: 'alarm_add'
-            },
-            categorias: {
-                id: '2',
-                nombre: 'Categorias',
-                icono: 'alarm_add'
-            }
-        }
-
         bz.mostrarDialogo = function (ev) {
             $mdDialog.show({
                     controller: DialogController,
-                    templateUrl: 'app/views/dialogos/dialogoOpciones.tpl',
+                    templateUrl: 'app/views/dialogos/dialogoOpciones.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true,
@@ -176,33 +112,60 @@ angular.module("disenador-de-logos")
                 })
                 .then(function (answer) {
                     $scope.status = 'You said the information was "' + answer + '".';
-                }, function () {
-                    $scope.status = 'You cancelled the dialog.';
+                }, function (res) {
+                    console.log(res);
+                    bz.datosEstadoAnterior.respuesta.iconos = res[0].data;
+                    bz.datosEstadoAnterior.respuesta.fuentes = res[1].data;
+                    
                 });
         };
 
-        bz.pestana = {
-            nombre: '',
-            id: ''
-        };
-        bz.preferencias = this.datosEstadoAnterior.preferencias;
+        bz.preferencias = bz.datosEstadoAnterior.preferencias;
 
-        bz.dialogos = function (nombre, id) {
-            bz.pestana.nombre = nombre;
-            bz.pestana.id = id;
-        }
-
-        function DialogController($scope, $mdDialog, LS) {
-            $scope.categoria = bz.categoria;
+        function DialogController($scope, $mdDialog, elementosService, $q) {
+            modal = this;
             $scope.categorias = bz.categoriasPosibles;
-            $scope.pestana = bz.pestana;
             $scope.preferencias = bz.preferencias;
 
-            $scope.dialogosCuerpos = $scope.pestana.id;
+            $scope.datos = {
+                tipo: '',
+                preferencias: $scope.preferencias
+            }
+            $scope.datosFuentes = {};
+            /* SELECT FUNCTION */
 
-            $scope.cancel = function (llave, datos) {
-                $mdDialog.cancel();
-            };
+            $scope.iconos = [{
+                tipo: 'ICONO Y NOMBRE',
+                descripcion: 'Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.',
+                enviar: 'ICONO'
+            }, {
+                tipo: 'TIPOGRAFICO',
+                descripcion: 'Una forma facil de recordar en el centro de su logo.',
+                enviar: 'TIPOGRAFICO'
+            }, {
+                tipo: 'INICIAL Y NOMBRE',
+                descripcion: 'Una letra como el elemento principal de su logo.',
+                enviar: 'INICIAL'
+            }]
+
+            $scope.selectA = function (i) {
+                $scope.datos.tipo = $scope.iconos[i].enviar;
+            }
+
+            $scope.submit = function () {
+                $scope.datosFuentes.categoria = $scope.datos.categoria;
+                $scope.datosFuentes.preferencias = $scope.datos.preferencias;
+                $scope.datosFuentes.tipo = 'FUENTE';
+                
+                promesaMultiple = $q.all([elementosService.listaSegunPref($scope.datos), elementosService.listaSegunPref($scope.datosFuentes)]);
+
+                promesaMultiple.then(function (res) {
+                    $mdDialog.cancel(res);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+
         }
 
 

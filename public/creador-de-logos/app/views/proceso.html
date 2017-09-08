@@ -1,11 +1,6 @@
 <style ng-repeat="fuente in proceso.datosEstadoAnterior.elementos.fuentes">
     @font-face {
-        font-family: {
-            {
-                fuente.nombre
-            }
-        }
-        ;
+        font-family:'{{fuente.nombre}}';
         src:url('{{fuente.url}}');
     }
 </style>
@@ -17,7 +12,7 @@
         <md-icon>help_outline</md-icon>
     </div>
 
-    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" >
+    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
         <md-toolbar class="transparencia">
             <div class="md-toolbar-tools">
                 <div>AYUDA</div>
@@ -40,7 +35,7 @@
                 <bazam-svg-text bazam-svg-text-pos data-icono="{{proceso.base64(logo.icono.svg)}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{proceso.posicion.coordenadas.x}}"
                     data-texto-y="{{proceso.posicion.coordenadas.y}}" data-texto="{{proceso.datosEstadoAnterior.nombre}}"></bazam-svg-text>
             </div>
-            <md-icon ui-sref="editor({logo:logo, posicion: proceso.posicion, texto: proceso.datosEstadoAnterior.nombre})" class="iconos-procesos siguiente"
+            <md-icon ui-sref="editor({logo:logo, posicion: proceso.posicion, texto: proceso.datosEstadoAnterior.nombre, fuentes: proceso.datosEstadoAnterior.elementos.fuentes})" class="iconos-procesos siguiente"
                 ng-show="logo.estado">create</md-icon>
         </div>
     </div>

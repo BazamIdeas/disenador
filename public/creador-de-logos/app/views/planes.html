@@ -1,22 +1,39 @@
-<div class="row center-xs">
+<div class="row">
     <div class="col-xs-4">
-        <md-inpu-container>
-            <label>Seleccione una moneda</label>
-            <md-select ng-model="pla.datos.filtros.moneda" aria-label="filtro">
-                <md-option ng-repeat="mon in pla.datos.planes" ng-value="{{mon.moneda}}" >{{mon.moneda}}</md-option>
-            </md-select>
-        </md-inpu-container>
+        <div style="position:relative;">
+            <md-fab-speed-dial md-open="true" md-direction="right" class="md-flign">
+                <md-fab-trigger ng-if="pla.datos.planes.length" ng-click="pla.datos.moneda = ''">
+                    <md-button class="md-raised">
+                        <h4>MONEDAS</h4>
+                    </md-button>
+                </md-fab-trigger>
+
+                <md-fab-actions>
+                    <md-button ng-click="pla.datos.moneda = mon.moneda" aria-label="x" class="md-raised" ng-repeat="mon in pla.datos.planes | unique:'moneda'">
+                        <h5>{{mon.moneda}}</h5>
+                    </md-button>
+                </md-fab-actions>
+            </md-fab-speed-dial>
+        </div>
     </div>
 </div>
 <div class="margen_superior row middle-xs center-xs">
-    <paquete class="col-xs-10 col-md-3 margen_inferior paquete{{$index}}" ng-repeat="plan in pla.datos.planes | filter:pla.datos.filtros | limitTo: 8 track by $index">
+    <div ng-if="!pla.datos.planes.length" style="height:60vh;" class="row middle-xs center-xs">
+        <div>
+            <div>
+                <h2>CARGANDO LOS MEJORES PLANES PARA USTED</h2>
+            </div>
+            <md-progress-circular md-diameter="96" style="margin:auto;"></md-progress-circular>
+        </div>
+    </div>
+    <paquete class="col-xs-10 col-md-3 margen_inferior paquete{{$index}}" ng-repeat="plan in pla.datos.planes | filter:{moneda:pla.datos.moneda} | limitTo:10 track by $index">
         <p_header>{{plan.plan}}</p_header>
         <p_body class="md-whiteframe-3dp">
             {{plan.info}}
         </p_body>
         <p_price>{{plan.precio}} {{plan.moneda}}</p_price>
         <p_footer layout-padding layout layout-align="space-around center" ui-sref="metodo" class="md-whiteframe-3dp">
-            <i class="fa fa-paypal" aria-hidden="true"></i>
+            <i class="fa fa-paypal" aria-hidden="true" ng-click="pla.realizarPedido(plan.idPrecio, plan.isoPais)"></i>
             <i class="fa fa-credit-card" aria-hidden="true"></i>
         </p_footer>
     </paquete>

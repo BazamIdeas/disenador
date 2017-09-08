@@ -36,15 +36,11 @@ angular.module("disenador-de-logos")
         $state.go('opciones');
     }
 
-    /* *************** */
     
-    bz.lGuardados;
-    bz.lComprados;
-
     /* LISTAR LOGOS */
 
     bz.mostrarG = function () {
-        logosService.mostrarGuardados().then(function (res) {
+        logosService.mostrarGuardados($rootScope.objectoCliente.idCliente).then(function (res) {
             bz.lGuardados = res.data;
         }).catch(function (res) {
             bz.notifyG = true;
@@ -52,7 +48,7 @@ angular.module("disenador-de-logos")
     }
 
     bz.mostrarC = function () {
-        logosService.mostrarComprados().then(function (res) {
+        logosService.mostrarComprados($rootScope.objectoCliente.idCliente).then(function (res) {
             bz.lComprados = res.data;
         }).catch(function (res) {
             bz.notifyC = true;

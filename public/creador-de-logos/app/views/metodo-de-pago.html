@@ -25,7 +25,7 @@
                             <p>Una forma facil de recordar en el centro de su logo.</p>
                         </div>
                     </div>
-                    <div class="tipo-logo col-xs-4 col-md-5" ng-click="metodo.pedido('paypal', metodo.datosEstadoAnterior.logoSvg64, metodo.datosEstadoAnterior.idIcono)">
+                    <div class="tipo-logo col-xs-4 col-md-5" ng-click="metodo.pedido('paypal')">
                         <div class="tipo-logo-icon" style="font-size: 44px;">
                             <i class="fa fa-paypal" aria-hidden="true"></i>
                         </div>
@@ -70,7 +70,7 @@
                         </div>
                         <div layout layout-align="space-between">
                             <md-button class="md-raised md-primary siguiente" ng-click="metodo.mostrar='inicial'">METODOS</md-button>
-                            <md-button class="md-raised md-primary siguiente" ng-click="metodo.pedido('credit_card', metodo.datosEstadoAnterior.logoSvg64, 1, metodo.datosEstadoAnterior.idIcono, tTarjeta, numeroT, mes, year)">PAGAR</md-button>
+                            <md-button class="md-raised md-primary siguiente" ng-click="metodo.pedido('credit_card', tTarjeta, numeroT, mes, year)">PAGAR</md-button>
                         </div>
                     </form>
                 </div>
@@ -79,7 +79,7 @@
     </div>
     <div class="row center-xs">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 row middle-xs between-xs">
-            <md-button class="md-raised md-primary" ui-sref="editor">Atras</md-button>
+            <md-button class="md-raised md-primary" ui-sref="planes">Atras</md-button>
             <md-button ng-show="metodo.pago" class="md-raised md-primary siguiente" ui-sref="dashboard">Siguiente</md-button>
         </div>
     </div>

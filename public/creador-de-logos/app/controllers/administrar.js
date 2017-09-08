@@ -38,11 +38,11 @@ angular.module("disenador-de-logos")
         bz.info = this.datosEstadoAnterior;
 
         bz.medidas = [{
-            ancho: 300
+            ancho: 600
         }, {
-            ancho: 1000
+            ancho: 1200
         }, {
-            ancho: 1500
+            ancho: 1800
         }];
 
         this.elementos = [];
@@ -70,22 +70,29 @@ angular.module("disenador-de-logos")
 
                 if (bz.nombre) {
                     var logo = angular.element(".logo"+ancho+" svg");
-/*
-                    if(ancho = 300){
-                        logo.attr('preserveAspectRatio',"xMidYMid meet");
-                        logo.attr('width', ancho);
-                        logo.attr('height', ancho);
 
-                        var width = logo.attr('width') * 1.5;
-                        var height = logo.attr('height') * 1.5;
-                        
-                        var viewbox = '0 0 '+ width+' '+height;
-                        logo.attr('viewbox', viewbox)
-                    }
-  */
-                    saveSvgAsPng(logo[0], bz.nombre, {scale: 2}); 
+                        logo.attr('preserveAspectRatio',"xMidYMid meet");
+
+                    svgAsPngUri(logo[0],{left:-50,top:-20, width: 600, height: 600}, function(uri) {
+                        triggerDownload(uri);
+                    }); 
                     
                 }
+
+                function triggerDownload (imgURI) {
+                    var evt = new MouseEvent('click', {
+                      view: window,
+                      bubbles: false,
+                      cancelable: true
+                    });
+                  
+                    var a = document.createElement('a');
+                    a.setAttribute('download', bz.nombre);
+                    a.setAttribute('href', imgURI);
+                    a.setAttribute('target', '_blank');
+                  
+                    a.dispatchEvent(evt);
+                  }
 
             }).catch(function (res) {
                 console.log(res);

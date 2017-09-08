@@ -6,7 +6,7 @@ var elemento = {};
 
 elemento.getElementos = function( datos, callback)
 {
-	var q = 'SELECT  * FROM elementos INNER JOIN elementos_has_preferencias ON elementos_has_preferencias.elementos_idElemento = elementos.idElemento WHERE elementos_has_preferencias.preferencias_idPreferencia = ? AND elementos_has_preferencias.valor = ? AND elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12' ;
+	var q = 'SELECT * FROM elementos INNER JOIN elementos_has_preferencias ON elementos_has_preferencias.elementos_idElemento = elementos.idElemento WHERE elementos_has_preferencias.preferencias_idPreferencia = ? AND elementos_has_preferencias.valor = ? AND elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12' ;
 
 	DB.getConnection(function(err, connection)
 	{ //cmienzo del for
@@ -23,7 +23,6 @@ elemento.getElementos = function( datos, callback)
 	  connection.release();
 	});
 }
-
 
 elemento.getElementosIncat = function( datos, callback)
 {

@@ -5,20 +5,19 @@
     }
 </style>
 <div class="row start-xs center-xs">
+    <div style="position:absolute;left: 1%;top: 3%;">
+        <md-button ng-click="opciones.mostrarDialogo($event)"
+            aria-label="Dialog" class="md-fab md-raised md-mini">
+            <md-tooltip md-direction="top" md-visible="tooltipVisible">Configuracion</md-tooltip>
+            <md-icon>refresh</md-icon>
+        </md-button>
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
         <div layout layout-align="center" id="popupContainer" class="margen_inferior">
             <div>
                 <h3 class="titulo_opciones" md-truncate>ELIJA LOS DISEÑOS Y LAS FUENTES QUE DESEA USAR</h3>
             </div>
-            <!--
-                    <div flex layout layout-align="end center ">
-                      
-                        <div ng-repeat="configuracion in opciones.configuraciones" ng-click="opciones.mostrarDialogos($event, configuracion.nombre, $index)" id-dialogo="configuracion.id" class="categorias md-whiteframe-2dp">
-                            {{configuracion.nombre}}
-                        </div>
-                       
-                    </div>
-                     -->
 
             <div class="ayuda" ng-click="opciones.cambiarMenu()">
                 <md-icon>help_outline</md-icon>
@@ -62,7 +61,6 @@
         </div>
     </div>
 </div>
-
 <div class="row between-xs">
     <div>
         <md-button class="md-raised md-primary" ui-sref="comenzar">Atrás</md-button>

@@ -138,7 +138,7 @@ header md-toolbar {
 }
 
 .contenedor-de-logos {
-    height: 60vh;
+    height:30vw;
 }
 
 .material-icon {
@@ -335,7 +335,7 @@ button {
 
 .contenedor_fuentes {
     font-size: 20px;
-    height: 400px;
+    height:30vw;
 }
 
 .contenedor_fuentes p {

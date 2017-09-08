@@ -11,6 +11,10 @@ angular.module("disenador-de-logos")
 
     var bz = this;
 
+    ipService.obtenerDatos().then(function (res) {
+        $rootScope.isoPais = res.countryCode;
+    })
+
     bz.autorizado = clientesService.autorizado();
 
 
