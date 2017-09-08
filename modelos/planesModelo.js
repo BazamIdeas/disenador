@@ -8,11 +8,11 @@ var planes = {};
 
 planes.getPlanes = function(callback)
 {
-	var q = 'SELECT planes.plan, precios.idPrecio, precios.precio,precios.moneda FROM planes INNER JOIN precios ON planes.idPlan = precios.planes_idPlan WHERE precios.status = 1 ORDER BY planes.idPlan';
+	var q = 'SELECT planes.plan, precios.idPrecio, precios.precio,precios.moneda, precios.isoPais, planes.info FROM planes INNER JOIN precios ON planes.idPlan = precios.planes_idPlan WHERE precios.status = 1 and planes.status = 1 ORDER BY planes.idPlan';
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q ,  function(err, rows){
+		connection.query( q,  function(err, rows){
 	  	
 	  	if(err)	throw err;
 	  	
@@ -24,27 +24,6 @@ planes.getPlanes = function(callback)
 	});
 
 }
-
-/*planes.getPlanesPrecio = function(idPlan, callback)
-{
-	var q = 'SELECT precio, moneda FROM precios WHERE planes_idPlan = ? '
-	var id = [idPlan];
-//console.log(id)
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , id,   function(err, rows){
-	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
-
-	  connection.release();
-	});
-
-}*/
-
 
 planes.insertPlan = function(planNombre, callback)
 {
@@ -85,6 +64,25 @@ planes.getselectPlanes = function(callback)
 
 }
 
+planes.getPlanesWithPrices = function(callback)
+{
+	var q =  'SELECT * FROM planes INNER JOIN precios ON planes.idPlan = precios.planes_idPlan WHERE precios.status = 1 and planes.status = 1 ORDER BY planes.plan';
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q ,  function(err, rows){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, rows);
+	  	
+	  });
+
+	  connection.release();
+	});
+
+}
+
 planes.insertPrecio = function(planPrecio, callback)
 {
 	var q = 'INSERT INTO precios SET ? ' 
@@ -104,26 +102,7 @@ planes.insertPrecio = function(planPrecio, callback)
 	  connection.release();
 	});
 }
-/*planes.buscarPrecios = function(buscarPrecio, callback)
-{
-	
-	var q = 'SELECT * FROM precios ';
-	var id = buscarPrecio;
-	console.log(id)
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q ,   function(err, rows){
-	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
 
-	  connection.release();
-	});
-
-}*/
 
 planes.getPrecio = function(idprecio,callback)
 { 
@@ -167,47 +146,64 @@ planes.updateprecio = function(idprecio, callback)
 
 	});
 }
-/*
-
-
-
-impuesto.deleteImpuesto = function(id, callback)
-{
-	var q = 'SELECT * FROM impuestos WHERE localidad = ?';
-	var par = [id] //parametros
-
+//nuevos modelos de planes
+planes.getPlanprecio= function(planId, callback)
+{ 	
+	var q = 'SELECT * FROM precios WHERE planes_idPlan = ? ' ;
+	var par = planId ;//parametros
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row)
-		{
-	  	 	//si existe la id del cliente a eliminar
-		  	if (typeof row !== 'undefined' && row.length > 0)
-		  	{
-		  		var qq = 'DELETE FROM impuestos WHERE localidad = ?';
-		  		DB.getConnection(function(err, connection)
-		  		{
-					connection.query( qq , par , function(err, row)
-					{
-				  	
-				  		if(err)	throw err;
-
-					  	//devolvemos el última id insertada
-					  	else callback(null,{"msg" : 'eliminado'}); 
-				  	
-				 	 });
-
-				  	connection.release();
-				});
-
-		  	}
-		  	else callback(null,{"msg":"no existe esta Etiqueta"});
-	  	});
-
+		connection.query( q , par, function(err, row){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, row);
+	  	
+	  });
+ 
 	  connection.release();
 	});
 }
 
-*/
+planes.cambiarEstado = function(dato, callback)
+{
+	var q = 'UPDATE planes SET status = ? WHERE idPlan = ?';
+	var par = dato; //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+
+	  	else callback(null,{"msg" : row }); 
+	  	
+	  });
+
+	  connection.release();
+
+	});
+}
+
+planes.cambiarNombre = function(dato, callback)
+{
+	var q = 'UPDATE planes SET plan = ?, info = ? WHERE idPlan = ?';
+	var par = dato; //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+
+	  	else callback(null,{"msg" : row }); 
+	  	
+	  });
+
+	  connection.release();
+
+	});
+}
 
 
 module.exports = planes;

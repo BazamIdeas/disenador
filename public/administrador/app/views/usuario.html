@@ -1,0 +1,151 @@
+<div class="row start-xs">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="listar">
+
+            <!-- LISTAR USUARIOS -->
+
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="none center" layout-padding ng-click="usuario.listarU()" class="titulo-modulo">
+                    <texto>LISTAR USUARIOS</texto>
+                </div>
+                <div ng-show="usuario.mostrarU">
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="usuario.buscar" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div class="tabla">
+                        <div>Nombre:</div>
+                        <div style="flex:2;">Correo:</div>
+                        <div>Acciones:</div>
+                    </div>
+                    <div layout="column" class="content-scroll">
+                        <div layout layout-align="center" ng-show="usuario.loaderMostrar" class="margen_superior">
+                            <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                        </div>
+                        <div ng-repeat="elemento in usuario.usuarios | filter:usuario.buscar track by $index" class="elemento">
+                            <div class="tabla-campo">
+                                <div class="nombre">{{elemento.nombreUser}}</div>
+                                <div style="flex:2;">{{elemento.correo}}</div>
+                                <div>
+                                    <md-button class="md-primary md-raised" ng-click="usuario.modificarUsuario(elemento.idUsuario, elemento.nombreUser, $index)">MODIFICAR</md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REGISTRAR USUARIO -->
+
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="none center" layout-padding ng-click="usuario.mostrarR = !usuario.mostrarR" class="titulo-modulo">
+                    <texto>REGISTRO USUARIO</texto>
+                </div>
+                <div ng-if="usuario.mostrarR" layout-padding class="formularios-login pasos">
+                    <form id="formularioRegistro" name="formRegistro" ng-submit="usuario.registrarU(usuario.datos.registrar, formRegistro.$valid)"
+                        novalidate>
+                        <div layout="column" layout-align="space-between">
+                            <h3 class="text-center">Registrar</h3>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre</label>
+                                    <input type="text" ng-model="usuario.datos.registrar.nombreUser" name="nombre" required>
+                                </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formRegistro.nombreUser.$error" style="color:maroon" role="alert" ng-show="formRegistro.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                </div>
+                                <md-input-container class="md-block">
+                                    <label>Correo</label>
+                                    <input type="email" ng-model="usuario.datos.registrar.correo" name="correo" required>
+                                </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formRegistro.correo.$error" style="color:maroon" role="alert" ng-show="formRegistro.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="email">Debe ser un email válido</div>
+                                </div>
+                                <md-input-container class="md-block">
+                                    <label>Contraseña</label>
+                                    <input type="password" ng-model="usuario.datos.registrar.pass" name="pass" minlength="8" required>
+                                </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formRegistro.pass.$error" style="color:maroon" role="alert" ng-show="formRegistro.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Debe Tener como minimo 8 caracteres.</div>
+                                </div>
+                                <md-input-container class="md-block">
+                                    <label>Teléfono</label>
+                                    <input type="tel" ng-model="usuario.datos.registrar.telefono" name="telefono" required>
+                                </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formRegistro.telefono.$error" style="color:maroon" role="alert" ng-show="formRegistro.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                </div>
+                                <md-input-container class="md-block">
+                                    <label>País</label>
+                                    <input type="text" ng-model="usuario.datos.registrar.pais" name="pais" required>
+                                </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formRegistro.pais.$error" style="color:maroon" role="alert" ng-show="formRegistro.$submitted" required>
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                </div>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                            <div layout layout-align="center" ng-show="usuario.loaderCargando" class="margen_superior">
+                                <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-show="usuario.mostrarMo">
+        <div class="paneles md-whiteframe-2dp listar">
+
+            <!-- MODIFICAR USUARIOS -->
+
+            <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                <texto>MODIFICAR USUARIO</texto>
+                <md-button ng-click="usuario.mostrarMo = false" style="margin:0;">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
+            </div>
+            <div layout-padding class="formularios-login pasos">
+                <form id="formularioModificar" name="formModificar" ng-submit="usuario.modificarU(usuario.datos.modificar, formModificar.$valid)"
+                    novalidate>
+                    <div layout="column" layout-align="space-between">
+                        <h3 class="text-center">Modificar {{usuario.uMod}}</h3>
+                        <div>
+                            <md-input-container class="md-block">
+                                <label>Nombre</label>
+                                <input type="text" ng-model="usuario.datos.modificar.nombreUser" name="nombre" required>
+                            </md-input-container>
+                            <!-- VALIDACION -->
+                            <div ng-messages="formModificar.nombreUser.$error" style="color:maroon" role="alert" ng-show="formModificar.$submitted" required>
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <md-input-container class="md-block">
+                                <label>Contraseña</label>
+                                <input type="password" ng-model="usuario.datos.modificar.pass" name="pass" required>
+                            </md-input-container>
+                            <!-- VALIDACION -->
+                            <div ng-messages="formModificar.pass.$error" style="color:maroon" role="alert" ng-show="formModificar.$submitted" required>
+                            <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                            <div layout layout-align="center" ng-show="usuario.loaderCargando" class="margen_superior">
+                                <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

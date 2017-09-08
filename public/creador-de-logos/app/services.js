@@ -1,452 +1,541 @@
 angular.module("disenador-de-logos")
 
+    .filter('unique', function () {
 
-/*-------------------------- Services --------------------------*/
+        return function (items, filterOn) {
+
+            if (filterOn === false) {
+                return items;
+            }
+
+            if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+                var hashCheck = {},
+                    newItems = [];
+
+                var extractValueToCompare = function (item) {
+                    if (angular.isObject(item) && angular.isString(filterOn)) {
+                        return item[filterOn];
+                    } else {
+                        return item;
+                    }
+                };
+
+                angular.forEach(items, function (item) {
+                    var valueToCheck, isDuplicate = false;
+
+                    for (var i = 0; i < newItems.length; i++) {
+                        if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                    if (!isDuplicate) {
+                        newItems.push(item);
+                    }
+
+                });
+                items = newItems;
+            }
+            return items;
+        };
+    })
+
+    /*-------------------------- Services --------------------------*/
 
 
-/***************************/
-/*******CATEGORIAS**********/
-/***************************/
+    /***************************/
+    /*******CATEGORIAS**********/
+    /***************************/
 
-.service('categoriasService', ["$http", function ($http) {
+    .service('categoriasService', ["$http", function ($http) {
 
 
-    this.listaCategorias = $http.get("/app/categorias");
+        this.listaCategorias = $http.get("/app/categorias");
 
 
     }])
 
 
 
-/***************************/
-/******PREFERENCIAS*********/
-/***************************/
+    /***************************/
+    /******PREFERENCIAS*********/
+    /***************************/
 
-.service('preferenciasService', ["$http", function ($http) {
+    .service('preferenciasService', ["$http", function ($http) {
 
 
-    this.listaPreferencias = $http.get("/app/preferencias");
+        this.listaPreferencias = $http.get("/app/preferencias");
 
 
     }])
 
 
-/***************************/
-/*********ELEMENTOS*********/
-/***************************/
+    /***************************/
+    /*********ELEMENTOS*********/
+    /***************************/
 
 
 
-.service('elementosService', ["$http", function ($http) {
+    .service('elementosService', ["$http", function ($http) {
 
-    this.listaSegunPref = function (datos) {
+        this.listaSegunPref = function (datos) {
 
-        return $http.post("/app/elementos/busqueda", datos)
+            return $http.post("/app/elementos/busqueda", datos)
 
-        .then(function (res) {
+                .then(function (res) {
 
-            return res;
+                    return res;
 
-        })
+                })
 
-        .catch(function (res) {
-            console.log("catch");
-
-
-        })
-    }
-    }])
+                .catch(function (res) {
+                    console.log("catch");
 
 
-/*********************/
-/********PEDIDOS******/
-/*********************/
-
-.service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
-
-    this.paypal = function (tipoPago, logoSVG, idElemento, tTarjeta = false, nTarjeta = false, expire_month = false, expire_year = false) {
-
-        var defered = $q.defer();
-
-        var promise = defered.promise;
-        
-        var cliente = $rootScope.objectoCliente.id;
-
-
-        var datos = {
-            idElemento: idElemento,
-            logo: logoSVG,
-            idPrecio: 1,
-            localidad: 'nulo',
-            tipoLogo: "Logo y nombre",
-            idCliente: 1,
-            tipoPago: tipoPago
+                })
         }
-
-        if (tipoPago == "credit_card") {
-
-            datos.tTarjeta = tTarjeta;
-            datos.nTarjeta = nTarjeta;
-            datos.expire_month = expire_month;
-            datos.expire_year = expire_year;
-
-        }
-
-        $http.post("/app/pedido", datos).then(function (res) {
-
-            defered.resolve(res);
-
-        }).catch(function (res) {
-
-            defered.reject(res);
-
-        })
+    }])
 
 
-        return promise;
+    /*********************/
+    /********PEDIDOS******/
+    /*********************/
 
-    }
+    .service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
 
+        this.paypal = function (datosPedido, tipoPago, tTarjeta = false, nTarjeta = false, expire_month = false, expire_year = false) {
 
-}])
+            var defered = $q.defer();
 
-/***************************************/
-/***************CLIENTES****************/
-/***************************************/
+            var promise = defered.promise;
 
+            var datos = {
+                idElemento: datosPedido.idElemento,
+                logo: datosPedido.logo,
+                idPrecio: datosPedido.idPrecio,
+                localidad: datosPedido.localidad,
+                tipoLogo: datosPedido.tipoLogo,
+                tipoPago: tipoPago,
+                idCliente: datosPedido.idCliente
+            }
 
+            if (tipoPago == "credit_card") {
 
-.service('clientesService', ['$http', '$q', '$window', '$rootScope', function ($http, $q, $window, $rootScope) {
+                datos.tTarjeta = tTarjeta;
+                datos.nTarjeta = nTarjeta;
+                datos.expire_month = expire_month;
+                datos.expire_year = expire_year;
 
+            }
 
-    this.registrar = function (datos) {
-
-        var defered = $q.defer();
-
-        var promise = defered.promise;
-
-        $http.post("/app/cliente", datos).then(function (res) {
+            $http.post("/app/pedido", datos).then(function (res) {
 
                 defered.resolve(res);
 
-            })
-            .catch(function (res) {
+            }).catch(function (res) {
 
                 defered.reject(res);
-            })
-
-        return promise;
-
-
-    }
-
-    this.login = function (datos) {
-
-        var defered = $q.defer();
-
-        var promise = defered.promise;
-
-        $http.post("/app/cliente/login", datos)
-
-        .then(function (res) {
-
-                $window.localStorage.setItem('bzToken', JSON.stringify(res.data));
-                $rootScope.objectoCliente = res.data;
-
-                defered.resolve();
 
             })
-            .catch(function (res) {
-                $window.localStorage.removeItem('bzToken');
-                defered.reject()
-            })
 
 
-        return promise;
+            return promise;
 
-    }
+        }
 
-    this.autorizado = function () {
 
-        if ($rootScope.objectoCliente) {
+    }])
 
-            return $rootScope.objectoCliente;
+    /***************************************/
+    /***************CLIENTES****************/
+    /***************************************/
 
-        } else {
 
-            if ($window.localStorage.getItem('bzToken')) {
 
-                $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
+    .service('clientesService', ['$http', '$q', '$window', '$rootScope', function ($http, $q, $window, $rootScope) {
+
+
+        this.registrar = function (datos) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/cliente", datos).then(function (res) {
+
+                    defered.resolve(res);
+
+                })
+                .catch(function (res) {
+
+                    defered.reject(res);
+                })
+
+            return promise;
+
+        }
+
+        this.login = function (datos) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/cliente/login", datos)
+
+                .then(function (res) {
+
+                    $window.localStorage.setItem('bzToken', JSON.stringify(res.data));
+                    $rootScope.objectoCliente = res.data;
+
+                    defered.resolve();
+
+                })
+                .catch(function (res) {
+                    $window.localStorage.removeItem('bzToken');
+                    defered.reject()
+                })
+
+
+            return promise;
+
+        }
+
+        this.autorizado = function () {
+
+            if ($rootScope.objectoCliente) {
 
                 return $rootScope.objectoCliente;
 
             } else {
 
-                return false;
+                if ($window.localStorage.getItem('bzToken')) {
+
+                    $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
+
+                    return $rootScope.objectoCliente;
+
+                } else {
+
+                    return false;
+
+                }
 
             }
 
         }
 
-    }
+        this.salir = function () {
 
-    this.salir = function () {
+            $rootScope.objectoCliente = false;
+            $window.localStorage.removeItem('bzToken');
 
-        $rootScope.objectoCliente = false;
-        $window.localStorage.removeItem('bzToken');
-
-    }
-
-
-}])
-
-
-
-/*--------------------------- Factories aislados ------------------*/
-
-.factory('compararLogosFactory', [function () {
-
-    var logos = {
-
-        comparar: [],
-        comprar: ""
-
-    };
-
-    var informacion = {
-
-        definir: function (valor, tipo) {
-
-            if (tipo == "comprar") {
-
-                logos.comprar = valor;
-
-            } else if (tipo == "comparar")
-
-            {
-                logos.comparar.push(valor)
-            }
-
-
-
-        },
-
-        obtener: function (tipo) {
-
-            if (tipo == "comprar") {
-
-                return logos.comprar;
-
-            } else if (tipo == "comparar") {
-                return logos.comparar;
-            }
         }
 
-    }
 
-    return informacion;
+    }])
+
+
+
+    /*--------------------------- Factories aislados ------------------*/
+
+    .factory('compararLogosFactory', [function () {
+
+        var logos = {
+
+            comparar: [],
+            comprar: ""
+
+        };
+
+        var informacion = {
+
+            definir: function (valor, tipo) {
+
+                if (tipo == "comprar") {
+
+                    logos.comprar = valor;
+
+                } else if (tipo == "comparar")
+
+                {
+                    logos.comparar.push(valor)
+                }
+
+
+
+            },
+
+            obtener: function (tipo) {
+
+                if (tipo == "comprar") {
+
+                    return logos.comprar;
+
+                } else if (tipo == "comparar") {
+                    return logos.comparar;
+                }
+            }
+
+        }
+
+        return informacion;
 
 
 
     }])
 
-.factory('compartirFactory', [function () {
-    var estados = [];
-    var informacion = {
-        definir: function (nombre, valor) {
-            estados[nombre] = valor;
-        },
-        obtener: function (nombre) {
-            return estados[nombre];
+    .factory('compartirFactory', [function () {
+        var estados = [];
+        var informacion = {
+            definir: function (nombre, valor) {
+                estados[nombre] = valor;
+            },
+            obtener: function (nombre) {
+                return estados[nombre];
+            }
         }
-    }
-    return informacion;
+        return informacion;
     }])
 
-.factory('crearLogoFactory', [function () {
+    .factory('crearLogoFactory', [function () {
 
-    var logos = [];
+        var logos = [];
 
-    var crear = function (iconos, fuentes) {
+        var crear = function (iconos, fuentes) {
 
-        angular.forEach(iconos, function (icono, indice) {
+            angular.forEach(iconos, function (icono, indice) {
 
-            angular.forEach(fuentes, function (fuente, indice) {
+                angular.forEach(fuentes, function (fuente, indice) {
 
-                var logo = {
+                    var logo = {
 
-                    icono: icono,
-                    fuente: fuente
+                        icono: icono,
+                        fuente: fuente
 
-                };
+                    };
 
-                logos.push(logo);
+                    logos.push(logo);
+
+                })
 
             })
 
-        })
+            return logos;
 
-        return logos;
+        }
 
-    }
-
-    return crear;
+        return crear;
 
     }])
 
-.factory('LS', ['$window', '$rootScope', function ($window, $rootScope) {
-    return {
-        definir: function (llave, valor) {
-            $window.localStorage.setItem(llave, JSON.stringify(valor));
-            return this;
-        },
-        obtener: function (llave) {
-            return $window.localStorage.getItem(llave);
-        }
-    };
+    .factory('LS', ['$window', '$rootScope', function ($window, $rootScope) {
+        return {
+            definir: function (llave, valor) {
+                $window.localStorage.setItem(llave, JSON.stringify(valor));
+                return this;
+            },
+            obtener: function (llave) {
+                return $window.localStorage.getItem(llave);
+            }
+        };
 
     }])
 
 
 
-/*********************/
-/***** Logos *********/
-/*********************/
+    /*********************/
+    /***** Logos *********/
+    /*********************/
 
-.service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
+    .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
 
 
-    this.guardarLogo = function (idLogo, estado, logo, tipoLogo,idElemento) {
+        this.guardarLogo = function (idCliente, logo, tipoLogo, idElemento) {
 
-        var defered = $q.defer();
+            var defered = $q.defer();
 
-        var promise = defered.promise;
+            var promise = defered.promise;
 
-        var datos = {
-            idlogo: idLogo,
-            estado: estado,
-            logo: logo,
-            tipoLogo: tipoLogo,
-            idCliente: 1,
-            idElemento: idElemento,
+            var datos = {
+                logo: logo,
+                tipoLogo: tipoLogo,
+                idElemento: idElemento,
+                idCliente: idCliente
+            }
+
+            $http.post("/app/logo/guardar", datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+
+            return promise;
+
         }
 
-        $http.post("/app/logo/guardar", datos).then(function (res) {
 
-            defered.resolve(res);
+        this.mostrarGuardados = function (id) {
 
-        }).catch(function (res) {
+            var defered = $q.defer();
 
-            defered.reject(res);
+            var promise = defered.promise;
 
-        })
+            var datos = {
+                idCliente: id,
+            }
 
+            $http.post("/app/logos/guardados/", datos).then(function (res) {
 
-        return promise;
+                defered.resolve(res);
 
-    }
+            }).catch(function (res) {
 
+                defered.reject(res);
 
-    this.mostrarGuardados = function () {
+            })
 
-        var defered = $q.defer();
+            return promise;
 
-        var promise = defered.promise;
-
-
-        $http.post("/app/logos/guardados").then(function (res) {
-
-
-            defered.resolve(res);
-
-        }).catch(function (res) {
-
-            defered.reject(res);
-
-        })
-
-
-        return promise;
-
-    }
-
-    this.mostrarComprados = function () {
-
-        var defered = $q.defer();
-
-        var promise = defered.promise;
-
-        $http.post("/app/logos/descargables").then(function (res) {
-
-
-            defered.resolve(res);
-
-        }).catch(function (res) {
-
-            defered.reject(res);
-
-        })
-
-        return promise;
-    }
-
-    this.descargarLogo = function (idLogo, ancho) {
-
-        var defered = $q.defer();
-
-        var promise = defered.promise;
-
-        var datos = {
-            idLogo: idLogo,
-            ancho: ancho
         }
 
-        $http.post("/app/logo/descargar/", datos).then(function (res) {
+        this.mostrarComprados = function (id) {
 
-            defered.resolve(res);
+            var defered = $q.defer();
 
-        }).catch(function (res) {
+            var promise = defered.promise;
 
-            defered.reject(res);
+            var datos = {
+                idCliente: id,
+            }
 
-        })
+            $http.post("/app/logos/descargables/", datos).then(function (res) {
 
-        return promise;
+                defered.resolve(res);
 
-    }
+            }).catch(function (res) {
 
-}])
+                defered.reject(res);
 
-.factory('AuthInterceptor', function ($window, $q, $rootScope) {
-    function salir() {
-        $rootScope.objectoCliente = false;
-        $window.localStorage.removeItem('bzToken');
-    }
-    function autorizado() {
-        if ($rootScope.objectoCliente) {
-            return $rootScope.objectoCliente;
-        } else {
-            if ($window.localStorage.getItem('bzToken')) {
-                $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
+            })
+
+            return promise;
+
+        }
+
+        this.descargarLogo = function (idLogo, ancho) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            var datos = {
+                idLogo: idLogo,
+                ancho: ancho
+            }
+
+            $http.post("/app/logo/descargar/", datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+
+        }
+
+    }])
+
+    /*********************/
+    /***** planes *********/
+    /*********************/
+
+    .service("planesService", ["$http", "$q", function ($http, $q) {
+
+        this.listar = function () {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/planesAll').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+    }])
+
+    /*********************/
+    /***** planes *********/
+    /*********************/
+
+    .service("ipService", ["$http", "$q", function ($http, $q) {
+
+        this.obtenerDatos = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get("http://ip-api.com/json/").then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+    }])
+
+
+
+
+    .factory('AuthInterceptor', function ($window, $q, $rootScope) {
+        function salir() {
+            $rootScope.objectoCliente = false;
+            $window.localStorage.removeItem('bzToken');
+        }
+
+        function autorizado() {
+            if ($rootScope.objectoCliente) {
                 return $rootScope.objectoCliente;
             } else {
-                return false;
+                if ($window.localStorage.getItem('bzToken')) {
+                    $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
+                    return $rootScope.objectoCliente;
+                } else {
+                    return false;
+                }
             }
         }
-    }
-    return {
-        request: function (config) {
-            config.headers = config.headers || {};
-            if (autorizado()) {
-                config.headers.auth = autorizado().token;
+        return {
+            request: function (config) {
+
+                if (config.url == 'http://ip-api.com/json/') {
+                    return config;
+                } else {
+                    config.headers = config.headers || {};
+                    if (autorizado()) {
+                        config.headers.auth = autorizado().token;
+                    }
+
+                    return config || $q.when(config);
+                }
+
+            },
+            response: function (response) {
+                if (response.status === 401 || response.status === 403) {
+                    salir();
+                }
+                return response || $q.when(response);
             }
-            return config || $q.when(config);
-        },
-        response: function (response) {
-            if (response.status === 401 || response.status === 403) {
-                salir();
-            }
-            return response || $q.when(response);
-        }
-    };
-});
+        };
+    });

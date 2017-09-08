@@ -1,0 +1,45 @@
+<style ng-repeat="fuente in proceso.datosEstadoAnterior.elementos.fuentes">
+    @font-face {
+        font-family:'{{fuente.nombre}}';
+        src:url('{{fuente.url}}');
+    }
+</style>
+<div id="popupContainer" class="row center-xs">
+    <div class="col-xs-12">
+        <h3 class="titulo_opciones" md-truncate>ESCOGE TU LOGO</h3>
+    </div>
+    <div class="ayuda" ng-click="proceso.cambiarMenu()">
+        <md-icon>help_outline</md-icon>
+    </div>
+
+    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+        <md-toolbar class="transparencia">
+            <div class="md-toolbar-tools">
+                <div>AYUDA</div>
+            </div>
+        </md-toolbar>
+        <div class="seccion-ayuda" layout-padding>
+            <h4>1: Al posar el raton sobre un icono te mostrará la opcion de editarlo.</h4>
+            <h4>2: Presiona el icono para comenzar a crear tu logo.</h4>
+        </div>
+        <div>
+            <md-button class="md-raised md-primary" ng-click="proceso.cambiarMenu()">CERRAR</md-button>
+        </div>
+    </md-sidenav>
+</div>
+<div class="row center-xs">
+    <div class="col-xs-11 col-md-8 contenedor-logo-proceso">
+        <div ng-repeat="logo in proceso.logos" ng-mouseenter="proceso.efectoHover($index, logo)" ng-mouseleave="proceso.efectoHover($index, logo)"
+            class="md-whiteframe-2dp svg-proceso contenedor_logos_proceso proceso-content">
+            <div class="svg">
+                <bazam-svg-text bazam-svg-text-pos data-icono="{{proceso.base64(logo.icono.svg)}}" data-fuente="{{logo.fuente.nombre}}" data-texto-x="{{proceso.posicion.coordenadas.x}}"
+                    data-texto-y="{{proceso.posicion.coordenadas.y}}" data-texto="{{proceso.datosEstadoAnterior.nombre}}"></bazam-svg-text>
+            </div>
+            <md-icon ui-sref="editor({logo:logo, posicion: proceso.posicion, texto: proceso.datosEstadoAnterior.nombre, fuentes: proceso.datosEstadoAnterior.elementos.fuentes})" class="iconos-procesos siguiente"
+                ng-show="logo.estado">create</md-icon>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <md-button class="md-raised md-primary" ui-sref="opciones">Atras</md-button>
+</div>

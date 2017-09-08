@@ -14,7 +14,7 @@ exports.guardar =  function(req,res)
 			estado : 'Editable',
 			logo : req.body.logo,
 			tipoLogo: req.body.tipoLogo,
-			clientes_idCliente : req.idCliente,
+			clientes_idCliente : req.body.idCliente,
 			elementos_idElemento : req.body.idElemento
 		};
 
@@ -56,7 +56,7 @@ exports.datosLogo =  function(req, res, next) {
 
 exports.listaLogosGuardados = function(req, res, next) {
 		
-		var par = ["Editable",req.idCliente]
+		var par = ["Editable",req.body.idCliente]
 
 		logo.getLogosTipo(par,function(error, data)
 		{
@@ -76,7 +76,7 @@ exports.listaLogosGuardados = function(req, res, next) {
 
 exports.listaLogosDescargables = function(req, res, next) {
 		
-		var par = ["Descargable",req.idCliente]
+		var par = ["Descargable",req.body.idCliente]
 
 		logo.getLogosTipo(par,function(error, data)
 		{
@@ -176,6 +176,5 @@ exports.listaLogosDescargables = function(req, res, next) {
 			}
 		});
 	}
-
 
 

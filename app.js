@@ -33,6 +33,9 @@ app.use('/angular-social', express.static(__dirname + '/node_modules/angular-soc
 app.use('/angular-sweetalert', express.static(__dirname + '/node_modules/angular-sweetalert'))
 app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'))
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'))
+app.use('/save-svg-as-png', express.static(__dirname + '/node_modules/save-svg-as-png'))
+app.use('/ng-file-upload', express.static(__dirname + '/node_modules/ng-file-upload/dist'))
+
 
 
 app.use('/app',rutas);

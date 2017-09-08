@@ -36,28 +36,28 @@ angular.module("disenador-de-logos")
         $state.go('opciones');
     }
 
-    /* *************** */
-
-    bz.lGuardados;
-    bz.lComprados;
-
+    
     /* LISTAR LOGOS */
 
-    bz.mostrarG = function (token) {
-        logosService.mostrarGuardados(token).then(function (res) {
+    bz.mostrarG = function () {
+        logosService.mostrarGuardados($rootScope.objectoCliente.idCliente).then(function (res) {
             bz.lGuardados = res.data;
         }).catch(function (res) {
             bz.notifyG = true;
         })
     }
 
-    bz.mostrarC = function (token) {
-        logosService.mostrarComprados(token).then(function (res) {
+    bz.mostrarC = function () {
+        logosService.mostrarComprados($rootScope.objectoCliente.idCliente).then(function (res) {
             bz.lComprados = res.data;
         }).catch(function (res) {
             bz.notifyC = true;
         })
     }
+    
+    bz.mostrarG();
+    bz.mostrarC();
+    
 
     this.datosComprados = [];
     this.datosGuardados = [];
