@@ -113,7 +113,7 @@ router.post("/logo/modificar/", multipartMiddleware, controllers.logos.modificar
 router.post("/logo/descargar/", multipartMiddleware, controllers.logos.descargar);
 
 //PARA PRUEBAS
-//router.post("/logos/prueba/", controllers.logos.prueba);
+router.post("/logos/prueba/", middleware.validar, controllers.logos.prueba);
 
 
 module.exports = router;

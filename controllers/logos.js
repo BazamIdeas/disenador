@@ -177,5 +177,9 @@ exports.listaLogosDescargables = function(req, res, next) {
 		});
 	}
 
+exports.prueba =  function(req, res, next) {
+		//id del pedido
+		console.log(req.body);
 
+	}
 
