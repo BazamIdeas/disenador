@@ -3,6 +3,26 @@ var DB=require('./DB.js');
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var elemento = {};
  
+elemento.datosElemento = function( id, callback)
+{
+	var q = 'SELECT * FROM elementos WHERE idElemento = ?' ;
+
+	DB.getConnection(function(err, connection)
+	{ 
+		
+		connection.query( q ,id, function(err, rows){
+
+	  	if(err)	throw err;
+	  	
+	  	else 
+	  	callback(null, rows);
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+
 
 elemento.getElementos = function( datos, callback)
 {

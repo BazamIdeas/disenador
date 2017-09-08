@@ -112,7 +112,7 @@ exports.listaElemCat = function (req, res, next) {
 
 
 	elemento.getElementosIncat(cat, function (error, data) {
-		//si el pedido existe 
+
 		if (typeof data !== 'undefined' && data.length > 0) {
 			res.status(200).json(data);
 		}
@@ -260,3 +260,4 @@ exports.nuevoElementoFuente = function (req, res) {
 		})
 	}
 }
+
