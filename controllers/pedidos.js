@@ -72,7 +72,7 @@ exports.nuevoPedido =  function(req,res)
 		estado : 'Editable',
 		logo : req.body.logo,
 		tipoLogo : req.body.tipoLogo,
-		clientes_idCliente : req.body.idCliente,
+		clientes_idCliente : req.idCliente,
 		elementos_idElemento : req.body.idElemento
 		};
 
@@ -107,7 +107,7 @@ exports.nuevoPedido =  function(req,res)
 								if (typeof data !== 'undefined' && data.length > 0)
 								{
 									var plan = data;
-									elemento.getElementos(req.body.idElemento,function(error, data){
+									elemento.datosElemento(req.body.idElemento,function(error, data){
 
 										if (typeof data !== 'undefined' && data.length > 0){
 											
@@ -196,7 +196,7 @@ exports.nuevoPedido =  function(req,res)
 								if (typeof data !== 'undefined' && data.length > 0)
 								{
 									var plan = data;
-									elemento.getElementoLogo(req.body.idLogo,function(error, data){
+									elemento.datosElemento(req.body.idLogo,function(error, data){
 
 										if (typeof data !== 'undefined' && data.length > 0){
 											

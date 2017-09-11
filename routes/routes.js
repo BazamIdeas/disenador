@@ -104,8 +104,8 @@ router.post('/plan/actualizar', controllers.planes.nombrePlanActualizar);
 
 
 //MODULO LOGOS
-router.post('/logos/guardados/', multipartMiddleware, controllers.logos.listaLogosGuardados);
-router.post('/logos/descargables/', multipartMiddleware, controllers.logos.listaLogosDescargables);
+router.post('/logos/guardados/', middleware.validar, controllers.logos.listaLogosGuardados);
+router.post('/logos/descargables/',  middleware.validar, controllers.logos.listaLogosDescargables);
 router.get('/logo/:id', multipartMiddleware, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar/", multipartMiddleware, controllers.logos.guardar);
 router.post("/logo/modificar/", multipartMiddleware, controllers.logos.modificarLogo);
