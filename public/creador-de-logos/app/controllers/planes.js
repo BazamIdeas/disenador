@@ -60,7 +60,6 @@ angular.module("disenador-de-logos")
             $state.go('metodo', {
                 logo: bz.datos.pedido.logo,
                 tipoLogo: bz.datos.pedido.tipoLogo,
-                idCliente: bz.autorizado.idCliente,
                 localidad: bz.datos.pedido.localidad,
                 idElemento: bz.datos.pedido.idElemento,
                 idPrecio: bz.datos.pedido.idPrecio,

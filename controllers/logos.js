@@ -14,7 +14,7 @@ exports.guardar =  function(req,res)
 			estado : 'Editable',
 			logo : req.body.logo,
 			tipoLogo: req.body.tipoLogo,
-			clientes_idCliente : req.body.idCliente,
+			clientes_idCliente : req.idCliente,
 			elementos_idElemento : req.body.idElemento
 		};
 

@@ -8,8 +8,6 @@ angular.module("disenador-de-logos")
         var bz = this;
 
         /* LOCAL STORAGE */
-
-        console.log($stateParams)
         
         if ($stateParams.logo) {
             LS.definir($state.current.name, $stateParams);
@@ -31,7 +29,10 @@ angular.module("disenador-de-logos")
                 if (tipoPago == 'credit_card') {
 
                 } else {
+                    /*
                     $window.location.href = res.data;
+                    */
+                    console.log(res.data)
                 }
 
             })

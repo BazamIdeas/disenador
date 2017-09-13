@@ -40,7 +40,7 @@ angular.module("disenador-de-logos")
     /* LISTAR LOGOS */
 
     bz.mostrarG = function () {
-        logosService.mostrarGuardados($rootScope.objectoCliente.idCliente).then(function (res) {
+        logosService.mostrarGuardados().then(function (res) {
             bz.lGuardados = res.data;
         }).catch(function (res) {
             bz.notifyG = true;
@@ -48,7 +48,7 @@ angular.module("disenador-de-logos")
     }
 
     bz.mostrarC = function () {
-        logosService.mostrarComprados($rootScope.objectoCliente.idCliente).then(function (res) {
+        logosService.mostrarComprados().then(function (res) {
             bz.lComprados = res.data;
         }).catch(function (res) {
             bz.notifyC = true;

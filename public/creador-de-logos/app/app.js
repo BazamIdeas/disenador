@@ -155,7 +155,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     logo: null,
                     tipoLogo:  null,
                     idElemento:  null,
-                    idFuente: null,
                     localidad:  null,
                     idPrecio:  null,
                 }
@@ -167,7 +166,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 params: {
                     logo: null,
                     tipoLogo: null,
-                    idCliente: null,
                     localidad: null,
                     idElemento: null,
                     idPrecio: null,

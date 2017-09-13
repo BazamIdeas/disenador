@@ -183,7 +183,7 @@ angular.module("disenador-de-logos")
             //si el usuario esta logeado
             if (bz.autorizado) {
 
-                logosService.guardarLogo(bz.autorizado.idCliente, logo, tipoLogo, idElemento).then(function (res) {
+                logosService.guardarLogo(logo, tipoLogo, idElemento).then(function (res) {
 
                     SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
 
