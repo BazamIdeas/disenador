@@ -191,7 +191,7 @@ angular.module("administrador")
                     bz.datos.impuestos = res;
                 }
             }).catch(function (res) {
-                notificacionService.mensaje(res);
+                notificacionService.mensaje(res.data.msg);
             })
         }
 
@@ -514,9 +514,10 @@ angular.module("administrador")
             if (validado) {
                 bz.loaderCargando = true;
                 clientesService.registrar(datos).then(function (res) {
+                        console.log(res);
                         bz.loaderCargando = false;
                         SweetAlert.swal("Genial", "Registro Exitoso!", "success");
-                        document.getElementById("formularioRegistro").reset()
+                        document.getElementById("formularioRegistro").reset();
                     })
                     .catch(function (res) {
                         bz.loaderCargando = false;
