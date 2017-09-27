@@ -732,6 +732,7 @@ angular.module("administrador")
 
         categoriasService.listarPreferencias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
+                valor.valor = 2;
                 bz.preferencias.push(valor);
             })
             bz.datos.registro.datoPrefe = bz.preferencias;
