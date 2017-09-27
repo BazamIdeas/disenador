@@ -51,6 +51,7 @@
     "path": "^0.12.7",
     "paypal-rest-sdk": "^1.7.1",
     "pn": "^1.0.0",
+    "save-svg-as-png": "^1.2.0",
     "serve-favicon": "^2.3.2",
     "svg2png": "^4.1.1"
   }

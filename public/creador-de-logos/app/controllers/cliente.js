@@ -42,6 +42,7 @@ angular.module("disenador-de-logos")
     bz.mostrarG = function () {
         logosService.mostrarGuardados().then(function (res) {
             bz.lGuardados = res.data;
+            console.log(res)
         }).catch(function (res) {
             bz.notifyG = true;
         })
@@ -50,6 +51,7 @@ angular.module("disenador-de-logos")
     bz.mostrarC = function () {
         logosService.mostrarComprados().then(function (res) {
             bz.lComprados = res.data;
+            console.log(res)
         }).catch(function (res) {
             bz.notifyC = true;
         })

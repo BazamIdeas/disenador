@@ -35,64 +35,45 @@ angular.module("disenador-de-logos")
             $state.go('dashboard');
         }
 
-        bz.info = this.datosEstadoAnterior;
+        bz.datos = this.datosEstadoAnterior;
+        bz.ancho = 100;
 
-        bz.medidas = [{
-            ancho: 600
-        }, {
-            ancho: 1200
-        }, {
-            ancho: 1800
-        }];
+        bz.descargar = function () {
 
-        this.elementos = [];
+            logosService.descargarLogo(bz.datos.idLogo, bz.ancho).then(function (res) {
 
-        /* EFECTO HOVER */
+                if (bz.datos.svg) {
+                    bz.nombre = res.data.svg;
+                    bz.v = res.data.svg.replace('public', '');
+                } else {
+                    bz.nombre = res.data.png;
+                    bz.v = res.data.png.replace('public', '');
+                }
+                bz.nombre = bz.nombre.replace('public/tmp/', '');
 
-        this.efectoHover = function (indice, valor) {
-            if (!this.elementos[indice]) {
-                this.elementos[indice] = valor;
-                this.medidas[indice].mostrar = true;
-            } else {
-                delete this.elementos[indice];
-                this.medidas[indice].mostrar = false;
-            }
-        }
 
-        bz.descargar = function(idLogo, ancho){
-
-            logosService.descargarLogo(idLogo, ancho).then(function (res) {
-                /* NOMBRE */
-                bz.nombre = res.data.png;
-                bz.nombre = bz.nombre.replace('public/tmp/','');
+                // bz.url = window.location.protocol + window.location.hostname + ':' + window.location.port + bz.v;
+                triggerDownload(bz.v);
 
                 /* DESCARGAR */
 
-                if (bz.nombre) {
-                    var logo = angular.element(".logo"+ancho+" svg");
-
-                        logo.attr('preserveAspectRatio',"xMidYMid meet");
-
-                    svgAsPngUri(logo[0],{left:-50,top:-20, width: 600, height: 600}, function(uri) {
-                        triggerDownload(uri);
-                    }); 
-                    
-                }
-
-                function triggerDownload (imgURI) {
+                function triggerDownload(imgURI) {
                     var evt = new MouseEvent('click', {
-                      view: window,
-                      bubbles: false,
-                      cancelable: true
+                        view: window,
+                        bubbles: false,
+                        cancelable: true
                     });
-                  
+
                     var a = document.createElement('a');
                     a.setAttribute('download', bz.nombre);
                     a.setAttribute('href', imgURI);
                     a.setAttribute('target', '_blank');
-                  
+
+                    var contenedor = angular.element(".contenedor-link");
+                    contenedor.empty();
+                    contenedor.append(a);
                     a.dispatchEvent(evt);
-                  }
+                }
 
             }).catch(function (res) {
                 console.log(res);

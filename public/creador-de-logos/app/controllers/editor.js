@@ -69,7 +69,6 @@ angular.module("disenador-de-logos")
             return LS.definir(llave, datos);
         }
 
-
         if ($stateParams.logoModificado) { //si es un logo previamente modificado
 
             bz.restauracionIniciada = true;
