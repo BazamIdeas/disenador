@@ -67,7 +67,7 @@ exports.validarUsuario = function(req,res,next){
 				req.idUsuario = datos.id
 			}
 			//console.log(datos)
-			next()
+			next() 
 	    } catch (e) {
 	      res.status(400).json({"Mensaje":"Token invalido"});
 	    }
