@@ -115,8 +115,7 @@ angular.module("disenador-de-logos")
                 idPrecio: datosPedido.idPrecio,
                 localidad: datosPedido.localidad,
                 tipoLogo: datosPedido.tipoLogo,
-                tipoPago: tipoPago,
-                idCliente: datosPedido.idCliente
+                tipoPago: tipoPago
             }
 
             if (tipoPago == "credit_card") {
@@ -351,7 +350,7 @@ angular.module("disenador-de-logos")
     .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
 
 
-        this.guardarLogo = function (idCliente, logo, tipoLogo, idElemento) {
+        this.guardarLogo = function (logo, tipoLogo, idElemento) {
 
             var defered = $q.defer();
 
@@ -360,8 +359,7 @@ angular.module("disenador-de-logos")
             var datos = {
                 logo: logo,
                 tipoLogo: tipoLogo,
-                idElemento: idElemento,
-                idCliente: idCliente
+                idElemento: idElemento
             }
 
             $http.post("/app/logo/guardar", datos).then(function (res) {
@@ -380,17 +378,13 @@ angular.module("disenador-de-logos")
         }
 
 
-        this.mostrarGuardados = function (id) {
+        this.mostrarGuardados = function () {
 
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            var datos = {
-                idCliente: id,
-            }
-
-            $http.post("/app/logos/guardados/", datos).then(function (res) {
+            $http.post("/app/logos/guardados/").then(function (res) {
 
                 defered.resolve(res);
 
@@ -404,17 +398,13 @@ angular.module("disenador-de-logos")
 
         }
 
-        this.mostrarComprados = function (id) {
+        this.mostrarComprados = function () {
 
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            var datos = {
-                idCliente: id,
-            }
-
-            $http.post("/app/logos/descargables/", datos).then(function (res) {
+            $http.post("/app/logos/descargables/").then(function (res) {
 
                 defered.resolve(res);
 

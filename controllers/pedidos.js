@@ -130,6 +130,7 @@ exports.nuevoPedido =  function(req,res)
 
 													pago.paypal(datosPago,function(error, data){
 															res.json(data.link)
+															console.log(data.link)
 													});
 
 												}

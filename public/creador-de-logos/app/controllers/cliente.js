@@ -40,16 +40,18 @@ angular.module("disenador-de-logos")
     /* LISTAR LOGOS */
 
     bz.mostrarG = function () {
-        logosService.mostrarGuardados($rootScope.objectoCliente.idCliente).then(function (res) {
+        logosService.mostrarGuardados().then(function (res) {
             bz.lGuardados = res.data;
+            console.log(res)
         }).catch(function (res) {
             bz.notifyG = true;
         })
     }
 
     bz.mostrarC = function () {
-        logosService.mostrarComprados($rootScope.objectoCliente.idCliente).then(function (res) {
+        logosService.mostrarComprados().then(function (res) {
             bz.lComprados = res.data;
+            console.log(res)
         }).catch(function (res) {
             bz.notifyC = true;
         })
