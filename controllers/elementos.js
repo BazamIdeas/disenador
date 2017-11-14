@@ -21,7 +21,7 @@ exports.listaSegunPref = function (req, res, next) {
 		[datos2.categoria, datos2.tipo]
 	];
 	//console.log(datos);
-	console.log(datoIncat);
+	//console.log(datoIncat);
 	var coincidencias = [];
 	async.each(datos, function (dato, callback) {
 			elemento.getElementos(dato, function (error, data) {

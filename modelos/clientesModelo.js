@@ -33,16 +33,15 @@ cliente.verificarCliente = function(clienteData,callback)
 		  						}else{
 
 		  							callback(null,{"msg":"La contraseña no coincide con este correo"});
-		  				
 		  						}
 		  					
-		  							});
+		  					});
 		  	
-		  					}else{
+		  		}else{
 		  				 
-		  				 		callback(null,{"msg":"Correo Inexistente"});
+		  			callback(null,{"msg":"Correo Inexistente"});
 		  				
-		  					     }
+		  		}
 
 				 });
 
