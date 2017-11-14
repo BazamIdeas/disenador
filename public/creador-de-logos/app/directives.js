@@ -127,13 +127,14 @@ angular.module("disenador-de-logos")
                 pre: function (scope, element, attributes) {
 
 
-
+                    
                     //encerramos el contenido en el svg
                     element.find("[data-seccion-icono], [data-seccion-texto]").wrapAll(scope.svgTag);
 
                     //agregamos el Style Tag al svg
                     element.children().prepend("<style>@font-face: { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}</style>")
 
+                    
                     //viewbox del nuevo svg
                     var viewBox = element.children().attr("viewBox").split(" ");
 
@@ -479,7 +480,7 @@ angular.module("disenador-de-logos")
 
 
                 if (atributosIconoG.indexOf("translate") != -1) {
-                    //console.log("hola")
+              
                     //obtenemos un array con los translate
                     var posicion = atributosIconoG.split("translate(")[1].split(")", 1)[0].split(",");
 
@@ -491,10 +492,8 @@ angular.module("disenador-de-logos")
                     }
 
 
-                    //console.log($scope.iconoPosicion)
-
                 } else { //si no existe, el translate es 0,0
-                    //console.log("adrios")
+                
                     $scope.iconoPosicion = {
                         x: 0,
                         y: 0

@@ -161,7 +161,7 @@ angular.module("administrador")
             planDetalles: {},
             accionesVista: 0,
             bloquearPlan: {},
-            preciosPlan:[]
+            preciosPlan: []
         };
         bz.monedas = monedasValue;
         bz.paises = paisesValue;
@@ -177,15 +177,15 @@ angular.module("administrador")
                 if (opcion == 'planes') {
                     bz.mostrarPlanes = !bz.mostrarPlanes;
                     bz.datos.planes = res;
-                    for(i = 0; i < bz.datos.planes.length; i++){
+                    for (i = 0; i < bz.datos.planes.length; i++) {
                         if (bz.datos.planes[i].status == 1) {
                             bz.datos.planes[i].estado = true;
-                        }else{
+                        } else {
                             bz.datos.planes[i].estado = false;
                         }
                     };
                 } else if (opcion == 'impuestos') {
-                    if(!cerrar){
+                    if (!cerrar) {
                         bz.mostrarImpuestos = !bz.mostrarImpuestos;
                     }
                     bz.datos.impuestos = res;
@@ -213,7 +213,7 @@ angular.module("administrador")
                         bz.localidadVal2 = 'Esta Nombre Ya esta en uso';
                     }
                 });
-            }else if(opcion == 'nuevoPrecioPlan'){
+            } else if (opcion == 'nuevoPrecioPlan') {
                 validacion = true;
             }
 
@@ -259,13 +259,13 @@ angular.module("administrador")
         }
 
         bz.modificarPrecioPlan = function (datos) {
-                administrarService.modificarPrecioPlan(datos).then(function (res) {
-                    console.log(res)
-                    notificacionService.mensaje('Peticion Realizada.');
-                }).catch(function (res) {
-                    console.log(res)
-                    notificacionService.mensaje(res);
-                })
+            administrarService.modificarPrecioPlan(datos).then(function (res) {
+                console.log(res)
+                notificacionService.mensaje('Peticion Realizada.');
+            }).catch(function (res) {
+                console.log(res)
+                notificacionService.mensaje(res);
+            })
         }
 
         /* FUNCION PARA MOSTRAR TODOS LOS PRECIOS DE UN PLAN */
@@ -280,10 +280,10 @@ angular.module("administrador")
                 bz.datos.accionesVista = 3;
             } else if (opcion == 'preciosPlan') {
                 bz.datos.preciosPlan = [];
-                administrarService.listarPrecios(datos).then(function(res){
+                administrarService.listarPrecios(datos).then(function (res) {
                     bz.datos.preciosPlan = res;
                     bz.datos.accionesVista = 4;
-                }).catch(function(res){
+                }).catch(function (res) {
                     console.log(res)
                 })
             } else if (opcion == 'impuesto') {
@@ -716,12 +716,15 @@ angular.module("administrador")
         bz.categorias = [];
         bz.preferencias = [];
 
-        bz.nuevoIcono = function (datos) {
-            iconoFuente.nuevoIcono(datos).then(function (res) {
-                console.log(res)
-            }).catch(function (res) {
-                console.log(res)
-            })
+        bz.nuevoIcono = function (datos, valido) {
+
+            if (valido) {
+                iconoFuente.nuevoIcono(datos).then(function (res) {
+                    console.log(res)
+                }).catch(function (res) {
+                    console.log(res)
+                })
+            }
         }
 
         categoriasService.listarCategorias().then(function (res) {
@@ -750,10 +753,13 @@ angular.module("administrador")
             registro: {}
         };
 
-        bz.nuevaFuente = function (datos) {
-            iconoFuente.nuevaFuente(datos).then(function (res) {
-                console.log(res)
-            }).catch(function (res) {})
+        bz.nuevaFuente = function (datos, valido) {
+
+            if (valido) {
+                iconoFuente.nuevaFuente(datos).then(function (res) {
+                    console.log(res)
+                }).catch(function (res) {})
+            }
         }
 
         bz.categorias = [];
@@ -767,6 +773,8 @@ angular.module("administrador")
 
         categoriasService.listarPreferencias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
+
+                valor.valor = 2;
                 bz.preferencias.push(valor);
             })
 

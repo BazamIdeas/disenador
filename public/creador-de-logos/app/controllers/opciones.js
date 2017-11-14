@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Opciones */
 
-    .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", "$sce", "LS", "$state", "categoriasService", '$mdSidenav', '$base64', function ($scope, $mdDialog, $stateParams, $sce, LS, $state, categoriasService, $mdSidenav, $base64) {
+    .controller('opcionesController', ['$scope', '$mdDialog', "$stateParams", "$sce", "LS", "$state", "categoriasService", '$mdSidenav', '$base64', "historicoResolve" ,function ($scope, $mdDialog, $stateParams, $sce, LS, $state, categoriasService, $mdSidenav, $base64, historicoResolve) {
 
         var bz = this;
 
@@ -18,66 +18,48 @@ angular.module("disenador-de-logos")
 
         }
 
-
         bz.cambiarMenu = function (lugar) {
 
             return $mdSidenav('right').toggle();
         }
-        /* LOCAL STORAGE */
+      
+        bz.datosEstadoAnterior = historicoResolve;
 
-        this.definirInfo = function (llave, datos) {
-            return LS.definir(llave, datos);
-        }
-
-        if ($stateParams.datos) {
-            this.definirInfo($state.current.name, $stateParams.datos);
-            bz.datosEstadoAnterior = $stateParams.datos;
-
-        } else if (LS.obtener($state.current.name)) {
-
-            bz.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
-        } else {
-            $state.go('comenzar');
-        }
-
-        /* *************** */
-
-
-        this.seleccionado = function (primeraSeleccion, segundaSeleccion) {
+        bz.seleccionado = function (primeraSeleccion, segundaSeleccion) {
 
             var llaves = Object.keys(primeraSeleccion).length * Object.keys(segundaSeleccion).length;
             return llaves;
 
         }
 
-        this.datos = {
+        bz.datos = {
 
             fuentes: {},
             iconos: {}
 
         }
 
-        this.agregarElemento = function (indice, valor, tipo) {
+        bz.agregarElemento = function (indice, valor, tipo) {
 
             if (Object.keys(this.datos[tipo]).length < 3) {
 
-                if (!this.datos[tipo][indice]) {
+                if (!bz.datos[tipo][indice]) {
 
-                    this.datos[tipo][indice] = valor;
+                    bz.datos[tipo][indice] = valor;
                     bz.datosEstadoAnterior.respuesta[tipo][indice].estado = 'activo';
 
                 } else {
 
-                    delete this.datos[tipo][indice];
+                    delete bz.datos[tipo][indice];
 
                     bz.datosEstadoAnterior.respuesta[tipo][indice].estado = 'inactivo';
                 }
             } else {
 
-                if (this.datos[tipo][indice]) {
+                if (bz.datos[tipo][indice]) {
 
 
-                    delete this.datos[tipo][indice];
+                    delete bz.datos[tipo][indice];
 
                     bz.datosEstadoAnterior.respuesta[tipo][indice].estado = 'inactivo';
 
@@ -94,8 +76,8 @@ angular.module("disenador-de-logos")
         bz.categoria = bz.datosEstadoAnterior.categoria;
         bz.categoriasPosibles = [];
 
-        categoriasService.listaCategorias.then(function (res) {
-            angular.forEach(res.data, function (valor, llave) {
+        categoriasService.listaCategorias().then(function (res) {
+            angular.forEach(res, function (valor, llave) {
                 bz.categoriasPosibles.push(valor);
             })
 

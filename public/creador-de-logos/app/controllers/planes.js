@@ -18,7 +18,7 @@ angular.module("disenador-de-logos")
 
         } else if (LS.obtener($state.current.name)) {
 
-            this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
+            this.datosEstadoAnterior = angular.fromJson(LS.obtener($state.current.name));
         } else {
             $state.go('editor');
         }

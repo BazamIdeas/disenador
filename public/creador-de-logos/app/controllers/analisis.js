@@ -15,29 +15,36 @@ angular.module("disenador-de-logos")
 
         bz.datos = $stateParams.datos;
 
-        bz.datos.respuesta = {};
-
         bz.stop = function () {
             $interval.cancel(promise);
         };
 
         /* *********************** */
-        bz.datosFuentes = {};
-        bz.datosFuentes.categoria = $stateParams.datos.categoria;
-        bz.datosFuentes.preferencias = $stateParams.datos.preferencias;
-        bz.datosFuentes.tipo = 'FUENTE';
+        bz.datosFuentes = {
+            categoria: $stateParams.datos.categoria,
+            preferencias: $stateParams.datos.preferencias,
+            tipo: 'FUENTE'
 
-        console.log(bz.datosFuentes)
+        };
+
+
+
 
         var promesaMultiple = $q.all([elementosService.listaSegunPref($stateParams.datos), elementosService.listaSegunPref(bz.datosFuentes)]);
 
         promesaMultiple.then(function (res) {
 
-            bz.datos.respuesta.iconos = res[0].data;
-            bz.datos.respuesta.fuentes = res[1].data;
 
+            
+            bz.datos.respuesta = {
+                iconos: res[0].data,
+                fuentes: res[1].data
+            };
+
+          
             promise = $interval(function () {
                 if (bz.animacionTexto == 2) {
+                    
                     bz.stop();
                     $state.go('opciones', {
                         datos: bz.datos
@@ -48,7 +55,8 @@ angular.module("disenador-de-logos")
             }, 2500);
 
         }).catch(function (error) {
-            console.log(error);
+            
+            $state.go('comenzar')
         });
 
         /* ******************** */

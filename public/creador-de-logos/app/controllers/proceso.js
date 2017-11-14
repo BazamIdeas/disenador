@@ -2,11 +2,12 @@ angular.module("disenador-de-logos")
 
 /* Proceso */
 
-.controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', '$mdDialog', 'LS', '$state', '$base64', '$mdSidenav', function ($scope, $stateParams, crearLogoFactory, $mdDialog, LS, $state, $base64, $mdSidenav) {
+.controller('procesoController', ['crearLogoFactory', '$mdDialog', '$base64', '$mdSidenav', 'historicoResolve', function (crearLogoFactory, $mdDialog, $base64, $mdSidenav, historicoResolve) {
 
     var bz = this;
+
     
-    this.base64 = function (icono) {
+    bz.base64 = function (icono) {
         return $base64.decode(icono);
     }
 
@@ -14,41 +15,24 @@ angular.module("disenador-de-logos")
 
         return $mdSidenav('right').toggle();
     }
-
-    /* LOCAL STORAGE */
-
-    this.definirInfo = function (llave, datos) {
-        return LS.definir(llave, datos);
-    }
     
-    if ($stateParams.datos) {
-        this.definirInfo($state.current.name, $stateParams.datos);
-        this.datosEstadoAnterior = $stateParams.datos;
+    bz.datosEstadoAnterior = historicoResolve;
 
-    } else if (LS.obtener($state.current.name)) {
+    bz.datos = [];
 
-        this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
-    } else {
-        $state.go('opciones');
-    }
+    bz.logos = crearLogoFactory(bz.datosEstadoAnterior.elementos.iconos, bz.datosEstadoAnterior.elementos.fuentes);
 
-    /* *************** */
+    bz.efectoHover = function (indice, valor) {
 
-    this.datos = [];
+        if (!bz.datos[indice]) {
 
-    this.logos = crearLogoFactory(this.datosEstadoAnterior.elementos.iconos, this.datosEstadoAnterior.elementos.fuentes);
-
-    this.efectoHover = function (indice, valor) {
-
-        if (!this.datos[indice]) {
-
-            this.datos[indice] = valor;
-            this.logos[indice].estado = true;
+            bz.datos[indice] = valor;
+            bz.logos[indice].estado = true;
 
         } else {
 
-            delete this.datos[indice];
-            this.logos[indice].estado = false;
+            delete bz.datos[indice];
+            bz.logos[indice].estado = false;
         }
 
     }
@@ -56,7 +40,7 @@ angular.module("disenador-de-logos")
 
     /* Posiciones */
 
-    this.posicion = {
+    bz.posicion = {
         coordenadas: {
             x:'56',
             y:'500'
@@ -65,9 +49,9 @@ angular.module("disenador-de-logos")
 
     /* Barra */
 
-    this.isOpen = false;
+    bz.isOpen = false;
 
-    this.estadoProcesoBarra = {
+    bz.estadoProcesoBarra = {
         isOpen: false,
         count: 0,
         selectedDirection: 'left'

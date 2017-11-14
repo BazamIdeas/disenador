@@ -14,7 +14,7 @@ angular.module("disenador-de-logos")
             this.datosEstadoAnterior = $stateParams;
 
         } else if (LS.obtener($state.current.name)) {
-            this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
+            this.datosEstadoAnterior = angular.fromJson(LS.obtener($state.current.name));
         } else {
             $state.go('planes');
         }
