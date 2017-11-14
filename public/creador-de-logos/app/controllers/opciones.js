@@ -95,10 +95,9 @@ angular.module("disenador-de-logos")
                 .then(function (answer) {
                     $scope.status = 'You said the information was "' + answer + '".';
                 }, function (res) {
-                    console.log(res);
                     bz.datosEstadoAnterior.respuesta.iconos = res[0].data;
                     bz.datosEstadoAnterior.respuesta.fuentes = res[1].data;
-                    
+
                 });
         };
 
@@ -138,7 +137,7 @@ angular.module("disenador-de-logos")
                 $scope.datosFuentes.categoria = $scope.datos.categoria;
                 $scope.datosFuentes.preferencias = $scope.datos.preferencias;
                 $scope.datosFuentes.tipo = 'FUENTE';
-                
+
                 promesaMultiple = $q.all([elementosService.listaSegunPref($scope.datos), elementosService.listaSegunPref($scope.datosFuentes)]);
 
                 promesaMultiple.then(function (res) {

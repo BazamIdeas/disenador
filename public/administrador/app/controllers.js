@@ -703,7 +703,7 @@ angular.module("administrador")
 
     }])
 
-    .controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService, Upload, notificacionService) {
+    .controller('iconosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', 'notificacionService', function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, Upload, notificacionService) {
 
         var bz = this;
         bz.mostrarR = false;
@@ -716,15 +716,15 @@ angular.module("administrador")
         bz.categorias = [];
         bz.preferencias = [];
 
-        bz.nuevoIcono = function (datos, valido) {
 
-            if (valido) {
-                iconoFuente.nuevoIcono(datos).then(function (res) {
-                    console.log(res)
-                }).catch(function (res) {
-                    console.log(res)
-                })
-            }
+        bz.nuevoIcono = function (datos) {
+            iconoFuente.nuevoIcono(datos).then(function (res) {
+                console.log(res)
+                notificacionService.mensaje('Icono Agregado');
+            }).catch(function (res) {
+                console.log(res)
+            })
+
         }
 
         categoriasService.listarCategorias().then(function (res) {
@@ -743,7 +743,7 @@ angular.module("administrador")
 
     }])
 
-    .controller('fuentesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, iconoFuente, categoriasService, notificacionService) {
+    .controller('fuentesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService) {
 
         var bz = this;
         bz.mostrarR = false;
@@ -753,13 +753,12 @@ angular.module("administrador")
             registro: {}
         };
 
-        bz.nuevaFuente = function (datos, valido) {
+        bz.nuevaFuente = function (datos) {
+            iconoFuente.nuevaFuente(datos).then(function (res) {
+                console.log(res)
+                notificacionService.mensaje('Fuente Agregada');
+            }).catch(function (res) {})
 
-            if (valido) {
-                iconoFuente.nuevaFuente(datos).then(function (res) {
-                    console.log(res)
-                }).catch(function (res) {})
-            }
         }
 
         bz.categorias = [];
