@@ -29,11 +29,11 @@ router.post("/cliente/login",controllers.clientes.login);
 //MODULO USUARIOS
 //
 //no espera parametros
-router.get('/usuarios', middleware.validar, controllers.usuarios.listaUsuarios);
+router.get('/usuarios', middleware.validarUsuario, controllers.usuarios.listaUsuarios);
 //parametro por get que debe ser el id del cliente.
-router.get('/usuario/:id', middleware.validar, controllers.usuarios.datosUsuario);
+router.get('/usuario/:id', middleware.validarUsuario, controllers.usuarios.datosUsuario);
 //parametro por get que debe ser el id del cliente.
-router.get('/usuario/borrar/:id', middleware.validar, controllers.usuarios.borrarUsuario);
+router.get('/usuario/borrar/:id', middleware.validarUsuario, controllers.usuarios.borrarUsuario);
 // idUsuario : valor,nombreUser : valor,correo : valor,	pass : valor
 router.post("/usuario", controllers.usuarios.nuevoUsuario);
 //los mismos datos que la ruta /usuario

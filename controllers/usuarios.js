@@ -12,7 +12,6 @@ exports.login =  function(req,res,next)
 			//si el usuario existe  
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				
 				res.status(200).json({
 					'nombre':data[0].nombreUser,
 					'token':services.crearToken(data[0].idUsuario,"admin")

@@ -11,6 +11,7 @@ exports.crearToken = function(id,tipo){
 		tipo : tipo
 	}
 
+	console.log(datos)
 	return jwt.encode(datos, configuracion.secret)
 }
 
