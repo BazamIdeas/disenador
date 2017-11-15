@@ -18,6 +18,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
 
+app.use('/fuentes', express.static(__dirname + '/fuentes'))
+
+
 app.use('/angular', express.static(__dirname + '/node_modules/angular'))
 app.use('/angular-material', express.static(__dirname + '/node_modules/angular-material'))
 app.use('/angular-messages', express.static(__dirname + '/node_modules/angular-messages'))
