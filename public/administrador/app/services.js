@@ -1835,7 +1835,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            datos.mifuente.type = 'application/x-font-' + datos.mifuente.name.split('.')[1];
+            datos.mifuente.type = 'application/x-font-' + datos.mifuente.name.split('.')[1].toLowerCase();
 
             /* Ver si se envia el archivo 
             console.log(datos)
