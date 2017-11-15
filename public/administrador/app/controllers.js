@@ -716,6 +716,7 @@ angular.module("administrador")
         bz.categorias = [];
         bz.preferencias = [];
 
+
         bz.nuevoIcono = function (datos) {
             iconoFuente.nuevoIcono(datos).then(function (res) {
                 console.log(res)
@@ -723,6 +724,7 @@ angular.module("administrador")
             }).catch(function (res) {
                 console.log(res)
             })
+
         }
 
         categoriasService.listarCategorias().then(function (res) {
@@ -756,6 +758,7 @@ angular.module("administrador")
                 console.log(res)
                 notificacionService.mensaje('Fuente Agregada');
             }).catch(function (res) {})
+
         }
 
         bz.categorias = [];
@@ -769,6 +772,8 @@ angular.module("administrador")
 
         categoriasService.listarPreferencias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
+
+                valor.valor = 2;
                 bz.preferencias.push(valor);
             })
 

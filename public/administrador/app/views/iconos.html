@@ -5,19 +5,36 @@
                 <texto>REGISTRO ICONO</texto>
             </div>
             <div ng-if="iconos.mostrarR" layout-padding class="formularios-login pasos">
-                <form id="formularioRegistro" name="formRegistro" ng-submit="iconos.nuevoIcono(iconos.datos.registro)">
+                <form id="formularioRegistro" name="formRegistro" ng-submit="iconos.nuevoIcono(iconos.datos.registro, formRegistro.$valid)" novalidate>
                     <div layout="column" layout-align="space-between">
                         <h3 class="text-center">Nuevo Icono</h3>
                         <div>
                             <md-input-container class="md-block">
                                 <label>NOMBRE</label>
-                                <input type="text" ng-model="iconos.datos.registro.nombre" name="nombre">
+                                <input type="text" ng-model="iconos.datos.registro.nombre" name="nombre" required>
                             </md-input-container>
-                            <div class="button inputArchivo" ngf-select ng-model="iconos.datos.registro.misvg" name="misvg" ngf-max-size="20MB" ngf-pattern="'image/svg+xml'"
-                                required>
-                                <div>SELECCIONA UN SVG</div>
-                                <md-icon>attach_file</md-icon>
+
+                            <!--Validacion-->
+                            <div ng-messages="formRegistro.nombre.$error" ng-if="formRegistro.$submitted || formRegistro.nombre.$dirty">
+                                <div ng-message="required">El nombre es requerido.</div>
                             </div>
+                            <!---->
+
+
+                            <div class="button inputArchivo">
+                                <div>{{iconos.datos.registro.misvg.name || "SELECCIONA UN SVG"}} </div>
+                                <span ng-if="iconos.datos.registro.misvg" ng-click="iconos.datos.registro.misvg=null">X</span>
+                                <md-icon ng-if="!iconos.datos.registro.misvg" ngf-select ng-model="iconos.datos.registro.misvg" name="misvg" ngf-max-size="5MB" ngf-pattern="'image/svg+xml'" ngf-accept="'image/svg+xml'" required>attach_file</md-icon>
+                            </div>
+
+
+                            <!--Validacion-->
+                            <div ng-messages="formRegistro.misvg.$error" ng-if="formRegistro.$submitted || formRegistro.misvg.$dirty">
+                                <div ng-message="maxSize">La imagen no puede superar los 5MB.</div>
+                                <div ng-message="required">La imagen es requerida.</div>
+                            </div>
+                            <!---->
+
                             <div>
                                 <md-input-container class="md-block">
                                     <label>CATEGORIA</label>
@@ -25,6 +42,13 @@
                                         <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in iconos.categorias">{{categoria.nombreCategoria}}</md-option>
                                     </md-select>
                                 </md-input-container>
+
+                                <!--Validacion-->
+                                <div ng-messages="formRegistro.categoria.$error" ng-if="formRegistro.$submitted || formRegistro.categoria.$dirty">
+                                    <div ng-message="required">La categoria es requerida.</div>
+                                </div>
+                                <!---->
+
                             </div>
                             <div>
                                 <br>

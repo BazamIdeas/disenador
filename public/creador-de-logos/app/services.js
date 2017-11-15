@@ -40,6 +40,47 @@ angular.module("disenador-de-logos")
         };
     })
 
+
+
+
+    .value("mockupsValue", [{
+            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
+            nombre: 'carta',
+            ancho: '40%'
+            },
+        {
+            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
+            nombre: 'carta',
+            ancho: '40%'
+            }, {
+            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
+            nombre: 'carta',
+            ancho: '30%'
+            }, {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta',
+            ancho: '40%'
+            },
+        {
+            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
+            nombre: 'carta',
+            ancho: '40%'
+            },
+        {
+            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
+            nombre: 'carta',
+            ancho: '40%'
+            }, {
+            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
+            nombre: 'carta',
+            ancho: '30%'
+            }, {
+            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
+            nombre: 'carta',
+            ancho: '40%'
+            }
+        ])
+
     /*-------------------------- Services --------------------------*/
 
 
@@ -47,10 +88,30 @@ angular.module("disenador-de-logos")
     /*******CATEGORIAS**********/
     /***************************/
 
-    .service('categoriasService', ["$http", function ($http) {
+    .service('categoriasService', ["$http", "$q", function ($http, $q) {
 
 
-        this.listaCategorias = $http.get("/app/categorias");
+        this.listaCategorias = function () {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/categorias").then(function (res) {
+
+                defered.resolve(res.data);
+
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+
+
+        };
 
 
     }])
@@ -61,10 +122,30 @@ angular.module("disenador-de-logos")
     /******PREFERENCIAS*********/
     /***************************/
 
-    .service('preferenciasService', ["$http", function ($http) {
+    .service('preferenciasService', ["$http", "$q", function ($http, $q) {
 
 
-        this.listaPreferencias = $http.get("/app/preferencias");
+        this.listaPreferencias = function () {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/preferencias").then(function (res) {
+
+                defered.resolve(res.data);
+
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+
+
+        };
 
 
     }])
@@ -89,7 +170,7 @@ angular.module("disenador-de-logos")
                 })
 
                 .catch(function (res) {
-                    console.log("catch");
+               
 
 
                 })
@@ -103,7 +184,13 @@ angular.module("disenador-de-logos")
 
     .service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
 
-        this.paypal = function (datosPedido, tipoPago, tTarjeta = false, nTarjeta = false, expire_month = false, expire_year = false) {
+        this.paypal = function (datosPedido, tipoPago, tTarjeta, nTarjeta, expire_month, expire_year) {
+
+            tTarjeta = tTarjeta ? tTarjeta : null;
+            nTarjeta = nTarjeta ? nTarjeta : null;
+            expire_month = expire_month ? expire_month : null;
+            expire_year = expire_year ? expire_year : null;
+
 
             var defered = $q.defer();
 
@@ -184,7 +271,7 @@ angular.module("disenador-de-logos")
 
                 .then(function (res) {
 
-                    $window.localStorage.setItem('bzToken', JSON.stringify(res.data));
+                    $window.localStorage.setItem('bzToken', angular.toJson(res.data));
                     $rootScope.objectoCliente = res.data;
 
                     defered.resolve();
@@ -210,7 +297,7 @@ angular.module("disenador-de-logos")
 
                 if ($window.localStorage.getItem('bzToken')) {
 
-                    $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
+                    $rootScope.objectoCliente = angular.fromJson($window.localStorage.getItem('bzToken'));
 
                     return $rootScope.objectoCliente;
 
@@ -261,8 +348,6 @@ angular.module("disenador-de-logos")
                     logos.comparar.push(valor)
                 }
 
-
-
             },
 
             obtener: function (tipo) {
@@ -280,8 +365,6 @@ angular.module("disenador-de-logos")
 
         return informacion;
 
-
-
     }])
 
     .factory('compartirFactory', [function () {
@@ -298,11 +381,11 @@ angular.module("disenador-de-logos")
     }])
 
     .factory('crearLogoFactory', [function () {
-
-        var logos = [];
-
-        var crear = function (iconos, fuentes) {
-
+        
+        return function (iconos, fuentes) {
+            
+            var logos = [];
+            
             angular.forEach(iconos, function (icono, indice) {
 
                 angular.forEach(fuentes, function (fuente, indice) {
@@ -315,30 +398,66 @@ angular.module("disenador-de-logos")
                     };
 
                     logos.push(logo);
-
+                 
                 })
 
             })
-
+  
             return logos;
 
         }
 
-        return crear;
 
     }])
 
     .factory('LS', ['$window', '$rootScope', function ($window, $rootScope) {
         return {
             definir: function (llave, valor) {
-                $window.localStorage.setItem(llave, JSON.stringify(valor));
-                return this;
+
+                $window.localStorage.setItem(llave, angular.toJson(valor));
+
             },
             obtener: function (llave) {
-                return $window.localStorage.getItem(llave);
+
+                return angular.fromJson($window.localStorage.getItem(llave));
             }
         };
 
+    }])
+
+
+    .factory('historicoFactory', ["LS", "$q", function (LS, $q) {
+
+
+        return function (datos, actual, pasado) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+            
+            //dado el caso: 'Proceso' -> 'Editor', decimos que: 'Proceso' = 'pasado' y 'Editor' = 'actual'
+            
+            if (datos) { //si hay datos que provienen del estado 'pasado' se graban en el estado 'actual' y se accede a el
+
+                LS.definir(actual, datos);
+
+                defered.resolve(datos);
+
+            } else if (LS.obtener(actual)) {//si no hay datos provenientes del estado 'pasado',  se accede al estado 'actual' SI hay datos almacenados
+                
+                defered.resolve(LS.obtener(actual));
+
+            } else { //si no hay datos del estado 'pasado' y no hay datos almacenados en el estado 'actual' se 
+               
+                defered.reject({
+                    error: 'FALLO_HISTORICO',
+                    objetivo: pasado
+                });
+            }
+
+            return promise;
+
+        }
     }])
 
 
@@ -499,7 +618,7 @@ angular.module("disenador-de-logos")
                 return $rootScope.objectoCliente;
             } else {
                 if ($window.localStorage.getItem('bzToken')) {
-                    $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
+                    $rootScope.objectoCliente = angular.fromJson($window.localStorage.getItem('bzToken'));
                     return $rootScope.objectoCliente;
                 } else {
                     return false;

@@ -1,76 +1,78 @@
 angular.module("disenador-de-logos")
 
-/* Comenzar */
+    /* Comenzar */
 
-.controller('comenzarController', ["categoriasService", "preferenciasService", "$mdSidenav", '$stateParams', function (categoriasService, preferenciasService, $mdSidenav, $stateParams) {
+    .controller('comenzarController', ["categoriasService", "preferenciasService", "$mdSidenav", '$stateParams', function (categoriasService, preferenciasService, $mdSidenav, $stateParams) {
 
-    var bz = this;
+        var bz = this;
 
-    bz.datos = {
+        bz.datos = {
 
-        preferencias: []
-    }
-    
-    bz.datos.nombre = $stateParams.nombreLogo;
+            preferencias: []
+        }
+        
+        if ($stateParams.nombreLogo) {
 
-    /*------ CORREGIR --------*/
+            bz.datos.nombre = $stateParams.nombreLogo;
 
-    bz.cambiarMenu = function (lugar) {
-
-        return $mdSidenav('right').toggle();
-    }
+        };
 
 
-    bz.categoriasPosibles = [];
 
-    bz.preferencias = [];
+        bz.cambiarMenu = function (lugar) {
 
-    categoriasService.listaCategorias.then(function (res) {
-
-        angular.forEach(res.data, function (valor, llave) {
-
-            bz.categoriasPosibles.push(valor);
+            return $mdSidenav('right').toggle();
+        }
 
 
-        })
+        bz.categoriasPosibles = [];
 
-    })
+        bz.preferencias = [];
 
-    preferenciasService.listaPreferencias.then(function (res) {
+        categoriasService.listaCategorias().then(function (res) {
 
-        angular.forEach(res.data, function (valor, llave) {
-            valor.valor = 2;
-            bz.datos.preferencias.push(valor);
+            angular.forEach(res, function (valor, llave) {
 
+                bz.categoriasPosibles.push(valor);
+
+            })
 
         })
 
-    })
+        preferenciasService.listaPreferencias().then(function (res) {
 
-    /* SELECT FUNCTION */
+            angular.forEach(res, function (valor, llave) {
+                valor.valor = 2;
+                bz.datos.preferencias.push(valor);
 
-    bz.iconos = [ {
-        tipo: 'ICONO Y NOMBRE',
-        descripcion: 'Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.',
-        enviar:'ICONO'
-    },{
-        tipo: 'TIPOGRAFICO',
-        descripcion: 'Una forma facil de recordar en el centro de su logo.',
-        enviar:'TIPOGRAFICO'
+            })
+
+        })
+
+        /* SELECT FUNCTION */
+
+        bz.iconos = [{
+            tipo: 'ICONO Y NOMBRE',
+            descripcion: 'Un logo con gran impacto compuestos por su tipografía o texto y una imagen o símbolo.',
+            enviar: 'ICONO'
     }, {
-        tipo: 'INICIAL Y NOMBRE',
-        descripcion: 'Una letra como el elemento principal de su logo.',
-        enviar:'INICIAL'
+            tipo: 'TIPOGRAFICO',
+            descripcion: 'Una forma facil de recordar en el centro de su logo.',
+            enviar: 'TIPOGRAFICO'
+    }, {
+            tipo: 'INICIAL Y NOMBRE',
+            descripcion: 'Una letra como el elemento principal de su logo.',
+            enviar: 'INICIAL'
     }]
 
-    bz.selectA = function (index , tipo) {
-        bz.datos.tipo = tipo; 
-    }
+        bz.selectA = function (index, tipo) {
+            bz.datos.tipo = tipo;
+        }
 
-    /*----XXX -----*/
+        /*----XXX -----*/
 
 
 
-    this.mostrar = 1;
+        bz.mostrar = 1;
 
 }])

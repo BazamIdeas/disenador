@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', 'clientesService', function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval, clientesService) {
+    .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', 'clientesService', 'mockupsValue', "historicoResolve",function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval, clientesService, mockupsValue, historicoResolve) {
 
         var bz = this;
 
@@ -65,41 +65,32 @@ angular.module("disenador-de-logos")
         //////////////////////////////////////////////
         ///////////////LOCAL STORAGE//////////////////
         //////////////////////////////////////////////
-        this.definirInfo = function (llave, datos) {
-            return LS.definir(llave, datos);
-        }
-
-        if ($stateParams.logoModificado) { //si es un logo previamente modificado
+      
+        
+      
+        if (historicoResolve.logoModificado) { //si es un logo previamente modificado
 
             bz.restauracionIniciada = true;
 
-            bz.restauraciones.push($stateParams.logoModificado.svg);
+            bz.restauraciones.push(historicoResolve.logoModificado.svg);
 
             bz.logo = {
-                icono: {}
+                icono: {
+                    tipo: historicoResolve.logoModificado.tipo,
+                    idElemento: historicoResolve.logoModificado.idElemento
+                }
             }
-
-            bz.logo.icono.tipo = $stateParams.logoModificado.tipo;
-            bz.logo.icono.idElemento = $stateParams.logoModificado.idElemento;
 
         } else { //si no es logo modificado, se revisa el localStorage
 
-            if ($stateParams.logo && $stateParams.posicion && $stateParams.texto) {
-                this.definirInfo($state.current.name, $stateParams);
-                this.datosEstadoAnterior = $stateParams;
-
-            } else if (LS.obtener($state.current.name)) {
-
-                this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
-            } else {
-                $state.go('opciones');
-            }
-
-            this.logo = this.datosEstadoAnterior.logo;
-            this.logo.texto = this.datosEstadoAnterior.texto;
-            this.logo.posicion = this.datosEstadoAnterior.posicion;
-            this.fuentes = this.datosEstadoAnterior.fuentes;
-            this.categoria = this.datosEstadoAnterior.logo.icono.categorias_idCategoria;
+            
+            bz.datosEstadoAnterior = historicoResolve;
+            
+            bz.logo = bz.datosEstadoAnterior.logo;
+            bz.logo.texto = bz.datosEstadoAnterior.texto;
+            bz.logo.posicion = bz.datosEstadoAnterior.posicion;
+            bz.fuentes = bz.datosEstadoAnterior.fuentes;
+            bz.categoria = bz.datosEstadoAnterior.logo.icono.categorias_idCategoria;
 
         }
 
@@ -107,7 +98,7 @@ angular.module("disenador-de-logos")
 
         /* MENU EDITOR */
 
-        this.elementosMenu = [{
+        bz.elementosMenu = [{
             icono: 'font_download',
             nombre: 'Nombre',
             estado: 'activo'
@@ -123,13 +114,13 @@ angular.module("disenador-de-logos")
             nombre: 'Comparaciones'
         }];
 
-        this.hideMenu = function () {
+        bz.hideMenu = function () {
             l = document.querySelector('.elementos');
             l.style.display = 'none';
         }
 
-        this.menu = 0;
-        this.efectoClick = function (index, elemento, event) {
+        bz.menu = 0;
+        bz.efectoClick = function (index, elemento, event) {
             if (screen.width <= 980 || document.querySelector('.elementos').style.width != 'block') {
                 l = document.querySelector('.elementos');
                 l.style.display = 'block';
@@ -145,11 +136,11 @@ angular.module("disenador-de-logos")
                 elementoActual.classList.add('activo');
             }
 
-            this.menu = index;
-            if (!this.elementosMenu[index]) {
-                this.elementosMenu[index].estado = 'activo';
+            bz.menu = index;
+            if (!bz.elementosMenu[index]) {
+                bz.elementosMenu[index].estado = 'activo';
             } else {
-                this.elementosMenu[index].estado = false;
+                bz.elementosMenu[index].estado = false;
             }
         }
 
@@ -167,9 +158,9 @@ angular.module("disenador-de-logos")
 
         /* CATEGORIAS EXISTENTES */
 
-        this.categoriasPosibles = [];
-        categoriasService.listaCategorias.then(function (res) {
-            angular.forEach(res.data, function (valor, llave) {
+        bz.categoriasPosibles = [];
+        categoriasService.listaCategorias().then(function (res) {
+            angular.forEach(res, function (valor, llave) {
                 bz.categoriasPosibles.push(valor);
             })
         })
@@ -364,43 +355,7 @@ angular.module("disenador-de-logos")
 
         /* PREVISUALIZAR */
 
-        bz.modeloPrevisualizar = [{
-                url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-                nombre: 'carta',
-                ancho: '40%'
-            },
-            {
-                url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-                nombre: 'carta',
-                ancho: '40%'
-            }, {
-                url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-                nombre: 'carta',
-                ancho: '30%'
-            }, {
-                url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-                nombre: 'carta',
-                ancho: '40%'
-            },
-            {
-                url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-                nombre: 'carta',
-                ancho: '40%'
-            },
-            {
-                url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-                nombre: 'carta',
-                ancho: '40%'
-            }, {
-                url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-                nombre: 'carta',
-                ancho: '30%'
-            }, {
-                url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-                nombre: 'carta',
-                ancho: '40%'
-            }
-        ]
+        bz.modeloPrevisualizar = mockupsValue;
 
         bz.mostrarDialogo = function (ev) {
             $mdDialog.show({

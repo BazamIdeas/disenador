@@ -73,6 +73,26 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 controller: 'opcionesController as opciones',
                 params: {
                     datos: null
+                },
+                resolve: {
+
+                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
+                    
+                        var defered = $q.defer();
+                        var promise = defered.promise;
+
+                        historicoFactory($stateParams.datos, 'opciones', 'comenzar').then(function (res) {
+                              
+                                defered.resolve(res)
+                            })
+                            .catch(function (res) {
+                        
+                                defered.reject(res)
+                            })
+
+                        return promise;
+                    }]
+
                 }
             })
             .state({
@@ -82,6 +102,27 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 controller: 'procesoController as proceso',
                 params: {
                     datos: null
+                },
+                resolve: {
+
+                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
+
+
+                        var defered = $q.defer();
+                        var promise = defered.promise;
+
+                        historicoFactory($stateParams.datos, 'proceso', 'opciones').then(function (res) {
+
+                                defered.resolve(res)
+                            })
+                            .catch(function (res) {
+
+                                defered.reject(res)
+                            })
+
+                        return promise;
+                    }]
+
                 }
             })
             .state({
@@ -95,6 +136,36 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     texto: null,
                     eslogan: null,
                     logoModificado: null
+                },
+                resolve: {
+
+                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
+
+                        var defered = $q.defer();
+                        var promise = defered.promise;
+          
+                        if ($stateParams.logoModificado) { //si es un logo previamente modificado
+ 
+                            defered.resolve($stateParams);
+                            
+                        } else { //si no es logo modificado, se revisa el localStorage
+
+                            historicoFactory($stateParams, 'editor', 'proceso').then(function (res) {
+
+                                    defered.resolve(res);
+                                
+                                })
+                                .catch(function (res) {
+
+                                    defered.reject(res);
+                                })
+                        }
+                    
+                        return promise;
+                        
+                        
+                    }]
+
                 }
             })
             .state({
@@ -154,10 +225,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 controller: 'planesController as pla',
                 params: {
                     logo: null,
-                    tipoLogo:  null,
-                    idElemento:  null,
-                    localidad:  null,
-                    idPrecio:  null,
+                    tipoLogo: null,
+                    idElemento: null,
+                    localidad: null,
+                    idPrecio: null,
                 }
             })
             .state({
@@ -213,16 +284,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     .run(function ($rootScope, $state) {
 
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
-
-
-        });
 
 
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
-            // We can catch the error thrown when the $requireSignIn promise is rejected
-            // and redirect the user back to the home page
+
+
             if (error === "AUTH_REQUIRED") {
 
                 $state.go("login", ({
@@ -230,8 +296,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     destino: toState.name,
                     parametrosDestino: toParams
                 }));
+
             } else if (error === "LOGOUT_REQUIRED") {
+
                 $state.go('dashboard');
+
+            } else if (error.error === "FALLO_HISTORICO") {
+                console.log(error)
+                
+                $state.go(error.objetivo);
+
             }
         });
     })

@@ -190,17 +190,15 @@ exports.nuevoElementoFuente = function (req, res) {
 	var tmp_path = req.files.mifuente.name;
 	var datoPrefe = req.body.datoPrefe;
 	var tmp_path = req.files.mifuente.path;
-	var tipo = req.files.mifuente.name;
+	var tipo = req.files.mifuente.type;
 
-	console.log(tipo);
-
-	if(tipo.includes('ttf')){
+	/*if(tipo.includes('ttf')){
 		tipo = 'application/x-font-ttf';
 	}else if(tipo.includes('otf')){
 		tipo = 'application/x-font-otf';
 	}else if(tipo.includes('eot')){
 		tipo = 'application/x-font-eot';
-	}
+	}*/
 	
 	if ((tipo == 'application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-eot')) {
 
@@ -219,7 +217,6 @@ exports.nuevoElementoFuente = function (req, res) {
 					comprado: 0,
 					categorias_idcategoria: req.body.categoria
 				}
-				console.log(fuente);
 
 				elemento.insertFuente(fuente, function (error, data) {
 
