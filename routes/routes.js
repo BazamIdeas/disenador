@@ -10,11 +10,11 @@ var configuracion=require('../configuracion.js');
 
 //MODULO CLIENTES
 //no espera parametros
-router.get('/clientes',  middleware.validar, controllers.clientes.listaClientes);
+router.get('/clientes',  middleware.validarUsuario, controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
-router.get('/cliente/:id', middleware.validar, controllers.clientes.datosCliente);
+router.get('/cliente/:id', middleware.validarUsuario, controllers.clientes.datosCliente);
 //parametro por get que debe ser el id del cliente.
-router.post('/cliente/borrar/:id', middleware.validar, controllers.clientes.borrarCliente);
+router.post('/cliente/borrar/:id', middleware.validarUsuario, controllers.clientes.borrarCliente);
 //"valor"	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
 router.post("/cliente", controllers.clientes.nuevoCliente);
@@ -37,7 +37,7 @@ router.get('/usuario/borrar/:id', middleware.validarUsuario, controllers.usuario
 // idUsuario : valor,nombreUser : valor,correo : valor,	pass : valor
 router.post("/usuario", controllers.usuarios.nuevoUsuario);
 //los mismos datos que la ruta /usuario
-router.post("/usuario/modificar/", controllers.usuarios.modificarUsuario);
+router.post("/usuario/modificar/", middleware.validarUsuario, controllers.usuarios.modificarUsuario);
 router.post("/usuario/login",controllers.usuarios.login);
 
 //MODULO PEDIDOS
@@ -56,26 +56,26 @@ router.get("/pedido/no/pago/:tk", controllers.pedidos.noPago);// RUTAS INTERNAS
 //MODULO CATEGORIAS
 
 router.get('/categorias', controllers.categorias.listaCategorias);
-router.post("/categoria", controllers.categorias.nuevaCategoria);
-router.post("/categoria/modificar/", multipartMiddleware, controllers.categorias.modificarCategoria);
-router.get('/categoria/borrar/:id', multipartMiddleware, controllers.categorias.borrarCategoria);
+router.post("/categoria", middleware.validarUsuario, controllers.categorias.nuevaCategoria);
+router.post("/categoria/modificar/", middleware.validarUsuario, controllers.categorias.modificarCategoria);
+router.get('/categoria/borrar/:id', middleware.validarUsuario, controllers.categorias.borrarCategoria);
 
 //MODULO PREFERENCIA
 
 router.get('/preferencias', controllers.preferencias.listaPreferencias);
-router.post("/preferencia", controllers.preferencias.nuevaPreferencia);
-router.post("/preferencia/modificar/", multipartMiddleware, controllers.preferencias.modificarPreferencia);
-router.get('/preferencia/borrar/:id', multipartMiddleware, controllers.preferencias.borrarPreferencia);
+router.post("/preferencia", middleware.validarUsuario, controllers.preferencias.nuevaPreferencia);
+router.post("/preferencia/modificar/", middleware.validarUsuario, controllers.preferencias.modificarPreferencia);
+router.get('/preferencia/borrar/:id', middleware.validarUsuario, controllers.preferencias.borrarPreferencia);
 
 //etiquetas
 
-router.get('/etiquetas', multipartMiddleware, controllers.etiquetas.listaEtiquetas);
-router.post("/etiqueta", multipartMiddleware, controllers.etiquetas.nuevaEtiqueta);
-router.post("/etiqueta/modificar/", multipartMiddleware, controllers.etiquetas.modificarEtiqueta);
-router.get('/etiqueta/borrar/:id', multipartMiddleware, controllers.etiquetas.borrarEtiqueta);
+router.get('/etiquetas',  controllers.etiquetas.listaEtiquetas);
+router.post("/etiqueta",  controllers.etiquetas.nuevaEtiqueta);
+router.post("/etiqueta/modificar/", middleware.validarUsuario, controllers.etiquetas.modificarEtiqueta);
+router.get('/etiqueta/borrar/:id', middleware.validarUsuario, controllers.etiquetas.borrarEtiqueta);
 
 //Envio de emails
-router.get('/email', multipartMiddleware, controllers.emails.enviar_email);
+router.get('/email',  controllers.emails.enviar_email);
 
 
 //MODULO ELEMENTOS
