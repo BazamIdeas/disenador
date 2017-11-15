@@ -190,21 +190,21 @@ exports.nuevoElementoFuente = function (req, res) {
 	var tmp_path = req.files.mifuente.name;
 	var datoPrefe = req.body.datoPrefe;
 	var tmp_path = req.files.mifuente.path;
-	var tipo = req.files.mifuente.type;
+	var tipo = req.files.mifuente.name.toLowerCase();
 
-	/*if(tipo.includes('ttf')){
+	if(tipo.includes('ttf')){
 		tipo = 'application/x-font-ttf';
 	}else if(tipo.includes('otf')){
 		tipo = 'application/x-font-otf';
 	}else if(tipo.includes('eot')){
 		tipo = 'application/x-font-eot';
-	}*/
+	}
 	
 	if ((tipo == 'application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-eot')) {
 
 		var nombrefuente = req.files.mifuente.name;
-		var targer_path = './fuentes/' + nombrefuente;
-		fs.rename(tmp_path, targer_path, function (err) {
+		var targer_path = '/fuentes/' + nombrefuente;
+		fs.rename(tmp_path, '.'+targer_path, function (err) {
 			fs.unlink(tmp_path, function (err) {
 
 				var fuente = {
@@ -252,7 +252,7 @@ exports.nuevoElementoFuente = function (req, res) {
 		});
 
 	} else {
-		res.status(404).json({
+		res.status(400).json({
 			"msg": "Archivo no Soportado"
 		})
 	}
