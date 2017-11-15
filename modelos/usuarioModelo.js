@@ -10,7 +10,6 @@ usuario.verificarUsuario = function(usuarioData,callback)
 	var correo = usuarioData[0];
 	var pass = usuarioData[1];
 
-		  		console.log(pass, correo)
                 
 		DB.getConnection(function(err, connection)
 		{			

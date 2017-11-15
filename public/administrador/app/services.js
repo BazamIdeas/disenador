@@ -1845,7 +1845,7 @@ angular.module("administrador")
                 url: '/app/elemento/fuente/',
                 method: 'POST',
                 file: {
-                    misvg: datos.mifuente
+                    mifuente: datos.mifuente
                 },
                 data: datos
             }).then(function (res) {
