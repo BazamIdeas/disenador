@@ -41,7 +41,7 @@ pago.paypal = function(datos,callback)
       };
     }
 
-      if (datos.tipoPago == "credit_card")
+    if (datos.tipoPago == "credit_card")
     {
       var payment =   {
         "intent": "sale",

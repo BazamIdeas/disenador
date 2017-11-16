@@ -141,7 +141,9 @@ exports.listaLogosDescargables = function(req, res, next) {
 			{
 				var nombre = idLogo +'-' + moment().format("YYYY-MM-DD")+'-'+ancho+'.svg'
 				var path = 'public/tmp/'
-				buffer = new Buffer(base64.decode(data[0].logo));
+				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
+				console.log(req.protocol + "://" + req.headers.host);
+
 
 				fs.open(path+nombre, 'w', function(err, fd) {
 				    if (err) {
@@ -154,15 +156,17 @@ exports.listaLogosDescargables = function(req, res, next) {
 				        	var img =  path + nombre
 							var salida =  path + nombre.replace("svg", "png");
 							fs.readFile(img, (err, svg) => {
-							  if (err) throw err;
-							  svg2png(svg, { width: ancho})
-							    .then(buffer => fs.writeFile(salida, buffer))
-							    .catch(e => console.error(e));
+								if (err) throw err;
+								svg2png(svg, { width: ancho})
+								    .then(buffer => {fs.writeFile(salida, buffer)
+								    	res.json({svg:salida.replace('png','svg'),png:salida})
+								    })
+								    .catch(e => console.error(e));
 							});
-							res.json({svg:salida.replace('png','svg'),png:salida})
+							
 							setTimeout(function () {
 						    //fs.unlink(salida)
-						    console.log(salida+' borrado')
+						    
 							}, 10000); 
 				        }
 				        fs.close(fd)
