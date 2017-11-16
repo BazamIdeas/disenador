@@ -75,7 +75,8 @@ router.post("/etiqueta/modificar/", middleware.validarUsuario, controllers.etiqu
 router.get('/etiqueta/borrar/:id', middleware.validarUsuario, controllers.etiquetas.borrarEtiqueta);
 
 //Envio de emails
-router.get('/email',  controllers.emails.enviar_email);
+//router.get('/email', controllers.emails.enviarEmail);
+
 
 
 //MODULO ELEMENTOS

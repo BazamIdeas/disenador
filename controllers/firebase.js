@@ -13,7 +13,7 @@ exports.comprobarEstado = function (req, res, next) {
 
     if (configuracion.seguridad){
         var token = req.body.token
-    console.log(req.body)
+        console.log(req.body)
 
     admin.auth().verifyIdToken(token)
         .then(function (decodedToken) {

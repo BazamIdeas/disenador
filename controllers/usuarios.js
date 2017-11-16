@@ -1,5 +1,5 @@
-var usuario=require('../modelos/usuarioModelo.js');
-var services=require('../services');
+var usuario = require('../modelos/usuarioModelo.js');
+var services = require('../services');
 
 exports.login =  function(req,res,next)
 	{
@@ -14,7 +14,7 @@ exports.login =  function(req,res,next)
 			{
 				res.status(200).json({
 					'nombre':data[0].nombreUser,
-					'token':services.crearToken(data[0].idUsuario,"admin")
+					'token':services.authServices.crearToken(data[0].idUsuario,"admin")
 				})
 				//res.status(200).json(data)
 
@@ -83,7 +83,7 @@ exports.nuevoUsuario =  function(req,res)
 			{
 				res.status(200).json({
 					'nombre':req.body.nombreUser,
-					'token':services.crearToken(data.insertId,"admin")
+					'token':services.authServices.crearToken(data.insertId,"admin")
 				})
 			}
 			else
