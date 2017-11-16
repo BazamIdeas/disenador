@@ -1,21 +1,14 @@
+var fs = require("fs");
+var path = require("path");
 
-var jwt = require('jwt-simple');
-var moment = require('moment');
-var configuracion = require('../configuracion.js');
+var archivos = fs.readdirSync(__dirname);
 
-exports.crearToken = function(id,tipo){
-	const datos	= {
-		id : id,
-		ini: moment().unix(),
-		final: moment().add(7, "days").unix(),
-		tipo : tipo
+archivos.forEach(function(archivo) {
+
+	var nombreArchivo = path.basename(archivo, '.js');
+
+	if (nombreArchivo !== 'index') {
+		exports[nombreArchivo] = require('./'+ nombreArchivo)
 	}
 
-	console.log(datos)
-	return jwt.encode(datos, configuracion.secret)
-}
-
-exports.decodificar = function(token){
-	
-	return jwt.decode(token, configuracion.secret)
-}
+})

@@ -15,7 +15,7 @@ exports.login =  function(req,res,next)
 				
 				res.status(200).json({
 					'nombre':data[0].nombreCliente,
-					'token':services.crearToken(data[0].idCliente,"cliente"),
+					'token':services.authServices.crearToken(data[0].idCliente,"cliente"),
 					//'idCliente':data[0].idCliente
 				})
 				//res.status(200).json(data)
@@ -88,7 +88,7 @@ exports.nuevoCliente =  function(req,res,next)
 			{
 				res.status(200).json({
 					'nombre':req.body.nombreCliente,
-					'token':services.crearToken(data.insertId,"cliente")
+					'token':services.authServices.crearToken(data.insertId,"cliente")
 				})
 			}
 			else
