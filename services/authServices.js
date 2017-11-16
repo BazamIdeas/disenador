@@ -7,11 +7,9 @@ exports.crearToken = function(id,tipo){
 	const datos	= {
 		id : id,
 		ini: moment().unix(),
-		final: moment().add(7, "days").unix(),
+		final: moment().add(1, "days").unix(),
 		tipo : tipo
 	}
-
-	console.log(datos)
 	return jwt.encode(datos, configuracion.secret)
 }
 

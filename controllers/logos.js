@@ -1,4 +1,6 @@
 var logo=require('../modelos/logosModelo.js');
+var cliente=require('../modelos/clientesModelo.js');
+var services=require('../services');
 var fs = require('pn/fs');
 var moment = require('moment');
 var base64 = require('base-64');
@@ -23,8 +25,14 @@ exports.guardar =  function(req,res)
 		{
 			//si el pedido se ha insertado correctamente mostramos su info
 			if(data && data.insertId)
-			{
-					res.status(200).json(data);
+			{				
+				cliente.getCliente(req.idCliente, function(error, data){
+
+					console.log(data);
+					services.emailServices.enviar('logoGuardado.html', {}, "Logo guardado", data.correo);
+
+				});
+				res.status(200).json(data);
 			}
 			else
 			{

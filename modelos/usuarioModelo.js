@@ -94,6 +94,24 @@ usuario.getUsuario = function(id,callback)
 	});
 }
  
+usuario.getUsuarioEmail = function(correo,callback)
+{ 
+	var q = 'SELECT nombreUser, idUsuario, correo, pass FROM usuarios WHERE  correo = ?  ' 
+	var par = [correo] //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, row);
+	  	
+	  });
+
+	  connection.release();
+	});
+}
 
 //añadir un nuevo usuario
 usuario.insertUsuario = function(usuarioData,callback)
@@ -140,6 +158,26 @@ usuario.updateUsuario = function(usuarioData, callback)
 {
 	var q = 'UPDATE usuarios SET nombreUser = ?,  pass = ? WHERE idUsuario = ?';
 	var par = usuarioData //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+
+	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+
+//cambiar contraseña
+usuario.changePassword = function(datos, callback)
+{
+	var q = 'UPDATE usuarios SET pass = ? WHERE idUsuario = ?';
+	var par = datos //parametros
 
 	DB.getConnection(function(err, connection)
 	{

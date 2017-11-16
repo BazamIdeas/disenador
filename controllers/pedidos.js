@@ -1,6 +1,8 @@
 var pedido=require('../modelos/pedidosModelo.js');
 var logo=require('../modelos/logosModelo.js');
 var pago=require('../modelos/pagosModelo.js');
+var cliente=require('../modelos/clientesModelo.js');
+var services=require('../services');
 var elemento=require('../modelos/elementosModelo.js');
 var precio=require('../modelos/preciosModelo.js');
 var configuracion=require('../configuracion.js');
@@ -277,15 +279,23 @@ exports.nuevoPedido =  function(req,res)
 					logo.cambiarEstado(logoData,function(error, data)
 					{
 					
-						if(data)
+						if(!error)
 						{
+
+							var id = services.authServices.decodificar(req.params.tk).id;
 							
-							////////////////////////////// ENVIAR CORREO AQUI
-								 res.redirect(configuracion.dashboard+"?pago=true");
+							cliente.getCliente(id, function(error, data){
+
+								console.log(data);
+								services.emailServices.enviar('pedidoPago.html', {}, "Pedido pagado", data.correo);
+
+							});
+							
+							res.redirect(configuracion.dashboard+"?pago=true");
 						}
 						else
 						{
-							res.redirect(configuracion.dashboard+"?pago=true");
+							res.redirect(configuracion.dashboard+"?pago=false");
 						}
 					});
 				}

@@ -83,6 +83,25 @@ planes.getPlanesWithPrices = function(callback)
 
 }
 
+planes.getPlanesWithPricesPorPais = function(callback)
+{
+	var q =  'SELECT * FROM planes INNER JOIN precios ON planes.idPlan = precios.planes_idPlan WHERE precios.status = 1 and planes.status = 1 ORDER BY planes.plan';
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q ,  function(err, rows){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, rows);
+	  	
+	  });
+
+	  connection.release();
+	});
+
+}
+
 planes.insertPrecio = function(planPrecio, callback)
 {
 	var q = 'INSERT INTO precios SET ? ' 
