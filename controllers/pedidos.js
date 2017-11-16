@@ -300,7 +300,7 @@ exports.nuevoPedido =  function(req,res)
 	exports.noPago = function(req,res)
 	{
 		
-		res.redirect(configuracion.dashboard+"?pago=true");
+		res.redirect(configuracion.dashboard+"?pago=false");
 
 	}
 

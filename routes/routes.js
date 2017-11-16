@@ -10,7 +10,7 @@ var configuracion=require('../configuracion.js');
 
 //MODULO CLIENTES
 //no espera parametros
-router.get('/clientes',  middleware.validarUsuario, controllers.clientes.listaClientes);
+router.get('/clientes', middleware.validarUsuario, controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
 router.get('/cliente/:id', middleware.validarUsuario, controllers.clientes.datosCliente);
 //parametro por get que debe ser el id del cliente.
@@ -41,10 +41,10 @@ router.post("/usuario/modificar/", middleware.validarUsuario, controllers.usuari
 router.post("/usuario/login",controllers.usuarios.login);
 
 //MODULO PEDIDOS
-router.get('/pedidos', middleware.validar, controllers.pedidos.listaPedidos);//lista todos los pedidos
-router.get('/pedido/:id', middleware.validar, controllers.pedidos.datosPedido);//muestra los datos de un pedido por su id
-router.get('/pedidos/cliente/:id', middleware.validar, controllers.pedidos.datosPedidosCliente);//muestra la lista de pedidos de un cliente
-router.get('/pedido/borrar/:id', middleware.validar, controllers.pedidos.borrarPedido);//borra un pedido
+router.get('/pedidos', middleware.validarUsuario, controllers.pedidos.listaPedidos);//lista todos los pedidos
+router.get('/pedido/:id',  middleware.validarUsuario, controllers.pedidos.datosPedido);//muestra los datos de un pedido por su id
+router.get('/pedidos/cliente/:id', middleware.validarUsuario, controllers.pedidos.datosPedidosCliente);//muestra la lista de pedidos de un cliente
+router.get('/pedido/borrar/:id', middleware.validarUsuario, controllers.pedidos.borrarPedido);//borra un pedido
 router.post("/pedido", middleware.validar, controllers.pedidos.nuevoPedido);//crea un pedido primero guardando el logo 
 router.post("/pedido/guardado/", middleware.validar, controllers.pedidos.nuevoPedidoGuardado);//crea un pedido de un logo ya guardado
 router.post("/pedido/modificar/", middleware.validar, controllers.pedidos.modificarPedido);// modifica los datos de un pedido
@@ -85,31 +85,32 @@ router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoE
 router.post("/elemento/fuente", multipartMiddleware, controllers.elementos.nuevoElementoFuente);
 
 //MODULO PRECIOS
-router.get('/impuestos', controllers.impuestos.listaImpuesto);
-router.post("/impuesto", controllers.impuestos.nuevoImpuesto);
-router.post("/impuesto/modificar/", controllers.impuestos.modificarImpuesto);
-router.get('/impuesto/borrar/:id', controllers.impuestos.borrarImpuesto);
+router.get('/impuestos', middleware.validarUsuario, controllers.impuestos.listaImpuesto);
+router.post("/impuesto", middleware.validarUsuario, controllers.impuestos.nuevoImpuesto);
+router.post("/impuesto/modificar/", middleware.validarUsuario, controllers.impuestos.modificarImpuesto);
+router.get('/impuesto/borrar/:id', middleware.validarUsuario, controllers.impuestos.borrarImpuesto);
+
 
 //MODULO  DE PLANES
 router.get("/planesAll", controllers.planes.getPlanesWithPrices);
-router.get("/planes/precios", controllers.planes.listarPlanes); // lista planes y precios activos LISTO
-router.post("/plan", multipartMiddleware, controllers.planes.nuevoPlan); // ingresar Nuevo y un precio
-router.get("/planes", controllers.planes.selectPlan); // selecciona plan
-router.post("/plan/precios", controllers.planes.nuevoPrecio); // inserta nuevos precio para un plan seleccionado
-router.post("/plan/precio/modificar/", multipartMiddleware, controllers.planes.modificarPlan);
-router.get('/plan/precio/:id', controllers.planes.listarPrecios);
-router.post('/plan/status', controllers.planes.statusPlan);
-router.post('/plan/actualizar', controllers.planes.nombrePlanActualizar);
+router.get("/planes/precios", middleware.validarUsuario, controllers.planes.listarPlanes); // lista planes y precios activos LISTO
+router.post("/plan", middleware.validarUsuario, controllers.planes.nuevoPlan); // ingresar Nuevo y un precio
+router.get("/planes", middleware.validarUsuario, controllers.planes.selectPlan); // selecciona plan
+router.post("/plan/precios", middleware.validarUsuario, controllers.planes.nuevoPrecio); // inserta nuevos precio para un plan seleccionado
+router.post("/plan/precio/modificar/", middleware.validarUsuario, controllers.planes.modificarPlan);
+router.get('/plan/precio/:id', middleware.validarUsuario, controllers.planes.listarPrecios);
+router.post('/plan/status', middleware.validarUsuario, controllers.planes.statusPlan);
+router.post('/plan/actualizar', middleware.validarUsuario, controllers.planes.nombrePlanActualizar);
 //router.get('/plan/borrar/:id', controllers.planes.borrarPlan);
 
 
 //MODULO LOGOS
 router.post('/logos/guardados/', middleware.validar, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables/',  middleware.validar, controllers.logos.listaLogosDescargables);
-router.get('/logo/:id', multipartMiddleware, controllers.logos.datosLogo); //muestra los datos de un logo por su id
+router.get('/logo/:id', controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar/", middleware.validar, controllers.logos.guardar);
-router.post("/logo/modificar/", multipartMiddleware, controllers.logos.modificarLogo);
-router.post("/logo/descargar/", multipartMiddleware, controllers.logos.descargar);
+router.post("/logo/modificar/",  controllers.logos.modificarLogo);
+router.post("/logo/descargar/",  controllers.logos.descargar);
 
 //PARA PRUEBAS
 router.get("/prueba", middleware.decodificar);

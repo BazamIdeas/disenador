@@ -156,13 +156,15 @@ exports.listaLogosDescargables = function(req, res, next) {
 							fs.readFile(img, (err, svg) => {
 							  if (err) throw err;
 							  svg2png(svg, { width: ancho})
-							    .then(buffer => fs.writeFile(salida, buffer))
+							    .then(buffer => {fs.writeFile(salida, buffer)
+							    	res.json({svg:salida.replace('png','svg'),png:salida})
+							    })
 							    .catch(e => console.error(e));
 							});
-							res.json({svg:salida.replace('png','svg'),png:salida})
+							
 							setTimeout(function () {
 						    //fs.unlink(salida)
-						    console.log(salida+' borrado')
+						    
 							}, 10000); 
 				        }
 				        fs.close(fd)
