@@ -77,16 +77,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 resolve: {
 
                     historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
-                    
+
                         var defered = $q.defer();
                         var promise = defered.promise;
 
                         historicoFactory($stateParams.datos, 'opciones', 'comenzar').then(function (res) {
-                              
+
                                 defered.resolve(res)
                             })
                             .catch(function (res) {
-                        
+
                                 defered.reject(res)
                             })
 
@@ -135,7 +135,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     posicion: null,
                     texto: null,
                     eslogan: null,
-                    logoModificado: null
+                    logoModificado: null,
+                    fuentes: null
                 },
                 resolve: {
 
@@ -143,27 +144,27 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                         var defered = $q.defer();
                         var promise = defered.promise;
-          
+
                         if ($stateParams.logoModificado) { //si es un logo previamente modificado
- 
+
                             defered.resolve($stateParams);
-                            
+
                         } else { //si no es logo modificado, se revisa el localStorage
 
                             historicoFactory($stateParams, 'editor', 'proceso').then(function (res) {
 
                                     defered.resolve(res);
-                                
+
                                 })
                                 .catch(function (res) {
 
                                     defered.reject(res);
                                 })
                         }
-                    
+
                         return promise;
-                        
-                        
+
+
                     }]
 
                 }
@@ -226,9 +227,33 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 params: {
                     logo: null,
                     tipoLogo: null,
-                    idElemento: null,
-                    localidad: null,
-                    idPrecio: null,
+                    idElemento: null
+                },
+                resolve: {
+
+                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
+
+                        var defered = $q.defer();
+                        var promise = defered.promise;
+
+
+
+                        historicoFactory($stateParams, 'planes', 'editor').then(function (res) {
+
+                                defered.resolve(res);
+
+                            })
+                            .catch(function (res) {
+
+                                defered.reject(res);
+                            })
+
+
+                        return promise;
+
+
+                    }]
+
                 }
             })
             .state({
@@ -251,6 +276,25 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                             return $q.reject("AUTH_REQUIRED");
 
                         }
+
+                    }],
+
+                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
+
+                        var defered = $q.defer();
+                        var promise = defered.promise;
+
+                        historicoFactory($stateParams, 'metodo', 'planes').then(function (res) {
+
+                                defered.resolve(res);
+
+                            })
+                            .catch(function (res) {
+
+                                defered.reject(res);
+                            })
+
+                        return promise;
 
                     }]
                 }
@@ -302,10 +346,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 $state.go('dashboard');
 
             } else if (error.error === "FALLO_HISTORICO") {
-                console.log(error)
-                
+
+
                 $state.go(error.objetivo);
 
             }
+
+            console.log(error)
         });
     })

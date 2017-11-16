@@ -170,7 +170,7 @@ angular.module("disenador-de-logos")
                 })
 
                 .catch(function (res) {
-               
+
 
 
                 })
@@ -381,11 +381,11 @@ angular.module("disenador-de-logos")
     }])
 
     .factory('crearLogoFactory', [function () {
-        
+
         return function (iconos, fuentes) {
-            
+
             var logos = [];
-            
+
             angular.forEach(iconos, function (icono, indice) {
 
                 angular.forEach(fuentes, function (fuente, indice) {
@@ -398,11 +398,11 @@ angular.module("disenador-de-logos")
                     };
 
                     logos.push(logo);
-                 
+
                 })
 
             })
-  
+
             return logos;
 
         }
@@ -434,21 +434,34 @@ angular.module("disenador-de-logos")
             var defered = $q.defer();
 
             var promise = defered.promise;
-            
+
+
+            //condicion especial para el estado 'Editor' y 'Planes', debido a diferentes estructuras de los Params del estado
+
+
+            //datos = actual == 'editor' && datos.logo == null ? null : datos;
+
+            if((actual == 'editor' && datos.logo == null) || (actual == 'planes' && datos.logo == null) || (actual == 'metodo' && datos.logo == null)){
+                
+                 datos = null;
+                
+            }
+
+
             //dado el caso: 'Proceso' -> 'Editor', decimos que: 'Proceso' = 'pasado' y 'Editor' = 'actual'
-            
+
             if (datos) { //si hay datos que provienen del estado 'pasado' se graban en el estado 'actual' y se accede a el
 
                 LS.definir(actual, datos);
 
                 defered.resolve(datos);
 
-            } else if (LS.obtener(actual)) {//si no hay datos provenientes del estado 'pasado',  se accede al estado 'actual' SI hay datos almacenados
-                
+            } else if (LS.obtener(actual)) { //si no hay datos provenientes del estado 'pasado',  se accede al estado 'actual' SI hay datos almacenados
+
                 defered.resolve(LS.obtener(actual));
 
             } else { //si no hay datos del estado 'pasado' y no hay datos almacenados en el estado 'actual' se 
-               
+
                 defered.reject({
                     error: 'FALLO_HISTORICO',
                     objetivo: pasado
@@ -458,7 +471,7 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-    }])
+            }])
 
 
 

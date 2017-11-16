@@ -3,12 +3,12 @@ angular.module("disenador-de-logos")
     /* Metodos */
 
 
-    .controller('metodosController', ['$scope', 'pedidosService', '$mdDialog', '$stateParams', '$state', '$window', 'SweetAlert', 'LS', '$rootScope', function ($scope, pedidosService, $mdDialog, $stateParams, $state, $window, SweetAlert, LS, $rootScope) {
+    .controller('metodosController', ['$scope', 'pedidosService', '$mdDialog', '$stateParams', '$state', '$window', 'SweetAlert', 'LS', '$rootScope', 'historicoResolve', function ($scope, pedidosService, $mdDialog, $stateParams, $state, $window, SweetAlert, LS, $rootScope, historicoResolve) {
 
         var bz = this;
 
         /* LOCAL STORAGE */
-        
+        /*
         if ($stateParams.logo) {
             LS.definir($state.current.name, $stateParams);
             this.datosEstadoAnterior = $stateParams;
@@ -18,7 +18,11 @@ angular.module("disenador-de-logos")
         } else {
             $state.go('planes');
         }
-
+        */
+        
+        
+        bz.datosEstadoAnterior = historicoResolve;
+        
         bz.mostrar = 'inicial';
         bz.compras = 1;
 

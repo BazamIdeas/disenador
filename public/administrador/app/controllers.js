@@ -755,7 +755,7 @@ angular.module("administrador")
 
         bz.nuevaFuente = function (datos) {
             iconoFuente.nuevaFuente(datos).then(function (res) {
-                console.log(res)
+                
                 notificacionService.mensaje('Fuente Agregada');
             }).catch(function (res) {})
 
