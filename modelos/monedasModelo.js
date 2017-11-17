@@ -1,11 +1,8 @@
-var DB=require('./DB.js');
- 
-//creamos un objeto para ir almacenando todo lo que necesitemos
-var moneda = {};
- 
+var DB = require('./db.js');
 
-//obtenemos todos las Etiquetas
-moneda.getMonedas = function(callback)
+var moneda = {};
+
+moneda.Listar = function(callback)
 {
 	var q = 'SELECT * FROM monedas ORDER BY moneda';
 
@@ -21,11 +18,9 @@ moneda.getMonedas = function(callback)
 
 	  connection.release();
 	});
-
 }
 
-
-moneda.insertMoneda = function(monedaData,callback)
+moneda.Nuevo = function(monedaData,callback)
 {
 	var q = 'SELECT count(*) as cantidad FROM monedas WHERE moneda = ?';
 	var par = monedaData //parametros
@@ -62,7 +57,7 @@ moneda.insertMoneda = function(monedaData,callback)
 	});
 }
 
-moneda.deleteMoneda = function(id, callback)
+moneda.Borrar = function(id, callback)
 {
 	var q = 'SELECT * FROM monedas WHERE idMoneda = ?';
 	var par = [id] //parametros

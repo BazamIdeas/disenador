@@ -1,85 +1,46 @@
-var pais   = require('../modelos/paisesModelo.js');
-var moneda = require('../modelos/monedasModelo.js');
+var pasarelas = require('../modelos/pasarelasModelo.js');
+var moneda    = require('../modelos/monedasModelo.js');
 
 exports.Listar = function(req, res, next)
-{
-	pais.Listar(function(error, data)
+{		
+	pasarela.Listar(function(error, data)
 	{
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0){
 			res.status(200).json(data);
 		}else{
-			res.status(404).json({"msg":"No hay resgitro de pais en la base de datos"})
+			res.status(404).json({"msg":"No hay resgitro de pasarela en la base de datos"})
 		}
 	});
-
 }
 
-exports.ListarMonedas = function(req, res, next)
+exports.Nuevo = function(req, res, next)
 {	
 	var id = req.params.id;
 
-	pais.ListarMonedas( id , function(error, data)
+	pasarela.Nuevo( id , function(error, data)
 	{
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0){
 			res.status(200).json(data);
 		}else{
-			res.status(404).json({"msg":"No hay resgitro de monedas para este pais en la base de datos"})
-		}
-	});
-}
-
-exports.Nuevo = function(req,res)
-{
-	//creamos un objeto con los datos a insertar del cliente
-	var paisData = {
-		iso : req.body.iso,
-	   	nombre : req.body.nombre,
-	   	impuesto : req.body.impuesto 
-	};
-		
-	
-	pais.Nuevo(paisData,function(error, data)
-	{
-		//si la etiqueta se ha insertado correctamente mostramos su info
-		if(data && data.insertId){
-			
-			var id = data.insertId;
-
-			var paismoneda = {
-				paises_idPais : id,
-				monedas_idMoneda : req.body.idMoneda,
-				principal : 1
-			}
-			
-			pais.AsignarMoneda(paismoneda, function(error, data)
-			{
-				//si la etiqueta se ha insertado correctamente mostramos su info
-				if(data && data.insertId){
-					res.status(200).json({'insertId': id});
-				}else{
-					res.status(500).json({"msg":"Algo ocurrio"})
-				}
-			});
-		}else{
-			res.status(500).json({"msg":"Algo ocurrio"})
+			res.status(404).json({"msg":"No hay resgitro de pasarelas en la base de datos"})
 		}
 	});
 }
 
 exports.Modificar =  function(req,res)
 {
-	var id = req.body.id; // cambiar por valor de sesion o por parametro
+	var id = req.body.id;
 
-	pais.Obtener(id,function(error, data)
+	pasarela.Obtener(id ,function(error, data)
 	{
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0){
 			//creamos un array con los datos a modificar del cliente
 			var paisData = [req.body.impuesto,req.body.id];
 				
-			pais.Modificar(paisData,function(error, data)
+			pasarela.Modificar(paisData,function(error, data)
 			{
 				//si el cliente se ha modificado correctamente
 				if(data){
@@ -89,6 +50,7 @@ exports.Modificar =  function(req,res)
 				}
 			});
 			console.log(paisData);
+		
 		}else{
 			res.status(404).json({"msg":"No existe"})
 		}
@@ -103,7 +65,7 @@ exports.AsignarMoneda =  function(req,res)
 		monedas_idMoneda : req.body.idMoneda
 	}
 
-	pais.AsignarMoneda(paismoneda, function(error, data)
+	pasarela.AsignarMoneda(paismoneda, function(error, data)
 	{
 		//si la etiqueta se ha insertado correctamente mostramos su info
 		if(data && data.insertId){
@@ -121,7 +83,7 @@ exports.DesasignarMoneda =  function(req,res)
 		monedas_idMoneda : req.body.idMoneda
 	}
 
-	pais.DesasignarMoneda(paismoneda, function(error, data)
+	pasarela.DesasignarMoneda(paismoneda, function(error, data)
 	{
 		//si la etiqueta se ha insertado correctamente mostramos su info
 		if(data && data.insertId){
@@ -132,15 +94,11 @@ exports.DesasignarMoneda =  function(req,res)
 	});
 }
 
-
-
 exports.Borrar =  function(req, res, next)
 {
-	//id del cliente
 	var id = req.params.id;
-	pais.Borrar(id,function(error, data)
+	pasarela.Borrar(id,function(error, data)
 	{
 		res.status(200).json(data);
 	});
-
 }

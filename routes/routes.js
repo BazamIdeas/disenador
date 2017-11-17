@@ -92,18 +92,29 @@ router.post("/impuesto/modificar/", middleware.validarUsuario, controllers.impue
 router.get('/impuesto/borrar/:id', middleware.validarUsuario, controllers.impuestos.borrarImpuesto);
 
 //MODULO PAISES
-router.get('/paises', /*middleware.validarUsuario,*/ controllers.paises.listaPais);
-router.post('/pais', /*middleware.validarUsuario,*/ controllers.paises.nuevoPais);
-router.post('/pais/moneda', /*middleware.validarUsuario,*/ controllers.paises.asignarMoneda);
-router.get('/pais/monedas', /*middleware.validarUsuario,*/ controllers.paises.listaMonedasXPais);
-router.post('/pais/modificar', /*middleware.validarUsuario,*/ controllers.paises.modificarPais);
-router.get('/pais/borrar/:id', /*middleware.validarUsuario,*/ controllers.paises.borrarPais);
+router.get('/paises', /*middleware.validarUsuario,*/ controllers.paises.Listar);
+router.post('/pais', /*middleware.validarUsuario,*/ controllers.paises.Nuevo);
+router.post('/pais/moneda', /*middleware.validarUsuario,*/ controllers.paises.AsignarMoneda);
+router.get('/pais/monedas/:id', /*middleware.validarUsuario,*/ controllers.paises.ListarMonedas);
+router.post('/pais/modificar', /*middleware.validarUsuario,*/ controllers.paises.Modificar);
+//router.get('/pais/borrar/:id', /*middleware.validarUsuario,*/ controllers.paises.Borrar);
+
 
 //MODULO MONEDAS
-router.get('/monedas', /*middleware.validarUsuario,*/ controllers.monedas.listaMonedas);
-router.post('/moneda', /*middleware.validarUsuario,*/ controllers.monedas.nuevoMoneda);
+router.get('/monedas', /*middleware.validarUsuario,*/ controllers.monedas.Listar);
+router.post('/moneda', /*middleware.validarUsuario,*/ controllers.monedas.Nuevo);
 //router.post('/pais/modificar', /*middleware.validarUsuario,*/ controllers.paises.modificarPais);
-router.get('/moneda/borrar/:id', /*middleware.validarUsuario,*/ controllers.monedas.borrarMoneda);
+//router.get('/moneda/borrar/:id', /*middleware.validarUsuario,*/ controllers.monedas.borrarMoneda);
+
+
+//PASARELAS
+router.get('/pasarelas', /*middleware.validarUsuario,*/ controllers.pasarelas.Listar);
+router.post('/pasarelas', /*middleware.validarUsuario,*/ controllers.pasarelas.Nuevo);
+router.post('/pasarela/modificar', /*middleware.validarUsuario,*/ controllers.pasarela.Modificar);
+router.post('/pais/moneda', /*middleware.validarUsuario,*/ controllers.pasarelas.AsignarMoneda);
+router.get('/pasarela/monedas/:id', /*middleware.validarUsuario,*/ controllers.pasarelas.Monedas);
+//router.get('/pasarela/borrar/:id', /*middleware.validarUsuario,*/ controllers.pasarelas.Borrar);
+
 
 //MODULO  DE PLANES
 router.get("/planesAll", controllers.planes.getPlanesWithPrices);

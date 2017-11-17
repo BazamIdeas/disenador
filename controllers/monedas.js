@@ -1,24 +1,19 @@
-var moneda=require('../modelos/monedasModelo.js');
+var moneda = require('../modelos/monedasModelo.js');
 
-exports.listaMonedas = function(req, res, next) {
-
-	moneda.getMonedas(function(error, data)
+exports.Listar = function(req, res, next)
+{
+	moneda.Listar(function(error, data)
 	{
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0)
-		{
+		if (typeof data !== 'undefined' && data.length > 0){
 			res.status(200).json(data);
-		}
-	//no existe
-		else
-		{
+		}else{
 			res.status(404).json({"msg":"No hay resgitro de pais en la base de datos"})
 		}
 	});
-
 }
 
-exports.nuevoMoneda=function(req,res)
+exports.Nuevo=function(req,res)
 {
 	//creamos un objeto con los datos a insertar del cliente
 	var monedaData = {
@@ -26,26 +21,24 @@ exports.nuevoMoneda=function(req,res)
 	};
 		
 	
-	moneda.insertMoneda(monedaData,function(error, data)
+	moneda.Nuevo(monedaData,function(error, data)
 	{
 		//si la etiqueta se ha insertado correctamente mostramos su info
-		if(data && data.result)
-		{
+		if(data && data.result){
 			res.status(200).json(data);
-		}
-		else
-		{
+		}else{
 			res.status(500).json({"msg":"Algo ocurrio"})
 		}
 	});
 }
 
-exports.borrarMoneda =  function(req, res, next) {
+exports.Borrar =  function(req, res, next)
+{
 	//id del cliente
 	var id = req.params.id;
-	moneda.deleteMoneda(id,function(error, data)
+	
+	moneda.Borrar(id,function(error, data)
 	{
 		res.status(200).json(data);
 	});
-
 }

@@ -1,12 +1,12 @@
 var DB = require('./db.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
-var pais = {};
+var pasarela = {};
 
 //obtenemos todos las Etiquetas
-pais.Listar = function(callback)
+pasarela.Listar = function(callback)
 {
-	var q = 'SELECT paises.* FROM paises ORDER BY iso';
+	var q = 'SELECT pasarelas.* FROM pasarelas ORDER BY pasarela';
 
 	DB.getConnection(function(err, connection)
 	{
@@ -23,9 +23,9 @@ pais.Listar = function(callback)
 
 }
 
-pais.ListarMonedas = function(id,callback)
+pasarela.ListarMonedas = function(id,callback)
 {
-	var q = 'SELECT monedas.*, monedas_has_paises.principal FROM monedas LEFT JOIN monedas_has_paises ON monedas_has_paises.monedas_idMoneda = monedas.idMoneda INNER JOIN paises ON paises.idPais = monedas_has_paises.paises_idPais WHERE paises.idPais = ? ORDER BY moneda';
+	var q = 'SELECT monedas.* FROM monedas LEFT JOIN pasarelas_has_monedas ON pasarelas_has_monedas.monedas_idMoneda = monedas.idMoneda INNER JOIN pasarelas ON pasarelas.idPasarela = pasarelas_has_monedas.pasarelas_idPasarela WHERE pasarelas.idPasarela = ? ORDER BY moneda';
 	var par = [id];
 
 	DB.getConnection(function(err, connection)
@@ -43,10 +43,10 @@ pais.ListarMonedas = function(id,callback)
 
 }
 
-pais.Nuevo = function(paisData,callback)
+pasarela.Nuevo = function(paisData,callback)
 {
-	var q = 'INSERT INTO paises SET ? ' 
-	var par = paisData //parametros
+	var q = 'INSERT INTO pasarelas SET ? ' 
+	var par = pasarelaData //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -63,14 +63,14 @@ pais.Nuevo = function(paisData,callback)
 	});
 }
 
-pais.AsignarMoneda = function(paismoneda,callback)
+pasarela.AsignarMoneda = function(paismoneda,callback)
 {
-	var q = 'SELECT count(*) as cantidad FROM monedas_has_paises WHERE paises_idPais = ? AND monedas_idMoneda = ?';
-	var par = paisMoneda //parametros
+	var q = 'SELECT count(*) as cantidad FROM pasarelas_has_monedas WHERE pasarelas_idPasarela = ? AND monedas_idMoneda = ?';
+	var par = pasarelaMoneda //parametros
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , [paisMoneda.paises_idPais, paisMoneda.monedas_idMoneda] , function(err, row)
+		connection.query( q , [pasarelaMoneda.pasarelas_idPasarela, pasarelaMoneda.monedas_idMoneda] , function(err, row)
 		{
 			console.log(row[0].cantidad)
 	  	 	//si existe la id del cliente a eliminar
@@ -100,10 +100,10 @@ pais.AsignarMoneda = function(paismoneda,callback)
 	});
 }
 
-pais.Obtener = function(id,callback)
+pasarela.Obtener = function(id,callback)
 {
 	var par = ([id]) ? [id] : ["null"] //parametro
-	var q = 'SELECT * FROM paises WHERE idPais = ?';
+	var q = 'SELECT * FROM pasarelas WHERE idPasarela = ?';
 
 	DB.getConnection(function(err, connection)
 	{
@@ -118,30 +118,11 @@ pais.Obtener = function(id,callback)
 	  connection.release();
 	});
 }
-
-pais.ObtenerImpuesto = function(id ,callback)
-{
-	var par = ([id]) ? [id] : ["null"] //parametro
-	var q = 'SELECT impuesto FROM paises WHERE idPais = ?';
-
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par,  function(err, row){ 
-	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row[0].impuesto);
-	  	
-	  });
-
-	  connection.release();
-	});
-}
  
-pais.Modificar = function(paisData, callback)
+pasarela.Modificar = function(paisData, callback)
 {
-	var q = 'UPDATE paises SET impuesto = ? WHERE idPais = ?';
-	var par = paisData //parametros
+	var q = 'UPDATE pasarelas SET pasarela = ? WHERE idPasarela = ?';
+	var par = pasarelaData //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -157,9 +138,9 @@ pais.Modificar = function(paisData, callback)
 	});
 }
 
-pais.Borrar = function(id, callback)
+pasarela.Borrar = function(id, callback)
 {
-	var q = 'SELECT * FROM paises WHERE idPais = ?';
+	var q = 'SELECT * FROM pasarelas WHERE idPais = ?';
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
@@ -169,7 +150,7 @@ pais.Borrar = function(id, callback)
 	  	 	//si existe la id del cliente a eliminar
 		  	if (typeof row !== 'undefined' && row.length > 0)
 		  	{
-		  		var qq = 'DELETE FROM paises WHERE idPais = ?';
+		  		var qq = 'DELETE FROM pasarelas WHERE idPais = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
 					connection.query( qq , par , function(err, row)
@@ -193,4 +174,4 @@ pais.Borrar = function(id, callback)
 	});
 }
 
-module.exports = pais;
+module.exports = pasarela;
