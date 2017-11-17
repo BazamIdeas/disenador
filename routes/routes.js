@@ -91,6 +91,19 @@ router.post("/impuesto", middleware.validarUsuario, controllers.impuestos.nuevoI
 router.post("/impuesto/modificar/", middleware.validarUsuario, controllers.impuestos.modificarImpuesto);
 router.get('/impuesto/borrar/:id', middleware.validarUsuario, controllers.impuestos.borrarImpuesto);
 
+//MODULO PAISES
+router.get('/paises', /*middleware.validarUsuario,*/ controllers.paises.listaPais);
+router.post('/pais', /*middleware.validarUsuario,*/ controllers.paises.nuevoPais);
+router.post('/pais/moneda', /*middleware.validarUsuario,*/ controllers.paises.asignarMoneda);
+router.get('/pais/monedas', /*middleware.validarUsuario,*/ controllers.paises.listaMonedasXPais);
+router.post('/pais/modificar', /*middleware.validarUsuario,*/ controllers.paises.modificarPais);
+router.get('/pais/borrar/:id', /*middleware.validarUsuario,*/ controllers.paises.borrarPais);
+
+//MODULO MONEDAS
+router.get('/monedas', /*middleware.validarUsuario,*/ controllers.monedas.listaMonedas);
+router.post('/moneda', /*middleware.validarUsuario,*/ controllers.monedas.nuevoMoneda);
+//router.post('/pais/modificar', /*middleware.validarUsuario,*/ controllers.paises.modificarPais);
+router.get('/moneda/borrar/:id', /*middleware.validarUsuario,*/ controllers.monedas.borrarMoneda);
 
 //MODULO  DE PLANES
 router.get("/planesAll", controllers.planes.getPlanesWithPrices);
