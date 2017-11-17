@@ -4,9 +4,9 @@ var pago=require('../modelos/pagosModelo.js');
 var cliente=require('../modelos/clientesModelo.js');
 var services=require('../services');
 var elemento=require('../modelos/elementosModelo.js');
-var precio=require('../modelos/preciosModelo.js');
 var configuracion=require('../configuracion.js');
 var moment = require('moment');
+var pais=require('../modelos/paisModelo.js');
 
 exports.listaPedidos = function(req, res, next) {
 
@@ -80,94 +80,99 @@ exports.nuevoPedido =  function(req,res)
 
 
 		logo.insertLogo(logoData,function(error, data)
-			{idPrecio = req.body.idPrecio
+		{	idPrecio = req.body.idPrecio
 
 				//si el logo se ha insertado correctamente 
-				if(data && data.insertId)
-				{
+				if(data && data.insertId){
+					
 					idLogo2 = data.insertId;
+					iso = services.geoipServices.iso(req.ip);
 
-						var pedidoData = {
-						idPedido : null,
-						fecha : moment().format("YYYY-MM-DD"),
-						estado : 'EN ESPERA',
-						logos_idLogo : data.insertId, // id del logo guardado
-						impuestos_localidad : req.body.localidad,
-						precios_idPrecio : idPrecio
-						};
-
-					pedido.insertPedido(pedidoData,function(error, data)
+					pais.getImpuesto(iso,function(error, impuesto)
 					{
-						//si el pedido se ha insertado correctamente mostramos su info
-						if(data && data.insertId)
+						var pedidoData = {
+							idPedido : null,
+							fecha : moment().format("YYYY-MM-DD"),
+							estado : 'EN ESPERA',
+							logos_idLogo : idLogo2, // id del logo guardado
+							precios_idPrecio : idPrecio,
+							impuestos_idImpuesto : impuesto,
+							descuento : req.body.descuento,
+							pasarelas_idPasarela: pasarelas_idPasarela,
+							iso : iso
+							};
+
+						pedido.insertPedido(pedidoData,function(error, data)
 						{
-							/// PAGO AQUI
-							//////////////////////
-							
-							precio.getPrecio(req.body.idPrecio,function(error, data)
-								{
-								if (typeof data !== 'undefined' && data.length > 0)
-								{
-									var plan = data;
-									elemento.datosElemento(req.body.idElemento,function(error, data){
+							//si el pedido se ha insertado correctamente mostramos su info
+							if(data && data.insertId){
+								/// PAGO AQUI
+								//////////////////////
+								
+								precio.getPrecio(req.body.idPrecio,function(error, data)
+									{
+									if (typeof data !== 'undefined' && data.length > 0){
+										var plan = data;
+										elemento.datosElemento(req.body.idElemento,function(error, data){
 
-										if (typeof data !== 'undefined' && data.length > 0){
-											
-											if (req.body.tipoPago)
-											{
-											 var datosPago = {
-												tipoPago : req.body.tipoPago,
-												precio : plan[0].precio,
-												moneda : plan[0].moneda,
-												localidad : req.body.localidad,
-												descripcion : "Diseño de logo - "+plan[0].plan, 
-												idLogo : idLogo2,
-												idElemento : req.body.idElemento,
-												tipoElemento : data[0].tipo.replace(" ",""),
-												token : req.headers.auth
+											if (typeof data !== 'undefined' && data.length > 0){
+												
+												if (req.body.tipoPago){
+
+												var datosPago = {
+													precio : plan[0].precio,
+													moneda : plan[0].moneda,
+													descripcion : "Diseño de Logo- "+plan[0].plan, 
+													idLogo : idLogo2,
+													idElemento : req.body.idElemento,
+													impuesto : impuesto,
+													tipoElemento : data[0].tipo.replace(" ",""),
+													token : req.headers.auth
+													}
+
+													/////ENVIAR PAGO
+													if (req.body.tipoPago == "Paypal"){
+
+														pago.paypal(datosPago,function(error, data){
+																res.json(data.link)
+																//console.log(data.link)
+														});
+
+													}
+													else{
+														//falta Bloquear elemento
+														res.status(200).json({"msg":true})
+													}
+
 												}
-
-												/////ENVIAR PAGO
-												if (req.body.tipoPago == "paypal"){
-
-													pago.paypal(datosPago,function(error, data){
-															res.json(data.link)
-															console.log(data.link)
-													});
-
-												}
+												else{
+													res.status(404).json({"msg":"No existe el medio de pago"})
+												}	
 
 											}
 											else{
-												res.status(404).json({"msg":"No existe el medio de pago"})
-											}	
+												res.status(404).json({"msg":"No existe el elemento"})
+											}
+										});
+										////IDENTIFICAR VARIABLES DEL PAGO
+										
+										
+									}
+									//no existe
+									else{
+										res.status(404).json({"msg":"No existe el plan"})
+									}
 
-										}
-										else{
-											res.status(404).json({"msg":"No existe el elemento"})
-										}
 									});
-									////IDENTIFICAR VARIABLES DEL PAGO
-									
-									
-								}
-								//no existe
-								else
-								{
-									res.status(404).json({"msg":"No existe el plan"})
-								}
-
-								});
-						//////////////////////////////////
-						}
-						else
-						{
-							res.status(500).json({"msg":"Algo ocurrio al crear pedido"})
-						}
-					});
+							//////////////////////////////////
+							}
+							else{
+								res.status(500).json({"msg":"Algo ocurrio al crear pedido"})
+							}
+						});
+					}
 				}
-				else
-				{
+				else{
 					res.status(500).json({"msg":"Algo ocurrio"})
 				}
 			});
@@ -175,7 +180,7 @@ exports.nuevoPedido =  function(req,res)
 
 	}
 
-	exports.nuevoPedidoGuardado =  function(req,res) /// ARREGLARRRRR
+	exports.nuevoPedidoGuardado =  function(req,res) 
 	{
 			var pedidoData = {
 						idPedido : null,
@@ -286,7 +291,7 @@ exports.nuevoPedido =  function(req,res)
 							
 							cliente.getCliente(id, function(error, data){
 
-								console.log(data);
+								//console.log(data);
 								services.emailServices.enviar('pedidoPago.html', {}, "Pedido pagado", data.correo);
 
 							});

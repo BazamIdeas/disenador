@@ -1,8 +1,30 @@
-var DB=require('./DB.js');
+var DB=require('./db.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var planes = {};
  
+
+var precio = {};
+
+precio.getPrecio = function(id,callback)
+{ 
+	var q = 'SELECT precios.*, monedas.*, planes.* FROM precios INNER JOIN planes on planes_idPlan = idPlan INNER JOIN monedas on monedas_idMoneda = idMoneda WHERE idPrecio= ?' 
+	var par = [id] //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row)
+		{
+		  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
+		  	
+		});
+
+		connection.release();
+	});
+}
 
 //obtenemos todos las Etiquetas
 
@@ -18,7 +40,7 @@ planes.getPlanes = function(callback)
 	  	
 	  	else callback(null, rows);
 	  	
-	  });
+	});
 
 	  connection.release();
 	});
@@ -57,7 +79,7 @@ planes.getselectPlanes = function(callback)
 	  	
 	  	else callback(null, rows);
 	  	
-	  });
+	 });
 
 	  connection.release();
 	});
