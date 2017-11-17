@@ -5,6 +5,7 @@ var elemento=require('../modelos/elementosModelo.js');
 var precio=require('../modelos/preciosModelo.js');
 var configuracion=require('../configuracion.js');
 var moment = require('moment');
+var services=require('../services');
 
 exports.listaPedidos = function(req, res, next) {
 
@@ -78,41 +79,43 @@ exports.nuevoPedido =  function(req,res)
 
 
 		logo.insertLogo(logoData,function(error, data)
-			{idPrecio = req.body.idPrecio
+		{	idPrecio = req.body.idPrecio
 
 				//si el logo se ha insertado correctamente 
-				if(data && data.insertId)
-				{
+				if(data && data.insertId){
+					
 					idLogo2 = data.insertId;
+
+					iso = services.geoipServices.iso(req.ip);
 
 						var pedidoData = {
 						idPedido : null,
 						fecha : moment().format("YYYY-MM-DD"),
 						estado : 'EN ESPERA',
 						logos_idLogo : data.insertId, // id del logo guardado
-						impuestos_localidad : req.body.localidad,
-						precios_idPrecio : idPrecio
+						precios_idPrecio : idPrecio,
+						impuestos_idImpuesto : impuesto,
+						descuento : req.body.descuento,
+						pasarelas_idPasarela: pasarelas_idPasarela,
+						iso : iso
 						};
 
 					pedido.insertPedido(pedidoData,function(error, data)
 					{
 						//si el pedido se ha insertado correctamente mostramos su info
-						if(data && data.insertId)
-						{
+						if(data && data.insertId){
 							/// PAGO AQUI
 							//////////////////////
 							
 							precio.getPrecio(req.body.idPrecio,function(error, data)
 								{
-								if (typeof data !== 'undefined' && data.length > 0)
-								{
+								if (typeof data !== 'undefined' && data.length > 0){
 									var plan = data;
 									elemento.datosElemento(req.body.idElemento,function(error, data){
 
 										if (typeof data !== 'undefined' && data.length > 0){
 											
-											if (req.body.tipoPago)
-											{
+											if (req.body.tipoPago){
 											 var datosPago = {
 												tipoPago : req.body.tipoPago,
 												precio : plan[0].precio,
@@ -150,22 +153,19 @@ exports.nuevoPedido =  function(req,res)
 									
 								}
 								//no existe
-								else
-								{
+								else{
 									res.status(404).json({"msg":"No existe el plan"})
 								}
 
 								});
 						//////////////////////////////////
 						}
-						else
-						{
+						else{
 							res.status(500).json({"msg":"Algo ocurrio al crear pedido"})
 						}
 					});
 				}
-				else
-				{
+				else{
 					res.status(500).json({"msg":"Algo ocurrio"})
 				}
 			});
@@ -173,7 +173,7 @@ exports.nuevoPedido =  function(req,res)
 
 	}
 
-	exports.nuevoPedidoGuardado =  function(req,res) /// ARREGLARRRRR
+	exports.nuevoPedidoGuardado =  function(req,res) 
 	{
 			var pedidoData = {
 						idPedido : null,
