@@ -113,6 +113,12 @@ router.post("/logo/guardar/", middleware.validar, controllers.logos.guardar);
 router.post("/logo/modificar/",  controllers.logos.modificarLogo);
 router.post("/logo/descargar/",  controllers.logos.descargar);
 
+
+//RECUPERAR CONTRASEÑA
+router.post("/recuperar-password", controllers.password.enviarToken); //enviar campo tipo 
+router.get("/recuperar-password/:tk", controllers.password.confirmarToken);
+router.post("/cambiar-password", controllers.password.cambiar);
+
 //PARA PRUEBAS
 router.get("/prueba", middleware.decodificar);
 

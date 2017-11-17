@@ -76,8 +76,29 @@ cliente.getClientes = function(callback)
 //obtenemos un cliente por su id
 cliente.getCliente = function(id,callback)
 { 
-	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes WHERE idCliente = ? ' 
+	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes WHERE idCliente = ?' 
 	var par = [id] //parametros
+
+	console.log(par)
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, row);
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+ 
+//obtenemos un cliente por su email
+cliente.getClienteEmail = function(correo,callback)
+{ 
+	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes WHERE correo = ? ' 
+	var par = [correo] //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -140,6 +161,27 @@ cliente.updateCliente = function(clienteData, callback)
 	
 	var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ?, telefono = ?, pais = ? WHERE idCliente = ?';
 	var par = clienteData //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+
+	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+
+
+//cambiar contraseña
+cliente.changePassword = function(datos, callback)
+{
+	var q = 'UPDATE clientes SET pass = ? WHERE idCliente = ?';
+	var par = datos; //parametros
 
 	DB.getConnection(function(err, connection)
 	{
