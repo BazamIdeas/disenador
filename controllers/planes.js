@@ -1,8 +1,11 @@
-var planes = require('../modelos/planesModelo.js');
+var plan = require('../modelos/planesModelo.js');
+var precio = require('../modelos/preciosModelo.js');
+
+
 
 exports.listarPlanes = function (req, res, next) {
 
-	planes.getPlanes(function (error, data) {
+	plan.getPlanes(function (error, data) {
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0) {
 			res.status(200).json(data);
@@ -10,7 +13,7 @@ exports.listarPlanes = function (req, res, next) {
 		//no existe
 		else {
 			res.status(404).json({
-				"msg": "No hay resgitro de planes en la base de datos"
+				"msg": "No hay registro de planes en la base de datos"
 			})
 		}
 	});
@@ -26,7 +29,7 @@ exports.nuevoPlan = function (req, res) {
 		info:req.body.info
 	}
 
-	planes.insertPlan(pnomdat, function (error, data) {
+	plan.insertPlan(pnomdat, function (error, data) {
 		//si la etiqueta se ha insertado correctamente mostramos su info
 		if (data && data.insertId) {
 
@@ -38,7 +41,7 @@ exports.nuevoPlan = function (req, res) {
 				planes_idPlan: data.insertId
 			};
 
-			planes.insertPrecio(planPrecio, function (error, data) {
+			plan.insertPrecio(planPrecio, function (error, data) {
 				//si la etiqueta se ha insertado correctamente mostramos su info
 				if (data && data.result) {
 
@@ -63,7 +66,7 @@ exports.nuevoPlan = function (req, res) {
 
 exports.selectPlan = function (req, res, next) {
 
-	planes.getselectPlanes(function (error, data) {
+	plan.getselectPlanes(function (error, data) {
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0) {
 			res.status(200).json(data);
@@ -80,7 +83,7 @@ exports.selectPlan = function (req, res, next) {
 
 exports.getPlanesWithPrices = function (req, res, next) {
 	
-	planes.getPlanesWithPrices(function (error, data) {
+	plan.getPlanesWithPrices(function (error, data) {
 
 			if (typeof data !== 'undefined' && data.length > 0) {
 				res.status(200).json(data);
@@ -106,7 +109,7 @@ exports.nuevoPrecio = function (req, res) {
 		planes_idPlan: req.body.idplan
 	}
 
-	planes.insertPrecio(planPrecio, function (error, data) {
+	plan.insertPrecio(planPrecio, function (error, data) {
 		if (data && data.result) {
 
 			res.status(200).json(data);
@@ -121,7 +124,7 @@ exports.nuevoPrecio = function (req, res) {
 
 exports.modificarPlan = function (req, res) {
 	var idprecio = req.body.idPrecio;
-	planes.updateprecio(idprecio, function (error, data) {
+	plan.updateprecio(idprecio, function (error, data) {
 
 		if (data) {
 			var precioData = {
@@ -133,7 +136,7 @@ exports.modificarPlan = function (req, res) {
 				planes_idPlan: req.body.planes_idPlan
 			}
 
-			planes.insertPrecio(precioData, function (error, data) {
+			plan.insertPrecio(precioData, function (error, data) {
 
 
 				if (data && data.result) {
@@ -161,7 +164,7 @@ exports.modificarPlan = function (req, res) {
 exports.listarPrecios = function (req, res, next) {
 
 	var planId = req.params.id;
-	planes.getPlanprecio(planId, function (error, data) {
+	plan.getPlanprecio(planId, function (error, data) {
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0) {
 			res.status(200).json(data);
@@ -180,14 +183,15 @@ exports.statusPlan = function (req, res) {
 	//status : req.body.codicion
 	console.log(dato);
 
-	planes.cambiarEstado(dato, function (error, data) {
+	plan.cambiarEstado(dato, function (error, data) {
 
 
 		if (data) {
 			console.log(data);
 
 			res.status(200).json(data);
-		} else {
+		}
+		else {
 			res.status(500).json({
 				"msg": "Algo ocurrio"
 			})
@@ -202,7 +206,7 @@ exports.nombrePlanActualizar = function (req, res) {
 	//status : req.body.codicion
 	console.log(dato);
 
-	planes.cambiarNombre(dato, function (error, data) {
+	plan.cambiarNombre(dato, function (error, data) {
 
 
 		if (data) {
@@ -219,26 +223,3 @@ exports.nombrePlanActualizar = function (req, res) {
 
 }
 
-/*	exports.actualizarPlan =  function(req,res)
-			{
-		var plandatos = [ req.body.idplan, req.body.nombre];
-							
-
-	planes.cambiarEstado(plandatos,function(error, data)
-					{
-			
-			
-						if(data)
-						{
-							console.log(data);
-
-							res.status(200).json(data);
-						}
-						else
-						{
-							res.status(500).json({"msg":"Algo ocurrio"})
-						}
-					});
-				
-				
-			}*/

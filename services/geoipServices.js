@@ -1,6 +1,6 @@
 'use strict';
 
-exports.iso = function(ip){
+exports.Iso = function(ip){
 	
 	return "US";
 }

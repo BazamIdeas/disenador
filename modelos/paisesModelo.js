@@ -102,7 +102,7 @@ pais.AsignarMoneda = function(paismoneda,callback)
 
 pais.Obtener = function(id,callback)
 {
-	var par = ([id]) ? [id] : ["null"] //parametro
+	var par = [id]
 	var q = 'SELECT * FROM paises WHERE idPais = ?';
 
 	DB.getConnection(function(err, connection)
@@ -119,10 +119,10 @@ pais.Obtener = function(id,callback)
 	});
 }
 
-pais.ObtenerImpuesto = function(id ,callback)
+pais.ObtenerImpuesto = function(iso ,callback)
 {
-	var par = ([id]) ? [id] : ["null"] //parametro
-	var q = 'SELECT impuesto FROM paises WHERE idPais = ?';
+	var par = [iso]
+	var q = 'SELECT impuesto FROM paises WHERE iso = ?';
 
 	DB.getConnection(function(err, connection)
 	{

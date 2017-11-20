@@ -102,8 +102,8 @@ pasarela.AsignarMoneda = function(paismoneda,callback)
 
 pasarela.Obtener = function(id,callback)
 {
-	var par = ([id]) ? [id] : ["null"] //parametro
 	var q = 'SELECT * FROM pasarelas WHERE idPasarela = ?';
+	var par = [id]
 
 	DB.getConnection(function(err, connection)
 	{

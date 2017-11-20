@@ -1,14 +1,10 @@
 var paypal = require('paypal-rest-sdk');
-var DB=require('./db.js');
 var configuracion = require('../configuracion.js');
- 
-//creamos un objeto para ir almacenando todo lo que necesitemos
-var pago = {};
 
-paypal.configure(configuracion.paypal);
-
-pago.paypal = function(datos,callback)
+exports.paypal = function(datos,callback)
 { 
+  paypal.configure(configuracion.paypal);
+
   var confirmacion;
 
       var impuesto = datos.precio * (datos.impuesto/100)
@@ -49,15 +45,12 @@ pago.paypal = function(datos,callback)
                 confirmacion = {"res": true, "link":link.href} ;
               }
             }
-            callback(null,confirmacion)
+            return callback(null,confirmacion)
           }
 
-          else  callback(null,{"msg":"Error de medio de pago"})
+          else callback(null,{"res" : false, "msg":"Error de medio de pago"})
 
         }
 
       });
 }
-
-    
-module.exports = pago;

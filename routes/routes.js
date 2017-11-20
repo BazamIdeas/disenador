@@ -74,22 +74,12 @@ router.post("/etiqueta",  controllers.etiquetas.nuevaEtiqueta);
 router.post("/etiqueta/modificar/", middleware.validarUsuario, controllers.etiquetas.modificarEtiqueta);
 router.get('/etiqueta/borrar/:id', middleware.validarUsuario, controllers.etiquetas.borrarEtiqueta);
 
-//Envio de emails
-//router.get('/email', controllers.emails.enviarEmail);
-
-
-
 //MODULO ELEMENTOS
 router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
 router.post("/elementos/categorias", controllers.elementos.listaElemCat);
 router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono
 router.post("/elemento/fuente", multipartMiddleware, controllers.elementos.nuevoElementoFuente);
 
-//MODULO PRECIOS
-router.get('/impuestos', middleware.validarUsuario, controllers.impuestos.listaImpuesto);
-router.post("/impuesto", middleware.validarUsuario, controllers.impuestos.nuevoImpuesto);
-router.post("/impuesto/modificar/", middleware.validarUsuario, controllers.impuestos.modificarImpuesto);
-router.get('/impuesto/borrar/:id', middleware.validarUsuario, controllers.impuestos.borrarImpuesto);
 
 //MODULO PAISES
 router.get('/paises', /*middleware.validarUsuario,*/ controllers.paises.Listar);
@@ -110,9 +100,9 @@ router.post('/moneda', /*middleware.validarUsuario,*/ controllers.monedas.Nuevo)
 //PASARELAS
 router.get('/pasarelas', /*middleware.validarUsuario,*/ controllers.pasarelas.Listar);
 router.post('/pasarelas', /*middleware.validarUsuario,*/ controllers.pasarelas.Nuevo);
-router.post('/pasarela/modificar', /*middleware.validarUsuario,*/ controllers.pasarela.Modificar);
+router.post('/pasarela/modificar', /*middleware.validarUsuario,*/ controllers.pasarelas.Modificar);
 router.post('/pais/moneda', /*middleware.validarUsuario,*/ controllers.pasarelas.AsignarMoneda);
-router.get('/pasarela/monedas/:id', /*middleware.validarUsuario,*/ controllers.pasarelas.Monedas);
+//router.get('/pasarela/monedas/:id', /*middleware.validarUsuario,*/ controllers.pasarelas.Monedas);
 //router.get('/pasarela/borrar/:id', /*middleware.validarUsuario,*/ controllers.pasarelas.Borrar);
 
 
