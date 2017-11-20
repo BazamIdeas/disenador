@@ -9,7 +9,7 @@ exports.Listar = function(req, res, next)
 		if (typeof data !== 'undefined' && data.length > 0){
 			res.status(200).json(data);
 		}else{
-			res.status(404).json({"msg":"No hay resgitro de pasarela en la base de datos"})
+			res.status(404).json({"msg":"No hay registro de pasarela en la base de datos"})
 		}
 	});
 }
@@ -24,7 +24,7 @@ exports.Nuevo = function(req, res, next)
 		if (typeof data !== 'undefined' && data.length > 0){
 			res.status(200).json(data);
 		}else{
-			res.status(404).json({"msg":"No hay resgitro de pasarelas en la base de datos"})
+			res.status(404).json({"msg":"No hay registro de pasarelas en la base de datos"})
 		}
 	});
 }
