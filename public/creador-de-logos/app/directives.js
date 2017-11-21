@@ -8,34 +8,39 @@ angular.module("disenador-de-logos")
 
                 var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
 
-                texto.setAttributeNS(null, "x", attributes.textoX);
-                texto.setAttributeNS(null, "y", attributes.textoY);
+                texto.setAttributeNS(null, "x", 100);
 
                 var textoNode = document.createTextNode(attributes.texto);
 
                 texto.appendChild(textoNode);
 
-                //Creacion del svg y agregado del texto al mismo
+                element[0].innerHTML = "<svg height='200px' width='200px'>" + attributes.icono + "</svg>";
 
+                var svgIcono = element[0].children[0].children[0];
 
-                element.append(attributes.icono);
+                svgIcono.setAttribute('height', '100px');
 
-                // element.children()[0].innerHTML;
+                element[0].children[0].appendChild(texto);
 
-                element.children().html("<g ng-class='proceso.posicion.claseG'>" + element.children().html() + "</g><g ng-class='proceso.posicion.clase'></g>");
+                var svgTexto = element[0].children[0].children[1];
 
-                var svg = element.children()[0];
+                svgTexto.style.fontSize = "100px";
+                svgTexto.setAttribute("text-anchor", "middle");
+                svgTexto.setAttribute("font-family", attributes.fuente);
 
+                while (svgTexto.textLength.baseVal.value > (1.6 * svgIcono.height.baseVal.value)) {
 
-                svg.lastChild.appendChild(texto);
-                svg.lastChild.children[0].setAttribute("text-anchor", "inherit");
-                svg.lastChild.children[0].setAttribute("font-family", attributes.fuente);
+                    svgTexto.style.fontSize = (parseInt(svgTexto.style.fontSize) - 1) + "px";
 
+                }
 
-                //compilar dentro del contexto de angular
-                $compile(svg.firstChild)(scope);
-                $compile(svg.lastChild)(scope);
+                var paddingTopIcono = ((200 - (svgIcono.height.baseVal.value + parseInt(svgTexto.style.fontSize))) / 2);
 
+                svgIcono.y.baseVal.value = paddingTopIcono;
+
+                var paddingTopText = (paddingTopIcono + parseInt(svgIcono.getAttribute("height")) + (parseInt(svgTexto.style.fontSize) / 1.5)) + "px";
+
+                svgTexto.setAttribute("y", paddingTopText);
 
             }
 
@@ -51,7 +56,7 @@ angular.module("disenador-de-logos")
     .directive('bazamSvg', function () {
         return {
             restrict: 'AE',
-            template: "<g data-seccion-icono></g><g data-seccion-texto></g>",
+            //template: "<g data-seccion-icono></g><g data-seccion-texto></g>",
             scope: {
 
                 svg: "=svg",
@@ -80,7 +85,7 @@ angular.module("disenador-de-logos")
                 var posicion1 = $scope.svgSaneado.search(">");
 
                 //svg tag
-                $scope.svgTag = $scope.svgSaneado.substr(0, posicion1 + 1) + "</svg>";
+                $scope.svgTagIncompleto = $scope.svgSaneado.substr(0, posicion1 + 1);
 
                 var posicion2 = $scope.svgSaneado.substr(posicion1 + 1).search("</svg>");
 
@@ -119,6 +124,9 @@ angular.module("disenador-de-logos")
                 //union del nuevo contenido
                 $scope.seccionInterna = $scope.seccionInternaElementos.join("");
 
+
+                $scope.svgTag = $scope.svgTagIncompleto + $scope.seccionInterna + "</svg>"
+
                 // TAMAÑO FUENTE
                 $scope.tamano = 70;
 
@@ -127,14 +135,63 @@ angular.module("disenador-de-logos")
                 pre: function (scope, element, attributes) {
 
 
+
+                    var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+                    texto.setAttributeNS(null, "x", 200);
+
+                    var textoNode = document.createTextNode(scope.texto);
+
+                    texto.appendChild(textoNode);
+
+                    element[0].innerHTML = "<svg height='400px' width='400px'>" + scope.svgTag + "</svg>";
+
+                    var svgIcono = element[0].children[0].children[0];
+
+                    svgIcono.setAttribute('height', '200px')
+
+
+                    element[0].children[0].appendChild(texto);
+
+                    var svgTexto = element[0].children[0].children[1];
+
+                    console.log(scope.fuente)
+                    svgTexto.style.fontSize = "100px";
+                    svgTexto.setAttribute("text-anchor", "middle");
+                    svgTexto.setAttribute("font-family", scope.fuente.nombre);
+
+                    while (svgTexto.textLength.baseVal.value > (1.6 * svgIcono.height.baseVal.value)) {
+
+                        svgTexto.style.fontSize = (parseInt(svgTexto.style.fontSize) - 1) + "px";
+
+                    }
+
+
+                    var paddingTopIcono = ((400 - (svgIcono.height.baseVal.value + parseInt(svgTexto.style.fontSize))) / 2);
+
+
+                    svgIcono.y.baseVal.value = paddingTopIcono;
+
+
+                    console.log(svgIcono.getBBox())
+
+                    var paddingTopText = (paddingTopIcono + parseInt(svgIcono.getAttribute("height")) + (parseInt(svgTexto.style.fontSize) / 1.5)) + "px"
+
+
+
+                    svgTexto.setAttribute("y", paddingTopText);
+
+
+
                     
                     //encerramos el contenido en el svg
-                    element.find("[data-seccion-icono], [data-seccion-texto]").wrapAll(scope.svgTag);
+                    //element.find("[data-seccion-icono], [data-seccion-texto]").wrapAll(scope.svgTag);
 
                     //agregamos el Style Tag al svg
-                    element.children().prepend("<style>@font-face: { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}</style>")
+                    element.children().prepend("<style> @font-face: { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')} </style>")
 
                     
+                    /*
                     //viewbox del nuevo svg
                     var viewBox = element.children().attr("viewBox").split(" ");
 
@@ -168,13 +225,13 @@ angular.module("disenador-de-logos")
                     element.children().attr("bazam-procesado", "true");
 
 
-
+                    */
                 },
                 post: function (scope, element, attributes) {
 
                     //reinsertamos el svg para permitir que se muestre
                     element.html(element.html());
-
+                    /*
                     //agregamos el svg a la variable de compra
                     scope.svgFinal = element.html();
 
@@ -406,7 +463,7 @@ angular.module("disenador-de-logos")
                         }
 
 
-                    })
+                    })*/
 
                 }
             }
@@ -480,7 +537,7 @@ angular.module("disenador-de-logos")
 
 
                 if (atributosIconoG.indexOf("translate") != -1) {
-              
+
                     //obtenemos un array con los translate
                     var posicion = atributosIconoG.split("translate(")[1].split(")", 1)[0].split(",");
 
@@ -493,7 +550,7 @@ angular.module("disenador-de-logos")
 
 
                 } else { //si no existe, el translate es 0,0
-                
+
                     $scope.iconoPosicion = {
                         x: 0,
                         y: 0

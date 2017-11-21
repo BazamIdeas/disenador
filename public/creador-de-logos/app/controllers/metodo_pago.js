@@ -30,14 +30,8 @@ angular.module("disenador-de-logos")
             bz.mostrar = 0;
             bz.loaderCircular = true;
             pedidosService.paypal(this.datosEstadoAnterior, tipoPago, tTarjeta, nTarjeta, expire_month, expire_year).then(function (res) {
-                if (tipoPago == 'credit_card') {
-
-                } else {
-                    /*
-                    $window.location.href = res.data;
-                    */
-                    console.log(res.data)
-                }
+                
+                    $window.location.href = res.data;              
 
             })
 
@@ -47,18 +41,10 @@ angular.module("disenador-de-logos")
             SweetAlert.swal("No disponible", "Utiliza la opcion de paypal!", "error");
         }
 
+        $scope.$on('sesionExpiro', function (event, data) {
 
-        /* AUTORIZADO */
+            $state.go('login');
 
-        $scope.$watch('$root.objectoCliente', function (valor, nuevoValor) {
-            if (valor !== nuevoValor) {
-                if ($rootScope.objectoCliente == false) {
-                    $window.localStorage.removeItem('bzToken');
-                    $state.go('login');
-                }
-            }
         });
-
-
 
     }])

@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', 'clientesService', 'mockupsValue', "historicoResolve",function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval, clientesService, mockupsValue, historicoResolve) {
+    .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', 'clientesService', 'mockupsValue', "historicoResolve", function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval, clientesService, mockupsValue, historicoResolve) {
 
         var bz = this;
 
@@ -65,9 +65,9 @@ angular.module("disenador-de-logos")
         //////////////////////////////////////////////
         ///////////////LOCAL STORAGE//////////////////
         //////////////////////////////////////////////
-      
-        
-      
+
+
+
         if (historicoResolve.logoModificado) { //si es un logo previamente modificado
 
             bz.restauracionIniciada = true;
@@ -83,9 +83,9 @@ angular.module("disenador-de-logos")
 
         } else { //si no es logo modificado, se revisa el localStorage
 
-            
+
             bz.datosEstadoAnterior = historicoResolve;
-            
+
             bz.logo = bz.datosEstadoAnterior.logo;
             bz.logo.texto = bz.datosEstadoAnterior.texto;
             bz.logo.posicion = bz.datosEstadoAnterior.posicion;
@@ -167,11 +167,11 @@ angular.module("disenador-de-logos")
 
         /* LOGOS */
 
-        bz.autorizado = clientesService.autorizado();
+        //bz.autorizado = clientesService.autorizado();
         bz.gLogo = function (logo, tipoLogo, idElemento) {
 
             //si el usuario esta logeado
-            if (bz.autorizado) {
+            //if (bz.autorizado) {
 
                 logosService.guardarLogo(logo, tipoLogo, idElemento).then(function (res) {
 
@@ -179,7 +179,7 @@ angular.module("disenador-de-logos")
 
                 })
 
-            } else { //si el usuario no esta logeado 
+            /*} else { //si el usuario no esta logeado 
 
                 $state.go("login", ({
                     origen: $state.current.name,
@@ -194,10 +194,11 @@ angular.module("disenador-de-logos")
 
                     }
                 }));
-            }
+            } */
         }
 
 
+        
 
         //////////////////////////////////////
         ///////////INTERVALO GLOBAL///////////
@@ -211,6 +212,7 @@ angular.module("disenador-de-logos")
 
         }
 
+        /*
 
         ///////////////////////////////////////
         /////posicion para icono y texto///////
@@ -338,7 +340,7 @@ angular.module("disenador-de-logos")
 
         }
 
-
+        */
         /////////////////////////////////////////////////////////////////////////
         ////Disparar el guardado de un svg como copia de comparacion/////////////
         /////////////////////////////////////////////////////////////////////////
@@ -384,5 +386,16 @@ angular.module("disenador-de-logos")
                 $mdDialog.hide(answer);
             };
         }
+
+
+
+
+
+        $scope.$on('sesionExpiro', function (event, data) {
+
+            $state.go('login');
+
+        });
+
 
     }])

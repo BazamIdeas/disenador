@@ -139,6 +139,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     fuentes: null
                 },
                 resolve: {
+                    
+                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }],
 
                     historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
 
@@ -210,6 +220,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 resolve: {
                     "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
+                        console.log(clientesService.autorizado())
                         if (!clientesService.autorizado()) {
 
                             return $q.reject("AUTH_REQUIRED");
@@ -230,6 +241,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     idElemento: null
                 },
                 resolve: {
+                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }],
 
                     historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
 

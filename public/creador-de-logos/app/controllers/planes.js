@@ -34,31 +34,31 @@ angular.module("disenador-de-logos")
 
         bz.listarPlanes = function () {
             planesService.listar().then(function (res) {
-                
+
                 var planes_usa = [];
-                
+
                 angular.forEach(res, function (valor, llave) {
-                    
+
                     if (valor.isoPais == bz.datos.isoPais) {
-                        
+
                         bz.datos.planes.push(valor);
-                        
-                    }
-                    
-                    if (valor.isoPais == "US"){
-                        
-                        planes_usa.push(valor);
-                        
+
                     }
 
-                })        
-  
-                if(!bz.datos.planes.length){
-                    
+                    if (valor.isoPais == "US") {
+
+                        planes_usa.push(valor);
+
+                    }
+
+                })
+
+                if (!bz.datos.planes.length) {
+
                     bz.datos.planes = planes_usa;
-                    
+
                 }
-            
+
             }).catch(function (res) {
                 console.log(res)
             })
@@ -75,7 +75,8 @@ angular.module("disenador-de-logos")
 
         bz.autorizado = clientesService.autorizado();
 
-        
+
+
         /*
         bz.realizarPedido = function (idPrecio, localidad) {
             bz.datos.pedido.idPrecio = idPrecio;
@@ -92,4 +93,15 @@ angular.module("disenador-de-logos")
 
 
 */
+
+
+
+        $scope.$on('sesionExpiro', function (event, data) {
+
+            $state.go('login');
+
+        });
+
+
+
     }])
