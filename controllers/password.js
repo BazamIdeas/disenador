@@ -1,7 +1,7 @@
-var cliente=require('../modelos/clientesModelo.js');
-var usuario=require('../modelos/usuarioModelo.js');
-var services=require('../services');
-var moment = require('moment');
+var cliente  = require('../modelos/clientesModelo.js');
+var usuario  = require('../modelos/usuarioModelo.js');
+var services = require('../services');
+var moment   = require('moment');
 
 exports.enviarToken =  function(req,res,next)
 {

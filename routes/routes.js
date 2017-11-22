@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var fs=require('fs');
-var controllers = require('.././controllers');
-var multipart = require('connect-multiparty');
+var express             = require('express');
+var router              = express.Router();
+var fs                  = require('fs');
+var controllers         = require('.././controllers');
+var multipart           = require('connect-multiparty');
 var multipartMiddleware = multipart();
-var middleware = require('./middleware');
-var configuracion=require('../configuracion.js');
+var middleware          = require('./middleware');
+var configuracion       = require('../configuracion.js');
 
 
 //MODULO CLIENTES
@@ -101,7 +101,7 @@ router.post('/moneda', /*middleware.validarUsuario,*/ controllers.monedas.Nuevo)
 
 //PASARELAS
 router.get('/pasarelas', /*middleware.validarUsuario,*/ controllers.pasarelas.Listar);
-router.post('/pasarelas', /*middleware.validarUsuario,*/ controllers.pasarelas.Nuevo);
+router.post('/pasarela', /*middleware.validarUsuario,*/ controllers.pasarelas.Nuevo);
 router.post('/pasarela/modificar', /*middleware.validarUsuario,*/ controllers.pasarelas.Modificar);
 router.post('/pasarela/moneda', /*middleware.validarUsuario,*/ controllers.pasarelas.AsignarMoneda);
 router.post('/pasarela/moneda/desasignar', /*middleware.validarUsuario,*/ controllers.pasarelas.DesasignarMoneda);

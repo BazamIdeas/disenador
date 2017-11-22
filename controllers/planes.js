@@ -1,8 +1,8 @@
-var pais = require('../modelos/paisesModelo.js');
-var plan = require('../modelos/planesModelo.js');
-var precio = require('../modelos/preciosModelo.js');
+var pais     = require('../modelos/paisesModelo.js');
+var plan     = require('../modelos/planesModelo.js');
+var precio   = require('../modelos/preciosModelo.js');
 var services = require('../services');
-var async = require("async");
+var async    = require("async");
 
 exports.ListarFront = (req, res, next) =>
 {
@@ -110,10 +110,10 @@ exports.Nuevo = (req, res) =>
 {
 	//creamos un objeto con los datos a insertar del cliente
 	var planData = {
-		idPlan: null,
-		plan: req.body.plan,
-		status: 1,
-		info:req.body.info
+		idPlan : null,
+		plan   : req.body.plan,
+		status : 1,
+		info   :req.body.info
 	}
 
 	plan.Nuevo(planData, (error, data) => {
@@ -121,10 +121,10 @@ exports.Nuevo = (req, res) =>
 		if (data && data.insertId) {
 
 			var precioData = {
-				idPrecio: null,
-				precio: req.body.precio,
-				monedas_idMoneda: req.body.idMoneda,
-				planes_idPlan: data.insertId
+				idPrecio         : null,
+				precio           : req.body.precio,
+				monedas_idMoneda : req.body.idMoneda,
+				planes_idPlan    : data.insertId
 			};
 
 			precio.Nuevo(precioData, (error, data) => {

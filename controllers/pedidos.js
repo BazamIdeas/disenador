@@ -1,13 +1,13 @@
-var pedido=require('../modelos/pedidosModelo.js');
-var logo=require('../modelos/logosModelo.js');
-var cliente=require('../modelos/clientesModelo.js');
-var services=require('../services');
-var elemento=require('../modelos/elementosModelo.js');
-var configuracion=require('../configuracion.js');
-var moment = require('moment');
-var pais=require('../modelos/paisesModelo.js');
-var precio=require('../modelos/preciosModelo.js');
-var pasarela=require('../modelos/pasarelasModelo.js');
+var pedido        = require('../modelos/pedidosModelo.js');
+var logo          = require('../modelos/logosModelo.js');
+var cliente       = require('../modelos/clientesModelo.js');
+var services      = require('../services');
+var elemento      = require('../modelos/elementosModelo.js');
+var configuracion = require('../configuracion.js');
+var moment        = require('moment');
+var pais          = require('../modelos/paisesModelo.js');
+var precio        = require('../modelos/preciosModelo.js');
+var pasarela      = require('../modelos/pasarelasModelo.js');
 
 exports.listaPedidos = function(req, res, next) {
 

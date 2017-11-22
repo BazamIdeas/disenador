@@ -3,10 +3,10 @@ var precio = require('../modelos/preciosModelo.js');
 exports.Nuevo = (req, res) =>
 {
 	var precioData = {
-		idPrecio: null,
-		precio: req.body.precio,
-		monedas_idMoneda: req.body.idMoneda,
-		planes_idPlan: req.body.idPlan
+		idPrecio         : null,
+		precio           : req.body.precio,
+		monedas_idMoneda : req.body.idMoneda,
+		planes_idPlan    : req.body.idPlan
 	}
 
 	precio.Nuevo(precioData, (error, data) => {
@@ -26,10 +26,10 @@ exports.Nuevo = (req, res) =>
 exports.Modificar = (req, res) =>
 {
 	var precioData = {
-		idPrecio: null,
-		precio: req.body.precio,
-		monedas_idMoneda: req.body.idMoneda,
-		planes_idPlan: req.body.idPlan
+		idPrecio         : null,
+		precio           : req.body.precio,
+		monedas_idMoneda : req.body.idMoneda,
+		planes_idPlan    : req.body.idPlan
 	}
 
 	precio.Bloquear(req.body.idPrecio, (error, bloqueo) => {

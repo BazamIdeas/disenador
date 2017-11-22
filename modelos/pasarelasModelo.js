@@ -1,9 +1,7 @@
 var DB = require('./db.js');
  
-//creamos un objeto para ir almacenando todo lo que necesitemos
 var pasarela = {};
 
-//obtenemos todos las Etiquetas
 pasarela.Listar = function(callback)
 {
 	var q = 'SELECT pasarelas.* FROM pasarelas ORDER BY pasarela';
@@ -12,52 +10,96 @@ pasarela.Listar = function(callback)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
+	  		if(err)	throw err;
 	  	
-	  	else callback(null, rows);
+	  		else callback(null, rows);
 	  	
-	  });
+	  	});
 
-	  connection.release();
+	  	connection.release();
+	});
+
+}
+
+pasarela.ListarPorPais = function(idMoneda, callback)
+{
+	var q = `SELECT pasarelas.* FROM pasarelas INNER JOIN pasarelas_has_monedas ON pasarelas.idPasarela = pasarelas_has_monedas.pasarelas_idPasarela
+				INNER JOIN monedas ON pasarelas_has_monedas.monedas_idMoneda = monedas.idMoneda
+				WHERE monedas.idMoneda = ? ORDER BY pasarela`;
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , [idMoneda], function(err, rows){
+	  	
+	  		if(err)	throw err;
+	  	
+	  		else callback(null, rows);
+	  	
+	  	});
+
+	  	connection.release();
 	});
 
 }
 
 pasarela.ListarMonedas = function(id,callback)
 {
-	var q = 'SELECT monedas.* FROM monedas LEFT JOIN pasarelas_has_monedas ON pasarelas_has_monedas.monedas_idMoneda = monedas.idMoneda INNER JOIN pasarelas ON pasarelas.idPasarela = pasarelas_has_monedas.pasarelas_idPasarela WHERE pasarelas.idPasarela = ? ORDER BY moneda';
+	var q = `SELECT monedas.* 
+				FROM monedas 
+				INNER JOIN pasarelas_has_monedas ON pasarelas_has_monedas.monedas_idMoneda = monedas.idMoneda 
+				INNER JOIN pasarelas ON pasarelas.idPasarela = pasarelas_has_monedas.pasarelas_idPasarela 
+				WHERE pasarelas.idPasarela = ? 
+				ORDER BY moneda`;
+
 	var par = [id];
 
-	DB.getConnection(function(err, connection)
+	DB.getConnection( function(err, connection)
 	{
 		connection.query( q , par,  function(err, rows){
 	  	
+	  	console.log(rows)
+
 	  	if(err)	throw err;
 	  	
 	  	else callback(null, rows);
 	  	
 	  });
 
-	  connection.release();
+	  	connection.release();
 	});
 
 }
 
-pasarela.Nuevo = function(paisData,callback)
+pasarela.Nuevo = function(pasarelaData,callback)
 {
-	var q = 'INSERT INTO pasarelas SET ? ' 
-	var par = pasarelaData //parametros
+	var q = 'SELECT count(*) as cantidad FROM pasarelas WHERE pasarela = ?';
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, result){
-	  	
-	  	if(err)	throw err;
+		connection.query( q , [pasarelaData.pasarela] , function(err, row)
+		{		
+			if (!row[0].cantidad)
+		  	{
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
-	  	
-	  });
+				var q = 'INSERT INTO pasarelas SET ? ' 
+				var par = pasarelaData //parametros
+
+				DB.getConnection(function(err, connection)
+				{
+					connection.query( q , par , function(err, result){
+				  	
+				  	if(err)	throw err;
+
+				  	//devolvemos la última id insertada
+				  	else callback(null,{"insertId" : result.insertId}); 
+				  	
+				  });
+
+				  connection.release();
+				});
+}
+		  	else callback(null,{"msg":"Ya existe este pais"});
+	  	});
 
 	  connection.release();
 	});
@@ -65,7 +107,11 @@ pasarela.Nuevo = function(paisData,callback)
 
 pasarela.AsignarMoneda = function(pasarelaMoneda,callback)
 {
-	var q = 'SELECT count(*) as cantidad FROM pasarelas_has_monedas WHERE pasarelas_idPasarela = ? AND monedas_idMoneda = ?';
+	var q = `SELECT count(*) as cantidad 
+				FROM pasarelas_has_monedas 
+				WHERE pasarelas_idPasarela = ? 
+				AND monedas_idMoneda = ?`;
+
 	var par = pasarelaMoneda //parametros
 
 	DB.getConnection(function(err, connection)
@@ -85,7 +131,7 @@ pasarela.AsignarMoneda = function(pasarelaMoneda,callback)
 				  		if(err)	throw err;
 
 					  	//devolvemos el última id insertada
-					  	else callback(null,{"insertId" : result.insertId}); 
+					  	else callback(null,{"affectedRows" : result.affectedRows }); 
 				  	
 				 	});
 
@@ -111,12 +157,12 @@ pasarela.DesasignarMoneda = function(pasarelaMoneda,callback)
 		{
 			console.log(row[0].cantidad)
 	  	 	//si existe la id del cliente a eliminar
-		  	if (!row[0].cantidad)
+		  	if (row[0].cantidad)
 		  	{
 		  		var qq = 'DELETE FROM pasarelas_has_monedas WHERE pasarelas_idPasarela = ? AND monedas_idMoneda = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , par , function(err, result)
+					connection.query( qq , [pasarelaMoneda.pasarelas_idPasarela, pasarelaMoneda.monedas_idMoneda] , function(err, result)
 					{
 				  	
 				  		if(err)	throw err;
@@ -133,7 +179,7 @@ pasarela.DesasignarMoneda = function(pasarelaMoneda,callback)
 		  	else callback(null,{"msg":"La moneda ya esta asignada"});
 	  	});
 
-	connection.release();
+		connection.release();
 	});
 }
 
@@ -146,13 +192,13 @@ pasarela.Obtener = function(id,callback)
 	{
 		connection.query( q , par,  function(err, row){ 
 	  	
-	  	if(err)	throw err;
+	  		if(err)	throw err;
 	  	
-	  	else callback(null, row);
+	  		else callback(null, row);
 	  	
-	  });
+	  	});
 
-	  connection.release();
+	  	connection.release();
 	});
 }
  
@@ -165,13 +211,13 @@ pasarela.Modificar = function(pasarelaData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+	  		if(err)	throw err;
 
-	  	else callback(null,{"msg" : row }); 
+	  		else callback(null, {"affectedRows" : row.affectedRows }); 
 	  	
-	  });
+	  	});
 
-	  connection.release();
+	  	connection.release();
 	});
 }
 

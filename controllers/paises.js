@@ -46,8 +46,8 @@ exports.Nuevo = (req,res) =>
 {
 	//creamos un objeto con los datos a insertar del cliente
 	var paisData = {
-		iso : req.body.iso,
-	   	nombre : req.body.nombre,
+		iso      : req.body.iso,
+	   	nombre   : req.body.nombre,
 	   	impuesto : req.body.impuesto 
 	};
 		
@@ -59,9 +59,9 @@ exports.Nuevo = (req,res) =>
 			var id = p.insertId;
 
 			var paisMoneda = {
-				paises_idPais : id,
+				paises_idPais    : id,
 				monedas_idMoneda : req.body.idMoneda,
-				principal : 1
+				principal        : 1
 			}
 			
 			pais.AsignarMoneda(paisMoneda, (error, pm) => {
@@ -123,12 +123,12 @@ exports.Modificar =  (req,res) =>
 
 exports.AsignarMoneda =  (req,res) =>
 {
-	var paismoneda = {
-		paises_idPais : req.body.id,
+	var paisMoneda = {
+		paises_idPais    : req.body.idPais,
 		monedas_idMoneda : req.body.idMoneda
 	}
 
-	pais.AsignarMoneda(paismoneda, (error, data) => {
+	pais.AsignarMoneda(paisMoneda, (error, data) => {
 
 		if(data && data.insertId){
 			res.status(200).json(data);
@@ -140,12 +140,12 @@ exports.AsignarMoneda =  (req,res) =>
 
 exports.DesasignarMoneda = (req,res) =>
 {
-	var paismoneda = {
-		paises_idPais : req.body.id,
+	var paisMoneda = {
+		paises_idPais    : req.body.idPais,
 		monedas_idMoneda : req.body.idMoneda
 	}
 
-	pais.DesasignarMoneda(paismoneda, (error, data) =>{
+	pais.DesasignarMoneda(paisMoneda, (error, data) =>{
 
 		if(data && data.insertId){
 			res.status(200).json(data);

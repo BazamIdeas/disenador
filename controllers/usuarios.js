@@ -1,4 +1,4 @@
-var usuario = require('../modelos/usuarioModelo.js');
+var usuario  = require('../modelos/usuarioModelo.js');
 var services = require('../services');
 
 exports.login =  function(req,res,next)
