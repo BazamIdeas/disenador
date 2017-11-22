@@ -63,7 +63,7 @@ pasarela.Nuevo = function(paisData,callback)
 	});
 }
 
-pasarela.AsignarMoneda = function(paismoneda,callback)
+pasarela.AsignarMoneda = function(pasarelaMoneda,callback)
 {
 	var q = 'SELECT count(*) as cantidad FROM pasarelas_has_monedas WHERE pasarelas_idPasarela = ? AND monedas_idMoneda = ?';
 	var par = pasarelaMoneda //parametros
@@ -76,7 +76,7 @@ pasarela.AsignarMoneda = function(paismoneda,callback)
 	  	 	//si existe la id del cliente a eliminar
 		  	if (!row[0].cantidad)
 		  	{
-		  		var qq = 'INSERT INTO monedas_has_paises SET ?';
+		  		var qq = 'INSERT INTO pasarelas_has_monedas SET ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
 					connection.query( qq , par , function(err, result)
@@ -86,6 +86,43 @@ pasarela.AsignarMoneda = function(paismoneda,callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"insertId" : result.insertId}); 
+				  	
+				 	});
+
+				  	connection.release();
+				});
+
+		  	}
+		  	else callback(null,{"msg":"La moneda ya esta asignada"});
+	  	});
+
+	connection.release();
+	});
+}
+
+pasarela.DesasignarMoneda = function(pasarelaMoneda,callback)
+{
+	var q = 'SELECT count(*) as cantidad FROM pasarelas_has_monedas WHERE pasarelas_idPasarela = ? AND monedas_idMoneda = ?';
+	var par = pasarelaMoneda //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , [pasarelaMoneda.pasarelas_idPasarela, pasarelaMoneda.monedas_idMoneda] , function(err, row)
+		{
+			console.log(row[0].cantidad)
+	  	 	//si existe la id del cliente a eliminar
+		  	if (!row[0].cantidad)
+		  	{
+		  		var qq = 'DELETE FROM pasarelas_has_monedas WHERE pasarelas_idPasarela = ? AND monedas_idMoneda = ?';
+		  		DB.getConnection(function(err, connection)
+		  		{
+					connection.query( qq , par , function(err, result)
+					{
+				  	
+				  		if(err)	throw err;
+
+					  	//devolvemos el última id insertada
+					  	else callback(null,{"msg" : 'eliminado'}); 
 				  	
 				 	});
 
@@ -119,7 +156,7 @@ pasarela.Obtener = function(id,callback)
 	});
 }
  
-pasarela.Modificar = function(paisData, callback)
+pasarela.Modificar = function(pasarelaData, callback)
 {
 	var q = 'UPDATE pasarelas SET pasarela = ? WHERE idPasarela = ?';
 	var par = pasarelaData //parametros
@@ -140,7 +177,7 @@ pasarela.Modificar = function(paisData, callback)
 
 pasarela.Borrar = function(id, callback)
 {
-	var q = 'SELECT * FROM pasarelas WHERE idPais = ?';
+	var q = 'SELECT * FROM pasarelas WHERE idPasarela = ?';
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
@@ -150,7 +187,7 @@ pasarela.Borrar = function(id, callback)
 	  	 	//si existe la id del cliente a eliminar
 		  	if (typeof row !== 'undefined' && row.length > 0)
 		  	{
-		  		var qq = 'DELETE FROM pasarelas WHERE idPais = ?';
+		  		var qq = 'DELETE FROM pasarelas WHERE idPasarela = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
 					connection.query( qq , par , function(err, row)

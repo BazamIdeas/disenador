@@ -1,11 +1,10 @@
 var pais   = require('../modelos/paisesModelo.js');
 var moneda = require('../modelos/monedasModelo.js');
 
-exports.Listar = function(req, res, next)
+exports.Listar = (req, res, next) =>
 {
-	pais.Listar(function(error, data)
-	{
-		//si el usuario existe 
+	pais.Listar( (error, data) => {
+
 		if (typeof data !== 'undefined' && data.length > 0){
 			res.status(200).json(data);
 		}else{
@@ -15,13 +14,12 @@ exports.Listar = function(req, res, next)
 
 }
 
-exports.ListarMonedas = function(req, res, next)
+exports.ListarMonedas = (req, res, next) =>
 {	
 	var id = req.params.id;
 
-	pais.ListarMonedas( id , function(error, data)
-	{
-		//si el usuario existe 
+	pais.ListarMonedas( id , (error, data) =>{
+		
 		if (typeof data !== 'undefined' && data.length > 0){
 			res.status(200).json(data);
 		}else{
@@ -30,7 +28,21 @@ exports.ListarMonedas = function(req, res, next)
 	});
 }
 
-exports.Nuevo = function(req,res)
+exports.ListarPlanes = (req, res, next) =>
+{	
+	var iso = req.params.iso;
+
+	pais.ListarPlanes( iso , (error, data) => {
+
+		if (typeof data !== 'undefined' && data.length > 0){
+			res.status(200).json(data);
+		}else{
+			res.status(404).json({"msg":"No hay resgitro de planes para este pais en la base de datos"})
+		}
+	});
+}
+
+exports.Nuevo = (req,res) =>
 {
 	//creamos un objeto con los datos a insertar del cliente
 	var paisData = {
@@ -40,48 +52,61 @@ exports.Nuevo = function(req,res)
 	};
 		
 	
-	pais.Nuevo(paisData,function(error, data)
-	{
-		//si la etiqueta se ha insertado correctamente mostramos su info
-		if(data && data.insertId){
-			
-			var id = data.insertId;
+	pais.Nuevo(paisData, (error, p) => {
 
-			var paismoneda = {
+		if(p && p.insertId){
+			
+			var id = p.insertId;
+
+			var paisMoneda = {
 				paises_idPais : id,
 				monedas_idMoneda : req.body.idMoneda,
 				principal : 1
 			}
 			
-			pais.AsignarMoneda(paismoneda, function(error, data)
-			{
-				//si la etiqueta se ha insertado correctamente mostramos su info
-				if(data && data.insertId){
-					res.status(200).json({'insertId': id});
+			pais.AsignarMoneda(paisMoneda, (error, pm) => {
+
+				if(!error){
+
+					pais.AsignarDolar(id, (error, pmu) => {
+
+						if(!error){
+
+							res.status(200).json({'insertId': id});
+						
+						}else{
+						
+							res.status(500).json({"msg":"Algo ocurrio 1"})
+						
+						}
+
+					})
+				
 				}else{
-					res.status(500).json({"msg":"Algo ocurrio"})
+				
+					res.status(500).json({"msg":"Algo ocurrio 2"})
+				
 				}
 			});
+		
 		}else{
-			res.status(500).json({"msg":"Algo ocurrio"})
+			res.status(500).json({"msg":"Algo ocurrio 3"})
 		}
 	});
 }
 
-exports.Modificar =  function(req,res)
+exports.Modificar =  (req,res) =>
 {
 	var id = req.body.id; // cambiar por valor de sesion o por parametro
 
-	pais.Obtener(id,function(error, data)
-	{
-		//si el usuario existe 
+	pais.Obtener(id, (error, data) => {
+
 		if (typeof data !== 'undefined' && data.length > 0){
-			//creamos un array con los datos a modificar del cliente
+
 			var paisData = [req.body.impuesto,req.body.id];
 				
-			pais.Modificar(paisData,function(error, data)
-			{
-				//si el cliente se ha modificado correctamente
+			pais.Modificar(paisData,(error, data) => {
+
 				if(data){
 					res.status(200).json(data);
 				}else{
@@ -96,16 +121,15 @@ exports.Modificar =  function(req,res)
 }
 
 
-exports.AsignarMoneda =  function(req,res)
+exports.AsignarMoneda =  (req,res) =>
 {
 	var paismoneda = {
 		paises_idPais : req.body.id,
 		monedas_idMoneda : req.body.idMoneda
 	}
 
-	pais.AsignarMoneda(paismoneda, function(error, data)
-	{
-		//si la etiqueta se ha insertado correctamente mostramos su info
+	pais.AsignarMoneda(paismoneda, (error, data) => {
+
 		if(data && data.insertId){
 			res.status(200).json(data);
 		}else{
@@ -114,16 +138,15 @@ exports.AsignarMoneda =  function(req,res)
 	});
 }
 
-exports.DesasignarMoneda =  function(req,res)
+exports.DesasignarMoneda = (req,res) =>
 {
 	var paismoneda = {
 		paises_idPais : req.body.id,
 		monedas_idMoneda : req.body.idMoneda
 	}
 
-	pais.DesasignarMoneda(paismoneda, function(error, data)
-	{
-		//si la etiqueta se ha insertado correctamente mostramos su info
+	pais.DesasignarMoneda(paismoneda, (error, data) =>{
+
 		if(data && data.insertId){
 			res.status(200).json(data);
 		}else{
@@ -134,12 +157,11 @@ exports.DesasignarMoneda =  function(req,res)
 
 
 
-exports.Borrar =  function(req, res, next)
+exports.Borrar = (req, res, next) => 
 {
-	//id del cliente
 	var id = req.params.id;
-	pais.Borrar(id,function(error, data)
-	{
+
+	pais.Borrar(id, (error, data) => {
 		res.status(200).json(data);
 	});
 

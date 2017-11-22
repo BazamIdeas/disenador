@@ -14,17 +14,52 @@ exports.Listar = function(req, res, next)
 	});
 }
 
-exports.Nuevo = function(req, res, next)
+exports.ListarMonedas = function(req, res, next)
 {	
 	var id = req.params.id;
 
-	pasarela.Nuevo( id , function(error, data)
+	pais.ListarMonedas( id , function(error, data)
 	{
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0){
 			res.status(200).json(data);
 		}else{
-			res.status(404).json({"msg":"No hay resgitro de pasarelas en la base de datos"})
+			res.status(404).json({"msg":"No hay resgitro de monedas para este pais en la base de datos"})
+		}
+	});
+}
+
+exports.Nuevo = function(req,res)
+{
+	//creamos un objeto con los datos a insertar del cliente
+	var paisData = {
+	   	nombre : req.body.pasarela,
+	};
+		
+	
+	pasarela.Nuevo(paisData,function(error, data)
+	{
+		//si la etiqueta se ha insertado correctamente mostramos su info
+		if(data && data.insertId){
+			
+			var id = data.insertId;
+
+			var paismoneda = {
+				pasarelas_idPasarela : id,
+				monedas_idMoneda : req.body.idMoneda,
+			}
+			
+			pasarela.AsignarMoneda(paismoneda, function(error, data)
+			{
+				//si la etiqueta se ha insertado correctamente mostramos su info
+				if(data && data.insertId){
+					res.status(200).json({'insertId': id});
+				}else{
+					res.status(500).json({"msg":"Algo ocurrio"})
+				}
+			});
+		}else{
+			res.status(500).json({"msg":"Algo ocurrio"})
 		}
 	});
 }
@@ -38,9 +73,9 @@ exports.Modificar =  function(req,res)
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0){
 			//creamos un array con los datos a modificar del cliente
-			var paisData = [req.body.impuesto,req.body.id];
+			var pasarelaData = [req.body.pasarela,req.body.id];
 				
-			pasarela.Modificar(paisData,function(error, data)
+			pasarela.Modificar(pasarelaData,function(error, data)
 			{
 				//si el cliente se ha modificado correctamente
 				if(data){
@@ -49,7 +84,7 @@ exports.Modificar =  function(req,res)
 					res.status(500).json({"msg":"Algo ocurrio"})
 				}
 			});
-			console.log(paisData);
+			console.log(pasarelaData);
 		
 		}else{
 			res.status(404).json({"msg":"No existe"})

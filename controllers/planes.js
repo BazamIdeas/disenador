@@ -1,11 +1,80 @@
+var pais = require('../modelos/paisesModelo.js');
 var plan = require('../modelos/planesModelo.js');
 var precio = require('../modelos/preciosModelo.js');
+var services = require('../services');
+var async = require("async");
 
+exports.ListarFront = (req, res, next) =>
+{
+	var iso  = services.geoipServices.iso(req.ip);
 
+	pais.ObtenerPorIso(iso, (err, pais) => {
+		
+		if (pais.length) {
 
-exports.listarPlanes = function (req, res, next) {
+			var json = pais[0];
 
-	plan.getPlanes(function (error, data) {
+			json.monedaDefault = {idMoneda: json.idMoneda ,codigo : json.moneda}
+
+			delete json["idMoneda"]; 
+			delete json["moneda"]; 
+		
+			plan.ListarPorPais(json.idPais, (err, planes) => {
+
+				if (planes.length) {
+
+					json.planes = planes;
+
+					var precios_json = {};
+					async.forEachOf(json.planes, (plan, key, callback) => {
+
+						precio.ListarPorPlan(json.idPais, plan.idPlan, (err, precios) => {
+							
+							if (err) return callback(err);
+
+							try {
+
+								if (precios.length) {
+
+									json.planes[key].precios = precios;
+								
+								}
+							
+							} catch (e) {
+							    return callback(e);
+							}
+							callback();
+						})
+
+					}, (err) => {
+						
+						if (err) console.error(err.message);
+						
+						res.status(200).json(json);
+					
+					})
+				
+				}else{
+
+					res.status(200).json({"msg": "No se encuentran planes para el pais"});
+
+				}
+			
+			})
+		
+		}else{
+
+			res.status(200).json({"msg": "No se encuentra el pais"});
+
+		}
+	
+	});
+
+}
+
+exports.ListarBack = (req, res, next) =>
+{
+	plan.Listar( (error, data) => {
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0) {
 			res.status(200).json(data);
@@ -17,209 +86,87 @@ exports.listarPlanes = function (req, res, next) {
 			})
 		}
 	});
-
 }
 
-exports.nuevoPlan = function (req, res) {
+exports.ListarPrecios = (req, res, next) =>
+{
+	var id = req.params.id;
+
+	plan.ListarPrecios(id , (error, data) => {
+
+		if (typeof data !== 'undefined' && data.length > 0) {
+			res.status(200).json(data);
+		}
+
+		else {
+			res.status(404).json({
+				"msg": "No hay resgitro de planes en la base de datos"
+			})
+		}
+	});	
+}
+
+exports.Nuevo = (req, res) =>
+{
 	//creamos un objeto con los datos a insertar del cliente
-	var pnomdat = {
+	var planData = {
 		idPlan: null,
 		plan: req.body.plan,
 		status: 1,
 		info:req.body.info
 	}
 
-	plan.insertPlan(pnomdat, function (error, data) {
+	plan.Nuevo(planData, (error, data) => {
 		//si la etiqueta se ha insertado correctamente mostramos su info
 		if (data && data.insertId) {
 
-			var planPrecio = {
-				idPrecio: null,
-				precio: req.body.precio,
-				moneda: req.body.moneda,
-				isoPais: req.body.pais,
-				planes_idPlan: data.insertId
-			};
-
-			plan.insertPrecio(planPrecio, function (error, data) {
-				//si la etiqueta se ha insertado correctamente mostramos su info
-				if (data && data.result) {
-
-
-					res.status(200).json(data);
-					console.log(data);
-					console.log(planPrecio);
-				} else {
-					res.status(500).json({
-						"msg": "Algo ocurrio"
-					})
-				}
-			});
-
-		} else {
-			res.status(500).json({
-				"msg": "Algo ocurrio"
-			})
-		}
-	});
-}
-
-exports.selectPlan = function (req, res, next) {
-
-	plan.getselectPlanes(function (error, data) {
-		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
-			res.status(200).json(data);
-		}
-		//no existe
-		else {
-			res.status(404).json({
-				"msg": "No hay resgitro de planes en la base de datos"
-			})
-		}
-	});
-
-}
-
-exports.getPlanesWithPrices = function (req, res, next) {
-	
-	plan.getPlanesWithPrices(function (error, data) {
-
-			if (typeof data !== 'undefined' && data.length > 0) {
-				res.status(200).json(data);
-			}
-
-			else {
-				res.status(404).json({
-					"msg": "No hay resgitro de planes en la base de datos"
-				})
-			}
-		});
-	
-}
-
-exports.nuevoPrecio = function (req, res) {
-
-	var planPrecio = {
-		idPrecio: null,
-		precio: req.body.precio,
-		moneda: req.body.moneda,
-		isoPais: req.body.pais,
-		status: 1,
-		planes_idPlan: req.body.idplan
-	}
-
-	plan.insertPrecio(planPrecio, function (error, data) {
-		if (data && data.result) {
-
-			res.status(200).json(data);
-		} else {
-			res.status(500).json({
-				"msg": "Algo ocurrio"
-			})
-		}
-	});
-
-}
-
-exports.modificarPlan = function (req, res) {
-	var idprecio = req.body.idPrecio;
-	plan.updateprecio(idprecio, function (error, data) {
-
-		if (data) {
 			var precioData = {
 				idPrecio: null,
 				precio: req.body.precio,
-				moneda: req.body.moneda,
-				isoPais: req.body.isoPais,
-				status: 1,
-				planes_idPlan: req.body.planes_idPlan
-			}
+				monedas_idMoneda: req.body.idMoneda,
+				planes_idPlan: data.insertId
+			};
 
-			plan.insertPrecio(precioData, function (error, data) {
-
+			precio.Nuevo(precioData, (error, data) => {
 
 				if (data && data.result) {
-					console.log(data);
 
 					res.status(200).json(data);
+
 				} else {
-					res.status(500).json({
-						"msg": "Algo ocurrio"
-					})
+					res.status(500).json({"msg": precioData.planes_idPlan})
 				}
 			});
 
-
-		}
-		//no existe
-		else {
-			res.status(404).json({
-				"msg": "No existe"
-			})
+		} else {
+			res.status(500).json({"msg": error})
 		}
 	});
 }
-//metodo de rutas
-exports.listarPrecios = function (req, res, next) {
 
-	var planId = req.params.id;
-	plan.getPlanprecio(planId, function (error, data) {
+exports.Bloquear = (req, res, next) =>
+{
+	plan.Bloquear(req.body.idPlan, (error, data) => {
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
-			res.status(200).json(data);
-		}
-		//no existe
-		else {
-			res.status(404).json({
-				"msg": "No hay resgitro de planes en la base de datos"
-			})
-		}
-	});
-
-}
-exports.statusPlan = function (req, res) {
-	var dato = [req.body.status, req.body.idplan];
-	//status : req.body.codicion
-	console.log(dato);
-
-	plan.cambiarEstado(dato, function (error, data) {
-
-
-		if (data) {
-			console.log(data);
-
+		if (typeof data !== 'undefined' && data.affectedRows) {
 			res.status(200).json(data);
 		}
 		else {
-			res.status(500).json({
-				"msg": "Algo ocurrio"
-			})
+			res.status(404).json({"msg": "No hay resgitro de planes en la base de datos"})
 		}
 	});
-
-
 }
 
-exports.nombrePlanActualizar = function (req, res) {
-	var dato = [req.body.plan, req.body.info, req.body.idplan];
-	//status : req.body.codicion
-	console.log(dato);
+exports.Modificar = (req, res) =>
+{
+	var planData = [req.body.plan, req.body.info, req.body.idPlan];
 
-	plan.cambiarNombre(dato, function (error, data) {
+	plan.Modificar(planData, (error, data) => {
 
-
-		if (data) {
-			console.log(data);
-
+		if (typeof data !== 'undefined' && data.affectedRows) {
 			res.status(200).json(data);
 		} else {
-			res.status(500).json({
-				"msg": "Algo ocurrio"
-			})
+			res.status(500).json({"msg": "Algo ocurrio"})
 		}
 	});
-
-
 }
-
