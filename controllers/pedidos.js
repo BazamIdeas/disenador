@@ -11,41 +11,58 @@ var pasarela      = require('../modelos/pasarelasModelo.js');
 
 exports.listaPedidos = function(req, res, next) {
 
-		pedido.getPedidos(function(error, data)
+	pedido.getPedidos(function(error, data)
+	{
+		
+		//si el usuario existe 
+		if (typeof data !== 'undefined' && data.length > 0)
 		{
-			
-			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				res.status(200).json(data);
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No hay pedidos registrados"})
-			}
-		});
+			res.status(200).json(data);
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No hay pedidos registrados"})
+		}
+	});
 
-	}
+}
+
+exports.ListarPorPais = function(req, res, next) {
+
+	pedido.ListarPorPais(req.params.iso,function(error, data)
+	{
+		//si el usuario existe 
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+			res.status(200).json(data);
+		}
+		else
+		{
+			res.status(404).json({"msg":"No hay pedidos registrados"})
+		}
+	});
+
+}
 
 exports.datosPedido =  function(req, res, next) {
-		//id del pedido
-		var id = req.params.id;
-		pedido.getPedido(id,function(error, data)
-		{
+	//id del pedido
+	var id = req.params.id;
+	pedido.getPedido(id,function(error, data)
+	{
 		//si el pedido existe 
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				res.status(200).json(data);
-			}
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+			res.status(200).json(data);
+		}
 		//no existe
-			else
-			{
-				res.status(204).json({"msg":"No Encontrado"})
-			}
-		});
+		else
+		{
+			res.status(204).json({"msg":"No Encontrado"})
+		}
+	});
 
-	}
+}
 
 exports.datosPedidosCliente =  function(req, res, next) {
 		//id del pedido
