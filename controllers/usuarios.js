@@ -127,7 +127,7 @@ exports.nuevoUsuario =  function(req,res)
 	}
 
 exports.borrarUsuario =  function(req, res, next) {
-		//id del usuario
+	
 		var id = req.params.id;
 		usuario.deleteUsuario(id,function(error, data)
 		{

@@ -136,6 +136,8 @@ router.post('/logo/guardar', middleware.validar, controllers.logos.guardar);
 router.post('/logo/modificar',  controllers.logos.modificarLogo);
 router.post('/logo/descargar',  controllers.logos.descargar);
 
+router.post('/logo/zip',  controllers.logos.zip);
+
 
 //RECUPERAR CONTRASEÑA
 router.post('/recuperar-password', controllers.password.enviarToken); //enviar campo tipo 

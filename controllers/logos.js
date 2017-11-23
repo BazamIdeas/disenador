@@ -5,6 +5,7 @@ var fs = require('pn/fs');
 var moment = require('moment');
 var base64 = require('base-64');
 const svg2png = require("svg2png");
+var archiver = require("archiver")
 
 
 exports.guardar =  function(req,res)
@@ -135,6 +136,86 @@ exports.listaLogosDescargables = function(req, res, next) {
 		});
 	}
 
+
+	exports.zip = function(req,res, next)
+	{
+		var idLogo = req.body.idLogo;
+		var ancho = req.body.ancho;
+		var tipo = req.body.tipo;
+		
+		logo.getLogo(idLogo,function(error, data)
+		{
+		//si el logo existe 
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				var nombre = idLogo +'-' + moment().format("YYYY-MM-DD")+'-'+ancho+'.svg'
+
+				var path = 'public/tmp/'
+
+				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
+				
+				fuente = base64.decode(data[0].logo).split("style>")[1].split("</style>")[0].split("url(/")[1].split(")")[0]
+
+				fs.open(path+nombre, 'w', function(err, fd) {
+				    if (err) {
+				        throw 'error al crear svg ' + err;
+				    }
+
+				    fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+				        if (err) throw 'error al escribir ' + err;
+				        else{
+				        		
+			        		var svg = path + nombre
+
+			        		if(tipo == "svg"){
+
+				        		var output = fs.createWriteStream(svg.replace("svg", "zip"));
+				        		var archive = archiver('zip', { zlib: { level: 9 } });
+
+				        		archive.pipe(output);
+
+				        		archive.append(fs.createReadStream(svg), { name: 'logo.svg' });
+				        		archive.append(fs.createReadStream(fuente), { name: fuente.split("fuentes/")[1] });
+
+				        		archive.finalize();
+
+								setTimeout(function () {
+						    		fs.unlink(svg)
+						    
+								}, 10000); 				        		
+
+				        		res.json({zip:svg.replace("svg", "zip")})
+
+				        	}else{
+
+								var pngout = svg.replace("svg", "png");
+								fs.readFile(svg, (err, svgbuffer) => {
+									if (err) throw err;
+									svg2png(svgbuffer, { width: ancho})
+									    .then(buffer => {fs.writeFile(pngout, buffer)
+									    	res.json({png:pngout})
+									    })
+									    .catch(e => console.error(e));
+								});
+
+							}
+						
+							setTimeout(function () {
+						    //fs.unlink(salida)
+						    
+							}, 10000); 
+				        }
+				        fs.close(fd)
+				    });
+				});
+			}
+		//no existe
+			else
+			{
+				res.status(404).json({"msg":"No existe"})
+			}
+		});	
+	}
 
 
 
