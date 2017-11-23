@@ -103,12 +103,12 @@ exports.nuevoUsuario =  function(req,res)
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				
-				var usuarioData = [req.body.nombreUser,req.body.pass,req.body.idUsuario];
+				//var usuarioData = [req.body.nombreUser,req.body.pass,req.body.idUsuario];
 					
-				usuario.updateUsuario(usuarioData,function(error, data)
+				usuario.updateUsuario(req.body, req.body.passActual,function(error, data)
 				{
 					//si el usuario se ha modificado correctamente
-					if(data)
+					if(typeof data !== 'undefined' && data.affectedRows)
 					{
 						res.status(200).json(data);
 					}
