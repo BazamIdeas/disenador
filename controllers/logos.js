@@ -231,7 +231,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 				var nombre = idLogo +'-' + moment().format("YYYY-MM-DD")+'-'+ancho+'.svg'
 				var path = 'public/tmp/'
 				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
-				console.log(req.protocol + "://" + req.headers.host);
+				//console.log(base64.decode(data[0].logo));
 
 
 				fs.open(path+nombre, 'w', function(err, fd) {
@@ -246,6 +246,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 							var salida =  path + nombre.replace("svg", "png");
 							fs.readFile(img, (err, svg) => {
 								if (err) throw err;
+								//console.log()
 								svg2png(svg, { width: ancho})
 								    .then(buffer => {fs.writeFile(salida, buffer)
 								    	res.json({svg:salida.replace('png','svg'),png:salida})
