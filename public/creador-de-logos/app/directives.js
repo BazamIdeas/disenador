@@ -236,7 +236,7 @@ angular.module("disenador-de-logos")
 
 
                     //agregamos el Style Tag al svg
-                    element.children().prepend("<style> <![CDATA[  @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  ]]>  </style>")
+                    element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
 
 
 
@@ -511,8 +511,6 @@ angular.module("disenador-de-logos")
 
                     })
 
-
-
                     $("bazam-svg").on("mousemove", "text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
 
 
@@ -566,7 +564,6 @@ angular.module("disenador-de-logos")
 
                     scope.$on("editor:restaurar", function (evento, svg) {
 
-
                         element.html(svg);
 
                         var indices = [];
@@ -583,15 +580,10 @@ angular.module("disenador-de-logos")
                         scope.elementosIndices = indices;
 
                         scope.texto = element.find("text.textoPrincipal").text();
-                        
-                        
+                                 
                         scope.svgFinal = element.html();
 
                     })
-                    
-                    
-             
-
 
                 }
             }
