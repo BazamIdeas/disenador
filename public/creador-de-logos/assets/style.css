@@ -1,3 +1,14 @@
+text.textoPrincipal {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
 :root {
     /* HELPS */
     --padding-top: 3%;
@@ -671,16 +682,16 @@ footer {
 
 /* TRANSPARENCIA */
 
-.principal.logo-editor:hover [data-indice]:not(.seleccionado) {
+.principal.logo-editor svg:hover [data-indice]:not(.seleccionado) {
     opacity: 0.4;
 }
 
-.principal.logo-editor:hover [data-indice]:hover {
+.principal.logo-editor svg:hover [data-indice]:hover {
     opacity: 1;
     cursor: pointer;
 }
 
-.principal.logo-editor:hover .seleccionado {
+.principal.logo-editor svg:hover .seleccionado {
     opacity: 1;
 }
 
