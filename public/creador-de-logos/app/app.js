@@ -51,7 +51,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
         /*------------------------ Ui router states ----------------------*/
 
-        $stateProvider.state({
+        $stateProvider
+            /*
+            .state({
                 name: 'comenzar',
                 url: '/comenzar?nombreLogo',
                 templateUrl: 'app/views/comenzar.html',
@@ -339,6 +341,44 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     datos: null
                 }
             })
+        
+        */
+        
+        ///////////////////////////////////////////////////////////////
+        ///////////////////////////ESTADOS V2//////////////////////////
+        ///////////////////////////////////////////////////////////////
+        
+        .state({
+                name: 'principal',
+                url: '/comenzar',
+                templateUrl: 'app/views/v2/inicial.tpl',
+                controller: 'inicialController as inicial',
+                abstract: true
+            })
+        
+        .state({
+                name: 'principal.comenzar',
+                url: '/',
+                templateUrl: 'app/views/v2/principal.comenzar.tpl',
+                controller: 'comenzarController as comenzar'
+        })
+        
+        .state({
+                name: 'principal.opciones',
+                url: '/opciones',
+                templateUrl: 'app/views/v2/principal.opciones.tpl',
+                controller: 'opcionesController as opciones'
+        })
+        
+        .state({
+                name: 'principal.combinaciones',
+                url: '/combinaciones',
+                templateUrl: 'app/views/v2/principal.combinaciones.tpl',
+                controller: 'combinacionesController as combinaciones'
+        })
+     
+        
+        
 
 
         $urlRouterProvider.otherwise('/comenzar');
