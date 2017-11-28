@@ -1,18 +1,20 @@
 <html lang="es" ng-app="disenador-de-logos">
 
 <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-    <link href="assets/style.css" rel="stylesheet">
-    <link href="assets/animation.css" rel="stylesheet">
-    <link href="/angular-color-picker/angular-color-picker.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/sweetalert/sweet-alert.css">
-    <link rel="stylesheet" href="/administrador/assets/flexboxgrid.css" type="text/css">
-    <link rel="stylesheet" href="/creador-de-logos/assets/font-awesome.min.css" type="text/css">
 
     <!---jQuery --->
     <script src="/jquery/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/ghpages-materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+    <script src="assets/js/materialize.min.js"></script>
+
 
     <!--Librerias core de angualarJS -->
     <script src="/angular/angular.min.js"></script>
@@ -53,42 +55,185 @@
 </head>
 
 <body>
-    <!-- header -->
-    <div class="row">
-        <header ng-controller="headerController as header" class="col-xs-12 nopadding" style="z-index: 9;">
-            <md-toolbar class="md-hue-2">
-                <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
-                    <div layout>
-                        <div style="font-size: 30px;text-shadow: 0px 1px;" ui-sref="comenzar">LIDERLOGO</div>
-                    </div>
-                    <div ng-switch="header.autorizado" class="login_header">
-                        <ingresar ng-switch-when="false" ui-sref="login" layout-padding>
-                            Ingresar
-                        </ingresar>
 
-                        <ingresar ng-switch-default ng-click="header.menuMostrar()">
-                            <div>
-                                <md-icon class="icono-header">account_circle</md-icon>
-                            </div>
-                            <div ng-show="header.hmenuMostrar" class="menu-header" ng-mouseleave="header.menuMostrar()">
-                                <div ui-sref="dashboard">
-                                    <p>Mis logos</p>
-                                </div>
-                                <div ng-click="header.salir()">
-                                    <p>Cerrar sesion</p>
-                                </div>
-                            </div>
-                        </ingresar>
-                    </div>
+    <header ng-controller="headerController as header">
+        
+        <div class="col s6 m9" show-gt-sm>
+
+                <div ng-switch="header.autorizado" class="login">
+                    <div ng-switch-when="false" ui-sref="login" class="acceder"> <i class="material-icons md-48">account_circle</i> <span>Acceder / Registro</span> </div>
+
+                    <div ng-switch-default class="acceder"> 
+
+                        <i class="material-icons md-48">account_circle</i>  <span ng-bind="header.autorizado.nombre"></span> 
+
+                        <span style="margin: 0 10px; font-family: 'arial'">|</span>
+                        
+                        <span ui-sref="dashboard">
+                            Mis logos
+                        </span>                        
+
+                        <span style="margin: 0 10px; font-family: 'arial'">|</span>
+
+                        <span ng-click="header.salir()">
+                            Cerrar sesion
+                        </span>
+
+                    </div>                    
+
+                    <i class="material-icons aling-top" style="margin-left: 20px">help_outline</i> 
+
                 </div>
-            </md-toolbar>
-        </header>
-    </div>
+    
+        </div>
+    
+    </header>
 
     <!-- contenedor principal -->
-    <md-content flex ui-view class="trans">
+    <div ui-view style="min-height: calc(100% - 360px); min-height: -webkit-calc(100% - 360px); background-color: white">
+        
+        <section class="sub-header">
+            <div class="row margin-bottom-0">
 
-    </md-content>
+                <div class="col s2 logo">
+                    <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
+                </div>
+                <div class="col s10 texto">
+                    <h5 class="principal"> CREE SU LOGO PROFESIONAL EN MINUTOS</h5>
+                </div>
+
+            </div>
+        </section>
+
+        <section style="height: calc(100vh - 135px) !important;">
+            <div class="row margin-bottom-0">
+                <form class="margin-bottom-0">
+                    <div class="col s2 sidebar-1 scroll">
+                        <div class="input-field col s12">
+                            <input id="nombre" type="text" class="validate">
+                            <label for="nombre">Nombre</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="slogan" type="text" class="validate">
+                            <label for="slogan">Slogan</label>
+                        </div>                        
+                        <div class=" col s12 preferencias">
+                            <p class="text-center principal" style="margin-top: 1rem;">Preferencias</p>
+                                
+                            <div class="slider-input">                            
+                                <p class="label-slider-input-left">Hombre</p> 
+                                <p class="label-slider-input-right">Mujer</p>
+                                <md-slider ng-model="as" value="2" min="1" max="3"></md-slider>
+                            </div>
+                            <div class="slider-input">
+                                <p class="label-slider-input-left">Infantil</p> 
+                                <p class="label-slider-input-right">Adulto</p>
+                                <md-slider ng-model="as" value="2" min="1" max="3"></md-slider>
+                            </div>
+                            <div class="slider-input">
+                                <p class="label-slider-input-left">Cosas</p> 
+                                <p class="label-slider-input-right">Animales</p>
+                                <md-slider ng-model="as" value="2" min="1" max="3"></md-slider>
+                            </div>
+                            <div class="slider-input">
+                                <p class="label-slider-input-left">Negro</p> 
+                                <p class="label-slider-input-right">Blanco</p>
+                                <md-slider ng-model="as" value="2" min="1" max="3"></md-slider>
+                            </div>
+                            <div class="slider-input">
+                                <p class="label-slider-input-left">Tablet</p> 
+                                <p class="label-slider-input-right">Telefono</p>
+                                <md-slider ng-model="as" value="2" min="1" max="3"></md-slider>
+                            </div>
+                            <div class="slider-input">
+                                <p class="label-slider-input-left">Espacios</p> 
+                                <p class="label-slider-input-right">Tabulacion</p>
+                                <md-slider ng-model="as" value="2" min="1" max="3"></md-slider>
+                            </div>
+                            <div class="slider-input">
+                                <p class="label-slider-input-left">PHP</p> 
+                                <p class="label-slider-input-right">Node</p>
+                                <md-slider ng-model="as" value="2" min="1" max="3"></md-slider> 
+                            </div>                
+                        </div>
+                    </div>
+                
+                    <div class="col s2 sidebar-2">
+                        <p class="text-center principal">Forma de su logo</p>
+
+                        <div class="cubo-logo">
+                            <div>
+                                <span><i class="material-icons">thumb_up</i></span>
+                                <span>TU LOGO</span>
+                            </div>
+                        </div>
+
+                        <div class="cubo-logo">
+                            <div>
+                                <span class="texto">M</span>
+                                <span>TU LOGO</span>
+                            </div>
+                        </div>
+
+                        <div class="cubo-logo">
+                            <div>
+                                <span>TU LOGO</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="col s8" style="background-color: #eceff0; height: 100%">
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="text-center tercero">EJEMPLOS EXITOSOS</p>
+
+                            <div class="cubo-logo">
+                                <div class="margin-right-20">
+                                    <span><i class="material-icons">thumb_up</i></span>
+                                    <span>TU LOGO</span>
+                                </div>
+                                <div class="margin-right-20">
+                                    <span><i class="material-icons">thumb_up</i></span>
+                                    <span>TU LOGO</span>
+                                </div>
+                                <div>
+                                    <span><i class="material-icons">thumb_up</i></span>
+                                    <span>TU LOGO</span>
+                                </div>
+                            </div>
+
+                            <div class="cubo-logo">
+                                <div class="margin-right-20">
+                                    <span class="texto">M</span>
+                                    <span>TU LOGO</span>
+                                </div>
+                                <div class="margin-right-20">
+                                    <span class="texto">M</span>
+                                    <span>TU LOGO</span>
+                                </div>
+                                <div>
+                                    <span class="texto">M</span>
+                                    <span>TU LOGO</span>
+                                </div>
+                            </div>
+
+                            <div class="cubo-logo">
+                                <div class="margin-right-20">
+                                    <span>TU LOGO</span>
+                                </div>
+                                <div class="margin-right-20">
+                                    <span>TU LOGO</span>
+                                </div>
+                                <div>
+                                    <span>TU LOGO</span>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
 
     <!-- Footer 
     <footer class="text-center" layout="row" layout-align="space-between center">
