@@ -351,8 +351,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         .state({
                 name: 'principal',
                 url: '/comenzar',
-                templateUrl: 'app/views/v2/inicial.tpl',
-                controller: 'inicialController as inicial',
+                templateUrl: 'app/views/v2/principal.tpl',
+                //controller: 'principalController as principal',
                 abstract: true
             })
         
@@ -360,21 +360,21 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 name: 'principal.comenzar',
                 url: '/',
                 templateUrl: 'app/views/v2/principal.comenzar.tpl',
-                controller: 'comenzarController as comenzar'
+                //controller: 'comenzarController as comenzar'
         })
         
         .state({
                 name: 'principal.opciones',
                 url: '/opciones',
                 templateUrl: 'app/views/v2/principal.opciones.tpl',
-                controller: 'opcionesController as opciones'
+                //controller: 'opcionesController as opciones'
         })
         
         .state({
                 name: 'principal.combinaciones',
                 url: '/combinaciones',
                 templateUrl: 'app/views/v2/principal.combinaciones.tpl',
-                controller: 'combinacionesController as combinaciones'
+                //controller: 'combinacionesController as combinaciones'
         })
      
         

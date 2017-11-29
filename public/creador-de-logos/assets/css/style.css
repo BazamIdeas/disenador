@@ -82,6 +82,8 @@ body {
     height: 100%;
 }
 
+
+
 *:not(i),
 button,
 html,
@@ -132,6 +134,12 @@ md-slider.md-default-theme .md-track, md-slider .md-track {
 
 md-slider.md-default-theme .md-track.md-track-fill, md-slider .md-track.md-track-fill {
     background-color: var(--principal);
+}
+
+md-select.md-default-theme .md-select-value, md-select .md-select-value {
+    border-bottom-color: var(--principal);
+    border-width: 2px;
+    color: var(--principal);
 }
 
 .input-field label {
@@ -275,6 +283,10 @@ table.table-admin td {
     text-align: center;
 }
 
+.text-right{
+    text-align: right;
+}
+
 .margin-bottom-0{
     margin-bottom: 0;
 }
@@ -283,8 +295,23 @@ table.table-admin td {
     margin-right: 20;
 }
 
+.inline > *{
+    display: inline-block;
+}   
 
 /*PARTES Y PEQUEÑOS ELEMENTOS*/
+
+
+button.boton-verde {
+    background-color: var(--tercero);
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    padding: 3px 9px;
+    margin-top: 11px;
+    font-family: 'futura-heavy' !important;
+}
+
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
@@ -357,6 +384,13 @@ section.sub-header .row .col.texto h5{font-family: 'futura-heavy' !important; te
 
 /*End sub-header*/
 
+
+div.sidebar-1, div.sidebar-2, div.lienzo{
+    height: 100%;
+    padding-top: 10px !important;
+}
+
+
 /*Begin SideBar 1*/
 div.sidebar-1 {
     -webkit-box-shadow: 3px 0px 2px -3px #d6d6d6;
@@ -403,7 +437,7 @@ p.label-slider-input-right{
 /*End SideBar 1*/
 
 /*Begin Sidebar 2*/
-.cubo-logo{
+.cubo-logo, .cubos-logos, .cubo-fuentes{
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -427,3 +461,73 @@ p.label-slider-input-right{
     font-size: 20px;
 }
 /*End Sidebar 2*/
+
+/*Contenedor Principal*/
+div.contenedor-principal{
+    background-color: white;
+    background-color: var(--fondo);
+}
+/*Contenedor Principal*/
+
+
+/*Begin Rectangulo de fuentes*/
+.cubos-logos div{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 130px;
+    background-color: var(--blanco);
+    border-radius: 10px;
+    color: var(--tercero);
+    cursor: pointer;
+}
+
+.cubos-logos div >*{
+    width: 90%
+}
+
+.cubos-logos div.seleccionado{
+    border: 2px solid var(--principal);
+}
+
+.cubos-logos div span i, .cubos-logos div span.texto{
+    font-size: 40px;
+}
+.cubos-logos div span{
+    font-size: 20px;
+}
+.cubo-fuentes{
+    flex-flow: column;
+    background-color: var(--blanco);
+    height: 432px;
+    border-radius: 10px;
+    align-items: center;
+}
+.cubo-fuentes .texto {
+    font-size: 18px;
+    padding: 0px 10px;
+    margin: 2px 0;
+    border-radius: 7px;
+    transition: all 0.25s;
+}
+
+
+.cubo-fuentes .texto {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+    cursor: pointer;
+}
+
+.cubo-fuentes .texto.seleccionado{
+    border: 2px solid var(--principal);
+    color: var(--principal);
+    font-size: 22px
+} 
+/*End Rectangulo de fuentes*/
