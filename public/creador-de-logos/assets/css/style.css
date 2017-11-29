@@ -83,7 +83,9 @@ body {
     position: relative;
 }
 
-
+:focus{
+    outline: none
+}
 
 *:not(i),
 button,
@@ -453,6 +455,7 @@ p.label-slider-input-right{
     background-color: var(--principal);
     border-radius: 10px;
     color: #fff;
+    cursor: pointer;
 }
 
 .cubo-logo div span i, .cubo-logo div span.texto{
@@ -465,7 +468,7 @@ p.label-slider-input-right{
 
 /*Contenedor Principal*/
 div.contenedor-principal{
-    background-color: white;
+    transition: all 2s;
     background-color: var(--fondo);
 }
 /*Contenedor Principal*/
@@ -534,7 +537,6 @@ div.contenedor-principal{
 } 
 /*End Rectangulo de fuentes*/
 
-<<<<<<< HEAD
 /*BEGIN LOGIN MODAL*/
 
 .overlay.show{
@@ -590,14 +592,10 @@ div.cubo-form i.cerrar{
 /* provisionales */
 
 .ocultar{
-    
-    display: none;
-    
+
 }
 
 .tipo-inactivo{
-    
-    opacity: 0.7
-    
+    background-color: #7d7d7d !important;
 }
 
