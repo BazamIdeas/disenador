@@ -472,6 +472,7 @@ div.contenedor-principal{
 
 /*Begin Rectangulo de fuentes*/
 .cubos-logos div{
+    overflow: hidden;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -484,8 +485,8 @@ div.contenedor-principal{
     cursor: pointer;
 }
 
-.cubos-logos div >*{
-    width: 90%
+.cubos-logos div > *{
+    width: 100%
 }
 
 .cubos-logos div.seleccionado{
@@ -531,3 +532,20 @@ div.contenedor-principal{
     font-size: 22px
 } 
 /*End Rectangulo de fuentes*/
+
+
+
+/* provisionales */
+
+.ocultar{
+    
+    display: none;
+    
+}
+
+.tipo-inactivo{
+    
+    opacity: 0.7
+    
+}
+

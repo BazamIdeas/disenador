@@ -4,6 +4,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
         /* COMPARTIR EN REDES SOCIALES */
 
+    /*
         socialshareConfProvider.configure([{
                 'provider': 'twitter',
                 'conf': {
@@ -40,13 +41,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
         ])
+        
+        */
 
         /* INTERCEPTADOR */
         $httpProvider.interceptors.push('AuthInterceptor');
-
-        /*------------------Material Angular --------------*/
-
-        $mdThemingProvider.theme('default').warnPalette('orange')
 
 
         /*------------------------ Ui router states ----------------------*/
@@ -126,7 +125,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
 
                 }
-            })
+            }) 
+        */
             .state({
                 name: 'editor',
                 url: '/editor',
@@ -341,8 +341,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     datos: null
                 }
             })
-        
-        */
+       
         
         ///////////////////////////////////////////////////////////////
         ///////////////////////////ESTADOS V2//////////////////////////
@@ -352,7 +351,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 name: 'principal',
                 url: '/comenzar',
                 templateUrl: 'app/views/v2/principal.tpl',
-                //controller: 'principalController as principal',
+                controller: 'principalController as principal',
                 abstract: true
             })
         
@@ -360,28 +359,34 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 name: 'principal.comenzar',
                 url: '/',
                 templateUrl: 'app/views/v2/principal.comenzar.tpl',
-                //controller: 'comenzarController as comenzar'
+                controller: 'principalComenzarController as principalComenzar'
         })
         
         .state({
                 name: 'principal.opciones',
-                url: '/opciones',
+                url: '/opciones/',
                 templateUrl: 'app/views/v2/principal.opciones.tpl',
                 //controller: 'opcionesController as opciones'
         })
         
         .state({
                 name: 'principal.combinaciones',
-                url: '/combinaciones',
+                url: '/combinaciones/',
                 templateUrl: 'app/views/v2/principal.combinaciones.tpl',
                 //controller: 'combinacionesController as combinaciones'
         })
      
         
         
+        //redirecciones
+        
+        $urlRouterProvider.when('', '/comenzar/');
+        $urlRouterProvider.when('/', '/comenzar/');
+        $urlRouterProvider.when('/comenzar', '/comenzar/');
+        $urlRouterProvider.when('/comenzar/opciones', '/comenzar/opciones/');
+        $urlRouterProvider.when('/comenzar/combinaciones', '/comenzar/combinaciones/');
 
-
-        $urlRouterProvider.otherwise('/comenzar');
+        $urlRouterProvider.otherwise('/404/');
 
     })
 
