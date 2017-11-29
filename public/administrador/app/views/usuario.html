@@ -15,6 +15,7 @@
                         </md-input-container>
                     </div>
                     <div class="tabla">
+                        <div style="flex:0.2;">N°:</div>
                         <div>Nombre:</div>
                         <div style="flex:2;">Correo:</div>
                         <div>Acciones:</div>
@@ -25,6 +26,7 @@
                         </div>
                         <div ng-repeat="elemento in usuario.usuarios | filter:usuario.buscar track by $index" class="elemento">
                             <div class="tabla-campo">
+                                <div style="flex:0.2;">{{$index}}</div>
                                 <div class="nombre">{{elemento.nombreUser}}</div>
                                 <div style="flex:2;">{{elemento.correo}}</div>
                                 <div>
@@ -74,22 +76,6 @@
                                     <div ng-message="required">Este campo es requerido.</div>
                                     <div ng-message="minlength">Debe Tener como minimo 8 caracteres.</div>
                                 </div>
-                                <md-input-container class="md-block">
-                                    <label>Teléfono</label>
-                                    <input type="tel" ng-model="usuario.datos.registrar.telefono" name="telefono" required>
-                                </md-input-container>
-                                <!-- VALIDACION -->
-                                <div ng-messages="formRegistro.telefono.$error" style="color:maroon" role="alert" ng-show="formRegistro.$submitted">
-                                    <div ng-message="required">Este campo es requerido.</div>
-                                </div>
-                                <md-input-container class="md-block">
-                                    <label>País</label>
-                                    <input type="text" ng-model="usuario.datos.registrar.pais" name="pais" required>
-                                </md-input-container>
-                                <!-- VALIDACION -->
-                                <div ng-messages="formRegistro.pais.$error" style="color:maroon" role="alert" ng-show="formRegistro.$submitted" required>
-                                    <div ng-message="required">Este campo es requerido.</div>
-                                </div>
                             </div>
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
@@ -134,7 +120,7 @@
                             </md-input-container>
                             <!-- VALIDACION -->
                             <div ng-messages="formModificar.pass.$error" style="color:maroon" role="alert" ng-show="formModificar.$submitted" required>
-                            <div ng-message="required">Este campo es requerido.</div>
+                                <div ng-message="required">Este campo es requerido.</div>
                             </div>
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>

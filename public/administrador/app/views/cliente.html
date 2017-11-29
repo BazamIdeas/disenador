@@ -20,16 +20,20 @@
                     <div layout layout-align="center" ng-show="cliente.loaderMostrar" class="margen_superior">
                         <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
                     </div>
-                    <div ng-repeat="elemento in cliente.clientes | filter:cliente.buscar" class="elemento" ng-click="cliente.activar($event)">
+                    <div ng-repeat="elemento in cliente.clientes | filter:cliente.buscar" class="elemento">
                         <div class="tabla-campo">
                             <div class="nombre">{{elemento.nombreCliente}}</div>
                             <div>{{elemento.correo}}</div>
                             <div>{{elemento.telefono}}</div>
                             <div>
                                 <div>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="cliente.eliminarC(elemento.idCliente, $index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar</md-tooltip>
+                                        <md-icon class="material-icon">delete</md-icon>
+                                    </md-button>
                                     <md-button class="md-fab md-mini md-warn" ng-click="cliente.pedidosCliente(elemento.idCliente, $index)">
-                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Detalles Pedido</md-tooltip>
-                                        <md-icon class="material-icon">keyboard_arrow_right</md-icon>
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Pedidos</md-tooltip>
+                                        <md-icon class="material-icon">arrow_forward</md-icon>
                                     </md-button>
                                 </div>
                             </div>
@@ -49,13 +53,18 @@
                 <div ng-repeat="pedido in cliente.pedidosC" class="elemento nopadding">
                     <div class="estado-pedido {{pedido.estado}}"></div>
                     <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
-                        <div flex="45"><b>Fecha:</b> {{ pedido.fecha | date : 'M/d/yy h:mm a'}}</div>
-                        <div flex="45"><b>Estado:</b>
+                        <div flex="45">
+                            <b>Fecha:</b> {{ pedido.fecha | date : 'M/d/yy h:mm a'}}</div>
+                        <div flex="45">
+                            <b>Estado:</b>
                             <texto class="{{pedido.estado}}">{{pedido.estado}}</texto>
                         </div>
-                        <div flex="45"><b>Plan:</b> {{pedido.plan}}</div>
-                        <div flex="45"><b>Precio:</b> {{pedido.precio}} {{pedido.moneda}}</div>
-                        <div flex="45"><b>Pais:</b> {{pedido.pais}} </div>
+                        <div flex="45">
+                            <b>Plan:</b> {{pedido.plan}}</div>
+                        <div flex="45">
+                            <b>Precio:</b> {{pedido.precio}} {{pedido.moneda}}</div>
+                        <div flex="45">
+                            <b>Pais:</b> {{pedido.pais}} </div>
                     </div>
                     <div layout>
                         <md-input-container class="md-block" flex="50">

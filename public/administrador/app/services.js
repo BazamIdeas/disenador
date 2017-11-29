@@ -1404,9 +1404,37 @@ angular.module("administrador")
         "MZ": "Mozambique"
     })
 
-    /* SERVICIO DE LOGIN */
+    /***************************/
+    /*******DATOS CLIENTE*******/
+    /***************************/
+    .factory("clienteDatosFactory", [function () {
 
-    .service('clientesService', ['$http', '$q', '$window', '$rootScope', function ($http, $q, $window, $rootScope) {
+
+        var cliente = null;
+
+
+        return {
+            obtener: function () {
+
+                return cliente;
+
+            },
+            definir: function (objectoCliente) {
+
+                cliente = objectoCliente;
+
+
+            },
+            eliminar: function () {
+
+                cliente = null;
+
+            }
+        }
+
+    }])
+
+    .service('clientesService', ['$http', '$q', '$window', '$rootScope', 'SweetAlert', "clienteDatosFactory", function ($http, $q, $window, $rootScope, SweetAlert, clienteDatosFactory) {
 
 
         this.registrar = function (datos) {
@@ -1422,11 +1450,10 @@ angular.module("administrador")
                 })
                 .catch(function (res) {
 
-                    defered.reject(res.data.msg);
+                    defered.reject(res);
                 })
 
             return promise;
-
 
         }
 
@@ -1436,17 +1463,18 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post("/app/usuario/login", datos).then(function (res) {
+            $http.post("/app/usuario/login", datos)
 
-                    $window.localStorage.setItem('bzToken', JSON.stringify(res.data));
-                    $rootScope.objectoCliente = res.data;
+                .then(function (res) {
 
+                    $window.localStorage.setItem('bzToken', angular.toJson(res.data));
+                    clienteDatosFactory.definir(res.data);
                     defered.resolve();
 
                 })
                 .catch(function (res) {
                     $window.localStorage.removeItem('bzToken');
-                    defered.reject(res.data.msg);
+                    defered.reject()
                 })
 
 
@@ -1454,19 +1482,55 @@ angular.module("administrador")
 
         }
 
+        this.forgotPass = function (datos) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/recuperar-password", datos)
+                .then(function (res) {
+                    defered.resolve(res);
+                })
+                .catch(function (res) {
+                    defered.reject(res)
+                })
+
+            return promise;
+
+        }
+
+        this.modificarU = function (datos) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/usuario/modificar/", datos)
+                .then(function (res) {
+                    defered.resolve(res);
+                })
+                .catch(function (res) {
+                    defered.reject(res)
+                })
+
+            return promise;
+
+        }
+
         this.autorizado = function () {
 
-            if ($rootScope.objectoCliente) {
+            if (clienteDatosFactory.obtener()) {
 
-                return $rootScope.objectoCliente;
+                return clienteDatosFactory.obtener();
 
             } else {
 
                 if ($window.localStorage.getItem('bzToken')) {
 
-                    $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
+                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
 
-                    return $rootScope.objectoCliente;
+                    return clienteDatosFactory.obtener();
 
                 } else {
 
@@ -1478,34 +1542,14 @@ angular.module("administrador")
 
         }
 
-        this.salir = function () {
+        this.salir = function (desactivarAlerta) {
 
-            $rootScope.objectoCliente = false;
-            $window.localStorage.removeItem('bzToken');
+            $window.localStorage.removeItem('bzToken')
+            clienteDatosFactory.eliminar();
 
-        }
-
-        this.modificarU = function (datos) {
-
-            var defered = $q.defer();
-
-            var promise = defered.promise;
-
-            datos.idUsuario = 1;
-
-            $http.post("/app/usuario/modificar", datos).then(function (res) {
-
-                    defered.resolve(res);
-
-                })
-                .catch(function (res) {
-
-                    defered.reject(res.data.msg);
-                })
-
-            return promise;
-
-
+            if (!desactivarAlerta) {
+                SweetAlert.swal("¡Ups!", "Tu sesion ha expirado", "warning");
+            }
         }
 
 
@@ -1802,6 +1846,22 @@ angular.module("administrador")
 
     .service('iconoFuente', ['$http', 'Upload', '$q', function ($http, Upload, $q) {
 
+        this.listar = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/elementos/busqueda', datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+            return promise;
+        }
+
         this.nuevoIcono = function (datos) {
 
             var defered = $q.defer();
@@ -1866,19 +1926,15 @@ angular.module("administrador")
 
     .service('administrarService', ['$http', '$q', function ($http, $q) {
 
-        /* LISTAR*/
+        /***************************/
+        /**********PLANES***********/
+        /***************************/
 
-        this.listar = function (opcion) {
+        this.listarPlanes = function () {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            if (opcion == 'planes') {
-                var ruta = "/app/planes/";
-            } else if (opcion == 'impuestos') {
-                var ruta = "/app/impuestos/";
-            }
-
-            $http.get(ruta).then(function (res) {
+            $http.get('/app/planes/').then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -1886,35 +1942,11 @@ angular.module("administrador")
             return promise;
         }
 
-        /* LISTAR PRECIOS */
-
-        this.listarPrecios = function (id) {
-            var defered = $q.defer();
-            var promise = defered.promise;
-            
-            $http.get('/app/plan/precio/'+ id).then(function(res){
-                defered.resolve(res.data);
-            }).catch(function(res){
-                defered.reject(res);
-            })
-            return promise;
-        }
-
-        /* AGREGAR IMPUESTO */
-
-        this.agregar = function (opcion, datos) {
+        this.agregarPlan = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            if (opcion == 'plan') {
-                var ruta = '/app/plan';
-            } else if (opcion == 'impuesto') {
-                var ruta = '/app/impuesto';
-            } else if (opcion == 'nuevoPrecioPlan') {
-                var ruta = '/app/plan/precios';
-            }
-
-            $http.post(ruta, datos).then(function (res) {
+            $http.post('/app/plan', datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1926,19 +1958,39 @@ angular.module("administrador")
             return promise;
         }
 
-        /* MODIFICAR IMPUESTO Y PRECIO DE UN PLAN */
-
-        this.modificar = function (opcion, datos) {
+        this.agregarPrecioPlan = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            if (opcion == 'impuesto') {
-                var ruta = '/app/impuesto/modificar/';
-            } else if (opcion == 'nombrePlan') {
-                var ruta = '/app/plan/actualizar';
-            }
+            $http.post('/app/plan/precios', datos).then(function (res) {
 
-            $http.post(ruta, datos).then(function (res) {
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+            return promise;
+        }
+
+        this.listarPreciosPlan = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/plan/precio/' + id).then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.modificarNombrePlan = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/plan/actualizar', datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1954,9 +2006,7 @@ angular.module("administrador")
         this.modificarPrecioPlan = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
-            delete datos.$$hashKey;
-            console.log(datos);
-            
+
             $http.post('/app/plan/precio/modificar', datos).then(function (res) {
 
                 defered.resolve(res);
@@ -1970,19 +2020,11 @@ angular.module("administrador")
             return promise;
         }
 
-        /* ELIMINAR IMPUESTO */
-
-        this.borrar = function (opcion, id) {
+        this.borrarPrecioPlan = function (opcion, id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            if (opcion == 'precioPlan') {
-                var ruta = '/app/precio/borrar/';
-            } else if (opcion == 'impuesto') {
-                var ruta = '/app/impuesto/borrar/';
-            }
-
-            $http.get(ruta + id).then(function (res) {
+            $http.get('/app/precio/borrar/' + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1994,7 +2036,7 @@ angular.module("administrador")
             return promise;
         }
 
-        this.bloquearPlan = function (opcion, datos) {
+        this.bloquearPlan = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
@@ -2002,6 +2044,71 @@ angular.module("administrador")
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
+            })
+            return promise;
+        }
+
+        /***************************/
+        /********IMPUESTOS**********/
+        /***************************/
+
+        this.listarImpuestos = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/impuestos').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.agregarImpuesto = function (opcion, datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/impuesto', datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+            return promise;
+        }
+
+        this.modificar = function (opcion, datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/impuesto/modificar/', datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+        }
+
+        this.borrarImpuesto = function (opcion, id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/impuesto/borrar/' + id).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
             })
             return promise;
         }
@@ -2017,19 +2124,23 @@ angular.module("administrador")
     }])
 
 
-    .factory('AuthInterceptor', function ($window, $q, $rootScope) {
+    .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
-            $rootScope.objectoCliente = false;
-            $window.localStorage.removeItem('bzToken');
+
+            $rootScope.$broadcast('sesionExpiro', "true");
         }
 
         function autorizado() {
-            if ($rootScope.objectoCliente) {
-                return $rootScope.objectoCliente;
+            if (clienteDatosFactory.obtener()) {
+                $rootScope.$broadcast('sesionInicio', "true")
+                return clienteDatosFactory.obtener();
             } else {
                 if ($window.localStorage.getItem('bzToken')) {
-                    $rootScope.objectoCliente = JSON.parse($window.localStorage.getItem('bzToken'));
-                    return $rootScope.objectoCliente;
+
+
+                    $rootScope.$broadcast('sesionInicio', "true")
+                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+                    return clienteDatosFactory.obtener();
                 } else {
                     return false;
                 }
@@ -2037,17 +2148,33 @@ angular.module("administrador")
         }
         return {
             request: function (config) {
-                config.headers = config.headers || {};
-                if (autorizado()) {
-                    config.headers.auth = autorizado().token;
+
+                if (config.url == 'http://ip-api.com/json/') {
+                    return config;
+                } else {
+                    config.headers = config.headers || {};
+                    if (autorizado()) {
+                        config.headers.auth = autorizado().token;
+                    }
+
+                    return config || $q.when(config);
                 }
-                return config || $q.when(config);
+
             },
             response: function (response) {
+
+                return response || $q.when(response);
+            },
+
+            responseError: function (response) {
+
+
                 if (response.status === 401 || response.status === 403) {
                     salir();
+
+
                 }
-                return response || $q.when(response);
+
             }
         };
     });
