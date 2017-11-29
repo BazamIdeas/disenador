@@ -2,9 +2,10 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', 'clientesService', 'mockupsValue', "historicoResolve", function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval, clientesService, mockupsValue, historicoResolve) {
+    .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', 'clientesService', 'mockupsValue', "historicoResolve", "$rootScope", function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval, clientesService, mockupsValue, historicoResolve, $rootScope) {
 
         var bz = this;
+
 
         bz.base64 = function (icono) {
 
@@ -18,48 +19,7 @@ angular.module("disenador-de-logos")
 
         }
 
-        /////////////////////////////////////
-        ////// Mostrar Visualizaciones///////
-        /////////////////////////////////////
-
-
-        bz.visualizacionUsada = false;
-
-        bz.visualizaciones = [];
-
-        bz.visualizar = function (valor) {
-
-            bz.visualizacionUsada = false;
-
-            bz.visualizaciones.pop();
-
-            bz.visualizaciones.push(valor);
-
-        }
-
-
-        /////////////////////////////////////
-        ///// Realizar Restauraciones ///////
-        /////////////////////////////////////
-
-        bz.restauracionIniciada = false;
-
-        bz.restauraciones = [];
-
-        bz.realizarRestauracion = function (restauracion) {
-            bz.visualizacionUsada = true;
-
-            if (bz.restauracionIniciada == false) {
-                bz.restauracionIniciada = true;
-            }
-
-            if (bz.restauraciones.length) {
-                bz.restauraciones.pop();
-            }
-            bz.restauraciones.push(restauracion);
-
-
-        }
+    
 
 
         //////////////////////////////////////////////
@@ -71,8 +31,6 @@ angular.module("disenador-de-logos")
         if (historicoResolve.logoModificado) { //si es un logo previamente modificado
 
             bz.restauracionIniciada = true;
-
-            bz.restauraciones.push(historicoResolve.logoModificado.svg);
 
             bz.logo = {
                 icono: {
@@ -167,194 +125,114 @@ angular.module("disenador-de-logos")
 
         /* LOGOS */
 
-        //bz.autorizado = clientesService.autorizado();
+     
         bz.gLogo = function (logo, tipoLogo, idElemento) {
 
-            //si el usuario esta logeado
-            //if (bz.autorizado) {
+   
 
-                logosService.guardarLogo(logo, tipoLogo, idElemento).then(function (res) {
+            logosService.guardarLogo(logo, tipoLogo, idElemento).then(function (res) {
 
-                    SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
+                SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
 
-                })
+            })
 
-            /*} else { //si el usuario no esta logeado 
-
-                $state.go("login", ({
-                    origen: $state.current.name,
-                    destino: $state.current.name,
-                    parametrosDestino: {
-
-                        logoModificado: {
-                            svg: bz.base64(logo),
-                            tipo: tipoLogo,
-                            idElemento: idElemento
-                        },
-
-                    }
-                }));
-            } */
+   
         }
 
 
+
+        /////////////////////////////////////
+        //////////CAMBIO DE COLOR////////////
+        /////////////////////////////////////
+
+        bz.cambioColor = function (color, objetivo) {
+
+            $rootScope.$broadcast("editor:color", {color: color, objetivo: objetivo});
+            
+        }
+        
+        
+        /////////////////////////////////////
+        //////////CAMBIO DE TEXTO////////////
+        /////////////////////////////////////        
+        
+        bz.cambioTexto = function (texto) {
+           
+            $rootScope.$broadcast("editor:texto", texto);
+            
+        }
+        
+        
+        /////////////////////////////////////
+        /////////CAMBIO DE FUENTE////////////
+        ///////////////////////////////////// 
+        
+        bz.cambioFuente = function (fuente) {
+
+            $rootScope.$broadcast("editor:fuente", fuente);
+
+        }
+        
+        /////////////////////////////////////
+        ////////CAMBIO DE PROPIEDAS//////////
+        ///////////////////////////////////// 
+        
+        bz.cambioPropiedad = function (propiedad) {
+
+            $rootScope.$broadcast("editor:propiedad", propiedad);
+
+        }
+        
+        /////////////////////////////////////
+        /////////CAMBIO DE TAMAÑO////////////
+        ///////////////////////////////////// 
+        
+        bz.cambioTamano = function (objetivo, accion) {
+
+            $rootScope.$broadcast("editor:tamano", {objetivo: objetivo, accion: accion});
+
+        }      
+        
+            
+        
+    
+ 
         
 
-        //////////////////////////////////////
-        ///////////INTERVALO GLOBAL///////////
-        //////////////////////////////////////
-
-        bz.interval = null;
-
-        bz.detenerIntervalo = function () {
-
-            $interval.cancel(bz.interval)
-
-        }
-
-        /*
-
-        ///////////////////////////////////////
-        /////posicion para icono y texto///////
-        ///////////////////////////////////////
-
-        bz.posicionTexto = {
-            x: 0,
-            y: 0
-        }
-
-        bz.posicionIcono = {
-            x: 0,
-            y: 0
-        }
-
-        bz.modificarPosicion = function (coordenada, accion, objetivo) {
-
-            bz.detenerIntervalo();
-
-            bz.interval = $interval(function () {
-
-
-                if (objetivo == "texto") {
-
-                    bz.posicionTexto[coordenada] = (accion) ? bz.posicionTexto[coordenada] + 10 : bz.posicionTexto[coordenada] - 10;
-
-                } else if (objetivo == "icono") {
-
-                    bz.posicionIcono[coordenada] = (accion) ? bz.posicionIcono[coordenada] + 10 : bz.posicionIcono[coordenada] - 10;
-
-                }
-
-            }, 100);
-
-        }
-
-
-
-        //////////////////////////////
-        /////escala para el icono/////
-        //////////////////////////////
-
-        bz.escala = 1;
-
-        bz.modificarEscala = function (escala, accion) {
-
-            bz.detenerIntervalo();
-
-            bz.interval = $interval(function () {
-
-                escala = parseFloat($filter('number')(bz.escala, 1));
-
-                if (accion) {
-
-                    if (escala <= 2) {
-
-                        bz.escala = escala + 0.1;
-                    }
-
-                } else {
-
-                    if (escala >= 0.5) {
-
-                        bz.escala = escala - 0.1;
-
-                    }
-
-                }
-
-            }, 100);
-
-        }
-
-
-
-        ////////////////////////////
-        ////tamano de la fuente/////
-        ////////////////////////////
-        bz.tamano = 0;
-
-
-        bz.modificarTamano = function (accion) {
-
-            bz.detenerIntervalo();
-
-            bz.interval = $interval(function () {
-
-                if (accion) {
-
-                    if (bz.tamano < 200) {
-
-                        bz.tamano = bz.tamano + 4;
-
-                    }
-
-                } else {
-
-                    if (bz.tamano > 0) {
-
-                        bz.tamano = bz.tamano - 4;
-
-                    }
-
-                }
-
-            }, 100);
-
-        }
-
-        /////////////////////////////////
-        ////propiedades de la fuente/////
-        /////////////////////////////////  
-        bz.propiedadesTexto = {
-
-            bold: false,
-            cursive: false
-
-        }
-
-
-        bz.modificarPropiedadTexto = function (propiedad) {
-
-
-            bz.propiedadesTexto[propiedad] = (bz.propiedadesTexto[propiedad]) ? false : true;
-
-        }
-
-        */
         /////////////////////////////////////////////////////////////////////////
         ////Disparar el guardado de un svg como copia de comparacion/////////////
         /////////////////////////////////////////////////////////////////////////
 
         bz.comparaciones = [];
 
-        bz.comparar = true;
-
         bz.realizarComparacion = function (valor) {
+            
             bz.menu = 3;
-            bz.comparar = (valor) ? false : true;
-
+            
+            $rootScope.$broadcast("editor:comparar", true);
+            
         }
+        
+        $scope.$on("directiva:comparar", function(evento, valor){
+           
+            bz.comparaciones.push(valor)
+            
+        })
+        
+        
+        
+        //////////////////////////////////////////
+        ////////RESTAURAR COMPARACIONES///////////
+        //////////////////////////////////////////
 
+        bz.restaurarComparacion = function (comparacion) {
+        
+            $rootScope.$broadcast("editor:restaurar", comparacion);
+            
+        }
+        
+             
+        
         /* PREVISUALIZAR */
 
         bz.modeloPrevisualizar = mockupsValue;
