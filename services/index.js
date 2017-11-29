@@ -5,10 +5,14 @@ var archivos = fs.readdirSync(__dirname);
 
 archivos.forEach(function(archivo) {
 
-	var nombreArchivo = path.basename(archivo, '.js');
+	if ( archivo.search('.js') != -1 ) {
+		
+		var nombreArchivo = path.basename(archivo, '.js');
 
-	if (nombreArchivo !== 'index') {
-		exports[nombreArchivo] = require('./'+ nombreArchivo)
+		if (nombreArchivo !== 'index') {
+			exports[nombreArchivo] = require('./'+ nombreArchivo)
+		}
+		
 	}
 
 })

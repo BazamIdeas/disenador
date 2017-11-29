@@ -84,26 +84,49 @@ elemento.insertElemento = function(datos,callback)
 	});
 }
 elemento.getElementosInpref = function( datos, callback)
-			{
-				var q = 'INSERT INTO elementos_has_preferencias SET ? ' 
-				var elePrefer = datos
+{
+	var q = 'INSERT INTO elementos_has_preferencias SET ? ' 
+	var elePrefer = datos
 
-				DB.getConnection(function(err, connection)
-				{
-				
-					
-					connection.query( q ,elePrefer, function(err, result){
+	DB.getConnection(function(err, connection)
+	{
+	
+		
+		connection.query( q ,elePrefer, function(err, result){
 
-				  	if(err)	throw err;
-				  	
-				  	else 
-				  		callback(null,{"insertId" : result.insertId}); 
-				  	
-				  });
+	  	if(err)	throw err;
+	  	
+	  	else 
+	  		callback(null,{"insertId" : result.insertId}); 
+	  	
+	  });
 
-				  connection.release();
-				});
-			}
+	  connection.release();
+	});
+}
+
+elemento.ModificarPreferencias = function(datos, callback)
+{
+	var q = 'UPDATE elementos_has_preferencias SET valor = ? WHERE elementos_idElemento = ? AND preferencias_idPreferencia = ?'; 
+	var elePrefer = datos
+
+	DB.getConnection(function(err, connection)
+	{
+	
+		
+		connection.query( q ,elePrefer, function(err, result){
+
+	  	if(err)	throw err;
+	  	
+	  	else 
+	  		callback(null,{"affectedRows" : result.affectedRows}); 
+	  	
+	  });
+
+	  connection.release();
+	});	
+}
+
 elemento.insertFuente = function(datos,callback)
 {
 	var q = 'INSERT INTO elementos SET ? ' 

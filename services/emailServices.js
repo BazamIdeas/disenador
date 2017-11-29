@@ -3,7 +3,7 @@ var nodemailer = require('nodemailer');
 var fs = require('fs');
 
 
-exports.enviarEmail = function(datos, subjetc, from, to){ 
+exports.enviar = function(template, datos = {}, subject = "Hola desde liderlogo ", to = "danieljtorres94@gmail.com, kalinca15@gmail.com", from = "'Liderlogo' <contacto@liderlogo.com>"){ 
 
     // metodo para configurar SMTP
     var transporter = nodemailer.createTransport({
@@ -14,7 +14,9 @@ exports.enviarEmail = function(datos, subjetc, from, to){
         }               
     });
 
-    var template = fs.readFileSync('./emailtemplates/ejemplo.html','utf8');
+    var template = fs.readFileSync('./emailtemplates/'+template ,'utf8', (err, data) => {
+	  	if (err) throw err;
+	});
 
     //var dummy = {'uno' : "Hola", 'dos': "Hola de nuevo"};
 
@@ -37,13 +39,5 @@ exports.enviarEmail = function(datos, subjetc, from, to){
     };
 
     // envio del correo
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-        	console.log(error);
-            return false;
-        }
-
-        console.log('Message %s sent: %s', info.messageId, info.response);
-        return true;
-    });
+    return transporter.sendMail(mailOptions);
 }
