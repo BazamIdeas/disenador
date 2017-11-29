@@ -473,6 +473,7 @@ div.contenedor-principal{
 
 /*Begin Rectangulo de fuentes*/
 .cubos-logos div{
+    overflow: hidden;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -485,8 +486,8 @@ div.contenedor-principal{
     cursor: pointer;
 }
 
-.cubos-logos div >*{
-    width: 90%
+.cubos-logos div > *{
+    width: 100%
 }
 
 .cubos-logos div.seleccionado{
@@ -533,6 +534,7 @@ div.contenedor-principal{
 } 
 /*End Rectangulo de fuentes*/
 
+<<<<<<< HEAD
 /*BEGIN LOGIN MODAL*/
 
 .overlay.show{
@@ -583,4 +585,19 @@ div.cubo-form i.cerrar{
     align-items: center;
 }
 /*END LOGIN MODAL*/
+
+
+/* provisionales */
+
+.ocultar{
+    
+    display: none;
+    
+}
+
+.tipo-inactivo{
+    
+    opacity: 0.7
+    
+}
 
