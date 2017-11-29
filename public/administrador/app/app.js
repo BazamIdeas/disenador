@@ -160,6 +160,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                 }
             })
 
+        $urlRouterProvider.otherwise('/');
     })
 
 
@@ -176,6 +177,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
             // We can catch the error thrown when the $requireSignIn promise is rejected
             // and redirect the user back to the home page
             if (error === "AUTH_REQUIRED") {
+                $state.go("cliente");
             } else if (error === "LOGOUT_REQUIRED") {
                 $state.go('login');
             }
