@@ -94,10 +94,28 @@ usuario.getUsuario = function(id,callback)
 	});
 }
  
+usuario.getUsuarioEmail = function(correo,callback)
+{ 
+	var q = 'SELECT nombreUser, idUsuario, correo, pass FROM usuarios WHERE  correo = ?  ' 
+	var par = [correo] //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, row);
+	  	
+	  });
+
+	  connection.release();
+	});
+}
 
 //añadir un nuevo usuario
 usuario.insertUsuario = function(usuarioData,callback)
-{console.log(usuarioData)
+{
 	var q = 'SELECT idUsuario FROM usuarios WHERE correo = ? ' 
 	var correo = [usuarioData.correo]
 
@@ -136,10 +154,79 @@ usuario.insertUsuario = function(usuarioData,callback)
 }
 
 //actualizar un cliente
-usuario.updateUsuario = function(usuarioData, callback)
+usuario.updateUsuario = function(body, callback)
 {
-	var q = 'UPDATE usuarios SET nombreUser = ?,  pass = ? WHERE idUsuario = ?';
-	var par = usuarioData //parametros
+	if(typeof passActual !== 'undefined' && passActual.length > 0 && typeof body.pass !== 'undefined' && body.pass.length > 0){
+
+		var q = `SELECT * FROM usuarios WHERE idUsuario = ?`;
+		var par = [body.idUsuario]
+
+		DB.getConnection(function(err, connection)
+		{
+			connection.query( q , par , function(err, row){
+				console.log(row)
+				if (typeof row !== 'undefined' && row.length > 0){
+
+		  			if (passActual == row[0].pass) {
+
+						var qq = 'UPDATE usuarios SET nombreUser = ?, pass = ? WHERE idUsuario = ?';
+
+		  				var parqq = [body.nombreUser, body.pass, body.idUsuario]
+
+						DB.getConnection(function(err, connection)
+						{
+							connection.query( qq , parqq , function(err, row){
+						  	
+						  	if(err)	throw err;
+
+						  	else callback(null,{"affectedRows" : row.affectedRows}); 
+						  	
+						  });
+
+						  connection.release();
+						});
+
+		  			}else{
+		  				callback(null,{"msg" : "Las contraseñan no coinciden"}); 
+		  			}
+
+		  		}else{
+		  			callback(null,{"msg" : "El usuario no se encuentra"}); 
+		  		}
+		  	
+		  });
+
+		  connection.release();
+		});
+	
+	}else{
+
+
+		var q = 'UPDATE usuarios SET nombreUser = ? WHERE idCliente = ?';
+		var par = [body.nombreUser, body.idUsuario]
+
+
+		DB.getConnection(function(err, connection)
+		{
+			connection.query( q , par , function(err, row){
+		  	
+		  		if(err)	throw err;
+
+		  		else callback(null,{"affectedRows" : row.affectedRows}); 
+		  	
+		  	});
+
+		  connection.release();
+		});
+
+	}
+}
+
+//cambiar contraseña
+usuario.changePassword = function(datos, callback)
+{
+	var q = 'UPDATE usuarios SET pass = ? WHERE idUsuario = ?';
+	var par = datos //parametros
 
 	DB.getConnection(function(err, connection)
 	{

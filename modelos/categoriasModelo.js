@@ -13,16 +13,52 @@ categoria.getCategorias = function(callback)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
+	  		if(err)	throw err;
 	  	
-	  	else callback(null, rows);
+	  		else callback(null, rows);
 	  	
-	  });
+	  	});
 
-	  connection.release();
+	  	connection.release();
 	});
-
 }
+
+categoria.ListarIconos = function(idCategoria,callback)
+{
+	var q = 'SELECT * FROM elementos WHERE categorias_idCategoria = ? AND tipo = "ICONO" ORDER BY idElemento';
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q ,  function(err, rows){
+	  	
+	  		if(err)	throw err;
+	  	
+	  		else callback(null, rows);
+	  	
+	  	});
+
+	  	connection.release();
+	});
+}
+
+categoria.ListarFuentes = function(idCategoria,callback)
+{
+	var q = 'SELECT * FROM elementos WHERE categorias_idCategoria = ? AND tipo = "FUENTE" ORDER BY idElemento';
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q ,  function(err, rows){
+	  	
+	  		if(err)	throw err;
+	  	
+	  		else callback(null, rows);
+	  	
+	 	});
+
+	  	connection.release();
+	});	
+}
+
 categoria.getCategoria = function(id,callback)
 { 
 	var q = 'SELECT nombreCategoria, idCategoria FROM categorias WHERE idCategoria = ? ' 
@@ -31,14 +67,14 @@ categoria.getCategoria = function(id,callback)
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row){
+	  		
+	  		if(err)	throw err;
 	  	
-	  	if(err)	throw err;
+	  		else callback(null, row);
 	  	
-	  	else callback(null, row);
-	  	
-	  });
+	  	});
 
-	  connection.release();
+	  	connection.release();
 	});
 }
  
@@ -52,14 +88,14 @@ categoria.insertCategoria= function(categoriaData,callback)
 	{
 		connection.query( q , par , function(err, result){
 	  	
-	  	if(err)	throw err;
+	  		if(err)	throw err;
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
+	  		//devolvemos la última id insertada
+	  		else callback(null,{"insertId" : result.insertId}); 
 	  	
-	  });
+	  	});
 
-	  connection.release();
+	  	connection.release();
 	});
 }
 
@@ -74,13 +110,13 @@ categoria.updateCategoria = function(categoriaData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+	  		if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+	  		else callback(null,{"msg" : "modificacion exitosa"}); 
 	  	
-	  });
+	  	});
 
-	  connection.release();
+	  	connection.release();
 	});
 }
 

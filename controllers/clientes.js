@@ -108,12 +108,12 @@ exports.nuevoCliente =  function(req,res,next)
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				//creamos un array con los datos a modificar del cliente
-				var clienteData = [req.body.nombreCliente, req.body.correo, req.body.pass, req.body.telefono, req.body.pais, idCliente];
+				//var clienteData = [req.body.nombreCliente, req.body.pass, req.body.telefono, req.body.pais, idCliente];
 					
-				cliente.updateCliente(clienteData,function(error, data)
+				cliente.updateCliente(req.body, req.body.passActual,function(error, data)
 				{
 					//si el cliente se ha modificado correctamente
-					if(data)
+					if(typeof data !== 'undefined' && data.affectedRows)
 					{
 						res.status(200).json(data);
 					}
@@ -123,7 +123,6 @@ exports.nuevoCliente =  function(req,res,next)
 					}
 				});
 			}
-		//no existe
 			else
 			{
 				res.status(500).json({"msg":"No existe"})

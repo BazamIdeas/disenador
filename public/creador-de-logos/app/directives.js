@@ -160,7 +160,6 @@ angular.module("disenador-de-logos")
 
                     var tamanoBase = 100;
 
-
                     ////////////////////////////////////////////////////////////
                     //////Insertamos el SVG del icono dentro del SVG padre//////
                     ////////////////////////////////////////////////////////////
@@ -235,18 +234,14 @@ angular.module("disenador-de-logos")
                     }
 
 
-                    //agregamos el Style Tag al svg
-                    element.children().prepend("<style> <![CDATA[  @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  ]]>  </style>")
+                    
 
+  /*                 
 
+                            var alturaSVG = (tamanoBase);
+                            var anchoSVG = (tamanoBase);
 
-                    /*
-
-
-                            var alturaSVG = (tamanoBase / 2);
-                            var anchoSVG = (tamanoBase * 2);
-
-                            element[0].innerHTML = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink 'viewBox='0 0 " + anchoSVG + " " + alturaSVG + "'>" + scope.svgTag + "</svg>";
+                            element[0].innerHTML = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink 'viewBox='0 0 " + anchoSVG + " " + alturaSVG + "'><g class='contenedor-icono'>" + scope.svgTag + "</g></svg>";
 
                             var svgIcono = element[0].children[0].children[0].children[0];
 
@@ -254,8 +249,7 @@ angular.module("disenador-de-logos")
                             svgIcono.setAttribute("width", (alturaSVG * 0.75) + "px");
 
 
-                            svgIcono.setAttribute("x", (anchoSVG * 0.05));
-                            svgIcono.setAttribute("y", (svgIcono.height.baseVal.value / 2) - (alturaSVG / 4));
+                          
 
 
                             /////////////////////////////////////////
@@ -273,17 +267,26 @@ angular.module("disenador-de-logos")
                             element[0].children[0].appendChild(texto);
 
                             var svgTexto = element[0].children[0].children[1];
-
+                    
                             svgTexto.style.fontSize = ((alturaSVG * 0.75) / 2) + "px";
                             svgTexto.setAttribute("text-anchor", "left");
                             svgTexto.setAttribute("font-family", scope.fuente.nombre);
-                            svgTexto.setAttribute("y", (parseFloat(svgTexto.style.fontSize) / 2) + (alturaSVG / 2.5));
+                            svgTexto.setAttribute("class", "textoPrincipal");
+                           
 
                             //////////////////////////////////////////////////////////////////////
                             ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
                             //////////////////////////////////////////////////////////////////////
 
-                            //FALTA ESTE CASO
+                            var anchoViewBox = parseInt(element[0].children[0].getAttribute("viewBox").split(" ")[3]);
+                    
+                            while((svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value) > (anchoViewBox * 0.80) ){
+                                
+                                svgTexto.style.fontSize =  (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+                                svgIcono.setAttribute("width", (svgIcono.width.baseVal.value * 0.95) + "px");
+                                svgIcono.setAttribute("height", (svgIcono.height.baseVal.value * 0.95) + "px");
+                                
+                            }
 
 
 
@@ -297,12 +300,18 @@ angular.module("disenador-de-logos")
                     
                             var paddingLeft = (anchoSVG - totalEspacioIconoFuente ) / 2;
                     
+                    
+                            svgIcono.setAttribute("y", (alturaSVG / 2) - (svgIcono.height.baseVal.value / 2)  );
                             svgIcono.setAttribute("x", paddingLeft);
                             svgTexto.setAttribute("x", paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05)) );
+                            svgTexto.setAttribute("y", (alturaSVG / 2) + (parseFloat(svgTexto.style.fontSize)/ 4));
+                 
+*/
                     
-                            */
-
-
+                    
+                    
+                    //agregamos el Style Tag al svg
+                    element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
 
 
 
@@ -511,8 +520,6 @@ angular.module("disenador-de-logos")
 
                     })
 
-
-
                     $("bazam-svg").on("mousemove", "text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
 
 
@@ -566,7 +573,6 @@ angular.module("disenador-de-logos")
 
                     scope.$on("editor:restaurar", function (evento, svg) {
 
-
                         element.html(svg);
 
                         var indices = [];
@@ -582,16 +588,24 @@ angular.module("disenador-de-logos")
                         
                         scope.elementosIndices = indices;
 
-                        scope.texto = element.find("text.textoPrincipal").text();
+                        
+                        var texto = element.find("text.textoPrincipal");
+                        
+                        scope.texto = texto.text();
                         
                         
+                        var nuevaFuente = {
+                            url:  angular.element(document.querySelector("bazam-svg > svg > style")).text().split("url(")[1].split(")")[0],
+                            nombre: texto.attr("font-family")
+                            
+                        }
+                        
+                        scope.fuente = nuevaFuente;
+                        
+                                 
                         scope.svgFinal = element.html();
 
                     })
-                    
-                    
-             
-
 
                 }
             }

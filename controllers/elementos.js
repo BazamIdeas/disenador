@@ -235,9 +235,7 @@ exports.nuevoElementoFuente = function (req, res) {
 									res.status(500).json(error);
 								}
 
-
 							});
-
 
 						} //fin del for
 						res.status(200).json(data);
@@ -258,3 +256,27 @@ exports.nuevoElementoFuente = function (req, res) {
 	}
 }
 
+
+exports.ModificarPreferencias = function(req,res)
+{
+	for (x in req.datoPrefe) {
+		
+		eleCat = {
+			valor                      : datoPrefe[x].valor,
+			elementos_idElemento       : datoPrefe[x].idElemento,
+			preferencias_idPreferencia : datoPrefe[x].idPreferencia,
+		}
+
+		elemento.ModificarPreferencias(eleCat, function (error, datapref) {
+
+			if (error) {
+				res.status(500).json(error);
+			}
+
+		});
+
+
+	}
+
+	res.status(200).json({"result":"Todo bien"});
+}

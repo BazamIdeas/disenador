@@ -76,8 +76,29 @@ cliente.getClientes = function(callback)
 //obtenemos un cliente por su id
 cliente.getCliente = function(id,callback)
 { 
-	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes WHERE idCliente = ? ' 
+	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes WHERE idCliente = ?' 
 	var par = [id] //parametros
+
+	console.log(par)
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+	  	if(err)	throw err;
+	  	
+	  	else callback(null, row);
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+ 
+//obtenemos un cliente por su email
+cliente.getClienteEmail = function(correo,callback)
+{ 
+	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes WHERE correo = ? ' 
+	var par = [correo] //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -135,11 +156,80 @@ cliente.insertCliente = function(clienteData,callback)
 }
 
 //actualizar un cliente
-cliente.updateCliente = function(clienteData, callback)
+cliente.updateCliente = function(body, passActual, callback)
 {
+	if(typeof passActual !== 'undefined' && passActual.length > 0 && typeof body.pass !== 'undefined' && body.pass.length > 0){
+
+		var q = `SELECT * FROM clientes WHERE idCliente = ?`;
+		var par = [body.idCliente]
+
+		DB.getConnection(function(err, connection)
+		{
+			connection.query( q , par , function(err, row){
+				console.log(row)
+				if (typeof row !== 'undefined' && row.length > 0){
+
+		  			if (passActual == row[0].pass) {
+
+						var qq = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ?, telefono = ?, pais = ? WHERE idCliente = ?';
+
+		  				var parqq = [body.nombreCliente, body.correo, body.pass, body.telefono, body.pais, body.idCliente]
+
+						DB.getConnection(function(err, connection)
+						{
+							connection.query( qq , parqq , function(err, row){
+						  	
+						  	if(err)	throw err;
+
+						  	else callback(null,{"affectedRows" : row.affectedRows}); 
+						  	
+						  });
+
+						  connection.release();
+						});
+
+		  			}else{
+		  				callback(null,{"msg" : "Las contraseñan no coinciden"}); 
+		  			}
+
+		  		}else{
+		  			callback(null,{"msg" : "El usuario no se encuentra"}); 
+		  		}
+		  	
+		  });
+
+		  connection.release();
+		});
 	
-	var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ?, telefono = ?, pais = ? WHERE idCliente = ?';
-	var par = clienteData //parametros
+	}else{
+
+
+		var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?, telefono = ?, pais = ? WHERE idCliente = ?';
+		var par = [body.nombreCliente, body.correo, body.telefono, body.pais, body.idCliente]
+
+
+		DB.getConnection(function(err, connection)
+		{
+			connection.query( q , par , function(err, row){
+		  	
+		  		if(err)	throw err;
+
+		  		else callback(null,{"affectedRows" : row.affectedRows}); 
+		  	
+		  	});
+
+		  connection.release();
+		});
+
+	}
+}
+
+
+//cambiar contraseña
+cliente.changePassword = function(datos, callback)
+{
+	var q = 'UPDATE clientes SET pass = ? WHERE idCliente = ?';
+	var par = datos; //parametros
 
 	DB.getConnection(function(err, connection)
 	{
