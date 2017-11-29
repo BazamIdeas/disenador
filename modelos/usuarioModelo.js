@@ -202,7 +202,7 @@ usuario.updateUsuario = function(body, callback)
 	}else{
 
 
-		var q = 'UPDATE usuarios SET nombreUser = ? WHERE idCliente = ?';
+		var q = 'UPDATE usuarios SET nombreUser = ? WHERE idUsuario = ?';
 		var par = [body.nombreUser, body.idUsuario]
 
 
