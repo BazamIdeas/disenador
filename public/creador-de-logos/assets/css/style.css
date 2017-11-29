@@ -79,7 +79,8 @@ textarea {
 
 body {
     background: white;
-    height: 100%;
+    height: 100vh;
+    position: relative;
 }
 
 
@@ -531,3 +532,55 @@ div.contenedor-principal{
     font-size: 22px
 } 
 /*End Rectangulo de fuentes*/
+
+/*BEGIN LOGIN MODAL*/
+
+.overlay.show{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.68); /*dim the background*/
+}
+
+.overlay.hide{
+    height: 0%;
+    z-index: 0;
+    display: none
+}
+
+div.login-form-flex{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.cubo-form {
+    background-color: var(--blanco);
+    border: 2px solid var(--principal);
+    border-radius: 10px;
+    padding: 20px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+div.cubo-form i.cerrar{
+    background-color: var(--blanco);
+    border-radius: 50%;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    cursor: pointer;
+}
+
+.login-form , .registro-form{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+/*END LOGIN MODAL*/
+

@@ -377,11 +377,17 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 //controller: 'combinacionesController as combinaciones'
         })
      
-        
-        
 
 
-        $urlRouterProvider.otherwise('/comenzar');
+        //redirecciones
+        
+        $urlRouterProvider.when('', '/comenzar/');
+        $urlRouterProvider.when('/', '/comenzar/');
+        $urlRouterProvider.when('/comenzar', '/comenzar/');
+        $urlRouterProvider.when('/comenzar/opciones', '/comenzar/opciones/');
+        $urlRouterProvider.when('/comenzar/combinaciones', '/comenzar/combinaciones/');
+
+        $urlRouterProvider.otherwise('/404/');
 
     })
 
