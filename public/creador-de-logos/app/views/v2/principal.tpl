@@ -18,8 +18,8 @@
             </div>
         </section>
 
-        <section style="height: calc(100vh - 135px) !important;">
-            <div class="row margin-bottom-0">
+        <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
+            <div class="row margin-bottom-0" style="overflow: hidden;">
                 <form class="margin-bottom-0">
                     <div class="col s2 sidebar-1 scroll" ng-form="principal.datosForm">
                         <div class="input-field col s12">
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 
-                    <div class="col s2 sidebar-2" ng-class="{'ocultar': !principal.datosForm.$valid, 'mostrar': principal.datosForm.$valid}">
+                    <div class="col s2 sidebar-2" ng-class="{'offset-s2': principal.datosForm.$valid, 'ocultar': !principal.datosForm.$valid, 'mostrar': principal.datosForm.$valid}">
                         <p class="text-center principal">Forma de su logo</p>
 
                         <div class="cubo-logo">
@@ -75,6 +75,7 @@
                         </div>
                     </div>
                 </form>
+
 				
 				<div ui-view class="contenedor-principal col " ng-class="{'s10': !principal.datosForm.$valid, 's8': principal.datosForm.$valid}">
 				       

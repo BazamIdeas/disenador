@@ -77,11 +77,14 @@ textarea {
 }
 
 body {
-    background: white;
+    background: var(--fondo);
     height: 100%;
+    position: relative;
 }
 
-
+:focus{
+    outline: none
+}
 
 *:not(i, text),
 button,
@@ -300,6 +303,11 @@ table.table-admin td {
 
 /*PARTES Y PEQUEÑOS ELEMENTOS*/
 
+.divisor{
+    height: 1px;
+    width: 100%;
+    margin-bottom: 20px;
+}
 
 button.boton-verde {
     background-color: var(--tercero);
@@ -314,25 +322,28 @@ button.boton-verde {
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 4px;
 }
  
 /* Track */
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0); 
     -webkit-border-radius: 0;
     border-radius: 0;
 }
- 
+
+::-webkit-scrollbar:window-inactive { 
+    width: 1px;
+}
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 0;
     border-radius: 0;
     background: rgba(97,39,135,1); 
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);  
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(97,39,135,0.4); 
+    background: rgba(97,39,135,0.4);  
 }
 
 
@@ -362,22 +373,28 @@ div.acceder i { vertical-align: top; }
 /*End header*/
 
 /*Begin sub-header*/
-section.sub-header {
+section.sub-header, section.sub-header-principal{
     -webkit-box-shadow: 0px 0px 1px 0px #d6d6d6;
             box-shadow: 0px 0px 1px 0px #d6d6d6;
+    position: relative;
+    z-index: 2;
 }
-section.sub-header .row .col {
+section.sub-header .row .col, section.sub-header-principal .row .col.logo{
     text-align: center;
     display: flex;
     align-items: center;
     height: 90px;
+}
+
+section.sub-header .row .col.texto{
     justify-content: center;
 }
-section.sub-header .row .col.logo h5 {
-    display: inline-flex;
-    vertical-align: middle;
+
+section.sub-header .row .col.logo h5 , section.sub-header-principal .row .col.logo h5 {
+    display: flex;
+    align-items: center;
 }
-section.sub-header .row .col.logo h5 i{ font-size: 36px; }
+section.sub-header .row .col.logo h5 i, section.sub-header-principal .row .col.logo h5 i{ font-size: 36px; }
 
 section.sub-header .row .col.texto h5{font-family: 'futura-heavy' !important; text-align: center; }
 
@@ -385,17 +402,30 @@ section.sub-header .row .col.texto h5{font-family: 'futura-heavy' !important; te
 
 
 div.sidebar-1, div.sidebar-2, div.lienzo{
-    height: 100%;
     padding-top: 10px !important;
+    max-height: calc(100vh - 9rem);
+    overflow-y: scroll;
+    height: 100%;
+    margin: 0 0;
 }
 
+div.sidebar-1, div.sidebar-2{
+    background-color: white;
+}
+
+div.sidebar-2{
+    z-index: 0;
+    height: 100%;
+    position: relative;
+    transition: margin-left 1s ease;
+}
 
 /*Begin SideBar 1*/
 div.sidebar-1 {
     -webkit-box-shadow: 3px 0px 2px -3px #d6d6d6;
             box-shadow: 3px 0px 2px -3px #d6d6d6;
-    overflow-y: scroll;
-    height: 100% !important;
+    position: fixed;
+    z-index: 1;
 }
 
 div.sidebar-1::-webkit-scrollbar {
@@ -451,6 +481,7 @@ p.label-slider-input-right{
     background-color: var(--principal);
     border-radius: 10px;
     color: #fff;
+    cursor: pointer;
 }
 
 .cubo-logo div span i, .cubo-logo div span.texto{
@@ -463,8 +494,13 @@ p.label-slider-input-right{
 
 /*Contenedor Principal*/
 div.contenedor-principal{
-    background-color: white;
+    transition: width 1s ease;
+    padding: 0 !important;
     background-color: var(--fondo);
+    max-height: calc(100vh - 9rem);
+    height: 100%;
+    display: inline-block;
+    float: none !important;
 }
 /*Contenedor Principal*/
 
@@ -532,6 +568,56 @@ div.contenedor-principal{
 } 
 /*End Rectangulo de fuentes*/
 
+/*BEGIN LOGIN MODAL*/
+
+.overlay.show{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.68); /*dim the background*/
+}
+
+.overlay.hide{
+    height: 0%;
+    z-index: 0;
+    display: none
+}
+
+div.login-form-flex{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.cubo-form {
+    background-color: var(--blanco);
+    border: 2px solid var(--principal);
+    border-radius: 10px;
+    padding: 20px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+div.cubo-form i.cerrar{
+    background-color: var(--blanco);
+    border-radius: 50%;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    cursor: pointer;
+}
+
+.login-form , .registro-form{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+/*END LOGIN MODAL*/
 
 /***********/
 
@@ -544,14 +630,122 @@ div.contenedor-principal{
 /* provisionales */
 
 .ocultar{
-    
-    display: none;
-    
+    margin-left: 0px !important;
+    transition: margin-left 0.5s ease !important;
 }
 
 .tipo-inactivo{
-    
-    opacity: 0.7
-    
+    background-color: #7d7d7d !important;
+}
+
+/*END provisionales*/
+
+/*BEGIN opciones editor header*/
+
+.opciones-sub-header .col{
+    padding: 25px 5px;
+    display: flex;
+    align-items: center;
+}
+
+.opciones-sub-header .col span{
+    font-family: "futura-heavy" !important;
+}
+
+.selector-fondo, .selector-cuadricula{
+    width: 40px;
+    height: 40px;
+    background-color: var(--fondo);
+    border-radius: 10px;
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.selector-fondo{
+    box-shadow: inset 0px 0px 3px 2px #e3e3e3;
+}
+
+.selector-cuadricula{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selector-cuadricula i{
+    font-size: 38px;
+    color: gray;
+}
+
+button.boton-oborder {
+    border: 1px solid var(--principal);
+    border-radius: 4px;
+    background-color: transparent;
+    color: var(--principal);
+    font-family: "futura-heavy" !important;
+    display: flex;
+    align-items: center;
+    padding: 6px 15px;
+}
+button.boton-oborder i{
+    font-size: 23px;
+    margin-top: 0px;
+}
+
+/*END opciones editor header*/
+
+/*BEGIN opciones sidebar 1 editor*/
+
+.estilo-texto{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.estilo-texto .negrita{
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.estilo-texto .menos{
+    margin-right: 20px;
+}
+
+.estilo-texto .mas{
+    align-items: start !important;
+}
+
+.estilo-texto .cursiva{
+    font-family: "futura-heavy" !important;
+    font-style: italic;
+}
+
+.estilo-texto .negrita, .estilo-texto .cursiva, .estilo-texto .menos, .estilo-texto .mas{
+    width: 40px;
+    height: 40px;
+    background-color: var(--fondo);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: black;
+}
+
+.estilo-texto .menos, .estilo-texto .mas{
+    font-size: 25px;
+}
+
+.estilo-texto .negrita.activo, .estilo-texto .cursiva.activo, .estilo-texto .menos.activo, .estilo-texto .mas.activo{
+    color: var(--principal)
+}
+
+.estilo-texto .color{
+    width: 100px;
+    height: 40px;
+    background-color: gray;
+    border-radius: 20px;
 }
 

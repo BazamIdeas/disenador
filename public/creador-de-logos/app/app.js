@@ -126,7 +126,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                 }
             }) 
-        */
+        
             .state({
                 name: 'editor',
                 url: '/editor',
@@ -181,6 +181,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                 }
             })
+            */
             .state({
                 name: 'previsualizar',
                 url: '/previsualizar',
@@ -384,6 +385,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 name: 'principal.combinaciones',
                 url: '/combinaciones/',
                 templateUrl: 'app/views/v2/principal.combinaciones.tpl',
+
                 controller: 'principalCombinacionesController as principalCombinaciones',params: {
                     status: null
                 },
@@ -395,10 +397,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
 
                 }
-            })
+            })       
 
 
-
+        .state({
+                name: 'editor',
+                url: '/editor',
+                templateUrl: 'app/views/v2/editor.tpl',
+                //controller: 'editorController as editor'
+        })
+        
         //redirecciones
 
         $urlRouterProvider.when('', '/comenzar/');
