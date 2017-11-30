@@ -51,10 +51,10 @@ exports.Nuevo = (req,res) =>
 			
 			pasarela.AsignarMoneda(pasarelaMoneda, (error, data) => {
 				//si la etiqueta se ha insertado correctamente mostramos su info
-				if(data && data.insertId){
+				if(data && data.affectedRows){
 					res.status(200).json({'insertId': id});
 				}else{
-					res.status(500).json({"msg":"Algo ocurrio"})
+					res.status(500).json({"msg":error})
 				}
 			});
 		}else{
