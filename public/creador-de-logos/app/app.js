@@ -4,45 +4,45 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
         /* COMPARTIR EN REDES SOCIALES */
 
-    /*
-        socialshareConfProvider.configure([{
-                'provider': 'twitter',
-                'conf': {
-                    'url': 'http://localhost:8080/creador-de-logos/#!/editor',
-                    'text': '720kb is enough',
-                    'via': 'npm',
-                    'hashtags': 'Creador de logos, LIDERLOGO',
-                    'trigger': 'click'
+        /*
+            socialshareConfProvider.configure([{
+                    'provider': 'twitter',
+                    'conf': {
+                        'url': 'http://localhost:8080/creador-de-logos/#!/editor',
+                        'text': '720kb is enough',
+                        'via': 'npm',
+                        'hashtags': 'Creador de logos, LIDERLOGO',
+                        'trigger': 'click'
+                    }
+                },
+                {
+                    'provider': 'facebook',
+                    'conf': {
+                        'url': 'http://720kb.net',
+                        'trigger': 'click',
+                        'socialshareUrl': 'http://720kb.net',
+                        'socialshareText': 'Creador de logos',
+                        'socialshareTitle': 'Creador de logos',
+                        'socialshareDescription': 'Creador de logos',
+                        'socialsharemedia': '#logo-share',
+                        'socialshareHashtags': ''
+                    }
+                }, {
+                    'provider': 'email',
+                    'conf': {
+                        'trigger': 'click',
+                        'socialsharesSubject': 'Creador de logos',
+                        'socialsharesBody': 'Hola',
+                        'socialsharesTo': 'luisdtc2696@gmail.com',
+                        'socialsharesCc': '',
+                        'socialsharesBcc': ''
+                    }
                 }
-            },
-            {
-                'provider': 'facebook',
-                'conf': {
-                    'url': 'http://720kb.net',
-                    'trigger': 'click',
-                    'socialshareUrl': 'http://720kb.net',
-                    'socialshareText': 'Creador de logos',
-                    'socialshareTitle': 'Creador de logos',
-                    'socialshareDescription': 'Creador de logos',
-                    'socialsharemedia': '#logo-share',
-                    'socialshareHashtags': ''
-                }
-            }, {
-                'provider': 'email',
-                'conf': {
-                    'trigger': 'click',
-                    'socialsharesSubject': 'Creador de logos',
-                    'socialsharesBody': 'Hola',
-                    'socialsharesTo': 'luisdtc2696@gmail.com',
-                    'socialsharesCc': '',
-                    'socialsharesBcc': ''
-                }
-            }
 
 
-        ])
-        
-        */
+            ])
+            
+            */
 
         /* INTERCEPTADOR */
         $httpProvider.interceptors.push('AuthInterceptor');
@@ -141,7 +141,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     fuentes: null
                 },
                 resolve: {
-                    
+
                     "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
                         if (!clientesService.autorizado()) {
@@ -341,45 +341,66 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     datos: null
                 }
             })
-       
-        
-        ///////////////////////////////////////////////////////////////
-        ///////////////////////////ESTADOS V2//////////////////////////
-        ///////////////////////////////////////////////////////////////
-        
-        .state({
+
+
+            ///////////////////////////////////////////////////////////////
+            ///////////////////////////ESTADOS V2//////////////////////////
+            ///////////////////////////////////////////////////////////////
+
+            .state({
                 name: 'principal',
                 url: '/comenzar',
                 templateUrl: 'app/views/v2/principal.tpl',
                 controller: 'principalController as principal',
                 abstract: true
             })
-        
-        .state({
+
+            .state({
                 name: 'principal.comenzar',
                 url: '/',
                 templateUrl: 'app/views/v2/principal.comenzar.tpl',
                 controller: 'principalComenzarController as principalComenzar'
-        })
-        
-        .state({
+            })
+
+            .state({
                 name: 'principal.opciones',
                 url: '/opciones/',
                 templateUrl: 'app/views/v2/principal.opciones.tpl',
-                //controller: 'opcionesController as opciones'
-        })
-        
-        .state({
+                controller: 'principalOpcionesController as principalOpciones',
+                params: {
+                    status: null
+                },
+                resolve: {
+                    statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
+
+                        return  $stateParams.status || $q.reject("STEPS") ;                       
+                        
+                    }]
+
+                }
+            })
+
+            .state({
                 name: 'principal.combinaciones',
                 url: '/combinaciones/',
                 templateUrl: 'app/views/v2/principal.combinaciones.tpl',
-                //controller: 'combinacionesController as combinaciones'
-        })
-     
-        
-        
+                controller: 'principalCombinacionesController as principalCombinaciones',params: {
+                    status: null
+                },
+                resolve: {
+                    statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
+
+                        return  $stateParams.status || $q.reject("STEPS") ;                       
+                        
+                    }]
+
+                }
+            })
+
+
+
         //redirecciones
-        
+
         $urlRouterProvider.when('', '/comenzar/');
         $urlRouterProvider.when('/', '/comenzar/');
         $urlRouterProvider.when('/comenzar', '/comenzar/');
@@ -398,6 +419,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
 
+            
+            if(error == "STEPS"){
+                
+                $state.go("principal.comenzar");
+                
+            }
+            
+            
+            
             if (error === "AUTH_REQUIRED") {
 
                 $state.go("login", ({

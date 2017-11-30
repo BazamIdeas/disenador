@@ -41,7 +41,7 @@ angular.module("disenador-de-logos")
 
         bz.agregarElemento = function (indice, valor, tipo) {
 
-            if (Object.keys(this.datos[tipo]).length < 3) {
+            if (Object.keys(bz.datos[tipo]).length < 3) {
 
                 if (!bz.datos[tipo][indice]) {
 

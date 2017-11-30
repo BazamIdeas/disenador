@@ -165,7 +165,7 @@ angular.module("disenador-de-logos")
 
                 .then(function (res) {
 
-                    return res;
+                    return res.data;
 
                 })
 
@@ -416,19 +416,25 @@ angular.module("disenador-de-logos")
             var logos = [];
 
             angular.forEach(iconos, function (icono, indice) {
+                
+                if(icono.estado == true){
+                
+                    angular.forEach(fuentes, function (fuente, indice) {
+                        
+                        if(fuente.estado == true){
+                        
+                            var logo = {
 
-                angular.forEach(fuentes, function (fuente, indice) {
+                                icono: icono,
+                                fuente: fuente
 
-                    var logo = {
+                            };
 
-                        icono: icono,
-                        fuente: fuente
+                            logos.push(logo);
+                        }
+                    })
 
-                    };
-
-                    logos.push(logo);
-
-                })
+                }
 
             })
 
@@ -501,6 +507,9 @@ angular.module("disenador-de-logos")
 
         }
             }])
+
+
+
 
 
 

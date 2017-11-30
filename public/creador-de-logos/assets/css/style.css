@@ -60,16 +60,15 @@
 /* END Regular */
 
 
-*:not(i) {
+*:not(i, text) {
     font-family: 'futura-bold' !important;
     font-weight: 800;
 }
 
-p,
+label, span, p,
 h1,
 h2,
 button,
-html,
 input,
 select,
 textarea {
@@ -84,7 +83,7 @@ body {
 
 
 
-*:not(i),
+*:not(i, text),
 button,
 html,
 input,
@@ -534,6 +533,13 @@ div.contenedor-principal{
 /*End Rectangulo de fuentes*/
 
 
+/***********/
+
+.deshabilitado {
+    
+    opacity: 0.6;
+    
+}
 
 /* provisionales */
 

@@ -60,6 +60,8 @@
     <!--Controladores V2 -->
     <script src="app/controllers/v2/principal.controller.js"></script>
     <script src="app/controllers/v2/principal.comenzar.controller.js"></script>
+    <script src="app/controllers/v2/principal.opciones.controller.js"></script>
+    <script src="app/controllers/v2/principal.combinaciones.controller.js"></script>
 
 </head>
 
@@ -69,7 +71,7 @@
         
         <div class="col s6 m9" show-gt-sm>
 
-                <div ng-switch="header.autorizado" class="login">
+                <div ng-switch="header.autorizado" class="login"  ng-cloak>
                     <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer"> <i class="material-icons md-48">account_circle</i> <span>Acceder / Registro</span> </div>
 
                     <div ng-switch-default class="acceder" style="cursor: pointer"> 

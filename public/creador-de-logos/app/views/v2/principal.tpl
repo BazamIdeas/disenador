@@ -1,3 +1,10 @@
+        <style ng-repeat="fuente in principal.fuentes">
+            @font-face {
+                font-family: '{{fuente.nombre}}';
+                src: url('{{fuente.url}}');
+            }
+        </style>
+
         <section class="sub-header">
             <div class="row margin-bottom-0">
 

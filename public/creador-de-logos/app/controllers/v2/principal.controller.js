@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Comenzar */
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope",function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope) {
+    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory) {
 
         var bz = this;
 
@@ -15,6 +15,7 @@ angular.module("disenador-de-logos")
         
         bz.fuentes = [];
         
+        bz.logos = [];
         
         /*
         if ($stateParams.nombreLogo) {
@@ -99,6 +100,11 @@ angular.module("disenador-de-logos")
                     
                     
                     
+                    bz.iconos = res[0];
+                    bz.fuentes = res[1];
+                    
+                    $state.go("principal.opciones", {status: true});
+                    
                         /*
                                     bz.datos.respuesta = {
                                         iconos: res[0].data,
@@ -120,7 +126,7 @@ angular.module("disenador-de-logos")
                         */
                     
                     
-                    bz.completado = true;
+                        bz.completado = true;
                     
                     
                     }).catch(function (error) {
@@ -131,12 +137,15 @@ angular.module("disenador-de-logos")
             }
 
         }
+        
+        
+        
+        bz.combinar = function(){
 
-
-
-        /* ******************** */
-
-
+            bz.logos = crearLogoFactory(bz.iconos, bz.fuentes); 
+        
+            $state.go("principal.combinaciones", {status: true});
+        }
 
 
 
