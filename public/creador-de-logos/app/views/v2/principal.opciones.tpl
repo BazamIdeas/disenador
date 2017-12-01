@@ -14,7 +14,7 @@
                             <div class="cubos-logos" ng-repeat="icono in iconos = ($parent.principal.iconos) track by $index" ng-if="$first || (($index+1) % 4) == 0">
                                 
                                 <div class="margin-right-20" ng-repeat="repeticion in [1,2,3,4] track by $index" ng-if="$parent.$index < 3 && ((iconos.length - 1) >= $index)" ng-click="principalOpciones.agregarElemento($index, 'iconos')" ng-class="{'seleccionado': iconos[$index].estado}">
-                                   
+
                                     <bazam-visualizar data-svg="principalOpciones.base64.decode(iconos[$index].svg)"></bazam-visualizar>
                                 
                                 </div>
