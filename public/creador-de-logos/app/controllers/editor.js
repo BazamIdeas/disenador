@@ -19,7 +19,8 @@ angular.module("disenador-de-logos")
 
         }
 
-    
+        bz.borradores = false;
+        bz.busquedaiconos = false;
 
 
         //////////////////////////////////////////////
