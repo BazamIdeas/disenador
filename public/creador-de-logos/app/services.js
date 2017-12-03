@@ -144,9 +144,7 @@ angular.module("disenador-de-logos")
 
             return promise;
 
-
         };
-
 
     }])
 

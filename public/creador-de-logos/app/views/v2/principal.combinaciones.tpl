@@ -17,11 +17,11 @@
     <div class="col s12">
 
         <div class="cubos-logos" ng-repeat="logo in logos = ($parent.principal.logos) track by $index" ng-if="$first || (($index+1) % 3) == 0">
-            <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index < 2 && ((logos.length - 1) >= $index)">
+            <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index < 2 && ((logos.length - 1) >= $index)" ng-click="principalCombinaciones.avanzar($index)">
                 <bazam-svg-text data-icono="{{principalCombinaciones.base64.decode(logos[$index].icono.svg)}}" data-fuente="{{logos[$index].fuente.nombre}}" data-texto="{{$parent.$parent.$parent.principal.datos.nombre}}"></bazam-svg-text>
             </div>
 
-            <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index >= 2 && ((logos.length - 1) >= ($parent.$index + $index + 1))">
+            <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index >= 2 && ((logos.length - 1) >= ($parent.$index + $index + 1))" ng-click="principalCombinaciones.avanzar($parent.$parent.$index + $index + 1)">
                 <bazam-svg-text data-icono="{{principalCombinaciones.base64.decode(logos[$parent.$parent.$index + $index + 1].icono.svg)}}" data-fuente="{{logos[$parent.$parent.$index + $index + 1].fuente.nombre}}" data-texto="{{$parent.$parent.$parent.principal.datos.nombre}}"></bazam-svg-text>
             </div>
 

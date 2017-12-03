@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Comenzar */
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory) {
+    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService) {
 
         var bz = this;
 
@@ -145,9 +145,21 @@ angular.module("disenador-de-logos")
             bz.logos = crearLogoFactory(bz.iconos, bz.fuentes); 
         
             $state.go("principal.combinaciones", {status: true});
+            
         }
 
 
+         bz.avanzar = function(logo){
+             
+             if(!clientesService.autorizado()){
+                 
+                 bz.mostrarModalLogin = true;
+             }
+             
+             
+             $state.go("editor", {status: true, logo: logo});
+             
+         }
 
 
 
