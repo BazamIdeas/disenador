@@ -374,8 +374,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 resolve: {
                     statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
 
-                        return  $stateParams.status || $q.reject("STEPS") ;                       
-                        
+                        return $stateParams.status || $q.reject("STEPS");
+
                     }]
 
                 }
@@ -393,15 +393,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 resolve: {
                     statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
 
-                        return  $stateParams.status || $q.reject("STEPS") ;                       
-                        
+                        return $stateParams.status || $q.reject("STEPS");
+
                     }]
 
                 }
-            })       
+            })
 
 
-        .state({
+            .state({
                 name: 'editor',
                 url: '/editor',
                 templateUrl: 'app/views/v2/editor.tpl',
@@ -414,7 +414,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         //eslogan: null,
                         fuentes: null
                     }
-                }, 
+                },
                 resolve: {
                     currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
@@ -425,40 +425,41 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         }
 
                     }],
-                    historicoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
-                        /*
+                    historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
+
                         var defered = $q.defer();
                         var promise = defered.promise;
 
-                        if ($stateParams.logoModificado) { //si es un logo previamente modificado
 
-                            defered.resolve($stateParams);
 
-                        } else { //si no es logo modificado, se revisa el localStorage
-                           
-                            historicoFactory($stateParams, 'editor', 'proceso').then(function (res) {
-
-                                    defered.resolve(res);
-
-                                })
-                                .catch(function (res) {
-
-                                    defered.reject(res);
-                                })
+                        if ($stateParams.status) { 
                             
+                            LS.definir('editor', $stateParams.datos);
+
+                            defered.resolve($stateParams.datos);
+
+                        } else if (LS.obtener('editor')) { 
+
+                            defered.resolve(LS.obtener('editor'));
+
+                        } else { 
+
+                            defered.reject({
+                                error: 'FALLO_HISTORICO'
+                            });
                         }
 
+
+
                         return promise;
-                        */
-                        
-                        return $stateParams.datos;
+
 
                     }]
-                    
-                    
+
+
                 }
-        })
-        
+            })
+
         //redirecciones
 
         $urlRouterProvider.when('', '/comenzar/');
@@ -475,11 +476,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
     .run(function ($rootScope, $state) {
 
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
-          
-            if(error == "STEPS"){
-                
+
+            if (error == "STEPS") {
+
                 $state.go("principal.comenzar");
-                
+
             } else if (error === "AUTH_REQUIRED") {
                 /*
                 $state.go("login", ({
@@ -488,16 +489,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     parametrosDestino: toParams
                 }));
                 */
-                
-                if(toParams.status) {
-                                        
-                    
+
+                if (toParams.status) {
+
+
                 } else {
-                    
+
                     $state.go("login");
-                    
+
                 }
-             
+
             } else if (error === "LOGOUT_REQUIRED") {
 
                 $state.go('dashboard');
@@ -505,7 +506,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             } else if (error.error === "FALLO_HISTORICO") {
 
 
-                $state.go(error.objetivo);
+                $state.go('principal.comenzar');
 
             }
 

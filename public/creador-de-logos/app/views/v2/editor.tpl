@@ -1,4 +1,11 @@
-        <section class="sub-header-principal">
+<style ng-repeat="fuente in editor.fuentes">
+    @font-face {
+        font-family: '{{fuente.nombre}}';
+        src: url('{{fuente.url}}');
+    }
+</style> 
+
+    <section class="sub-header-principal">
             <div class="row margin-bottom-0">
 
                 <div class="col s4 logo">
@@ -40,9 +47,8 @@
                         </div>
 
 						<md-input-container style="width:100%; padding: 0 0.75rem" >
-						  	<md-select ng-model="principal.datos.categoria" placeholder="Fuente" required> 
-						    	<md-option>Arial</md-option>
-						    	<md-option>Times new Roman</md-option>
+						  	<md-select ng-model="editor.logo.fuente" placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuente)" md-no-asterisk required> 
+						    	<md-option ng-value="fuente" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}">{{fuente.nombre}}</md-option>
 						  	</md-select>
 						</md-input-container>
 

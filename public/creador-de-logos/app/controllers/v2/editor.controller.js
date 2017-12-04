@@ -17,7 +17,7 @@ angular.module("disenador-de-logos")
         //////////////////////////////////////////////
 
         if (historicoResolve.logoModificado) { //si es un logo previamente modificado
-
+            /*
             bz.restauracionIniciada = true;
 
             bz.logo = {
@@ -26,6 +26,8 @@ angular.module("disenador-de-logos")
                     idElemento: historicoResolve.logoModificado.idElemento
                 }
             }
+            
+            */
 
         } else { //si no es logo modificado, se revisa el localStorage
           
@@ -36,10 +38,8 @@ angular.module("disenador-de-logos")
          
         }
 
-        /* MENU EDITOR */
-
-        $scope.fuente = null;
-        $scope.fuentes = null;
+       
+     
 
         /* CATEGORIAS EXISTENTES */
 
