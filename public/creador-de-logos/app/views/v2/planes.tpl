@@ -6,7 +6,7 @@
                     <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
                 </div>
                 <div class="col s10 texto">
-                    <h5 class="principal"></h5>
+                    <h5 class="principal">ESCOJA EL MEJOR PLAN PARA USTED</h5>
                 </div>
 
             </div>

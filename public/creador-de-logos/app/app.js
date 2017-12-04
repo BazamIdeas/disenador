@@ -236,8 +236,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             .state({
                 name: 'planes',
                 url: '/planes',
-                templateUrl: 'app/views/planes.html',
-                controller: 'planesController as pla',
+                templateUrl: 'app/views/v2/planes.tpl',
+                controller: 'planesController as planes',
                 params: {
                     logo: null,
                     tipoLogo: null,
