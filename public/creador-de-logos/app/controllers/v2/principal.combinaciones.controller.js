@@ -7,5 +7,10 @@ angular.module("disenador-de-logos")
         var bz = this;
         
         bz.base64 = $base64;
+        
+        bz.avanzar = function(indice){
+            console.log(indice)
+            $scope.$parent.principal.avanzar(indice)
+        }
       
 }])

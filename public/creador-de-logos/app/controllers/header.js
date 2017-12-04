@@ -7,14 +7,14 @@ angular.module("disenador-de-logos")
         var bz = this;
 
         bz.salir = function () {
-            clientesService.salir(true);
-            $rootScope.$broadcast("sesionExpiro");
+            clientesService.salir(true, true);
+            //$rootScope.$broadcast("sesionExpiro");
         }
-
+    /*
         ipService.obtenerDatos().then(function (res) {
             $rootScope.isoPais = res.countryCode;
         })
-
+*/
         bz.autorizado = clientesService.autorizado();
         
         

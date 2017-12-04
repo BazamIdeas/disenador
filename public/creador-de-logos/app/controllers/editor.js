@@ -1,6 +1,7 @@
+/*
 angular.module("disenador-de-logos")
 
-    /* Editor */
+  
 
     .controller('editorController', ['$scope', '$stateParams', '$state', 'LS', '$timeout', '$base64', '$mdSidenav', 'categoriasService', 'Socialshare', 'logosService', 'SweetAlert', '$filter', '$mdDialog', '$interval', 'clientesService', 'mockupsValue', "historicoResolve", "$rootScope", function ($scope, $stateParams, $state, LS, $timeout, $base64, $mdSidenav, categoriasService, Socialshare, logosService, SweetAlert, $filter, $mdDialog, $interval, clientesService, mockupsValue, historicoResolve, $rootScope) {
 
@@ -53,9 +54,7 @@ angular.module("disenador-de-logos")
 
         }
 
-        /* *************** */
-
-        /* MENU EDITOR */
+   
 
         bz.elementosMenu = [{
             icono: 'font_download',
@@ -115,7 +114,6 @@ angular.module("disenador-de-logos")
 
         bz.fondo = "blanco";
 
-        /* CATEGORIAS EXISTENTES */
 
         bz.categoriasPosibles = [];
         categoriasService.listaCategorias().then(function (res) {
@@ -123,8 +121,6 @@ angular.module("disenador-de-logos")
                 bz.categoriasPosibles.push(valor);
             })
         })
-
-        /* LOGOS */
 
      
         bz.gLogo = function (logo, tipoLogo, idElemento) {
@@ -234,7 +230,6 @@ angular.module("disenador-de-logos")
         
              
         
-        /* PREVISUALIZAR */
 
         bz.modeloPrevisualizar = mockupsValue;
 
@@ -278,3 +273,4 @@ angular.module("disenador-de-logos")
 
 
     }])
+*/

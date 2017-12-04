@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Comenzar */
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory) {
+    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService) {
 
         var bz = this;
 
@@ -10,13 +10,17 @@ angular.module("disenador-de-logos")
             nombre: "Mi logo",
             preferencias: []
         }
-        
+
+
         bz.iconos = [];
-        
+
         bz.fuentes = [];
-        
+
         bz.logos = [];
-        
+
+        bz.logoSeleccionado = null;
+
+
         /*
         if ($stateParams.nombreLogo) {
 
@@ -62,13 +66,13 @@ angular.module("disenador-de-logos")
         }];
 
         bz.completado = true;
-        
+
         bz.solicitarElementos = function (tipoLogo, datos, valido) {
 
             if (valido && bz.completado) {
-                
+
                 bz.completado = false;
-                
+
                 angular.forEach(bz.botonesTipo, function (valor, llave) {
 
                     if (bz.botonesTipo[llave].nombre != tipoLogo.nombre) {
@@ -97,14 +101,16 @@ angular.module("disenador-de-logos")
                     elementosService.listaSegunPref(bz.datosFuentes)
                     ])
                     .then(function (res) {
-                    
-                    
-                    
-                    bz.iconos = res[0];
-                    bz.fuentes = res[1];
-                    
-                    $state.go("principal.opciones", {status: true});
-                    
+
+
+
+                        bz.iconos = res[0];
+                        bz.fuentes = res[1];
+
+                        $state.go("principal.opciones", {
+                            status: true
+                        });
+
                         /*
                                     bz.datos.respuesta = {
                                         iconos: res[0].data,
@@ -124,11 +130,11 @@ angular.module("disenador-de-logos")
                                         }
                                     }, 2500);
                         */
-                    
-                    
+
+
                         bz.completado = true;
-                    
-                    
+
+
                     }).catch(function (error) {
 
                         //$state.go('comenzar')
@@ -137,18 +143,69 @@ angular.module("disenador-de-logos")
             }
 
         }
-        
-        
-        
-        bz.combinar = function(){
 
-            bz.logos = crearLogoFactory(bz.iconos, bz.fuentes); 
-        
-            $state.go("principal.combinaciones", {status: true});
+        bz.combinar = function () {
+
+            bz.logos = crearLogoFactory(bz.iconos, bz.fuentes);
+
+            $state.go("principal.combinaciones", {
+                status: true
+            });
+
         }
 
 
+        bz.avanzar = function (indiceLogo) {
+
+            bz.logoSeleccionado = indiceLogo;
+
+            if (!clientesService.autorizado()) {
+
+                bz.mostrarModalLogin = true;
+
+            } else {
+
+                $state.go("editor", {
+                    status: true,
+                    datos: {
+                        logo: bz.logos[bz.logoSeleccionado],
+                        texto: bz.datos.nombre,
+                        fuentes: bz.fuentes,
+                        categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
+                    }
+                });
+
+            }
+
+        }
 
 
+        bz.datosLogin = {};
+
+        bz.login = function (datos, valido) {
+
+            if (valido) {
+
+                clientesService.login(datos).then(function (res) {
+
+                    if (clientesService.autorizado(true)) {
+
+                        bz.mostrarModalLogin = false;
+                        bz.avanzar(bz.logoSeleccionado);
+                    }
+
+                }).catch(function () {
+
+
+
+                }).finally(function () {
+
+
+
+                })
+
+            };
+
+        };
 
 }])

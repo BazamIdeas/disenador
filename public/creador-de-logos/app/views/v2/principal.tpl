@@ -83,3 +83,67 @@
 
             </div>
         </section>
+
+        <div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
+            <div class="row margin-bottom-0">
+                <div class="col s6 offset-s3">
+
+                    <div class="login-form-flex"> 
+
+                        <div class="cubo-form row">
+
+                            <i class="material-icons cerrar" ng-click="principal.mostrarModalLogin = false">clear</i>
+
+                            <div class="login-form col s6">
+                                <p class="text-center tercero">INGRESA</p>
+                                <form name="principal.loginForm" novalidate ng-submit="principal.login(principal.datosLogin, principal.loginForm.$valid)">
+                                    <div class="input-field col s12">
+                                        <input id="correo" name="correo" type="email" class="validate" ng-model ="principal.datosLogin.correo" required>
+                                        <label for="correo">Correo</label>
+                                    </div>  
+                                    <div class="input-field col s12">
+                                        <input id="pass" name="pass" type="password" class="validate" ng-model ="principal.datosLogin.pass" required>
+                                        <label for="pass">Contraseña</label>
+                                    </div>
+                                    <div class="text-center">
+                                        <button class="boton-verde">ENVIAR</button>
+                                    </div>                               
+                                </form>
+                            </div>
+
+                            <div class="registro-form col s6">
+                                <p class="text-center tercero">REGISTRATE</p>
+                                <form>
+                                    <div class="input-field col s12">
+                                        <input id="nombre" type="text" class="validate" required>
+                                        <label for="nombre">Nombre</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="correo" type="email" class="validate" required>
+                                        <label for="correo">Correo</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="pass" type="password" class="validate" required>
+                                        <label for="pass">Contraseña</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="telefono" type="text" class="validate" required>
+                                        <label for="telefono">Telefóno</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="pais" type="text" class="validate" required>
+                                        <label for="pais">Pais</label>
+                                    </div>  
+                                    <div class="text-center">
+                                        <button class="boton-verde">ENVIAR</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>

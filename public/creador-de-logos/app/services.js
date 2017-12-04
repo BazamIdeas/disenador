@@ -144,9 +144,7 @@ angular.module("disenador-de-logos")
 
             return promise;
 
-
         };
-
 
     }])
 
@@ -312,10 +310,14 @@ angular.module("disenador-de-logos")
 
         }
 
-        this.autorizado = function () {
+        this.autorizado = function (emitir) {
 
             if (clienteDatosFactory.obtener()) {
-
+                
+                if(emitir){
+                    $rootScope.$broadcast('sesionInicio', "true");
+                }
+                
                 return clienteDatosFactory.obtener();
 
             } else {
@@ -323,7 +325,11 @@ angular.module("disenador-de-logos")
                 if ($window.localStorage.getItem('bzToken')) {
 
                     clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
-
+                    
+                    if(emitir){
+                        $rootScope.$broadcast('sesionInicio', "true");
+                    }
+                    
                     return clienteDatosFactory.obtener();
 
                 } else {
@@ -336,14 +342,19 @@ angular.module("disenador-de-logos")
 
         }
 
-        this.salir = function (desactivarAlerta) {
+        this.salir = function (emitir, desactivarAlerta) {
 
-            $window.localStorage.removeItem('bzToken')
+            $window.localStorage.removeItem('bzToken');
             clienteDatosFactory.eliminar();
 
+            if(emitir){
+                
+                $rootScope.$broadcast("sesionExpiro")
+                
+            }
+            
             if (!desactivarAlerta) {
-                console.log(desactivarAlerta)
-                SweetAlert.swal("¡Ups!", "Tu sesion ha expirado", "warning");
+                alert("Alerta Sesion Expiro");
             }
         }
 
@@ -660,20 +671,20 @@ angular.module("disenador-de-logos")
 
     .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
-
+            $window.localStorage.removeItem('bzToken')
+            clienteDatosFactory.eliminar();
             $rootScope.$broadcast('sesionExpiro', "true");
         }
 
         function autorizado() {
             if (clienteDatosFactory.obtener()) {
-                $rootScope.$broadcast('sesionInicio', "true")
+                //$rootScope.$broadcast('sesionInicio', "true")
                 return clienteDatosFactory.obtener();
             } else {
                 if ($window.localStorage.getItem('bzToken')) {
 
-
-                    $rootScope.$broadcast('sesionInicio', "true")
                     clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+                    //$rootScope.$broadcast('sesionInicio', "true")
                     return clienteDatosFactory.obtener();
                 } else {
                     return false;

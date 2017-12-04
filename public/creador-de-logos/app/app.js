@@ -386,7 +386,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 url: '/combinaciones/',
                 templateUrl: 'app/views/v2/principal.combinaciones.tpl',
 
-                controller: 'principalCombinacionesController as principalCombinaciones',params: {
+                controller: 'principalCombinacionesController as principalCombinaciones',
+                params: {
                     status: null
                 },
                 resolve: {
@@ -404,7 +405,58 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 name: 'editor',
                 url: '/editor',
                 templateUrl: 'app/views/v2/editor.tpl',
-                //controller: 'editorController as editor'
+                controller: 'editorController as editor',
+                params: {
+                    status: null,
+                    datos: {
+                        logo: null,
+                        texto: null,
+                        //eslogan: null,
+                        fuentes: null
+                    }
+                }, 
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }],
+                    historicoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
+                        /*
+                        var defered = $q.defer();
+                        var promise = defered.promise;
+
+                        if ($stateParams.logoModificado) { //si es un logo previamente modificado
+
+                            defered.resolve($stateParams);
+
+                        } else { //si no es logo modificado, se revisa el localStorage
+                           
+                            historicoFactory($stateParams, 'editor', 'proceso').then(function (res) {
+
+                                    defered.resolve(res);
+
+                                })
+                                .catch(function (res) {
+
+                                    defered.reject(res);
+                                })
+                            
+                        }
+
+                        return promise;
+                        */
+                        
+                        return $stateParams.datos;
+
+                    }]
+                    
+                    
+                }
         })
         
         //redirecciones
@@ -422,28 +474,30 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     .run(function ($rootScope, $state) {
 
-
-
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
-
-
-            
+          
             if(error == "STEPS"){
                 
                 $state.go("principal.comenzar");
                 
-            }
-            
-            
-            
-            if (error === "AUTH_REQUIRED") {
-
+            } else if (error === "AUTH_REQUIRED") {
+                /*
                 $state.go("login", ({
                     origen: fromState.name,
                     destino: toState.name,
                     parametrosDestino: toParams
                 }));
-
+                */
+                
+                if(toParams.status) {
+                                        
+                    
+                } else {
+                    
+                    $state.go("login");
+                    
+                }
+             
             } else if (error === "LOGOUT_REQUIRED") {
 
                 $state.go('dashboard');
