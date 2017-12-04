@@ -1,9 +1,9 @@
-<style ng-repeat="fuente in editor.fuentes">
-    @font-face {
-        font-family: '{{fuente.nombre}}';
-        src: url('{{fuente.url}}');
-    }
-</style> 
+	<style ng-repeat="fuente in editor.fuentes">
+	    @font-face {
+	        font-family: '{{fuente.nombre}}';
+	        src: url('{{fuente.url}}');
+	    }
+	</style> 
 
     <section class="sub-header-principal">
             <div class="row margin-bottom-0">
@@ -142,8 +142,8 @@
 					<div class="contenedor-svg">
 				       <bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal"></bazam-svg>
 				    </div>
-				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaIconos) }"></div>
-				    <div class="contenedor-borradores" ng-class="{'abierto': editor.borradores, 'cerrado' : !editor.borradores}">
+				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaiconos || editor.preview) }"></div>
+				    <div class="contenedor-borradores" ng-class="{'abierto': editor.borradores}">
 				    	<div class="row padding-bottom-0">
 				    		<div class="col s2">
 				    			<div class="agregar"><i class="material-icons">add</i> <span>AGREGAR</span></div>
@@ -165,7 +165,7 @@
 				    		</div>
 				    	</div>
 				    </div>
-					<div class="contenedor-iconos" ng-class="{'abierto': editor.busquedaiconos, 'cerrado' : !editor.busquedaiconos}">
+					<div class="contenedor-iconos" ng-class="{'abierto': editor.busquedaiconos}">
 				    	<div class="row padding-bottom-0">
 				    		<div class="col s10">
 
@@ -180,6 +180,8 @@
 
 				    		</div>
 				    	</div>
+					</div>
+					<div class="contenedor-previews" ng-class="{'abierto': editor.preview}">
 					</div>
 				</div>
             </div>

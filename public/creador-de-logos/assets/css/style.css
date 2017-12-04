@@ -856,6 +856,7 @@ p.titulo{
     height: 150px;
     background: #f9f9f9;
     left: 0;
+    bottom: -150px;
     transition: 1s all;
     box-shadow: 2px 1px 1px 1px #9e9e9e;
     border-left: 1px solid #f3f3f3;
@@ -863,9 +864,6 @@ p.titulo{
 
 .contenedor-borradores.abierto, .contenedor-iconos.abierto{
     bottom: 0;
-}
-.contenedor-borradores.cerrado, .contenedor-iconos.cerrado{
-    bottom: -150px;
 }
 
 .contenedor-borradores .col .opcion-borrador, .contenedor-iconos .col .opcion-icono{
@@ -995,3 +993,20 @@ p.titulo{
     height: 100%;  
 }
 /*End contenedores borradores y iconos*/
+
+/*Begin contenedor previews*/
+.contenedor-previews{
+    position: absolute;
+    width: 70%;
+    right: -70%;
+    height: 100%;
+    background: #f9f9f9;
+    transition: 1s all;
+    box-shadow: 2px 1px 1px 1px #9e9e9e;
+    border-left: 1px solid #f3f3f3;
+}
+
+.contenedor-previews.abierto{
+    right: 0;
+}
+/*End contenedor previews*/
