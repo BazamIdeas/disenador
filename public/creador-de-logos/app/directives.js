@@ -163,7 +163,8 @@ angular.module("disenador-de-logos")
                     ////////////////////////////////////////////////////////////
                     //////Insertamos el SVG del icono dentro del SVG padre//////
                     ////////////////////////////////////////////////////////////
-
+                    
+  
                     element[0].innerHTML = "<svg viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'><g class='contenedor-icono'>" + scope.svgTag + "</g></svg>";
 
                     var svgIcono = element[0].children[0].children[0].children[0];
@@ -235,8 +236,7 @@ angular.module("disenador-de-logos")
 
 
                     
-
-  /*                 
+             /*    
 
                             var alturaSVG = (tamanoBase);
                             var anchoSVG = (tamanoBase);
@@ -306,9 +306,9 @@ angular.module("disenador-de-logos")
                             svgTexto.setAttribute("x", paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05)) );
                             svgTexto.setAttribute("y", (alturaSVG / 2) + (parseFloat(svgTexto.style.fontSize)/ 4));
                  
-*/
+
                     
-                    
+                    */
                     
                     //agregamos el Style Tag al svg
                     element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
@@ -563,6 +563,74 @@ angular.module("disenador-de-logos")
                     scope.$on("editor:comparar", function (evento, datos) {
 
                         $rootScope.$broadcast("directiva:comparar", element.html());
+
+                    })
+                    
+                    
+                    /////////////////////////////////////////
+                    //////////////ORIENTACION////////////////
+                    /////////////////////////////////////////
+                    
+                    
+                    
+                    scope.$on("editor:orientacion", function (evento, orientacion) {
+
+                        if(orientacion == 'horizontal'){
+                            
+                            var tamanoBase = 100;
+                            
+                            var alturaSVG = tamanoBase;
+                            var anchoSVG = tamanoBase;
+
+                            var svgIcono = element.find("g.contenedor-icono > svg")[0];
+                         
+                            svgIcono.setAttribute("height", (alturaSVG * 0.75) + "px");
+                            svgIcono.setAttribute("width", (alturaSVG * 0.75) + "px");
+                            svgIcono.parentElement.setAttribute("transform", '');
+                            
+                            
+                            /////////////////////////////////////////
+                            ////////creamos el elemento Text/////////
+                            /////////////////////////////////////////
+
+                            var svgTexto = element.find("text.textoPrincipal")[0];
+                            var texto = element.find("text.textoPrincipal").text();
+                    
+                            svgTexto.style.fontSize = ((alturaSVG * 0.75) / 2) + "px";
+                            svgTexto.setAttribute("text-anchor", "left");                           
+                            svgTexto.setAttribute("transform", '');
+                            //////////////////////////////////////////////////////////////////////
+                            ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
+                            //////////////////////////////////////////////////////////////////////
+
+                            var anchoViewBox = parseInt(element[0].children[0].getAttribute("viewBox").split(" ")[3]);
+                    
+                            while((svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value) > (anchoViewBox * 0.80) ){
+                                
+                                svgTexto.style.fontSize =  (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+                                svgIcono.setAttribute("width", (svgIcono.width.baseVal.value * 0.95) + "px");
+                                svgIcono.setAttribute("height", (svgIcono.height.baseVal.value * 0.95) + "px");
+                                
+                            }
+
+                            ///////////////////////////////////
+                            /////centramos los elementos///////
+                            ///////////////////////////////////
+
+                            //anchoSVG - (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value)
+                    
+                            var totalEspacioIconoFuente = (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value );
+                    
+                            var paddingLeft = (anchoSVG - totalEspacioIconoFuente ) / 2;
+                    
+                    
+                            svgIcono.setAttribute("y", (alturaSVG / 2) - (svgIcono.height.baseVal.value / 2)  );
+                            svgIcono.setAttribute("x", paddingLeft);
+                            svgTexto.setAttribute("x", paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05)) );
+                            svgTexto.setAttribute("y", (alturaSVG / 2) + (parseFloat(svgTexto.style.fontSize)/ 4));
+                            
+                        }
+                        
 
                     })
 

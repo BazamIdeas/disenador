@@ -123,8 +123,7 @@ angular.module("disenador-de-logos")
         bz.comparaciones = [];
 
         bz.realizarComparacion = function (valor) {
-            
-           // bz.menu = 3;
+           
             
             $rootScope.$broadcast("editor:comparar", true);
             
@@ -135,6 +134,19 @@ angular.module("disenador-de-logos")
             bz.comparaciones.push(valor)
             
         })
+        
+        //////////////////////////////////////////
+        ///////////CAMBIAR ORIENTACION////////////
+        //////////////////////////////////////////
+        
+        
+        bz.cambiarOrientacion = function (orientacion) {
+            
+            
+            $rootScope.$broadcast("editor:orientacion", orientacion);
+            
+        }
+        
   
         //////////////////////////////////////////
         ////////RESTAURAR COMPARACIONES///////////
