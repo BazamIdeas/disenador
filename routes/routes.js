@@ -56,7 +56,7 @@ router.get('/pedido/no/pago/:tk', controllers.pedidos.noPago);// RUTAS INTERNAS
 
 //MODULO CATEGORIAS
 
-router.get('/categorias', controllers.categorias.listaCategorias);
+router.post('/categorias', controllers.categorias.listaCategorias);
 router.get('/categoria/iconos/:id', controllers.categorias.ListarIconos);
 router.get('/categoria/fuentes/:id', controllers.categorias.ListarFuentes);
 router.post('/categoria', middleware.validarUsuario, controllers.categorias.nuevaCategoria);
