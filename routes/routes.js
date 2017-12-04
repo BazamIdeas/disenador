@@ -81,6 +81,7 @@ router.get('/etiqueta/borrar/:id', middleware.validarUsuario, controllers.etique
 router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
 router.post('/elementos/categorias', controllers.elementos.listaElemCat);
 router.post('/elemento/icono', multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono
+router.get('/elementos/fuente', controllers.elementos.ListarFuentes);
 router.post('/elemento/fuente', multipartMiddleware, controllers.elementos.nuevoElementoFuente);
 router.post('/elemento/preferencias/modificar', /*middleware.validarUsuario,*/ controllers.elementos.ModificarPreferencias);
 
