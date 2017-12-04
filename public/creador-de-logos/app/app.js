@@ -408,8 +408,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 controller: 'editorController as editor',
                 params: {
                     status: null,
-                    datos: {}
-                    
+                    datos: {
+                        logo: null,
+                        texto: null,
+                        //eslogan: null,
+                        fuentes: null
+                    }
                 }, 
                 resolve: {
                     currentAuth: ["$q", "clientesService", function ($q, clientesService) {
@@ -419,6 +423,35 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                             return $q.reject("AUTH_REQUIRED");
 
                         }
+
+                    }],
+                    historicoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
+                        /*
+                        var defered = $q.defer();
+                        var promise = defered.promise;
+
+                        if ($stateParams.logoModificado) { //si es un logo previamente modificado
+
+                            defered.resolve($stateParams);
+
+                        } else { //si no es logo modificado, se revisa el localStorage
+                           
+                            historicoFactory($stateParams, 'editor', 'proceso').then(function (res) {
+
+                                    defered.resolve(res);
+
+                                })
+                                .catch(function (res) {
+
+                                    defered.reject(res);
+                                })
+                            
+                        }
+
+                        return promise;
+                        */
+                        
+                        return $stateParams.datos;
 
                     }]
                     
