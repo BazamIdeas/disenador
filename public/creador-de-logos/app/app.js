@@ -195,7 +195,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             .state({
                 name: 'login',
                 url: '/login',
-                templateUrl: 'app/views/login.html',
+                templateUrl: 'app/views/v2/login.tpl',
                 controller: 'loginController as login',
                 params: {
                     origen: null,
@@ -218,7 +218,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             .state({
                 name: 'dashboard',
                 url: '/area-del-cliente',
-                templateUrl: 'app/views/cliente.html',
+                templateUrl: 'app/views/v2/cliente.tpl',
                 controller: 'clienteController as cliente',
                 resolve: {
                     "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
