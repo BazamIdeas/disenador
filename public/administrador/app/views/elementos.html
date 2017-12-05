@@ -58,7 +58,7 @@
                                 <div>{{elemento.tipo}}</div>
                                 <div>
                                     <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="elementos.eliminarFuente()">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="elementos.mostrarModificar($index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                                             <md-icon class="material-icon">edit</md-icon>
                                         </md-button>
@@ -75,7 +75,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
         <!-- REGISTRO FUENTE -->
-        <div class="paneles principal md-whiteframe-2dp listar margen_inferior">
+        <div class="paneles principal md-whiteframe-2dp listar margen_inferior" ng-if="!elementos.mod">
             <div layout layout-align="none center" layout-padding ng-click="elementos.rFuente = !elementos.rFuente" class="titulo-modulo">
                 <texto>REGISTRO FUENTE</texto>
             </div>
@@ -151,7 +151,7 @@
             </div>
         </div>
         <!-- REGISTRO ICONOS -->
-        <div class="paneles principal md-whiteframe-2dp listar">
+        <div class="paneles principal md-whiteframe-2dp listar" ng-if="!elementos.mod">
             <div layout layout-align="none center" layout-padding ng-click="elementos.rIcono = !elementos.rIcono" class="titulo-modulo">
                 <texto>REGISTRO ICONO</texto>
             </div>
@@ -219,6 +219,34 @@
                                         <span class="md-body-1">{{preferencia.nombre2}}</span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div layout>
+                            <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODIFICAR ELEMENTO-->
+        <div ng-if="elementos.mod" class="paneles principal md-whiteframe-2dp listar margen_inferior">
+            <div layout layout-align="none center" layout-padding ng-click="elementos.mod = !elementos.mod" class="titulo-modulo">
+                <texto>MODIFICAR ELEMENTO</texto>
+            </div>
+            <div ng-if="elementos.mod" layout-padding class="formularios-login pasos">
+                <form ng-submit="elementos.modificarElemento(elementos.modificar)" novalidate>
+                    <div layout="column" layout-align="space-between">
+                        <h3 class="text-center">Preferencias</h3>
+                        <br>
+                        <div layout ng-repeat="pref in elementos.modificar.preferencias">
+                            <div flex layout layout-align="center center">
+                                <span class="md-body-1">{{pref.nombre1}}</span>
+                            </div>
+                            <md-slider flex="50" md-discrete ng-model="elementos.modificar.preferencias[$index].valor" min="1" max="3" aria-label="rating">
+                            </md-slider>
+                            <div flex layout layout-align="center center">
+                                <span class="md-body-1">{{pref.nombre2}}</span>
                             </div>
                         </div>
                         <div layout>

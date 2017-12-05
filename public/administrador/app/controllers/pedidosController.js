@@ -1,10 +1,16 @@
 angular.module("administrador")
 
-    .controller('pedidosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'pedidosService', 'SweetAlert', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, pedidosService, SweetAlert, notificacionService) {
+    .controller('pedidosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'pedidosService', 'SweetAlert', 'notificacionService', '$base64', function ($state, $mdSidenav, $mdMenu, $scope, pedidosService, SweetAlert, notificacionService, $base64) {
 
         var bz = this;
         bz.elementos = [];
         bz.pedidoDetalle = [];
+
+        bz.base64 = function (icono) {
+
+            return $base64.decode(icono);
+
+        }
 
         /* FILTROS PARA LOS PEDIDOS */
 
@@ -18,20 +24,9 @@ angular.module("administrador")
             }, {
                 nombre: 'CANCELADO'
             }],
-            paises: [{
-                nombre: 'Venezuela'
-            }, {
-                nombre: 'Chile'
-            }, {
-                nombre: 'Ecuador'
-            }],
-            planes: [{
-                nombre: 'Plan Basico'
-            }, {
-                nombre: 'Plan Premium'
-            }, {
-                nombre: 'Plan Comodo'
-            }]
+            paises: [],
+            planes: [],
+            monedas: []
         };
 
         bz.filtrosActivos;
@@ -52,6 +47,9 @@ angular.module("administrador")
                 angular.forEach(res.data, function (valor, llave) {
                     bz.elementos.push(valor);
                     bz.elementos[llave].estadoE = false;
+                    bz.filtros.planes.push(valor.plan);
+                    bz.filtros.monedas.push(valor.moneda);
+                    bz.filtros.paises.push(valor.pais);
                 })
 
             }).catch(function () {
@@ -67,7 +65,6 @@ angular.module("administrador")
         /* DETALLES DE UN PEDIDO  */
 
         bz.pedidoDetalles = function (id, index) {
-
             bz.pedidoActivoIndex = index;
 
             bz.mostrarD = true;

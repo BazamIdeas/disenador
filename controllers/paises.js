@@ -99,7 +99,7 @@ exports.Modificar =  (req,res) =>
 {
 	var id = req.body.id; // cambiar por valor de sesion o por parametro
 
-	pais.Obtener(id, (error, data) => {
+	pais.obtenerporid(id, (error, data) => {
 
 		if (typeof data !== 'undefined' && data.length > 0){
 
@@ -147,11 +147,12 @@ exports.DesasignarMoneda = (req,res) =>
 
 	pais.DesasignarMoneda(paisMoneda, (error, data) =>{
 
-		if(data && data.insertId){
+		if(data){
 			res.status(200).json(data);
 		}else{
 			res.status(500).json({"msg":"Algo ocurrio"})
 		}
+
 	});
 }
 

@@ -42,7 +42,7 @@ moneda.Nuevo = function(monedaData,callback)
 				  		if(err)	throw err;
 
 					  	//devolvemos el última id insertada
-					  	else callback(null,{"result" : true}); 
+					  	else callback(null,{"result" : row.insertId}); 
 				  	
 				 	});
 

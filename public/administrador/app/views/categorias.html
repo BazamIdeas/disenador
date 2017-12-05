@@ -29,13 +29,13 @@
                             <div class="tabla-campo">
                                 <div class="nombre">{{elemento.nombreCategoria}}</div>
                                 <div class="acciones">
-                                    <div>
+                                    <!--<div>
                                         <md-button class="md-fab md-mini md-warn" ng-click="categorias.eliminar(elemento.idCategoria, 'categoria', $index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar Categoria</md-tooltip>
                                             <md-icon class="material-icon">close</md-icon>
                                         </md-button>
                                     </div>
-
+                                -->
                                     <div>
                                         <md-button class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idCategoria, elemento.nombreCategoria, 'categoria', $index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Categoria</md-tooltip>
@@ -77,12 +77,14 @@
                                 <div class="nombre">{{elemento.nombre1}}</div>
                                 <div class="nombre">{{elemento.nombre2}}</div>
                                 <div>
+                                    <!--
                                     <div>
                                         <md-button class="md-fab md-mini md-warn" ng-click="categorias.eliminar(elemento.idPreferencia, 'preferencia', $index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar Preferencia</md-tooltip>
                                             <md-icon class="material-icon">close</md-icon>
                                         </md-button>
                                     </div>
+                                -->
 
                                     <div>
                                         <md-button class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idPreferencia, elemento.nombre1+' y '+ elemento.nombre2, 'preferencia', $index)">

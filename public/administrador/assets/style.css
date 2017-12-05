@@ -38,6 +38,12 @@
     -webkit-font-smoothing: antialiased;
 }
 
+.pedido-logo {
+    width: 40%;
+    margin: auto;
+}
+
+
 .margen_inferior {
     margin-bottom: var(--margin-bottom);
 }

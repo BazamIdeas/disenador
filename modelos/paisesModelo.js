@@ -9,7 +9,7 @@ pais.Listar = function(callback)
 	var q = `SELECT paises.*, monedas.*
 				FROM paises
 				INNER JOIN monedas_has_paises ON monedas_has_paises.paises_idPais = paises.idPais
-				INNER JOIN monedas ON monedas.monedas_idMoneda = monedas.idMoneda
+				INNER JOIN monedas ON monedas_has_paises.monedas_idMoneda = monedas.idMoneda
 				WHERE monedas_has_paises.principal = 1
 				ORDER BY iso`;
 
@@ -235,7 +235,7 @@ pais.DesasignarMoneda = function(paismoneda,callback)
 	});
 }
 
-pais.ObtenerPorId = function(id,callback)
+pais.obtenerporid = function(id,callback)
 {
 	var par = [id]
 	var q = 'SELECT * FROM paises WHERE idPais = ?';

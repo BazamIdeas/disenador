@@ -1,0 +1,267 @@
+<div class="row start-xs" id="toast">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+    <div class="listar">
+
+      <!-- LISTAR MONEDAS -->
+
+      <div class="paneles individual md-whiteframe-2dp">
+        <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+          <texto flex ng-click="moneda.listarMonedas()">LISTADO DE MONEDAS</texto>
+          <md-button class="md-primary md-fab md-mini" ng-click="moneda.acciones = 1" style="margin:0;">
+            <md-icon>add</md-icon>
+          </md-button>
+        </div>
+        <div ng-show="moneda.listaM">
+          <div layout class="elemento">
+            <md-input-container flex style="margin-bottom: 0;height: 35px;">
+              <input type="text" ng-model="moneda.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
+            </md-input-container>
+          </div>
+          <div class="tabla">
+            <div>Id Moneda:</div>
+            <div>Nombre:</div>
+            <div>Accion:</div>
+          </div>
+          <div layout="column" class="content-scroll">
+            <div ng-repeat="elemento in moneda.monedas | filter:moneda.$ track by $index" class="elemento">
+              <div class="tabla-campo">
+                <div class="ISO">{{elemento.idMoneda}}</div>
+                <div class="nombre">{{elemento.moneda}}</div>
+                <div>
+                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.mostrar('editarMoneda', $index)">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
+                    <md-icon class="material-icon">edit</md-icon>
+                  </md-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LISTAR PASARELAS -->
+
+      <div class="paneles individual md-whiteframe-2dp">
+        <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+          <texto flex ng-click="moneda.listarPasarelas()">LISTADO DE PASARELAS</texto>
+          <md-button class="md-primary md-fab md-mini" ng-click="moneda.acciones = 3" style="margin:0;">
+            <md-icon>add</md-icon>
+          </md-button>
+        </div>
+        <div ng-show="moneda.listaP">
+          <div layout class="elemento">
+            <md-input-container flex style="margin-bottom: 0;height: 35px;">
+              <input type="text" ng-model="moneda.p.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
+            </md-input-container>
+          </div>
+          <div class="tabla">
+            <div>Id Pasarela:</div>
+            <div>Nombre:</div>
+            <div>Accion:</div>
+          </div>
+          <div layout="column" class="content-scroll">
+            <div ng-repeat="elemento in moneda.pasarelas | filter:moneda.p.$ track by $index" class="elemento">
+              <div class="tabla-campo">
+                <div class="ISO">{{elemento.idPasarela}}</div>
+                <div class="nombre">{{elemento.pasarela}}</div>
+                <div>
+                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.mostrar('editarPasarela', $index)">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
+                    <md-icon class="material-icon">edit</md-icon>
+                  </md-button>
+                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.listarPasarelaMonedas(elemento.idPasarela)">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Monedas</md-tooltip>
+                    <md-icon class="material-icon">attach_money</md-icon>
+                  </md-button>
+                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.mostrar('asignar', $index)">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Asignar Moneda</md-tooltip>
+                    <md-icon class="material-icon">monetization_on</md-icon>
+                  </md-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCIONES VISTA -->
+  <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+    <div class="paneles md-whiteframe-2dp listar" ng-switch="moneda.acciones">
+      <!-- CREAR MONEDA -->
+      <div ng-switch-when="1">
+        <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+          <texto>NUEVA MONEDA</texto>
+          <md-button ng-click="moneda.acciones = 0" style="margin:0;">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-button>
+        </div>
+        <div layout-padding class="formularios-login pasos">
+          <form ng-submit="moneda.guardarMoneda(moneda.nuevaMoneda, nuevoplan.$valid)" novalidate name="nuevoplan">
+            <div layout="column" layout-align="space-between">
+              <md-input-container class="md-block" style="margin-bottom:0;">
+                <label>Nombre</label>
+                <input type="text" ng-model="moneda.nuevaMoneda.moneda" name="plan" required ng-maxlength="3">
+              </md-input-container>
+
+              <!-- VALIDACION -->
+              <div ng-messages="nuevoplan.plan.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+                <div ng-message="required">Este campo es requerido.</div>
+                <div ng-message="maxlength">Maximo 3 caracteres.</div>
+              </div>
+
+              <div layout>
+                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- MODIFICAR NOMBRE MONEDA-->
+      <div ng-switch-when="2">
+        <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+          <texto>MODIFICAR MONEDA</texto>
+          <md-button ng-click="moneda.acciones = 0" style="margin:0;">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-button>
+        </div>
+        <div layout-padding class="formularios-login pasos">
+          <form id="nombrePlan" ng-submit="moneda.modificarMoneda(moneda.editarMoneda, nombreplan.$valid)" novalidate name="nombreplan">
+            <div layout="column" layout-align="space-between">
+              <div>
+                <md-input-container class="md-block">
+                  <label>Nombre</label>
+                  <input type="text" ng-model="moneda.editarMoneda.moneda" name="nombre" required>
+                </md-input-container>
+              </div>
+              <div layout>
+                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- CREAR PASARELA -->
+      <div ng-switch-when="3">
+        <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+          <texto>NUEVA PASARELA</texto>
+          <md-button ng-click="moneda.acciones = 0" style="margin:0;">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-button>
+        </div>
+        <div layout-padding class="formularios-login pasos">
+          <form ng-submit="moneda.guardarPasarela(moneda.nuevaPasarela, nuevoplan.$valid)" novalidate name="nuevoplan">
+            <md-input-container class="md-block" style="margin-bottom:0;">
+              <label>Moneda</label>
+              <md-select ng-model="moneda.nuevaPasarela.idMoneda" class="md-block">
+                <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in moneda.monedas">{{elemento.moneda}}</md-option>
+              </md-select>
+            </md-input-container>
+            <div layout="column" layout-align="space-between">
+              <md-input-container class="md-block" style="margin-bottom:0;">
+                <label>Nombre</label>
+                <input type="text" ng-model="moneda.nuevaPasarela.pasarela" name="plan" required ng-minlength="3">
+              </md-input-container>
+
+              <!-- VALIDACION -->
+              <div ng-messages="nuevoplan.plan.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+                <div ng-message="required">Este campo es requerido.</div>
+                <div ng-message="minlength">Minimo 3 caracteres.</div>
+              </div>
+
+              <div layout>
+                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- MODIFICAR NOMBRE PASARELA-->
+      <div ng-switch-when="4">
+        <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+          <texto>MODIFICAR PASARELA</texto>
+          <md-button ng-click="moneda.acciones = 0" style="margin:0;">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-button>
+        </div>
+        <div layout-padding class="formularios-login pasos">
+          <form id="nombrePlan" ng-submit="moneda.modificarPasarela(moneda.editarPasarela, nombreplan.$valid)" novalidate name="nombreplan">
+            <div layout="column" layout-align="space-between">
+              <div>
+                <md-input-container class="md-block">
+                  <label>Nombre</label>
+                  <input type="text" ng-model="moneda.editarPasarela.pasarela" name="nombre" required>
+                </md-input-container>
+              </div>
+              <div layout>
+                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ASIGNAR MONEDA -->
+      <div ng-switch-when="5">
+        <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+          <texto>ASIGNAR MONEDA</texto>
+          <md-button ng-click="moneda.acciones = 0" style="margin:0;">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-button>
+        </div>
+        <div layout-padding class="formularios-login pasos">
+          <form id="asignacion" ng-submit="moneda.asignarMoneda(moneda.ponerMoneda)" novalidate name="asignacion">
+            <div layout="column" layout-align="space-between">
+              <md-select ng-model="moneda.ponerMoneda.idMoneda" class="md-block" aria-label="filtro">
+                <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in moneda.monedas">{{elemento.moneda}}</md-option>
+              </md-select>
+              <div layout>
+                <md-button class="md-raised md-primary" type="submit">Asignar</md-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- MONEDAS ASIGNADAS -->
+      <div ng-switch-when="6">
+        <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+          <texto>MONEDAS ASIGNADAS</texto>
+          <md-button ng-click="moneda.acciones = 0" style="margin:0;">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-button>
+        </div>
+        <div>
+          <div layout class="elemento">
+            <md-input-container flex style="margin-bottom: 0;height: 35px;">
+              <input type="text" ng-model="moneda.lpm" class="md-block" aria-label="filtro" placeholder="Buscar:">
+            </md-input-container>
+          </div>
+          <div class="tabla">
+            <div>Id Moneda:</div>
+            <div>Nombre:</div>
+            <div>Accion:</div>
+          </div>
+          <div layout="column" class="content-scroll">
+            <div ng-repeat="elemento in moneda.pasarelasMonedas | filter:moneda.lpm track by $index" class="elemento">
+              <div class="tabla-campo">
+                <div class="ISO">{{elemento.idMoneda}}</div>
+                <div class="nombre">{{elemento.moneda}}</div>
+                <div>
+                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.desasignarMoneda(elemento.idMoneda)">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Desasignar</md-tooltip>
+                    <md-icon class="material-icon">money_off</md-icon>
+                  </md-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

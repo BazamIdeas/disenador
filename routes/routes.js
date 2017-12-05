@@ -7,7 +7,6 @@ var multipartMiddleware = multipart();
 var middleware          = require('./middleware');
 var configuracion       = require('../configuracion.js');
 
-
 //MODULO CLIENTES
 //no espera parametros
 router.get('/clientes', middleware.validarUsuario, controllers.clientes.listaClientes);
@@ -22,8 +21,6 @@ router.post('/cliente', controllers.clientes.nuevoCliente);
 router.post('/cliente/modificar', middleware.validar, controllers.clientes.modificarCliente);
 //correo, contraseña => email, pass
 router.post('/cliente/login',controllers.clientes.login);
-
-
 
 
 //MODULO USUARIOS
