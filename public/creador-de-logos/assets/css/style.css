@@ -1073,7 +1073,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 /*Begin Pago*/
 
-.su-pedido.col.s2 {
+.su-pedido.col {
     padding: 0;
     margin-bottom:0;
 }
@@ -1103,5 +1103,48 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 .metodo {
     display: flex;
+}
+
+.metodo > div {
+    box-shadow: 0px 0px 1px 1px #d4d4d4;
+    border-radius: 5px;
+    height: 80px;
+    display: inline-block;
+}
+
+.metodo .icono-metodo{
+    width: 80px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.metodo .texto-metodo{
+    display: inline-block;
+    margin-left: 20px;
+    opacity: 0;
+    transition: 0.5s all;
+    padding: 10px;
+    background-color: white;
+    position: relative;
+    width: calc(100%-100px);
+    width: -webkit-calc(100% - 100px);
+    font-family: 'futura-heavy' !important;
+    color: gray;
+    width: -moz-calc(100% - 100px);
+}
+
+.boton-verde.pagar{
+    position: absolute;
+    right: 30px;
+    bottom: -17px;
+    padding: 7px 20px;
+}
+
+.metodo .texto-metodo.seleccionado{
+    opacity: 1;
+}
+
+.metodo > div > img{
+    border-radius: 5px;
 }
 /*END PAGO*/
