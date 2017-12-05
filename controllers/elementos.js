@@ -126,6 +126,21 @@ exports.listaElemCat = function (req, res, next) {
 
 }
 
+exports.ListarFuentes = function (req, res, next) {
+
+	elemento.ListarFuentes(function (error, data) {
+
+		if (typeof data !== 'undefined' && data.length > 0) {
+			res.status(200).json(data);
+		}
+		//no existe
+		else {
+			res.status(404).json({"msg": "No Encontrado"})
+		}
+	});
+
+}
+
 exports.nuevoElementoIcono = function (req, res) {
 	/*console.log(req.body);*/
 	/*console.log(req.files);*/

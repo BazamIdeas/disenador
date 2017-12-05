@@ -24,6 +24,28 @@ elemento.datosElemento = function( id, callback)
 }
 
 
+elemento.ListarFuentes = function(callback)
+{
+	var q = 'SELECT * FROM elementos WHERE tipo = "FUENTE"' ;
+
+	DB.getConnection(function(err, connection)
+	{ 
+		
+		connection.query( q, function(err, rows){
+
+	  	if(err)	throw err;
+	  	
+	  	else 
+	  	callback(null, rows);
+	  	
+	  });
+
+	  connection.release();
+	});
+}
+
+
+
 elemento.getElementos = function( datos, callback)
 {
 	var q = 'SELECT * FROM elementos INNER JOIN elementos_has_preferencias ON elementos_has_preferencias.elementos_idElemento = elementos.idElemento WHERE elementos_has_preferencias.preferencias_idPreferencia = ? AND elementos_has_preferencias.valor = ? AND elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12' ;

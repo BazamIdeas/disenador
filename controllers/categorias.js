@@ -2,7 +2,10 @@ var categoria=require('../modelos/categoriasModelo.js');
 
 exports.listaCategorias = function(req, res, next)
 {
-	categoria.getCategorias(function(error, data)
+
+	var tipo = req.body.tipo;
+
+	categoria.getCategorias(tipo,function(error, data)
 	{
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0)
