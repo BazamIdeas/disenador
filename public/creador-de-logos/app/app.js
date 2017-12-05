@@ -181,7 +181,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                 }
             })
-            */
+            
             .state({
                 name: 'previsualizar',
                 url: '/previsualizar',
@@ -278,7 +278,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
 
                 }
-            })
+            })*/
             .state({
                 name: 'metodo',
                 url: '/metodo-de-pago',
@@ -458,6 +458,18 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
                 }
+            })
+
+            .state({
+                name: 'planes',
+                url: '/planes',
+                templateUrl: 'app/views/v2/planes.tpl',                
+            })
+
+            .state({
+                name: 'pago',
+                url: '/pago',
+                templateUrl: 'app/views/v2/pago.tpl',            
             })
 
         //redirecciones
