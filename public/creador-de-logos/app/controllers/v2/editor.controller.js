@@ -46,6 +46,15 @@ angular.module("disenador-de-logos")
             })
 
         }
+        
+        
+        bz.mostrarBorradores = function () {
+            
+            
+            bz.preview = false;
+            bz.busquedaIconos = false;
+            bz.borradores = true;
+        }
 
 
 
@@ -147,34 +156,43 @@ angular.module("disenador-de-logos")
             $rootScope.$broadcast("editor:orientacion", orientacion);
 
         }
-        
-        
+
+
         ////////////////////////////////////////
         ///////BUSCAR Y REEMPLAZAR ICONO////////
         ////////////////////////////////////////
-        
+
         bz.iconos = [];
-        
-        bz.buscarIconos = function (idCategoria) {
+
+        bz.buscarIconos = function (idCategoria, valido) {
             
-            bz.busquedaIconos = true;
+            bz.iconosForm.$setSubmitted();
+            
+            if (valido) {
+            
+               
+                bz.borradores = false;
+                bz.preview = false;
+                bz.busquedaIconos = true;
+                
 
-            categoriasService.listaCategoriasElementos(idCategoria, 'ICONO').then(function (res) {
+                categoriasService.listaCategoriasElementos(idCategoria, 'ICONO').then(function (res) {
 
-                bz.iconos = res;
-            })
+                    bz.iconos = res;
+                })
+            }
 
         }
-        
-        
-        
-        bz.reemplazarIcono = function(icono){
-            
+
+
+
+        bz.reemplazarIcono = function (icono) {
+
             bz.logo.icono = icono;
             $rootScope.$broadcast("editor:reemplazar", bz.base64.decode(icono.svg));
-            
+
         }
-        
+
         /*
         $scope.$on("directiva:reemplazar", function (evento, valor) {
 
@@ -182,8 +200,8 @@ angular.module("disenador-de-logos")
 
         })
         */
-        
-        
+
+
         //////////////////////////////////////////
         ////////RESTAURAR COMPARACIONES///////////
         //////////////////////////////////////////
@@ -194,13 +212,12 @@ angular.module("disenador-de-logos")
 
         }
 
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
 
 
         $scope.$on('sesionExpiro', function (event, data) {

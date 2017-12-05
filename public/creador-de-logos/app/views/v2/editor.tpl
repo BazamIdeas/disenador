@@ -22,7 +22,7 @@
 	                    	<span class="principal">Cuadricula</span>
 	                    </div>
 	                    <div class="col s6 offset-s2">
-							<button class="boton-oborder" ng-click="editor.borradores = !editor.borradores"><i class="material-icons">queue</i> BORRADORES</button>
+							<button class="boton-oborder" ng-click="editor.mostrarBorradores()"><i class="material-icons">queue</i> BORRADORES</button>
 
 	                    	<button class="boton-oborder"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
 
