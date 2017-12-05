@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* header */
 
-    .controller('headerController', ["$state", 'clientesService', 'SweetAlert', '$rootScope', '$scope', 'ipService', function ($state, clientesService, SweetAlert, $rootScope, $scope, ipService) {
+    .controller('headerController', ["$state", 'clientesService',  '$rootScope', '$scope', 'ipService', function ($state, clientesService,  $rootScope, $scope, ipService) {
 
         var bz = this;
 

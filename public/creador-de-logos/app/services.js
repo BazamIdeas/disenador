@@ -112,6 +112,28 @@ angular.module("disenador-de-logos")
 
 
         };
+        
+        
+        this.listaCategoriasElementos = function(idCategoria, tipo){
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/elementos/categorias", {idCategoria: idCategoria, tipo: tipo}).then(function (res) {
+
+                defered.resolve(res.data);
+
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+            
+        }
 
 
     }])
@@ -262,7 +284,7 @@ angular.module("disenador-de-logos")
     }])
 
 
-    .service('clientesService', ['$http', '$q', '$window', '$rootScope', 'SweetAlert', "clienteDatosFactory", function ($http, $q, $window, $rootScope, SweetAlert, clienteDatosFactory) {
+    .service('clientesService', ['$http', '$q', '$window', '$rootScope', "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
 
 
         this.registrar = function (datos) {
