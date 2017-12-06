@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', 'mockupsValue', "historicoResolve", "$rootScope", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, mockupsValue, historicoResolve, $rootScope) {
+    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService',  "historicoResolve", "$rootScope", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService,  historicoResolve, $rootScope) {
 
         var bz = this;
 

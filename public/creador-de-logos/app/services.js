@@ -42,45 +42,6 @@ angular.module("disenador-de-logos")
 
 
 
-
-    .value("mockupsValue", [{
-            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-            nombre: 'carta',
-            ancho: '40%'
-            },
-        {
-            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-            nombre: 'carta',
-            ancho: '40%'
-            }, {
-            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-            nombre: 'carta',
-            ancho: '30%'
-            }, {
-            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta',
-            ancho: '40%'
-            },
-        {
-            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-            nombre: 'carta',
-            ancho: '40%'
-            },
-        {
-            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-            nombre: 'carta',
-            ancho: '40%'
-            }, {
-            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-            nombre: 'carta',
-            ancho: '30%'
-            }, {
-            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta',
-            ancho: '40%'
-            }
-        ])
-
     /*-------------------------- Services --------------------------*/
 
 
@@ -204,12 +165,15 @@ angular.module("disenador-de-logos")
 
     .service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
 
-        this.paypal = function (datosPedido, tipoPago, tTarjeta, nTarjeta, expire_month, expire_year) {
-
-            tTarjeta = tTarjeta ? tTarjeta : null;
-            nTarjeta = nTarjeta ? nTarjeta : null;
-            expire_month = expire_month ? expire_month : null;
-            expire_year = expire_year ? expire_year : null;
+        
+        this.listarPlanes = function(){
+            
+            
+            
+        }
+        
+        
+        this.paypal = function (idElemento, logo, idPrecio, tipoLogo, idPasarela) {
 
 
             var defered = $q.defer();
@@ -220,19 +184,11 @@ angular.module("disenador-de-logos")
                 idElemento: datosPedido.idElemento,
                 logo: datosPedido.logo,
                 idPrecio: datosPedido.idPrecio,
-                localidad: datosPedido.localidad,
                 tipoLogo: datosPedido.tipoLogo,
-                tipoPago: tipoPago
+                idPasarela: pasarela
             }
 
-            if (tipoPago == "credit_card") {
-
-                datos.tTarjeta = tTarjeta;
-                datos.nTarjeta = nTarjeta;
-                datos.expire_month = expire_month;
-                datos.expire_year = expire_year;
-
-            }
+        
 
             $http.post("/app/pedido", datos).then(function (res) {
 

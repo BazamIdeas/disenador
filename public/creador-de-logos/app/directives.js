@@ -650,7 +650,7 @@ angular.module("disenador-de-logos")
                         var widthIcono = iconoSVG.attr("width");
                         var transform = iconoSVG.attr("transform");
 
-                        iconoSVG.html(icono);
+                        iconoSVG.parent().html(icono);
 
                         var iconoSVGcambiado = element.find("g.contenedor-icono > svg");
 
@@ -668,6 +668,37 @@ angular.module("disenador-de-logos")
 
                             iconoSVGcambiado.attr("transform", transform);
                         }
+
+
+                        var indices = [];
+                        var seccionInternaElementos = [];
+                        
+                        //division en partes del svg
+                        iconoSVGcambiado.html().trim().split(">").forEach(function (parte, index) {
+                            var indiceParte = " data-indice='" + index + "'";
+                            if (parte != "") { //si no es un tag de cerrar
+                                if (parte.search("</") == -1) {
+                                    //si es un tag compuesto, ej: 
+                                    if (parte.search("/") == -1) {
+                                        seccionInternaElementos.push(parte + indiceParte + ">");
+                                    }
+                                    //si no es un tag compuesto, ej: path
+                                    else {
+                                        seccionInternaElementos.push(parte.replace("/", "") + indiceParte + "/>");
+                                    }
+                                    //si es un tag de cerrar
+                                } else {
+                                    seccionInternaElementos.push(parte + ">");
+                                }
+                            }
+                            seccionInternaElementos.push(false);
+                        });
+                        //union del nuevo contenido
+                        iconoSVGcambiado.html(seccionInternaElementos.join(""));
+
+
+
+                        scope.elementosIndices = indices;
 
 
 
