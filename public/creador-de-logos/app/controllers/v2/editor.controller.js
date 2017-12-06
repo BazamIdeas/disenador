@@ -26,7 +26,7 @@ angular.module("disenador-de-logos")
 
         bz.categoriasPosibles = [];
 
-        categoriasService.listaCategorias().then(function (res) {
+        categoriasService.listaCategorias('ICONO').then(function (res) {
 
             angular.forEach(res, function (valor, llave) {
 
