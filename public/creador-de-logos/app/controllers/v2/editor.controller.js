@@ -11,6 +11,7 @@ angular.module("disenador-de-logos")
         bz.borradores = false;
         bz.preview = false;
         bz.busquedaIconos = false;
+        bz.colorFondo = "rgb(250,250,250)";
 
         //////////////////////////////////////////////
         ///////////////LOCAL STORAGE//////////////////
@@ -37,23 +38,33 @@ angular.module("disenador-de-logos")
 
         /* LOGOS */
 
-        bz.gLogo = function (logo, tipoLogo, idElemento) {
-
+        bz.guardarLogo = function (logo, tipoLogo, idElemento) {
+    
+                        
             logosService.guardarLogo(logo, tipoLogo, idElemento).then(function (res) {
 
-                //SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
+                alert("se guardo");
 
             })
 
         }
-        
-        
+
+
         bz.mostrarBorradores = function () {
-            
-            
-            bz.preview = false;
-            bz.busquedaIconos = false;
-            bz.borradores = true;
+
+            if (bz.borradores) {
+
+                bz.borradores = false;
+
+            } else {
+
+                bz.preview = false;
+                bz.busquedaIconos = false;
+                bz.borradores = true;
+
+            }
+
+
         }
 
 
@@ -165,16 +176,16 @@ angular.module("disenador-de-logos")
         bz.iconos = [];
 
         bz.buscarIconos = function (idCategoria, valido) {
-            
+
             bz.iconosForm.$setSubmitted();
-            
+
             if (valido) {
-            
-               
+
+
                 bz.borradores = false;
                 bz.preview = false;
                 bz.busquedaIconos = true;
-                
+
 
                 categoriasService.listaCategoriasElementos(idCategoria, 'ICONO').then(function (res) {
 

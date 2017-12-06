@@ -14,7 +14,7 @@
                 <div class="col s8">
                 	<div class="row opciones-sub-header margin-bottom-0">
 	                    <div class="col s2">
-	                    	<div class="selector-fondo"></div>
+	                    	<div color-picker color-picker-model="editor.colorFondo" ng-model="editor.colorFondo" color-picker-position="bottom" class="selector-fondo" ng-style="{'background-color': editor.colorFondo}" style="font-size: 0px;"></div>
 	                    	<span class="principal">Fondo</span>
 	                    </div>
 	                    <div class="col s2">
@@ -26,7 +26,7 @@
 
 	                    	<button class="boton-oborder"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
 
-	                    	<button class="boton-oborder"><i class="material-icons">save</i> GUARDAR</button>
+	                    	<button class="boton-oborder" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"><i class="material-icons" >save</i> GUARDAR</button>
 
 	                    	<button class="boton-oborder"><i class="material-icons">shopping_cart</i> COMPRAR</button>
 	                    </div>
@@ -139,7 +139,7 @@
                 </form>
 
 				
-				<div class="contenedor-principal col s8" style="display: flex;">
+				<div class="contenedor-principal col s8" style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
 					<div class="contenedor-svg">
 				       <bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal"></bazam-svg>
 				    </div>
@@ -152,13 +152,13 @@
 				    		<div class="col s10">
 				    			<div class="opcion-borrador" ng-repeat="comparacion in editor.comparaciones track by comparacion.creacion">
 				    				<div class="overlay-opcion"></div>
-				    				<span class="usar" ng-click="editor.restaurarComparacion(comparacion.svg)">
+				    				<span class="usar">
 				    					<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
-            							<i class="material-icons">file_upload</i>
+            							<i class="material-icons" ng-click="editor.restaurarComparacion(comparacion.svg)">file_upload</i>
             						</span>
-				    				<span class="remover" ng-click="editor.comparaciones.splice($index, 1)">
+				    				<span class="remover">
 				    					<md-tooltip md-delay="2" md-direction="top">Remover</md-tooltip>
-				    					<i class="material-icons">delete</i>
+				    					<i class="material-icons" ng-click="editor.comparaciones.splice($index, 1)">delete</i>
 				    				</span>
 				    				<bazam-visualizar data-svg="comparacion.svg">
                                     </bazam-visualizar>
@@ -174,11 +174,11 @@
 				    	<div class="row padding-bottom-0">
 				    		<div class="col s10">
 
-				    			<div class="opcion-icono" ng-repeat="icono in editor.iconos" ng-click="editor.reemplazarIcono(icono)">
+				    			<div class="opcion-icono" ng-repeat="icono in editor.iconos" >
 				    				<div class="overlay-opcion"></div>
 				    				<span class="seleccionar">
 				    					<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
-            							<i class="material-icons">check</i>
+            							<i class="material-icons" ng-click="editor.reemplazarIcono(icono)">check</i>
             						</span>
 				    				<bazam-visualizar data-svg="editor.base64.decode(icono.svg)">
                                     </bazam-visualizar>
