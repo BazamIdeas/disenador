@@ -42,7 +42,7 @@
                         <texto>Texto</texto>
                     </div>
                     <md-input-container class="md-block">
-                        <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto" aria-label="fuente">
+                        <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto" ng-model-options="{ allowInvalid: true }" aria-label="fuente" ng-change="editor.cambioTexto(editor.logo.texto)">
                     </md-input-container>
                 </div>
 
@@ -50,8 +50,7 @@
 
                 <div>
                     <texto>Fuente</texto>
-                    <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{'font-family' : editor.fuente}"
-                        aria-label="fuentes">
+                    <md-select ng-model="editor.logo.fuente" ng-change="editor.cambioFuente(editor.logo.fuente)" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{'font-family' : editor.fuente.nombre}" aria-label="fuentes">
                         <md-option ng-value="fuente" ng-style="{'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes">{{fuente.nombre}}</md-option>
                     </md-select>
                 </div>
@@ -90,10 +89,10 @@
                             <texto>Tamaño</texto>
                         </div>
                         <div class="mas-menos">
-                            <md-button ng-mousedown="editor.modificarTamano(true)" ng-mouseup="editor.detenerIntervalo()">
+                            <md-button ng-click="editor.cambioTamano('texto', true)" ng-mouseup="editor.detenerIntervalo()">
                                 +
                             </md-button>
-                            <md-button ng-mousedown=" editor.modificarTamano(false)" ng-mouseup="editor.detenerIntervalo()">
+                            <md-button ng-click="editor.cambioTamano('texto', false)" ng-mouseup="editor.detenerIntervalo()">
                                 -
                             </md-button>
                         </div>
@@ -105,10 +104,10 @@
                 <div>
                     <texto>Propiedades</texto>
                     <div class="propiedades">
-                        <div class="bold" ng-click="editor.modificarPropiedadTexto( 'bold')">
+                        <div class="bold" ng-click="editor.cambioPropiedad('bold')">
                             <p>Bold</p>
                         </div>
-                        <div class="cursiva" ng-click="editor.modificarPropiedadTexto( 'cursive')">
+                        <div class="cursiva" ng-click="editor.cambioPropiedad('cursive')">
                             <p>Cursiva</p>
                         </div>
                     </div>
@@ -121,7 +120,7 @@
                         <texto>Edita el Color</texto>
                     </div>
                     <div layout layout-align="center">
-                        <color-picker ng-model="editor.colorTexto" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        <color-picker ng-model="editor.colorTexto" class="md-whiteframe-2dp" ng-class="editor.mostrar" ng-change="editor.cambioColor(editor.colorTexto, 'texto')">
                         </color-picker>
                     </div>
                 </div>
@@ -152,9 +151,9 @@
                 </div>
                 <div>
                     <texto>Fuente</texto>
-                    <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{ 'font-family' : editor.fuente}"
+                    <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{ 'font-family' : editor.nombre}"
                         aria-label="fuentes">
-                        <md-option ng-value="fuente" ng-style="{ 'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes">{{fuente.nombre}}</md-option>
+                        <md-option ng-value="{nombre: fuente.nombre, url: fuente.url}"  ng-style="{ 'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes">{{fuente.nombre}}</md-option>
                     </md-select>
                 </div>
                 <!-- POSICIONES-->
@@ -269,10 +268,10 @@
                             <texto>Tamaño</texto>
                         </div>
                         <div class="mas-menos">
-                            <md-button ng-mousedown="editor.modificarEscala(editor.escala, true) " ng-mouseup="editor.detenerIntervalo()">
+                            <md-button ng-mousedown="editor.cambioTamano('icono', true)">
                                 +
                             </md-button>
-                            <md-button ng-mousedown="editor.modificarEscala(editor.escala, false) " ng-mouseup="editor.detenerIntervalo()">
+                            <md-button ng-mousedown="editor.cambioTamano('icono', false)">
                                 -
                             </md-button>
                         </div>
@@ -284,7 +283,7 @@
                         <texto>Edita el Color</texto>
                     </div>
                     <div layout layout-align="center">
-                        <color-picker ng-model="editor.colorIcono" class="md-whiteframe-2dp" ng-class="editor.mostrar">
+                        <color-picker ng-model="editor.colorIcono" class="md-whiteframe-2dp" ng-class="editor.mostrar" ng-change="editor.cambioColor(editor.colorIcono, 'icono')">
                         </color-picker>
                     </div>
                 </div>
@@ -334,7 +333,7 @@
                     </div>
                     -->
                     <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index"
-                        ng-click="editor.visualizar(comparacion)">
+                        ng-click="editor.restaurarComparacion(comparacion)">
                     </bazam-visualizar>
                     <div ng-show="!editor.comparaciones.length" layout-padding style="text-align:center;">
                         <texto>No existe ninguna comparacion</texto>
@@ -484,26 +483,9 @@
             <!--- directiva si se utiliza un svg nunca modificado ---->
 
             <div id="logo-share" class="principal logo-editor" ng-class="editor.fondo" ng-if="!editor.restauracionIniciada">
-                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto"
-                    data-fuente="editor.logo.fuente" data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto"
-                    data-escala="editor.escala" data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold"
-                    data-cursive="editor.propiedadesTexto.cursive" data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal"
-                    data-comparaciones="editor.comparaciones" data-comparar="editor.comparar" data-switch="editor.menu"></bazam-svg>
+                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal"></bazam-svg>
             </div>
-            <!---- Directiva si se utiliza un svg modificado  --->
-
-
-            <div class="principal logo-editor" ng-class="editor.fondo" ng-repeat="restauracion in editor.restauraciones">
-                <bazam-svg-modificado data-svg="restauracion" data-color-icono="editor.colorIcono" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
-                    data-tamano-fuente="editor.tamano" data-texto-posicion="editor.posicionTexto" data-escala="editor.escala"
-                    data-icono-posicion="editor.posicionIcono" data-bold="editor.propiedadesTexto.bold" data-cursive="editor.propiedadesTexto.cursive"
-                    data-color-texto="editor.colorTexto" data-svg-final="editor.svgFinal" data-comparaciones="editor.comparaciones"
-                    data-comparar="editor.comparar"></bazam-svg-modificado>
-            </div>
-            <!------- directiva si existen visualizaciones ------>
-            <div class="logo-editor md-whiteframe-2dp" ng-repeat="visualizacion in editor.visualizaciones" ng-if="!editor.visualizacionUsada">
-                <bazam-visualizar data-svg="visualizacion" ng-click="editor.realizarRestauracion(visualizacion)"></bazam-visualizar>
-            </div>
+   
         </div>
     </div>
 </div>

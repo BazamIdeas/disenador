@@ -112,6 +112,28 @@ angular.module("disenador-de-logos")
 
 
         };
+        
+        
+        this.listaCategoriasElementos = function(idCategoria, tipo){
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/elementos/categorias", {idCategoria: idCategoria, tipo: tipo}).then(function (res) {
+
+                defered.resolve(res.data);
+
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+            
+        }
 
 
     }])
@@ -144,9 +166,7 @@ angular.module("disenador-de-logos")
 
             return promise;
 
-
         };
-
 
     }])
 
@@ -165,12 +185,12 @@ angular.module("disenador-de-logos")
 
                 .then(function (res) {
 
-                    return res;
+                    return res.data;
 
                 })
 
                 .catch(function (res) {
-               
+
 
 
                 })
@@ -236,9 +256,35 @@ angular.module("disenador-de-logos")
     /***************CLIENTES****************/
     /***************************************/
 
+    .factory("clienteDatosFactory", [function () {
 
 
-    .service('clientesService', ['$http', '$q', '$window', '$rootScope', function ($http, $q, $window, $rootScope) {
+        var cliente = null;
+
+
+        return {
+            obtener: function () {
+
+                return cliente;
+
+            },
+            definir: function (objectoCliente) {
+
+                cliente = objectoCliente;
+
+
+            },
+            eliminar: function () {
+
+                cliente = null;
+
+            }
+        }
+
+    }])
+
+
+    .service('clientesService', ['$http', '$q', '$window', '$rootScope', "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
 
 
         this.registrar = function (datos) {
@@ -272,8 +318,7 @@ angular.module("disenador-de-logos")
                 .then(function (res) {
 
                     $window.localStorage.setItem('bzToken', angular.toJson(res.data));
-                    $rootScope.objectoCliente = res.data;
-
+                    clienteDatosFactory.definir(res.data);
                     defered.resolve();
 
                 })
@@ -287,19 +332,27 @@ angular.module("disenador-de-logos")
 
         }
 
-        this.autorizado = function () {
+        this.autorizado = function (emitir) {
 
-            if ($rootScope.objectoCliente) {
-
-                return $rootScope.objectoCliente;
+            if (clienteDatosFactory.obtener()) {
+                
+                if(emitir){
+                    $rootScope.$broadcast('sesionInicio', "true");
+                }
+                
+                return clienteDatosFactory.obtener();
 
             } else {
 
                 if ($window.localStorage.getItem('bzToken')) {
 
-                    $rootScope.objectoCliente = angular.fromJson($window.localStorage.getItem('bzToken'));
-
-                    return $rootScope.objectoCliente;
+                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+                    
+                    if(emitir){
+                        $rootScope.$broadcast('sesionInicio', "true");
+                    }
+                    
+                    return clienteDatosFactory.obtener();
 
                 } else {
 
@@ -311,11 +364,20 @@ angular.module("disenador-de-logos")
 
         }
 
-        this.salir = function () {
+        this.salir = function (emitir, desactivarAlerta) {
 
-            $rootScope.objectoCliente = false;
             $window.localStorage.removeItem('bzToken');
+            clienteDatosFactory.eliminar();
 
+            if(emitir){
+                
+                $rootScope.$broadcast("sesionExpiro")
+                
+            }
+            
+            if (!desactivarAlerta) {
+                alert("Alerta Sesion Expiro");
+            }
         }
 
 
@@ -381,28 +443,34 @@ angular.module("disenador-de-logos")
     }])
 
     .factory('crearLogoFactory', [function () {
-        
+
         return function (iconos, fuentes) {
-            
+
             var logos = [];
-            
+
             angular.forEach(iconos, function (icono, indice) {
+                
+                if(icono.estado == true){
+                
+                    angular.forEach(fuentes, function (fuente, indice) {
+                        
+                        if(fuente.estado == true){
+                        
+                            var logo = {
 
-                angular.forEach(fuentes, function (fuente, indice) {
+                                icono: icono,
+                                fuente: fuente
 
-                    var logo = {
+                            };
 
-                        icono: icono,
-                        fuente: fuente
+                            logos.push(logo);
+                        }
+                    })
 
-                    };
-
-                    logos.push(logo);
-                 
-                })
+                }
 
             })
-  
+
             return logos;
 
         }
@@ -434,21 +502,34 @@ angular.module("disenador-de-logos")
             var defered = $q.defer();
 
             var promise = defered.promise;
-            
+
+
+            //condicion especial para el estado 'Editor' y 'Planes' y 'Metodos', debido a diferentes estructuras de los Params del estado
+
+
+            //datos = actual == 'editor' && datos.logo == null ? null : datos;
+
+            if ((actual == 'editor' && datos.logo == null) || (actual == 'planes' && datos.logo == null) || (actual == 'metodo' && datos.logo == null)) {
+
+                datos = null;
+
+            }
+
+
             //dado el caso: 'Proceso' -> 'Editor', decimos que: 'Proceso' = 'pasado' y 'Editor' = 'actual'
-            
+
             if (datos) { //si hay datos que provienen del estado 'pasado' se graban en el estado 'actual' y se accede a el
 
                 LS.definir(actual, datos);
 
                 defered.resolve(datos);
 
-            } else if (LS.obtener(actual)) {//si no hay datos provenientes del estado 'pasado',  se accede al estado 'actual' SI hay datos almacenados
-                
+            } else if (LS.obtener(actual)) { //si no hay datos provenientes del estado 'pasado',  se accede al estado 'actual' SI hay datos almacenados
+
                 defered.resolve(LS.obtener(actual));
 
             } else { //si no hay datos del estado 'pasado' y no hay datos almacenados en el estado 'actual' se 
-               
+
                 defered.reject({
                     error: 'FALLO_HISTORICO',
                     objetivo: pasado
@@ -458,7 +539,10 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-    }])
+            }])
+
+
+
 
 
 
@@ -607,19 +691,23 @@ angular.module("disenador-de-logos")
 
 
 
-    .factory('AuthInterceptor', function ($window, $q, $rootScope) {
+    .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
-            $rootScope.objectoCliente = false;
-            $window.localStorage.removeItem('bzToken');
+            $window.localStorage.removeItem('bzToken')
+            clienteDatosFactory.eliminar();
+            $rootScope.$broadcast('sesionExpiro', "true");
         }
 
         function autorizado() {
-            if ($rootScope.objectoCliente) {
-                return $rootScope.objectoCliente;
+            if (clienteDatosFactory.obtener()) {
+                //$rootScope.$broadcast('sesionInicio', "true")
+                return clienteDatosFactory.obtener();
             } else {
                 if ($window.localStorage.getItem('bzToken')) {
-                    $rootScope.objectoCliente = angular.fromJson($window.localStorage.getItem('bzToken'));
-                    return $rootScope.objectoCliente;
+
+                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+                    //$rootScope.$broadcast('sesionInicio', "true")
+                    return clienteDatosFactory.obtener();
                 } else {
                     return false;
                 }
@@ -641,10 +729,19 @@ angular.module("disenador-de-logos")
 
             },
             response: function (response) {
+
+                return response || $q.when(response);
+            },
+
+            responseError: function (response) {
+
+
                 if (response.status === 401 || response.status === 403) {
                     salir();
+
+
                 }
-                return response || $q.when(response);
+
             }
         };
     });

@@ -57,7 +57,7 @@ angular.module("disenador-de-logos")
                 })
                 .catch(function (res) {
                     bz.loaderCargando = false;
-                    console.log(res)
+        
                     SweetAlert.swal("Error al registrar", res.data.msg, "error");
                 })
 
@@ -75,12 +75,7 @@ angular.module("disenador-de-logos")
 
                     if ($stateParams.destino) {
 
-
                         if ($stateParams.origen == "editor" && $stateParams.destino == "metodo") {
-
-                            $state.go($stateParams.destino, $stateParams.parametrosDestino);
-
-                        } else if ($stateParams.origen == "editor" && $stateParams.destino == "editor") {
 
                             $state.go($stateParams.destino, $stateParams.parametrosDestino);
 
@@ -104,18 +99,18 @@ angular.module("disenador-de-logos")
                             },
                             function (isConfirm) { //Function that triggers on user action.
                                 if (isConfirm) {
-                                    $state.go('dashboard')
+                                    $state.go('dashboard');
                                 } else {
-                                    $state.go('comenzar')
+                                    $state.go('comenzar');
                                 }
                             })
                     }
 
                 }).catch(function (res) {
                     bz.loaderCargando = false;
-                    console.log(res)
+             
                     SweetAlert.swal("Error al ingresar", "Revisa tu conexion a internet!", "error");
-                    console.error("Authentication failed:", res);
+                 
 
                 })
             }

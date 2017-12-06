@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>qué es esto</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Iconos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Formulario/Registro" transform="translate(-154.000000, -67.000000)">
+            <g id="qué-es-esto" transform="translate(154.000000, 61.000000)">
+                <ellipse id="Oval-3" fill="#7F7F7F" cx="7" cy="13.1538462" rx="7" ry="7.10769231"></ellipse>
+                <text id="?" font-family="OpenSans, Open Sans" font-size="11" font-weight="normal" line-spacing="26" fill="#FFFFFF">
+                    <tspan x="5.36667702" y="12">?</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

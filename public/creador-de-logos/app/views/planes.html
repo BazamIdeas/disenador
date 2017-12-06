@@ -23,7 +23,7 @@
             <div>
                 <h2>CARGANDO LOS MEJORES PLANES PARA USTED</h2>
             </div>
-            <md-progress-circular md-diameter="96" style="margin:auto;"></md-progress-circular>
+            <md-progress-circular md-diameter="96" style="margin:auto;" ng-if="!pla.datos.planes.length"></md-progress-circular>
         </div>
     </div>
     <paquete class="col-xs-10 col-md-3 margen_inferior paquete{{$index}}" ng-repeat="plan in pla.datos.planes | filter:{moneda:pla.datos.moneda} | limitTo:10 track by $index">
@@ -33,7 +33,11 @@
         </p_body>
         <p_price>{{plan.precio}} {{plan.moneda}}</p_price>
         <p_footer layout-padding layout layout-align="space-around center" ui-sref="metodo" class="md-whiteframe-3dp">
-            <i class="fa fa-paypal" aria-hidden="true" ng-click="pla.realizarPedido(plan.idPrecio, plan.isoPais)"></i>
+            <i class="fa fa-paypal" aria-hidden="true" ui-sref="metodo({logo: pla.datos.pedido.logo,
+                tipoLogo: pla.datos.pedido.tipoLogo,
+                localidad: plan.isoPais,
+                idElemento: pla.datos.pedido.idElemento,
+                idPrecio: plan.idPrecio})"></i>
             <i class="fa fa-credit-card" aria-hidden="true"></i>
         </p_footer>
     </paquete>

@@ -31,6 +31,7 @@ app.use('/angular-aria', express.static(__dirname + '/node_modules/angular-aria'
 app.use('/angular-ui-router', express.static(__dirname + '/node_modules/angular-ui-router/release'))
 app.use('/assets', express.static(__dirname + '/public/creador-de-logos/assets'))
 app.use('/angular-color-picker', express.static(__dirname + '/node_modules/angular-color-picker'))
+app.use('/angular-colorpicker-directive', express.static(__dirname + '/node_modules/angular-colorpicker-directive'))
 app.use('/angular-base64', express.static(__dirname + '/node_modules/angular-base64'))
 app.use('/angular-social', express.static(__dirname + '/node_modules/angular-socialshare/dist'))
 app.use('/angular-sweetalert', express.static(__dirname + '/node_modules/angular-sweetalert'))

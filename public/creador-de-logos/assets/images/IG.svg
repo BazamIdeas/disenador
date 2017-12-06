@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="35px" viewBox="0 0 36 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>IG</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Iconos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Redes-sociales" transform="translate(-687.000000, -93.000000)">
+            <g id="rrss" transform="translate(540.000000, 93.000000)">
+                <g id="IG" transform="translate(147.000000, 0.000000)">
+                    <g id="Group" transform="translate(0.000000, 0.000000)">
+                        <ellipse id="Oval" fill="#517FA4" fill-rule="nonzero" cx="17.5897436" cy="17.5" rx="17.5897436" ry="17.5"></ellipse>
+                        <ellipse id="Oval-2" stroke="#FFFFFF" stroke-width="2" cx="17.5" cy="18.3639623" rx="3.84718965" ry="3.98675112"></ellipse>
+                        <rect id="Rectangle" stroke="#FFFFFF" stroke-width="2" x="10.3344059" y="10.0381891" width="14.3311882" height="14.9236218"></rect>
+                        <path d="M10.4109246,16.3643608 C11.8658412,16.3643608 13.1117586,16.3643608 14.1486767,16.3643608 C15.0138049,16.3643608 16.7707286,14.7388148 17.6118288,14.7388148 C18.5691141,14.7388148 19.667467,16.3643608 20.6247523,16.3643608 C21.5554147,16.3643608 22.9514083,16.3643608 24.812733,16.3643608 L24.812733,13.5193602 L20.8423344,13.5193602 L20.8423344,10.03571 L10.4109246,10.03571 L10.4109246,15.1590721 L10.4109246,16.3643608 Z" id="Path-2" fill="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

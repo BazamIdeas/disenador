@@ -1,35 +1,46 @@
 angular.module("disenador-de-logos")
 
-/* header */
+    /* header */
 
-.controller('headerController', ["$state", '$mdPanel', 'clientesService', 'SweetAlert', '$rootScope', '$scope', 'ipService', function ($state, $mdPanel, clientesService, SweetAlert, $rootScope, $scope, ipService) {
+    .controller('headerController', ["$state", 'clientesService',  '$rootScope', '$scope', 'ipService', function ($state, clientesService,  $rootScope, $scope, ipService) {
 
-    this.salir = function () {
-        SweetAlert.swal("Has cerrado sesion", "Vuelve pronto!", "success");
-        clientesService.salir();
-    }
+        var bz = this;
 
-    var bz = this;
-
-    ipService.obtenerDatos().then(function (res) {
-        $rootScope.isoPais = res.countryCode;
-    })
-
-    bz.autorizado = clientesService.autorizado();
-
-
-    $scope.$watch('$root.objectoCliente', function (valor, nuevoValor) {
-        if (valor !== nuevoValor) {
-            bz.autorizado = $rootScope.objectoCliente;
+        bz.salir = function () {
+            clientesService.salir(true, true);
+            //$rootScope.$broadcast("sesionExpiro");
         }
-    });
-    
-    bz.menuMostrar = function () {
-        if (bz.hmenuMostrar) {
-            bz.hmenuMostrar = false;
-        } else {
-            bz.hmenuMostrar = true;
+    /*
+        ipService.obtenerDatos().then(function (res) {
+            $rootScope.isoPais = res.countryCode;
+        })
+*/
+        bz.autorizado = clientesService.autorizado();
+        
+        
+        
+        bz.menuMostrar = function () {
+            if (bz.hmenuMostrar) {
+                bz.hmenuMostrar = false;
+            } else {
+                bz.hmenuMostrar = true;
+            }
         }
-    }
+        
+
+
+        $scope.$on('sesionExpiro', function (event, data) {
+
+
+            bz.autorizado = clientesService.autorizado();
+
+        });
+
+        $scope.$on('sesionInicio', function (event, data) {
+
+            bz.autorizado = clientesService.autorizado();
+
+        });
+
 
 }])

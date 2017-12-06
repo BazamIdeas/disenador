@@ -1,0 +1,368 @@
+<div class="row start-xs" id="toast">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="listar">
+
+            <!-- LISTAR PLANES -->
+
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex ng-click="planes.listarPlanes()">LISTADO DE PLANES</texto>
+                    <md-button class="md-primary md-fab md-mini" ng-click="planes.vista = 1" style="margin:0;">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </div>
+                <div ng-show="planes.listaP">
+
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="planes.buscarPlanes" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div class="tabla">
+                        <div>Nombre:</div>
+                        <div>Acciones:</div>
+                    </div>
+                    <div layout="column" class="content-scroll">
+                        <div ng-repeat="elemento in planes.planes | filter:planes.buscarPlanes track by $index" class="elemento plan{{elemento.status}}">
+                            <div class="tabla-campo">
+                                <div class="nombre">{{elemento.plan}}</div>
+                                <div>
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('nombrePlan', elemento.idPlan, $index)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Nombre del Plan</md-tooltip>
+                                            <md-icon class="material-icon">edit</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div ng-if="elemento.estado">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('preciosPlan', elemento.idPlan)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver precios de un Plan</md-tooltip>
+                                            <md-icon class="material-icon">remove_red_eye</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('nuevoPrecioPlan',elemento.idPlan,$index)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Agregar Nuevo Precio</md-tooltip>
+                                            <md-icon class="material-icon">add</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div ng-if="elemento.estado">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.bloquearPlan('bloquear',elemento.idPlan,$index)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear Plan</md-tooltip>
+                                            <md-icon class="material-icon">lock</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div ng-if="!elemento.estado">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.bloquearPlan('desbloquear',elemento.idPlan,$index)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Desbloquear Plan</md-tooltip>
+                                            <md-icon class="material-icon">lock_open</md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LISTAR IMPUESTOS
+
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex ng-click="planes.listarImpuestos()">LISTADO DE IMPUESTOS</texto>
+                    <md-button class="md-primary md-fab md-mini" ng-click="planes.vista = 2" style="margin:0;">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </div>
+                <div ng-show="planes.mostrarImpuestos">
+
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="planes.buscarImpuestos" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div class="tabla">
+                        <div>Localidad:</div>
+                        <div>Impuesto:</div>
+                        <div>Acciones:</div>
+                    </div>
+                    <div layout="column" class="content-scroll">
+                        <div ng-repeat="elemento in planes.impuestos | filter:planes.buscarImpuestos track by $index" class="elemento">
+                            <div class="tabla-campo">
+                                <div class="nombre">{{elemento.localidad}}</div>
+                                <div class="nombre">{{elemento.impuesto}}</div>
+                                <div>
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.borrar('impuesto', elemento.localidad, $index)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar</md-tooltip>
+                                            <md-icon class="material-icon">close</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('impuesto', elemento.localidad, $index)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
+                                            <md-icon class="material-icon">add</md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ -->
+        </div>
+    </div>
+
+    <!-- ACCIONES VISTA -->
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-switch="planes.vista">
+        <div class="paneles md-whiteframe-2dp listar">
+            <!-- CREAR PLAN -->
+            <div ng-switch-when="1">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>NUEVO PLAN</texto>
+                    <md-button ng-click="planes.vista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="planes.agregarPlan(planes.nuevoPlan, nuevoplan.$valid)" novalidate name="nuevoplan">
+                        <div layout="column" layout-align="space-between">
+                            <md-input-container class="md-block" style="margin-bottom:0;">
+                                <label>Nombre</label>
+                                <input type="text" ng-model="planes.nuevoPlan.plan" name="plan" required>
+                            </md-input-container>
+
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoplan.plan.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <md-input-container class="md-block">
+                                <label>MONEDAS</label>
+                                <md-select ng-model="planes.nuevoPlan.moneda" name="moneda" ng-required="true" required>
+                                    <md-option ng-value="moneda.code" ng-repeat="moneda in planes.monedas">{{moneda.nombre}} - {{moneda.symbol}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoplan.moneda.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <md-input-container class="md-block">
+                                <label>Localidad</label>
+                                <md-select ng-model="planes.nuevoPlan.pais" name="pais" ng-required="true">
+                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in planes.paises">{{localidad}}</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <div>
+                                <md-input-container class="md-block" style="margin-bottom:0px;">
+                                    <label>Precio</label>
+                                    <input type="number" ng-model="planes.nuevoPlan.precio" name="precio" required>
+                                </md-input-container>
+                            </div>
+
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoplan.precio.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <md-input-container class="md-block">
+                                <label>Info del plan</label>
+                                <textarea ng-model="planes.nuevoPlan.info" md-maxlength="800" rows="5" name="info" required md-select-on-focus></textarea>
+                            </md-input-container>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                            <div ng-if="planes.localidadVal2" class="validad-localidad">
+                                <h5>{{planes.localidadVal2}}</h5>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- AGREGAR UN NUEVO PRECIO A UN PLAN -->
+
+            <div ng-switch-when="3">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>AGREGAR NUEVO PRECIO</texto>
+                    <md-button ng-click="planes.vista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="planes.agregarPrecioPlan(planes.nuevoPrecioPlan, nuevoimpuesto.$valid)" novalidate name="nuevoprecioplan"
+                        id="nuevoPrecioPlan">
+                        <div layout="column" layout-align="space-between">
+                            <md-input-container class="md-block">
+                                <label>Localidad</label>
+                                <md-select ng-model="planes.nuevoPrecioPlan.pais" name="pais" ng-required="true">
+                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in planes.paises">{{localidad}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>MONEDA</label>
+                                <md-select ng-model="planes.nuevoPrecioPlan.moneda" name="moneda" ng-required="true">
+                                    <md-option ng-value="moneda.code" ng-repeat="moneda in planes.monedas">{{moneda.nombre}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Precio</label>
+                                    <input type="numbre" ng-model="planes.nuevoPrecioPlan.precio" name="precio" required>
+                                </md-input-container>
+                            </div>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoprecioplan.precio.$error" style="color:maroon" role="alert" ng-show="nuevoprecioplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- VER PRECIOS DE UN PLAN -->
+
+            <div ng-switch-when="4" class="paneles md-whiteframe-2dp listar">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>DETALLES</texto>
+                    <md-button ng-click="planes.vista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div class="tabla" style="border-bottom: 4px solid silver;">
+                    <div>Localidad:</div>
+                    <div>Precio:</div>
+                </div>
+                <div layout="column" class="content-scroll lista">
+                    <div ng-repeat="elemento in planes.preciosPlan track by $index" class="elemento nopadding">
+                        <div class="tabla-campo" layout-padding>
+                            <div>{{elemento.isoPais}}</div>
+                            <div>{{elemento.moneda}} {{elemento.precio}}</div>
+                        </div>
+                        <div layout layout-align="space-between center">
+                            <md-input-container style="margin-bottom:0;" flex>
+                                <label>Nuevo Precio</label>
+                                <input type="text" ng-model="elemento.precio" name="NuevoPrecio">
+                            </md-input-container>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="planes.modificarPrecioPlan(elemento)">Modificar</md-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="planes.preciosPlan == 0" class="mensaje-resultado">
+                        <h3>NO SE ENCONTRARON PRECIOS</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODIFICAR NOMBRE PLAN -->
+
+            <div ng-switch-when="5">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>MODIFICAR PLAN</texto>
+                    <md-button ng-click="planes.vista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form id="nombrePlan" ng-submit="planes.modificarNombreP(planes.modificarNombrePlan, nombreplan.$valid)" novalidate name="nombreplan">
+                        <div layout="column" layout-align="space-between">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre</label>
+                                    <input type="text" ng-model="planes.modificarNombrePlan.plan" name="nombre" required>
+                                </md-input-container>
+                            </div>
+
+                            <md-input-container class="md-block">
+                                <label>Info del plan</label>
+                                <textarea ng-model="planes.modificarNombrePlan.info" md-maxlength="800" rows="5" name="info" required md-select-on-focus></textarea>
+                            </md-input-container>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nombreplan.plan.$error" style="color:maroon" role="alert" ng-show="nombreplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MODIFICAR IMPUESTO
+
+            <div ng-switch-when="6">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>MODIFICAR IMPUESTO</texto>
+                    <md-button ng-click="planes.vista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="planes.modificarImp(planes.modificarImpuesto, nombreimpuesto.$valid)" novalidate name="nombreimpuesto" id="nombreimpuesto">
+                        <div layout="column" layout-align="space-between">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Impuesto</label>
+                                    <input type="number" ng-model="planes.modificarImpuesto.impuesto" name="precio">
+                                </md-input-container>
+                            </div>
+                            
+            <div ng-messages="nombreimpuesto.impuesto.$error" style="color:maroon" role="alert" ng-show="nombreimpuesto.$submitted">
+                <div ng-message="required">Este campo es requerido.</div>
+            </div>
+            <div layout>
+                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<!-- CREAR IMPUESTO 
+
+            <div ng-switch-when="2">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>NUEVO IMPUESTO</texto>
+                    <md-button ng-click="planes.vista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="planes.agregarImpuesto(planes.nuevoImpuesto, nuevoimpuesto.$valid)" novalidate name="nuevoimpuesto">
+                        <div layout="column" layout-align="space-between">
+                            <md-input-container class="md-block">
+                                <label>Localidad</label>
+                                <md-select ng-model="planes.nuevoImpuesto.localidad" name="localidad" ng-required="true">
+                                    <md-option ng-value="codigo" ng-repeat="(codigo, localidad) in planes.paises">{{localidad}} - {{codigo}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div class="validad-localidad">
+                                <h5>{{planes.localidadVal}}</h5>
+                            </div>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Impuesto</label>
+                                    <input type="number" ng-model="planes.nuevoImpuesto.impuesto" name="impuesto" required>
+                                </md-input-container>
+                            </div>
+                            
+                            <div ng-messages="nuevoimpuesto.impuesto.$error" style="color:maroon" role="alert" ng-show="nuevoimpuesto.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+ -->
+
+        </div>
+    </div>
+</div>

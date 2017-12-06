@@ -1,18 +1,24 @@
 <html lang="es" ng-app="disenador-de-logos">
 
 <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Indie+Flower|Lobster|Shadows+Into+Light|Spectral+SC" rel="stylesheet">--> 
+
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-    <link href="assets/style.css" rel="stylesheet">
-    <link href="assets/animation.css" rel="stylesheet">
-    <link href="/angular-color-picker/angular-color-picker.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/sweetalert/sweet-alert.css">
-    <link rel="stylesheet" href="/administrador/assets/flexboxgrid.css" type="text/css">
-    <link rel="stylesheet" href="/creador-de-logos/assets/font-awesome.min.css" type="text/css">
+    <link href="/angular-colorpicker-directive/color-picker.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">-->
 
     <!---jQuery --->
     <script src="/jquery/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="assets/css/ghpages-materialize.min.css">-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+    <script src="assets/js/materialize.min.js"></script>
+
 
     <!--Librerias core de angualarJS -->
     <script src="/angular/angular.min.js"></script>
@@ -23,12 +29,13 @@
     <!--Librerias 3r party angularJS -->
     <script src="/angular-ui-router/angular-ui-router.min.js"></script>
     <script src="/angular-material/angular-material.min.js"></script>
-    <script src="/angular-color-picker/angular-color-picker.js"></script>
+    <!--<script src="/angular-color-picker/angular-color-picker.js"></script>-->
+    <script src="/angular-colorpicker-directive/color-picker.js"></script>
     <script src="/angular-base64/angular-base64.min.js"></script>
-    <script src="/angular-social/angular-socialshare.js"></script>
+    <!--<script src="/angular-social/angular-socialshare.js"></script>
     <script src="/angular-sweetalert/SweetAlert.min.js"></script>
     <script src="/sweetalert/sweet-alert.min.js"></script>
-    <script src="/save-svg-as-png/saveSvgAsPng.js"></script>
+    <script src="/save-svg-as-png/saveSvgAsPng.js"></script>-->
 
 
     <!--Archivos App diseñador -->
@@ -38,57 +45,68 @@
 
     <!-- Controladores -->
     <script src="app/controllers/header.js"></script>
-    <script src="app/controllers/comenzar.js"></script>
-    <script src="app/controllers/analisis.js"></script>
-    <script src="app/controllers/opciones.js"></script>
-    <script src="app/controllers/proceso.js"></script>
-    <script src="app/controllers/editor.js"></script>
-    <script src="app/controllers/previsualizar.js"></script>
+    <!--<script src="app/controllers/comenzar.js"></script>-->
+    <!--<script src="app/controllers/analisis.js"></script>-->
+    <!--<script src="app/controllers/opciones.js"></script>-->
+    <!--<script src="app/controllers/proceso.js"></script>-->
+    <!--<script src="app/controllers/editor.js"></script>-->
+    <!--<script src="app/controllers/previsualizar.js"></script>-->
     <script src="app/controllers/login.js"></script>
-    <script src="app/controllers/cliente.js"></script>
-    <script src="app/controllers/planes.js"></script>
-    <script src="app/controllers/metodo_pago.js"></script>
-    <script src="app/controllers/administrar.js"></script>
+    <!--<script src="app/controllers/cliente.js"></script>-->
+    <!--<script src="app/controllers/planes.js"></script>-->
+    <!--<script src="app/controllers/metodo_pago.js"></script>-->
+    <!--<script src="app/controllers/administrar.js"></script>-->
+    
+    
+    
+    <!--Controladores V2 -->
+    <script src="app/controllers/v2/principal.controller.js"></script>
+    <script src="app/controllers/v2/principal.comenzar.controller.js"></script>
+    <script src="app/controllers/v2/principal.opciones.controller.js"></script>
+    <script src="app/controllers/v2/principal.combinaciones.controller.js"></script>
+    <script src="app/controllers/v2/editor.controller.js"></script>
 
 </head>
 
 <body>
-    <!-- header -->
-    <div class="row">
-        <header ng-controller="headerController as header" class="col-xs-12 nopadding" style="z-index: 9;">
-            <md-toolbar class="md-hue-2">
-                <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
-                    <div layout>
-                        <div style="font-size: 30px;text-shadow: 0px 1px;" ui-sref="comenzar">LIDERLOGO</div>
-                    </div>
-                    <div ng-switch="header.autorizado" class="login_header">
-                        <ingresar ng-switch-when="false" ui-sref="login" layout-padding>
-                            Ingresar
-                        </ingresar>
 
-                        <ingresar ng-switch-default ng-click="header.menuMostrar()">
-                            <div>
-                                <md-icon class="icono-header">account_circle</md-icon>
-                            </div>
-                            <div ng-show="header.hmenuMostrar" class="menu-header" ng-mouseleave="header.menuMostrar()">
-                                <div ui-sref="dashboard">
-                                    <p>Mis logos</p>
-                                </div>
-                                <div ng-click="header.salir()">
-                                    <p>Cerrar sesion</p>
-                                </div>
-                            </div>
-                        </ingresar>
-                    </div>
+    <header ng-controller="headerController as header">
+        
+        <div class="col s6 m9" show-gt-sm>
+
+                <div ng-switch="header.autorizado" class="login"  ng-cloak>
+                    <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer"> <i class="material-icons md-48">account_circle</i> <span>Acceder / Registro</span> </div>
+
+                    <div ng-switch-default class="acceder" style="cursor: pointer"> 
+
+                        <i class="material-icons md-48">account_circle</i>  <span ng-bind="header.autorizado.nombre"></span> 
+
+                        <span style="margin: 0 10px; font-family: 'arial'">|</span>
+                        
+                        <span ui-sref="dashboard">
+                            Mis logos
+                        </span>                        
+
+                        <span style="margin: 0 10px; font-family: 'arial'">|</span>
+
+                        <span ng-click="header.salir()">
+                            Cerrar sesion
+                        </span>
+
+                    </div>                    
+
+                    <i class="material-icons aling-top" style="margin-left: 20px; cursor: pointer;">help_outline</i> 
+
                 </div>
-            </md-toolbar>
-        </header>
-    </div>
+    
+        </div>
+    
+    </header>
 
     <!-- contenedor principal -->
-    <md-content flex ui-view class="trans">
-
-    </md-content>
+    <div ui-view style="min-height: calc(100% - 360px); min-height: -webkit-calc(100% - 360px); background-color: white">
+        
+    </div>
 
     <!-- Footer 
     <footer class="text-center" layout="row" layout-align="space-between center">
@@ -97,7 +115,9 @@
             <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
     </footer>
     -->
+    
 </body>
+
 
 
 

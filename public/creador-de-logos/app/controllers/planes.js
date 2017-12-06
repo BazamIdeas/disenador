@@ -2,12 +2,12 @@ angular.module("disenador-de-logos")
 
     /* Planes*/
 
-    .controller('planesController', ['$scope', 'planesService', 'ipService', '$rootScope', 'LS', '$stateParams', '$state', 'clientesService', function ($scope, planesService, ipService, $rootScope, LS, $stateParams, $state, clientesService) {
+    .controller('planesController', ['$scope', 'planesService', 'ipService', '$rootScope', 'LS', '$stateParams', '$state', 'clientesService', '$q', "historicoResolve", function ($scope, planesService, ipService, $rootScope, LS, $stateParams, $state, clientesService, $q, historicoResolve) {
 
         var bz = this;
 
         /* LOCAL STORAGE */
-
+        /*
         this.definirInfo = function (llave, datos) {
             return LS.definir(llave, datos);
         }
@@ -22,21 +22,43 @@ angular.module("disenador-de-logos")
         } else {
             $state.go('editor');
         }
+        
+        */
 
         bz.datos = {
             planes: [],
             moneda: "USD",
             monedas: [],
-            pedido: this.datosEstadoAnterior
+            pedido: historicoResolve
         }
 
         bz.listarPlanes = function () {
             planesService.listar().then(function (res) {
-                for (i = 0; i < res.length; i++) {
-                    if (res[i].isoPais == bz.datos.isoPais) {
-                        bz.datos.planes.push(res[i]);
+
+                var planes_usa = [];
+
+                angular.forEach(res, function (valor, llave) {
+
+                    if (valor.isoPais == bz.datos.isoPais) {
+
+                        bz.datos.planes.push(valor);
+
                     }
+
+                    if (valor.isoPais == "US") {
+
+                        planes_usa.push(valor);
+
+                    }
+
+                })
+
+                if (!bz.datos.planes.length) {
+
+                    bz.datos.planes = planes_usa;
+
                 }
+
             }).catch(function (res) {
                 console.log(res)
             })
@@ -53,6 +75,9 @@ angular.module("disenador-de-logos")
 
         bz.autorizado = clientesService.autorizado();
 
+
+
+        /*
         bz.realizarPedido = function (idPrecio, localidad) {
             bz.datos.pedido.idPrecio = idPrecio;
             bz.datos.pedido.localidad = localidad;
@@ -65,5 +90,18 @@ angular.module("disenador-de-logos")
                 idPrecio: bz.datos.pedido.idPrecio,
             });
         }
+
+
+*/
+
+
+
+        $scope.$on('sesionExpiro', function (event, data) {
+
+            $state.go('login');
+
+        });
+
+
 
     }])
