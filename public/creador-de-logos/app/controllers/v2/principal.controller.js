@@ -8,7 +8,11 @@ angular.module("disenador-de-logos")
 
         bz.datos = {
             nombre: "Mi logo",
-            preferencias: []
+            preferencias: [],
+            categoria:{
+                icono: "",
+                fuente: ""
+            }
         }
 
 
@@ -21,29 +25,28 @@ angular.module("disenador-de-logos")
         bz.logoSeleccionado = null;
 
 
-        /*
-        if ($stateParams.nombreLogo) {
-
-            bz.datos.nombre = $stateParams.nombreLogo;
-
+   
+        bz.categoriasPosibles = {
+            fuentes: [],
+            iconos: []
         };
-
-        */
-
-        bz.categoriasPosibles = [];
 
         bz.preferencias = [];
 
-        categoriasService.listaCategorias().then(function (res) {
+        categoriasService.listaCategorias('ICONO').then(function (res) {
 
-            angular.forEach(res, function (valor, llave) {
+            bz.categoriasPosibles.iconos = res;
 
-                bz.categoriasPosibles.push(valor);
-
-            })
-
+             
         })
+         
+        categoriasService.listaCategorias('FUENTE').then(function (res) {
 
+            bz.categoriasPosibles.fuentes = res;
+
+             
+        })
+        
         preferenciasService.listaPreferencias().then(function (res) {
 
             angular.forEach(res, function (valor, llave) {
@@ -87,17 +90,21 @@ angular.module("disenador-de-logos")
                 })
 
 
-                bz.datos.tipo = "ICONO";
-
+                bz.datosIconos = {
+                    categoria: bz.datos.categoria.icono,
+                    preferencias: bz.datos.preferencias,
+                    tipo: 'ICONO'
+                }
+                    
                 bz.datosFuentes = {
-                    categoria: bz.datos.categoria,
+                    categoria: bz.datos.categoria.fuente,
                     preferencias: bz.datos.preferencias,
                     tipo: 'FUENTE'
                 };
 
 
                 $q.all([
-                    elementosService.listaSegunPref(bz.datos),
+                    elementosService.listaSegunPref(bz.datosIconos),
                     elementosService.listaSegunPref(bz.datosFuentes)
                     ])
                     .then(function (res) {

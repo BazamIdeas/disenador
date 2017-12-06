@@ -91,13 +91,13 @@ angular.module("disenador-de-logos")
     .service('categoriasService', ["$http", "$q", function ($http, $q) {
 
 
-        this.listaCategorias = function () {
+        this.listaCategorias = function (tipo) {
 
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            $http.get("/app/categorias").then(function (res) {
+            $http.post("/app/categorias", {tipo: tipo}).then(function (res) {
 
                 defered.resolve(res.data);
 
