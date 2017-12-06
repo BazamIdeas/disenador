@@ -215,7 +215,7 @@ exports.nuevoElementoFuente = function (req, res) {
 		tipo = 'application/x-font-eot';
 	}
 	
-	if ((tipo == 'application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-eot')) {
+	if ((tipo == 'application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-woff')) {
 
 		var nombrefuente = req.files.mifuente.name;
 		var targer_path = '/fuentes/' + nombrefuente;
