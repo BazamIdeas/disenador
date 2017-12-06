@@ -67,12 +67,16 @@ pais.ObtenerPorIso = function(iso,callback)
 	{
 		connection.query( q , [iso], function(err, row){
 
+			console.log('1 en la funcion')
+
 		  	if(err)	throw err;
 
 		  	else callback(null, row);
 
+		  	connection.release();
+
 		});
-		connection.release();
+		
 	});
 }
 

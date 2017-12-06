@@ -6,10 +6,13 @@ var async    = require("async");
 
 exports.ListarFront = (req, res, next) =>
 {
-	var iso  = services.geoipServices.iso(req.ip);
+
+	var iso  = "AR";
 
 	pais.ObtenerPorIso(iso, (err, pais) => {
-		
+
+		if (err) res.status(400).json({});
+
 		if (pais.length) {
 
 			var json = pais[0];
@@ -21,11 +24,12 @@ exports.ListarFront = (req, res, next) =>
 		
 			plan.ListarPorPais(json.idPais, (err, planes) => {
 
+				if (err) res.status(401).json({});
+
 				if (planes.length) {
 
 					json.planes = planes;
 
-					var precios_json = {};
 					async.forEachOf(json.planes, (plan, key, callback) => {
 
 						precio.ListarPorPlan(json.idPais, plan.idPlan, (err, precios) => {
@@ -43,12 +47,14 @@ exports.ListarFront = (req, res, next) =>
 							} catch (e) {
 							    return callback(e);
 							}
+
+
 							callback();
 						})
 
 					}, (err) => {
 						
-						if (err) console.error(err.message);
+						if (err) res.status(402).json({});
 						
 						res.status(200).json(json);
 					
@@ -67,6 +73,8 @@ exports.ListarFront = (req, res, next) =>
 			res.status(200).json({"msg": "No se encuentra el pais"});
 
 		}
+
+
 	
 	});
 

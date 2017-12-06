@@ -49,8 +49,11 @@ precios.ListarPorPlan = function(idPais,idPlan,callback)
 
 		  	else callback(null, rows);
 
+		  	connection.release();
+
 		});
-		connection.release();
+		
+		
 	});
 }
 

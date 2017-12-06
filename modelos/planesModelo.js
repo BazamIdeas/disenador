@@ -24,8 +24,10 @@ planes.ListarPorPais = function(idPais, callback)
 
 		  	else callback(null, rows);
 
+		  	connection.release();
+
 		});
-		connection.release();
+		
 	});	
 }
 
