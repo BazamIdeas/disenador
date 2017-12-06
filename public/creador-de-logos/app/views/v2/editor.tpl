@@ -165,7 +165,7 @@
                                     
 				    			</div>
                                 <div ng-show="!editor.comparaciones.length" layout-padding style="text-align:center;">
-                                        No existe ningun borrador
+                                    No existe ningun borrador
                                 </div>
 				    		</div>
 				    	</div>
