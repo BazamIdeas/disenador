@@ -487,7 +487,10 @@ angular.module("disenador-de-logos")
 
                     scope.$on("editor:comparar", function (evento, datos) {
 
-                        $rootScope.$broadcast("directiva:comparar", {svg: element.html(), creacion:  Date.now()});
+                        $rootScope.$broadcast("directiva:comparar", {
+                            svg: element.html(),
+                            creacion: Date.now()
+                        });
 
                     })
 
@@ -499,9 +502,9 @@ angular.module("disenador-de-logos")
 
 
                     scope.$on("editor:orientacion", function (evento, orientacion) {
-                        
+
                         var tamanoBase = 100;
-                        
+
                         if (orientacion == 'horizontal') {
 
 
@@ -555,7 +558,7 @@ angular.module("disenador-de-logos")
                             svgTexto.setAttribute("x", paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05)));
                             svgTexto.setAttribute("y", (alturaSVG / 2) + (parseFloat(svgTexto.style.fontSize) / 4));
 
-                        } else if (orientacion == 'vertical'){
+                        } else if (orientacion == 'vertical') {
 
 
                             ////////////////////////////////////////////////////////////
@@ -569,8 +572,6 @@ angular.module("disenador-de-logos")
                             svgIcono.removeAttribute("width");
                             svgIcono.removeAttribute("x");
                             svgIcono.parentElement.setAttribute("transform", '')
-                           
-                            
 
                             /////////////////////////////////////////
                             ////////creamos el elemento Text/////////
@@ -580,9 +581,9 @@ angular.module("disenador-de-logos")
 
                             svgTexto.style.fontSize = (tamanoBase / 2) + "px";
                             svgTexto.setAttribute("text-anchor", "middle");
-                       
+
                             svgTexto.setAttribute("transform", '');
-                            svgTexto.setAttribute("x", tamanoBase/2);
+                            svgTexto.setAttribute("x", tamanoBase / 2);
 
                             //////////////////////////////////////////////////////////////////////
                             ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
@@ -605,7 +606,6 @@ angular.module("disenador-de-logos")
                             var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px"
 
                             svgTexto.setAttribute("y", paddingTopText);
-                            
 
                             if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
 
@@ -619,14 +619,12 @@ angular.module("disenador-de-logos")
 
                                 var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
 
-                              
+
                                 svgIcono.setAttribute("y", paddingTopIcono);
 
                                 var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
-                                
+
                                 svgTexto.setAttribute("y", paddingTopText);
-                                
-                               
 
                             }
 
@@ -635,48 +633,48 @@ angular.module("disenador-de-logos")
                         scope.svgFinal = element.html();
                     })
 
-                    
+
                     ////////////////////////////////
                     ///////////RESTAURAR////////////
                     ////////////////////////////////
 
                     scope.$on("editor:reemplazar", function (evento, icono) {
-                            
-                            var iconoSVG = element.find("g.contenedor-icono > svg");
-                        
-                            var x = iconoSVG.attr("x");
-                            var y = iconoSVG.attr("y");
-                        
-                        
-                            var heightIcono = iconoSVG.attr("height");
-                            var widthIcono = iconoSVG.attr("width");
-                            var transform = iconoSVG.attr("transform");               
-                            
-                            iconoSVG.html(icono);
-                        
-                            var iconoSVGcambiado = element.find("g.contenedor-icono > svg");
-                        
-                            iconoSVGcambiado.attr("x", x);
-                            iconoSVGcambiado.attr("y", y);
-                            iconoSVGcambiado.attr("height", heightIcono);
-                        
-                            if(widthIcono){
-                                
-                                 iconoSVGcambiado.attr("width", widthIcono);
-                                
-                            }
-                        
-                            if(transform){
-                                
-                                iconoSVGcambiado.attr("transform", transform);
-                            }
-                           
-                        
-                        
-                            
-                        
+
+                        var iconoSVG = element.find("g.contenedor-icono > svg");
+
+                        var x = iconoSVG.attr("x");
+                        var y = iconoSVG.attr("y");
+
+
+                        var heightIcono = iconoSVG.attr("height");
+                        var widthIcono = iconoSVG.attr("width");
+                        var transform = iconoSVG.attr("transform");
+
+                        iconoSVG.html(icono);
+
+                        var iconoSVGcambiado = element.find("g.contenedor-icono > svg");
+
+                        iconoSVGcambiado.attr("x", x);
+                        iconoSVGcambiado.attr("y", y);
+                        iconoSVGcambiado.attr("height", heightIcono);
+
+                        if (widthIcono) {
+
+                            iconoSVGcambiado.attr("width", widthIcono);
+
+                        }
+
+                        if (transform) {
+
+                            iconoSVGcambiado.attr("transform", transform);
+                        }
+
+
+
+                        scope.svgFinal = element.html();
+
                     })
-                                        
+
 
                     ////////////////////////////////
                     ///////////RESTAURAR////////////
