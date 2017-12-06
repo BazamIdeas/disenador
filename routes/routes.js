@@ -56,7 +56,7 @@ router.get('/pedido/no/pago/:tk', controllers.pedidos.noPago);// RUTAS INTERNAS
 
 //MODULO CATEGORIAS
 
-router.get('/categorias', controllers.categorias.listaCategorias);
+router.post('/categorias', controllers.categorias.listaCategorias);
 router.get('/categoria/iconos/:id', controllers.categorias.ListarIconos);
 router.get('/categoria/fuentes/:id', controllers.categorias.ListarFuentes);
 router.post('/categoria', middleware.validarUsuario, controllers.categorias.nuevaCategoria);
@@ -81,6 +81,7 @@ router.get('/etiqueta/borrar/:id', middleware.validarUsuario, controllers.etique
 router.post('/elementos/busqueda', controllers.elementos.listaSegunPref);
 router.post('/elementos/categorias', controllers.elementos.listaElemCat);
 router.post('/elemento/icono', multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono
+router.get('/elementos/fuente', controllers.elementos.ListarFuentes);
 router.post('/elemento/fuente', multipartMiddleware, controllers.elementos.nuevoElementoFuente);
 router.post('/elemento/preferencias/modificar', /*middleware.validarUsuario,*/ controllers.elementos.ModificarPreferencias);
 

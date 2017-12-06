@@ -199,7 +199,7 @@ pais.AsignarDolar = function(idPais,callback)
 	});
 }
 
-pais.DesasignarMoneda = function(paismoneda,callback)
+pais.DesasignarMoneda = function(paisMoneda,callback)
 {	
 	var q = 'SELECT count(*) as cantidad FROM monedas_has_paises WHERE paises_idPais = ? AND monedas_idMoneda = ?';
 	var par = paisMoneda //parametros
@@ -209,13 +209,14 @@ pais.DesasignarMoneda = function(paismoneda,callback)
 		connection.query( q , [paisMoneda.paises_idPais, paisMoneda.monedas_idMoneda] , function(err, row)
 		{
 	  	 	//si existe la id del cliente a eliminar
-		  	if (!row[0].cantidad)
+		  	if (row[0].cantidad)
 		  	{
-		  		var qq = 'DELETE FROM monedas_has_paises WHERE paises_idPais ? AND monedas_idMoneda = ?';
+		  		var qq = 'DELETE FROM monedas_has_paises WHERE paises_idPais = ? AND monedas_idMoneda = ? ;';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , par , function(err, result)
+					connection.query( qq , [paisMoneda.paises_idPais, paisMoneda.monedas_idMoneda] , function(err, result)
 					{
+						console.log('this.sql', this.sql);
 				  	
 				  		if(err)	throw err;
 
@@ -228,7 +229,7 @@ pais.DesasignarMoneda = function(paismoneda,callback)
 				});
 
 		  	}
-		  	else callback(null,{"msg":"La moneda ya esta asignada"});
+		  	else callback(null,{"msg":row[0].cantidad});
 	  	});
 
 	connection.release();

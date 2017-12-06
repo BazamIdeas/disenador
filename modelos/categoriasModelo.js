@@ -5,13 +5,13 @@ var categoria = {};
  
 
 //obtenemos todos los clientes
-categoria.getCategorias = function(callback)
+categoria.getCategorias = function(tipo,callback)
 {
-	var q = 'SELECT idCategoria,nombreCategoria FROM categorias ORDER BY idCategoria';
+	var q = 'SELECT idCategoria,nombreCategoria FROM categorias WHERE tipo = ? ORDER BY idCategoria';
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q ,  function(err, rows){
+		connection.query( q , [tipo], function(err, rows){
 	  	
 	  		if(err)	throw err;
 	  	
