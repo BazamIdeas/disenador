@@ -109,6 +109,11 @@ input:not([type]), input[type=text], input[type=password], input[type=email], in
     border-bottom: 2px solid var(--principal);
 }
 
+g, text{
+    user-select: none;
+    cursor: pointer;
+}
+
 md-slider {
     height: 40px;
 }
@@ -856,7 +861,7 @@ p.titulo{
     height: 150px;
     background: #f9f9f9;
     left: 0;
-    bottom: -150px;
+    bottom: -156px;
     transition: 1s all;
     box-shadow: 2px 1px 1px 1px #9e9e9e;
     border-left: 1px solid #f3f3f3;

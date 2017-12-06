@@ -57,7 +57,7 @@
                         </div>
 
                         <div class=" col s12 estilo-texto">
-                    		<div class="negrita activo" ng-click="editor.cambioPropiedad('bold')">N</div>               
+                    		<div class="negrita" ng-click="editor.cambioPropiedad('bold')">N</div>               
                     		<div class="cursiva" ng-click="editor.cambioPropiedad('cursive')">C</div>               
                         </div>
 						<div class=" col s12 estilo-texto">
