@@ -53,6 +53,7 @@ angular.module("administrador")
         }
 
         bz.modificarMoneda = function (datos, v) {
+            console.log(datos)
             if (v) {
                 monedasService.modificarMoneda(datos).then(function (res) {
                     console.log(res)
@@ -61,7 +62,10 @@ angular.module("administrador")
             }
         }
 
-        bz.borrarMoneda = function (datos, index) {
+        bz.borrarMoneda = function (id, index) {
+            datos = {
+                idMoneda: id
+            }
             monedasService.borrarMoneda(datos).then(function (res) {
                 bz.monedas.splice(index, 1);
                 console.log(res)
@@ -118,7 +122,9 @@ angular.module("administrador")
 
         bz.asignarMoneda = function (datos) {
             pasarelasService.asignarMoneda(datos).then(function (res) {
-                console.log(res)
+                if(res == undefined){
+                    return notificacionService.mensaje('La moneda seleccionada ya esta asignada.');      
+                }
                 notificacionService.mensaje('Asignación Exitosa.');
             })
         }

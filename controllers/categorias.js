@@ -60,7 +60,7 @@ exports.nuevaCategoria =  function(req,res)
 	var categoriaData = {
 		idCategoria : null,
 		nombreCategoria: req.body.nombreCategoria,
-		
+		tipo: req.body.tipo
 	};
 	categoria.insertCategoria(categoriaData,function(error, data)
 	{

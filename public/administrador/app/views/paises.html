@@ -90,7 +90,7 @@
                                 <label>Iso</label>
                                 <input type="text" ng-model="paises.nuevoPais.iso" name="iso" required ng-minlength="3">
                             </md-input-container>
-                            
+
                             <!-- VALIDACION -->
                             <div ng-messages="form.iso.$error" style="color:maroon" role="alert" ng-show="form.$submitted">
                                 <div ng-message="required">Este campo es requerido.</div>
@@ -99,9 +99,9 @@
 
                             <md-input-container class="md-block" style="margin-bottom:0;">
                                 <label>Impuesto</label>
-                                <input type="text" ng-model="paises.nuevoPais.impuesto" name="impuesto" required ng-minlength="3">
+                                <input type="text" ng-model="paises.nuevoPais.impuesto" name="impuesto" required ng-minlength="1">
                             </md-input-container>
-                            
+
                             <!-- VALIDACION -->
                             <div ng-messages="form.impuesto.$error" style="color:maroon" role="alert" ng-show="form.$submitted">
                                 <div ng-message="required">Este campo es requerido.</div>
@@ -152,9 +152,13 @@
                 <div layout-padding class="formularios-login pasos">
                     <form id="asignacion" ng-submit="paises.asignarMoneda(paises.ponerMoneda)" novalidate name="asignacion">
                         <div layout="column" layout-align="space-between">
-                            <md-select ng-model="moneda.ponerMoneda.idMoneda" class="md-block" aria-label="filtro">
-                                <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in moneda.monedas">{{elemento.moneda}}</md-option>
-                            </md-select>
+                            <md-input-container class="md-block">
+                                <label>Moneda</label>
+                                <md-select ng-model="paises.ponerMoneda.idMoneda" class="md-block" aria-label="filtro">
+                                    <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in paises.monedas">{{elemento.moneda}}</md-option>
+                                </md-select>
+                            </md-input-container>
+
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit">Asignar</md-button>
                             </div>
@@ -188,7 +192,7 @@
                                 <div class="ISO">{{elemento.idMoneda}}</div>
                                 <div class="nombre">{{elemento.moneda}}</div>
                                 <div>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="paises.desasignarMoneda(elemento.idMoneda)">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="paises.desasignarMoneda(elemento.idMoneda, $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Desasignar</md-tooltip>
                                         <md-icon class="material-icon">money_off</md-icon>
                                     </md-button>

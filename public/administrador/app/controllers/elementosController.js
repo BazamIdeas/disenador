@@ -10,6 +10,16 @@ angular.module("administrador")
         bz.modificar = {};
         bz.listar = {};
 
+        bz.mostrar = function(tipo){
+            if(tipo == 'ICONO'){
+                bz.rIcono = !bz.rIcono;
+                return bz.listarCategorias(tipo);
+            }
+            bz.rFuente = !bz.rFuente;
+            bz.listarCategorias(tipo);
+        }
+
+
         bz.nuevaFuente = function (datos) {
             iconoFuente.nuevaFuente(datos).then(function (res) {
                 datos.idElemento = res.data.insertId;
@@ -24,7 +34,8 @@ angular.module("administrador")
         bz.nuevoIcono = function (datos) {
             iconoFuente.nuevoIcono(datos).then(function (res) {
                 datos.idElemento = res.data.insertId;
-                datos.tipo = 'FUENTE';
+                datos.tipo = 'ICONO';
+                console.log(res)
                 bz.elementos.push(datos);
                 SweetAlert.swal("Genial", 'Icono Agregado', "success");
             }).catch(function (res) {
@@ -37,6 +48,7 @@ angular.module("administrador")
 
             iconoFuente.listar(bz.listar).then(function (res) {
                 bz.elementos = res.data;
+                console.log(res)
             }).catch(function (res) {
                 console.log(res)
             })
@@ -45,11 +57,21 @@ angular.module("administrador")
         bz.categorias = [];
         bz.preferencias = [];
 
-        categoriasService.listarCategorias().then(function (res) {
-            angular.forEach(res.data, function (valor, llave) {
-                bz.categorias.push(valor);
+        bz.listarCategorias = function (tipoCategoria) {
+            bz.tipoListado = tipoCategoria;
+            datos = {
+                tipo: tipoCategoria
+            }
+            categoriasService.listarCategorias(datos).then(function (res) {
+                if (res == undefined) {
+                    bz.categorias = [];
+                    bz.elementos = [];
+                    return notificacionService.mensaje('No hay categorias.');
+                }
+                bz.categorias = res.data;
             })
-        })
+        }
+
 
         categoriasService.listarPreferencias().then(function (res) {
             angular.forEach(res.data, function (valor, llave) {
@@ -62,12 +84,12 @@ angular.module("administrador")
             bz.listar.preferencias = bz.preferencias;
         })
 
-        bz.mostrarModificar = function(index){
+        bz.mostrarModificar = function (index) {
             bz.mod = true;
             bz.modificarElemento.idElemento = bz.elementos[index].idElemento;
         }
 
-        bz.modificarElemento = function(datos){
+        bz.modificarElemento = function (datos) {
             iconoFuente.modificarPreferencias(datos).then(function (res) {
                 bz.mod = false;
                 SweetAlert.swal("Genial", res.data.result, "success");

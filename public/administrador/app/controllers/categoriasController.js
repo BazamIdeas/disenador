@@ -18,35 +18,32 @@ angular.module("administrador")
 
         /* LISTAR */
 
-        bz.listar = function (que, ocultar) {
-
-            bz.opcionesCategorias = 0;
-            if (que == 'categoria') {
-                if (ocultar == true) {
-                    bz.mostrarC = !bz.mostrarC;
-                }
-                bz.cats = [];
-                categoriasService.listarCategorias().then(function (res) {
-                    angular.forEach(res.data, function (valor, llave) {
-                        bz.cats.push(valor);
-                    })
-                })
-            } else {
-                if (ocultar == true) {
-                    bz.mostrarPre = !bz.mostrarPre;
-                }
-                bz.prefs = [];
-                categoriasService.listarPreferencias().then(function (res) {
-                    angular.forEach(res.data, function (valor, llave) {
-                        bz.prefs.push(valor);
-                    })
-                })
-
+        bz.listarCategorias = function (tipoCategoria) {
+            bz.cats = [];
+            datos = {
+                tipo: tipoCategoria
             }
+            categoriasService.listarCategorias(datos).then(function (res) {
+                if (res == undefined) {
+                    return notificacionService.mensaje('No hay categorias.');
+                }
+                bz.cats = res.data;
+
+            })
+        }
+
+        bz.listarPreferencias = function () {
+
+            bz.prefs = [];
+            categoriasService.listarPreferencias().then(function (res) {
+                angular.forEach(res.data, function (valor, llave) {
+                    bz.prefs.push(valor);
+                })
+            })
 
         }
 
-        bz.listar('categoria')
+        bz.listarPreferencias();
 
         /* MODIFICAR */
 
@@ -94,6 +91,7 @@ angular.module("administrador")
 
         bz.crear = function (datos, opcion) {
             if (opcion == 'categoria') {
+                 console.log(datos)
                 categoriasService.nuevaCategoria(datos).then(function (res) {
                         notificacionService.mensaje('Registro Existoso');
                         datos.idCategoria = res.data.insertId;
@@ -138,6 +136,11 @@ angular.module("administrador")
                         console.log(res)
                     })
             }
+        }
+
+        bz.mostrarCat = function(){
+            bz.mostrarC = !bz.mostrarC;
+            bz.f = bz.mostrarC ? true : false;
         }
 
     }])

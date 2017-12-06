@@ -184,7 +184,7 @@
                             <div>{{elemento.precio}}</div>
                             <div ng-if="elemento.status == 1">Activo</div>
                             <div ng-if="elemento.status == 0">Inactivo</div>
-                            <div>Moneda</div>
+                            <div>{{elemento.moneda}}</div>
                             <div>
                                 <md-button class="md-fab md-mini md-warn" ng-click="planes.modfire = $index">
                                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Precio</md-tooltip>

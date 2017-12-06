@@ -236,7 +236,7 @@ pais.DesasignarMoneda = function(paisMoneda,callback)
 	});
 }
 
-pais.obtenerporid = function(id,callback)
+pais.ObtenerPorId = function(id,callback)
 {
 	var par = [id]
 	var q = 'SELECT * FROM paises WHERE idPais = ?';

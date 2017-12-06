@@ -63,7 +63,7 @@ angular.module("administrador")
                     bz.nuevoPlan = {};
 
                     notificacionService.mensaje('Peticion Realizada!');
-                    bz.localidadVal = ' ';
+                    bz.localidadVal = '';
                 }).catch(function (res) {
                     console.log(res)
                 })
@@ -97,6 +97,8 @@ angular.module("administrador")
         }
 
         bz.modificarPrecioPlan = function (datos) {
+            console.log(datos)
+            datos.idPlan = datos.planes_idPlan;
             administrarService.modificarPrecioPlan(datos).then(function (res) {
                 console.log(res)
                 notificacionService.mensaje('Peticion Realizada.');
@@ -133,6 +135,7 @@ angular.module("administrador")
         bz.mostrar = function (opcion, datos, index) {
             if (opcion == 'nombrePlan') {
                 bz.vista = 5;
+                bz.index = index;
                 angular.forEach(bz.planes, function (valor) {
                     if (valor.idPlan == datos) {
                         bz.modificarNombrePlan = valor;
@@ -144,8 +147,11 @@ angular.module("administrador")
             } else if (opcion == 'preciosPlan') {
                 bz.preciosPlan = [];
                 administrarService.listarPreciosPlan(datos).then(function (res) {
-                    if (res.data) {
+                    if (res == undefined) {
+                        notificacionService.mensaje('Este plan no posee precios.');
+                    }else{
                         bz.preciosPlan = res.data;
+                        console.log(res)
                     }
                     bz.vista = 4;
                 }).catch(function (res) {

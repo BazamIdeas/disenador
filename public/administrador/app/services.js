@@ -361,11 +361,11 @@ angular.module("administrador")
 
         /* CATEGORIAS */
 
-        this.listarCategorias = function () {
+        this.listarCategorias = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get("/app/categorias").then(function (res) {
+            $http.post("/app/categorias", datos).then(function (res) {
 
                 defered.resolve(res);
 

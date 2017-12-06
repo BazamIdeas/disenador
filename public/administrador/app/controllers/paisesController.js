@@ -34,7 +34,7 @@ angular.module("administrador")
                         bz.ponerMoneda.idPais = valor.idPais;
                     }
                 })
-                bz.acciones = 4;
+                bz.acciones = 3;
             }
         }
 
@@ -52,9 +52,12 @@ angular.module("administrador")
         bz.guardarPais = function (datos, v) {
             if (v) {
                 paisesService.guardarPais(datos).then(function (res) {
-                    datos.idMoneda = res.data.insertId;
+                    if (res == undefined) {
+                        return notificacionService.mensaje('El pais ya existe.');
+                    }
+                    datos.idPais = res.data.insertId;
                     bz.paises.push(datos);
-                    console.log(res)
+                    return notificacionService.mensaje('El pais ha si añadido.');
                 })
             }
         }
@@ -84,7 +87,6 @@ angular.module("administrador")
 
         bz.asignarMoneda = function (datos) {
             paisesService.asignarMoneda(datos).then(function (res) {
-                console.log(res)
                 notificacionService.mensaje('Asignación Exitosa.');
             })
         }
