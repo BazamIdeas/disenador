@@ -54,7 +54,7 @@ exports.Nuevo = (req,res) =>
 				if(data && data.affectedRows){
 					res.status(200).json({'insertId': id});
 				}else{
-					res.status(500).json({"msg":"Algo ocurrio"})
+					res.status(500).json({"msg":error})
 				}
 			});
 		}else{

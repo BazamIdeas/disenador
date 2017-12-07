@@ -42,45 +42,6 @@ angular.module("disenador-de-logos")
 
 
 
-
-    .value("mockupsValue", [{
-            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-            nombre: 'carta',
-            ancho: '40%'
-            },
-        {
-            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-            nombre: 'carta',
-            ancho: '40%'
-            }, {
-            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-            nombre: 'carta',
-            ancho: '30%'
-            }, {
-            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta',
-            ancho: '40%'
-            },
-        {
-            url: 'assets/img/Hoja_Carta_Mockup_Generador_de_logo.png',
-            nombre: 'carta',
-            ancho: '40%'
-            },
-        {
-            url: 'assets/img/Ipad_Mockup_Generador de logo_Negro_2.png',
-            nombre: 'carta',
-            ancho: '40%'
-            }, {
-            url: 'assets/img/Iphone_Mockup_Generador_de_logo_Blanco.png',
-            nombre: 'carta',
-            ancho: '30%'
-            }, {
-            url: 'assets/img/Remera_Mockup_Generador_de_logo.png',
-            nombre: 'carta',
-            ancho: '40%'
-            }
-        ])
-
     /*-------------------------- Services --------------------------*/
 
 
@@ -91,13 +52,15 @@ angular.module("disenador-de-logos")
     .service('categoriasService', ["$http", "$q", function ($http, $q) {
 
 
-        this.listaCategorias = function () {
+        this.listaCategorias = function (tipo) {
 
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            $http.get("/app/categorias").then(function (res) {
+            $http.post("/app/categorias", {
+                tipo: tipo
+            }).then(function (res) {
 
                 defered.resolve(res.data);
 
@@ -112,6 +75,31 @@ angular.module("disenador-de-logos")
 
 
         };
+
+
+        this.listaCategoriasElementos = function (idCategoria, tipo) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/elementos/categorias", {
+                idCategoria: idCategoria,
+                tipo: tipo
+            }).then(function (res) {
+
+                defered.resolve(res.data);
+
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+
+        }
 
 
     }])
@@ -144,9 +132,7 @@ angular.module("disenador-de-logos")
 
             return promise;
 
-
         };
-
 
     }])
 
@@ -165,7 +151,7 @@ angular.module("disenador-de-logos")
 
                 .then(function (res) {
 
-                    return res;
+                    return res.data;
 
                 })
 
@@ -184,12 +170,30 @@ angular.module("disenador-de-logos")
 
     .service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
 
-        this.paypal = function (datosPedido, tipoPago, tTarjeta, nTarjeta, expire_month, expire_year) {
 
-            tTarjeta = tTarjeta ? tTarjeta : null;
-            nTarjeta = nTarjeta ? nTarjeta : null;
-            expire_month = expire_month ? expire_month : null;
-            expire_year = expire_year ? expire_year : null;
+        this.listarPlanes = function () {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/planes/comprar").then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+
+            return promise;
+
+        }
+
+
+        this.paypal = function (idElemento, logo, idPrecio, tipoLogo, idPasarela) {
 
 
             var defered = $q.defer();
@@ -200,23 +204,15 @@ angular.module("disenador-de-logos")
                 idElemento: datosPedido.idElemento,
                 logo: datosPedido.logo,
                 idPrecio: datosPedido.idPrecio,
-                localidad: datosPedido.localidad,
                 tipoLogo: datosPedido.tipoLogo,
-                tipoPago: tipoPago
+                idPasarela: pasarela
             }
 
-            if (tipoPago == "credit_card") {
 
-                datos.tTarjeta = tTarjeta;
-                datos.nTarjeta = nTarjeta;
-                datos.expire_month = expire_month;
-                datos.expire_year = expire_year;
-
-            }
 
             $http.post("/app/pedido", datos).then(function (res) {
 
-                defered.resolve(res);
+                defered.resolve(res.data);
 
             }).catch(function (res) {
 
@@ -264,7 +260,7 @@ angular.module("disenador-de-logos")
     }])
 
 
-    .service('clientesService', ['$http', '$q', '$window', '$rootScope', 'SweetAlert', "clienteDatosFactory", function ($http, $q, $window, $rootScope, SweetAlert, clienteDatosFactory) {
+    .service('clientesService', ['$http', '$q', '$window', '$rootScope', "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
 
 
         this.registrar = function (datos) {
@@ -312,9 +308,13 @@ angular.module("disenador-de-logos")
 
         }
 
-        this.autorizado = function () {
+        this.autorizado = function (emitir) {
 
             if (clienteDatosFactory.obtener()) {
+
+                if (emitir) {
+                    $rootScope.$broadcast('sesionInicio', "true");
+                }
 
                 return clienteDatosFactory.obtener();
 
@@ -323,6 +323,10 @@ angular.module("disenador-de-logos")
                 if ($window.localStorage.getItem('bzToken')) {
 
                     clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+
+                    if (emitir) {
+                        $rootScope.$broadcast('sesionInicio', "true");
+                    }
 
                     return clienteDatosFactory.obtener();
 
@@ -336,14 +340,19 @@ angular.module("disenador-de-logos")
 
         }
 
-        this.salir = function (desactivarAlerta) {
+        this.salir = function (emitir, desactivarAlerta) {
 
-            $window.localStorage.removeItem('bzToken')
+            $window.localStorage.removeItem('bzToken');
             clienteDatosFactory.eliminar();
 
+            if (emitir) {
+
+                $rootScope.$broadcast("sesionExpiro")
+
+            }
+
             if (!desactivarAlerta) {
-                console.log(desactivarAlerta)
-                SweetAlert.swal("¡Ups!", "Tu sesion ha expirado", "warning");
+                alert("Alerta Sesion Expiro");
             }
         }
 
@@ -417,18 +426,24 @@ angular.module("disenador-de-logos")
 
             angular.forEach(iconos, function (icono, indice) {
 
-                angular.forEach(fuentes, function (fuente, indice) {
+                if (icono.estado == true) {
 
-                    var logo = {
+                    angular.forEach(fuentes, function (fuente, indice) {
 
-                        icono: icono,
-                        fuente: fuente
+                        if (fuente.estado == true) {
 
-                    };
+                            var logo = {
 
-                    logos.push(logo);
+                                icono: icono,
+                                fuente: fuente
 
-                })
+                            };
+
+                            logos.push(logo);
+                        }
+                    })
+
+                }
 
             })
 
@@ -501,6 +516,9 @@ angular.module("disenador-de-logos")
 
         }
             }])
+
+
+
 
 
 
@@ -651,20 +669,20 @@ angular.module("disenador-de-logos")
 
     .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
-
+            $window.localStorage.removeItem('bzToken')
+            clienteDatosFactory.eliminar();
             $rootScope.$broadcast('sesionExpiro', "true");
         }
 
         function autorizado() {
             if (clienteDatosFactory.obtener()) {
-                $rootScope.$broadcast('sesionInicio', "true")
+                //$rootScope.$broadcast('sesionInicio', "true")
                 return clienteDatosFactory.obtener();
             } else {
                 if ($window.localStorage.getItem('bzToken')) {
 
-
-                    $rootScope.$broadcast('sesionInicio', "true")
                     clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+                    //$rootScope.$broadcast('sesionInicio', "true")
                     return clienteDatosFactory.obtener();
                 } else {
                     return false;
