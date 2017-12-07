@@ -14,7 +14,7 @@ usuario.verificarUsuario = function (usuarioData, callback) {
 
 		connection.query(q, correo, function (err, row) {
 
-			console.log(row)
+			//console.log(row)
 			if (typeof row !== 'undefined' && row.length > 0)
 
 			{
@@ -47,11 +47,8 @@ usuario.verificarUsuario = function (usuarioData, callback) {
 				});
 
 			}
-
+			connection.release();
 		});
-
-		connection.release();
-
 
 	});
 
@@ -68,12 +65,10 @@ usuario.getUsuarios = function (callback) {
 
 			else callback(null, rows);
 
+			connection.release();
+
 		});
-
-		connection.release();
 	});
-
-
 };
 
 usuario.getUsuario = function (id, callback) {
@@ -87,9 +82,9 @@ usuario.getUsuario = function (id, callback) {
 
 			else callback(null, row);
 
-		});
+			connection.release();
 
-		connection.release();
+		});
 	});
 }
 
@@ -104,9 +99,8 @@ usuario.getUsuarioEmail = function (correo, callback) {
 
 			else callback(null, row);
 
+			connection.release();
 		});
-
-		connection.release();
 	});
 }
 
@@ -135,16 +129,15 @@ usuario.insertUsuario = function (usuarioData, callback) {
 						else callback(null, {
 							"insertId": result.insertId
 						});
-
+						connection.release();
 					});
-
-					connection.release();
+	
 				});
 			}
-
+			connection.release();
 		});
 
-		connection.release();
+		
 	});
 
 }
@@ -158,7 +151,7 @@ usuario.updateUsuario = function (body, callback) {
 
 		DB.getConnection(function (err, connection) {
 			connection.query(q, par, function (err, row) {
-				console.log(row)
+				//console.log(row)
 				if (typeof row !== 'undefined' && row.length > 0) {
 
 					if (passActual == row[0].pass) {
@@ -175,10 +168,8 @@ usuario.updateUsuario = function (body, callback) {
 								else callback(null, {
 									"affectedRows": row.affectedRows
 								});
-
-							});
-
-							connection.release();
+								connection.release();
+							});	
 						});
 
 					} else {
@@ -192,10 +183,10 @@ usuario.updateUsuario = function (body, callback) {
 						"msg": "El usuario no se encuentra"
 					});
 				}
-
+				connection.release();
 			});
 
-			connection.release();
+			
 		});
 
 	} else {
@@ -212,10 +203,9 @@ usuario.updateUsuario = function (body, callback) {
 				else callback(null, {
 					"affectedRows": row.affectedRows
 				});
-
+				connection.release();
 			});
 
-			connection.release();
 		});
 
 	}
@@ -235,9 +225,10 @@ usuario.changePassword = function (datos, callback) {
 				"msg": "modificacion exitosa"
 			});
 
+			connection.release();
 		});
 
-		connection.release();
+		
 	});
 }
 
@@ -261,18 +252,19 @@ usuario.deleteUsuario = function (id, callback) {
 						else callback(null, {
 							"msg": 'eliminado'
 						});
-
+						connection.release();
 					});
 
-					connection.release();
 				});
 
 			} else callback(null, {
 				"msg": "no existe el usuario"
 			});
+			
+			connection.release();
 		});
 
-		connection.release();
+		
 	});
 }
 

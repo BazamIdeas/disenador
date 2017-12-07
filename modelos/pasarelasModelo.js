@@ -13,10 +13,10 @@ pasarela.Listar = function(callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
+
+	  		connection.release();
 	  	
 	  	});
-
-	  	connection.release();
 	});
 
 }
@@ -34,10 +34,9 @@ pasarela.ListarPorPais = function(idMoneda, callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
-	  	
-	  	});
 
-	  	connection.release();
+	  		connection.release();
+	  	});
 	});
 
 }
@@ -57,15 +56,15 @@ pasarela.ListarMonedas = function(id,callback)
 	{
 		connection.query( q , par,  function(err, rows){
 	  	
-	  	console.log(rows)
+		  	//console.log(rows)
 
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  	connection.release();
+		  	connection.release();
+	  	
+	 	});  	
 	});
 
 }
@@ -88,20 +87,19 @@ pasarela.Nuevo = function(pasarelaData,callback)
 				{
 					connection.query( q , par , function(err, result){
 				  	
-				  	if(err)	throw err;
+					  	if(err)	throw err;
 
-				  	//devolvemos la última id insertada
-				  	else callback(null,{"insertId" : result.insertId}); 
-				  	
-				  });
-
-				  connection.release();
+					  	//devolvemos la última id insertada
+					  	else callback(null,{"insertId" : result.insertId}); 
+					  	
+					  	connection.release();
+				 	});
 				});
 }
 		  	else callback(null,{"msg":"Ya existe este pais"});
-	  	});
 
-	  connection.release();
+		  	connection.release();
+	  	});
 	});
 }
 
@@ -118,7 +116,7 @@ pasarela.AsignarMoneda = function(pasarelaMoneda,callback)
 	{
 		connection.query( q , [pasarelaMoneda.pasarelas_idPasarela, pasarelaMoneda.monedas_idMoneda] , function(err, row)
 		{
-			console.log(row[0].cantidad)
+			//console.log(row[0].cantidad)
 	  	 	//si existe la id del cliente a eliminar
 		  	if (!row[0].cantidad)
 		  	{
@@ -132,17 +130,19 @@ pasarela.AsignarMoneda = function(pasarelaMoneda,callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"affectedRows" : result.affectedRows }); 
-				  	
+				  		
+				  		connection.release();
 				 	});
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"La moneda ya esta asignada"});
+		  	connection.release();
 	  	});
 
-	connection.release();
+	
 	});
 }
 
@@ -169,17 +169,21 @@ pasarela.DesasignarMoneda = function(pasarelaMoneda,callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"msg" : 'eliminado'}); 
+
+					  	connection.release();
 				  	
 				 	});
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"La moneda ya esta asignada"});
+
+		  	connection.release();
 	  	});
 
-		connection.release();
+		
 	});
 }
 
@@ -195,10 +199,12 @@ pasarela.Obtener = function(id,callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, row);
+
+	  		connection.release();
 	  	
 	  	});
 
-	  	connection.release();
+	  	
 	});
 }
  
@@ -214,10 +220,12 @@ pasarela.Modificar = function(pasarelaData, callback)
 	  		if(err)	throw err;
 
 	  		else callback(null, {"affectedRows" : row.affectedRows }); 
+
+	  		connection.release();
 	  	
 	  	});
 
-	  	connection.release();
+	  	
 	});
 }
 
@@ -243,17 +251,21 @@ pasarela.Borrar = function(id, callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"msg" : 'eliminado'}); 
+
+					  	connection.release();
 				  	
 				 	 });
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe esta Etiqueta"});
+
+		  	connection.release();
 	  	});
 
-	  connection.release();
+	  
 	});
 }
 

@@ -43,9 +43,10 @@ cliente.verificarCliente = function(clienteData,callback)
 		  				
 		  		}
 
-				 });
+		  		connection.release();
+			});
 
-				  connection.release();
+				  
 
 		  
 		});
@@ -63,13 +64,13 @@ cliente.getClientes = function(callback)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+		  	connection.release();
+		});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -84,13 +85,14 @@ cliente.getCliente = function(id,callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
+		  	
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 }
  
@@ -104,13 +106,14 @@ cliente.getClienteEmail = function(correo,callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
+		  	
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 }
  
@@ -137,20 +140,20 @@ cliente.insertCliente = function(clienteData,callback)
 				{
 					connection.query( qq , par , function(err, result){
 				  	
-				  	if(err)	throw err;
+					  	if(err)	throw err;
 
-				  	//devolvemos la última id insertada
-				  	else callback(null,{"insertId" : result.insertId}); 
-	  	
-				  });
+					  	//devolvemos la última id insertada
+					  	else callback(null,{"insertId" : result.insertId}); 
+		  				
+		  				connection.release();
 
-				  connection.release();
+				 	});
+
 				});
 	  		} 
-	  	
-	  });
-
-	  connection.release();
+	  		connection.release();
+		});
+ 
 	});
 
 }
@@ -166,7 +169,7 @@ cliente.updateCliente = function(body, passActual, callback)
 		DB.getConnection(function(err, connection)
 		{
 			connection.query( q , par , function(err, row){
-				console.log(row)
+				//console.log(row)
 				if (typeof row !== 'undefined' && row.length > 0){
 
 		  			if (passActual == row[0].pass) {
@@ -179,13 +182,14 @@ cliente.updateCliente = function(body, passActual, callback)
 						{
 							connection.query( qq , parqq , function(err, row){
 						  	
-						  	if(err)	throw err;
+							  	if(err)	throw err;
 
-						  	else callback(null,{"affectedRows" : row.affectedRows}); 
-						  	
-						  });
+							  	else callback(null,{"affectedRows" : row.affectedRows}); 
+							  	
+							  	connection.release();
+							});
 
-						  connection.release();
+						  
 						});
 
 		  			}else{
@@ -195,10 +199,9 @@ cliente.updateCliente = function(body, passActual, callback)
 		  		}else{
 		  			callback(null,{"msg" : "El usuario no se encuentra"}); 
 		  		}
-		  	
-		  });
-
-		  connection.release();
+		  		connection.release();
+			});
+  
 		});
 	
 	}else{
@@ -216,9 +219,8 @@ cliente.updateCliente = function(body, passActual, callback)
 
 		  		else callback(null,{"affectedRows" : row.affectedRows}); 
 		  	
-		  	});
-
-		  connection.release();
+		  		connection.release();
+		  	}); 
 		});
 
 	}
@@ -235,13 +237,11 @@ cliente.changePassword = function(datos, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
-	  	
-	  });
-
-	  connection.release();
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	connection.release();
+		}); 
 	});
 }
 
@@ -269,17 +269,20 @@ cliente.deleteCliente = function(id, callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"msg" : 'eliminado'}); 
-				  	
-				 	 });
+				  		
+				  		connection.release();
+				 	});
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe el cliente"});
+
+		  	connection.release();
 	  	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -297,9 +300,9 @@ cliente.obtenerIdCliente = function(uid,callback)
 	  	
 	  	else callback(null, row);
 	  	
+	  	connection.release();
 	  });
 
-	  connection.release();
 	});
 }
 

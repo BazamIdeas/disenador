@@ -13,13 +13,15 @@ pedido.getPedidos = function(callback)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+		  	
+	  	});
+
+	  
 	});
 }
 
@@ -34,10 +36,12 @@ pedido.ListarPorPais = function(iso,callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
+
+	  		connection.release();
 	  	
 	  	});
 
-	  	connection.release();
+	  	
 	});
 }
 
@@ -63,13 +67,15 @@ pedido.getPedido = function(id,callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
 
-	  connection.release();
+		  	connection.release();
+	  	
+	  	});
+
+	  
 	});
 }
 
@@ -83,13 +89,13 @@ pedido.getPedidosCliente = function(id,callback)
 	{
 		connection.query( q , par , function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+	  	
+	 	});
 	});
 }
  
@@ -104,14 +110,16 @@ pedido.insertPedido = function(pedidoData,callback)
 	{
 		connection.query( q , par , function(err, result){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
+		  	//devolvemos la última id insertada
+		  	else callback(null,{"insertId" : result.insertId}); 
+
+		  	connection.release();
 	  	
-	  });
+	 	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -125,13 +133,15 @@ pedido.updatePedido = function(pedidoData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+
+		  	connection.release();
 	  	
-	  });
+	 	 });
 
-	  connection.release();
+	  
 	});
 }
 
@@ -145,13 +155,14 @@ pedido.cambiarEstado = function(pedidoData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+
+		  	connection.release();
 	  	
-	  });
-
-	  connection.release();
+		 });
+	  
 	});
 }
 
@@ -178,17 +189,20 @@ pedido.deletePedido = function(id, callback)
 				  		if(err)	throw err;
 
 					  	else callback(null,{"msg" : "eliminado"}); 
-				  	
+				  		
+				  		connection.release();
 				 	 });
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe el pedido"});
+
+		  	connection.release();
 	  	});
 
-	  connection.release();
+	  
 	});
 }
 

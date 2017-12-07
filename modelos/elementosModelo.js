@@ -12,14 +12,14 @@ elemento.datosElemento = function( id, callback)
 		
 		connection.query( q ,id, function(err, rows){
 
-	  	if(err)	throw err;
-	  	
-	  	else 
-	  	callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  	callback(null, rows);
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -33,14 +33,13 @@ elemento.ListarFuentes = function(callback)
 		
 		connection.query( q, function(err, rows){
 
-	  	if(err)	throw err;
-	  	
-	  	else 
-	  	callback(null, rows);
-	  	
-	  });
-
-	  connection.release();
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  	callback(null, rows);
+		  	connection.release();
+	  	});
+	  
 	});
 }
 
@@ -55,14 +54,14 @@ elemento.getElementos = function( datos, callback)
 		
 		connection.query( q ,datos, function(err, rows){
 
-	  	if(err)	throw err;
-	  	
-	  	else 
-	  	callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  	callback(null, rows);
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -75,14 +74,14 @@ elemento.getElementosIncat = function( datos, callback)
 		
 		connection.query( q ,datos, function(err, rows){
 
-	  	if(err)	throw err;
-	  	
-	  	else 
-	  	callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  	callback(null, rows);
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 }
 // insertar  te quedaste aqui
@@ -95,14 +94,14 @@ elemento.insertElemento = function(datos,callback)
 	{
 		connection.query( q , elemen , function(err, result){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
-	  	
-	  });
+		  	//devolvemos la última id insertada
+		  	else callback(null,{"insertId" : result.insertId}); 
+		  	connection.release();
+	 	 });
 
-	  connection.release();
+	  
 	});
 }
 elemento.getElementosInpref = function( datos, callback)
@@ -116,14 +115,15 @@ elemento.getElementosInpref = function( datos, callback)
 		
 		connection.query( q ,elePrefer, function(err, result){
 
-	  	if(err)	throw err;
-	  	
-	  	else 
-	  		callback(null,{"insertId" : result.insertId}); 
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  		callback(null,{"insertId" : result.insertId}); 
+		  	
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -138,14 +138,15 @@ elemento.ModificarPreferencias = function(datos, callback)
 		
 		connection.query( q ,elePrefer, function(err, result){
 
-	  	if(err)	throw err;
-	  	
-	  	else 
-	  		callback(null,{"affectedRows" : result.affectedRows}); 
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  		callback(null,{"affectedRows" : result.affectedRows}); 
+		  	
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});	
 }
 
@@ -158,14 +159,14 @@ elemento.insertFuente = function(datos,callback)
 	{
 		connection.query( q , fuen , function(err, result){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
-	  	
-	  });
+		  	//devolvemos la última id insertada
+		  	else callback(null,{"insertId" : result.insertId}); 
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -178,13 +179,13 @@ elemento.cambiarEstado = function(data, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
-	  	
-	  });
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 }
  
