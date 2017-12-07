@@ -428,9 +428,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
 
                         var defered = $q.defer();
+
                         var promise = defered.promise;
-
-
 
                         if ($stateParams.status) {
 
@@ -449,13 +448,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                             });
                         }
 
-
-
                         return promise;
 
-
                     }]
-
 
                 }
             })
@@ -465,6 +460,14 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 url: '/planes',
                 templateUrl: 'app/views/v2/planes.tpl',
                 controller: 'planesController as planes',
+                params: {
+                    status: null,
+                    datos: {
+                        logo: null,
+                        idElemento: null,
+                        tipo: null
+                    }
+                },
                 resolve: {
                     currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
@@ -474,14 +477,93 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                         }
 
+                    }],
+                    historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
+
+                        var defered = $q.defer();
+
+                        var promise = defered.promise;
+
+                        if ($stateParams.status) {
+
+                            LS.definir('planes', $stateParams.datos);
+
+                            defered.resolve($stateParams.datos);
+
+                        } else if (LS.obtener('planes')) {
+
+                            defered.resolve(LS.obtener('planes'));
+
+                        } else {
+
+                            defered.reject({
+                                error: 'FALLO_HISTORICO'
+                            });
+                        }
+
+                        return promise;
+
                     }]
-                },
+                }
             })
 
             .state({
                 name: 'pago',
                 url: '/pago',
                 templateUrl: 'app/views/v2/pago.tpl',
+                controller: 'pagoController as pago',
+                params: {
+                    status: null,
+                    datos: {
+
+                        logo: null,
+                        idElemento: null,
+                        tipo: null,
+                        plan: {
+                            nombre: null,
+                            idPlan: null
+                        },
+                        precio: {
+                            moneda: {
+                                simbolo: null,
+                                idMoneda: null
+                            },
+                            monto: null,
+                            idPrecio: null
+                        }
+
+                    }
+                },
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }],
+                    historicoResolve: ["$q", "$stateParams",  function ($q, $stateParams) {
+
+                        var defered = $q.defer();
+
+                        var promise = defered.promise;
+          
+                        if ($stateParams.status) {
+
+                            defered.resolve($stateParams.datos);
+                        } else  {
+
+                            defered.reject({
+                                error: 'FALLO_HISTORICO'
+                            });
+                        }
+
+                        return promise;
+
+                    }]
+                }
             })
 
         //redirecciones
@@ -517,9 +599,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                             case '':
                                 $state.go("principal.comenzar");
                                 break;
+                                
+                            case 'principal.combinaciones':
+                                break;
+                                
 
                             default:
-
                                 $state.go("principal.comenzar");
                         }
 
@@ -536,7 +621,20 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                             default:
 
                                 $state.go("principal.comenzar");
+                        }
 
+                        break;
+                        
+                    case 'pago':
+
+                        switch (fromState.name) {
+
+                            case '':       
+                                $state.go("principal.comenzar");
+                                break;
+
+                            default:
+                                $state.go("principal.comenzar");
                         }
 
                         break;
@@ -552,7 +650,25 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             } else if (error.error === "FALLO_HISTORICO") {
 
 
-                $state.go('principal.comenzar');
+               switch (toState.name) {
+
+                    case 'editor':
+
+                        $state.go("principal.comenzar");
+                        break;
+
+                    case 'planes':
+                       
+                        $state.go("editor");
+                        break;
+                        
+                    case 'pago':
+     
+                        $state.go("planes");
+                        break;
+
+
+                }
 
             }
             console.log(error)

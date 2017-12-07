@@ -468,16 +468,17 @@ angular.module("disenador-de-logos")
                             $(this).attr("transform", newMatrix);
                             currentX = evento.clientX;
                             currentY = evento.clientY;
+                            
 
                         };
 
                     });
 
                     angular.element(document.querySelector("body")).mouseup(function (evento) {
-
+                        
                         $("text.textoPrincipal, g.contenedor-icono").removeAttr("movimiento-bz");
-                        scope.svgFinal = element.html();
-
+                        scope.svgFinal = angular.element(document.querySelector("bazam-svg")).html()
+                      
                     });
 
                     ///////////////////////////////////////////
@@ -746,6 +747,21 @@ angular.module("disenador-de-logos")
                         scope.svgFinal = element.html();
 
                     })
+                    
+                    
+                    
+                    
+                    
+                    
+                    scope.$on("editor:planes", function(){
+                         
+                        $rootScope.$broadcast("directiva:planes", scope.svgFinal);
+                        
+                    })
+                        
+                        
+               
+                    
 
                 }
             }
@@ -766,7 +782,7 @@ angular.module("disenador-de-logos")
 
             },
             link: function (scope, element, attributes) {
-
+                
                 element.html(scope.svg);
                 element.html(element.html());
 
