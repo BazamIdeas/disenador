@@ -58,7 +58,9 @@ angular.module("disenador-de-logos")
 
             var promise = defered.promise;
 
-            $http.post("/app/categorias", {tipo: tipo}).then(function (res) {
+            $http.post("/app/categorias", {
+                tipo: tipo
+            }).then(function (res) {
 
                 defered.resolve(res.data);
 
@@ -73,15 +75,18 @@ angular.module("disenador-de-logos")
 
 
         };
-        
-        
-        this.listaCategoriasElementos = function(idCategoria, tipo){
-            
+
+
+        this.listaCategoriasElementos = function (idCategoria, tipo) {
+
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            $http.post("/app/elementos/categorias", {idCategoria: idCategoria, tipo: tipo}).then(function (res) {
+            $http.post("/app/elementos/categorias", {
+                idCategoria: idCategoria,
+                tipo: tipo
+            }).then(function (res) {
 
                 defered.resolve(res.data);
 
@@ -93,7 +98,7 @@ angular.module("disenador-de-logos")
             })
 
             return promise;
-            
+
         }
 
 
@@ -165,14 +170,29 @@ angular.module("disenador-de-logos")
 
     .service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
 
-        
-        this.listarPlanes = function(){
-            
-            
-            
+
+        this.listarPlanes = function () {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/planes/comprar").then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+
+            return promise;
+
         }
-        
-        
+
+
         this.paypal = function (idElemento, logo, idPrecio, tipoLogo, idPasarela) {
 
 
@@ -188,11 +208,11 @@ angular.module("disenador-de-logos")
                 idPasarela: pasarela
             }
 
-        
+
 
             $http.post("/app/pedido", datos).then(function (res) {
 
-                defered.resolve(res);
+                defered.resolve(res.data);
 
             }).catch(function (res) {
 
@@ -291,11 +311,11 @@ angular.module("disenador-de-logos")
         this.autorizado = function (emitir) {
 
             if (clienteDatosFactory.obtener()) {
-                
-                if(emitir){
+
+                if (emitir) {
                     $rootScope.$broadcast('sesionInicio', "true");
                 }
-                
+
                 return clienteDatosFactory.obtener();
 
             } else {
@@ -303,11 +323,11 @@ angular.module("disenador-de-logos")
                 if ($window.localStorage.getItem('bzToken')) {
 
                     clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
-                    
-                    if(emitir){
+
+                    if (emitir) {
                         $rootScope.$broadcast('sesionInicio', "true");
                     }
-                    
+
                     return clienteDatosFactory.obtener();
 
                 } else {
@@ -325,12 +345,12 @@ angular.module("disenador-de-logos")
             $window.localStorage.removeItem('bzToken');
             clienteDatosFactory.eliminar();
 
-            if(emitir){
-                
+            if (emitir) {
+
                 $rootScope.$broadcast("sesionExpiro")
-                
+
             }
-            
+
             if (!desactivarAlerta) {
                 alert("Alerta Sesion Expiro");
             }
@@ -405,13 +425,13 @@ angular.module("disenador-de-logos")
             var logos = [];
 
             angular.forEach(iconos, function (icono, indice) {
-                
-                if(icono.estado == true){
-                
+
+                if (icono.estado == true) {
+
                     angular.forEach(fuentes, function (fuente, indice) {
-                        
-                        if(fuente.estado == true){
-                        
+
+                        if (fuente.estado == true) {
+
                             var logo = {
 
                                 icono: icono,
