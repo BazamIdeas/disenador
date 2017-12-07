@@ -432,17 +432,17 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
 
-                        if ($stateParams.status) { 
-                            
+                        if ($stateParams.status) {
+
                             LS.definir('editor', $stateParams.datos);
 
                             defered.resolve($stateParams.datos);
 
-                        } else if (LS.obtener('editor')) { 
+                        } else if (LS.obtener('editor')) {
 
                             defered.resolve(LS.obtener('editor'));
 
-                        } else { 
+                        } else {
 
                             defered.reject({
                                 error: 'FALLO_HISTORICO'
@@ -463,13 +463,25 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             .state({
                 name: 'planes',
                 url: '/planes',
-                templateUrl: 'app/views/v2/planes.tpl',                
+                templateUrl: 'app/views/v2/planes.tpl',
+                controller: 'planesController as planes',
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }]
+                },
             })
 
             .state({
                 name: 'pago',
                 url: '/pago',
-                templateUrl: 'app/views/v2/pago.tpl',            
+                templateUrl: 'app/views/v2/pago.tpl',
             })
 
         //redirecciones
@@ -494,22 +506,44 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 $state.go("principal.comenzar");
 
             } else if (error === "AUTH_REQUIRED") {
-                /*
-                $state.go("login", ({
-                    origen: fromState.name,
-                    destino: toState.name,
-                    parametrosDestino: toParams
-                }));
-                */
-
-                if (toParams.status) {
 
 
-                } else {
+                switch (toState.name) {
 
-                    $state.go("login");
+                    case 'editor':
+
+                        switch (fromState.name) {
+
+                            case '':
+                                $state.go("principal.comenzar");
+                                break;
+
+                            default:
+
+                                $state.go("principal.comenzar");
+                        }
+
+                        break;
+
+                    case 'planes':
+
+                        switch (fromState.name) {
+
+                            case '':
+                                $state.go("principal.comenzar");
+                                break;
+
+                            default:
+
+                                $state.go("principal.comenzar");
+
+                        }
+
+                        break;
+
 
                 }
+
 
             } else if (error === "LOGOUT_REQUIRED") {
 
@@ -521,7 +555,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 $state.go('principal.comenzar');
 
             }
-
             console.log(error)
+
         });
     })

@@ -233,7 +233,7 @@ angular.module("disenador-de-logos")
 
         $scope.$on('sesionExpiro', function (event, data) {
 
-            $state.go('login');
+            $state.go('principal.comenzar');
 
         });
 
