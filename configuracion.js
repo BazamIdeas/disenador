@@ -1,4 +1,3 @@
-
 var node_env = process.env.NODE_ENV || 'desarrollo';
 
 var configuracion = {

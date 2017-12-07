@@ -1,0 +1,146 @@
+<div class="row start-xs">
+
+    <!-- LISTAR PEDIDOS -->
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="paneles md-whiteframe-2dp listar">
+            <div layout-padding ng-click="pedidos.listaP()" class="titulo-modulo">
+                <texto layout-padding>LISTADO DE PEDIDOS</texto>
+            </div>
+            <div ng-show="pedidos.mostrarP">
+                <div class="elemento preferencias-oculto" ng-click="pedidos.mp1 = !pedidos.mp1">
+                    <span>FILTROS</span>
+                </div>
+                <div ng-if="pedidos.mp1">
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="pedidos.filtrosActivos.fecha" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div layout class="elemento">
+                        <md-input-container flex>
+                            <label>Estado:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.estado" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="estado.nombre" ng-repeat="estado in pedidos.filtros.estados | unique">{{estado.nombre}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Pais:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.pais" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="pais" ng-repeat="pais in pedidos.filtros.paises | unique:'pais'">{{pais}}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Moneda:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.moneda" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="moneda" ng-repeat="moneda in pedidos.filtros.monedas | unique">{{moneda}}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Plan:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.plan" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="plan" ng-repeat="plan in pedidos.filtros.planes | unique">{{plan}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="tabla">
+                    <div>Fecha:</div>
+                    <div>Cliente:</div>
+                    <div>Estado:</div>
+                    <div>Pais:</div>
+                    <div>Acciones:</div>
+                </div>
+                <div layout="column" class="content-scroll lista">
+                    <div ng-repeat="elemento in pedidos.elementos | filter:pedidos.filtrosActivos" class="elemento nopadding" ng-click="pedidos.activar($event)">
+                        <div class="estado-pedido pequeno {{elemento.estado}}"></div>
+                        <div class="tabla-campo" layout-padding>
+                            <div>{{elemento.fecha | date : 'M/d/yy'}}</div>
+                            <div>{{elemento.nombreCliente}}</div>
+                            <div>{{elemento.estado}}</div>
+                            <div>{{elemento.pais}}</div>
+                            <div>
+                                <div>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="pedidos.pedidoDetalles(elemento.idPedido, $index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Detalles Pedido</md-tooltip>
+                                        <md-icon class="material-icon">keyboard_arrow_right</md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="pedidos.valPedidos" class="mensaje-resultado">
+                        <h3>NO SE ENCONTRARON PEDIDOS</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETALLES PEDIDOS -->
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-show="pedidos.mostrarD">
+        <div class="paneles md-whiteframe-2dp listar">
+            <div layout-padding class="titulo-modulo">
+                <texto>DETALLES</texto>
+            </div>
+            <div layout="column" class="content-scroll">
+                <div ng-repeat="pedido in pedidos.pedidoDetalle" class="elemento nopadding">
+                    <div class="estado-pedido {{pedido.estado}}"></div>
+                    <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
+                        <div flex="45">
+                            <b>Fecha:</b> {{pedido.fecha | date : shortDate }}</div>
+                        <div flex="45">
+                            <b>Cliente:</b> {{pedido.nombreCliente}}</div>
+                        <div flex="45">
+                            <b>Correo:</b> {{pedido.correo}}</div>
+                        <div flex="45">
+                            <b>Telefono:</b> {{pedido.telefono}}</div>
+                        <div flex="45">
+                            <b>Estado:</b> {{pedido.estado}}</div>
+                        <div flex="45">
+                            <b>Plan:</b> {{pedido.plan}}</div>
+                        <div flex="45">
+                            <b>Precio:</b> {{pedido.precio}} {{pedido.moneda}}</div>
+                        <div flex="45">
+                            <b>Pais:</b> {{pedido.pais}}</div>
+                        <div flex="45">
+                            <b>Categoria:</b> {{pedido.nombreCategoria}}</div>
+                    </div>
+                    <div layout layout-padding>
+                        <md-input-container class="md-block" flex="50">
+                            <label>CAMBIAR ESTADO</label>
+                            <md-select ng-model="pedido.estado" aria-label="estado">
+                                <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'COMPLETADO', $index)" value="COMPLETADO">
+                                    COMPLETADO
+                                </md-option>
+
+                                <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'EN ESPERA', $index)" value="EN ESPERA">
+                                    EN ESPERA
+                                </md-option>
+                                <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'CANCELADO', $index)" value="CANCELADO">
+                                    CANCELADO
+                                </md-option>
+
+                                <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'EN PROCESO', $index)" value="EN PROCESO">
+                                    EN PROCESO
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <h3 class="text-center">LOGO</h3>
+                    <br>
+                    <div class="pedido-logo">
+
+                        <bazam-visualizar data-svg="pedidos.base64(pedido.logo)"></bazam-visualizar>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

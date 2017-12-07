@@ -2,123 +2,56 @@ angular.module("disenador-de-logos")
 
 /* Proceso */
 
-.controller('procesoController', ['$scope', '$stateParams', 'crearLogoFactory', '$mdDialog', 'LS', '$state', '$base64', function ($scope, $stateParams, crearLogoFactory, $mdDialog, LS, $state, $base64) {
+.controller('procesoController', ['crearLogoFactory', '$mdDialog', '$base64', '$mdSidenav', 'historicoResolve', function (crearLogoFactory, $mdDialog, $base64, $mdSidenav, historicoResolve) {
 
+    var bz = this;
 
-    this.base64 = function (icono) {
-
+    
+    bz.base64 = function (icono) {
         return $base64.decode(icono);
-
     }
 
+    bz.cambiarMenu = function (lugar) {
 
-    /* LOCAL STORAGE */
-
-    this.definirInfo = function (llave, datos) {
-        return LS.definir(llave, datos);
+        return $mdSidenav('right').toggle();
     }
+    
+    bz.datosEstadoAnterior = historicoResolve;
 
-    if ($stateParams.datos) {
-        this.definirInfo($state.current.name, $stateParams.datos);
-        this.datosEstadoAnterior = $stateParams.datos;
+    bz.datos = [];
 
-    } else if (LS.obtener($state.current.name)) {
+    bz.logos = crearLogoFactory(bz.datosEstadoAnterior.elementos.iconos, bz.datosEstadoAnterior.elementos.fuentes);
 
-        this.datosEstadoAnterior = JSON.parse(LS.obtener($state.current.name));
-    } else {
-        $state.go('opciones');
-    }
+    bz.efectoHover = function (indice, valor) {
 
-    /* *************** */
+        if (!bz.datos[indice]) {
 
-    this.datos = [];
-
-    this.logos = crearLogoFactory(this.datosEstadoAnterior.elementos.iconos, this.datosEstadoAnterior.elementos.fuentes);
-
-    this.efectoHover = function (indice, valor) {
-
-        if (!this.datos[indice]) {
-
-            this.datos[indice] = valor;
-            this.logos[indice].estado = true;
+            bz.datos[indice] = valor;
+            bz.logos[indice].estado = true;
 
         } else {
 
-            delete this.datos[indice];
-            this.logos[indice].estado = false;
+            delete bz.datos[indice];
+            bz.logos[indice].estado = false;
         }
 
     }
 
 
-    /*Posiciones */
+    /* Posiciones */
 
-    this.posicion = {
-
+    bz.posicion = {
         coordenadas: {
-            x: 256,
-            y: 600
-        },
-        actual: 'bottom'
+            x:'56',
+            y:'500'
+        }
     }
-
-
-
-    this.cambiarPosicion = function (valor) {
-        /*
-                if (valor == 'bottom') {
-
-                    coordenadas = {
-                        x: 256,
-                        y: 600
-                    }
-
-                } else if (valor == 'top') {
-
-                    coordenadas = {
-                        x: 256,
-                        y: 0
-                    }
-
-                } else if (valor == 'right') {
-
-                    coordenadas = {
-                        x: 512,
-                        y: 300
-                    }
-
-                } else if (valor == 'left') {
-
-                    coordenadas = {
-                        x: 0,
-                        y: 300
-                    }
-
-                }
-                
-               
-
-
-
-                this.posicion.coordenadas = coordenadas;
-                
-                 */
-
-        this.posicion.clase = this.posicion.actual + "-" + valor;
-        this.posicion.claseG = this.posicion.actual + "-" + valor + "-g";
-        this.posicion.actual = valor;
-
-
-    }
-
-
-
 
     /* Barra */
 
-    this.isOpen = false;
+    bz.isOpen = false;
 
-    this.estadoProcesoBarra = {
+    bz.estadoProcesoBarra = {
         isOpen: false,
         count: 0,
         selectedDirection: 'left'

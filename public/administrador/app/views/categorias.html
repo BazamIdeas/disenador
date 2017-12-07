@@ -1,0 +1,248 @@
+<div class="row start-xs">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="listar">
+            <!-- LISTAR CATEGORIAS -->
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex ng-click="categorias.mostrarCat()">LISTADO DE CATEGORIAS</texto>
+                    <md-button class="md-primary md-fab md-mini" ng-click="categorias.opcionesCategorias = 3" style="margin:0;">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </div>
+                <div>
+                    <div ng-show="categorias.mostrarC" class="elemento">
+                        <md-button class="md-raised md-primary" ng-click="categorias.listarCategorias('ICONO')">ICONO</md-button>
+                        <md-button class="md-raised md-primary" ng-click="categorias.listarCategorias('FUENTE')">FUENTE</md-button>
+                    </div>
+                    <DIV  ng-if="categorias.cats.length > 0 && categorias.f">
+                        <div layout class="elemento">
+                            <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                                <input type="text" ng-model="categorias.buscarC" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                            </md-input-container>
+                        </div>
+                        <div class="tabla">
+                            <div>Nombre:</div>
+                            <span></span>
+                            <div>Acciones:</div>
+                        </div>
+                        <div layout="column" class="content-scroll">
+                            <div layout layout-align="center" ng-show="categorias.loaderMostrar" class="margen_superior">
+                                <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                            </div>
+                            <div ng-repeat="elemento in categorias.cats| filter:categorias.buscarC track by $index " class="elemento">
+                                <div class="tabla-campo">
+                                    <div class="nombre">{{elemento.nombreCategoria}}</div>
+                                    <div class="acciones">
+                                        <!--<div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="categorias.eliminar(elemento.idCategoria, 'categoria', $index)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar Categoria</md-tooltip>
+                                            <md-icon class="material-icon">close</md-icon>
+                                        </md-button>
+                                    </div>
+                                -->
+                                        <div>
+                                            <md-button class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idCategoria, elemento.nombreCategoria, 'categoria', $index)">
+                                                <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Categoria</md-tooltip>
+                                                <md-icon class="material-icon">edit</md-icon>
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </DIV>
+
+                </div>
+            </div>
+
+            <!-- LISTAR PREFERENCIAS -->
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex ng-click="categorias.mostrarPre = !categorias.mostrarPre">LISTADO DE PREFERENCIAS</texto>
+                    <md-button class="md-primary md-fab md-mini" ng-click="categorias.opcionesCategorias = 4" style="margin:0;">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </div>
+                <div ng-if="categorias.mostrarPre && categorias.prefs.length > 0">
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="categorias.buscarP" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div class="tabla">
+                        <div>Nombre 1:</div>
+                        <div>Nombre 2:</div>
+                        <div>Acciones:</div>
+                    </div>
+                    <div layout="column" class="content-scroll">
+                        <div layout layout-align="center" ng-show="categorias.loaderMostrar" class="margen_superior">
+                            <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                        </div>
+                        <div ng-repeat="elemento in categorias.prefs | filter:categorias.buscarP track by $index" class="elemento">
+                            <div class="tabla-campo">
+                                <div class="nombre">{{elemento.nombre1}}</div>
+                                <div class="nombre">{{elemento.nombre2}}</div>
+                                <div>
+                                    <!--
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="categorias.eliminar(elemento.idPreferencia, 'preferencia', $index)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar Preferencia</md-tooltip>
+                                            <md-icon class="material-icon">close</md-icon>
+                                        </md-button>
+                                    </div>
+                                -->
+
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idPreferencia, elemento.nombre1+' y '+ elemento.nombre2, 'preferencia', $index)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Preferencia</md-tooltip>
+                                            <md-icon class="material-icon">edit</md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-switch="categorias.opcionesCategorias">
+        <div class="paneles md-whiteframe-2dp listar">
+            <!-- MODIFICAR CATEGORIA -->
+            <div ng-switch-when="1">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>Modificar Categoria</texto>
+                    <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.modificarElemento(categorias.datos.modCategoria, 'categoria')" novalidate>
+                        <div layout="column" layout-align="space-between">
+                            <h3 class="text-center">Modificar {{categorias.modNombre}}</h3>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre</label>
+                                    <input type="text" ng-model="categorias.datos.modCategoria.nombreCategoria" name="nombre">
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                            <div layout layout-align="center" ng-show="categorias.loaderCargando" class="margen_superior">
+                                <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- MODIFICAR PREFERENCIA -->
+            <div ng-switch-when="2">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto>Modificar Preferencia</texto>
+                    <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.modificarElemento(categorias.datos.modPreferencia, 'preferencia')" novalidate>
+                        <div layout="column" layout-align="space-between">
+                            <h3 class="text-center">Modificar {{categorias.modNombre}}</h3>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre 1</label>
+                                    <input type="text" ng-model="categorias.datos.modPreferencia.nombre1" name="nombre">
+                                </md-input-container>
+                            </div>
+
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre 2</label>
+                                    <input type="text" ng-model="categorias.datos.modPreferencia.nombre2" name="nombre2">
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- CREAR CATEGORIA -->
+
+            <div ng-switch-when="3">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>Nueva Categoria</texto>
+                    <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.crear(categorias.datos.nuevaCategoria, 'categoria')" novalidate id="form-new-category">
+                        <div layout="column" layout-align="space-between">
+                            <h3 class="text-center">Nueva Categoria</h3>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre</label>
+                                    <input type="text" ng-model="categorias.datos.nuevaCategoria.nombreCategoria" name="nombre">
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>TIPO</label>
+                                    <md-select ng-model="categorias.datos.nuevaCategoria.tipo" aria-label="estado">
+                                        <md-option value="ICONO">
+                                            ICONO
+                                        </md-option>
+                                        <md-option value="FUENTE">
+                                            FUENTE
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- CREAR PREFERENCIA -->
+
+            <div ng-switch-when="4">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>Nueva Preferencia</texto>
+                    <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.crear(categorias.datos.nuevaPreferencia, 'preferencia')" novalidate>
+                        <div layout="column" layout-align="space-between">
+                            <h3 class="text-center">Nueva Preferencia</h3>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre 1</label>
+                                    <input type="text" ng-model="categorias.datos.nuevaPreferencia.nombre1" name="nombre">
+                                </md-input-container>
+                            </div>
+
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre 2</label>
+                                    <input type="text" ng-model="categorias.datos.nuevaPreferencia.nombre2" name="nombre2">
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

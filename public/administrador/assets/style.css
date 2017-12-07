@@ -1,7 +1,109 @@
+:root {
+    /* HELPS */
+    --padding-editor: 16px;
+    --padding-top: 16px;
+    --padding-left: 16px;
+    --padding-right: 16px;
+    --padding-bottom: 16px;
+    --margin-top: 16px;
+    --margin-left: 16px;
+    --margin-right: 16px;
+    --margin-bottom: 16px;
+    background: transparent;
+}
+
+
+/* fallback */
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url('material.woff2') format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+.pedido-logo {
+    width: 40%;
+    margin: auto;
+}
+
+
+.margen_inferior {
+    margin-bottom: var(--margin-bottom);
+}
+
+.margen_izquierdo {
+    margin-left: var(--margin-left);
+}
+
+.margen_derecho {
+    margin-right: var(--margin-right);
+}
+
+.margen_superior {
+    margin-top: var(--margin-top);
+}
+
+.margen-cero {
+    margin: 0;
+}
+
+.padding-cero {
+    padding: 0 !important;
+}
+
+.padding_top {
+    padding-top: var(--padding-top);
+}
+
+.padding_left {
+    padding-left: var(--padding-left);
+}
+
+.padding_right {
+    padding-right: var(--padding-right);
+}
+
+.padding_bottom {
+    padding-bottom: var(--padding-bottom);
+}
+
+.preferencias-oculto {
+    cursor: pointer;
+    text-align: center;
+    color: rgb(43, 21, 21);
+    font-size: 18px;
+}
+
+
 /* INDEX */
 
+hmtl,
 body {
-    background: url(../assets/img/blur-bg.jpg) center center;
+    overflow-x: hidden;
+    background: url(../assets/img/blur-bg.jpg) center center !important;
+    background-color: rgba(250, 250, 250, 0) !important;
+    background-repeat: repeat;
+}
+
+.transparente {
+    background-color: transparent !important;
 }
 
 .menu-header {
@@ -9,6 +111,7 @@ body {
     background: #fafafa;
     right: 0%;
     top: 100%;
+    -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
     color: black;
     font-size: 16px;
@@ -35,6 +138,12 @@ body {
 
 .transparencia {
     background-color: rgba(0, 0, 0, .5) !important;
+}
+
+.transparencia-sin-fondo {
+    background-color: transparent !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 .paneles {
@@ -96,7 +205,7 @@ md-icon {
     margin-bottom: 1%;
 }
 
-.listar .elemento.nopadding{
+.listar .elemento.nopadding {
     padding: 0 !important;
 }
 
@@ -145,7 +254,7 @@ md-icon {
 
 .content-scroll {
     overflow: scroll;
-    height:55%;
+    height: 40%;
 }
 
 .scroll {
@@ -223,12 +332,22 @@ md-icon {
 
 /* CLIENTE */
 
+.titulo-modulo texto {
+    font-size: 20px;
+    color: #f9f9f9;
+    font-weight: bold;
+    display: block;
+}
+
 .paneles.individual {
     margin-bottom: 2%;
 }
 
 .tabla {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
     font-weight: bold;
     padding: 8px;
@@ -236,18 +355,35 @@ md-icon {
 }
 
 .tabla div {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
 }
 
 .tabla-campo {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
 .tabla-campo>div {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     word-break: break-all;
     padding: 0 8px 0 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.tabla-campo .acciones {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
 }
 
 .datos-elemento>div {
@@ -257,39 +393,84 @@ md-icon {
 .mensaje-resultado {
     width: 100%;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     font-size: 1.5rem;
 }
 
-.mensaje-resultado.pequeno{
+.mensaje-resultado.pequeno {
     font-size: 1rem;
 }
 
 .estado-pedido.COMPLETADO {
-    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+    background: grey;
     height: 8px;
 }
 
 .estado-pedido.EN.ESPERA {
     height: 8px;
-    background-image: -webkit-linear-gradient(330deg, #abecd6 0%, #fbed96 100%);
-    background-image: -o-linear-gradient(330deg, #abecd6 0%, #fbed96 100%);
-    background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
-
+    background: darkorange;
 }
 
 .estado-pedido.CANCELADO {
-    background-image: -webkit-linear-gradient(left, #d7d2cc 0%, #304352 100%);
-    background-image: -o-linear-gradient(left, #d7d2cc 0%, #304352 100%);
-    background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
-    height:8px;
+    background: darkred;
+    height: 8px;
 }
 
 .estado-pedido.EN.PROCESO {
-    height:8px;
-    background-image: -webkit-linear-gradient(left, #f83600 0%, #f9d423 100%);
-    background-image: -o-linear-gradient(left, #f83600 0%, #f9d423 100%);
-    background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+    height: 8px;
+    background: darkgreen;
+}
+
+texto.COMPLETADO {
+    color: grey;
+}
+
+texto.EN.ESPERA {
+    color: darkorange;
+}
+
+texto.CANCELADO {
+    color: darkred;
+}
+
+texto.EN.PROCESO {
+    color: darkgreen;
+}
+
+.lista .elemento.true {
+    background: rgb(187, 189, 185);
+}
+
+.inputArchivo {
+    padding: 10px 5px;
+    border: 1px solid silver;
+    color: #5d5d5d;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    background: #e8e8e8;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.inputArchivo md-icon {
+    color: #5d5d5d;
+    margin: initial;
+    padding: 0;
+}
+
+.plan0 {
+    background: silver !important;
 }

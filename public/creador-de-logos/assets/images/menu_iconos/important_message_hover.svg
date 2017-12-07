@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>important_message [#1448] copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Iconos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="elemento-menú2" transform="translate(-239.000000, -65.000000)" fill="#8084C0">
+            <g id="Hover" transform="translate(40.000000, 65.000000)">
+                <path d="M210,5.007 L210,12.007 C210,12.559 209.552,13.007 209,13.007 C208.448,13.007 208,12.559 208,12.007 L208,5.007 C208,4.455 208.448,4.007 209,4.007 C209.552,4.007 210,4.455 210,5.007 L210,5.007 Z M210,15.007 C210,15.559 209.552,16.007 209,16.007 C208.448,16.007 208,15.559 208,15.007 C208,14.455 208.448,14.007 209,14.007 C209.552,14.007 210,14.455 210,15.007 L210,15.007 Z M217,17 C217,17.552 216.552,18 216,18 L202,18 C201.448,18 201,17.552 201,17 L201,3 C201,2.448 201.448,2 202,2 L216,2 C216.552,2 217,2.448 217,3 L217,17 Z M217,0 L201,0 C199.895,0 199,0.899 199,2.003 L199,2.007 L199,18.007 C199,19.112 199.895,20 201,20 L217,20 C218.105,20 219,19.108 219,18.003 L219,2.007 C219,0.902 218,0 217,0 L217,0 Z" id="important_message-[#1448]-copy"></path>
+            </g>
+        </g>
+    </g>
+</svg>

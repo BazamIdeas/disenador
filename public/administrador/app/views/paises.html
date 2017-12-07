@@ -1,0 +1,207 @@
+<div class="row start-xs" id="toast">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="listar">
+
+            <!-- LISTAR PAISES -->
+
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex ng-click="paises.listarPaises()">LISTADO DE PAISES</texto>
+                    <md-button class="md-primary md-fab md-mini" ng-click="paises.acciones = 1" style="margin:0;">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </div>
+                <div ng-show="paises.listaP">
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="paises.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div class="tabla">
+                        <div style="flex:0.5;">Id Pais:</div>
+                        <div style="flex:0.8;">Nombre:</div>
+                        <div style="flex:0.5;">Moneda</div>
+                        <div style="flex:0.5;">Impuesto</div>
+                        <div>Accion:</div>
+                    </div>
+                    <div layout="column" class="content-scroll">
+                        <div ng-repeat="elemento in paises.paises | filter:paises.$ track by $index" class="elemento">
+                            <div class="tabla-campo">
+                                <div class="ISO" style="flex:0.5;">{{elemento.idPais}}</div>
+                                <div class="nombre" style="flex:0.8;">{{elemento.nombre}}</div>
+                                <div class="ISO" style="flex:0.5;">{{elemento.moneda}}</div>
+                                <div class="nombre" style="flex:0.5;">{{elemento.impuesto}}</div>
+                                <div>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="paises.mostrar('editarPais', elemento.idPais)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
+                                        <md-icon class="material-icon">edit</md-icon>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="paises.listarPaisMonedas(elemento.idPais)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Monedas</md-tooltip>
+                                        <md-icon class="material-icon">attach_money</md-icon>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="paises.mostrar('asignar', elemento.idPais)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Asignar Moneda</md-tooltip>
+                                        <md-icon class="material-icon">monetization_on</md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACCIONES VISTA -->
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+        <div class="paneles md-whiteframe-2dp listar" ng-switch="paises.acciones">
+
+            <!-- CREAR PAIS -->
+            <div ng-switch-when="1">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>NUEVO PAIS</texto>
+                    <md-button ng-click="paises.acciones = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form id="form" ng-submit="paises.guardarPais(paises.nuevoPais, form.$valid)" novalidate name="form">
+                        <md-input-container class="md-block" style="margin-bottom:0;">
+                            <label>Moneda</label>
+                            <md-select ng-model="paises.nuevoPais.idMoneda" class="md-block">
+                                <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in paises.monedas">{{elemento.moneda}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <br>
+                        <div layout="column" layout-align="space-between">
+                            <md-input-container class="md-block" style="margin-bottom:0;">
+                                <label>Nombre</label>
+                                <input type="text" ng-model="paises.nuevoPais.nombre" name="plan" required ng-minlength="3">
+                            </md-input-container>
+
+                            <!-- VALIDACION -->
+                            <div ng-messages="form.plan.$error" style="color:maroon" role="alert" ng-show="form.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                                <div ng-message="minlength">Minimo 3 caracteres.</div>
+                            </div>
+
+                            <md-input-container class="md-block" style="margin-bottom:0;">
+                                <label>Iso</label>
+                                <input type="text" ng-model="paises.nuevoPais.iso" name="iso" required ng-minlength="3">
+                            </md-input-container>
+
+                            <!-- VALIDACION -->
+                            <div ng-messages="form.iso.$error" style="color:maroon" role="alert" ng-show="form.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                                <div ng-message="minlength">Minimo 3 caracteres.</div>
+                            </div>
+
+                            <md-input-container class="md-block" style="margin-bottom:0;">
+                                <label>Impuesto</label>
+                                <input type="text" ng-model="paises.nuevoPais.impuesto" name="impuesto" required ng-minlength="1">
+                            </md-input-container>
+
+                            <!-- VALIDACION -->
+                            <div ng-messages="form.impuesto.$error" style="color:maroon" role="alert" ng-show="form.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                                <div ng-message="minlength">Minimo 3 caracteres.</div>
+                            </div>
+
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MODIFICAR PRECIO PAIS -->
+            <div ng-switch-when="2">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>MODIFICAR IMPUESTO PAIS</texto>
+                    <md-button ng-click="paises.acciones = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form id="nombrePlan" ng-submit="paises.modificarPais(paises.editarPais, nombreplan.$valid)" novalidate name="nombreplan">
+                        <div layout="column" layout-align="space-between">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Impuesto</label>
+                                    <input type="text" ng-model="paises.editarPais.impuesto" name="nombre" required>
+                                </md-input-container>
+                            </div>
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ASIGNAR MONEDA -->
+            <div ng-switch-when="3">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>ASIGNAR MONEDA</texto>
+                    <md-button ng-click="paises.acciones = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form id="asignacion" ng-submit="paises.asignarMoneda(paises.ponerMoneda)" novalidate name="asignacion">
+                        <div layout="column" layout-align="space-between">
+                            <md-input-container class="md-block">
+                                <label>Moneda</label>
+                                <md-select ng-model="paises.ponerMoneda.idMoneda" class="md-block" aria-label="filtro">
+                                    <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in paises.monedas">{{elemento.moneda}}</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <div layout>
+                                <md-button class="md-raised md-primary" type="submit">Asignar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MONEDAS ASIGNADAS -->
+            <div ng-switch-when="4">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>MONEDAS ASIGNADAS</texto>
+                    <md-button ng-click="paises.acciones = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div>
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="paises.lpm" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div class="tabla">
+                        <div>Id Moneda:</div>
+                        <div>Nombre:</div>
+                        <div>Accion:</div>
+                    </div>
+                    <div layout="column" class="content-scroll">
+                        <div ng-repeat="elemento in paises.paisMonedas | filter:paises.lpm track by $index" class="elemento">
+                            <div class="tabla-campo">
+                                <div class="ISO">{{elemento.idMoneda}}</div>
+                                <div class="nombre">{{elemento.moneda}}</div>
+                                <div>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="paises.desasignarMoneda(elemento.idMoneda, $index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Desasignar</md-tooltip>
+                                        <md-icon class="material-icon">money_off</md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

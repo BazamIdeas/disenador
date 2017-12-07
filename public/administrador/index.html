@@ -1,14 +1,14 @@
 <html lang="es" ng-app="administrador">
 
 <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="/administrador/assets/img/user.png">
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link href="assets/style.css" rel="stylesheet">
     <link href="assets/animation.css" rel="stylesheet">
     <link href="assets/fuentes.css" rel="stylesheet">
     <link href="/angular-color-picker/angular-color-picker.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/sweetalert/sweet-alert.css">
+    <link rel="stylesheet" href="/administrador/assets/flexboxgrid.css" type="text/css">
     <title>ADMINISTRADOR | LIDERLOGO</title>
 
     <script src="/jquery/jquery.min.js"></script>
@@ -20,7 +20,6 @@
     <script src="/angular-aria/angular-aria.min.js"></script>
 
     <!--Librerias 3r party angularJS -->
-    <script src="/angularfire/angularfire.min.js"></script>
     <script src="/angular-ui-router/angular-ui-router.min.js"></script>
     <script src="/angular-material/angular-material.min.js"></script>
     <script src="/angular-color-picker/angular-color-picker.js"></script>
@@ -28,67 +27,61 @@
     <script src="/angular-social/angular-socialshare.js"></script>
     <script src="/angular-sweetalert/SweetAlert.min.js"></script>
     <script src="/sweetalert/sweet-alert.min.js"></script>
+    <script src="/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="/ng-file-upload/ng-file-upload.min.js"></script>
 
     <!--Archivos App diseñador -->
     <script src="app/app.js"></script>
     <script src="app/services.js"></script>
-    <script src="app/controllers.js"></script>
     <script src="app/directives.js"></script>
 
+    <!-- Controladores -->
+    <script src="app/controllers/categoriasController.js"></script>
+    <script src="app/controllers/clienteController.js"></script>
+    <script src="app/controllers/elementosController.js"></script>
+    <script src="app/controllers/headerController.js"></script>
+    <script src="app/controllers/monedasController.js"></script>
+    <script src="app/controllers/paisesController.js"></script>
+    <script src="app/controllers/planesController.js"></script>
+    <script src="app/controllers/loginController.js"></script>
+    <script src="app/controllers/pedidosController.js"></script>
+    <script src="app/controllers/sidenavController.js"></script>
+    <script src="app/controllers/usuarioController.js"></script>
 </head>
 
-<body>
-    <div layout="row" flex ng-controller="sidenavController as sidenav">
-        <md-sidenav class="transparencia md-whiteframe-24dp" md-is-locked-open="$mdMedia('gt-md')" md-component-id="left" md-whiteframe="4" ng-if="sidenav.autorizado">
-            <md-toolbar class="transparencia">
-                <div class="md-toolbar-tools">
-                    <div>LIDERLOGO</div>
-                </div>
-            </md-toolbar>
-            <md-list ng-cloak layout="column">
-                <md-item class="menuItem" ui-sref="cliente">
-                    <md-icon>person</md-icon>
-                    Clientes
-                </md-item>
-                <md-item class="menuItem" ui-sref="usuario">
-                    <md-icon>person</md-icon>
-                    Usuario
-                </md-item>
-                <md-item class="menuItem" ui-sref="categorias">
-                    <md-icon>settings</md-icon>
-                    Categorias
-                </md-item>
-                <md-item class="menuItem" ui-sref="pedidos">
-                    <md-icon>add_shopping_cart</md-icon>
-                    Pedidos
-                </md-item>
-                <md-item class="menuItem" ui-sref="iconos">
-                    <md-icon>stars</md-icon>
-                    Iconos
-                </md-item>
-                <md-item class="menuItem" ui-sref="fuentes">
-                    <md-icon>font_download</md-icon>
-                    Fuentes
-                </md-item>
+<body ng-cloak>
+    <div class="row" ng-controller="sidenavController as sidenav">
+        <div class="col-sm-2 padding-cero transparencia md-whiteframe-24dp">
+            <md-sidenav style="width: 100%;" class="transparencia" md-component-id="left" md-whiteframe="4" ng-if="sidenav.autorizado">
+                <md-toolbar class="transparencia-sin-fondo">
+                    <div class="md-toolbar-tools">
+                        <div>LIDERLOGO</div>
+                    </div>
+                </md-toolbar>
+                <md-list ng-cloak layout="column">
+                    <md-item ng-repeat="vistas in sidenav.vistas" class="menuItem" ui-sref="{{vistas.url}}">
+                        <md-icon>{{vistas.icono}}</md-icon>
+                        {{vistas.url}}
+                    </md-item>
+                </md-list>
+            </md-sidenav>
+        </div>
 
-
-                <md-item class="menuItem" ui-sref="administrar">
-                    <md-icon>settings</md-icon>
-                    Administrar
-                </md-item>
-            </md-list>
-        </md-sidenav>
-
-        <div layout="row" flex>
-            <div layout="column" layout-fill>
+        <div class="col-xs-12 padding-cero">
+            <div class="box">
                 <header ng-controller="headerController as header">
-                    <md-toolbar class="transparencia">
+                    <md-toolbar class="transparencia" layout layout-align="none center">
+                        <div layout-padding ng-if="header.autorizado">
+                            <div ng-click="sidenav.cambiarMenu()" style="max-width:40px;">
+                                <md-icon>menu</md-icon>
+                            </div>
+                        </div>
                         <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
                             <div ng-if="!header.autorizado">
                                 <div>LIDERLOGO</div>
                             </div>
                             <div ng-if="header.autorizado">
-                                <div>{{header.nombreEstado}}</div>
+                                <div>{{header.autorizado.nombre}}</div>
                             </div>
                             <div ng-switch="header.autorizado" class="login_header">
                                 <ingresar ng-switch-when="false" ui-sref="login" layout-padding>
@@ -96,7 +89,7 @@
                                 </ingresar>
 
                                 <ingresar ng-switch-default ng-click="header.menuMostrar()">
-                                    <div>
+                                    <div layout-padding>
                                         <md-icon class="icono-header">account_circle</md-icon>
                                     </div>
                                     <div ng-show="header.hmenuMostrar" class="menu-header">
@@ -110,21 +103,11 @@
                     </md-toolbar>
                 </header>
                 <!-- contenedor principal -->
-                <md-content flex ui-view class="not-background" ng-cloak>
-
-
+                <md-content flex ui-view ng-cloak class="padding_top transparente">
                 </md-content>
-                <!-- 
-                <footer flex="5" class="transparencia text-white text-center md-whiteframe-8dp" layout="row" layout-align="space-between center">
-                    <div class="logo" flex="30">logo</div>
-                    <p class="copyright" flex="30">Copyright 2017</p>
-                    <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
-                </footer>
-                
-                -->
             </div>
-
         </div>
+
     </div>
 
 </body>

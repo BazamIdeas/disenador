@@ -1,4 +1,4 @@
-var preferencia=require('../modelos/preferenciasModelo.js');
+var preferencia = require('../modelos/preferenciasModelo.js');
 
 exports.listaPreferencias = function(req, res, next) {
 		
@@ -24,8 +24,8 @@ exports.nuevaPreferencia =  function(req,res)
 		//creamos un objeto con los datos a insertar del cliente
 		var preferenciaData = {
 			idPreferencia : null,
-			nombre1: req.body.nombre1,
-			nombre2: req.body.nombre2
+			nombre1       : req.body.nombre1,
+			nombre2       : req.body.nombre2
 			
 		};
 		preferencia.insertPreferencia(preferenciaData,function(error, data)

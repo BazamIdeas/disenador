@@ -8,7 +8,6 @@ angular.module("disenador-de-logos")
 
     bz.svg = $stateParams.datos;
 
-    console.log(bz.datos);
 
     bz.modeloPrevisualizar = [
         {

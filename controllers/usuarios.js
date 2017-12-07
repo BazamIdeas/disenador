@@ -1,5 +1,5 @@
-var usuario=require('../modelos/usuarioModelo.js');
-var services=require('../services');
+var usuario  = require('../modelos/usuarioModelo.js');
+var services = require('../services');
 
 exports.login =  function(req,res,next)
 	{
@@ -12,10 +12,9 @@ exports.login =  function(req,res,next)
 			//si el usuario existe  
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				
 				res.status(200).json({
 					'nombre':data[0].nombreUser,
-					'token':services.crearToken(data[0].idUsuario,"admin")
+					'token':services.authServices.crearToken(data[0].idUsuario,"admin")
 				})
 				//res.status(200).json(data)
 
@@ -84,7 +83,7 @@ exports.nuevoUsuario =  function(req,res)
 			{
 				res.status(200).json({
 					'nombre':req.body.nombreUser,
-					'token':services.crearToken(data.insertId,"admin")
+					'token':services.authServices.crearToken(data.insertId,"admin")
 				})
 			}
 			else
@@ -104,12 +103,12 @@ exports.nuevoUsuario =  function(req,res)
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				
-				var usuarioData = [req.body.nombreUser,req.body.pass,req.body.idUsuario];
+				//var usuarioData = [req.body.nombreUser,req.body.pass,req.body.idUsuario];
 					
-				usuario.updateUsuario(usuarioData,function(error, data)
+				usuario.updateUsuario(req.body, req.body.passActual,function(error, data)
 				{
 					//si el usuario se ha modificado correctamente
-					if(data)
+					if(typeof data !== 'undefined' && data.affectedRows)
 					{
 						res.status(200).json(data);
 					}
@@ -128,7 +127,7 @@ exports.nuevoUsuario =  function(req,res)
 	}
 
 exports.borrarUsuario =  function(req, res, next) {
-		//id del usuario
+	
 		var id = req.params.id;
 		usuario.deleteUsuario(id,function(error, data)
 		{

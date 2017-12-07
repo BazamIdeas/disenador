@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="82px" height="82px" viewBox="0 0 82 82" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Confirm</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Iconos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Confirmación" transform="translate(-23.000000, -15.000000)">
+            <g id="Confirm" transform="translate(24.000000, 16.000000)">
+                <path d="M58.473,31.024 L37.703,54.147 C37.217,54.635 36.572,54.859 35.934,54.834 C35.297,54.859 34.652,54.635 34.165,54.147 L22.689,42.641 C21.763,41.713 21.763,40.209 22.689,39.282 C23.616,38.354 25.116,38.354 26.043,39.282 L35.852,49.116 L55.119,27.664 C56.045,26.736 57.547,26.736 58.473,27.664 C59.4,28.592 59.4,30.096 58.473,31.024 L58.473,31.024 Z" id="Shape" fill="#B2DA9F"></path>
+                <g id="Ellipse" stroke-width="3" stroke="#B2DA9F">
+                    <circle id="Oval" cx="40" cy="40" r="39.5"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>warning</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Iconos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Formulario/Registro" transform="translate(-74.000000, -64.000000)">
+            <g id="warning" transform="translate(74.000000, 64.000000)">
+                <path d="M11.7535028,23.8277641 C18.2447832,23.8277641 23.5070057,18.4937374 23.5070057,11.913882 C23.5070057,5.33402667 18.2447832,0 11.7535028,0 C5.26222247,0 0,5.33402667 0,11.913882 C0,18.4937374 5.26222247,23.8277641 11.7535028,23.8277641 Z" id="Oval" fill="#F8E81C"></path>
+                <text id="!" font-family="OpenSans, Open Sans" font-size="14" font-weight="normal" fill="#FFFFFF">
+                    <tspan x="10" y="17">!</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

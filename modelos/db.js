@@ -4,7 +4,7 @@ var node_env = process.env.NODE_ENV || 'desarrollo';
 
 var datos = {
     "desarrollo":{
-        connectionLimit : 10,
+        connectionLimit : 20,
         host: 'localhost',
         user: 'root',
         password: '',

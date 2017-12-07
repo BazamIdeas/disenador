@@ -13,13 +13,13 @@ logo.getLogos = function(callback)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+	  	
+	 	 });
 	});
 }
 
@@ -32,13 +32,12 @@ logo.getLogosTipo = function(par,callback)
 	{
 		connection.query( q , par, function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+	  	});
 	});
 }
 
@@ -52,13 +51,12 @@ logo.getLogo = function(id,callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
 
-	  connection.release();
+		  	connection.release();
+	  	});
 	});
 }
  
@@ -73,14 +71,13 @@ logo.insertLogo = function(logoData,callback)
 	{
 		connection.query( q , par , function(err, result){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
-	  	
-	  });
-
-	  connection.release();
+		  	//devolvemos la última id insertada
+		  	else callback(null,{"insertId" : result.insertId}); 
+	  		
+	  		connection.release();
+	 	 });
 	});
 }
 
@@ -94,13 +91,14 @@ logo.updateLogo = function(logoData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
-	  	
-	  });
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	
+		  	connection.release();
+		});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -109,18 +107,19 @@ logo.cambiarEstado = function(logoData, callback)
 {
 	var q = 'UPDATE logos SET estado = ? WHERE idLogo = ?';
 	var par = logoData //parametros
-
+	
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
-	  	
-	  });
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	
+		  	connection.release();
+		});
 
-	  connection.release();
+	  
 	});
 }
  
@@ -146,17 +145,17 @@ logo.deleteLogo = function(id, callback)
 				  		if(err)	throw err;
 
 					  	else callback(null,{"msg" : "eliminado"}); 
-				  	
-				 	 });
-
-				  	connection.release();
+				  		
+				  		connection.release();
+				 	});
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe el logo"});
-	  	});
 
-	  connection.release();
+		  	connection.release();
+	  	});
+ 
 	});
 }
 

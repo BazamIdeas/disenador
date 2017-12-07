@@ -7,59 +7,95 @@ var pedido = {};
 //obtenemos todos los pedidos
 pedido.getPedidos = function(callback)
 { 
-	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, plan, idSubcripcion, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan LEFT JOIN subcripciones ON pedidos_idPedido = idPedido ORDER BY idPedido' 
+	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idSubcripcion, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan LEFT JOIN subcripciones ON pedidos_idPedido = idPedido  INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela  INNER JOIN monedas ON monedas_idMoneda = idMoneda ORDER BY idPedido' 
 
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+		  	
+	  	});
+
+	  
+	});
+}
+
+pedido.ListarPorPais = function(iso,callback)
+{ 
+	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idSubcripcion, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan LEFT JOIN subcripciones ON pedidos_idPedido = idPedido  INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela INNER JOIN monedas ON monedas_idMoneda = idMoneda WHERE pedidos.iso = ? ORDER BY idPedido' 
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , [iso], function(err, rows){
+	  	
+	  		if(err)	throw err;
+	  	
+	  		else callback(null, rows);
+
+	  		connection.release();
+	  	
+	  	});
+
+	  	
 	});
 }
 
 //obtenemos un pedido por su id
 pedido.getPedido = function(id,callback)
 { 
-	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, plan, idSubcripcion, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan LEFT JOIN subcripciones ON pedidos_idPedido = idPedido WHERE idPedido = ?' 
+	var q = `SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idSubcripcion, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais 
+				FROM pedidos 
+				INNER JOIN logos ON logos_idLogo = idLogo 
+				INNER JOIN clientes ON clientes_idCliente = idCliente 
+				INNER JOIN elementos ON elementos_idElemento = idElemento 
+				INNER JOIN categorias ON categorias_idCategoria = idCategoria 
+				INNER JOIN precios ON precios_idPrecio = idPrecio 
+				INNER JOIN planes ON planes_idPlan = idPlan 
+				LEFT JOIN subcripciones ON pedidos_idPedido = idPedido  
+				INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela 
+				INNER JOIN monedas ON monedas_idMoneda = idMoneda
+				WHERE idPedido = ?`;
+
  	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
 
-	  connection.release();
+		  	connection.release();
+	  	
+	  	});
+
+	  
 	});
 }
 
 //obtenemos los pedidos por id del cliente
 pedido.getPedidosCliente = function(id,callback)
 { 
-	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, plan, idSubcripcion, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan LEFT JOIN subcripciones ON pedidos_idPedido = idPedido WHERE idCliente = ?' 
+	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idSubcripcion, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan LEFT JOIN subcripciones ON pedidos_idPedido = idPedido  INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela INNER JOIN monedas ON monedas_idMoneda = idMoneda WHERE idCliente = ? ORDER BY idPedido' 
 	var par = [id] //parametros
 
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+	  	
+	 	});
 	});
 }
  
@@ -74,14 +110,16 @@ pedido.insertPedido = function(pedidoData,callback)
 	{
 		connection.query( q , par , function(err, result){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
+		  	//devolvemos la última id insertada
+		  	else callback(null,{"insertId" : result.insertId}); 
+
+		  	connection.release();
 	  	
-	  });
+	 	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -95,13 +133,15 @@ pedido.updatePedido = function(pedidoData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+
+		  	connection.release();
 	  	
-	  });
+	 	 });
 
-	  connection.release();
+	  
 	});
 }
 
@@ -115,13 +155,14 @@ pedido.cambiarEstado = function(pedidoData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+
+		  	connection.release();
 	  	
-	  });
-
-	  connection.release();
+		 });
+	  
 	});
 }
 
@@ -148,17 +189,20 @@ pedido.deletePedido = function(id, callback)
 				  		if(err)	throw err;
 
 					  	else callback(null,{"msg" : "eliminado"}); 
-				  	
+				  		
+				  		connection.release();
 				 	 });
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe el pedido"});
+
+		  	connection.release();
 	  	});
 
-	  connection.release();
+	  
 	});
 }
 
