@@ -1,4 +1,4 @@
-var node_env = process.env.NODE_ENV || 'desarrollo';
+var node_env = process.env.NODE_ENV || 'produccion';
 
 var configuracion = {
     "produccion" : {
@@ -30,5 +30,6 @@ var configuracion = {
     }
 }
 
+console.log(process.env.NODE_ENV)
 
 module.exports = configuracion[node_env];

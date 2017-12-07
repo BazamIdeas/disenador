@@ -1,6 +1,8 @@
 var mysql   = require("mysql");
 
-var node_env = process.env.NODE_ENV || 'desarrollo';
+var node_env = 'produccion';
+
+console.log(process.env.NODE_ENV)
 
 var datos = {
     "desarrollo":{
