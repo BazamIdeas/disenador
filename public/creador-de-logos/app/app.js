@@ -472,6 +472,18 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 templateUrl: 'app/views/v2/pago.tpl',            
             })
 
+            .state({
+                name: 'cuenta',
+                url: '/cliente/cuenta',
+                templateUrl: 'app/views/v2/cuenta.tpl',
+            })
+
+            .state({
+                name: 'logos',
+                url: '/cliente/logos',
+                templateUrl: 'app/views/v2/logos.tpl',
+            })
+
         //redirecciones
 
         $urlRouterProvider.when('', '/comenzar/');
@@ -486,6 +498,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
     .run(function ($rootScope, $state) {
+
+        $rootScope.$on('$stateChangeStart',function(){
+            $rootScope.loading = true;
+        });
+
+
+        $rootScope.$on('$stateChangeSuccess',function(){
+            $rootScope.loading = false;
+        });
 
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 

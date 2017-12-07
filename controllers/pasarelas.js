@@ -13,6 +13,21 @@ exports.Listar = (req, res) =>
 	});
 }
 
+
+exports.ListarPorMoneda = (req, res) =>
+{		
+	var id = req.body.idMoneda;
+
+	pasarela.ListarPorMoneda(id, (error, data) => {
+		//si el usuario existe 
+		if (typeof data !== 'undefined' && data.length > 0){
+			res.status(200).json(data);
+		}else{
+			res.status(404).json({"msg":"No hay registro de pasarela en la base de datos para esta moneda"})
+		}
+	});
+}
+
 exports.ListarMonedas = (req, res) =>
 {	
 	var id = req.params.id;

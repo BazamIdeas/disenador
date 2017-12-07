@@ -21,7 +21,7 @@ pasarela.Listar = function(callback)
 
 }
 
-pasarela.ListarPorPais = function(idMoneda, callback)
+pasarela.ListarPorMoneda = function(idMoneda, callback)
 {
 	var q = `SELECT pasarelas.* FROM pasarelas INNER JOIN pasarelas_has_monedas ON pasarelas.idPasarela = pasarelas_has_monedas.pasarelas_idPasarela
 				INNER JOIN monedas ON pasarelas_has_monedas.monedas_idMoneda = monedas.idMoneda
