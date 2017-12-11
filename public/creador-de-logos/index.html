@@ -66,6 +66,7 @@
     <script src="app/controllers/v2/principal.combinaciones.controller.js"></script>
     <script src="app/controllers/v2/editor.controller.js"></script>
     <script src="app/controllers/v2/planes.controller.js"></script>
+    <script src="app/controllers/v2/pago.controller.js"></script>
 
 </head>
 
@@ -76,27 +77,33 @@
         <div class="col s6 m9" show-gt-sm>
 
                 <div ng-switch="header.autorizado" class="login"  ng-cloak>
+
                     <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer"> <i class="material-icons md-48">account_circle</i> <span>Acceder / Registro</span> </div>
 
                     <div ng-switch-default class="acceder" style="cursor: pointer"> 
 
-                        <i class="material-icons md-48">account_circle</i>  <span ng-bind="header.autorizado.nombre"></span> 
-
-                        <span style="margin: 0 10px; font-family: 'arial'">|</span>
+                        <span ui-sref="cuenta">
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
+                            <i class="material-icons">account_circle</i>
+                        </span>
                         
-                        <span ui-sref="dashboard">
-                            Mis logos
+                        <span ui-sref="logos">
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mis logos</md-tooltip>
+                            <i class="material-icons">favorite</i>
                         </span>                        
 
-                        <span style="margin: 0 10px; font-family: 'arial'">|</span>
-
                         <span ng-click="header.salir()">
-                            Cerrar sesion
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar sesion</md-tooltip>
+                            <i class="material-icons">exit_to_app</i>
                         </span>
+
+                        <span style="margin: 0 10px; font-family: 'arial'"></span>
 
                     </div>                    
 
-                    <i class="material-icons aling-top" style="margin-left: 20px; cursor: pointer;">help_outline</i> 
+                    <span >
+                        <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
+                    </span>
 
                 </div>
     
@@ -108,7 +115,11 @@
     <div ui-view style="min-height: calc(100% - 360px); min-height: -webkit-calc(100% - 360px); background-color: white">
         
     </div>
-
+    <!--
+    <div ng-show='loading'>
+      <strong>Loading.</strong>
+    </div>
+    -->
     <!-- Footer 
     <footer class="text-center" layout="row" layout-align="space-between center">
             <div class="logo" flex="30">logo</div>

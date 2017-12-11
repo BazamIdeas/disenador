@@ -99,14 +99,19 @@ textarea,
 }
 
 
-input::-webkit-input-placeholder {color: var(--principal) !important;}
-input::-moz-input-placeholder {color: var(--principal) !important;}
+input::-webkit-input-placeholder {color: var(--principal) !important; font-family: 'futura-heavy' !important;}
+input::-moz-input-placeholder {color: var(--principal) !important; font-family: 'futura-heavy' !important;}
+
+md-input-container:not([md-no-float]) .md-select-placeholder span:first-child {
+    font-family: 'futura-heavy' !important;
+}
 
 input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
     height: auto;
     padding: 3px 0;
     color: var(--principal);
     border-bottom: 2px solid var(--principal);
+    font-family: 'futura-heavy' !important;
 }
 
 g, text{
@@ -150,9 +155,19 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     color: var(--principal);
 }
 
+md-option .md-text {
+    font-family: 'futura-heavy' !important;
+}
+
+.md-select-value>span:not(.md-select-icon) .md-text {
+    display: inline;
+    font-family: 'futura-heavy' !important;
+}
+
 .input-field label {
     top: 0.2rem;
     color: var(--principal);
+    font-family: "futura-heavy" !important;
 }
 
 
@@ -299,6 +314,11 @@ table.table-admin td {
     margin-bottom: 0;
 }
 
+.margin-top-0{
+    margin-top: 0;
+}
+
+
 .margin-right-20{
     margin-right: 20;
 }
@@ -313,6 +333,7 @@ table.table-admin td {
 .md-tooltip {
     background-color: white !important;
     color: var(--principal) !important;
+    font-family: 'futura-heavy' !important;
     border-radius: 5px;
 }
 
@@ -382,7 +403,17 @@ div.acceder {
     justify-content: center;
     font-family: "futura-heavy" !important;
 }
-div.acceder i { vertical-align: top; }
+
+div.acceder span{ margin: 0 10px; }
+
+.tooltip-header{
+    font-family: 'futura-heavy' !important;
+    font-size: 14px !important;
+    color: white !important;
+    background-color: var(--principal) !important;
+}
+
+div.acceder span i { vertical-align: top; }
 /*End header*/
 
 /*Begin sub-header*/
@@ -636,7 +667,7 @@ div.contenedor-principal{
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10;
+  z-index: 100000000000000000000000000000;
   background-color: rgba(255, 255, 255, 0.68); /*dim the background*/
 }
 
@@ -1153,3 +1184,119 @@ div.contenedor-planes .plan .plan-body .plan-precio{
     border-radius: 5px;
 }
 /*END PAGO*/
+
+
+.caja {
+    padding: 0px 0px 30px;
+    background-color: var(--fondo);
+    margin-top: 20px;
+}
+
+.caja p{
+    background-color: var(--tercero);
+    color: white;
+    padding: 10px;
+    font-family: 'futura-heavy' !important;
+}
+
+.caja.pedidos div{
+}
+
+.caja.pedidos div table thead tr th{
+    padding: 12px 0px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0px;
+    font-size: 14px;
+    font-family: 'futura-heavy' !important;
+    color: white;
+    background-color: var(--tercero);
+}
+
+.caja.pedidos div table tbody tr{
+    border: 1px solid #d4d4d4;
+}
+
+.caja.pedidos div table tbody tr:first-child{
+    border-top: 0px solid;
+}
+
+.caja.pedidos div table tbody tr td {
+    padding: 12px 0px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0px;
+    color: #747474;
+    font-size: 12px;
+    font-family: 'futura-heavy' !important;
+    background-color: #eceff0;
+}
+
+
+
+
+span.editar i, span.compartir i{
+    font-size: 23px !important;
+}
+span.compartir{
+    right: 25px;
+}
+span.editar {
+    left: 25px;
+}
+
+
+span.editar, span.compartir {
+    position: absolute;
+    top: 47px;
+    color: var(--principal);
+    border-radius: 50%;
+    padding: 4px;
+    opacity: 0;
+    background-color: white;
+    width: auto;
+    transition: 0.5s all;
+    z-index: 1000000;
+}
+
+span.editar:hover, span.compartir:hover{
+    opacity: 1;
+}
+
+span.editar:hover{
+    padding: 6px;
+    top: 45px;
+    left: 23px;
+}
+span.compartir:hover{
+    padding: 6px;
+    top: 45px;
+
+    right: 23px;
+}
+
+
+
+div.info {
+    border-radius: 0;
+    outline: none;
+    height: 28px;
+    padding: 3px 0;
+    color: #747474;
+    border-bottom: 2px solid #d4d4d4;
+    font-family: 'futura-heavy' !important;
+    width: 100%;
+    font-size: 1rem;
+    margin: 0px 0 20px 0;
+}
+
+span.label {
+    font-size: .8rem;
+    color:  #747474;
+}
+
+.caja.datos p{
+    margin-bottom: 20px;
+}

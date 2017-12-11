@@ -28,7 +28,7 @@
 
 	                    	<button class="boton-oborder" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"><i class="material-icons" >save</i> GUARDAR</button>
 
-	                    	<button class="boton-oborder"><i class="material-icons">shopping_cart</i> COMPRAR</button>
+	                    	<button class="boton-oborder" ng-click="editor.buscarPlanes()"><i class="material-icons">shopping_cart</i> COMPRAR</button>
 	                    </div>
 	                </div>
                 </div>

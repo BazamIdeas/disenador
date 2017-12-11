@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService',  "historicoResolve", "$rootScope", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService,  historicoResolve, $rootScope) {
+    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', "historicoResolve", "$rootScope", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope) {
 
         var bz = this;
 
@@ -39,8 +39,8 @@ angular.module("disenador-de-logos")
         /* LOGOS */
 
         bz.guardarLogo = function (logo, tipoLogo, idElemento) {
-    
-                        
+
+
             logosService.guardarLogo(logo, tipoLogo, idElemento).then(function (res) {
 
                 alert("se guardo");
@@ -67,6 +67,29 @@ angular.module("disenador-de-logos")
 
         }
 
+
+        bz.buscarPlanes = function () {
+
+            $rootScope.$broadcast("editor:planes", true)
+
+        }
+
+
+        $scope.$on("directiva:planes", function (evento, datos) {
+
+            
+            $state.go("planes", {
+                status: true,
+                datos: {
+                    logo: datos,
+                    idElemento: bz.logo.icono.idElemento,
+                    tipo: 'Logo y nombre'
+
+                }
+            })
+
+
+        })
 
 
         /////////////////////////////////////

@@ -103,6 +103,7 @@ router.post('/moneda', /*middleware.validarUsuario,*/ controllers.monedas.Nuevo)
 
 //PASARELAS
 router.get('/pasarelas', /*middleware.validarUsuario,*/ controllers.pasarelas.Listar);
+router.post('/pasarelas/moneda', /*middleware.validarUsuario,*/ controllers.pasarelas.ListarPorMoneda);
 router.post('/pasarela', /*middleware.validarUsuario,*/ controllers.pasarelas.Nuevo);
 router.post('/pasarela/modificar', /*middleware.validarUsuario,*/ controllers.pasarelas.Modificar);
 router.post('/pasarela/moneda', /*middleware.validarUsuario,*/ controllers.pasarelas.AsignarMoneda);
