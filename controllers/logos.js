@@ -29,7 +29,7 @@ exports.guardar =  function(req,res)
 			{				
 				cliente.getCliente(req.idCliente, function(error, data){
 
-					console.log(data);
+					//console.log(data);
 					services.emailServices.enviar('logoGuardado.html', {}, "Logo guardado", data.correo);
 
 				});
