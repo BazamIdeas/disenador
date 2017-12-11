@@ -24,7 +24,7 @@
                         <div layout layout-align="center" ng-show="usuario.loaderMostrar" class="margen_superior">
                             <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
                         </div>
-                        <div ng-repeat="elemento in usuario.usuarios | filter:usuario.buscar track by $index" class="elemento">
+                        <div ng-repeat="elemento in usuario.usuarios | filter:usuario.buscar | orderBy:'idUsuario'" class="elemento">
                             <div class="tabla-campo">
                                 <div style="flex:0.2;">{{$index}}</div>
                                 <div class="nombre">{{elemento.nombreUser}}</div>

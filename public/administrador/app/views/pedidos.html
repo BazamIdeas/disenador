@@ -57,10 +57,10 @@
                     <div>Acciones:</div>
                 </div>
                 <div layout="column" class="content-scroll lista">
-                    <div ng-repeat="elemento in pedidos.elementos | filter:pedidos.filtrosActivos" class="elemento nopadding" ng-click="pedidos.activar($event)">
+                    <div ng-repeat="elemento in pedidos.elementos | filter:pedidos.filtrosActivos | orderBy:'idPedido'" class="elemento nopadding" ng-click="pedidos.activar($event)">
                         <div class="estado-pedido pequeno {{elemento.estado}}"></div>
                         <div class="tabla-campo" layout-padding>
-                            <div>{{elemento.fecha | date : 'M/d/yy'}}</div>
+                            <div>{{elemento.fecha | date : 'yy/M/d'}}</div>
                             <div>{{elemento.nombreCliente}}</div>
                             <div>{{elemento.estado}}</div>
                             <div>{{elemento.pais}}</div>
@@ -89,56 +89,58 @@
                 <texto>DETALLES</texto>
             </div>
             <div layout="column" class="content-scroll">
-                <div ng-repeat="pedido in pedidos.pedidoDetalle" class="elemento nopadding">
-                    <div class="estado-pedido {{pedido.estado}}"></div>
+                <div class="elemento nopadding">
+                    <div class="estado-pedido {{pedidos.pedidoDetalle.estado}}"></div>
                     <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
                         <div flex="45">
-                            <b>Fecha:</b> {{pedido.fecha | date : shortDate }}</div>
+                            <b>Fecha:</b> {{pedidos.pedidoDetalle.fecha | date : 'yy/M/d'}}</div>
                         <div flex="45">
-                            <b>Cliente:</b> {{pedido.nombreCliente}}</div>
+                            <b>Cliente:</b> {{pedidos.pedidoDetalle.nombreCliente}}</div>
                         <div flex="45">
-                            <b>Correo:</b> {{pedido.correo}}</div>
+                            <b>Correo:</b> {{pedidos.pedidoDetalle.correo}}</div>
                         <div flex="45">
-                            <b>Telefono:</b> {{pedido.telefono}}</div>
+                            <b>Telefono:</b> {{pedidos.pedidoDetalle.telefono}}</div>
                         <div flex="45">
-                            <b>Estado:</b> {{pedido.estado}}</div>
+                            <b>Estado:</b> {{pedidos.pedidoDetalle.estado}}</div>
                         <div flex="45">
-                            <b>Plan:</b> {{pedido.plan}}</div>
+                            <b>Plan:</b> {{pedidos.pedidoDetalle.plan}}</div>
                         <div flex="45">
-                            <b>Precio:</b> {{pedido.precio}} {{pedido.moneda}}</div>
+                            <b>Precio:</b> {{pedidos.pedidoDetalle.precio}} {{pedidoDetalle.moneda}}</div>
                         <div flex="45">
-                            <b>Pais:</b> {{pedido.pais}}</div>
+                            <b>Pais:</b> {{pedidos.pedidoDetalle.pais}}</div>
                         <div flex="45">
-                            <b>Categoria:</b> {{pedido.nombreCategoria}}</div>
+                            <b>Categoria:</b> {{pedidos.pedidoDetalle.nombreCategoria}}</div>
                     </div>
                     <div layout layout-padding>
                         <md-input-container class="md-block" flex="50">
                             <label>CAMBIAR ESTADO</label>
-                            <md-select ng-model="pedido.estado" aria-label="estado">
-                                <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'COMPLETADO', $index)" value="COMPLETADO">
+                            <md-select ng-model="pedidos.pedidoDetalle.estado" aria-label="estado">
+                                <md-option ng-click="pedidos.cambiarEstado(pedidos.pedidoDetalle.idPedido, 'COMPLETADO', $index)" value="COMPLETADO">
                                     COMPLETADO
                                 </md-option>
 
-                                <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'EN ESPERA', $index)" value="EN ESPERA">
+                                <md-option ng-click="pedidos.cambiarEstado(pedidos.pedidoDetalle.idPedido, 'EN ESPERA', $index)" value="EN ESPERA">
                                     EN ESPERA
                                 </md-option>
-                                <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'CANCELADO', $index)" value="CANCELADO">
+                                <md-option ng-click="pedidos.cambiarEstado(pedidos.pedidoDetalle.idPedido, 'CANCELADO', $index)" value="CANCELADO">
                                     CANCELADO
                                 </md-option>
 
-                                <md-option ng-click="pedidos.cambiarEstado(pedido.idPedido, 'EN PROCESO', $index)" value="EN PROCESO">
+                                <md-option ng-click="pedidos.cambiarEstado(pedidos.pedidoDetalle.idPedido, 'EN PROCESO', $index)" value="EN PROCESO">
                                     EN PROCESO
                                 </md-option>
                             </md-select>
                         </md-input-container>
                     </div>
-                    <h3 class="text-center">LOGO</h3>
-                    <br>
-                    <div class="pedido-logo">
+                    <div ng-if="pedidos.pedidoDetalle.logo.length > 0">
+                        <h3 class="text-center">LOGO</h3>
+                        <br>
+                        <div class="pedido-logo">
 
-                        <bazam-visualizar data-svg="pedidos.base64(pedido.logo)"></bazam-visualizar>
+                            <bazam-visualizar data-svg="pedidos.base64(pedidos.pedidoDetalle.logo)"></bazam-visualizar>
+                        </div>
+                        <br>
                     </div>
-                    <br>
                 </div>
             </div>
         </div>

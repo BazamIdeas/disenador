@@ -50,66 +50,7 @@
 </head>
 
 <body ng-cloak>
-    <div class="row" ng-controller="sidenavController as sidenav">
-        <div class="col-sm-2 padding-cero transparencia md-whiteframe-24dp">
-            <md-sidenav style="width: 100%;" class="transparencia" md-component-id="left" md-whiteframe="4" ng-if="sidenav.autorizado">
-                <md-toolbar class="transparencia-sin-fondo">
-                    <div class="md-toolbar-tools">
-                        <div>LIDERLOGO</div>
-                    </div>
-                </md-toolbar>
-                <md-list ng-cloak layout="column">
-                    <md-item ng-repeat="vistas in sidenav.vistas" class="menuItem" ui-sref="{{vistas.url}}">
-                        <md-icon>{{vistas.icono}}</md-icon>
-                        {{vistas.url}}
-                    </md-item>
-                </md-list>
-            </md-sidenav>
-        </div>
-
-        <div class="col-xs-12 padding-cero">
-            <div class="box">
-                <header ng-controller="headerController as header">
-                    <md-toolbar class="transparencia" layout layout-align="none center">
-                        <div layout-padding ng-if="header.autorizado">
-                            <div ng-click="sidenav.cambiarMenu()" style="max-width:40px;">
-                                <md-icon>menu</md-icon>
-                            </div>
-                        </div>
-                        <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
-                            <div ng-if="!header.autorizado">
-                                <div>LIDERLOGO</div>
-                            </div>
-                            <div ng-if="header.autorizado">
-                                <div>{{header.autorizado.nombre}}</div>
-                            </div>
-                            <div ng-switch="header.autorizado" class="login_header">
-                                <ingresar ng-switch-when="false" ui-sref="login" layout-padding>
-                                    Ingresar
-                                </ingresar>
-
-                                <ingresar ng-switch-default ng-click="header.menuMostrar()">
-                                    <div layout-padding>
-                                        <md-icon class="icono-header">account_circle</md-icon>
-                                    </div>
-                                    <div ng-show="header.hmenuMostrar" class="menu-header">
-                                        <div ng-click="header.salir()">
-                                            <p>Cerrar sesion</p>
-                                        </div>
-                                    </div>
-                                </ingresar>
-                            </div>
-                        </div>
-                    </md-toolbar>
-                </header>
-                <!-- contenedor principal -->
-                <md-content flex ui-view ng-cloak class="padding_top transparente">
-                </md-content>
-            </div>
-        </div>
-
-    </div>
-
+    <md-content flex ui-view ng-cloak class="transparente alto-maximo"></md-content>
 </body>
 
 
