@@ -21,10 +21,9 @@ precios.datos = function(id,callback)
 		  	if(err)	throw err;
 		  	
 		  	else callback(null, row);
-		  	
-		});
 
-		connection.release();
+		  	connection.release();
+		});
 	});
 }
 
@@ -50,10 +49,7 @@ precios.ListarPorPlan = function(idPais,idPlan,callback)
 		  	else callback(null, rows);
 
 		  	connection.release();
-
 		});
-		
-		
 	});
 }
 
@@ -66,7 +62,7 @@ precios.Nuevo = function(precioData, callback)
 	{
 		connection.query( q , [precioData.monedas_idMoneda, precioData.planes_idPlan] , function(err, row)
 		{	
-			console.log(row[0].cantidad)
+			//console.log(row[0].cantidad)
 		  	if (!row[0].cantidad)
 		  	{
 				var q = 'INSERT INTO precios SET ? ' 
@@ -79,17 +75,18 @@ precios.Nuevo = function(precioData, callback)
 				  		if(err)	throw err;
 
 				  		else callback(null,{"result" : result.insertId}); 
-				  	
-				  	});
-
-				  	connection.release();
+				  		
+				  		connection.release();
+				  	});	  	
 				});
 
 			}
 			else callback(null, {"msg":"Ya existe un precio con la moneda"});
+			
+			connection.release();
 		});
 
-		connection.release();
+		
 	});
 }
 
@@ -105,10 +102,9 @@ precios.Bloquear = function(idPrecio, callback)
 	  		if(err)	throw err;
 
 	  		else callback(null,{"affectedRows" : row.affectedRows });
-	  	
+	  		
+	  		connection.release();
 	  	});
-
-	  connection.release();
 	});
 }
 

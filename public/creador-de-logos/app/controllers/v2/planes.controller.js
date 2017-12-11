@@ -10,6 +10,7 @@ angular.module("disenador-de-logos")
 
 
         bz.logo = historicoResolve.logo;
+        bz.idElemento = historicoResolve.idElemento;
 
 
         bz.monedas = {};
@@ -101,7 +102,7 @@ angular.module("disenador-de-logos")
                         datos: {
 
                             logo: historicoResolve.logo,
-                            idElemento: null,
+                            idElemento: bz.idElemento,
                             tipo: 'Logo y nombre',
                             plan: {
                                 nombre: plan.plan,

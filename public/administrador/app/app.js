@@ -64,7 +64,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                 name: 'monedas',
                 url: '/monedas',
                 templateUrl: 'app/views/monedas.html',
-                controller: 'monedasController as monedas',
+                controller: 'monedasController as moneda',
                 resolve: {
                     "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
@@ -127,7 +127,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
             })
             .state({
                 name: 'login',
-                url: '/',
+                url: '/login',
                 templateUrl: 'app/views/login.html',
                 controller: 'loginController as login',
                 resolve: {
@@ -159,8 +159,25 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                     }]
                 }
             })
+            .state({
+                name: 'pasarelas',
+                url: '/pasarelas',
+                templateUrl: 'app/views/pasarelas.html',
+                controller: 'pasarelasController as pasarela',
+                resolve: {
+                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
-        $urlRouterProvider.otherwise('/');
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }]
+                }
+            })
+
+        $urlRouterProvider.otherwise('/login');
     })
 
 

@@ -52,7 +52,7 @@ exports.datosLogo =  function(req, res, next) {
 		//si el pedido existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				res.status(200).json(data);
+				res.status(200).json(data[0]);
 			}
 		//no existe
 			else

@@ -1,6 +1,7 @@
 <html lang="es" ng-app="disenador-de-logos">
 
 <head>
+    <base href="/creador-de-logos/"/>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -68,6 +69,7 @@
     <script src="app/controllers/v2/editor.controller.js"></script>
     <script src="app/controllers/v2/planes.controller.js"></script>
     <script src="app/controllers/v2/pago.controller.js"></script>
+    <script src="app/controllers/v2/pagoCompleto.controller.js"></script>
 
 </head>
 
@@ -102,7 +104,8 @@
 
                     </div>                    
 
-                    <span>
+
+                    <span >
                         <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
                     </span>
 
@@ -117,10 +120,11 @@
         
     </div>
 
-    <!--<div ng-show='loading'>
+    <!--
+    <div ng-show='loading'>
       <strong>Loading.</strong>
-    </div>-->
-
+    </div>
+    -->
     <!-- Footer 
     <footer class="text-center" layout="row" layout-align="space-between center">
             <div class="logo" flex="30">logo</div>

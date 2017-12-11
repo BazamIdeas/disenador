@@ -82,6 +82,15 @@ angular.module("administrador")
             }
         }
 
+        bz.eliminarU = function (id, index) {
+            clientesServiceAdmin.borrarUsuario(id).then(function (res) {
+                SweetAlert.swal("Eliminado", "", "error");
+                bz.usuarios.splice(index, 1);
+            }).catch(function (res) {
+                console.log(res)
+            })
+        }
+
 
 
 

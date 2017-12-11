@@ -192,25 +192,15 @@ angular.module("disenador-de-logos")
 
         }
 
-
-        this.paypal = function (idElemento, logo, idPrecio, tipoLogo, idPasarela) {
-
+        this.listarPasarelas = function (idMoneda) {
 
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            var datos = {
-                idElemento: datosPedido.idElemento,
-                logo: datosPedido.logo,
-                idPrecio: datosPedido.idPrecio,
-                tipoLogo: datosPedido.tipoLogo,
-                idPasarela: pasarela
-            }
-
-
-
-            $http.post("/app/pedido", datos).then(function (res) {
+            $http.post("/app/pasarelas/moneda", {
+                idMoneda: idMoneda
+            }).then(function (res) {
 
                 defered.resolve(res.data);
 
@@ -220,11 +210,44 @@ angular.module("disenador-de-logos")
 
             })
 
-
             return promise;
 
         }
 
+
+        this.pagar = {
+            paypal: function (idElemento, logo, idPrecio, tipoLogo, idPasarela) {
+
+
+                var defered = $q.defer();
+
+                var promise = defered.promise;
+
+                var datos = {
+                    idElemento: idElemento,
+                    logo: logo,
+                    idPrecio: idPrecio,
+                    tipoLogo: tipoLogo,
+                    idPasarela: idPasarela
+                }
+
+
+
+                $http.post("/app/pedido", datos).then(function (res) {
+
+                    defered.resolve(res.data);
+
+                }).catch(function (res) {
+
+                    defered.reject(res);
+
+                })
+
+
+                return promise;
+
+            }
+        }
 
     }])
 
@@ -621,6 +644,29 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
+        
+        
+        this.obtenerPorId = function(idLogo){
+            
+            
+                 var defered = $q.defer();
+
+            var promise = defered.promise;
+            
+            
+               $http.get("/app/logo/"+idLogo).then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+            
+        }
 
     }])
 
@@ -644,27 +690,6 @@ angular.module("disenador-de-logos")
         }
 
     }])
-
-    /*********************/
-    /***** planes *********/
-    /*********************/
-
-    .service("ipService", ["$http", "$q", function ($http, $q) {
-
-        this.obtenerDatos = function () {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http.get("http://ip-api.com/json/").then(function (res) {
-                defered.resolve(res.data);
-            }).catch(function (res) {
-                defered.reject(res);
-            })
-            return promise;
-        }
-    }])
-
-
 
 
     .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
@@ -692,16 +717,14 @@ angular.module("disenador-de-logos")
         return {
             request: function (config) {
 
-                if (config.url == 'http://ip-api.com/json/') {
-                    return config;
-                } else {
-                    config.headers = config.headers || {};
-                    if (autorizado()) {
-                        config.headers.auth = autorizado().token;
-                    }
 
-                    return config || $q.when(config);
+                config.headers = config.headers || {};
+                if (autorizado()) {
+                    config.headers.auth = autorizado().token;
                 }
+
+                return config || $q.when(config);
+
 
             },
             response: function (response) {

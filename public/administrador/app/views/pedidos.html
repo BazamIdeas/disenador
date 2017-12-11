@@ -7,26 +7,47 @@
                 <texto layout-padding>LISTADO DE PEDIDOS</texto>
             </div>
             <div ng-show="pedidos.mostrarP">
-                <div layout class="elemento">
-                    <md-input-container flex style="margin-bottom: 0;height: 35px;">
-                        <input type="text" ng-model="pedidos.filtrosActivos.fecha" class="md-block" aria-label="filtro" placeholder="Buscar:">
-                    </md-input-container>
+                <div class="elemento preferencias-oculto" ng-click="pedidos.mp1 = !pedidos.mp1">
+                    <span>FILTROS</span>
                 </div>
-                <div layout class="elemento">
-                    <div style="margin: auto;">Filtrar por pais: </div>
-                    <md-input-container flex style="margin:0;">
-                        <md-select ng-model="pedidos.filtrosActivos.estado" class="md-block" aria-label="filtro">
-                            <md-option ng-value="TODOS" selected>TODOS</md-option>
-                            <md-option ng-value="estado.nombre" ng-repeat="estado in pedidos.filtros.estados">{{estado.nombre}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <div style="margin: auto;">Filtrar por estado: </div>
-                    <md-input-container flex style="margin:0;">
-                        <md-select ng-model="pedidos.filtrosActivos.pais" class="md-block" aria-label="filtro">
-                            <md-option ng-value="TODOS" selected>TODOS</md-option>
-                            <md-option ng-value="pais.nombre" ng-repeat="pais in pedidos.filtros.paises">{{pais.nombre}}</md-option>
-                        </md-select>
-                    </md-input-container>
+                <div ng-if="pedidos.mp1">
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="pedidos.filtrosActivos.fecha" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div layout class="elemento">
+                        <md-input-container flex>
+                            <label>Estado:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.estado" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="estado.nombre" ng-repeat="estado in pedidos.filtros.estados | unique">{{estado.nombre}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Pais:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.pais" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="pais" ng-repeat="pais in pedidos.filtros.paises | unique:'pais'">{{pais}}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Moneda:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.moneda" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="moneda" ng-repeat="moneda in pedidos.filtros.monedas | unique">{{moneda}}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Plan:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.plan" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="plan" ng-repeat="plan in pedidos.filtros.planes | unique">{{plan}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
                 </div>
                 <div class="tabla">
                     <div>Fecha:</div>
@@ -71,15 +92,24 @@
                 <div ng-repeat="pedido in pedidos.pedidoDetalle" class="elemento nopadding">
                     <div class="estado-pedido {{pedido.estado}}"></div>
                     <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
-                        <div flex="45"><b>Fecha:</b> {{pedido.fecha | date : shortDate }}</div>
-                        <div flex="45"><b>Cliente:</b> {{pedido.nombreCliente}}</div>
-                        <div flex="45"><b>Correo:</b> {{pedido.correo}}</div>
-                        <div flex="45"><b>Telefono:</b> {{pedido.telefono}}</div>
-                        <div flex="45"><b>Estado:</b> {{pedido.estado}}</div>
-                        <div flex="45"><b>Plan:</b> {{pedido.plan}}</div>
-                        <div flex="45"><b>Precio:</b> {{pedido.precio}} {{pedido.moneda}}</div>
-                        <div flex="45"><b>Pais:</b> {{pedido.pais}}</div>
-                        <div flex="45"><b>Categoria:</b> {{pedido.nombreCategoria}}</div>
+                        <div flex="45">
+                            <b>Fecha:</b> {{pedido.fecha | date : shortDate }}</div>
+                        <div flex="45">
+                            <b>Cliente:</b> {{pedido.nombreCliente}}</div>
+                        <div flex="45">
+                            <b>Correo:</b> {{pedido.correo}}</div>
+                        <div flex="45">
+                            <b>Telefono:</b> {{pedido.telefono}}</div>
+                        <div flex="45">
+                            <b>Estado:</b> {{pedido.estado}}</div>
+                        <div flex="45">
+                            <b>Plan:</b> {{pedido.plan}}</div>
+                        <div flex="45">
+                            <b>Precio:</b> {{pedido.precio}} {{pedido.moneda}}</div>
+                        <div flex="45">
+                            <b>Pais:</b> {{pedido.pais}}</div>
+                        <div flex="45">
+                            <b>Categoria:</b> {{pedido.nombreCategoria}}</div>
                     </div>
                     <div layout layout-padding>
                         <md-input-container class="md-block" flex="50">
@@ -102,6 +132,13 @@
                             </md-select>
                         </md-input-container>
                     </div>
+                    <h3 class="text-center">LOGO</h3>
+                    <br>
+                    <div class="pedido-logo">
+
+                        <bazam-visualizar data-svg="pedidos.base64(pedido.logo)"></bazam-visualizar>
+                    </div>
+                    <br>
                 </div>
             </div>
         </div>

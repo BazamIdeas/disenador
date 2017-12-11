@@ -34,27 +34,58 @@
             </div>
         </form>
     </div>
-    <div ng-switch-when="3" layout-padding flex="25" class=" formularios-login md-whiteframe-5dp margen_superior margen-inferior pasos">
-        <form name="olvido" ng-submit="login.forgotPass(login.olvido)" novalidate>
-            <h3 class="text-center">Recuperar contraseña</h3>
-            <div>
-                <md-input-container class="md-block">
-                    <label>Correo</label>
-                    <input type="email" ng-model="login.olvido.correo" name="correo" required ng-minlength="3">
-                </md-input-container>
-                <div ng-messages="olvido.correo.$error" style="color:maroon" role="alert" ng-show="olvido.$submitted">
-                    <div ng-message="required">Este campo es requerido.</div>
-                    <div ng-message="minlength">Debe contener minimo 3 caracteres</div>
-                    <div ng-message="email">Debe ser un email válido</div>
+    <div ng-switch-when="3" layout-padding flex="25" class="col-xs-10 col-sm-4 col-md-3 formularios-login md-whiteframe-5dp margen_superior margen-inferior pasos">
+        <form name="olvido" ng-submit="login.forgotPass(login.olvido, olvido.$valid)" novalidate>
+            <div ng-switch="login.rc">
+                <h3 class="text-center">Recuperar contraseña</h3>
+                <div ng-switch-when="1">
+                    <md-input-container class="md-block">
+                        <label>Correo</label>
+                        <input type="email" ng-model="login.olvido.correo" name="correo" required ng-minlength="3">
+                    </md-input-container>
+                    <div ng-messages="olvido.correo.$error" style="color:maroon" role="alert" ng-show="olvido.$submitted">
+                        <div ng-message="required">Este campo es requerido.</div>
+                        <div ng-message="minlength">Debe contener minimo 3 caracteres</div>
+                        <div ng-message="email">Debe ser un email válido</div>
+                    </div>
+                    <div layout layout-align="space-between">
+                        <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+
+                        <md-button class="md-raised md-primary" ng-click="login.mostrarForm=1">Regresar</md-button>
+                    </div>
                 </div>
-                <md-input-container class="md-block">
-                    <label>Codigo</label>
-                    <input type="password" ng-model="login.datosLogin.pass">
-                </md-input-container>
-            </div>
-            <div layout layout-align="space-between">
-                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
-                <md-button class="md-raised md-primary" ng-click="login.mostrarForm=1">Regresar</md-button>
+                <div ng-switch-when="2">
+                    <md-input-container class="md-block">
+                        <label>Codigo de coonfirmación:</label>
+                        <input type="password" ng-model="login.olvido.token">
+                    </md-input-container>
+                    <div layout layout-align="space-between">
+                        <md-button class="md-raised md-primary" ng-click="login.confirmarToken('codigo')">Enviar</md-button>
+                        <md-button class="md-raised md-primary" ng-click="login.mostrarForm=1">Regresar</md-button>
+                    </div>
+                </div>
+
+                <!-- TODO: revisar -->
+                <div ng-switch-when="3">
+                    <form name="formRecuperar" ng-submit="login.confirmarToken('cambiar',formRecuperar.$valid)" novalidate>
+                        <md-input-container class="md-block">
+                            <label>Nueva Contraseña:</label>
+                            <input type="password" ng-model="login.olvido.pass" name="pass" required ng-minlength="6">
+                        </md-input-container>
+                        <div ng-messages="formRecuperar.pass.$error" style="color:maroon" role="alert" ng-show="formRecuperar.$submitted">
+                            <div ng-message="required">Este campo es requerido.</div>
+                            <div ng-message="minlength">Debe contener minimo 6 caracteres</div>
+                        </div>
+                        <div layout layout-align="space-between">
+                            <md-button class="md-raised md-primary" type="submit">Cambiar</md-button>
+                            <md-button class="md-raised md-primary" ng-click="login.mostrarForm=1">Regresar</md-button>
+                        </div>
+                    </form>
+                </div>
+
+                <div layout layout-align="center" ng-show="login.loaderCargando2" class="margen_superior">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                </div>
             </div>
         </form>
     </div>
