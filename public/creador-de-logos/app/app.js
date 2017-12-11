@@ -1,48 +1,8 @@
 angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker"])
 
-    .config(function ($stateProvider, $httpProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider) {
 
-        /* COMPARTIR EN REDES SOCIALES */
-
-        /*
-            socialshareConfProvider.configure([{
-                    'provider': 'twitter',
-                    'conf': {
-                        'url': 'http://localhost:8080/creador-de-logos/#!/editor',
-                        'text': '720kb is enough',
-                        'via': 'npm',
-                        'hashtags': 'Creador de logos, LIDERLOGO',
-                        'trigger': 'click'
-                    }
-                },
-                {
-                    'provider': 'facebook',
-                    'conf': {
-                        'url': 'http://720kb.net',
-                        'trigger': 'click',
-                        'socialshareUrl': 'http://720kb.net',
-                        'socialshareText': 'Creador de logos',
-                        'socialshareTitle': 'Creador de logos',
-                        'socialshareDescription': 'Creador de logos',
-                        'socialsharemedia': '#logo-share',
-                        'socialshareHashtags': ''
-                    }
-                }, {
-                    'provider': 'email',
-                    'conf': {
-                        'trigger': 'click',
-                        'socialsharesSubject': 'Creador de logos',
-                        'socialsharesBody': 'Hola',
-                        'socialsharesTo': 'luisdtc2696@gmail.com',
-                        'socialsharesCc': '',
-                        'socialsharesBcc': ''
-                    }
-                }
-
-
-            ])
-            
-            */
+        $locationProvider.html5Mode(true)
 
         /* INTERCEPTADOR */
         $httpProvider.interceptors.push('AuthInterceptor');
@@ -565,6 +525,25 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
+        
+         .state({
+                name: 'pagoCompleto',
+                url: '/pago/completo/:id',
+                templateUrl: 'app/views/v2/pagoCompleto.tpl',
+                controller: 'pagoCompletoController as pagoCompleto',
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }]
+                }
+            })
+        
        
             .state({
                 name: 'cuenta',

@@ -644,6 +644,29 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
+        
+        
+        this.obtenerPorId = function(idLogo){
+            
+            
+                 var defered = $q.defer();
+
+            var promise = defered.promise;
+            
+            
+               $http.get("/app/logo/"+idLogo).then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+            
+        }
 
     }])
 
