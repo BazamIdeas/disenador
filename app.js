@@ -64,5 +64,7 @@ app.use(function(err, req, res, next) {
   res.send({ error: err.message });
 });
 
-app.listen(configuracion.puerto);
+app.listen(configuracion.puerto, function () {
+  console.log('Servidor corriendo en : '+configuracion.servidor);
+});
 module.exports = app;

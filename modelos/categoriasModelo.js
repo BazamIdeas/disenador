@@ -16,10 +16,11 @@ categoria.getCategorias = function(tipo,callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
-	  	
+	  		
+	  		connection.release();
 	  	});
 
-	  	connection.release();
+	  	
 	});
 }
 
@@ -34,10 +35,11 @@ categoria.ListarIconos = function(idCategoria,callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
-	  	
+	  		
+	  		connection.release();
 	  	});
 
-	  	connection.release();
+	  	
 	});
 }
 
@@ -52,10 +54,11 @@ categoria.ListarFuentes = function(idCategoria,callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
-	  	
+	  		
+	  		connection.release();
 	 	});
 
-	  	connection.release();
+	  	
 	});	
 }
 
@@ -71,10 +74,11 @@ categoria.getCategoria = function(id,callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, row);
-	  	
+	  		
+	  		connection.release();
 	  	});
 
-	  	connection.release();
+	  	
 	});
 }
  
@@ -92,10 +96,11 @@ categoria.insertCategoria= function(categoriaData,callback)
 
 	  		//devolvemos la última id insertada
 	  		else callback(null,{"insertId" : result.insertId}); 
-	  	
+	  		
+	  		connection.release();
 	  	});
 
-	  	connection.release();
+	  	
 	});
 }
 
@@ -113,10 +118,11 @@ categoria.updateCategoria = function(categoriaData, callback)
 	  		if(err)	throw err;
 
 	  		else callback(null,{"msg" : "modificacion exitosa"}); 
-	  	
+	  		
+	  		connection.release();
 	  	});
 
-	  	connection.release();
+	  	
 	});
 }
 
@@ -145,17 +151,20 @@ categoria.deleteCategoria = function(id, callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"msg" : 'eliminado'}); 
-				  	
+				  		
+				  		connection.release();
 				 	 });
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe esta categoria"});
-	  	});
+	  		
+	  		connection.release();
+		});
 
-	  connection.release();
+	  
 	});
 }
 

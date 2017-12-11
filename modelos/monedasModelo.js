@@ -10,13 +10,15 @@ moneda.Listar = function(callback)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+	  	
+		});
+
+	  
 	});
 }
 
@@ -29,7 +31,7 @@ moneda.Nuevo = function(monedaData,callback)
 	{
 		connection.query( q , [monedaData.moneda] , function(err, row)
 		{
-			console.log(row[0].cantidad)
+			//console.log(row[0].cantidad)
 	  	 	//si existe la id del cliente a eliminar
 		  	if (!row[0].cantidad)
 		  	{
@@ -42,18 +44,20 @@ moneda.Nuevo = function(monedaData,callback)
 				  		if(err)	throw err;
 
 					  	//devolvemos el última id insertada
-					  	else callback(null,{"result" : true}); 
-				  	
+					  	else callback(null,{"result" : row.insertId}); 
+				  		
+				  		connection.release();
 				 	});
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"Ya existe esta etiqueta"});
+	  		connection.release();
 	  	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -79,17 +83,20 @@ moneda.Borrar = function(id, callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"msg" : 'eliminado'}); 
-				  	
-				 	 });
+				  		
+				  		connection.release();
+				 	});
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe esta Etiqueta"});
+
+		  	connection.release();
 	  	});
 
-	  connection.release();
+	  
 	});
 }
 

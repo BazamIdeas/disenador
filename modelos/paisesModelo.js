@@ -9,7 +9,7 @@ pais.Listar = function(callback)
 	var q = `SELECT paises.*, monedas.*
 				FROM paises
 				INNER JOIN monedas_has_paises ON monedas_has_paises.paises_idPais = paises.idPais
-				INNER JOIN monedas ON monedas.monedas_idMoneda = monedas.idMoneda
+				INNER JOIN monedas ON monedas_has_paises.monedas_idMoneda = monedas.idMoneda
 				WHERE monedas_has_paises.principal = 1
 				ORDER BY iso`;
 
@@ -20,10 +20,11 @@ pais.Listar = function(callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
-	  	
+	  		
+	  		connection.release();
 	  	});
 
-	  	connection.release();
+	  	
 	});
 
 }
@@ -46,10 +47,11 @@ pais.ListarMonedas = function(id,callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
-	  	
+
+	  		connection.release();
 	  	});
 
-	  	connection.release();
+	  	
 	});
 
 }
@@ -101,20 +103,23 @@ pais.Nuevo = function(paisData,callback)
 				{
 					connection.query( qq , par , function(err, result){
 				  	
-				  	if(err)	throw err;
+					  	if(err)	throw err;
 
-				  	//devolvemos la última id insertada
-				  	else callback(null,{"insertId" : result.insertId}); 
-				  	
-				  });
+					  	//devolvemos la última id insertada
+					  	else callback(null,{"insertId" : result.insertId}); 
+					  	
+					  	connection.release();
+				 	});
 
-				  connection.release();
+				  
 				});
 		  	}
 		  	else callback(null,{"msg":"Ya existe este pais"});
+
+		  	connection.release();
 	  	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -139,17 +144,20 @@ pais.AsignarMoneda = function(paisMoneda,callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"insertId" : result}); 
-				  	
+				  		
+				  		connection.release();
 				 	});
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"La moneda ya esta asignada"});
+	  		
+	  		connection.release();
 	  	});
 
-		connection.release();
+		
 	});
 }
 
@@ -170,7 +178,7 @@ pais.AsignarDolar = function(idPais,callback)
 		connection.query( q , [idPais] , function(err, row)
 		{
 
-			console.log(row)
+			//console.log(row)
 		  	if (!row[0].cantidad)
 		  	{
 		  		var qq = 'INSERT INTO monedas_has_paises SET ?';
@@ -189,17 +197,20 @@ pais.AsignarDolar = function(idPais,callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"insertId" : result}); 
-				  	
+				  		
+				  		connection.release();
 				 	});
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"La moneda ya esta asignada"});
+	  		
+	  		connection.release();
 	  	});
 
-	connection.release();
+	
 	});
 }
 
@@ -220,23 +231,26 @@ pais.DesasignarMoneda = function(paisMoneda,callback)
 		  		{
 					connection.query( qq , [paisMoneda.paises_idPais, paisMoneda.monedas_idMoneda] , function(err, result)
 					{
-						console.log('this.sql', this.sql);
+						//console.log('this.sql', this.sql);
 				  	
 				  		if(err)	throw err;
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"msg" : 'eliminado'}); 
 				  	
+				 		connection.release();
 				 	});
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":row[0].cantidad});
+
+		  	connection.release();
 	  	});
 
-	connection.release();
+	
 	});
 }
 
@@ -249,13 +263,12 @@ pais.ObtenerPorId = function(id,callback)
 	{
 		connection.query( q , par,  function(err, row){ 
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
 
-	  connection.release();
+		  	connection.release();
+	  	});
 	});
 }
 
@@ -268,13 +281,13 @@ pais.ObtenerImpuesto = function(iso ,callback)
 	{
 		connection.query( q , par,  function(err, row){ 
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row[0].impuesto);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row[0].impuesto);
 
-	  connection.release();
+		  	connection.release();
+	  	
+	  	});
 	});
 }
  
@@ -287,13 +300,12 @@ pais.Modificar = function(paisData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : row }); 
-	  	
-	  });
+		  	else callback(null,{"msg" : row }); 
 
-	  connection.release();
+		  	connection.release();
+	  	});
 	});
 }
 
@@ -319,17 +331,18 @@ pais.Borrar = function(id, callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"msg" : 'eliminado'}); 
-				  	
-				 	 });
-
-				  	connection.release();
+				  		
+				  		connection.release();
+				 	});
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe esta Etiqueta"});
+
+		  	connection.release();
 	  	});
 
-	  connection.release();
+	  
 	});
 }
 
