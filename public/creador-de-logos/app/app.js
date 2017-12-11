@@ -565,7 +565,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-
+       
             .state({
                 name: 'cuenta',
                 url: '/cliente/cuenta',
@@ -577,7 +577,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 url: '/cliente/logos',
                 templateUrl: 'app/views/v2/logos.tpl',
             })
-
+      
         //redirecciones
 
         $urlRouterProvider.when('', '/comenzar/');
@@ -592,7 +592,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
     .run(function ($rootScope, $state) {
-
+/*
         $rootScope.$on('$stateChangeStart',function(){
             $rootScope.loading = true;
         });
@@ -601,7 +601,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         $rootScope.$on('$stateChangeSuccess',function(){
             $rootScope.loading = false;
         });
-
+*/
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
             if (error == "STEPS") {

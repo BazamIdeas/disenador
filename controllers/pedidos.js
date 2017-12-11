@@ -97,9 +97,9 @@ exports.nuevoPedido = function (req, res) {
 		if (data && data.insertId) {
 
 			idLogo = data.insertId
-			iso = services.geoipServices.Iso(req.ip)
+			iso = services.geoipServices.iso(req.ip)
 			idPrecio = req.body.idPrecio
-			idPasarela = req.body.pasarelas_idPasarela
+			idPasarela = req.body.idPasarela
 
 			pais.ObtenerImpuesto(iso, function (error, impuesto) {
 				var pedidoData = {
