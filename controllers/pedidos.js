@@ -323,9 +323,9 @@ exports.cambioEstadoPagado = function (req, res)
 
 					});
 
-					res.redirect(configuracion.dashboard + "?pago=true");
+					res.redirect(configuracion.pago + req.params.idLogo);
 				} else {
-					res.redirect(configuracion.dashboard + "?pago=false");
+					res.redirect(configuracion.nopago);
 				}
 			});
 		} else {
@@ -339,7 +339,7 @@ exports.cambioEstadoPagado = function (req, res)
 
 exports.noPago = function (req, res) {
 
-	res.redirect(configuracion.dashboard + "?pago=false");
+	res.redirect(configuracion.nopago);
 
 }
 
