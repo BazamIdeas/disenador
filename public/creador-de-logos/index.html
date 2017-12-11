@@ -5,6 +5,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Indie+Flower|Lobster|Shadows+Into+Light|Spectral+SC" rel="stylesheet">--> 
+    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
     <link href="/angular-colorpicker-directive/color-picker.css" rel="stylesheet">
@@ -101,7 +102,7 @@
 
                     </div>                    
 
-                    <span ng-click="#">
+                    <span>
                         <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
                     </span>
 
@@ -116,9 +117,9 @@
         
     </div>
 
-    <div ng-show='loading'>
+    <!--<div ng-show='loading'>
       <strong>Loading.</strong>
-    </div>
+    </div>-->
 
     <!-- Footer 
     <footer class="text-center" layout="row" layout-align="space-between center">
@@ -128,6 +129,15 @@
     </footer>
     -->
     
+    <script type="text/ng-template" id="toast-success.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>Su logo ha sido guardado con exito!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+
 </body>
 
 

@@ -115,107 +115,30 @@
                     </div>
                 </div>
 
-
-                <div class="col s10 offset-s1">
-                    <div class="caja pedidos">
-                        <p class="text-center tercero margin-bottom-0 margin-top-0">ULTIMOS PEDIDOS</p>
-                        <div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>FECHA</th>
-                                        <th>ESTADO</th>
-                                        <th>PLAN</th>
-                                        <th>PRECIO</th>
-                                        <th>IMPUESTO</th>
-                                        <th>TOTAL</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
+
+
+        <div class="overlay" ng-class="{'show': true, 'hide': false}"> 
+            <div class="row margin-bottom-0">
+                <div class="col s6 offset-s3">
+
+                    <div class="login-form-flex"> 
+
+                        <div class="cubo-form row">
+
+                            <i class="material-icons cerrar" ng-click="principal.mostrarModalLogin = false">clear</i>
+
+                            <div class="compartir-iconos col s12">
+                                <span><i class="fab fa-facebook-f"></i></span>
+                                <span><i class="fab fa-twitter"></i></span>
+                                <span><i class="fab fa-google-plus-g"></i></span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>

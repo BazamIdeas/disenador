@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', "historicoResolve", "$rootScope", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope) {
+    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', "historicoResolve", "$rootScope","$mdToast", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast) {
 
         var bz = this;
 
@@ -40,10 +40,27 @@ angular.module("disenador-de-logos")
 
         bz.guardarLogo = function (logo, tipoLogo, idElemento) {
 
+            var isDlgOpen;
 
             logosService.guardarLogo(logo, tipoLogo, idElemento).then(function (res) {
+                
+                $mdToast.show({
+                    hideDelay   : 0,
+                    position    : 'top right',
+                    controller  :  ["$scope", "$mdToast", "$mdDialog", function($scope, $mdToast, $mdDialog) {
+                  
+                        $scope.closeToast = function() {
+                            if (isDlgOpen) return;
 
-                alert("se guardo");
+                            $mdToast
+                                .hide()
+                                .then(function() {
+                                    isDlgOpen = false;
+                                });
+                        }
+                    }],
+                    templateUrl : 'toast-success.html'
+                });
 
             })
 

@@ -8,10 +8,10 @@
         <section class="sub-header">
             <div class="row margin-bottom-0">
 
-                <div class="col s2 logo">
+                <div class="col l2 logo">
                     <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
                 </div>
-                <div class="col s10 texto">
+                <div class="col l10 texto">
                     <h5 class="principal"> CREE SU LOGO PROFESIONAL EN MINUTOS</h5>
                 </div>
 
@@ -21,7 +21,7 @@
         <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
             <div class="row margin-bottom-0" style="overflow: hidden;">
                 <form class="margin-bottom-0">
-                    <div class="col s2 sidebar-1 scroll" ng-form="principal.datosForm">
+                    <div class="col l2 sidebar-1 scroll" ng-form="principal.datosForm">
                         <div class="input-field col s12">
                             <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
                             <label for="nombre" class="active">Nombre</label>
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 
-                    <div class="col s2 sidebar-2" ng-class="{'offset-s2': principal.datosForm.$valid, 'ocultar': !principal.datosForm.$valid, 'mostrar': principal.datosForm.$valid}">
+                    <div class="col l2 sidebar-2" ng-class="{'offset-l2': principal.datosForm.$valid, 'ocultar': !principal.datosForm.$valid, 'mostrar': principal.datosForm.$valid}">
                         <p class="text-center principal">Forma de su logo</p>
 
                         <div class="cubo-logo">
@@ -84,7 +84,7 @@
                 </form>
 
 				
-				<div ui-view class="contenedor-principal col " ng-class="{'s10': !principal.datosForm.$valid, 's8': principal.datosForm.$valid}">
+				<div ui-view class="contenedor-principal col " ng-class="{'l10': !principal.datosForm.$valid, 'l8': principal.datosForm.$valid}">
 				       
 				</div>
 

@@ -13,15 +13,15 @@
                 </div>
                 <div class="col s8">
                 	<div class="row opciones-sub-header margin-bottom-0">
-	                    <div class="col s2">
+	                    <div class="col l2 xl2">
 	                    	<div color-picker color-picker-model="editor.colorFondo" ng-model="editor.colorFondo" color-picker-position="bottom" class="selector-fondo" ng-style="{'background-color': editor.colorFondo}" style="font-size: 0px;"></div>
 	                    	<span class="principal">Fondo</span>
 	                    </div>
-	                    <div class="col s2">
+	                    <div class="col l3 xl2">
 	                    	<div class="selector-cuadricula"><i class="material-icons">apps</i></div>
 	                    	<span class="principal">Cuadricula</span>
 	                    </div>
-	                    <div class="col s6 offset-s2">
+	                    <div class="col l7 xl6 offset-xl2">
 							<button class="boton-oborder" ng-click="editor.mostrarBorradores()"><i class="material-icons">queue</i> BORRADORES</button>
 
 	                    	<button class="boton-oborder"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
@@ -164,7 +164,7 @@
                                     </bazam-visualizar>
                                     
 				    			</div>
-                                <div ng-show="!editor.comparaciones.length" layout-padding style="text-align:center;">
+                                <div ng-show="!editor.comparaciones.length" layout-padding style="height: 100%;display: flex;align-items: center;justify-content: center;font-family: 'futura-heavy' !important;font-size: 20px;">
                                     No existe ningun borrador
                                 </div>
 				    		</div>
