@@ -6,7 +6,7 @@
                     <h5 class="secundario"  ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
                 </div>
                 <div class="col s10 texto">
-                    <h5 class="principal">ESCOJA EL MEJOR PLAN PARA USTED</h5>
+                    <h5 class="principal">ESCOJA ENTRE MULTIPLES FORMATOS</h5>
                 </div>
 
             </div>
@@ -18,16 +18,8 @@
             	<div class="col s3" style="padding: 0 40px;">
             		<p class="tercero text-center"></p>
             		<div class="logo-final">
-                        <bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+                        <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
             		</div>
-
-            		<p class="principal text-center">Cambiar moneda de pago:</p>
-					<md-input-container style="width:100%; padding: 10px;" >
-					  	<md-select ng-model="planes.moneda" placeholder="Moneda" required> 
-					    	<md-option ng-selected="moneda.simbolo == planes.monedaDefault.simbolo" ng-value="moneda" ng-repeat="moneda in planes.monedas">{{moneda.simbolo}}</md-option>
-					  	</md-select>
-					</md-input-container>
-
             	</div>
 				
 				<div class="col s9" style="padding: 0 40px;">

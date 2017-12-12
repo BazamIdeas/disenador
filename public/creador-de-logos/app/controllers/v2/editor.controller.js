@@ -42,7 +42,7 @@ angular.module("disenador-de-logos")
 
             var isDlgOpen;
 
-            logosService.guardarLogo(logo, tipoLogo, idElemento).then(function (res) {
+            logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento).then(function (res) {
                 
                 $mdToast.show({
                     hideDelay   : 0,
