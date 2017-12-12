@@ -48,7 +48,7 @@ angular.module("disenador-de-logos")
                         
                     case 1://PAYPAL
                         pedidosService.pagar.paypal(bz.pedido.idElemento, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela).then(function(res){
-                            
+                            console.log(res)
                            $window.location = res;
                             
                         })
