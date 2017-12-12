@@ -149,6 +149,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
+				var nombre = 'Logo'+'-' +descarga +'-' + moment().format("DD-MM-YYYY")+'.svg'
 
 				var path = 'public/tmp/'
 
