@@ -142,19 +142,19 @@ exports.listaLogosDescargables = function(req, res, next) {
 		var idLogo = req.body.idLogo;
 		var ancho = req.body.ancho;
 		var tipo = req.body.tipo;
+		var descarga = req.body.descarga;
 		
 		logo.getLogo(idLogo,function(error, data)
 		{
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				var nombre = idLogo +'-' + moment().format("YYYY-MM-DD")+'-'+ancho+'.svg'
 
 				var path = 'public/tmp/'
 
 				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
 				
-				fuente = base64.decode(data[0].logo).split("style>")[1].split("</style>")[0].split("url(/")[1].split(")")[0]
+				//fuente = base64.decode(data[0].logo).split("style>")[1].split("</style>")[0].split("url(/")[1].split(")")[0]
 
 				fs.open(path+nombre, 'w', function(err, fd) {
 				    if (err) {
