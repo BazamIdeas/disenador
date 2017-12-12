@@ -2,9 +2,11 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('pagoController', ["$scope", "historicoResolve", "pedidosService", "$window", function ($scope, historicoResolve, pedidosService, $window) {
+    .controller('pagoController', ["$scope", "historicoResolve", "pedidosService", "$window", "$state", "$base64", function ($scope, historicoResolve, pedidosService, $window, $state, $base64) {
 
         var bz = this;
+        
+        bz.base64 = $base64;
 
         bz.pedido = historicoResolve;
 
@@ -45,8 +47,8 @@ angular.module("disenador-de-logos")
                 switch (idPasarela) {
                         
                     case 1://PAYPAL
-                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.pedido.logo, bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela).then(function(res){
-                            
+                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela).then(function(res){
+                            console.log(res)
                            $window.location = res;
                             
                         })

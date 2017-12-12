@@ -3,7 +3,7 @@
             <div class="row margin-bottom-0">
 
                 <div class="col s2 logo">
-                    <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
+                    <h5 class="secundario" ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
                 </div>
                 <div class="col s10 texto">
                     <h5 class="principal">DETALLES DE SU PEDIDO</h5>
@@ -74,7 +74,7 @@
                         
                     </div>
 
-					<div class="row">
+					<div class="row" ng-if="pago.terminos">
 						
 						<div class="col s12" style="padding: 0">
 

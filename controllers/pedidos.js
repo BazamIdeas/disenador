@@ -93,7 +93,7 @@ exports.nuevoPedido = function (req, res) {
 
 	logo.insertLogo(logoData, function (error, data) {
 
-		//si el logo se ha insertado correctamente 
+		//si el logo se ha insertado correctamente
 		if (data && data.insertId) {
 
 			idLogo = data.insertId
@@ -118,8 +118,8 @@ exports.nuevoPedido = function (req, res) {
 					if (data && data.insertId) {
 						/// PAGO AQUI
 						//////////////////////
-
 						precio.datos(idPrecio, function (error, data) {
+
 							if (typeof data !== 'undefined' && data.length > 0) {
 								var plan = data;
 								elemento.datosElemento(req.body.idElemento, function (error, data) {
@@ -129,11 +129,11 @@ exports.nuevoPedido = function (req, res) {
 										tipoE = data[0].tipo.replace(" ", "");
 
 										pasarela.Obtener(idPasarela, function (error, data) {
+											
 											if (typeof data !== 'undefined' && data.length > 0) {
 
-												/////ENVIAR PAGO
-
-												if (data[0].pasarela == "Paypal") {
+												/////ENVIAR PAGO a paypal
+												if (idPasarela == 1) {
 
 													var datosPago = {
 														precio: plan[0].precio,

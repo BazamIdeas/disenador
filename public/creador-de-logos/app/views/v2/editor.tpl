@@ -9,7 +9,7 @@
             <div class="row margin-bottom-0">
 
                 <div class="col s4 logo">
-                    <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
+                    <h5 class="secundario"  ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
                 </div>
                 <div class="col s8">
                 	<div class="row opciones-sub-header margin-bottom-0">

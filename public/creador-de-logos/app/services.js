@@ -588,11 +588,11 @@ angular.module("disenador-de-logos")
 
             $http.post("/app/logos/guardados/").then(function (res) {
 
-                defered.resolve(res);
+                defered.resolve(res.data);
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject();
 
             })
 
@@ -608,11 +608,11 @@ angular.module("disenador-de-logos")
 
             $http.post("/app/logos/descargables/").then(function (res) {
 
-                defered.resolve(res);
+                defered.resolve(res.data);
 
             }).catch(function (res) {
 
-                defered.reject(res);
+                defered.reject();
 
             })
 
