@@ -6,6 +6,7 @@ var moment = require('moment');
 var base64 = require('base-64');
 const svg2png = require("svg2png");
 var archiver = require("archiver")
+var pathM = require("path")
 
 
 exports.guardar =  function(req,res)
@@ -155,7 +156,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 
 				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
 				
-				//fuente = base64.decode(data[0].logo).split("style>")[1].split("</style>")[0].split("url(/")[1].split(")")[0]
+				fuente = base64.decode(data[0].logo).split("style>")[1].split("</style>")[0].split("/fuentes/")[1].split("')")[0]
 
 				fs.open(path+nombre, 'w', function(err, fd) {
 				    if (err) {
@@ -176,7 +177,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 				        		archive.pipe(output);
 
 				        		archive.append(fs.createReadStream(svg), { name: 'logo.svg' });
-				        		archive.append(fs.createReadStream(fuente), { name: fuente.split("fuentes/")[1] });
+				        		archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+"/fuentes/"+fuente), { name: fuente });
 
 				        		archive.finalize();
 
