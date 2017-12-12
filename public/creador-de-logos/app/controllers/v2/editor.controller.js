@@ -8,6 +8,7 @@ angular.module("disenador-de-logos")
 
         bz.base64 = $base64;
 
+        bz.cuadricula = false;
         bz.borradores = false;
         bz.preview = false;
         bz.busquedaIconos = false;
@@ -67,6 +68,12 @@ angular.module("disenador-de-logos")
         }
 
 
+        bz.activarCuadricula = function () {
+
+            bz.cuadricula = !bz.cuadricula;
+
+        }
+
         bz.mostrarBorradores = function () {
 
             if (bz.borradores) {
@@ -78,6 +85,24 @@ angular.module("disenador-de-logos")
                 bz.preview = false;
                 bz.busquedaIconos = false;
                 bz.borradores = true;
+
+            }
+
+
+        }
+
+
+        bz.mostrarPreviews = function () {
+
+            if (bz.preview) {
+
+                bz.preview = false;
+
+            } else {
+
+                bz.preview = true;
+                bz.busquedaIconos = false;
+                bz.borradores = false;
 
             }
 

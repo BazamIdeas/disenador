@@ -202,7 +202,7 @@ exports.nuevoPedido = function (req, res) {
 
 exports.nuevoPedidoGuardado = function (req, res) {
 	idLogo = req.body.idLogo
-	iso = services.geoipServices.Iso(req.ip)
+	iso = services.geoipServices.iso(req.ip)
 	idPrecio = req.body.idPrecio
 	idPasarela = req.body.pasarelas_idPasarela
 

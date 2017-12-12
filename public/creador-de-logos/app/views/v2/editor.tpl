@@ -18,13 +18,13 @@
 	                    	<span class="principal">Fondo</span>
 	                    </div>
 	                    <div class="col l3 xl2">
-	                    	<div class="selector-cuadricula"><i class="material-icons">apps</i></div>
+	                    	<div class="selector-cuadricula" ng-class="'activo': editor.cuadricula }"  ng-click="editor.activarCuadricula()"><i class="material-icons">apps</i></div>
 	                    	<span class="principal">Cuadricula</span>
 	                    </div>
 	                    <div class="col l7 xl6 offset-xl2">
 							<button class="boton-oborder" ng-click="editor.mostrarBorradores()"><i class="material-icons">queue</i> BORRADORES</button>
 
-	                    	<button class="boton-oborder"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
+	                    	<button class="boton-oborder" ng-click="editor.mostrarPreviews()"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
 
 	                    	<button class="boton-oborder" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"><i class="material-icons" >save</i> GUARDAR</button>
 
@@ -126,25 +126,30 @@
 	                        </div>
 	                    </div>
 
-	                    <div class="col s12 text-center" ng-form="editor.iconosForm">
-		                    <md-input-container style="width:100%; padding: 0 0.75rem" >
-							  	<md-select ng-model="editor.categoriaIcono" placeholder="Categoria"  md-no-asterisk required> 
+	                    <div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
+		                    <md-input-container style="width:80%; padding: 0 0.75rem" >
+							  	<md-select ng-model="editor.categoriaIcono" placeholder="Categoria" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" md-no-asterisk required> 
 							    	<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 							  	</md-select>
 							</md-input-container>
+							<span style="background: var(--principal);color: white;border-radius: 3px;padding: 2;cursor: pointer;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ><i class="material-icons">refresh</i></span>
 
-							<button type="submit" class="boton-oborder" style="margin-bottom: 20px;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"><i class="material-icons">search</i> BUSCAR</button>
+							
 	                    </div>
                     </div>
                 </form>
 
 				
-				<div class="contenedor-principal col s8" style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
+				<div class="contenedor-principal editor col s8" ng-class="{'cuadricula': editor.cuadricula}" style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
 					<div class="contenedor-svg">
 				       <bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal"></bazam-svg>
 				    </div>
-				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaIconos || editor.preview) }"></div>
+				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaIconos) }"></div>
+				    <div class="overlay-svg-previews"  ng-class="{'abierto': editor.preview }"></div>
 				    <div class="contenedor-borradores" ng-class="{'abierto': editor.borradores}">
+				    	<div class="cerrar-contenedor-bi">
+				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	</div>
 				    	<div class="row padding-bottom-0">
 				    		<div class="col s2">
 				    			<div class="agregar" ng-click="editor.realizarComparacion(editor.comparar)"><i class="material-icons">add</i> <span>AGREGAR</span></div>
@@ -171,6 +176,9 @@
 				    	</div>
 				    </div>
 					<div class="contenedor-iconos" ng-class="{'abierto': editor.busquedaIconos}">
+				    	<div class="cerrar-contenedor-bi">
+				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	</div>
 				    	<div class="row padding-bottom-0">
 				    		<div class="col s10">
 
@@ -188,6 +196,14 @@
 				    	</div>
 					</div>
 					<div class="contenedor-previews" ng-class="{'abierto': editor.preview}">
+						<div class="cerrar-contenedor-p">
+				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	</div>	
+						<div class="row padding-bottom-0">
+				    		<div class="col s12">
+                                
+				    		</div>
+				    	</div>				    						
 					</div>
 				</div>
             </div>
