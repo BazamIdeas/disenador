@@ -8,6 +8,7 @@ angular.module("disenador-de-logos")
 
         bz.base64 = $base64;
 
+        bz.cuadricula = false;
         bz.borradores = false;
         bz.preview = false;
         bz.busquedaIconos = false;
@@ -66,6 +67,12 @@ angular.module("disenador-de-logos")
 
         }
 
+
+        bz.activarCuadricula = function () {
+
+            bz.cuadricula = !bz.cuadricula;
+
+        }
 
         bz.mostrarBorradores = function () {
 

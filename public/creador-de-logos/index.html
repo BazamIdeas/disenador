@@ -79,9 +79,19 @@
 
                 <div ng-switch="header.autorizado" class="login"  ng-cloak>
 
+                    <div ng-switch-when="false" ui-sref="comenzar" class="acceder" style="cursor: pointer">
+                        <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
+                        <i class="material-icons">add_circle_outline</i>
+                    </div>
+
                     <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer"> <i class="material-icons md-48">account_circle</i> <span>Acceder / Registro</span> </div>
 
                     <div ng-switch-default class="acceder" style="cursor: pointer"> 
+
+                        <span ui-sref="cuenta">
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
+                            <i class="material-icons">add_circle_outline</i>
+                        </span>
 
                         <span ui-sref="cuenta">
                             <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
