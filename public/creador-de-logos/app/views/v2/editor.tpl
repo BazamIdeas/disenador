@@ -24,7 +24,7 @@
 	                    <div class="col l7 xl6 offset-xl2">
 							<button class="boton-oborder" ng-click="editor.mostrarBorradores()"><i class="material-icons">queue</i> BORRADORES</button>
 
-	                    	<button class="boton-oborder"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
+	                    	<button class="boton-oborder" ng-click="editor.mostrarPreviews()"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
 
 	                    	<button class="boton-oborder" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"><i class="material-icons" >save</i> GUARDAR</button>
 
@@ -143,8 +143,12 @@
 					<div class="contenedor-svg">
 				       <bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal"></bazam-svg>
 				    </div>
-				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaIconos || editor.preview) }"></div>
+				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaIconos) }"></div>
+				    <div class="overlay-svg-previews"  ng-class="{'abierto': editor.preview }"></div>
 				    <div class="contenedor-borradores" ng-class="{'abierto': editor.borradores}">
+				    	<div class="cerrar-contenedor-bi">
+				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	</div>
 				    	<div class="row padding-bottom-0">
 				    		<div class="col s2">
 				    			<div class="agregar" ng-click="editor.realizarComparacion(editor.comparar)"><i class="material-icons">add</i> <span>AGREGAR</span></div>
@@ -171,6 +175,9 @@
 				    	</div>
 				    </div>
 					<div class="contenedor-iconos" ng-class="{'abierto': editor.busquedaIconos}">
+				    	<div class="cerrar-contenedor-bi">
+				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	</div>
 				    	<div class="row padding-bottom-0">
 				    		<div class="col s10">
 
@@ -188,6 +195,14 @@
 				    	</div>
 					</div>
 					<div class="contenedor-previews" ng-class="{'abierto': editor.preview}">
+						<div class="cerrar-contenedor-p">
+				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	</div>	
+						<div class="row padding-bottom-0">
+				    		<div class="col s12">
+                                
+				    		</div>
+				    	</div>				    						
 					</div>
 				</div>
             </div>

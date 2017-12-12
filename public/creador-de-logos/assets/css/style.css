@@ -1095,6 +1095,20 @@ p.titulo{
 .overlay-svg.abierto{
     height: 100%;  
 }
+
+.overlay-svg-previews{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 0%;
+    background-color: #00000042;
+    transition: 1.5s;
+}
+
+.overlay-svg-previews.abierto{
+    width: 100%;  
+}
 /*End contenedores borradores y iconos*/
 
 /*Begin contenedor previews*/
@@ -1395,4 +1409,81 @@ div.info span {
     align-items: center;
     justify-content: center;
     font-size: 26px;
+}
+
+.cerrar-contenedor-bi{
+    background-color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid var(--principal);
+    color: var(--principal);
+    position: absolute;
+    opacity: 0;
+    transition: 0.5s all;
+    top: -10px;
+    right: 3px;
+}
+
+.cerrar-contenedor-bi i{
+    font-size: 16px;
+}
+
+.contenedor-iconos.abierto .cerrar-contenedor-bi, .contenedor-borradores.abierto .cerrar-contenedor-bi{
+    opacity: 1;
+}
+
+
+.cerrar-contenedor-p{
+    background-color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid var(--principal);
+    color: var(--principal);
+    position: absolute;
+    top: 0px;
+    opacity: 0;
+    transition: 0.5s all;
+    left: -10px;
+}
+
+.cerrar-contenedor-p i{
+    font-size: 16px;
+}
+
+.contenedor-previews.abierto .cerrar-contenedor-p{
+    opacity: 1;
+}
+
+
+path.seleccionado {
+
+    animation-name: parpadeo;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+
+    -webkit-animation-name:parpadeo;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-fill-mode: both;
+}
+
+@-moz-keyframes parpadeo{  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes parpadeo {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes parpadeo {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1.0; }
 }

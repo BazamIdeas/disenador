@@ -85,6 +85,24 @@ angular.module("disenador-de-logos")
         }
 
 
+        bz.mostrarPreviews = function () {
+
+            if (bz.preview) {
+
+                bz.preview = false;
+
+            } else {
+
+                bz.preview = true;
+                bz.busquedaIconos = false;
+                bz.borradores = false;
+
+            }
+
+
+        }
+
+
         bz.buscarPlanes = function () {
 
             $rootScope.$broadcast("editor:planes", true)
