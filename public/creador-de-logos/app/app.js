@@ -363,7 +363,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'editor',
-                url: '/editor',
+                url: '/editor/',
                 templateUrl: 'app/views/v2/editor.tpl',
                 controller: 'editorController as editor',
                 params: {
@@ -417,7 +417,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'planes',
-                url: '/planes',
+                url: '/planes/',
                 templateUrl: 'app/views/v2/planes.tpl',
                 controller: 'planesController as planes',
                 params: {
@@ -469,7 +469,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'pago',
-                url: '/pago',
+                url: '/pago/',
                 templateUrl: 'app/views/v2/pago.tpl',
                 controller: 'pagoController as pago',
                 params: {
@@ -555,6 +555,67 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 name: 'logos',
                 url: '/cliente/logos',
                 templateUrl: 'app/views/v2/logos.tpl',
+                controller: 'logosController as logos',
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }]
+                }
+            })
+        
+            .state({
+                name: 'descargar',
+                url: '/cliente/logos/{id:int}/descargar',
+                templateUrl: 'app/views/v2/descargar.tpl',
+                controller: 'descargarController as descargar',
+                params: {
+                    
+                    datos:{
+                        logo: null                        
+                    }
+                },
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }],
+                    logoResolve: ["$q", "$stateParams",  function ($q, $stateParams) {
+
+                            return {logo: $stateParams.datos.logo, id: $stateParams.id};
+                     
+                    }]
+                }
+            })
+            
+        
+        
+            .state({
+                name: 'login',
+                url: '/login',
+                templateUrl: 'app/views/v2/login.tpl',
+                controller: 'loginController as login',
+                resolve: {
+                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (clientesService.autorizado()) {
+
+                            return $q.reject("LOGOUT_REQUIRED");
+
+                        }
+
+                    }]
+                }
             })
       
         //redirecciones
@@ -564,6 +625,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         $urlRouterProvider.when('/comenzar', '/comenzar/');
         $urlRouterProvider.when('/comenzar/opciones', '/comenzar/opciones/');
         $urlRouterProvider.when('/comenzar/combinaciones', '/comenzar/combinaciones/');
+        $urlRouterProvider.when('/editor', '/editor/');
+        $urlRouterProvider.when('/planes', '/planes/');
+        $urlRouterProvider.when('/pago', '/pago/');
 
         $urlRouterProvider.otherwise('/404/');
 
