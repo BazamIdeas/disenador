@@ -30,28 +30,11 @@
 						
 						<div class="row">
 					
-							<div class="plan col s4" ng-repeat="plan in planes.planes | filter: planes.comprobarMonedas">
-								<div>
-									<div class="plan-header">{{plan.plan}}</div>
-									<div class="plan-body">
-										<p>{{plan.info}}</p>
-
-										<ul class="plan-lista">
-											<li>Atributo 1</li>
-											<li>Atributo 2</li>
-											<li>Atributo 3</li>
-											<li>Atributo 4</li>
-										</ul>
-
-										<div class="plan-precio">{{planes.precioSeleccionado(plan.precios, planes.moneda)}}</div>
-
-										<div class="text-center">
-											<button class="boton-verde" ng-click="planes.avanzarCheckout(plan, planes.moneda)">SELECCIONAR</button>
-										</div>
-									</div>
-								</div>
-							</div>	
-	
+                            <div ng-repeat="formato in descargar.formatos">
+                              <div style="width: 50px; height: 50px ">
+                                  <img style="width:100%" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png" ng-click="descargar.descargar(formato.nombre, formato.ancho)">
+                              </div>
+                            </div>
 
 						</div>
 					
