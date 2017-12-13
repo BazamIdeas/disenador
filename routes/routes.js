@@ -134,6 +134,7 @@ router.get('/logo/:id', controllers.logos.datosLogo); //muestra los datos de un 
 router.post('/logo/guardar', middleware.validar, controllers.logos.guardar);
 router.post('/logo/modificar',  controllers.logos.modificarLogo);
 router.post('/logo/descargar',  controllers.logos.descargar);
+router.get('/logo/borrar/:id',  controllers.logos.Borrar);
 
 router.post('/logo/zip',  controllers.logos.zip);
 

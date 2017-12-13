@@ -98,6 +98,15 @@
                     <div class="col s2 offset-s2 sidebar-2">
                         <p class="text-center principal titulo">ICONO</p>
 
+	                    <div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
+		                    <md-input-container style="width:80%; padding: 0 0.75rem" >
+							  	<md-select ng-model="editor.categoriaIcono" placeholder="Categoria" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" md-no-asterisk required> 
+							    	<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+							  	</md-select>
+							</md-input-container>
+							<span style="background: var(--principal);color: white;border-radius: 3px;padding: 2;cursor: pointer;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ><i class="material-icons">refresh</i></span>
+	                    </div>
+
 						<div class=" col s12 estilo-texto" style="font-size:0px">
                     		<div color-picker color-picker-model="editor.colorIcono" ng-model="editor.colorIcono" ng-change="editor.cambioColor(editor.colorIcono, 'icono')" color-picker-position="bottom" class="color" style="background-color: {{editor.colorIcono}}"></div>
                         </div>
@@ -126,16 +135,7 @@
 	                        </div>
 	                    </div>
 
-	                    <div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
-		                    <md-input-container style="width:80%; padding: 0 0.75rem" >
-							  	<md-select ng-model="editor.categoriaIcono" placeholder="Categoria" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" md-no-asterisk required> 
-							    	<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-							  	</md-select>
-							</md-input-container>
-							<span style="background: var(--principal);color: white;border-radius: 3px;padding: 2;cursor: pointer;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ><i class="material-icons">refresh</i></span>
 
-							
-	                    </div>
                     </div>
                 </form>
 

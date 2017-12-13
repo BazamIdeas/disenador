@@ -131,6 +131,10 @@ md-slider .md-thumb {
     top: 0px;
 }
 
+md-input-container {
+    margin: 11px 0;
+}
+
 md-toast.success .md-toast-content {
     background-color: #4CAF50;
     color: rgb(250,250,250);
@@ -911,6 +915,7 @@ p.titulo{
 
 .estilo-texto .color{
     width: 100px;
+    border: 1px solid var(--fondo);
     height: 40px;
     background-color: gray;
     border-radius: 20px;

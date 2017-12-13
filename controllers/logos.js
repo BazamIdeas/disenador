@@ -274,3 +274,21 @@ exports.listaLogosDescargables = function(req, res, next) {
 	}
 
 
+exports.Borrar = (req, res, next) =>
+{
+	var idLogo = req.params.id;
+	logo.Borrar(id, (error, data) => {
+
+		if (typeof data !== 'undefined' && data.affectedRows) {
+			
+			res.status(200).json({'affectedRows': data.affectedRows});
+		
+		} else {
+
+			res.status(500).json({"msg": "Algo ocurrio"})
+		
+		}
+	})
+}
+
+
