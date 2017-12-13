@@ -18,15 +18,15 @@
 	                    	<span class="principal">Fondo</span>
 	                    </div>
 	                    <div class="col l3 xl2">
-	                    	<div class="selector-cuadricula" ng-class="'activo': editor.cuadricula }"  ng-click="editor.activarCuadricula()"><i class="material-icons">apps</i></div>
+	                    	<div class="selector-cuadricula" ng-class="{'active': editor.cuadricula }"  ng-click="editor.activarCuadricula()"><i class="material-icons">apps</i></div>
 	                    	<span class="principal">Cuadricula</span>
 	                    </div>
 	                    <div class="col l7 xl6 offset-xl2">
-							<button class="boton-oborder" ng-click="editor.mostrarBorradores()"><i class="material-icons">queue</i> BORRADORES</button>
+							<button class="boton-oborder" ng-class="{'active': editor.borradores}" ng-click="editor.mostrarBorradores()"><i class="material-icons">queue</i> BORRADORES</button>
 
-	                    	<button class="boton-oborder" ng-click="editor.mostrarPreviews()"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
+	                    	<button class="boton-oborder" ng-class="{'active': editor.preview}" ng-click="editor.mostrarPreviews()"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
 
-	                    	<button class="boton-oborder" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"><i class="material-icons" >save</i> GUARDAR</button>
+	                    	<button class="boton-oborder loading-purple" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"><i class="material-icons" >save</i> GUARDAR</button>
 
 	                    	<button class="boton-oborder" ng-click="editor.buscarPlanes()"><i class="material-icons">shopping_cart</i> COMPRAR</button>
 	                    </div>

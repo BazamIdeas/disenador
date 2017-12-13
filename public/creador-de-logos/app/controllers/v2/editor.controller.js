@@ -12,7 +12,7 @@ angular.module("disenador-de-logos")
         bz.borradores = false;
         bz.preview = false;
         bz.busquedaIconos = false;
-        bz.colorFondo = "rgb(250,250,250)";
+        bz.colorFondo = "rgb(236,239,240)";
 
         //////////////////////////////////////////////
         ///////////////LOCAL STORAGE//////////////////

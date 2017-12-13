@@ -91,7 +91,7 @@
 										</div>
 										<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
 											Esto explica porque Paypal no sirve como pasarela y aun asi se usa
-											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
+											<button class="boton-verde pagar loading-white" ng-class="{'deshabilitado': !pago.terminos}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
 										</div>
 									</div>
                                     <!--Strype-->

@@ -30,8 +30,8 @@
 						
 						<div class="row">
 					
-                            <div ng-repeat="formato in descargar.formatos">
-                              <div style="width: 50px; height: 50px ">
+                            <div class="col l1" ng-repeat="formato in descargar.formatos">
+                              <div class="formato" style="width: 50px; height: 50px; margin-bottom: 20px">
                                   <img style="width:100%" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png" ng-click="descargar.descargar(formato.nombre, formato.ancho)">
                               </div>
                             </div>
