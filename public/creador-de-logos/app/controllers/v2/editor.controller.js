@@ -48,19 +48,15 @@ angular.module("disenador-de-logos")
                 $mdToast.show({
                     hideDelay   : 0,
                     position    : 'top right',
-                    controller  :  ["$scope", "$mdToast", "$mdDialog", function($scope, $mdToast, $mdDialog) {
+                    controller  :  ["$scope", "$mdToast", function($scope, $mdToast) {
                   
                         $scope.closeToast = function() {
-                            if (isDlgOpen) return;
-
-                            $mdToast
-                                .hide()
-                                .then(function() {
-                                    isDlgOpen = false;
-                                });
+                            
+                            $mdToast.hide()
+                                
                         }
                     }],
-                    templateUrl : 'toast-success.html'
+                    templateUrl : 'toast-success-logo-save.html'
                 });
 
             })

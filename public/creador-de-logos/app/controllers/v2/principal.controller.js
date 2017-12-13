@@ -2,14 +2,14 @@ angular.module("disenador-de-logos")
 
     /* Comenzar */
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService) {
+    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast) {
 
         var bz = this;
 
         bz.datos = {
             nombre: "Mi logo",
             preferencias: [],
-            categoria:{
+            categoria: {
                 icono: "",
                 fuente: ""
             }
@@ -25,7 +25,7 @@ angular.module("disenador-de-logos")
         bz.logoSeleccionado = null;
 
 
-   
+
         bz.categoriasPosibles = {
             fuentes: [],
             iconos: []
@@ -37,16 +37,16 @@ angular.module("disenador-de-logos")
 
             bz.categoriasPosibles.iconos = res;
 
-             
+
         })
-         
+
         categoriasService.listaCategorias('FUENTE').then(function (res) {
 
             bz.categoriasPosibles.fuentes = res;
 
-             
+
         })
-        
+
         preferenciasService.listaPreferencias().then(function (res) {
 
             angular.forEach(res, function (valor, llave) {
@@ -68,34 +68,23 @@ angular.module("disenador-de-logos")
             activo: true
         }];
 
+
+
+
         bz.completado = true;
 
-        bz.solicitarElementos = function (tipoLogo, datos, valido) {
+        bz.solicitarElementos = function () {
 
-            if (valido && bz.completado) {
+            if ($scope.principal.datosForm.$valid && bz.completado) {
 
                 bz.completado = false;
-
-                angular.forEach(bz.botonesTipo, function (valor, llave) {
-
-                    if (bz.botonesTipo[llave].nombre != tipoLogo.nombre) {
-
-                        bz.botonesTipo[llave].activo = false;
-
-                    } else {
-
-                        bz.botonesTipo[llave].activo = true;
-                    }
-
-                })
-
 
                 bz.datosIconos = {
                     categoria: bz.datos.categoria.icono,
                     preferencias: bz.datos.preferencias,
                     tipo: 'ICONO'
                 }
-                    
+
                 bz.datosFuentes = {
                     categoria: bz.datos.categoria.fuente,
                     preferencias: bz.datos.preferencias,
@@ -118,27 +107,6 @@ angular.module("disenador-de-logos")
                             status: true
                         });
 
-                        /*
-                                    bz.datos.respuesta = {
-                                        iconos: res[0].data,
-                                        fuentes: res[1].data
-                                    };
-
-
-                                    promise = $interval(function () {
-                                        if (bz.animacionTexto == 2) {
-
-                                            bz.stop();
-                                            $state.go('opciones', {
-                                                datos: bz.datos
-                                            });
-                                        } else {
-                                            bz.animacionTexto = bz.animacionTexto + 1;
-                                        }
-                                    }, 2500);
-                        */
-
-
                         bz.completado = true;
 
 
@@ -150,6 +118,29 @@ angular.module("disenador-de-logos")
             }
 
         }
+
+
+
+
+        bz.asignarTipo = function (tipoLogo) {
+
+            angular.forEach(bz.botonesTipo, function (valor, llave) {
+
+                if (bz.botonesTipo[llave].nombre != tipoLogo.nombre) {
+
+                    bz.botonesTipo[llave].activo = false;
+
+                } else {
+
+                    bz.botonesTipo[llave].activo = true;
+                }
+
+            })
+
+            bz.solicitarElementos();
+        }
+
+
 
         bz.combinar = function () {
 
@@ -197,17 +188,39 @@ angular.module("disenador-de-logos")
 
                     if (clientesService.autorizado(true)) {
 
+                        $mdToast.show({
+                            hideDelay: 0,
+                            position: 'top right',
+                            controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
+
+                                $scope.closeToast = function () {
+
+                                    $mdToast.hide()
+
+                                }
+                            }],
+                            templateUrl: 'toast-success-login.html'
+                        });
+
                         bz.mostrarModalLogin = false;
                         bz.avanzar(bz.logoSeleccionado);
                     }
 
                 }).catch(function () {
 
+                    $mdToast.show({
+                        hideDelay: 0,
+                        position: 'top right',
+                        controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
 
+                            $scope.closeToast = function () {
 
-                }).finally(function () {
+                                $mdToast.hide()
 
-
+                            }
+                            }],
+                        templateUrl: 'toast-danger-login.html'
+                    });
 
                 })
 

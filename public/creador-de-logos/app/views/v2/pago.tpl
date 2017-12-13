@@ -33,21 +33,21 @@
 								</div>
 							</div>	
 
-							<div class="su-pedido col s2">
+							<div class="su-pedido col s2" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
 								<div>
 									<div class="th">PLAN</div>
 									<div class="td">{{pago.pedido.plan.nombre}}</div>
 								</div>
 							</div>						
 
-							<div class="su-pedido col s2">
+							<div class="su-pedido col s2" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
 								<div>
 									<div class="th">PRECIO</div>
 									<div class="td">{{pago.pedido.precio.moneda.simbolo}} {{pago.pedido.precio.monto}}</div>
 								</div>
 							</div>	
 
-							<div class="su-pedido col s2">
+							<div class="su-pedido col s2" ng-if="pago.pedido.impuesto">
 								<div>
 									<div class="th">IMPUESTO</div>
 									<div class="td">( {{impuestoTotal = (pago.pedido.precio.monto / pago.pedido.impuesto)}} ) {{pago.pedido.impuesto}}%</div>

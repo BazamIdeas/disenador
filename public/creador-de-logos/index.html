@@ -144,9 +144,38 @@
     </footer>
     -->
     
-    <script type="text/ng-template" id="toast-success.html">
+    <script type="text/ng-template" id="toast-success-logo-save.html">
         <md-toast class="success">
             <span class="md-toast-text" flex>Su logo ha sido guardado con exito!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-danger-logo-save.html">
+        <md-toast class="danger">
+            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    
+    <script type="text/ng-template" id="toast-success-login.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>¡Bienvenido!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    
+    <script type="text/ng-template" id="toast-danger-login.html">
+        <md-toast class="danger">
+            <span class="md-toast-text" flex>Verifica tu Usuario y Contraseña</span>
             <md-button ng-click="closeToast()">
                 <i class="material-icons">close</i>
             </md-button>
