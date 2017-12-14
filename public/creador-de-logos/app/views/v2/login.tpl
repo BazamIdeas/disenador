@@ -23,19 +23,19 @@
 	                    	
 	                        <div class="login-form col s6">
 	                            <p class="text-center tercero">INGRESA</p>
-	                            <form>
-	                                <div class="input-field col s12">
-	                                    <input id="correo" type="email" class="validate">
-	                                    <label for="correo">Correo</label>
-	                                </div>  
-	                                <div class="input-field col s12">
-	                                    <input id="pass" type="password" class="validate">
-	                                    <label for="pass">Contraseña</label>
-	                                </div>
-	                                <div class="text-center">
-	                                    <button class="boton-verde">ENVIAR</button>
-	                                </div>                               
-	                            </form>
+	                            <form name="login.loginForm" novalidate ng-submit="login.login(login.datosLogin, login.loginForm.$valid)">
+                                    <div class="input-field col s12">
+                                        <input id="correo" name="correo" type="email" class="validate" ng-model ="login.datosLogin.correo" required>
+                                        <label for="correo">Correo</label>
+                                    </div>  
+                                    <div class="input-field col s12">
+                                        <input id="pass" name="pass" type="password" class="validate" ng-model ="login.datosLogin.pass" required>
+                                        <label for="pass">Contraseña</label>
+                                    </div>
+                                    <div class="text-center">
+                                        <button class="boton-verde" ng-class="{'loading-white': !login.completadoLogin}">ENVIAR</button>
+                                    </div>                               
+                                </form>
 	                        </div>
 	                        
 	                        <div class="registro-form col s6">

@@ -40,18 +40,31 @@ angular.module("disenador-de-logos")
         }
 
 
+        bz.completado = true;
+        
         bz.pagar = function (idPasarela, terminos) {
 
+            
+            bz.completado = false;
+            
             if (terminos) {
 
                 switch (idPasarela) {
                         
                     case 1://PAYPAL
-                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela).then(function(res){
-                            console.log(res)
-                           $window.location = res;
+                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
                             
-                        })
+                            .then(function(res){
+                           
+                                $window.location = res;
+                            
+                            })
+                        
+                            .finally(function(res){
+
+                                bz.completado = true;
+                            
+                            })
                         break;
                         
                     case 2://STRIPE

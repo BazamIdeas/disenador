@@ -19,11 +19,10 @@
                     <div class="row caja">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">GUARDADOS</p>
                         <div class="col l1"></div>
-                        <div class="col l10">
-                            
                         
+                        <div class="col l10">
                             <div class="row cubos-logos-cliente">
-                                
+
                                 <div class="col l4" ng-repeat="guardado in logos.guardados track by $index">
                                     <div style="width: 130px; height: 130px;">
                                         <div class="overlay-combinacion"></div>
@@ -52,7 +51,7 @@
                     <div class="caja">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">ADQUIRIDOS</p>
                        
-                        <div class="cubos-logos" ng-repeat="comprado in comprados = (logos.comprados) track by $index" ng-if="$first || (($index+1) % 3) == 0">
+                        <div class="cubos-logos" ng-repeat="comprado in comprados = (logos.comprados) | limitTo: 10 track by comprado.idLogo" ng-if="$first || (($index+1) % 3) == 0">
                                 <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index < 2 && ((comprados.length - 1) >= $index)">
                                     <div class="overlay-combinacion"></div>
                                     <span class="editar" ui-sref="descargar({id: comprados[$index].idLogo})">

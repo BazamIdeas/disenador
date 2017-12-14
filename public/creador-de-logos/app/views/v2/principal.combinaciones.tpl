@@ -7,7 +7,7 @@
 </style>
 <div class="row margin-bottom-0 lienzo">
     <div class="col s2">
-        <button class="boton-verde">REFRESCAR</button>
+        <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}">REFRESCAR</button>
     </div>
     <div class="col s8">
         <p class="text-center tercero margin-bottom-0">Selecciona las fuentes y iconos que prefieras</p>

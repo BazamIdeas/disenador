@@ -62,21 +62,21 @@
                         <p class="text-center principal">Forma de su logo</p>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.solicitarElementos(principal.botonesTipo[0], principal.datos, principal.datosForm.$valid )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[0] )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
                                 <span><i class="material-icons">thumb_up</i></span>
                                 <span>TU LOGO</span>
                             </div>
                         </div>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.solicitarElementos(principal.botonesTipo[1], principal.datos, principal.datosForm.$valid)" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[1])" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
                                 <span class="texto">M</span>
                                 <span>TU LOGO</span>
                             </div>
                         </div>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.solicitarElementos(principal.botonesTipo[2], principal.datos, principal.datosForm.$valid)" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo, 'loading-white': principal.botonesTipo[2].activo && !principal.completado}">
                                 <span>TU LOGO</span>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                                         <label for="pass">Contraseña</label>
                                     </div>
                                     <div class="text-center">
-                                        <button class="boton-verde">ENVIAR</button>
+                                        <button class="boton-verde" ng-class="{'loading-white': !principal.completadoLogin}">ENVIAR</button>
                                     </div>                               
                                 </form>
                             </div>
@@ -122,16 +122,16 @@
                                 <p class="text-center tercero">REGISTRATE</p>
                                 <form>
                                     <div class="input-field col s12">
-                                        <input id="nombre" type="text" class="validate" required>
-                                        <label for="nombre">Nombre</label>
+                                        <input id="nombre2" type="text" class="validate" required>
+                                        <label for="nombre2">Nombre</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <input id="correo" type="email" class="validate" required>
-                                        <label for="correo">Correo</label>
+                                        <input id="correo2" type="email" class="validate" required>
+                                        <label for="correo2">Correo</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <input id="pass" type="password" class="validate" required>
-                                        <label for="pass">Contraseña</label>
+                                        <input id="pass2" type="password" class="validate" required>
+                                        <label for="pass2">Contraseña</label>
                                     </div>
                                     <div class="input-field col s12">
                                         <input id="telefono" type="text" class="validate" required>

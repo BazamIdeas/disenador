@@ -30,9 +30,15 @@
 						
 						<div class="row">
 					
+<<<<<<< HEAD
                             <div class="col l2" ng-repeat="formato in descargar.formatos">
                               <div class="formato" style="width: 50px; height: 50px; margin-bottom: 20px">
                                   <img style="width:100%" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png" ng-click="descargar.descargar(formato.nombre, formato.ancho)">
+=======
+                            <div class="col l1" ng-repeat="formato in descargar.formatos">
+                              <div class="formato" style="width: 50px; height: 50px; margin-bottom: 20px" ng-click="descargar.descargar(formato.nombre, formato.ancho)">
+                                  <img style="width:100%" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png" >
+>>>>>>> eec764e8c14564e800249e5c4cc149d2a6490425
                               </div>
                             </div>
 
