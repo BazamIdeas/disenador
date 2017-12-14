@@ -24,8 +24,8 @@ planes.ListarPorPais = function(idPais, callback)
 
 		  	else callback(null, rows);
 
+		  	connection.release();
 		});
-		connection.release();
 	});	
 }
 
@@ -40,10 +40,9 @@ planes.Listar = function(callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
-	  	
-	 	});
 
-	  	connection.release();
+	  		connection.release();
+	 	});	
 	});
 }
 
@@ -62,10 +61,10 @@ planes.ListarPrecios = function(id,callback)
 	  		if(err)	throw err;
 	  	
 	  		else callback(null, rows);
-	  	
-	  	});
 
-	  	connection.release();
+	  		connection.release();
+	  	
+	  	});	  	
 	});
 }
 
@@ -76,16 +75,16 @@ planes.Nuevo = function(planNombre, callback)
 
 	DB.getConnection(function(err, connection)
 	{
-			connection.query( q , par , function(err, result){
+		connection.query( q , par , function(err, result){
 	  	
 	  		if(err)	throw err;
 
 	  		//devolvemos la última id insertada
 	  		else callback(null,{"insertId" : result.insertId}); 
-	  	
-	  	});
 
-	  	connection.release();
+	  		connection.release();
+	  	});
+  	
 	});
 }
 
@@ -110,17 +109,17 @@ planes.Bloquear = function(idPlan, callback)
 
 	  					else callback(null,{"affectedRows" : row_qq.affectedRows });
 
+	  					connection.release();
 					});
-					connection.release();
+					
 				});			
 
 	  		}
 	  		else callback(null,{'msg' : 'No se encontro plan' }); 
+
+	  		connection.release();
 	  	
 	  	});
-
-	  	connection.release();
-
 	});
 }
 
@@ -133,14 +132,13 @@ planes.Modificar = function(planData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null, {"affectedRows" : row.affectedRows }); 
+		  	else callback(null, {"affectedRows" : row.affectedRows }); 
+
+		  	connection.release();
 	  	
-	  });
-
-	  connection.release();
-
+		});
 	});
 }
 

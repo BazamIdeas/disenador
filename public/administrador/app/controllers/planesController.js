@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('planesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'paisesValue', 'monedasValue', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, paisesValue, monedasValue, notificacionService) {
+    .controller('planesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'paisesValue', 'monedasValue', 'notificacionService', 'monedasService', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, paisesValue, monedasValue, notificacionService, monedasService) {
 
         var bz = this;
 
@@ -18,11 +18,13 @@ angular.module("administrador")
         bz.preciosPlan = [];
         bz.monedas = monedasValue;
         bz.paises = paisesValue;
+        bz.monedasDisponibles = {};
+
+        monedasService.listarMonedas().then(function (res) {
+            bz.monedas = res.data;
+        })
 
         /* FUNCION PARA LISTAR PLANES Y IMPUESTOS */
-
-        bz.mostrarPlanes = false;
-        bz.mostrarImpuestos = false;
 
         /***************************/
         /**********PLANES***********/
@@ -56,29 +58,37 @@ angular.module("administrador")
             if (validacion) {
 
                 administrarService.agregarPlan(datos).then(function (res) {
-
+                    datos.status = 1;
+                    datos.estado = true;
                     bz.planes.push(datos);
                     bz.nuevoPlan = {};
 
                     notificacionService.mensaje('Peticion Realizada!');
-                    bz.localidadVal = ' ';
+                    bz.localidadVal = '';
                 }).catch(function (res) {
                     console.log(res)
                 })
             }
         }
 
-        bz.agregarPrecioPlan = function (datos, validacion) {
-            if (validacion) {
-                administrarService.agregarPrecioPlan(datos).then(function (res) {
-                    document.getElementById('nuevoPrecioPlan').reset();
-                    bz.nuevoPrecioPlan = {};
-                    bz.vista = 0;
-                    notificacionService.mensaje('Peticion Realizada!');
-                    bz.localidadVal = ' ';
-                }).catch(function (res) {
-                    console.log(res)
-                })
+        bz.agregarPrecioPlan = function (datos, validacion){
+            if(bz.preciosPlan.length > 0){
+                angular.forEach(bz.monedas, function (valor) {
+                    if (valor.idMoneda == datos.idMoneda) {
+                        return notificacionService.mensaje('Moneda esta en uso!');
+                    }
+                });
+            }else{
+                if (validacion) {
+                    administrarService.agregarPrecioPlan(datos).then(function (res) {
+                        document.getElementById('nuevoPrecioPlan').reset();
+                        bz.nuevoPrecioPlan = {};
+                        bz.vista = 0;
+                        notificacionService.mensaje('Peticion Realizada!');
+                    }).catch(function (res) {
+                        console.log(res)
+                    })
+                }
             }
         }
 
@@ -95,11 +105,11 @@ angular.module("administrador")
         }
 
         bz.modificarPrecioPlan = function (datos) {
+            datos.idPlan = datos.planes_idPlan;
             administrarService.modificarPrecioPlan(datos).then(function (res) {
-                console.log(res)
                 notificacionService.mensaje('Peticion Realizada.');
+                bz.modfire = 'no';
             }).catch(function (res) {
-                console.log(res)
                 notificacionService.mensaje(res);
             })
         }
@@ -113,70 +123,15 @@ angular.module("administrador")
                 bz.bloquearPlanDatos.status = 1;
                 bz.planes[index].estado = true;
             }
-            administrarService.bloquearPlan(bz.bloquearPlanDatos).then(function (res) {
+
+            datos = {
+                idPlan: id
+            }
+            administrarService.bloquearPlan(datos).then(function (res) {
                 bz.planes[index].status = bz.bloquearPlanDatos.status;
                 bz.bloquearPlanDatos = {};
             }).catch(function (res) {
                 console.log(res)
-            })
-        }
-
-
-        /***************************/
-        /********IMPUESTOS**********/
-        /***************************/
-
-        bz.listarImpuestos = function () {
-            bz.vista = 0;
-            administrarService.listarImpuestos().then(function (res) {
-                bz.impuestos = res;
-
-            }).catch(function (res) {
-                notificacionService.mensaje(res.data.msg);
-            })
-        }
-
-        bz.agregarImpuesto = function (datos, validacion) {
-            angular.forEach(bz.impuestos, function (valor) {
-                if (valor.localidad == datos.localidad) {
-                    validacion = false;
-                    bz.localidadVal = 'Esta Localidad Ya esta en uso';
-                }
-            });
-
-            if (validacion) {
-
-                administrarService.agregar(opcion, datos).then(function (res) {
-
-                    bz.impuestos.push(datos);
-                    bz.nuevoImpuesto = {};
-                    notificacionService.mensaje('Peticion Realizada!');
-                    bz.localidadVal = ' ';
-
-                }).catch(function (res) {
-                    console.log(res)
-                })
-            }
-        }
-
-        bz.modificarImp = function (datos, validacion) {
-            if (validacion) {
-                administrarService.modificar(datos).then(function (res) {
-                    bz.impuestos[bz.index].impuesto = datos.impuesto;
-                    document.getElementById('nombreimpuesto').reset();
-                    notificacionService.mensaje('Peticion Realizada.');
-                }).catch(function (res) {
-                    notificacionService.mensaje(res);
-                })
-            }
-        }
-
-        bz.borrarImpuesto = function (id, index) {
-            administrarService.borrarImpuesto(id).then(function (res) {
-                bz.impuestos.splice(index, 1);
-                notificacionService.mensaje('Impuesto Borrado!');
-            }).catch(function (res) {
-                notificacionService.mensaje(res);
             })
         }
 
@@ -187,25 +142,35 @@ angular.module("administrador")
             if (opcion == 'nombrePlan') {
                 bz.vista = 5;
                 bz.index = index;
-                bz.modificarNombrePlan.idplan = datos;
+                angular.forEach(bz.planes, function (valor) {
+                    if (valor.idPlan == datos) {
+                        bz.modificarNombrePlan = valor;
+                    }
+                });
             } else if (opcion == 'nuevoPrecioPlan') {
-                bz.nuevoPrecioPlan.idplan = datos;
+                bz.monedasDisponibles = {};
+                bz.nuevoPrecioPlan.idPlan = datos;
+                administrarService.listarPreciosPlan(datos).then(function (res) {
+                    if (res != undefined) {
+                        bz.preciosPlan = res.data;
+                    }
+                }).catch(function (res) {
+                })
                 bz.vista = 3;
             } else if (opcion == 'preciosPlan') {
                 bz.preciosPlan = [];
                 administrarService.listarPreciosPlan(datos).then(function (res) {
-                    if (res.data) {
+                    if (res == undefined) {
+                        notificacionService.mensaje('Este plan no posee precios.');
+                    }else{
                         bz.preciosPlan = res.data;
+                        console.log(res)
                     }
                     bz.vista = 4;
                 }).catch(function (res) {
                     console.log(res)
                     bz.vista = 4;
                 })
-            } else if (opcion == 'impuesto') {
-                bz.index = index;
-                bz.modificarImpuesto.localidad = datos;
-                bz.vista = 6;
             }
         }
 

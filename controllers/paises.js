@@ -97,13 +97,13 @@ exports.Nuevo = (req,res) =>
 
 exports.Modificar =  (req,res) =>
 {
-	var id = req.body.id; // cambiar por valor de sesion o por parametro
+	var id = req.body.idPais; // cambiar por valor de sesion o por parametro
 
 	pais.ObtenerPorId(id, (error, data) => {
 
 		if (typeof data !== 'undefined' && data.length > 0){
 
-			var paisData = [req.body.impuesto,req.body.id];
+			var paisData = [req.body.impuesto,req.body.idPais];
 				
 			pais.Modificar(paisData,(error, data) => {
 
@@ -147,11 +147,12 @@ exports.DesasignarMoneda = (req,res) =>
 
 	pais.DesasignarMoneda(paisMoneda, (error, data) =>{
 
-		if(data && data.insertId){
+		if(data){
 			res.status(200).json(data);
 		}else{
 			res.status(500).json({"msg":data})
 		}
+
 	});
 }
 

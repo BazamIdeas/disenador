@@ -13,13 +13,13 @@ impuesto.getImpuestos = function(callback)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+		  	connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 
 }
@@ -33,14 +33,15 @@ impuesto.insertImpuesto = function(impuestoData,callback)
 	{
 		connection.query( q , par , function(err, result){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"result" : true}); 
-	  	
-	  });
+		  	//devolvemos la última id insertada
+		  	else callback(null,{"result" : true}); 
+	  		
+	  		connection.release();
+	  	});
 
-	  connection.release();
+	  
 	});
 }
 
@@ -54,13 +55,15 @@ impuesto.getImpuesto = function(localidad,callback)
 	{
 		connection.query( q , par,  function(err, row){ 
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
 
-	  connection.release();
+		  	connection.release();
+	  	
+	  	});
+
+	  
 	});
 
 }
@@ -78,13 +81,15 @@ impuesto.updateImpuesto = function(impuestoData, callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : row }); 
+		  	else callback(null,{"msg" : row }); 
+
+		  	connection.release();
 	  	
-	  });
+	 	 });
 
-	  connection.release();
+	  
 	});
 }
 
@@ -113,17 +118,20 @@ impuesto.deleteImpuesto = function(id, callback)
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"msg" : 'eliminado'}); 
-				  	
-				 	 });
+				  		
+				  		connection.release();
+				 	});
 
-				  	connection.release();
+				  	
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe esta Etiqueta"});
+
+		  	connection.release();
 	  	});
 
-	  connection.release();
+	  
 	});
 }
 
