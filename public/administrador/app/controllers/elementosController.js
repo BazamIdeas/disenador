@@ -35,7 +35,6 @@ angular.module("administrador")
             iconoFuente.nuevoIcono(datos).then(function (res) {
                 datos.idElemento = res.data.insertId;
                 datos.tipo = 'ICONO';
-                console.log(res)
                 bz.elementos.push(datos);
                 SweetAlert.swal("Genial", 'Icono Agregado', "success");
             }).catch(function (res) {
@@ -48,7 +47,6 @@ angular.module("administrador")
 
             iconoFuente.listar(bz.listar).then(function (res) {
                 bz.elementos = res.data;
-                console.log(res)
             }).catch(function (res) {
                 console.log(res)
             })

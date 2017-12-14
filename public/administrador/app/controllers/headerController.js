@@ -18,7 +18,6 @@ angular.module("administrador")
 
         $scope.$on('sesionExpiro', function (event, data) {
 
-
             bz.autorizado = clientesService.autorizado();
 
         });
