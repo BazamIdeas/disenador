@@ -1349,9 +1349,10 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 
 .caja {
-    padding: 0px 0px 30px;
+    padding: 0px 0px 0px;
     background-color: var(--fondo);
     margin-top: 20px;
+    position: relative;
 }
 
 .caja p{
@@ -1422,24 +1423,6 @@ span.editar, span.compartir {
     transition: 0.5s all;
     z-index: 1000000;
 }
-
-span.editar:hover, span.compartir:hover{
-    opacity: 1;
-}
-
-span.editar:hover{
-    padding: 6px;
-    top: 45px;
-    left: 23px;
-}
-span.compartir:hover{
-    padding: 6px;
-    top: 45px;
-
-    right: 23px;
-}
-
-
 
 div.info {
     border-radius: 0;
@@ -1595,4 +1578,98 @@ path.seleccionado {
     background-size: auto 60%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.cubos-logos-cliente{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.cubos-logos-cliente .col > div{
+    height: 130px;
+    width: 130px;
+    margin: 0 auto 20px;
+    position: relative;
+    box-shadow: 0px 1px 2px 1px #dedede;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.cubos-logos-cliente .col > div .overlay-combinacion{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color:  #00000042;
+    opacity: 0;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.cubos-logos-cliente .col > div .overlay-combinacion{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color:  #00000042;
+    opacity: 0;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.cubos-logos-cliente .col > div:hover .overlay-combinacion{
+    opacity: 1
+}
+
+.cubos-logos-cliente .col > div:hover span.editar, .cubos-logos-cliente .col > div:hover span.compartir{
+    opacity: 1;
+}
+
+.cubos-logos-cliente .col > div:hover span.editar{
+    padding: 6px;
+    top: 45px;
+    left: 23px;
+}
+.cubos-logos-cliente .col > div:hover span.compartir{
+    padding: 6px;
+    top: 45px;
+
+    right: 23px;
+}
+
+.section-cliente{
+    height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: hidden;
+}
+
+
+span.back-page, span.next-page{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    border: 1px solid var(--principal);
+    color: var(--principal);
+    background-color: white;
+    border-radius: 50%;
+    padding: 3px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+span.back-page i, span.next-page i{
+    font-size: 30px;
+    user-select: none;
+    cursor: pointer;
+}
+
+span.back-page {
+    left: 10px;
+}
+
+span.next-page{
+    right: 10px;
+}
+
+span.back-page:active, span.next-page:active{
+    color: white;
+    background-color:  var(--principal);
 }

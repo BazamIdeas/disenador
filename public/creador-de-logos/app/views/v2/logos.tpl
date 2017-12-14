@@ -12,19 +12,20 @@
             </div>
         </section>
 
-        <section style="height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: scroll;">
+        <section class="scrollbar-dynamic section-cliente" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
             <div class="row margin-bottom-0">
 				
-				<div class="col s5 offset-s1">
+				<div class="col l6 xl5 offset-xl1">
                     <div class="row caja">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">GUARDADOS</p>
-                        <div class="col l1"></div>
                         
-                        <div class="col l10">
+                        <span class="back-page"><i class="material-icons">keyboard_arrow_left</i></span>
+                        
+                        <div class="col l10 offset-l1">
                             <div class="row cubos-logos-cliente">
 
                                 <div class="col l4" ng-repeat="guardado in logos.guardados track by $index">
-                                    <div style="width: 130px; height: 130px;">
+                                    <div>
                                         <div class="overlay-combinacion"></div>
                                         <span class="editar" ng-click="">
                                             <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
@@ -41,45 +42,39 @@
                             </div>
                         </div>
 
-                        <div class="col l1"></div>
-
+                        <span class="next-page"><i class="material-icons">keyboard_arrow_right</i></span>
 
                     </div>
                 </div>
 
-				<div class="col s5">
-                    <div class="caja">
+				<div class="col l6 xl5">
+                    <div class="row caja">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">ADQUIRIDOS</p>
-                       
-                        <div class="cubos-logos" ng-repeat="comprado in comprados = (logos.comprados) | limitTo: 10 track by comprado.idLogo" ng-if="$first || (($index+1) % 3) == 0">
-                                <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index < 2 && ((comprados.length - 1) >= $index)">
-                                    <div class="overlay-combinacion"></div>
-                                    <span class="editar" ui-sref="descargar({id: comprados[$index].idLogo})">
-                                        <md-tooltip md-delay="2" md-direction="top">Descargar</md-tooltip>
-                                        <i class="material-icons">file_download</i>
-                                    </span>
-                                    <span class="compartir">
-                                        <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
-                                        <i class="material-icons">share</i>
-                                    </span>                                                                
-                                    <bazam-visualizar data-svg="logos.base64.decode(comprados[$index].logo)"></bazam-visualizar>
-                                </div>
-                                
-                                
-                                <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index >= 2 && ((comprados.length - 1) >= ($parent.$index + $index + 1))">
-                                    <div class="overlay-combinacion"></div>
-                                    <span class="editar" ui-sref="descargar({id: comprados[$parent.$parent.$index + $index + 1].idLogo})">
-                                        <md-tooltip md-delay="2" md-direction="top">Descargar</md-tooltip>
-                                        <i class="material-icons">file_download</i>
-                                    </span>
-                                    <span class="compartir">
-                                        <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
-                                        <i class="material-icons">share</i>
-                                    </span>                                                                
-                                    <bazam-visualizar data-svg="logos.base64.decode(comprados[$parent.$parent.$index + $index + 1].logo)"></bazam-visualizar>
+                        
+                        <span class="back-page"><i class="material-icons">keyboard_arrow_left</i></span>
+                        
+                        <div class="col l10 offset-l1">
+                            <div class="row cubos-logos-cliente">
+
+                                <div class="col l4"  ng-repeat="comprado in logos.comprados | limitTo: 10 track by comprado.idLogo">
+                                    <div>
+                                        <div class="overlay-combinacion"></div>
+                                        <span class="editar" ui-sref="descargar({id: comprados[$index].idLogo})">
+                                            <md-tooltip md-delay="2" md-direction="top">Descargar</md-tooltip>
+                                            <i class="material-icons">file_download</i>
+                                        </span>
+                                        <span class="compartir">
+                                            <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
+                                            <i class="material-icons">share</i>
+                                        </span>                                                                
+                                        <bazam-visualizar data-svg="logos.base64.decode(comprado.logo)"></bazam-visualizar>
+                                    </div>
                                 </div>
 
                             </div>
+                        </div>
+                    
+                        <span class="next-page"><i class="material-icons">keyboard_arrow_right</i></span>
                         
                     </div>
                 </div>
