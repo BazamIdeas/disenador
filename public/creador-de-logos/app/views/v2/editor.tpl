@@ -142,7 +142,7 @@
                 </form>
 
 				
-				<div class="contenedor-principal editor col s8" ng-class="{'cuadricula': editor.cuadricula}" style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
+				<div class="contenedor-principal editor col s8" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}" style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
 					<div class="contenedor-svg">
 				       <bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal"></bazam-svg>
 				    </div>
@@ -197,13 +197,46 @@
 				    		</div>
 				    	</div>
 					</div>
-					<div class="contenedor-previews" ng-class="{'abierto': editor.preview}">
+					<div class="contenedor-previews scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
 						<div class="cerrar-contenedor-p">
 				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
 				    	</div>	
-						<div class="row padding-bottom-0">
-				    		<div class="col s12">
-                                
+						<div class="row padding-bottom-0" >
+				    		<div class="col s6">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/ipad.png" width="100%">
+				    			</div>
+				    		</div>
+				    		<div class="col s6">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/ipad.png" width="100%">
+				    			</div>
+				    		</div>
+				    		<div class="col s6">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/ipad.png" width="100%">
+				    			</div>
+				    		</div>
+				    		<div class="col s6">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/ipad.png" width="100%">
+				    			</div>
 				    		</div>
 				    	</div>				    						
 					</div>
