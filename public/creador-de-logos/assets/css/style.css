@@ -149,6 +149,11 @@ md-toast.success .md-toast-content {
     color: rgb(250,250,250);
 }
 
+md-toast.danger .md-toast-content {
+    background-color:#d9534f;
+    color: rgb(250,250,250);
+}
+
 md-slider.md-default-theme .md-thumb:after, md-slider .md-thumb:after {
     border-color: var(--fondo);
     background-color: var(--fondo);

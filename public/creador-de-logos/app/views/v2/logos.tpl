@@ -56,10 +56,10 @@
                         <div class="col l10 offset-l1">
                             <div class="row cubos-logos-cliente">
 
-                                <div class="col l4"  ng-repeat="comprado in logos.comprados | limitTo: 10 track by comprado.idLogo">
+                                <div class="col l4"  ng-repeat="comprado in logos.comprados | limitTo: 9 track by comprado.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
-                                        <span class="editar" ui-sref="descargar({id: comprados[$index].idLogo})">
+                                        <span class="editar" ui-sref="descargar({id: comprado.idLogo})">
                                             <md-tooltip md-delay="2" md-direction="top">Descargar</md-tooltip>
                                             <i class="material-icons">file_download</i>
                                         </span>
@@ -75,7 +75,7 @@
                         </div>
                     
                         <span class="next-page"><i class="material-icons">keyboard_arrow_right</i></span>
-                        
+
                     </div>
                 </div>
 
