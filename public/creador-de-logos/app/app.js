@@ -1,4 +1,4 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar"])
 
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider) {
 

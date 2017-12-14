@@ -95,7 +95,7 @@
 
                     </div>
                 
-                    <div class="col s2 offset-s2 sidebar-2">
+                    <div class="col s2 sidebar-2 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
                         <p class="text-center principal titulo">ICONO</p>
 
 	                    <div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">

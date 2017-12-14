@@ -15,6 +15,7 @@ angular.module("disenador-de-logos")
             }
         }
 
+        bz.jqueryScrollbarOptions = {};
 
         bz.iconos = [];
 

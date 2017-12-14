@@ -15,14 +15,14 @@
         <section style="padding:0 30px;height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
             <div class="row margin-bottom-0" style="overflow: hidden;">
 
-            	<div class="col s3" style="padding: 0 40px;">
+            	<div class="col s3 offset-s2" style="padding: 0 40px;">
             		<p class="tercero text-center"></p>
             		<div class="logo-final">
                         <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
             		</div>
             	</div>
 				
-				<div class="col s9" style="padding: 0 40px;">
+				<div class="col s4" style="padding: 0 40px;">
 
 					<p class="tercero text-center"></p>
 					
@@ -30,7 +30,7 @@
 						
 						<div class="row">
 					
-                            <div class="col l1" ng-repeat="formato in descargar.formatos">
+                            <div class="col l2" ng-repeat="formato in descargar.formatos">
                               <div class="formato" style="width: 50px; height: 50px; margin-bottom: 20px">
                                   <img style="width:100%" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png" ng-click="descargar.descargar(formato.nombre, formato.ancho)">
                               </div>

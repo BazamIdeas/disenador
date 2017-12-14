@@ -12,7 +12,7 @@
             </div>
         </section>
 
-        <section style="padding:0 30px;height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
+        <section style="padding:0 30px;height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;" class="scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
             <div class="row margin-bottom-0" style="overflow: hidden;">
 
 				

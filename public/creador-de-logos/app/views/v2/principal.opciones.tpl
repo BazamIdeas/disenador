@@ -1,4 +1,4 @@
-                    <div class="row margin-bottom-0 lienzo">
+                    <div class="row margin-bottom-0 lienzo scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
 						<div class="col l2">
                             <button class="boton-verde">REFRESCAR</button>
                         </div>

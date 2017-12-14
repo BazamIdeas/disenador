@@ -111,6 +111,12 @@ md-input-container:not([md-no-float]) .md-select-placeholder span:first-child {
     font-family: 'futura-heavy' !important;
 }
 
+
+[type="checkbox"].filled-in:checked+label:after {
+    border: 2px solid var(--tercero);
+    background-color: var(--tercero);
+}
+
 input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
     height: auto;
     padding: 3px 0;
@@ -360,20 +366,24 @@ table.table-admin td {
 button.boton-verde {
     background-color: var(--tercero);
     border: none;
-    border-radius: 2px;
+    border-radius: 4px;
     color: #fff;
-    padding: 3px 9px;
+    padding: 8px 8px;
     margin-top: 11px;
+    transition: 0.3 all;
     font-family: 'futura-heavy' !important;
 }
 
+button.boton-verde:hover {
+    background-color: #4aaf57c9;
+}
 
-/* Let's get this party started */
+/* Let's get this party started 
 ::-webkit-scrollbar {
     width: 4px;
 }
  
-/* Track */
+
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0); 
     -webkit-border-radius: 0;
@@ -383,7 +393,7 @@ button.boton-verde {
 ::-webkit-scrollbar:window-inactive { 
     width: 1px;
 }
-/* Handle */
+
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 0;
     border-radius: 0;
@@ -393,7 +403,7 @@ button.boton-verde {
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(97,39,135,0.4);  
 }
-
+*/
 
 /*Begin header*/
 header { 
@@ -462,7 +472,8 @@ section.sub-header .row .col.texto h5{font-family: 'futura-heavy' !important; te
 div.sidebar-1, div.sidebar-2, div.lienzo{
     padding-top: 10px !important;
     max-height: calc(100vh - 9rem);
-    overflow-y: scroll;
+    overflow-y: auto;
+    position: relative;
     height: 100%;
     margin: 0 0;
 }
@@ -473,20 +484,42 @@ div.sidebar-1, div.sidebar-2{
 
 div.sidebar-2{
     z-index: 0;
-    height: 100%;
-    position: relative;
     transition: margin-left 1s ease;
     border-right: 1px solid #d6d6d6;
 }
 
 /*Begin SideBar 1*/
 div.sidebar-1 {
-    -webkit-box-shadow: 3px 0px 2px -3px #d6d6d6;
-            box-shadow: 3px 0px 2px -3px #d6d6d6;
-    position: fixed;
     z-index: 1;
 }
 
+
+.scroll-wrapper > .scroll-content {
+    box-sizing: border-box !important;
+}
+
+.scroll-wrapper.sidebar-1 {
+    position: fixed !important;
+}
+
+.scroll-wrapper.sidebar-1 .scroll-content{
+    padding: 0 0.75rem;
+}
+
+.scrollbar-dynamic > .scroll-element .scroll-bar {
+    background-color: #612787 !important;
+}
+
+.scrollbar-dynamic > .scroll-element.scroll-y .scroll-bar {
+    width: 4px !important;
+}
+
+.scrollbar-dynamic > .scroll-element.scroll-y:hover .scroll-element_outer, .scrollbar-dynamic > .scroll-element.scroll-y.scroll-draggable .scroll-element_outer {
+    min-width: 4px !important;
+    width: 4px !important;
+}
+
+/*
 div.sidebar-1::-webkit-scrollbar {
     width: 4px;
 }
@@ -495,14 +528,14 @@ div.sidebar-1::-webkit-scrollbar:window-inactive {
     width: 1px;
 }
  
-/* Track */
+
 div.sidebar-1::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0); 
     -webkit-border-radius: 0;
     border-radius: 0;
 }
  
-/* Handle */
+
 div.sidebar-1::-webkit-scrollbar-thumb {
     -webkit-border-radius: 0;
     border-radius: 0;
@@ -511,7 +544,7 @@ div.sidebar-1::-webkit-scrollbar-thumb {
 }
 div.sidebar-1::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(97,39,135,0.4); 
-}
+}*/
 
 md-slider {
     margin: 0;
@@ -925,6 +958,14 @@ p.titulo{
     font-size: 20px;
     color: black;
     box-shadow: 0px 1px 2px 0px #d9d9d9;
+}
+
+.estilo-texto .negrita:active, .estilo-texto .cursiva:active, .estilo-texto .menos:active, .estilo-texto .mas:active{
+    color: white;
+}
+
+.estilo-texto .negrita:focus, .estilo-texto .cursiva:focus, .estilo-texto .menos:focus, .estilo-texto .mas:focus{
+   user-select: none;
 }
 
 .estilo-texto .menos, .estilo-texto .mas{
@@ -1537,6 +1578,7 @@ path.seleccionado {
     border-radius: 5px;
     box-shadow: 0px 1px 2px 1px #dedede;
     background-color: white;
+    cursor: pointer;
 }
 
 .loading-white{

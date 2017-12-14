@@ -16,44 +16,35 @@
             <div class="row margin-bottom-0">
 				
 				<div class="col s5 offset-s1">
-                    <div class="caja">
-                       <p class="text-center tercero margin-bottom-0 margin-top-0">GUARDADOS</p>
+                    <div class="row caja">
+                        <p class="text-center tercero margin-bottom-0 margin-top-0">GUARDADOS</p>
+                        <div class="col l1"></div>
+                        <div class="col l10">
+                            
                         
-                      
-                        
-                            <div class="cubos-logos" ng-repeat="guardado in guardados = (logos.guardados) track by $index" ng-if="$first || (($index+1) % 3) == 0">
-                                <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index < 2 && ((guardados.length - 1) >= $index)">
-                                    <div class="overlay-combinacion"></div>
-                                    <span class="editar" ng-click="">
-                                        <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
-                                        <i class="material-icons">edit</i>
-                                    </span>
-                                    <span class="compartir">
-                                        <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
-                                        <i class="material-icons">share</i>
-                                    </span>                                                                
-                                    <bazam-visualizar data-svg="logos.base64.decode(guardados[$index].logo)"></bazam-visualizar>
-                                </div>
+                            <div class="row cubos-logos-cliente">
                                 
-                                
-                                <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index >= 2 && ((guardados.length - 1) >= ($parent.$index + $index + 1))">
-                                    <div class="overlay-combinacion"></div>
-                                    <span class="editar">
-                                        <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
-                                        <i class="material-icons">edit</i>
-                                    </span>
-                                    <span class="compartir">
-                                        <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
-                                        <i class="material-icons">share</i>
-                                    </span>                                                                
-                                    <bazam-visualizar data-svg="logos.base64.decode(guardados[$parent.$parent.$index + $index + 1].logo)"></bazam-visualizar>
+                                <div class="col l4" ng-repeat="guardado in logos.guardados track by $index">
+                                    <div style="width: 130px; height: 130px;">
+                                        <div class="overlay-combinacion"></div>
+                                        <span class="editar" ng-click="">
+                                            <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
+                                            <i class="material-icons">edit</i>
+                                        </span>
+                                        <span class="compartir">
+                                            <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
+                                            <i class="material-icons">share</i>
+                                        </span>                                                                
+                                        <bazam-visualizar data-svg="logos.base64.decode(guardado.logo)"></bazam-visualizar>
+                                    </div>
                                 </div>
 
                             </div>
-                     
+                        </div>
 
-                        
-                        
+                        <div class="col l1"></div>
+
+
                     </div>
                 </div>
 
