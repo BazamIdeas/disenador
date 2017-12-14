@@ -182,11 +182,11 @@ exports.listaLogosDescargables = function(req, res, next) {
 				        		archive.finalize();
 
 								setTimeout(function () {
-						    		fs.unlink(svg)
+						    		res.json({zip:svg.replace("svg", "zip")})
 						    
-								}, 10000); 				        		
+								}, 5000); 				        		
 
-				        		res.json({zip:svg.replace("svg", "zip")})
+				        		
 
 				        	}else{
 

@@ -139,11 +139,19 @@ angular.module("disenador-de-logos")
 
             logosService.descargarLogo(bz.logo.id, ancho, $filter('uppercase')(nombre), nombre).then(function (res) {
 
-                var nombre = res.zip.replace('public', '');
+                if (res.zip) {
+                    
+                    var nombre = res.zip.replace('public', '');
+                    
+                } else if (res.png){
+                    
+                    var nombre = res.png.replace('public', '');
+                    
+                }
 
-
+                console.log(nombre)
                 var url = nombre;
-                
+
                 bz.dispararDescarga(url)
 
 
