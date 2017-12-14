@@ -12,117 +12,91 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 
         /*------------------------ Ui router states ----------------------*/
 
-        $stateProvider.state({
-                name: 'categorias',
+        $stateProvider
+            .state('app', {
+                url: '/app',
+                abstract: true,
+                templateUrl: 'app/views/menu.html',
+                controller: 'sidenavController as sidenav',
+                resolve: {
+                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+                        if (!clientesService.autorizado()) {
+                            return $q.reject("AUTH_REQUIRED");
+                        }
+                    }]
+                }
+            }).state({
+                name: 'app.categorias',
                 url: '/categorias',
-                templateUrl: 'app/views/categorias.html',
-                controller: 'categoriasController as categorias',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/categorias.html',
+                        controller: 'categoriasController as categorias'
+                    }
                 }
             }).state({
-                name: 'cliente',
+                name: 'app.cliente',
                 url: '/cliente',
-                templateUrl: 'app/views/cliente.html',
-                controller: 'clienteController as cliente',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/cliente.html',
+                        controller: 'clienteController as cliente',
+                    }
                 }
             }).state({
-                name: 'elementos',
+                name: 'app.elementos',
                 url: '/elementos',
-                templateUrl: 'app/views/elementos.html',
-                controller: 'elementosController as elementos',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/elementos.html',
+                        controller: 'elementosController as elementos',
+                    }
                 }
             }).state({
-                name: 'monedas',
+                name: 'app.monedas',
                 url: '/monedas',
-                templateUrl: 'app/views/monedas.html',
-                controller: 'monedasController as moneda',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/monedas.html',
+                        controller: 'monedasController as moneda',
+                    }
                 }
             }).state({
-                name: 'paises',
+                name: 'app.paises',
                 url: '/paises',
-                templateUrl: 'app/views/paises.html',
-                controller: 'paisesController as paises',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/paises.html',
+                        controller: 'paisesController as paises',
+                    }
                 }
             }).state({
-                name: 'pedidos',
+                name: 'app.pedidos',
                 url: '/pedidos',
-                templateUrl: 'app/views/pedidos.html',
-                controller: 'pedidosController as pedidos',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/pedidos.html',
+                        controller: 'pedidosController as pedidos',
+                    }
                 }
             }).state({
-                name: 'planes',
+                name: 'app.planes',
                 url: '/planes',
-                templateUrl: 'app/views/planes.html',
-                controller: 'planesController as planes',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/planes.html',
+                        controller: 'planesController as planes',
+                    }
+                }
+            })
+            .state({
+                name: 'app.usuario',
+                url: '/usuario',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/usuario.html',
+                        controller: 'usuarioController as usuario',
+                    }
                 }
             })
             .state({
@@ -141,43 +115,9 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 
                     }]
                 }
-            })
-            .state({
-                name: 'usuario',
-                url: '/usuario',
-                templateUrl: 'app/views/usuario.html',
-                controller: 'usuarioController as usuario',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+            });
 
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
-                }
-            })
-            .state({
-                name: 'pasarelas',
-                url: '/pasarelas',
-                templateUrl: 'app/views/pasarelas.html',
-                controller: 'pasarelasController as pasarela',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
-                }
-            })
-
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/app/pedidos');
     })
 
 
@@ -194,9 +134,9 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
             // We can catch the error thrown when the $requireSignIn promise is rejected
             // and redirect the user back to the home page
             if (error === "AUTH_REQUIRED") {
-                $state.go("cliente");
-            } else if (error === "LOGOUT_REQUIRED") {
                 $state.go('login');
+            } else if (error === "LOGOUT_REQUIRED") {
+                $state.go("app/pedidos");
             }
         });
     })

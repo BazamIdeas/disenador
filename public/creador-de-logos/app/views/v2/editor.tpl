@@ -9,24 +9,24 @@
             <div class="row margin-bottom-0">
 
                 <div class="col s4 logo">
-                    <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
+                    <h5 class="secundario"  ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
                 </div>
                 <div class="col s8">
                 	<div class="row opciones-sub-header margin-bottom-0">
-	                    <div class="col s2">
-	                    	<div color-picker color-picker-model="editor.colorFondo" ng-model="editor.colorFondo" color-picker-position="bottom" class="selector-fondo" ng-style="{'background-color': editor.colorFondo}" style="font-size: 0px;"></div>
+	                    <div class="col l2 xl2">
+	                    	<div color-picker color-picker-model="editor.colorFondo" ng-model="editor.colorFondo" color-picker-position="bottom" ng-click="editor.cuadricula = false" class="selector-fondo" ng-style="{'background-color': editor.colorFondo}" style="font-size: 0px;"></div>
 	                    	<span class="principal">Fondo</span>
 	                    </div>
-	                    <div class="col s2">
-	                    	<div class="selector-cuadricula"><i class="material-icons">apps</i></div>
+	                    <div class="col l3 xl2">
+	                    	<div class="selector-cuadricula" ng-class="{'active': editor.cuadricula }"  ng-click="editor.activarCuadricula()"><i class="material-icons">apps</i></div>
 	                    	<span class="principal">Cuadricula</span>
 	                    </div>
-	                    <div class="col s6 offset-s2">
-							<button class="boton-oborder" ng-click="editor.mostrarBorradores()"><i class="material-icons">queue</i> BORRADORES</button>
+	                    <div class="col l7 xl6 offset-xl2">
+							<button class="boton-oborder" ng-class="{'active': editor.borradores}" ng-click="editor.mostrarBorradores()"><i class="material-icons">queue</i> BORRADORES</button>
 
-	                    	<button class="boton-oborder"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
+	                    	<button class="boton-oborder" ng-class="{'active': editor.preview}" ng-click="editor.mostrarPreviews()"><i class="material-icons">remove_red_eye</i> PREVIEW</button>
 
-	                    	<button class="boton-oborder" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"><i class="material-icons" >save</i> GUARDAR</button>
+	                    	<button class="boton-oborder" ng-class="{'loading-purple': !editor.completadoGuardar}" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"><i class="material-icons" >save</i> GUARDAR</button>
 
 	                    	<button class="boton-oborder" ng-click="editor.buscarPlanes()"><i class="material-icons">shopping_cart</i> COMPRAR</button>
 	                    </div>
@@ -95,8 +95,19 @@
 
                     </div>
                 
-                    <div class="col s2 offset-s2 sidebar-2">
+                    <div class="col s2 sidebar-2 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
                         <p class="text-center principal titulo">ICONO</p>
+
+	                    <div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
+		                    <md-input-container style="width:80%; padding: 0 0.75rem" >
+							  	<md-select ng-model="editor.categoriaIcono" placeholder="Categoria" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" md-no-asterisk required> 
+							    	<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+							  	</md-select>
+							</md-input-container>
+							<span style="background: var(--principal);color: white;border-radius: 3px;padding: 2;cursor: pointer;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-class="{ 'loading-white': !editor.completadoBuscar}">
+                                <i class="material-icons">refresh</i>
+                            </span>
+	                    </div>
 
 						<div class=" col s12 estilo-texto" style="font-size:0px">
                     		<div color-picker color-picker-model="editor.colorIcono" ng-model="editor.colorIcono" ng-change="editor.cambioColor(editor.colorIcono, 'icono')" color-picker-position="bottom" class="color" style="background-color: {{editor.colorIcono}}"></div>
@@ -126,25 +137,21 @@
 	                        </div>
 	                    </div>
 
-	                    <div class="col s12 text-center" ng-form="editor.iconosForm">
-		                    <md-input-container style="width:100%; padding: 0 0.75rem" >
-							  	<md-select ng-model="editor.categoriaIcono" placeholder="Categoria"  md-no-asterisk required> 
-							    	<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-							  	</md-select>
-							</md-input-container>
 
-							<button type="submit" class="boton-oborder" style="margin-bottom: 20px;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"><i class="material-icons">search</i> BUSCAR</button>
-	                    </div>
                     </div>
                 </form>
 
 				
-				<div class="contenedor-principal col s8" style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
+				<div class="contenedor-principal editor col s8" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}" style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
 					<div class="contenedor-svg">
 				       <bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal"></bazam-svg>
 				    </div>
-				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaIconos || editor.preview) }"></div>
+				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaIconos) }"></div>
+				    <div class="overlay-svg-previews"  ng-class="{'abierto': editor.preview }"></div>
 				    <div class="contenedor-borradores" ng-class="{'abierto': editor.borradores}">
+				    	<div class="cerrar-contenedor-bi">
+				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	</div>
 				    	<div class="row padding-bottom-0">
 				    		<div class="col s2">
 				    			<div class="agregar" ng-click="editor.realizarComparacion(editor.comparar)"><i class="material-icons">add</i> <span>AGREGAR</span></div>
@@ -164,13 +171,16 @@
                                     </bazam-visualizar>
                                     
 				    			</div>
-                                <div ng-show="!editor.comparaciones.length" layout-padding style="text-align:center;">
+                                <div ng-show="!editor.comparaciones.length" layout-padding style="height: 100%;display: flex;align-items: center;justify-content: center;font-family: 'futura-heavy' !important;font-size: 20px;">
                                     No existe ningun borrador
                                 </div>
 				    		</div>
 				    	</div>
 				    </div>
 					<div class="contenedor-iconos" ng-class="{'abierto': editor.busquedaIconos}">
+				    	<div class="cerrar-contenedor-bi">
+				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	</div>
 				    	<div class="row padding-bottom-0">
 				    		<div class="col s10">
 
@@ -187,7 +197,48 @@
 				    		</div>
 				    	</div>
 					</div>
-					<div class="contenedor-previews" ng-class="{'abierto': editor.preview}">
+					<div class="contenedor-previews scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
+						<div class="cerrar-contenedor-p">
+				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	</div>	
+						<div class="row padding-bottom-0" >
+				    		<div class="col s6">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/ipad.png" width="100%">
+				    			</div>
+				    		</div>
+				    		<div class="col s6">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/ipad.png" width="100%">
+				    			</div>
+				    		</div>
+				    		<div class="col s6">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/ipad.png" width="100%">
+				    			</div>
+				    		</div>
+				    		<div class="col s6">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/ipad.png" width="100%">
+				    			</div>
+				    		</div>
+				    	</div>				    						
 					</div>
 				</div>
             </div>

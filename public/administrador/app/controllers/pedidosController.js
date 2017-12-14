@@ -4,7 +4,6 @@ angular.module("administrador")
 
         var bz = this;
         bz.elementos = [];
-        bz.pedidoDetalle = [];
 
         bz.base64 = function (icono) {
 
@@ -66,13 +65,12 @@ angular.module("administrador")
 
         bz.pedidoDetalles = function (id, index) {
             bz.pedidoActivoIndex = index;
-
+            bz.pedidoDetalle = {};
             bz.mostrarD = true;
-            bz.pedidoDetalle = [];
+            
             pedidosService.datosPedido(id).then(function (res) {
-                angular.forEach(res.data, function (valor, llave) {
-                    bz.pedidoDetalle.push(valor);
-                })
+                console.log(res)
+                bz.pedidoDetalle = res.data[0];
             }).catch(function (res) {
                 notificacionService.mensaje('No existen pedidos para este cliente.');
             })

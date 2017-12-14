@@ -2,9 +2,11 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('pagoController', ["$scope", "historicoResolve", "pedidosService", "$window", function ($scope, historicoResolve, pedidosService, $window) {
+    .controller('pagoController', ["$scope", "historicoResolve", "pedidosService", "$window", "$state", "$base64", function ($scope, historicoResolve, pedidosService, $window, $state, $base64) {
 
         var bz = this;
+        
+        bz.base64 = $base64;
 
         bz.pedido = historicoResolve;
 
@@ -38,18 +40,31 @@ angular.module("disenador-de-logos")
         }
 
 
+        bz.completado = true;
+        
         bz.pagar = function (idPasarela, terminos) {
 
+            
+            bz.completado = false;
+            
             if (terminos) {
 
                 switch (idPasarela) {
                         
                     case 1://PAYPAL
-                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.pedido.logo, bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela).then(function(res){
+                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
                             
-                           $window.location = res;
+                            .then(function(res){
+                           
+                                $window.location = res;
                             
-                        })
+                            })
+                        
+                            .finally(function(res){
+
+                                bz.completado = true;
+                            
+                            })
                         break;
                         
                     case 2://STRIPE

@@ -159,6 +159,40 @@ logo.deleteLogo = function(id, callback)
 	});
 }
 
+logo.Borrar = (id, callback) => 
+{
+	var q = 'SELECT * FROM logos WHERE idLogo = ?';
+	var par = [id] //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row)
+		{
+	  	 	//si existe la id del logo a eliminar
+		  	if(row !== 'undefined' && row.length > 0)
+		  	{
+		  		var qq = 'DELETE FROM logos WHERE idLogo = ?';
+		  		DB.getConnection(function(err, connection)
+		  		{
+					connection.query( qq , par , function(err, row)
+					{
+				  	
+				  		if(err)	throw err;
+
+					  	else callback(null,{"affectedRows" : row.affectedRows }); 
+				  		
+				  		connection.release();
+				 	});
+				});
+
+		  	}
+		  	else callback(null,{"msg":"no existe el logo"});
+
+		  	connection.release();
+	  	});
+ 
+	});
+}
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = logo;

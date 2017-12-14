@@ -99,7 +99,7 @@
                             </div>
                             <!---->
 
-
+                            
                             <div class="button inputArchivo">
                                 <div>{{elementos.registroFuente.mifuente.name || "SELECCIONA UNA FUENTE"}} </div>
                                 <span ng-if="elementos.registroFuente.mifuente" ng-click="elementos.registroFuente.mifuente=null">X</span>
@@ -111,9 +111,8 @@
                             <div ng-messages="formRegistro.mifuente.$error" ng-if="formRegistro.$submitted || formRegistro.mifuente.$dirty">
                                 <div ng-message="required">La fuente es requerida.</div>
                             </div>
+                            <br>
                             <!---->
-
-                            <div>
                                 <md-input-container class="md-block">
                                     <label>CATEGORIA</label>
                                     <md-select ng-model="elementos.registroFuente.categoria" name="categoria" ng-required="true">
@@ -121,7 +120,6 @@
                                         <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in elementos.categorias">{{categoria.nombreCategoria}}</md-option>
                                     </md-select>
                                 </md-input-container>
-                            </div>
 
                             <!--Validacion-->
                             <div ng-messages="formRegistro.categoria.$error" ng-if="formRegistro.$submitted || formRegistro.categoria.$dirty">

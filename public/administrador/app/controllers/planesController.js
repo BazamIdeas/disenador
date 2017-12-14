@@ -18,12 +18,13 @@ angular.module("administrador")
         bz.preciosPlan = [];
         bz.monedas = monedasValue;
         bz.paises = paisesValue;
-
-        /* FUNCION PARA LISTAR PLANES Y IMPUESTOS */
+        bz.monedasDisponibles = {};
 
         monedasService.listarMonedas().then(function (res) {
             bz.monedas = res.data;
         })
+
+        /* FUNCION PARA LISTAR PLANES Y IMPUESTOS */
 
         /***************************/
         /**********PLANES***********/
@@ -70,17 +71,24 @@ angular.module("administrador")
             }
         }
 
-        bz.agregarPrecioPlan = function (datos, validacion) {
-            if (validacion) {
-                administrarService.agregarPrecioPlan(datos).then(function (res) {
-                    document.getElementById('nuevoPrecioPlan').reset();
-                    bz.nuevoPrecioPlan = {};
-                    bz.vista = 0;
-                    notificacionService.mensaje('Peticion Realizada!');
-                    bz.localidadVal = ' ';
-                }).catch(function (res) {
-                    console.log(res)
-                })
+        bz.agregarPrecioPlan = function (datos, validacion){
+            if(bz.preciosPlan.length > 0){
+                angular.forEach(bz.monedas, function (valor) {
+                    if (valor.idMoneda == datos.idMoneda) {
+                        return notificacionService.mensaje('Moneda esta en uso!');
+                    }
+                });
+            }else{
+                if (validacion) {
+                    administrarService.agregarPrecioPlan(datos).then(function (res) {
+                        document.getElementById('nuevoPrecioPlan').reset();
+                        bz.nuevoPrecioPlan = {};
+                        bz.vista = 0;
+                        notificacionService.mensaje('Peticion Realizada!');
+                    }).catch(function (res) {
+                        console.log(res)
+                    })
+                }
             }
         }
 
@@ -97,13 +105,11 @@ angular.module("administrador")
         }
 
         bz.modificarPrecioPlan = function (datos) {
-            console.log(datos)
             datos.idPlan = datos.planes_idPlan;
             administrarService.modificarPrecioPlan(datos).then(function (res) {
-                console.log(res)
                 notificacionService.mensaje('Peticion Realizada.');
+                bz.modfire = 'no';
             }).catch(function (res) {
-                console.log(res)
                 notificacionService.mensaje(res);
             })
         }
@@ -142,7 +148,14 @@ angular.module("administrador")
                     }
                 });
             } else if (opcion == 'nuevoPrecioPlan') {
+                bz.monedasDisponibles = {};
                 bz.nuevoPrecioPlan.idPlan = datos;
+                administrarService.listarPreciosPlan(datos).then(function (res) {
+                    if (res != undefined) {
+                        bz.preciosPlan = res.data;
+                    }
+                }).catch(function (res) {
+                })
                 bz.vista = 3;
             } else if (opcion == 'preciosPlan') {
                 bz.preciosPlan = [];

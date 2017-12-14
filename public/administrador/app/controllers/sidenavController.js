@@ -3,32 +3,42 @@ angular.module("administrador")
     .controller('sidenavController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'clientesService', '$rootScope', function ($state, $mdSidenav, $mdDialog, $scope, clientesService, $rootScope) {
 
         var bz = this;
+        bz.medidaP = bz.menuMostrar ? true : false;
+        bz.medidaG = bz.menuMostrar ? false : true;
 
         bz.vistas = [{
-            url: 'pedidos',
+            url: 'app.pedidos',
+            nombre: 'Pedidos',
             icono: 'add_shopping_cart'
         }, {
-            url: 'cliente',
+            url: 'app.cliente',
+            nombre: 'Clientes',
             icono: 'person'
         }, {
-            url: 'categorias',
+            url: 'app.categorias',
+            nombre: 'Categorías',
             icono: 'settings'
         }, {
-            url: 'elementos',
+            url: 'app.elementos',
+            nombre: 'Elementos',
             icono: 'stars'
         }, {
-            url: 'usuario',
-            icono: 'person'
-        }, {
-            url: 'planes',
-            icono: 'view_carousel'
-        }, {
-            url: 'monedas',
+            url: 'app.monedas',
+            nombre: 'Monedas y pasarelas',
             icono: 'attach_money'
         }, {
-            url: 'paises',
+            url: 'app.paises',
+            nombre: 'Paises',
             icono: 'flag'
-        }]
+        }, {
+            url: 'app.planes',
+            nombre: 'Planes y precios',
+            icono: 'view_carousel'
+        }, {
+            url: 'app.usuario',
+            nombre: 'Usuarios',
+            icono: 'person'
+        }];
 
         /* VERIFICA SI EL USUARIO ESTA AUTORIZADO Y LO VIGILA */
         bz.autorizado = clientesService.autorizado();
@@ -40,8 +50,11 @@ angular.module("administrador")
         });
 
         /* INTERVALO DE ABRIR Y CERRAR EL MENU */
-        bz.cambiarMenu = function (lugar) {
-            return $mdSidenav('left').toggle();
+        bz.cambiarMenu = function () {
+            bz.menuMostrar = !bz.menuMostrar;
+
+            bz.medidaP = bz.menuMostrar ? 2 : 0;
+            bz.medidaG = bz.menuMostrar ? 10 : 11;
         }
 
     }])

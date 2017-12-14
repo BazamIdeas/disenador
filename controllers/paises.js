@@ -113,7 +113,7 @@ exports.Modificar =  (req,res) =>
 					res.status(500).json({"msg":"Algo ocurrio"})
 				}
 			});
-			console.log(paisData);
+			//console.log(paisData);
 		}else{
 			res.status(404).json({"msg":"No existe"})
 		}

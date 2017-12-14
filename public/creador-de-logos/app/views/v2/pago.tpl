@@ -3,7 +3,7 @@
             <div class="row margin-bottom-0">
 
                 <div class="col s2 logo">
-                    <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
+                    <h5 class="secundario" ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
                 </div>
                 <div class="col s10 texto">
                     <h5 class="principal">DETALLES DE SU PEDIDO</h5>
@@ -12,7 +12,7 @@
             </div>
         </section>
 
-        <section style="padding:0 30px;height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
+        <section style="padding:0 30px;height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;" class="scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
             <div class="row margin-bottom-0" style="overflow: hidden;">
 
 				
@@ -33,21 +33,21 @@
 								</div>
 							</div>	
 
-							<div class="su-pedido col s2">
+							<div class="su-pedido col s2" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
 								<div>
 									<div class="th">PLAN</div>
 									<div class="td">{{pago.pedido.plan.nombre}}</div>
 								</div>
 							</div>						
 
-							<div class="su-pedido col s2">
+							<div class="su-pedido col s2" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
 								<div>
 									<div class="th">PRECIO</div>
 									<div class="td">{{pago.pedido.precio.moneda.simbolo}} {{pago.pedido.precio.monto}}</div>
 								</div>
 							</div>	
 
-							<div class="su-pedido col s2">
+							<div class="su-pedido col s2" ng-if="pago.pedido.impuesto">
 								<div>
 									<div class="th">IMPUESTO</div>
 									<div class="td">( {{impuestoTotal = (pago.pedido.precio.monto / pago.pedido.impuesto)}} ) {{pago.pedido.impuesto}}%</div>
@@ -74,7 +74,7 @@
                         
                     </div>
 
-					<div class="row">
+					<div class="row" ng-if="pago.terminos">
 						
 						<div class="col s12" style="padding: 0">
 
@@ -90,8 +90,8 @@
 											<img width="100%" height="100%" src="https://img.purch.com/r/520x520/aHR0cDovL3d3dy50b3B0ZW5yZXZpZXdzLmNvbS9pL3Jldi9wcm9kL2xhcmdlLzY3NjMwLXBheXBhbC1ib3guanBn">
 										</div>
 										<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
-											Esto explica porque Paypal no sirve como pasarela y aun asi se usa
-											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
+											Esto explica porque Paypal no sirve como pasarela
+											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
 										</div>
 									</div>
                                     <!--Strype-->
@@ -101,7 +101,7 @@
 										</div>
 										<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
 											Stripe es torito
-											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos}" ng-clicl="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
+											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-clicl="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
 										</div>
 									</div>
                                     <!--PayU-->
@@ -111,7 +111,7 @@
 										</div>
 										<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
 											PayU 100%
-											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
+											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
 										</div>
 									</div>
 

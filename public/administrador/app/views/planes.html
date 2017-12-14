@@ -23,7 +23,7 @@
                         <div>Acciones:</div>
                     </div>
                     <div layout="column" class="content-scroll">
-                        <div ng-repeat="elemento in planes.planes | filter:planes.buscarPlanes track by $index" class="elemento plan{{elemento.status}}">
+                        <div ng-repeat="elemento in planes.planes | filter:planes.buscarPlanes | orderBy:'idPlan'" class="elemento plan{{elemento.status}}">
                             <div class="tabla-campo">
                                 <div class="nombre">{{elemento.plan}}</div>
                                 <div>
@@ -135,14 +135,19 @@
                         <md-icon>keyboard_arrow_left</md-icon>
                     </md-button>
                 </div>
+                <div ng-if="planes.monedas.length == 0" class="mensaje-resultado">
+                    <h3>NO HAY MONEDAS DISPONIBLES</h3>
+                </div>
                 <div layout-padding class="formularios-login pasos">
                     <form ng-submit="planes.agregarPrecioPlan(planes.nuevoPrecioPlan, nuevoprecioplan.$valid)" novalidate name="nuevoprecioplan"
                         id="nuevoPrecioPlan">
-                        <div layout="column" layout-align="space-between">
+                        <div layout="column" layout-align="space-between" ng-if="planes.monedas.length > 0">
                             <md-input-container class="md-block">
                                 <label>MONEDA</label>
                                 <md-select ng-model="planes.nuevoPrecioPlan.idMoneda" name="moneda" ng-required="true">
-                                    <md-option ng-value="mon.idMoneda" ng-repeat="mon in planes.monedas">{{mon.moneda}}</md-option>
+                                    <span ng-repeat="mon in planes.monedas">
+                                        <md-option ng-value="mon.idMoneda">{{mon.moneda}}</md-option>
+                                    </span>
                                 </md-select>
                             </md-input-container>
                             <div>
@@ -159,8 +164,11 @@
                                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
                             </div>
                         </div>
+
                     </form>
+
                 </div>
+
             </div>
 
             <!-- VER PRECIOS DE UN PLAN -->
@@ -179,7 +187,7 @@
                     <div>Accion:</div>
                 </div>
                 <div layout="column" class="content-scroll lista">
-                    <div ng-repeat="elemento in planes.preciosPlan track by $index" class="elemento nopadding">
+                    <div ng-repeat="elemento in planes.preciosPlan | orderBy:'idPrecio'" class="elemento nopadding">
                         <div class="tabla-campo" layout-padding>
                             <div>{{elemento.precio}}</div>
                             <div ng-if="elemento.status == 1">Activo</div>
@@ -198,7 +206,7 @@
                                 <input type="text" ng-model="elemento.precio" name="NuevoPrecio">
                             </md-input-container>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit" ng-click="planes.modificarPrecioPlan(elemento)">Modificar</md-button>
+                                <md-button class="md-raised md-primary" type="submit" ng-click="planes.modificarPrecioPlan(elemento, $index)">Modificar</md-button>
                             </div>
                         </div>
                     </div>

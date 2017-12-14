@@ -43,7 +43,6 @@
     margin: auto;
 }
 
-
 .margen_inferior {
     margin-bottom: var(--margin-bottom);
 }
@@ -105,7 +104,9 @@ body {
 .transparente {
     background-color: transparent !important;
 }
-
+.auto{
+        MARGIN: AUTO;
+}
 .menu-header {
     position: absolute;
     background: #fafafa;
@@ -249,6 +250,14 @@ md-icon {
     border-style: inset;
 }
 
+.alto-maximo {
+    height: 100%;
+}
+
+.padding {
+    padding: 6px;
+}
+
 
 /* SCROLL */
 
@@ -333,7 +342,7 @@ md-icon {
 /* CLIENTE */
 
 .titulo-modulo texto {
-    font-size: 20px;
+    font-size: 16px;
     color: #f9f9f9;
     font-weight: bold;
     display: block;
@@ -367,6 +376,7 @@ md-icon {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    font-size: 14px;
 }
 
 .tabla-campo>div {
@@ -473,4 +483,44 @@ texto.EN.PROCESO {
 
 .plan0 {
     background: silver !important;
+}
+
+menu {
+    margin: 0;
+    height: 100%;
+    padding: 0;
+}
+
+menu.centrado .menuItem {
+    padding: 12% 0px;
+    margin: auto;
+    display: block;
+    width: 100%;
+}
+
+menu.centrado .material-icons {
+    font-size: 32px;
+    display: block;
+    margin: auto;
+}
+
+menu.centrado md-icon {
+    height: 30px;
+    width: 35px;
+}
+
+.sidemenu-menu.grande {
+    width: 95%;
+}
+
+.sidemenu.grande {
+    width: 15%
+}
+
+.sidemenu-menu.pequeno {
+    width: 85%;
+}
+
+.sidemenu.pequeno {
+    width: 5%
 }

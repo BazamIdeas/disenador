@@ -23,7 +23,7 @@ angular.module("administrador")
                 bz.loaderCargando = true;
                 clientesService.login(datos).then(function (res) {
                     SweetAlert.swal("Genial", "Ingreso Exitoso!", "success");
-                    $state.go('cliente');
+                    $state.go('app.cliente');
                 }).catch(function (res) {
                     bz.loaderCargando = false;
                     SweetAlert.swal("Error al ingresar", "", "error");

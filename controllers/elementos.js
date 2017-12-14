@@ -39,8 +39,9 @@ exports.listaSegunPref = function (req, res, next) {
 						} // fin del for coincidencia
 
 						if (coin == 0) { // verificamos si la variable no cambio de dato
-
-							coincidencias = coincidencias.concat(data[i]); // concatenamos data con coincidencias
+							if (coincidencias.length < 12) {
+							coincidencias = coincidencias.concat(data[i]);
+							} // concatenamos data con coincidencias
 						} // fin del if
 
 					} // fin del for data*/
@@ -54,7 +55,6 @@ exports.listaSegunPref = function (req, res, next) {
 			if (err)
 				res.status(500);
 			else {
-
 				if (coincidencias.length < 12) {
 					var exit = 1;
 					async.each(datoIncat, function (dato, callback) {
@@ -150,7 +150,7 @@ exports.nuevoElementoIcono = function (req, res) {
 	if (tiposvg == 'image/svg+xml') {
 		fs.readFile(svg_path, function (error, contenido) {
 			var str = (contenido.toString());
-			dd = str.replace(/.*<svg version=/, "<svg version=");
+			dd = "<svg version"+str.split("<svg version")[1];
 			dd2 = base64.encode(dd.replace('xmlns=', 'width="100%" xmlns='));
 			var elem = {
 				idElemento: null,

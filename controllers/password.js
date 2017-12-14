@@ -85,7 +85,7 @@ exports.cambiar = function(req,res,next)
 
 		cliente.getCliente(token.id,function(error, data)
 		{
-			console.log(data)
+			//console.log(data)
 			//si el usuario existe 
 			if (typeof data !== 'undefined' && data.length > 0){
 

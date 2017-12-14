@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('monedasController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', 'notificacionService', 'monedasService', 'pasarelasService', function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, Upload, notificacionService, monedasService, pasarelasService) {
+    .controller('monedasController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', 'notificacionService', 'monedasService', 'pasarelasService', 'monedasValue', function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, Upload, notificacionService, monedasService, pasarelasService, monedasValue) {
 
         var bz = this;
 
@@ -12,6 +12,7 @@ angular.module("administrador")
         bz.monedasPasarela = {};
         bz.quitarMoneda = {};
         bz.ponerMoneda = {};
+        bz.almacenDeMonedas = monedasValue;
 
         bz.mostrar = function(opcion, index){
             bz.index = index;
