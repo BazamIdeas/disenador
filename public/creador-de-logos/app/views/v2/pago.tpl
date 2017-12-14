@@ -90,8 +90,8 @@
 											<img width="100%" height="100%" src="https://img.purch.com/r/520x520/aHR0cDovL3d3dy50b3B0ZW5yZXZpZXdzLmNvbS9pL3Jldi9wcm9kL2xhcmdlLzY3NjMwLXBheXBhbC1ib3guanBn">
 										</div>
 										<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
-											Esto explica porque Paypal no sirve como pasarela y aun asi se usa
-											<button class="boton-verde pagar loading-white" ng-class="{'deshabilitado': !pago.terminos}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
+											Esto explica porque Paypal no sirve como pasarela
+											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
 										</div>
 									</div>
                                     <!--Strype-->
@@ -101,7 +101,7 @@
 										</div>
 										<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
 											Stripe es torito
-											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos}" ng-clicl="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
+											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-clicl="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
 										</div>
 									</div>
                                     <!--PayU-->
@@ -111,7 +111,7 @@
 										</div>
 										<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
 											PayU 100%
-											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
+											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
 										</div>
 									</div>
 

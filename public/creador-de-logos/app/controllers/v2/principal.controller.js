@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Comenzar */
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast) {
+    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout) {
 
         var bz = this;
 
@@ -107,13 +107,16 @@ angular.module("disenador-de-logos")
                             status: true
                         });
 
-                        bz.completado = true;
-
-
                     }).catch(function (error) {
 
                         //$state.go('comenzar')
-                    });
+                    
+                    }).finally(function(res){
+                    
+                    
+                        bz.completado = true;
+                    
+                })
 
             }
 
@@ -179,10 +182,14 @@ angular.module("disenador-de-logos")
 
 
         bz.datosLogin = {};
+        
+        bz.completadoLogin = true;
 
         bz.login = function (datos, valido) {
 
             if (valido) {
+                
+                bz.completadoLogin = false;
 
                 clientesService.login(datos).then(function (res) {
 
@@ -192,10 +199,15 @@ angular.module("disenador-de-logos")
                             hideDelay: 0,
                             position: 'top right',
                             controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
+                                var temporizador = $timeout(function () {
+
+                                    $mdToast.hide();
+
+                                }, 2000)
 
                                 $scope.closeToast = function () {
-
-                                    $mdToast.hide()
+                                    $timeout.cancel(temporizador)
+                                    $mdToast.hide();
 
                                 }
                             }],
@@ -213,16 +225,28 @@ angular.module("disenador-de-logos")
                         position: 'top right',
                         controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
 
-                            $scope.closeToast = function () {
+                            var temporizador = $timeout(function () {
 
-                                $mdToast.hide()
+                                $mdToast.hide();
+
+                            }, 2000)
+
+                            $scope.closeToast = function () {
+                                $timeout.cancel(temporizador)
+                                $mdToast.hide();
 
                             }
                             }],
                         templateUrl: 'toast-danger-login.html'
                     });
 
+                }). finally(function(res){
+                    
+                    
+                    bz.completadoLogin = true;
+                    
                 })
+                
 
             };
 

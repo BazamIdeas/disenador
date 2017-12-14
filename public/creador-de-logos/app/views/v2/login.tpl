@@ -33,7 +33,7 @@
                                         <label for="pass">Contraseña</label>
                                     </div>
                                     <div class="text-center">
-                                        <button class="boton-verde">ENVIAR</button>
+                                        <button class="boton-verde" ng-class="{'loading-white': !login.completadoLogin}">ENVIAR</button>
                                     </div>                               
                                 </form>
 	                        </div>

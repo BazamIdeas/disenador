@@ -2,15 +2,20 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('loginController', ["clientesService", "$state", "$mdToast", function (clientesService, $state, $mdToast) {
+    .controller('loginController', ["clientesService", "$state", "$mdToast", "$timeout", function (clientesService, $state, $mdToast, $timeout) {
 
         var bz = this;
+        
+        bz.completadoLogin = true;
 
         bz.datosLogin = {};
 
         bz.login = function (datos, valido) {
 
             if (valido) {
+                
+                bz.completadoLogin = false;
+                
 
                 clientesService.login(datos).then(function (res) {
 
@@ -22,9 +27,15 @@ angular.module("disenador-de-logos")
                             position: 'top right',
                             controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
 
-                                $scope.closeToast = function () {
+                                var temporizador = $timeout(function () {
 
-                                    $mdToast.hide()
+                                    $mdToast.hide();
+
+                                }, 2000)
+
+                                $scope.closeToast = function () {
+                                    $timeout.cancel(temporizador)
+                                    $mdToast.hide();
 
                                 }
                             }],
@@ -44,9 +55,15 @@ angular.module("disenador-de-logos")
                         position: 'top right',
                         controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
 
-                            $scope.closeToast = function () {
+                            var temporizador = $timeout(function () {
 
-                                $mdToast.hide()
+                                $mdToast.hide();
+
+                            }, 2000)
+
+                            $scope.closeToast = function () {
+                                $timeout.cancel(temporizador)
+                                $mdToast.hide();
 
                             }
                         }],
@@ -56,7 +73,9 @@ angular.module("disenador-de-logos")
 
                 }).finally(function () {
 
-
+                    
+                    bz.completadoLogin = true;
+                    
 
                 })
 

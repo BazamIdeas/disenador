@@ -21,7 +21,7 @@
                         
                       
                         
-                            <div class="cubos-logos" ng-repeat="guardado in guardados = (logos.guardados) track by $index" ng-if="$first || (($index+1) % 3) == 0">
+                            <div class="cubos-logos" ng-repeat="guardado in guardados = (logos.guardados) | limitTo: 10 track by guardado.idLogo" ng-if="$first || (($index+1) % 3) == 0">
                                 <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index < 2 && ((guardados.length - 1) >= $index)">
                                     <div class="overlay-combinacion"></div>
                                     <span class="editar" ng-click="">
@@ -61,7 +61,7 @@
                     <div class="caja">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">ADQUIRIDOS</p>
                        
-                        <div class="cubos-logos" ng-repeat="comprado in comprados = (logos.comprados) track by $index" ng-if="$first || (($index+1) % 3) == 0">
+                        <div class="cubos-logos" ng-repeat="comprado in comprados = (logos.comprados) | limitTo: 10 track by comprado.idLogo" ng-if="$first || (($index+1) % 3) == 0">
                                 <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index < 2 && ((comprados.length - 1) >= $index)">
                                     <div class="overlay-combinacion"></div>
                                     <span class="editar" ui-sref="descargar({id: comprados[$index].idLogo})">

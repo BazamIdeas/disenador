@@ -62,21 +62,21 @@
                         <p class="text-center principal">Forma de su logo</p>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.asignarTipo(principal.botonesTipo[0] )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[0] )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
                                 <span><i class="material-icons">thumb_up</i></span>
                                 <span>TU LOGO</span>
                             </div>
                         </div>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.asignarTipo(principal.botonesTipo[1])" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[1])" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
                                 <span class="texto">M</span>
                                 <span>TU LOGO</span>
                             </div>
                         </div>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo, 'loading-white': principal.botonesTipo[2].activo && !principal.completado}">
                                 <span>TU LOGO</span>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                                         <label for="pass">Contraseña</label>
                                     </div>
                                     <div class="text-center">
-                                        <button class="boton-verde">ENVIAR</button>
+                                        <button class="boton-verde" ng-class="{'loading-white': !principal.completadoLogin}">ENVIAR</button>
                                     </div>                               
                                 </form>
                             </div>
