@@ -1,48 +1,8 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar"])
 
-    .config(function ($stateProvider, $httpProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider) {
 
-        /* COMPARTIR EN REDES SOCIALES */
-
-        /*
-            socialshareConfProvider.configure([{
-                    'provider': 'twitter',
-                    'conf': {
-                        'url': 'http://localhost:8080/creador-de-logos/#!/editor',
-                        'text': '720kb is enough',
-                        'via': 'npm',
-                        'hashtags': 'Creador de logos, LIDERLOGO',
-                        'trigger': 'click'
-                    }
-                },
-                {
-                    'provider': 'facebook',
-                    'conf': {
-                        'url': 'http://720kb.net',
-                        'trigger': 'click',
-                        'socialshareUrl': 'http://720kb.net',
-                        'socialshareText': 'Creador de logos',
-                        'socialshareTitle': 'Creador de logos',
-                        'socialshareDescription': 'Creador de logos',
-                        'socialsharemedia': '#logo-share',
-                        'socialshareHashtags': ''
-                    }
-                }, {
-                    'provider': 'email',
-                    'conf': {
-                        'trigger': 'click',
-                        'socialsharesSubject': 'Creador de logos',
-                        'socialsharesBody': 'Hola',
-                        'socialsharesTo': 'luisdtc2696@gmail.com',
-                        'socialsharesCc': '',
-                        'socialsharesBcc': ''
-                    }
-                }
-
-
-            ])
-            
-            */
+        $locationProvider.html5Mode(true)
 
         /* INTERCEPTADOR */
         $httpProvider.interceptors.push('AuthInterceptor');
@@ -403,7 +363,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'editor',
-                url: '/editor',
+                url: '/editor/',
                 templateUrl: 'app/views/v2/editor.tpl',
                 controller: 'editorController as editor',
                 params: {
@@ -428,50 +388,236 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
 
                         var defered = $q.defer();
+
                         var promise = defered.promise;
 
+                        if ($stateParams.status) {
 
-
-                        if ($stateParams.status) { 
-                            
                             LS.definir('editor', $stateParams.datos);
 
                             defered.resolve($stateParams.datos);
 
-                        } else if (LS.obtener('editor')) { 
+                        } else if (LS.obtener('editor')) {
 
                             defered.resolve(LS.obtener('editor'));
 
-                        } else { 
+                        } else {
 
                             defered.reject({
                                 error: 'FALLO_HISTORICO'
                             });
                         }
 
-
-
                         return promise;
 
-
                     }]
-
 
                 }
             })
 
             .state({
                 name: 'planes',
-                url: '/planes',
-                templateUrl: 'app/views/v2/planes.tpl',                
+                url: '/planes/',
+                templateUrl: 'app/views/v2/planes.tpl',
+                controller: 'planesController as planes',
+                params: {
+                    status: null,
+                    datos: {
+                        logo: null,
+                        idElemento: null,
+                        tipo: null
+                    }
+                },
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }],
+                    historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
+
+                        var defered = $q.defer();
+
+                        var promise = defered.promise;
+
+                        if ($stateParams.status) {
+
+                            LS.definir('planes', $stateParams.datos);
+
+                            defered.resolve($stateParams.datos);
+
+                        } else if (LS.obtener('planes')) {
+
+                            defered.resolve(LS.obtener('planes'));
+
+                        } else {
+
+                            defered.reject({
+                                error: 'FALLO_HISTORICO'
+                            });
+                        }
+
+                        return promise;
+
+                    }]
+                }
             })
 
             .state({
                 name: 'pago',
-                url: '/pago',
-                templateUrl: 'app/views/v2/pago.tpl',            
+                url: '/pago/',
+                templateUrl: 'app/views/v2/pago.tpl',
+                controller: 'pagoController as pago',
+                params: {
+                    status: null,
+                    datos: {
+
+                        logo: null,
+                        idElemento: null,
+                        tipo: null,
+                        plan: {
+                            nombre: null,
+                            idPlan: null
+                        },
+                        precio: {
+                            moneda: {
+                                simbolo: null,
+                                idMoneda: null
+                            },
+                            monto: null,
+                            idPrecio: null
+                        }
+
+                    }
+                },
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }],
+                    historicoResolve: ["$q", "$stateParams",  function ($q, $stateParams) {
+
+                        var defered = $q.defer();
+
+                        var promise = defered.promise;
+          
+                        if ($stateParams.status) {
+
+                            defered.resolve($stateParams.datos);
+                        } else  {
+
+                            defered.reject({
+                                error: 'FALLO_HISTORICO'
+                            });
+                        }
+
+                        return promise;
+
+                    }]
+                }
+            })
+        
+         .state({
+                name: 'pagoCompleto',
+                url: '/pago/completo/:id',
+                templateUrl: 'app/views/v2/pagoCompleto.tpl',
+                controller: 'pagoCompletoController as pagoCompleto',
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }]
+                }
+            })
+        
+       
+            .state({
+                name: 'cuenta',
+                url: '/cliente/cuenta',
+                templateUrl: 'app/views/v2/cuenta.tpl',
             })
 
+            .state({
+                name: 'logos',
+                url: '/cliente/logos',
+                templateUrl: 'app/views/v2/logos.tpl',
+                controller: 'logosController as logos',
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }]
+                }
+            })
+        
+            .state({
+                name: 'descargar',
+                url: '/cliente/logos/{id:int}/descargar',
+                templateUrl: 'app/views/v2/descargar.tpl',
+                controller: 'descargarController as descargar',
+                params: {
+                    
+                    datos:{
+                        logo: null                        
+                    }
+                },
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }],
+                    logoResolve: ["$q", "$stateParams",  function ($q, $stateParams) {
+
+                            return {logo: $stateParams.datos.logo, id: $stateParams.id};
+                     
+                    }]
+                }
+            })
+            
+        
+        
+            .state({
+                name: 'login',
+                url: '/login',
+                templateUrl: 'app/views/v2/login.tpl',
+                controller: 'loginController as login',
+                resolve: {
+                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (clientesService.autorizado()) {
+
+                            return $q.reject("LOGOUT_REQUIRED");
+
+                        }
+
+                    }]
+                }
+            })
+      
         //redirecciones
 
         $urlRouterProvider.when('', '/comenzar/');
@@ -479,6 +625,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         $urlRouterProvider.when('/comenzar', '/comenzar/');
         $urlRouterProvider.when('/comenzar/opciones', '/comenzar/opciones/');
         $urlRouterProvider.when('/comenzar/combinaciones', '/comenzar/combinaciones/');
+        $urlRouterProvider.when('/editor', '/editor/');
+        $urlRouterProvider.when('/planes', '/planes/');
+        $urlRouterProvider.when('/pago', '/pago/');
 
         $urlRouterProvider.otherwise('/404/');
 
@@ -486,7 +635,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
     .run(function ($rootScope, $state) {
+/*
+        $rootScope.$on('$stateChangeStart',function(){
+            $rootScope.loading = true;
+        });
 
+
+        $rootScope.$on('$stateChangeSuccess',function(){
+            $rootScope.loading = false;
+        });
+*/
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
             if (error == "STEPS") {
@@ -494,22 +652,60 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 $state.go("principal.comenzar");
 
             } else if (error === "AUTH_REQUIRED") {
-                /*
-                $state.go("login", ({
-                    origen: fromState.name,
-                    destino: toState.name,
-                    parametrosDestino: toParams
-                }));
-                */
-
-                if (toParams.status) {
 
 
-                } else {
+                switch (toState.name) {
 
-                    $state.go("login");
+                    case 'editor':
+
+                        switch (fromState.name) {
+
+                            case '':
+                                $state.go("principal.comenzar");
+                                break;
+                                
+                            case 'principal.combinaciones':
+                                break;
+                                
+
+                            default:
+                                $state.go("principal.comenzar");
+                        }
+
+                        break;
+
+                    case 'planes':
+
+                        switch (fromState.name) {
+
+                            case '':
+                                $state.go("principal.comenzar");
+                                break;
+
+                            default:
+
+                                $state.go("principal.comenzar");
+                        }
+
+                        break;
+                        
+                    case 'pago':
+
+                        switch (fromState.name) {
+
+                            case '':       
+                                $state.go("principal.comenzar");
+                                break;
+
+                            default:
+                                $state.go("principal.comenzar");
+                        }
+
+                        break;
+
 
                 }
+
 
             } else if (error === "LOGOUT_REQUIRED") {
 
@@ -518,10 +714,28 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             } else if (error.error === "FALLO_HISTORICO") {
 
 
-                $state.go('principal.comenzar');
+               switch (toState.name) {
+
+                    case 'editor':
+
+                        $state.go("principal.comenzar");
+                        break;
+
+                    case 'planes':
+                       
+                        $state.go("editor");
+                        break;
+                        
+                    case 'pago':
+     
+                        $state.go("planes");
+                        break;
+
+
+                }
 
             }
-
             console.log(error)
+
         });
     })

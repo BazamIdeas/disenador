@@ -2,19 +2,20 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', 'mockupsValue', "historicoResolve", "$rootScope", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, mockupsValue, historicoResolve, $rootScope) {
+    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', "historicoResolve", "$rootScope","$mdToast", "$timeout", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout) {
 
         var bz = this;
 
         bz.base64 = $base64;
 
+        bz.cuadricula = false;
         bz.borradores = false;
         bz.preview = false;
         bz.busquedaIconos = false;
+        bz.colorFondo = "rgb(236,239,240)";
 
-        //////////////////////////////////////////////
-        ///////////////LOCAL STORAGE//////////////////
-        //////////////////////////////////////////////
+     
+        
 
         bz.logo = historicoResolve.logo;
         bz.logo.texto = historicoResolve.texto;
@@ -25,7 +26,7 @@ angular.module("disenador-de-logos")
 
         bz.categoriasPosibles = [];
 
-        categoriasService.listaCategorias().then(function (res) {
+        categoriasService.listaCategorias('ICONO').then(function (res) {
 
             angular.forEach(res, function (valor, llave) {
 
@@ -36,26 +37,111 @@ angular.module("disenador-de-logos")
         })
 
         /* LOGOS */
+        
+        
+        
+        bz.completadoGuardar = true;        
 
-        bz.gLogo = function (logo, tipoLogo, idElemento) {
+        bz.guardarLogo = function (logo, tipoLogo, idElemento) {
 
-            logosService.guardarLogo(logo, tipoLogo, idElemento).then(function (res) {
+            bz.completadoGuardar = false;    
+            
+            logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento).then(function (res) {
+                
+                var toast = $mdToast.show({
+                    hideDelay   : 0,
+                    position    : 'top right',
+                    controller  :  ["$scope", "$mdToast", "$timeout", function($scope, $mdToast, $timeout) {
+                    
+                        var temporizador = $timeout(function(){
+                            
+                            $mdToast.hide();
+                            
+                        }, 2000)
+ 
+                        $scope.closeToast = function() {
+                            $timeout.cancel(temporizador)
+                            $mdToast.hide();
+                                
+                        }
+                    }],
+                    templateUrl : 'toast-success-logo-save.html'
+                });               
+               
 
-                //SweetAlert.swal("Bien Hecho", "Tu logo ha sido guardado!", "success");
-
+            }).finally(function(){
+                
+                 bz.completadoGuardar = true; 
+                
             })
 
         }
-        
-        
-        bz.mostrarBorradores = function () {
-            
-            
-            bz.preview = false;
-            bz.busquedaIconos = false;
-            bz.borradores = true;
+
+
+        bz.activarCuadricula = function () {
+
+            bz.cuadricula = !bz.cuadricula;
+
         }
 
+        bz.mostrarBorradores = function () {
+
+            if (bz.borradores) {
+
+                bz.borradores = false;
+
+            } else {
+
+                bz.preview = false;
+                bz.busquedaIconos = false;
+                bz.borradores = true;
+
+            }
+
+
+        }
+
+
+        bz.mostrarPreviews = function () {
+
+            if (bz.preview) {
+
+                bz.preview = false;
+
+            } else {
+
+                bz.preview = true;
+                bz.busquedaIconos = false;
+                bz.borradores = false;
+
+            }
+
+
+        }
+
+
+        bz.buscarPlanes = function () {
+
+            $rootScope.$broadcast("editor:planes", true)
+
+        }
+
+
+        $scope.$on("directiva:planes", function (evento, datos) {
+
+            
+            $state.go("planes", {
+                status: true,
+                datos: {
+                    logo: datos,
+                    idElemento: bz.logo.icono.idElemento,
+                    tipo: 'Logo y nombre'
+
+                }
+            })
+
+
+        })
 
 
         /////////////////////////////////////
@@ -163,22 +249,31 @@ angular.module("disenador-de-logos")
         ////////////////////////////////////////
 
         bz.iconos = [];
+        
+        bz.completadoBuscar = true;
 
         bz.buscarIconos = function (idCategoria, valido) {
-            
+
             bz.iconosForm.$setSubmitted();
-            
+
             if (valido) {
-            
-               
+                
+                bz.completadoBuscar = false;
+
+
                 bz.borradores = false;
                 bz.preview = false;
                 bz.busquedaIconos = true;
-                
+
 
                 categoriasService.listaCategoriasElementos(idCategoria, 'ICONO').then(function (res) {
 
                     bz.iconos = res;
+                }).finally(function(res){
+                    
+                    
+                    bz.completadoBuscar = true;
+                    
                 })
             }
 
@@ -222,7 +317,7 @@ angular.module("disenador-de-logos")
 
         $scope.$on('sesionExpiro', function (event, data) {
 
-            $state.go('login');
+            $state.go('principal.comenzar');
 
         });
 

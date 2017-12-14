@@ -8,20 +8,20 @@
         <section class="sub-header">
             <div class="row margin-bottom-0">
 
-                <div class="col s2 logo">
-                    <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
+                <div class="col l2 logo">
+                    <h5 class="secundario" ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
                 </div>
-                <div class="col s10 texto">
+                <div class="col l10 texto">
                     <h5 class="principal"> CREE SU LOGO PROFESIONAL EN MINUTOS</h5>
                 </div>
 
             </div>
         </section>
 
-        <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
-            <div class="row margin-bottom-0" style="overflow: hidden;">
+        <section style="max-height: calc(100vh - 135px) !important; background-color: var(--fondo);">
+            <div class="row margin-bottom-0">
                 <form class="margin-bottom-0">
-                    <div class="col s2 sidebar-1 scroll" ng-form="principal.datosForm">
+                    <div class="col l2 sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="principal.jqueryScrollbarOptions" ng-form="principal.datosForm">
                         <div class="input-field col s12">
                             <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
                             <label for="nombre" class="active">Nombre</label>
@@ -34,10 +34,17 @@
                         -->
 
 						<md-input-container style="width:100%; padding: 0 0.75rem" >
-						  	<md-select ng-model="principal.datos.categoria" placeholder="Categoria" required> 
-						    	<md-option ng-repeat="categoria in principal.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+						  	<md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
+						    	<md-option ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 						  	</md-select>
 						</md-input-container>
+                        
+                        <md-input-container style="width:100%; padding: 0 0.75rem" >
+						  	<md-select ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
+						    	<md-option ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+						  	</md-select>
+						</md-input-container>
+                        
 
                         <div class=" col s12 preferencias">
                             <p class="text-center principal" style="margin-top: 1rem;">Preferencias</p>
@@ -51,25 +58,25 @@
                         </div>
                     </div>
                 
-                    <div class="col s2 sidebar-2" ng-class="{'offset-s2': principal.datosForm.$valid, 'ocultar': !principal.datosForm.$valid, 'mostrar': principal.datosForm.$valid}">
+                    <div class="col l2 sidebar-2" ng-class="{'offset-l2': principal.datosForm.$valid, 'ocultar': !principal.datosForm.$valid, 'mostrar': principal.datosForm.$valid}">
                         <p class="text-center principal">Forma de su logo</p>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.solicitarElementos(principal.botonesTipo[0], principal.datos, principal.datosForm.$valid )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[0] )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
                                 <span><i class="material-icons">thumb_up</i></span>
                                 <span>TU LOGO</span>
                             </div>
                         </div>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.solicitarElementos(principal.botonesTipo[1], principal.datos, principal.datosForm.$valid)" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[1])" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
                                 <span class="texto">M</span>
                                 <span>TU LOGO</span>
                             </div>
                         </div>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.solicitarElementos(principal.botonesTipo[2], principal.datos, principal.datosForm.$valid)" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo, 'loading-white': principal.botonesTipo[2].activo && !principal.completado}">
                                 <span>TU LOGO</span>
                             </div>
                         </div>
@@ -77,7 +84,7 @@
                 </form>
 
 				
-				<div ui-view class="contenedor-principal col " ng-class="{'s10': !principal.datosForm.$valid, 's8': principal.datosForm.$valid}">
+				<div ui-view class="contenedor-principal col" ng-class="{'l10': !principal.datosForm.$valid, 'l8': principal.datosForm.$valid}">
 				       
 				</div>
 
@@ -106,7 +113,7 @@
                                         <label for="pass">Contraseña</label>
                                     </div>
                                     <div class="text-center">
-                                        <button class="boton-verde">ENVIAR</button>
+                                        <button class="boton-verde" ng-class="{'loading-white': !principal.completadoLogin}">ENVIAR</button>
                                     </div>                               
                                 </form>
                             </div>
@@ -115,16 +122,16 @@
                                 <p class="text-center tercero">REGISTRATE</p>
                                 <form>
                                     <div class="input-field col s12">
-                                        <input id="nombre" type="text" class="validate" required>
-                                        <label for="nombre">Nombre</label>
+                                        <input id="nombre2" type="text" class="validate" required>
+                                        <label for="nombre2">Nombre</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <input id="correo" type="email" class="validate" required>
-                                        <label for="correo">Correo</label>
+                                        <input id="correo2" type="email" class="validate" required>
+                                        <label for="correo2">Correo</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <input id="pass" type="password" class="validate" required>
-                                        <label for="pass">Contraseña</label>
+                                        <input id="pass2" type="password" class="validate" required>
+                                        <label for="pass2">Contraseña</label>
                                     </div>
                                     <div class="input-field col s12">
                                         <input id="telefono" type="text" class="validate" required>

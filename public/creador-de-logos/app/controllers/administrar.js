@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Administras logo */
 
-    .controller('administrarController', ['$scope', '$stateParams', '$state', 'LS', '$base64', 'logosService', '$window', function ($scope, $stateParams, $state, LS, $base64, logosService, $window) {
+    .controller('administrarController', ['$scope', '$stateParams', '$state', 'LS', '$base64', 'logosService', '$window', "$filter", function ($scope, $stateParams, $state, LS, $base64, logosService, $window, $filter) {
 
         var bz = this;
 

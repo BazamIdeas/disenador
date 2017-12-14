@@ -103,6 +103,7 @@ router.post('/moneda', /*middleware.validarUsuario,*/ controllers.monedas.Nuevo)
 
 //PASARELAS
 router.get('/pasarelas', /*middleware.validarUsuario,*/ controllers.pasarelas.Listar);
+router.post('/pasarelas/moneda', /*middleware.validarUsuario,*/ controllers.pasarelas.ListarPorMoneda);
 router.post('/pasarela', /*middleware.validarUsuario,*/ controllers.pasarelas.Nuevo);
 router.post('/pasarela/modificar', /*middleware.validarUsuario,*/ controllers.pasarelas.Modificar);
 router.post('/pasarela/moneda', /*middleware.validarUsuario,*/ controllers.pasarelas.AsignarMoneda);
@@ -133,6 +134,7 @@ router.get('/logo/:id', controllers.logos.datosLogo); //muestra los datos de un 
 router.post('/logo/guardar', middleware.validar, controllers.logos.guardar);
 router.post('/logo/modificar',  controllers.logos.modificarLogo);
 router.post('/logo/descargar',  controllers.logos.descargar);
+router.get('/logo/borrar/:id',  controllers.logos.Borrar);
 
 router.post('/logo/zip',  controllers.logos.zip);
 

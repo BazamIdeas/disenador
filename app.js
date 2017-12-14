@@ -44,6 +44,17 @@ app.use('/ng-file-upload', express.static(__dirname + '/node_modules/ng-file-upl
 
 app.use('/app',rutas);
 
+
+
+app.use('/creador-de-logos/*', function(req, res, next) {
+    
+
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile('/public/creador-de-logos/index.html', { root: __dirname });
+});
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -53,6 +64,9 @@ app.use(function(req, res, next) {
 
 app.disable('x-powered-by');
 
+
+
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -61,8 +75,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.send({ error: err.message });
+  res.send({ error: err.message, hola: req.url });
 });
 
-app.listen(configuracion.puerto);
+app.listen(configuracion.puerto, function () {
+  console.log('Servidor corriendo en : '+configuracion.servidor);
+});
 module.exports = app;

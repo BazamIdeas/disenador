@@ -2,19 +2,14 @@ angular.module("disenador-de-logos")
 
     /* header */
 
-    .controller('headerController', ["$state", 'clientesService',  '$rootScope', '$scope', 'ipService', function ($state, clientesService,  $rootScope, $scope, ipService) {
+    .controller('headerController', ["$state", 'clientesService', '$rootScope', '$scope', function ($state, clientesService, $rootScope, $scope) {
 
         var bz = this;
 
         bz.salir = function () {
             clientesService.salir(true, true);
-            //$rootScope.$broadcast("sesionExpiro");
         }
-    /*
-        ipService.obtenerDatos().then(function (res) {
-            $rootScope.isoPais = res.countryCode;
-        })
-*/
+    
         bz.autorizado = clientesService.autorizado();
         
         

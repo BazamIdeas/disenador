@@ -93,13 +93,13 @@ exports.nuevoPedido = function (req, res) {
 
 	logo.insertLogo(logoData, function (error, data) {
 
-		//si el logo se ha insertado correctamente 
+		//si el logo se ha insertado correctamente
 		if (data && data.insertId) {
 
 			idLogo = data.insertId
-			iso = services.geoipServices.Iso(req.ip)
+			iso = services.geoipServices.iso(req.ip)
 			idPrecio = req.body.idPrecio
-			idPasarela = req.body.pasarelas_idPasarela
+			idPasarela = req.body.idPasarela
 
 			pais.ObtenerImpuesto(iso, function (error, impuesto) {
 				var pedidoData = {
@@ -118,8 +118,8 @@ exports.nuevoPedido = function (req, res) {
 					if (data && data.insertId) {
 						/// PAGO AQUI
 						//////////////////////
-
 						precio.datos(idPrecio, function (error, data) {
+
 							if (typeof data !== 'undefined' && data.length > 0) {
 								var plan = data;
 								elemento.datosElemento(req.body.idElemento, function (error, data) {
@@ -129,11 +129,11 @@ exports.nuevoPedido = function (req, res) {
 										tipoE = data[0].tipo.replace(" ", "");
 
 										pasarela.Obtener(idPasarela, function (error, data) {
+											
 											if (typeof data !== 'undefined' && data.length > 0) {
 
-												/////ENVIAR PAGO
-
-												if (data[0].pasarela == "Paypal") {
+												/////ENVIAR PAGO a paypal
+												if (idPasarela == 1) {
 
 													var datosPago = {
 														precio: plan[0].precio,
@@ -202,7 +202,7 @@ exports.nuevoPedido = function (req, res) {
 
 exports.nuevoPedidoGuardado = function (req, res) {
 	idLogo = req.body.idLogo
-	iso = services.geoipServices.Iso(req.ip)
+	iso = services.geoipServices.iso(req.ip)
 	idPrecio = req.body.idPrecio
 	idPasarela = req.body.pasarelas_idPasarela
 
@@ -323,9 +323,9 @@ exports.cambioEstadoPagado = function (req, res)
 
 					});
 
-					res.redirect(configuracion.dashboard + "?pago=true");
+					res.redirect(configuracion.pago + req.params.idLogo);
 				} else {
-					res.redirect(configuracion.dashboard + "?pago=false");
+					res.redirect(configuracion.nopago);
 				}
 			});
 		} else {
@@ -339,7 +339,7 @@ exports.cambioEstadoPagado = function (req, res)
 
 exports.noPago = function (req, res) {
 
-	res.redirect(configuracion.dashboard + "?pago=false");
+	res.redirect(configuracion.nopago);
 
 }
 
