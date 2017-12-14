@@ -569,7 +569,7 @@ angular.module("disenador-de-logos")
 
         }
 
-        this.descargarLogo = function (idLogo, ancho) {
+        this.descargarLogo = function (idLogo, ancho, nombre, tipo) {
 
             var defered = $q.defer();
 
@@ -577,12 +577,14 @@ angular.module("disenador-de-logos")
 
             var datos = {
                 idLogo: idLogo,
-                ancho: ancho
+                ancho: ancho,
+                descarga: nombre,
+                tipo: tipo
             }
 
-            $http.post("/app/logo/descargar/", datos).then(function (res) {
+            $http.post("/app/logo/zip/", datos).then(function (res) {
 
-                defered.resolve(res);
+                defered.resolve(res.data);
 
             }).catch(function (res) {
 
