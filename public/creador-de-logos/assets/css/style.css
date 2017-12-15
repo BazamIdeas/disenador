@@ -615,6 +615,7 @@ div.contenedor-principal{
     background-color: white;
     border-radius: 10px;
     padding: 5px;
+    cursor: pointer;
     box-shadow: 0px 1px 2px 1px #dedede;
 }
 

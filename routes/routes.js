@@ -85,6 +85,7 @@ router.post('/elemento/preferencias/modificar', /*middleware.validarUsuario,*/ c
 
 //MODULO PAISES
 router.get('/paises', /*middleware.validarUsuario,*/ controllers.paises.Listar);
+router.get('/pais', /*middleware.validarUsuario,*/ controllers.paises.Obtener);
 router.post('/pais', /*middleware.validarUsuario,*/ controllers.paises.Nuevo);
 router.post('/pais/moneda', /*middleware.validarUsuario,*/ controllers.paises.AsignarMoneda);
 router.post('/pais/moneda/desasignar', /*middleware.validarUsuario,*/ controllers.paises.DesasignarMoneda);

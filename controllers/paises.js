@@ -1,5 +1,6 @@
 var pais   = require('../modelos/paisesModelo.js');
 var moneda = require('../modelos/monedasModelo.js');
+var services = require('../services');
 
 exports.Listar = (req, res, next) =>
 {
@@ -38,6 +39,20 @@ exports.ListarPlanes = (req, res, next) =>
 			res.status(200).json(data);
 		}else{
 			res.status(404).json({"msg":"No hay resgitro de planes para este pais en la base de datos"})
+		}
+	});
+}
+
+exports.Obtener = (req,res) => 
+{
+	var iso  = "AR";
+
+	pais.Obtener(iso, (error,data) => {
+
+		if (typeof data !== 'undefined' && data.length > 0){
+			res.status(200).json(data);
+		}else{
+			res.status(500).json({"msg":"Algo ocurrio"})
 		}
 	});
 }

@@ -53,16 +53,29 @@
 						</md-input-container>
                         
                         <div class=" col s12 estilo-texto" style="font-size: 0px;" >
+                        	<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Color</md-tooltip>
                     		<div color-picker color-picker-model="editor.colorTexto" ng-model="editor.colorTexto" ng-change="editor.cambioColor(editor.colorTexto, 'texto')" color-picker-position="right" class="color" style="background-color: {{editor.colorTexto}}"></div>               
                         </div>
 
                         <div class=" col s12 estilo-texto">
-                    		<div class="negrita" ng-click="editor.cambioPropiedad('bold')">N</div>               
-                    		<div class="cursiva" ng-click="editor.cambioPropiedad('cursive')">C</div>               
+                    		<div class="negrita" ng-click="editor.cambioPropiedad('bold')">
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
+                    			N
+                    		</div>               
+                    		<div class="cursiva" ng-click="editor.cambioPropiedad('cursive')">
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cursiva</md-tooltip>
+                    			C
+                    		</div>               
                         </div>
 						<div class=" col s12 estilo-texto">
-                    		<div class="menos" ng-click="editor.cambioTamano('texto', false)">-</div>               
-                    		<div class="mas" ng-click="editor.cambioTamano('texto', true)">+</div>               
+                    		<div class="menos" ng-click="editor.cambioTamano('texto', false)">
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+                    			-
+                    		</div>               
+                    		<div class="mas" ng-click="editor.cambioTamano('texto', true)">
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+                    			+
+                    		</div>               
                         </div>
 						
 
@@ -100,7 +113,7 @@
 
 	                    <div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
 		                    <md-input-container style="width:80%; padding: 0 0.75rem" >
-							  	<md-select ng-model="editor.categoriaIcono" placeholder="Categoria" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" md-no-asterisk required> 
+							  	<md-select ng-model="editor.categoriaIcono" placeholder="Buscar iconos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" md-no-asterisk required> 
 							    	<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 							  	</md-select>
 							</md-input-container>
@@ -110,12 +123,19 @@
 	                    </div>
 
 						<div class=" col s12 estilo-texto" style="font-size:0px">
+							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Color elemento</md-tooltip>
                     		<div color-picker color-picker-model="editor.colorIcono" ng-model="editor.colorIcono" ng-change="editor.cambioColor(editor.colorIcono, 'icono')" color-picker-position="bottom" class="color" style="background-color: {{editor.colorIcono}}"></div>
                         </div>
 
 						<div class=" col s12 estilo-texto">
-                    		<div class="menos" ng-click="editor.cambioTamano('icono', false)">-</div>               
-                    		<div class="mas" ng-click="editor.cambioTamano('icono', true)">+</div>               
+                    		<div class="menos" ng-click="editor.cambioTamano('icono', false)">
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+                    			-
+                    		</div>               
+                    		<div class="mas" ng-click="editor.cambioTamano('icono', true)">
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+                    			+
+                    		</div>               
                         </div>
 						<div class=" col s12 estilo-texto">
                         	<p class="text-center principal" style="margin-top: 20px;">Orientación</p>
@@ -124,6 +144,7 @@
                         <div class=" col s12">
 	                        <div class="cubo-logo-orientacion vertical" ng-click="editor.cambiarOrientacion('vertical')">
 	                            <div>
+	                            	<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Vertical</md-tooltip>
 	                                <span><i class="material-icons">thumb_up</i></span>
 	                                <span>TU LOGO</span>
 	                            </div>
@@ -131,6 +152,7 @@
 
 	                        <div class="cubo-logo-orientacion horizontal" ng-click="editor.cambiarOrientacion('horizontal')">
 	                            <div>
+	                            	<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Horizontal</md-tooltip>
 	                                <span style="margin-right: 5px;"><i class="material-icons">thumb_up</i></span>
 	                                <span>TU LOGO</span>
 	                            </div>
