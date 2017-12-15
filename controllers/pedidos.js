@@ -299,7 +299,7 @@ exports.cambioEstadoPagado = function (req, res)
 
 {
 	if (req.params.tipo == "ICONO") {
-		var elementoData = [1, req.params.idElemento];
+		var elementoData = [0, req.params.idElemento];
 	} else {
 		var elementoData = [0, req.params.idElemento];
 	}
