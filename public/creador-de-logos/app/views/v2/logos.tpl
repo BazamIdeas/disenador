@@ -16,7 +16,7 @@
             <div class="row margin-bottom-0">
 				
 				<div class="col l6 xl5 offset-xl1">
-                    <div class="row caja">
+                    <div class="row caja logos">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">GUARDADOS</p>
                         
                         <span class="back-page"  ng-click="logos.modificarSalto(false, 'guardados')"><i class="material-icons">keyboard_arrow_left</i></span>
@@ -48,7 +48,7 @@
                 </div>
 
 				<div class="col l6 xl5">
-                    <div class="row caja">
+                    <div class="row caja logos">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">ADQUIRIDOS</p>
                         
                         <span class="back-page" ng-click="logos.modificarSalto(false, 'comprados')"><i class="material-icons">keyboard_arrow_left</i></span>

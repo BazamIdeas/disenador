@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         
-                        <div class="col s12" ng-if="principalComenzar.logoCompartido.logo">
+                        <div class="col l4 offset-l4 logo-compartido" ng-if="principalComenzar.logoCompartido.logo">
                             <bazam-visualizar data-svg="principalComenzar.base64.decode(principalComenzar.logoCompartido.logo)"></bazam-visualizar>
                         </div>
                         
