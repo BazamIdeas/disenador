@@ -1,8 +1,8 @@
                     <div class="row margin-bottom-0 lienzo">
-                        <div class="col s12" ng-if="$parent.principal.completado">
+                        <div class="col s12" ng-if="$parent.principal.completado && !principalComenzar.logoCompartido.logo">
                             <p class="text-center tercero margin-bottom-0">EJEMPLOS EXITOSOS</p>
                         </div>
-						<div class="col s12" ng-if="$parent.principal.completado">
+						<div class="col s12" ng-if="$parent.principal.completado && !principalComenzar.logoCompartido.logo">
                             <div class="cubos-logos">
                                 <div class="margin-right-20">
                                     <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/4.-Fauna-Domestica.png">
@@ -39,6 +39,11 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="col l4 offset-l4 logo-compartido" ng-if="principalComenzar.logoCompartido.logo">
+                            <bazam-visualizar data-svg="principalComenzar.base64.decode(principalComenzar.logoCompartido.logo)"></bazam-visualizar>
+                        </div>
+                        
                         
                         <div class="col s12" ng-if="!$parent.principal.completado">
                             GIF

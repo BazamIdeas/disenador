@@ -16,15 +16,15 @@
             <div class="row margin-bottom-0">
 				
 				<div class="col l6 xl5 offset-xl1">
-                    <div class="row caja">
+                    <div class="row caja logos">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">GUARDADOS</p>
                         
-                        <span class="back-page"><i class="material-icons">keyboard_arrow_left</i></span>
+                        <span class="back-page"  ng-click="logos.modificarSalto(false, 'guardados')" ng-show="logos.cantidad.guardados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
                         
                         <div class="col l10 offset-l1">
                             <div class="row cubos-logos-cliente">
 
-                                <div class="col l4" ng-repeat="guardado in logos.guardados track by $index">
+                                <div class="col l4" ng-repeat="guardado in logos.guardados | limitTo: 9 : logos.salto.guardados track by guardado.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
                                         <span class="editar" ng-click="">
@@ -42,21 +42,21 @@
                             </div>
                         </div>
 
-                        <span class="next-page"><i class="material-icons">keyboard_arrow_right</i></span>
+                        <span class="next-page" ng-click="logos.modificarSalto(true, 'guardados')" ng-show="logos.cantidad.guardados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
 
                     </div>
                 </div>
 
 				<div class="col l6 xl5">
-                    <div class="row caja">
+                    <div class="row caja logos">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">ADQUIRIDOS</p>
                         
-                        <span class="back-page"><i class="material-icons">keyboard_arrow_left</i></span>
+                        <span class="back-page" ng-click="logos.modificarSalto(false, 'comprados')" ng-show="logos.cantidad.comprados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
                         
                         <div class="col l10 offset-l1">
                             <div class="row cubos-logos-cliente">
 
-                                <div class="col l4"  ng-repeat="comprado in logos.comprados | limitTo: 9 track by comprado.idLogo">
+                                <div class="col l4"  ng-repeat="comprado in logos.comprados | limitTo: 9 : logos.salto.comprados track by comprado.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
                                         <span class="editar" ui-sref="descargar({id: comprado.idLogo})">
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                     
-                        <span class="next-page"><i class="material-icons">keyboard_arrow_right</i></span>
+                        <span class="next-page" ng-click="logos.modificarSalto(true, 'comprados')"  ng-show="logos.cantidad.comprados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
 
                     </div>
                 </div>

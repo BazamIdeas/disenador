@@ -50,7 +50,7 @@ exports.Obtener = (req,res) =>
 	pais.Obtener(iso, (error,data) => {
 
 		if (typeof data !== 'undefined' && data.length > 0){
-			res.status(200).json(data);
+			res.status(200).json(data[0]);
 		}else{
 			res.status(500).json({"msg":"Algo ocurrio"})
 		}

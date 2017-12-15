@@ -39,7 +39,7 @@
         <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
             <div class="row margin-bottom-0" style="overflow: hidden;">
                 <form class="margin-bottom-0">
-                    <div class="col s2 sidebar-1 scroll" ng-form="editor.datosForm">
+                    <div class="col s2 sidebar-1 scroll" ng-form="editor.datosForm" style="padding-top: 20px !important">
                     	<p class="text-center principal titulo">TEXTO</p>
                         <div class="input-field col s12">
                             <input id="nombre" type="text" name="fuente" maxlength="12" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.texto)">
@@ -108,7 +108,7 @@
 
                     </div>
                 
-                    <div class="col s2 sidebar-2 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
+                    <div class="col s2 sidebar-2 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" style="width: 100% !important;">
                         <p class="text-center principal titulo">ICONO</p>
 
 	                    <div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
@@ -170,60 +170,74 @@
 				    </div>
 				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaIconos) }"></div>
 				    <div class="overlay-svg-previews"  ng-class="{'abierto': editor.preview }"></div>
+
 				    <div class="contenedor-borradores" ng-class="{'abierto': editor.borradores}">
-				    	<div class="cerrar-contenedor-bi">
-				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	<div class="cerrar-contenedor-bi" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
+				    		<i class="material-icons cerrar">clear</i>
 				    	</div>
-				    	<div class="row padding-bottom-0">
-				    		<div class="col s2">
+				    	<div class="row padding-bottom-0 margin-bottom-0">
+				    		<div class="col l3 xl2" style="padding: 0.42rem .35rem !important;">
 				    			<div class="agregar" ng-click="editor.realizarComparacion(editor.comparar)"><i class="material-icons">add</i> <span>AGREGAR</span></div>
 				    		</div>
-				    		<div class="col s10">
-				    			<div class="opcion-borrador" ng-repeat="comparacion in editor.comparaciones track by comparacion.creacion">
-				    				<div class="overlay-opcion"></div>
-				    				<span class="usar">
-				    					<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
-            							<i class="material-icons" ng-click="editor.restaurarComparacion(comparacion.svg)">file_upload</i>
-            						</span>
-				    				<span class="remover">
-				    					<md-tooltip md-delay="2" md-direction="top">Remover</md-tooltip>
-				    					<i class="material-icons" ng-click="editor.comparaciones.splice($index, 1)">delete</i>
-				    				</span>
-				    				<bazam-visualizar data-svg="comparacion.svg">
-                                    </bazam-visualizar>
-                                    
+				    		<div class="col l8 xl9" style="position: relative;">
+
+				    			<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="comparacion in editor.comparaciones track by comparacion.creacion">
+
+					    			<div class="opcion-borrador">
+					    				<div class="overlay-opcion"></div>
+					    				<span class="usar">
+					    					<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
+	            							<i class="material-icons" ng-click="editor.restaurarComparacion(comparacion.svg)">file_upload</i>
+	            						</span>
+					    				<span class="remover">
+					    					<md-tooltip md-delay="2" md-direction="top">Remover</md-tooltip>
+					    					<i class="material-icons" ng-click="editor.comparaciones.splice($index, 1)">delete</i>
+					    				</span>
+					    				<bazam-visualizar style="width: 100%;" data-svg="comparacion.svg">
+	                                    </bazam-visualizar>
+	                                    
+					    			</div>
+
 				    			</div>
-                                <div ng-show="!editor.comparaciones.length" layout-padding style="height: 100%;display: flex;align-items: center;justify-content: center;font-family: 'futura-heavy' !important;font-size: 20px;">
+
+                                <div ng-show="!editor.comparaciones.length" layout-padding style="height: 105px;display: flex;align-items: center;justify-content: center;font-family: 'futura-heavy' !important;font-size: 20px;">
                                     No existe ningun borrador
                                 </div>
+			    		
 				    		</div>
 				    	</div>
 				    </div>
-					<div class="contenedor-iconos" ng-class="{'abierto': editor.busquedaIconos}">
-				    	<div class="cerrar-contenedor-bi">
-				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
-				    	</div>
-				    	<div class="row padding-bottom-0">
-				    		<div class="col s10">
 
-				    			<div class="opcion-icono" ng-repeat="icono in editor.iconos" >
-				    				<div class="overlay-opcion"></div>
-				    				<span class="seleccionar">
-				    					<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
-            							<i class="material-icons" ng-click="editor.reemplazarIcono(icono)">check</i>
-            						</span>
-				    				<bazam-visualizar data-svg="editor.base64.decode(icono.svg)">
-                                    </bazam-visualizar>
+					<div class="contenedor-iconos" ng-class="{'abierto': editor.busquedaIconos}">
+				    	<div class="cerrar-contenedor-bi" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
+				    		<i class="material-icons cerrar">clear</i>
+				    	</div>
+				    	<div class="row padding-bottom-0 margin-bottom-0">
+				    		<div class="col s10 offset-s1" style="position: relative;">
+
+
+				    			<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="icono in editor.iconos" >
+					    			<div class="opcion-icono">
+					    				<div class="overlay-opcion"></div>
+					    				<span class="seleccionar">
+					    					<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
+	            							<i class="material-icons" ng-click="editor.reemplazarIcono(icono)">check</i>
+	            						</span>
+					    				<bazam-visualizar data-svg="editor.base64.decode(icono.svg)">
+	                                    </bazam-visualizar>
+					    			</div>
 				    			</div>
                                 
+
 				    		</div>
 				    	</div>
 					</div>
+
 					<div class="contenedor-previews scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
-						<div class="cerrar-contenedor-p">
-				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+						<div class="cerrar-contenedor-p" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
+				    		<i class="material-icons cerrar">clear</i>
 				    	</div>	
-						<div class="row padding-bottom-0" >
+						<div class="row padding-bottom-0 margin-bottom-0">
 				    		<div class="col s6">
 				    			
 				    			<div style="position: relative;">
