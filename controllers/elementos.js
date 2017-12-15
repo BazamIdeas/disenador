@@ -105,7 +105,7 @@ exports.listaSegunPref = function (req, res, next) {
 			}
 		});
 }
-// te quedaste a aqui
+
 exports.listaElemCat = function (req, res, next) {
 
 	var cat = [req.body.idCategoria, req.body.tipo];
@@ -124,6 +124,25 @@ exports.listaElemCat = function (req, res, next) {
 		}
 	});
 
+}
+
+exports.ListaIniciales = function (req, res, next) {
+
+	var cat = [req.body.idCategoria, req.body.inicial];
+
+
+	elemento.getIniciales(cat, function (error, data) {
+
+		if (typeof data !== 'undefined' && data.length > 0) {
+			res.status(200).json(data);
+		}
+		//no existe
+		else {
+			res.status(404).json({
+				"msg": "No Encontrado"
+			})
+		}
+	});
 }
 
 exports.ListarFuentes = function (req, res, next) {
