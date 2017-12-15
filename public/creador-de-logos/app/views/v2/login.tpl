@@ -54,7 +54,7 @@
 	                            <p class="text-center tercero">REGISTRATE</p>
 	                            <form name="login.registroForm" novalidate ng-submit="login.registrar(login.datosRegistro, login.registroForm.$valid)">
 	                                <div class="input-field col s12">
-	                                    <input id="nombre" type="text" name="nombreCliente" class="validate" ng-model="login.datosRegistro.nombreCliente" required>
+	                                    <input id="nombre" type="text" name="nombreCliente" ng-model="login.datosRegistro.nombreCliente" required>
 	                                    <label for="nombre">Nombre</label>
                                         
                                         <div ng-messages="login.registroForm.nombreCliente.$error" ng-if="login.registroForm.$submitted || login.loginForm.correo.$dirty">
@@ -63,7 +63,7 @@
                                         
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="correo2" type="email" name="correo" class="validate" ng-model="login.datosRegistro.correo" required>
+	                                    <input id="correo2" type="email" name="correo" ng-model="login.datosRegistro.correo" required>
 	                                    <label for="correo2">Correo</label>
                                         
                                         <div ng-messages="login.registroForm.correo.$error" ng-if="login.registroForm.$submitted || login.loginForm.correo.$dirty">
