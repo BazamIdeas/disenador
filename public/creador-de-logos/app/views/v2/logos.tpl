@@ -19,7 +19,7 @@
                     <div class="row caja logos">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">GUARDADOS</p>
                         
-                        <span class="back-page"  ng-click="logos.modificarSalto(false, 'guardados')"><i class="material-icons">keyboard_arrow_left</i></span>
+                        <span class="back-page"  ng-click="logos.modificarSalto(false, 'guardados')" ng-show="logos.cantidad.guardados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
                         
                         <div class="col l10 offset-l1">
                             <div class="row cubos-logos-cliente">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
 
-                        <span class="next-page" ng-click="logos.modificarSalto(true, 'guardados')"><i class="material-icons">keyboard_arrow_right</i></span>
+                        <span class="next-page" ng-click="logos.modificarSalto(true, 'guardados')" ng-show="logos.cantidad.guardados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
 
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     <div class="row caja logos">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">ADQUIRIDOS</p>
                         
-                        <span class="back-page" ng-click="logos.modificarSalto(false, 'comprados')"><i class="material-icons">keyboard_arrow_left</i></span>
+                        <span class="back-page" ng-click="logos.modificarSalto(false, 'comprados')" ng-show="logos.cantidad.comprados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
                         
                         <div class="col l10 offset-l1">
                             <div class="row cubos-logos-cliente">
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                     
-                        <span class="next-page" ng-click="logos.modificarSalto(true, 'comprados')"><i class="material-icons">keyboard_arrow_right</i></span>
+                        <span class="next-page" ng-click="logos.modificarSalto(true, 'comprados')"  ng-show="logos.cantidad.comprados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
 
                     </div>
                 </div>

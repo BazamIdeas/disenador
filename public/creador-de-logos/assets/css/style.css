@@ -1722,3 +1722,11 @@ span.next-page.bi{
     background-position: center;
     background-size: 150px;
 }
+
+div[ng-message] {
+    color: red;
+    font-family: 'futura-heavy' !important;
+    position: absolute;
+    top: 28px;
+    font-size: 12px;
+}
