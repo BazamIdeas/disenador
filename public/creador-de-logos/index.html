@@ -135,6 +135,12 @@
         
     </div>
 
+
+    <div class="full-overlay">
+        <div class="gif"></div>
+        <div>Cargando...</div>
+    </div>
+
     <!--
     <div ng-show='loading'>
       <strong>Loading.</strong>
@@ -185,6 +191,25 @@
             </md-button>
         </md-toast>
     </script>
+    
+    <script type="text/ng-template" id="toast-success-registro.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>Registro exitoso!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-danger-registro.html">
+        <md-toast class="danger">
+            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
 
 </body>
 

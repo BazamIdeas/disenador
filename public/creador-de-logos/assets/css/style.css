@@ -275,7 +275,7 @@ textarea {
 
 .absolute {
     position: absolute;
-    z-index: 1000000000;
+    z-index: 10;
 }
 
 .absolute.center {
@@ -739,7 +739,7 @@ div.contenedor-principal{
     opacity: 0;
     background-color: white;
     transition: 0.5s all;
-    z-index: 1000000;
+    z-index: 8;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -776,7 +776,7 @@ div.contenedor-principal{
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 100;
+  z-index: 10;
   background-color: rgba(255, 255, 255, 0.68); /*dim the background*/
 }
 
@@ -1038,10 +1038,9 @@ p.titulo{
 .contenedor-borradores,  .contenedor-iconos{
     position: absolute;
     width: 100%;
-    height: 150px;
     background: #f9f9f9;
     left: 0;
-    bottom: -156px;
+    bottom: -100%;
     transition: 1s all;
     box-shadow: 2px 1px 1px 1px #9e9e9e;
     border-left: 1px solid #f3f3f3;
@@ -1052,15 +1051,13 @@ p.titulo{
 }
 
 .contenedor-borradores .col .opcion-borrador, .contenedor-iconos .col .opcion-icono{
-    width: 130px;
-    height: 130px;
-    margin: 10px;
     border-radius: 5px;
-    display: inline-block;
+    display: flex;
     background-color: white;
     cursor: pointer;
     position: relative;
     box-shadow: 0px 1px 2px 1px #dedede;
+    justify-content: center;
 }
 
 .contenedor-borradores .col .opcion-borrador bazam-vizualizar svg, .contenedor-iconos .col .opcion-icono bazam-vizualizar svg{
@@ -1068,10 +1065,8 @@ p.titulo{
 }
 
 .contenedor-borradores .col .agregar{
-    width: 130px;
-    height: 130px;
-    margin: 10px;
-    padding: 10px;
+    width: 97px;
+    padding: 18px;
     border-radius: 5px;
     display: flex;
     flex-flow: column;
@@ -1090,14 +1085,14 @@ p.titulo{
 .contenedor-borradores .col .opcion-borrador span.usar ,.contenedor-borradores .col .opcion-borrador span.remover ,
 .contenedor-iconos .col .opcion-icono span.seleccionar {
     position: absolute;
-    top: 47px;
+    top: 38px;
     color: var(--principal);
     border-radius: 50%;
     padding: 4px;
     opacity: 0;
     background-color: white;
     transition: 0.5s all;
-    z-index: 1000000;
+    z-index: 8;
 }
 .contenedor-borradores .col .opcion-borrador .overlay-opcion, .contenedor-iconos .col .opcion-icono .overlay-opcion{
     position: absolute;
@@ -1116,24 +1111,21 @@ p.titulo{
     font-size: 23px;
 }
 .contenedor-borradores .col .opcion-borrador span.remover {
-    right: 25px;
+    right: 16px;
 }
 .contenedor-borradores .col .opcion-borrador span.usar {
-    left: 25px;
+    left: 16px;
 }
 
-.contenedor-iconos .col .opcion-icono span.seleccionar{
-    left: 42px;
-    top: 42px;
-    width: 48px;
-    height: 48px;
+.contenedor-iconos .col .opcion-icono span.seleccionar {
+    top: 47px;
     color: var(--principal);
     border-radius: 50%;
     padding: 4px;
     opacity: 0;
     background-color: white;
     transition: 0.5s all;
-    z-index: 1000000;
+    z-index: 8;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1150,23 +1142,20 @@ p.titulo{
 }
 .contenedor-borradores .col .opcion-borrador span.usar:hover{
     padding: 6px;
-    top: 45px;
-    left: 23px;
+    top: 36px;
+    left: 14px;
 }
 .contenedor-borradores .col .opcion-borrador span.remover:hover{
     padding: 6px;
-    top: 45px;
+    top: 36px;
 
-    right: 23px;
+    right: 14px;
 }
 
-.contenedor-iconos .col .opcion-icono span.seleccionar:hover{
-    width: 50px;
-    height: 50px;
-    left: 40px;
+.contenedor-iconos .col .opcion-icono span.seleccionar:hover {
+    padding: 6px;
     top: 41px;
 }
-
 
     /*OVERLAY PARA EL LIENZO*/
 .overlay-svg{
@@ -1366,6 +1355,10 @@ div.contenedor-planes .plan .plan-body .plan-precio{
     position: relative;
 }
 
+.caja.logos {
+    min-height: 477px;
+}
+
 .caja p{
     background-color: var(--tercero);
     color: white;
@@ -1432,7 +1425,7 @@ span.editar, span.compartir {
     background-color: white;
     width: auto;
     transition: 0.5s all;
-    z-index: 1000000;
+    z-index: 8;
 }
 
 div.info {
@@ -1500,7 +1493,7 @@ div.info span {
 }
 
 .cerrar-contenedor-bi i{
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .contenedor-iconos.abierto .cerrar-contenedor-bi, .contenedor-borradores.abierto .cerrar-contenedor-bi{
@@ -1516,13 +1509,14 @@ div.info span {
     color: var(--principal);
     position: absolute;
     top: 3px;
+    z-index: 10;
     opacity: 0;
     transition: 0.5s all;
     left: 1px;
 }
 
 .cerrar-contenedor-p i{
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .contenedor-previews.abierto .cerrar-contenedor-p{
@@ -1602,9 +1596,8 @@ path.seleccionado {
 }
 
 .cubos-logos-cliente .col > div{
-    height: 130px;
-    width: 130px;
-    margin: 0 auto 20px;
+    width: 100%;
+    margin: 0 auto 10px;
     position: relative;
     box-shadow: 0px 1px 2px 1px #dedede;
     background-color: white;
@@ -1688,4 +1681,115 @@ span.next-page{
 span.back-page:active, span.next-page:active{
     color: white;
     background-color:  var(--principal);
+}
+
+.contenedor-opcion-icono{
+    padding: 0.42rem .35rem !important;
+}
+
+span.back-page.bi {
+    left: -33px;
+    top: 35%;
+}
+
+span.next-page.bi{
+    right: -33px;
+    top: 35%;
+}
+
+.logo-compartido{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 1px 1px #d6d6d6;
+    margin-top: 40px;
+}
+
+.full-overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 100000000;
+    color: var(--principal);
+    font-family: 'futura-heavy' !important;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url(/assets/images/spinner-purple.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 150px;
+}
+
+div[ng-message] {
+    color: red;
+    font-family: 'futura-heavy' !important;
+    position: absolute;
+    top: 28px;
+    font-size: 12px;
+}
+
+div.cubo-form.login {
+    border:none;
+    border-radius: 5px;
+    padding: 20px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--blanco);
+    box-shadow: 0px 0px 2px 1px #d6d6d6;
+}
+
+.color-picker .arrow-bottom {
+    border-width: 10px 5px;
+    border-color: transparent transparent #612787 transparent;
+    top: -21px;
+    left: 11px;
+}
+
+.color-picker {
+    border: #ffffff solid 1px;
+    box-shadow: 0px 0px 1px 1px #cecece;
+}
+
+.color-picker .saturation-lightness {
+    border-radius: 10px 10px 0 0;
+}
+
+.color-picker div.cursor {
+    border: #fff solid 2px;
+    background-color: white;
+    box-shadow: 0px 0px 1px 1px #e5e5e5;
+}
+
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #612787;
+    box-shadow: 0 1px 0 0 #612787;
+}
+
+.color-picker .hex-text input {
+    border: #ffffff solid 1px;
+    padding: 1px;
+    font-family: 'futura-heavy' !important;
+}
+
+.color-picker .hex-text div {
+    font-family: 'futura-heavy' !important;
+}
+
+.color-picker .hue {
+    border-radius: 10px;
+}
+
+.color-picker .alpha {
+    border-radius: 10px;
+}
+
+.color-picker .hsla-text input, .color-picker .rgba-text input {
+    margin-left: 3px;
+    border: rgb(255, 255, 255) solid 1px;
+    border-bottom: 2px solid;
+    padding: 1px;
 }
