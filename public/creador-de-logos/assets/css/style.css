@@ -1790,4 +1790,6 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 .color-picker .hsla-text input, .color-picker .rgba-text input {
     margin-left: 3px;
     border: rgb(255, 255, 255) solid 1px;
+    border-bottom: 2px solid;
+    padding: 1px;
 }
