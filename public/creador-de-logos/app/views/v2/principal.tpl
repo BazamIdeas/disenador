@@ -117,7 +117,7 @@
                                         <input id="pass" name="pass" type="password" ng-model ="principal.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
                                         <label for="pass">Contraseña</label>
                                         
-                                        <div ng-messages="principal.loginForm.pass.$error" ng-if="principal.loginForm.$submitted || principal.loginForm.correo.$dirty">
+                                        <div ng-messages="principal.loginForm.pass.$error" ng-if="principal.loginForm.$submitted || principal.loginForm.pass.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="minlength">Debe tener más de 5 carácteres.</div>
                                             <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
@@ -136,7 +136,7 @@
 	                                    <input id="nombre2" type="text" name="nombreCliente" ng-model="principal.datosRegistro.nombreCliente" required>
 	                                    <label for="nombre2">Nombre</label>
                                         
-                                        <div ng-messages="principal.registroForm.nombreCliente.$error" ng-if="principal.registroForm.$submitted || principal.loginForm.correo.$dirty">
+                                        <div ng-messages="principal.registroForm.nombreCliente.$error" ng-if="principal.registroForm.$submitted || principal.registroForm.nombreCliente.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
 	                                </div>
@@ -144,7 +144,7 @@
 	                                    <input id="correo2" type="email" name="correo" ng-model="principal.datosRegistro.correo" required>
 	                                    <label for="correo2">Correo</label>
                                         
-                                        <div ng-messages="principal.registroForm.correo.$error" ng-if="principal.registroForm.$submitted || principal.loginForm.correo.$dirty">
+                                        <div ng-messages="principal.registroForm.correo.$error" ng-if="principal.registroForm.$submitted || principal.registroForm.correo.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="email">Debe ser un email válido.</div>
                                         </div>
@@ -154,17 +154,17 @@
 	                                    <input id="pass2" type="password" ng-model="principal.datosRegistro.pass" ng-minlength="6" ng-maxlength="20" required>
 	                                    <label for="pass2">Contraseña</label>
                                         
-                                         <div ng-messages="principal.registroForm.pass.$error" ng-if="principal.registroForm.$submitted || principal.loginForm.correo.$dirty">
+                                         <div ng-messages="principal.registroForm.pass.$error" ng-if="principal.registroForm.$submitted || principal.registroForm.pass.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="minlength">Debe tener más de 5 carácteres.</div>
                                             <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
                                         </div>
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="telefono" type="text" class="validate" ng-model="principal.datosRegistro.telefono" required>
+	                                    <input id="telefono" type="text" name="telefono" ng-model="principal.datosRegistro.telefono" required>
 	                                    <label for="telefono">Telefóno</label>
                                         
-                                        <div ng-messages="principal.registroForm.pass.$error" ng-if="principal.registroForm.$submitted || principal.loginForm.correo.$dirty">
+                                        <div ng-messages="principal.registroForm.telefono.$error" ng-if="principal.registroForm.$submitted || principal.registroForm.telefono.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
 	                                </div>

@@ -35,10 +35,10 @@
                                         
                                     </div>  
                                     <div class="input-field col s12">
-                                        <input id="pass" name="pass" type="password" class="validate" ng-model ="login.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
+                                        <input id="pass" name="pass" type="password" ng-model ="login.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
                                         <label for="pass">Contraseña</label>
                                         
-                                        <div ng-messages="login.loginForm.pass.$error" ng-if="login.loginForm.$submitted || login.loginForm.correo.$dirty">
+                                        <div ng-messages="login.loginForm.pass.$error" ng-if="login.loginForm.$submitted || login.loginForm.pass.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="minlength">Debe tener más de 5 carácteres.</div>
                                             <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
@@ -57,7 +57,7 @@
 	                                    <input id="nombre" type="text" name="nombreCliente" ng-model="login.datosRegistro.nombreCliente" required>
 	                                    <label for="nombre">Nombre</label>
                                         
-                                        <div ng-messages="login.registroForm.nombreCliente.$error" ng-if="login.registroForm.$submitted || login.loginForm.correo.$dirty">
+                                        <div ng-messages="login.registroForm.nombreCliente.$error" ng-if="login.registroForm.$submitted || login.registroForm.nombreCliente.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
                                         
@@ -66,26 +66,26 @@
 	                                    <input id="correo2" type="email" name="correo" ng-model="login.datosRegistro.correo" required>
 	                                    <label for="correo2">Correo</label>
                                         
-                                        <div ng-messages="login.registroForm.correo.$error" ng-if="login.registroForm.$submitted || login.loginForm.correo.$dirty">
+                                        <div ng-messages="login.registroForm.correo.$error" ng-if="login.registroForm.$submitted || login.registroForm.correo.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="email">Debe ser un email válido.</div>
                                         </div>
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="pass2" type="password" name="pass" class="validate" ng-model="login.datosRegistro.pass" ng-minlength="6" ng-maxlength="20" required>
+	                                    <input id="pass2" type="password" name="pass" ng-model="login.datosRegistro.pass" ng-minlength="6" ng-maxlength="20" required>
 	                                    <label for="pass2">Contraseña</label>
                                         
-                                        <div ng-messages="login.registroForm.pass.$error" ng-if="login.registroForm.$submitted || login.loginForm.correo.$dirty">
+                                        <div ng-messages="login.registroForm.pass.$error" ng-if="login.registroForm.$submitted || login.registroForm.pass.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="minlength">Debe tener más de 5 carácteres.</div>
                                             <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
                                         </div>
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="telefono" type="text" class="validate" ng-model="login.datosRegistro.telefono" required>
+	                                    <input id="telefono" type="text" ng-model="login.datosRegistro.telefono" name="telefono" required>
 	                                    <label for="telefono">Telefóno</label>
                                         
-                                        <div ng-messages="login.registroForm.pass.$error" ng-if="login.registroForm.$submitted || login.loginForm.correo.$dirty">
+                                        <div ng-messages="login.registroForm.telefono.$error" ng-if="login.registroForm.$submitted || login.registroForm.telefono.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                         </div>
                                         
