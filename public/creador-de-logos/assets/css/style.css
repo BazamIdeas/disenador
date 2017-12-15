@@ -1489,7 +1489,7 @@ div.info span {
 }
 
 .cerrar-contenedor-bi i{
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .contenedor-iconos.abierto .cerrar-contenedor-bi, .contenedor-borradores.abierto .cerrar-contenedor-bi{
@@ -1511,7 +1511,7 @@ div.info span {
 }
 
 .cerrar-contenedor-p i{
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .contenedor-previews.abierto .cerrar-contenedor-p{

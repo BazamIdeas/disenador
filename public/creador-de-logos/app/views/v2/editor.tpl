@@ -172,16 +172,14 @@
 				    <div class="overlay-svg-previews"  ng-class="{'abierto': editor.preview }"></div>
 
 				    <div class="contenedor-borradores" ng-class="{'abierto': editor.borradores}">
-				    	<div class="cerrar-contenedor-bi">
-				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	<div class="cerrar-contenedor-bi" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
+				    		<i class="material-icons cerrar">clear</i>
 				    	</div>
 				    	<div class="row padding-bottom-0 margin-bottom-0">
 				    		<div class="col l3 xl2" style="padding: 0.42rem .35rem !important;">
 				    			<div class="agregar" ng-click="editor.realizarComparacion(editor.comparar)"><i class="material-icons">add</i> <span>AGREGAR</span></div>
 				    		</div>
 				    		<div class="col l8 xl9" style="position: relative;">
-
-				    			<span class="back-page bi"><i class="material-icons">keyboard_arrow_left</i></span>
 
 				    			<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="comparacion in editor.comparaciones track by comparacion.creacion">
 
@@ -202,24 +200,21 @@
 
 				    			</div>
 
-                                <div ng-show="!editor.comparaciones.length" layout-padding style="height: 100%;display: flex;align-items: center;justify-content: center;font-family: 'futura-heavy' !important;font-size: 20px;">
+                                <div ng-show="!editor.comparaciones.length" layout-padding style="height: 105px;display: flex;align-items: center;justify-content: center;font-family: 'futura-heavy' !important;font-size: 20px;">
                                     No existe ningun borrador
                                 </div>
-
-                                <span class="next-page bi"><i class="material-icons">keyboard_arrow_right</i></span>
-				    		
+			    		
 				    		</div>
 				    	</div>
 				    </div>
 
 					<div class="contenedor-iconos" ng-class="{'abierto': editor.busquedaIconos}">
-				    	<div class="cerrar-contenedor-bi">
-				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+				    	<div class="cerrar-contenedor-bi" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
+				    		<i class="material-icons cerrar">clear</i>
 				    	</div>
 				    	<div class="row padding-bottom-0 margin-bottom-0">
 				    		<div class="col s10 offset-s1" style="position: relative;">
 
-				    			<span class="back-page bi"><i class="material-icons">keyboard_arrow_left</i></span>
 
 				    			<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="icono in editor.iconos" >
 					    			<div class="opcion-icono">
@@ -233,15 +228,14 @@
 					    			</div>
 				    			</div>
                                 
-                                <span class="next-page bi"><i class="material-icons">keyboard_arrow_right</i></span>
 
 				    		</div>
 				    	</div>
 					</div>
 
 					<div class="contenedor-previews scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
-						<div class="cerrar-contenedor-p">
-				    		<i class="material-icons cerrar" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">clear</i>
+						<div class="cerrar-contenedor-p" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
+				    		<i class="material-icons cerrar">clear</i>
 				    	</div>	
 						<div class="row padding-bottom-0 margin-bottom-0">
 				    		<div class="col s6">
