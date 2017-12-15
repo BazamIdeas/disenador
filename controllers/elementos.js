@@ -169,7 +169,7 @@ exports.nuevoElementoIcono = function (req, res) {
 	if (tiposvg == 'image/svg+xml') {
 		fs.readFile(svg_path, function (error, contenido) {
 			var str = (contenido.toString());
-			dd = "<svg version"+str.split("<svg version")[1];
+			dd = "<svg"+str.split("<svg")[1];
 			dd2 = base64.encode(dd.replace('xmlns=', 'width="100%" xmlns='));
 			var elem = {
 				idElemento: null,
