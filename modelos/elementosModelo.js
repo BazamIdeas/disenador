@@ -1,4 +1,4 @@
-var DB=require('./DB.js');
+var DB=require('./db.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var elemento = {};
@@ -84,6 +84,25 @@ elemento.getElementosIncat = function( datos, callback)
 	  
 	});
 }
+
+elemento.getIniciales = function( datos, callback)
+{
+	var q = 'SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.nombre = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12' ;
+
+	DB.getConnection(function(err, connection)
+	{ //cmienzo del for
+		
+		connection.query( q ,datos, function(err, rows){
+
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  	callback(null, rows);
+		  	connection.release();
+	  	});  
+	});
+}
+
 // insertar  te quedaste aqui
 elemento.insertElemento = function(datos,callback)
 {
