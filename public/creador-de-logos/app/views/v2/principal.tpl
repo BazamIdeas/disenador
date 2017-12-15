@@ -139,7 +139,7 @@
 	                                </div>
 	                                <div class="input-field col s12">
 	                                                                     
-                                        <md-input-container style="width:100%; padding: 0 0.75rem" >
+                                        <md-input-container style="width: 100%;padding: 0 0rem;margin-top: 0;" >
                                             <md-select ng-model="principal.datosRegistro.pais" placeholder="Pais" required> 
                                                 <md-option ng-repeat="(llave, valor) in principal.paises track by $index" ng-value="llave"  ng-selected="llave == principal.paisDefecto">{{valor}}</md-option>
                                             </md-select>
