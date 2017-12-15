@@ -81,6 +81,7 @@ router.post('/elemento/icono', multipartMiddleware, controllers.elementos.nuevoE
 router.get('/elementos/fuente', controllers.elementos.ListarFuentes);
 router.post('/elemento/fuente', multipartMiddleware, controllers.elementos.nuevoElementoFuente);
 router.post('/elemento/preferencias/modificar', /*middleware.validarUsuario,*/ controllers.elementos.ModificarPreferencias);
+router.post('/elementos/iniciales', controllers.elementos.ListaIniciales);
 
 
 //MODULO PAISES
@@ -115,7 +116,6 @@ router.get('/pasarela/monedas/:id', /*middleware.validarUsuario,*/ controllers.p
 
 //MODULO DE PLANES
 router.get('/planes/comprar', controllers.planes.ListarFront);
-
 router.get('/planes', /*middleware.validarUsuario,*/ controllers.planes.ListarBack);
 router.get('/plan/precios/:id', /*middleware.validarUsuario,*/ controllers.planes.ListarPrecios); // lista precios activos
 router.post('/plan', /*middleware.validarUsuario,*/ controllers.planes.Nuevo); // ingresar Nuevo y un precio

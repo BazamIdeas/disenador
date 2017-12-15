@@ -277,7 +277,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 exports.Borrar = (req, res, next) =>
 {
 	var idLogo = req.params.id;
-	logo.Borrar(id, (error, data) => {
+	logo.Borrar(idLogo, (error, data) => {
 
 		if (typeof data !== 'undefined' && data.affectedRows) {
 			
