@@ -120,31 +120,35 @@
 
                             <div class="registro-form col s6">
                                 <p class="text-center tercero">REGISTRATE</p>
-                                <form>
-                                    <div class="input-field col s12">
-                                        <input id="nombre2" type="text" class="validate" required>
-                                        <label for="nombre2">Nombre</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="correo2" type="email" class="validate" required>
-                                        <label for="correo2">Correo</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="pass2" type="password" class="validate" required>
-                                        <label for="pass2">Contraseña</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="telefono" type="text" class="validate" required>
-                                        <label for="telefono">Telefóno</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="pais" type="text" class="validate" required>
-                                        <label for="pais">Pais</label>
-                                    </div>  
-                                    <div class="text-center">
-                                        <button class="boton-verde">ENVIAR</button>
-                                    </div>
-                                </form>
+                                <form name="principal.registroForm" novalidate ng-submit="principal.registrar(principal.datosRegistro, principal.registroForm.$valid)">
+	                                <div class="input-field col s12">
+	                                    <input id="nombre2" type="text" class="validate" ng-model="principal.datosRegistro.nombreCliente" required>
+	                                    <label for="nombre2">Nombre</label>
+	                                </div>
+	                                <div class="input-field col s12">
+	                                    <input id="correo2" type="email" class="validate" ng-model="principal.datosRegistro.correo" required>
+	                                    <label for="correo2">Correo</label>
+	                                </div>
+	                                <div class="input-field col s12">
+	                                    <input id="pass2" type="password" class="validate" ng-model="principal.datosRegistro.pass" required>
+	                                    <label for="pass2">Contraseña</label>
+	                                </div>
+	                                <div class="input-field col s12">
+	                                    <input id="telefono" type="text" class="validate" ng-model="principal.datosRegistro.telefono" required>
+	                                    <label for="telefono">Telefóno</label>
+	                                </div>
+	                                <div class="input-field col s12">
+	                                                                     
+                                        <md-input-container style="width:100%; padding: 0 0.75rem" >
+                                            <md-select ng-model="principal.datosRegistro.pais" placeholder="Pais" required> 
+                                                <md-option ng-repeat="(llave, valor) in principal.paises track by $index" ng-value="llave"  ng-selected="llave == principal.paisDefecto">{{valor}}</md-option>
+                                            </md-select>
+                                        </md-input-container>
+	                                </div>  
+	                                <div class="text-center">
+	                                    <button class="boton-verde">ENVIAR</button>
+	                                </div>
+	                            </form>
                             </div>
 
                         </div>

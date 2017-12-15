@@ -2,10 +2,20 @@ angular.module("disenador-de-logos")
 
     /* Comenzar */
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout) {
+    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService",function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService) {
 
         var bz = this;
-
+        
+        bz.paises = paisesValue;
+        
+        bz.paisDefecto = null;
+        
+        clientesService.pais().then(function(res){
+            
+            bz.paisDefecto = res.iso;
+            
+        });
+        
         bz.datos = {
             nombre: "Mi logo",
             preferencias: [],
@@ -235,22 +245,96 @@ angular.module("disenador-de-logos")
                             $scope.closeToast = function () {
                                 $timeout.cancel(temporizador)
                                 $mdToast.hide();
-
                             }
                             }],
                         templateUrl: 'toast-danger-login.html'
                     });
 
-                }). finally(function(res){
-                    
-                    
+                }).finally(function(res){
+                     
                     bz.completadoLogin = true;
                     
-                })
+                });
                 
 
             };
 
         };
+        
+        
+        
+        bz.completadoRegistro = true;
+        
+        bz.registrar = function(datos, valido){
+            
+           
+            
+            if (valido && bz.completadoRegistro) {
+                
+                bz.completadoRegistro = false;
+                
+                 console.log("hola")
+                
+                clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function (res) {
+
+                    if (clientesService.autorizado(true)) {
+
+                        $mdToast.show({
+                            hideDelay: 0,
+                            position: 'top right',
+                            controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
+
+                                var temporizador = $timeout(function () {
+
+                                    $mdToast.hide();
+
+                                }, 2000)
+
+                                $scope.closeToast = function () {
+                                    $timeout.cancel(temporizador)
+                                    $mdToast.hide();
+
+                                }
+                            }],
+                            templateUrl: 'toast-success-registro.html'
+                        });
+
+                        bz.mostrarModalLogin = false;
+                        bz.avanzar(bz.logoSeleccionado);
+
+                    }
+
+                }).catch(function () {
+
+                    $mdToast.show({
+                        hideDelay: 0,
+                        position: 'top right',
+                        controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
+
+                            var temporizador = $timeout(function () {
+
+                                $mdToast.hide();
+
+                            }, 2000)
+
+                            $scope.closeToast = function () {
+                                $timeout.cancel(temporizador)
+                                $mdToast.hide();
+
+                            }
+                        }],
+                        templateUrl: 'toast-danger-registro.html'
+                    });
+
+
+                }).finally(function () {
+                    
+                    bz.completadoRegistro = true;
+                    
+                })
+
+            };
+            
+        }
 
 }])

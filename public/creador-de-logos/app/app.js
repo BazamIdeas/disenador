@@ -318,7 +318,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'principal.comenzar',
-                url: '/',
+                url: '/?id',
                 templateUrl: 'app/views/v2/principal.comenzar.tpl',
                 controller: 'principalComenzarController as principalComenzar'
             })
@@ -543,8 +543,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-        
-       
+
             .state({
                 name: 'cuenta',
                 url: '/cliente/cuenta',

@@ -8,7 +8,6 @@ angular.module("disenador-de-logos")
 
         bz.base64 = $base64;
 
-
         bz.formatos = [
             {
                 nombre: "svg",
@@ -116,26 +115,15 @@ angular.module("disenador-de-logos")
 
             });
 
-
             var a = document.createElement('a');
             a.setAttribute('download', "hola");
             a.setAttribute('href', imgURI);
             a.setAttribute('target', '_blank');
-
-            /*
-                            var contenedor = angular.element(".contenedor-link");
-                            contenedor.empty();
-                            contenedor.append(a);
-                            */
             a.dispatchEvent(evento);
-
 
         }
 
-
         bz.descargar = function (nombre, ancho) {
-
-
 
             logosService.descargarLogo(bz.logo.id, ancho, $filter('uppercase')(nombre), nombre).then(function (res) {
 
@@ -149,26 +137,13 @@ angular.module("disenador-de-logos")
                     
                 }
 
-                console.log(nombre)
                 var url = nombre;
 
                 bz.dispararDescarga(url)
 
-
-
-
             })
 
-
         };
-
-
-
-
-
-
-
-
 
         $scope.$on('sesionExpiro', function (event, data) {
 

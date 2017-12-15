@@ -40,26 +40,30 @@
 	                        
 	                        <div class="registro-form col s6">
 	                            <p class="text-center tercero">REGISTRATE</p>
-	                            <form>
+	                            <form name="login.registroForm" novalidate ng-submit="login.registrar(login.datosRegistro, login.registroForm.$valid)">
 	                                <div class="input-field col s12">
-	                                    <input id="nombre" type="text" class="validate">
+	                                    <input id="nombre" type="text" class="validate" ng-model="login.datosRegistro.nombreCliente" required>
 	                                    <label for="nombre">Nombre</label>
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="correo2" type="email" class="validate">
+	                                    <input id="correo2" type="email" class="validate" ng-model="login.datosRegistro.correo" required>
 	                                    <label for="correo2">Correo</label>
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="pass2" type="password" class="validate">
+	                                    <input id="pass2" type="password" class="validate" ng-model="login.datosRegistro.pass" required>
 	                                    <label for="pass2">Contraseña</label>
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="telefono" type="text" class="validate">
+	                                    <input id="telefono" type="text" class="validate" ng-model="login.datosRegistro.telefono" required>
 	                                    <label for="telefono">Telefóno</label>
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="pais" type="text" class="validate">
-	                                    <label for="pais">Pais</label>
+	                                                                     
+                                        <md-input-container style="width:100%; padding: 0 0.75rem" >
+                                            <md-select ng-model="login.datosRegistro.pais" placeholder="Pais" required> 
+                                                <md-option ng-repeat="(llave, valor) in login.paises track by $index" ng-value="llave"  ng-selected="llave == login.paisDefecto">{{valor}}</md-option>
+                                            </md-select>
+                                        </md-input-container>
 	                                </div>  
 	                                <div class="text-center">
 	                                    <button class="boton-verde">ENVIAR</button>
