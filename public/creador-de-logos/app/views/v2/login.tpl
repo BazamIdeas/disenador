@@ -27,10 +27,22 @@
                                     <div class="input-field col s12">
                                         <input id="correo" name="correo" type="email" class="validate" ng-model ="login.datosLogin.correo" required>
                                         <label for="correo">Correo</label>
+                                        
+                                        <div ng-messages="login.loginForm.correo.$error">
+                                            <div ng-message="required">Este campo es requerido.</div>
+                                            <div ng-message="email">Debe ser un email válido.</div>
+                                        </div>
+                                        
                                     </div>  
                                     <div class="input-field col s12">
-                                        <input id="pass" name="pass" type="password" class="validate" ng-model ="login.datosLogin.pass" required>
+                                        <input id="pass" name="pass" type="password" class="validate" ng-model ="login.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
                                         <label for="pass">Contraseña</label>
+                                        
+                                        <div ng-messages="login.loginForm.pass.$error">
+                                            <div ng-message="required">Este campo es requerido.</div>
+                                            <div ng-message="minlength">Debe tener más de 5 carácteres.</div>
+                                            <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
+                                        </div>
                                     </div>
                                     <div class="text-center">
                                         <button class="boton-verde" ng-class="{'loading-white': !login.completadoLogin}">ENVIAR</button>

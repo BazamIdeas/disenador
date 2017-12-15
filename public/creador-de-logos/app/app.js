@@ -318,7 +318,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'principal.comenzar',
-                url: '/?id',
+                url: '/?id&?n',
                 templateUrl: 'app/views/v2/principal.comenzar.tpl',
                 controller: 'principalComenzarController as principalComenzar'
             })
@@ -633,17 +633,23 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
     })
 
 
-    .run(function ($rootScope, $state) {
-/*
-        $rootScope.$on('$stateChangeStart',function(){
-            $rootScope.loading = true;
-        });
+    .run(function ($rootScope, $state, $timeout) {
+        
+    
+    
+        $rootScope.$on('$viewContentLoaded', function(event) { 
+            
+            $timeout(function(){
+                
+                angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+            }
+                , 500)
+          
 
-
-        $rootScope.$on('$stateChangeSuccess',function(){
-            $rootScope.loading = false;
         });
-*/
+       
+      
+    
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
             if (error == "STEPS") {
