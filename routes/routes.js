@@ -81,10 +81,12 @@ router.post('/elemento/icono', multipartMiddleware, controllers.elementos.nuevoE
 router.get('/elementos/fuente', controllers.elementos.ListarFuentes);
 router.post('/elemento/fuente', multipartMiddleware, controllers.elementos.nuevoElementoFuente);
 router.post('/elemento/preferencias/modificar', /*middleware.validarUsuario,*/ controllers.elementos.ModificarPreferencias);
+router.post('/elementos/iniciales', controllers.elementos.ListaIniciales);
 
 
 //MODULO PAISES
 router.get('/paises', /*middleware.validarUsuario,*/ controllers.paises.Listar);
+router.get('/pais', /*middleware.validarUsuario,*/ controllers.paises.Obtener);
 router.post('/pais', /*middleware.validarUsuario,*/ controllers.paises.Nuevo);
 router.post('/pais/moneda', /*middleware.validarUsuario,*/ controllers.paises.AsignarMoneda);
 router.post('/pais/moneda/desasignar', /*middleware.validarUsuario,*/ controllers.paises.DesasignarMoneda);
@@ -103,6 +105,7 @@ router.post('/moneda', /*middleware.validarUsuario,*/ controllers.monedas.Nuevo)
 
 //PASARELAS
 router.get('/pasarelas', /*middleware.validarUsuario,*/ controllers.pasarelas.Listar);
+router.post('/pasarelas/moneda', /*middleware.validarUsuario,*/ controllers.pasarelas.ListarPorMoneda);
 router.post('/pasarela', /*middleware.validarUsuario,*/ controllers.pasarelas.Nuevo);
 router.post('/pasarela/modificar', /*middleware.validarUsuario,*/ controllers.pasarelas.Modificar);
 router.post('/pasarela/moneda', /*middleware.validarUsuario,*/ controllers.pasarelas.AsignarMoneda);
@@ -113,7 +116,6 @@ router.get('/pasarela/monedas/:id', /*middleware.validarUsuario,*/ controllers.p
 
 //MODULO DE PLANES
 router.get('/planes/comprar', controllers.planes.ListarFront);
-
 router.get('/planes', /*middleware.validarUsuario,*/ controllers.planes.ListarBack);
 router.get('/plan/precios/:id', /*middleware.validarUsuario,*/ controllers.planes.ListarPrecios); // lista precios activos
 router.post('/plan', /*middleware.validarUsuario,*/ controllers.planes.Nuevo); // ingresar Nuevo y un precio
@@ -133,6 +135,7 @@ router.get('/logo/:id', controllers.logos.datosLogo); //muestra los datos de un 
 router.post('/logo/guardar', middleware.validar, controllers.logos.guardar);
 router.post('/logo/modificar',  controllers.logos.modificarLogo);
 router.post('/logo/descargar',  controllers.logos.descargar);
+router.get('/logo/borrar/:id',  controllers.logos.Borrar);
 
 router.post('/logo/zip',  controllers.logos.zip);
 

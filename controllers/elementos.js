@@ -39,8 +39,9 @@ exports.listaSegunPref = function (req, res, next) {
 						} // fin del for coincidencia
 
 						if (coin == 0) { // verificamos si la variable no cambio de dato
-
-							coincidencias = coincidencias.concat(data[i]); // concatenamos data con coincidencias
+							if (coincidencias.length < 12) {
+							coincidencias = coincidencias.concat(data[i]);
+							} // concatenamos data con coincidencias
 						} // fin del if
 
 					} // fin del for data*/
@@ -54,7 +55,6 @@ exports.listaSegunPref = function (req, res, next) {
 			if (err)
 				res.status(500);
 			else {
-
 				if (coincidencias.length < 12) {
 					var exit = 1;
 					async.each(datoIncat, function (dato, callback) {
@@ -105,7 +105,7 @@ exports.listaSegunPref = function (req, res, next) {
 			}
 		});
 }
-// te quedaste a aqui
+
 exports.listaElemCat = function (req, res, next) {
 
 	var cat = [req.body.idCategoria, req.body.tipo];
@@ -124,6 +124,25 @@ exports.listaElemCat = function (req, res, next) {
 		}
 	});
 
+}
+
+exports.ListaIniciales = function (req, res, next) {
+
+	var cat = [req.body.idCategoria, req.body.inicial];
+
+
+	elemento.getIniciales(cat, function (error, data) {
+
+		if (typeof data !== 'undefined' && data.length > 0) {
+			res.status(200).json(data);
+		}
+		//no existe
+		else {
+			res.status(404).json({
+				"msg": "No Encontrado"
+			})
+		}
+	});
 }
 
 exports.ListarFuentes = function (req, res, next) {
@@ -150,7 +169,7 @@ exports.nuevoElementoIcono = function (req, res) {
 	if (tiposvg == 'image/svg+xml') {
 		fs.readFile(svg_path, function (error, contenido) {
 			var str = (contenido.toString());
-			dd = str.replace(/.*<svg version=/, "<svg version=");
+			dd = "<svg"+str.split("<svg")[1];
 			dd2 = base64.encode(dd.replace('xmlns=', 'width="100%" xmlns='));
 			var elem = {
 				idElemento: null,
@@ -215,7 +234,7 @@ exports.nuevoElementoFuente = function (req, res) {
 		tipo = 'application/x-font-eot';
 	}
 	
-	if ((tipo == 'application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-eot')) {
+	if ((tipo == 'application/x-font-ttf') || (tipo == 'application/x-font-otf') || (tipo == 'application/x-font-woff')) {
 
 		var nombrefuente = req.files.mifuente.name;
 		var targer_path = '/fuentes/' + nombrefuente;

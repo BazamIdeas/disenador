@@ -56,6 +56,28 @@ pais.ListarMonedas = function(id,callback)
 
 }
 
+
+pais.Obtener = function(iso,callback)
+{
+	var q = `SELECT paises.*
+				FROM paises
+				WHERE paises.iso = ?`; 
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , [iso], function(err, row){
+
+		  	if(err)	throw err;
+
+		  	else callback(null, row);
+
+		  	connection.release();
+
+		});
+		
+	});
+}
+
 pais.ObtenerPorIso = function(iso,callback)
 {
 	var q = `SELECT paises.*, monedas.*
@@ -68,6 +90,7 @@ pais.ObtenerPorIso = function(iso,callback)
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , [iso], function(err, row){
+
 
 		  	if(err)	throw err;
 

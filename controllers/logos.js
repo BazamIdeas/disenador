@@ -6,6 +6,7 @@ var moment = require('moment');
 var base64 = require('base-64');
 const svg2png = require("svg2png");
 var archiver = require("archiver")
+var pathM = require("path")
 
 
 exports.guardar =  function(req,res)
@@ -29,7 +30,7 @@ exports.guardar =  function(req,res)
 			{				
 				cliente.getCliente(req.idCliente, function(error, data){
 
-					console.log(data);
+					//console.log(data);
 					services.emailServices.enviar('logoGuardado.html', {}, "Logo guardado", data.correo);
 
 				});
@@ -52,7 +53,7 @@ exports.datosLogo =  function(req, res, next) {
 		//si el pedido existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				res.status(200).json(data);
+				res.status(200).json(data[0]);
 			}
 		//no existe
 			else
@@ -142,19 +143,20 @@ exports.listaLogosDescargables = function(req, res, next) {
 		var idLogo = req.body.idLogo;
 		var ancho = req.body.ancho;
 		var tipo = req.body.tipo;
+		var descarga = req.body.descarga;
 		
 		logo.getLogo(idLogo,function(error, data)
 		{
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				var nombre = idLogo +'-' + moment().format("YYYY-MM-DD")+'-'+ancho+'.svg'
+				var nombre = 'Logo'+'-' +descarga +'-' + moment().format("DD-MM-YYYY")+'.svg'
 
 				var path = 'public/tmp/'
 
 				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
 				
-				fuente = base64.decode(data[0].logo).split("style>")[1].split("</style>")[0].split("url(/")[1].split(")")[0]
+				fuente = base64.decode(data[0].logo).split("style>")[1].split("</style>")[0].split("/fuentes/")[1].split("')")[0]
 
 				fs.open(path+nombre, 'w', function(err, fd) {
 				    if (err) {
@@ -175,16 +177,16 @@ exports.listaLogosDescargables = function(req, res, next) {
 				        		archive.pipe(output);
 
 				        		archive.append(fs.createReadStream(svg), { name: 'logo.svg' });
-				        		archive.append(fs.createReadStream(fuente), { name: fuente.split("fuentes/")[1] });
+				        		archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+"/fuentes/"+fuente), { name: fuente });
 
 				        		archive.finalize();
 
 								setTimeout(function () {
-						    		fs.unlink(svg)
+						    		res.json({zip:svg.replace("svg", "zip")})
 						    
-								}, 10000); 				        		
+								}, 5000); 				        		
 
-				        		res.json({zip:svg.replace("svg", "zip")})
+				        		
 
 				        	}else{
 
@@ -270,5 +272,23 @@ exports.listaLogosDescargables = function(req, res, next) {
 			}
 		});
 	}
+
+
+exports.Borrar = (req, res, next) =>
+{
+	var idLogo = req.params.id;
+	logo.Borrar(idLogo, (error, data) => {
+
+		if (typeof data !== 'undefined' && data.affectedRows) {
+			
+			res.status(200).json({'affectedRows': data.affectedRows});
+		
+		} else {
+
+			res.status(500).json({"msg": "Algo ocurrio"})
+		
+		}
+	})
+}
 
 

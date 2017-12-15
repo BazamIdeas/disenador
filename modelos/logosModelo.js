@@ -1,4 +1,4 @@
-var DB=require('./DB.js');
+var DB=require('./db.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var logo = {};
@@ -123,8 +123,8 @@ logo.cambiarEstado = function(logoData, callback)
 	});
 }
  
-//eliminar un logo pasando la id a eliminar
-logo.deleteLogo = function(id, callback)
+
+logo.Borrar = (id, callback) => 
 {
 	var q = 'SELECT * FROM logos WHERE idLogo = ?';
 	var par = [id] //parametros
@@ -144,7 +144,7 @@ logo.deleteLogo = function(id, callback)
 				  	
 				  		if(err)	throw err;
 
-					  	else callback(null,{"msg" : "eliminado"}); 
+					  	else callback(null,{"affectedRows" : row.affectedRows }); 
 				  		
 				  		connection.release();
 				 	});
@@ -158,7 +158,6 @@ logo.deleteLogo = function(id, callback)
  
 	});
 }
-
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = logo;

@@ -100,7 +100,7 @@ angular.module("disenador-de-logos")
                 texto: "=texto",
                 fuente: "=fuente",
                 svgFinal: "=svgFinal"
-                
+
 
             },
             controller: function ($scope)
@@ -163,6 +163,7 @@ angular.module("disenador-de-logos")
                     ////////////////////////////////////////////////////////////
                     //////Insertamos el SVG del icono dentro del SVG padre//////
                     ////////////////////////////////////////////////////////////
+
 
                     element[0].innerHTML = "<svg viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'><g class='contenedor-icono'>" + scope.svgTag + "</g></svg>";
 
@@ -234,82 +235,6 @@ angular.module("disenador-de-logos")
                     }
 
 
-                    
-
-  /*                 
-
-                            var alturaSVG = (tamanoBase);
-                            var anchoSVG = (tamanoBase);
-
-                            element[0].innerHTML = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink 'viewBox='0 0 " + anchoSVG + " " + alturaSVG + "'><g class='contenedor-icono'>" + scope.svgTag + "</g></svg>";
-
-                            var svgIcono = element[0].children[0].children[0].children[0];
-
-                            svgIcono.setAttribute("height", (alturaSVG * 0.75) + "px");
-                            svgIcono.setAttribute("width", (alturaSVG * 0.75) + "px");
-
-
-                          
-
-
-                            /////////////////////////////////////////
-                            ////////creamos el elemento Text/////////
-                            /////////////////////////////////////////
-
-                            var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
-
-                            texto.setAttributeNS(null, "x", (tamanoBase / 2));
-
-                            var textoNode = document.createTextNode(scope.texto);
-
-                            texto.appendChild(textoNode);
-
-                            element[0].children[0].appendChild(texto);
-
-                            var svgTexto = element[0].children[0].children[1];
-                    
-                            svgTexto.style.fontSize = ((alturaSVG * 0.75) / 2) + "px";
-                            svgTexto.setAttribute("text-anchor", "left");
-                            svgTexto.setAttribute("font-family", scope.fuente.nombre);
-                            svgTexto.setAttribute("class", "textoPrincipal");
-                           
-
-                            //////////////////////////////////////////////////////////////////////
-                            ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
-                            //////////////////////////////////////////////////////////////////////
-
-                            var anchoViewBox = parseInt(element[0].children[0].getAttribute("viewBox").split(" ")[3]);
-                    
-                            while((svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value) > (anchoViewBox * 0.80) ){
-                                
-                                svgTexto.style.fontSize =  (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
-                                svgIcono.setAttribute("width", (svgIcono.width.baseVal.value * 0.95) + "px");
-                                svgIcono.setAttribute("height", (svgIcono.height.baseVal.value * 0.95) + "px");
-                                
-                            }
-
-
-
-                            ///////////////////////////////////
-                            /////centramos los elementos///////
-                            ///////////////////////////////////
-
-                            //anchoSVG - (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value)
-                    
-                            var totalEspacioIconoFuente = (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value );
-                    
-                            var paddingLeft = (anchoSVG - totalEspacioIconoFuente ) / 2;
-                    
-                    
-                            svgIcono.setAttribute("y", (alturaSVG / 2) - (svgIcono.height.baseVal.value / 2)  );
-                            svgIcono.setAttribute("x", paddingLeft);
-                            svgTexto.setAttribute("x", paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05)) );
-                            svgTexto.setAttribute("y", (alturaSVG / 2) + (parseFloat(svgTexto.style.fontSize)/ 4));
-                 
-*/
-                    
-                    
-                    
                     //agregamos el Style Tag al svg
                     element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
 
@@ -320,7 +245,7 @@ angular.module("disenador-de-logos")
 
                     //reinsertamos el svg para permitir que se muestre
                     element.html(element.html());
-                    
+
                     scope.svgFinal = element.html();
 
                     //evento para los hijos directos de seccion-icono
@@ -364,7 +289,7 @@ angular.module("disenador-de-logos")
                             element.find("text.textoPrincipal").css("fill", datos.color);
 
                         }
-                        
+
                         scope.svgFinal = element.html();
                     })
 
@@ -391,7 +316,7 @@ angular.module("disenador-de-logos")
                         element.find("text.textoPrincipal").attr("font-family", fuente.nombre);
 
                         element.find("style").text("<style> <![CDATA[ @font-face: { font-family: '" + scope.fuente.nombre + "'; src: url('" + fuente.url + "')} ]]> </style>");
-                        
+
                         scope.svgFinal = element.html();
 
                     })
@@ -420,7 +345,7 @@ angular.module("disenador-de-logos")
                             element.find("text.textoPrincipal").css("font-style", estilo);
 
                         }
-                        
+
                         scope.svgFinal = element.html();
                     })
 
@@ -475,7 +400,7 @@ angular.module("disenador-de-logos")
 
                             }
                         }
-                        
+
                         scope.svgFinal = element.html();
 
 
@@ -543,16 +468,17 @@ angular.module("disenador-de-logos")
                             $(this).attr("transform", newMatrix);
                             currentX = evento.clientX;
                             currentY = evento.clientY;
+                            
 
                         };
 
                     });
 
                     angular.element(document.querySelector("body")).mouseup(function (evento) {
-
+                        
                         $("text.textoPrincipal, g.contenedor-icono").removeAttr("movimiento-bz");
-                        scope.svgFinal = element.html();
-
+                        scope.svgFinal = angular.element(document.querySelector("bazam-svg")).html()
+                      
                     });
 
                     ///////////////////////////////////////////
@@ -562,7 +488,222 @@ angular.module("disenador-de-logos")
 
                     scope.$on("editor:comparar", function (evento, datos) {
 
-                        $rootScope.$broadcast("directiva:comparar", element.html());
+                        $rootScope.$broadcast("directiva:comparar", {
+                            svg: element.html(),
+                            creacion: Date.now()
+                        });
+
+                    })
+
+
+                    /////////////////////////////////////////
+                    //////////////ORIENTACION////////////////
+                    /////////////////////////////////////////
+
+
+
+                    scope.$on("editor:orientacion", function (evento, orientacion) {
+
+                        var tamanoBase = 100;
+
+                        if (orientacion == 'horizontal') {
+
+
+                            var alturaSVG = tamanoBase;
+                            var anchoSVG = tamanoBase;
+
+                            var svgIcono = element.find("g.contenedor-icono > svg")[0];
+
+                            svgIcono.setAttribute("height", (alturaSVG * 0.75) + "px");
+                            svgIcono.setAttribute("width", (alturaSVG * 0.75) + "px");
+                            svgIcono.parentElement.setAttribute("transform", '');
+
+
+                            /////////////////////////////////////////
+                            ////////creamos el elemento Text/////////
+                            /////////////////////////////////////////
+
+                            var svgTexto = element.find("text.textoPrincipal")[0];
+                            var texto = element.find("text.textoPrincipal").text();
+
+                            svgTexto.style.fontSize = ((alturaSVG * 0.75) / 2) + "px";
+                            svgTexto.setAttribute("text-anchor", "left");
+                            svgTexto.setAttribute("transform", '');
+                            //////////////////////////////////////////////////////////////////////
+                            ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
+                            //////////////////////////////////////////////////////////////////////
+
+                            var anchoViewBox = parseInt(element[0].children[0].getAttribute("viewBox").split(" ")[3]);
+
+                            while ((svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value) > (anchoViewBox * 0.80)) {
+
+                                svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+                                svgIcono.setAttribute("width", (svgIcono.width.baseVal.value * 0.95) + "px");
+                                svgIcono.setAttribute("height", (svgIcono.height.baseVal.value * 0.95) + "px");
+
+                            }
+
+                            ///////////////////////////////////
+                            /////centramos los elementos///////
+                            ///////////////////////////////////
+
+                            //anchoSVG - (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value)
+
+                            var totalEspacioIconoFuente = (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value);
+
+                            var paddingLeft = (anchoSVG - totalEspacioIconoFuente) / 2;
+
+
+                            svgIcono.setAttribute("y", (alturaSVG / 2) - (svgIcono.height.baseVal.value / 2));
+                            svgIcono.setAttribute("x", paddingLeft);
+                            svgTexto.setAttribute("x", paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05)));
+                            svgTexto.setAttribute("y", (alturaSVG / 2) + (parseFloat(svgTexto.style.fontSize) / 4));
+
+                        } else if (orientacion == 'vertical') {
+
+
+                            ////////////////////////////////////////////////////////////
+                            //////Insertamos el SVG del icono dentro del SVG padre//////
+                            ////////////////////////////////////////////////////////////
+
+
+                            var svgIcono = element.find("g.contenedor-icono > svg")[0];
+
+                            svgIcono.setAttribute('height', (tamanoBase / 2) + 'px');
+                            svgIcono.removeAttribute("width");
+                            svgIcono.removeAttribute("x");
+                            svgIcono.parentElement.setAttribute("transform", '')
+
+                            /////////////////////////////////////////
+                            ////////creamos el elemento Text/////////
+                            /////////////////////////////////////////
+
+                            var svgTexto = element.find("text.textoPrincipal")[0];
+
+                            svgTexto.style.fontSize = (tamanoBase / 2) + "px";
+                            svgTexto.setAttribute("text-anchor", "middle");
+
+                            svgTexto.setAttribute("transform", '');
+                            svgTexto.setAttribute("x", tamanoBase / 2);
+
+                            //////////////////////////////////////////////////////////////////////
+                            ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
+                            //////////////////////////////////////////////////////////////////////
+
+                            while (svgTexto.textLength.baseVal.value > (1.6 * svgIcono.height.baseVal.value)) {
+
+                                svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
+
+                            }
+
+                            ///////////////////////////////////
+                            /////centramos los elementos///////
+                            ///////////////////////////////////
+
+                            var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+
+                            svgIcono.setAttribute("y", paddingTopIcono);
+
+                            var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px"
+
+                            svgTexto.setAttribute("y", paddingTopText);
+
+                            if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+                                while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+                                    svgIcono.setAttribute('height', (parseFloat(svgIcono.getAttribute("height")) * 0.95) + 'px');
+
+                                    svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+
+                                }
+
+                                var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+
+
+                                svgIcono.setAttribute("y", paddingTopIcono);
+
+                                var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+
+                                svgTexto.setAttribute("y", paddingTopText);
+
+                            }
+
+                        }
+
+                        scope.svgFinal = element.html();
+                    })
+
+
+                    ////////////////////////////////
+                    ///////////RESTAURAR////////////
+                    ////////////////////////////////
+
+                    scope.$on("editor:reemplazar", function (evento, icono) {
+
+                        var iconoSVG = element.find("g.contenedor-icono > svg");
+
+                        var x = iconoSVG.attr("x");
+                        var y = iconoSVG.attr("y");
+
+
+                        var heightIcono = iconoSVG.attr("height");
+                        var widthIcono = iconoSVG.attr("width");
+                        var transform = iconoSVG.attr("transform");
+
+                        iconoSVG.parent().html(icono);
+
+                        var iconoSVGcambiado = element.find("g.contenedor-icono > svg");
+
+                        iconoSVGcambiado.attr("x", x);
+                        iconoSVGcambiado.attr("y", y);
+                        iconoSVGcambiado.attr("height", heightIcono);
+
+                        if (widthIcono) {
+
+                            iconoSVGcambiado.attr("width", widthIcono);
+
+                        }
+
+                        if (transform) {
+
+                            iconoSVGcambiado.attr("transform", transform);
+                        }
+
+
+                        var indices = [];
+                        var seccionInternaElementos = [];
+                        
+                        //division en partes del svg
+                        iconoSVGcambiado.html().trim().split(">").forEach(function (parte, index) {
+                            var indiceParte = " data-indice='" + index + "'";
+                            if (parte != "") { //si no es un tag de cerrar
+                                if (parte.search("</") == -1) {
+                                    //si es un tag compuesto, ej: 
+                                    if (parte.search("/") == -1) {
+                                        seccionInternaElementos.push(parte + indiceParte + ">");
+                                    }
+                                    //si no es un tag compuesto, ej: path
+                                    else {
+                                        seccionInternaElementos.push(parte.replace("/", "") + indiceParte + "/>");
+                                    }
+                                    //si es un tag de cerrar
+                                } else {
+                                    seccionInternaElementos.push(parte + ">");
+                                }
+                            }
+                            seccionInternaElementos.push(false);
+                        });
+                        //union del nuevo contenido
+                        iconoSVGcambiado.html(seccionInternaElementos.join(""));
+
+
+
+                        scope.elementosIndices = indices;
+
+
+
+                        scope.svgFinal = element.html();
 
                     })
 
@@ -585,27 +726,42 @@ angular.module("disenador-de-logos")
                         })
 
                         element.find(".seleccionado").removeClass("seleccionado");
-                        
+
                         scope.elementosIndices = indices;
 
-                        
+
                         var texto = element.find("text.textoPrincipal");
-                        
+
                         scope.texto = texto.text();
-                        
-                        
+
+
                         var nuevaFuente = {
-                            url:  angular.element(document.querySelector("bazam-svg > svg > style")).text().split("url(")[1].split(")")[0],
+                            url: angular.element(document.querySelector("bazam-svg > svg > style")).text().split("url(")[1].split(")")[0],
                             nombre: texto.attr("font-family")
-                            
+
                         }
-                        
+
                         scope.fuente = nuevaFuente;
-                        
-                                 
+
+
                         scope.svgFinal = element.html();
 
                     })
+                    
+                    
+                    
+                    
+                    
+                    
+                    scope.$on("editor:planes", function(){
+                         
+                        $rootScope.$broadcast("directiva:planes", scope.svgFinal);
+                        
+                    })
+                        
+                        
+               
+                    
 
                 }
             }
@@ -626,7 +782,7 @@ angular.module("disenador-de-logos")
 
             },
             link: function (scope, element, attributes) {
-
+                
                 element.html(scope.svg);
                 element.html(element.html());
 

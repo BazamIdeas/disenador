@@ -1,4 +1,4 @@
-var DB = require('./DB.js');
+var DB=require('./db.js');
 
 var usuario = {};
 
