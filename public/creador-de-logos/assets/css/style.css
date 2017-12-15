@@ -1038,10 +1038,9 @@ p.titulo{
 .contenedor-borradores,  .contenedor-iconos{
     position: absolute;
     width: 100%;
-    height: 150px;
     background: #f9f9f9;
     left: 0;
-    bottom: -156px;
+    bottom: -100%;
     transition: 1s all;
     box-shadow: 2px 1px 1px 1px #9e9e9e;
     border-left: 1px solid #f3f3f3;
@@ -1052,15 +1051,13 @@ p.titulo{
 }
 
 .contenedor-borradores .col .opcion-borrador, .contenedor-iconos .col .opcion-icono{
-    width: 130px;
-    height: 130px;
-    margin: 10px;
     border-radius: 5px;
-    display: inline-block;
+    display: flex;
     background-color: white;
     cursor: pointer;
     position: relative;
     box-shadow: 0px 1px 2px 1px #dedede;
+    justify-content: center;
 }
 
 .contenedor-borradores .col .opcion-borrador bazam-vizualizar svg, .contenedor-iconos .col .opcion-icono bazam-vizualizar svg{
@@ -1068,10 +1065,8 @@ p.titulo{
 }
 
 .contenedor-borradores .col .agregar{
-    width: 130px;
-    height: 130px;
-    margin: 10px;
-    padding: 10px;
+    width: 97px;
+    padding: 18px;
     border-radius: 5px;
     display: flex;
     flex-flow: column;
@@ -1090,7 +1085,7 @@ p.titulo{
 .contenedor-borradores .col .opcion-borrador span.usar ,.contenedor-borradores .col .opcion-borrador span.remover ,
 .contenedor-iconos .col .opcion-icono span.seleccionar {
     position: absolute;
-    top: 47px;
+    top: 38px;
     color: var(--principal);
     border-radius: 50%;
     padding: 4px;
@@ -1116,17 +1111,14 @@ p.titulo{
     font-size: 23px;
 }
 .contenedor-borradores .col .opcion-borrador span.remover {
-    right: 25px;
+    right: 16px;
 }
 .contenedor-borradores .col .opcion-borrador span.usar {
-    left: 25px;
+    left: 16px;
 }
 
-.contenedor-iconos .col .opcion-icono span.seleccionar{
-    left: 42px;
-    top: 42px;
-    width: 48px;
-    height: 48px;
+.contenedor-iconos .col .opcion-icono span.seleccionar {
+    top: 47px;
     color: var(--principal);
     border-radius: 50%;
     padding: 4px;
@@ -1150,23 +1142,20 @@ p.titulo{
 }
 .contenedor-borradores .col .opcion-borrador span.usar:hover{
     padding: 6px;
-    top: 45px;
-    left: 23px;
+    top: 36px;
+    left: 14px;
 }
 .contenedor-borradores .col .opcion-borrador span.remover:hover{
     padding: 6px;
-    top: 45px;
+    top: 36px;
 
-    right: 23px;
+    right: 14px;
 }
 
-.contenedor-iconos .col .opcion-icono span.seleccionar:hover{
-    width: 50px;
-    height: 50px;
-    left: 40px;
+.contenedor-iconos .col .opcion-icono span.seleccionar:hover {
+    padding: 6px;
     top: 41px;
 }
-
 
     /*OVERLAY PARA EL LIENZO*/
 .overlay-svg{
@@ -1688,4 +1677,18 @@ span.next-page{
 span.back-page:active, span.next-page:active{
     color: white;
     background-color:  var(--principal);
+}
+
+.contenedor-opcion-icono{
+    padding: 0.42rem .35rem !important;
+}
+
+span.back-page.bi {
+    left: -33px;
+    top: 35%;
+}
+
+span.next-page.bi{
+    right: -33px;
+    top: 35%;
 }
