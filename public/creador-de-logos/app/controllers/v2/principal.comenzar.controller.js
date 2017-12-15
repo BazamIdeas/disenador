@@ -21,5 +21,12 @@ angular.module("disenador-de-logos")
                 })
             
         }
+        
+        if($stateParams.n){
+            
+            
+            $scope.$parent.principal.datos.nombre = $stateParams.n;
+            
+        }
 
 }])
