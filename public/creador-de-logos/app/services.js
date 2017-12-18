@@ -504,6 +504,27 @@ angular.module("disenador-de-logos")
             }
         }
 
+
+        this.listarPedidos = function (id) {
+            /*
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("app/pedidos/cliente/"+id).then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+            */
+        }
+
     }])
 
     /***************************************/
@@ -554,7 +575,7 @@ angular.module("disenador-de-logos")
                     telefono: telefono,
                     pais: pais
                 }).then(function (res) {
-           
+
                     $window.localStorage.setItem('bzToken', angular.toJson(res.data));
                     clienteDatosFactory.definir(res.data);
                     defered.resolve();
@@ -904,6 +925,28 @@ angular.module("disenador-de-logos")
 
             return promise;
 
+        }
+        
+        this.borrarLogo = function(idLogo){
+            
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+
+            $http.get("/app/logo/borrar/" + idLogo).then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+            
         }
 
     }])

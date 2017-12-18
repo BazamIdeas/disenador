@@ -372,7 +372,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         logo: null,
                         texto: null,
                         //eslogan: null,
-                        fuentes: null
+                        fuentes: null,
+                        idLogoGuardado: null
                     }
                 },
                 resolve: {

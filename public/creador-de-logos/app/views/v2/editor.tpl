@@ -166,7 +166,7 @@
 				
 				<div class="contenedor-principal editor col s8" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}" style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
 					<div class="contenedor-svg">
-				       <bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal"></bazam-svg>
+				       <bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo"></bazam-svg>
 				    </div>
 				    <div class="overlay-svg"  ng-class="{'abierto': (editor.borradores || editor.busquedaIconos) }"></div>
 				    <div class="overlay-svg-previews"  ng-class="{'abierto': editor.preview }"></div>
