@@ -27,14 +27,18 @@
                                 <div class="col l4" ng-repeat="guardado in logos.guardados | limitTo: 9 : logos.salto.guardados track by guardado.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
-                                        <span class="editar" ng-click="">
+                                        <span class="editar" ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: guardado.elementos_idElemento, svg:  guardado.logo}}, idLogoGuardado: guardado.idLogo}})">
                                             <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
                                             <i class="material-icons">edit</i>
                                         </span>
                                         <span class="compartir">
                                             <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
                                             <i class="material-icons">share</i>
-                                        </span>                                                                
+                                        </span>
+                                        <span class="compartir" ng-click="logos.borrarLogo(guardado.idLogo)">
+                                            <md-tooltip md-delay="2" md-direction="top">Eliminar</md-tooltip>
+                                            <i class="material-icons">delete</i>
+                                        </span>
                                         <bazam-visualizar data-svg="logos.base64.decode(guardado.logo)"></bazam-visualizar>
                                     </div>
                                 </div>
@@ -63,7 +67,7 @@
                                             <md-tooltip md-delay="2" md-direction="top">Descargar</md-tooltip>
                                             <i class="material-icons">file_download</i>
                                         </span>
-                                        <span class="compartir">
+                                        <span class="compartir" ng-click="logos.abrirModal(comprado.idLogo)">
                                             <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
                                             <i class="material-icons">share</i>
                                         </span>                                                                
@@ -94,9 +98,21 @@
                             <i class="material-icons cerrar" ng-click="logos.mostrarModalSocial = false">clear</i>
 
                             <div class="compartir-iconos col s12">
-                                <span><i class="fab fa-facebook-f"></i></span>
-                                <span><i class="fab fa-twitter"></i></span>
-                                <span><i class="fab fa-google-plus-g"></i></span>
+                                <span socialshare socialshare-provider="facebook" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
+                                    <i class="fab fa-facebook-f"></i>
+                                </span>
+                                <span socialshare socialshare socialshare-provider="twitter" socialshare-text="XXXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}" socialshare-hashtags="liderlogo, vamos, carajo, kaio, ken, marihuana">
+                                    <i class="fab fa-twitter"></i>
+                                </span>
+                                <span socialshare socialshare-provider="google" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
+                                    <i class="fab fa-google-plus-g"></i>
+                                </span>
+                                <span socialshare socialshare-provider="linkedin" socialshare-text="XXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
+                                    <i class="fab fa-linkedin"></i>
+                                </span>
+                                <span socialshare socialshare-provider="pinterest" socialshare-text="XXXXX" socialshare-media="http://720kb.net/assets/img/logo.png" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
+                                    <i class="fab fa-pinterest"></i>
+                                </span>
                             </div>
 
                         </div>

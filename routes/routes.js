@@ -11,8 +11,8 @@ var configuracion       = require('../configuracion.js');
 //no espera parametros
 router.get('/clientes', middleware.validarUsuario, controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
-router.get('/cliente/:id', middleware.validarUsuario, controllers.clientes.datosCliente);
-//parametro por get que debe ser el id del cliente.
+router.get('/cliente/datos', middleware.validar, controllers.clientes.Datos);
+
 router.post('/cliente/borrar/:id', middleware.validarUsuario, controllers.clientes.borrarCliente);
 //'valor'	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
@@ -22,6 +22,8 @@ router.post('/cliente/modificar', middleware.validar, controllers.clientes.modif
 //correo, contraseña => email, pass
 router.post('/cliente/login',controllers.clientes.login);
 
+router.get('/cliente/pedidos', middleware.validar, controllers.pedidos.PedidosCliente);//muestra la lista de pedidos de un cliente
+router.get('/cliente/:id', middleware.validarUsuario, controllers.clientes.datosCliente);
 
 //MODULO USUARIOS
 //
@@ -47,7 +49,7 @@ router.post('/pedido', middleware.validar, controllers.pedidos.nuevoPedido);//cr
 router.post('/pedido/guardado', middleware.validar, controllers.pedidos.nuevoPedidoGuardado);//crea un pedido de un logo ya guardado
 router.post('/pedido/modificar', middleware.validar, controllers.pedidos.modificarPedido);// modifica los datos de un pedido
 router.post('/pedido/cambiar', middleware.validar, controllers.pedidos.cambiarEstado);// cambia de estado al pedido
-router.get('/pedido/pagado/:idElemento/:idLogo/:tipo/:tk', controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
+router.get('/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido', controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
 router.get('/pedido/no/pago/:tk', controllers.pedidos.noPago);// RUTAS INTERNAS
 
 

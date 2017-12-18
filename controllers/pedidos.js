@@ -78,6 +78,24 @@ exports.datosPedidosCliente = function (req, res, next) {
 
 }
 
+exports.PedidosCliente = function (req, res, next) {
+	//id del pedido
+	var id = req.idCliente;
+	pedido.getPedidosCliente(id, function (error, data) {
+		//si el pedido existe 
+		if (typeof data !== 'undefined' && data.length > 0) {
+			res.status(200).json(data);
+		}
+		//no existe
+		else {
+			res.status(404).json({
+				"msg": "No Encontrado"
+			})
+		}
+	});
+
+}
+
 exports.nuevoPedido = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
 
@@ -118,6 +136,7 @@ exports.nuevoPedido = function (req, res) {
 					if (data && data.insertId) {
 						/// PAGO AQUI
 						//////////////////////
+						idPedido= data.insertId;
 						precio.datos(idPrecio, function (error, data) {
 
 							if (typeof data !== 'undefined' && data.length > 0) {
@@ -143,7 +162,8 @@ exports.nuevoPedido = function (req, res) {
 														idElemento: req.body.idElemento,
 														impuesto: impuesto,
 														tipoElemento: tipoE,
-														token: req.headers.auth
+														token: req.headers.auth,
+														idPedido: idPedido
 													}
 
 													services.pagoServices.paypal(datosPago, function (error, data) {
@@ -223,7 +243,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 			if (data && data.insertId) {
 				/// PAGO AQUI
 				//////////////////////
-
+				idPedido= data.insertId;
 				precio.datos(idPrecio, function (error, data) {
 					if (typeof data !== 'undefined' && data.length > 0) {
 						var plan = data;
@@ -248,7 +268,8 @@ exports.nuevoPedidoGuardado = function (req, res) {
 												idElemento: req.body.idElemento,
 												impuesto: impuesto,
 												tipoElemento: tipoE,
-												token: req.headers.auth
+												token: req.headers.auth,
+												idPedido: idPedido
 											}
 
 											services.pagoServices.paypal(datosPago, function (error, data) {
@@ -298,13 +319,9 @@ exports.nuevoPedidoGuardado = function (req, res) {
 exports.cambioEstadoPagado = function (req, res)
 
 {
-	if (req.params.tipo == "ICONO") {
-		var elementoData = [1, req.params.idElemento];
-	} else {
-		var elementoData = [0, req.params.idElemento];
-	}
+	var pedidoData = ["COMPLETADO", req.params.idPedido];
 
-	elemento.cambiarEstado(elementoData, function (error, data) {
+	pedido.cambiarEstado(pedidoData, function (error, data) {
 
 		if (data) {
 			//////cambiar estado al logo a descargable

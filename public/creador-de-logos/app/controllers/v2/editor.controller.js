@@ -13,14 +13,19 @@ angular.module("disenador-de-logos")
         bz.preview = false;
         bz.busquedaIconos = false;
         bz.colorFondo = "rgb(236,239,240)";
-
-     
         
-
         bz.logo = historicoResolve.logo;
-        bz.logo.texto = historicoResolve.texto;
-        bz.fuentes = historicoResolve.fuentes;
-        bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
+       
+        if(!historicoResolve.idLogoGuardado){//si no es un logo guardado
+            
+            bz.logo.texto = historicoResolve.texto;
+            bz.fuentes = historicoResolve.fuentes;
+            bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
+            
+        } else if(historicoResolve.idLogoGuardado){ // si es un logo previamente guardado
+            
+             bz.logo.idLogo = historicoResolve.idLogoGuardado;
+        }
 
         /* CATEGORIAS EXISTENTES */
 
@@ -48,7 +53,7 @@ angular.module("disenador-de-logos")
             
             logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento).then(function (res) {
                 
-                var toast = $mdToast.show({
+                $mdToast.show({
                     hideDelay   : 0,
                     position    : 'top right',
                     controller  :  ["$scope", "$mdToast", "$timeout", function($scope, $mdToast, $timeout) {
@@ -98,9 +103,7 @@ angular.module("disenador-de-logos")
 
             }
 
-
         }
-
 
         bz.mostrarPreviews = function () {
 
@@ -116,9 +119,7 @@ angular.module("disenador-de-logos")
 
             }
 
-
         }
-
 
         bz.buscarPlanes = function () {
 
@@ -227,10 +228,7 @@ angular.module("disenador-de-logos")
             var indice = bz.comparaciones.indexOf(comparacion);
             bz.comparaciones.splice(indice, 1);
         }
-
-
-
-
+        
         //////////////////////////////////////////
         ///////////CAMBIAR ORIENTACION////////////
         //////////////////////////////////////////
@@ -307,19 +305,10 @@ angular.module("disenador-de-logos")
 
         }
 
-
-
-
-
-
-
-
-
         $scope.$on('sesionExpiro', function (event, data) {
 
             $state.go('principal.comenzar');
 
         });
-
 
     }])

@@ -3,6 +3,29 @@
 <head>
     <base href="/creador-de-logos/"/>
     <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Titulo de la pagina">
+    <meta name="twitter:description" content="Descripcion de la pagina sin superar los 200 caracteres">
+    <meta name="twitter:creator" content="@author_handle">
+
+    <!-- Twitter Summary card images. Igual o superar los 200x200px -->
+    <meta name="twitter:image" content="<a href='http://www.example.com/image.jpg'>http://www.example.com/image.jpg</a>">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Titulo" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content=" http://www.example.com/" />
+    <meta property="og:image" content=" http://example.com/image.jpg" />
+    <meta property="og:description" content="Descripcion" />
+    <meta property="og:site_name" content="Nombre de la web, i.e. Moz" />
+    <meta property="fb:admins" content="ID de Facebook" />
+    
+    
+    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Indie+Flower|Lobster|Shadows+Into+Light|Spectral+SC" rel="stylesheet">--> 
@@ -38,8 +61,8 @@
     <script src="/assets/js/scrollbars.js"></script>
     <script src="/assets/js/jquery.scrollbar.js"></script>
     <script src="/angular-base64/angular-base64.min.js"></script>
-    <!--<script src="/angular-social/angular-socialshare.js"></script>
-    <script src="/angular-sweetalert/SweetAlert.min.js"></script>
+    <script src="/angular-social/angular-socialshare.js"></script>
+    <!--<script src="/angular-sweetalert/SweetAlert.min.js"></script>
     <script src="/sweetalert/sweet-alert.min.js"></script>
     <script src="/save-svg-as-png/saveSvgAsPng.js"></script>-->
 
@@ -75,6 +98,7 @@
     <script src="app/controllers/v2/logos.controller.js"></script>
     <script src="app/controllers/v2/login.controller.js"></script>
     <script src="app/controllers/v2/descargar.controller.js"></script>
+    <script src="app/controllers/v2/cuenta.controller.js"></script>
 
 </head>
 
@@ -203,6 +227,24 @@
     
     <script type="text/ng-template" id="toast-danger-registro.html">
         <md-toast class="danger">
+            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-success-logo-delete.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>El logo fue borrado exitosamente!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-danger-logo-delete.html">
+        <md-toast class="success">
             <span class="md-toast-text" flex>Un error ha ocurrido</span>
             <md-button ng-click="closeToast()">
                 <i class="material-icons">close</i>
