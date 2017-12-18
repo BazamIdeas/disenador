@@ -13,6 +13,9 @@ router.get('/clientes', middleware.validarUsuario, controllers.clientes.listaCli
 //parametro por get que debe ser el id del cliente.
 router.get('/cliente/:id', middleware.validarUsuario, controllers.clientes.datosCliente);
 //parametro por get que debe ser el id del cliente.
+
+router.get('/cliente/datos', middleware.validar, controllers.clientes.Datos);
+
 router.post('/cliente/borrar/:id', middleware.validarUsuario, controllers.clientes.borrarCliente);
 //'valor'	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor

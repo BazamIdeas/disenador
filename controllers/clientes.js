@@ -69,6 +69,28 @@ exports.datosCliente =  function(req, res, next) {
 
 	}
 
+	exports.Datos =  function(req, res, next) {
+		//id del cliente
+		
+		var id = req.idCliente;
+		cliente.getCliente(id,function(error, data)
+		{
+		//si el usuario existe 
+			if (typeof data !== 'undefined' && data.length > 0)
+			{	
+
+				//next();
+				res.status(200).json(data);
+			}
+		//no existe
+			else
+			{
+				res.status(404).json({"msg":"No Encontrado"})
+			}
+		});
+
+	}
+
 
 exports.nuevoCliente =  function(req,res,next)
 	{
