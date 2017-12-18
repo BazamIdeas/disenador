@@ -136,7 +136,7 @@ exports.nuevoPedido = function (req, res) {
 					if (data && data.insertId) {
 						/// PAGO AQUI
 						//////////////////////
-						idPedido: data.insertId;
+						idPedido= data.insertId;
 						precio.datos(idPrecio, function (error, data) {
 
 							if (typeof data !== 'undefined' && data.length > 0) {
