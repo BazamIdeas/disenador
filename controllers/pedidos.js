@@ -78,6 +78,24 @@ exports.datosPedidosCliente = function (req, res, next) {
 
 }
 
+exports.PedidosCliente = function (req, res, next) {
+	//id del pedido
+	var id = req.idCliente;
+	pedido.getPedidosCliente(id, function (error, data) {
+		//si el pedido existe 
+		if (typeof data !== 'undefined' && data.length > 0) {
+			res.status(200).json(data);
+		}
+		//no existe
+		else {
+			res.status(404).json({
+				"msg": "No Encontrado"
+			})
+		}
+	});
+
+}
+
 exports.nuevoPedido = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
 

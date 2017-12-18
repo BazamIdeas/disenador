@@ -22,6 +22,7 @@ router.post('/cliente/modificar', middleware.validar, controllers.clientes.modif
 //correo, contraseña => email, pass
 router.post('/cliente/login',controllers.clientes.login);
 
+router.get('/cliente/pedidos/', middleware.validar, controllers.pedidos.PedidosCliente);//muestra la lista de pedidos de un cliente
 
 //MODULO USUARIOS
 //
