@@ -1,0 +1,491 @@
+<style ng-repeat="fuente in editor.fuentes">
+    @font-face {
+        font-family: '{{fuente.nombre}}';
+        src: url('{{fuente.url}}');
+    }
+</style>
+<div class="row" id="Previsu">
+    <!-- --------------------------  MENU -------------------------------------- -->
+    <div class="menu col-sm-1 col-md-5 nopadding" ng-switch="editor.menu">
+        <div class="menu-editor md-whiteframe-2dp">
+            <div class="menu-link {{elemento.estado}}" ng-repeat="elemento in editor.elementosMenu" ng-click="editor.efectoClick($index, elemento, $event)">
+                <div>
+                    <md-icon>{{elemento.icono}}</md-icon>
+                    <h4>{{elemento.nombre}}</h4>
+                </div>
+            </div>
+            <div class="menu-link" ui-sref="proceso">
+                <div>
+                    <md-icon>keyboard_arrow_left</md-icon>
+                    <h4>Atras</h4>
+                </div>
+            </div>
+        </div>
+        <div class="elementos">
+            <!---------------->
+            <!---- NOMBRE ----->
+            <!---------------->
+            <div class="elemento md-whiteframe-2dp" ng-switch-when="0">
+                <div class="titulo-menu-item" layout layout-align="between">
+                    <texto>OPCIONES DE NOMBRE</texto>
+                    <div class="cerrar-menu-editor" ng-click="editor.hideMenu()">
+                        <md-button class="md-fab md-raised md-mini md-button">
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </md-button>
+                    </div>
+                </div>
+
+                <!-- OPCION -->
+
+                <div>
+                    <div layout layout-align="space-between">
+                        <texto>Texto</texto>
+                    </div>
+                    <md-input-container class="md-block">
+                        <input name="fuente" maxlength="12" ng-required="true" ng-model="editor.logo.texto" ng-model-options="{ allowInvalid: true }" aria-label="fuente" ng-change="editor.cambioTexto(editor.logo.texto)">
+                    </md-input-container>
+                </div>
+
+                <!-- OPCION -->
+
+                <div>
+                    <texto>Fuente</texto>
+                    <md-select ng-model="editor.logo.fuente" ng-change="editor.cambioFuente(editor.logo.fuente)" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{'font-family' : editor.fuente.nombre}" aria-label="fuentes">
+                        <md-option ng-value="fuente" ng-style="{'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes">{{fuente.nombre}}</md-option>
+                    </md-select>
+                </div>
+                <!-- POSICIONES-->
+                <div layout>
+                    <!-- OPCION -->
+                    <div flex="65">
+                        <div>
+                            <texto>Mover</texto>
+                        </div>
+                        <div class="arrows">
+                            <div class="arrow-center">
+                                <button ng-mousedown="editor.modificarPosicion('y', false, 'texto')" ng-mouseup="editor.detenerIntervalo()">
+                                    <md-icon>keyboard_arrow_up</md-icon>
+                                </button>
+                            </div>
+                            <div class="double-arrow">
+                                <button ng-mousedown="editor.modificarPosicion('x', false , 'texto')" ng-mouseup="editor.detenerIntervalo()">
+                                    <md-icon>keyboard_arrow_left</md-icon>
+                                </button>
+                                <button ng-mousedown="editor.modificarPosicion('x', true, 'texto')" ng-mouseup="editor.detenerIntervalo()">
+                                    <md-icon>keyboard_arrow_right</md-icon>
+                                </button>
+                            </div>
+                            <div class="arrow-center">
+                                <button ng-mousedown="editor.modificarPosicion('y', true, 'texto')" ng-mouseup="editor.detenerIntervalo()">
+                                    <md-icon>keyboard_arrow_down</md-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OPCION -->
+                    <div flex="25">
+                        <div>
+                            <texto>Tamaño</texto>
+                        </div>
+                        <div class="mas-menos">
+                            <md-button ng-click="editor.cambioTamano('texto', true)" ng-mouseup="editor.detenerIntervalo()">
+                                +
+                            </md-button>
+                            <md-button ng-click="editor.cambioTamano('texto', false)" ng-mouseup="editor.detenerIntervalo()">
+                                -
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+                <md-divider class="divisor"></md-divider>
+
+                <!-- OPCION -->
+                <div>
+                    <texto>Propiedades</texto>
+                    <div class="propiedades">
+                        <div class="bold" ng-click="editor.cambioPropiedad('bold')">
+                            <p>Bold</p>
+                        </div>
+                        <div class="cursiva" ng-click="editor.cambioPropiedad('cursive')">
+                            <p>Cursiva</p>
+                        </div>
+                    </div>
+                </div>
+                <md-divider class="divisor"></md-divider>
+
+                <!-- OPCION -->
+                <div>
+                    <div layout layout-align="space-between">
+                        <texto>Edita el Color</texto>
+                    </div>
+                    <div layout layout-align="center">
+                        <color-picker ng-model="editor.colorTexto" class="md-whiteframe-2dp" ng-class="editor.mostrar" ng-change="editor.cambioColor(editor.colorTexto, 'texto')">
+                        </color-picker>
+                    </div>
+                </div>
+                <div class="cerrar-menu-editor" ng-click="editor.hideMenu()" layout layout-align="end" layout-padding>
+                    <md-button class="md-raised md-primary">CERRAR</md-button>
+                </div>
+            </div>
+            <!---------------->
+            <!---- SLOGAN ---->
+            <!---------------->
+            <div class="elemento md-whiteframe-2dp" ng-switch-when="1">
+                <div class="titulo-menu-item" layout layout-align="between">
+                    <texto>OPCIONES DE SLOGAN</texto>
+                    <div class="cerrar-menu-editor" ng-click="editor.hideMenu()">
+                        <md-button class="md-fab md-raised md-mini md-button">
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <div>
+                    <div layout layout-align="space-between">
+                        <texto>Texto</texto>
+                    </div>
+
+                    <md-input-container class="md-block">
+                        <input name="fuente" maxlength="12" ng-required="true" aria-label="fuente">
+                    </md-input-container>
+                </div>
+                <div>
+                    <texto>Fuente</texto>
+                    <md-select ng-model="editor.logo.fuente" placeholder="{{editor.logo.fuente.nombre}}" style="max-width: 100%;" ng-style="{ 'font-family' : editor.nombre}"
+                        aria-label="fuentes">
+                        <md-option ng-value="{nombre: fuente.nombre, url: fuente.url}"  ng-style="{ 'font-family' : fuente.nombre}" ng-repeat="fuente in editor.fuentes">{{fuente.nombre}}</md-option>
+                    </md-select>
+                </div>
+                <!-- POSICIONES-->
+                <div layout>
+                    <div flex="65">
+                        <div>
+                            <texto>Mover</texto>
+                        </div>
+                        <div class="arrows">
+                            <div class="arrow-center">
+                                <button>
+                                    <md-icon>keyboard_arrow_up</md-icon>
+                                </button>
+                            </div>
+                            <div class="double-arrow">
+                                <button>
+                                    <md-icon>keyboard_arrow_left</md-icon>
+                                </button>
+                                <button>
+                                    <md-icon>keyboard_arrow_right</md-icon>
+                                </button>
+                            </div>
+                            <div class="arrow-center">
+                                <button>
+                                    <md-icon>keyboard_arrow_down</md-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex="25">
+                        <div>
+                            <texto>Tamaño</texto>
+                        </div>
+                        <div class="mas-menos">
+                            <md-button>
+                                +
+                            </md-button>
+                            <md-button>
+                                -
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+                <md-divider class="divisor"></md-divider>
+                <div>
+                    <texto>Propiedades</texto>
+                    <div class="propiedades">
+                        <div class="bold">
+                            <p>Bold</p>
+                        </div>
+                        <div class="cursiva">
+                            <p>Cursiva</p>
+                        </div>
+                    </div>
+                </div>
+                <md-divider class="divisor"></md-divider>
+                <div>
+                    <div layout layout-align="space-between">
+                        <texto>Edita el Color</texto>
+                    </div>
+                    <div layout layout-align="center">
+                        <color-picker class="md-whiteframe-2dp">
+                        </color-picker>
+                    </div>
+                </div>
+                <div class="cerrar-menu-editor" ng-click="editor.hideMenu()" layout layout-align="end" layout-padding>
+                    <md-button class="md-raised md-primary">CERRAR</md-button>
+                </div>
+            </div>
+            <!---------------->
+            <!---- ICONO ----->
+            <!---------------->
+            <div class="elemento md-whiteframe-2dp" ng-switch-when="2">
+                <div class="titulo-menu-item" layout layout-align="between">
+                    <texto>OPCIONES DE ICONO</texto>
+                    <div class="cerrar-menu-editor" ng-click="editor.hideMenu()">
+                        <md-button class="md-fab md-raised md-mini md-button">
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </md-button>
+                    </div>
+                </div>
+
+                <!-- POSICIONES-->
+                <div layout>
+                    <div flex="65">
+                        <div>
+                            <texto>Mover</texto>
+                        </div>
+                        <div class="arrows ">
+                            <div class="arrow-center ">
+                                <button ng-mousedown="editor.modificarPosicion( 'y', false, 'icono') " ng-mouseup="editor.detenerIntervalo()">
+                                    <md-icon>keyboard_arrow_up</md-icon>
+                                </button>
+                            </div>
+                            <div class="double-arrow ">
+                                <button ng-mousedown="editor.modificarPosicion( 'x', false , 'icono') " ng-mouseup="editor.detenerIntervalo()">
+                                    <md-icon>keyboard_arrow_left</md-icon>
+                                </button>
+                                <button ng-mousedown="editor.modificarPosicion( 'x', true, 'icono') " ng-mouseup="editor.detenerIntervalo()">
+                                    <md-icon>keyboard_arrow_right</md-icon>
+                                </button>
+                            </div>
+                            <div class="arrow-center ">
+                                <button ng-mousedown="editor.modificarPosicion( 'y', true, 'icono') " ng-mouseup="editor.detenerIntervalo()">
+                                    <md-icon>keyboard_arrow_down</md-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex="25">
+                        <div>
+                            <texto>Tamaño</texto>
+                        </div>
+                        <div class="mas-menos">
+                            <md-button ng-mousedown="editor.cambioTamano('icono', true)">
+                                +
+                            </md-button>
+                            <md-button ng-mousedown="editor.cambioTamano('icono', false)">
+                                -
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+                <md-divider class="divisor"></md-divider>
+                <div>
+                    <div layout layout-align="space-between">
+                        <texto>Edita el Color</texto>
+                    </div>
+                    <div layout layout-align="center">
+                        <color-picker ng-model="editor.colorIcono" class="md-whiteframe-2dp" ng-class="editor.mostrar" ng-change="editor.cambioColor(editor.colorIcono, 'icono')">
+                        </color-picker>
+                    </div>
+                </div>
+                <md-divider class="divisor"></md-divider>
+                <div>
+                    <div>
+                        <texto>Categoria</texto>
+                    </div>
+                    <md-select ng-model="editor.categoria" aria-label="categorias">
+                        <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in editor.categoriasPosibles">{{categoria.nombreCategoria}}</md-option>
+                    </md-select>
+                    <div layout class="margen_superior">
+                        <div layout="row" flex layout-align="end">
+                            <md-button class="md-primary md-raised" ng-click="cancel( 'categoria', categoria)">Cambiar</md-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cerrar-menu-editor" ng-click="editor.hideMenu()" layout layout-align="end" layout-padding>
+                    <md-button class="md-raised md-primary">CERRAR</md-button>
+                </div>
+            </div>
+            <!-- Fin elemento -->
+
+            <!---------------->
+            <!---- COMPARAR -->
+            <!---------------->
+            <div class="elemento md-whiteframe-2dp" ng-switch-when="3">
+                <div class="titulo-menu-item" layout layout-align="between">
+                    <texto>COMPARACIONES</texto>
+                    <div class="cerrar-menu-editor" ng-click="editor.hideMenu()">
+                        <md-button class="md-fab md-raised md-mini md-button">
+                            <md-icon>keyboard_arrow_left</md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <div layout="column">
+                    <!--
+                    <div layout layout-align="space-between">
+                        <md-button aria-label="BIEN" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible">USAR</md-tooltip>
+                            <md-icon>done</md-icon>
+                        </md-button>
+                        <md-button aria-label="BIEN" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible">DESCARTAR</md-tooltip>
+                            <md-icon>close</md-icon>
+                        </md-button>
+                    </div>
+                    -->
+                    <bazam-visualizar class="elemento-prev-editor md-whiteframe-2dp" data-svg="comparacion" ng-repeat="comparacion in editor.comparaciones track by $index"
+                        ng-click="editor.restaurarComparacion(comparacion)">
+                    </bazam-visualizar>
+                    <div ng-show="!editor.comparaciones.length" layout-padding style="text-align:center;">
+                        <texto>No existe ninguna comparacion</texto>
+                    </div>
+                </div>
+                <div class="cerrar-menu-editor" ng-click="editor.hideMenu()" layout layout-align="end" layout-padding>
+                    <md-button class="md-raised md-primary">CERRAR</md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- --------------------------  EDITOR -------------------------------------- -->
+    <div class="contenedor-editor col-sm-11 col-md-7 nopadding" id="popupContainer-editor">
+        <div class="row around-xs">
+            <div class="col-xs-5 row">
+                <div>
+
+                    <md-button class="md-fab md-primary" ng-click="editor.realizarComparacion(editor.comparar)">
+                        <md-tooltip md-direction="right" md-visible="tooltipVisible">Comparar</md-tooltip>
+                        <md-icon>filter</md-icon>
+                    </md-button>
+                </div>
+                <div class="tono-background" style="position:relative;">
+                    <md-fab-speed-dial style="position:absolute;" md-open="editor.fabEditor2" md-direction="right" class="md-scale" ng-click="editor.fabEditor2=true"
+                        ng-mouseleave="editor.fabEditor2=false">
+                        <md-fab-trigger>
+                            <md-button class="md-fab md-primary">
+                                <md-tooltip md-direction="bottom" md-visible="tooltipVisible">FONDO</md-tooltip>
+                                <md-icon class="material-icon">settings</md-icon>
+                            </md-button>
+                        </md-fab-trigger>
+                        <md-fab-actions>
+                            <md-button aria-label="REGILLA" class="md-fab md-raised md-mini regilla" ng-click="editor.fondo='regilla'">
+                                <md-tooltip md-direction="top" md-visible="tooltipVisible">REGILLA</md-tooltip>
+                            </md-button>
+                            <md-button aria-label="REGILLA" class="md-fab md-raised md-mini negro" ng-click="editor.fondo='negro'">
+                                <md-tooltip md-direction="top" md-visible="tooltipVisible">NEGRO</md-tooltip>
+                            </md-button>
+                            <md-button aria-label="REGILLA" class="md-fab md-raised md-mini blanco" ng-click="editor.fondo='blanco'">
+                                <md-tooltip md-direction="top" md-visible="tooltipVisible">BLANCO</md-tooltip>
+                            </md-button>
+                        </md-fab-actions>
+                    </md-fab-speed-dial>
+                </div>
+            </div>
+            <div class="botones-editor col-xs-7 row end-xs">
+                <div style="position:relative; width:70px;">
+                <md-fab-speed-dial style="position:absolute;" md-open="editor.fabEditor" md-direction="Down" class="md-scale" ng-click="editor.fabEditor=true"
+                    ng-mouseleave="editor.fabEditor=false">
+                    <md-fab-trigger>
+                        <md-button class="md-fab md-primary">
+                            <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Compartir</md-tooltip>
+                            <md-icon class="material-icon">share</md-icon>
+                        </md-button>
+                    </md-fab-trigger>
+
+                    <md-fab-actions>
+                        <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Twitter</md-tooltip>
+                            <md-icon aria-label="Twitter" md-svg-src="assets/svg-no-borrar/twitter-logo-silhouette.svg" socialshare socialshare-provider="twitter"></md-icon>
+                        </md-button>
+                        <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="bottom" md-visible="tooltipVisible">Facebook</md-tooltip>
+                           <a socialshare
+                           socialshare-url="http://720kb.net"
+                           socialshare-text="Sharing it!"
+                           socialshare-popup-height="800"
+                           socialshare-popup-width="800" socialshare-source="http://localhost:8080/creador-de-logos/assets/img/comparar.jpg" socialshare-provider="facebook"> <md-icon aria-label="facebook" md-svg-src="assets/svg-no-borrar/facebook-letter-logo.svg"></md-icon></a>
+                        </md-button>
+                        <md-button aria-label="Google Hangout" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="left" md-visible="tooltipVisible">Email</md-tooltip>
+                            <md-icon aria-label="email" md-svg-src="assets/svg-no-borrar/mail.svg" socialshare socialshare-provider="email"></md-icon>
+                        </md-button>
+                    </md-fab-actions>
+                </md-fab-speed-dial>
+                </div>
+                <div>
+                    <md-button class="md-fab md-primary" ng-click="editor.gLogo(editor.codificar(editor.svgFinal), editor.logo.icono.tipo, editor.logo.icono.idElemento)">
+                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Guardar</md-tooltip>
+                        <md-icon class=" material-icon">save</md-icon>
+                    </md-button>
+                </div>
+                <div ui-sref="planes({ logo: editor.codificar(editor.svgFinal), tipoLogo: editor.logo.icono.tipo, idElemento: editor.logo.icono.idElemento})">
+                    <md-button class="md-fab md-primary">
+                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Comprar</md-tooltip>
+                        <md-icon class="material-icon">shopping_cart</md-icon>
+                    </md-button>
+                </div>
+                <div>
+                    <md-button class="md-fab md-primary" ng-click="editor.mostrarDialogo($event)">
+                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Previsualizar</md-tooltip>
+                        <md-icon class="material-icon">remove_red_eye</md-icon>
+                    </md-button>
+                </div>
+                <div>
+                    <md-button class="md-fab md-primary" ng-click="editor.cambiarMenu()">
+                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Ayuda</md-tooltip>
+                        <md-icon class="material-icon">help_outline</md-icon>
+                    </md-button>
+                </div>
+                <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" style="width:40%;">
+                    <md-toolbar class="transparencia">
+                        <div class="md-toolbar-tools">
+                            <div>AYUDA</div>
+                        </div>
+                    </md-toolbar>
+                    <div class="seccion-ayuda" layout-padding>
+                        <h2 style="text-transform:uppercase;">TEXTO</h2>
+                        <h4>1: Has un click al texto para empezar a editarlo.</h4>
+                        <h4>2: Puedes cambiar su color, tamaño y moverlo a travez del lienzo.</h4>
+                    </div>
+
+                    <div class="seccion-ayuda" layout-padding>
+                        <h2 style="text-transform:uppercase;">ICONO</h2>
+                        <h4>1: Has un click a alguna parte del icono para empezar a editarlo.</h4>
+                        <h4>2: Puedes cambiar su color, tamaño y moverlo a travez del lienzo.</h4>
+                        <h4>3: Puedes cambiar el fondo de tu lienzo presionando el siguiente boton.</h4>
+                        <img src="/creador-de-logos/assets/img/fondo.jpg" alt="fondo">
+                        <h4>Tendras 3 opciones, modo regilla, oscuro y gris.</h4>
+                    </div>
+
+                    <div class="seccion-ayuda" layout-padding>
+                        <h2 style="text-transform:uppercase;">COMPARACIONES</h2>
+                        <h4>1: Para hacer la comparacion de un logo preciona el boton el siguiente boton.</h4>
+                        <img src="/creador-de-logos/assets/img/comparar.jpg" alt="comparar">
+                        <h4>2: Al presionarlo se mostrara la ventana de comparaciones. Y veras una version de el logo que estas
+                            creando.
+                        </h4>
+                        <img src="/creador-de-logos/assets/img/ventana-comparar.jpg" alt="comparar">
+                        <h4>3: Cuando desees usarla presiona el elemento. Y se cambiara por tu lienzo actual.</h4>
+                    </div>
+
+                    <div class="seccion-ayuda" layout-padding>
+                        <h2 style="text-transform:uppercase;">PREVISUALIZAR LOGO</h2>
+                        <h4>1: Para mostrar como quedará su logo en distintas plantillas presione el siguiente boton.</h4>
+                        <img src="/creador-de-logos/assets/img/previsualizar.jpg" alt="previsualizar">
+                    </div>
+                    <div>
+                        <md-button class="md-raised md-primary" ng-click="editor.cambiarMenu()">CERRAR</md-button>
+                    </div>
+                </md-sidenav>
+            </div>
+        </div>
+
+        <div class="cont-logo-editor">
+
+            <!--- directiva si se utiliza un svg nunca modificado ---->
+
+            <div id="logo-share" class="principal logo-editor" ng-class="editor.fondo" ng-if="!editor.restauracionIniciada">
+                <bazam-svg data-svg="editor.base64(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal"></bazam-svg>
+            </div>
+   
+        </div>
+    </div>
+</div>

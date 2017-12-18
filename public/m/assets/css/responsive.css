@@ -1,0 +1,9 @@
+@media only screen 
+    and (-webkit-min-device-pixel-ratio: 2) 
+    and (max-device-width: 480px) 
+    and (min-device-width: 320px) 
+    and (orientation: portrait)
+{
+    input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+    font-size: 20px;
+}

@@ -52,7 +52,12 @@ app.use('/creador-de-logos/*', function(req, res, next) {
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('/public/creador-de-logos/index.html', { root: __dirname });
 });
+app.use('/m/*', function(req, res, next) {
+    
 
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile('/public/m/index.html', { root: __dirname });
+});
 
 
 // catch 404 and forward to error handler

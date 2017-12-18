@@ -1,0 +1,66 @@
+<div class="row around-xs margen_inferior margen_superior">
+    <div class="col-xs-12 col-md-5 margen_inferior">
+        <div>
+            <h3 layout-padding class="text-center h_seccion_dashboard">MIS LOGOS</h3>
+        </div>
+        <!-- LOGOS COMPRADOS -->
+        <div class="md-whiteframe-2dp scroll contenedor-de-logos">
+            <div flex layout="row" layout-align="space-around start" layout-wrap layout-padding class="text-center">
+                <div flex="30" ng-repeat="logo in cliente.lComprados" class="svg-cliente cliente-content" ng-mouseenter="cliente.efectoHoverC($index, logo)"
+                    ng-mouseleave="cliente.efectoHoverC($index, logo)">
+                    <div>
+                        <bazam-visualizar class="logo_icon_cliente" data-svg="cliente.base64(logo.logo)">
+                        </bazam-visualizar>
+                    </div>
+                    <md-icon class="iconos-cliente" ng-show="logo.mostrar" ui-sref="administrar({datos:logo})">create</md-icon>
+                </div>
+                <div layout="column" layout-align="center center" ng-hide="cliente.lComprados">
+                    <div ng-hide="cliente.notifyC">
+                        <div>
+                            <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+                        </div>
+                        <p class="titulo">Cargando</p>
+                    </div>
+                    <div ng-show="cliente.notifyC">
+                        <p class="titulo">No has comprado ningun logo </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-5">
+        <h3 layout-padding class="text-center h_seccion_dashboard">GUARDADOS</h3>
+        <div class="md-whiteframe-2dp scroll contenedor-de-logos">
+            <div flex layout="row" layout-align="space-around start" layout-wrap layout-padding class="text-center">
+                <div flex="30" ng-repeat="logo in cliente.lGuardados" class="svg-cliente cliente-content" ng-mouseenter="cliente.efectoHoverG($index, logo)"
+                    ng-mouseleave="cliente.efectoHoverG($index, logo)">
+                    <div>
+                        <bazam-visualizar class="logo_icon_cliente" data-svg="cliente.base64(logo.logo)">
+                        </bazam-visualizar>
+                    </div>
+                    <md-icon class="iconos-cliente" ng-show="logo.mostrar" ui-sref="editor({logoModificado: {svg: cliente.base64(logo.logo), tipo: logo.tipoLogo, idElemento: logo.elementos_idElemento}})">create</md-icon>
+                </div>
+
+                <div layout="column" layout-align="center center" ng-hide="cliente.lGuardados">
+                    <div ng-hide="cliente.notifyG">
+                        <div>
+                            <md-progress-circular md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+                        </div>
+                        <p class="titulo">Cargando</p>
+                    </div>
+                    <div ng-show="cliente.notifyG">
+                        <p class="titulo">No has guardado ningun logo </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row between-xs margen_superior">
+    <div flex layout="row" flex layout-align="start center">
+        <md-button class="md-raised md-primary" ui-sref="editor">Atras</md-button>
+    </div>
+</div>

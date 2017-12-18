@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-xs-4">
+        <div style="position:relative;">
+            <md-fab-speed-dial md-open="true" md-direction="right" class="md-flign">
+                <md-fab-trigger ng-if="pla.datos.planes.length" ng-click="pla.datos.moneda = ''">
+                    <md-button class="md-raised">
+                        <h4>MONEDAS</h4>
+                    </md-button>
+                </md-fab-trigger>
+
+                <md-fab-actions>
+                    <md-button ng-click="pla.datos.moneda = mon.moneda" aria-label="x" class="md-raised" ng-repeat="mon in pla.datos.planes | unique:'moneda'">
+                        <h5>{{mon.moneda}}</h5>
+                    </md-button>
+                </md-fab-actions>
+            </md-fab-speed-dial>
+        </div>
+    </div>
+</div>
+<div class="margen_superior row middle-xs center-xs">
+    <div ng-if="!pla.datos.planes.length" style="height:60vh;" class="row middle-xs center-xs">
+        <div>
+            <div>
+                <h2>CARGANDO LOS MEJORES PLANES PARA USTED</h2>
+            </div>
+            <md-progress-circular md-diameter="96" style="margin:auto;" ng-if="!pla.datos.planes.length"></md-progress-circular>
+        </div>
+    </div>
+    <paquete class="col-xs-10 col-md-3 margen_inferior paquete{{$index}}" ng-repeat="plan in pla.datos.planes | filter:{moneda:pla.datos.moneda} | limitTo:10 track by $index">
+        <p_header>{{plan.plan}}</p_header>
+        <p_body class="md-whiteframe-3dp">
+            {{plan.info}}
+        </p_body>
+        <p_price>{{plan.precio}} {{plan.moneda}}</p_price>
+        <p_footer layout-padding layout layout-align="space-around center" ui-sref="metodo" class="md-whiteframe-3dp">
+            <i class="fa fa-paypal" aria-hidden="true" ui-sref="metodo({logo: pla.datos.pedido.logo,
+                tipoLogo: pla.datos.pedido.tipoLogo,
+                localidad: plan.isoPais,
+                idElemento: pla.datos.pedido.idElemento,
+                idPrecio: plan.idPrecio})"></i>
+            <i class="fa fa-credit-card" aria-hidden="true"></i>
+        </p_footer>
+    </paquete>
+</div>
+<div class="row" ng-if="pla.datos.planes.length">
+    <div class="col-xs-1">
+        <md-button class="md-raised md-primary" ui-sref="#">Atrás</md-button>
+    </div>
+</div>
