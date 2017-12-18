@@ -49,7 +49,7 @@ router.post('/pedido', middleware.validar, controllers.pedidos.nuevoPedido);//cr
 router.post('/pedido/guardado', middleware.validar, controllers.pedidos.nuevoPedidoGuardado);//crea un pedido de un logo ya guardado
 router.post('/pedido/modificar', middleware.validar, controllers.pedidos.modificarPedido);// modifica los datos de un pedido
 router.post('/pedido/cambiar', middleware.validar, controllers.pedidos.cambiarEstado);// cambia de estado al pedido
-router.get('/pedido/pagado/:idElemento/:idLogo/:tipo/:tk', controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
+router.get('/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido', controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
 router.get('/pedido/no/pago/:tk', controllers.pedidos.noPago);// RUTAS INTERNAS
 
 
