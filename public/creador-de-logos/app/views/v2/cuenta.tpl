@@ -21,19 +21,19 @@
 						<div class="col s12">
 							<span class="label">Correo</span>
 							<div class="info">
-								<span>danieljtorres94@gmail.com</span>
+								<span>{{cuenta.datos.correo}}</span>
 							</div>
 						</div>
 						<div class="col s12">
 							<span class="label">Nombre</span>
 							<div class="info">
-								<span>Daniel Torres</span>
+								<span>{{cuenta.datos.nombreCliente}}</span>
 							</div>
 						</div>
 						<div class="col s12">
 							<span class="label">Telefono</span>
 							<div class="info">
-								<span>123456789</span>
+								<span>{{cuenta.datos.telefono}}</span>
 							</div>
 						</div>
 						<div class="col s12">
@@ -41,13 +41,7 @@
 							<div class="info">
 								<span>Venezuela</span>
 							</div>
-						</div>
-						<div class="col s12">
-							<span class="label">Contraseña</span>
-							<div class="info">
-								<span>********</span>
-							</div>
-						</div>
+                        </div>
 
 						<div class="col s12">
 							<button class="boton-verde">EDITAR</button>
@@ -61,7 +55,6 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>PEDIDO</th>
                                         <th>FECHA</th>
                                         <th>ESTADO</th>
                                         <th>PLAN</th>
@@ -71,70 +64,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>#1</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
+                                    <tr ng-repeat="pedido in cuenta.pedidos">
+                                        <td>{{pedido.fecha | date: 'dd-MM-yyyy'}}</td>
+                                        <td>{{pedido.estado}}</td>
+                                        <td>{{pedido.plan}}</td>
+                                        <td>{{pedido.moneda + ' ' + pedido.precio}}</td>
+                                        <td>{{pedido.moneda}} {{pedido.impuesto ?  (pedido.precio/pedido.impuesto) : "0"}} ({{pedido.impuesto}}%)</td>
+                                        <td>{{pedido.moneda}} {{pedido.impuesto ?   pedido.precio + (pedido.precio/pedido.impuesto) : pedido.precio}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>#2</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#3</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#4</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#5</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#6</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#7</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>

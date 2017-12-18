@@ -80,7 +80,7 @@ exports.datosCliente =  function(req, res, next) {
 			{	
 
 				//next();
-				res.status(200).json(data);
+				res.status(200).json(data[0]);
 			}
 		//no existe
 			else
