@@ -103,9 +103,7 @@ angular.module("disenador-de-logos")
 
             }
 
-
         }
-
 
         bz.mostrarPreviews = function () {
 
@@ -121,9 +119,7 @@ angular.module("disenador-de-logos")
 
             }
 
-
         }
-
 
         bz.buscarPlanes = function () {
 

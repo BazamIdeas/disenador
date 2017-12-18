@@ -60,6 +60,17 @@ angular.module("disenador-de-logos")
         }
         
         
+        bz.urlCompartir = $window.location.protocol + "//" + $window.location.hostname + angular.element(document.querySelector("base")).attr("href");
+        bz.mostrarModalSocial = false;
+        bz.idLogoCompartir = null;
+        
+        bz.abrirModal = function(idLogo){
+            
+            bz.mostrarModalSocial = true;
+            bz.idLogoCompartir = idLogo;
+            
+        }
+                
         bz.borradoCompleto = true;
         
         bz.borrarLogo = function(idLogo){

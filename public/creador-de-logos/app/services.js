@@ -642,6 +642,28 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
+        
+        this.datos = function(){
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/cliente/datos")
+
+                .then(function (res) {
+
+                    defered.resolve(res.data);
+
+                })
+                .catch(function (res) {
+
+                    defered.reject()
+                })
+
+            return promise;
+            
+        }
 
 
     }])
