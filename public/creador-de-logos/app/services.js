@@ -255,48 +255,6 @@ angular.module("disenador-de-logos")
     })
 
 
-    .filter('unique', function () {
-
-        return function (items, filterOn) {
-
-            if (filterOn === false) {
-                return items;
-            }
-
-            if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-                var hashCheck = {},
-                    newItems = [];
-
-                var extractValueToCompare = function (item) {
-                    if (angular.isObject(item) && angular.isString(filterOn)) {
-                        return item[filterOn];
-                    } else {
-                        return item;
-                    }
-                };
-
-                angular.forEach(items, function (item) {
-                    var valueToCheck, isDuplicate = false;
-
-                    for (var i = 0; i < newItems.length; i++) {
-                        if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
-                            isDuplicate = true;
-                            break;
-                        }
-                    }
-                    if (!isDuplicate) {
-                        newItems.push(item);
-                    }
-
-                });
-                items = newItems;
-            }
-            return items;
-        };
-    })
-
-
-
     /*-------------------------- Services --------------------------*/
 
 
@@ -305,7 +263,6 @@ angular.module("disenador-de-logos")
     /***************************/
 
     .service('categoriasService', ["$http", "$q", function ($http, $q) {
-
 
         this.listaCategorias = function (tipo) {
 
@@ -366,7 +323,6 @@ angular.module("disenador-de-logos")
     /***************************/
 
     .service('preferenciasService', ["$http", "$q", function ($http, $q) {
-
 
         this.listaPreferencias = function () {
 
@@ -505,13 +461,13 @@ angular.module("disenador-de-logos")
         }
 
 
-        this.listarPedidos = function (id) {
-            /*
+        this.listarPedidos = function () {
+            
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            $http.get("app/pedidos/cliente/"+id).then(function (res) {
+            $http.get("/app/cliente/pedidos").then(function (res) {
 
                 defered.resolve(res.data);
 
@@ -522,7 +478,7 @@ angular.module("disenador-de-logos")
             })
 
             return promise;
-            */
+            
         }
 
     }])
