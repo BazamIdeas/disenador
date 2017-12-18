@@ -24,28 +24,31 @@
 								<span>{{cuenta.datos.correo}}</span>
 							</div>
 						</div>
-						<div class="col s12">
-							<span class="label">Nombre</span>
-							<div class="info">
-								<span>{{cuenta.datos.nombreCliente}}</span>
-							</div>
-						</div>
-						<div class="col s12">
-							<span class="label">Telefono</span>
-							<div class="info">
-								<span>{{cuenta.datos.telefono}}</span>
-							</div>
-						</div>
-						<div class="col s12">
-							<span class="label">País</span>
-							<div class="info">
-								<span>Venezuela</span>
-							</div>
+                        <div ng-switch="cuenta.formulario">
+                            <div ng-switch-default>
+                                <div class="col s12">
+                                    <span class="label">Nombre</span>
+                                    <div class="info">
+                                        <span>{{cuenta.datos.nombreCliente}}</span>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <span class="label">Telefono</span>
+                                    <div class="info">
+                                        <span>{{cuenta.datos.telefono}}</span>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <span class="label">País</span>
+                                    <div class="info">
+                                        <span>Venezuela</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <button class="boton-verde">EDITAR</button>
+                            </div>
                         </div>
-
-						<div class="col s12">
-							<button class="boton-verde">EDITAR</button>
-						</div>
 					</div>
                 </div>
 
