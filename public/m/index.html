@@ -70,6 +70,7 @@
     <script src="app/controllers/v2/principal.opciones.controller.js"></script>
     <script src="app/controllers/v2/principal.combinaciones.controller.js"></script>
     <script src="app/controllers/v2/editor.controller.js"></script>
+    <script src="app/controllers/v2/cuenta.controller.js"></script>
     <script src="app/controllers/v2/planes.controller.js"></script>
     <script src="app/controllers/v2/pago.controller.js"></script>
     <script src="app/controllers/v2/pagoCompleto.controller.js"></script>
@@ -83,13 +84,13 @@
 
     <header class="row margin-bottom-0" ng-controller="headerController as header">
     
-        <div class="col s7 logo">
+        <div class="col s9 logo">
             
             <h5 class="blanco" ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
         
         </div>
 
-        <div class="col s4 padding-0" show-gt-sm>
+        <div class="col s3 padding-0" show-gt-sm>
 
             <div class="toggle-menu" ng-switch="header.toggle">
                 <div ng-switch-when="false" ng-click="header.toggleMenu()" class="toggle" style="cursor: pointer">

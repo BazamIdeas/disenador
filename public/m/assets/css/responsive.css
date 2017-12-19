@@ -5,5 +5,25 @@
     and (orientation: portrait)
 {
     input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
-    font-size: 20px;
+    font-size: 18px;
 }
+
+@media (orientation: portrait){
+	.caja.logos > div.col {
+	    display: flex;
+	}
+	.caja.datos {
+	    display: flex;
+	}
+	.caja.pedidos {
+    	min-height: calc(100% - 160px);
+    	height: calc(100% - 30px);
+    	display: flex;
+	}
+} 
+
+@media (orientation: landscape){
+	.caja.logos > div.col {
+	    margin-top: 30px;
+	}
+} 
