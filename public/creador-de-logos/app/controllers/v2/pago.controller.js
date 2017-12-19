@@ -45,10 +45,10 @@ angular.module("disenador-de-logos")
         bz.pagar = function (idPasarela, terminos) {
 
             
-            bz.completado = false;
-            
-            if (terminos) {
+            if (terminos &&  bz.completado) {
                 
+                bz.completado = false;
+            
                 angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
                 
                 switch (idPasarela) {

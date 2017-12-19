@@ -80,7 +80,7 @@ cliente.getCliente = function(id,callback)
 	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes WHERE idCliente = ?' 
 	var par = [id] //parametros
 
-	console.log(par)
+	//console.log(par)
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row){
@@ -165,7 +165,7 @@ cliente.updateCliente = function(body, passActual, callback)
 
 		var q = `SELECT * FROM clientes WHERE idCliente = ?`;
 		var par = [body.idCliente]
-
+        
 		DB.getConnection(function(err, connection)
 		{
 			connection.query( q , par , function(err, row){
