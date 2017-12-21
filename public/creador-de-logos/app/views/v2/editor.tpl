@@ -81,14 +81,14 @@
 
 						<!---->
                         
-                        <button ng-if="!editor.esloganActivo" ng-click="editor.agregarEslogan()">
+                        <button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="editor.agregarEslogan()">
                             Agregar Eslogan
                         </button>
                         
                         <div ng-if="editor.esloganActivo">
                             <p class="text-center principal titulo">ESLOGAN</p>
                             <div class="input-field col s12">
-                                <input id="nombre" type="text" name="fuenteEslogan" maxlength="12" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}" ngX-change="editor.cambioTexto(editor.logo.texto)">
+                                <input id="nombre" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.eslogan, true)">
                                 <label for="nombre" class="active">Nombre</label>
                             </div>
                         </div>

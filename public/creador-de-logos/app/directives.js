@@ -315,8 +315,12 @@ angular.module("disenador-de-logos")
                     ////////////////////////////////////////////
 
                     scope.$on("editor:texto", function (evento, texto) {
-
-                        element.find(".textoPrincipal").text(texto);
+                        
+                        textoFinal = texto.texto;
+                        
+                        var selector = !texto.eslogan ? ".textoPrincipal" : ".eslogan";
+                        
+                        element.find(selector).text(textoFinal);
                         obtenerSVGFinal();
 
                     })
@@ -794,16 +798,18 @@ angular.module("disenador-de-logos")
                     })
                     
                     
-                    scope.$on("editor:agregarEslogan", function () {
+                    scope.$on("editor:agregarEslogan", function (evento, eslogan) {
 
                         if(!element.find(".eslogan").length){
                             
+                            var tamanoBase = 100;
+                            
                             var textoEslogan = document.createElementNS("http://www.w3.org/2000/svg", "text");
 
-                            textoEslogan.setAttributeNS(null, "x", 50);
-                            textoEslogan.setAttributeNS(null, "y", 90);
+                            textoEslogan.setAttributeNS(null, "x", tamanoBase/2);
+                            textoEslogan.setAttributeNS(null, "y", tamanoBase*0.9);
 
-                            var textoNodeEslogan = document.createTextNode("Mi eslogan aquí");
+                            var textoNodeEslogan = document.createTextNode(eslogan);
 
                             textoEslogan.appendChild(textoNodeEslogan);
           
@@ -812,15 +818,12 @@ angular.module("disenador-de-logos")
                             var svgEslogan = element.children()[0].children[3];
                             
                             var textoPrincipal = element.find("text.textoPrincipal");
-                            
-                            
-                            svgEslogan.style.fontSize = 10 + "px";
+     
+                            svgEslogan.style.fontSize = (tamanoBase*0.1) + "px";
                             svgEslogan.setAttribute("text-anchor", "middle");
                             svgEslogan.setAttribute("font-family", textoPrincipal.attr("font-family"));
                             svgEslogan.setAttribute("class", "eslogan");
-                            
-                            
-                            
+     
                         }
                         
                         obtenerSVGFinal();
