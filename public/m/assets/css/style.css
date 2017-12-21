@@ -147,7 +147,7 @@ md-slider .md-thumb {
 }
 
 md-input-container {
-    margin: 11px 0;
+    margin: 1rem 0 30px;
 }
 
 md-toast.success .md-toast-content {
@@ -188,18 +188,18 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 
 md-option .md-text {
     font-family: 'futura-heavy' !important;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .md-select-value>span:not(.md-select-icon) .md-text {
     display: inline;
     font-family: 'futura-heavy' !important;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .input-field label {
     top: 0.2rem;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--principal);
     font-family: "futura-heavy" !important;
 }
@@ -430,18 +430,19 @@ button.boton-verde:hover {
 */
 
 /*Begin header*/
-header { 
+header {
     background-color: var(--principal);
-    height: 60px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    text-align: right; 
+    text-align: right;
     font-size: 14px;
     padding: 0 10px;
     z-index: 4;
     position: relative;
 }
+
 header div div.login {
     color: white
 }
@@ -479,8 +480,9 @@ nav.show{
     width: 100%;
     justify-content: center;
     cursor: pointer;
-    line-height: 54px;
+    line-height: 53px;
     position: relative;
+    height: 50px;
 }
 
 .links li:not(:last-child):after {
@@ -520,8 +522,10 @@ section.sub-menu, section.sub-menu-principal{
     margin: 0 !important; 
 }
 
-section.sub-menu .row .col.titulo{
+section.sub-menu .row .col.titulo {
     justify-content: center;
+    box-shadow: 0px 0px 2px 2px #d4d4d4;
+    margin-bottom: 2px;
 }
 
 section.sub-header-principal .row .col.logo h6 {
@@ -534,6 +538,7 @@ section.sub-menu .row .col.titulo h6 {
     text-align: center;
     font-size: 1.5rem;
     padding: 5px;
+    margin: .25rem 0 .25rem 0;
 }
 
 /*End sub-header*/
@@ -544,7 +549,6 @@ section.sub-menu .row .col.titulo h6 {
     text-align: center;
     position: relative;
     background-color: #ffffff;
-    box-shadow: inset 0px -1px 1px 0px #d5d5d5;
     transition: all 0.5s;
 }
 
@@ -553,22 +557,22 @@ section.sub-menu .row .col.titulo h6 {
 }
 
 
-.tab.active {
+/*.tab.active {
     border-top: .3px solid #d5d5d5;
     box-shadow: none;
-}
+}*/
 
 .tab.active h5{
     color: var(--principal);
 }
 
-/*.tab:after {
+.tab:after {
     content: "";
     position: absolute;
     width: 0%;
     height: 0px;
-    background-color: #d4d4d4;
-    bottom: 3px;
+    background-color: var(--principal);
+    bottom: 0px;
     left: 50%;
     transition: width 0.5s, left 0.5s;
 }
@@ -577,21 +581,21 @@ section.sub-menu .row .col.titulo h6 {
 .tab.active:after {
     content: "";
     position: absolute;
-    width: 90%;
+    width: 100%;
     height: 2px;
-    background-color: #d4d4d4;
-    bottom: 3px;
-    left: 5%;
-}*/
-
-.tab h5 {
-    font-size: 16px;
-    padding: 10px;
+    background-color: var(--principal);
+    bottom: 0px;
+    left: 0%;
 }
 
-div.sidebar-1, div.sidebar-2, div.lienzo{
+.tab h5 {
+    font-size: 22px;
+    padding: 3.05px;
+}
+
+div.sidebar-1, div.sidebar-2, div.lienzo {
     padding-top: 10px !important;
-    max-height: calc(100vh - 9rem);
+    max-height: calc(100vh - 115px);
     overflow-y: auto;
     position: relative;
     height: 100%;
@@ -603,24 +607,18 @@ div.sidebar-1, div.sidebar-2{
 }
 
 div.sidebar-2{
-    z-index: 0;
     transition: margin-left 1s ease;
     border-right: 1px solid #d6d6d6;
 }
 
 /*Begin SideBar 1*/
-div.sidebar-1 {
-    z-index: 1;
-}
+
 
 
 .scroll-wrapper > .scroll-content {
     box-sizing: border-box !important;
 }
 
-.scroll-wrapper.sidebar-1 {
-    position: fixed !important;
-}
 
 .scroll-wrapper.sidebar-1 .scroll-content{
     padding: 0 0.75rem;
@@ -1477,7 +1475,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 .caja.logos > div.col {
     height: 100%;
-    display: flex;
+    margin-top: 15px;
     align-items: center;
 }
 
@@ -1488,6 +1486,23 @@ div.contenedor-planes .plan .plan-body .plan-precio{
     font-family: 'futura-heavy' !important;
 }
 
+
+.caja.datos {
+    min-height: calc(100% - 160px);
+    height: calc(100% - 30px);
+    padding: 30px 0;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.caja.pedidos {
+    min-height: calc(100% - 160px);
+    height: calc(100% - 30px);
+    display: flex;
+    padding: 30px 0;
+    flex-flow: column;
+    justify-content: center;
+}
 
 .caja.pedidos div table thead tr th{
     padding: 12px 0px;
@@ -1909,7 +1924,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 
 .opciones-guardados, .opciones-adquiridos{
     position: absolute;
-    bottom: -61;
+    bottom: -63px;
     width: 100%;
     background-color: white;
     transition: all 0.5s

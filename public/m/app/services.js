@@ -255,48 +255,6 @@ angular.module("disenador-de-logos")
     })
 
 
-    .filter('unique', function () {
-
-        return function (items, filterOn) {
-
-            if (filterOn === false) {
-                return items;
-            }
-
-            if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-                var hashCheck = {},
-                    newItems = [];
-
-                var extractValueToCompare = function (item) {
-                    if (angular.isObject(item) && angular.isString(filterOn)) {
-                        return item[filterOn];
-                    } else {
-                        return item;
-                    }
-                };
-
-                angular.forEach(items, function (item) {
-                    var valueToCheck, isDuplicate = false;
-
-                    for (var i = 0; i < newItems.length; i++) {
-                        if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
-                            isDuplicate = true;
-                            break;
-                        }
-                    }
-                    if (!isDuplicate) {
-                        newItems.push(item);
-                    }
-
-                });
-                items = newItems;
-            }
-            return items;
-        };
-    })
-
-
-
     /*-------------------------- Services --------------------------*/
 
 
@@ -305,7 +263,6 @@ angular.module("disenador-de-logos")
     /***************************/
 
     .service('categoriasService', ["$http", "$q", function ($http, $q) {
-
 
         this.listaCategorias = function (tipo) {
 
@@ -366,7 +323,6 @@ angular.module("disenador-de-logos")
     /***************************/
 
     .service('preferenciasService', ["$http", "$q", function ($http, $q) {
-
 
         this.listaPreferencias = function () {
 
@@ -504,6 +460,27 @@ angular.module("disenador-de-logos")
             }
         }
 
+
+        this.listarPedidos = function () {
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/cliente/pedidos").then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+            
+        }
+
     }])
 
     /***************************************/
@@ -512,9 +489,7 @@ angular.module("disenador-de-logos")
 
     .factory("clienteDatosFactory", [function () {
 
-
         var cliente = null;
-
 
         return {
             obtener: function () {
@@ -526,7 +501,6 @@ angular.module("disenador-de-logos")
 
                 cliente = objectoCliente;
 
-
             },
             eliminar: function () {
 
@@ -537,9 +511,7 @@ angular.module("disenador-de-logos")
 
     }])
 
-
     .service('clientesService', ['$http', '$q', '$window', '$rootScope', "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
-
 
         this.registrar = function (nombreCliente, correo, pass, telefono, pais) {
 
@@ -554,7 +526,7 @@ angular.module("disenador-de-logos")
                     telefono: telefono,
                     pais: pais
                 }).then(function (res) {
-           
+
                     $window.localStorage.setItem('bzToken', angular.toJson(res.data));
                     clienteDatosFactory.definir(res.data);
                     defered.resolve();
@@ -642,7 +614,6 @@ angular.module("disenador-de-logos")
             }
         }
 
-
         this.pais = function () {
 
             var defered = $q.defer();
@@ -661,15 +632,59 @@ angular.module("disenador-de-logos")
                     defered.reject()
                 })
 
-
             return promise;
 
         }
+        
+        this.datos = function(){
+            
+            var defered = $q.defer();
 
+            var promise = defered.promise;
+
+            $http.get("/app/cliente/datos")
+
+                .then(function (res) {
+
+                    defered.resolve(res.data);
+
+                })
+                .catch(function (res) {
+
+                    defered.reject()
+                })
+
+            return promise;
+            
+        }
+        
+        
+        this.modificar = function(nombreCliente, telefono, pais){
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+            
+            $http.post("/app/cliente/modificar", {
+                telefono: telefono,
+                nombreCliente: nombreCliente,
+                pais: pais
+            })
+                
+                .then(function (res) {
+
+                    defered.resolve(res.data);
+
+                })
+                .catch(function (res) {
+
+                    defered.reject()
+                })
+
+            return promise;
+        }
 
     }])
-
-
 
     /*--------------------------- Factories aislados ------------------*/
 
@@ -743,10 +758,8 @@ angular.module("disenador-de-logos")
                         if (fuente.estado == true) {
 
                             var logo = {
-
                                 icono: icono,
                                 fuente: fuente
-
                             };
 
                             logos.push(logo);
@@ -760,7 +773,6 @@ angular.module("disenador-de-logos")
             return logos;
 
         }
-
 
     }])
 
@@ -787,7 +799,6 @@ angular.module("disenador-de-logos")
 
     .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
 
-
         this.guardarLogo = function (logo, tipoLogo, idElemento) {
 
             var defered = $q.defer();
@@ -810,11 +821,9 @@ angular.module("disenador-de-logos")
 
             })
 
-
             return promise;
-
+            
         }
-
 
         this.mostrarGuardados = function () {
 
@@ -886,11 +895,9 @@ angular.module("disenador-de-logos")
 
         this.obtenerPorId = function (idLogo) {
 
-
             var defered = $q.defer();
 
             var promise = defered.promise;
-
 
             $http.get("/app/logo/" + idLogo).then(function (res) {
 
@@ -905,11 +912,33 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
+        
+        this.borrarLogo = function(idLogo){
+            
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+
+            $http.get("/app/logo/borrar/" + idLogo).then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+            
+        }
 
     }])
 
     /*********************/
-    /***** planes *********/
+    /***** planes ********/
     /*********************/
 
     .service("planesService", ["$http", "$q", function ($http, $q) {
