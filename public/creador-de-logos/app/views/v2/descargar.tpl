@@ -31,7 +31,7 @@
 						<div class="row">
 					
                             <div class="col l2" ng-repeat="formato in descargar.formatos">
-                              <div class="formato" style="width: 50px; height: 50px; margin-bottom: 20px" ng-click="descargar.descargar(formato.nombre, formato.ancho)">
+                              <div class="formato" style="width: 50px; height: 50px; margin-bottom: 20px"  ng-click="descargar.seleccionar(formato)">
                                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
                                   <img style="width:100%" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
                               </div>
@@ -42,6 +42,11 @@
 					</div>
 
 				</div>
+				
+                <div class="col s3" ng-if="descargar.formatoSeleccionado">
+				    {{descargar.formatoSeleccionado.nombre | uppercase}}
+                    <button ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">Descargar</button>
+                </div>
 
             </div>
         </section>

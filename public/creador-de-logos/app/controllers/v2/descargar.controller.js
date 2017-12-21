@@ -7,83 +7,77 @@ angular.module("disenador-de-logos")
         var bz = this;
 
         bz.base64 = $base64;
+        
+        bz.formatoSeleccionado = null;
 
         bz.formatos = [
             {
                 nombre: "svg",
-                ancho: 100
+                ancho: 400
             },
             {
                 nombre: "facebook",
-                ancho: 100
+                ancho: 180
             },
             {
                 nombre: "whatsapp",
-                ancho: 100
+                ancho: 300
             },
             {
                 nombre: "instagram",
-                ancho: 100
+                ancho: 110
             },
             {
                 nombre: "google-plus",
-                ancho: 100
+                ancho: 250
             },
             {
                 nombre: "youtube",
-                ancho: 100
+                ancho: 200
             },
             {
                 nombre: "skype",
-                ancho: 100
+                ancho: 214
             },
             {
                 nombre: "twitter",
-                ancho: 100
+                ancho: 400
             },
             {
                 nombre: "behance",
-                ancho: 100
+                ancho: 276
             },
             {
                 nombre: "blogger",
-                ancho: 100
-            },
-            {
-                nombre: "deviantart",
-                ancho: 100
-            },
-            {
-                nombre: "dribbble",
-                ancho: 100
+                ancho: 250
             },
             {
                 nombre: "flickr",
-                ancho: 100
+                ancho: 60
             },
             {
                 nombre: "linkedin",
-                ancho: 100
+                ancho: 400
             },
             {
                 nombre: "pinterest",
-                ancho: 100
+                ancho: 60
             },
             {
                 nombre: "telegram",
-                ancho: 100
+                ancho: 300
             },
             {
                 nombre: "tumblr",
-                ancho: 100
-            },
-            {
-                nombre: "viber",
-                ancho: 100
+                ancho: 64
             },
             {
                 nombre: "vimeo",
-                ancho: 100
+                ancho: 300
+            },
+            {
+                nombre: "line",
+                ancho: 300
             }
         ]
 
@@ -105,8 +99,16 @@ angular.module("disenador-de-logos")
             })
 
         }
+        
+        
+        bz.seleccionar = function (formato) {
+            
+            bz.formatoSeleccionado = angular.copy(formato);
+            
+        }
+        
 
-        bz.dispararDescarga = function (imgURI) {
+        bz.dispararDescarga = function (imgURI, nombre, ancho) {
 
             var evento = new MouseEvent('click', {
                 view: window,
@@ -116,32 +118,48 @@ angular.module("disenador-de-logos")
             });
 
             var a = document.createElement('a');
-            a.setAttribute('download', "hola");
+            a.setAttribute('download', nombre+"@"+ancho+"x"+ancho);
             a.setAttribute('href', imgURI);
             a.setAttribute('target', '_blank');
             a.dispatchEvent(evento);
 
         }
 
+        bz.completado = true;
         bz.descargar = function (nombre, ancho) {
 
-            logosService.descargarLogo(bz.logo.id, ancho, $filter('uppercase')(nombre), nombre).then(function (res) {
+            if(bz.completado){
+                
+                bz.completado = false;
+                
+                angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-                if (res.zip) {
+                logosService.descargarLogo(bz.logo.id, ancho, $filter('uppercase')(nombre), nombre)
+
+                    .then(function (res) {
+
+                        if (res.zip) {
+
+                            var url = res.zip.replace('public', '');
+
+                        } else if (res.png){
+
+                            var url = res.png.replace('public', '');
+
+                        }
+
+                        bz.dispararDescarga(url, nombre, ancho);
+
+                    })
+                
+                    .finally(function(){
                     
-                    var nombre = res.zip.replace('public', '');
+                        bz.completado = true;
+                        angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
                     
-                } else if (res.png){
-                    
-                    var nombre = res.png.replace('public', '');
-                    
+                    })
+            
                 }
-
-                var url = nombre;
-
-                bz.dispararDescarga(url)
-
-            })
 
         };
 

@@ -296,7 +296,15 @@ angular.module("disenador-de-logos")
 
         })
         */
-
+        
+        
+        bz.agregarEslogan = function(){
+ 
+            $rootScope.$broadcast("editor:agregarEslogan");
+            
+            //bz.esloganActivo = true;
+            
+        }
 
         //////////////////////////////////////////
         ////////RESTAURAR COMPARACIONES///////////
