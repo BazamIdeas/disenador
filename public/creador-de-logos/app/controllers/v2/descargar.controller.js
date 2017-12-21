@@ -7,14 +7,19 @@ angular.module("disenador-de-logos")
         var bz = this;
 
         bz.base64 = $base64;
-        
-        bz.formatoSeleccionado = null;
 
-        bz.formatos = [
+        bz.formatosNoSociales = [
             {
                 nombre: "svg",
                 ancho: 400
             },
+            {
+                nombre: "papeleria",
+                ancho: 300
+            }
+        ]
+
+        bz.formatos = [
             {
                 nombre: "facebook",
                 ancho: 180
@@ -80,6 +85,8 @@ angular.module("disenador-de-logos")
                 ancho: 300
             }
         ]
+
+        bz.formatoSeleccionado = bz.formatos[0];
 
         bz.logo = {
             id: logoResolve.id,
