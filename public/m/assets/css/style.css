@@ -147,7 +147,7 @@ md-slider .md-thumb {
 }
 
 md-input-container {
-    margin: 11px 0;
+    margin: 1rem 0 30px;
 }
 
 md-toast.success .md-toast-content {
@@ -188,13 +188,13 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
 
 md-option .md-text {
     font-family: 'futura-heavy' !important;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .md-select-value>span:not(.md-select-icon) .md-text {
     display: inline;
     font-family: 'futura-heavy' !important;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .input-field label {
@@ -522,8 +522,10 @@ section.sub-menu, section.sub-menu-principal{
     margin: 0 !important; 
 }
 
-section.sub-menu .row .col.titulo{
+section.sub-menu .row .col.titulo {
     justify-content: center;
+    box-shadow: 0px 0px 2px 2px #d4d4d4;
+    margin-bottom: 2px;
 }
 
 section.sub-header-principal .row .col.logo h6 {
@@ -591,9 +593,9 @@ section.sub-menu .row .col.titulo h6 {
     padding: 3.05px;
 }
 
-div.sidebar-1, div.sidebar-2, div.lienzo{
+div.sidebar-1, div.sidebar-2, div.lienzo {
     padding-top: 10px !important;
-    max-height: calc(100vh - 9rem);
+    max-height: calc(100vh - 115px);
     overflow-y: auto;
     position: relative;
     height: 100%;
@@ -605,24 +607,18 @@ div.sidebar-1, div.sidebar-2{
 }
 
 div.sidebar-2{
-    z-index: 0;
     transition: margin-left 1s ease;
     border-right: 1px solid #d6d6d6;
 }
 
 /*Begin SideBar 1*/
-div.sidebar-1 {
-    z-index: 1;
-}
+
 
 
 .scroll-wrapper > .scroll-content {
     box-sizing: border-box !important;
 }
 
-.scroll-wrapper.sidebar-1 {
-    position: fixed !important;
-}
 
 .scroll-wrapper.sidebar-1 .scroll-content{
     padding: 0 0.75rem;
