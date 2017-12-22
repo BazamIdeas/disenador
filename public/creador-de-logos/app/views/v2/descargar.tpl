@@ -37,7 +37,7 @@
                     </div>
             	</div>
 				
-				<div class="col s4" style="padding: 0 40px;">
+				<div class="col s3" style="padding: 0 40px;">
 
 					<p class="tercero text-center">Sociales</p>
 					
@@ -45,7 +45,7 @@
 						
 						<div class="row">
 					
-                            <div class="col l2" ng-repeat="formato in descargar.formatos">
+                            <div class="col l3" ng-repeat="formato in descargar.formatos">
                               <div class="formato" style="width: 50px; height: 50px; margin-bottom: 20px"  ng-click="descargar.seleccionar(formato)">
                                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
                                   <img style="width:100%" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
@@ -58,7 +58,7 @@
 
 				</div>
 				
-                <div class="col s4 text-center" style="background-color: white;height: 100%">
+                <div class="col s5 text-center" style="background-color: white;height: 100%">
                     
                     <p class="tercero text-center">Preview</p>
 
