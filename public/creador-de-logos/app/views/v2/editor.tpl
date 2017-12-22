@@ -91,7 +91,42 @@
                                 <input id="nombre" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.eslogan, true)">
                                 <label for="nombre" class="active">Nombre</label>
                             </div>
+                            
+                            <md-input-container style="width:100%; padding: 0 0.75rem" >
+                                <md-select ng-model="editor.logo.x" placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuente)" md-no-asterisk required> 
+                                    <md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"  ng-selected="editor.logo.fuente.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            
+                            <div class=" col s12 estilo-texto" style="font-size: 0px;" >
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Color</md-tooltip>
+                                <div color-picker color-picker-model="editor.colorEslogan" ng-model="editor.colorEslogan" ng-change="editor.cambioColor(editor.colorEslogan, 'eslogan')" color-picker-position="right" class="color" style="background-color: {{editor.colorEslogan}}"></div>               
+                            </div>
+                            
+                            <div class=" col s12 estilo-texto">
+                                <div class="negrita" ng-click="editor.cambioPropiedad('bold', true)">
+                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
+                                    N
+                                </div>               
+                                <div class="cursiva" ng-click="editor.cambioPropiedad('cursive', true)">
+                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cursiva</md-tooltip>
+                                    C
+                                </div>               
+                            </div>
+                            
+                            <div class=" col s12 estilo-texto">
+                    		<div class="menos" ng-click="editor.cambioTamano('eslogan', false)">
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+                    			-
+                    		</div>               
+                    		<div class="mas" ng-click="editor.cambioTamano('eslogan', true)">
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+                    			+
+                    		</div>               
                         </div>
+                            
+                        </div>
+                        
                         
                     
                             <!--

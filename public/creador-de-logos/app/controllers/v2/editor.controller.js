@@ -183,9 +183,9 @@ angular.module("disenador-de-logos")
         ////////CAMBIO DE PROPIEDAS//////////
         ///////////////////////////////////// 
 
-        bz.cambioPropiedad = function (propiedad) {
+        bz.cambioPropiedad = function (propiedad, eslogan) {
 
-            $rootScope.$broadcast("editor:propiedad", propiedad);
+            $rootScope.$broadcast("editor:propiedad", {propiedad: propiedad, eslogan: eslogan});
 
         }
 
@@ -234,7 +234,6 @@ angular.module("disenador-de-logos")
 
 
         bz.cambiarOrientacion = function (orientacion) {
-
 
             $rootScope.$broadcast("editor:orientacion", orientacion);
 

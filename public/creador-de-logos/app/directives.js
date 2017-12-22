@@ -299,9 +299,10 @@ angular.module("disenador-de-logos")
                             //cambiamos el color al correcto
                             element.find("[data-indice=" + indice + "]").css("fill", datos.color);
 
-                        } else if (datos.objetivo == 'texto') {
+                        } else if (datos.objetivo == 'texto' || datos.objetivo == 'eslogan') {
 
-                            element.find("text.textoPrincipal").css("fill", datos.color);
+                            var selector = datos.objetivo == 'eslogan' ? "text.eslogan" : "text.textoPrincipal";
+                            element.find(selector).css("fill", datos.color);
 
                         }
 
@@ -346,22 +347,21 @@ angular.module("disenador-de-logos")
 
                     scope.$on("editor:propiedad", function (evento, propiedad) {
 
+                        var selector = propiedad.eslogan ? "text.eslogan": "text.textoPrincipal";
+                        
+                        if (propiedad.propiedad == 'bold') {
 
-                        if (propiedad == 'bold') {
-
-                            var grosor = element.find("text.textoPrincipal").attr("font-weight") == "bold" ? "normal" : "bold";
-
-                            //cambiamos la font-weight al correcto
-                            element.find("text.textoPrincipal").attr("font-weight", grosor);
-
-                        } else if (propiedad == 'cursive') {
-
-
-
-                            var estilo = element.find("text.textoPrincipal")[0].style.fontStyle == "oblique" ? "normal" : "oblique";
+                            var grosor = element.find(selector).attr("font-weight") == "bold" ? "normal" : "bold";
 
                             //cambiamos la font-weight al correcto
-                            element.find("text.textoPrincipal").css("font-style", estilo);
+                            element.find(selector).attr("font-weight", grosor);
+
+                        } else if (propiedad.propiedad == 'cursive') {
+
+                            var estilo = element.find(selector)[0].style.fontStyle == "oblique" ? "normal" : "oblique";
+
+                            //cambiamos la font-weight al correcto
+                            element.find(selector).css("font-style", estilo);
 
                         }
 
@@ -376,9 +376,11 @@ angular.module("disenador-de-logos")
                     scope.$on("editor:tamano", function (evento, datos) {
 
 
-                        if (datos.objetivo == 'texto') {
-
-                            var texto = element.find("text.textoPrincipal");
+                        if (datos.objetivo == 'texto' || datos.objetivo == 'eslogan') {
+                            
+                            
+                            var selector = datos.objetivo == "eslogan" ? "text.eslogan" : "text.textoPrincipal";
+                            var texto = element.find(selector);
 
                             if (datos.accion) {
 
@@ -438,7 +440,7 @@ angular.module("disenador-de-logos")
 
                     var intermediador = true;
 
-                    $("bazam-svg").on("mousedown", "text.textoPrincipal, g.contenedor-icono", function (evento) {
+                    $("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono", function (evento) {
 
                         intermediador = false;
 
@@ -466,7 +468,7 @@ angular.module("disenador-de-logos")
 
                     })
 
-                    $("bazam-svg").on("mousemove", "text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
+                    $("bazam-svg").on("mousemove", "text.eslogan[movimiento-bz], text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
 
 
                         if ($("[movimiento-bz]").length) {
@@ -497,7 +499,7 @@ angular.module("disenador-de-logos")
 
                     angular.element(document.querySelector("body")).mouseup(function (evento) {
 
-                        $("text.textoPrincipal, g.contenedor-icono").removeAttr("movimiento-bz");
+                        $("text.textoPrincipal, g.contenedor-icono, text.eslogan").removeAttr("movimiento-bz");
 
                         var clon = angular.element(document.querySelector("bazam-svg")).clone();
 
@@ -604,6 +606,34 @@ angular.module("disenador-de-logos")
                             svgIcono.setAttribute("x", paddingLeft);
                             svgTexto.setAttribute("x", paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05)));
                             svgTexto.setAttribute("y", (alturaSVG / 2) + (parseFloat(svgTexto.style.fontSize) / 4));
+                            
+                            //SI EXISTE EL ESLOGAN
+                               
+                            if(element.find("text.eslogan").length){
+                                
+                                var eslogan = element.find("text.eslogan")[0];
+                               
+                                eslogan.setAttribute("transform", '');
+                                eslogan.setAttribute("text-anchor", "left");
+                                
+                           
+                                eslogan.style.fontSize = svgTexto.style.fontSize;
+                                
+                                while((eslogan.textLength.baseVal.value > (svgTexto.textLength.baseVal.value * 0.8))){
+                                    
+                                                                 
+                                    eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+                                   
+                                }
+                                
+                                
+                                
+                                eslogan.setAttribute("x", (paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05))) * 1.15);
+                                eslogan.setAttribute("y", (alturaSVG / 1.7));
+                                
+                            }
+
+                            
 
                         } else if (orientacion == 'vertical') {
 
@@ -669,10 +699,36 @@ angular.module("disenador-de-logos")
 
                                 svgIcono.setAttribute("y", paddingTopIcono);
 
-                                var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+                                paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
                                 svgTexto.setAttribute("y", paddingTopText);
 
+                            }
+                            
+                            
+                           if(element.find("text.eslogan").length){
+                                
+                                var eslogan = element.find("text.eslogan")[0];
+                               
+                                eslogan.setAttribute("transform", '');
+                                eslogan.setAttribute("text-anchor", "middle");
+                                
+                           
+                                eslogan.style.fontSize = svgTexto.style.fontSize;
+                                
+                                while((eslogan.textLength.baseVal.value > (svgTexto.textLength.baseVal.value * 0.8))){
+                                    
+                                                                 
+                                    eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+                                   
+                                }
+                                
+                                
+                                
+                            
+                                eslogan.setAttribute("y", (parseFloat(paddingTopText) * 1.1) + "px");
+                                eslogan.setAttribute("x", (tamanoBase / 2));
+                                
                             }
 
                         }
