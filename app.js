@@ -18,8 +18,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
 
-app.use('/fuentes', express.static(__dirname + '/fuentes'))
-
+app.use(configuracion.base+'/fuentes', express.static(__dirname + '/fuentes'))
+app.use('/m/fuentes', express.static(__dirname + '/fuentes'))
 
 app.use('/angular', express.static(__dirname + '/node_modules/angular'))
 app.use('/angular-material', express.static(__dirname + '/node_modules/angular-material'))
@@ -39,13 +39,15 @@ app.use('/ng-file-upload', express.static(__dirname + '/node_modules/ng-file-upl
 app.use('/app',rutas);
 
 
-
 app.use('/creador-de-logos/*', function(req, res, next) {
     
 
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('/public/creador-de-logos/index.html', { root: __dirname });
 });
+
+
+
 app.use('/m/*', function(req, res, next) {
     
 
