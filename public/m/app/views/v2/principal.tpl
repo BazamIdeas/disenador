@@ -15,7 +15,7 @@
             </div>
         </section>
 
-        <section style="max-height: calc(100vh - 115px) !important;">
+        <section class="cuerpo">
             <div class="row margin-bottom-0">
                 <div class="col s12 sidebar-1" ng-form="principal.datosForm">
                     <div class="input-field col s12">

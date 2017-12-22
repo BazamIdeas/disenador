@@ -78,10 +78,9 @@ textarea {
 }
 
 body {
-    background: var(--fondo);
-    height: 100%;
+    background: white;
     position: relative;
-    overflow: hidden;
+    height: 100%;
 }
 
 :focus{
@@ -433,14 +432,16 @@ button.boton-verde:hover {
 header {
     background-color: var(--principal);
     height: 50px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     text-align: right;
     font-size: 14px;
     padding: 0 10px;
-    z-index: 4;
-    position: relative;
+    z-index: 3;
+    position: fixed;
+    top: 0;
 }
 
 header div div.login {
@@ -510,10 +511,21 @@ div.acceder span i { vertical-align: top; }
 /*End header*/
 
 /*Begin sub-header*/
-section.sub-menu, section.sub-menu-principal{
-    position: relative;
-    z-index: 2;
+section.sub-menu, section.sub-menu-principal {
+    position: fixed;
+    z-index: 3;
+    top: 51px;
+    width: 100%;
+    height: 40px;
+    box-shadow: 0px 2px 2px 0px #d4d4d4;
+    background-color: white;
 }
+
+section.cuerpo{
+    margin-top: 90px; 
+}
+
+
 .row .col.logo{
     display: flex;
     align-items: center;
@@ -524,7 +536,6 @@ section.sub-menu, section.sub-menu-principal{
 
 section.sub-menu .row .col.titulo {
     justify-content: center;
-    box-shadow: 0px 0px 2px 2px #d4d4d4;
     margin-bottom: 2px;
 }
 
@@ -536,7 +547,7 @@ section.sub-header-principal .row .col.logo h6 {
 section.sub-menu .row .col.titulo h6 {
     font-family: 'futura-heavy' !important;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     padding: 5px;
     margin: .25rem 0 .25rem 0;
 }
@@ -595,10 +606,8 @@ section.sub-menu .row .col.titulo h6 {
 
 div.sidebar-1, div.sidebar-2, div.lienzo {
     padding-top: 10px !important;
-    max-height: calc(100vh - 115px);
     overflow-y: auto;
     position: relative;
-    height: 100%;
     margin: 0 0;
 }
 
@@ -707,8 +716,6 @@ div.contenedor-principal{
     transition: width 1s ease;
     padding: 0 !important;
     background-color: var(--fondo);
-    max-height: calc(100vh - 9rem);
-    height: 100%;
     display: inline-block;
     float: none !important;
     position: relative;
