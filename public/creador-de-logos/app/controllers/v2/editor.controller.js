@@ -126,13 +126,11 @@ angular.module("disenador-de-logos")
 
         bz.buscarPlanes = function () {
 
-            $rootScope.$broadcast("editor:planes", true)
+            $rootScope.$broadcast("editor:planes", true);
 
         }
 
-
         $scope.$on("directiva:planes", function (evento, datos) {
-
 
             $state.go("planes", {
                 status: true,
@@ -140,10 +138,8 @@ angular.module("disenador-de-logos")
                     logo: datos,
                     idElemento: bz.logo.icono.idElemento,
                     tipo: 'Logo y nombre'
-
                 }
             })
-
 
         })
 
@@ -166,9 +162,9 @@ angular.module("disenador-de-logos")
         //////////CAMBIO DE TEXTO////////////
         /////////////////////////////////////        
 
-        bz.cambioTexto = function (texto) {
-
-            $rootScope.$broadcast("editor:texto", texto);
+        bz.cambioTexto = function (texto, eslogan) {
+                    
+            $rootScope.$broadcast("editor:texto", {texto: texto, eslogan: eslogan});
 
         }
 
@@ -299,10 +295,12 @@ angular.module("disenador-de-logos")
         
         
         bz.agregarEslogan = function(){
- 
-            $rootScope.$broadcast("editor:agregarEslogan");
             
-            //bz.esloganActivo = true;
+            bz.logo.eslogan = "Mi eslogan aquí";
+            
+            $rootScope.$broadcast("editor:agregarEslogan", bz.logo.eslogan);
+            
+            bz.esloganActivo = true;
             
         }
 
