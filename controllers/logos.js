@@ -1,4 +1,5 @@
 var logo=require('../modelos/logosModelo.js');
+var atributo = require('../modelos/atributosModelo.js');
 var cliente=require('../modelos/clientesModelo.js');
 var services=require('../services');
 var fs = require('pn/fs');
@@ -18,16 +19,46 @@ exports.guardar =  function(req,res)
 			estado : 'Editable',
 			logo : req.body.logo,
 			tipoLogo: req.body.tipoLogo,
-			clientes_idCliente : req.idCliente,
+			clientes_idCliente : req.body.idCliente,
 			elementos_idElemento : req.body.idElemento
 		};
 
+		console.log(logoData, req.body)
 
 		logo.insertLogo(logoData,function(error, data)
 		{
+
 			//si el pedido se ha insertado correctamente mostramos su info
 			if(data && data.insertId)
-			{				
+			{	
+
+				var atributos = req.body.atributos;
+
+				for(var key in atributos){
+
+					var atributosData = {
+						clave : key,
+						valor : atributos[key],
+						logos_idLogo: data.insertId  
+					};
+
+					atributo.Guardar(atributosData, function(error, data) {
+
+						if(data && data.insertId)
+						{
+
+						}
+						else
+						{
+
+							res.status(500).json({"msg":"Algo ocurrio"})
+						
+						}
+
+					})
+
+				} 
+
 				cliente.getCliente(req.idCliente, function(error, data){
 
 					//console.log(data);
@@ -51,9 +82,28 @@ exports.datosLogo =  function(req, res, next) {
 		logo.getLogo(id,function(error, data)
 		{
 		//si el pedido existe 
+
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				res.status(200).json(data[0]);
+				var logo = data[0];
+
+				atributo.ObtenerPorLogo(id, function(error, data){
+
+
+					console.log(data)
+					if (typeof data !== 'undefined' && data.length > 0)
+					{
+						logo['atributos'] = data;
+
+						res.status(200).json(logo);
+					
+					}else{
+
+						res.status(200).json(logo);
+
+					}
+
+				})
 			}
 		//no existe
 			else

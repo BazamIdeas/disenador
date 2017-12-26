@@ -134,7 +134,7 @@ router.post('/precio/modificar', /*middleware.validarUsuario,*/ controllers.prec
 router.post('/logos/guardados', middleware.validar, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables',  middleware.validar, controllers.logos.listaLogosDescargables);
 router.get('/logo/:id', controllers.logos.datosLogo); //muestra los datos de un logo por su id
-router.post('/logo/guardar', middleware.validar, controllers.logos.guardar);
+router.post('/logo/guardar', /*middleware.validar,*/ controllers.logos.guardar);
 router.post('/logo/modificar',  controllers.logos.modificarLogo);
 router.post('/logo/descargar',  controllers.logos.descargar);
 router.get('/logo/borrar/:id',  controllers.logos.Borrar);
