@@ -122,7 +122,6 @@ logo.cambiarEstado = function(logoData, callback)
 	  
 	});
 }
- 
 
 logo.Borrar = (id, callback) => 
 {
@@ -158,6 +157,24 @@ logo.Borrar = (id, callback) =>
  
 	});
 }
+
+logo.VerificarCliente = function(par,callback)
+{ 
+	var q = 'SELECT * FROM logos WHERE clientes_idCliente = ? AND idLogo = ?' 
+	console.log(par)
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
+
+		  	connection.release();
+	  	});
+	});
+}
+
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = logo;

@@ -294,7 +294,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No existe"})
+				res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"})
 			}
 		});	
 	}
@@ -305,7 +305,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 	exports.descargar = function(req, res, next) {
 		var idLogo = req.body.idLogo;
 		var ancho = req.body.ancho;
-		logo.getLogo(idLogo,function(error, data)
+		logo.VerificarCliente(idLogo,function(error, data)
 		{
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
@@ -372,3 +372,22 @@ exports.Borrar = (req, res, next) =>
 }
 
 
+exports.pruebaVerificar = function(req, res, next) {
+		
+		var par = [req.idCliente, req.body.idLogo]
+
+		logo.VerificarCliente(par,function(error, data)
+		{
+			//si el usuario existe 
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				res.status(200).json(data);
+			}
+		//no existe
+			else
+			{
+				res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"})
+			}
+		});
+
+	}
