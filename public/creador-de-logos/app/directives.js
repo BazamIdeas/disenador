@@ -331,8 +331,8 @@ angular.module("disenador-de-logos")
                     /////////////////////////////////////////////
 
                     scope.$on("editor:fuente", function (evento, fuente) {
-
-                        //cambiamos la font-family al correcto
+        
+                        //cambiamos la font-family al correcto 
                         element.find("text.textoPrincipal").attr("font-family", fuente.nombre);
 
                         element.find("style").html("/* <![CDATA[ */ @font-face: { font-family: '" + scope.fuente.nombre + "'; src: url('" + fuente.url + "')} /* ]]> */");
