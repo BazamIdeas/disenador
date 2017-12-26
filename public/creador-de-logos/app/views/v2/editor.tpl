@@ -39,7 +39,7 @@
         <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
             <div class="row margin-bottom-0" style="overflow: hidden;">
                 <form class="margin-bottom-0">
-                    <div class="col s2 sidebar-1 scroll" ng-form="editor.datosForm" style="padding-top: 20px !important">
+                    <div class="col s2 editor sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" ng-form="editor.datosForm" style="padding-top: 20px !important;text-align: center;">
                     	<p class="text-center principal titulo">TEXTO</p>
                         <div class="input-field col s12">
                             <input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.texto)">
@@ -77,16 +77,15 @@
                     			+
                     		</div>               
                         </div>
-						
 
 						<!---->
                         
-                        <button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="editor.agregarEslogan()">
+                        <button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="editor.agregarEslogan()" style="margin-top: 40px;">
                             Agregar Eslogan
                         </button>
                         
-                        <div ng-if="editor.esloganActivo">
-                            <p class="text-center principal titulo">ESLOGAN</p>
+                        <div class="col s12" ng-if="editor.esloganActivo">
+                            <p class="text-center principal titulo" style="margin-top: 40px;">ESLOGAN</p>
                             <div class="input-field col s12">
                                 <input id="nombre" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.eslogan, true)">
                                 <label for="nombre" class="active">Nombre</label>
@@ -115,15 +114,15 @@
                             </div>
                             
                             <div class=" col s12 estilo-texto">
-                    		<div class="menos" ng-click="editor.cambioTamano('eslogan', false)">
-                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
-                    			-
-                    		</div>               
-                    		<div class="mas" ng-click="editor.cambioTamano('eslogan', true)">
-                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
-                    			+
-                    		</div>               
-                        </div>
+                        		<div class="menos" ng-click="editor.cambioTamano('eslogan', false)">
+                        			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+                        			-
+                        		</div>               
+                        		<div class="mas" ng-click="editor.cambioTamano('eslogan', true)">
+                        			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+                        			+
+                        		</div>               
+                            </div>
                             
                         </div>
                         
