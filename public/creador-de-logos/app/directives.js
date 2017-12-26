@@ -335,7 +335,6 @@ angular.module("disenador-de-logos")
                         //cambiamos la font-family al correcto 
                         element.find("text.textoPrincipal").attr("font-family", fuente.nombre);
 
-                        element.find("style").html("/* <![CDATA[ */ @font-face: { font-family: '" + scope.fuente.nombre + "'; src: url('" + fuente.url + "')} /* ]]> */");
 
                         obtenerSVGFinal();
 

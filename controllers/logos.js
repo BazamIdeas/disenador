@@ -157,7 +157,9 @@ exports.listaLogosDescargables = function(req, res, next) {
 				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
 				
 				fuente = base64.decode(data[0].logo).split("@font-face")[1].split("</style>")[0].split("/fuentes/")[1].split(")")[0]
-				console.log(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'))
+				
+                //console.log(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'))
+                
 				fs.open(path+nombre, 'w', function(err, fd) {
 				    if (err) {
 				        throw 'error al crear svg ' + err;
