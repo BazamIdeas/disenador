@@ -354,7 +354,7 @@ angular.module("disenador-de-logos")
 
 
 
-    .service('elementosService', ["$http", function ($http) {
+    .service('elementosService', ["$http", "$q", function ($http, $q) {
 
         this.listaSegunPref = function (datos) {
 
@@ -372,6 +372,27 @@ angular.module("disenador-de-logos")
 
                 })
         }
+
+        this.listarFuentes = function () {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/elementos/fuente").then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+
+        }
+
     }])
 
 
@@ -462,7 +483,7 @@ angular.module("disenador-de-logos")
 
 
         this.listarPedidos = function () {
-            
+
             var defered = $q.defer();
 
             var promise = defered.promise;
@@ -478,7 +499,7 @@ angular.module("disenador-de-logos")
             })
 
             return promise;
-            
+
         }
 
     }])
@@ -635,9 +656,9 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-        
-        this.datos = function(){
-            
+
+        this.datos = function () {
+
             var defered = $q.defer();
 
             var promise = defered.promise;
@@ -655,22 +676,22 @@ angular.module("disenador-de-logos")
                 })
 
             return promise;
-            
+
         }
-        
-        
-        this.modificar = function(nombreCliente, telefono, pais){
-            
+
+
+        this.modificar = function (nombreCliente, telefono, pais) {
+
             var defered = $q.defer();
 
             var promise = defered.promise;
-            
+
             $http.post("/app/cliente/modificar", {
-                telefono: telefono,
-                nombreCliente: nombreCliente,
-                pais: pais
-            })
-                
+                    telefono: telefono,
+                    nombreCliente: nombreCliente,
+                    pais: pais
+                })
+
                 .then(function (res) {
 
                     defered.resolve(res.data);
@@ -822,7 +843,7 @@ angular.module("disenador-de-logos")
             })
 
             return promise;
-            
+
         }
 
         this.mostrarGuardados = function () {
@@ -912,10 +933,10 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-        
-        this.borrarLogo = function(idLogo){
-            
-            
+
+        this.borrarLogo = function (idLogo) {
+
+
             var defered = $q.defer();
 
             var promise = defered.promise;
@@ -932,7 +953,7 @@ angular.module("disenador-de-logos")
             })
 
             return promise;
-            
+
         }
 
     }])

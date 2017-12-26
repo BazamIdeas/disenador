@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', "historicoResolve", "$rootScope", "$mdToast", "$timeout", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout) {
+    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService) {
 
         var bz = this;
 
@@ -19,7 +19,7 @@ angular.module("disenador-de-logos")
         if (!historicoResolve.idLogoGuardado) { //si no es un logo guardado
 
             bz.logo.texto = historicoResolve.texto;
-            bz.fuentes = historicoResolve.fuentes;
+            //bz.fuentes = historicoResolve.fuentes;
             bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
 
         } else if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
@@ -40,9 +40,14 @@ angular.module("disenador-de-logos")
             })
 
         })
-
-        /* LOGOS */
-
+        
+  
+        elementosService.listarFuentes().then(function(res){
+            
+            bz.fuentes = res;
+            
+        })
+        
 
 
         bz.completadoGuardar = true;
@@ -173,9 +178,9 @@ angular.module("disenador-de-logos")
         /////////CAMBIO DE FUENTE////////////
         ///////////////////////////////////// 
 
-        bz.cambioFuente = function (fuente) {
+        bz.cambioFuente = function (fuente, objetivo) {
 
-            $rootScope.$broadcast("editor:fuente", fuente);
+            $rootScope.$broadcast("editor:fuente",{fuente:fuente, objetivo: objetivo});
 
         }
 
@@ -262,15 +267,12 @@ angular.module("disenador-de-logos")
                 bz.busquedaIconos = true;
 
 
-                categoriasService.listaCategoriasElementos(idCategoria, 'ICONO').then(function (res) {
-
-                    bz.iconos = res;
-                }).finally(function (res) {
-
-
-                    bz.completadoBuscar = true;
-
-                })
+                categoriasService.listaCategoriasElementos(idCategoria, 'ICONO')
+                    .then(function (res) {
+                        bz.iconos = res;
+                    }).finally(function (res) {
+                        bz.completadoBuscar = true;
+                    })
             }
 
         }
@@ -284,20 +286,38 @@ angular.module("disenador-de-logos")
 
         }
 
-        /*
-        $scope.$on("directiva:reemplazar", function (evento, valor) {
+        $scope.$on("directiva:restaurarEslogan", function (evento, datos) {
 
-            
-
+            if(datos.accion){
+                
+                var fuenteElegida = null;
+                
+                angular.forEach(bz.fuentes, function(valor, llave){
+                    
+                    if(valor.nombre == datos.fuente.nombre){
+                        
+                        fuenteElegida = {nombre: valor.nombre, url: valor.url};
+                    }
+                    
+                })
+                
+                bz.logo.fuenteEslogan = fuenteElegida;
+                bz.esloganActivo = true;
+            } else {
+                bz.logo.eslogan = "";
+                bz.logo.fuenteEslogan = null;
+                bz.esloganActivo = false;
+            }
         })
-        */
+   
         
         
         bz.agregarEslogan = function(){
             
             bz.logo.eslogan = "Mi eslogan aquí";
+            bz.logo.fuenteEslogan = bz.logo.fuente;
             
-            $rootScope.$broadcast("editor:agregarEslogan", bz.logo.eslogan);
+            $rootScope.$broadcast("editor:agregarEslogan", {eslogan: bz.logo.eslogan, fuente: bz.logo.fuenteEslogan});
             
             bz.esloganActivo = true;
             

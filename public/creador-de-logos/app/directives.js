@@ -100,7 +100,8 @@ angular.module("disenador-de-logos")
                 texto: "=texto",
                 fuente: "=fuente",
                 svgFinal: "=svgFinal",
-                idLogo: "=idLogo"
+                idLogo: "=idLogo",
+                eslogan: "=eslogan"
 
 
             },
@@ -262,6 +263,13 @@ angular.module("disenador-de-logos")
                     element.html(element.html());
 
                     scope.svgFinal = element.html();
+                    
+                    var fuentes = {
+                        principal: scope.fuente,
+                        eslogan: null                        
+                    }               
+                    
+                    
 
                     //evento para los hijos directos de seccion-icono
 
@@ -329,20 +337,38 @@ angular.module("disenador-de-logos")
                     /////////////////////////////////////////////
                     ///vigilamos el cambio de fuente del texto///
                     /////////////////////////////////////////////
-
-                    scope.$on("editor:fuente", function (evento, fuente) {
+                    
+                    scope.$on("editor:fuente", function (evento, datos) {
         
+                        
+                        var selector = datos.objetivo == 'texto' ? "text.textoPrincipal" : "text.eslogan";
+                        var keyFuente = datos.objetivo == 'texto' ? "principal" : "eslogan";
+                        
+                        fuentes[keyFuente] = datos.fuente;
+                        
+                        var htmlStyle = "";
+                        
+                        if(fuentes.principal && fuentes.eslogan){
+                            
+                            htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}\n @font-face { font-family: '" + fuentes.eslogan.nombre + "'; src: url('" + fuentes.eslogan.nombre + "')}";
+                            
+                        } else {
+                         
+                            htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}";
+                            
+                        }
+                        
                         //cambiamos la font-family al correcto 
-                        element.find("text.textoPrincipal").attr("font-family", fuente.nombre);
+                        element.find(selector).attr("font-family", datos.fuente.nombre);   
 
-                        element.find("style").html("@font-face: { font-family: '" + fuente.nombre + "'; src: url('" + fuente.url + "')}");
+                        element.children("style").html(htmlStyle);
 
                         obtenerSVGFinal();
 
                     })
 
                     /////////////////////////////////////////////
-                    ///vigilamos el cambio de fuente del texto///
+                    /////vigilamos las propiedades del texto/////
                     /////////////////////////////////////////////
 
                     scope.$on("editor:propiedad", function (evento, propiedad) {
@@ -738,7 +764,7 @@ angular.module("disenador-de-logos")
 
 
                     ////////////////////////////////
-                    ///////////RESTAURAR////////////
+                    ///////////REEMPLAZAR///////////
                     ////////////////////////////////
 
                     scope.$on("editor:reemplazar", function (evento, icono) {
@@ -826,10 +852,16 @@ angular.module("disenador-de-logos")
 
                         scope.elementosIndices = indices;
 
-                        var texto = element.find("text.textoPrincipal");
-
+                        var texto = element.find("text.textoPrincipal");         
                         scope.texto = texto.text();
-
+                        
+                        if(element.find("text.eslogan").length){
+                            var eslogan = element.find("text.eslogan");
+                            scope.eslogan = eslogan.text();
+                            $rootScope.$broadcast("directiva:restaurarEslogan", {accion: true, fuente: eslogan.attr("font-family")});
+                        } else { 
+                            $rootScope.$broadcast("directiva:restaurarEslogan", {accion: false});
+                        }
 
                         /*var nuevaFuente = {
                             url: angular.element(document.querySelector("bazam-svg > svg > style")).text().split("url('")[1].split("')")[0],
@@ -854,7 +886,7 @@ angular.module("disenador-de-logos")
                     })
                     
                     
-                    scope.$on("editor:agregarEslogan", function (evento, eslogan) {
+                    scope.$on("editor:agregarEslogan", function (evento, datos) {
 
                         if(!element.find(".eslogan").length){
                             
@@ -865,7 +897,7 @@ angular.module("disenador-de-logos")
                             textoEslogan.setAttributeNS(null, "x", tamanoBase/2);
                             textoEslogan.setAttributeNS(null, "y", tamanoBase*0.9);
 
-                            var textoNodeEslogan = document.createTextNode(eslogan);
+                            var textoNodeEslogan = document.createTextNode(datos.eslogan);
 
                             textoEslogan.appendChild(textoNodeEslogan);
           
@@ -873,11 +905,11 @@ angular.module("disenador-de-logos")
                             
                             var svgEslogan = element.children()[0].children[3];
                             
-                            var textoPrincipal = element.find("text.textoPrincipal");
+                            //var textoPrincipal = element.find("text.textoPrincipal");
      
                             svgEslogan.style.fontSize = (tamanoBase*0.1) + "px";
                             svgEslogan.setAttribute("text-anchor", "middle");
-                            svgEslogan.setAttribute("font-family", textoPrincipal.attr("font-family"));
+                            svgEslogan.setAttribute("font-family", datos.fuente.nombre);
                             svgEslogan.setAttribute("class", "eslogan");
      
                         }
