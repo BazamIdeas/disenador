@@ -152,7 +152,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 	{
 		var idLogo = req.body.idLogo  // 
 
-		logo.getLogo(idLogo,function(error, data)
+		logo.VerificarCliente(idLogo,function(error, data)
 		{
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
@@ -225,7 +225,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 		var tipo = req.body.tipo;
 		var descarga = req.body.descarga;
 		
-		logo.getLogo(idLogo,function(error, data)
+		logo.VerificarCliente(idLogo,function(error, data)
 		{
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
