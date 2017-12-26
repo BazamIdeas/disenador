@@ -42,11 +42,7 @@ exports.guardar =  function(req,res)
 
 					atributo.Guardar(atributosData, function(error, data) {
 
-						if(data && data.insertId)
-						{
-
-						}
-						else
+						if(!data && !data.insertId)
 						{
 
 							res.status(500).json({"msg":"Algo ocurrio"})
@@ -169,6 +165,42 @@ exports.listaLogosDescargables = function(req, res, next) {
 					//si el logo se ha modificado correctamente
 					if(data)
 					{
+
+						atributo.BorrarPorLogo(idLogo, function(error, data) {
+
+							if(!data && !data.affectedRows)
+							{
+
+								res.status(500).json({"msg":"Algo ocurrio"})
+							
+							}
+
+						})						
+
+
+						var atributos = req.body.atributos;
+
+						for(var key in atributos){
+
+							var atributosData = {
+								clave : key,
+								valor : atributos[key],
+								logos_idLogo: idLogo  
+							};
+
+							atributo.Guardar(atributosData, function(error, data) {
+
+								if(!data && !data.insertId)
+								{
+
+									res.status(500).json({"msg":"Algo ocurrio"})
+								
+								}
+
+							})
+
+						} 
+
 						res.status(200).json(data);
 					}
 					else
