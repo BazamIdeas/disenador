@@ -39,7 +39,7 @@
         <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
             <div class="row margin-bottom-0" style="overflow: hidden;">
                 <form class="margin-bottom-0">
-                    <div class="col s2 editor sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" ng-form="editor.datosForm" style="padding-top: 20px !important;text-align: center;">
+                    <div class="col s2 editor sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" ng-form="editor.datosForm" style="padding-top: 10px !important;text-align: center;">
                     	<p class="text-center principal titulo">TEXTO</p>
                         <div class="input-field col s12">
                             <input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.texto)">
