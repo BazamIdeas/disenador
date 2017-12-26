@@ -19,11 +19,9 @@ exports.guardar =  function(req,res)
 			estado : 'Editable',
 			logo : req.body.logo,
 			tipoLogo: req.body.tipoLogo,
-			clientes_idCliente : req.body.idCliente,
+			clientes_idCliente : req.idCliente,
 			elementos_idElemento : req.body.idElemento
 		};
-
-		console.log(logoData, req.body)
 
 		logo.insertLogo(logoData,function(error, data)
 		{
@@ -63,9 +61,9 @@ exports.guardar =  function(req,res)
 
 					//console.log(data);
 					services.emailServices.enviar('logoGuardado.html', {}, "Logo guardado", data.correo);
-
+					res.status(200).json(data);
 				});
-				res.status(200).json(data);
+				
 			}
 			else
 			{
@@ -90,7 +88,7 @@ exports.datosLogo =  function(req, res, next) {
 				atributo.ObtenerPorLogo(id, function(error, data){
 
 
-					console.log(data)
+					//console.log(data)
 					if (typeof data !== 'undefined' && data.length > 0)
 					{
 						logo['atributos'] = data;
