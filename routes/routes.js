@@ -133,13 +133,12 @@ router.post('/precio/modificar', /*middleware.validarUsuario,*/ controllers.prec
 //MODULO LOGOS
 router.post('/logos/guardados', middleware.validar, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables',  middleware.validar, controllers.logos.listaLogosDescargables);
-router.get('/logo/:id', controllers.logos.datosLogo); //muestra los datos de un logo por su id
+router.get('/logo/:id', middleware.validar, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post('/logo/guardar', middleware.validar, controllers.logos.guardar);
 router.post('/logo/modificar',  middleware.validar, controllers.logos.modificarLogo);
 router.post('/logo/descargar',  controllers.logos.descargar);
 router.get('/logo/borrar/:id',  controllers.logos.Borrar);
 router.post('/logo/zip',  middleware.validar, controllers.logos.zip);
-router.post('/logo/verificar/',  middleware.validar, controllers.logos.pruebaVerificar);
 
 
 //RECUPERAR CONTRASEÑA

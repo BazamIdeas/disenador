@@ -72,8 +72,9 @@ exports.guardar =  function(req,res)
 
 exports.datosLogo =  function(req, res, next) {
 		//id del pedido
-		var id = req.params.id;
-		logo.getLogo(id,function(error, data)
+		var par = [req.idCliente, req.params.id];
+
+		logo.getLogo(par,function(error, data)
 		{
 		//si el pedido existe 
 
@@ -81,7 +82,7 @@ exports.datosLogo =  function(req, res, next) {
 			{
 				var logo = data[0];
 
-				atributo.ObtenerPorLogo(id, function(error, data){
+				atributo.ObtenerPorLogo(req.params.id, function(error, data){
 
 
 					//console.log(data)
@@ -102,7 +103,8 @@ exports.datosLogo =  function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No Encontrado"})
+				res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"})
+
 			}
 		});
 
@@ -150,9 +152,9 @@ exports.listaLogosDescargables = function(req, res, next) {
 
 	exports.modificarLogo =  function(req,res)
 	{
-		var idLogo = req.body.idLogo  // 
+		var par = [req.idCliente, req.body.idLogo]
 
-		logo.VerificarCliente(idLogo,function(error, data)
+		logo.getLogo(par,function(error, data)
 		{
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
@@ -224,8 +226,10 @@ exports.listaLogosDescargables = function(req, res, next) {
 		var ancho = req.body.ancho;
 		var tipo = req.body.tipo;
 		var descarga = req.body.descarga;
-		
-		logo.VerificarCliente(idLogo,function(error, data)
+
+		var par = [req.idCliente, req.body.idLogo]
+
+		logo.getLogo(par,function(error, data)
 		{
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
@@ -305,7 +309,9 @@ exports.listaLogosDescargables = function(req, res, next) {
 	exports.descargar = function(req, res, next) {
 		var idLogo = req.body.idLogo;
 		var ancho = req.body.ancho;
-		logo.VerificarCliente(idLogo,function(error, data)
+		var par = [req.idCliente, req.body.idLogo];
+
+		logo.getLogo(par,function(error, data)
 		{
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
@@ -370,24 +376,3 @@ exports.Borrar = (req, res, next) =>
 		}
 	})
 }
-
-
-exports.pruebaVerificar = function(req, res, next) {
-		
-		var par = [req.idCliente, req.body.idLogo]
-
-		logo.VerificarCliente(par,function(error, data)
-		{
-			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				res.status(200).json(data);
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"})
-			}
-		});
-
-	}
