@@ -530,9 +530,10 @@ angular.module("disenador-de-logos")
                         var clon = angular.element(document.querySelector("bazam-svg")).clone();
 
                         clon.find(".seleccionado").removeClass("seleccionado");
-
-                        scope.svgFinal = clon.html();
-
+                        
+                        scope.$apply(function() {
+                            scope.svgFinal = clon.html();
+                        })
                         intermediador = true;
 
                     });
@@ -926,7 +927,11 @@ angular.module("disenador-de-logos")
                         //elemento.find("[data-indice]").removeAttr("data-indice");
                         elemento.find(".seleccionado").removeClass("seleccionado");
 
-                        scope.svgFinal = elemento.html();
+                        //scope.$apply(function() {
+                            scope.svgFinal = elemento.html();
+                        //});
+                        
+                        
                     }
 
 
