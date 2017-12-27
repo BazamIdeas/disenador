@@ -197,7 +197,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     datos: {
                         logo: null,
                         idElemento: null,
-                        tipo: null
+                        tipo: null,
+                        fuentes: null
                     }
                 },
                 resolve: {

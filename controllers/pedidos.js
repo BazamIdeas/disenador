@@ -8,6 +8,8 @@ var moment = require('moment');
 var pais = require('../modelos/paisesModelo.js');
 var precio = require('../modelos/preciosModelo.js');
 var pasarela = require('../modelos/pasarelasModelo.js');
+var atributo = require('../modelos/atributosModelo.js');
+
 
 exports.listaPedidos = function (req, res, next) {
 
@@ -113,6 +115,30 @@ exports.nuevoPedido = function (req, res) {
 
 		//si el logo se ha insertado correctamente
 		if (data && data.insertId) {
+            
+
+            var atributos = req.body.atributos;
+
+            for(var key in atributos){
+
+                var atributosData = {
+                    clave : key,
+                    valor : atributos[key],
+                    logos_idLogo: data.insertId  
+                };
+
+                atributo.Guardar(atributosData, function(error, data) {
+
+                    if(!data && !data.insertId)
+                    {
+
+                        res.status(500).json({"msg":"Algo ocurrio"})
+
+                    }
+
+                })
+
+            } 
 
 			idLogo = data.insertId
 			iso = services.geoipServices.iso(req.ip)

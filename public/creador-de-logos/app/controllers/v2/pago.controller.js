@@ -54,7 +54,7 @@ angular.module("disenador-de-logos")
                 switch (idPasarela) {
                     
                     case 1://PAYPAL
-                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
+                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.pedido.atributos.principal, bz.pedido.atributos.eslogan, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
                             
                             .then(function(res){
                             

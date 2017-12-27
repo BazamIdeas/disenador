@@ -448,7 +448,7 @@ angular.module("disenador-de-logos")
 
 
         this.pagar = {
-            paypal: function (idElemento, logo, idPrecio, tipoLogo, idPasarela) {
+            paypal: function (idElemento, idFuente, idFuenteEslogan, logo, idPrecio, tipoLogo, idPasarela) {
 
 
                 var defered = $q.defer();
@@ -460,7 +460,15 @@ angular.module("disenador-de-logos")
                     logo: logo,
                     idPrecio: idPrecio,
                     tipoLogo: tipoLogo,
-                    idPasarela: idPasarela
+                    idPasarela: idPasarela,
+                    atributos: {
+                        principal: idFuente
+                    }
+                }
+                
+                if(idFuenteEslogan){
+                   datos.atributos.eslogan =  idFuenteEslogan;
+                    
                 }
 
 

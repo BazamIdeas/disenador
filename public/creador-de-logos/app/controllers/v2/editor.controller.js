@@ -57,7 +57,6 @@ angular.module("disenador-de-logos")
 
             if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
                 
-                console.log(historicoResolve)
                 angular.forEach(bz.fuentes, function (valor, llave) {
 
                     if(valor.idElemento == historicoResolve.fuentes.principal){
@@ -230,12 +229,36 @@ angular.module("disenador-de-logos")
 
         $scope.$on("directiva:planes", function (evento, datos) {
 
+            var idFuente = null;
+            var idFuenteEslogan = null;
+            
+            angular.forEach(bz.fuentes, function (valor, llave) {
+
+                    if(valor.url == bz.logo.fuente.url){
+                        
+                        idFuente = valor.idElemento;
+                        
+                    } 
+                    
+                    if(bz.logo.fuenteEslogan && (valor.url == bz.logo.fuenteEslogan.url)){
+                        
+                        idFuenteEslogan =  valor.idElemento                        
+                    }
+
+                })
+            
+            
             $state.go("planes", {
                 status: true,
                 datos: {
                     logo: datos,
                     idElemento: bz.logo.icono.idElemento,
-                    tipo: 'Logo y nombre'
+                    tipo: 'Logo y nombre',
+                    fuentes: {
+                        principal: idFuente,
+                        eslogan:  idFuenteEslogan
+                        
+                    }
                 }
             })
 
