@@ -134,6 +134,24 @@ angular.module("disenador-de-logos")
         }
         
         
+        bz.buscarAtributo = function(lista, objetivo){
+            
+            var idFuente = null;
+            
+            angular.forEach(lista, function(atributo, llave){
+                
+                if(atributo.clave == objetivo){
+                    
+                    idFuente = atributo.valor;
+                    
+                }
+                
+            })
+            
+            return idFuente;
+        }
+        
+        
         $scope.$on('sesionExpiro', function (event, data) {
 
             $state.go('principal.comenzar');

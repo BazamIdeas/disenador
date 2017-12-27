@@ -22,14 +22,17 @@ angular.module("disenador-de-logos")
             bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
 
         } else if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
-            bz.logo.fuente = {
+            /*bz.logo.fuente = {
                 url: historicoResolve.fuentes.principal.url,
                 nombre: historicoResolve.fuentes.principal.nombre
             };
-            bz.logo.fuenteEslogan = {
-                url: historicoResolve.fuentes.eslogan.url,
-                nombre: historicoResolve.fuentes.eslogan.nombre
-            };
+            
+            if(historicoResolve.fuentes.eslogan){
+                bz.logo.fuenteEslogan = {
+                    url: historicoResolve.fuentes.eslogan.url,
+                    nombre: historicoResolve.fuentes.eslogan.nombre
+                };
+            }*/
             bz.logo.idLogo = historicoResolve.idLogoGuardado;
         }
 
@@ -51,6 +54,36 @@ angular.module("disenador-de-logos")
         elementosService.listarFuentes().then(function (res) {
 
             bz.fuentes = res;
+
+            if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
+                
+                console.log(historicoResolve)
+                angular.forEach(bz.fuentes, function (valor, llave) {
+
+                    if(valor.idElemento == historicoResolve.fuentes.principal){
+                        
+                        bz.logo.fuente = {
+                            url: valor.url,
+                            nombre: valor.nombre
+                        };
+                        
+                    } 
+                    
+                    if(valor.idElemento == historicoResolve.fuentes.eslogan){
+                        
+                        bz.logo.fuenteEslogan = {
+                            url: valor.url,
+                            nombre: valor.nombre
+                        };
+                        
+                        bz.esloganActivo = true;
+                        
+                    }
+
+                })
+
+
+            }
 
         })
 
