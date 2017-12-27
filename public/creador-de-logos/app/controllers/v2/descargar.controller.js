@@ -10,7 +10,7 @@ angular.module("disenador-de-logos")
 
         bz.formatosNoSociales = [
             {
-                nombre: "svg",
+                nombre: "editable",
                 ancho: 400
             },
             {
@@ -47,14 +47,6 @@ angular.module("disenador-de-logos")
             {
                 nombre: "twitter",
                 ancho: 400
-            },
-            {
-                nombre: "behance",
-                ancho: 276
-            },
-            {
-                nombre: "blogger",
-                ancho: 250
             },
             {
                 nombre: "flickr",

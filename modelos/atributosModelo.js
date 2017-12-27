@@ -27,11 +27,14 @@ atributo.ObtenerPorLogo = (idLogo, callback) =>
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , [idLogo] , function(err, rows){
-	  	
+	  
+
 	  		if(err)	throw err;
 
-	  		else callback(null, rows); 
-	  		
+	  		else{
+	  			callback(null, rows); 
+	  		}
+
 	  		connection.release();
 	  	});
 	});

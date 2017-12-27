@@ -8,6 +8,7 @@ var base64 = require('base-64');
 const svg2png = require("svg2png");
 var archiver = require("archiver")
 var pathM = require("path")
+var async    = require("async");
 
 
 exports.guardar =  function(req,res)
@@ -119,7 +120,59 @@ exports.listaLogosGuardados = function(req, res, next) {
 			//si el usuario existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				res.status(200).json(data);
+
+				/*for(var logoac in data){
+
+					console.log(logoac,data[logoac].idLogo)
+
+					atributo.ObtenerPorLogo(data[logoac].idLogo, function(error, dataAttrs){
+
+
+						if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+						{
+							data[logoac]['atributos'] = dataAttrs;
+
+							console.log(logoac,data[logoac].idLogo)
+						}
+						
+					})
+
+				}*/
+
+
+
+				async.forEachOf(data, (logo, key, callback) => {
+
+
+					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+						if (err) return callback(err);
+
+						try {
+
+							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+							{
+								data[key]['atributos'] = dataAttrs;
+
+								console.log(key,data[key].idLogo)
+							}
+
+						} catch (e) {
+						    return callback(e);
+						}	
+
+						callback();						
+						
+					})
+
+				}, (err) => {
+					
+					if (err) res.status(402).json({});
+					
+					res.status(200).json(data);
+				
+				})
+
 			}
 		//no existe
 			else
