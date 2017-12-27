@@ -197,7 +197,7 @@
                     		</div>               
                         </div>
 						<div class=" col s12 estilo-texto">
-                        	<p class="text-center principal" style="margin-top: 20px;">Orientación</p>
+                        	<p class="text-center principal" style="margin-top: 20px;">Disposición</p>
                         </div>
 
                         <div class=" col s12">
