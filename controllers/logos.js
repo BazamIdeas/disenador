@@ -121,25 +121,6 @@ exports.listaLogosGuardados = function(req, res, next) {
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 
-				/*for(var logoac in data){
-
-					console.log(logoac,data[logoac].idLogo)
-
-					atributo.ObtenerPorLogo(data[logoac].idLogo, function(error, dataAttrs){
-
-
-						if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
-						{
-							data[logoac]['atributos'] = dataAttrs;
-
-							console.log(logoac,data[logoac].idLogo)
-						}
-						
-					})
-
-				}*/
-
-
 
 				async.forEachOf(data, (logo, key, callback) => {
 
@@ -192,7 +173,37 @@ exports.listaLogosDescargables = function(req, res, next) {
 			//si el usuario existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				res.status(200).json(data);
+				async.forEachOf(data, (logo, key, callback) => {
+
+
+					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+						if (err) return callback(err);
+
+						try {
+
+							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+							{
+								data[key]['atributos'] = dataAttrs;
+
+								console.log(key,data[key].idLogo)
+							}
+
+						} catch (e) {
+						    return callback(e);
+						}	
+
+						callback();						
+						
+					})
+
+				}, (err) => {
+					
+					if (err) res.status(402).json({});
+					
+					res.status(200).json(data);
+				
+				})
 			}
 		//no existe
 			else
