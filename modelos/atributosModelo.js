@@ -45,7 +45,7 @@ atributo.BorrarPorLogo = (idLogo,callback) =>
 	var qq = 'DELETE FROM atributos WHERE logos_idLogo = ?';
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( qq , par , function(err, row)
+		connection.query( qq , [idLogo] , function(err, row)
 		{
 	  		if(err)	throw err;
 
