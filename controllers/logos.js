@@ -186,7 +186,6 @@ exports.listaLogosDescargables = function(req, res, next) {
 							{
 								data[key]['atributos'] = dataAttrs;
 
-								console.log(key,data[key].idLogo)
 							}
 
 						} catch (e) {
@@ -236,38 +235,33 @@ exports.listaLogosDescargables = function(req, res, next) {
 
 						atributo.BorrarPorLogo(req.body.idLogo, function(error, data) {
 
-							if(!data && !data.affectedRows)
-							{
 
-								res.status(500).json({"msg":"Algo ocurrio"})
-							
+							var atributos = req.body.atributos;
+
+
+							for(var key in atributos){
+
+								var atributosData = {
+									clave : key,
+									valor : atributos[key],
+									logos_idLogo: req.body.idLogo  
+								};
+
+								atributo.Guardar(atributosData, function(error, data) {
+
+									if(!data && !data.insertId)
+									{
+
+										res.status(500).json({"msg":"Algo ocurrio"})
+									
+									}
+
+								})
+
 							}
 
 						})						
-
-
-						var atributos = req.body.atributos;
-
-						for(var key in atributos){
-
-							var atributosData = {
-								clave : key,
-								valor : atributos[key],
-								logos_idLogo: req.body.idLogo  
-							};
-
-							atributo.Guardar(atributosData, function(error, data) {
-
-								if(!data && !data.insertId)
-								{
-
-									res.status(500).json({"msg":"Algo ocurrio"})
-								
-								}
-
-							})
-
-						} 
+ 
 
 						res.status(200).json(data);
 					}
