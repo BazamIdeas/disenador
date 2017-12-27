@@ -146,7 +146,7 @@ logo.getLogo = function(par,callback)
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row){
-	  	
+	  	    //console.log(row)
 		  	if(err)	throw err;
 		  	
 		  	else callback(null, row);

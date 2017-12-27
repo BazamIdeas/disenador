@@ -30,9 +30,9 @@ exports.guardar =  function(req,res)
 			//si el pedido se ha insertado correctamente mostramos su info
 			if(data && data.insertId)
 			{	
-
+                
 				var atributos = req.body.atributos;
-
+                
 				for(var key in atributos){
 
 					var atributosData = {
@@ -54,10 +54,10 @@ exports.guardar =  function(req,res)
 
 				} 
 
-				cliente.getCliente(req.idCliente, function(error, data){
+				cliente.getCliente(req.idCliente, function(error, dataCliente){
 
 					//console.log(data);
-					services.emailServices.enviar('logoGuardado.html', {}, "Logo guardado", data.correo);
+					services.emailServices.enviar('logoGuardado.html', {}, "Logo guardado", dataCliente.correo);
 					res.status(200).json(data);
 				});
 				
@@ -220,11 +220,13 @@ exports.listaLogosDescargables = function(req, res, next) {
 
 		logo.getLogo(par,function(error, data)
 		{
+            //console.log(data)
+            
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				//creamos un array con los datos a modificar del logo
-				var logoData = [req.body.logo, idLogo];
+				var logoData = [req.body.logo, req.body.idLogo];
 					
 				logo.updateLogo(logoData,function(error, data)
 				{
@@ -232,7 +234,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 					if(data)
 					{
 
-						atributo.BorrarPorLogo(idLogo, function(error, data) {
+						atributo.BorrarPorLogo(req.body.idLogo, function(error, data) {
 
 							if(!data && !data.affectedRows)
 							{
@@ -251,7 +253,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 							var atributosData = {
 								clave : key,
 								valor : atributos[key],
-								logos_idLogo: idLogo  
+								logos_idLogo: req.body.idLogo  
 							};
 
 							atributo.Guardar(atributosData, function(error, data) {

@@ -182,7 +182,6 @@ angular.module("disenador-de-logos")
                     datos: {
                         logo: bz.logos[bz.logoSeleccionado],
                         texto: bz.datos.nombre,
-                        fuentes: bz.fuentes,
                         categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
                     }
                 });

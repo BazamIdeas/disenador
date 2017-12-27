@@ -820,7 +820,7 @@ angular.module("disenador-de-logos")
 
     .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
 
-        this.guardarLogo = function (logo, tipoLogo, idElemento) {
+        this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId) {
 
             var defered = $q.defer();
 
@@ -829,12 +829,51 @@ angular.module("disenador-de-logos")
             var datos = {
                 logo: logo,
                 tipoLogo: tipoLogo,
-                idElemento: idElemento
+                idElemento: idElemento,
+                atributos: {
+                    principal: fuentePrincipalId
+                }
+            }
+            
+            if(fuenteEsloganId){
+                datos.atributos.eslogan = fuenteEsloganId; 
             }
 
             $http.post("/app/logo/guardar", datos).then(function (res) {
 
-                defered.resolve(res);
+                defered.resolve(res.data.insertId);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+
+        }
+        
+        this.modificarLogo = function (logo, idlogo, fuentePrincipalId, fuenteEsloganId) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            var datos = {
+                logo: logo,
+                idLogo: idlogo,
+                atributos: {
+                    principal: fuentePrincipalId
+                }
+            }
+            
+            if(fuenteEsloganId){
+                datos.atributos.eslogan = fuenteEsloganId; 
+            }
+
+            $http.post("/app/logo/modificar", datos).then(function (res) {
+
+                defered.resolve(res.data);
 
             }).catch(function (res) {
 
