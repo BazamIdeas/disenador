@@ -245,15 +245,25 @@ angular.module("disenador-de-logos")
                         element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
 
                     } else if (scope.idLogo) { // si es un logo previamenteguardado
-
+                        
+                        element.html(scope.svg);
+                        
                         element.find("g.contenedor-icono > svg [data-indice]").each(function (indice) {
 
                             scope.elementosIndices[parseInt(this.getAttribute("data-indice"))] = false;
 
                         })
+                        
+                        
+                        scope.texto = element.find("text.textoPrincipal").text();
+                        
+                        if(element.find("text.eslogan").length){
+                            
+                            
+                             scope.eslogan = element.find("text.eslogan").text();
+                        }
 
 
-                        element.html(scope.svg);
                     }
 
                 },
