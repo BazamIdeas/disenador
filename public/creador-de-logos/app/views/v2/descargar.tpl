@@ -38,9 +38,9 @@
                         <div class="col s10 offset-s1">
 				
                             <div class="col l3" ng-repeat="formato in descargar.formatosNoSociales">
-                              <div class="formato" style=" margin-bottom: 20px;padding-top:0%;max-height: 68.83px;"  ng-click="descargar.seleccionar(formato)">
+                              <div class="formato" style=" margin-bottom: 20px;padding-top:0%;"  ng-click="descargar.seleccionar(formato)">
                                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
-                                  <img style="width:100%;max-height: 68.83px;" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
+                                  <img style="width:100%;" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
                               </div>
                             </div>
 
@@ -58,7 +58,7 @@
 
 				</div>
 				
-                <div class="col s4 text-center" style="background-color: white;height: 100%">
+                <div class="col s4 text-center" style="background-color: white;height: 100%; margin-top: 15px;">
                     
                     <p class="tercero text-center">Preview</p>
 
