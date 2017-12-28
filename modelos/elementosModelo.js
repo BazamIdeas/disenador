@@ -87,7 +87,7 @@ elemento.getElementosIncat = function( datos, callback)
 
 elemento.getIniciales = function( datos, callback)
 {
-	var q = 'SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.nombre = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12' ;
+	var q = 'SELECT * FROM elementos  WHERE nombreCategoria = ? AND elementos.nombre = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12' ;
 
 	DB.getConnection(function(err, connection)
 	{ //cmienzo del for
