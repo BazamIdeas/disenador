@@ -1798,3 +1798,35 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     border-bottom: 2px solid;
     padding: 1px;
 }
+
+
+.tab .titulo{
+    color: grey !important;
+}
+
+.tab.seleccionado .titulo{
+    color: var(--principal) !important;
+}
+
+.tab{
+  -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    transition-delay: 0.5s;
+    cursor: pointer;
+}
+
+.tab.ng-enter {
+  opacity: 0;
+}
+
+.tab.ng-enter-active {
+    opacity: 1;
+}
+
+.tab.ng-leave {
+  opacity: 1;
+}
+
+.tab.ng-leave-active {
+    opacity: 0; 
+}
