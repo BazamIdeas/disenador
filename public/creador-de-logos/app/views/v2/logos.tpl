@@ -35,7 +35,7 @@
                                             <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
                                             <i class="material-icons">share</i>
                                         </span>
-                                        <span class="compartir" ng-click="logos.borrarLogo(guardado.idLogo)">
+                                        <span class="borrar" ng-click="logos.borrarLogo(guardado.idLogo)">
                                             <md-tooltip md-delay="2" md-direction="top">Eliminar</md-tooltip>
                                             <i class="material-icons">delete</i>
                                         </span>
