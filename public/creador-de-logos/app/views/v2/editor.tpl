@@ -39,15 +39,24 @@
         <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
             <div class="row margin-bottom-0" style="overflow: hidden;">
                 <form class="margin-bottom-0">
-                    <div class="col s2 editor sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" ng-form="editor.datosForm" style="padding-top: 10px !important;text-align: center;" ng-init="editor.menuSwitch = 1">
+                    <div class="col s2 editor sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" ng-form="editor.datosForm" style="padding-top: 10px !important;text-align: center; width: 100% !important;" ng-init="editor.menuSwitch = 1">
                     	
-                        <div ng-click="editor.menuSwitch = 1">TEXTO PRINCIPAL</div><div ng-click="editor.menuSwitch = 2">ESLOGAN</div>
-                        <div ng-switch="editor.menuSwitch">
+                        <div class="col s6" style="padding: 0">
+                            <div ng-click="editor.menuSwitch = 1" ng-class="{'seleccionado': editor.menuSwitch == 1}" class="tab">
+                                <p class="text-center principal titulo" style="margin-bottom: 10px">NOMBRE</p>
+                            </div>
+                        </div>
+                        <div class="col s6" style="padding: 0">
+                            <div ng-click="editor.menuSwitch = 2" ng-class="{'seleccionado': editor.menuSwitch == 2}" class="tab">
+                                <p class="text-center principal titulo" style="margin-bottom: 10px">ESLOGAN</p>
+                            </div>
+                        </div>
+
+                        <div class="tabs-textos" ng-switch="editor.menuSwitch" style="width: 100%">
                             <div ng-switch-when="1">
-                                <p class="text-center principal titulo" ng-if="!editor.esloganActivo">TEXTO</p>
+                                <!--<p class="text-center principal titulo" ng-if="!editor.esloganActivo">TEXTO</p>-->
                                 <div class="input-field col s12">
                                     <input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.texto)">
-                                    <label for="nombre" class="active">Nombre</label>
                                 </div>
 
                                 <md-input-container style="width:100%; padding: 0 0.75rem" >
@@ -84,14 +93,15 @@
                             </div>
                             <!--ESLOGAN-->
                             <div ng-switch-when="2">
-                                <button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="editor.agregarEslogan()" style="margin-top: 40px;">
-                                    Agregar Eslogan
-                                </button>
-                                <div class="col s12" ng-if="editor.esloganActivo">
+                                <div class=" col s12" style="padding: 0">
+                                    <button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="editor.agregarEslogan()" style="margin-top: 40px;">
+                                        Agregar Eslogan
+                                    </button>
+                                </div>
+                                <div ng-if="editor.esloganActivo">
                                     <!--<p class="text-center principal titulo" style="margin-top: 40px;">ESLOGAN</p>-->
                                     <div class="input-field col s12">
                                         <input id="nombre" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.eslogan, true)">
-                                        <label for="nombre" class="active">Nombre</label>
                                     </div>
 
                                     <md-input-container style="width:100%; padding: 0 0.75rem" >
