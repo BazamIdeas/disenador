@@ -41,7 +41,8 @@ angular.module("disenador-de-logos")
                 ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
                 //////////////////////////////////////////////////////////////////////
 
-                while (svgTexto.textLength.baseVal.value > (1.6 * svgIcono.height.baseVal.value)) {
+                
+                while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
 
                     svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
 
@@ -58,7 +59,7 @@ angular.module("disenador-de-logos")
                 var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
                 svgTexto.setAttribute("y", paddingTopText);
-
+                
                 if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
 
                     while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
@@ -202,7 +203,7 @@ angular.module("disenador-de-logos")
                         ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
                         //////////////////////////////////////////////////////////////////////
 
-                        while (svgTexto.textLength.baseVal.value > (1.6 * svgIcono.height.baseVal.value)) {
+                        while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
 
                             svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
 
@@ -514,16 +515,20 @@ angular.module("disenador-de-logos")
 
                             var svgPadre = element[0].children[0];
 
-                            var relacionX = (svgPadre.clientWidth / parseFloat(element.children().attr("viewBox").split(" ")[2]));
+                            var relacionX = (svgPadre.getClientRects()[0].width / parseFloat(element.children().attr("viewBox").split(" ")[2]));
 
-                            var relacionY = (element[0].children[0].clientHeight / parseFloat(element.children().attr("viewBox").split(" ")[3]));
-
+                            var relacionY = (svgPadre.getClientRects()[0].height / parseFloat(element.children().attr("viewBox").split(" ")[3]));
+                            
+                           
+                            
                             currentMatrix[4] += (dx / relacionY);
                             currentMatrix[5] += (dy / relacionX);
 
 
                             newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
-
+                            
+                          
+                            
                             $(this).attr("transform", newMatrix);
                             currentX = evento.clientX;
                             currentY = evento.clientY;
@@ -620,7 +625,7 @@ angular.module("disenador-de-logos")
 
                             var anchoViewBox = parseInt(element[0].children[0].getAttribute("viewBox").split(" ")[3]);
 
-                            while ((svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value) > (anchoViewBox * 0.80)) {
+                            while ((svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.getComputedTextLength()) > (anchoViewBox * 0.80)) {
 
                                 svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
                                 svgIcono.setAttribute("width", (svgIcono.width.baseVal.value * 0.95) + "px");
@@ -632,9 +637,9 @@ angular.module("disenador-de-logos")
                             /////centramos los elementos///////
                             ///////////////////////////////////
 
-                            //anchoSVG - (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value)
+                            //anchoSVG - (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.getComputedTextLength())
 
-                            var totalEspacioIconoFuente = (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value);
+                            var totalEspacioIconoFuente = (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.getComputedTextLength());
 
                             var paddingLeft = (anchoSVG - totalEspacioIconoFuente) / 2;
 
@@ -656,7 +661,7 @@ angular.module("disenador-de-logos")
                            
                                 eslogan.style.fontSize = svgTexto.style.fontSize;
                                 
-                                while((eslogan.textLength.baseVal.value > (svgTexto.textLength.baseVal.value * 0.8))){
+                                while((eslogan.getComputedTextLength() > (svgTexto.getComputedTextLength() * 0.8))){
                                     
                                                                  
                                     eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
@@ -703,7 +708,7 @@ angular.module("disenador-de-logos")
                             ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
                             //////////////////////////////////////////////////////////////////////
 
-                            while (svgTexto.textLength.baseVal.value > (1.6 * svgIcono.height.baseVal.value)) {
+                            while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
 
                                 svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
 
@@ -753,7 +758,7 @@ angular.module("disenador-de-logos")
                            
                                 eslogan.style.fontSize = svgTexto.style.fontSize;
                                 
-                                while((eslogan.textLength.baseVal.value > (svgTexto.textLength.baseVal.value * 0.8))){
+                                while((eslogan.getComputedTextLength() > (svgTexto.getComputedTextLength() * 0.8))){
                                     
                                                                  
                                     eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
