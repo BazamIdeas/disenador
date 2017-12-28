@@ -1,4 +1,4 @@
-angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
+angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert'])
 
 .config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider,  $urlRouterProvider) {
 
