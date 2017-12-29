@@ -5,6 +5,26 @@
             }
         </style>
 
+        <style type="text/css">
+            
+            @font-face {
+                font-family: 'Decorativa';
+                src: url('./fonts/decorativo.ttf');
+            }
+            @font-face {
+                font-family: 'Manuscrito';
+                src: url('./fonts/manuscrita.ttf');
+            }
+            @font-face {
+                font-family: 'Serif';
+                src: url('./fonts/serif.ttf');
+            }
+            @font-face {
+                font-family: 'Sin Serif';
+                src: url('./fonts/sinserif.ttf');
+            }
+        </style>
+
         <section class="sub-header">
             <div class="row margin-bottom-0">
 
@@ -41,7 +61,7 @@
                         
                         <md-input-container style="width:100%; padding: 0 0.75rem" >
 						  	<md-select ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
-						    	<md-option class="fuente" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+						    	<md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 						  	</md-select>
 						</md-input-container>
                         
