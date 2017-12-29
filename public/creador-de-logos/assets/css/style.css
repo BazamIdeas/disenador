@@ -1706,6 +1706,7 @@ div.info span {
         -ms-flex-pack: center;
             justify-content: center;
     font-size: 26px;
+        cursor: pointer;
 }
 
 .cerrar-contenedor-bi{
