@@ -184,7 +184,7 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     font-family: inherit;
 }
 
-md-input-container.md-input-has-value .md-select-value>span:not(.md-select-icon), md-input-container.md-input-has-value .md-select-value>span:not(.md-select-icon) .md-text{
+md-select.cat-fuente .md-select-value>span:not(.md-select-icon), md-select.cat-fuente .md-select-value>span:not(.md-select-icon) .md-text{
     font-family: inherit !important;
 }
 
