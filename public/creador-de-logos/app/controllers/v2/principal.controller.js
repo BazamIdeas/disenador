@@ -155,7 +155,7 @@ angular.module("disenador-de-logos")
 
             })
 
-            bz.solicitarElementos(iniciales);
+            bz.solicitarElementos(inicial);
         }
 
 

@@ -128,7 +128,7 @@ exports.listaElemCat = function (req, res, next) {
 
 exports.ListaIniciales = function (req, res, next) {
 
-	var cat = ["Iniciales",req.body.inicial];
+	var cat = ["Iniciales",req.body.inicial.toLowerCase()];
 
 
 	elemento.getIniciales(cat, function (error, data) {
