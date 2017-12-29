@@ -2,12 +2,8 @@ angular.module("landing")
 
 /* header */
 
-.controller('headerController', ["$state", '$mdPanel', 'SweetAlert', function ($state, $mdPanel, SweetAlert) {
 
-
-}])
-
-.controller('comienzoController', ["$state", '$mdPanel', 'SweetAlert', '$stateParams', '$window', function ($state, $mdPanel, SweetAlert, $stateParams, $window) {
+.controller('comienzoController', ['$window', function ($window) {
 
     var bz = this;
 
