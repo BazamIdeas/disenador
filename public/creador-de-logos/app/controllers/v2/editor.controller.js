@@ -13,6 +13,9 @@ angular.module("disenador-de-logos")
         bz.preview = false;
         bz.busquedaIconos = false;
         bz.colorFondo = "rgb(236,239,240)";
+        bz.colorTexto = "#000";
+        bz.colorEslogan = "#000";
+        bz.colorIcono = "#000";
 
         bz.logo = historicoResolve.logo;
 
