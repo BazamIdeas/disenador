@@ -84,7 +84,7 @@ angular.module("disenador-de-logos")
 
         bz.completado = true;
 
-        bz.solicitarElementos = function (iniciales) {
+        bz.solicitarElementos = function (inicial) {
 
             if ($scope.principal.datosForm.$valid && bz.completado) {
 
@@ -103,7 +103,7 @@ angular.module("disenador-de-logos")
                 };
                 
                 
-                var promesaIconos = iniciales ? elementosService.listarIniciales() : elementosService.listaSegunPref(bz.datosIconos); 
+                var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos); 
 
                 $q.all([
                     promesaIconos,
@@ -139,6 +139,8 @@ angular.module("disenador-de-logos")
 
 
         bz.asignarTipo = function (tipoLogo, iniciales) {
+            
+            var inicial = iniciales ? bz.datos.nombre.charAt(0) : false;
 
             angular.forEach(bz.botonesTipo, function (valor, llave) {
 

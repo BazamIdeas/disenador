@@ -393,13 +393,13 @@ angular.module("disenador-de-logos")
 
         }
         
-        this.listarIniciales = function(){
+        this.listarIniciales = function(inicial){
             
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            $http.get("/app/elementos/iniciales").then(function (res) {
+            $http.post("/app/elementos/iniciales", {inicial: inicial}).then(function (res) {
 
                 defered.resolve(res.data);
 
