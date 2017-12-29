@@ -1,4 +1,4 @@
-o	<style ng-repeat="fuente in editor.fuentes">
+	<style ng-repeat="fuente in editor.fuentes">
 	    @font-face {
 	        font-family: '{{fuente.nombre}}';
 	        src: url('{{fuente.url}}');
