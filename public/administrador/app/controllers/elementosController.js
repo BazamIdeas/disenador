@@ -26,9 +26,9 @@ angular.module("administrador")
                 return bz.subidaMasiva(datos);
             } else {
                 iconoFuente.nuevaFuente(datos).then(function (res) {
+                    SweetAlert.swal("Genial", "Fuente Agregada!", "success");
                     datos.idElemento = res.data.insertId;
                     datos.tipo = 'FUENTE';
-                    SweetAlert.swal("Genial", "Fuente Agregada!", "success");
                     bz.valMulFonts = false;
                 }).catch(function (res) {
                     console.log(res)
