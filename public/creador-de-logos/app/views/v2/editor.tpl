@@ -42,12 +42,12 @@
                     <div class="col s2 editor sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" ng-form="editor.datosForm" style="padding-top: 10px !important;text-align: center; width: 100% !important;" ng-init="editor.menuSwitch = 1">
                     	
                         <div class="col s6" style="padding: 0">
-                            <div ng-click="editor.menuSwitch = 1" ng-class="{'seleccionado': editor.menuSwitch == 1}" class="tab">
+                            <div ng-click="editor.menuSwitch = 1" ng-class="{'seleccionadoo': editor.menuSwitch == 1}" class="tab">
                                 <p class="text-center principal titulo" style="margin-bottom: 10px">NOMBRE</p>
                             </div>
                         </div>
                         <div class="col s6" style="padding: 0">
-                            <div ng-click="editor.menuSwitch = 2" ng-class="{'seleccionado': editor.menuSwitch == 2}" class="tab">
+                            <div ng-click="editor.menuSwitch = 2" ng-class="{'seleccionadoo': editor.menuSwitch == 2}" class="tab">
                                 <p class="text-center principal titulo" style="margin-bottom: 10px">ESLOGAN</p>
                             </div>
                         </div>
@@ -166,11 +166,11 @@
 
 						<div class=" col s12 estilo-texto">
                     		<div class="menos" ng-click="editor.cambioTamano('icono', false)">
-                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
                     			-
                     		</div>               
                     		<div class="mas" ng-click="editor.cambioTamano('icono', true)">
-                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
                     			+
                     		</div>               
                         </div>

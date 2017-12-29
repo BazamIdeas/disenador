@@ -183,10 +183,6 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     color: var(--principal);
 }
 
-md-option .md-text {
-    font-family: 'futura-heavy' !important;
-}
-
 .md-select-value>span:not(.md-select-icon) .md-text {
     display: inline;
     font-family: 'futura-heavy' !important;
@@ -1706,6 +1702,7 @@ div.info span {
         -ms-flex-pack: center;
             justify-content: center;
     font-size: 26px;
+        cursor: pointer;
 }
 
 .cerrar-contenedor-bi{
@@ -2060,7 +2057,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     color: grey !important;
 }
 
-.tab.seleccionado .titulo{
+.tab.seleccionadoo .titulo{
     color: var(--principal) !important;
 }
 
