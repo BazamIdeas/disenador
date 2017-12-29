@@ -1,4 +1,4 @@
-	<style ng-repeat="fuente in editor.fuentes">
+o	<style ng-repeat="fuente in editor.fuentes">
 	    @font-face {
 	        font-family: '{{fuente.nombre}}';
 	        src: url('{{fuente.url}}');
@@ -42,12 +42,12 @@
                     <div class="col s2 editor sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" ng-form="editor.datosForm" style="padding-top: 10px !important;text-align: center; width: 100% !important;" ng-init="editor.menuSwitch = 1">
                     	
                         <div class="col s6" style="padding: 0">
-                            <div ng-click="editor.menuSwitch = 1" ng-class="{'seleccionado': editor.menuSwitch == 1}" class="tab">
+                            <div ng-click="editor.menuSwitch = 1" ng-class="{'seleccionadoo': editor.menuSwitch == 1}" class="tab">
                                 <p class="text-center principal titulo" style="margin-bottom: 10px">NOMBRE</p>
                             </div>
                         </div>
                         <div class="col s6" style="padding: 0">
-                            <div ng-click="editor.menuSwitch = 2" ng-class="{'seleccionado': editor.menuSwitch == 2}" class="tab">
+                            <div ng-click="editor.menuSwitch = 2" ng-class="{'seleccionadoo': editor.menuSwitch == 2}" class="tab">
                                 <p class="text-center principal titulo" style="margin-bottom: 10px">ESLOGAN</p>
                             </div>
                         </div>
