@@ -104,9 +104,11 @@ body {
 .transparente {
     background-color: transparent !important;
 }
-.auto{
-        MARGIN: AUTO;
+
+.auto {
+    MARGIN: AUTO;
 }
+
 .menu-header {
     position: absolute;
     background: #fafafa;
@@ -481,7 +483,8 @@ texto.EN.PROCESO {
     padding: 0;
 }
 
-.plan0 {
+.plan-false,
+.plan-0 {
     background: silver !important;
 }
 
