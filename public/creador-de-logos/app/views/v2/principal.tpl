@@ -35,13 +35,13 @@
 
 						<md-input-container style="width:100%; padding: 0 0.75rem" >
 						  	<md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
-						    	<md-option ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+						    	<md-option class="iconos" ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 						  	</md-select>
 						</md-input-container>
                         
                         <md-input-container style="width:100%; padding: 0 0.75rem" >
 						  	<md-select ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
-						    	<md-option ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+						    	<md-option class="fuente" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 						  	</md-select>
 						</md-input-container>
                         
