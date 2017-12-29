@@ -31,7 +31,7 @@
                                             <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
                                             <i class="material-icons">edit</i>
                                         </span>
-                                        <span class="compartir">
+                                        <span class="compartir"  ng-click="logos.abrirModal(comprado.idLogo)">
                                             <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
                                             <i class="material-icons">share</i>
                                         </span>
@@ -101,7 +101,7 @@
                                 <span socialshare socialshare-provider="facebook" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
                                     <i class="fab fa-facebook-f"></i>
                                 </span>
-                                <span socialshare socialshare socialshare-provider="twitter" socialshare-text="XXXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}" socialshare-hashtags="liderlogo, vamos, carajo, kaio, ken, marihuana">
+                                <span socialshare socialshare socialshare-provider="twitter" socialshare-text="XXXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}" socialshare-hashtags="liderlogo">
                                     <i class="fab fa-twitter"></i>
                                 </span>
                                 <span socialshare socialshare-provider="google" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
@@ -110,7 +110,7 @@
                                 <span socialshare socialshare-provider="linkedin" socialshare-text="XXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
                                     <i class="fab fa-linkedin"></i>
                                 </span>
-                                <span socialshare socialshare-provider="pinterest" socialshare-text="XXXXX" socialshare-media="http://720kb.net/assets/img/logo.png" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
+                                <span socialshare socialshare-provider="pinterest" socialshare-text="XXXXX" socialshare-media="/assets/images/ipad.png" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
                                     <i class="fab fa-pinterest"></i>
                                 </span>
                             </div>
