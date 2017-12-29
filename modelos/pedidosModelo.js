@@ -1,4 +1,4 @@
-var DB=require('./DB.js');
+var DB=require('./db.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var pedido = {};

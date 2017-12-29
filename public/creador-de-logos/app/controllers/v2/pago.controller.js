@@ -45,17 +45,19 @@ angular.module("disenador-de-logos")
         bz.pagar = function (idPasarela, terminos) {
 
             
-            bz.completado = false;
+            if (terminos &&  bz.completado) {
+                
+                bz.completado = false;
             
-            if (terminos) {
-
+                angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+                
                 switch (idPasarela) {
-                        
+                    
                     case 1://PAYPAL
-                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
+                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.pedido.atributos.principal, bz.pedido.atributos.eslogan, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
                             
                             .then(function(res){
-                           
+                            
                                 $window.location = res;
                             
                             })
@@ -83,6 +85,10 @@ angular.module("disenador-de-logos")
 
 
         }
+        
+        
+        
+        
 
 
         $scope.$on('sesionExpiro', function (event, data) {

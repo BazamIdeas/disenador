@@ -11,8 +11,8 @@ var configuracion       = require('../configuracion.js');
 //no espera parametros
 router.get('/clientes', middleware.validarUsuario, controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
-router.get('/cliente/:id', middleware.validarUsuario, controllers.clientes.datosCliente);
-//parametro por get que debe ser el id del cliente.
+router.get('/cliente/datos', middleware.validar, controllers.clientes.Datos);
+
 router.post('/cliente/borrar/:id', middleware.validarUsuario, controllers.clientes.borrarCliente);
 //'valor'	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
@@ -22,6 +22,8 @@ router.post('/cliente/modificar', middleware.validar, controllers.clientes.modif
 //correo, contraseña => email, pass
 router.post('/cliente/login',controllers.clientes.login);
 
+router.get('/cliente/pedidos', middleware.validar, controllers.pedidos.PedidosCliente);//muestra la lista de pedidos de un cliente
+router.get('/cliente/:id', middleware.validarUsuario, controllers.clientes.datosCliente);
 
 //MODULO USUARIOS
 //
@@ -47,7 +49,7 @@ router.post('/pedido', middleware.validar, controllers.pedidos.nuevoPedido);//cr
 router.post('/pedido/guardado', middleware.validar, controllers.pedidos.nuevoPedidoGuardado);//crea un pedido de un logo ya guardado
 router.post('/pedido/modificar', middleware.validar, controllers.pedidos.modificarPedido);// modifica los datos de un pedido
 router.post('/pedido/cambiar', middleware.validar, controllers.pedidos.cambiarEstado);// cambia de estado al pedido
-router.get('/pedido/pagado/:idElemento/:idLogo/:tipo/:tk', controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
+router.get('/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido', controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
 router.get('/pedido/no/pago/:tk', controllers.pedidos.noPago);// RUTAS INTERNAS
 
 
@@ -81,10 +83,12 @@ router.post('/elemento/icono', multipartMiddleware, controllers.elementos.nuevoE
 router.get('/elementos/fuente', controllers.elementos.ListarFuentes);
 router.post('/elemento/fuente', multipartMiddleware, controllers.elementos.nuevoElementoFuente);
 router.post('/elemento/preferencias/modificar', /*middleware.validarUsuario,*/ controllers.elementos.ModificarPreferencias);
+router.post('/elementos/iniciales', controllers.elementos.ListaIniciales);
 
 
 //MODULO PAISES
 router.get('/paises', /*middleware.validarUsuario,*/ controllers.paises.Listar);
+router.get('/pais', /*middleware.validarUsuario,*/ controllers.paises.Obtener);
 router.post('/pais', /*middleware.validarUsuario,*/ controllers.paises.Nuevo);
 router.post('/pais/moneda', /*middleware.validarUsuario,*/ controllers.paises.AsignarMoneda);
 router.post('/pais/moneda/desasignar', /*middleware.validarUsuario,*/ controllers.paises.DesasignarMoneda);
@@ -114,7 +118,6 @@ router.get('/pasarela/monedas/:id', /*middleware.validarUsuario,*/ controllers.p
 
 //MODULO DE PLANES
 router.get('/planes/comprar', controllers.planes.ListarFront);
-
 router.get('/planes', /*middleware.validarUsuario,*/ controllers.planes.ListarBack);
 router.get('/plan/precios/:id', /*middleware.validarUsuario,*/ controllers.planes.ListarPrecios); // lista precios activos
 router.post('/plan', /*middleware.validarUsuario,*/ controllers.planes.Nuevo); // ingresar Nuevo y un precio
@@ -130,13 +133,12 @@ router.post('/precio/modificar', /*middleware.validarUsuario,*/ controllers.prec
 //MODULO LOGOS
 router.post('/logos/guardados', middleware.validar, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables',  middleware.validar, controllers.logos.listaLogosDescargables);
-router.get('/logo/:id', controllers.logos.datosLogo); //muestra los datos de un logo por su id
+router.get('/logo/:id', middleware.validar, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post('/logo/guardar', middleware.validar, controllers.logos.guardar);
-router.post('/logo/modificar',  controllers.logos.modificarLogo);
+router.post('/logo/modificar',  middleware.validar, controllers.logos.modificarLogo);
 router.post('/logo/descargar',  controllers.logos.descargar);
 router.get('/logo/borrar/:id',  controllers.logos.Borrar);
-
-router.post('/logo/zip',  controllers.logos.zip);
+router.post('/logo/zip',  middleware.validar, controllers.logos.zip);
 
 
 //RECUPERAR CONTRASEÑA

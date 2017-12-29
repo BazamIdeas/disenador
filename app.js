@@ -18,32 +18,27 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
 
+app.use(configuracion.base+'/fuentes', express.static(__dirname + '/fuentes'))
+app.use('/m/fuentes', express.static(__dirname + '/fuentes'))
 app.use('/fuentes', express.static(__dirname + '/fuentes'))
-
 
 app.use('/angular', express.static(__dirname + '/node_modules/angular'))
 app.use('/angular-material', express.static(__dirname + '/node_modules/angular-material'))
 app.use('/angular-messages', express.static(__dirname + '/node_modules/angular-messages'))
 app.use('/angular-animate', express.static(__dirname + '/node_modules/angular-animate'))
 app.use('/angular-aria', express.static(__dirname + '/node_modules/angular-aria'))
-//app.use('/angularfire', express.static(__dirname + '/node_modules/angularfire/dist'))
-//app.use('/firebase', express.static(__dirname + '/node_modules/firebase'))
 app.use('/angular-ui-router', express.static(__dirname + '/node_modules/angular-ui-router/release'))
 app.use('/assets', express.static(__dirname + '/public/creador-de-logos/assets'))
-app.use('/angular-color-picker', express.static(__dirname + '/node_modules/angular-color-picker'))
-app.use('/angular-colorpicker-directive', express.static(__dirname + '/node_modules/angular-colorpicker-directive'))
 app.use('/angular-base64', express.static(__dirname + '/node_modules/angular-base64'))
 app.use('/angular-social', express.static(__dirname + '/node_modules/angular-socialshare/dist'))
-app.use('/angular-sweetalert', express.static(__dirname + '/node_modules/angular-sweetalert'))
-app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'))
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'))
 app.use('/save-svg-as-png', express.static(__dirname + '/node_modules/save-svg-as-png'))
 app.use('/ng-file-upload', express.static(__dirname + '/node_modules/ng-file-upload/dist'))
-
+app.use('/angular-sweetalert', express.static(__dirname + '/node_modules/angular-sweetalert'))
+app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'))
 
 
 app.use('/app',rutas);
-
 
 
 app.use('/creador-de-logos/*', function(req, res, next) {
@@ -53,6 +48,14 @@ app.use('/creador-de-logos/*', function(req, res, next) {
     res.sendFile('/public/creador-de-logos/index.html', { root: __dirname });
 });
 
+
+
+app.use('/m/*', function(req, res, next) {
+    
+
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile('/public/m/index.html', { root: __dirname });
+});
 
 
 // catch 404 and forward to error handler
@@ -75,7 +78,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.send({ error: err.message, hola: req.url });
+  res.send({ error: err.message });
 });
 
 app.listen(configuracion.puerto, function () {

@@ -1,4 +1,4 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar", "720kb.socialshare"])
 
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider) {
 
@@ -11,234 +11,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         /*------------------------ Ui router states ----------------------*/
 
         $stateProvider
-            /*
-            .state({
-                name: 'comenzar',
-                url: '/comenzar?nombreLogo',
-                templateUrl: 'app/views/comenzar.html',
-                controller: 'comenzarController as comenzar',
-            })
-            .state({
-                name: 'analisis',
-                url: '/analisis',
-                templateUrl: 'app/views/analisis.html',
-                controller: 'analisisController as analisis',
-                params: {
-                    datos: null
-                }
-            })
-            .state({
-                name: 'opciones',
-                url: '/opciones',
-                templateUrl: 'app/views/opciones.html',
-                controller: 'opcionesController as opciones',
-                params: {
-                    datos: null
-                },
-                resolve: {
-
-                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
-
-                        var defered = $q.defer();
-                        var promise = defered.promise;
-
-                        historicoFactory($stateParams.datos, 'opciones', 'comenzar').then(function (res) {
-
-                                defered.resolve(res)
-                            })
-                            .catch(function (res) {
-
-                                defered.reject(res)
-                            })
-
-                        return promise;
-                    }]
-
-                }
-            })
-            .state({
-                name: 'proceso',
-                url: '/proceso',
-                templateUrl: 'app/views/proceso.html',
-                controller: 'procesoController as proceso',
-                params: {
-                    datos: null
-                },
-                resolve: {
-
-                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
-
-
-                        var defered = $q.defer();
-                        var promise = defered.promise;
-
-                        historicoFactory($stateParams.datos, 'proceso', 'opciones').then(function (res) {
-
-                                defered.resolve(res)
-                            })
-                            .catch(function (res) {
-
-                                defered.reject(res)
-                            })
-
-                        return promise;
-                    }]
-
-                }
-            }) 
-        
-            .state({
-                name: 'editor',
-                url: '/editor',
-                templateUrl: 'app/views/editor.html',
-                controller: 'editorController as editor',
-                params: {
-                    logo: null,
-                    posicion: null,
-                    texto: null,
-                    eslogan: null,
-                    logoModificado: null,
-                    fuentes: null
-                },
-                resolve: {
-
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }],
-
-                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
-
-                        var defered = $q.defer();
-                        var promise = defered.promise;
-
-                        if ($stateParams.logoModificado) { //si es un logo previamente modificado
-
-                            defered.resolve($stateParams);
-
-                        } else { //si no es logo modificado, se revisa el localStorage
-
-                            historicoFactory($stateParams, 'editor', 'proceso').then(function (res) {
-
-                                    defered.resolve(res);
-
-                                })
-                                .catch(function (res) {
-
-                                    defered.reject(res);
-                                })
-                        }
-
-                        return promise;
-
-
-                    }]
-
-                }
-            })
-            
-            .state({
-                name: 'previsualizar',
-                url: '/previsualizar',
-                templateUrl: 'app/views/previsualizar.html',
-                controller: 'previsualizarController as prev',
-                params: {
-                    datos: null
-                }
-            })
-
-            .state({
-                name: 'login',
-                url: '/login',
-                templateUrl: 'app/views/v2/login.tpl',
-                controller: 'loginController as login',
-                params: {
-                    origen: null,
-                    destino: null,
-                    parametrosDestino: null
-                },
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (clientesService.autorizado()) {
-
-                            return $q.reject("LOGOUT_REQUIRED");
-
-                        }
-
-                    }]
-                }
-            })
-
-            .state({
-                name: 'dashboard',
-                url: '/area-del-cliente',
-                templateUrl: 'app/views/v2/cliente.tpl',
-                controller: 'clienteController as cliente',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        console.log(clientesService.autorizado())
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }]
-                }
-            })
-            .state({
-                name: 'planes',
-                url: '/planes',
-                templateUrl: 'app/views/v2/planes.tpl',
-                controller: 'planesController as planes',
-                params: {
-                    logo: null,
-                    tipoLogo: null,
-                    idElemento: null
-                },
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }],
-
-                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
-
-                        var defered = $q.defer();
-                        var promise = defered.promise;
-
-
-
-                        historicoFactory($stateParams, 'planes', 'editor').then(function (res) {
-
-                                defered.resolve(res);
-
-                            })
-                            .catch(function (res) {
-
-                                defered.reject(res);
-                            })
-
-
-                        return promise;
-
-
-                    }]
-
-                }
-            })*/
             .state({
                 name: 'metodo',
                 url: '/metodo-de-pago',
@@ -318,7 +90,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'principal.comenzar',
-                url: '/',
+                url: '/?id&?n',
                 templateUrl: 'app/views/v2/principal.comenzar.tpl',
                 controller: 'principalComenzarController as principalComenzar'
             })
@@ -360,7 +132,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 }
             })
 
-
             .state({
                 name: 'editor',
                 url: '/editor/',
@@ -372,7 +143,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         logo: null,
                         texto: null,
                         //eslogan: null,
-                        fuentes: null
+                        fuentes: null,
+                        idLogoGuardado: null
                     }
                 },
                 resolve: {
@@ -425,7 +197,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     datos: {
                         logo: null,
                         idElemento: null,
-                        tipo: null
+                        tipo: null,
+                        fuentes: null
                     }
                 },
                 resolve: {
@@ -543,12 +316,23 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-        
-       
+
             .state({
                 name: 'cuenta',
                 url: '/cliente/cuenta',
                 templateUrl: 'app/views/v2/cuenta.tpl',
+                controller: 'cuentaController as cuenta',
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }]
+                }
             })
 
             .state({
@@ -597,8 +381,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-            
-        
         
             .state({
                 name: 'login',
@@ -634,17 +416,23 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
     })
 
 
-    .run(function ($rootScope, $state) {
-/*
-        $rootScope.$on('$stateChangeStart',function(){
-            $rootScope.loading = true;
-        });
+    .run(function ($rootScope, $state, $timeout) {
+        
+    
+    
+        $rootScope.$on('$viewContentLoaded', function(event) { 
+            
+            $timeout(function(){
+                
+                angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+            }
+                , 500)
+          
 
-
-        $rootScope.$on('$stateChangeSuccess',function(){
-            $rootScope.loading = false;
         });
-*/
+       
+      
+    
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
             if (error == "STEPS") {

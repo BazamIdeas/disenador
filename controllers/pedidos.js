@@ -8,6 +8,8 @@ var moment = require('moment');
 var pais = require('../modelos/paisesModelo.js');
 var precio = require('../modelos/preciosModelo.js');
 var pasarela = require('../modelos/pasarelasModelo.js');
+var atributo = require('../modelos/atributosModelo.js');
+
 
 exports.listaPedidos = function (req, res, next) {
 
@@ -78,6 +80,24 @@ exports.datosPedidosCliente = function (req, res, next) {
 
 }
 
+exports.PedidosCliente = function (req, res, next) {
+	//id del pedido
+	var id = req.idCliente;
+	pedido.getPedidosCliente(id, function (error, data) {
+		//si el pedido existe 
+		if (typeof data !== 'undefined' && data.length > 0) {
+			res.status(200).json(data);
+		}
+		//no existe
+		else {
+			res.status(404).json({
+				"msg": "No Encontrado"
+			})
+		}
+	});
+
+}
+
 exports.nuevoPedido = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
 
@@ -89,12 +109,36 @@ exports.nuevoPedido = function (req, res) {
 		clientes_idCliente: req.idCliente,
 		elementos_idElemento: req.body.idElemento
 	};
-
+	
 
 	logo.insertLogo(logoData, function (error, data) {
 
 		//si el logo se ha insertado correctamente
 		if (data && data.insertId) {
+            
+
+            var atributos = req.body.atributos;
+
+            for(var key in atributos){
+
+                var atributosData = {
+                    clave : key,
+                    valor : atributos[key],
+                    logos_idLogo: data.insertId  
+                };
+
+                atributo.Guardar(atributosData, function(error, data) {
+
+                    if(!data && !data.insertId)
+                    {
+
+                        res.status(500).json({"msg":"Algo ocurrio"})
+
+                    }
+
+                })
+
+            } 
 
 			idLogo = data.insertId
 			iso = services.geoipServices.iso(req.ip)
@@ -118,6 +162,7 @@ exports.nuevoPedido = function (req, res) {
 					if (data && data.insertId) {
 						/// PAGO AQUI
 						//////////////////////
+						idPedido= data.insertId;
 						precio.datos(idPrecio, function (error, data) {
 
 							if (typeof data !== 'undefined' && data.length > 0) {
@@ -143,7 +188,8 @@ exports.nuevoPedido = function (req, res) {
 														idElemento: req.body.idElemento,
 														impuesto: impuesto,
 														tipoElemento: tipoE,
-														token: req.headers.auth
+														token: req.headers.auth,
+														idPedido: idPedido
 													}
 
 													services.pagoServices.paypal(datosPago, function (error, data) {
@@ -223,7 +269,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 			if (data && data.insertId) {
 				/// PAGO AQUI
 				//////////////////////
-
+				idPedido= data.insertId;
 				precio.datos(idPrecio, function (error, data) {
 					if (typeof data !== 'undefined' && data.length > 0) {
 						var plan = data;
@@ -248,7 +294,8 @@ exports.nuevoPedidoGuardado = function (req, res) {
 												idElemento: req.body.idElemento,
 												impuesto: impuesto,
 												tipoElemento: tipoE,
-												token: req.headers.auth
+												token: req.headers.auth,
+												idPedido: idPedido
 											}
 
 											services.pagoServices.paypal(datosPago, function (error, data) {
@@ -298,13 +345,9 @@ exports.nuevoPedidoGuardado = function (req, res) {
 exports.cambioEstadoPagado = function (req, res)
 
 {
-	if (req.params.tipo == "ICONO") {
-		var elementoData = [1, req.params.idElemento];
-	} else {
-		var elementoData = [0, req.params.idElemento];
-	}
+	var pedidoData = ["COMPLETADO", req.params.idPedido];
 
-	elemento.cambiarEstado(elementoData, function (error, data) {
+	pedido.cambiarEstado(pedidoData, function (error, data) {
 
 		if (data) {
 			//////cambiar estado al logo a descargable

@@ -1,4 +1,4 @@
-var DB=require('./DB.js');
+var DB=require('./db.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var logo = {};
@@ -41,25 +41,6 @@ logo.getLogosTipo = function(par,callback)
 	});
 }
 
-//obtenemos un logo por su id
-logo.getLogo = function(id,callback)
-{ 
-	var q = 'SELECT estado, tipoLogo, logo, clientes_idCliente, elementos_idElemento FROM logos WHERE idLogo = ? ' 
-	var par = [id] //parametros
-
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, row){
-	  	
-		  	if(err)	throw err;
-		  	
-		  	else callback(null, row);
-
-		  	connection.release();
-	  	});
-	});
-}
- 
 
 //añadir un nuevo logo
 logo.insertLogo = function(logoData,callback)
@@ -122,42 +103,6 @@ logo.cambiarEstado = function(logoData, callback)
 	  
 	});
 }
- 
-//eliminar un logo pasando la id a eliminar
-logo.deleteLogo = function(id, callback)
-{
-	var q = 'SELECT * FROM logos WHERE idLogo = ?';
-	var par = [id] //parametros
-
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, row)
-		{
-	  	 	//si existe la id del logo a eliminar
-		  	if(row !== 'undefined' && row.length > 0)
-		  	{
-		  		var qq = 'DELETE FROM logos WHERE idLogo = ?';
-		  		DB.getConnection(function(err, connection)
-		  		{
-					connection.query( qq , par , function(err, row)
-					{
-				  	
-				  		if(err)	throw err;
-
-					  	else callback(null,{"msg" : "eliminado"}); 
-				  		
-				  		connection.release();
-				 	});
-				});
-
-		  	}
-		  	else callback(null,{"msg":"no existe el logo"});
-
-		  	connection.release();
-	  	});
- 
-	});
-}
 
 logo.Borrar = (id, callback) => 
 {
@@ -193,6 +138,24 @@ logo.Borrar = (id, callback) =>
  
 	});
 }
+
+logo.getLogo = function(par,callback)
+{ 
+	var q = 'SELECT * FROM logos WHERE clientes_idCliente = ? AND idLogo = ?' 
+	//console.log(par)
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	    //console.log(row)
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
+
+		  	connection.release();
+	  	});
+	});
+}
+
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = logo;

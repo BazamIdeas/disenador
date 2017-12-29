@@ -56,6 +56,28 @@ pais.ListarMonedas = function(id,callback)
 
 }
 
+
+pais.Obtener = function(iso,callback)
+{
+	var q = `SELECT paises.*
+				FROM paises
+				WHERE paises.iso = ?`; 
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , [iso], function(err, row){
+
+		  	if(err)	throw err;
+
+		  	else callback(null, row);
+
+		  	connection.release();
+
+		});
+		
+	});
+}
+
 pais.ObtenerPorIso = function(iso,callback)
 {
 	var q = `SELECT paises.*, monedas.*
@@ -72,8 +94,34 @@ pais.ObtenerPorIso = function(iso,callback)
 
 		  	if(err)	throw err;
 
-		  	else callback(null, row);
+		  	else{
 
+		  			if(row.length){ 
+		  					callback(null, row);
+		  			}else{
+		  					var q2 = `SELECT paises.*, monedas.*
+											FROM paises
+											INNER JOIN monedas_has_paises ON monedas_has_paises.paises_idPais = paises.idPais
+											INNER JOIN monedas ON monedas.idMoneda = monedas_has_paises.monedas_idMoneda
+											WHERE paises.iso = "US"
+											AND monedas_has_paises.principal = 1`; 
+
+								DB.getConnection(function(err, connection)
+								{
+									connection.query( q2 , function(err, row){
+
+
+									  	if(err)	throw err;
+
+									  	else callback(null, row);
+
+
+									  	connection.release();
+									})
+								})
+		  			}
+		  	}
+		  	
 		  	connection.release();
 
 		});

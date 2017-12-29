@@ -1,4 +1,4 @@
-var DB=require('./DB.js');
+var DB=require('./db.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var categoria = {};
@@ -7,11 +7,11 @@ var categoria = {};
 //obtenemos todos los clientes
 categoria.getCategorias = function(tipo,callback)
 {
-	var q = 'SELECT idCategoria,nombreCategoria FROM categorias WHERE tipo = ? ORDER BY idCategoria';
+	var q = 'SELECT idCategoria,nombreCategoria FROM categorias WHERE NOT(nombreCategoria = ?) AND tipo = ? ORDER BY idCategoria';
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , [tipo], function(err, rows){
+		connection.query( q , tipo, function(err, rows){
 	  	
 	  		if(err)	throw err;
 	  	

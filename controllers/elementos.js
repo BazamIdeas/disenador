@@ -105,7 +105,7 @@ exports.listaSegunPref = function (req, res, next) {
 			}
 		});
 }
-// te quedaste a aqui
+
 exports.listaElemCat = function (req, res, next) {
 
 	var cat = [req.body.idCategoria, req.body.tipo];
@@ -124,6 +124,25 @@ exports.listaElemCat = function (req, res, next) {
 		}
 	});
 
+}
+
+exports.ListaIniciales = function (req, res, next) {
+
+	var cat = ["Iniciales",req.body.inicial.toLowerCase()];
+
+
+	elemento.getIniciales(cat, function (error, data) {
+
+		if (typeof data !== 'undefined' && data.length > 0) {
+			res.status(200).json(data);
+		}
+		//no existe
+		else {
+			res.status(404).json({
+				"msg": "No Encontrado"
+			})
+		}
+	});
 }
 
 exports.ListarFuentes = function (req, res, next) {
@@ -150,7 +169,7 @@ exports.nuevoElementoIcono = function (req, res) {
 	if (tiposvg == 'image/svg+xml') {
 		fs.readFile(svg_path, function (error, contenido) {
 			var str = (contenido.toString());
-			dd = "<svg version"+str.split("<svg version")[1];
+			dd = "<svg"+str.split("<svg")[1];
 			dd2 = base64.encode(dd.replace('xmlns=', 'width="100%" xmlns='));
 			var elem = {
 				idElemento: null,
