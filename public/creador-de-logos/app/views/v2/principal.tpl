@@ -9,19 +9,19 @@
             
             @font-face {
                 font-family: 'Decorativa';
-                src: url('./fonts/decorativo.ttf');
+                src: url('./assets/fonts/decorativo.ttf');
             }
             @font-face {
                 font-family: 'Manuscrito';
-                src: url('./fonts/manuscrita.ttf');
+                src: url('./assets/fonts/manuscrita.ttf');
             }
             @font-face {
-                font-family: 'Serif';
-                src: url('./fonts/serif.ttf');
+                font-family: 'serif';
+                src: url('./assets/fonts/serif.ttf');
             }
             @font-face {
                 font-family: 'Sin Serif';
-                src: url('./fonts/sinserif.ttf');
+                src: url('./assets/fonts/sinserif.ttf');
             }
         </style>
 
@@ -60,8 +60,8 @@
 						</md-input-container>
                         
                         <md-input-container style="width:100%; padding: 0 0.75rem" >
-						  	<md-select ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
-						    	<md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+						  	<md-select ng-style="{'font-family': principal.seleccionarFuenteCategoria(principal.datos.categoria.fuente)}" class="cat-fuente" ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
+						    	<md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}} - ABCZ</md-option>
 						  	</md-select>
 						</md-input-container>
                         

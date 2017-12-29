@@ -181,6 +181,15 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     border-bottom-color: var(--principal);
     border-width: 2px;
     color: var(--principal);
+    font-family: inherit;
+}
+
+md-input-container.md-input-has-value .md-select-value>span:not(.md-select-icon), md-input-container.md-input-has-value .md-select-value>span:not(.md-select-icon) .md-text{
+    font-family: inherit !important;
+}
+
+md-select.cat-fuente .md-select-value>span:not(.md-select-icon) .md-text,{
+    font-family: inherit !important;
 }
 
 md-option.iconos .md-text, md-option.fuente .md-text{
@@ -546,7 +555,7 @@ div.sidebar-1 {
     padding: 0 0.75rem;
 }
 
-.editor.sidebar-1.scrollbar-dynamic{
+.editor-p.sidebar-1.scrollbar-dynamic{
     position: relative !important;
 }
 

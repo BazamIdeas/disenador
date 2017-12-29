@@ -340,4 +340,18 @@ angular.module("disenador-de-logos")
             
         }
 
+
+        bz.seleccionarFuenteCategoria = function(idCategoria){
+            var fuenteNombre = "";
+
+            angular.forEach(bz.categoriasPosibles.fuentes, function(fuenteCategoria, llave){
+                if(fuenteCategoria.idCategoria == idCategoria){
+
+                    fuenteNombre = fuenteCategoria.nombreCategoria;
+                }
+            })
+
+            return fuenteNombre;
+        }
+
 }])
