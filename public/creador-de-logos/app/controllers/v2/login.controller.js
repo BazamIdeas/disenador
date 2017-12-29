@@ -25,7 +25,7 @@ angular.module("disenador-de-logos")
 
         bz.login = function (datos, valido) {
 
-            if (valido) {
+            if (valido && bz.completadoLogin) {
                 
                 bz.completadoLogin = false;
                 

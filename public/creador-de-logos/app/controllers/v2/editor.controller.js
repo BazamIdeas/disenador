@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', "historicoResolve", "$rootScope","$mdToast", "$timeout", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout) {
+    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService) {
 
         var bz = this;
 
@@ -13,14 +13,31 @@ angular.module("disenador-de-logos")
         bz.preview = false;
         bz.busquedaIconos = false;
         bz.colorFondo = "rgb(236,239,240)";
-
-     
-        
+        bz.colorTexto = "#000";
+        bz.colorEslogan = "#000";
+        bz.colorIcono = "#000";
 
         bz.logo = historicoResolve.logo;
-        bz.logo.texto = historicoResolve.texto;
-        bz.fuentes = historicoResolve.fuentes;
-        bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
+
+        if (!historicoResolve.idLogoGuardado) { //si no es un logo guardado
+
+            bz.logo.texto = historicoResolve.texto;
+            bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
+
+        } else if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
+            /*bz.logo.fuente = {
+                url: historicoResolve.fuentes.principal.url,
+                nombre: historicoResolve.fuentes.principal.nombre
+            };
+            
+            if(historicoResolve.fuentes.eslogan){
+                bz.logo.fuenteEslogan = {
+                    url: historicoResolve.fuentes.eslogan.url,
+                    nombre: historicoResolve.fuentes.eslogan.nombre
+                };
+            }*/
+            bz.logo.idLogo = historicoResolve.idLogoGuardado;
+        }
 
         /* CATEGORIAS EXISTENTES */
 
@@ -36,44 +53,135 @@ angular.module("disenador-de-logos")
 
         })
 
-        /* LOGOS */
-        
-        
-        
-        bz.completadoGuardar = true;        
+
+        elementosService.listarFuentes().then(function (res) {
+
+            bz.fuentes = res;
+
+            if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
+                
+                angular.forEach(bz.fuentes, function (valor, llave) {
+
+                    if(valor.idElemento == historicoResolve.fuentes.principal){
+                        
+                        bz.logo.fuente = {
+                            url: valor.url,
+                            nombre: valor.nombre
+                        };
+                        
+                    } 
+                    
+                    if(valor.idElemento == historicoResolve.fuentes.eslogan){
+                        
+                        bz.logo.fuenteEslogan = {
+                            url: valor.url,
+                            nombre: valor.nombre
+                        };
+                        
+                        bz.esloganActivo = true;
+                        
+                    }
+
+                })
+
+
+            }
+
+        })
+
+
+
+        bz.completadoGuardar = true;
 
         bz.guardarLogo = function (logo, tipoLogo, idElemento) {
 
-            bz.completadoGuardar = false;    
-            
-            logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento).then(function (res) {
-                
-                var toast = $mdToast.show({
-                    hideDelay   : 0,
-                    position    : 'top right',
-                    controller  :  ["$scope", "$mdToast", "$timeout", function($scope, $mdToast, $timeout) {
-                    
-                        var temporizador = $timeout(function(){
-                            
-                            $mdToast.hide();
-                            
-                        }, 2000)
- 
-                        $scope.closeToast = function() {
-                            $timeout.cancel(temporizador)
-                            $mdToast.hide();
-                                
-                        }
-                    }],
-                    templateUrl : 'toast-success-logo-save.html'
-                });               
-               
+            if (bz.completadoGuardar) {
 
-            }).finally(function(){
-                
-                 bz.completadoGuardar = true; 
-                
-            })
+                bz.completadoGuardar = false;
+
+                var fuentesId = {
+                    principal: null,
+                    eslogan: null
+                }
+
+                angular.forEach(bz.fuentes, function (fuente, llave) {
+
+                    if (bz.logo.fuente && (bz.logo.fuente.url == fuente.url)) {
+
+                        fuentesId.principal = fuente.idElemento;
+
+                    }
+
+                    if (bz.logo.fuenteEslogan && (bz.logo.fuenteEslogan.url == fuente.url)) {
+
+                        fuentesId.eslogan = fuente.idElemento;
+
+                    }
+                })
+
+                if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
+                    logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan).then(function (res) {
+                        bz.logo.idLogo = res;
+                        $mdToast.show({
+                            hideDelay: 0,
+                            position: 'top right',
+                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+
+                                var temporizador = $timeout(function () {
+
+                                    $mdToast.hide();
+
+                                }, 2000)
+
+                                $scope.closeToast = function () {
+                                    $timeout.cancel(temporizador)
+                                    $mdToast.hide();
+
+                                }
+                        }],
+                            templateUrl: 'toast-success-logo-save.html'
+                        });
+
+
+                    }).finally(function () {
+
+                        bz.completadoGuardar = true;
+
+                    })
+                } else { //si es un logo guardado
+
+                    logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, fuentesId.principal, fuentesId.eslogan).then(function (res) {
+
+                        console.log(res)
+                        $mdToast.show({
+                            hideDelay: 0,
+                            position: 'top right',
+                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+
+                                var temporizador = $timeout(function () {
+
+                                    $mdToast.hide();
+
+                                }, 2000)
+
+                                $scope.closeToast = function () {
+                                    $timeout.cancel(temporizador)
+                                    $mdToast.hide();
+
+                                }
+                        }],
+                            templateUrl: 'toast-success-logo-save.html'
+                        });
+
+
+                    }).finally(function () {
+
+                        bz.completadoGuardar = true;
+
+                    })
+
+                }
+            }
 
         }
 
@@ -98,9 +206,7 @@ angular.module("disenador-de-logos")
 
             }
 
-
         }
-
 
         bz.mostrarPreviews = function () {
 
@@ -116,30 +222,48 @@ angular.module("disenador-de-logos")
 
             }
 
-
         }
-
 
         bz.buscarPlanes = function () {
 
-            $rootScope.$broadcast("editor:planes", true)
+            $rootScope.$broadcast("editor:planes", true);
 
         }
 
-
         $scope.$on("directiva:planes", function (evento, datos) {
 
+            var idFuente = null;
+            var idFuenteEslogan = null;
+            
+            angular.forEach(bz.fuentes, function (valor, llave) {
+
+                    if(valor.url == bz.logo.fuente.url){
+                        
+                        idFuente = valor.idElemento;
+                        
+                    } 
+                    
+                    if(bz.logo.fuenteEslogan && (valor.url == bz.logo.fuenteEslogan.url)){
+                        
+                        idFuenteEslogan =  valor.idElemento                        
+                    }
+
+                })
+            
             
             $state.go("planes", {
                 status: true,
                 datos: {
                     logo: datos,
                     idElemento: bz.logo.icono.idElemento,
-                    tipo: 'Logo y nombre'
-
+                    tipo: 'Logo y nombre',
+                    fuentes: {
+                        principal: idFuente,
+                        eslogan:  idFuenteEslogan
+                        
+                    }
                 }
             })
-
 
         })
 
@@ -162,9 +286,12 @@ angular.module("disenador-de-logos")
         //////////CAMBIO DE TEXTO////////////
         /////////////////////////////////////        
 
-        bz.cambioTexto = function (texto) {
+        bz.cambioTexto = function (texto, eslogan) {
 
-            $rootScope.$broadcast("editor:texto", texto);
+            $rootScope.$broadcast("editor:texto", {
+                texto: texto,
+                eslogan: eslogan
+            });
 
         }
 
@@ -173,9 +300,12 @@ angular.module("disenador-de-logos")
         /////////CAMBIO DE FUENTE////////////
         ///////////////////////////////////// 
 
-        bz.cambioFuente = function (fuente) {
+        bz.cambioFuente = function (fuente, objetivo) {
 
-            $rootScope.$broadcast("editor:fuente", fuente);
+            $rootScope.$broadcast("editor:fuente", {
+                fuente: fuente,
+                objetivo: objetivo
+            });
 
         }
 
@@ -183,9 +313,12 @@ angular.module("disenador-de-logos")
         ////////CAMBIO DE PROPIEDAS//////////
         ///////////////////////////////////// 
 
-        bz.cambioPropiedad = function (propiedad) {
+        bz.cambioPropiedad = function (propiedad, eslogan) {
 
-            $rootScope.$broadcast("editor:propiedad", propiedad);
+            $rootScope.$broadcast("editor:propiedad", {
+                propiedad: propiedad,
+                eslogan: eslogan
+            });
 
         }
 
@@ -228,16 +361,12 @@ angular.module("disenador-de-logos")
             bz.comparaciones.splice(indice, 1);
         }
 
-
-
-
         //////////////////////////////////////////
         ///////////CAMBIAR ORIENTACION////////////
         //////////////////////////////////////////
 
 
         bz.cambiarOrientacion = function (orientacion) {
-
 
             $rootScope.$broadcast("editor:orientacion", orientacion);
 
@@ -249,7 +378,7 @@ angular.module("disenador-de-logos")
         ////////////////////////////////////////
 
         bz.iconos = [];
-        
+
         bz.completadoBuscar = true;
 
         bz.buscarIconos = function (idCategoria, valido) {
@@ -257,7 +386,7 @@ angular.module("disenador-de-logos")
             bz.iconosForm.$setSubmitted();
 
             if (valido) {
-                
+
                 bz.completadoBuscar = false;
 
 
@@ -266,15 +395,12 @@ angular.module("disenador-de-logos")
                 bz.busquedaIconos = true;
 
 
-                categoriasService.listaCategoriasElementos(idCategoria, 'ICONO').then(function (res) {
-
-                    bz.iconos = res;
-                }).finally(function(res){
-                    
-                    
-                    bz.completadoBuscar = true;
-                    
-                })
+                categoriasService.listaCategoriasElementos(idCategoria, 'ICONO')
+                    .then(function (res) {
+                        bz.iconos = res;
+                    }).finally(function (res) {
+                        bz.completadoBuscar = true;
+                    })
             }
 
         }
@@ -288,14 +414,48 @@ angular.module("disenador-de-logos")
 
         }
 
-        /*
-        $scope.$on("directiva:reemplazar", function (evento, valor) {
+        $scope.$on("directiva:restaurarEslogan", function (evento, datos) {
 
-            
+            if (datos.accion) {
 
+                var fuenteElegida = null;
+
+                angular.forEach(bz.fuentes, function (valor, llave) {
+
+                    if (valor.nombre == datos.fuente.nombre) {
+
+                        fuenteElegida = {
+                            nombre: valor.nombre,
+                            url: valor.url
+                        };
+                    }
+
+                })
+
+                bz.logo.fuenteEslogan = fuenteElegida;
+                bz.esloganActivo = true;
+            } else {
+                bz.logo.eslogan = "";
+                bz.logo.fuenteEslogan = null;
+                bz.esloganActivo = false;
+            }
         })
-        */
 
+
+
+        bz.agregarEslogan = function () {
+
+            bz.logo.eslogan = "Mi eslogan aquí";
+            bz.logo.fuenteEslogan = bz.logo.fuente;
+
+            $rootScope.$broadcast("editor:agregarEslogan", {
+                eslogan: bz.logo.eslogan,
+                fuente: bz.logo.fuenteEslogan
+            });
+
+            bz.esloganActivo = true;
+
+        }
 
         //////////////////////////////////////////
         ////////RESTAURAR COMPARACIONES///////////
@@ -307,19 +467,10 @@ angular.module("disenador-de-logos")
 
         }
 
-
-
-
-
-
-
-
-
         $scope.$on('sesionExpiro', function (event, data) {
 
             $state.go('principal.comenzar');
 
         });
-
 
     }])

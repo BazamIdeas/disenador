@@ -208,8 +208,17 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     color: var(--principal);
 }
 
-md-option .md-text {
+md-option.iconos .md-text, md-option.fuente .md-text{
     font-family: 'futura-heavy' !important;
+}
+
+md-option {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .md-select-value>span:not(.md-select-icon) .md-text {
@@ -562,6 +571,10 @@ div.sidebar-1 {
 
 .scroll-wrapper.sidebar-1 .scroll-content{
     padding: 0 0.75rem;
+}
+
+.editor.sidebar-1.scrollbar-dynamic{
+    position: relative !important;
 }
 
 .scrollbar-dynamic > .scroll-element .scroll-bar {
@@ -1102,12 +1115,13 @@ p.titulo{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -webkit-box-align: center !important;
+        -ms-flex-align: center !important;
+            align-items: center !important;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
-            justify-content: center;
+            -webkit-box-pack: center;
+                justify-content: center;
     font-size: 20px;
     color: black;
     -webkit-box-shadow: 0px 1px 2px 0px #d9d9d9;
@@ -1615,7 +1629,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 
 
-span.editar i, span.compartir i{
+span.editar i, span.compartir i, span.borrar i{
     font-size: 23px !important;
 }
 span.compartir{
@@ -1625,8 +1639,14 @@ span.editar {
     left: 25px;
 }
 
+span.borrar {
+    left: 45px;
+    top: 79px !important;
+}
 
-span.editar, span.compartir {
+
+
+span.editar, span.compartir, span.borrar{
     position: absolute;
     top: 47px;
     color: var(--principal);
@@ -1702,6 +1722,7 @@ div.info span {
         -ms-flex-pack: center;
             justify-content: center;
     font-size: 26px;
+        cursor: pointer;
 }
 
 .cerrar-contenedor-bi{
@@ -1773,13 +1794,13 @@ path.seleccionado {
 
 @-webkit-keyframes parpadeo {  
     0% { opacity: 1.0; }
-    50% { opacity: 0.7; }
+    50% { opacity: 0.3; }
     100% { opacity: 1.0; }
 }
 
 @keyframes parpadeo {  
     0% { opacity: 1.0; }
-    50% { opacity: 0.7; }
+    50% { opacity: 0.3; }
     100% { opacity: 1.0; }
 }
 
@@ -1819,6 +1840,7 @@ path.seleccionado {
 
 .cubos-logos-cliente .col > div{
     width: 100%;
+    border-radius: 5px;
     margin: 0 auto 10px;
     position: relative;
     -webkit-box-shadow: 0px 1px 2px 1px #dedede;
@@ -1854,7 +1876,7 @@ path.seleccionado {
     opacity: 1
 }
 
-.cubos-logos-cliente .col > div:hover span.editar, .cubos-logos-cliente .col > div:hover span.compartir{
+.cubos-logos-cliente .col > div:hover span.editar, .cubos-logos-cliente .col > div:hover span.compartir, .cubos-logos-cliente .col > div:hover span.borrar{
     opacity: 1;
 }
 
@@ -2044,4 +2066,37 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     border: rgb(255, 255, 255) solid 1px;
     border-bottom: 2px solid;
     padding: 1px;
+}
+
+
+.tab .titulo{
+    color: grey !important;
+}
+
+.tab.seleccionadoo .titulo{
+    color: var(--principal) !important;
+}
+
+.tab{
+  -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    -webkit-transition-delay: 0.5s;
+            transition-delay: 0.5s;
+    cursor: pointer;
+}
+
+.tab.ng-enter {
+  opacity: 0;
+}
+
+.tab.ng-enter-active {
+    opacity: 1;
+}
+
+.tab.ng-leave {
+  opacity: 1;
+}
+
+.tab.ng-leave-active {
+    opacity: 0; 
 }

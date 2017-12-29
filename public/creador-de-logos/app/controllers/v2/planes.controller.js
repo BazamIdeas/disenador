@@ -11,7 +11,10 @@ angular.module("disenador-de-logos")
 
         bz.logo = historicoResolve.logo;
         bz.idElemento = historicoResolve.idElemento;
-
+        bz.fuentes  = {
+            principal: historicoResolve.fuentes.principal,
+            eslogan: historicoResolve.fuentes.eslogan
+        }
 
         bz.monedas = {};
         bz.moneda = {};
@@ -59,15 +62,12 @@ angular.module("disenador-de-logos")
 
             angular.forEach(plan.precios, function (valor, llave) {
 
-
                 if (valor.moneda == bz.moneda.simbolo) {
 
                     coincidencia = true;
                 }
 
-
             })
-
 
             return coincidencia;
 
@@ -116,7 +116,12 @@ angular.module("disenador-de-logos")
                                 monto: precio.precio,
                                 idPrecio: precio.idPrecio
                             }, 
-                            impuesto: bz.impuesto
+                            impuesto: bz.impuesto,
+                            atributos: {
+                                principal: bz.fuentes.principal,
+                                eslogan: bz.fuentes.eslogan
+                            }
+                            
 
                         }
                     });

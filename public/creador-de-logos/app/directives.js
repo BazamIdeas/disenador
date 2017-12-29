@@ -41,7 +41,8 @@ angular.module("disenador-de-logos")
                 ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
                 //////////////////////////////////////////////////////////////////////
 
-                while (svgTexto.textLength.baseVal.value > (1.6 * svgIcono.height.baseVal.value)) {
+                
+                while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
 
                     svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
 
@@ -58,7 +59,7 @@ angular.module("disenador-de-logos")
                 var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
                 svgTexto.setAttribute("y", paddingTopText);
-
+                
                 if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
 
                     while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
@@ -99,60 +100,64 @@ angular.module("disenador-de-logos")
                 svg: "=svg",
                 texto: "=texto",
                 fuente: "=fuente",
-                svgFinal: "=svgFinal"
+                svgFinal: "=svgFinal",
+                idLogo: "=idLogo",
+                eslogan: "=eslogan"
 
 
             },
             controller: function ($scope)
 
             {
+                if (!$scope.idLogo) { //si no es un logo previamente guardado
+                    $scope.svgSaneado = $scope.svg.trim()
 
-                $scope.svgSaneado = $scope.svg.trim()
+                    var posicion1 = $scope.svgSaneado.search(">");
 
-                var posicion1 = $scope.svgSaneado.search(">");
+                    //svg tag
+                    $scope.svgTagIncompleto = $scope.svgSaneado.substr(0, posicion1 + 1);
 
-                //svg tag
-                $scope.svgTagIncompleto = $scope.svgSaneado.substr(0, posicion1 + 1);
+                    var posicion2 = $scope.svgSaneado.substr(posicion1 + 1).search("</svg>");
 
-                var posicion2 = $scope.svgSaneado.substr(posicion1 + 1).search("</svg>");
+                    //contenido del svg
+                    $scope.seccionInterna = $scope.svgSaneado.substr(posicion1 + 1).substr(0, posicion2);
 
-                //contenido del svg
-                $scope.seccionInterna = $scope.svgSaneado.substr(posicion1 + 1).substr(0, posicion2);
+                    //recipiente de secciones del svg original
+                    $scope.seccionInternaElementos = []
 
+                    //indices del elemento
+                    $scope.elementosIndices = []
 
-
-                //recipiente de secciones del svg original
-                $scope.seccionInternaElementos = []
-
-                //indices del elemento
-                $scope.elementosIndices = []
-
-
-                //division en partes del svg
-                $scope.seccionInterna.trim().split(">").forEach(function (parte, index) {
-                    var indiceParte = " data-indice='" + index + "'";
-                    if (parte != "") { //si no es un tag de cerrar
-                        if (parte.search("</") == -1) {
-                            //si es un tag compuesto, ej: 
-                            if (parte.search("/") == -1) {
-                                $scope.seccionInternaElementos.push(parte + indiceParte + ">");
+                    //division en partes del svg
+                    $scope.seccionInterna.trim().split(">").forEach(function (parte, index) {
+                        var indiceParte = " data-indice='" + index + "'";
+                        if (parte != "") { //si no es un tag de cerrar
+                            if (parte.search("</") == -1) {
+                                //si es un tag compuesto, ej: 
+                                if (parte.search("/") == -1) {
+                                    $scope.seccionInternaElementos.push(parte + indiceParte + ">");
+                                }
+                                //si no es un tag compuesto, ej: path
+                                else {
+                                    $scope.seccionInternaElementos.push(parte.replace("/", "") + indiceParte + "/>");
+                                }
+                                //si es un tag de cerrar
+                            } else {
+                                $scope.seccionInternaElementos.push(parte + ">");
                             }
-                            //si no es un tag compuesto, ej: path
-                            else {
-                                $scope.seccionInternaElementos.push(parte.replace("/", "") + indiceParte + "/>");
-                            }
-                            //si es un tag de cerrar
-                        } else {
-                            $scope.seccionInternaElementos.push(parte + ">");
                         }
-                    }
-                    $scope.elementosIndices.push(false);
-                });
-                //union del nuevo contenido
-                $scope.seccionInterna = $scope.seccionInternaElementos.join("");
+                        $scope.elementosIndices.push(false);
+                    });
+                    //union del nuevo contenido
+                    $scope.seccionInterna = $scope.seccionInternaElementos.join("");
 
+                    $scope.svgTag = $scope.svgTagIncompleto + $scope.seccionInterna + "</svg>"
 
-                $scope.svgTag = $scope.svgTagIncompleto + $scope.seccionInterna + "</svg>"
+                } else if ($scope.idLogo) { //si es un logo previamente guardado
+
+                    $scope.elementosIndices = []
+
+                }
 
             },
             link: {
@@ -160,85 +165,107 @@ angular.module("disenador-de-logos")
 
                     var tamanoBase = 100;
 
-                    ////////////////////////////////////////////////////////////
-                    //////Insertamos el SVG del icono dentro del SVG padre//////
-                    ////////////////////////////////////////////////////////////
+                    if (!scope.idLogo) { // si no es un logo guardado previamente
 
 
-                    element[0].innerHTML = "<svg viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'><g class='contenedor-icono'>" + scope.svgTag + "</g></svg>";
+                        ////////////////////////////////////////////////////////////
+                        //////Insertamos el SVG del icono dentro del SVG padre//////
+                        ////////////////////////////////////////////////////////////
 
-                    var svgIcono = element[0].children[0].children[0].children[0];
+                        element[0].innerHTML = "<svg viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'><g class='contenedor-icono'>" + scope.svgTag + "</g></svg>";
 
-                    svgIcono.setAttribute('height', (tamanoBase / 2) + 'px')
+                        var svgIcono = element[0].children[0].children[0].children[0];
 
-                    /////////////////////////////////////////
-                    ////////creamos el elemento Text/////////
-                    /////////////////////////////////////////
+                        svgIcono.setAttribute('height', (tamanoBase / 2) + 'px')
 
-                    var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                        /////////////////////////////////////////
+                        ////////creamos el elemento Text/////////
+                        /////////////////////////////////////////
 
-                    texto.setAttributeNS(null, "x", (tamanoBase / 2));
+                        var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
 
-                    var textoNode = document.createTextNode(scope.texto);
+                        texto.setAttributeNS(null, "x", (tamanoBase / 2));
 
-                    texto.appendChild(textoNode);
+                        var textoNode = document.createTextNode(scope.texto);
 
-                    element[0].children[0].appendChild(texto);
+                        texto.appendChild(textoNode);
 
-                    var svgTexto = element[0].children[0].children[1];
+                        element[0].children[0].appendChild(texto);
 
-                    svgTexto.style.fontSize = (tamanoBase / 2) + "px";
-                    svgTexto.setAttribute("text-anchor", "middle");
-                    svgTexto.setAttribute("font-family", scope.fuente.nombre);
-                    svgTexto.setAttribute("class", "textoPrincipal");
+                        var svgTexto = element[0].children[0].children[1];
 
-                    //////////////////////////////////////////////////////////////////////
-                    ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
-                    //////////////////////////////////////////////////////////////////////
+                        svgTexto.style.fontSize = (tamanoBase / 2) + "px";
+                        svgTexto.setAttribute("text-anchor", "middle");
+                        svgTexto.setAttribute("font-family", scope.fuente.nombre);
+                        svgTexto.setAttribute("class", "textoPrincipal");
 
-                    while (svgTexto.textLength.baseVal.value > (1.6 * svgIcono.height.baseVal.value)) {
+                        //////////////////////////////////////////////////////////////////////
+                        ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
+                        //////////////////////////////////////////////////////////////////////
 
-                        svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
+                        while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
 
-                    }
-
-                    ///////////////////////////////////
-                    /////centramos los elementos///////
-                    ///////////////////////////////////
-
-                    var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
-
-                    svgIcono.y.baseVal.value = paddingTopIcono;
-
-                    var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px"
-
-                    svgTexto.setAttribute("y", paddingTopText);
-
-                    if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
-
-                        while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
-
-                            svgIcono.setAttribute('height', (parseFloat(svgIcono.getAttribute("height")) * 0.95) + 'px');
-
-                            svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+                            svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
 
                         }
+
+                        ///////////////////////////////////
+                        /////centramos los elementos///////
+                        ///////////////////////////////////
 
                         var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
 
                         svgIcono.y.baseVal.value = paddingTopIcono;
 
-                        var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+                        var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px"
 
                         svgTexto.setAttribute("y", paddingTopText);
 
+                        if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+                            while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+                                svgIcono.setAttribute('height', (parseFloat(svgIcono.getAttribute("height")) * 0.95) + 'px');
+
+                                svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+
+                            }
+
+                            var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+
+                            svgIcono.y.baseVal.value = paddingTopIcono;
+
+                            var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+
+                            svgTexto.setAttribute("y", paddingTopText);
+
+                        }
+
+
+                        //agregamos el Style Tag al svg
+                        element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
+
+                    } else if (scope.idLogo) { // si es un logo previamenteguardado
+                        
+                        element.html(scope.svg);
+                        
+                        element.find("g.contenedor-icono > svg [data-indice]").each(function (indice) {
+
+                            scope.elementosIndices[parseInt(this.getAttribute("data-indice"))] = false;
+
+                        })
+                        
+                        
+                        scope.texto = element.find("text.textoPrincipal").text();
+                        
+                        if(element.find("text.eslogan").length){
+                            
+                            
+                             scope.eslogan = element.find("text.eslogan").text();
+                        }
+
+
                     }
-
-
-                    //agregamos el Style Tag al svg
-                    element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
-
-
 
                 },
                 post: function (scope, element, attributes) {
@@ -247,6 +274,13 @@ angular.module("disenador-de-logos")
                     element.html(element.html());
 
                     scope.svgFinal = element.html();
+                    
+                    var fuentes = {
+                        principal: scope.fuente,
+                        eslogan: null                        
+                    }               
+                    
+                    
 
                     //evento para los hijos directos de seccion-icono
 
@@ -284,13 +318,14 @@ angular.module("disenador-de-logos")
                             //cambiamos el color al correcto
                             element.find("[data-indice=" + indice + "]").css("fill", datos.color);
 
-                        } else if (datos.objetivo == 'texto') {
+                        } else if (datos.objetivo == 'texto' || datos.objetivo == 'eslogan') {
 
-                            element.find("text.textoPrincipal").css("fill", datos.color);
+                            var selector = datos.objetivo == 'eslogan' ? "text.eslogan" : "text.textoPrincipal";
+                            element.find(selector).css("fill", datos.color);
 
                         }
 
-                        scope.svgFinal = element.html();
+                        obtenerSVGFinal();
                     })
 
 
@@ -300,53 +335,74 @@ angular.module("disenador-de-logos")
                     ////////////////////////////////////////////
 
                     scope.$on("editor:texto", function (evento, texto) {
-
-                        element.find(".textoPrincipal").text(texto);
-                        scope.svgFinal = element.html();
-
-                    })
-
-                    /////////////////////////////////////////////
-                    ///vigilamos el cambio de fuente del texto///
-                    /////////////////////////////////////////////
-
-                    scope.$on("editor:fuente", function (evento, fuente) {
-
-                        //cambiamos la font-family al correcto
-                        element.find("text.textoPrincipal").attr("font-family", fuente.nombre);
-
-                        element.find("style").text("<style> <![CDATA[ @font-face: { font-family: '" + scope.fuente.nombre + "'; src: url('" + fuente.url + "')} ]]> </style>");
-
-                        scope.svgFinal = element.html();
+                        
+                        textoFinal = texto.texto;
+                        
+                        var selector = !texto.eslogan ? ".textoPrincipal" : ".eslogan";
+                        
+                        element.find(selector).text(textoFinal);
+                        obtenerSVGFinal();
 
                     })
 
                     /////////////////////////////////////////////
                     ///vigilamos el cambio de fuente del texto///
+                    /////////////////////////////////////////////
+                    
+                    scope.$on("editor:fuente", function (evento, datos) {
+        
+                        
+                        var selector = datos.objetivo == 'texto' ? "text.textoPrincipal" : "text.eslogan";
+                        var keyFuente = datos.objetivo == 'texto' ? "principal" : "eslogan";
+                        
+                        fuentes[keyFuente] = datos.fuente;
+                        
+                        var htmlStyle = "";
+                        
+                        if(fuentes.principal && fuentes.eslogan){
+                            
+                            htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}\n @font-face { font-family: '" + fuentes.eslogan.nombre + "'; src: url('" + fuentes.eslogan.nombre + "')}";
+                            
+                        } else {
+                         
+                            htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}";
+                            
+                        }
+                        
+                        //cambiamos la font-family al correcto 
+                        element.find(selector).attr("font-family", datos.fuente.nombre);   
+
+                        element.children("style").html(htmlStyle);
+
+                        obtenerSVGFinal();
+
+                    })
+
+                    /////////////////////////////////////////////
+                    /////vigilamos las propiedades del texto/////
                     /////////////////////////////////////////////
 
                     scope.$on("editor:propiedad", function (evento, propiedad) {
 
+                        var selector = propiedad.eslogan ? "text.eslogan": "text.textoPrincipal";
+                        
+                        if (propiedad.propiedad == 'bold') {
 
-                        if (propiedad == 'bold') {
-
-                            var grosor = element.find("text.textoPrincipal").attr("font-weight") == "bold" ? "normal" : "bold";
-
-                            //cambiamos la font-weight al correcto
-                            element.find("text.textoPrincipal").attr("font-weight", grosor);
-
-                        } else if (propiedad == 'cursive') {
-
-
-
-                            var estilo = element.find("text.textoPrincipal")[0].style.fontStyle == "oblique" ? "normal" : "oblique";
+                            var grosor = element.find(selector).attr("font-weight") == "bold" ? "normal" : "bold";
 
                             //cambiamos la font-weight al correcto
-                            element.find("text.textoPrincipal").css("font-style", estilo);
+                            element.find(selector).attr("font-weight", grosor);
+
+                        } else if (propiedad.propiedad == 'cursive') {
+
+                            var estilo = element.find(selector)[0].style.fontStyle == "oblique" ? "normal" : "oblique";
+
+                            //cambiamos la font-weight al correcto
+                            element.find(selector).css("font-style", estilo);
 
                         }
 
-                        scope.svgFinal = element.html();
+                        obtenerSVGFinal();
                     })
 
 
@@ -357,9 +413,11 @@ angular.module("disenador-de-logos")
                     scope.$on("editor:tamano", function (evento, datos) {
 
 
-                        if (datos.objetivo == 'texto') {
-
-                            var texto = element.find("text.textoPrincipal");
+                        if (datos.objetivo == 'texto' || datos.objetivo == 'eslogan') {
+                            
+                            
+                            var selector = datos.objetivo == "eslogan" ? "text.eslogan" : "text.textoPrincipal";
+                            var texto = element.find(selector);
 
                             if (datos.accion) {
 
@@ -401,8 +459,7 @@ angular.module("disenador-de-logos")
                             }
                         }
 
-                        scope.svgFinal = element.html();
-
+                        obtenerSVGFinal();
 
                     })
 
@@ -418,8 +475,11 @@ angular.module("disenador-de-logos")
                     var currentY = 0;
                     var currentMatrix = 0;
 
+                    var intermediador = true;
 
-                    $("bazam-svg").on("mousedown", "text.textoPrincipal, g.contenedor-icono", function (evento) {
+                    $("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono", function (evento) {
+
+                        intermediador = false;
 
                         if (!$(this).attr("transform")) {
 
@@ -445,7 +505,7 @@ angular.module("disenador-de-logos")
 
                     })
 
-                    $("bazam-svg").on("mousemove", "text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
+                    $("bazam-svg").on("mousemove", "text.eslogan[movimiento-bz], text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
 
 
                         if ($("[movimiento-bz]").length) {
@@ -455,31 +515,61 @@ angular.module("disenador-de-logos")
 
                             var svgPadre = element[0].children[0];
 
-                            var relacionX = (svgPadre.clientWidth / parseFloat(element.children().attr("viewBox").split(" ")[2]));
+                            var relacionX = (svgPadre.getClientRects()[0].width / parseFloat(element.children().attr("viewBox").split(" ")[2]));
 
-                            var relacionY = (element[0].children[0].clientHeight / parseFloat(element.children().attr("viewBox").split(" ")[3]));
-
+                            var relacionY = (svgPadre.getClientRects()[0].height / parseFloat(element.children().attr("viewBox").split(" ")[3]));
+                            
+                           
+                            
                             currentMatrix[4] += (dx / relacionY);
                             currentMatrix[5] += (dy / relacionX);
 
 
                             newMatrix = "matrix(" + currentMatrix.join(' ') + ")";
-
+                            
+                          
+                            
                             $(this).attr("transform", newMatrix);
                             currentX = evento.clientX;
                             currentY = evento.clientY;
-                            
+
 
                         };
 
                     });
 
                     angular.element(document.querySelector("body")).mouseup(function (evento) {
+
+                        $("text.textoPrincipal, g.contenedor-icono, text.eslogan").removeAttr("movimiento-bz");
+
+                        var clon = angular.element(document.querySelector("bazam-svg")).clone();
+
+                        clon.find(".seleccionado").removeClass("seleccionado");
                         
-                        $("text.textoPrincipal, g.contenedor-icono").removeAttr("movimiento-bz");
-                        scope.svgFinal = angular.element(document.querySelector("bazam-svg")).html()
-                      
+                        scope.$apply(function() {
+                            scope.svgFinal = clon.html();
+                        })
+                        intermediador = true;
+
                     });
+
+
+                    angular.element(document.querySelector(".editor")).mouseup(function () {
+
+
+                        if (intermediador) {
+
+                            element.find(".seleccionado").removeClass("seleccionado");
+
+                        }
+
+
+
+
+
+                    })
+
+
 
                     ///////////////////////////////////////////
                     //////////////COMPARACION//////////////////
@@ -535,7 +625,7 @@ angular.module("disenador-de-logos")
 
                             var anchoViewBox = parseInt(element[0].children[0].getAttribute("viewBox").split(" ")[3]);
 
-                            while ((svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value) > (anchoViewBox * 0.80)) {
+                            while ((svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.getComputedTextLength()) > (anchoViewBox * 0.80)) {
 
                                 svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
                                 svgIcono.setAttribute("width", (svgIcono.width.baseVal.value * 0.95) + "px");
@@ -547,9 +637,9 @@ angular.module("disenador-de-logos")
                             /////centramos los elementos///////
                             ///////////////////////////////////
 
-                            //anchoSVG - (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value)
+                            //anchoSVG - (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.getComputedTextLength())
 
-                            var totalEspacioIconoFuente = (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.textLength.baseVal.value);
+                            var totalEspacioIconoFuente = (svgIcono.width.baseVal.value + (anchoSVG * 0.05) + svgTexto.getComputedTextLength());
 
                             var paddingLeft = (anchoSVG - totalEspacioIconoFuente) / 2;
 
@@ -558,6 +648,34 @@ angular.module("disenador-de-logos")
                             svgIcono.setAttribute("x", paddingLeft);
                             svgTexto.setAttribute("x", paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05)));
                             svgTexto.setAttribute("y", (alturaSVG / 2) + (parseFloat(svgTexto.style.fontSize) / 4));
+                            
+                            //SI EXISTE EL ESLOGAN
+                               
+                            if(element.find("text.eslogan").length){
+                                
+                                var eslogan = element.find("text.eslogan")[0];
+                               
+                                eslogan.setAttribute("transform", '');
+                                eslogan.setAttribute("text-anchor", "left");
+                                
+                           
+                                eslogan.style.fontSize = svgTexto.style.fontSize;
+                                
+                                while((eslogan.getComputedTextLength() > (svgTexto.getComputedTextLength() * 0.8))){
+                                    
+                                                                 
+                                    eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+                                   
+                                }
+                                
+                                
+                                
+                                eslogan.setAttribute("x", (paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05))) * 1.15);
+                                eslogan.setAttribute("y", (alturaSVG / 1.7));
+                                
+                            }
+
+                            
 
                         } else if (orientacion == 'vertical') {
 
@@ -590,7 +708,7 @@ angular.module("disenador-de-logos")
                             ////ajustamos el tamaño del texto en relacion al tamaño del icono/////
                             //////////////////////////////////////////////////////////////////////
 
-                            while (svgTexto.textLength.baseVal.value > (1.6 * svgIcono.height.baseVal.value)) {
+                            while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
 
                                 svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
 
@@ -623,20 +741,46 @@ angular.module("disenador-de-logos")
 
                                 svgIcono.setAttribute("y", paddingTopIcono);
 
-                                var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+                                paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
                                 svgTexto.setAttribute("y", paddingTopText);
 
                             }
+                            
+                            
+                           if(element.find("text.eslogan").length){
+                                
+                                var eslogan = element.find("text.eslogan")[0];
+                               
+                                eslogan.setAttribute("transform", '');
+                                eslogan.setAttribute("text-anchor", "middle");
+                                
+                           
+                                eslogan.style.fontSize = svgTexto.style.fontSize;
+                                
+                                while((eslogan.getComputedTextLength() > (svgTexto.getComputedTextLength() * 0.8))){
+                                    
+                                                                 
+                                    eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+                                   
+                                }
+                                
+                                
+                                
+                            
+                                eslogan.setAttribute("y", (parseFloat(paddingTopText) * 1.1) + "px");
+                                eslogan.setAttribute("x", (tamanoBase / 2));
+                                
+                            }
 
                         }
 
-                        scope.svgFinal = element.html();
+                        obtenerSVGFinal();
                     })
 
 
                     ////////////////////////////////
-                    ///////////RESTAURAR////////////
+                    ///////////REEMPLAZAR///////////
                     ////////////////////////////////
 
                     scope.$on("editor:reemplazar", function (evento, icono) {
@@ -670,10 +814,9 @@ angular.module("disenador-de-logos")
                             iconoSVGcambiado.attr("transform", transform);
                         }
 
-
                         var indices = [];
                         var seccionInternaElementos = [];
-                        
+
                         //division en partes del svg
                         iconoSVGcambiado.html().trim().split(">").forEach(function (parte, index) {
                             var indiceParte = " data-indice='" + index + "'";
@@ -697,13 +840,9 @@ angular.module("disenador-de-logos")
                         //union del nuevo contenido
                         iconoSVGcambiado.html(seccionInternaElementos.join(""));
 
-
-
                         scope.elementosIndices = indices;
 
-
-
-                        scope.svgFinal = element.html();
+                        obtenerSVGFinal();
 
                     })
 
@@ -729,39 +868,87 @@ angular.module("disenador-de-logos")
 
                         scope.elementosIndices = indices;
 
-
-                        var texto = element.find("text.textoPrincipal");
-
+                        var texto = element.find("text.textoPrincipal");         
                         scope.texto = texto.text();
-
-
-                        var nuevaFuente = {
-                            url: angular.element(document.querySelector("bazam-svg > svg > style")).text().split("url(")[1].split(")")[0],
-                            nombre: texto.attr("font-family")
-
+                        
+                        if(element.find("text.eslogan").length){
+                            var eslogan = element.find("text.eslogan");
+                            scope.eslogan = eslogan.text();
+                            $rootScope.$broadcast("directiva:restaurarEslogan", {accion: true, fuente: eslogan.attr("font-family")});
+                        } else { 
+                            $rootScope.$broadcast("directiva:restaurarEslogan", {accion: false});
                         }
 
-                        scope.fuente = nuevaFuente;
+                        /*var nuevaFuente = {
+                            url: angular.element(document.querySelector("bazam-svg > svg > style")).text().split("url('")[1].split("')")[0],
+                            nombre: texto.attr("font-family")
+
+                        }*/
+
+                        //$rootScope.$broadcast("directiva:fuente", nuevaFuente);
+
+                        //scope.fuente = nuevaFuente;
 
 
-                        scope.svgFinal = element.html();
+                        obtenerSVGFinal();
 
                     })
-                    
-                    
-                    
-                    
-                    
-                    
-                    scope.$on("editor:planes", function(){
-                         
+
+
+                    scope.$on("editor:planes", function () {
+
                         $rootScope.$broadcast("directiva:planes", scope.svgFinal);
-                        
+
                     })
-                        
-                        
-               
                     
+                    
+                    scope.$on("editor:agregarEslogan", function (evento, datos) {
+
+                        if(!element.find(".eslogan").length){
+                            
+                            var tamanoBase = 100;
+                            
+                            var textoEslogan = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+                            textoEslogan.setAttributeNS(null, "x", tamanoBase/2);
+                            textoEslogan.setAttributeNS(null, "y", tamanoBase*0.9);
+
+                            var textoNodeEslogan = document.createTextNode(datos.eslogan);
+
+                            textoEslogan.appendChild(textoNodeEslogan);
+          
+                            element.children()[0].appendChild(textoEslogan);
+                            
+                            var svgEslogan = element.children()[0].children[3];
+                            
+                            //var textoPrincipal = element.find("text.textoPrincipal");
+     
+                            svgEslogan.style.fontSize = (tamanoBase*0.1) + "px";
+                            svgEslogan.setAttribute("text-anchor", "middle");
+                            svgEslogan.setAttribute("font-family", datos.fuente.nombre);
+                            svgEslogan.setAttribute("class", "eslogan");
+     
+                        }
+                        
+                        obtenerSVGFinal();
+
+                    })
+                    
+
+                    var obtenerSVGFinal = function () {
+                        
+                        var elemento = element.clone()
+
+                        //elemento.find("[data-indice]").removeAttr("data-indice");
+                        elemento.find(".seleccionado").removeClass("seleccionado");
+
+                        //scope.$apply(function() {
+                            scope.svgFinal = elemento.html();
+                        //});
+                        
+                        
+                    }
+
 
                 }
             }
@@ -782,7 +969,7 @@ angular.module("disenador-de-logos")
 
             },
             link: function (scope, element, attributes) {
-                
+
                 element.html(scope.svg);
                 element.html(element.html());
 
