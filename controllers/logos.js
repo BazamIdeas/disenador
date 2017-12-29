@@ -313,7 +313,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 				        		
 			        		var svg = path + nombre
 
-			        		if(tipo == "svg"){
+			        		if(tipo == "editable"){
 
 				        		var output = fs.createWriteStream(svg.replace("svg", "zip"));
 				        		var archive = archiver('zip', { zlib: { level: 9 } });
