@@ -2,7 +2,6 @@ angular.module("administrador")
 
     .controller('clienteController', ["$state", "$mdSidenav", "clientesServiceAdmin", '$scope', 'pedidosService', 'SweetAlert', '$window', 'notificacionService', function ($state, $mdSidenav, clientesServiceAdmin, $scope, pedidosService, SweetAlert, $window, notificacionService) {
         var bz = this;
-        bz.loaderMostrar = true;
         bz.clientes = [];
         bz.mostrarPedido = false;
         bz.pedidosC = [];
@@ -23,11 +22,12 @@ angular.module("administrador")
             bz.mostrarPedido = false;
 
             clientesServiceAdmin.listarClientes().then(function (res) {
-                    bz.loaderMostrar = false;
-                    angular.forEach(res.data, function (valor, llave) {
-                        bz.clientes.push(valor);
-                        bz.clientes[llave].estadoE = false;
-                    })
+                    if (res != undefined) {
+                        angular.forEach(res.data, function (valor, llave) {
+                            bz.clientes.push(valor);
+                            bz.clientes[llave].estadoE = false;
+                        })
+                    }
                 })
                 .catch(function (res) {
                     notificacionService.mensaje(res);
