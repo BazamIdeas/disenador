@@ -345,6 +345,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 exports.cambioEstadoPagado = function (req, res)
 
 {
+	console.log(req.params)
 	var pedidoData = ["COMPLETADO", req.params.idPedido];
 
 	pedido.cambiarEstado(pedidoData, function (error, data) {
