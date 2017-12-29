@@ -166,11 +166,11 @@ o	<style ng-repeat="fuente in editor.fuentes">
 
 						<div class=" col s12 estilo-texto">
                     		<div class="menos" ng-click="editor.cambioTamano('icono', false)">
-                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
                     			-
                     		</div>               
                     		<div class="mas" ng-click="editor.cambioTamano('icono', true)">
-                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
                     			+
                     		</div>               
                         </div>

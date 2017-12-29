@@ -183,10 +183,6 @@ md-select.md-default-theme .md-select-value, md-select .md-select-value {
     color: var(--principal);
 }
 
-md-option .md-text {
-    font-family: 'futura-heavy' !important;
-}
-
 .md-select-value>span:not(.md-select-icon) .md-text {
     display: inline;
     font-family: 'futura-heavy' !important;

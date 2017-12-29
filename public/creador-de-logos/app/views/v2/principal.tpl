@@ -59,10 +59,11 @@
                     </div>
                 
                     <div class="col l2 sidebar-2" ng-class="{'offset-l2': principal.datosForm.$valid, 'ocultar': !principal.datosForm.$valid, 'mostrar': principal.datosForm.$valid}">
-                        <p class="text-center principal">Forma de su logo</p>
+                        <p class="text-center principal">Composición de logo</p>
 
                         <div class="cubo-logo">
                             <div ng-click="principal.asignarTipo(principal.botonesTipo[0] )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="right">Icono y nombre</md-tooltip>
                                 <span><i class="material-icons">thumb_up</i></span>
                                 <span>TU LOGO</span>
                             </div>
@@ -70,6 +71,7 @@
 
                         <div class="cubo-logo">
                             <div ng-click="principal.asignarTipo(principal.botonesTipo[1])" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="right">Inicial y nombre</md-tooltip>
                                 <span class="texto">M</span>
                                 <span>TU LOGO</span>
                             </div>
@@ -77,6 +79,7 @@
 
                         <div class="cubo-logo">
                             <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo, 'loading-white': principal.botonesTipo[2].activo && !principal.completado}">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="right">Nombre</md-tooltip>
                                 <span>TU LOGO</span>
                             </div>
                         </div>
