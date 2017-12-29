@@ -23,35 +23,35 @@
                         <div>Acciones:</div>
                     </div>
                     <div layout="column" class="content-scroll">
-                        <div ng-repeat="elemento in planes.planes | filter:planes.buscarPlanes | orderBy:'idPlan'" class="elemento plan{{elemento.status}}">
+                        <div ng-repeat="elemento in planes.planes | filter:planes.buscarPlanes | orderBy:'idPlan'" class="elemento plan-{{elemento.status}}">
                             <div class="tabla-campo">
                                 <div class="nombre">{{elemento.plan}}</div>
                                 <div>
-                                    <div ng-if="elemento.estado">
+                                    <div ng-if="elemento.status">
                                         <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('nombrePlan', elemento.idPlan, $index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Nombre del Plan</md-tooltip>
                                             <md-icon class="material-icon">edit</md-icon>
                                         </md-button>
                                     </div>
-                                    <div ng-if="elemento.estado">
+                                    <div ng-if="elemento.status">
                                         <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('preciosPlan', elemento.idPlan)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver precios de un Plan</md-tooltip>
                                             <md-icon class="material-icon">remove_red_eye</md-icon>
                                         </md-button>
                                     </div>
-                                    <div ng-if="elemento.estado">
+                                    <div ng-if="elemento.status">
                                         <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('nuevoPrecioPlan',elemento.idPlan,$index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Agregar Nuevo Precio</md-tooltip>
                                             <md-icon class="material-icon">add</md-icon>
                                         </md-button>
                                     </div>
-                                    <div ng-if="elemento.estado">
+                                    <div ng-if="elemento.status">
                                         <md-button class="md-fab md-mini md-warn" ng-click="planes.bloquearPlan('bloquear',elemento.idPlan,$index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear Plan</md-tooltip>
                                             <md-icon class="material-icon">lock</md-icon>
                                         </md-button>
                                     </div>
-                                    <div ng-if="!elemento.estado">
+                                    <div ng-if="!elemento.status">
                                         <md-button class="md-fab md-mini md-warn" ng-click="planes.bloquearPlan('desbloquear',elemento.idPlan,$index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Desbloquear Plan</md-tooltip>
                                             <md-icon class="material-icon">lock_open</md-icon>
@@ -153,7 +153,7 @@
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Precio</label>
-                                    <input type="numbre" ng-model="planes.nuevoPrecioPlan.precio" name="precio" required>
+                                    <input type="number" ng-model="planes.nuevoPrecioPlan.precio" name="precio" required>
                                 </md-input-container>
                             </div>
                             <!-- VALIDACION -->
@@ -203,7 +203,7 @@
                         <div ng-if="planes.modfire == $index" layout layout-align="space-between center">
                             <md-input-container style="margin-bottom:0;" flex>
                                 <label>Nuevo Precio</label>
-                                <input type="text" ng-model="elemento.precio" name="NuevoPrecio">
+                                <input type="number" ng-model="elemento.precio" name="NuevoPrecio">
                             </md-input-container>
                             <div layout>
                                 <md-button class="md-raised md-primary" type="submit" ng-click="planes.modificarPrecioPlan(elemento, $index)">Modificar</md-button>

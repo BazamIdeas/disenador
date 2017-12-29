@@ -10,8 +10,8 @@ angular.module("administrador")
         bz.modificar = {};
         bz.listar = {};
 
-        bz.mostrar = function(tipo){
-            if(tipo == 'ICONO'){
+        bz.mostrar = function (tipo) {
+            if (tipo == 'ICONO') {
                 bz.rIcono = !bz.rIcono;
                 return bz.listarCategorias(tipo);
             }
@@ -21,22 +21,42 @@ angular.module("administrador")
 
 
         bz.nuevaFuente = function (datos) {
-            iconoFuente.nuevaFuente(datos).then(function (res) {
-                datos.idElemento = res.data.insertId;
-                datos.tipo = 'FUENTE';
-                bz.elementos.push(datos);
-                SweetAlert.swal("Genial", "Fuente Agregada!", "success");
-            }).catch(function (res) {
-                console.log(res)
-            })
+            bz.valMulFonts = true;
+            if (bz.regFmArchivos) {
+                return bz.subidaMasiva(datos);
+            } else {
+                iconoFuente.nuevaFuente(datos).then(function (res) {
+                    datos.idElemento = res.data.insertId;
+                    datos.tipo = 'FUENTE';
+                    SweetAlert.swal("Genial", "Fuente Agregada!", "success");
+                    bz.valMulFonts = false;
+                }).catch(function (res) {
+                    console.log(res)
+                })
+            }
         }
 
         bz.nuevoIcono = function (datos) {
-            iconoFuente.nuevoIcono(datos).then(function (res) {
-                datos.idElemento = res.data.insertId;
-                datos.tipo = 'ICONO';
-                bz.elementos.push(datos);
-                SweetAlert.swal("Genial", 'Icono Agregado', "success");
+            bz.valMulIcons = true;
+            if (bz.regImArchivos) {
+                return bz.subidaMasiva(datos);
+            } else {
+                iconoFuente.nuevoIcono(datos).then(function (res) {
+                    datos.idElemento = res.data.insertId;
+                    datos.tipo = 'ICONO';
+                    SweetAlert.swal("Genial", 'Icono Agregado', "success");
+                    bz.valMulIcons = false;
+                }).catch(function (res) {
+                    console.log(res)
+                })
+            }
+        }
+
+        bz.subidaMasiva = function (datos) {
+            iconoFuente.subidaMasiva(datos).then(function (res) {
+                SweetAlert.swal("Genial", "Datos Agregados!", "success");
+                bz.valMulFonts = false;
+                bz.valMulIcons = false;
             }).catch(function (res) {
                 console.log(res)
             })
