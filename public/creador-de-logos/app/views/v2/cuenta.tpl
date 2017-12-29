@@ -21,37 +21,75 @@
 						<div class="col s12">
 							<span class="label">Correo</span>
 							<div class="info">
-								<span>danieljtorres94@gmail.com</span>
+								<span>{{cuenta.datos.correo}}</span>
 							</div>
 						</div>
-						<div class="col s12">
-							<span class="label">Nombre</span>
-							<div class="info">
-								<span>Daniel Torres</span>
-							</div>
-						</div>
-						<div class="col s12">
-							<span class="label">Telefono</span>
-							<div class="info">
-								<span>123456789</span>
-							</div>
-						</div>
-						<div class="col s12">
-							<span class="label">País</span>
-							<div class="info">
-								<span>Venezuela</span>
-							</div>
-						</div>
-						<div class="col s12">
-							<span class="label">Contraseña</span>
-							<div class="info">
-								<span>********</span>
-							</div>
-						</div>
+                        <div ng-switch="cuenta.formulario">
+                            <div ng-switch-when="1">
+                                <div class="col s12">
+                                    <span class="label">Nombre</span>
+                                    <div class="info">
+                                        <span>{{cuenta.datos.nombreCliente}}</span>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <span class="label">Telefono</span>
+                                    <div class="info">
+                                        <span>{{cuenta.datos.telefono}}</span>
+                                    </div>
+                                </div>
+                                <div class="col s12">
+                                    <span class="label">País</span>
+                                    <div class="info">
+                                        <span>{{cuenta.paises[cuenta.datos.pais]}}</span>
+                                    </div>
+                                </div>
+                                 <div class="col s12">
+                                    <button class="boton-verde" ng-click="cuenta.editar(cuenta.datos)">EDITAR</button>
+                                </div>
+                            </div>
+                            <div ng-switch-when="2">
+                                <form name="cuenta.datosForm" novalidate ng-submit="cuenta.guardar(cuenta.datosEspejo, cuenta.datosForm.$valid)">
+                                    <div class="col s12 input-field">
+                                        
+                                        <label for="nombre" class="active">Nombre</label>
+                                        <input id="nombre" type="text" name="nombreCliente" ng-model="cuenta.datosEspejo.nombreCliente" required>
+	                                    
+                                        
+                                        <div ng-messages="cuenta.datosForm.nombreCliente.$error" ng-if="cuenta.datosForm.$submitted || cuenta.datosForm.nombreCliente.$dirty">
+                                            <div ng-message="required">Este campo es requerido.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 input-field">
+                                        
+                                        
+                                        <input id="telefono" type="text" ng-model="cuenta.datosEspejo.telefono" name="telefono" required>
+	                                    <label for="telefono" class="active">Teléfono</label>
+                                        
+                                        <div ng-messages="cuenta.datosForm.telefono.$error" ng-if="cuenta.datosForm.$submitted || cuenta.datosForm.telefono.$dirty">
+                                            <div ng-message="required">Este campo es requerido.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 input-field">
+                                      
+	                                                                     
+                                        <md-input-container style="width: 100%;padding: 0 0rem;margin-top: 0;">
+                                            <md-select ng-model="cuenta.datosEspejo.pais" placeholder="Pais" required> 
+                                                <md-option ng-repeat="(llave, valor) in cuenta.paises track by $index" ng-value="llave"  ng-selected="llave == cuenta.datos.pais">{{valor}}</md-option>
+                                            </md-select>
+                                        </md-input-container>
+	                                  
+                                    </div>
+                                    <div class="col s12">
+                                        <button class="boton-verde" type="submit" >Guardar</button>
+                                        <button class="boton-verde" ng-click="cuenta.formulario = 1;">Cancelar</button>
+                                    </div>  
+                                    
+                                </form>
 
-						<div class="col s12">
-							<button class="boton-verde">EDITAR</button>
-						</div>
+                            </div>
+                            
+                        </div>
 					</div>
                 </div>
 
@@ -61,7 +99,6 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>PEDIDO</th>
                                         <th>FECHA</th>
                                         <th>ESTADO</th>
                                         <th>PLAN</th>
@@ -71,70 +108,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>#1</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
+                                    <tr ng-repeat="pedido in cuenta.pedidos">
+                                        <td>{{pedido.fecha | date: 'dd-MM-yyyy'}}</td>
+                                        <td>{{pedido.estado}}</td>
+                                        <td>{{pedido.plan}}</td>
+                                        <td>{{pedido.moneda + ' ' + pedido.precio}}</td>
+                                        <td>{{pedido.moneda}} {{pedido.impuesto ?  (pedido.precio/pedido.impuesto) : "0"}} ({{pedido.impuesto}}%)</td>
+                                        <td>{{pedido.moneda}} {{pedido.impuesto ?   pedido.precio + (pedido.precio/pedido.impuesto) : pedido.precio}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>#2</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#3</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#4</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#5</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#6</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#7</td>
-                                        <td>11/06/2017</td>
-                                        <td>COMPLETADO</td>
-                                        <td>PLAN BASICO</td>
-                                        <td>$ 510</td>
-                                        <td>$ 51 (10%)</td>
-                                        <td>$ 561</td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>

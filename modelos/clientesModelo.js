@@ -80,7 +80,7 @@ cliente.getCliente = function(id,callback)
 	var q = 'SELECT nombreCliente, idCliente, correo, pass, telefono, pais FROM clientes WHERE idCliente = ?' 
 	var par = [id] //parametros
 
-	console.log(par)
+	//console.log(par)
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row){
@@ -165,7 +165,7 @@ cliente.updateCliente = function(body, passActual, callback)
 
 		var q = `SELECT * FROM clientes WHERE idCliente = ?`;
 		var par = [body.idCliente]
-
+        
 		DB.getConnection(function(err, connection)
 		{
 			connection.query( q , par , function(err, row){
@@ -174,9 +174,9 @@ cliente.updateCliente = function(body, passActual, callback)
 
 		  			if (passActual == row[0].pass) {
 
-						var qq = 'UPDATE clientes SET nombreCliente = ?, correo = ?,  pass = ?, telefono = ?, pais = ? WHERE idCliente = ?';
+						var qq = 'UPDATE clientes SET nombreCliente = ?, pass = ?, telefono = ?, pais = ? WHERE idCliente = ?';
 
-		  				var parqq = [body.nombreCliente, body.correo, body.pass, body.telefono, body.pais, body.idCliente]
+		  				var parqq = [body.nombreCliente, body.pass, body.telefono, body.pais, body.idCliente]
 
 						DB.getConnection(function(err, connection)
 						{
@@ -207,8 +207,8 @@ cliente.updateCliente = function(body, passActual, callback)
 	}else{
 
 
-		var q = 'UPDATE clientes SET nombreCliente = ?, correo = ?, telefono = ?, pais = ? WHERE idCliente = ?';
-		var par = [body.nombreCliente, body.correo, body.telefono, body.pais, body.idCliente]
+		var q = 'UPDATE clientes SET nombreCliente = ?, telefono = ?, pais = ? WHERE idCliente = ?';
+		var par = [body.nombreCliente, body.telefono, body.pais, body.idCliente]
 
 
 		DB.getConnection(function(err, connection)

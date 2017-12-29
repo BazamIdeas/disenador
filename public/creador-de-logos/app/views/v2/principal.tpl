@@ -5,6 +5,26 @@
             }
         </style>
 
+        <style type="text/css">
+            
+            @font-face {
+                font-family: 'Decorativa';
+                src: url('./fonts/decorativo.ttf');
+            }
+            @font-face {
+                font-family: 'Manuscrito';
+                src: url('./fonts/manuscrita.ttf');
+            }
+            @font-face {
+                font-family: 'Serif';
+                src: url('./fonts/serif.ttf');
+            }
+            @font-face {
+                font-family: 'Sin Serif';
+                src: url('./fonts/sinserif.ttf');
+            }
+        </style>
+
         <section class="sub-header">
             <div class="row margin-bottom-0">
 
@@ -35,13 +55,13 @@
 
 						<md-input-container style="width:100%; padding: 0 0.75rem" >
 						  	<md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
-						    	<md-option ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+						    	<md-option class="iconos" ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 						  	</md-select>
 						</md-input-container>
                         
                         <md-input-container style="width:100%; padding: 0 0.75rem" >
 						  	<md-select ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
-						    	<md-option ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+						    	<md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 						  	</md-select>
 						</md-input-container>
                         
@@ -59,27 +79,33 @@
                     </div>
                 
                     <div class="col l2 sidebar-2" ng-class="{'offset-l2': principal.datosForm.$valid, 'ocultar': !principal.datosForm.$valid, 'mostrar': principal.datosForm.$valid}">
-                        <p class="text-center principal">Forma de su logo</p>
+                        <p class="text-center principal">Composición de logo</p>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.asignarTipo(principal.botonesTipo[0] )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
+
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[0], false )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="right">Icono y nombre</md-tooltip>
+
                                 <span><i class="material-icons">thumb_up</i></span>
                                 <span>TU LOGO</span>
                             </div>
                         </div>
 
                         <div class="cubo-logo">
-                            <div ng-click="principal.asignarTipo(principal.botonesTipo[1])" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
+                            <div ng-click="principal.asignarTipo(principal.botonesTipo[1], true)" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="right">Inicial y nombre</md-tooltip>
+
                                 <span class="texto">M</span>
                                 <span>TU LOGO</span>
                             </div>
                         </div>
 
-                        <div class="cubo-logo">
+                        <!--<div class="cubo-logo">
                             <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo, 'loading-white': principal.botonesTipo[2].activo && !principal.completado}">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="right">Nombre</md-tooltip>
                                 <span>TU LOGO</span>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </form>
 
