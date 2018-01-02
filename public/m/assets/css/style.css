@@ -468,12 +468,12 @@ nav {
     line-height: 56px;
     position: absolute;
     z-index: 10;
-    right: -100%;
+    top: : -100%;
     transition: all 1s;
 }
 
 nav.show{
-    right: 0;
+    top: 0;
 }
 
 .links li {
