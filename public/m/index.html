@@ -115,7 +115,7 @@
             <ul class="links" ng-switch-default>
                 <li ng-click="nav.clickLink('principal.comenzar')"> <i class="material-icons">add_circle_outline</i> <span>Crear logo</span> </li>
                 <li ng-click="nav.clickLink('logos')"> <i class="material-icons">favorite</i> <span>Mis logos</span> </li>
-                <li ng-click="nav.clickLink('cuenta')"> <i class="material-icons">account_circle</i> <span>Mi cuenta</span> </li>
+                <li ng-click="nav.clickLink('cuenta')"> <i class="material-icons">account_circle</i> <span> {{nav.autorizado.nombre}}</span> </li>
                 <li ng-click="nav.salir()"> <i class="material-icons">exit_to_app</i> <span>Cerrar sesion</span> </li>
             </ul>
         </div>
