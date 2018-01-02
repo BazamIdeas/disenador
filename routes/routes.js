@@ -52,7 +52,6 @@ router.post('/pedido/cambiar', middleware.validar, controllers.pedidos.cambiarEs
 router.get('/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido', controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
 router.get('/pedido/no/pago/:tk', controllers.pedidos.noPago);// RUTAS INTERNAS
 
-
 //MODULO CATEGORIAS
 
 router.post('/categorias', controllers.categorias.listaCategorias);
