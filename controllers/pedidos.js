@@ -383,7 +383,7 @@ exports.cambioEstadoPagado = function (req, res)
 
 exports.noPago = function (req, res) {
 
-	res.redirect(configuracion.nopago);
+	res.redirect(configuracion.dashboard);
 
 }
 
