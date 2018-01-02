@@ -31,7 +31,7 @@
                                             <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
                                             <i class="material-icons">edit</i>
                                         </span>
-                                        <span class="compartir"  ng-click="logos.abrirModal(comprado.idLogo)">
+                                        <span class="compartir"  ng-click="logos.abrirModal(guardado.idLogo)">
                                             <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
                                             <i class="material-icons">share</i>
                                         </span>
@@ -98,19 +98,19 @@
                             <i class="material-icons cerrar" ng-click="logos.mostrarModalSocial = false">clear</i>
 
                             <div class="compartir-iconos col s12">
-                                <span socialshare socialshare-provider="facebook" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
+                                <span socialshare socialshare-provider="facebook" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}">
                                     <i class="fab fa-facebook-f"></i>
                                 </span>
-                                <span socialshare socialshare socialshare-provider="twitter" socialshare-text="XXXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}" socialshare-hashtags="liderlogo">
+                                <span socialshare socialshare socialshare-provider="twitter" socialshare-text="XXXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}" socialshare-hashtags="liderlogo">
                                     <i class="fab fa-twitter"></i>
                                 </span>
-                                <span socialshare socialshare-provider="google" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
+                                <span socialshare socialshare-provider="google" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}">
                                     <i class="fab fa-google-plus-g"></i>
                                 </span>
-                                <span socialshare socialshare-provider="linkedin" socialshare-text="XXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
+                                <span socialshare socialshare-provider="linkedin" socialshare-text="XXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}">
                                     <i class="fab fa-linkedin"></i>
                                 </span>
-                                <span socialshare socialshare-provider="pinterest" socialshare-text="XXXXX" socialshare-media="/assets/images/ipad.png" socialshare-url="{{logos.urlCompartir+ 'comenzar/?idLogo=' +logos.idLogoCompartir}}">
+                                <span socialshare socialshare-provider="pinterest" socialshare-text="XXXXX" socialshare-media="/assets/images/ipad.png" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}">
                                     <i class="fab fa-pinterest"></i>
                                 </span>
                             </div>
