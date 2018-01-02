@@ -84,7 +84,7 @@ angular.module("disenador-de-logos")
 
         bz.completado = true;
 
-        bz.solicitarElementos = function (inicial) {
+        bz.solicitarElementos = function () {
 
             if ($scope.principal.datosForm.$valid && bz.completado) {
 
@@ -101,12 +101,10 @@ angular.module("disenador-de-logos")
                     preferencias: bz.datos.preferencias,
                     tipo: 'FUENTE'
                 };
-                
-                
-                var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos); 
+
 
                 $q.all([
-                    promesaIconos,
+                    elementosService.listaSegunPref(bz.datosIconos),
                     elementosService.listaSegunPref(bz.datosFuentes)
                     ])
                     .then(function (res) {
@@ -138,9 +136,7 @@ angular.module("disenador-de-logos")
 
 
 
-        bz.asignarTipo = function (tipoLogo, iniciales) {
-            
-            var inicial = iniciales ? bz.datos.nombre.charAt(0) : false;
+        bz.asignarTipo = function (tipoLogo) {
 
             angular.forEach(bz.botonesTipo, function (valor, llave) {
 
@@ -155,7 +151,7 @@ angular.module("disenador-de-logos")
 
             })
 
-            bz.solicitarElementos(inicial);
+            bz.solicitarElementos();
         }
 
 
@@ -186,6 +182,7 @@ angular.module("disenador-de-logos")
                     datos: {
                         logo: bz.logos[bz.logoSeleccionado],
                         texto: bz.datos.nombre,
+                        fuentes: bz.fuentes,
                         categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
                     }
                 });
@@ -338,20 +335,6 @@ angular.module("disenador-de-logos")
 
             };
             
-        }
-
-
-        bz.seleccionarFuenteCategoria = function(idCategoria){
-            var fuenteNombre = "";
-
-            angular.forEach(bz.categoriasPosibles.fuentes, function(fuenteCategoria, llave){
-                if(fuenteCategoria.idCategoria == idCategoria){
-
-                    fuenteNombre = fuenteCategoria.nombreCategoria;
-                }
-            })
-
-            return fuenteNombre;
         }
 
 }])

@@ -50,7 +50,7 @@
 							<div class="su-pedido col s2" ng-if="pago.pedido.impuesto">
 								<div>
 									<div class="th">IMPUESTO</div>
-									<div class="td">( {{$parent.impuestoTotal = (pago.pedido.precio.monto * (pago.pedido.impuesto / 100))}} ) {{pago.pedido.impuesto}}%</div>
+									<div class="td">( {{impuestoTotal = (pago.pedido.precio.monto / pago.pedido.impuesto)}} ) {{pago.pedido.impuesto}}%</div>
 								</div>
 							</div>	
 

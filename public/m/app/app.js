@@ -1,8 +1,8 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar", "720kb.socialshare"])
 
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider) {
 
-         $locationProvider.html5Mode(true)
+        $locationProvider.html5Mode(true)
 
         /* INTERCEPTADOR */
         $httpProvider.interceptors.push('AuthInterceptor');
@@ -197,7 +197,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     datos: {
                         logo: null,
                         idElemento: null,
-                        tipo: null
+                        tipo: null,
+                        fuentes: null
                     }
                 },
                 resolve: {
