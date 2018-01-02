@@ -303,7 +303,7 @@ angular.module("disenador-de-logos")
         bz.cambioFuente = function (fuente, objetivo) {
 
             $rootScope.$broadcast("editor:fuente", {
-                fuente: fuente,
+                fuente: angular.copy(fuente),
                 objetivo: objetivo
             });
 

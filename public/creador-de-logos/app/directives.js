@@ -359,20 +359,23 @@ angular.module("disenador-de-logos")
                         
                         var htmlStyle = "";
                         
+                        
+                        
                         if(fuentes.principal && fuentes.eslogan){
                             
-                            htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}\n @font-face { font-family: '" + fuentes.eslogan.nombre + "'; src: url('" + fuentes.eslogan.nombre + "')}";
+                            htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}\n @font-face { font-family: '" + fuentes.eslogan.nombre + "'; src: url('" + fuentes.eslogan.url + "')}";
                             
-                        } else {
-                         
+                        } else if(fuentes.principal) {
+                            console.log(fuentes.principal)
                             htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}";
                             
                         }
                         
-                        //cambiamos la font-family al correcto 
+                        //cambiamos la font-family al correcto
+                        
                         element.find(selector).attr("font-family", datos.fuente.nombre);   
 
-                        element.children("style").html(htmlStyle);
+                        element.children().children("style").html(htmlStyle);
 
                         obtenerSVGFinal();
 
