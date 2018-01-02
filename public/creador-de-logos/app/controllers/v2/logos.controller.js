@@ -65,7 +65,7 @@ angular.module("disenador-de-logos")
         bz.idLogoCompartir = null;
         
         bz.abrirModal = function(idLogo){
-            
+            console.log(idLogo)
             bz.mostrarModalSocial = true;
             bz.idLogoCompartir = idLogo;
             
