@@ -8,7 +8,7 @@ var configuracion = {
     	"puerto" : "4001",
     	"url": "front.liderlogo.info",
         "base": "/creador-de-logos",
-    	"dashboard": "/creador-de-logos/area-del-cliente",
+    	"dashboard": "/creador-de-logos/cliente/logos",
         "pago" : "/creador-de-logos#!/pago/completo/",
         "nopago" : "/creador-de-logos#!/pago/incompleto/",
         "paypal" : {
@@ -32,7 +32,7 @@ var configuracion = {
     	"puerto" : "8080",
     	"url": "http://localhost:8080",
         "base": "/creador-de-logos",
-    	"dashboard": "/creador-de-logos/area-del-cliente",
+    	"dashboard": "/creador-de-logos/cliente/logos",
         "pago" : "/creador-de-logos#!/pago/completo/",
         "nopago" : "/creador-de-logos#!/pago/incompleto/",
     	"paypal" : {
