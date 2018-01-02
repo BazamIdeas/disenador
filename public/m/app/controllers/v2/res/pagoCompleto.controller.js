@@ -15,7 +15,9 @@ angular.module("disenador-de-logos")
             bz.logo = res;
             
         })
-  
+        
+        
+
         $scope.$on('sesionExpiro', function (event, data) {
 
             $state.go('principal.comenzar');
