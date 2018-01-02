@@ -109,7 +109,7 @@ exports.nuevoPedido = function (req, res) {
 		clientes_idCliente: req.idCliente,
 		elementos_idElemento: req.body.idElemento
 	};
-
+	
 
 	logo.insertLogo(logoData, function (error, data) {
 

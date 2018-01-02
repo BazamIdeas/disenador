@@ -300,8 +300,8 @@ exports.listaLogosDescargables = function(req, res, next) {
 
 				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
 				
-				fuente = base64.decode(data[0].logo).split("@font-face")[1].split("</style>")[0].split("/fuentes/")[1].split(")")[0]
-
+				fuente = base64.decode(data[0].logo).split("@font-face")[1].split("</style>")[0].split("/fuentes/")[1].split("')")[0]
+				//console.log(fuente)
 				fs.open(path+nombre, 'w', function(err, fd) {
 				    if (err) {
 				        throw 'error al crear svg ' + err;
@@ -313,7 +313,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 				        		
 			        		var svg = path + nombre
 
-			        		if(tipo == "svg"){
+			        		if(tipo == "editable"){
 
 				        		var output = fs.createWriteStream(svg.replace("svg", "zip"));
 				        		var archive = archiver('zip', { zlib: { level: 9 } });
