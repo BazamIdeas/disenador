@@ -492,7 +492,12 @@ div.acceder {
     font-family: "futura-heavy" !important;
 }
 
-div.acceder span{ margin: 0 10px; }
+div.acceder span{ 
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .tooltip-header{
     font-family: 'futura-heavy' !important;
@@ -1526,7 +1531,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 .su-pedido .td .thumbail{
     height: 60%;
-    width: 64px;
+    width: 124px;
 }
 
 .metodo {
