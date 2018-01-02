@@ -14,7 +14,7 @@ planes.ListarPorPais = function(idPais, callback)
 				WHERE planes.status = 1
 				AND paises.idPais = ?
 				GROUP BY planes.idPlan
-				ORDER BY moneda`;
+				`;
 
 	DB.getConnection(function(err, connection)
 	{
