@@ -8,6 +8,8 @@ angular.module("disenador-de-logos")
         
         bz.paises = paisesValue;
         
+        bz.tab = 1;
+
         bz.paisDefecto = null;
         
         clientesService.pais().then(function(res){

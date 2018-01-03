@@ -45,3 +45,20 @@
 
             </div>
         </section>
+
+
+        <div class="opciones-descarga" ng-class="{'abierto': (logos.opcionesAdquiridos && !logos.opcionesGuardados) && (logos.logoSeleccionado != NULL)}">
+            <ul>
+                <li ui-sref="descargar({id: logos.logoSeleccionado})">
+                    <i class="material-icons">file_download</i>
+                    Descargar
+                </li>
+                <li>
+                    <i class="material-icons">share</i>
+                    Compartir
+                </li>
+                <li ng-click="logos.logoSeleccionado = null">
+                    <i class="material-icons">expand_more</i>
+                </li>
+            </ul>
+        </div>

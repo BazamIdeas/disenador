@@ -6,6 +6,8 @@ angular.module("disenador-de-logos")
 
         var bz = this;
 
+        bz.tab = 1;
+
         bz.base64 = $base64;
 
         bz.guardados = [];
@@ -47,17 +49,18 @@ angular.module("disenador-de-logos")
             
             if(accion){
                 
-                if(bz[objetivo][bz.salto[objetivo] + 9]){
+                if(bz[objetivo][bz.salto[objetivo] + 4]){
                     
-                    bz.salto[objetivo] = bz.salto[objetivo] + 9;
+                    bz.salto[objetivo] = bz.salto[objetivo] + 4;
                 }
                 
-            } else if ((bz.salto[objetivo] - 9) >= 0) {
+            } else if ((bz.salto[objetivo] - 4) >= 0) {
                 
-                bz.salto[objetivo] = bz.salto[objetivo] - 9;
+                bz.salto[objetivo] = bz.salto[objetivo] - 4;
             }
-              
-        }
+            
+            
+        }    
         
         
         bz.urlCompartir = $window.location.protocol + "//" + $window.location.hostname + angular.element(document.querySelector("base")).attr("href");
@@ -150,6 +153,26 @@ angular.module("disenador-de-logos")
             
             return idFuente;
         }
+
+
+        bz.opcionesGuardados = false;
+        bz.opcionesAdquiridos = false;
+        bz.logoSeleccionado = null;
+
+        bz.seleccionado = function(tipo, logo){
+
+            if (tipo == 'guardados') {
+                bz.opcionesGuardados = true;
+                bz.opcionesAdquiridos = false;         
+            }else if(tipo == 'adquiridos') {
+                bz.opcionesGuardados = false;
+                bz.opcionesAdquiridos = true;       
+            }
+
+            bz.logoSeleccionado = logo;    
+
+        }
+
         
         
         $scope.$on('sesionExpiro', function (event, data) {

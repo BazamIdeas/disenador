@@ -1,31 +1,37 @@
-
-        <section class="sub-header">
+        <section class="sub-menu">
             <div class="row margin-bottom-0">
 
-                <div class="col s2 logo">
-                    <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
+                <div class="col s12 titulo">
+                    <h6 class="principal"> MI CUENTA</h6>
                 </div>
-                <div class="col s8 texto">
-                    <h5 class="principal"> MI CUENTA</h5>
+
+                <div class="col s6 login tab" ng-class="{'active': cuenta.tab == 1}" ng-click="cuenta.tab = 1">
+                    <h5 class="principal"> Mis datos </h5>
+                </div>
+                <div class="col s6 registro tab" ng-class="{'active': cuenta.tab == 2}" ng-click="cuenta.tab = 2">
+                    <h5 class="principal"> Ultimos pedidos </h5>
                 </div>
 
             </div>
         </section>
 
-        <section style="height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: scroll;">
-            <div class="row margin-bottom-0">
+        <section class="section-cliente-datos">
+            <div class="row margin-bottom-0" ng-switch="cuenta.tab">
 
-				<div class="col s3 offset-s1">
+				<div class="col s12" ng-switch-when="1">
 					<div class="caja datos row">
-						<p class="text-center tercero margin-bottom-0 margin-top-0">MIS DATOS </p>
 						<div class="col s12">
-							<span class="label">Correo</span>
-							<div class="info">
-								<span>{{cuenta.datos.correo}}</span>
-							</div>
+                            <div class="row margin-bottom-0"> 
+                                <div class="col s12">
+        							<span class="label">Correo</span>
+        							<div class="info">
+        								<span>{{cuenta.datos.correo}}</span>
+        							</div>
+                                </div>
+                            </div>
 						</div>
-                        <div ng-switch="cuenta.formulario">
-                            <div ng-switch-when="1">
+                        <div class="col s12" ng-switch="cuenta.formulario">
+                            <div class="row" ng-switch-when="1">
                                 <div class="col s12">
                                     <span class="label">Nombre</span>
                                     <div class="info">
@@ -93,28 +99,24 @@
 					</div>
                 </div>
 
-				<div class="col s7">
-                    <div class="caja pedidos" style="padding: 0">
-                        <div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>FECHA</th>
-                                        <th>ESTADO</th>
-                                        <th>PLAN</th>
-                                        <th>PRECIO</th>
-                                        <th>IMPUESTO</th>
-                                        <th>TOTAL</th>
-                                    </tr>
-                                </thead>
+				<div class="col s12" ng-switch-when="2">
+                    <div class="row caja pedidos" style="padding: 0; margin-top: 20px;">
+                        <div class="col s12 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" style="width: 100% !important;">
+                            <table style="width: 100% !important;">
                                 <tbody>
-                                    <tr ng-repeat="pedido in cuenta.pedidos">
-                                        <td>{{pedido.fecha | date: 'dd-MM-yyyy'}}</td>
-                                        <td>{{pedido.estado}}</td>
-                                        <td>{{pedido.plan}}</td>
-                                        <td>{{pedido.moneda + ' ' + pedido.precio}}</td>
-                                        <td>{{pedido.moneda}} {{pedido.impuesto ?  (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)</td>
-                                        <td>{{pedido.moneda}} {{pedido.impuesto ?  pedido.precio + (pedido.precio * (pedido.impuesto/100)) : pedido.precio}}</td>
+                                    <tr ng-repeat="pedido in cuenta.pedidos" style="border: 0;">
+                                        <td style="padding-bottom: 0; text-align: left;">
+                                            <div style="margin-right: 10px; margin-left: 10%; width: 30%; display: inline-block; color: var(--principal)">FECHA:</div> {{pedido.fecha | date: 'dd-MM-yyyy'}} <br>
+                                            <div style="margin-right: 10px; margin-left: 10%; width: 30%; display: inline-block; color: var(--principal)">PLAN:</div> {{pedido.plan}} <br>
+                                            <div style="margin-right: 10px; margin-left: 10%; width: 30%; display: inline-block; color: var(--principal)">ESTADO:</div> {{pedido.estado}} <br>
+                                            <div style="margin-right: 10px; margin-left: 10%; width: 30%; display: inline-block; color: var(--principal)">PRECIO:</div> {{pedido.moneda + ' ' + pedido.precio}} <br>
+                                            <div style="margin-right: 10px; margin-left: 10%; width: 30%; display: inline-block; color: var(--principal)">IMPUESTO:</div> {{pedido.moneda}} {{pedido.impuesto ?  (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%) <br>
+                                            <div style="margin-right: 10px; margin-left: 10%; width: 30%; display: inline-block; color: var(--principal)">TOTAL:</div> {{pedido.moneda}} {{pedido.impuesto ?  pedido.precio + (pedido.precio * (pedido.impuesto/100)) : pedido.precio}} <br>
+                                            <hr style="margin-bottom: 0; background-color: var(--tercero)">
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="!cuenta.pedidos.length">
+                                        <td colspan="6">Aun no tiene pedidos</td>
                                     </tr>
                                 </tbody>
                             </table>

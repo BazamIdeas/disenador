@@ -78,7 +78,7 @@ angular.module("disenador-de-logos")
             }
         ]
 
-        bz.formatoSeleccionado = bz.formatos[0];
+        bz.formatoSeleccionado = null;
 
         bz.logo = {
             id: logoResolve.id,
