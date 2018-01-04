@@ -610,10 +610,7 @@ div.sidebar-1, div.sidebar-2{
     background-color: white;
 }
 
-div.sidebar-2{
-    transition: margin-left 1s ease;
-    border-right: 1px solid #d6d6d6;
-}
+
 
 /*Begin SideBar 1*/
 
@@ -718,12 +715,14 @@ div.contenedor-principal{
 /*Contenedor Principal*/
 
 .cubos-logos-opciones{
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 
 .cubos-logos-opciones div.col {
     padding: 0px 18px !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .cubos-logos-opciones div.col div{
@@ -769,8 +768,8 @@ div.contenedor-principal{
 }
 
 .cubo-fuentes-opciones .texto.seleccionado{
-    border: 2px solid var(--principal);
-    color: var(--principal);
+    background-color: var(--principal);
+    color: var(--blanco);
 } 
 
 /*ENd Rectangulo de fuentes*/

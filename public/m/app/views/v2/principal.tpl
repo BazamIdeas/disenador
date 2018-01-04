@@ -35,7 +35,7 @@
             </div>
         </section>
 
-        <section class="cuerpo">
+        <section class="cuerpo scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
             <div class="row margin-bottom-0">
                 <div class="col s12 sidebar-1" ng-form="principal.datosForm">
                     <div ng-switch="principal.pasosFormulario">
@@ -110,7 +110,7 @@
                         
                         <!--paso4-->
                         <div ng-switch-default>
-                            <div ui-view class="contenedor-principal col" ng-class="{'l10': !principal.datosForm.$valid, 'l8': principal.datosForm.$valid}">
+                            <div ui-view class="contenedor-principal col s12" style="background-color: white">
 
                             </div>
                         </div>
@@ -123,11 +123,15 @@
         <div class="opciones-principal abierto">
             <ul>
                 <li ng-click="principal.retrocederMovil()">
-                    <i class="material-icons">edit</i>
+                    <i class="material-icons">keyboard_arrow_left</i>
                     Atrás
                 </li>
+                <li ng-click="principal.solicitarElementos()" ng-if="principal.pasosFormulario == 4 || principal.pasosFormulario == 5">
+                    <i class="material-icons">autorenew</i>
+                    Refrescar
+                </li>
                 <li ng-click="principal.avanzarMovil()" style="background: {{ principal.datosForm.$valid ? 'red' : 'gray' }}">
-                    <i class="material-icons">share</i>
+                    <i class="material-icons">keyboard_arrow_right</i>
                     Continuar
                 </li>
             </ul>
