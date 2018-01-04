@@ -12,7 +12,7 @@ angular.module("disenador-de-logos")
             
             var contar = 0;
             
-            angular.forEach($scope.$parent.principal[tipo], function(valor, llave){
+            angular.forEach($scope.$parent.$parent.principal[tipo], function(valor, llave){
                 
                 if(valor.estado == true){
                     
@@ -28,35 +28,29 @@ angular.module("disenador-de-logos")
     
         bz.agregarElemento = function (indice, tipo) {
 
-           
-
-              if($scope.$parent.principal[tipo][indice].estado){
+              if($scope.$parent.$parent.principal[tipo][indice].estado){
                   
-                  $scope.$parent.principal[tipo][indice].estado = !$scope.$parent.principal[tipo][indice].estado;
+                  $scope.$parent.$parent.principal[tipo][indice].estado = !$scope.$parent.$parent.principal[tipo][indice].estado;
                   
               }  else{
-                
-                  
+                             
                   if (bz.contarSeleccionados(tipo) < 3) { 
                   
-                    $scope.$parent.principal[tipo][indice].estado = !$scope.$parent.principal[tipo][indice].estado;
+                    $scope.$parent.$parent.principal[tipo][indice].estado = !$scope.$parent.$parent.principal[tipo][indice].estado;
                   
                   }
-                  
-                  
+  
               }
-            
-            
-            if(bz.contarSeleccionados('iconos') && bz.contarSeleccionados('fuentes')){
+        
+            if(bz.contarSeleccionados(tipo)){
                 
-                bz.deshabilitado = false;
+                $scope.$parent.$parent.principal.validarFormulario(true);
                 
             } else {
                 
-                bz.deshabilitado = true;
+                $scope.$parent.$parent.principal.validarFormulario(false);
                 
             }
-
 
         }
         
@@ -66,7 +60,7 @@ angular.module("disenador-de-logos")
 
             if(deshabilitado && valido){
                 
-                $scope.$parent.principal.combinar()
+                $scope.$parent.$parent.principal.combinar()
                 
             }
             

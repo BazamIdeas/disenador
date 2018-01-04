@@ -38,73 +38,100 @@
         <section class="cuerpo">
             <div class="row margin-bottom-0">
                 <div class="col s12 sidebar-1" ng-form="principal.datosForm">
-                    <div class="input-field col s12">
-                        <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
-                        <label for="nombre" class="active">Nombre</label>
-                    </div>
-                    <!--
-                    <div class="input-field col s12">
-                        <input id="slogan" type="text">
-                        <label for="slogan">Slogan</label>
-                    </div> 
-                    -->
+                    <div ng-switch="principal.pasosFormulario">
+                        <!--paso1-->
+                        <div ng-switch-when="1">
+                            <div class="input-field col s12">
+                                <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
+                                <label for="nombre" class="active">Nombre</label>
+                            </div>
+                            <!--
+                            <div class="input-field col s12">
+                                <input id="slogan" type="text">
+                                <label for="slogan">Slogan</label>
+                            </div> 
+                            -->
 
-					<md-input-container style="width:100%; padding: 0 0.75rem" >
-					  	<md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
-					    	<md-option class="iconos"  ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-					  	</md-select>
-					</md-input-container>
-                    
-                    <md-input-container style="width:100%; padding: 0 0.75rem" >
-					  	<md-select ng-style="{'font-family': principal.seleccionarFuenteCategoria(principal.datos.categoria.fuente)}" class="cat-fuente" ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
-					    	<md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-					  	</md-select>
-					</md-input-container>
-                    
+                            <md-input-container style="width:100%; padding: 0 0.75rem" >
+                                <md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
+                                    <md-option class="iconos"  ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+                                </md-select>
+                            </md-input-container>
 
-                    <div class=" col s12 preferencias">
-                        <p class="text-center principal" style="margin-top: 1rem;">Preferencias</p>
+                            <md-input-container style="width:100%; padding: 0 0.75rem" >
+                                <md-select ng-style="{'font-family': principal.seleccionarFuenteCategoria(principal.datos.categoria.fuente)}" class="cat-fuente" ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
+                                    <md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+                                </md-select>
+                            </md-input-container>
                             
-                        <div class="slider-input" ng-repeat="preferencia in principal.datos.preferencias track by $index">                            
-                            <p class="label-slider-input-left">{{preferencia.nombre1}}</p> 
-                            <p class="label-slider-input-right">{{preferencia.nombre2}}</p>
-                            <md-slider ng-model="preferencia.valor" value="2" min="1" max="3"></md-slider>
+                            
+                            
                         </div>
-                                      
+                        <!--paso2-->
+                        <div ng-switch-when="2">
+                            <div class=" col s12 preferencias">
+                                <p class="text-center principal" style="margin-top: 1rem;">Preferencias</p>
+
+                                <div class="slider-input" ng-repeat="preferencia in principal.datos.preferencias track by $index">                            
+                                    <p class="label-slider-input-left">{{preferencia.nombre1}}</p> 
+                                    <p class="label-slider-input-right">{{preferencia.nombre2}}</p>
+                                    <md-slider ng-model="preferencia.valor" value="2" min="1" max="3"></md-slider>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--paso3-->
+                        <div ng-switch-when="3">
+                            <div class="col s12 sidebar-2"> <!--ng-class eliminado, innecesario en v movil -->
+                                <p class="text-center principal">Forma de su logo</p>
+
+                                <div class="cubo-logo">
+                                    <div ng-click="principal.asignarTipo(principal.botonesTipo[0], false  )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
+                                        <span><i class="material-icons">thumb_up</i></span>
+                                        <span>TU LOGO</span>
+                                    </div>
+                                </div>
+
+                                <div class="cubo-logo">
+                                    <div ng-click="principal.asignarTipo(principal.botonesTipo[1], true)" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
+                                        <span class="texto">M</span>
+                                        <span>TU LOGO</span>
+                                    </div>
+                                </div>
+
+                                <!--<div class="cubo-logo">
+                                    <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo, 'loading-white': principal.botonesTipo[2].activo && !principal.completado}">
+                                        <span>TU LOGO</span>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                        
+                        <!--paso4-->
+                        <div ng-switch-default>
+                            <div ui-view class="contenedor-principal col" ng-class="{'l10': !principal.datosForm.$valid, 'l8': principal.datosForm.$valid}">
+
+                            </div>
+                        </div>
+                
                     </div>
                 </div>
-            
-                <div class="col s12 sidebar-2"> <!--ng-class eliminado, innecesario en v movil -->
-                    <p class="text-center principal">Forma de su logo</p>
-
-                    <div class="cubo-logo">
-                        <div ng-click="principal.asignarTipo(principal.botonesTipo[0], false  )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
-                            <span><i class="material-icons">thumb_up</i></span>
-                            <span>TU LOGO</span>
-                        </div>
-                    </div>
-
-                    <div class="cubo-logo">
-                        <div ng-click="principal.asignarTipo(principal.botonesTipo[1], true)" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
-                            <span class="texto">M</span>
-                            <span>TU LOGO</span>
-                        </div>
-                    </div>
-
-                    <!--<div class="cubo-logo">
-                        <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo, 'loading-white': principal.botonesTipo[2].activo && !principal.completado}">
-                            <span>TU LOGO</span>
-                        </div>
-                    </div>-->
-                </div>
-
-				
-				<div ui-view class="contenedor-principal col" ng-class="{'l10': !principal.datosForm.$valid, 'l8': principal.datosForm.$valid}">
-				       
-				</div>
-
             </div>
         </section>
+
+        <div class="opciones-principal abierto">
+            <ul>
+                <li ng-click="principal.retrocederMovil()">
+                    <i class="material-icons">edit</i>
+                    Atrás
+                </li>
+                <li ng-click="principal.avanzarMovil()" style="background: {{ principal.datosForm.$valid ? 'red' : 'gray' }}">
+                    <i class="material-icons">share</i>
+                    Continuar
+                </li>
+            </ul>
+        </div>
+        
 
         <div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
             <div class="row margin-bottom-0">

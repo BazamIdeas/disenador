@@ -467,8 +467,8 @@ nav {
     height: 100%;
     line-height: 56px;
     position: absolute;
-    z-index: 10;
-    top: : -100%;
+    z-index: 2;
+    top: -100%;
     transition: all 1s;
 }
 
@@ -1976,3 +1976,35 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 .opciones-guardados ul li:last-child i, .opciones-adquiridos ul li:last-child i {
     font-size: 50px;
 }
+
+.opciones-principal{
+    position: fixed;
+    bottom: -63px;
+    width: 100%;
+    background-color: white;
+    transition: all 0.5s
+}
+
+.opciones-principal.abierto{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+}
+
+.opciones-principal ul {
+    margin: 0;
+    display: flex;
+}
+
+.opciones-principal ul li{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+    font-family: 'futura-heavy' !important;
+    color: rgba(0,0,0,0.54);
+    border-top: 2px solid var(--fondo);
+}
+
