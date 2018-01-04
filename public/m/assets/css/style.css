@@ -1452,7 +1452,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 .boton-verde.pagar{
     position: absolute;
-    right: 30px;
+    right: 0px;
     bottom: -17px;
     padding: 7px 20px;
 }
@@ -1786,7 +1786,7 @@ path.seleccionado {
     right: 23px;
 }
 
-.section-cliente-logos, .section-cliente-datos, .section-login, .section-descargar{
+.section-cliente-logos, .section-cliente-datos, .section-login, .section-descargar, .section-planes, .section-pago{
     height: calc(100vh - 135px) !important; 
     background-color: var(--blanco);
     overflow: hidden;
@@ -1794,7 +1794,7 @@ path.seleccionado {
     top: 135px;
 }
 
-.section-descargar{
+.section-descargar, .section-planes, .section-pago{
     height: calc(100vh - 90px) !important; 
     top: 90px;
 }

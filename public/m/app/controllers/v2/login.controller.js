@@ -16,8 +16,7 @@ angular.module("disenador-de-logos")
             
             bz.paisDefecto = res.iso;
             
-        })
-        
+        })         
         
         bz.datosRegistro = {};
         bz.datosLogin = {};
