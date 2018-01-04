@@ -1,28 +1,24 @@
-
-        <section class="sub-header">
+        <section class="sub-menu">
             <div class="row margin-bottom-0">
 
-                <div class="col s2 logo">
-                    <h5 class="secundario" ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
-                </div>
-                <div class="col s10 texto">
-                    <h5 class="principal">DETALLES DE SU PEDIDO</h5>
+                <div class="col s12 titulo">
+                    <h6 class="principal"> DETALLES DE SU PEDIDO</h6>
                 </div>
 
             </div>
         </section>
 
-        <section style="padding:0 30px;height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;" class="scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
-            <div class="row margin-bottom-0" style="overflow: hidden;">
+        <section class="section-pago scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
+            <div class="row margin-bottom-0">
 
 				
-				<div class="col s10 offset-s1" style="padding: 50px 40px 0 40px;">
+				<div class="col s12" style="padding: 50px 30px 20px 30px;">
 						
-					<div class="row" style="box-shadow: 0px 0px 2px 1px #d4d4d4;">
+					<div class="row" style="box-shadow: 0px 0px 2px 1px #d4d4d4;" ng-if="!pago.terminos">
 						
 						<div>
 							
-							<div class="su-pedido primera col s3">
+							<div class="su-pedido primera col s12">
 								<div>
 									<div class="th">LOGO</div>
 									<div class="td">
@@ -33,28 +29,28 @@
 								</div>
 							</div>	
 
-							<div class="su-pedido col s2" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
+							<div class="su-pedido col s12" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
 								<div>
 									<div class="th">PLAN</div>
 									<div class="td">{{pago.pedido.plan.nombre}}</div>
 								</div>
 							</div>						
 
-							<div class="su-pedido col s2" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
+							<div class="su-pedido col s12" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
 								<div>
 									<div class="th">PRECIO</div>
 									<div class="td">{{pago.pedido.precio.moneda.simbolo}} {{pago.pedido.precio.monto}}</div>
 								</div>
 							</div>	
 
-							<div class="su-pedido col s2" ng-if="pago.pedido.impuesto">
+							<div class="su-pedido col s12" ng-if="pago.pedido.impuesto">
 								<div>
 									<div class="th">IMPUESTO</div>
 									<div class="td">( {{$parent.impuestoTotal = (pago.pedido.precio.monto * (pago.pedido.impuesto / 100))}} ) {{pago.pedido.impuesto}}%</div>
 								</div>
 							</div>	
 
-							<div class="su-pedido final col s3">
+							<div class="su-pedido final col s12">
 								<div>
 									<div class="th">TOTAL</div>
 									<div class="td">{{pago.pedido.precio.moneda.simbolo}} {{pago.pedido.precio.monto+impuestoTotal}}</div>
@@ -65,14 +61,14 @@
 
 					</div>
                     
-                    <div class="row">
-                        
-                        <div class="col s12">
-                            <input type="checkbox" class="filled-in" id="terminos" ng-model="pago.terminos" />
-                            <label for="terminos">Acepto los <a href="#">Términos de Condiciones y Uso</a></label>
-                        </div>
-                        
-                    </div>
+          <div class="row">
+              
+              <div class="col s12">
+                  <input type="checkbox" class="filled-in" id="terminos" ng-model="pago.terminos" />
+                  <label for="terminos">Acepto los <a href="#">Términos de Condiciones y Uso</a></label>
+              </div>
+              
+          </div>
 
 					<div class="row" ng-if="pago.terminos">
 						

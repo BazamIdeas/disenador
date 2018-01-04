@@ -6,6 +6,8 @@ angular.module("disenador-de-logos")
 
         var bz = this;
 
+        bz.tab = 1;
+
         bz.formulario = 1;
 
         bz.paises = paisesValue;

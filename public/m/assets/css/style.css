@@ -439,7 +439,7 @@ header {
     text-align: right;
     font-size: 14px;
     padding: 0 10px;
-    z-index: 3;
+    z-index: 4;
     position: fixed;
     top: 0;
 }
@@ -466,14 +466,14 @@ nav {
     width: 100%;
     height: 100%;
     line-height: 56px;
-    position: absolute;
-    z-index: 2;
+    position: fixed;
+    z-index: 3;
     top: -100%;
     transition: all 1s;
 }
 
 nav.show{
-    top: 0;
+    top: 50px;
 }
 
 .links li {
@@ -513,7 +513,7 @@ div.acceder span i { vertical-align: top; }
 /*Begin sub-header*/
 section.sub-menu, section.sub-menu-principal {
     position: fixed;
-    z-index: 3;
+    z-index: 2;
     top: 50px;
     width: 100%;
     height: 40px;
@@ -910,7 +910,6 @@ div.login-form-flex{
     height: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 50px;
 }
 
 div.cubo-form {
@@ -1453,7 +1452,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 .boton-verde.pagar{
     position: absolute;
-    right: 30px;
+    right: 0px;
     bottom: -17px;
     padding: 7px 20px;
 }
@@ -1787,10 +1786,18 @@ path.seleccionado {
     right: 23px;
 }
 
-.section-cliente{
-    height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: hidden;
+.section-cliente-logos, .section-cliente-datos, .section-login, .section-descargar, .section-planes, .section-pago{
+    height: calc(100vh - 135px) !important; 
+    background-color: var(--blanco);
+    overflow: hidden;
+    position: relative;
+    top: 135px;
 }
 
+.section-descargar, .section-planes, .section-pago{
+    height: calc(100vh - 90px) !important; 
+    top: 90px;
+}
 
 span.back-page, span.next-page {
     display: flex;
@@ -1930,7 +1937,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 }
 
 .opciones-guardados, .opciones-adquiridos{
-    position: absolute;
+    position: fixed;
     bottom: -63px;
     width: 100%;
     background-color: white;
@@ -1938,7 +1945,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 }
 
 .opciones-guardados.abierto, .opciones-adquiridos.abierto{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     background-color: white;
@@ -1977,7 +1984,12 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     font-size: 50px;
 }
 
+<<<<<<< HEAD
 .opciones-principal{
+=======
+
+.opciones-descarga{
+>>>>>>> origin/front-end-v3
     position: fixed;
     bottom: -63px;
     width: 100%;
@@ -1985,19 +1997,35 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     transition: all 0.5s
 }
 
+<<<<<<< HEAD
 .opciones-principal.abierto{
+=======
+.opciones-descarga.abierto{
+>>>>>>> origin/front-end-v3
     position: fixed;
     bottom: 0;
     width: 100%;
     background-color: white;
+<<<<<<< HEAD
 }
 
 .opciones-principal ul {
+=======
+    border-top: 2px solid var(--fondo);
+}
+
+
+.opciones-descarga ul {
+>>>>>>> origin/front-end-v3
     margin: 0;
     display: flex;
 }
 
+<<<<<<< HEAD
 .opciones-principal ul li{
+=======
+.opciones-descarga ul li:not(:last-child){
+>>>>>>> origin/front-end-v3
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -2005,6 +2033,27 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     flex: 2;
     font-family: 'futura-heavy' !important;
     color: rgba(0,0,0,0.54);
+<<<<<<< HEAD
     border-top: 2px solid var(--fondo);
 }
 
+=======
+}
+
+.opciones-descarga ul li:last-child {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: var(--principal);
+    font-family: 'futura-heavy' !important;
+    padding: 5px 0;
+    width: 50px;
+    border-top: 2px solid var(--principal);
+}
+
+.opciones-descarga ul li:last-child i{
+    font-size: 50px;
+}
+>>>>>>> origin/front-end-v3
