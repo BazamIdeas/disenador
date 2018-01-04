@@ -41,6 +41,7 @@
                     <div ng-switch="principal.pasosFormulario">
                         <!--paso1-->
                         <div ng-switch-when="1">
+                            <p class="text-center principal" style="margin-top: 1rem;"></p>
                             <div class="input-field col s12">
                                 <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
                                 <label for="nombre" class="active">Nombre</label>
