@@ -345,7 +345,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 exports.cambioEstadoPagado = function (req, res)
 
 {
-	console.log(req.params)
+	//console.log(req.params)
 	var pedidoData = ["COMPLETADO", req.params.idPedido];
 
 	pedido.cambiarEstado(pedidoData, function (error, data) {
@@ -367,9 +367,9 @@ exports.cambioEstadoPagado = function (req, res)
 
 					});
 
-					res.redirect(configuracion.pago + req.params.idLogo);
+					res.redirect(configuracion.base+configuracion.pago + req.params.idLogo);
 				} else {
-					res.redirect(configuracion.nopago);
+					res.redirect(configuracion.base+configuracion.dashboard);
 				}
 			});
 		} else {
@@ -383,7 +383,7 @@ exports.cambioEstadoPagado = function (req, res)
 
 exports.noPago = function (req, res) {
 
-	res.redirect(configuracion.dashboard);
+	res.redirect(configuracion.base+configuracion.dashboard);
 
 }
 

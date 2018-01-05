@@ -16,8 +16,8 @@ exports.paypal = function(datos,callback)
           "payment_method": "paypal"
         },
        "redirect_urls": {
-        "return_url": "http://"+configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/"+datos.idPedido+"/",
-        "cancel_url": "http://"+configuracion.url+"/app/pedido/no/pago/"+datos.token+"/"
+        "return_url": configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/"+datos.idPedido+"/",
+        "cancel_url": configuracion.url+"/app/pedido/no/pago/"+datos.token+"/"
         },
 
         "transactions": [{
