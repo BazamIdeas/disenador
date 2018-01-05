@@ -122,7 +122,7 @@
 
         <div class="opciones-principal abierto">
             <ul>
-                <li ng-click="principal.retrocederMovil()">
+                <li ng-click="principal.retrocederMovil()" ng-if="principal.pasosFormulario > 1">
                     <i class="material-icons">keyboard_arrow_left</i>
                     Atrás
                 </li>
@@ -130,7 +130,7 @@
                     <i class="material-icons">autorenew</i>
                     Refrescar
                 </li>
-                <li ng-click="principal.avanzarMovil()" style="background: {{ principal.datosForm.$valid ? 'red' : 'gray' }}">
+                <li ng-click="principal.avanzarMovil()"  ng-if="principal.pasosFormulario < 6" ng-class="{'valid': principal.datosForm.$valid, 'block': !principal.datosForm.$valid}">
                     <i class="material-icons">keyboard_arrow_right</i>
                     Continuar
                 </li>

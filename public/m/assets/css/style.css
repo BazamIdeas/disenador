@@ -521,6 +521,10 @@ section.sub-menu, section.sub-menu-principal {
     background-color: white;
 }
 
+section.sub-menu.editor{
+    height: 47px;
+}
+
 .row .col.logo{
     display: flex;
     align-items: center;
@@ -706,7 +710,7 @@ p.label-slider-input-right{
 /*Contenedor Principal*/
 div.contenedor-principal{
     transition: width 1s ease;
-    padding: 0 !important;
+    padding: 2.5% !important;
     background-color: var(--fondo);
     display: inline-block;
     float: none !important;
@@ -956,9 +960,25 @@ div.cubo-form i.cerrar{
 /*BEGIN opciones editor header*/
 
 .opciones-sub-header .col {
-    padding: 20px 5px;
     display: flex;
     align-items: center;
+    padding:0; 
+}
+
+.opciones-sub-header .col button{
+    border: none;
+    background-color: transparent;
+    color: rgb(155, 155, 155);
+    font-family: "futura-heavy" !important;
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-flow: column;
+    font-size: 11px;
+    flex: 1;
+    padding: 4px 15px;
+    margin: 0;
+    transition: 0.3s all;   
 }
 
 .opciones-sub-header .col span{
@@ -1022,9 +1042,18 @@ button:not(.loading-purple).boton-oborder:hover{
     background-color: var(--principal);
 }
 
-button:not(.loading-purple).boton-oborder.active{
-    color: white;
+.opciones-sub-header .col button:not(.loading-purple).active{
+    color: var(--principal);
+}
+
+.opciones-sub-header .col button:not(.loading-purple).active:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
     background-color: var(--principal);
+    bottom: 0px;
+    left: 0%;
 }
 
 /*END opciones editor header*/
@@ -1140,7 +1169,7 @@ p.titulo{
 
 /* BEGIN CONtenedor svg*/
 .contenedor-svg{
-    width: 400px;
+    width: 80%;
     margin: auto;
     border-radius: 5px;
     border: 2px dotted #d4d4d4;
@@ -1697,6 +1726,10 @@ path.seleccionado {
     100% { opacity: 1.0; }
 }
 
+.contenedor-principal{
+    padding: 5% 0 !important; 
+}
+
 .contenedor-principal.editor.cuadricula{
     background: url(data:image/png;base64,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);
     background-size: 36px;
@@ -1780,7 +1813,7 @@ path.seleccionado {
     right: 23px;
 }
 
-.cuerpo, .section-cliente-logos, .section-cliente-datos, .section-login, .section-descargar, .section-planes, .section-pago{
+.cuerpo, .section-cliente-logos, .section-cliente-datos, .section-login, .section-descargar, .section-planes, .section-pago, .section-editor{
     height: calc(100vh - 135px) !important; 
     background-color: var(--blanco);
     overflow: hidden;
@@ -1791,6 +1824,16 @@ path.seleccionado {
 .cuerpo, .section-descargar, .section-planes, .section-pago{
     height: calc(100vh - 90px) !important; 
     top: 90px;
+}
+
+.cuerpo {
+    height: calc(100vh - 137px) !important;
+}
+
+.section-editor {
+    height: calc(100vh - 97px) !important;
+    background-color: var(--fondo);
+    top: 97px;
 }
 
 span.back-page, span.next-page {
@@ -1978,7 +2021,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     font-size: 50px;
 }
 
-+.opciones-descarga{
+.opciones-descarga{
     position: fixed;
     bottom: -63px;
     width: 100%;
@@ -2028,7 +2071,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 }
 
 
-.opciones-principal{
+.opciones-principal, .opciones-editor{
     position: fixed;
     bottom: -63px;
     width: 100%;
@@ -2036,19 +2079,19 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     transition: all 0.5s
 }
 
-.opciones-principal.abierto{
+.opciones-principal.abierto, .opciones-editor.abierto{
     position: fixed;
     bottom: 0;
     width: 100%;
     background-color: white;
 }
 
-.opciones-principal ul {
+.opciones-principal ul, .opciones-editor ul{
     margin: 0;
     display: flex;
 }
 
-.opciones-principal ul li{
+.opciones-principal ul li, .opciones-editor ul li{
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -2056,6 +2099,30 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     flex: 2;
     font-family: 'futura-heavy' !important;
     color: rgba(0,0,0,0.54);
-    border-top: 2px solid var(--fondo);
 }
 
+li.valid{
+    background: var(--principal);
+    color: var(--blanco) !important;
+    border-color: var(--principal);
+}
+li.block{
+    background-color: #d4d4d4;
+    color: white !important; 
+}
+
+.panel-opciones{
+    position: fixed;
+    bottom: -200px;
+    height: 200px;
+    width: 100%;
+    background-color: white;
+    transition: all 0.5s
+}
+
+.panel-opciones.abierto{
+    position: fixed;
+    bottom: 45px;
+    width: 100%;
+    background-color: white;
+}

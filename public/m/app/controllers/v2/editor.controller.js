@@ -6,6 +6,8 @@ angular.module("disenador-de-logos")
 
         var bz = this;
 
+        bz.opcionActiva = 1;
+
         bz.base64 = $base64;
 
         bz.cuadricula = false;
