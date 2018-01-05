@@ -13,28 +13,18 @@
                         <div ng-switch="$parent.principal.pasosFormulario">
                             <div class="col s12" ng-switch-when="4">
 
-                                <div class="row cubos-logos-opciones margin-bottom-0" ng-repeat="icono in iconos = ($parent.principal.iconos) track by icono.idElemento" ng-if="$first || (($index+1) % 4) == 0">
+                                <div class="row cubos-logos-opciones margin-bottom-0" ng-repeat="icono in iconos = ($parent.principal.iconos) track by icono.idElemento">
 
-                                    <div class="col s12 m4 l3" ng-repeat="repeticion in [1,2,3,4] track by $index" ng-if="$parent.$index < 3 && ((iconos.length - 1) >= $index)">
+                                    <div class="col s12 m4 l3">
 
-                                        <div ng-class="{'seleccionado': iconos[$index].estado}" ng-click="principalOpciones.agregarElemento($index, 'iconos')">
 
-                                            <bazam-visualizar data-svg="principalOpciones.base64.decode(iconos[$index].svg)"></bazam-visualizar>
+                                        <div ng-class="{'seleccionado': icono.estado}" ng-click="principalOpciones.agregarElemento($index, 'iconos')">
+
+                                            <bazam-visualizar data-svg="principalOpciones.base64.decode(icono.svg)"></bazam-visualizar>
 
                                         </div>
 
                                     </div>
-
-
-                                   <div class="col s12 m4 l3" ng-repeat="repeticion in [1,2,3,4] track by $index" ng-if="$parent.$index >= 3 && ((iconos.length - 1) >= ($parent.$index + $index + 1))" ng-click="principalOpciones.agregarElemento($parent.$parent.$index + $index + 1, 'iconos')">
-
-                                        <div ng-class="{'seleccionado': iconos[$parent.$parent.$index + $index + 1].estado}">
-
-                                            <bazam-visualizar data-svg="principalOpciones.base64.decode(iconos[$parent.$parent.$index + $index + 1].svg)"></bazam-visualizar>
-
-                                        </div>
-
-                                    </div> 
 
                                 </div>
 

@@ -8,7 +8,7 @@
             </div>
         </section>
 
-        <section class="section-descargar scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions"">
+        <section class="section-descargar scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
             <div class="row margin-bottom-0">
 
             	<div class="col s8 offset-s2 m4">
@@ -50,7 +50,7 @@
 
 				</div>
 
-            </div>
+            
         </section>
 
         <div class="opciones-descarga" ng-class="{'abierto': descargar.formatoSeleccionado != null }">
