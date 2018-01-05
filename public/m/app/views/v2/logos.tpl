@@ -63,7 +63,7 @@
 
                                 <div class="col s12 m6 l6"  ng-repeat="comprado in logos.comprados | limitTo: 4 : logos.salto.comprados track by comprado.idLogo">
                                     <div>
-                                        <div class="overlay-combinacion" ng-click="logos.seleccionado('adquiridos', comprado.idLogo)"></div>
+                                        <div class="overlay-combinacion" ng-click="logos.seleccionado('adquiridos', comprado)"></div>
                                         <!--<span class="editar" ui-sref="descargar({id: comprado.idLogo})">
                                             <md-tooltip md-delay="2" md-direction="top">Descargar</md-tooltip>
                                             <i class="material-icons">file_download</i>

@@ -89,14 +89,15 @@ angular.module("disenador-de-logos")
         bz.pasosFormulario = 1;
 
         bz.retrocederMovil = function () {
-
-            bz.pasosFormulario--;
-
+            
+            if (bz.pasosFormulario > 1 && bz.pasosFormulario <= 5){ 
+                bz.pasosFormulario--;
+            }
         }
 
         bz.avanzarMovil = function () {
 
-            if ((bz.pasosFormulario == 1 || bz.pasosFormulario == 2 || bz.pasosFormulario == 3 || bz.pasosFormulario == 4 || bz.pasosFormulario == 5) && bz.datosForm.$valid) {
+            if ((bz.pasosFormulario >= 1 && bz.pasosFormulario <= 5) && bz.datosForm.$valid) {
 
                 
 

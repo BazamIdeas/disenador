@@ -366,7 +366,7 @@ angular.module("disenador-de-logos")
                             htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}\n @font-face { font-family: '" + fuentes.eslogan.nombre + "'; src: url('" + fuentes.eslogan.url + "')}";
                             
                         } else if(fuentes.principal) {
-                            console.log(fuentes.principal)
+                            
                             htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}";
                             
                         }

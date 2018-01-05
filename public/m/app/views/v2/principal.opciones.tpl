@@ -13,20 +13,20 @@
                         <div ng-switch="$parent.principal.pasosFormulario">
                             <div class="col l12 xl9" ng-switch-when="4">
 
-                                <div class="row cubos-logos-opciones" ng-repeat="icono in iconos = ($parent.principal.iconos) track by icono.idElemento" ng-if="$first || (($index+1) % 4) == 0">
+                                <div class="row cubos-logos-opciones" ng-repeat="icono in iconos = ($parent.principal.iconos) track by icono.idElemento">
 
-                                    <div class="col l3 xl9A" ng-repeat="repeticion in [1,2,3,4] track by $index" ng-if="$parent.$index < 3 && ((iconos.length - 1) >= $index)">
+                                    <div class="col l3 xl9A">
 
-                                        <div ng-class="{'seleccionado': iconos[$index].estado}" ng-click="principalOpciones.agregarElemento($index, 'iconos')">
+                                        <div ng-class="{'seleccionado': icono.estado}" ng-click="principalOpciones.agregarElemento($index, 'iconos')">
 
-                                            <bazam-visualizar data-svg="principalOpciones.base64.decode(iconos[$index].svg)"></bazam-visualizar>
+                                            <bazam-visualizar data-svg="principalOpciones.base64.decode(icono.svg)"></bazam-visualizar>
 
                                         </div>
 
                                     </div>
 
 
-                                   <div class="col l3 xl3" ng-repeat="repeticion in [1,2,3,4] track by $index" ng-if="$parent.$index >= 3 && ((iconos.length - 1) >= ($parent.$index + $index + 1))" ng-click="principalOpciones.agregarElemento($parent.$parent.$index + $index + 1, 'iconos')">
+                                   <!--<div class="col l3 xl3" ng-repeat="repeticion in [1,2,3,4] track by $index" ng-if="$parent.$index >= 3 && ((iconos.length - 1) >= ($parent.$index + $index + 1))" ng-click="principalOpciones.agregarElemento($parent.$parent.$index + $index + 1, 'iconos')">
 
                                         <div ng-class="{'seleccionado': iconos[$parent.$parent.$index + $index + 1].estado}">
 
@@ -34,7 +34,7 @@
 
                                         </div>
 
-                                    </div> 
+                                    </div> -->
 
                                 </div>
 

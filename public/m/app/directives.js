@@ -366,7 +366,7 @@ angular.module("disenador-de-logos")
                             htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}\n @font-face { font-family: '" + fuentes.eslogan.nombre + "'; src: url('" + fuentes.eslogan.url + "')}";
                             
                         } else if(fuentes.principal) {
-                            console.log(fuentes.principal)
+                            
                             htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}";
                             
                         }
@@ -480,8 +480,8 @@ angular.module("disenador-de-logos")
 
                     var intermediador = true;
 
-                    $("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono", function (evento) {
-
+                    $("bazam-svg").on("touchstart", "text.eslogan, text.textoPrincipal, g.contenedor-icono", function (evento) {
+                        console.log(evento)
                         intermediador = false;
 
                         if (!$(this).attr("transform")) {
@@ -494,9 +494,9 @@ angular.module("disenador-de-logos")
 
                         selectedElement = evento.target;
 
-                        currentX = evento.clientX;
+                        currentX = evento.touches[0].clientX;
 
-                        currentY = evento.clientY;
+                        currentY = evento.touches[0].clientY;
 
                         currentMatrix = $(this).attr("transform").slice(7, -1).split(' ');
 
@@ -508,13 +508,13 @@ angular.module("disenador-de-logos")
 
                     })
 
-                    $("bazam-svg").on("mousemove", "text.eslogan[movimiento-bz], text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
+                    $("bazam-svg").on("touchmove", "text.eslogan[movimiento-bz], text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
 
 
                         if ($("[movimiento-bz]").length) {
 
-                            dx = evento.clientX - currentX;
-                            dy = evento.clientY - currentY;
+                            dx = evento.touches[0].clientX - currentX;
+                            dy = evento.touches[0].clientY - currentY;
 
                             var svgPadre = element[0].children[0];
 
@@ -533,8 +533,8 @@ angular.module("disenador-de-logos")
                           
                             
                             $(this).attr("transform", newMatrix);
-                            currentX = evento.clientX;
-                            currentY = evento.clientY;
+                            currentX = evento.touches[0].clientX;
+                            currentY = evento.touches[0].clientY;
 
 
                         };
