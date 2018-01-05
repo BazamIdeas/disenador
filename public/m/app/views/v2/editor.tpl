@@ -33,7 +33,15 @@
         </section>
 
         <div class="panel-opciones nombre" ng-class="{'abierto': editor.opcionActiva == 1}">
-            Panel nombre
+            <div class="input-field col s12">
+                <input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.texto)">
+            </div>
+
+            <md-input-container style="width:100%; padding: 0 0.75rem" >
+                <md-select  class="cat-fuente" ng-style="{'font-family': editor.logo.fuente.nombre}" ng-model="editor.logo.fuente" placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" md-no-asterisk required> 
+                    <md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"  ng-selected="editor.logo.fuente.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
+                </md-select>
+            </md-input-container>
         </div>
 
         <div class="panel-opciones slogan" ng-class="{'abierto': editor.opcionActiva == 2}">
