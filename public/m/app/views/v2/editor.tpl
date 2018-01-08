@@ -32,38 +32,65 @@
 
         </section>
 
-        <div class="panel-opciones nombre" ng-class="{'abierto': editor.opcionActiva == 1}">
-            <div class="input-field col s12">
-                <input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.texto)">
-            </div>
+        <div class="panel-opciones nombre" ng-class="{'abierto': editor.opcionActiva == 1 && editor.opcionActiva != false}">
+            <div class="row margin-bottom-0">
+                <div class="col s6">
+                    <div class="input-field">
+                        <input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.texto)">
+                    </div>
 
-            <md-input-container style="width:100%; padding: 0 0.75rem" >
-                <md-select  class="cat-fuente" ng-style="{'font-family': editor.logo.fuente.nombre}" ng-model="editor.logo.fuente" placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" md-no-asterisk required> 
-                    <md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"  ng-selected="editor.logo.fuente.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
-                </md-select>
-            </md-input-container>
+                    <md-input-container style="width:100%;">
+                        <md-select  class="cat-fuente" ng-style="{'font-family': editor.logo.fuente.nombre}" ng-model="editor.logo.fuente" placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" md-no-asterisk required> 
+                            <md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"  ng-selected="editor.logo.fuente.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
+                        </md-select>
+                    </md-input-container>    
+                </div> 
+                <div class=" col s6 estilo-texto">
+                    <div class="negrita" ng-click="editor.cambioPropiedad('bold')">
+                        N
+                    </div>               
+                    <div class="cursiva" ng-click="editor.cambioPropiedad('cursive')">
+                        C
+                    </div>               
+                </div>
+                <div class=" col s6 estilo-texto">
+                    <div class="menos" ng-click="editor.cambioTamano('texto', false)">
+                        -
+                    </div>               
+                    <div class="mas" ng-click="editor.cambioTamano('texto', true)">
+                        +
+                    </div>               
+                </div>
+
+                <div class=" col s6 estilo-texto" style="font-size: 0px;" >
+                    <div color-picker color-picker-model="editor.colorTexto" ng-model="editor.colorTexto" ng-change="editor.cambioColor(editor.colorTexto, 'texto')" color-picker-position="top" color-picker-fixed-position="true" class="color" style="background-color: {{editor.colorTexto}}"></div>               
+                </div>          
+            </div>
         </div>
 
-        <div class="panel-opciones slogan" ng-class="{'abierto': editor.opcionActiva == 2}">
+        <div class="panel-opciones slogan" ng-class="{'abierto': editor.opcionActiva == 2 && editor.opcionActiva != false}">
             Panel slogan
         </div>        
 
-        <div class="panel-opciones icono" ng-class="{'abierto': editor.opcionActiva == 3}">
+        <div class="panel-opciones icono" ng-class="{'abierto': editor.opcionActiva == 3 && editor.opcionActiva != false}">
             Panel icono
         </div>        
 
         <div class="opciones-editor" ng-class="{'abierto': true }">
             <ul>
-                <li ng-click="editor.opcionActiva = 1" ng-class="{'valid': editor.opcionActiva == 1}">
-                    <i class="material-icons">file_download</i>
+                <li ng-click="editor.opcionActiva = editor.opcionActiva == 1 ? false : 1" ng-class="{'valid': editor.opcionActiva == 1}">
+                    <i ng-if="editor.opcionActiva != 1" class="material-icons">expand_less</i>
+                    <i ng-if="editor.opcionActiva == 1" class="material-icons">expand_more</i>
                     Nombre
                 </li>
-                <li ng-click="editor.opcionActiva = 2" ng-class="{'valid': editor.opcionActiva == 2}">
-                    <i class="material-icons">expand_more</i>
+                <li ng-click="editor.opcionActiva = editor.opcionActiva == 2 ? false : 2" ng-class="{'valid': editor.opcionActiva == 2}">
+                    <i ng-if="editor.opcionActiva != 2" class="material-icons">expand_less</i>
+                    <i ng-if="editor.opcionActiva == 2" class="material-icons">expand_more</i>
                     Slogan
                 </li>
-                <li ng-click="editor.opcionActiva = 3" ng-class="{'valid': editor.opcionActiva == 3}">
-                    <i class="material-icons">expand_more</i>
+                <li ng-click="editor.opcionActiva = editor.opcionActiva == 3 ? false : 3" ng-class="{'valid': editor.opcionActiva == 3}">
+                    <i ng-if="editor.opcionActiva != 3" class="material-icons">expand_less</i>
+                    <i ng-if="editor.opcionActiva == 3" class="material-icons">expand_more</i>
                     Icono
                 </li>
             </ul>

@@ -2114,7 +2114,6 @@ li.block{
 .panel-opciones{
     position: fixed;
     bottom: -200px;
-    height: 200px;
     width: 100%;
     background-color: white;
     transition: all 0.5s
@@ -2125,4 +2124,28 @@ li.block{
     bottom: 45px;
     width: 100%;
     background-color: white;
+}
+
+
+.color-picker {
+    margin-left: 10px;
+    width: 232px;
+    height: 300px;
+    left: 30px;
+    top: 250px;
+    position: absolute;
+    z-index: 1000;
+    background-color: #fff;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    left: calc(50% - 115px) !important;
+    top: calc(50% - 150px) !important;
+}
+
+.color-picker .arrow-top {
+    visibility: hidden;
 }
