@@ -91,6 +91,13 @@ angular.module("disenador-de-logos")
         bz.retrocederMovil = function () {
             
             if (bz.pasosFormulario > 1 && bz.pasosFormulario <= 5){ 
+                
+                if(bz.pasosFormulario == 3){
+                    
+                    bz.validarFormulario(true);
+                    
+                }                
+                
                 bz.pasosFormulario--;
             }
         }
@@ -326,8 +333,6 @@ angular.module("disenador-de-logos")
             if (valido && bz.completadoRegistro) {
 
                 bz.completadoRegistro = false;
-
-                console.log("hola")
 
                 clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function (res) {
 
