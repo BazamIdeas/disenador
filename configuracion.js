@@ -6,11 +6,11 @@ var configuracion = {
         "secret":"unaclavemuysegura",
     	"seguridad" : true,
     	"puerto" : "4001",
-    	"url": "front.liderlogo.info",
-        "base": "/creador-de-logos",
-    	"dashboard": "/creador-de-logos/cliente/logos",
-        "pago" : "/creador-de-logos#!/pago/completo/",
-        "nopago" : "/creador-de-logos#!/pago/incompleto/",
+    	"url": "http://front.liderlogo.info",
+        "base": "/creador-de-logos/",
+    	"dashboard": "cliente/logos",
+        "pago" : "pago/completo/",
+        "nopago" : "pago/incompleto/",
         "paypal" : {
             "host" : "api.sandbox.paypal.com",        
             "client_id" : "AVpLm3Mj781_AAa4M5gArCwllQ2LIv5WT6qccHJOjdbOMFOz_6fQmItQQbCWvXeeG3TS1qBA6a8_8NoV",  // your paypal application client id
@@ -31,10 +31,10 @@ var configuracion = {
     	"seguridad" :true,
     	"puerto" : "8080",
     	"url": "http://localhost:8080",
-        "base": "/creador-de-logos",
-    	"dashboard": "/creador-de-logos/cliente/logos",
-        "pago" : "/creador-de-logos#!/pago/completo/",
-        "nopago" : "/creador-de-logos#!/pago/incompleto/",
+        "base": "/creador-de-logos/",
+    	"dashboard": "cliente/logos/",
+        "pago" : "pago/completo/",
+        "nopago" : "pago/incompleto/",
     	"paypal" : {
             "host" : "api.sandbox.paypal.com",           
             "client_id" : "AVpLm3Mj781_AAa4M5gArCwllQ2LIv5WT6qccHJOjdbOMFOz_6fQmItQQbCWvXeeG3TS1qBA6a8_8NoV",  // your paypal application client id

@@ -12,19 +12,19 @@ angular.module("disenador-de-logos")
         
         bz.salir = function () {
             clientesService.salir(true, true);
-        	bz.toggle = false;
-        	$rootScope.$broadcast("toggle:nav", bz.toggle)
+          bz.toggle = false;
+          $rootScope.$broadcast("toggle:nav", bz.toggle)
         }
 
         bz.clickLink = function (state) {
-        	bz.toggle = false;
-        	$rootScope.$broadcast("toggle:nav", bz.toggle)
-        	$state.go(state);
+          bz.toggle = false;
+          $rootScope.$broadcast("toggle:nav", bz.toggle)
+          $state.go(state);
         }
 
         $scope.$on('toggle:header', function(event, data){
 
-        	bz.toggle = data;
+          bz.toggle = data;
         })
 
         $scope.$on('sesionExpiro', function (event, data) {

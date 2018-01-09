@@ -6,18 +6,17 @@ angular.module("disenador-de-logos")
 
         var bz = this;
         
-        bz.tab = 1;
-
         bz.paises = paisesValue;
         
+        bz.tab = 1;
+
         bz.paisDefecto = null;
         
         clientesService.pais().then(function(res){
             
             bz.paisDefecto = res.iso;
             
-        })
-        
+        })         
         
         bz.datosRegistro = {};
         bz.datosLogin = {};
@@ -27,7 +26,7 @@ angular.module("disenador-de-logos")
 
         bz.login = function (datos, valido) {
 
-            if (valido) {
+            if (valido && bz.completadoLogin) {
                 
                 bz.completadoLogin = false;
                 

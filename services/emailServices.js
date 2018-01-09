@@ -3,7 +3,7 @@ var nodemailer = require('nodemailer');
 var fs = require('fs');
 
 
-exports.enviar = function(template, datos = {}, subject = "Hola desde liderlogo ", to = "danieljtorres94@gmail.com", from = "'Liderlogo' <contacto@liderlogo.com>"){ 
+exports.enviar = function(template, datos = {}, subject = "Hola desde liderlogo ", to = "jtorresdevelop@gmail.com", from = "'Liderlogo' <contacto@liderlogo.com>"){ 
 
     // metodo para configurar SMTP
     var transporter = nodemailer.createTransport({

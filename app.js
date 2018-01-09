@@ -39,20 +39,14 @@ app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'
 
 
 app.use('/app',rutas);
-
-
-app.use('/creador-de-logos/*', function(req, res, next) {
-    
-
+ 
+app.use(configuracion.base+'*', function(req, res, next) {
     // Just send the index.html for other files to support HTML5Mode
-    res.sendFile('/public/creador-de-logos/index.html', { root: __dirname });
+    res.sendFile('/public/'+configuracion.base+'/index.html', { root: __dirname });
 });
 
 
-
 app.use('/m/*', function(req, res, next) {
-    
-
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('/public/m/index.html', { root: __dirname });
 });
@@ -60,7 +54,7 @@ app.use('/m/*', function(req, res, next) {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('No se encuentra');
   err.status = 404;
   next(err);
 });

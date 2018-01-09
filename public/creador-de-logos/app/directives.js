@@ -366,7 +366,7 @@ angular.module("disenador-de-logos")
                             htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}\n @font-face { font-family: '" + fuentes.eslogan.nombre + "'; src: url('" + fuentes.eslogan.url + "')}";
                             
                         } else if(fuentes.principal) {
-                            console.log(fuentes.principal)
+                            
                             htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}";
                             
                         }
@@ -976,6 +976,39 @@ angular.module("disenador-de-logos")
                 element.html(scope.svg);
                 element.html(element.html());
 
+
+            }
+        }
+
+    })
+
+    /////////////////////////////////////////////
+    //////REDIRECCIONAR EN CAMBIO DE TAMAÑO//////
+    /////////////////////////////////////////////
+
+    .directive('bazamRedireccionar', function ($window, $location) {
+
+        return {
+            restrict: 'AE',
+            link: function (scope, element, attributes) {
+
+                if(true){
+                    
+                    if($window.innerWidth < 1024){
+                       
+                      $window.location = "/m" + $location.url();
+                    }
+                    
+                }
+                
+                angular.element(window).resize(function(){
+                                     
+                    if($window.innerWidth < 1024){
+                       
+                      $window.location = "/m" + $location.url();
+                    }
+                    
+                })
 
             }
         }
