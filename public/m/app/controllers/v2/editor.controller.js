@@ -6,6 +6,8 @@ angular.module("disenador-de-logos")
 
         var bz = this;
 
+        bz.jqueryScrollbarOptions = {};
+
         bz.opcionActiva = 1;
 
         bz.base64 = $base64;
@@ -475,5 +477,11 @@ angular.module("disenador-de-logos")
             $state.go('principal.comenzar');
 
         });
+
+        bz.comparacionSeleccionada = null;
+
+        bz.seleccionarBorrador = function(index,comparacion){
+            bz.comparacionSeleccionada = {index: index, comparacion: comparacion}
+        }
 
     }])

@@ -86,7 +86,7 @@
                             <div class="col s12 sidebar-2"> <!--ng-class eliminado, innecesario en v movil -->
                                 <p class="text-center principal">Forma de su logo</p>
 
-                                <div class="cubo-logo">
+                                <div class="cubo-logo" style="margin-bottom: 20px;">
                                     <div ng-click="principal.asignarTipo(principal.botonesTipo[0], false  )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
                                         <span><i class="material-icons">thumb_up</i></span>
                                         <span>TU LOGO</span>
@@ -140,16 +140,27 @@
 
         <div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
             <div class="row margin-bottom-0">
-                <div class="col s6 offset-s3">
+
+                <div class="row margin-bottom-0">
+
+                    <div class="col s5 login tab" ng-class="{'active': principal.tabLogin == 1}" ng-click="principal.tabLogin = 1">
+                        <h5 class="principal"> Ingreso </h5>
+                    </div>
+                    <div class="col s5 registro tab" ng-class="{'active': principal.tabLogin == 2}" ng-click="principal.tabLogin = 2">
+                        <h5 class="principal"> Registro </h5>
+                    </div>
+                    <div class="col s2 registro tab">
+                        <h5 class="principal"> <i class="material-icons cerrar" ng-click="principal.mostrarModalLogin = false">clear</i> </h5>
+                    </div>
+                </div>
+
+                <div class="col s12" style="padding: 0;">
 
                     <div class="login-form-flex"> 
 
-                        <div class="cubo-form row">
+                        <div class="cubo-form row padding-bottom-0" ng-switch="principal.tabLogin">
 
-                            <i class="material-icons cerrar" ng-click="principal.mostrarModalLogin = false">clear</i>
-
-                            <div class="login-form col s6">
-                                <p class="text-center tercero">INGRESA</p>
+                            <div class="login-form col s12" ng-switch-when="1">
                                 <form name="principal.loginForm" novalidate ng-submit="principal.login(principal.datosLogin, principal.loginForm.$valid)">
                                     <div class="input-field col s12">
                                         <input id="correo" name="correo" type="email" ng-model ="principal.datosLogin.correo" required>
@@ -176,8 +187,7 @@
                                 </form>
                             </div>
 
-                            <div class="registro-form col s6">
-                                <p class="text-center tercero">REGISTRATE</p>
+                            <div class="registro-form col s12" ng-switch-when="2">
                                 <form name="principal.registroForm" novalidate ng-submit="principal.registrar(principal.datosRegistro, principal.registroForm.$valid)">
 	                                <div class="input-field col s12">
 	                                    <input id="nombre2" type="text" name="nombreCliente" ng-model="principal.datosRegistro.nombreCliente" required>
