@@ -1,11 +1,8 @@
-  <section class="sub-header">
+        <section class="sub-menu">
             <div class="row margin-bottom-0">
 
-                <div class="col s2 logo">
-                    <h5 class="secundario"  ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
-                </div>
-                <div class="col s8 texto">
-                    <h5 class="principal">¡Felicidades! Ha comprado un logo exitosamente</h5>
+                <div class="col s12 titulo">
+                    <h6 class="principal"> ¡Felicidades! Compra exitosa</h6>
                 </div>
 
             </div>
