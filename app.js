@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var configuracion = require('./configuracion.js');
 var compression = require('compression');
+app.enable('trust proxy');
 //var index = require('./public/');
 
 var rutas = require('./routes/routes.js');
