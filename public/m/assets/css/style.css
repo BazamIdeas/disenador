@@ -1431,17 +1431,16 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 .su-pedido .td {
     background-color: white;
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100px;
     font-family: 'futura-heavy' !important;
     color: gray;
 }
 
 .su-pedido .td .thumbail{
-    height: 60%;
-    width: 64px;
+    width: 300px;
 }
 
 .metodo {
@@ -1890,7 +1889,7 @@ span.next-page.bi{
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: #ffffff;
     z-index: 100000000;
     color: var(--principal);

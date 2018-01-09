@@ -20,7 +20,6 @@
 							
 							<div class="su-pedido primera col s12">
 								<div>
-									<div class="th">LOGO</div>
 									<div class="td">
 										<div class="thumbail">
 	        								<bazam-visualizar data-svg="pago.pedido.logo"></bazam-visualizar>
@@ -31,26 +30,25 @@
 
 							<div class="su-pedido col s12" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
 								<div>
-									<div class="th">PLAN</div>
-									<div class="td">{{pago.pedido.plan.nombre}}</div>
+									<div class="td"><h5>{{pago.pedido.plan.nombre}}</h5></div>
 								</div>
 							</div>						
 
-							<div class="su-pedido col s12" ng-class="{'s2': pago.pedido.impuesto, 's3': !pago.pedido.impuesto}">
+							<div class="su-pedido col" ng-class="{'s4': pago.pedido.impuesto, 's6': !pago.pedido.impuesto}">
 								<div>
 									<div class="th">PRECIO</div>
 									<div class="td">{{pago.pedido.precio.moneda.simbolo}} {{pago.pedido.precio.monto}}</div>
 								</div>
 							</div>	
 
-							<div class="su-pedido col s12" ng-if="pago.pedido.impuesto">
+							<div class="su-pedido col s4" ng-if="pago.pedido.impuesto">
 								<div>
 									<div class="th">IMPUESTO</div>
 									<div class="td">( {{$parent.impuestoTotal = (pago.pedido.precio.monto * (pago.pedido.impuesto / 100))}} ) {{pago.pedido.impuesto}}%</div>
 								</div>
 							</div>	
 
-							<div class="su-pedido final col s12">
+							<div class="su-pedido final col " ng-class="{'s4': pago.pedido.impuesto, 's6': !pago.pedido.impuesto}">
 								<div>
 									<div class="th">TOTAL</div>
 									<div class="td">{{pago.pedido.precio.moneda.simbolo}} {{pago.pedido.precio.monto+impuestoTotal}}</div>
