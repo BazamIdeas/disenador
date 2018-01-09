@@ -106,7 +106,7 @@ angular.module("disenador-de-logos")
 
         bz.avanzarMovil = function () {
 
-            if ((bz.pasosFormulario >= 1 && bz.pasosFormulario <= 5) && bz.datosForm.$valid) {
+            if ((bz.pasosFormulario >= 1 && bz.pasosFormulario <= 6) && bz.datosForm.$valid) {
 
                 
 
@@ -128,7 +128,21 @@ angular.module("disenador-de-logos")
                     bz.combinar();
                     bz.validarFormulario(false);
                     
-                } 
+                } else if (bz.pasosFormulario == 6){
+                    
+                    var indiceLogo = null;
+                    
+                    angular.forEach(bz.logos, function(logo, llave){
+                        
+                        if(logo.estado){
+                            indiceLogo = llave;
+                        }
+                    })
+                    console.log("hola")
+                    
+                    bz.avanzar(indiceLogo);
+                    
+                }
                 
                 bz.pasosFormulario++;
                 
