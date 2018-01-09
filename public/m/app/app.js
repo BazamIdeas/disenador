@@ -449,7 +449,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         switch (fromState.name) {
 
                             case '':
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                                 break;
                                 
                             case 'principal.combinaciones':
@@ -457,7 +457,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                                 
 
                             default:
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                         }
 
                         break;
@@ -467,12 +467,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         switch (fromState.name) {
 
                             case '':
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                                 break;
 
                             default:
 
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                         }
 
                         break;
@@ -482,14 +482,68 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         switch (fromState.name) {
 
                             case '':       
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                                 break;
 
                             default:
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                         }
 
                         break;
+                        
+                        
+                    case: "pagoCompleto":
+                        switch (fromState.name) {
+
+                            case '':       
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+                        
+                        break;
+                        
+                    case: "cuenta":
+                         switch (fromState.name) {
+
+                            case '':       
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+                        
+                        break;
+                        
+                    case: "logos":
+                         switch (fromState.name) {
+
+                            case '':       
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+                        
+                        break;
+                        
+                    case: "descargar":
+                         switch (fromState.name) {
+
+                            case '':       
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+                        
+                        break;
+                        
 
 
                 }
