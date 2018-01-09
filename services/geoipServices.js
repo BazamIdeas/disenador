@@ -4,7 +4,7 @@ var MMDBReader = require('mmdb-reader');
 var configuracion = require('../configuracion.js');
 
 exports.iso = function(ip){
- if configuracion.servidor = "Desarrollo"{
+ if (configuracion.servidor == "Desarrollo"){
   ip = "190.246.249.12";
  }
  

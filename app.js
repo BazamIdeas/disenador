@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var configuracion = require('./configuracion.js');
 var compression = require('compression');
-app.enable('trust proxy');
+
 //var index = require('./public/');
 
 var rutas = require('./routes/routes.js');
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
-
+app.enable('trust proxy');
 app.use(configuracion.base+'/fuentes', express.static(__dirname + '/fuentes'))
 app.use('/m/fuentes', express.static(__dirname + '/fuentes'))
 app.use('/fuentes', express.static(__dirname + '/fuentes'))
