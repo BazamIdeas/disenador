@@ -63,7 +63,7 @@
                                 <md-select ng-style="{'font-family': principal.seleccionarFuenteCategoria(principal.datos.categoria.fuente)}" class="cat-fuente" ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
                                     <md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
                                 </md-select>
-                            </md-input-container>
+                            </md-input-container> 
                             
                             
                             
@@ -130,7 +130,7 @@
                     <i class="material-icons">autorenew</i>
                     Refrescar
                 </li>
-                <li ng-click="principal.avanzarMovil()" ng-if="principal.pasosFormulario < 7" ng-class="{'valid': principal.datosForm.$valid, 'block': !principal.datosForm.$valid}">
+                <li ng-click="principal.avanzarMovil()" ng-if="principal.pasosFormulario <= 6" ng-class="{'valid': principal.datosForm.$valid, 'block': !principal.datosForm.$valid}">
                     <i class="material-icons">keyboard_arrow_right</i>
                     Continuar
                 </li>

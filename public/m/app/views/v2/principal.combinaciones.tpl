@@ -7,7 +7,7 @@
 </style>
 <div class="row margin-bottom-0 lienzo">
     <div class="col s12">
-        <p class="text-center tercero margin-bottom-0">Selecciona las fuentes que prefieras</p>
+        <p class="text-center tercero margin-bottom-0">Selecciona las combinacion que prefieras</p>
     </div>
 
 
