@@ -25,7 +25,7 @@ angular.module("disenador-de-logos")
                 icono: "",
                 fuente: ""
             }
-        }
+        };
 
         bz.jqueryScrollbarOptions = {};
 
@@ -51,14 +51,14 @@ angular.module("disenador-de-logos")
             bz.categoriasPosibles.iconos = res;
 
 
-        })
+        });
 
         categoriasService.listaCategorias('FUENTE').then(function (res) {
 
             bz.categoriasPosibles.fuentes = res;
 
 
-        })
+        });
 
         preferenciasService.listaPreferencias().then(function (res) {
 
@@ -66,9 +66,9 @@ angular.module("disenador-de-logos")
                 valor.valor = 2;
                 bz.datos.preferencias.push(valor);
 
-            })
+            });
 
-        })
+        });
 
         bz.botonesTipo = [{
             nombre: 'Logo y nombre',
@@ -82,77 +82,77 @@ angular.module("disenador-de-logos")
         }];
 
 
-        
-        bz.validarFormulario = function(opcion){
-           
+
+        bz.validarFormulario = function (opcion) {
+
             bz.datosForm.$setValidity("bz", opcion);
-        }
-        
+        };
+
         bz.pasosFormulario = 1;
 
         bz.retrocederMovil = function () {
-            
-            if (bz.pasosFormulario > 1 && bz.pasosFormulario <= 5){ 
-                
-                if(bz.pasosFormulario == 3){
-                    
+
+            if (bz.pasosFormulario > 1 && bz.pasosFormulario <= 5) {
+
+                if (bz.pasosFormulario == 3) {
+
                     bz.validarFormulario(true);
-                    
-                }                
-                
+
+                }
+
                 bz.pasosFormulario--;
             }
-        }
+        };
 
         bz.avanzarMovil = function () {
 
             if ((bz.pasosFormulario >= 1 && bz.pasosFormulario <= 6) && bz.datosForm.$valid) {
 
-                
+
 
                 if (bz.pasosFormulario == 2) { //workaround por la falta de input de control real en los cubos del formulario
 
                     bz.validarFormulario(false);
-                    
-                } else if(bz.pasosFormulario == 3){
-                    
+
+                } else if (bz.pasosFormulario == 3) {
+
                     bz.solicitarElementos(inicial);
                     bz.validarFormulario(false);
-                    
-                } else if(bz.pasosFormulario == 4){
-                    
+
+                } else if (bz.pasosFormulario == 4) {
+
                     bz.validarFormulario(false);
-                    
-                } else if(bz.pasosFormulario == 5){
-                    
+
+                } else if (bz.pasosFormulario == 5) {
+
                     bz.combinar();
                     bz.validarFormulario(false);
-                    
-                } else if (bz.pasosFormulario == 6){
-                    
+
+                } else if (bz.pasosFormulario == 6) {
+
                     var indiceLogo = null;
-                    
-                    angular.forEach(bz.logos, function(logo, llave){
-                        
-                        if(logo.estado){
+
+                    angular.forEach(bz.logos, function (logo, llave) {
+
+                        if (logo.estado) {
                             indiceLogo = llave;
                         }
-                    })
-                    console.log("hola")
-                    
+                    });
+
                     bz.avanzar(indiceLogo);
-                    
-                }else if(bz.pasosFormulario < 6)
-                
+
+                } else if (bz.pasosFormulario < 6)
+
                     bz.pasosFormulario++;
-                
-                }
-            } 
+
+            }
+        };
 
 
-        }
-        
+
+
         var inicial = false;
+
         bz.asignarTipo = function (tipoLogo, iniciales) {
 
             inicial = iniciales ? bz.datos.nombre.charAt(0) : false;
@@ -169,7 +169,7 @@ angular.module("disenador-de-logos")
                 }
 
             })
-            
+
             bz.datosForm.$setValidity("bz", true);
 
         }
@@ -231,7 +231,7 @@ angular.module("disenador-de-logos")
         }
 
 
-       
+
 
 
 
