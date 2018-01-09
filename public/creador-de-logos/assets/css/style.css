@@ -1524,7 +1524,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    height: 100px;
+    height: 200px;
     font-family: 'futura-heavy' !important;
     color: gray;
 }
