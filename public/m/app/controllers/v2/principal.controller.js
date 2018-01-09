@@ -141,10 +141,12 @@ angular.module("disenador-de-logos")
 
                     bz.avanzar(indiceLogo);
 
-                } else if (bz.pasosFormulario < 6)
+                }
+
+                if (bz.pasosFormulario < 6) {
 
                     bz.pasosFormulario++;
-
+                }
             }
         };
 

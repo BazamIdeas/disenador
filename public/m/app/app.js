@@ -551,7 +551,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             } else if (error === "LOGOUT_REQUIRED") {
 
-                $state.go('dashboard');
+                $state.go('cuenta');
 
             } else if (error.error === "FALLO_HISTORICO") {
 

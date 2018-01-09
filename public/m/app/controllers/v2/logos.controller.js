@@ -90,6 +90,8 @@ angular.module("disenador-de-logos")
                         }   
                     });
 
+
+                    
                     $mdToast.show({
                         hideDelay   : 0,
                         position    : 'top right',
@@ -106,10 +108,11 @@ angular.module("disenador-de-logos")
                             }
                         }],
                         templateUrl : 'toast-success-logo-delete.html'
-                    });   
-
+                    });  
+                    
+               
                 }).catch(function(){
-
+                    
                     $mdToast.show({
                         hideDelay   : 0,
                         position    : 'top right',
@@ -127,6 +130,7 @@ angular.module("disenador-de-logos")
                         }],
                         templateUrl : 'toast-danger-logo-delete.html'
                     });
+               
 
                 }).finally(function(){
                     
