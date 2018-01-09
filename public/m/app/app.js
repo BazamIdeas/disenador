@@ -492,7 +492,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         break;
                         
                         
-                    case: "pagoCompleto":
+                    case "pagoCompleto":
                         switch (fromState.name) {
 
                             case '':       
@@ -505,7 +505,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         
                         break;
                         
-                    case: "cuenta":
+                    case "cuenta":
                          switch (fromState.name) {
 
                             case '':       
@@ -518,7 +518,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         
                         break;
                         
-                    case: "logos":
+                    case "logos":
                          switch (fromState.name) {
 
                             case '':       
@@ -531,7 +531,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         
                         break;
                         
-                    case: "descargar":
+                    case "descargar":
                          switch (fromState.name) {
 
                             case '':       
