@@ -16,7 +16,7 @@ router.get('/cliente/datos', middleware.validar, controllers.clientes.Datos);
 router.post('/cliente/borrar/:id', middleware.validarUsuario, controllers.clientes.borrarCliente);
 //'valor'	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
-router.post('/cliente', controllers.clientes.nuevoCliente);
+router.post('/cliente', multipartMiddleware, controllers.clientes.nuevoCliente);
 //los mismos datos que la ruta /cliente
 router.post('/cliente/modificar', middleware.validar, controllers.clientes.modificarCliente);
 //correo, contraseña => email, pass
@@ -49,7 +49,7 @@ router.post('/pedido', middleware.validar, controllers.pedidos.nuevoPedido);//cr
 router.post('/pedido/guardado', middleware.validar, controllers.pedidos.nuevoPedidoGuardado);//crea un pedido de un logo ya guardado
 router.post('/pedido/modificar', middleware.validar, controllers.pedidos.modificarPedido);// modifica los datos de un pedido
 router.post('/pedido/cambiar', middleware.validar, controllers.pedidos.cambiarEstado);// cambia de estado al pedido
-router.get('/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido', controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
+router.get('/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:padre?', controllers.pedidos.cambioEstadoPagado);//RUTAS INTERNAS
 router.get('/pedido/no/pago/:tk', controllers.pedidos.noPago);// RUTAS INTERNAS
 
 //MODULO CATEGORIAS
@@ -130,6 +130,7 @@ router.post('/precio/modificar', /*middleware.validarUsuario,*/ controllers.prec
 
 
 //MODULO LOGOS
+router.post('/logos/estado/:estado', middleware.validar, controllers.logos.listaLogosPorEstado);
 router.post('/logos/guardados', middleware.validar, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables',  middleware.validar, controllers.logos.listaLogosDescargables);
 router.get('/logo/:id', middleware.validar, controllers.logos.datosLogo); //muestra los datos de un logo por su id
