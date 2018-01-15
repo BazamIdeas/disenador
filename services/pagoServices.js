@@ -10,13 +10,19 @@ exports.paypal = function(datos,callback)
       var impuesto = datos.precio * (datos.impuesto/100)
       var total = datos.precio + impuesto
 
+      var return_url = configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/"+datos.idPedido+"/";
+
+      if(datos.padre){
+        return_url = return_url + datos.padre+"/";
+      }
+
       var payment = {
         "intent": "sale",
         "payer": {
           "payment_method": "paypal"
         },
        "redirect_urls": {
-        "return_url": configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/"+datos.idPedido+"/",
+        "return_url": return_url,
         "cancel_url": configuracion.url+"/app/pedido/no/pago/"+datos.token+"/"
         },
 

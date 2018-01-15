@@ -1,0 +1,279 @@
+<html lang="es" ng-app="disenador-de-logos">
+
+<head>
+    <base href="/freelance/"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Titulo de la pagina">
+    <meta name="twitter:description" content="Descripcion de la pagina sin superar los 200 caracteres">
+    <meta name="twitter:creator" content="@author_handle">
+
+    <!-- Twitter Summary card images. Igual o superar los 200x200px -->
+    <meta name="twitter:image" content="<a href='http://www.example.com/image.jpg'>http://www.example.com/image.jpg</a>">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Titulo" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content=" http://www.example.com/" />
+    <meta property="og:image" content=" http://example.com/image.jpg" />
+    <meta property="og:description" content="Descripcion" />
+    <meta property="og:site_name" content="Nombre de la web, i.e. Moz" />
+    <meta property="fb:admins" content="ID de Facebook" />
+    
+    
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Indie+Flower|Lobster|Shadows+Into+Light|Spectral+SC" rel="stylesheet">--> 
+    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+
+    <link href="/angular-material/angular-material.min.css" rel="stylesheet">
+    <link href="/angular-colorpicker-directive/css/color-picker.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">-->
+
+    <!---jQuery --->
+    <script src="/jquery/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="assets/css/ghpages-materialize.min.css">-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.scrollbar.css">
+    <script src="assets/js/materialize.min.js"></script>
+
+
+    <!--Librerias core de angualarJS -->
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular-messages/angular-messages.min.js"></script>
+    <script src="/angular-animate/angular-animate.min.js"></script>
+    <script src="/angular-aria/angular-aria.min.js"></script>
+
+    <!--Librerias 3r party angularJS -->
+    <script src="/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="/angular-material/angular-material.min.js"></script>
+    <!--<script src="/angular-color-picker/angular-color-picker.js"></script>-->
+    <script src="/angular-colorpicker-directive/js/color-picker.js"></script>
+
+    <script src="/assets/js/scrollbars.js"></script>
+    <script src="/assets/js/jquery.scrollbar.js"></script>
+    <script src="/angular-base64/angular-base64.min.js"></script>
+    <script src="/angular-social/angular-socialshare.js"></script>
+    <!--<script src="/angular-sweetalert/SweetAlert.min.js"></script>
+    <script src="/sweetalert/sweet-alert.min.js"></script>
+    <script src="/save-svg-as-png/saveSvgAsPng.js"></script>-->
+
+
+    <!--Archivos App diseñador -->
+    <script src="app/app.js"></script>
+    <script src="app/services.js"></script>
+    <script src="app/directives.js"></script>
+
+    <!-- Controladores -->
+    <script src="app/controllers/header.js"></script>
+    <!--<script src="app/controllers/comenzar.js"></script>-->
+    <!--<script src="app/controllers/analisis.js"></script>-->
+    <!--<script src="app/controllers/opciones.js"></script>-->
+    <!--<script src="app/controllers/proceso.js"></script>-->
+    <!--<script src="app/controllers/editor.js"></script>-->
+    <!--<script src="app/controllers/previsualizar.js"></script>-->
+    <!--<script src="app/controllers/login.js"></script>-->
+    <!--<script src="app/controllers/cliente.js"></script>-->
+    <!--<script src="app/controllers/planes.js"></script>-->
+    <!--<script src="app/controllers/metodo_pago.js"></script>-->
+    <!--<script src="app/controllers/administrar.js"></script>-->
+    
+    <!--Controladores V2 -->
+    <script src="app/controllers/v2/principal.controller.js"></script>
+    <script src="app/controllers/v2/principal.comenzar.controller.js"></script>
+    <script src="app/controllers/v2/principal.opciones.controller.js"></script>
+    <script src="app/controllers/v2/principal.combinaciones.controller.js"></script>
+    <script src="app/controllers/v2/editor.controller.js"></script>
+    <script src="app/controllers/v2/planes.controller.js"></script>
+    <script src="app/controllers/v2/pago.controller.js"></script>
+    <script src="app/controllers/v2/pagoCompleto.controller.js"></script>
+    <script src="app/controllers/v2/logos.controller.js"></script>
+    <script src="app/controllers/v2/login.controller.js"></script>
+    <script src="app/controllers/v2/descargar.controller.js"></script>
+    <script src="app/controllers/v2/cuenta.controller.js"></script>
+
+</head>
+
+<body>
+
+    <header ng-controller="headerController as header">
+        
+        <div class="col s6 m9" show-gt-sm>
+
+                <div ng-switch="header.autorizado" class="login"  ng-cloak>
+
+                    <div ng-switch-when="false" ui-sref="principal.comenzar" class="acceder" style="cursor: pointer">
+                        <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
+                        <i class="material-icons">add_circle_outline</i>
+                    </div>
+
+                    <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer"> <i class="material-icons md-48">account_circle</i> <span>Acceder / Registro</span> </div>
+
+                    <div ng-switch-default class="acceder" style="cursor: pointer"> 
+
+                        <span ui-sref="principal.comenzar">
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
+                            <i class="material-icons">add_circle_outline</i>
+                        </span>
+                        
+                        <span ui-sref="logos">
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mis logos</md-tooltip>
+                            <i class="material-icons">favorite</i>
+                        </span>                        
+
+                        <span ui-sref="cuenta">
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
+                            <i class="material-icons">account_circle</i> &nbsp; {{header.autorizado.nombre}}
+                        </span>
+
+                        <span ng-click="header.salir()">
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar sesion</md-tooltip>
+                            <i class="material-icons">exit_to_app</i>
+                        </span>
+
+                        <span style="margin: 0 10px; font-family: 'arial'"></span>
+
+                    </div>                    
+
+
+                    <span>
+                        <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
+                    </span>
+
+                </div>
+    
+        </div>
+    
+    </header>
+
+    <!-- contenedor principal -->
+    <div ui-view style="min-height: calc(100% - 360px); min-height: -webkit-calc(100% - 360px); background-color: white">
+        
+    </div>
+
+
+    <div class="full-overlay">
+        <div class="gif"></div>
+        <div>Cargando...</div>
+    </div>
+
+    <bazam-redireccionar></bazam-redireccionar>
+    <!--
+    <div ng-show='loading'>
+      <strong>Loading.</strong>
+    </div>
+    -->
+    <!-- Footer 
+    <footer class="text-center" layout="row" layout-align="space-between center">
+            <div class="logo" flex="30">logo</div>
+            <p class="copyright" flex="30">Copyright 2017</p>
+            <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
+    </footer>
+    -->
+    
+    <script type="text/ng-template" id="toast-success-logo-save.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>Su logo ha sido guardado con exito!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-danger-logo-save.html">
+        <md-toast class="danger">
+            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    
+    <script type="text/ng-template" id="toast-success-login.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>¡Bienvenido!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    
+    <script type="text/ng-template" id="toast-danger-login.html">
+        <md-toast class="danger">
+            <span class="md-toast-text" flex>Verifica tu Usuario y Contraseña</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-success-registro.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>Registro exitoso!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-danger-registro.html">
+        <md-toast class="danger">
+            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-success-logo-delete.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>El logo fue borrado exitosamente!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-danger-logo-delete.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-success-cuenta-modify.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>La datos fueron actualizados!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-danger-cuenta-modify.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+
+</body>
+
+
+
+
+</html>

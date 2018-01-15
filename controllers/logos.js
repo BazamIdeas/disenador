@@ -15,9 +15,20 @@ exports.guardar =  function(req,res)
 	{
 		//creamos un objeto con los datos a insertar del pedido
 
+		var estado = "Editable";
+
+		switch(req.body.estado){
+			case "Borrador":
+				estado = "Borrador";
+				break;
+			case "Por Aprobar":
+				estado = "Por Aprobar";
+				break;
+		}
+
 		var logoData = {
 			idLogo : null,
-			estado : 'Editable',
+			estado : estado,
 			logo : req.body.logo,
 			tipoLogo: req.body.tipoLogo,
 			clientes_idCliente : req.idCliente,
@@ -106,6 +117,57 @@ exports.datosLogo =  function(req, res, next) {
 			{
 				res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"})
 
+			}
+		});
+
+	}
+
+	exports.listaLogosPorEstado = function(req, res, next) {
+		
+		var par = [req.params.estado, req.idCliente]
+
+		logo.getLogosTipo(par,function(error, data)
+		{
+			//si el usuario existe 
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+
+
+				async.forEachOf(data, (logo, key, callback) => {
+
+
+					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+						if (err) return callback(err);
+
+						try {
+
+							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+							{
+								data[key]['atributos'] = dataAttrs;
+							}
+
+						} catch (e) {
+						    return callback(e);
+						}	
+
+						callback();						
+						
+					})
+
+				}, (err) => {
+					
+					if (err) res.status(402).json({});
+					
+					res.status(200).json(data);
+				
+				})
+
+			}
+		//no existe
+			else
+			{
+				res.status(404).json({"msg":"No hay logos guardados por el cliente "})
 			}
 		});
 
