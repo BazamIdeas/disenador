@@ -82,8 +82,15 @@ exports.guardar =  function(req,res)
 		
 	}
 
-exports.Aprobar = function(req,res,next) {
-
+exports.aprobar = function(req,res,next) {
+	var par = ["Aprobado", req.body.idLogo];
+	logo.cambiarEstado(par, function(error,data){
+		if (typeof data !== 'undefined' && data.length > 0){
+			res.status(200).json(data);
+		}else{
+			res.status(500).json({"msg":"Algo ocurrio"})
+		}
+	})
 }
 
 exports.datosLogo =  function(req, res, next) {
