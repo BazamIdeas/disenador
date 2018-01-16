@@ -123,119 +123,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                 }
             })
-/*
-            .state({
-                name: 'planes',
-                url: '/planes/',
-                templateUrl: 'app/views/v2/planes.tpl',
-                controller: 'planesController as planes',
-                params: {
-                    status: null,
-                    datos: {
-                        logo: null,
-                        idElemento: null,
-                        tipo: null,
-                        fuentes: null
-                    }
-                },
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }],
-                    historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
-
-                        var defered = $q.defer();
-
-                        var promise = defered.promise;
-
-                        if ($stateParams.status) {
-
-                            LS.definir('planes', $stateParams.datos);
-
-                            defered.resolve($stateParams.datos);
-
-                        } else if (LS.obtener('planes')) {
-
-                            defered.resolve(LS.obtener('planes'));
-
-                        } else {
-
-                            defered.reject({
-                                error: 'FALLO_HISTORICO'
-                            });
-                        }
-
-                        return promise;
-
-                    }]
-                }
-            })
-
-            .state({
-                name: 'pago',
-                url: '/pago/',
-                templateUrl: 'app/views/v2/pago.tpl',
-                controller: 'pagoController as pago',
-                params: {
-                    status: null,
-                    datos: {
-
-                        logo: null,
-                        idElemento: null,
-                        tipo: null,
-                        plan: {
-                            nombre: null,
-                            idPlan: null
-                        },
-                        precio: {
-                            moneda: {
-                                simbolo: null,
-                                idMoneda: null
-                            },
-                            monto: null,
-                            idPrecio: null
-                        }
-
-                    }
-                },
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }],
-                    historicoResolve: ["$q", "$stateParams",  function ($q, $stateParams) {
-
-                        var defered = $q.defer();
-
-                        var promise = defered.promise;
-          
-                        if ($stateParams.status) {
-
-                            defered.resolve($stateParams.datos);
-                        } else  {
-
-                            defered.reject({
-                                error: 'FALLO_HISTORICO'
-                            });
-                        }
-
-                        return promise;
-
-                    }]
-                }
-            })
-        */
+        
          .state({
                 name: 'publicado',
                 url: '/publicado/:id',
@@ -267,7 +155,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                                 
                                 if(res.estado == "Por Aprobar"){
                                     
-                                     defered.resolve(res);
+                                    defered.resolve(res);
                                     
                                 } else {
                                     
@@ -275,10 +163,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                                     
                                 }
                                
-                            
                             }).catch(function(res){
-
+                                
                                 defered.reject("INVALID_LOGO");
+                                
                             })
                         
                             return promise;

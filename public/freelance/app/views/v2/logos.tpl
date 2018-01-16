@@ -17,7 +17,7 @@
 				
 				<div class="col l6 xl5 offset-xl1">
                     <div class="row caja logos">
-                        <p class="text-center tercero margin-bottom-0 margin-top-0">PPENDIENTES DE APROBACIÓN</p>
+                        <p class="text-center tercero margin-bottom-0 margin-top-0">PENDIENTES DE APROBACIÓN</p>
                         
                         <span class="back-page"  ng-click="logos.modificarSalto(false, 'guardados')" ng-show="logos.cantidad.guardados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
                         

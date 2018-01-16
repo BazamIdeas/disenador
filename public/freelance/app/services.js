@@ -415,11 +415,11 @@ angular.module("disenador-de-logos")
 
     }])
 
-
+    
     /*********************/
     /********PEDIDOS******/
     /*********************/
-
+    /*
     .service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
 
 
@@ -528,7 +528,7 @@ angular.module("disenador-de-logos")
         }
 
     }])
-
+    */
     /***************************************/
     /***************CLIENTES****************/
     /***************************************/
@@ -844,6 +844,25 @@ angular.module("disenador-de-logos")
     /*********************/
 
     .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
+        
+        this.publicar = function(idLogo){
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/logo/por-aprobar", {idLogo: idLogo}).then(function (res) {
+
+                defered.resolve();
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+        }
 
         this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId, estado) {
 
@@ -953,7 +972,7 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-
+        /*
         this.descargarLogo = function (idLogo, ancho, nombre, tipo) {
 
             var defered = $q.defer();
@@ -980,7 +999,7 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-
+        */
 
         this.obtenerPorId = function (idLogo) {
 
