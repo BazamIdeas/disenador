@@ -23,7 +23,7 @@ router.post('/cliente/modificar', middleware.validarCliente, controllers.cliente
 router.post('/cliente/login',controllers.clientes.login);
 
 router.get('/cliente/pedidos', middleware.validarCliente, controllers.pedidos.PedidosCliente);//muestra la lista de pedidos de un cliente
-router.get('/cliente/:id', controllers.clientes.datosCliente);
+router.get('/cliente/:id/:facturacion?', controllers.clientes.datosCliente);
 
 //MODULO USUARIOS
 //
@@ -130,7 +130,7 @@ router.post('/precio/modificar', /*middleware.validarAdministrador,*/ controller
 
 
 //MODULO LOGOS
-router.post('/logos/estado/:estado', middleware.validarCliente, controllers.logos.listaLogosPorEstado);
+router.post('/logos/estado', middleware.validarCliente, controllers.logos.listaLogosPorEstado);
 router.post('/logos/guardados', middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables',  middleware.validarCliente, controllers.logos.listaLogosDescargables);
 router.get('/logo/:id', middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id

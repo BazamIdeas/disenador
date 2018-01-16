@@ -147,7 +147,7 @@ exports.datosLogo =  function(req, res, next) {
 
 	exports.listaLogosPorEstado = function(req, res, next) {
 		
-		var par = [req.params.estado, req.idCliente]
+		var par = [req.body.estado, req.idCliente]
 
 		logo.getLogosTipo(par,function(error, data)
 		{

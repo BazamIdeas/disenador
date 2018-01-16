@@ -51,21 +51,20 @@ exports.datosCliente = function(req, res, next) {
         //si el usuario existe 
         if (typeof data !== 'undefined' && data.length > 0) {
            
-            var cliente = data;
+            var cliente = data[0];
 
             if(req.params.facturacion){
                 facturacion.ObtenerPorCliente(req.params.id, function(err, data){
                     if(typeof data !== 'undefined' && data.length){
-                        res.status(200).json(data)
+                        cliente.facturacion = data[0];
+                        res.status(200).json([cliente])
                     }else{
-                        res.status(404).json({msg: "No hay datos de facturacion"})
+                        res.status(200).json([cliente]) 
                     }
                 })
             }else{
-                res.status(200).json(data)
+                res.status(200).json([cliente])
             }
-            
-            res.status(200).json(data);
         }
         //no existe
         else {
@@ -83,8 +82,19 @@ exports.Datos = function(req, res, next) {
         //si el usuario existe 
         if (typeof data !== 'undefined' && data.length > 0) {
 
-            //next();
-            res.status(200).json(data[0]);
+            var cliente = data[0];
+
+            if(req.params.facturacion){
+                facturacion.ObtenerPorCliente(req.params.id, function(err, data){
+                    if(typeof data !== 'undefined' && data.length){
+                        res.status(200).json(cliente)
+                    }else{
+                        res.status(404).json({msg: "No hay datos de facturacion"})
+                    }
+                })
+            }else{
+                res.status(200).json(cliente)
+            }
         }
         //no existe
         else {
