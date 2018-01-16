@@ -263,76 +263,57 @@ angular.module("disenador-de-logos")
                     logosService.guardarLogo(bz.base64.encode(logo), 'Logo y nombre', bz.logo.icono.idElemento, idFuente, idFuenteEslogan, 'Por Aprobar').then(function (res) {
                         
                         bz.logo.idLogo = res;
-                        /*
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
-
-                                var temporizador = $timeout(function () {
-
-                                    $mdToast.hide();
-
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-
-                                }
-                        }],
-                            templateUrl: 'toast-success-logo-save.html'
-                        });*/
+                        
+                        logosService.publicar(bz.logo.idLogo).then(function(res){
+                            
+                             $state.go("publicado", {
+                                id: bz.logo.idLogo,
+                                status: true
+                            })
+                            
+                        }).catch(function(res){
+                            
+                              /*TOAST DE ERROR */
+                            
+                        }).finally(function(){
+                            
+                            bz.completadoGuardar = true;
+                            
+                        })
 
 
                     }).catch(function(res){
+                        /*TOAST DE ERROR */
                         
-                        
+                        bz.completadoGuardar = true;
                         
                     }).finally(function () {
 
-
+                        /*
                         $state.go("publicado", {
                             id: bz.logo.idLogo,
                             status: true
-                        })
-
-                        bz.completadoGuardar = true;
+                        })*/
 
                     })
                 } else { //si es un logo guardado
 
-                    //PROMESA DE PUBLICAR
-                    
-                    /*
-                    logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, idFuente, idFuenteEslogan, 'Por Aprobar').then(function (res) {
-
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
-
-                                var temporizador = $timeout(function () {
-
-                                    $mdToast.hide();
-
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-
-                                }
-                            }],
-                            templateUrl: 'toast-success-logo-save.html'
-                        });
-
-                    }).finally(function () {
-
-                        bz.completadoGuardar = true;
-
+                   logosService.publicar(bz.logo.idLogo).then(function(res){
+                            
+                             $state.go("publicado", {
+                                id: bz.logo.idLogo,
+                                status: true
+                            })
+                            
+                        }).catch(function(res){
+                            
+                              /*TOAST DE ERROR */
+                            
+                        }).finally(function(){
+                            
+                            bz.completadoGuardar = true;
+                            
                     })
-                    */
                 }
 
             }
