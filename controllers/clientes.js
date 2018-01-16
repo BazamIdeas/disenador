@@ -1,4 +1,5 @@
 var cliente = require('../modelos/clientesModelo.js');
+var facturacion = require('../modelos/facturacionesModelo.js');
 var services = require('../services');
 var fs = require('fs');
 var crypto = require('crypto');
@@ -49,8 +50,21 @@ exports.datosCliente = function(req, res, next) {
     cliente.getCliente(id, function(error, data) {
         //si el usuario existe 
         if (typeof data !== 'undefined' && data.length > 0) {
+           
+            var cliente = data;
 
-            //next();
+            if(req.params.facturacion){
+                facturacion.ObtenerPorCliente(req.params.id, function(err, data){
+                    if(typeof data !== 'undefined' && data.length){
+                        res.status(200).json(data)
+                    }else{
+                        res.status(404).json({msg: "No hay datos de facturacion"})
+                    }
+                })
+            }else{
+                res.status(200).json(data)
+            }
+            
             res.status(200).json(data);
         }
         //no existe

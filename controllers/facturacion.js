@@ -1,14 +1,14 @@
-var pago = require('../modelos/pagosModelo.js');
+var facturacion = require('../modelos/facturacionesModelo.js');
 
 exports.Nuevo = function(req, res, next)
 {
-    var datosPago = {
-        fecha: req.body.fecha,
-        monto: req.body.monto,
+    var datosFacturacion = {
+        medio: req.body.medio,
+        correo: req.body.correo,
         clientes_idCliente: req.body.idCliente 
     }
 
-    pago.Nuevo(datosPago, function(error,data){
+    facturacion.Nuevo(datosFacturacion, function(error,data){
         if(typeof data !== 'undefined' && data.insertId){
             res.status(200).json(data);
         }else{

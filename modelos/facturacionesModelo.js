@@ -1,12 +1,12 @@
 var DB = require('./db.js');
 
-var pago = {};
+var facturacion = {};
 
-pago.ObtenerPoCliente = function(idCliente, callback) {
+facturacion.ObtenerPorCliente = function(idCliente, callback) {
+    
+    var q = `SELECT * FROM facturacion WHERE clientes_idCliente = ?`;
+    var par = [idCliente];
 
-    var q = `SELECT * FROM pagos WHERE clientes_idCliente = ?`;
-	var par = [idCliente];
-	
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par, function(err, rows){
@@ -18,11 +18,10 @@ pago.ObtenerPoCliente = function(idCliente, callback) {
     
 }
 
-pago.Nuevo = function(datosPago, callback) {
-
-    var q = `INSERT INTO pagos SET ?`;
-	var par = datosPago;
-	
+facturacion.Nuevo = function(datosFacturacion, callback) {
+    
+    var q = `INSERT INTO facturacion SET ?`;
+    var par = datosFacturacion;
 
     DB.getConnection(function(err, connection)
 	{
@@ -34,4 +33,4 @@ pago.Nuevo = function(datosPago, callback) {
 	});
 }
 
-module.exports = pago;
+module.exports = facturacion;

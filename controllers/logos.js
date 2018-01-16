@@ -82,6 +82,18 @@ exports.guardar =  function(req,res)
 		
 	}
 
+	exports.porAprobar = function(req,res,next) {
+		var par = ["Por Aprobar", req.body.idLogo];
+		logo.cambiarEstado(par, function(error,data){
+			if (typeof data !== 'undefined' && data.length > 0){
+				res.status(200).json(data);
+			}else{
+				res.status(500).json({"msg":"Algo ocurrio"})
+			}
+		})
+	}
+
+
 exports.aprobar = function(req,res,next) {
 	var par = ["Aprobado", req.body.idLogo];
 	logo.cambiarEstado(par, function(error,data){
@@ -313,22 +325,24 @@ exports.listaLogosDescargables = function(req, res, next) {
 
 							for(var key in atributos){
 
-								var atributosData = {
-									clave : key,
-									valor : atributos[key],
-									logos_idLogo: req.body.idLogo  
-								};
+								if(key == "principal" || key == "eslogan"){
+									var atributosData = {
+										clave : key,
+										valor : atributos[key],
+										logos_idLogo: req.body.idLogo  
+									};
 
-								atributo.Guardar(atributosData, function(error, data) {
+									atributo.Guardar(atributosData, function(error, data) {
 
-									if(!data && !data.insertId)
-									{
+										if(!data && !data.insertId)
+										{
 
-										res.status(500).json({"msg":"Algo ocurrio"})
-									
-									}
+											res.status(500).json({"msg":"Algo ocurrio"})
+										
+										}
 
-								})
+									})
+								}
 
 							}
 
