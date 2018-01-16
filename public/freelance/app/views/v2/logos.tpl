@@ -17,7 +17,7 @@
 				
 				<div class="col l6 xl5 offset-xl1">
                     <div class="row caja logos">
-                        <p class="text-center tercero margin-bottom-0 margin-top-0">GUARDADOS</p>
+                        <p class="text-center tercero margin-bottom-0 margin-top-0">PPENDIENTES DE APROBACIÓN</p>
                         
                         <span class="back-page"  ng-click="logos.modificarSalto(false, 'guardados')" ng-show="logos.cantidad.guardados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
                         
@@ -31,10 +31,7 @@
                                             <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
                                             <i class="material-icons">edit</i>
                                         </span>
-                                        <span class="compartir"  ng-click="logos.abrirModal(guardado.idLogo)">
-                                            <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
-                                            <i class="material-icons">share</i>
-                                        </span>
+
                                         <span class="borrar" ng-click="logos.borrarLogo(guardado.idLogo)">
                                             <md-tooltip md-delay="2" md-direction="top">Eliminar</md-tooltip>
                                             <i class="material-icons">delete</i>
@@ -53,7 +50,7 @@
 
 				<div class="col l6 xl5">
                     <div class="row caja logos">
-                        <p class="text-center tercero margin-bottom-0 margin-top-0">ADQUIRIDOS</p>
+                        <p class="text-center tercero margin-bottom-0 margin-top-0">APROBADOS</p>
                         
                         <span class="back-page" ng-click="logos.modificarSalto(false, 'comprados')" ng-show="logos.cantidad.comprados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
                         
@@ -63,14 +60,7 @@
                                 <div class="col l4"  ng-repeat="comprado in logos.comprados | limitTo: 9 : logos.salto.comprados track by comprado.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
-                                        <span class="editar" ui-sref="descargar({id: comprado.idLogo})">
-                                            <md-tooltip md-delay="2" md-direction="top">Descargar</md-tooltip>
-                                            <i class="material-icons">file_download</i>
-                                        </span>
-                                        <span class="compartir" ng-click="logos.abrirModal(comprado.idLogo)">
-                                            <md-tooltip md-delay="2" md-direction="top">Compartir</md-tooltip>
-                                            <i class="material-icons">share</i>
-                                        </span>                                                                
+                                                                                                        
                                         <bazam-visualizar data-svg="logos.base64.decode(comprado.logo)"></bazam-visualizar>
                                     </div>
                                 </div>
@@ -87,7 +77,7 @@
         </section>
 
 
-        <div class="overlay" ng-class="{'show': logos.mostrarModalSocial, 'hide': !logos.mostrarModalSocial}"> 
+        <!--<div class="overlay" ng-class="{'show': logos.mostrarModalSocial, 'hide': !logos.mostrarModalSocial}"> 
             <div class="row margin-bottom-0">
                 <div class="col s6 offset-s3">
 
@@ -121,4 +111,4 @@
 
                 </div>
             </div>
-        </div>
+        </div>-->

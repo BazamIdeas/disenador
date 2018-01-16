@@ -105,7 +105,7 @@ exports.nuevoCliente = function(req, res, next) {
         pais: req.body.pais
     };
 
-    if(req.files.foto){
+    if( req.files && req.files.foto){
         var nombre = crypto.randomBytes(Math.ceil(len/2)).toString('hex').slice(0,len).toUpperCase();
         var tmp_path = req.files.foto.path;
         var target_path = './avatares/' + nombre;

@@ -235,12 +235,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-        
+        */
          .state({
-                name: 'pagoCompleto',
-                url: '/pago/completo/:id',
-                templateUrl: 'app/views/v2/pagoCompleto.tpl',
-                controller: 'pagoCompletoController as pagoCompleto',
+                name: 'publicado',
+                url: '/publicado/:id',
+                templateUrl: 'app/views/v2/publicado.tpl',
+                controller: 'publicadoController as publicado',
+                params: {
+                    status: null,
+                    datos: null
+                },
                 resolve: {
                     currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
@@ -250,10 +254,51 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                         }
 
+                    }],
+                    logoValido: ["$q", "logosService", "$stateParams", function($q, logosService, $stateParams){
+                        
+                        var defered = $q.defer();
+
+                        var promise = defered.promise;
+                        
+                        if($stateParams.id){
+                            
+                            logosService.obtenerPorId($stateParams.id).then(function(res){
+                                
+                                if(res.estado == "Por Aprobar"){
+                                    
+                                     defered.resolve(res);
+                                    
+                                } else {
+                                    
+                                    defered.reject("INVALID_LOGO");
+                                    
+                                }
+                               
+                            
+                            }).catch(function(res){
+
+                                defered.reject("INVALID_LOGO");
+                            })
+                        
+                            return promise;
+                            
+                        } else{
+                            
+                            return $q.reject("INVALID_LOGO");
+                            
+                        }
+                        
+                        
+                    }],
+                    status: ["$stateParams", "$q", function($stateParams, $q){
+                        
+                        return $stateParams.status || $q.reject("STEPS");
+                        
                     }]
                 }
             })
-*/
+
             .state({
                 name: 'cuenta',
                 url: '/cliente/cuenta',
@@ -279,7 +324,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 controller: 'logosController as logos',
                 resolve: {
                     currentAuth: ["$q", "clientesService", function ($q, clientesService) {
-
+                        
                         if (!clientesService.autorizado()) {
 
                             return $q.reject("AUTH_REQUIRED");
@@ -289,36 +334,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-    /*
-            .state({
-                name: 'descargar',
-                url: '/cliente/logos/{id:int}/descargar',
-                templateUrl: 'app/views/v2/descargar.tpl',
-                controller: 'descargarController as descargar',
-                params: {
-                    
-                    datos:{
-                        logo: null                        
-                    }
-                },
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
-
-                        if (!clientesService.autorizado()) {
-
-                            return $q.reject("AUTH_REQUIRED");
-
-                        }
-
-                    }],
-                    logoResolve: ["$q", "$stateParams",  function ($q, $stateParams) {
-
-                            return {logo: $stateParams.datos.logo, id: $stateParams.id};
-                     
-                    }]
-                }
-            })
-        */
+ 
             .state({
                 name: 'login',
                 url: '/login',
@@ -345,9 +361,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         $urlRouterProvider.when('/comenzar/opciones', '/comenzar/opciones/');
         $urlRouterProvider.when('/comenzar/combinaciones', '/comenzar/combinaciones/');
         $urlRouterProvider.when('/editor', '/editor/');
-        $urlRouterProvider.when('/planes', '/planes/');
-        $urlRouterProvider.when('/pago', '/pago/');
-
+    
         $urlRouterProvider.otherwise('/404/');
 
     })
@@ -372,7 +386,17 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             if (error == "STEPS") {
 
-                $state.go("principal.comenzar");
+                switch (toState.name) {
+                        
+                    case 'publicado':
+                        break;
+                        
+                    default: 
+                        $state.go("principal.comenzar");
+                        
+                }
+                
+                
 
             } else if (error === "AUTH_REQUIRED") {
 
@@ -479,7 +503,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         
                         break;
                     
-
                 }
 
 

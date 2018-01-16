@@ -488,10 +488,7 @@ angular.module("disenador-de-logos")
                 
                 if(idFuenteEslogan){
                    datos.atributos.eslogan =  idFuenteEslogan;
-                    
                 }
-
-
 
                 $http.post("/app/pedido", datos).then(function (res) {
 
@@ -848,7 +845,7 @@ angular.module("disenador-de-logos")
 
     .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
 
-        this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId) {
+        this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId, estado) {
 
             var defered = $q.defer();
 
@@ -865,6 +862,10 @@ angular.module("disenador-de-logos")
             
             if(fuenteEsloganId){
                 datos.atributos.eslogan = fuenteEsloganId; 
+            }
+            
+            if(estado){
+                datos.estado = estado
             }
 
             $http.post("/app/logo/guardar", datos).then(function (res) {
