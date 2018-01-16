@@ -33,4 +33,19 @@ facturacion.Nuevo = function(datosFacturacion, callback) {
 	});
 }
 
+facturacion.Actualizar = function(idFacturacion, datosFacturacion, callback) {
+    
+    var q = `UPDATE facturacion SET ? WHERE facturacion.idFacturacion = ?`;
+    var par = datosFacturacion;
+
+    DB.getConnection(function(err, connection)
+	{
+        connection.query(q, [par,idFacturacion], function(err, result){
+	  		if(err)	throw err;
+	  		else callback(null,{"affectedRows" : result.affectedRows});
+	  		connection.release(); 
+        });
+	});
+}
+
 module.exports = facturacion;

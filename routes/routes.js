@@ -11,7 +11,7 @@ var configuracion       = require('../configuracion.js');
 //no espera parametros
 router.get('/clientes', middleware.validarAdministrador, controllers.clientes.listaClientes);
 //parametro por get que debe ser el id del cliente.
-router.get('/cliente/datos', middleware.validarCliente, controllers.clientes.Datos);
+router.get('/cliente/datos/:facturacion?', middleware.validarCliente, controllers.clientes.Datos);
 
 router.post('/cliente/borrar/:id', middleware.validarAdministrador, controllers.clientes.borrarCliente);
 //'valor'	
@@ -23,7 +23,7 @@ router.post('/cliente/modificar', middleware.validarCliente, controllers.cliente
 router.post('/cliente/login',controllers.clientes.login);
 
 router.get('/cliente/pedidos', middleware.validarCliente, controllers.pedidos.PedidosCliente);//muestra la lista de pedidos de un cliente
-router.get('/cliente/:id/:facturacion?', controllers.clientes.datosCliente);
+router.get('/cliente/:id/:facturacion?',  middleware.validarAdministrador, controllers.clientes.datosCliente);
 
 //MODULO USUARIOS
 //
