@@ -82,6 +82,10 @@ exports.guardar =  function(req,res)
 		
 	}
 
+exports.Aprobar = function(req,res,next) {
+
+}
+
 exports.datosLogo =  function(req, res, next) {
 		//id del pedido
 		var par = [req.idCliente, req.params.id];
@@ -197,7 +201,6 @@ exports.listaLogosGuardados = function(req, res, next) {
 							{
 								data[key]['atributos'] = dataAttrs;
 
-								console.log(key,data[key].idLogo)
 							}
 
 						} catch (e) {
