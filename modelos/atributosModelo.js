@@ -20,6 +20,26 @@ atributo.Guardar = (atributosData, callback) =>
 	});
 }
 
+atributo.ObtenerPorClave = (clave, callback) =>
+{
+	var q   = "SELECT clave, valor FROM atributos WHERE clave = ?";
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , [clave] , function(err, rows){
+	  
+
+	  		if(err)	throw err;
+
+	  		else{
+	  			callback(null, rows); 
+	  		}
+
+	  		connection.release();
+	  	});
+	});
+}
+
 atributo.ObtenerPorLogo = (idLogo, callback) =>
 {
 	var q   = "SELECT clave, valor FROM atributos WHERE logos_idLogo = ?";

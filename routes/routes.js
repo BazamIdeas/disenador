@@ -131,6 +131,8 @@ router.post('/precio/modificar', /*middleware.validarAdministrador,*/ controller
 
 //MODULO LOGOS
 router.post('/logos/estado', middleware.validarCliente, controllers.logos.listaLogosPorEstado);
+router.post('/logos/por-aprobar', middleware.validarAdministrador, controllers.logos.listaLogosPorAprobar);
+router.post('/logos/aprobados', controllers.logos.listaLogosAprobados);
 router.post('/logos/guardados', middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables',  middleware.validarCliente, controllers.logos.listaLogosDescargables);
 router.get('/logo/:id', middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
@@ -139,6 +141,9 @@ router.post('/logo/guardar', middleware.validarCliente, controllers.logos.guarda
 router.post('/logo/por-aprobar',  middleware.validarCliente, controllers.logos.porAprobar);
 //Administrador
 router.post('/logo/aprobar',  middleware.validarAdministrador, controllers.logos.aprobar);
+
+router.post('/logo/calificar-admin',  middleware.validarAdministrador, controllers.atributos.CalificarAdministrador);
+router.post('/logo/calificar-cliente',  middleware.validarAdministrador, controllers.atributos.CalificarCliente);
 
 router.post('/logo/modificar',  middleware.validarCliente, controllers.logos.modificarLogo);
 router.post('/logo/descargar',  controllers.logos.descargar);

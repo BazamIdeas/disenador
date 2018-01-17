@@ -23,6 +23,40 @@ logo.getLogos = function(callback)
 	});
 }
 
+logo.getLogosPorAprobar = function(par,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = ? ORDER BY idLogo'  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par, function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+logo.getLogosAprobados = function(par,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = ? ORDER BY destacado'  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par, function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
 //obtenemos los logos guardados o comprados por un cliente
 logo.getLogosTipo = function(par,callback)
 {

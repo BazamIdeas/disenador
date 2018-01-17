@@ -196,6 +196,105 @@ exports.datosLogo =  function(req, res, next) {
 
 	}
 
+	exports.listaLogosPorAprobar = function(req, res, next) {
+		
+		var par = ["Por Aprobar"]
+
+		logo.getLogosPorAprobar(par,function(error, data)
+		{
+			//si el usuario existe 
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				async.forEachOf(data, (logo, key, callback) => {
+
+
+					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+						if (err) return callback(err);
+
+						try {
+
+							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+							{
+								data[key]['atributos'] = dataAttrs;
+
+							}
+
+						} catch (e) {
+						    return callback(e);
+						}	
+
+						callback();						
+						
+					})
+
+				}, (err) => {
+					
+					if (err) res.status(402).json({});
+					
+					res.status(200).json(data);
+				
+				})
+			}
+		//no existe
+			else
+			{
+				res.status(404).json({"msg":"No hay logos guardados por el cliente"})
+			}
+		});
+
+	}
+
+	exports.listaLogosAprobados = function(req, res, next) {
+		
+		var par = ["Aprobados"]
+
+		logo.getLogosAprobados(par,function(error, data)
+		{
+			//si el usuario existe 
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				async.forEachOf(data, (logo, key, callback) => {
+
+
+					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+						if (err) return callback(err);
+
+						try {
+
+							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+							{
+								data[key]['atributos'] = dataAttrs;
+
+							}
+
+						} catch (e) {
+						    return callback(e);
+						}	
+
+						callback();						
+						
+					})
+
+				}, (err) => {
+					
+					if (err) res.status(402).json({});
+					
+					res.status(200).json(data);
+				
+				})
+			}
+		//no existe
+			else
+			{
+				res.status(404).json({"msg":"No hay logos guardados por el cliente"})
+			}
+		});
+
+	}
+
+
 exports.listaLogosGuardados = function(req, res, next) {
 		
 		var par = ["Editable",req.idCliente]
