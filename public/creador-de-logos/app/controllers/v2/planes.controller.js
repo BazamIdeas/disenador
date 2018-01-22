@@ -96,11 +96,10 @@ angular.module("disenador-de-logos")
             angular.forEach(plan.precios, function (precio, llave) {
 
                 if (precio.moneda == bz.moneda.simbolo) {
-
-                    $state.go('pago', {
+                    
+                    var datosPago = {
                         status: true,
                         datos: {
-
                             logo: historicoResolve.logo,
                             idElemento: bz.idElemento,
                             tipo: 'Logo y nombre',
@@ -118,13 +117,22 @@ angular.module("disenador-de-logos")
                             }, 
                             impuesto: bz.impuesto,
                             atributos: {
-                                principal: bz.fuentes.principal,
-                                eslogan: bz.fuentes.eslogan
-                            }
-                            
+                                principal: bz.fuentes.principal
+                            }    
 
                         }
-                    });
+                    }
+                    
+                    //console.log(historicoResolve)
+                    if(historicoResolve.idPadre){
+                        datosPago.datos.atributos.padre = historicoResolve.idPadre;
+                    }
+                   
+                    if(bz.fuentes.eslogan){
+                        datosPago.datos.atributos.eslogan = bz.fuentes.eslogan;
+                    }
+                    
+                    $state.go('pago', datosPago);
 
                 }
 

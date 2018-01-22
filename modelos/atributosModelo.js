@@ -6,7 +6,7 @@ atributo.Guardar = (atributosData, callback) =>
 {
 	var q   = "INSERT INTO atributos SET ?";
 	var par = atributosData;
-
+    console.log(par)
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, result){
@@ -20,13 +20,13 @@ atributo.Guardar = (atributosData, callback) =>
 	});
 }
 
-atributo.ObtenerPorClave = (clave, callback) =>
+atributo.ObtenerPorClave = (clave, idLogo, callback) =>
 {
-	var q   = "SELECT clave, valor FROM atributos WHERE clave = ?";
+	var q   = "SELECT clave, valor FROM atributos WHERE clave = ? AND logos_idLogo = ?";
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , [clave] , function(err, rows){
+		connection.query( q , [clave, idLogo] , function(err, rows){
 	  
 
 	  		if(err)	throw err;
@@ -43,7 +43,7 @@ atributo.ObtenerPorClave = (clave, callback) =>
 atributo.ObtenerPorLogo = (idLogo, callback) =>
 {
 	var q   = "SELECT clave, valor FROM atributos WHERE logos_idLogo = ?";
-
+  
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , [idLogo] , function(err, rows){
@@ -60,12 +60,12 @@ atributo.ObtenerPorLogo = (idLogo, callback) =>
 	});
 }
 
-atributo.BorrarPorLogo = (idLogo,callback) => 
+atributo.BorrarPorLogo = (idLogo, objetivos, callback) => 
 {
-	var qq = 'DELETE FROM atributos WHERE logos_idLogo = ?';
+	var qq = 'DELETE FROM atributos WHERE atributos.logos_idLogo = ? AND atributos.clave IN(?)';
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( qq , [idLogo] , function(err, row)
+		var query = connection.query( qq , [idLogo, objetivos] , function(err, row)
 		{
 	  		if(err)	throw err;
 
@@ -73,6 +73,8 @@ atributo.BorrarPorLogo = (idLogo,callback) =>
 	  		
 	  		connection.release();
 	 	});
+        
+       
 	});
 }
 

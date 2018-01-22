@@ -27,7 +27,7 @@
                                 <div class="col l4" ng-repeat="guardado in logos.guardados | limitTo: 9 : logos.salto.guardados track by guardado.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
-                                        <span class="editar" ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: guardado.elementos_idElemento, svg:  guardado.logo}}, idLogoGuardado: guardado.idLogo, fuentes: {principal: logos.buscarAtributo(guardado.atributos, 'principal'), eslogan: logos.buscarAtributo(guardado.atributos,'eslogan')}}})">
+                                        <span class="editar" ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: guardado.elementos_idElemento, svg:  guardado.logo}}, idLogoGuardado: guardado.idLogo, fuentes: {principal: logos.buscarAtributo(guardado.atributos, 'principal'), eslogan: logos.buscarAtributo(guardado.atributos,'eslogan')}, metas: logos.obtenerMetas(guardado.metas)}})">
                                             <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
                                             <i class="material-icons">edit</i>
                                         </span>

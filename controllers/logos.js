@@ -246,12 +246,10 @@ exports.datosLogo =  function(req, res, next) {
 	}
 
 	exports.listaLogosAprobados = function(req, res, next) {
-		
-		var par = ["Aprobados"]
 
-		logo.getLogosAprobados(par,function(error, data)
+		logo.getLogosAprobados(function(error, data)
 		{
-			//si el usuario existe 
+			
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				async.forEachOf(data, (logo, key, callback) => {
@@ -288,7 +286,7 @@ exports.datosLogo =  function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No hay logos guardados por el cliente"})
+				res.status(404).json({"msg":"No hay logos aprobados"})
 			}
 		});
 
@@ -399,6 +397,7 @@ exports.listaLogosDescargables = function(req, res, next) {
 	exports.modificarLogo =  function(req,res)
 	{
 		var par = [req.idCliente, req.body.idLogo]
+        var objetivos = ["principal","eslogan"]
 
 		logo.getLogo(par,function(error, data)
 		{
@@ -416,15 +415,15 @@ exports.listaLogosDescargables = function(req, res, next) {
 					if(data)
 					{
 
-						atributo.BorrarPorLogo(req.body.idLogo, function(error, data) {
+						atributo.BorrarPorLogo(req.body.idLogo, objetivos, function(error, data) {
 
 
 							var atributos = req.body.atributos;
 
 
 							for(var key in atributos){
-
-								if(key == "principal" || key == "eslogan"){
+                               
+								if(objetivos.indexOf(key) != -1){
 									var atributosData = {
 										clave : key,
 										valor : atributos[key],

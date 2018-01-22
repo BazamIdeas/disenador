@@ -40,13 +40,13 @@ logo.getLogosPorAprobar = function(par,callback)
 	});
 }
 
-logo.getLogosAprobados = function(par,callback)
+logo.getLogosAprobados = function(callback)
 {
-	var q = 'SELECT * FROM logos WHERE estado = ? ORDER BY destacado'  
+	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" ORDER BY destacado'  
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par, function(err, rows){
+		connection.query( q , function(err, rows){
 	  	
 		  	if(err)	throw err;
 		  	

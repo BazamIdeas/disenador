@@ -19,13 +19,13 @@ exports.Nuevo = function(req, res, next)
 
 exports.CalificarAdministrador = function(req, res, next) {
     var atributosData = {
-        clave : 'calificacion-cliente',
+        clave : 'calificacion-admin',
         valor : req.body.valor,
         logos_idLogo: req.body.idLogo  
     };
 
-    atributo.ObtenerPorClave(atributosData.clave, function(error, data) {
-        if(!data && !data.insertId){
+    atributo.ObtenerPorClave(atributosData.clave, atributosData.logos_idLogo, function(error, data) {
+        if(data && !data.length){
             atributo.Guardar(atributosData, function(error, data) {
                 if(!data && !data.insertId){
                     res.status(500).json({"msg":"Algo ocurrio"})
@@ -46,8 +46,10 @@ exports.CalificarCliente = function(req, res, next) {
         logos_idLogo: req.body.idLogo  
     };
 
-    atributo.ObtenerPorClave(atributosData.clave, function(error, data) {
-        if(!data && !data.insertId){
+    atributo.ObtenerPorClave(atributosData.clave, atributosData.logos_idLogo, function(error, data) {
+        
+        //console.log(data)
+        if(data && !data.length){
             atributo.Guardar(atributosData, function(error, data) {
                 if(!data && !data.insertId){
                     res.status(500).json({"msg":"Algo ocurrio"})

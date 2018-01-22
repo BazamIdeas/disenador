@@ -102,6 +102,7 @@ angular.module("disenador-de-logos")
                 fuente: "=fuente",
                 svgFinal: "=svgFinal",
                 idLogo: "=idLogo",
+                idPadre: "=idPadre",
                 eslogan: "=eslogan"
 
 
@@ -109,7 +110,7 @@ angular.module("disenador-de-logos")
             controller: function ($scope)
 
             {
-                if (!$scope.idLogo) { //si no es un logo previamente guardado
+                if (!$scope.idLogo && !$scope.idPadre) { //si no es un logo previamente guardado
                     $scope.svgSaneado = $scope.svg.trim()
 
                     var posicion1 = $scope.svgSaneado.search(">");
@@ -153,7 +154,7 @@ angular.module("disenador-de-logos")
 
                     $scope.svgTag = $scope.svgTagIncompleto + $scope.seccionInterna + "</svg>"
 
-                } else if ($scope.idLogo) { //si es un logo previamente guardado
+                } else if ($scope.idLogo || $scope.idPadre) { //si es un logo previamente guardado
 
                     $scope.elementosIndices = []
 
@@ -165,7 +166,7 @@ angular.module("disenador-de-logos")
 
                     var tamanoBase = 100;
 
-                    if (!scope.idLogo) { // si no es un logo guardado previamente
+                    if (!scope.idLogo && !scope.idPadre) { // si no es un logo guardado previamente
 
 
                         ////////////////////////////////////////////////////////////
@@ -245,7 +246,7 @@ angular.module("disenador-de-logos")
                         //agregamos el Style Tag al svg
                         element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
 
-                    } else if (scope.idLogo) { // si es un logo previamenteguardado
+                    } else if (scope.idLogo || scope.idPadre) { // si es un logo previamenteguardado
                         
                         element.html(scope.svg);
                         

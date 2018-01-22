@@ -419,10 +419,10 @@ angular.module("disenador-de-logos")
     /*********************/
     /********PEDIDOS******/
     /*********************/
-    /*
+ 
     .service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
 
-
+   /*
         this.listarPlanes = function () {
 
             var defered = $q.defer();
@@ -506,7 +506,7 @@ angular.module("disenador-de-logos")
             }
         }
 
-
+*/
         this.listarPedidos = function () {
 
             var defered = $q.defer();
@@ -528,7 +528,7 @@ angular.module("disenador-de-logos")
         }
 
     }])
-    */
+    
     /***************************************/
     /***************CLIENTES****************/
     /***************************************/
@@ -844,6 +844,26 @@ angular.module("disenador-de-logos")
     /*********************/
 
     .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
+        
+        this.listarPorEstado = function(estado){
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/logos/estado", {estado: estado}).then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+            
+        }
         
         this.publicar = function(idLogo){
             

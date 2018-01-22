@@ -2,46 +2,81 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('logosController', ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast) {
+    .controller('logosController', ["$scope", "$window", "$state", "logosService", "$base64", "$mdToast", function ($scope, $window, $state, logosService, $base64, $mdToast) {
 
         var bz = this;
 
         bz.base64 = $base64;
 
-        bz.guardados = [];
-        bz.comprados = [];
+        bz.mostrarMenu = "borradores";
+        
+        bz.borradores = [];
+        bz.pendientes = [];
+        bz.aprobados = [];
+        bz.vendidos = [];
 
         bz.salto = {
             comprados: 0,
-            guardados: 0
+            pendientes: 0,
+            aprobados: 0,
+            vendidos: 0
         };
         
         bz.cantidad = {
             
             comprados: 0,
-            guardados: 0
+            pendientes: 0,
+            aprobados: 0,
+            vendidos: 0,
             
         }
 
-        logosService.mostrarGuardados().then(function (res) {
+        
+        //BORRADORES
+        logosService.listarPorEstado('Borrador').then(function (res) {
 
-            bz.guardados = res;            
-            bz.cantidad.guardados = bz.guardados.length;
+            bz.borradores = res;            
+            bz.cantidad.borradores = bz.borradores.length;
 
         }).catch(function (res) {
 
         })
 
+        
+        //POR APROBARSE
+        logosService.listarPorEstado('Por Aprobar').then(function (res) {
 
-        logosService.mostrarComprados().then(function (res) {
-
-            bz.comprados = res;
-            bz.cantidad.comprados = bz.comprados.length;
+            bz.pendientes = res;
+            bz.cantidad.pendientes = bz.pendientes.length;
 
         }).catch(function (res) {
 
         });
+        
+        
+        //APROBADOS
+        logosService.listarPorEstado('Aprobado').then(function (res) {
 
+            bz.aprobados = res;
+            bz.cantidad.aprobados = bz.aprobados.length;
+
+        }).catch(function (res) {
+
+        });
+        
+        
+        //VENDIDOS
+        logosService.listarPorEstado('Vendido').then(function (res) {
+
+            bz.vendidos = res;
+            bz.cantidad.vendidos = bz.vendidos.length;
+
+        }).catch(function (res) {
+
+        });
+        
+        
+        
 
         bz.modificarSalto = function(accion, objetivo){
             
@@ -59,18 +94,7 @@ angular.module("disenador-de-logos")
               
         }
         
-        
-        bz.urlCompartir = $window.location.protocol + "//" + $window.location.hostname + angular.element(document.querySelector("base")).attr("href");
-        bz.mostrarModalSocial = false;
-        bz.idLogoCompartir = null;
-        
-        bz.abrirModal = function(idLogo){
-            console.log(idLogo)
-            bz.mostrarModalSocial = true;
-            bz.idLogoCompartir = idLogo;
-            
-        }
-                
+    
         bz.borradoCompleto = true;
         
         bz.borrarLogo = function(idLogo){

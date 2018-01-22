@@ -143,7 +143,7 @@ router.post('/logo/por-aprobar',  middleware.validarCliente, controllers.logos.p
 router.post('/logo/aprobar',  middleware.validarAdministrador, controllers.logos.aprobar);
 
 router.post('/logo/calificar-admin',  middleware.validarAdministrador, controllers.atributos.CalificarAdministrador);
-router.post('/logo/calificar-cliente',  middleware.validarAdministrador, controllers.atributos.CalificarCliente);
+router.post('/logo/calificar-cliente',  middleware.validarCliente, controllers.atributos.CalificarCliente);
 
 router.post('/logo/modificar',  middleware.validarCliente, controllers.logos.modificarLogo);
 router.post('/logo/descargar',  controllers.logos.descargar);

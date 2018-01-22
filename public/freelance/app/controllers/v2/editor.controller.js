@@ -313,7 +313,7 @@ angular.module("disenador-de-logos")
                             
                             bz.completadoGuardar = true;
                             
-                    })
+                        })
                 }
 
             }

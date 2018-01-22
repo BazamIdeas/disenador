@@ -1,4 +1,4 @@
-  <section class="sub-header">
+        <section class="sub-header">
             <div class="row margin-bottom-0">
 
                 <div class="col s2 logo">
@@ -20,14 +20,19 @@
                     </div>
                     
                     <div ng-if="pagoCompleto.atributos.padre && !pagoCompleto.atributos.calificacion">
-                        <div>¡Califica tu plantilla!</div>
-                        <div> 
-                            <span ng-click="pagoCompleto.calificar()">★</span> 
-                            <span ng-click="pagoCompleto.calificar()">★</span> 
-                            <span ng-click="pagoCompleto.calificar()">★</span> 
-                            <span ng-click="pagoCompleto.calificar()">★</span> 
-                            <span ng-click="pagoCompleto.calificar()">★</span> 
+                        <div>Califica tu plantilla:</div>
+                        
+                        <div class="estrellas">
+                            <div ng-click="pagoCompleto.calificar(1)" ng-mouseover="pagoCompleto.calificacionTentativa = 1" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 1, 'estrella-vacia': pagoCompleto.calificacionTentativa < 1}" class="estrella-llena"></div>
+                            <div ng-click="pagoCompleto.calificar(2)" ng-mouseover="pagoCompleto.calificacionTentativa = 2" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 2, 'estrella-vacia': pagoCompleto.calificacionTentativa < 2}" class="estrella-llena"></div>
+                            <div ng-click="pagoCompleto.calificar(3)" ng-mouseover="pagoCompleto.calificacionTentativa = 3" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 3, 'estrella-vacia': pagoCompleto.calificacionTentativa < 3}" class="estrella-llena"></div>
+                            <div ng-click="pagoCompleto.calificar(4)" ng-mouseover="pagoCompleto.calificacionTentativa = 4" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 4, 'estrella-vacia': pagoCompleto.calificacionTentativa < 4}" class="estrella-llena"></div>
+                            <div ng-click="pagoCompleto.calificar(5)" ng-mouseover="pagoCompleto.calificacionTentativa = 5" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 5, 'estrella-vacia': pagoCompleto.calificacionTentativa < 5}" class="estrella-vacia"></div>
                         </div>
+                        
+                        ¡{{pagoCompleto.calificacionTentativa}} Estrellas!
+                        
+                        
                     </div>
                     
                     <button ng-if="!pagoCompleto.atributos.padre || (pagoCompleto.atributos.padre && pagoCompleto.atributos.calificacion)" class="boton-verde" ui-sref="logos">Ver mis logos</button>

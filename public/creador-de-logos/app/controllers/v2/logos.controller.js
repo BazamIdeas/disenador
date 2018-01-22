@@ -151,6 +151,28 @@ angular.module("disenador-de-logos")
             return idFuente;
         }
         
+        bz.obtenerMetas = function(filtrar){
+            
+            var metas = [];
+            
+            angular.forEach(filtrar, function(meta, llave){
+                
+                angular.forEach(asdas, function(){
+                    
+                    if(meta.clave != objetivo){
+                    
+                        idFuente = atributo.valor;
+
+                    }
+                    
+                })
+               
+                
+            })
+            
+            return metas;
+        }
+        
         
         $scope.$on('sesionExpiro', function (event, data) {
 

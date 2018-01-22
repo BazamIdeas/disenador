@@ -1,7 +1,5 @@
 angular.module("disenador-de-logos")
 
-    /* Editor */
-
     .controller('pagoCompletoController', ["$scope", "$state", "logosService", "$stateParams", "$base64", function ($scope, $state, logosService, $stateParams, $base64) {
 
         var bz = this;
@@ -9,6 +7,8 @@ angular.module("disenador-de-logos")
         bz.base64 = $base64;
 
         bz.logo = false;
+        
+        bz.calificacionTentativa = 5;
 
         logosService.obtenerPorId($stateParams.id).then(function (res) {
 
@@ -35,13 +35,21 @@ angular.module("disenador-de-logos")
 
         })
         
-        
-        bz.calificar = function(){
+        bz.completado = true;
+        bz.calificar = function(calificacion){
             
-            // promesa de calificacion
+            if(bz.completado){
+                bz.completado = false;
+                
+                // promesa de calificacion
+                logosService.calificar(bz.logo.idLogo, calificacion).finally(function(){
+                    
+                    bz.completado = true;
+                    bz.atributos.calificacion = true;
+
+                })
             
-            bz.atributos.calificacion = true;
-            
+            }
         }
         
 

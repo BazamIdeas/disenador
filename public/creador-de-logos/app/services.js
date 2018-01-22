@@ -847,8 +847,33 @@ angular.module("disenador-de-logos")
     /*********************/
 
     .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
+        
+        this.calificar = function(idLogo, calificacion){
+            
+            var defered = $q.defer();
 
-        this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId) {
+            var promise = defered.promise;
+
+            var datos = {
+                valor: calificacion,
+                idLogo: idLogo
+            }
+    
+            $http.post("/app/logo/calificar-cliente", datos).then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+            
+        }
+
+        this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId, logoPadreId) {
 
             var defered = $q.defer();
 
@@ -865,6 +890,11 @@ angular.module("disenador-de-logos")
             
             if(fuenteEsloganId){
                 datos.atributos.eslogan = fuenteEsloganId; 
+            }
+            
+            if(logoPadreId){
+                datos.atributos.padre = logoPadreId
+                
             }
 
             $http.post("/app/logo/guardar", datos).then(function (res) {
@@ -951,6 +981,26 @@ angular.module("disenador-de-logos")
 
             return promise;
 
+        }
+        
+        this.mostrarAprobados = function(){
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/logos/aprobados/").then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+            
         }
 
         this.descargarLogo = function (idLogo, ancho, nombre, tipo) {

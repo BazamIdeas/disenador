@@ -13,102 +13,122 @@
         </section>
 
         <section class="scrollbar-dynamic section-cliente" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
-            <div class="row margin-bottom-0">
-				
-				<div class="col l6 xl5 offset-xl1">
+            
+            <button ng-click="logos.opcionMostrar='borradores'">BORRADORES</button>
+            <button ng-click="logos.opcionMostrar='pendientes'">PENDIENTES POR APROBACIÓN</button>
+            <button ng-click="logos.opcionMostrar='aprobados'">APROBADOS</button>
+            <button ng-click="logos.opcionMostrar='vendidos'">VENDIDOS</button>
+            
+            <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
+				<!--PENDIENTES DE APROBACION-->
+				<div class="col l6 offset-l3 xl6 offset-xl3" ng-switch-when="pendientes">
                     <div class="row caja logos">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">PENDIENTES DE APROBACIÓN</p>
                         
-                        <span class="back-page"  ng-click="logos.modificarSalto(false, 'guardados')" ng-show="logos.cantidad.guardados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
+                        <span class="back-page"  ng-click="logos.modificarSalto(false, 'pendientes')" ng-show="logos.cantidad.pendientes > 9"><i class="material-icons">keyboard_arrow_left</i></span>
                         
                         <div class="col l10 offset-l1">
                             <div class="row cubos-logos-cliente">
 
-                                <div class="col l4" ng-repeat="guardado in logos.guardados | limitTo: 9 : logos.salto.guardados track by guardado.idLogo">
+                                <div class="col l4" ng-repeat="pendiente in logos.pendientes | limitTo: 9 : logos.salto.pendientes track by pendiente.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
-                                        <span class="editar" ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: guardado.elementos_idElemento, svg:  guardado.logo}}, idLogoGuardado: guardado.idLogo, fuentes: {principal: logos.buscarAtributo(guardado.atributos, 'principal'), eslogan: logos.buscarAtributo(guardado.atributos,'eslogan')}}})">
+                                        <span class="editar" ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: pendiente.elementos_idElemento, svg:  pendiente.logo}}, idLogopendiente: pendiente.idLogo, fuentes: {principal: logos.buscarAtributo(pendiente.atributos, 'principal'), eslogan: logos.buscarAtributo(pendiente.atributos,'eslogan')}}})">
                                             <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
                                             <i class="material-icons">edit</i>
                                         </span>
 
-                                        <span class="borrar" ng-click="logos.borrarLogo(guardado.idLogo)">
+                                        <span class="borrar" ng-click="logos.borrarLogo(pendiente.idLogo)">
                                             <md-tooltip md-delay="2" md-direction="top">Eliminar</md-tooltip>
                                             <i class="material-icons">delete</i>
                                         </span>
-                                        <bazam-visualizar data-svg="logos.base64.decode(guardado.logo)"></bazam-visualizar>
+                                        <bazam-visualizar data-svg="logos.base64.decode(pendiente.logo)"></bazam-visualizar>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
 
-                        <span class="next-page" ng-click="logos.modificarSalto(true, 'guardados')" ng-show="logos.cantidad.guardados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
+                        <span class="next-page" ng-click="logos.modificarSalto(true, 'pendientes')" ng-show="logos.cantidad.pendientes > 9"><i class="material-icons">keyboard_arrow_right</i></span>
 
                     </div>
                 </div>
-
-				<div class="col l6 xl5">
+                <!--APROBADOS-->
+				<div class="col l6 offset-l3 xl6 offset-xl3" ng-switch-when="aprobados">
                     <div class="row caja logos">
                         <p class="text-center tercero margin-bottom-0 margin-top-0">APROBADOS</p>
                         
-                        <span class="back-page" ng-click="logos.modificarSalto(false, 'comprados')" ng-show="logos.cantidad.comprados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
+                        <span class="back-page" ng-click="logos.modificarSalto(false, 'aprobados')" ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
                         
                         <div class="col l10 offset-l1">
                             <div class="row cubos-logos-cliente">
 
-                                <div class="col l4"  ng-repeat="comprado in logos.comprados | limitTo: 9 : logos.salto.comprados track by comprado.idLogo">
+                                <div class="col l4"  ng-repeat="aprobado in logos.aprobados | limitTo: 9 : logos.salto.aprobados track by aprobado.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
                                                                                                         
-                                        <bazam-visualizar data-svg="logos.base64.decode(comprado.logo)"></bazam-visualizar>
+                                        <bazam-visualizar data-svg="logos.base64.decode(aprobado.logo)"></bazam-visualizar>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                     
-                        <span class="next-page" ng-click="logos.modificarSalto(true, 'comprados')"  ng-show="logos.cantidad.comprados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
+                        <span class="next-page" ng-click="logos.modificarSalto(true, 'aprobados')"  ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
 
                     </div>
                 </div>
+                <!--VENDIDOS-->
+                <div class="col l6 offset-l3 xl6 offset-xl3" ng-switch-when="vendidos">
+                    <div class="row caja logos">
+                        <p class="text-center tercero margin-bottom-0 margin-top-0">VENDIDOS</p>
+                        
+                        <span class="back-page" ng-click="logos.modificarSalto(false, 'vendidos')" ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
+                        
+                        <div class="col l10 offset-l1">
+                            <div class="row cubos-logos-cliente">
 
+                                <div class="col l4"  ng-repeat="vendido in logos.vendidos | limitTo: 9 : logos.salto.vendidos track by vendido.idLogo">
+                                    <div>
+                                        <div class="overlay-combinacion"></div>
+                                                                                                        
+                                        <bazam-visualizar data-svg="logos.base64.decode(vendido.logo)"></bazam-visualizar>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    
+                        <span class="next-page" ng-click="logos.modificarSalto(true, 'vendidos')"  ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
+
+                    </div>
+                </div>
+                <!--BORRADORES-->
+                <div class="col l6 offset-l3 xl6 offset-xl3" ng-switch-when="borradores">
+                    <div class="row caja logos">
+                        <p class="text-center tercero margin-bottom-0 margin-top-0">BORRADORES</p>
+                        
+                        <span class="back-page" ng-click="logos.modificarSalto(false, 'borradores')" ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
+                        
+                        <div class="col l10 offset-l1">
+                            <div class="row cubos-logos-cliente">
+
+                                <div class="col l4"  ng-repeat="borrador in logos.borradores | limitTo: 9 : logos.salto.borradores track by borrador.idLogo">
+                                    <div>
+                                        <div class="overlay-combinacion"></div>
+                                                                                                        
+                                        <bazam-visualizar data-svg="logos.base64.decode(borrador.logo)"></bazam-visualizar>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    
+                        <span class="next-page" ng-click="logos.modificarSalto(true, 'aprobados')"  ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
+
+                    </div>
+                </div>
+                
             </div>
         </section>
 
-
-        <!--<div class="overlay" ng-class="{'show': logos.mostrarModalSocial, 'hide': !logos.mostrarModalSocial}"> 
-            <div class="row margin-bottom-0">
-                <div class="col s6 offset-s3">
-
-                    <div class="login-form-flex"> 
-
-                        <div class="cubo-form row">
-
-                            <i class="material-icons cerrar" ng-click="logos.mostrarModalSocial = false">clear</i>
-
-                            <div class="compartir-iconos col s12">
-                                <span socialshare socialshare-provider="facebook" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}">
-                                    <i class="fab fa-facebook-f"></i>
-                                </span>
-                                <span socialshare socialshare socialshare-provider="twitter" socialshare-text="XXXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}" socialshare-hashtags="liderlogo">
-                                    <i class="fab fa-twitter"></i>
-                                </span>
-                                <span socialshare socialshare-provider="google" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}">
-                                    <i class="fab fa-google-plus-g"></i>
-                                </span>
-                                <span socialshare socialshare-provider="linkedin" socialshare-text="XXXX" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}">
-                                    <i class="fab fa-linkedin"></i>
-                                </span>
-                                <span socialshare socialshare-provider="pinterest" socialshare-text="XXXXX" socialshare-media="/assets/images/ipad.png" socialshare-url="{{logos.urlCompartir+ 'comenzar/?id=' +logos.idLogoCompartir}}">
-                                    <i class="fab fa-pinterest"></i>
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>-->
