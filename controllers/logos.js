@@ -197,10 +197,8 @@ exports.datosLogo =  function(req, res, next) {
 	}
 
 	exports.listaLogosPorAprobar = function(req, res, next) {
-		
-		var par = ["Por Aprobar"]
 
-		logo.getLogosPorAprobar(par,function(error, data)
+		logo.getLogosPorAprobar(function(error, data)
 		{
 			//si el usuario existe 
 			if (typeof data !== 'undefined' && data.length > 0)
@@ -247,7 +245,7 @@ exports.datosLogo =  function(req, res, next) {
 
 	exports.listaLogosAprobados = function(req, res, next) {
 
-		logo.getLogosAprobados(function(error, data)
+		logo.getLogosAprobados(req.params.id,function(error, data)
 		{
 			
 			if (typeof data !== 'undefined' && data.length > 0)
@@ -292,6 +290,52 @@ exports.datosLogo =  function(req, res, next) {
 
 	}
 
+	exports.listaLogosAprobadosDestacados = function(req, res, next) {
+
+		logo.getLogosAprobadosDestacados(function(error, data)
+		{
+			
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				async.forEachOf(data, (logo, key, callback) => {
+
+
+					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+						if (err) return callback(err);
+
+						try {
+
+							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+							{
+								data[key]['atributos'] = dataAttrs;
+
+							}
+
+						} catch (e) {
+						    return callback(e);
+						}	
+
+						callback();						
+						
+					})
+
+				}, (err) => {
+					
+					if (err) res.status(402).json({});
+					
+					res.status(200).json(data);
+				
+				})
+			}
+		//no existe
+			else
+			{
+				res.status(404).json({"msg":"No hay logos aprobados"})
+			}
+		});
+
+	}
 
 exports.listaLogosGuardados = function(req, res, next) {
 		

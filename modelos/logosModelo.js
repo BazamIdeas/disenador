@@ -25,7 +25,7 @@ logo.getLogos = function(callback)
 
 logo.getLogosPorAprobar = function(par,callback)
 {
-	var q = 'SELECT * FROM logos WHERE estado = ? ORDER BY idLogo'  
+	var q = 'SELECT * FROM logos WHERE estado = "Por Aprobar" ORDER BY idLogo'  
 
 	DB.getConnection(function(err, connection)
 	{
@@ -40,9 +40,26 @@ logo.getLogosPorAprobar = function(par,callback)
 	});
 }
 
-logo.getLogosAprobados = function(callback)
+logo.getLogosAprobados = function(id,callback)
 {
-	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" ORDER BY destacado'  
+	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" AND destacado = 0 AND idLogo > ? ORDER BY idLogo LIMIT 12';  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query(q, [id], function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+logo.getLogosAprobadosDestacados = function(callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" and destacado = 1 ORDER BY RAND() LIMIT 12';  
 
 	DB.getConnection(function(err, connection)
 	{
@@ -56,6 +73,7 @@ logo.getLogosAprobados = function(callback)
 	  	});
 	});
 }
+
 
 //obtenemos los logos guardados o comprados por un cliente
 logo.getLogosTipo = function(par,callback)
