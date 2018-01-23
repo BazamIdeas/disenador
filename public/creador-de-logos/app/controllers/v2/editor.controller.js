@@ -62,7 +62,7 @@ angular.module("disenador-de-logos")
         elementosService.listarFuentes().then(function (res) {
 
             bz.fuentes = res;
-            console.log(historicoResolve)
+            
             if (historicoResolve.idLogoGuardado || historicoResolve.idLogoPadre) { // si es un logo previamente guardado
 
                 angular.forEach(bz.fuentes, function (valor, llave) {
@@ -88,7 +88,6 @@ angular.module("disenador-de-logos")
                     }
 
                 })
-
 
             }
 

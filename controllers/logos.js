@@ -246,7 +246,9 @@ exports.datosLogo =  function(req, res, next) {
 
 	exports.listaLogosAprobados = function(req, res, next) {
 
-		logo.getLogosAprobados(req.params.id,function(error, data)
+        var idLogo = req.body.idLogo ? req.body.idLogo : 0; 
+        
+		logo.getLogosAprobados(idLogo,function(error, data)
 		{
 			
 			if (typeof data !== 'undefined' && data.length > 0)
@@ -332,7 +334,7 @@ exports.datosLogo =  function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No hay logos aprobados"})
+				res.status(404).json({"msg":"No hay logos destacados"})
 			}
 		});
 

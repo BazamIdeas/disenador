@@ -123,14 +123,18 @@ angular.module("disenador-de-logos")
                         }
                     }
                     
-                    //console.log(historicoResolve)
+                    
                     if(historicoResolve.idPadre){
+                        
                         datosPago.datos.atributos.padre = historicoResolve.idPadre;
+                       
                     }
                    
                     if(bz.fuentes.eslogan){
                         datosPago.datos.atributos.eslogan = bz.fuentes.eslogan;
                     }
+                    
+                    console.log(datosPago.datos.atributos)
                     
                     $state.go('pago', datosPago);
 
