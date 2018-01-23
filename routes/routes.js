@@ -13,6 +13,9 @@ router.get('/clientes', middleware.validarAdministrador, controllers.clientes.li
 //parametro por get que debe ser el id del cliente.
 router.get('/cliente/datos/:facturacion?', middleware.validarCliente, controllers.clientes.Datos);
 
+
+router.post('/facturacion', middleware.validarCliente, controllers.facturacion.Nuevo);
+
 router.post('/cliente/borrar/:id', middleware.validarAdministrador, controllers.clientes.borrarCliente);
 //'valor'	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor

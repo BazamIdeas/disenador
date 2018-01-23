@@ -5,7 +5,7 @@ exports.Nuevo = function(req, res, next)
     var datosFacturacion = {
         medio: req.body.medio,
         correo: req.body.correo,
-        clientes_idCliente: req.body.idCliente 
+        clientes_idCliente: req.idCliente 
     }
 
     facturacion.Nuevo(datosFacturacion, function(error,data){
