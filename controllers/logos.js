@@ -333,7 +333,7 @@ exports.datosLogo =  function(req, res, next) {
 		//no existe
 			else
 			{
-				res.status(404).json({"msg":"No hay logos aprobados"})
+				res.status(404).json({"msg":"No hay logos destacados"})
 			}
 		});
 

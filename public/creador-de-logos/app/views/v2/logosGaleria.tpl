@@ -2,7 +2,7 @@
     <div class="row margin-bottom-0">
 
         <div class="col s2 logo">
-            <h5 class="secundario" ui-sref="logosGaleria.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
+            <h5 class="secundario" ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
         </div>
         <div class="col s8 texto">
             <h5 class="logosGaleria">¡Elige entre miles de diseños!</h5>
@@ -21,11 +21,13 @@
                 </span>
                 <bazam-visualizar data-svg="logosGaleria.base64.decode(aprobado.logo)"></bazam-visualizar>
             </div>
+            
+            <div ng-if="!logosGaleria.aprobados.length">No hay diseños</div>
 
         </div>
-        <div class="row">
+        <div class="row" ng-if="logosGaleria.aprobados.length">
             <div class="col s6 offset-s3" style="text-align: center;">
-                <button class="boton-verde">VER MÁS</button>
+                <button class="boton-verde" ng-click="logosGaleria.cargarMas(logosGaleria.aprobados[logosGaleria.aprobados.length - 1])" ng-class="{'loading-white': !logosGaleria.completadoCarga}">VER MÁS</button>
             </div>
         </div>
     </div>

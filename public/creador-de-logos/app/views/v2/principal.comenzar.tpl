@@ -1,51 +1,37 @@
-                    <div class="row margin-bottom-0 lienzo">
-                        <div class="col s12" ng-if="$parent.principal.completado && !principalComenzar.logoCompartido.logo">
-                            <p class="text-center tercero margin-bottom-0">EJEMPLOS EXITOSOS</p>
-                        </div>
-						<div class="col s12" ng-if="$parent.principal.completado && !principalComenzar.logoCompartido.logo">
-                            <div class="cubos-logos">
-                                <div class="margin-right-20">
-                                    <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/4.-Fauna-Domestica.png">
-                                </div>
-                                <div class="margin-right-20">
-                                    <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/15.-Hobbie.png">
-                                </div>
-                                <div>
-                                    <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/26.Cielo_.png">
-                                </div>
-                            </div>
+<div class="row margin-bottom-0 lienzo">
+    <div class="col s12" ng-if="$parent.principal.completado && !principalComenzar.logoCompartido.logo">
+        <p class="text-center tercero margin-bottom-0">EJEMPLOS EXITOSOS</p>
+    </div>
+    <div class="col s12 cubos-logos" ng-if="$parent.principal.completado && !principalComenzar.logoCompartido.logo">
 
-                            <div class="cubos-logos">
-                                <div class="margin-right-20">
-                                    <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/22.-Geoit.png">
-                                </div>
-                                <div class="margin-right-20">
-                                    <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/7.-Arlu-1.png">
-                                </div>
-                                <div>
-                                     <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/21.-Ares.png">
-                                </div>
-                            </div>
 
-                            <div class="cubos-logos">
-                                <div class="margin-right-20">
-                                    <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/20.Arquitectura-Sin-Limites.png">
-                                </div>
-                                <div class="margin-right-20">
-                                     <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/9.-food-chef.png">
-                                </div>
-                                <div>
-                                     <img src="https://www.liderlogo.es/wp-content/uploads/2017/07/28.-Esparvel.png">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col l4 offset-l4 logo-compartido" ng-if="principalComenzar.logoCompartido.logo">
-                            <bazam-visualizar data-svg="principalComenzar.base64.decode(principalComenzar.logoCompartido.logo)"></bazam-visualizar>
-                        </div>
-                        
-                        
-                        <div class="col s12" ng-if="!$parent.principal.completado">
-                            GIF
-                        </div>
-                    </div>
+        <div  ng-repeat="aprobado in $parent.principal.aprobados | limitTo : 6 track by aprobado.idLogo ">
+            <div class="overlay-combinacion"></div>
+            <span class="seleccionar" ng-click="$parent.principal.avanzarPredisenado(aprobado.idLogo)">
+                            <md-tooltip md-delay="2" md-direction="top">Seleccionar</md-tooltip>
+                            <i class="material-icons">check</i>
+                        </span>
+            <bazam-visualizar data-svg="principalComenzar.base64.decode(aprobado.logo)"></bazam-visualizar>
+        </div>
+
+        <div ng-if="!$parent.principal.aprobados.length">No hay diseños</div>
+
+    </div>
+    <div class="row" ng-if="$parent.principal.aprobados.length">
+        <div class="col s6 offset-s3" style="text-align: center;">
+            <button class="boton-verde" ng-click="$parent.principal.cargarMas($parent.principal.aprobados[$parent.principal.aprobados.length - 1])" ng-class="{'loading-white': !$parent.principal.completadoCarga}">VER MÁS</button>
+        </div>
+    </div>
+
+
+
+
+    <div class="col l4 offset-l4 logo-compartido" ng-if="principalComenzar.logoCompartido.logo">
+        <bazam-visualizar data-svg="principalComenzar.base64.decode(principalComenzar.logoCompartido.logo)"></bazam-visualizar>
+    </div>
+
+
+    <div class="col s12" ng-if="!$parent.principal.completado">
+        GIF
+    </div>
+</div>

@@ -9,8 +9,8 @@ angular.module("disenador-de-logos")
         bz.base64 = $base64;
         bz.aprobados = [];
 
-        logosService.mostrarAprobados().then(function (res) {
-
+        logosService.mostrarDestacados().then(function (res) {
+         
             bz.aprobados = res;
 
         }).catch(function () {
@@ -19,9 +19,53 @@ angular.module("disenador-de-logos")
 
         }).finally(function () {
 
+            if (!bz.aprobados.length) {
+
+                logosService.mostrarAprobados().then(function (res) {
+
+                    bz.aprobados = res;
+
+                }).catch(function (res) {
+
+                    //console.log("hola")
+                    
+                }).finally(function () {
+
+
+                })
+
+            }
 
         })
+        bz.completadoCarga = true;
+        
+        bz.cargarMas = function (logo) {
 
+            if(bz.completadoCarga){
+               
+                bz.completadoCarga = false;
+                
+                var idLogo = logo.destacados ? false : logo.idLogo;
+
+                logosService.mostrarAprobados(idLogo).then(function (res) {
+                    
+                    angular.forEach(res, function(valor, llave){
+
+                        bz.aprobados.push(valor)
+
+                    })
+                    
+                }).catch(function(){
+                    
+                }).finally(function(){
+                     
+                    bz.completadoCarga = true;
+                    
+                })
+                
+            }
+            
+        }
 
         bz.buscarAtributo = function (lista, objetivo) {
 
@@ -40,27 +84,6 @@ angular.module("disenador-de-logos")
             return idFuente;
         }
 
-        bz.obtenerMetas = function (filtrar) {
-
-            var metas = [];
-
-            angular.forEach(filtrar, function (meta, llave) {
-
-                angular.forEach(asdas, function () {
-
-                    if (meta.clave != objetivo) {
-
-                        idFuente = atributo.valor;
-
-                    }
-
-                })
-
-
-            })
-
-            return metas;
-        }
 
         bz.avanzar = function (indiceLogo) {
 
@@ -72,16 +95,16 @@ angular.module("disenador-de-logos")
 
             } else {
                 var aprobado = null;
-                
-                angular.forEach(bz.aprobados,function(valor, llave){
-                    
-                    if(valor.idLogo == indiceLogo){
-                        
+
+                angular.forEach(bz.aprobados, function (valor, llave) {
+
+                    if (valor.idLogo == indiceLogo) {
+
                         aprobado = valor;
-                    }                    
-                    
+                    }
+
                 })
-                if(aprobado){
+                if (aprobado) {
                     $state.go("editor", {
                         status: true,
                         datos: {
@@ -93,7 +116,7 @@ angular.module("disenador-de-logos")
                             },
                             idLogoPadre: aprobado.idLogo,
                             fuentes: {
-                                logosGaleria: bz.buscarAtributo(aprobado.atributos, 'logosGaleria'),
+                                principal: bz.buscarAtributo(aprobado.atributos, 'principal'),
                                 eslogan: bz.buscarAtributo(aprobado.atributos, 'eslogan')
                             }
                         }
