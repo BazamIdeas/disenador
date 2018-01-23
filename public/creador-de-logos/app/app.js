@@ -486,6 +486,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                             case 'principal.combinaciones':
                                 break;
+                                
+                            case 'logosGaleria':
+                                break;
 
 
                             default:

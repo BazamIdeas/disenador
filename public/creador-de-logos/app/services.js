@@ -468,7 +468,7 @@ angular.module("disenador-de-logos")
 
 
         this.pagar = {
-            paypal: function (idElemento, idFuente, idFuenteEslogan, logo, idPrecio, tipoLogo, idPasarela) {
+            paypal: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela) {
 
 
                 var defered = $q.defer();
@@ -481,18 +481,9 @@ angular.module("disenador-de-logos")
                     idPrecio: idPrecio,
                     tipoLogo: tipoLogo,
                     idPasarela: idPasarela,
-                    atributos: {
-                        principal: idFuente
-                    }
+                    atributos: atributos
                 }
-                
-                if(idFuenteEslogan){
-                   datos.atributos.eslogan =  idFuenteEslogan;
-                    
-                }
-
-
-
+             
                 $http.post("/app/pedido", datos).then(function (res) {
 
                     defered.resolve(res.data);
