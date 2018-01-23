@@ -1,5 +1,6 @@
 var logo=require('../modelos/logosModelo.js');
 var atributo = require('../modelos/atributosModelo.js');
+var elemento = require('../modelos/elementosModelo.js');
 var cliente=require('../modelos/clientesModelo.js');
 var services=require('../services');
 var fs = require('pn/fs');
@@ -522,66 +523,111 @@ exports.listaLogosDescargables = function(req, res, next) {
 		//si el logo existe 
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				var nombre = 'Logo'+'-' +descarga +'-' + moment().format("DD-MM-YYYY")+'.svg'
+				var nombre = 'Logo'+'-' +descarga +'-' + moment().format("DD-MM-YYYY")+'.svg';
 
-				var path = 'public/tmp/'
+				var path = 'public/tmp/';
 
-				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
-				
-				fuente = base64.decode(data[0].logo).split("@font-face")[1].split("</style>")[0].split("/fuentes/")[1].split("')")[0]
-				//console.log(fuente)
-				fs.open(path+nombre, 'w', function(err, fd) {
-				    if (err) {
-				        throw 'error al crear svg ' + err;
-				    }
+				atributo.ObtenerPorLogo(data[0].idLogo, function(err, dataAttrs){
 
-				    fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-				        if (err) throw 'error al escribir ' + err;
-				        else{
-				        		
-			        		var svg = path + nombre
+					if (err) return callback(err);
 
-			        		if(tipo == "editable"){
+					if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+					{
+						var fuentes = {};
 
-				        		var output = fs.createWriteStream(svg.replace("svg", "zip"));
-				        		var archive = archiver('zip', { zlib: { level: 9 } });
+						async.forEachOf(dataAttrs, (row, key, callback) => {
 
-				        		archive.pipe(output);
+							if(row.llave == "principal" || row.llave == "eslogan"){
 
-				        		archive.append(fs.createReadStream(svg), { name: 'logo.svg' });
-				        		archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+"/fuentes/"+fuente), { name: fuente });
-
-				        		archive.finalize();
-
-								setTimeout(function () {
-						    		res.json({zip:svg.replace("svg", "zip")})
-						    
-								}, 5000); 				        		
-
-				        		
-
-				        	}else{
-
-								var pngout = svg.replace("svg", "png");
-								fs.readFile(svg, (err, svgbuffer) => {
-									if (err) throw err;
-									svg2png(svgbuffer, { width: ancho})
-									    .then(buffer => {fs.writeFile(pngout, buffer)
-									    	res.json({png:pngout})
-									    })
-									    .catch(e => console.error(e));
-								});
+								elemento.datosElemento(row.valor, function(err, fuente){
+			
+									if (err) return callback(err);
+			
+									try {
+			
+										if (typeof fuente !== 'undefined' && fuente.length > 0)
+										{
+											fuentes[row.llave].nombre = fuente.nombre;
+											fuentes[row.llave].url = fuente.url;
+										}
+			
+									} catch (e) {
+										return callback(e);
+									}	
+			
+									callback();						
+									
+								})
 
 							}
+		
+						}, (err) => {
+							
+							if (err) res.status(402).json({});
 						
-							setTimeout(function () {
-						    //fs.unlink(salida)
-						    
-							}, 10000); 
-				        }
-				        fs.close(fd)
-				    });
-				});
+							//buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
+							//fuente = base64.decode(data[0].logo).split("@font-face")[1].split("</style>")[0].split("/fuentes/")[1].split("')")[0]
+							//console.log(fuente)
+							fs.open(path + nombre, 'w', function(err, fd) {
+								if (err) {
+									throw 'error al crear svg ' + err;
+								}
+
+								fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+									if (err) throw 'error al escribir ' + err;
+									else{
+											
+										var svg = path + nombre
+
+										if(tipo == "editable"){
+
+											var output = fs.createWriteStream(svg.replace("svg", "zip"));
+											var archive = archiver('zip', { zlib: { level: 9 } });
+
+											archive.pipe(output);
+
+											archive.append(fs.createReadStream(svg), { name: 'logo.svg' });
+											archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre });
+
+											if(fuentes.slogan){
+												archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.slogan.url), { name: fuentes.slogan.nombre });
+											}
+
+											archive.finalize();
+
+											setTimeout(function () {
+												res.json({zip:svg.replace("svg", "zip")})
+										
+											}, 5000); 				        		
+
+										}else{
+
+											var pngout = svg.replace("svg", "png");
+											fs.readFile(svg, (err, svgbuffer) => {
+												if (err) throw err;
+												svg2png(svgbuffer, { width: ancho})
+													.then(buffer => {fs.writeFile(pngout, buffer)
+														res.json({png:pngout})
+													})
+													.catch(e => console.error(e));
+											});
+
+										}
+									
+										setTimeout(function () {
+										//fs.unlink(salida)
+										
+										}, 10000); 
+									}
+									fs.close(fd)
+								});
+							});
+						
+						})
+
+					}
+
+				})
 			}
 		//no existe
 			else
