@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('logosController', ["$scope", "$window", "$state", "logosService", "$base64", "$mdToast", function ($scope, $window, $state, logosService, $base64, $mdToast) {
+    .controller('logosController', ["$scope", "$window", "$state", "logosService", "$base64", "$mdToast", "clientesService",function ($scope, $window, $state, logosService, $base64, $mdToast, clientesService) {
 
         var bz = this;
 
@@ -174,6 +174,25 @@ angular.module("disenador-de-logos")
             
             return idFuente;
         }
+        
+        
+        
+        
+        bz.facturacion = [];
+        bz.datos = {};
+        
+        clientesService.datos(true).then(function (res) {
+            
+            if(res.facturacion){
+                bz.facturacion = angular.copy(res.facturacion);
+                delete res.facturacion;
+            } 
+            
+            bz.datos = res;
+        });
+        
+        
+        
         
         
         $scope.$on('sesionExpiro', function (event, data) {
