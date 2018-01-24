@@ -14,10 +14,10 @@
 
         <section class="scrollbar-dynamic section-cliente" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
             
-            <button ng-click="logos.opcionMostrar='borradores'">BORRADORES</button>
-            <button ng-click="logos.opcionMostrar='pendientes'">PENDIENTES POR APROBACIÓN</button>
-            <button ng-click="logos.opcionMostrar='aprobados'">APROBADOS</button>
-            <button ng-click="logos.opcionMostrar='vendidos'">VENDIDOS</button>
+            <button ng-click="logos.opcionMostrar='borradores'" class="boton-verde">BORRADORES</button>
+            <button ng-click="logos.opcionMostrar='pendientes'" class="boton-verde">PENDIENTES POR APROBACIÓN</button>
+            <button ng-click="logos.opcionMostrar='aprobados'" class="boton-verde">APROBADOS</button>
+            <button ng-click="logos.opcionMostrar='vendidos'" class="boton-verde">VENDIDOS</button>
             
             <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
 				<!--PENDIENTES DE APROBACION-->

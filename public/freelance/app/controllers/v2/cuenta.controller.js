@@ -17,8 +17,12 @@ angular.module("disenador-de-logos")
         bz.datosMetodo = {};
 
         clientesService.datos(true).then(function (res) {
-            bz.facturacion = angular.copy(res.facturacion);
-            delete res.facturacion;
+            
+            if(res.facturacion){
+                bz.facturacion = angular.copy(res.facturacion);
+                delete res.facturacion;
+            } 
+            
             bz.datos = res;
         });
 

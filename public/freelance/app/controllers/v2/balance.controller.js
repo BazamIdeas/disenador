@@ -6,7 +6,23 @@ angular.module("disenador-de-logos")
 
         var bz = this;
 
-      
+        bz.saldo = {
+            deuda: 0,
+            pagado: 0,
+            vendido: 0
+        };
+
+        clientesService.saldo().then(function (res) {
+
+            bz.saldo = res;
+
+        }).catch(function () {
+
+
+        }).finally(function () {
+
+
+        })
 
         $scope.$on('sesionExpiro', function (event, data) {
 

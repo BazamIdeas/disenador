@@ -2,9 +2,9 @@ var DB = require('./db.js');
 
 var pago = {};
 
-pago.ObtenerPoCliente = function(idCliente, callback) {
+pago.ObtenerPorCliente = function(idCliente, callback) {
 
-    var q = `SELECT pago.fecha, pago.monto, facturacion.metodo, facturacion.correo FROM pagos INNER JOIN facturacion ON pagos.facturacion_idFacturacion = facturacion.idFacturacion WHERE facturacion.clientes_idCliente = ?`;
+    var q = `SELECT pagos.fecha, pagos.monto, facturacion.medio, facturacion.correo FROM pagos INNER JOIN facturacion ON pagos.facturacion_idFacturacion = facturacion.idFacturacion WHERE facturacion.clientes_idCliente = ?`;
 	var par = [idCliente];
 	
 	DB.getConnection(function(err, connection)

@@ -1,3 +1,4 @@
+var config=require('../configuracion.js');
 var logo=require('../modelos/logosModelo.js');
 var atributo = require('../modelos/atributosModelo.js');
 var elemento = require('../modelos/elementosModelo.js');

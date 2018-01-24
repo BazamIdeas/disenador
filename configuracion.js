@@ -23,7 +23,7 @@ var configuracion = {
             password: 'Esbz89%9',
             database: 'disenadorlogodb'
         },
-        freelancer = {
+        freelancer: {
             moderador: {
                 1: 2.99,
                 2: 3.99,
@@ -64,7 +64,7 @@ var configuracion = {
             password: '',
             database: 'disenadorlogodb'
         },
-        freelancer = {
+        freelancer: {
             moderador: {
                 1: 2,
                 2: 3,
