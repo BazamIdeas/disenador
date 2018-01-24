@@ -20,7 +20,7 @@
 						<p class="text-center tercero margin-bottom-0 margin-top-0">MI SALDO</p>
 						<div class="col s12">
 							
-								<h3>USD 3000</h3>
+								<h3>USD {{balance.saldo.deuda}}</h3>
 						
 						</div>
 					</div>
@@ -31,7 +31,7 @@
                 
                 
 
-				<div class="col s4">
+				<div class="col s8">
                     <div class="caja pedidos" style="padding: 0">
                         <div>
                             <table>

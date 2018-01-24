@@ -689,10 +689,10 @@ angular.module("disenador-de-logos")
             var defered = $q.defer();
 
             var promise = defered.promise;
-            
+
             var pedirFacturacion = facturacion ? true : false;
 
-            $http.get("/app/cliente/datos?facturacion="+pedirFacturacion)
+            $http.get("/app/cliente/datos?facturacion=" + pedirFacturacion)
 
                 .then(function (res) {
 
@@ -733,9 +733,9 @@ angular.module("disenador-de-logos")
 
             return promise;
         }
-        
-        
-         this.nuevaFacturacion = function (metodo, correo) {
+
+
+        this.nuevaFacturacion = function (metodo, correo) {
 
 
             var defered = $q.defer();
@@ -759,6 +759,31 @@ angular.module("disenador-de-logos")
 
             return promise;
 
+        }
+
+        this.listaPagos = function(){
+            
+            
+            return;
+        }
+        
+        this.saldo = function(){
+            
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/cliente/saldo-personal").then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
         }
 
     }])
@@ -1098,7 +1123,7 @@ angular.module("disenador-de-logos")
 
         }
 
-       
+
 
     }])
 
