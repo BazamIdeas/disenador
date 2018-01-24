@@ -586,6 +586,30 @@ angular.module("administrador")
             return promise;
         }
 
+        this.subidaMasiva = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            /* Ver si se envia el archivo */
+            console.log(datos)
+            
+            Upload.upload({
+                url: '/app/elemento/masivo',
+                method: 'POST',
+                data: datos
+            }).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+        }
+
     }])
 
 
@@ -838,7 +862,6 @@ angular.module("administrador")
 
                 if (response.status === 401 || response.status === 403) {
                     salir();
-
 
                 }
 

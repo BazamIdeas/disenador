@@ -92,9 +92,11 @@ angular.module("administrador")
 
         bz.cambiarEstado = function (id, estado, index) {
             pedidosService.cambiarEstado(id, estado).then(function (res) {
+                bz.modInit = !bz.modInit;
                 notificacionService.mensaje('Estado Cambiado');
-                bz.pedidoDetalle[index].estado = estado;
+                bz.pedidoDetalle.estado = estado;
                 bz.elementos[bz.pedidoActivoIndex].estado = estado;
+                
             })
         }
 

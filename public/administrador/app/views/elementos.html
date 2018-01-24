@@ -54,7 +54,7 @@
                         <div>Accion:</div>
                     </div>
                     <div layout="column" class="content-scroll lista">
-                        <div ng-repeat="elemento in elementos.elementos | filter:elementos.$" class="elemento nopadding">
+                        <div ng-repeat="elemento in elementos.elementos | filter:elementos.$  | orderBy:'idElemento'" class="elemento nopadding">
                             <div class="tabla-campo" layout-padding>
                                 <div>{{elemento.idElemento}}</div>
                                 <div>{{elemento.nombre}}</div>
@@ -86,7 +86,6 @@
                 <form id="formularioRegistro" name="formRegistro" ng-submit="elementos.nuevaFuente(elementos.registroFuente, formRegistro.$valid)"
                     novalidate>
                     <div layout="column" layout-align="space-between">
-                        <h3 class="text-center">Nueva Fuente</h3>
                         <div>
                             <md-input-container class="md-block">
                                 <label>NOMBRE</label>
@@ -99,13 +98,25 @@
                             </div>
                             <!---->
 
-                            
-                            <div class="button inputArchivo">
+
+                            <div class="button inputArchivo" ng-if="!elementos.regFmArchivos">
                                 <div>{{elementos.registroFuente.mifuente.name || "SELECCIONA UNA FUENTE"}} </div>
                                 <span ng-if="elementos.registroFuente.mifuente" ng-click="elementos.registroFuente.mifuente=null">X</span>
                                 <md-icon ng-if="!elementos.registroFuente.mifuente" ngf-select ng-model="elementos.registroFuente.mifuente" name="mifuente"
                                     ngf-max-size="3MB" ngf-pattern="'.otf,.ttf,.woff'" ngf-accept="'.otf, .ttf, .woff'" required>attach_file</md-icon>
                             </div>
+
+                            <div class="button inputArchivo" ng-if="elementos.regFmArchivos">
+                                <div>{{elementos.registroFuente.archivos.length || "SELECCIONA MULTIPLES FUENTES"}}
+                                    <span ng-if="elementos.registroFuente.archivos.length > 0">FUENTES SELECCIONADAS</span>
+                                </div>
+                                <span ng-if="elementos.registroFuente.archivos.length > 0" ng-click="elementos.registroFuente.archivos=null">X</span>
+                                <md-icon ng-if="!elementos.registroFuente.archivos" ngf-multiple="true" ngf-select ng-model="elementos.registroFuente.archivos"
+                                    name="mifuente" ngf-max-size="70MB" ngf-pattern="'.otf,.ttf,.woff'" ngf-accept="'.otf, .ttf, .woff'"
+                                    required ng-disabled="elementos.valMulFonts">attach_file</md-icon>
+                            </div>
+                            <br>
+                            <div class="padding" ng-click="elementos.regFmArchivos = !elementos.regFmArchivos">Multiple</div>
 
                             <!--Validacion-->
                             <div ng-messages="formRegistro.mifuente.$error" ng-if="formRegistro.$submitted || formRegistro.mifuente.$dirty">
@@ -113,13 +124,13 @@
                             </div>
                             <br>
                             <!---->
-                                <md-input-container class="md-block">
-                                    <label>CATEGORIA</label>
-                                    <md-select ng-model="elementos.registroFuente.categoria" name="categoria" ng-required="true">
-                                        <md-option ng-value="TODOS" selected ng-if="elementos.categorias.length == 0">No hay categorias</md-option>
-                                        <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in elementos.categorias">{{categoria.nombreCategoria}}</md-option>
-                                    </md-select>
-                                </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>CATEGORIA</label>
+                                <md-select ng-model="elementos.registroFuente.categoria" name="categoria" ng-required="true">
+                                    <md-option ng-value="TODOS" selected ng-if="elementos.categorias.length == 0">No hay categorias</md-option>
+                                    <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in elementos.categorias">{{categoria.nombreCategoria}}</md-option>
+                                </md-select>
+                            </md-input-container>
 
                             <!--Validacion-->
                             <div ng-messages="formRegistro.categoria.$error" ng-if="formRegistro.$submitted || formRegistro.categoria.$dirty">
@@ -146,7 +157,7 @@
                             </div>
                         </div>
                         <div layout>
-                            <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            <md-button class="md-raised md-primary" type="submit" ng-disabled="elementos.valMulFonts">REGISTRAR</md-button>
                         </div>
                     </div>
                 </form>
@@ -161,7 +172,6 @@
                 <form id="formularioRegistro" name="formRegistro" ng-submit="elementos.nuevoIcono(elementos.registroIcono, formRegistro.$valid)"
                     novalidate>
                     <div layout="column" layout-align="space-between">
-                        <h3 class="text-center">Nuevo Icono</h3>
                         <div>
                             <md-input-container class="md-block">
                                 <label>NOMBRE</label>
@@ -175,12 +185,23 @@
                             <!---->
 
 
-                            <div class="button inputArchivo">
+                            <div class="button inputArchivo" ng-if="!elementos.regImArchivos">
                                 <div>{{elementos.registroIcono.misvg.name || "SELECCIONA UN SVG"}} </div>
                                 <span ng-if="elementos.registroIcono.misvg" ng-click="elementos.registroIcono.misvg=null">X</span>
                                 <md-icon ng-if="!elementos.registroIcono.misvg" ngf-select ng-model="elementos.registroIcono.misvg" name="misvg" ngf-max-size="5MB"
                                     ngf-pattern="'image/svg+xml'" ngf-accept="'image/svg+xml'" required>attach_file</md-icon>
                             </div>
+                            <div class="button inputArchivo" ng-if="elementos.regImArchivos">
+                                <div>{{elementos.registroIcono.archivos.length || "SELECCIONA MULTIPLES ICONOS"}}
+                                    <span ng-if="elementos.registroIcono.archivos.length > 0">ICONOS SELECCIONADOS</span>
+                                </div>
+                                <span ng-if="elementos.registroIcono.archivos.length > 0" ng-click="elementos.registroIcono.archivos=null">X</span>
+                                <md-icon ng-if="!elementos.registroIcono.archivos" ngf-multiple="true" ngf-select ng-model="elementos.registroIcono.archivos"
+                                    name="misvg" name="misvg" ngf-max-size="5MB" ngf-pattern="'image/svg+xml'" ngf-accept="'image/svg+xml'"
+                                    required ng-disabled="elementos.valMulIcons">attach_file</md-icon>
+                            </div>
+                            <br>
+                            <div class="padding" ng-click="elementos.regImArchivos = !elementos.regImArchivos">Multiple</div>
 
 
                             <!--Validacion-->
@@ -225,7 +246,7 @@
                             </div>
                         </div>
                         <div layout>
-                            <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            <md-button class="md-raised md-primary" type="submit" ng-disabled="elementos.valMulIcons">REGISTRAR</md-button>
                         </div>
                     </div>
                 </form>
@@ -253,7 +274,7 @@
                             </div>
                         </div>
                         <div layout>
-                            <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            <md-button class="md-raised md-primary" type="submit">MODIFICAR</md-button>
                         </div>
                     </div>
                 </form>

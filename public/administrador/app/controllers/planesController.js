@@ -34,13 +34,13 @@ angular.module("administrador")
             administrarService.listarPlanes().then(function (res) {
                 bz.listaP = !bz.listaP;
                 bz.planes = res;
-                for (i = 0; i < bz.planes.length; i++) {
-                    if (bz.planes[i].status == 1) {
-                        bz.planes[i].estado = true;
+                angular.forEach(bz.planes, function (valor, llave) {
+                    if (valor.status) {
+                        valor.status = 1;
                     } else {
-                        bz.planes[i].estado = false;
+                        valor.status = 0;
                     }
-                };
+                })
             }).catch(function (res) {
                 notificacionService.mensaje(res.data.msg);
             })
@@ -71,25 +71,35 @@ angular.module("administrador")
             }
         }
 
-        bz.agregarPrecioPlan = function (datos, validacion){
-            if(bz.preciosPlan.length > 0){
-                angular.forEach(bz.monedas, function (valor) {
-                    if (valor.idMoneda == datos.idMoneda) {
-                        return notificacionService.mensaje('Moneda esta en uso!');
+        bz.agregarPrecioPlan = function (datos, validacion) {
+            administrarService.listarPreciosPlan(datos.idPlan).then(function (res) {
+                if (res == undefined) {
+                    notificacionService.mensaje('Este plan no posee precios.');
+                } else {
+                    if (res.data.length > 0) {
+                        var enuso = true;
+                        angular.forEach(res.data, function (valor, llave) {
+                            if (valor.idMoneda == datos.idMoneda) {
+                                enuso = false;
+                                return notificacionService.mensaje('Moneda esta en uso!');
+                            }
+                        });
+
+                        if (validacion && enuso) {
+                            console.log(validacion)
+                            console.log(datos)
+                            administrarService.agregarPrecioPlan(datos).then(function (res) {
+                                document.getElementById('nuevoPrecioPlan').reset();
+                                bz.nuevoPrecioPlan = {};
+                                bz.vista = 0;
+                                notificacionService.mensaje('Peticion Realizada!');
+                            }).catch(function (res) {
+                                console.log(res)
+                            })
+                        }
                     }
-                });
-            }else{
-                if (validacion) {
-                    administrarService.agregarPrecioPlan(datos).then(function (res) {
-                        document.getElementById('nuevoPrecioPlan').reset();
-                        bz.nuevoPrecioPlan = {};
-                        bz.vista = 0;
-                        notificacionService.mensaje('Peticion Realizada!');
-                    }).catch(function (res) {
-                        console.log(res)
-                    })
                 }
-            }
+            })
         }
 
         bz.modificarNombreP = function (datos, validacion) {
@@ -105,6 +115,7 @@ angular.module("administrador")
         }
 
         bz.modificarPrecioPlan = function (datos) {
+            bz.modInit = !bz.modInit;
             datos.idPlan = datos.planes_idPlan;
             administrarService.modificarPrecioPlan(datos).then(function (res) {
                 notificacionService.mensaje('Peticion Realizada.');
@@ -115,20 +126,20 @@ angular.module("administrador")
         }
 
         bz.bloquearPlan = function (opcion, id, index) {
-            bz.bloquearPlanDatos.idplan = id;
-            if (opcion == 'bloquear') {
-                bz.bloquearPlanDatos.status = 0;
-                bz.planes[index].estado = false;
-            } else if (opcion == 'desbloquear') {
-                bz.bloquearPlanDatos.status = 1;
-                bz.planes[index].estado = true;
-            }
 
-            datos = {
-                idPlan: id
-            }
-            administrarService.bloquearPlan(datos).then(function (res) {
-                bz.planes[index].status = bz.bloquearPlanDatos.status;
+            bz.bloquearPlanDatos.idPlan = id;
+            angular.forEach(bz.planes, function (valor, llave) {
+                if (valor.idPlan == id) {
+                    valor.status = valor.status ? false : true;
+                    if (valor.status) {
+                        bz.bloquearPlanDatos.status = 1;
+                    } else {
+                        bz.bloquearPlanDatos.status = 0;
+                    }
+                }
+            })
+
+            administrarService.bloquearPlan(bz.bloquearPlanDatos).then(function (res) {
                 bz.bloquearPlanDatos = {};
             }).catch(function (res) {
                 console.log(res)
@@ -154,7 +165,6 @@ angular.module("administrador")
                     if (res != undefined) {
                         bz.preciosPlan = res.data;
                     }
-                }).catch(function (res) {
                 })
                 bz.vista = 3;
             } else if (opcion == 'preciosPlan') {
@@ -162,9 +172,8 @@ angular.module("administrador")
                 administrarService.listarPreciosPlan(datos).then(function (res) {
                     if (res == undefined) {
                         notificacionService.mensaje('Este plan no posee precios.');
-                    }else{
+                    } else {
                         bz.preciosPlan = res.data;
-                        console.log(res)
                     }
                     bz.vista = 4;
                 }).catch(function (res) {
@@ -172,6 +181,11 @@ angular.module("administrador")
                     bz.vista = 4;
                 })
             }
+        }
+
+        bz.modFun = function(i){
+            bz.modfire = i;
+            bz.modInit = !bz.modInit;
         }
 
     }])

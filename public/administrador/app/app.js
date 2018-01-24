@@ -1,4 +1,4 @@
-angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert', 'ngFileUpload'])
+angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert', 'ngFileUpload'])
 
     .config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider, $httpProvider, $urlRouterProvider) {
 
@@ -96,6 +96,16 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                     'menuContent': {
                         templateUrl: 'app/views/usuario.html',
                         controller: 'usuarioController as usuario',
+                    }
+                }
+            })
+            .state({
+                name: 'app.disenadores',
+                url: '/disenadores',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/disenadores.html',
+                        controller: 'disenadoresController as designer',
                     }
                 }
             })
