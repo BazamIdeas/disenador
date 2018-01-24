@@ -522,7 +522,8 @@ exports.listaLogosDescargables = function(req, res, next) {
 
 		logo.getLogo(par,function(error, data)
 		{
-		//si el logo existe 
+
+			console.log(data)	
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
 				var nombre = 'Logo'+'-' +descarga +'-' + moment().format("DD-MM-YYYY")+'.svg';
@@ -530,25 +531,28 @@ exports.listaLogosDescargables = function(req, res, next) {
 				var path = 'public/tmp/';
 
 				atributo.ObtenerPorLogo(data[0].idLogo, function(err, dataAttrs){
-
+				
 					if (err) return callback(err);
 
 					if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
 					{
+
+						console.log(dataAttrs)	
 						var fuentes = {};
 
 						async.forEachOf(dataAttrs, (row, key, callback) => {
-
-							if(row.llave == "principal" || row.llave == "eslogan"){
+							console.log(row.clave)	
+							if(row.clave == "principal" || row.clave == "eslogan"){
 
 								elemento.datosElemento(row.valor, function(err, fuente){
-			
+									
 									if (err) return callback(err);
 			
 									try {
-			
+										
 										if (typeof fuente !== 'undefined' && fuente.length > 0)
 										{
+											console.log(fuente)
 											fuentes[row.llave].nombre = fuente.nombre;
 											fuentes[row.llave].url = fuente.url;
 										}
@@ -566,6 +570,8 @@ exports.listaLogosDescargables = function(req, res, next) {
 						}, (err) => {
 							
 							if (err) res.status(402).json({});
+
+							console.log(fuentes)
 						
 							//buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
 							//fuente = base64.decode(data[0].logo).split("@font-face")[1].split("</style>")[0].split("/fuentes/")[1].split("')")[0]

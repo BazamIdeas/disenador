@@ -48,4 +48,50 @@ facturacion.Actualizar = function(idFacturacion, datosFacturacion, callback) {
 	});
 }
 
+facturacion.Eliminar = function(idFacturacion, callback) {
+    
+    var q = `SELECT * FROM facturacion WHERE facturacion.idFacturacion = ?`;
+    var qq = `DELETE * FROM facturacion WHERE facturacion.idFacturacion = ?`;
+
+    DB.getConnection(function(err, connection)
+	{
+		connection.beginTransaction(function(err) {
+			if (err) { throw err; }
+
+			connection.query(q, [idFacturacion], function(err, row){
+				if (err) { 
+					connection.rollback(function() {
+						throw err;
+					});
+				}
+				if (typeof row !== 'undefined' && row.length > 0){
+					
+					connection.query(qq, [idFacturacion], function(err, result){
+						if (err) { 
+							connection.rollback(function() {
+								throw err;
+							});
+						}
+						
+						connection.commit(function(err) {
+							if (err) {
+							  return connection.rollback(function() {
+								throw err;
+							  });
+							}
+							return callback(null,{"affectedRows" : result.affectedRows});
+						});
+						connection.release(); 
+					});
+
+				}
+
+				connection.rollback(function() {
+					return callback(null,{"msg":"no existe estos datos de Facturacion"})
+				});
+			});
+		});
+	});
+}
+
 module.exports = facturacion;

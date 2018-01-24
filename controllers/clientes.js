@@ -43,6 +43,121 @@ exports.listaClientes = function(req, res) {
 
 }
 
+exports.listaClientesFreelancer = function(req, res) 
+{    
+    cliente.getClientes(function(error, clientes) {
+         
+        if (typeof clientes !== 'undefined' && clientes.length > 0) {
+            
+            async.forEachOf(clientes, (cliente, key, callback) => {
+
+                var pagado = 0;
+                var vendido = 0;
+
+                pago.ObtenerPorCliente(cliente.idCliente,function(error,data){
+            
+                    if(typeof data !== 'undefined' && data.length){
+            
+                        async.forEachOf(data, (pago,key,callback) => {
+            
+                            pagado = pagado + pago.monto;
+
+                            callback();
+            
+                        }, (err) => {
+                            
+                            if (err) res.status(402).json({});
+                            
+                            var par = { estado: "Vendido", clientes_idCliente: cliente.idCliente };
+            
+                            logos.getLogosTipo(par, function(error,data){
+            
+                                if(typeof data !== 'undefined' && data.length){
+            
+                                    async.forEachOf(data, (logo,key,callback) => {
+            
+                                        atributo.ObtenerPorLogo(logo.idLogo, function(err, data){
+                                            
+                                            if (typeof data !== 'undefined' && data.length > 0){
+                                                
+                                                for(var key in data){
+                                                    
+                                                    if(data[key].clave == "calificacion-admin" && data[key].clave == "calificacion-cliente"){
+                                                        
+                                                        var cal = data[key].clave == "calificacion-admin" ? "moderador" : "cliente"; 
+                                                        vendido = vendido + configuracion.freelancer[cal][data[key].valor]
+                                                
+                                                    }
+            
+                                                }
+
+                                                var deuda = {
+                                                    pagado: pagado,
+                                                    vendido: vendido,
+                                                    deuda: pagado - vendido
+                                                }
+                                                
+                                                clientes[key].deuda = deuda;
+                                            
+                                            }
+                                        
+                                        })
+
+                                        callback();
+            
+                                    }, (err) => {
+            
+                                        if (err) res.status(402).json({});
+            
+                                        res.status(200).json(clientes);
+            
+                                    })
+            
+                                }else{
+                
+                                    var deuda = {
+                                        pagado: pagado,
+                                        vendido: vendido,
+                                        deuda: pagado - vendido
+                                    }
+                                    
+                                    clientes[key].deuda = deuda;
+            
+                                }
+                            })
+                        
+                        })
+            
+                    }else{
+
+                        var deuda = {
+                            pagado: pagado,
+                            vendido: vendido,
+                            deuda: pagado - vendido
+                        }
+                        
+                        clientes[key].deuda = deuda;
+
+                    }
+                })
+
+                callback();
+            
+            }, (err) => {
+
+                res.status(200).json(clientes);
+
+            });
+            
+        }else {
+         
+            res.status(404).json({ "msg": "No hay clientes registrados" })
+        
+        }
+    });
+
+}
+
 exports.datosCliente = function(req, res, next) {
     //id del cliente
 
@@ -56,7 +171,7 @@ exports.datosCliente = function(req, res, next) {
             if(req.params.facturacion){
                 facturacion.ObtenerPorCliente(req.params.id, function(err, data){
                     if(typeof data !== 'undefined' && data.length){
-                        cliente.facturacion = data[0];
+                        cliente.facturacion = data;
                         res.status(200).json([cliente])
                     }else{
                         res.status(200).json([cliente]) 
@@ -87,6 +202,7 @@ exports.Datos = function(req, res, next) {
             if(req.params.facturacion){
                 facturacion.ObtenerPorCliente(req.params.id, function(err, data){
                     if(typeof data !== 'undefined' && data.length){
+                        cliente.facturacion = data;
                         res.status(200).json(cliente)
                     }else{
                         res.status(404).json({msg: "No hay datos de facturacion"})
