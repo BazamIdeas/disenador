@@ -10,16 +10,19 @@ angular.module("disenador-de-logos")
 
         bz.paises = paisesValue;
 
-        bz.pedidos = [];
+        //bz.pedidos = [];
+        bz.facturacion = [];
         bz.datos = {};
         bz.datosEspejo = {};
+        bz.datosMetodo = {};
 
-        clientesService.datos().then(function (res) {
-
+        clientesService.datos(true).then(function (res) {
+            bz.facturacion = angular.copy(res.facturacion);
+            delete res.facturacion;
             bz.datos = res;
-
         });
 
+        /*
         pedidosService.listarPedidos().then(function (res) {
 
             angular.forEach(res, function (valor, indice) {
@@ -32,23 +35,23 @@ angular.module("disenador-de-logos")
 
         });
 
-
+        */
         bz.editar = function (datos) {
 
             bz.datosEspejo = angular.copy(datos);
             bz.formulario = 2;
 
         }
-        
-        
+
+
         bz.completado = true;
-        
+
         bz.guardar = function (datos, valido) {
 
             if (valido && bz.completado) {
-                
+
                 bz.completado = false;
-                
+
                 clientesService.modificar(datos.nombreCliente, datos.telefono, datos.pais)
 
                     .then(function (res) {
@@ -93,11 +96,45 @@ angular.module("disenador-de-logos")
                             templateUrl: 'toast-danger-cuenta-modify.html'
                         });
                     })
-                    .finally(function(){
-                    
+                    .finally(function () {
+
                         bz.completado = true;
-                    
+
                     })
+
+            }
+
+        }
+
+
+        bz.completadoMetodo = true;
+
+        bz.guardarFacturacion = function (datos, valido) {
+
+            if (valido && bz.completadoMetodo) {
+
+                bz.completadoMetodo = false;
+
+                clientesService.nuevaFacturacion(datos.nombre, datos.email).then(function (res) {
+
+                    var facturacion = {
+                        correo: datos.email,
+                        idFacturacion: res.insertId,
+                        medio: datos.nombre
+                    };
+
+                    bz.facturacion.push(facturacion);
+                    alert("Metodo guardado");
+
+                }).catch(function (res) {
+
+                    alert("Guardado fallido");
+
+                }).finally(function (res) {
+
+                    bz.completadoMetodo = true;
+
+                })
 
             }
 

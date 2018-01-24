@@ -102,13 +102,13 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                         if ($stateParams.status) {
 
-                            LS.definir('editor', $stateParams.datos);
+                            LS.definir('editor-freelance', $stateParams.datos);
 
                             defered.resolve($stateParams.datos);
 
-                        } else if (LS.obtener('editor')) {
+                        } else if (LS.obtener('editor-freelance')) {
 
-                            defered.resolve(LS.obtener('editor'));
+                            defered.resolve(LS.obtener('editor-freelance'));
 
                         } else {
 
@@ -126,7 +126,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         
          .state({
                 name: 'publicado',
-                url: '/publicado/:id',
+                url: '/publicado/:id/',
                 templateUrl: 'app/views/v2/publicado.tpl',
                 controller: 'publicadoController as publicado',
                 params: {
@@ -189,9 +189,27 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'cuenta',
-                url: '/cliente/cuenta',
+                url: '/cliente/cuenta/',
                 templateUrl: 'app/views/v2/cuenta.tpl',
                 controller: 'cuentaController as cuenta',
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }]
+                }
+            })
+        
+            .state({
+                name: 'balance',
+                url: '/cliente/balance/',
+                templateUrl: 'app/views/v2/balance.tpl',
+                controller: 'balanceController as balance',
                 resolve: {
                     currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
@@ -207,7 +225,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'logos',
-                url: '/cliente/logos',
+                url: '/cliente/logos/',
                 templateUrl: 'app/views/v2/logos.tpl',
                 controller: 'logosController as logos',
                 resolve: {
@@ -225,7 +243,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
  
             .state({
                 name: 'login',
-                url: '/login',
+                url: '/login/',
                 templateUrl: 'app/views/v2/login.tpl',
                 controller: 'loginController as login',
                 resolve: {
@@ -243,12 +261,31 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
       
         //redirecciones
 
-        $urlRouterProvider.when('', '/comenzar/');
+       /* $urlRouterProvider.when('', '/comenzar/');
         $urlRouterProvider.when('/', '/comenzar/');
         $urlRouterProvider.when('/comenzar', '/comenzar/');
         $urlRouterProvider.when('/comenzar/opciones', '/comenzar/opciones/');
         $urlRouterProvider.when('/comenzar/combinaciones', '/comenzar/combinaciones/');
-        $urlRouterProvider.when('/editor', '/editor/');
+        $urlRouterProvider.when('/editor', '/editor/');*/
+    
+    
+        $urlRouterProvider.when('', '/comenzar/');
+        $urlRouterProvider.when('/', '/comenzar/');
+        
+        $urlRouterProvider.rule(function ($injector, $location) {
+            var path = $location.url();
+
+            if ('/' === path[path.length - 1] || path.indexOf('/?') > -1) {
+                return;
+            }
+
+            if (path.indexOf('?') > -1) {
+                return path.replace('?', '/?');
+            }
+
+            return path + '/';
+        });
+    
     
         $urlRouterProvider.otherwise('/404/');
 

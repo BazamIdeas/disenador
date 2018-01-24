@@ -74,17 +74,6 @@
 
     <!-- Controladores -->
     <script src="app/controllers/header.js"></script>
-    <!--<script src="app/controllers/comenzar.js"></script>-->
-    <!--<script src="app/controllers/analisis.js"></script>-->
-    <!--<script src="app/controllers/opciones.js"></script>-->
-    <!--<script src="app/controllers/proceso.js"></script>-->
-    <!--<script src="app/controllers/editor.js"></script>-->
-    <!--<script src="app/controllers/previsualizar.js"></script>-->
-    <!--<script src="app/controllers/login.js"></script>-->
-    <!--<script src="app/controllers/cliente.js"></script>-->
-    <!--<script src="app/controllers/planes.js"></script>-->
-    <!--<script src="app/controllers/metodo_pago.js"></script>-->
-    <!--<script src="app/controllers/administrar.js"></script>-->
     
     <!--Controladores V2 -->
     <script src="app/controllers/v2/principal.controller.js"></script>
@@ -96,6 +85,7 @@
     <script src="app/controllers/v2/logos.controller.js"></script>
     <script src="app/controllers/v2/login.controller.js"></script>
     <script src="app/controllers/v2/cuenta.controller.js"></script>
+    <script src="app/controllers/v2/balance.controller.js"></script>
 
 </head>
 
@@ -126,6 +116,12 @@
                             <i class="material-icons">favorite</i>
                         </span>                        
 
+                        <span ui-sref="balance">
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Balance</md-tooltip>
+                            <i class="material-icons">monetization_on</i>
+                        </span>   
+                        
+                        
                         <span ui-sref="cuenta">
                             <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
                             <i class="material-icons">account_circle</i> &nbsp; {{header.autorizado.nombre}}

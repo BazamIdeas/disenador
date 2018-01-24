@@ -392,14 +392,16 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-        
-        this.listarIniciales = function(inicial){
-            
+
+        this.listarIniciales = function (inicial) {
+
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            $http.post("/app/elementos/iniciales", {inicial: inicial}).then(function (res) {
+            $http.post("/app/elementos/iniciales", {
+                inicial: inicial
+            }).then(function (res) {
 
                 defered.resolve(res.data);
 
@@ -410,19 +412,19 @@ angular.module("disenador-de-logos")
             })
 
             return promise;
-            
+
         }
 
     }])
 
-    
+
     /*********************/
     /********PEDIDOS******/
     /*********************/
- 
+
     .service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
 
-   /*
+        /*
         this.listarPlanes = function () {
 
             var defered = $q.defer();
@@ -528,7 +530,7 @@ angular.module("disenador-de-logos")
         }
 
     }])
-    
+
     /***************************************/
     /***************CLIENTES****************/
     /***************************************/
@@ -682,13 +684,15 @@ angular.module("disenador-de-logos")
 
         }
 
-        this.datos = function () {
+        this.datos = function (facturacion) {
 
             var defered = $q.defer();
 
             var promise = defered.promise;
+            
+            var pedirFacturacion = facturacion ? true : false;
 
-            $http.get("/app/cliente/datos")
+            $http.get("/app/cliente/datos?facturacion="+pedirFacturacion)
 
                 .then(function (res) {
 
@@ -728,6 +732,33 @@ angular.module("disenador-de-logos")
                 })
 
             return promise;
+        }
+        
+        
+         this.nuevaFacturacion = function (metodo, correo) {
+
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            var datos = {
+                medio: metodo,
+                correo: correo
+            };
+
+            $http.post("/app/cliente/facturacion", datos).then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+
         }
 
     }])
@@ -844,14 +875,16 @@ angular.module("disenador-de-logos")
     /*********************/
 
     .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
-        
-        this.listarPorEstado = function(estado){
-            
+
+        this.listarPorEstado = function (estado) {
+
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            $http.post("/app/logos/estado", {estado: estado}).then(function (res) {
+            $http.post("/app/logos/estado", {
+                estado: estado
+            }).then(function (res) {
 
                 defered.resolve(res.data);
 
@@ -862,16 +895,18 @@ angular.module("disenador-de-logos")
             })
 
             return promise;
-            
+
         }
-        
-        this.publicar = function(idLogo){
-            
+
+        this.publicar = function (idLogo) {
+
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            $http.post("/app/logo/por-aprobar", {idLogo: idLogo}).then(function (res) {
+            $http.post("/app/logo/por-aprobar", {
+                idLogo: idLogo
+            }).then(function (res) {
 
                 defered.resolve();
 
@@ -898,12 +933,12 @@ angular.module("disenador-de-logos")
                     principal: fuentePrincipalId
                 }
             }
-            
-            if(fuenteEsloganId){
-                datos.atributos.eslogan = fuenteEsloganId; 
+
+            if (fuenteEsloganId) {
+                datos.atributos.eslogan = fuenteEsloganId;
             }
-            
-            if(estado){
+
+            if (estado) {
                 datos.estado = estado
             }
 
@@ -920,7 +955,7 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-        
+
         this.modificarLogo = function (logo, idlogo, fuentePrincipalId, fuenteEsloganId) {
 
             var defered = $q.defer();
@@ -934,9 +969,9 @@ angular.module("disenador-de-logos")
                     principal: fuentePrincipalId
                 }
             }
-            
-            if(fuenteEsloganId){
-                datos.atributos.eslogan = fuenteEsloganId; 
+
+            if (fuenteEsloganId) {
+                datos.atributos.eslogan = fuenteEsloganId;
             }
 
             $http.post("/app/logo/modificar", datos).then(function (res) {
@@ -1063,6 +1098,8 @@ angular.module("disenador-de-logos")
 
         }
 
+       
+
     }])
 
     /*********************/
@@ -1129,12 +1166,11 @@ angular.module("disenador-de-logos")
 
             responseError: function (response) {
 
-
                 if (response.status === 401 || response.status === 403) {
                     salir();
 
-
                 }
+                return $q.reject(response);
 
             }
         };

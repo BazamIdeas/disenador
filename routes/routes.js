@@ -14,10 +14,10 @@ router.get('/clientes/freelancer', middleware.validarAdministrador, controllers.
 router.get('/cliente/saldo-personal', middleware.validarCliente, controllers.pagos.SaldoPorCliente);
 router.get('/cliente/saldo', middleware.validarAdministrador, controllers.pagos.SaldoPorCliente);
 //parametro por get que debe ser el id del cliente.
-router.get('/cliente/datos/:facturacion?', middleware.validarCliente, controllers.clientes.Datos);
+router.get('/cliente/datos', middleware.validarCliente, controllers.clientes.Datos);
 
 
-router.post('/facturacion', middleware.validarCliente, controllers.facturacion.Nuevo);
+router.post('/cliente/facturacion', middleware.validarCliente, controllers.facturacion.Nuevo);
 
 router.post('/cliente/borrar/:id', middleware.validarAdministrador, controllers.clientes.borrarCliente);
 //'valor'	

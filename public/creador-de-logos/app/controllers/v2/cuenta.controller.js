@@ -102,6 +102,9 @@ angular.module("disenador-de-logos")
             }
 
         }
+        
+        
+       
 
         $scope.$on('sesionExpiro', function (event, data) {
 

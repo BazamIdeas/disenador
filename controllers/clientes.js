@@ -198,9 +198,9 @@ exports.Datos = function(req, res, next) {
         if (typeof data !== 'undefined' && data.length > 0) {
 
             var cliente = data[0];
-
-            if(req.params.facturacion){
-                facturacion.ObtenerPorCliente(req.params.id, function(err, data){
+            
+            if(req.query.facturacion){
+                facturacion.ObtenerPorCliente(id, function(err, data){
                     if(typeof data !== 'undefined' && data.length){
                         cliente.facturacion = data;
                         res.status(200).json(cliente)
