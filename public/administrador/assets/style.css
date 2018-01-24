@@ -38,6 +38,17 @@
     -webkit-font-smoothing: antialiased;
 }
 
+@font-face {
+    font-family: 'futura-heavy';
+    src: url("fonts/futura/FuturaStd-Heavy.ttf?v=2.025") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+}
+
+*:not(md-icon) {
+    font-family: 'futura-heavy' !important;
+}
+
 .pedido-logo {
     width: 40%;
     margin: auto;
@@ -88,6 +99,10 @@
     text-align: center;
     color: rgb(43, 21, 21);
     font-size: 18px;
+}
+
+.titulo-modulo {
+    text-align: center;
 }
 
 
@@ -208,8 +223,16 @@ md-icon {
     margin-bottom: 1%;
 }
 
+.listar .elemento.inside{
+    margin-bottom: 0px;
+}
+
 .listar .elemento.nopadding {
     padding: 0 !important;
+}
+
+.content-scroll .elemento {
+    border-radius: 5px;
 }
 
 
@@ -264,8 +287,9 @@ md-icon {
 /* SCROLL */
 
 .content-scroll {
-    overflow: scroll;
-    height: 40%;
+    overflow-x: auto;
+    max-height: 50%;
+    padding: 5px 8px 0px 8px;
 }
 
 .scroll {
@@ -277,7 +301,7 @@ md-icon {
 
  ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 5px;
+    width: 15px;
 }
 
  ::-webkit-scrollbar-thumb {
@@ -340,14 +364,24 @@ md-icon {
     padding-bottom: 8px;
 }
 
+.logo {
+    background: rgb(250, 250, 250);
+    COLOR: rgba(0, 0, 0, 0.87);
+    FONT-SIZE: 25PX;
+}
+
 
 /* CLIENTE */
 
 .titulo-modulo texto {
     font-size: 16px;
-    color: #f9f9f9;
+    color:rgb(250, 250, 250);
     font-weight: bold;
     display: block;
+    font-family: 'futura-heavy' !important;
+    letter-spacing: 2px;
+    text-align: center;
+    width: 100%;
 }
 
 .paneles.individual {
@@ -361,7 +395,7 @@ md-icon {
     -ms-flex-pack: distribute;
     justify-content: space-around;
     font-weight: bold;
-    padding: 8px;
+    padding: 8px 15px;
     background: #f5f7f6;
 }
 
@@ -390,12 +424,6 @@ md-icon {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-}
-
-.tabla-campo .acciones {
-    -webkit-box-pack: end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
 }
 
 .datos-elemento>div {

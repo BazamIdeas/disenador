@@ -115,6 +115,7 @@ angular.module("administrador")
         }
 
         bz.modificarPrecioPlan = function (datos) {
+            bz.modInit = !bz.modInit;
             datos.idPlan = datos.planes_idPlan;
             administrarService.modificarPrecioPlan(datos).then(function (res) {
                 notificacionService.mensaje('Peticion Realizada.');
@@ -180,6 +181,11 @@ angular.module("administrador")
                     bz.vista = 4;
                 })
             }
+        }
+
+        bz.modFun = function(i){
+            bz.modfire = i;
+            bz.modInit = !bz.modInit;
         }
 
     }])

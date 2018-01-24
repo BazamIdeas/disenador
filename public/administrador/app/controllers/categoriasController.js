@@ -47,20 +47,22 @@ angular.module("administrador")
 
         /* MODIFICAR */
 
-        bz.modificarEm = function (id, nombre, opcion, index) {
+        bz.modificarEm = function (id, opcion, index, nombre, nombre2) {
 
             bz.elementoActivoIndex = index;
 
             if (opcion == 'categoria') {
                 bz.opcionesCategorias = 1;
                 bz.datos.modCategoria.idCategoria = id;
+                bz.modNombre = nombre;
             } else {
                 bz.opcionesCategorias = 2;
                 bz.datos.modPreferencia.idPreferencia = id;
+                bz.modNombre = {nombre1: nombre, nombre2: nombre2};
             }
 
             bz.mostrarOpciones = !bz.mostrarOpciones;
-            bz.modNombre = nombre;
+            
         }
 
         bz.modificarElemento = function (datos, opcion) {
@@ -91,7 +93,6 @@ angular.module("administrador")
 
         bz.crear = function (datos, opcion) {
             if (opcion == 'categoria') {
-                 console.log(datos)
                 categoriasService.nuevaCategoria(datos).then(function (res) {
                         notificacionService.mensaje('Registro Existoso');
                         datos.idCategoria = res.data.insertId;

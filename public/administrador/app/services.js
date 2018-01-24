@@ -863,7 +863,6 @@ angular.module("administrador")
                 if (response.status === 401 || response.status === 403) {
                     salir();
 
-
                 }
 
             }
