@@ -138,7 +138,7 @@ router.post('/precio/modificar', /*middleware.validarAdministrador,*/ controller
 //MODULO LOGOS
 router.post('/logos/estado', middleware.validarCliente, controllers.logos.listaLogosPorEstado);
 router.post('/logos/por-aprobar', middleware.validarAdministrador, controllers.logos.listaLogosPorAprobar);
-router.post('/logos/aprobados/', controllers.logos.listaLogosAprobados);
+router.post('/logos/aprobados', controllers.logos.listaLogosAprobados);
 router.post('/logos/aprobados/destacados', controllers.logos.listaLogosAprobadosDestacados);
 router.post('/logos/guardados', middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables',  middleware.validarCliente, controllers.logos.listaLogosDescargables);

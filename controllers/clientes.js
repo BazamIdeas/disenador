@@ -203,10 +203,8 @@ exports.Datos = function(req, res, next) {
                 facturacion.ObtenerPorCliente(id, function(err, data){
                     if(typeof data !== 'undefined' && data.length){
                         cliente.facturacion = data;
-                        res.status(200).json(cliente)
-                    }else{
-                        res.status(404).json({msg: "No hay datos de facturacion"})
                     }
+                    res.status(200).json(cliente)
                 })
             }else{
                 res.status(200).json(cliente)
