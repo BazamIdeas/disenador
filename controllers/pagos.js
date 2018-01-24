@@ -8,93 +8,77 @@ exports.SaldoPorCliente = function(req, res, next)
 {
     var pagado = 0;
     var vendido = 0;
+    var deuda = 0;
 
     var idCliente = req.idCliente ? req.idCliente : req.body.idCliente; 
+    var par = { estado: "Vendido", clientes_idCliente: idCliente };
 
-    pago.ObtenerPorCliente(idCliente,function(error,data){
+    async.series({
+
+        pagado: function(callback) {
+            pago.ObtenerPorCliente(idCliente,function(error,data){
         
-        if(typeof data !== 'undefined' && data.length){
+                if(typeof data !== 'undefined' && data.length){
 
-            async.forEachOf(data, (pago,key,callback) => {
+                    for(var key in data){
 
-                pagado = pagado + pago.monto;
-
-                callback();
-
-            }, (err) => {
-                
-                if (err) res.status(402).json({});
-                
-                var par = { estado: "Vendido", clientes_idCliente: idCliente };
-
-                logos.getLogosTipo(par, function(error,data){
-
-                    if(typeof data !== 'undefined' && data.length){
-
-                        async.forEachOf(data, (logo,key,callback) => {
-
-                            atributo.ObtenerPorLogo(logo.idLogo, function(err, data){
-                                
-                                if (typeof data !== 'undefined' && data.length > 0){
-                                    
-                                    for(var key in data){
-                                        
-                                        if(data[key].clave == "calificacion-admin" && data[key].clave == "calificacion-cliente"){
-                                            
-                                            var cal = data[key].clave == "calificacion-admin" ? "moderador" : "cliente"; 
-                                            vendido = vendido + configuracion.freelancer[cal][data[key].valor]
-                                    
-                                        }
-
-                                    }
-                                
-                                }
-                            
-                            })
-
-                            callback();
-
-                        }, (err) => {
-
-                            if (err) res.status(402).json({});
-
-                            var data = {
-                                pagado: pagado,
-                                vendido: vendido,
-                                deuda: pagado - vendido
-                            }
-
-                            res.status(200).json(deuda);
-
-                        })
-
-                    }else{
-
-                        var deuda = {
-                            pagado: pagado,
-                            vendido: vendido,
-                            deuda: pagado - vendido
-                        }
-            
-                        res.status(200).json(deuda);
+                        pagado = pagado + data[key].monto;
 
                     }
-                })
-            
-            })
 
-        }else{
+                }
 
-            var deuda = {
-                pagado: pagado,
-                vendido: vendido,
-                deuda: pagado - vendido
-            }
+                callback(null, pagado);
 
-            res.status(200).json(deuda);
+            });
+        },
+        
+        vendido: function(callback) {
+            logos.getLogosTipo(par, function(error,data){
 
+                if(typeof data !== 'undefined' && data.length){
+
+                    for(var key in data){
+                    
+                        atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
+                                
+                            if (typeof data !== 'undefined' && data.length > 0){
+
+                                for(var key in data){
+                                        
+                                    if(data[key].clave == "calificacion-admin" && data[key].clave == "calificacion-cliente"){
+                                        
+                                        var cal = data[key].clave == "calificacion-admin" ? "moderador" : "cliente"; 
+                                        vendido = vendido + configuracion.freelancer[cal][data[key].valor]
+                                
+                                    }
+
+                                }
+
+                            }
+
+                        });
+                    }
+
+                }
+
+                callback(null, vendido);
+
+            });
         }
-    })
+        
+    }, function(err, results) {
+        
+        if (err) res.status(500).json({msg: "Algo ocurrio"});
+
+        var data = {
+            pagado: results.pagado,
+            vendido: results.vendido,
+            deuda: results.pagado - results.vendido
+        }
+
+        res.status(200).json(data);
+    });
 }
 
 exports.Nuevo = function(req, res, next)

@@ -11,90 +11,91 @@ var archiver = require("archiver")
 var pathM = require("path")
 var async    = require("async");
 
-
+//GUARDAR UN LOGO
 exports.guardar =  function(req,res)
+{
+	//creamos un objeto con los datos a insertar del pedido
+
+	var estado = "Editable";
+
+	switch(req.body.estado){
+		case "Borrador":
+			estado = "Borrador";
+			break;
+		case "Por Aprobar":
+			estado = "Por Aprobar";
+			break;
+	}
+
+	var logoData = {
+		idLogo : null,
+		estado : estado,
+		logo : req.body.logo,
+		tipoLogo: req.body.tipoLogo,
+		clientes_idCliente : req.idCliente,
+		elementos_idElemento : req.body.idElemento
+	};
+
+	logo.insertLogo(logoData,function(error, data)
 	{
-		//creamos un objeto con los datos a insertar del pedido
 
-		var estado = "Editable";
+		//si el pedido se ha insertado correctamente mostramos su info
+		if(data && data.insertId)
+		{	
+			
+			var atributos = req.body.atributos;
+			
+			for(var key in atributos){
 
-		switch(req.body.estado){
-			case "Borrador":
-				estado = "Borrador";
-				break;
-			case "Por Aprobar":
-				estado = "Por Aprobar";
-				break;
-		}
+				var atributosData = {
+					clave : key,
+					valor : atributos[key],
+					logos_idLogo: data.insertId  
+				};
 
-		var logoData = {
-			idLogo : null,
-			estado : estado,
-			logo : req.body.logo,
-			tipoLogo: req.body.tipoLogo,
-			clientes_idCliente : req.idCliente,
-			elementos_idElemento : req.body.idElemento
-		};
+				atributo.Guardar(atributosData, function(error, data) {
 
-		logo.insertLogo(logoData,function(error, data)
-		{
+					if(!data && !data.insertId)
+					{
 
-			//si el pedido se ha insertado correctamente mostramos su info
-			if(data && data.insertId)
-			{	
-                
-				var atributos = req.body.atributos;
-                
-				for(var key in atributos){
+						res.status(500).json({"msg":"Algo ocurrio"})
+					
+					}
 
-					var atributosData = {
-						clave : key,
-						valor : atributos[key],
-						logos_idLogo: data.insertId  
-					};
+				})
 
-					atributo.Guardar(atributosData, function(error, data) {
+			} 
 
-						if(!data && !data.insertId)
-						{
+			cliente.getCliente(req.idCliente, function(error, dataCliente){
 
-							res.status(500).json({"msg":"Algo ocurrio"})
-						
-						}
-
-					})
-
-				} 
-
-				cliente.getCliente(req.idCliente, function(error, dataCliente){
-
-					//console.log(data);
-					services.emailServices.enviar('logoGuardado.html', {}, "Logo guardado", dataCliente.correo);
-					res.status(200).json(data);
-				});
-				
-			}
-			else
-			{
-				res.status(500).json({"msg":"Algo ocurrio"})
-			}
-		});
-
-		
-	}
-
-	exports.porAprobar = function(req,res,next) {
-		var par = ["Por Aprobar", req.body.idLogo];
-		logo.cambiarEstado(par, function(error,data){
-			if (typeof data !== 'undefined' && data.msg){
+				//console.log(data);
+				services.emailServices.enviar('logoGuardado.html', {}, "Logo guardado", dataCliente.correo);
 				res.status(200).json(data);
-			}else{
-				res.status(500).json({"msg":"Algo ocurrio"})
-			}
-		})
-	}
+			});
+			
+		}
+		else
+		{
+			res.status(500).json({"msg":"Algo ocurrio"})
+		}
+	});
 
+	
+}
 
+//CAMBIAR EL ESTADO DE UN LOGO A 'POR APROBAR'
+exports.porAprobar = function(req,res,next) {
+	var par = ["Por Aprobar", req.body.idLogo];
+	logo.cambiarEstado(par, function(error,data){
+		if (typeof data !== 'undefined' && data.msg){
+			res.status(200).json(data);
+		}else{
+			res.status(500).json({"msg":"Algo ocurrio"})
+		}
+	})
+}
+
+//CAMBIAR EL ESTADO DE UN LOGO A 'APROBADO'
 exports.aprobar = function(req,res,next) {
 	var par = ["Aprobado", req.body.idLogo];
 	logo.cambiarEstado(par, function(error,data){
@@ -106,602 +107,608 @@ exports.aprobar = function(req,res,next) {
 	})
 }
 
+//DEVUELVE LOS DATOS DE UN LOGO
 exports.datosLogo =  function(req, res, next) {
-		//id del pedido
-		var par = [req.idCliente, req.params.id];
+	//id del pedido
+	var par = [req.idCliente, req.params.id];
 
-		logo.getLogo(par,function(error, data)
-		{
-		//si el pedido existe 
-
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				var logo = data[0];
-
-				atributo.ObtenerPorLogo(req.params.id, function(error, data){
-
-
-					//console.log(data)
-					if (typeof data !== 'undefined' && data.length > 0)
-					{
-						logo['atributos'] = data;
-
-						res.status(200).json(logo);
-					
-					}else{
-
-						res.status(200).json(logo);
-
-					}
-
-				})
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"})
-
-			}
-		});
-
-	}
-
-	exports.listaLogosPorEstado = function(req, res, next) {
-		
-		var par = [req.body.estado, req.idCliente]
-
-		logo.getLogosTipo(par,function(error, data)
-		{
-			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-
-
-				async.forEachOf(data, (logo, key, callback) => {
-
-
-					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
-
-						if (err) return callback(err);
-
-						try {
-
-							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
-							{
-								data[key]['atributos'] = dataAttrs;
-							}
-
-						} catch (e) {
-						    return callback(e);
-						}	
-
-						callback();						
-						
-					})
-
-				}, (err) => {
-					
-					if (err) res.status(402).json({});
-					
-					res.status(200).json(data);
-				
-				})
-
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No hay logos guardados por el cliente "})
-			}
-		});
-
-	}
-
-	exports.listaLogosPorAprobar = function(req, res, next) {
-
-		logo.getLogosPorAprobar(function(error, data)
-		{
-			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				async.forEachOf(data, (logo, key, callback) => {
-
-
-					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
-
-						if (err) return callback(err);
-
-						try {
-
-							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
-							{
-								data[key]['atributos'] = dataAttrs;
-
-							}
-
-						} catch (e) {
-						    return callback(e);
-						}	
-
-						callback();						
-						
-					})
-
-				}, (err) => {
-					
-					if (err) res.status(402).json({});
-					
-					res.status(200).json(data);
-				
-				})
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No hay logos guardados por el cliente"})
-			}
-		});
-
-	}
-
-	exports.listaLogosAprobados = function(req, res, next) {
-
-        var idLogo = req.body.idLogo ? req.body.idLogo : 0; 
-        
-		logo.getLogosAprobados(idLogo,function(error, data)
-		{
-			
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				async.forEachOf(data, (logo, key, callback) => {
-
-
-					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
-
-						if (err) return callback(err);
-
-						try {
-
-							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
-							{
-								data[key]['atributos'] = dataAttrs;
-
-							}
-
-						} catch (e) {
-						    return callback(e);
-						}	
-
-						callback();						
-						
-					})
-
-				}, (err) => {
-					
-					if (err) res.status(402).json({});
-					
-					res.status(200).json(data);
-				
-				})
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No hay logos aprobados"})
-			}
-		});
-
-	}
-
-	exports.listaLogosAprobadosDestacados = function(req, res, next) {
-
-		logo.getLogosAprobadosDestacados(function(error, data)
-		{
-			
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				async.forEachOf(data, (logo, key, callback) => {
-
-
-					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
-
-						if (err) return callback(err);
-
-						try {
-
-							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
-							{
-								data[key]['atributos'] = dataAttrs;
-
-							}
-
-						} catch (e) {
-						    return callback(e);
-						}	
-
-						callback();						
-						
-					})
-
-				}, (err) => {
-					
-					if (err) res.status(402).json({});
-					
-					res.status(200).json(data);
-				
-				})
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No hay logos destacados"})
-			}
-		});
-
-	}
-
-exports.listaLogosGuardados = function(req, res, next) {
-		
-		var par = ["Editable",req.idCliente]
-
-		logo.getLogosTipo(par,function(error, data)
-		{
-			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-
-
-				async.forEachOf(data, (logo, key, callback) => {
-
-
-					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
-
-						if (err) return callback(err);
-
-						try {
-
-							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
-							{
-								data[key]['atributos'] = dataAttrs;
-
-							}
-
-						} catch (e) {
-						    return callback(e);
-						}	
-
-						callback();						
-						
-					})
-
-				}, (err) => {
-					
-					if (err) res.status(402).json({});
-					
-					res.status(200).json(data);
-				
-				})
-
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No hay logos guardados por el cliente "})
-			}
-		});
-
-	}
-
-exports.listaLogosDescargables = function(req, res, next) {
-		
-		var par = ["Descargable",req.idCliente]
-
-		logo.getLogosTipo(par,function(error, data)
-		{
-			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				async.forEachOf(data, (logo, key, callback) => {
-
-
-					atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
-
-						if (err) return callback(err);
-
-						try {
-
-							if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
-							{
-								data[key]['atributos'] = dataAttrs;
-
-							}
-
-						} catch (e) {
-						    return callback(e);
-						}	
-
-						callback();						
-						
-					})
-
-				}, (err) => {
-					
-					if (err) res.status(402).json({});
-					
-					res.status(200).json(data);
-				
-				})
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No hay logos guardados por el cliente"})
-			}
-		});
-
-	}
-
-	exports.modificarLogo =  function(req,res)
+	logo.getLogo(par,function(error, data)
 	{
-		var par = [req.idCliente, req.body.idLogo]
-        var objetivos = ["principal","eslogan"]
+	//si el pedido existe 
 
-		logo.getLogo(par,function(error, data)
+		if (typeof data !== 'undefined' && data.length > 0)
 		{
-            //console.log(data)
-            
-		//si el logo existe 
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				//creamos un array con los datos a modificar del logo
-				var logoData = [req.body.logo, req.body.idLogo];
-					
-				logo.updateLogo(logoData,function(error, data)
+			var logo = data[0];
+
+			atributo.ObtenerPorLogo(req.params.id, function(error, data){
+
+
+				//console.log(data)
+				if (typeof data !== 'undefined' && data.length > 0)
 				{
-					//si el logo se ha modificado correctamente
-					if(data)
-					{
+					logo['atributos'] = data;
 
-						atributo.BorrarPorLogo(req.body.idLogo, objetivos, function(error, data) {
+					res.status(200).json(logo);
+				
+				}else{
 
+					res.status(200).json(logo);
 
-							var atributos = req.body.atributos;
+				}
 
+			})
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"})
 
-							for(var key in atributos){
-                               
-								if(objetivos.indexOf(key) != -1){
-									var atributosData = {
-										clave : key,
-										valor : atributos[key],
-										logos_idLogo: req.body.idLogo  
-									};
+		}
+	});
 
-									atributo.Guardar(atributosData, function(error, data) {
+}
 
-										if(!data && !data.insertId)
-										{
+//DEVULEVE LOGOS DE UN CLIENTE POR SU ESTADO
+exports.listaLogosPorEstado = function(req, res, next) {
+	
+	var par = [req.body.estado, req.idCliente]
 
-											res.status(500).json({"msg":"Algo ocurrio"})
-										
-										}
-
-									})
-								}
-
-							}
-
-						})						
- 
-
-						res.status(200).json(data);
-					}
-					else
-					{
-						res.status(500).json({"msg":"Algo ocurrio"})
-					}
-				});
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No existe"})
-			}
-		});
-	}
-
-
-	exports.zip = function(req,res, next)
+	logo.getLogosTipo(par,function(error, data)
 	{
-		var idLogo = req.body.idLogo;
-		var ancho = req.body.ancho;
-		var tipo = req.body.tipo;
-		var descarga = req.body.descarga;
-
-		var par = [req.idCliente, req.body.idLogo]
-
-		logo.getLogo(par,function(error, data)
+		//si el usuario existe 
+		if (typeof data !== 'undefined' && data.length > 0)
 		{
 
-			console.log(data)	
-			if (typeof data !== 'undefined' && data.length > 0)
-			{
-				var nombre = 'Logo'+'-' +descarga +'-' + moment().format("DD-MM-YYYY")+'.svg';
 
-				var path = 'public/tmp/';
+			async.forEachOf(data, (logo, key, callback) => {
 
-				atributo.ObtenerPorLogo(data[0].idLogo, function(err, dataAttrs){
-				
+
+				atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
 					if (err) return callback(err);
 
-					if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
-					{
+					try {
 
-						console.log(dataAttrs)	
-						var fuentes = {};
+						if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+						{
+							data[key]['atributos'] = dataAttrs;
+						}
 
-						async.forEachOf(dataAttrs, (row, key, callback) => {
-							console.log(row.clave)	
-							if(row.clave == "principal" || row.clave == "eslogan"){
+					} catch (e) {
+						return callback(e);
+					}	
 
-								elemento.datosElemento(row.valor, function(err, fuente){
-									
-									if (err) return callback(err);
-			
-									try {
-										
-										if (typeof fuente !== 'undefined' && fuente.length > 0)
-										{
-											console.log(fuente)
-											fuentes[row.llave].nombre = fuente.nombre;
-											fuentes[row.llave].url = fuente.url;
-										}
-			
-									} catch (e) {
-										return callback(e);
-									}	
-			
-									callback();						
-									
-								})
-
-							}
-		
-						}, (err) => {
-							
-							if (err) res.status(402).json({});
-
-							console.log(fuentes)
-						
-							//buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
-							//fuente = base64.decode(data[0].logo).split("@font-face")[1].split("</style>")[0].split("/fuentes/")[1].split("')")[0]
-							//console.log(fuente)
-							fs.open(path + nombre, 'w', function(err, fd) {
-								if (err) {
-									throw 'error al crear svg ' + err;
-								}
-
-								fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-									if (err) throw 'error al escribir ' + err;
-									else{
-											
-										var svg = path + nombre
-
-										if(tipo == "editable"){
-
-											var output = fs.createWriteStream(svg.replace("svg", "zip"));
-											var archive = archiver('zip', { zlib: { level: 9 } });
-
-											archive.pipe(output);
-
-											archive.append(fs.createReadStream(svg), { name: 'logo.svg' });
-											archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre });
-
-											if(fuentes.slogan){
-												archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.slogan.url), { name: fuentes.slogan.nombre });
-											}
-
-											archive.finalize();
-
-											setTimeout(function () {
-												res.json({zip:svg.replace("svg", "zip")})
-										
-											}, 5000); 				        		
-
-										}else{
-
-											var pngout = svg.replace("svg", "png");
-											fs.readFile(svg, (err, svgbuffer) => {
-												if (err) throw err;
-												svg2png(svgbuffer, { width: ancho})
-													.then(buffer => {fs.writeFile(pngout, buffer)
-														res.json({png:pngout})
-													})
-													.catch(e => console.error(e));
-											});
-
-										}
-									
-										setTimeout(function () {
-										//fs.unlink(salida)
-										
-										}, 10000); 
-									}
-									fs.close(fd)
-								});
-							});
-						
-						})
-
-					}
-
+					callback();						
+					
 				})
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"})
-			}
-		});	
-	}
 
+			}, (err) => {
+				
+				if (err) res.status(402).json({});
+				
+				res.status(200).json(data);
+			
+			})
 
-
-
-	exports.descargar = function(req, res, next) {
-		var idLogo = req.body.idLogo;
-		var ancho = req.body.ancho;
-		var par = [req.idCliente, req.body.idLogo];
-
-		logo.getLogo(par,function(error, data)
+		}
+	//no existe
+		else
 		{
-		//si el logo existe 
-			if (typeof data !== 'undefined' && data.length > 0)
+			res.status(404).json({"msg":"No hay logos guardados por el cliente "})
+		}
+	});
+
+}
+
+//DEVUELVE LOGOS POR APROBAR DE TODOS LOS CLIENTES
+exports.listaLogosPorAprobar = function(req, res, next) {
+
+	logo.getLogosPorAprobar(function(error, data)
+	{
+		//si el usuario existe 
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+						{
+							data[key]['atributos'] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}	
+
+					callback();						
+					
+				})
+
+			}, (err) => {
+				
+				if (err) res.status(402).json({});
+				
+				res.status(200).json(data);
+			
+			})
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No hay logos guardados por el cliente"})
+		}
+	});
+
+}
+
+//DEVUELVE LOGOS APROBADOS DE TODOS LOS CLIENTES
+exports.listaLogosAprobados = function(req, res, next) {
+
+	var idLogo = req.body.idLogo ? req.body.idLogo : 0; 
+	
+	logo.getLogosAprobados(idLogo,function(error, data)
+	{
+		
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+						{
+							data[key]['atributos'] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}	
+
+					callback();						
+					
+				})
+
+			}, (err) => {
+				
+				if (err) res.status(402).json({});
+				
+				res.status(200).json(data);
+			
+			})
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No hay logos aprobados"})
+		}
+	});
+
+}
+
+//DEVUELVE LOGOS APROBADOS DESTACADOS DE TODOS LOS CLIENTES
+exports.listaLogosAprobadosDestacados = function(req, res, next) {
+
+	logo.getLogosAprobadosDestacados(function(error, data)
+	{
+		
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+						{
+							data[key]['atributos'] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}	
+
+					callback();						
+					
+				})
+
+			}, (err) => {
+				
+				if (err) res.status(402).json({});
+				
+				res.status(200).json(data);
+			
+			})
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No hay logos destacados"})
+		}
+	});
+
+}
+
+//DEVUELVE LOS LOGOS GUARDADOS DE UN CLIENTE
+exports.listaLogosGuardados = function(req, res, next) {
+	
+	var par = ["Editable",req.idCliente]
+
+	logo.getLogosTipo(par,function(error, data)
+	{
+		//si el usuario existe 
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+
+
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+						{
+							data[key]['atributos'] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}	
+
+					callback();						
+					
+				})
+
+			}, (err) => {
+				
+				if (err) res.status(402).json({});
+				
+				res.status(200).json(data);
+			
+			})
+
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No hay logos guardados por el cliente "})
+		}
+	});
+
+}
+
+//DEVUELVE LOGOS DESCARGABLES OSEA COMPRADOS DE UN CLIENTE
+exports.listaLogosDescargables = function(req, res, next) {
+	
+	var par = ["Descargable",req.idCliente]
+
+	logo.getLogosTipo(par,function(error, data)
+	{
+		//si el usuario existe 
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+						{
+							data[key]['atributos'] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}	
+
+					callback();						
+					
+				})
+
+			}, (err) => {
+				
+				if (err) res.status(402).json({});
+				
+				res.status(200).json(data);
+			
+			})
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No hay logos guardados por el cliente"})
+		}
+	});
+
+}
+
+//MODIFICA UN LOGO
+exports.modificarLogo =  function(req,res)
+{
+	var par = [req.idCliente, req.body.idLogo]
+	var objetivos = ["principal","eslogan"]
+
+	logo.getLogo(par,function(error, data)
+	{
+		//console.log(data)
+		
+	//si el logo existe 
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+			//creamos un array con los datos a modificar del logo
+			var logoData = [req.body.logo, req.body.idLogo];
+				
+			logo.updateLogo(logoData,function(error, data)
 			{
-				var nombre = idLogo +'-' + moment().format("YYYY-MM-DD")+'-'+ancho+'.svg'
-				var path = 'public/tmp/'
-				buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
-				//console.log(base64.decode(data[0].logo));
+				//si el logo se ha modificado correctamente
+				if(data)
+				{
+
+					atributo.BorrarPorLogo(req.body.idLogo, objetivos, function(error, data) {
 
 
-				fs.open(path+nombre, 'w', function(err, fd) {
-				    if (err) {
-				        throw 'error al crear svg ' + err;
-				    }
+						var atributos = req.body.atributos;
 
-				    fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-				        if (err) throw 'error al escribir ' + err;
-				        else{
-				        	var img =  path + nombre
-							var salida =  path + nombre.replace("svg", "png");
-							fs.readFile(img, (err, svg) => {
-								if (err) throw err;
-								//console.log()
-								svg2png(svg, { width: ancho})
-								    .then(buffer => {fs.writeFile(salida, buffer)
-								    	res.json({svg:salida.replace('png','svg'),png:salida})
-								    })
-								    .catch(e => console.error(e));
-							});
+
+						for(var key in atributos){
 							
-							setTimeout(function () {
-						    //fs.unlink(salida)
-						    
-							}, 10000); 
-				        }
-				        fs.close(fd)
-				    });
+							if(objetivos.indexOf(key) != -1){
+								var atributosData = {
+									clave : key,
+									valor : atributos[key],
+									logos_idLogo: req.body.idLogo  
+								};
+
+								atributo.Guardar(atributosData, function(error, data) {
+
+									if(!data && !data.insertId)
+									{
+
+										res.status(500).json({"msg":"Algo ocurrio"})
+									
+									}
+
+								})
+							}
+
+						}
+
+					})						
+
+
+					res.status(200).json(data);
+				}
+				else
+				{
+					res.status(500).json({"msg":"Algo ocurrio"})
+				}
+			});
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No existe"})
+		}
+	});
+}
+
+//DESCARGA UN LOGO COMPRADO
+exports.zip = function(req,res, next)
+{
+	var idLogo = req.body.idLogo;
+	var ancho = req.body.ancho;
+	var tipo = req.body.tipo;
+	var descarga = req.body.descarga;
+
+	var par = [req.idCliente, req.body.idLogo]
+
+	logo.getLogo(par,function(error, data)
+	{
+
+		console.log(data)	
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+			var nombre = 'Logo'+'-' +descarga +'-' + moment().format("DD-MM-YYYY")+'.svg';
+
+			var path = 'public/tmp/';
+
+			atributo.ObtenerPorLogo(data[0].idLogo, function(err, dataAttrs){
+			
+				if (err) return callback(err);
+
+				if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
+				{
+
+					console.log(dataAttrs)	
+					var fuentes = {};
+
+					async.forEachOf(dataAttrs, (row, key, callback) => {
+						console.log(row.clave)	
+						if(row.clave == "principal" || row.clave == "eslogan"){
+
+							elemento.datosElemento(row.valor, function(err, fuente){
+								
+								if (err) return callback(err);
+		
+								try {
+									
+									if (typeof fuente !== 'undefined' && fuente.length > 0)
+									{
+										console.log(fuente)
+										fuentes[row.llave].nombre = fuente.nombre;
+										fuentes[row.llave].url = fuente.url;
+									}
+		
+								} catch (e) {
+									return callback(e);
+								}	
+		
+								callback();						
+								
+							})
+
+						}
+	
+					}, (err) => {
+						
+						if (err) res.status(402).json({});
+
+						console.log(fuentes)
+					
+						//buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
+						//fuente = base64.decode(data[0].logo).split("@font-face")[1].split("</style>")[0].split("/fuentes/")[1].split("')")[0]
+						//console.log(fuente)
+						fs.open(path + nombre, 'w', function(err, fd) {
+							if (err) {
+								throw 'error al crear svg ' + err;
+							}
+
+							fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+								if (err) throw 'error al escribir ' + err;
+								else{
+										
+									var svg = path + nombre
+
+									if(tipo == "editable"){
+
+										var output = fs.createWriteStream(svg.replace("svg", "zip"));
+										var archive = archiver('zip', { zlib: { level: 9 } });
+
+										archive.pipe(output);
+
+										archive.append(fs.createReadStream(svg), { name: 'logo.svg' });
+										archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre });
+
+										if(fuentes.slogan){
+											archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.slogan.url), { name: fuentes.slogan.nombre });
+										}
+
+										archive.finalize();
+
+										setTimeout(function () {
+											res.json({zip:svg.replace("svg", "zip")})
+									
+										}, 5000); 				        		
+
+									}else{
+
+										var pngout = svg.replace("svg", "png");
+										fs.readFile(svg, (err, svgbuffer) => {
+											if (err) throw err;
+											svg2png(svgbuffer, { width: ancho})
+												.then(buffer => {fs.writeFile(pngout, buffer)
+													res.json({png:pngout})
+												})
+												.catch(e => console.error(e));
+										});
+
+									}
+								
+									setTimeout(function () {
+									//fs.unlink(salida)
+									
+									}, 10000); 
+								}
+								fs.close(fd)
+							});
+						});
+					
+					})
+
+				}
+
+			})
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"})
+		}
+	});	
+}
+
+//DEPRECATED
+exports.descargar = function(req, res, next) {
+	var idLogo = req.body.idLogo;
+	var ancho = req.body.ancho;
+	var par = [req.idCliente, req.body.idLogo];
+
+	logo.getLogo(par,function(error, data)
+	{
+	//si el logo existe 
+		if (typeof data !== 'undefined' && data.length > 0)
+		{
+			var nombre = idLogo +'-' + moment().format("YYYY-MM-DD")+'-'+ancho+'.svg'
+			var path = 'public/tmp/'
+			buffer = new Buffer(base64.decode(data[0].logo).replace('/fuentes/',req.protocol + "://" + req.headers.host+'/fuentes/'));
+			//console.log(base64.decode(data[0].logo));
+
+
+			fs.open(path+nombre, 'w', function(err, fd) {
+				if (err) {
+					throw 'error al crear svg ' + err;
+				}
+
+				fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+					if (err) throw 'error al escribir ' + err;
+					else{
+						var img =  path + nombre
+						var salida =  path + nombre.replace("svg", "png");
+						fs.readFile(img, (err, svg) => {
+							if (err) throw err;
+							//console.log()
+							svg2png(svg, { width: ancho})
+								.then(buffer => {fs.writeFile(salida, buffer)
+									res.json({svg:salida.replace('png','svg'),png:salida})
+								})
+								.catch(e => console.error(e));
+						});
+						
+						setTimeout(function () {
+						//fs.unlink(salida)
+						
+						}, 10000); 
+					}
+					fs.close(fd)
 				});
-			}
-		//no existe
-			else
-			{
-				res.status(404).json({"msg":"No existe"})
-			}
-		});
-	}
+			});
+		}
+	//no existe
+		else
+		{
+			res.status(404).json({"msg":"No existe"})
+		}
+	});
+}
 
-
+//BORRA UN LOGO
 exports.Borrar = (req, res, next) =>
 {
 	var idLogo = req.params.id;

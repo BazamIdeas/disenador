@@ -44,7 +44,108 @@ exports.listaClientes = function(req, res) {
 }
 
 exports.listaClientesFreelancer = function(req, res) 
-{    
+{   
+
+    cliente.getClientes(function(error, clientes) {
+         
+        if (typeof clientes !== 'undefined' && clientes.length > 0) {
+            
+            async.forEachOf(clientes, (cliente, key, callback) => {
+
+                var pagado = 0;
+                var vendido = 0;
+                var par = { estado: "Vendido", clientes_idCliente: cliente.idCliente };
+
+                async.series({
+
+                    pagado: function(callback) {
+                        pago.ObtenerPorCliente(cliente.idCliente,function(error,data){
+                    
+                            if(typeof data !== 'undefined' && data.length){
+
+                                for(var key in data){
+
+                                    pagado = pagado + data[key].monto;
+
+                                }
+
+                            }
+
+                            callback(null, pagado);
+
+                        });
+                    },
+                    
+                    vendido: function(callback) {
+                        logos.getLogosTipo(par, function(error,data){
+
+                            if(typeof data !== 'undefined' && data.length){
+
+                                for(var key in data){
+                                
+                                    atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
+                                            
+                                        if (typeof data !== 'undefined' && data.length > 0){
+
+                                            for(var key in data){
+                                                    
+                                                if(data[key].clave == "calificacion-admin" && data[key].clave == "calificacion-cliente"){
+                                                    
+                                                    var cal = data[key].clave == "calificacion-admin" ? "moderador" : "cliente"; 
+                                                    vendido = vendido + configuracion.freelancer[cal][data[key].valor]
+                                            
+                                                }
+
+                                            }
+
+                                        }
+
+                                    });
+                                }
+
+                            }
+
+                            callback(null, vendido);
+
+                        });
+                    }
+                    
+                }, function(err, results) {
+                    
+                    if (err) res.status(500).json({msg: "Algo ocurrio"});
+
+                    var data = {
+                        pagado: results.pagado,
+                        vendido: results.vendido,
+                        deuda: results.pagado - results.vendido
+                    }
+
+                    clientes[key].deuda = data;
+
+                    callback()
+                });
+
+                
+
+            }, (err) => {
+
+                if (err) res.status(500).json({msg: "Algo ocurrio"});
+
+                res.status(200).json(clientes);
+
+            });
+
+        }else {
+         
+            res.status(404).json({ "msg": "No hay clientes registrados" })
+        
+        }
+    });
+
+}
+
+
+
     cliente.getClientes(function(error, clientes) {
          
         if (typeof clientes !== 'undefined' && clientes.length > 0) {
