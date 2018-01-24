@@ -54,6 +54,10 @@
     margin: auto;
 }
 
+.pedido-logo.lista {
+    width: 80%;
+}
+
 .margen_inferior {
     margin-bottom: var(--margin-bottom);
 }
@@ -382,6 +386,8 @@ md-icon {
     letter-spacing: 2px;
     text-align: center;
     width: 100%;
+    text-transform: uppercase;
+
 }
 
 .paneles.individual {
