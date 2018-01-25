@@ -1,4 +1,6 @@
 var atributo = require('../modelos/atributosModelo.js');
+var async    = require("async");
+
 
 exports.Nuevo = function(req, res, next)
 {

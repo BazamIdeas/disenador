@@ -3,6 +3,8 @@ var facturacion = require('../modelos/facturacionesModelo.js');
 var services = require('../services');
 var fs = require('fs');
 var crypto = require('crypto');
+var async    = require("async");
+
 
 exports.login = function(req, res, next) 
 {
