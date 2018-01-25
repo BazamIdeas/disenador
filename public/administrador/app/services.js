@@ -808,7 +808,7 @@ angular.module("administrador")
 
     /* SERVICIO PARA DISEÑADORES */
 
-    .service('administrarService', ['$http', '$q', function ($http, $q) {
+    .service('designerService', ['$http', '$q', function ($http, $q) {
 
         /***************************/
         /**********LOGOS***********/
@@ -818,7 +818,10 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/planes/').then(function (res) {
+                estado: 'Por Aprobar'
+            }
+
+            $http.post('/app/logos/por-aprobar', datos).then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -830,19 +833,22 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/plan/precios/' + id).then(function (res) {
+            datos = {idLogo : id}
+            
+            $http.post('/app/logo/aprobar', datos).then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
             })
             return promise;
+
         }
 
         this.borrarLogo = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/plan/precios/' + id).then(function (res) {
+            $http.get('/app/logo/borrar/' + id).then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
@@ -854,7 +860,8 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/plan', datos).then(function (res) {
+            // idLogo, valor
+
 
                 defered.resolve(res);
 
@@ -872,7 +879,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/planes/').then(function (res) {
+            $http.get('/app/clientes/freelancer').then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -896,7 +903,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/planes/').then(function (res) {
+            $http.get('/app/cliente/saldo').then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);

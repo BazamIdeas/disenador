@@ -1,6 +1,7 @@
 .DS_*
 node_modules
 
+vscode
 public/assets/icons/
 poiinonbkjn.png
 tmp/

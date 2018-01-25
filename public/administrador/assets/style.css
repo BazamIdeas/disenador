@@ -302,7 +302,7 @@ md-icon {
 /* SCROLL */
 
 .content-scroll {
-    overflow-x: auto;
+    overflow-x: scroll;
     max-height: 50%;
     padding: 5px 8px 0px 8px;
 }
