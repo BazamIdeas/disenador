@@ -129,6 +129,8 @@ router.post('/plan', /*middleware.validarAdministrador,*/ controllers.planes.Nue
 router.post('/plan/bloquear', /*middleware.validarAdministrador,*/ controllers.planes.Bloquear);
 router.post('/plan/modificar', /*middleware.validarAdministrador,*/ controllers.planes.Modificar);
 
+
+
 //MODULO DE PRECIOS
 router.post('/precio', /*middleware.validarAdministrador,*/ controllers.precios.Nuevo); // inserta nuevos precio para un plan seleccionado
 router.post('/precio/modificar', /*middleware.validarAdministrador,*/ controllers.precios.Modificar);

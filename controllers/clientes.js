@@ -97,15 +97,12 @@ exports.listaClientesFreelancer = function(req, res)
 
                                             }
 
-                                        }
+                                            callback(null, vendido);
 
+                                        }
                                     });
                                 }
-
                             }
-
-                            callback(null, vendido);
-
                         });
                     }
                     
