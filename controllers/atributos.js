@@ -40,25 +40,80 @@ exports.CalificarAdministrador = function(req, res, next) {
 }
 
 exports.CalificarCliente = function(req, res, next) {
-    var atributosData = {
-        clave : 'calificacion-cliente',
-        valor : req.body.valor,
-        logos_idLogo: req.body.idLogo  
-    };
 
-    atributo.ObtenerPorClave(atributosData.clave, atributosData.logos_idLogo, function(error, data) {
+
+    async.series({
+
+        calificacion: function(callback) {
+            
+            var atributosData = {
+                clave : 'calificacion-cliente',
+                valor : req.body.calificacion,
+                logos_idLogo: req.body.idLogo  
+            };
         
-        //console.log(data)
-        if(data && !data.length){
-            atributo.Guardar(atributosData, function(error, data) {
-                if(!data && !data.insertId){
-                    res.status(500).json({"msg":"Algo ocurrio"})
+            atributo.ObtenerPorClave(atributosData.clave, atributosData.logos_idLogo, function(error, data) {
+                
+                //console.log(data)
+                if(data && !data.length){
+
+                    atributo.Guardar(atributosData, function(error, data) {
+                        if(!data && !data.insertId){
+                            callback({500:"Algo ocurrio"})
+                        }else{
+                            callback(null,data.insertId)
+                        }
+                    })
+
                 }else{
-                    res.status(200).json(data)
+
+                    callback({418:"Ya existe la calificacion"})
+                
                 }
-            })
-        }else{
-            res.status(418).json({"msg":"Ya existe la calificacion"})
-        }
+            });
+
+        },
+        
+        comentario: function(callback) {
+
+            var atributosComentario = {
+                clave : 'comentario',
+                valor : req.body.comentario,
+                logos_idLogo: req.body.idLogo  
+            };
+        
+            atributo.ObtenerPorClave(atributosComentario.clave, atributosComentario.logos_idLogo, function(error, data) {
+                
+                //console.log(data)
+                if(data && !data.length){
+
+                    atributo.Guardar(atributosComentario, function(error, data) {
+                        if(!data && !data.insertId){
+                            callback({500:"Algo ocurrio"})
+                        }else{
+                            callback(null,data.insertId)
+                        }
+                    })
+
+                }else{
+
+                    callback({418:"Ya existe el comentario"})
+                
+                }
+            });
+
+        },
+
+        
+        
+    }, function(err, results) {
+        
+        if (err) res.status(Object.keys(err)[0]).json(err[0]);
+
+        res.status(200).json(results.calificacion)
     });
+
+
+
+
 }

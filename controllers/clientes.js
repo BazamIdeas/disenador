@@ -53,7 +53,13 @@ exports.listaClientesFreelancer = function(req, res)
 
                 var pagado = 0;
                 var vendido = 0;
-                var par = { estado: "Vendido", clientes_idCliente: cliente.idCliente };
+
+                var logosVendidos = 0;
+                var logosPorAprobar = 0;
+                var logosAprobados = 0;
+
+
+                var par = { clientes_idCliente: cliente.idCliente };
 
                 async.series({
 
@@ -76,6 +82,8 @@ exports.listaClientesFreelancer = function(req, res)
                     },
                     
                     vendido: function(callback) {
+
+                        par.estado = "Vendido";
                         logos.getLogosTipo(par, function(error,data){
 
                             if(typeof data !== 'undefined' && data.length){
@@ -85,6 +93,8 @@ exports.listaClientesFreelancer = function(req, res)
                                     atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
                                             
                                         if (typeof data !== 'undefined' && data.length > 0){
+
+                                            logosVendidos = data.length;
 
                                             for(var key in data){
                                                     
@@ -97,7 +107,56 @@ exports.listaClientesFreelancer = function(req, res)
 
                                             }
 
-                                            callback(null, vendido);
+                                            callback(null, [vendido,logosVendidos]);
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    },
+
+                    publicado: function(callback) {
+
+                        par.estado = "Por Aprobar";
+                        logos.getLogosTipo(par, function(error,data){
+
+                            if(typeof data !== 'undefined' && data.length){
+
+                                for(var key in data){
+                                
+                                    atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
+                                            
+                                        if (typeof data !== 'undefined' && data.length > 0){
+
+                                            logosPorAprobar = data.length;
+
+                                            callback(null, logosPorAprobar);
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }, 
+    
+                    
+                    aprobado: function(callback) {
+
+                        par.estado = "Aprobado";
+                        logos.getLogosTipo(par, function(error,data){
+
+                            if(typeof data !== 'undefined' && data.length){
+
+                                for(var key in data){
+                                
+                                    atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
+                                            
+                                        if (typeof data !== 'undefined' && data.length > 0){
+
+                                            logosAprobados = data.length;
+
+                                            callback(null, logosAprobados);
 
                                         }
                                     });
@@ -105,18 +164,21 @@ exports.listaClientesFreelancer = function(req, res)
                             }
                         });
                     }
-                    
+
                 }, function(err, results) {
                     
                     if (err) res.status(500).json({msg: "Algo ocurrio"});
 
                     var data = {
                         pagado: results.pagado,
-                        vendido: results.vendido,
+                        vendido: results.vendido[0],
                         deuda: results.pagado - results.vendido
                     }
 
                     clientes[key].deuda = data;
+                    clientes[key].logosAprobados = results.aprobado;
+                    clientes[key].logosPorAprobar = results.publicado;
+                    clientes[key].logosVendidos = results.vendido[0];
 
                     callback()
                 });
