@@ -3,6 +3,11 @@ var facturacion = require('../modelos/facturacionesModelo.js');
 var services = require('../services');
 var fs = require('fs');
 var crypto = require('crypto');
+var pago = require('../modelos/pagosModelo.js');
+var logos = require('../modelos/logosModelo.js');
+var atributo = require('../modelos/atributosModelo.js');
+var async = require('async');
+
 
 exports.login = function(req, res, next) 
 {
@@ -59,7 +64,7 @@ exports.listaClientesFreelancer = function(req, res)
                 var logosAprobados = 0;
 
 
-                var par = { clientes_idCliente: cliente.idCliente };
+                var par = ["", cliente.idCliente];
 
                 async.series({
 
@@ -83,7 +88,8 @@ exports.listaClientesFreelancer = function(req, res)
                     
                     vendido: function(callback) {
 
-                        par.estado = "Vendido";
+                        par[0] = "Vendido";
+                        console.log(par)
                         logos.getLogosTipo(par, function(error,data){
 
                             if(typeof data !== 'undefined' && data.length){
@@ -112,13 +118,17 @@ exports.listaClientesFreelancer = function(req, res)
                                         }
                                     });
                                 }
+                            }else{
+
+                                callback(null,  [vendido,logosVendidos])
                             }
                         });
                     },
 
                     publicado: function(callback) {
 
-                        par.estado = "Por Aprobar";
+                        par[0] = "Por Aprobar";
+                        console.log(par)
                         logos.getLogosTipo(par, function(error,data){
 
                             if(typeof data !== 'undefined' && data.length){
@@ -136,6 +146,9 @@ exports.listaClientesFreelancer = function(req, res)
                                         }
                                     });
                                 }
+                            }else{
+
+                                callback(null, logosPorAprobar)
                             }
                         });
                     }, 
@@ -143,7 +156,8 @@ exports.listaClientesFreelancer = function(req, res)
                     
                     aprobado: function(callback) {
 
-                        par.estado = "Aprobado";
+                        par[0] = "Aprobado";
+                        console.log(par)
                         logos.getLogosTipo(par, function(error,data){
 
                             if(typeof data !== 'undefined' && data.length){
@@ -161,6 +175,8 @@ exports.listaClientesFreelancer = function(req, res)
                                         }
                                     });
                                 }
+                            }else{
+                                callback(null, logosAprobados)
                             }
                         });
                     }
@@ -172,7 +188,7 @@ exports.listaClientesFreelancer = function(req, res)
                     var data = {
                         pagado: results.pagado,
                         vendido: results.vendido[0],
-                        deuda: results.pagado - results.vendido
+                        deuda: results.pagado - results.vendido[0]
                     }
 
                     clientes[key].deuda = data;

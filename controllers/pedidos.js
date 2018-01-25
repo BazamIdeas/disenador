@@ -195,7 +195,7 @@ exports.nuevoPedido = function (req, res) {
 													if(req.body.atributos.padre){
 														datosPago.padre = req.body.atributos.padre; 
 													}
-													console.log(req.body);
+													//console.log(req.body);
 													services.pagoServices.paypal(datosPago, function (error, data) {
 														res.json(data.link)
 														//console.log(data.link)
@@ -306,7 +306,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 												datosPago.padre = req.body.atributos.padre; 
 											}
 
-											console.log(req.body);
+											//console.log(req.body);
 
 											services.pagoServices.paypal(datosPago, function (error, data) {
 												res.json(data.link)
