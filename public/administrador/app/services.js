@@ -806,6 +806,140 @@ angular.module("administrador")
 
     }])
 
+    /* SERVICIO PARA DISEÑADORES */
+
+    .service('administrarService', ['$http', '$q', function ($http, $q) {
+
+        /***************************/
+        /**********LOGOS***********/
+        /***************************/
+
+        this.listarLogos = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/planes/').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.aprobarLogo = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/plan/precios/' + id).then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.borrarLogo = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/plan/precios/' + id).then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.calificarLogo = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/plan', datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+            return promise;
+        }
+
+        /* DISENADORES */
+
+        this.listarDisenadores = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/planes/').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.logosDisenador = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/planes/').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.historialDisenador = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/planes/').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+
+        this.notificarPago = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/precio', datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+            return promise;
+        }
+
+        this.bloquearDisenador = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/plan/modificar', datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+        }
+
+    }])
+
     /* NOTIFICACION */
 
     .service('notificacionService', ['$http', '$q', '$mdToast', function ($http, $q, $mdToast) {
@@ -813,7 +947,6 @@ angular.module("administrador")
             $mdToast.show($mdToast.simple().textContent(mensaje).position('top right').hideDelay(3000));
         }
     }])
-
 
     .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
@@ -1204,7 +1337,7 @@ angular.module("administrador")
 
     }])
 
-        .filter('unique', function () {
+    .filter('unique', function () {
 
         return function (items, filterOn) {
 
@@ -1243,6 +1376,7 @@ angular.module("administrador")
             return items;
         };
     })
+
     .value("monedasValue", {
         "USD": {
             "symbol": "$",

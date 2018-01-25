@@ -107,6 +107,12 @@
 
 .titulo-modulo {
     text-align: center;
+      position: relative;
+}
+
+.titulo-modulo button {
+    position: absolute;
+    right:3%;
 }
 
 
@@ -229,6 +235,7 @@ md-icon {
 
 .listar .elemento.inside{
     margin-bottom: 0px;
+    margin-top: 8px;
 }
 
 .listar .elemento.nopadding {
@@ -237,6 +244,10 @@ md-icon {
 
 .content-scroll .elemento {
     border-radius: 5px;
+}
+.calificacion p,
+.calificacion md-input-container {
+    margin: 0;
 }
 
 

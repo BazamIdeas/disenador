@@ -23,7 +23,7 @@ angular.module("administrador")
         bz.listarLogos = function (v) {
             bz.listaL = !bz.listaL;
             /*
-            administrarService.logos().then(function (res) {
+            designerService.logos().then(function (res) {
 
             }).catch(function (res) {
                 notificacionService.mensaje(res.data.msg);
@@ -31,7 +31,33 @@ angular.module("administrador")
             */
         }
 
+        bz.aprobarLogo = function (i) {
+            bz.cal = !bz.cal;
+            bz.modfire = i;
 
+
+            designerService.aprobarLogo(datos).then(function (res) {
+
+            }).catch(function (res) {
+                notificacionService.mensaje(res.data.msg);
+            })
+        }
+
+        bz.ponerCalificacion = function (i) {
+            bz.cal2 = !bz.cal2;
+            bz.cal = !bz.cal;
+            notificacionService.mensaje('Calificacion Modificada!');
+        }
+
+        bz.verLogo = function(logo){
+            if(bz.vista == 3){
+                bz.vista = 0;
+            }else{
+                bz.vista = 3;
+            }
+
+            bz.logoVisualizar = logo;
+        }
 
         /***************************/
         /********DISEÑADORES********/
@@ -39,7 +65,36 @@ angular.module("administrador")
 
         bz.listarDisenadores = function (v) {
             bz.listaD = !bz.listaD;
-            administrarService.logos().then(function (res) {
+            designerService.logos(datos).then(function (res) {
+
+            }).catch(function (res) {
+                notificacionService.mensaje(res.data.msg);
+            })
+        }
+
+        bz.logosDisenador = function (id) {
+            bz.listaL = !bz.listaL;
+
+            designerService.logosDisenador(id).then(function (res) {
+
+            }).catch(function (res) {
+                notificacionService.mensaje(res.data.msg);
+            })
+
+        }
+
+        bz.bloquearDisenador = function (id, ) {
+            bz.listaD = !bz.listaD;
+            designerService.bloquearDisenador().then(function (res) {
+
+            }).catch(function (res) {
+                notificacionService.mensaje(res.data.msg);
+            })
+        }
+
+        bz.notificarDisenador = function (id) {
+            bz.listaD = !bz.listaD;
+            designerService.notificarDisenador().then(function (res) {
 
             }).catch(function (res) {
                 notificacionService.mensaje(res.data.msg);
@@ -47,16 +102,27 @@ angular.module("administrador")
         }
 
 
-        bz.mostrar = function(opcion, index, nombreDesigner){
-            if(opcion == 'logos-designer'){
+        bz.mostrar = function (opcion, index, nombreDesigner) {
+            if (opcion == 'logos-designer') {
                 bz.vista = 1;
                 bz.nombreDesigner = nombreDesigner;
-            }else if (opcion == 'historial') {
+            } else if (opcion == 'historial') {
                 bz.vista = 2;
                 bz.nombreDesigner = nombreDesigner;
+
+                designerService.historialPagos(id).then(function (res) {
+
+                }).catch(function (res) {
+                    notificacionService.mensaje(res.data.msg);
+                })
+
+            } else if (opcion == 'calificacion-aprobados') {
+                bz.cal2 = !bz.cal2;
+                bz.modfire = 1;
             }
         }
 
+        /* UTILIDADES */
 
         bz.modFun = function (i) {
             bz.modfire = 1;
