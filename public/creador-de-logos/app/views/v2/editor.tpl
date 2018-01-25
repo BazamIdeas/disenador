@@ -275,40 +275,61 @@
 				    		<i class="material-icons cerrar">clear</i>
 				    	</div>	
 						<div class="row padding-bottom-0 margin-bottom-0">
-				    		<div class="col s6">
+				    		<div class="col s6" style="padding:0">
 				    			
 				    			<div style="position: relative;">
-				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    				<div style="width: 25%;position: absolute;left: calc(47% - 18%);top: 24%;transform: rotate(52deg);">
 				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
 				    				</div>
-                                	<img src="assets/images/ipad.png" width="100%">
+									<div style="width: 20%;position: absolute;left: calc(79% - 18%);top: 65%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/mockups/hoja.jpg" width="100%">
 				    			</div>
 				    		</div>
-				    		<div class="col s6">
+				    		<div class="col s6" style="padding:0">
 				    			
 				    			<div style="position: relative;">
-				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    				<div style="width: 30.5%;position: absolute;left: calc(54% - 18%);top: 15%;background-color: white;">
 				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
 				    				</div>
-                                	<img src="assets/images/ipad.png" width="100%">
+                                	<img src="assets/images/mockups/envase.jpg" width="100%">
 				    			</div>
 				    		</div>
-				    		<div class="col s6">
+							<div class="col s6" style="padding:0">
 				    			
 				    			<div style="position: relative;">
-				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
+				    				<div style="width: 42%;position: absolute;left: calc(46% - 18%);top: 41%;transform: rotate(88deg);">
 				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
 				    				</div>
-                                	<img src="assets/images/ipad.png" width="100%">
+                                	<img src="assets/images/mockups/etiqueta.jpg" width="100%">
 				    			</div>
 				    		</div>
-				    		<div class="col s6">
+				    		<div class="col s6" style="padding:0">
 				    			
 				    			<div style="position: relative;">
 				    				<div style="width: 36%; position: absolute;position: absolute;left: calc(50% - 18%);top: 25%;">
 				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
 				    				</div>
-                                	<img src="assets/images/ipad.png" width="100%">
+                                	<img src="assets/images/mockups/camiseta.jpg" width="100%">
+				    			</div>
+							</div>
+				    		<div class="col s6" style="padding:0">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 43%;position: absolute;left: calc(52% - 18%);top: 34%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/mockups/taza.jpg" width="100%">
+				    			</div>
+							</div>
+							<div class="col s6" style="padding:0">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 20%;position: absolute;left: calc(80% - 18%);top: 35%;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/mockups/vehiculo.jpg" width="100%">
 				    			</div>
 				    		</div>
 				    	</div>				    						
