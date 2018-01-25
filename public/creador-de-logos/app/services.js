@@ -392,14 +392,16 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-        
-        this.listarIniciales = function(inicial){
-            
+
+        this.listarIniciales = function (inicial) {
+
             var defered = $q.defer();
 
             var promise = defered.promise;
 
-            $http.post("/app/elementos/iniciales", {inicial: inicial}).then(function (res) {
+            $http.post("/app/elementos/iniciales", {
+                inicial: inicial
+            }).then(function (res) {
 
                 defered.resolve(res.data);
 
@@ -410,7 +412,7 @@ angular.module("disenador-de-logos")
             })
 
             return promise;
-            
+
         }
 
     }])
@@ -468,7 +470,7 @@ angular.module("disenador-de-logos")
 
 
         this.pagar = {
-            paypal: function (idElemento, idFuente, idFuenteEslogan, logo, idPrecio, tipoLogo, idPasarela) {
+            paypal: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela) {
 
 
                 var defered = $q.defer();
@@ -481,17 +483,8 @@ angular.module("disenador-de-logos")
                     idPrecio: idPrecio,
                     tipoLogo: tipoLogo,
                     idPasarela: idPasarela,
-                    atributos: {
-                        principal: idFuente
-                    }
+                    atributos: atributos
                 }
-                
-                if(idFuenteEslogan){
-                   datos.atributos.eslogan =  idFuenteEslogan;
-                    
-                }
-
-
 
                 $http.post("/app/pedido", datos).then(function (res) {
 
@@ -848,7 +841,32 @@ angular.module("disenador-de-logos")
 
     .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
 
-        this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId) {
+        this.calificar = function (idLogo, calificacion) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            var datos = {
+                valor: calificacion,
+                idLogo: idLogo
+            }
+
+            $http.post("/app/logo/calificar-cliente", datos).then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+
+        }
+
+        this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId, logoPadreId) {
 
             var defered = $q.defer();
 
@@ -862,9 +880,14 @@ angular.module("disenador-de-logos")
                     principal: fuentePrincipalId
                 }
             }
-            
-            if(fuenteEsloganId){
-                datos.atributos.eslogan = fuenteEsloganId; 
+
+            if (fuenteEsloganId) {
+                datos.atributos.eslogan = fuenteEsloganId;
+            }
+
+            if (logoPadreId) {
+                datos.atributos.padre = logoPadreId
+
             }
 
             $http.post("/app/logo/guardar", datos).then(function (res) {
@@ -880,7 +903,7 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-        
+
         this.modificarLogo = function (logo, idlogo, fuentePrincipalId, fuenteEsloganId) {
 
             var defered = $q.defer();
@@ -894,9 +917,9 @@ angular.module("disenador-de-logos")
                     principal: fuentePrincipalId
                 }
             }
-            
-            if(fuenteEsloganId){
-                datos.atributos.eslogan = fuenteEsloganId; 
+
+            if (fuenteEsloganId) {
+                datos.atributos.eslogan = fuenteEsloganId;
             }
 
             $http.post("/app/logo/modificar", datos).then(function (res) {
@@ -946,6 +969,54 @@ angular.module("disenador-de-logos")
             }).catch(function (res) {
 
                 defered.reject();
+
+            })
+
+            return promise;
+
+        }
+
+        this.mostrarAprobados = function (idLogo) {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            var datos = {};
+
+            if (idLogo) {
+
+                datos.idLogo = idLogo
+            }
+
+            $http.post("/app/logos/aprobados", datos).then(function (res) {
+             
+                defered.resolve(res.data);
+
+
+            }).catch(function (res) {
+    
+                defered.reject(res);
+
+            })
+
+            return promise;
+
+        }
+
+        this.mostrarDestacados = function () {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.post("/app/logos/aprobados/destacados").then(function (res) {
+                console.log(res)
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
 
             })
 
@@ -1089,12 +1160,11 @@ angular.module("disenador-de-logos")
 
             responseError: function (response) {
 
-
                 if (response.status === 401 || response.status === 403) {
                     salir();
 
-
                 }
+                return $q.reject(response);
 
             }
         };

@@ -9,7 +9,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
-    <link href="/angular-colorpicker-directive/js/color-picker.css" rel="stylesheet">
+    <link href="/angular-colorpicker-directive/css/color-picker.css" rel="stylesheet">
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">-->
 
     <!---jQuery --->
@@ -38,8 +38,8 @@
     <script src="/assets/js/scrollbars.js"></script>
     <script src="/assets/js/jquery.scrollbar.js"></script>
     <script src="/angular-base64/angular-base64.min.js"></script>
-    <!--<script src="/angular-social/angular-socialshare.js"></script>
-    <script src="/angular-sweetalert/SweetAlert.min.js"></script>
+    <script src="/angular-social/angular-socialshare.js"></script>
+    <!--<script src="/angular-sweetalert/SweetAlert.min.js"></script>
     <script src="/sweetalert/sweet-alert.min.js"></script>
     <script src="/save-svg-as-png/saveSvgAsPng.js"></script>-->
 
@@ -115,7 +115,7 @@
             <ul class="links" ng-switch-default>
                 <li ng-click="nav.clickLink('principal.comenzar')"> <i class="material-icons">add_circle_outline</i> <span>Crear logo</span> </li>
                 <li ng-click="nav.clickLink('logos')"> <i class="material-icons">favorite</i> <span>Mis logos</span> </li>
-                <li ng-click="nav.clickLink('cuenta')"> <i class="material-icons">account_circle</i> <span>Mi cuenta</span> </li>
+                <li ng-click="nav.clickLink('cuenta')"> <i class="material-icons">account_circle</i> <span> {{nav.autorizado.nombre}}</span> </li>
                 <li ng-click="nav.salir()"> <i class="material-icons">exit_to_app</i> <span>Cerrar sesion</span> </li>
             </ul>
         </div>
@@ -132,6 +132,8 @@
         <div class="gif"></div>
         <div>Cargando...</div>
     </div>
+
+    <bazam-redireccionar></bazam-redireccionar>
     
     <script type="text/ng-template" id="toast-success-logo-save.html">
         <md-toast class="success">
@@ -189,6 +191,41 @@
         </md-toast>
     </script>
     
+    <script type="text/ng-template" id="toast-success-logo-delete.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>El logo fue borrado exitosamente!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-danger-logo-delete.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-success-cuenta-modify.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>La datos fueron actualizados!</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
+    <script type="text/ng-template" id="toast-danger-cuenta-modify.html">
+        <md-toast class="success">
+            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
 
 </body>
 

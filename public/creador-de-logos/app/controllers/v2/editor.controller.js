@@ -19,7 +19,7 @@ angular.module("disenador-de-logos")
 
         bz.logo = historicoResolve.logo;
 
-        if (!historicoResolve.idLogoGuardado) { //si no es un logo guardado
+        if (!historicoResolve.idLogoGuardado && !historicoResolve.idLogoPadre) { //si no es un logo guardado
 
             bz.logo.texto = historicoResolve.texto;
             bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
@@ -37,6 +37,11 @@ angular.module("disenador-de-logos")
                 };
             }*/
             bz.logo.idLogo = historicoResolve.idLogoGuardado;
+
+        } else if (historicoResolve.idLogoPadre) {
+
+            bz.idLogoPadre = historicoResolve.idLogoPadre;
+
         }
 
         /* CATEGORIAS EXISTENTES */
@@ -57,33 +62,32 @@ angular.module("disenador-de-logos")
         elementosService.listarFuentes().then(function (res) {
 
             bz.fuentes = res;
+            
+            if (historicoResolve.idLogoGuardado || historicoResolve.idLogoPadre) { // si es un logo previamente guardado
 
-            if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
-                
                 angular.forEach(bz.fuentes, function (valor, llave) {
 
-                    if(valor.idElemento == historicoResolve.fuentes.principal){
-                        
+                    if (valor.idElemento == historicoResolve.fuentes.principal) {
+
                         bz.logo.fuente = {
                             url: valor.url,
                             nombre: valor.nombre
                         };
-                        
-                    } 
-                    
-                    if(valor.idElemento == historicoResolve.fuentes.eslogan){
-                        
+
+                    }
+
+                    if (valor.idElemento == historicoResolve.fuentes.eslogan) {
+
                         bz.logo.fuenteEslogan = {
                             url: valor.url,
                             nombre: valor.nombre
                         };
-                        
+
                         bz.esloganActivo = true;
-                        
+
                     }
 
                 })
-
 
             }
 
@@ -120,7 +124,7 @@ angular.module("disenador-de-logos")
                 })
 
                 if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
-                    logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan).then(function (res) {
+                    logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre).then(function (res) {
                         bz.logo.idLogo = res;
                         $mdToast.show({
                             hideDelay: 0,
@@ -152,7 +156,6 @@ angular.module("disenador-de-logos")
 
                     logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, fuentesId.principal, fuentesId.eslogan).then(function (res) {
 
-                        console.log(res)
                         $mdToast.show({
                             hideDelay: 0,
                             position: 'top right',
@@ -234,35 +237,39 @@ angular.module("disenador-de-logos")
 
             var idFuente = null;
             var idFuenteEslogan = null;
-            
+
             angular.forEach(bz.fuentes, function (valor, llave) {
 
-                    if(valor.url == bz.logo.fuente.url){
-                        
-                        idFuente = valor.idElemento;
-                        
-                    } 
-                    
-                    if(bz.logo.fuenteEslogan && (valor.url == bz.logo.fuenteEslogan.url)){
-                        
-                        idFuenteEslogan =  valor.idElemento                        
-                    }
+                if (valor.url == bz.logo.fuente.url) {
 
-                })
-            
-            
+                    idFuente = valor.idElemento;
+
+                }
+
+                if (bz.logo.fuenteEslogan && (valor.url == bz.logo.fuenteEslogan.url)) {
+
+                    idFuenteEslogan = valor.idElemento
+                }
+
+            })
+
+            var datosComprar = {
+                logo: datos,
+                idElemento: bz.logo.icono.idElemento,
+                tipo: 'Logo y nombre',
+                fuentes: {
+                    principal: idFuente,
+                    eslogan: idFuenteEslogan
+                }
+            }
+
+            if (bz.idLogoPadre) {
+                datosComprar.idPadre = bz.idLogoPadre;
+            }
+
             $state.go("planes", {
                 status: true,
-                datos: {
-                    logo: datos,
-                    idElemento: bz.logo.icono.idElemento,
-                    tipo: 'Logo y nombre',
-                    fuentes: {
-                        principal: idFuente,
-                        eslogan:  idFuenteEslogan
-                        
-                    }
-                }
+                datos: datosComprar
             })
 
         })
@@ -303,7 +310,7 @@ angular.module("disenador-de-logos")
         bz.cambioFuente = function (fuente, objetivo) {
 
             $rootScope.$broadcast("editor:fuente", {
-                fuente: fuente,
+                fuente: angular.copy(fuente),
                 objetivo: objetivo
             });
 

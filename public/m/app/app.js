@@ -1,8 +1,8 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar", "720kb.socialshare"])
 
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider) {
 
-         $locationProvider.html5Mode(true)
+        $locationProvider.html5Mode(true)
 
         /* INTERCEPTADOR */
         $httpProvider.interceptors.push('AuthInterceptor');
@@ -197,7 +197,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     datos: {
                         logo: null,
                         idElemento: null,
-                        tipo: null
+                        tipo: null,
+                        fuentes: null
                     }
                 },
                 resolve: {
@@ -448,7 +449,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         switch (fromState.name) {
 
                             case '':
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                                 break;
                                 
                             case 'principal.combinaciones':
@@ -456,7 +457,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                                 
 
                             default:
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                         }
 
                         break;
@@ -466,12 +467,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         switch (fromState.name) {
 
                             case '':
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                                 break;
 
                             default:
 
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                         }
 
                         break;
@@ -481,14 +482,68 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         switch (fromState.name) {
 
                             case '':       
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                                 break;
 
                             default:
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                         }
 
                         break;
+                        
+                        
+                    case "pagoCompleto":
+                        switch (fromState.name) {
+
+                            case '':       
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+                        
+                        break;
+                        
+                    case "cuenta":
+                         switch (fromState.name) {
+
+                            case '':       
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+                        
+                        break;
+                        
+                    case "logos":
+                         switch (fromState.name) {
+
+                            case '':       
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+                        
+                        break;
+                        
+                    case "descargar":
+                         switch (fromState.name) {
+
+                            case '':       
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+                        
+                        break;
+                        
 
 
                 }
@@ -496,7 +551,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             } else if (error === "LOGOUT_REQUIRED") {
 
-                $state.go('dashboard');
+                $state.go('cuenta');
 
             } else if (error.error === "FALLO_HISTORICO") {
 

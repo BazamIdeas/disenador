@@ -5,6 +5,26 @@
             }
         </style>
 
+        <style type="text/css">
+            
+            @font-face {
+                font-family: 'Decorativa';
+                src: url('./assets/fonts/decorativo.ttf');
+            }
+            @font-face {
+                font-family: 'Manuscrito';
+                src: url('./assets/fonts/manuscrita.ttf');
+            }
+            @font-face {
+                font-family: 'serif';
+                src: url('./assets/fonts/serif.ttf');
+            }
+            @font-face {
+                font-family: 'Sin Serif';
+                src: url('./assets/fonts/sinserif.ttf');
+            }
+        </style>
+
         <section class="sub-menu">
             <div class="row margin-bottom-0">
 
@@ -15,89 +35,132 @@
             </div>
         </section>
 
-        <section class="cuerpo">
+        <section class="cuerpo scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
             <div class="row margin-bottom-0">
                 <div class="col s12 sidebar-1" ng-form="principal.datosForm">
-                    <div class="input-field col s12">
-                        <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
-                        <label for="nombre" class="active">Nombre</label>
-                    </div>
-                    <!--
-                    <div class="input-field col s12">
-                        <input id="slogan" type="text">
-                        <label for="slogan">Slogan</label>
-                    </div> 
-                    -->
+                    <div ng-switch="principal.pasosFormulario">
+                        <!--paso1-->
+                        <div ng-switch-when="1">
+                            <p class="text-center principal" style="margin-top: 1rem;"></p>
+                            <div class="input-field col s12">
+                                <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
+                                <label for="nombre" class="active">Nombre</label>
+                            </div>
+                            <!--
+                            <div class="input-field col s12">
+                                <input id="slogan" type="text">
+                                <label for="slogan">Slogan</label>
+                            </div> 
+                            -->
 
-					<md-input-container style="width:100%; padding: 0 0.75rem" >
-					  	<md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
-					    	<md-option ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-					  	</md-select>
-					</md-input-container>
-                    
-                    <md-input-container style="width:100%; padding: 0 0.75rem" >
-					  	<md-select ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
-					    	<md-option ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-					  	</md-select>
-					</md-input-container>
-                    
+                            <md-input-container style="width:100%; padding: 0 0.75rem" >
+                                <md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
+                                    <md-option class="iconos"  ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+                                </md-select>
+                            </md-input-container>
 
-                    <div class=" col s12 preferencias">
-                        <p class="text-center principal" style="margin-top: 1rem;">Preferencias</p>
+                            <md-input-container style="width:100%; padding: 0 0.75rem" >
+                                <md-select ng-style="{'font-family': principal.seleccionarFuenteCategoria(principal.datos.categoria.fuente)}" class="cat-fuente" ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
+                                    <md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+                                </md-select>
+                            </md-input-container> 
                             
-                        <div class="slider-input" ng-repeat="preferencia in principal.datos.preferencias track by $index">                            
-                            <p class="label-slider-input-left">{{preferencia.nombre1}}</p> 
-                            <p class="label-slider-input-right">{{preferencia.nombre2}}</p>
-                            <md-slider ng-model="preferencia.valor" value="2" min="1" max="3"></md-slider>
+                            
+                            
                         </div>
-                                      
+                        <!--paso2-->
+                        <div ng-switch-when="2">
+                            <div class=" col s12 preferencias">
+                                <p class="text-center principal" style="margin-top: 1rem;">Preferencias</p>
+
+                                <div class="slider-input" ng-repeat="preferencia in principal.datos.preferencias track by $index">                            
+                                    <p class="label-slider-input-left">{{preferencia.nombre1}}</p> 
+                                    <p class="label-slider-input-right">{{preferencia.nombre2}}</p>
+                                    <md-slider ng-model="preferencia.valor" value="2" min="1" max="3"></md-slider>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--paso3-->
+                        <div ng-switch-when="3">
+                            <div class="col s12 sidebar-2"> <!--ng-class eliminado, innecesario en v movil -->
+                                <p class="text-center principal">Forma de su logo</p>
+
+                                <div class="cubo-logo" style="margin-bottom: 20px;">
+                                    <div ng-click="principal.asignarTipo(principal.botonesTipo[0], false  )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
+                                        <span><i class="material-icons">thumb_up</i></span>
+                                        <span>TU LOGO</span>
+                                    </div>
+                                </div>
+
+                                <div class="cubo-logo">
+                                    <div ng-click="principal.asignarTipo(principal.botonesTipo[1], true)" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
+                                        <span class="texto">M</span>
+                                        <span>TU LOGO</span>
+                                    </div>
+                                </div>
+
+                                <!--<div class="cubo-logo">
+                                    <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo, 'loading-white': principal.botonesTipo[2].activo && !principal.completado}">
+                                        <span>TU LOGO</span>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                        
+                        <!--paso4-->
+                        <div ng-switch-default>
+                            <div ui-view class="contenedor-principal col s12" style="background-color: white">
+
+                            </div>
+                        </div>
+                
                     </div>
                 </div>
-            
-                <div class="col s12 sidebar-2" ng-class="{'ocultar': !principal.datosForm.$valid, 'mostrar': principal.datosForm.$valid}">
-                    <p class="text-center principal">Forma de su logo</p>
-
-                    <div class="cubo-logo">
-                        <div ng-click="principal.asignarTipo(principal.botonesTipo[0] )" ng-class="{'tipo-inactivo': !principal.botonesTipo[0].activo, 'loading-white': principal.botonesTipo[0].activo && !principal.completado}">
-                            <span><i class="material-icons">thumb_up</i></span>
-                            <span>TU LOGO</span>
-                        </div>
-                    </div>
-
-                    <div class="cubo-logo">
-                        <div ng-click="principal.asignarTipo(principal.botonesTipo[1])" ng-class="{'tipo-inactivo': !principal.botonesTipo[1].activo, 'loading-white': principal.botonesTipo[1].activo && !principal.completado}">
-                            <span class="texto">M</span>
-                            <span>TU LOGO</span>
-                        </div>
-                    </div>
-
-                    <div class="cubo-logo">
-                        <div ng-click="principal.asignarTipo(principal.botonesTipo[2])" ng-class="{'tipo-inactivo': !principal.botonesTipo[2].activo, 'loading-white': principal.botonesTipo[2].activo && !principal.completado}">
-                            <span>TU LOGO</span>
-                        </div>
-                    </div>
-                </div>
-
-				
-				<div ui-view class="contenedor-principal col" ng-class="{'l10': !principal.datosForm.$valid, 'l8': principal.datosForm.$valid}">
-				       
-				</div>
-
             </div>
         </section>
 
+        <div class="opciones-principal abierto">
+            <ul>
+                <li ng-click="principal.retrocederMovil()" ng-if="principal.pasosFormulario > 1 && principal.pasosFormulario < 6 ">
+                    <i class="material-icons">keyboard_arrow_left</i>
+                    Atrás
+                </li>
+                <li ng-click="principal.solicitarElementos()" ng-if="principal.pasosFormulario == 4 || principal.pasosFormulario == 5">
+                    <i class="material-icons">autorenew</i>
+                    Refrescar
+                </li>
+                <li ng-click="principal.avanzarMovil()" ng-if="principal.pasosFormulario <= 6" ng-class="{'valid': principal.datosForm.$valid, 'block': !principal.datosForm.$valid}">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    Continuar
+                </li>
+            </ul>
+        </div>
+        
+
         <div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
             <div class="row margin-bottom-0">
-                <div class="col s6 offset-s3">
+
+                <div class="row margin-bottom-0">
+
+                    <div class="col s5 login tab" ng-class="{'active': principal.tabLogin == 1}" ng-click="principal.tabLogin = 1">
+                        <h5 class="principal"> Ingreso </h5>
+                    </div>
+                    <div class="col s5 registro tab" ng-class="{'active': principal.tabLogin == 2}" ng-click="principal.tabLogin = 2">
+                        <h5 class="principal"> Registro </h5>
+                    </div>
+                    <div class="col s2 registro tab">
+                        <h5 class="principal"> <i class="material-icons cerrar" ng-click="principal.mostrarModalLogin = false">clear</i> </h5>
+                    </div>
+                </div>
+
+                <div class="col s12" style="padding: 0;">
 
                     <div class="login-form-flex"> 
 
-                        <div class="cubo-form row">
+                        <div class="cubo-form row padding-bottom-0" ng-switch="principal.tabLogin">
 
-                            <i class="material-icons cerrar" ng-click="principal.mostrarModalLogin = false">clear</i>
-
-                            <div class="login-form col s6">
-                                <p class="text-center tercero">INGRESA</p>
+                            <div class="login-form col s12" ng-switch-when="1">
                                 <form name="principal.loginForm" novalidate ng-submit="principal.login(principal.datosLogin, principal.loginForm.$valid)">
                                     <div class="input-field col s12">
                                         <input id="correo" name="correo" type="email" ng-model ="principal.datosLogin.correo" required>
@@ -124,8 +187,7 @@
                                 </form>
                             </div>
 
-                            <div class="registro-form col s6">
-                                <p class="text-center tercero">REGISTRATE</p>
+                            <div class="registro-form col s12" ng-switch-when="2">
                                 <form name="principal.registroForm" novalidate ng-submit="principal.registrar(principal.datosRegistro, principal.registroForm.$valid)">
 	                                <div class="input-field col s12">
 	                                    <input id="nombre2" type="text" name="nombreCliente" ng-model="principal.datosRegistro.nombreCliente" required>

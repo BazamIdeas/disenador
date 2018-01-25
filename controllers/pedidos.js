@@ -192,6 +192,10 @@ exports.nuevoPedido = function (req, res) {
 														idPedido: idPedido
 													}
 
+													if(req.body.atributos.padre){
+														datosPago.padre = req.body.atributos.padre; 
+													}
+													console.log(req.body);
 													services.pagoServices.paypal(datosPago, function (error, data) {
 														res.json(data.link)
 														//console.log(data.link)
@@ -298,6 +302,12 @@ exports.nuevoPedidoGuardado = function (req, res) {
 												idPedido: idPedido
 											}
 
+											if(req.body.atributos.padre){
+												datosPago.padre = req.body.atributos.padre; 
+											}
+
+											console.log(req.body);
+
 											services.pagoServices.paypal(datosPago, function (error, data) {
 												res.json(data.link)
 												//console.log(data.link)
@@ -345,7 +355,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 exports.cambioEstadoPagado = function (req, res)
 
 {
-	console.log(req.params)
+	//console.log(req.params)
 	var pedidoData = ["COMPLETADO", req.params.idPedido];
 
 	pedido.cambiarEstado(pedidoData, function (error, data) {
@@ -358,18 +368,44 @@ exports.cambioEstadoPagado = function (req, res)
 
 				if (!error) {
 
-					var id = services.authServices.decodificar(req.params.tk).id;
+					if(req.params.padre){
+						
+						var logoPadre = ["Vendido", req.params.padre];
 
-					cliente.getCliente(id, function (error, data) {
+						logo.cambiarEstado(logoPadre, function (error_p, data) {
 
-						//console.log(data);
-						services.emailServices.enviar('pedidoPago.html', {}, "Pedido pagado", data.correo);
+							if (!error_p) {
+								
+								var id = services.authServices.decodificar(req.params.tk).id;
 
-					});
+								cliente.getCliente(id, function (error, data) {
+			
+									//console.log(data);
+									services.emailServices.enviar('pedidoPago.html', {}, "Pedido pagado", data.correo);
+			
+								});
+								res.redirect(configuracion.base+configuracion.pago + req.params.idLogo);
+							
+							}
+						
+						})
+					
+					}else{
 
-					res.redirect(configuracion.pago + req.params.idLogo);
+						var id = services.authServices.decodificar(req.params.tk).id;
+
+						cliente.getCliente(id, function (error, data) {
+	
+							//console.log(data);
+							services.emailServices.enviar('pedidoPago.html', {}, "Pedido pagado", data.correo);
+	
+						});
+						res.redirect(configuracion.base+configuracion.pago + req.params.idLogo);
+
+					}
+
 				} else {
-					res.redirect(configuracion.nopago);
+					res.redirect(configuracion.base+configuracion.dashboard);
 				}
 			});
 		} else {
@@ -383,7 +419,7 @@ exports.cambioEstadoPagado = function (req, res)
 
 exports.noPago = function (req, res) {
 
-	res.redirect(configuracion.dashboard);
+	res.redirect(configuracion.base+configuracion.dashboard);
 
 }
 

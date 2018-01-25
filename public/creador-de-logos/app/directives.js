@@ -102,6 +102,7 @@ angular.module("disenador-de-logos")
                 fuente: "=fuente",
                 svgFinal: "=svgFinal",
                 idLogo: "=idLogo",
+                idPadre: "=idPadre",
                 eslogan: "=eslogan"
 
 
@@ -109,7 +110,7 @@ angular.module("disenador-de-logos")
             controller: function ($scope)
 
             {
-                if (!$scope.idLogo) { //si no es un logo previamente guardado
+                if (!$scope.idLogo && !$scope.idPadre) { //si no es un logo previamente guardado
                     $scope.svgSaneado = $scope.svg.trim()
 
                     var posicion1 = $scope.svgSaneado.search(">");
@@ -153,7 +154,7 @@ angular.module("disenador-de-logos")
 
                     $scope.svgTag = $scope.svgTagIncompleto + $scope.seccionInterna + "</svg>"
 
-                } else if ($scope.idLogo) { //si es un logo previamente guardado
+                } else if ($scope.idLogo || $scope.idPadre) { //si es un logo previamente guardado
 
                     $scope.elementosIndices = []
 
@@ -165,7 +166,7 @@ angular.module("disenador-de-logos")
 
                     var tamanoBase = 100;
 
-                    if (!scope.idLogo) { // si no es un logo guardado previamente
+                    if (!scope.idLogo && !scope.idPadre) { // si no es un logo guardado previamente
 
 
                         ////////////////////////////////////////////////////////////
@@ -245,7 +246,7 @@ angular.module("disenador-de-logos")
                         //agregamos el Style Tag al svg
                         element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
 
-                    } else if (scope.idLogo) { // si es un logo previamenteguardado
+                    } else if (scope.idLogo || scope.idPadre) { // si es un logo previamenteguardado
                         
                         element.html(scope.svg);
                         
@@ -359,20 +360,23 @@ angular.module("disenador-de-logos")
                         
                         var htmlStyle = "";
                         
+                        
+                        
                         if(fuentes.principal && fuentes.eslogan){
                             
-                            htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}\n @font-face { font-family: '" + fuentes.eslogan.nombre + "'; src: url('" + fuentes.eslogan.nombre + "')}";
+                            htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}\n @font-face { font-family: '" + fuentes.eslogan.nombre + "'; src: url('" + fuentes.eslogan.url + "')}";
                             
-                        } else {
-                         
+                        } else if(fuentes.principal) {
+                            
                             htmlStyle = "@font-face { font-family: '" + fuentes.principal.nombre + "'; src: url('" + fuentes.principal.url + "')}";
                             
                         }
                         
-                        //cambiamos la font-family al correcto 
+                        //cambiamos la font-family al correcto
+                        
                         element.find(selector).attr("font-family", datos.fuente.nombre);   
 
-                        element.children("style").html(htmlStyle);
+                        element.children().children("style").html(htmlStyle);
 
                         obtenerSVGFinal();
 
@@ -973,6 +977,39 @@ angular.module("disenador-de-logos")
                 element.html(scope.svg);
                 element.html(element.html());
 
+
+            }
+        }
+
+    })
+
+    /////////////////////////////////////////////
+    //////REDIRECCIONAR EN CAMBIO DE TAMAÑO//////
+    /////////////////////////////////////////////
+
+    .directive('bazamRedireccionar', function ($window, $location) {
+
+        return {
+            restrict: 'AE',
+            link: function (scope, element, attributes) {
+
+                if(true){
+                    
+                    if($window.innerWidth < 1024){
+                       
+                      $window.location = "/m" + $location.url();
+                    }
+                    
+                }
+                
+                angular.element(window).resize(function(){
+                                     
+                    if($window.innerWidth < 1024){
+                       
+                      $window.location = "/m" + $location.url();
+                    }
+                    
+                })
 
             }
         }

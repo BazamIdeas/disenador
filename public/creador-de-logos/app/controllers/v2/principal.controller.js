@@ -2,20 +2,20 @@ angular.module("disenador-de-logos")
 
     /* Comenzar */
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService",function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService) {
+    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService) {
 
         var bz = this;
-        
+
         bz.paises = paisesValue;
-        
+
         bz.paisDefecto = null;
-        
-        clientesService.pais().then(function(res){
-            
+
+        clientesService.pais().then(function (res) {
+
             bz.paisDefecto = res.iso;
-            
+
         });
-        
+
         bz.datos = {
             nombre: "Mi logo",
             preferencias: [],
@@ -32,10 +32,13 @@ angular.module("disenador-de-logos")
         bz.fuentes = [];
 
         bz.logos = [];
+        
+        bz.aprobados = [];
 
         bz.logoSeleccionado = null;
+        bz.predisenadoSeleccionado = null;
 
-
+        bz.objetivoEditor = null; //posibles valores 'nuevo' o 'predisenado'
 
         bz.categoriasPosibles = {
             fuentes: [],
@@ -101,17 +104,14 @@ angular.module("disenador-de-logos")
                     preferencias: bz.datos.preferencias,
                     tipo: 'FUENTE'
                 };
-                
-                
-                var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos); 
+
+                var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos);
 
                 $q.all([
                     promesaIconos,
                     elementosService.listaSegunPref(bz.datosFuentes)
                     ])
                     .then(function (res) {
-
-
 
                         bz.iconos = res[0];
                         bz.fuentes = res[1];
@@ -123,13 +123,12 @@ angular.module("disenador-de-logos")
                     }).catch(function (error) {
 
                         //$state.go('comenzar')
-                    
-                    }).finally(function(res){
-                    
-                    
+
+                    }).finally(function (res) {
+
                         bz.completado = true;
-                    
-                })
+
+                    })
 
             }
 
@@ -139,7 +138,7 @@ angular.module("disenador-de-logos")
 
 
         bz.asignarTipo = function (tipoLogo, iniciales) {
-            
+
             var inicial = iniciales ? bz.datos.nombre.charAt(0) : false;
 
             angular.forEach(bz.botonesTipo, function (valor, llave) {
@@ -178,6 +177,7 @@ angular.module("disenador-de-logos")
             if (!clientesService.autorizado()) {
 
                 bz.mostrarModalLogin = true;
+                bz.objetivoEditor = 'nuevo';
 
             } else {
 
@@ -196,13 +196,13 @@ angular.module("disenador-de-logos")
 
 
         bz.datosLogin = {};
-        
+
         bz.completadoLogin = true;
 
         bz.login = function (datos, valido) {
 
             if (valido) {
-                
+
                 bz.completadoLogin = false;
 
                 clientesService.login(datos).then(function (res) {
@@ -229,7 +229,18 @@ angular.module("disenador-de-logos")
                         });
 
                         bz.mostrarModalLogin = false;
-                        bz.avanzar(bz.logoSeleccionado);
+                       
+                        switch(bz.objetivoEditor){
+                                
+                            case 'nuevo':  
+                                bz.avanzar(bz.logoSeleccionado);
+                                break;
+                            
+                            case 'predisenado':  
+                                  bz.avanzarPredisenado(bz.predisenadoSeleccionado);
+                                break;
+                                
+                        }
                     }
 
                 }).catch(function () {
@@ -253,31 +264,29 @@ angular.module("disenador-de-logos")
                         templateUrl: 'toast-danger-login.html'
                     });
 
-                }).finally(function(res){
-                     
+                }).finally(function (res) {
+
                     bz.completadoLogin = true;
-                    
+
                 });
-                
+
 
             };
 
         };
-        
-        
-        
+
+
+
         bz.completadoRegistro = true;
-        
-        bz.registrar = function(datos, valido){
-            
-           
-            
+
+        bz.registrar = function (datos, valido) {
+
+
+
             if (valido && bz.completadoRegistro) {
-                
+
                 bz.completadoRegistro = false;
-                
-                 console.log("hola")
-                
+
                 clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function (res) {
 
                     if (clientesService.autorizado(true)) {
@@ -303,7 +312,20 @@ angular.module("disenador-de-logos")
                         });
 
                         bz.mostrarModalLogin = false;
-                        bz.avanzar(bz.logoSeleccionado);
+                       
+                        switch(bz.objetivoEditor){
+                                
+                            case 'nuevo':  
+                                bz.avanzar(bz.logoSeleccionado);
+                                break;
+                            
+                            case 'predisenado':  
+                                  bz.avanzarPredisenado(bz.predisenadoSeleccionado);
+                                break;
+                                
+                        }
+                        
+                      
 
                     }
 
@@ -331,21 +353,21 @@ angular.module("disenador-de-logos")
 
 
                 }).finally(function () {
-                    
+
                     bz.completadoRegistro = true;
-                    
+
                 })
 
             };
-            
+
         }
 
 
-        bz.seleccionarFuenteCategoria = function(idCategoria){
-            var fuenteNombre = "";
+        bz.seleccionarFuenteCategoria = function (idCategoria) {
+            var fuenteNombre = "futura-heavy";
 
-            angular.forEach(bz.categoriasPosibles.fuentes, function(fuenteCategoria, llave){
-                if(fuenteCategoria.idCategoria == idCategoria){
+            angular.forEach(bz.categoriasPosibles.fuentes, function (fuenteCategoria, llave) {
+                if (fuenteCategoria.idCategoria == idCategoria) {
 
                     fuenteNombre = fuenteCategoria.nombreCategoria;
                 }
@@ -353,5 +375,134 @@ angular.module("disenador-de-logos")
 
             return fuenteNombre;
         }
+
+
+
+        ////////////////////
+        ////prediseñados////
+        ////////////////////
+        
+
+        logosService.mostrarDestacados().then(function (res) {
+
+            bz.aprobados = res;
+
+        }).catch(function () {
+
+            
+            
+        }).finally(function () {
+
+            if (!bz.aprobados.length) {
+
+                logosService.mostrarAprobados().then(function (res) {
+
+                    bz.aprobados = res;
+
+                }).catch(function (res) {
+
+                    //console.log("hola")
+
+                }).finally(function () {
+
+
+                })
+
+            }
+
+        })
+        bz.completadoCarga = true;
+
+        bz.cargarMas = function (logo) {
+
+            if (bz.completadoCarga) {
+
+                bz.completadoCarga = false;
+
+                var idLogo = logo.destacados ? false : logo.idLogo;
+
+                logosService.mostrarAprobados(idLogo).then(function (res) {
+
+                    angular.forEach(res, function (valor, llave) {
+
+                        bz.aprobados.push(valor)
+
+                    })
+
+                }).catch(function () {
+
+                }).finally(function () {
+
+                    bz.completadoCarga = true;
+
+                })
+
+            }
+
+        }
+
+        bz.buscarAtributo = function (lista, objetivo) {
+
+            var idFuente = null;
+
+            angular.forEach(lista, function (atributo, llave) {
+
+                if (atributo.clave == objetivo) {
+
+                    idFuente = atributo.valor;
+
+                }
+
+            })
+
+            return idFuente;
+        }
+        
+        
+      
+        bz.avanzarPredisenado = function (indiceLogo) {
+
+            bz.predisenadoSeleccionado = indiceLogo;
+
+            if (!clientesService.autorizado()) {
+
+                bz.mostrarModalLogin = true;
+                bz.objetivoEditor = 'predisenado';
+
+            } else {
+                var aprobado = null;
+
+                angular.forEach(bz.aprobados, function (valor, llave) {
+
+                    if (valor.idLogo == indiceLogo) {
+
+                        aprobado = valor;
+                    }
+
+                })
+                if (aprobado) {
+                    $state.go("editor", {
+                        status: true,
+                        datos: {
+                            logo: {
+                                icono: {
+                                    idElemento: aprobado.elementos_idElemento,
+                                    svg: aprobado.logo
+                                }
+                            },
+                            idLogoPadre: aprobado.idLogo,
+                            fuentes: {
+                                principal: bz.buscarAtributo(aprobado.atributos, 'principal'),
+                                eslogan: bz.buscarAtributo(aprobado.atributos, 'eslogan')
+                            }
+                        }
+                    })
+                }
+
+            }
+
+        }
+
+
 
 }])

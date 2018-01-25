@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Editor */
 
-    .controller('logosController', ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", function ($scope, pedidosService, $window, $state, logosService, $base64) {
+    .controller('logosController', ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast) {
 
         var bz = this;
 
@@ -45,11 +45,125 @@ angular.module("disenador-de-logos")
         });
 
 
+        bz.modificarSalto = function(accion, objetivo){
+            
+            if(accion){
+                
+                if(bz[objetivo][bz.salto[objetivo] + 4]){
+                    
+                    bz.salto[objetivo] = bz.salto[objetivo] + 4;
+                }
+                
+            } else if ((bz.salto[objetivo] - 4) >= 0) {
+                
+                bz.salto[objetivo] = bz.salto[objetivo] - 4;
+            }
+            
+            
+        }    
+        
+        
+        bz.urlCompartir = $window.location.protocol + "//" + $window.location.hostname + angular.element(document.querySelector("base")).attr("href");
+        bz.mostrarModalSocial = false;
+        bz.idLogoCompartir = null;
+        
+        bz.abrirModal = function(idLogo){
+            console.log(idLogo)
+            bz.mostrarModalSocial = true;
+            bz.idLogoCompartir = idLogo;
+            
+        }
+                
+        bz.borradoCompleto = true;
+        
+        bz.borrarLogo = function(idLogo){
+            if(bz.borradoCompleto){
+                
+                bz.borradoCompleto = false;
+                
+                logosService.borrarLogo(idLogo).then(function(res){
+
+                    angular.forEach(bz.guardados, function(valor, indice){
+                        if(valor.idLogo == idLogo){
+                            bz.guardados.splice(indice, 1);
+                            return false;
+                        }   
+                    });
+
+
+                    
+                    $mdToast.show({
+                        hideDelay   : 0,
+                        position    : 'top right',
+                        controller  :  ["$scope", "$mdToast", "$timeout", function($scope, $mdToast, $timeout) {
+
+                            var temporizador = $timeout(function(){
+                                $mdToast.hide();
+                            }, 2000)
+
+                            $scope.closeToast = function() {
+                                $timeout.cancel(temporizador)
+                                $mdToast.hide();
+
+                            }
+                        }],
+                        templateUrl : 'toast-success-logo-delete.html'
+                    });  
+                    
+               
+                }).catch(function(){
+                    
+                    $mdToast.show({
+                        hideDelay   : 0,
+                        position    : 'top right',
+                        controller  :  ["$scope", "$mdToast", "$timeout", function($scope, $mdToast, $timeout) {
+
+                            var temporizador = $timeout(function(){
+                                $mdToast.hide();
+                            }, 2000)
+
+                            $scope.closeToast = function() {
+                                $timeout.cancel(temporizador)
+                                $mdToast.hide();
+
+                            }
+                        }],
+                        templateUrl : 'toast-danger-logo-delete.html'
+                    });
+               
+
+                }).finally(function(){
+                    
+                    bz.borradoCompleto = true;
+
+                })
+            }
+        }
+        
+        
+        bz.buscarAtributo = function(lista, objetivo){
+            
+            var idFuente = null;
+            
+            angular.forEach(lista, function(atributo, llave){
+                
+                if(atributo.clave == objetivo){
+                    
+                    idFuente = atributo.valor;
+                    
+                }
+                
+            })
+            
+            return idFuente;
+        }
+
+
         bz.opcionesGuardados = false;
         bz.opcionesAdquiridos = false;
         bz.logoSeleccionado = null;
 
-        bz.seleccionado = function(tipo, id){
+        bz.seleccionado = function(tipo, logo){
 
             if (tipo == 'guardados') {
                 bz.opcionesGuardados = true;
@@ -59,38 +173,16 @@ angular.module("disenador-de-logos")
                 bz.opcionesAdquiridos = true;       
             }
 
-            bz.logoSeleccionado = id;  
-
-            console.log({opcionGuardado: bz.opcionesGuardados, opcionAdquirido: bz.opcionesAdquiridos, seleccionado: bz.logoSeleccionado})   
+            bz.logoSeleccionado = logo;    
 
         }
 
-
-        bz.modificarSalto = function(accion, objetivo){
-            
-            if(accion){
-                
-                if(bz[objetivo][bz.salto[objetivo] + 6]){
-                    
-                    bz.salto[objetivo] = bz.salto[objetivo] + 6;
-                }
-                
-            } else if ((bz.salto[objetivo] - 6) >= 0) {
-                
-                bz.salto[objetivo] = bz.salto[objetivo] - 6;
-            }
-            
-            
-        }    
         
-
-
-
+        
         $scope.$on('sesionExpiro', function (event, data) {
 
             $state.go('principal.comenzar');
 
         });
-
 
     }])

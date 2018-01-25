@@ -65,7 +65,7 @@ angular.module("disenador-de-logos")
         bz.idLogoCompartir = null;
         
         bz.abrirModal = function(idLogo){
-            
+            console.log(idLogo)
             bz.mostrarModalSocial = true;
             bz.idLogoCompartir = idLogo;
             
@@ -149,6 +149,28 @@ angular.module("disenador-de-logos")
             })
             
             return idFuente;
+        }
+        
+        bz.obtenerMetas = function(filtrar){
+            
+            var metas = [];
+            
+            angular.forEach(filtrar, function(meta, llave){
+                
+                angular.forEach(asdas, function(){
+                    
+                    if(meta.clave != objetivo){
+                    
+                        idFuente = atributo.valor;
+
+                    }
+                    
+                })
+               
+                
+            })
+            
+            return metas;
         }
         
         

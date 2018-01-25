@@ -1,4 +1,7 @@
-                    <div class="row margin-bottom-0 lienzo">
+
+
+                <div class="row margin-bottom-0 lienzo">
+                    <!--
                         <div class="col s12" ng-if="$parent.principal.completado && !principalComenzar.logoCompartido.logo">
                             <p class="text-center tercero margin-bottom-0">EJEMPLOS EXITOSOS</p>
                         </div>
@@ -43,7 +46,7 @@
                         <div class="col l4 offset-l4 logo-compartido" ng-if="principalComenzar.logoCompartido.logo">
                             <bazam-visualizar data-svg="principalComenzar.base64.decode(principalComenzar.logoCompartido.logo)"></bazam-visualizar>
                         </div>
-                        
+                        -->
                         
                         <div class="col s12" ng-if="!$parent.principal.completado">
                             GIF

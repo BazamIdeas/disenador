@@ -277,16 +277,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         }
 
                     }],
-                    historicoResolve: ["$q", "$stateParams",  function ($q, $stateParams) {
+                    historicoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
 
                         var defered = $q.defer();
 
                         var promise = defered.promise;
-          
+
                         if ($stateParams.status) {
 
                             defered.resolve($stateParams.datos);
-                        } else  {
+                        } else {
 
                             defered.reject({
                                 error: 'FALLO_HISTORICO'
@@ -298,10 +298,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-        
-         .state({
+
+            .state({
                 name: 'pagoCompleto',
-                url: '/pago/completo/:id',
+                url: '/pago/completo/:id/',
                 templateUrl: 'app/views/v2/pagoCompleto.tpl',
                 controller: 'pagoCompletoController as pagoCompleto',
                 resolve: {
@@ -319,7 +319,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'cuenta',
-                url: '/cliente/cuenta',
+                url: '/cliente/cuenta/',
                 templateUrl: 'app/views/v2/cuenta.tpl',
                 controller: 'cuentaController as cuenta',
                 resolve: {
@@ -337,7 +337,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             .state({
                 name: 'logos',
-                url: '/cliente/logos',
+                url: '/cliente/logos/',
                 templateUrl: 'app/views/v2/logos.tpl',
                 controller: 'logosController as logos',
                 resolve: {
@@ -352,16 +352,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-        
+
             .state({
                 name: 'descargar',
-                url: '/cliente/logos/{id:int}/descargar',
+                url: '/cliente/logos/{id:int}/descargar/',
                 templateUrl: 'app/views/v2/descargar.tpl',
                 controller: 'descargarController as descargar',
                 params: {
-                    
-                    datos:{
-                        logo: null                        
+
+                    datos: {
+                        logo: null
                     }
                 },
                 resolve: {
@@ -374,17 +374,20 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         }
 
                     }],
-                    logoResolve: ["$q", "$stateParams",  function ($q, $stateParams) {
+                    logoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
 
-                            return {logo: $stateParams.datos.logo, id: $stateParams.id};
-                     
+                        return {
+                            logo: $stateParams.datos.logo,
+                            id: $stateParams.id
+                        };
+
                     }]
                 }
             })
-        
+
             .state({
                 name: 'login',
-                url: '/login',
+                url: '/login/',
                 templateUrl: 'app/views/v2/login.tpl',
                 controller: 'loginController as login',
                 resolve: {
@@ -399,17 +402,47 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
-      
-        //redirecciones
 
-        $urlRouterProvider.when('', '/comenzar/');
-        $urlRouterProvider.when('/', '/comenzar/');
+            .state({
+                name: 'logosGaleria',
+                url: '/logos-galeria/',
+                templateUrl: 'app/views/v2/logosGaleria.tpl',
+                controller: 'logosGaleriaController as logosGaleria'
+            })
+
+        //redirecciones
+        /*
+       
         $urlRouterProvider.when('/comenzar', '/comenzar/');
         $urlRouterProvider.when('/comenzar/opciones', '/comenzar/opciones/');
         $urlRouterProvider.when('/comenzar/combinaciones', '/comenzar/combinaciones/');
         $urlRouterProvider.when('/editor', '/editor/');
         $urlRouterProvider.when('/planes', '/planes/');
         $urlRouterProvider.when('/pago', '/pago/');
+        $urlRouterProvider.when('/pago/completo/:id','/pago/completo/:id/')
+        $urlRouterProvider.when('/cliente/cuenta', '/cliente/cuenta/')
+        $urlRouterProvider.when('/cliente/logos', '/cliente/logos/')
+        $urlRouterProvider.when('/cliente/logos/{id:int}/descargar', '/cliente/logos/{id:int}/descargar/')
+        $urlRouterProvider.when('/login', '/login/')
+        $urlRouterProvider.when('/logos-galeria', '/logos-galeria/')
+        */
+        
+        $urlRouterProvider.when('', '/comenzar/');
+        $urlRouterProvider.when('/', '/comenzar/');
+        
+        $urlRouterProvider.rule(function ($injector, $location) {
+            var path = $location.url();
+
+            if ('/' === path[path.length - 1] || path.indexOf('/?') > -1) {
+                return;
+            }
+
+            if (path.indexOf('?') > -1) {
+                return path.replace('?', '/?');
+            }
+
+            return path + '/';
+        });
 
         $urlRouterProvider.otherwise('/404/');
 
@@ -417,22 +450,21 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
     .run(function ($rootScope, $state, $timeout) {
-        
-    
-    
-        $rootScope.$on('$viewContentLoaded', function(event) { 
-            
-            $timeout(function(){
-                
+
+
+
+        $rootScope.$on('$viewContentLoaded', function (event) {
+
+            $timeout(function () {
+
                 angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
-            }
-                , 500)
-          
+            }, 500)
+
 
         });
-       
-      
-    
+
+
+
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
             if (error == "STEPS") {
@@ -449,15 +481,18 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         switch (fromState.name) {
 
                             case '':
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                                 break;
-                                
+
                             case 'principal.combinaciones':
                                 break;
                                 
+                            case 'logosGaleria':
+                                break;
+
 
                             default:
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                         }
 
                         break;
@@ -467,26 +502,79 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         switch (fromState.name) {
 
                             case '':
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                                 break;
 
                             default:
 
-                                $state.go("principal.comenzar");
+                                $state.go("login");
                         }
 
                         break;
-                        
+
                     case 'pago':
 
                         switch (fromState.name) {
 
-                            case '':       
-                                $state.go("principal.comenzar");
+                            case '':
+                                $state.go("login");
                                 break;
 
                             default:
-                                $state.go("principal.comenzar");
+                                $state.go("login");
+                        }
+
+                        break;
+
+
+                    case "pagoCompleto":
+                        switch (fromState.name) {
+
+                            case '':
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+
+                        break;
+
+                    case "cuenta":
+                        switch (fromState.name) {
+
+                            case '':
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+
+                        break;
+
+                    case "logos":
+                        switch (fromState.name) {
+
+                            case '':
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
+                        }
+
+                        break;
+
+                    case "descargar":
+                        switch (fromState.name) {
+
+                            case '':
+                                $state.go("login");
+                                break;
+
+                            default:
+                                $state.go("login");
                         }
 
                         break;
@@ -497,12 +585,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
             } else if (error === "LOGOUT_REQUIRED") {
 
-                $state.go('dashboard');
+                $state.go('cuenta');
 
             } else if (error.error === "FALLO_HISTORICO") {
 
 
-               switch (toState.name) {
+                switch (toState.name) {
 
                     case 'editor':
 
@@ -510,12 +598,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         break;
 
                     case 'planes':
-                       
+
                         $state.go("editor");
                         break;
-                        
+
                     case 'pago':
-     
+
                         $state.go("planes");
                         break;
 

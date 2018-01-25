@@ -1,0 +1,2342 @@
+
+@media (min-width: 2560px) {
+    .inicio {
+        background-size: 100% 190%;
+        background-position: 32% 52%;
+        padding-bottom: 80px;
+    }
+
+    .como-funciona {
+        background-size: 100% 120%;
+
+    }
+
+    .menu-perfil.col.l1 {
+        width: 3.333333% !important;
+    }
+
+    .menu-perfil.col.l2 {
+        width: 11.666667% !important;
+    }
+
+    .contenedor-perfil-interno.col.l11 {
+        width: 96.666667% !important;
+    }
+
+    .contenedor-perfil-interno.col.l10 {
+        width: 90.333333% !important;
+    }
+
+    .o, .tomar-foto {
+        display: none;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 2559px) {
+    .inicio {
+        background-size: 100% 100%;
+        background-position: 32% 101%;
+        padding-bottom: 80px;
+    }
+
+    .o, .tomar-foto {
+        display: none !important;
+    }   
+
+}
+
+@media (min-width: 1366px) and (max-width: 1439px) {
+    .inicio {
+        background-size: 100% 100%;
+        background-position: 32% 101%;
+        padding-bottom: 80px;
+    }
+
+    .o, .tomar-foto {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1280px) and (max-width: 1365px) {
+    .inicio {
+        background-size: 100% 100%;
+        background-position: 32% 101%;
+        padding-bottom: 80px;
+    }
+
+    .o, .tomar-foto {
+        display: none !important;
+    }
+
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .inicio {
+        background-size: 100% 100%;
+        background-position: 32% 101%;
+        padding-bottom: 80px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 3px;
+        white-space: normal;
+    }
+
+    .colapso-menu img {
+        margin-left: 6px;
+    }
+
+    .o, .tomar-foto {
+        display: none !important;
+    }
+
+}
+
+
+
+
+
+/*-------------------------------------------------------------------------*/
+/*-----------------------------------Galaxy Tab----------------------------*/
+/*-------------------------------------------------------------------------*/
+
+/* Portrait and Landscape */
+@media (min-device-width: 800px) and (max-device-width: 1280px) {
+    .inicio {
+            background-size: auto 82%;
+            background-position: 32% 101%;
+            padding-bottom: 80px;
+        }
+
+    .login {
+        background-size: 128% 67%;
+        background-position: 48% 48%;
+    }
+
+}
+
+/* Portrait */
+@media (max-device-width: 800px) and (orientation: portrait) { 
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+}
+
+/* Landscape */
+@media (max-device-width: 1280px) and (orientation: landscape) { 
+
+    .login {
+        background-size: 128% 67%;
+        background-position: 48% 48%;
+    }
+
+}
+
+
+@media (min-width: 800px) and (max-width: 1024px) {
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 80px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -22%;
+    }
+
+    .login {
+        background-size: 100% 100%;
+        background-position: 100% 100%;
+        
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+/*-------------------------------------------------------------------------*/
+/*-----------------------------------iPad 3 y 4----------------------------*/
+/*-------------------------------------------------------------------------*/
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 16px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -22%;
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+    .ondas2 {
+        bottom: -18%;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+}
+
+
+
+/*-------------------------------------------------------------------------*/
+/*------------------------iPad mini, iPad 1 y 2----------------------------*/
+/*-------------------------------------------------------------------------*/
+
+@media only screen and (min-width: 600px) and (max-width: 800px) and (-webkit-min-device-pixel-ratio: 1) {
+
+    /*Header and Footer*/
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 70px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 50px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -17%;
+    }
+
+    .como-funciona {
+        height: auto;
+        background-size: auto 100%;
+
+    }
+
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 140px;
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 7px;
+        white-space: normal;
+    }
+
+    .opcion-menu {
+        line-height: 12px;
+    }
+
+    .colapso-menu img {
+        margin-left: 5px;
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+}
+
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 16px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -17%;
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 170px;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 170px;
+    }
+
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 170px;
+    }
+
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+
+    .ondas2 {
+        bottom: -30%;
+    }
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 140px;
+    }
+
+}
+
+/*-------------------------------------------------------------------------*/
+/*---------------------------iPhone 6+, 6s+, 7+----------------------------*/
+/*-------------------------------------------------------------------------*/
+
+@media only screen and (min-device-width : 414px) and (max-device-width : 736) and (-webkit-min-device-pixel-ratio: 2) {
+
+    /*Header and Footer*/
+    .acceder{
+        display: none;
+    }
+
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 16px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -22%;
+    }
+
+    .como-funciona {
+        height: auto;
+        background-size: auto 100%;
+
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+    .username{ display: none; }
+}
+
+@media only screen and (min-device-width : 414px) and (max-device-width : 736) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 120px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 7px;
+        white-space: normal;
+    }
+
+    .colapso-menu img {
+        margin-left: 5px;
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+
+    .opcion-menu {
+        line-height: 12px;
+    }
+
+}
+
+@media only screen and (min-device-width : 414px) and (max-device-width : 736) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+
+    #footer-widgets {
+        padding: 2% 0 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                        flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+    }
+
+    .menu-perfil.col.s2{
+        width: 12.666667% !important;
+        padding: 0 0.75rem;
+    }
+
+
+    .colapso-menu img {
+        margin: 0 5px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 6px;
+        white-space: normal;
+    }
+
+    .opcion-menu {
+        width: 52%;
+        line-height: 12px;
+    }
+
+    .contenedor-perfil-interno.col.s10 {
+        width: 87.333333%;
+    }
+
+    .foto-mascota {
+        height: 185px;
+        width: 185px;
+    }
+
+    .mascota-add{
+        height: 185px;
+        width: 185px; 
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*---------------------------iPhone 6, 6s, 7-------------------------------*/
+/*-------------------------------------------------------------------------*/
+
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    /*Header and Footer*/
+    .acceder{
+        display: none;
+    }
+
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 80px;
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -18%;
+    }
+
+    .como-funciona {
+        height: auto;
+        background-size: auto 100%;
+
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+    .username{ display: none; }
+}
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 140px;
+    }
+
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 80px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 4px ;
+        white-space: normal;
+    }
+
+    .colapso-menu img {
+        margin: 0 5px;
+    }
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 40px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 85px;
+    }
+
+
+}
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+
+    #footer-widgets {
+        padding: 2% 0 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                        flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+    }
+
+    .menu-perfil.col.s2{
+        width: 12.666667% !important;
+        padding: 0 0.75rem;
+    }
+
+
+    .colapso-menu img {
+        margin: 0 5px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 4px;
+    }
+
+    .opcion-menu {
+        width: 52%;
+        line-height: 12px;
+    }
+
+    .contenedor-perfil-interno.col.s10 {
+        width: 87.333333%;
+    }
+
+    .foto-mascota {
+        height: 185px;
+        width: 185px;
+    }
+
+    .mascota-add{
+        height: 185px;
+        width: 185px; 
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 30px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 60px;
+    }
+
+    cdx-formas>div {
+        margin-right: 3px;
+    }
+
+    cdx-formas img {
+        height: 29px;
+        cursor: pointer;
+    }
+
+    div, p, input {
+        font-size: 11px;
+    }
+
+    input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+        font-size: 11px;
+    }     
+
+    .agregar-placa-perfil{
+        margin-top: 10px;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+}
+
+/*-------------------------------------------------------------------------*/
+/*-------------------------------Galaxy S5---------------------------------*/
+/*-------------------------------------------------------------------------*/
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+
+    /*Header and Footer*/
+    .acceder{
+        display: none;
+    }
+
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 16px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -22%;
+    }
+
+    .como-funciona {
+        height: auto;
+        background-size: auto 100%;
+
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 30px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 60px;
+    }
+
+    cdx-formas>div {
+        margin-right: 3px;
+    }
+
+    cdx-formas img {
+        height: 29px;
+        cursor: pointer;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+    .username{ display: none; }
+
+}
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 60px;
+    }
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 120px;
+    }
+
+}
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {
+
+    #footer-widgets {
+        padding: 2% 0 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                        flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+    }
+
+    .menu-perfil.col.s2{
+        width: 12.666667% !important;
+        padding: 0 0.50rem;
+    }
+
+
+    .colapso-menu img {
+        margin: 0 5px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 0px;
+        white-space: normal;
+    }
+
+    .opcion-menu {
+        width: 52%;
+        line-height: 12px;
+    }
+
+    .contenedor-perfil-interno.col.s10 {
+        width: 87.333333%;
+    }
+
+    .foto-mascota {
+        height: 185px;
+        width: 185px;
+    }
+
+    .mascota-add{
+        height: 185px;
+        width: 185px; 
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+
+    div, p, input {
+        font-size: 11px;
+    }
+
+    input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+        font-size: 11px;
+    }     
+
+    .agregar-placa-perfil{
+        margin-top: 10px;
+    }
+
+}
+
+/*-------------------------------------------------------------------------*/
+/*-------------------------------Galaxy S4---------------------------------*/
+/*-------------------------------------------------------------------------*/
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+
+    /*Header and Footer*/
+    .acceder{
+        display: none;
+    }
+
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 16px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -22%;
+    }
+
+    .como-funciona {
+        height: auto;
+        background-size: auto 100%;
+
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 30px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 60px;
+    }
+
+    cdx-formas>div {
+        margin-right: 3px;
+    }
+
+    cdx-formas img {
+        height: 29px;
+        cursor: pointer;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+    .aviso-baja-mascota {
+        bottom: 42px;
+        left: 1%;
+        width: 90%;
+    }
+
+    .username{ display: none; }
+
+}
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 120px;
+    }
+
+}
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {
+
+    #footer-widgets {
+        padding: 2% 0 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                        flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+    }
+
+
+    .menu-perfil.col.s2{
+        width: 12.666667% !important;
+        padding: 0 0.50rem;
+    }
+
+
+    .colapso-menu img {
+        margin: 0 5px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 0px;
+        white-space: normal;
+    }
+
+    .opcion-menu {
+        width: 52%;
+        line-height: 12px;
+    }
+
+    .contenedor-perfil-interno.col.s10 {
+        width: 87.333333%;
+    }
+
+    .foto-mascota {
+        height: 185px;
+        width: 185px;
+    }
+
+    .mascota-add{
+        height: 185px;
+        width: 185px; 
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+
+    div, p, input {
+        font-size: 11px;
+    }
+
+    input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+        font-size: 11px;
+    }     
+
+    .agregar-placa-perfil{
+        margin-top: 10px;
+    }
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*-------------------------------Galaxy S3---------------------------------*/
+/*-------------------------------------------------------------------------*/
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 2) {
+
+    /*Header and Footer*/
+    .acceder{
+        display: none;
+    }
+
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 16px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -22%;
+    }
+
+    .como-funciona {
+        height: auto;
+        background-size: auto 100%;
+
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 30px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 60px;
+    }
+
+    cdx-formas>div {
+        margin-right: 3px;
+    }
+
+    cdx-formas img {
+        height: 29px;
+        cursor: pointer;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+    .aviso-baja-mascota {
+        bottom: 42px;
+        left: 1%;
+        width: 90%;
+    }
+
+    .username{ display: none; }
+}
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) {
+
+    .como-empezar .titulo2 {
+        height: 60px;
+    }
+
+    .como-empezar .parrafo {
+        height: 120px;
+    }
+
+}
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {
+
+    #footer-widgets {
+        padding: 2% 0 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                        flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+    }
+
+    .menu-perfil.col.s2{
+        width: 12.666667% !important;
+        padding: 0 0.50rem;
+    }
+
+
+    .colapso-menu img {
+        margin: 0 5px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 0px;
+        white-space: normal;
+    }
+
+    .opcion-menu {
+        width: 52%;
+        line-height: 12px;
+    }
+
+    .contenedor-perfil-interno.col.s10 {
+        width: 87.333333%;
+    }
+
+    .foto-mascota {
+        height: 185px;
+        width: 185px;
+    }
+
+    .mascota-add{
+        height: 185px;
+        width: 185px; 
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    div, p, input {
+        font-size: 11px;
+    }
+
+    input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+        font-size: 11px;
+    }     
+
+    .agregar-placa-perfil{
+        margin-top: 10px;
+    }
+
+}
+
+
+
+/*-------------------------------------------------------------------------*/
+/*--------------------------SmarthPhones and Iphone 5----------------------*/
+/*-------------------------------------------------------------------------*/
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (-webkit-min-device-pixel-ratio: 2) {
+
+    /*Header and Footer*/
+    .acceder{
+        display: none;
+    }
+
+
+    #footer-widgets {
+        padding: 2% 0 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                        flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+    }
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 16px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -22%;
+    }
+
+    .como-funciona {
+        height: auto;
+        background-size: auto 100%;
+
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+    .aviso-baja-mascota {
+        bottom: 42px;
+        left: 1%;
+        width: 90%;
+    }
+
+    .username{ display: none; }
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 15px;
+        white-space: normal;
+    }
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 40px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 85px;
+    }
+
+    .aviso-baja-mascota {
+        bottom: 42px;
+        left: 1%;
+        width: 90%;
+    }
+
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+
+    .menu-perfil.col.s2{
+        width: 12.666667% !important;
+        padding: 0 0.50rem;
+    }
+
+
+    .colapso-menu img {
+        margin: 0 5px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 0px;
+        white-space: normal;
+    }
+
+    .opcion-menu {
+        width: 52%;
+        line-height: 12px;
+    }
+
+    .contenedor-perfil-interno.col.s10 {
+        width: 87.333333%;
+    }
+
+    .foto-mascota {
+        height: 185px;
+        width: 185px;
+    }
+
+    .mascota-add{
+        height: 185px;
+        width: 185px; 
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 30px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 60px;
+    }
+
+    cdx-formas>div {
+        margin-right: 3px;
+    }
+
+    cdx-formas img {
+        height: 29px;
+        cursor: pointer;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    div, p, input {
+        font-size: 11px;
+    }
+
+    input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+        font-size: 11px;
+    }     
+
+    .agregar-placa-perfil{
+        margin-top: 10px;
+    }
+
+    .aviso-baja-mascota {
+        bottom: 42px;
+        left: 1%;
+        width: 90%;
+    }
+}
+
+
+
+/*-------------------------------------------------------------------------*/
+/*--------------------------SmarthPhones and Iphone 4----------------------*/
+/*-------------------------------------------------------------------------*/
+
+@media only screen and (min-width : 320px) and (max-width: 600px) and (-webkit-min-device-pixel-ratio: 1) {
+
+
+    /*Header and Footer*/
+
+    .acceder{
+        display: none;
+    }
+
+
+    #footer-widgets {
+        padding: 2% 0 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                        flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+    }
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 16px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -22%;
+    }
+
+    .como-funciona {
+        height: auto;
+        background-size: auto 100%;
+
+    }
+
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    .menu-perfil.col.s2{
+        width: 12.666667% !important;
+        padding: 0 0.50rem;
+    }
+
+
+    .colapso-menu img {
+        margin: 0 5px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 5%;
+        white-space: normal;
+    }
+
+    .opcion-menu {
+        width: 52%;
+        line-height: 12px;
+    }
+
+    .contenedor-perfil-interno.col.s10 {
+        width: 87.333333%;
+    }
+
+    .foto-mascota {
+        height: 185px;
+        width: 185px;
+    }
+
+    .mascota-add{
+        height: 185px;
+        width: 185px; 
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+
+
+    .col.contenedor-placas-mascota{
+        padding: 0px;
+    }
+
+    .placas-mascota>.placa-individual {
+        font-size: 10px;
+    }
+
+    .placas-mascota>.placa-individual>img {
+        height: 20px;
+    }
+
+    .placas-mascota .divisor-placas {
+        height: 18px;
+    }
+
+    .eliminar-placa-boton {
+        margin-left: 0px;
+    }
+
+    .placas-mascota .divisor-placas {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 30px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 60px;
+    }
+
+    cdx-formas>div {
+        margin-right: 3px;
+    }
+
+    cdx-formas img {
+        height: 29px;
+        cursor: pointer;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    div, p, input {
+        font-size: 11px;
+    }
+
+    input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+        font-size: 11px;
+    }     
+
+    .agregar-placa-perfil{
+        margin-top: 10px;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+    header .contenedor-logo {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .aviso-baja-mascota {
+        bottom: 42px;
+        left: 1%;
+        width: 90%;
+    }
+
+    .username{ display: none; }
+}
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (-webkit-min-device-pixel-ratio: 2) {
+
+    /*Header and Footer*/
+
+    .acceder{
+        display: none;
+    }
+
+    #footer-widgets {
+        padding: 2% 0 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                        flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+    }
+
+    /*Landing*/
+    .inicio {
+        background-size: auto 82%;
+        background-position: 32% 101%;
+        padding-bottom: 16px; 
+    }
+
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 30px auto;
+        float: none;
+    }
+
+    .contenido-iphone {
+        margin-bottom: 30px;
+        height: 450px;
+        width: 230px;
+    }
+
+    .ondas2 {
+        bottom: -22%;
+    }
+
+    .como-funciona {
+        height: auto;
+        background-size: auto 100%;
+
+    }
+
+
+    /*Login*/
+    .login {
+        padding: 20px 0;
+        background-image: none;
+    }
+
+
+    .login .linea-media .uno, .login .linea-media .tres {
+        margin: 0 auto;
+        height: 2px;
+        width: 48%;
+    }
+
+    .login .linea-media .tres div, .login .linea-media .uno div {
+        width: 100%;
+        background-color: #e5e5e5;
+        height: 2px;
+    }
+
+    .login .linea-media {
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        width: 100%;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        margin: 13px 0;
+        display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+                        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        left: 0;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    img.editar-perfil{
+        
+        visibility: visible;
+        
+    }
+
+    .aviso-baja-mascota {
+        bottom: 42px;
+        left: 1%;
+        width: 90%;
+    }
+
+    .username{ display: none; }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+    .globitos {
+        height: 280px;
+        width: 280px;
+        margin: auto auto 50px auto;
+        float: none;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 12px;
+        white-space: normal;
+    }
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 40px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 85px;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+    
+    .menu-perfil.col.s2{
+        width: 12.666667% !important;
+        padding: 0 0.50rem;
+    }
+
+
+    .colapso-menu img {
+        margin: 0 5px;
+    }
+
+    .menu-perfil > div:not(.colaspso-menu) {
+        padding-left: 0px;
+        white-space: normal;
+    }
+
+    .opcion-menu {
+        width: 52%;
+        line-height: 12px;
+    }
+
+    .contenedor-perfil-interno.col.s10 {
+        width: 87.333333%;
+    }
+
+    .foto-mascota {
+        height: 185px;
+        width: 185px;
+    }
+
+    .col.contenedor-placas-mascota{
+        padding: 0px;
+    }
+
+    .placas-mascota>.placa-individual {
+        font-size: 10px;
+    }
+
+    .placas-mascota>.placa-individual>img {
+        height: 20px;
+    }
+
+    .placas-mascota .divisor-placas {
+        height: 18px;
+    }
+
+    .eliminar-placa-boton {
+        margin-left: 0px;
+    }
+
+    .placas-mascota .divisor-placas {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
+    .mascota-add{
+        height: 185px;
+        width: 185px; 
+    }
+
+    .header-mascota {
+        background-size: 500% 96%;
+        background-position: 82% 100%;
+    }
+
+    /*Slider modelos*/
+    cdx-modelos>div {
+        display: inline-block;
+        padding: 0px !important
+    }
+
+    cdx-modelos img {
+        height: 30px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    cdx-modelos>div>div>div {
+        width: 60px;
+    }
+
+    cdx-formas>div {
+        margin-right: 3px;
+    }
+
+    cdx-formas img {
+        height: 29px;
+        cursor: pointer;
+    }
+
+    cdx-pasos .datos>div>div {   
+        font-size: 9px;
+    }
+
+    div, p, input {
+        font-size: 11px;
+    }
+
+    input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+        font-size: 11px;
+    }     
+
+    .agregar-placa-perfil{
+        margin-top: 10px;
+    }
+
+    header .contenedor-logo {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .aviso-baja-mascota {
+        bottom: 42px;
+        left: 1%;
+        width: 90%;
+    }
+}
+
+
+
+
+@media (min-height: 38.875em){
+
+.picker--opened .picker__frame {
+    top: 2%;
+    bottom: auto;
+}}
+
+@media (min-height: 35.875em){
+.picker--opened .picker__frame {
+    top: 2%;
+    bottom: auto;
+}}

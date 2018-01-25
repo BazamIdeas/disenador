@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var configuracion = require('./configuracion.js');
 var compression = require('compression');
+
 //var index = require('./public/');
 
 var rutas = require('./routes/routes.js');
@@ -17,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
-
+app.enable('trust proxy');
 app.use(configuracion.base+'/fuentes', express.static(__dirname + '/fuentes'))
 app.use('/m/fuentes', express.static(__dirname + '/fuentes'))
 app.use('/fuentes', express.static(__dirname + '/fuentes'))
@@ -39,28 +40,27 @@ app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'
 
 
 app.use('/app',rutas);
-
-
-app.use('/creador-de-logos/*', function(req, res, next) {
-    
-
+ 
+app.use(configuracion.base+'*', function(req, res, next) {
     // Just send the index.html for other files to support HTML5Mode
-    res.sendFile('/public/creador-de-logos/index.html', { root: __dirname });
+    res.sendFile('/public/'+configuracion.base+'/index.html', { root: __dirname });
 });
 
 
-
 app.use('/m/*', function(req, res, next) {
-    
-
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('/public/m/index.html', { root: __dirname });
+});
+
+app.use('/freelance/*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile('/public/freelance/index.html', { root: __dirname });
 });
 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('No se encuentra');
   err.status = 404;
   next(err);
 });
