@@ -11,13 +11,13 @@ exports.SaldoPorCliente = function(req, res, next)
     var deuda = 0;
 
     var idCliente = req.idCliente ? req.idCliente : req.body.idCliente; 
-    var par = { estado: "Vendido", clientes_idCliente: idCliente };
+    var par = ["Vendido",idCliente];
 
     async.series({
 
         pagado: function(callback) {
             pago.ObtenerPorCliente(idCliente,function(error,data){
-        
+                console.log(1)
                 if(typeof data !== 'undefined' && data.length){
 
                     for(var key in data){
@@ -34,27 +34,43 @@ exports.SaldoPorCliente = function(req, res, next)
         },
         
         vendido: function(callback) {
-            logos.getLogosTipo(par, function(error,data){
-
+            logo.getLogosTipo(par, function(error,data){
+                
                 if(typeof data !== 'undefined' && data.length){
 
                     for(var key in data){
                     
                         atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
-                                
+                            
                             if (typeof data !== 'undefined' && data.length > 0){
 
+                                var cal = {};
                                 for(var key in data){
-                                        
-                                    if(data[key].clave == "calificacion-admin" && data[key].clave == "calificacion-cliente"){
-                                        
-                                        var cal = data[key].clave == "calificacion-admin" ? "moderador" : "cliente"; 
-                                        vendido = vendido + configuracion.freelancer[cal][data[key].valor]
+
+                                    if(data[key].clave == "calificacion-admin"){
+                                        console.log(1)
+                                        cal.moderador = data[key].valor;
+                                        vendido = vendido + config.freelancer["moderador"][data[key].valor];
                                 
                                     }
+                                    
+                                    if(data[key].clave == "calificacion-cliente"){
+                                        cal.cliente = data[key].valor;
+                                    }
+                                    
+                                    console.log({cal: cal})             
+                                    console.log({vendido: vendido})
+
+
 
                                 }
-
+                                
+                                if(cal.cliente){
+                                    vendido = vendido + config.freelancer["cliente"][cal.cliente];
+                                }else{
+                                    vendido = vendido + config.freelancer["moderador"][cal.moderador];
+                                }
+                                
                             }
 
                         });
@@ -68,6 +84,8 @@ exports.SaldoPorCliente = function(req, res, next)
         }
         
     }, function(err, results) {
+        
+        console.log(2)
         
         if (err) res.status(500).json({msg: "Algo ocurrio"});
 
