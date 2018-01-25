@@ -818,6 +818,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
+            datos = {
                 estado: 'Por Aprobar'
             }
 
@@ -861,7 +862,6 @@ angular.module("administrador")
             var promise = defered.promise;
 
             // idLogo, valor
-
 
                 defered.resolve(res);
 

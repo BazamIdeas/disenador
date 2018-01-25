@@ -54,7 +54,8 @@
                             <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.element == $index && designer.cal">
                                 <p>Calificacion:</p>
                                 <md-input-container flex>
-                                    <md-select ng-model="logo.calificacion" ng-change="designer.ponerCalificacion({idLogo:logo.idLogo, valor: logo.calificacion})" class="md-block" aria-label="filtro">
+                                    <md-select ng-model="logo.calificacion" ng-change="designer.ponerCalificacion({idLogo:logo.idLogo, valor: logo.calificacion})"
+                                        class="md-block" aria-label="filtro">
                                         <md-option value="1">1</md-option>
                                         <md-option value="2">2</md-option>
                                         <md-option value="3">3</md-option>
@@ -146,11 +147,17 @@
                             <div class="pedido-logo lista elemento inside" md-whiteframe ng-click="designer.modFun($index)">
                                 <bazam-visualizar data-svg="designer.base64(logod.logo)"></bazam-visualizar>
                             </div>
-                            <div layout layout-align="space-around center" layout-padding ng-if="designer.modfire = $index && designer.modInit && !designer.cal2">
+                            <div class="botones-logos-disenadores" layout layout-align="center center" ng-if="designer.modfire = $index && designer.modInit && !designer.cal2">
                                 <div>
                                     <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('calificacion-aprobados', $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Calificación</md-tooltip>
                                         <md-icon class="material-icon">star_rate</md-icon>
+                                    </md-button>
+                                </div>
+                                <div>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="designer.verLogo(logod.logo, true)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logo</md-tooltip>
+                                        <md-icon class="material-icon">remove_red_eye</md-icon>
                                     </md-button>
                                 </div>
                                 <div>
@@ -164,7 +171,8 @@
                             <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.modfire = $index && designer.cal2">
                                 <md-input-container flex>
                                     <label>Calificación:</label>
-                                    <md-select ng-model="logod.calificacion" ng-change="designer.ponerCalificacion(logod.idLogo, logod.calificacion)" class="md-block" aria-label="filtro">
+                                    <md-select ng-model="logod.calificacion" ng-change="designer.ponerCalificacion(logod.idLogo, logod.calificacion)" class="md-block"
+                                        aria-label="filtro">
                                         <md-option value="1">1</md-option>
                                         <md-option value="2">2</md-option>
                                         <md-option value="3">3</md-option>
@@ -183,7 +191,7 @@
             <div ng-switch-when="3">
                 <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
                     <texto>VISUALIZAR LOGO</texto>
-                    <md-button ng-click="designer.vista = 0" style="margin:0;">
+                    <md-button ng-click="designer.mostrarPop()" style="margin:0;">
                         <md-icon>close</md-icon>
                     </md-button>
                 </div>

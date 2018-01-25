@@ -69,7 +69,6 @@ angular.module("administrador")
             bz.mostrarD = true;
             
             pedidosService.datosPedido(id).then(function (res) {
-                console.log(res)
                 bz.pedidoDetalle = res.data[0];
             }).catch(function (res) {
                 notificacionService.mensaje('No existen pedidos para este cliente.');

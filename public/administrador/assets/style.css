@@ -401,6 +401,10 @@ md-icon {
 
 }
 
+.botones-logos-disenadores button {
+    margin: 5px;
+}
+
 .paneles.individual {
     margin-bottom: 2%;
 }
