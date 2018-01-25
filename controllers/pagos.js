@@ -17,7 +17,7 @@ exports.SaldoPorCliente = function(req, res, next)
 
         pagado: function(callback) {
             pago.ObtenerPorCliente(idCliente,function(error,data){
-                console.log("pagado")
+                //console.log("pagado")
                 if(typeof data !== 'undefined' && data.length){
 
                     for(var key in data){
@@ -41,7 +41,7 @@ exports.SaldoPorCliente = function(req, res, next)
                     for(var key in data){
                     
                         atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
-                            console.log(data)
+                            //console.log(data)
                             if (typeof data !== 'undefined' && data.length > 0){
 
                                 var cal = {};
@@ -79,7 +79,7 @@ exports.SaldoPorCliente = function(req, res, next)
         
     }, function(err, results) {
         
-        console.log(2)
+        //console.log(2)
         
         if (err) res.status(500).json({msg: "Algo ocurrio"});
 
