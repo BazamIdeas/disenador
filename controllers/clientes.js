@@ -282,24 +282,6 @@ exports.nuevoCliente = function(req, res, next) {
         pais: req.body.pais
     };
 
-    if( req.files && req.files.foto){
-        var nombre = crypto.randomBytes(Math.ceil(len/2)).toString('hex').slice(0,len).toUpperCase();
-        var tmp_path = req.files.foto.path;
-        var target_path = './avatares/' + nombre;
-
-        if (req.files.foto.type.indexOf('image')==-1){
-            res.status(500).json({'msg': 'No subio una imagen'})    
-        } else {
-           fs.rename(tmp_path, target_path, function(err) {
-                if (err) throw err;
-                clienteData.foto = target_path;
-                fs.unlink(tmp_path, function() {
-                    if (err) throw err;
-                });
-            });
-        }    
-    }
-
     cliente.insertCliente(clienteData, function(error, data) {
         //si el cliente se ha insertado correctamente mostramos su info
         if (data && data.insertId) {
@@ -344,4 +326,50 @@ exports.borrarCliente = function(req, res, next) {
         res.status(200).json(data);
     });
 
+}
+
+exports.Avatar = function(req, res, next){
+    
+    var id = req.idCliente;
+
+    var nombre = crypto.randomBytes(Math.ceil(len/2)).toString('hex').slice(0,len).toUpperCase();
+    var tmp_path = req.files.avatar.path;
+    var target_path = './avatares/' + nombre;
+
+    if (req.files.avatar.type.indexOf('image') == -1){
+        
+        res.status(500).json({'msg': 'No subio una imagen'})    
+    
+    } else {
+
+        cliente.getCliente(id, function(error, data) {
+               
+            fs.rename(tmp_path, target_path, function(err) {
+                if (err) throw err;
+
+                var cliente = data[0];
+
+                if (fs.existsSync(cliente.avatar)) {
+                    
+                    fs.unlink(cliente.avatar, function(err) {
+                        if (err) throw err;
+                 
+                        fs.unlink(tmp_path, function(err) {
+                            if (err) throw err;
+                        
+                            data = [target_path,id];
+                            cliente.Avatar(data, function(error, data){
+                                if (err) throw err;
+                                if(typeof data !== "undefined" && data.affectedRows){
+                                    res.status(200).json(data);
+                                }else{
+                                    res.status(500).json({ "msg": "Algo ocurrio" })
+                                }
+                            })
+                        });
+                    })
+                }
+            });
+        });
+    }    
 }

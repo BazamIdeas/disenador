@@ -221,7 +221,7 @@ exports.nuevoElementoIcono = function(req, res) {
 }
 
 exports.nuevoElementoFuente = function(req, res) {
-    var tmp_path = req.files.mifuente.name;
+    //var tmp_path = req.files.mifuente.name;
     var datoPrefe = req.body.datoPrefe;
     var tmp_path = req.files.mifuente.path;
     var tipo = req.files.mifuente.name.toLowerCase();
