@@ -109,8 +109,12 @@ exports.CalificarCliente = function(req, res, next) {
         
         
     }, function(err, results) {
-        
-        if (err) res.status(Object.keys(err)[0]).json(err[0]);
+               
+        if (err) {
+            
+            var errKey = Object.keys(err)[0];
+            res.status(errKey).json(err[errKey]);
+        } 
 
         res.status(200).json(results.calificacion)
     });

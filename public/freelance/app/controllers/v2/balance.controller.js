@@ -11,6 +11,8 @@ angular.module("disenador-de-logos")
             pagado: 0,
             vendido: 0
         };
+        
+        bz.pagos = [];
 
         clientesService.saldo().then(function (res) {
 
@@ -23,6 +25,19 @@ angular.module("disenador-de-logos")
 
 
         })
+        
+        clientesService.listaPagos().then(function (res) {
+
+            bz.pagos  = res;
+
+        }).catch(function () {
+
+
+        }).finally(function () {
+
+
+        })
+        
 
         $scope.$on('sesionExpiro', function (event, data) {
 

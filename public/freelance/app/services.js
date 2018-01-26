@@ -760,15 +760,47 @@ angular.module("disenador-de-logos")
             return promise;
 
         }
-
-        this.listaPagos = function(){
-            
-            
-            return;
-        }
         
-        this.saldo = function(){
+        this.eliminarFacturacion = function(idFacturacion){
             
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/cliente/facturacion/"+idFacturacion+"/borrar").then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+        }
+
+        this.listaPagos = function () {
+
+            var defered = $q.defer();
+
+            var promise = defered.promise;
+
+            $http.get("/app/cliente/pagos").then(function (res) {
+
+                defered.resolve(res.data);
+
+            }).catch(function (res) {
+
+                defered.reject();
+
+            })
+
+            return promise;
+        }
+
+        this.saldo = function () {
+
             var defered = $q.defer();
 
             var promise = defered.promise;
@@ -1199,4 +1231,23 @@ angular.module("disenador-de-logos")
 
             }
         };
-    });
+    })
+
+
+    .factory("arrayToJsonMetasFactory", [function () {
+
+        return function (arrayMetas) {
+
+            var jsonMetas = {};
+
+            angular.forEach(arrayMetas, function (meta, indice) {
+
+                jsonMetas[meta.clave] = meta.valor;
+
+            })
+
+            return jsonMetas;
+
+        }
+
+}])

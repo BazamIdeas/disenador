@@ -26,20 +26,7 @@ angular.module("disenador-de-logos")
             bz.datos = res;
         });
 
-        /*
-        pedidosService.listarPedidos().then(function (res) {
-
-            angular.forEach(res, function (valor, indice) {
-
-                if (valor.estado != "EN ESPERA") {
-                    bz.pedidos.push(valor)
-                }
-
-            });
-
-        });
-
-        */
+      
         bz.editar = function (datos) {
 
             bz.datosEspejo = angular.copy(datos);
@@ -142,6 +129,32 @@ angular.module("disenador-de-logos")
 
             }
 
+        }
+        
+        
+        bz.completadoBorrar = true;
+        bz.eliminarFacturacion = function(idMetodo){
+            
+            if (bz.completadoBorrar) {
+
+                bz.completadoMetodo = false;
+
+                clientesService.eliminarFacturacion(idMetodo).then(function (res) {
+                    
+                    alert("Metodo eliminar");
+
+                }).catch(function (res) {
+
+                    alert("Metodo fallido");
+
+                }).finally(function (res) {
+
+                    bz.completadoBorrar = true;
+
+                })
+
+            }
+            
         }
 
         $scope.$on('sesionExpiro', function (event, data) {

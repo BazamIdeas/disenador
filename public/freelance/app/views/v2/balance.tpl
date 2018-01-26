@@ -44,18 +44,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="pago in [1,2,3,4,5]">
-                                        <td>28/04/1994</td>
-                                        <td>USD 3000</td>
-                                        <td>Paypal</td>
-                                        <td>xarias13@gmail.com</td>
+                                    <tr ng-repeat="pago in balance.pagos">
+                                   
                                         
-                                        <!--<td>{{pedido.fecha | date: 'dd-MM-yyyy'}}</td>
-                                        <td>{{pedido.estado}}</td>
-                                        <td>{{pedido.plan}}</td>
-                                        <td>{{pedido.moneda + ' ' + pedido.precio}}</td>
-                                        <td>{{pedido.moneda}} {{pedido.impuesto ?  (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)</td>
-                                        <td>{{pedido.moneda}} {{pedido.impuesto ?  pedido.precio + (pedido.precio * (pedido.impuesto/100)) : pedido.precio}}</td>-->
+                                        <td>{{pago.fecha | date: 'dd-MM-yyyy'}}</td>
+                                        <td>{{pago.monto}}</td>
+                                        <td>{{pago.medio }}</td>
+                                        <td>{{pago.correo}}</td>
                                     </tr>
                                 </tbody>
                             </table>

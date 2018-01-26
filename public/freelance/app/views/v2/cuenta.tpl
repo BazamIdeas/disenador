@@ -164,7 +164,7 @@
                                         <td>{{facturacion.medio}}</td>
                                         <td>{{facturacion.correo}}</td>
                                         <td>
-                                            <button class="boton-verde">ELIMINAR</button>
+                                            <button class="boton-verde" ng-click="cuenta.eliminarFacturacion(facturacion.idFacturacion)">ELIMINAR</button>
                                         </td>
                                         
                                         <!--<td>{{pedido.fecha | date: 'dd-MM-yyyy'}}</td>

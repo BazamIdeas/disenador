@@ -94,7 +94,7 @@ exports.listaClientesFreelancer = function(req, res)
 
                             if(typeof data !== 'undefined' && data.length){
 
-                                for(var key in data){
+                                async.forEachOf(data, function(val, key, callback){
                                 
                                     atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
                                             
@@ -102,22 +102,39 @@ exports.listaClientesFreelancer = function(req, res)
 
                                             logosVendidos = data.length;
 
+                                            var cal = {};
+
                                             for(var key in data){
-                                                    
-                                                if(data[key].clave == "calificacion-admin" && data[key].clave == "calificacion-cliente"){
-                                                    
-                                                    var cal = data[key].clave == "calificacion-admin" ? "moderador" : "cliente"; 
-                                                    vendido = vendido + configuracion.freelancer[cal][data[key].valor]
-                                            
+
+                                                if(data[key].clave == "calificacion-admin"){
+
+                                                    cal.moderador = data[key].valor;
+                                                    vendido = vendido + config.freelancer["moderador"][data[key].valor];
+                                                }
+
+                                                if(data[key].clave == "calificacion-cliente"){
+                                                    cal.cliente = data[key].valor;
                                                 }
 
                                             }
 
-                                            callback(null, [vendido,logosVendidos]);
+                                            if(cal.cliente){
+                                                vendido = vendido + config.freelancer["cliente"][cal.cliente];
+                                            }else if(cal.moderador){
+                                                vendido = vendido + config.freelancer["cliente"][cal.moderador];
+                                            }
+
+                                             callback();
 
                                         }
                                     });
-                                }
+                                }, function (err) {
+                                    if (err) console.error(err.message);
+                                    
+                                    callback(null, [vendido,logosVendidos]);
+
+
+                                })
                             }else{
 
                                 callback(null,  [vendido,logosVendidos])

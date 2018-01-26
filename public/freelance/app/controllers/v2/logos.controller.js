@@ -8,7 +8,7 @@ angular.module("disenador-de-logos")
 
         bz.base64 = $base64;
 
-        bz.mostrarMenu = "borradores";
+        bz.opcionMostrar = "vendidos";
         
         bz.borradores = [];
         bz.pendientes = [];

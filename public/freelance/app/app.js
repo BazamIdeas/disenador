@@ -240,6 +240,61 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                     }]
                 }
             })
+        
+            .state({
+                name: 'logoVendido',
+                url: '/cliente/logo/:id/',
+                templateUrl: 'app/views/v2/logoVendido.tpl',
+                controller: 'logoVendidoController as logoVendido',
+                resolve: {
+                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+                        
+                        if (!clientesService.autorizado()) {
+
+                            return $q.reject("AUTH_REQUIRED");
+
+                        }
+
+                    }],
+                    logoValido: ["$q", "logosService", "$stateParams", function($q, logosService, $stateParams){
+                        
+                        var defered = $q.defer();
+
+                        var promise = defered.promise;
+                        
+                        if($stateParams.id){
+                            
+                            logosService.obtenerPorId($stateParams.id).then(function(res){
+                                
+                                if(res.estado == "Vendido"){
+                                    
+                                    defered.resolve(res);
+                                    
+                                } else {
+                                    
+                                    defered.reject("INVALID_LOGO");
+                                    
+                                }
+                               
+                            }).catch(function(res){
+                                
+                                defered.reject("INVALID_LOGO");
+                                
+                            })
+                        
+                            return promise;
+                            
+                        } else{
+                            
+                            return $q.reject("INVALID_LOGO");
+                            
+                        }
+                        
+                        
+                    }]
+                    
+                }
+            })
  
             .state({
                 name: 'login',

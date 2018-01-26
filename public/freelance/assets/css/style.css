@@ -2114,3 +2114,25 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 .tab.ng-leave-active {
     opacity: 0; 
 }
+
+
+
+.estrellas div{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.estrella-vacia{
+    background-image: url('/assets/images/estrella-vacía.png');
+}
+
+
+.estrella-llena{
+    background-image: url('/assets/images/estrella-completa.png');
+}
+
+

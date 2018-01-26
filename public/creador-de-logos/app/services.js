@@ -839,16 +839,17 @@ angular.module("disenador-de-logos")
     /***** Logos *********/
     /*********************/
 
-    .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
+    .service("logosService", ["$http", "$q", function ($http, $q) {
 
-        this.calificar = function (idLogo, calificacion) {
+        this.calificar = function (idLogo, calificacion, comentario) {
 
             var defered = $q.defer();
 
             var promise = defered.promise;
 
             var datos = {
-                valor: calificacion,
+                calificacion: calificacion,
+                comentario: comentario,
                 idLogo: idLogo
             }
 
@@ -1168,4 +1169,22 @@ angular.module("disenador-de-logos")
 
             }
         };
-    });
+    })
+
+.factory("arrayToJsonMetasFactory", [function(){
+    
+    return function(arrayMetas){
+        
+        var jsonMetas = {};
+        
+        angular.forEach(arrayMetas, function(meta, indice){
+            
+            jsonMetas[meta.clave] = meta.valor;
+            
+        })
+        
+        return jsonMetas;
+        
+    }
+    
+}])

@@ -48,17 +48,19 @@ exports.SaldoPorCliente = function(req, res, next)
         },
         
         vendido: function(callback) {
+            
             logo.getLogosTipo(par, function(error,data){
                 
                 if(typeof data !== 'undefined' && data.length){
-
-                    for(var key in data){
                     
-                        atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
+                    async.forEachOf(data, function(val, key, callback){
+                        
+                       atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
                             //console.log(data)
                             if (typeof data !== 'undefined' && data.length > 0){
 
                                 var cal = {};
+
                                 for(var key in data){
 
                                     if(data[key].clave == "calificacion-admin"){
@@ -75,17 +77,27 @@ exports.SaldoPorCliente = function(req, res, next)
                                 
                                 if(cal.cliente){
                                     vendido = vendido + config.freelancer["cliente"][cal.cliente];
-                                }else{
-                                    vendido = vendido + config.freelancer["moderador"][cal.moderador];
+                                }else if(cal.moderador){
+                                    vendido = vendido + config.freelancer["cliente"][cal.moderador];
                                 }
-
-                                callback(null, vendido);
                                 
+                                 callback();
                             }
+                           
 
                         });
-                    }
+                    }, function (err) {
+                        if (err) console.error(err.message);
+                        console.log(vendido)
+                        callback(null, vendido);
+                    
+                        
+                    })
 
+                }else{
+                    
+                    callback(null, vendido);
+                
                 }
 
             });

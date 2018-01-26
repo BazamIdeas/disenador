@@ -20,6 +20,7 @@ router.get('/cliente/bloquear/:id', /*middleware.validarAdministrador,*/ control
 
 
 router.post('/cliente/facturacion', middleware.validarCliente, controllers.facturacion.Nuevo);
+router.get('/cliente/facturacion/:idFacturacion/borrar', middleware.validarCliente, controllers.facturacion.Eliminar);
 
 router.post('/cliente/borrar/:id', middleware.validarAdministrador, controllers.clientes.borrarCliente);
 //'valor'	

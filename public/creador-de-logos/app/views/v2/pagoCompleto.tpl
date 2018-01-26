@@ -19,18 +19,28 @@
                         <bazam-visualizar data-svg="pagoCompleto.base64.decode(pagoCompleto.logo.logo)" ></bazam-visualizar>
                     </div>
                     
-                    <div ng-if="pagoCompleto.atributos.padre && !pagoCompleto.atributos.calificacion">
+                    <div ng-if="pagoCompleto.atributos.padre && pagoCompleto.atributos.calificacion === false" ng-form="pagoCompleto.calificacionForm" >
                         <div>Califica tu plantilla:</div>
                         
                         <div class="estrellas">
-                            <div ng-click="pagoCompleto.calificar(1)" ng-mouseover="pagoCompleto.calificacionTentativa = 1" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 1, 'estrella-vacia': pagoCompleto.calificacionTentativa < 1}" class="estrella-llena"></div>
-                            <div ng-click="pagoCompleto.calificar(2)" ng-mouseover="pagoCompleto.calificacionTentativa = 2" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 2, 'estrella-vacia': pagoCompleto.calificacionTentativa < 2}" class="estrella-llena"></div>
-                            <div ng-click="pagoCompleto.calificar(3)" ng-mouseover="pagoCompleto.calificacionTentativa = 3" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 3, 'estrella-vacia': pagoCompleto.calificacionTentativa < 3}" class="estrella-llena"></div>
-                            <div ng-click="pagoCompleto.calificar(4)" ng-mouseover="pagoCompleto.calificacionTentativa = 4" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 4, 'estrella-vacia': pagoCompleto.calificacionTentativa < 4}" class="estrella-llena"></div>
-                            <div ng-click="pagoCompleto.calificar(5)" ng-mouseover="pagoCompleto.calificacionTentativa = 5" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 5, 'estrella-vacia': pagoCompleto.calificacionTentativa < 5}" class="estrella-vacia"></div>
+                            <div ng-mouseover="pagoCompleto.calificacionTentativa = 1" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 1, 'estrella-vacia': pagoCompleto.calificacionTentativa < 1}" class="estrella-llena"></div>
+                            <div ng-mouseover="pagoCompleto.calificacionTentativa = 2" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 2, 'estrella-vacia': pagoCompleto.calificacionTentativa < 2}" class="estrella-llena"></div>
+                            <div ng-mouseover="pagoCompleto.calificacionTentativa = 3" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 3, 'estrella-vacia': pagoCompleto.calificacionTentativa < 3}" class="estrella-llena"></div>
+                            <div ng-mouseover="pagoCompleto.calificacionTentativa = 4" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 4, 'estrella-vacia': pagoCompleto.calificacionTentativa < 4}" class="estrella-llena"></div>
+                            <div ng-mouseover="pagoCompleto.calificacionTentativa = 5" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 5, 'estrella-vacia': pagoCompleto.calificacionTentativa < 5}" class="estrella-vacia"></div>
                         </div>
                         
                         ¡{{pagoCompleto.calificacionTentativa}} Estrellas!
+                        <div class="input-field">
+                            <textarea ng-model="pagoCompleto.comentario" placeholder="¿Que opinas?" name="comentario"  minlength="5" required></textarea>
+                        
+                            <div ng-messages="pagoCompleto.calificacionForm.comentario.$error" ng-if="pagoCompleto.calificacionForm.$submitted || pagoCompleto.calificacionForm.comentario.$dirty">
+                                <div ng-message="required" style="top: 45px;">Este campo es requerido.</div>
+                                <div ng-message="minlength" style="top: 45px;">Debe tener más de 5 carácteres.</div>
+                            </div>
+                        </div>
+                        
+                        <button class="boton-verde" ng-click="pagoCompleto.calificar(pagoCompleto.calificacionTentativa, pagoCompleto.comentario, pagoCompleto.calificacionForm.$valid);pagoCompleto.calificacionForm.$setSubmitted()" type="submit">CALIFICAR</button>
                         
                         
                     </div>
