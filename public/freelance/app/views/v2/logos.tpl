@@ -15,17 +15,17 @@
         <section class="scrollbar-dynamic section-cliente" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
             
             
-            <div class="row" ng-if="logos.datos.idCliente && !logos.facturacion.length" >
-                <div class="col s8 offset-s2" style="background:red">
+            <div class="row margin-bottom-0" ng-if="logos.datos.idCliente && !logos.facturacion.length" >
+                <div class="col s12 aviso-facturacion">
                     ¡Importante! Para retirar saldo de su cuenta debe poseer un método de cobro registrado. Puede registrarlo haciendo <span ui-sref="cuenta">click aquí</span>. 
                 </div>
             </div>
-            
-            <button ng-click="logos.opcionMostrar='borradores'" class="boton-verde">BORRADORES</button>
-            <button ng-click="logos.opcionMostrar='pendientes'" class="boton-verde">PENDIENTES POR APROBACIÓN</button>
-            <button ng-click="logos.opcionMostrar='aprobados'" class="boton-verde">APROBADOS</button>
-            <button ng-click="logos.opcionMostrar='vendidos'" class="boton-verde">VENDIDOS</button>
-            
+            <div class="tab-freelance col s12">
+                <button ng-click="logos.opcionMostrar='borradores'" class="boton-verde">BORRADORES</button>
+                <button ng-click="logos.opcionMostrar='pendientes'" class="boton-verde">PENDIENTES POR APROBACIÓN</button>
+                <button ng-click="logos.opcionMostrar='aprobados'" class="boton-verde">APROBADOS</button>
+                <button ng-click="logos.opcionMostrar='vendidos'" class="boton-verde">VENDIDOS</button>
+            </div>
             <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
 				<!--PENDIENTES DE APROBACION-->
 				<div class="col l6 offset-l3 xl6 offset-xl3" ng-switch-when="pendientes">

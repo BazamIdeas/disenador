@@ -346,5 +346,40 @@ cliente.Bloquear = function(id, callback) {
 	});
 }
  
+cliente.Avatar = function(data, callback) {
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , data[1] , function(err, row)
+		{
+	  	 	//si existe la id del cliente a eliminar
+		  	if (typeof row !== 'undefined' && row.length > 0)
+		  	{
+		  		var qq = 'UPDATE clientes SET avatar = ? WHERE idCliente = ?';
+		  		DB.getConnection(function(err, connection)
+		  		{
+					connection.query( qq , data , function(err, row)
+					{
+				  		if(err)	throw err;
+
+					  	else callback(null,{"affectedRows" : row.affectedRows}); 
+				  		
+				  		connection.release();
+				 	});
+
+				  	
+				});
+
+		  	}
+		  	else callback(null,{"msg":"no existe el cliente"});
+
+		  	connection.release();
+	  	});
+
+	  
+	});
+}
+
+
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = cliente;

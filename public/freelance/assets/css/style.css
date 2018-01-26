@@ -2136,3 +2136,21 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 }
 
 
+.aviso-facturacion{
+    background: #bd1616;
+    font-family: 'futura-heavy';
+    text-align: center;
+    color: white;
+    padding: 8px !important;
+}
+
+.tab-freelance{
+    display: flex;
+    padding: 0 !important;
+}
+
+.tab-freelance button{
+    flex: 1;
+    border-radius: 0;
+    margin-top: 0;
+}

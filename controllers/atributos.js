@@ -43,7 +43,6 @@ exports.CalificarAdministrador = function(req, res, next) {
 
 exports.CalificarCliente = function(req, res, next) {
 
-
     async.series({
 
         calificacion: function(callback) {
@@ -56,7 +55,6 @@ exports.CalificarCliente = function(req, res, next) {
         
             atributo.ObtenerPorClave(atributosData.clave, atributosData.logos_idLogo, function(error, data) {
                 
-                //console.log(data)
                 if(data && !data.length){
 
                     atributo.Guardar(atributosData, function(error, data) {
@@ -69,7 +67,7 @@ exports.CalificarCliente = function(req, res, next) {
 
                 }else{
 
-                    callback({418:"Ya existe la calificacion"})
+                    callback(null,data)
                 
                 }
             });
@@ -86,7 +84,6 @@ exports.CalificarCliente = function(req, res, next) {
         
             atributo.ObtenerPorClave(atributosComentario.clave, atributosComentario.logos_idLogo, function(error, data) {
                 
-                //console.log(data)
                 if(data && !data.length){
 
                     atributo.Guardar(atributosComentario, function(error, data) {
@@ -99,15 +96,13 @@ exports.CalificarCliente = function(req, res, next) {
 
                 }else{
 
-                    callback({418:"Ya existe el comentario"})
+                    callback(null,data)
                 
                 }
             });
 
         },
 
-        
-        
     }, function(err, results) {
                
         if (err) {
@@ -117,9 +112,5 @@ exports.CalificarCliente = function(req, res, next) {
         } 
 
         res.status(200).json(results.calificacion)
-    });
-
-
-
-
+    })
 }
