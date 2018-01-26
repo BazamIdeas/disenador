@@ -43,7 +43,6 @@ exports.CalificarAdministrador = function(req, res, next) {
 
 exports.CalificarCliente = function(req, res, next) {
 
-
     async.series({
 
         calificacion: function(callback) {
@@ -56,7 +55,6 @@ exports.CalificarCliente = function(req, res, next) {
         
             atributo.ObtenerPorClave(atributosData.clave, atributosData.logos_idLogo, function(error, data) {
                 
-                //console.log(data)
                 if(data && !data.length){
 
                     atributo.Guardar(atributosData, function(error, data) {
@@ -86,7 +84,6 @@ exports.CalificarCliente = function(req, res, next) {
         
             atributo.ObtenerPorClave(atributosComentario.clave, atributosComentario.logos_idLogo, function(error, data) {
                 
-                //console.log(data)
                 if(data && !data.length){
 
                     atributo.Guardar(atributosComentario, function(error, data) {
@@ -106,16 +103,10 @@ exports.CalificarCliente = function(req, res, next) {
 
         },
 
-        
-        
     }, function(err, results) {
         
         if (err) res.status(Object.keys(err)[0]).json(err[0]);
 
         res.status(200).json(results.calificacion)
-    });
-
-
-
-
+    })
 }

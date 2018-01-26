@@ -4,7 +4,7 @@ var facturacion = {};
 
 facturacion.ObtenerPorCliente = function(idCliente, callback) {
     
-    var q = `SELECT * FROM facturacion WHERE clientes_idCliente = ?`;
+    var q = `SELECT * FROM facturacion WHERE clientes_idCliente = ? AND borrado = NULL`;
     var par = [idCliente];
 
 	DB.getConnection(function(err, connection)
@@ -51,7 +51,7 @@ facturacion.Actualizar = function(idFacturacion, datosFacturacion, callback) {
 facturacion.Eliminar = function(idFacturacion, callback) {
     
     var q = `SELECT * FROM facturacion WHERE facturacion.idFacturacion = ?`;
-    var qq = `DELETE * FROM facturacion WHERE facturacion.idFacturacion = ?`;
+    var qq = `UPDATE facturacion SET borrado = CURDATE() WHERE facturacion.idFacturacion = ?`;
 
     DB.getConnection(function(err, connection)
 	{
