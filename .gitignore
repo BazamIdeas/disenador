@@ -3,6 +3,7 @@ node_modules
 
 public/assets/icons/
 poiinonbkjn.png
-tmp/
+tmp/*
 .svg
 npm-debug.log
+fuentes/*
