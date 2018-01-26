@@ -63,7 +63,7 @@ exports.CalificarCliente = function(req, res, next) {
                         if(!data && !data.insertId){
                             callback({500:"Algo ocurrio"})
                         }else{
-                            callback(null,data.insertId)
+                            callback(null,data)
                         }
                     })
 
@@ -93,7 +93,7 @@ exports.CalificarCliente = function(req, res, next) {
                         if(!data && !data.insertId){
                             callback({500:"Algo ocurrio"})
                         }else{
-                            callback(null,data.insertId)
+                            callback(null,data)
                         }
                     })
 

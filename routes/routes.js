@@ -10,12 +10,13 @@ var configuracion       = require('../configuracion.js');
 //MODULO CLIENTES
 //no espera parametros
 router.get('/clientes', middleware.validarAdministrador, controllers.clientes.listaClientes);
-router.get('/clientes/freelancer', middleware.validarAdministrador, controllers.clientes.listaClientesFreelancer);
+router.get('/clientes/freelancer'/*, middleware.validarAdministrador*/, controllers.clientes.listaClientesFreelancer);
 router.get('/cliente/saldo-personal', middleware.validarCliente, controllers.pagos.SaldoPorCliente);
 router.get('/cliente/saldo', middleware.validarAdministrador, controllers.pagos.SaldoPorCliente);
 //parametro por get que debe ser el id del cliente.
 router.get('/cliente/datos', middleware.validarCliente, controllers.clientes.Datos);
 router.get('/cliente/pagos', middleware.validarCliente, controllers.pagos.ObtenerPorCliente);
+router.get('/cliente/bloquear/:id', /*middleware.validarAdministrador,*/ controllers.clientes.Bloquear);
 
 
 router.post('/cliente/facturacion', middleware.validarCliente, controllers.facturacion.Nuevo);

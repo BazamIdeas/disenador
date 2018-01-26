@@ -133,19 +133,9 @@ exports.listaClientesFreelancer = function(req, res)
 
                             if(typeof data !== 'undefined' && data.length){
 
-                                for(var key in data){
-                                
-                                    atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
-                                            
-                                        if (typeof data !== 'undefined' && data.length > 0){
+                                logosPorAprobar = data.length;
+                                callback(null, logosPorAprobar);
 
-                                            logosPorAprobar = data.length;
-
-                                            callback(null, logosPorAprobar);
-
-                                        }
-                                    });
-                                }
                             }else{
 
                                 callback(null, logosPorAprobar)
@@ -162,19 +152,9 @@ exports.listaClientesFreelancer = function(req, res)
 
                             if(typeof data !== 'undefined' && data.length){
 
-                                for(var key in data){
-                                
-                                    atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
-                                            
-                                        if (typeof data !== 'undefined' && data.length > 0){
+                                logosAprobados = data.length;
+                                callback(null, logosAprobados);
 
-                                            logosAprobados = data.length;
-
-                                            callback(null, logosAprobados);
-
-                                        }
-                                    });
-                                }
                             }else{
                                 callback(null, logosAprobados)
                             }
@@ -276,6 +256,19 @@ exports.Datos = function(req, res, next) {
         }
     });
 
+}
+
+
+exports.Bloquear = function(req, res, next){
+   var id = req.params.id;
+   
+   cliente.Bloquear(id, function(error,data){
+        if(typeof data !== "undefined" && data.affectedRows){
+            res.status(200).json(data);
+        } else {
+            res.status(500).json({ "msg": "Algo ocurrio" })
+        }
+   })
 }
 
 

@@ -306,6 +306,45 @@ cliente.obtenerIdCliente = function(uid,callback)
 	});
 }
 
+cliente.Bloquear = function(id, callback) {
+
+	var q = 'SELECT * FROM clientes WHERE idCliente = ?';
+	var par = [id] //parametros
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row)
+		{
+	  	 	//si existe la id del cliente a eliminar
+		  	if (typeof row !== 'undefined' && row.length > 0)
+		  	{
+				var bloqueado = !row[0].bloqueado ? 1 : row[0].bloqueado  
+		  		var qq = 'UPDATE clientes SET bloqueado = ? WHERE idCliente = ?';
+		  		DB.getConnection(function(err, connection)
+		  		{
+					connection.query( qq , [bloqueado,id] , function(err, row)
+					{
+				  	
+				  		if(err)	throw err;
+
+					  	//devolvemos el última id insertada
+					  	else callback(null,{"affectedRows" : row.affectedRows}); 
+				  		
+				  		connection.release();
+				 	});
+
+				  	
+				});
+
+		  	}
+		  	else callback(null,{"msg":"no existe el cliente"});
+
+		  	connection.release();
+	  	});
+
+	  
+	});
+}
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = cliente;
