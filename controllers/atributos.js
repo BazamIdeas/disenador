@@ -69,7 +69,7 @@ exports.CalificarCliente = function(req, res, next) {
 
                 }else{
 
-                    callback({418:"Ya existe la calificacion"})
+                    callback(null,data)
                 
                 }
             });
@@ -99,7 +99,7 @@ exports.CalificarCliente = function(req, res, next) {
 
                 }else{
 
-                    callback({418:"Ya existe el comentario"})
+                    callback(null,data)
                 
                 }
             });
