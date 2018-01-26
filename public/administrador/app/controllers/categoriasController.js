@@ -36,9 +36,7 @@ angular.module("administrador")
 
             bz.prefs = [];
             categoriasService.listarPreferencias().then(function (res) {
-                angular.forEach(res.data, function (valor, llave) {
-                    bz.prefs.push(valor);
-                })
+                bz.prefs = res.data;
             })
 
         }
@@ -58,11 +56,14 @@ angular.module("administrador")
             } else {
                 bz.opcionesCategorias = 2;
                 bz.datos.modPreferencia.idPreferencia = id;
-                bz.modNombre = {nombre1: nombre, nombre2: nombre2};
+                bz.modNombre = {
+                    nombre1: nombre,
+                    nombre2: nombre2
+                };
             }
 
             bz.mostrarOpciones = !bz.mostrarOpciones;
-            
+
         }
 
         bz.modificarElemento = function (datos, opcion) {
@@ -121,7 +122,7 @@ angular.module("administrador")
             if (opcion == 'categoria') {
                 categoriasService.eliminarCategoria(id).then(function (res) {
                         notificacionService.mensaje('Eliminada!');
-                        delete bz.cats[index];
+                        bz.cats.splice(index, 1);
                         bz.listar('categoria');
                     })
                     .catch(function (res) {
@@ -130,7 +131,7 @@ angular.module("administrador")
             } else {
                 categoriasService.eliminarPreferencia(id).then(function (res) {
                         notificacionService.mensaje('Eliminada!');
-                        delete bz.prefs[index];
+                        bz.prefs.splice(index, 1);
                         bz.listar('preferencia');
                     })
                     .catch(function (res) {
@@ -139,7 +140,7 @@ angular.module("administrador")
             }
         }
 
-        bz.mostrarCat = function(){
+        bz.mostrarCat = function () {
             bz.mostrarC = !bz.mostrarC;
             bz.f = bz.mostrarC ? true : false;
         }

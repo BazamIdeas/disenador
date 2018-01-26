@@ -5,7 +5,6 @@ angular.module("administrador")
         bz.clientes = [];
         bz.mostrarPedido = false;
         bz.pedidosC = [];
-
         bz.filtrosActivos;
 
 

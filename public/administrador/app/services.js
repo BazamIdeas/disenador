@@ -862,7 +862,7 @@ angular.module("administrador")
             var promise = defered.promise;
 
             // idLogo, valor
-
+            $http.post('/app/logo/calificar-admin/', datos).then(function (res) {
                 defered.resolve(res);
 
             }).catch(function (res) {
@@ -912,11 +912,11 @@ angular.module("administrador")
         }
 
 
-        this.notificarPago = function (datos) {
+        this.notificarPago = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/precio', datos).then(function (res) {
+            $http.post('/app/cliente/notificar/'+ id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -928,11 +928,11 @@ angular.module("administrador")
             return promise;
         }
 
-        this.bloquearDisenador = function (datos) {
+        this.bloquearDisenador = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/plan/modificar', datos).then(function (res) {
+            $http.post('/app/cliente/bloquear/'+id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -957,8 +957,8 @@ angular.module("administrador")
 
     .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
-
-            $rootScope.$broadcast('sesionExpiro', "true");
+            $rootScope.$broadcast("sesionExpiro");
+            $state.go('login');
         }
 
         function autorizado() {

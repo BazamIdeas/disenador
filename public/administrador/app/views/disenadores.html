@@ -22,10 +22,10 @@
                         <div>Acciones:</div>
                     </div>
                     <div layout="column" class="content-scroll">
-                        <div class="elemento" ng-repeat="logo in designer.logos | filter:designer.a">
+                        <div class="elemento" ng-repeat="logo in designer.logos">
                             <div class="tabla-campo">
                                 <div>
-                                    <div ng-click="designer.verLogo(logo.logo)" class="pedido-logo lista elemento inside" md-whiteframe>
+                                    <div ng-click="designer.verLogo(logo.logo, false)" class="pedido-logo lista elemento inside" md-whiteframe>
                                         <bazam-visualizar data-svg="designer.base64(logo.logo)"></bazam-visualizar>
                                     </div>
                                 </div>
@@ -79,44 +79,43 @@
 
                     <div layout class="elemento">
                         <md-input-container flex style="margin-bottom: 0;height: 35px;">
-                            <input type="text" ng-model="designer.buscarPlanes" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                            <input type="text" ng-model="designer.b" class="md-block" aria-label="filtro" placeholder="Buscar:">
                         </md-input-container>
                     </div>
                     <div class="tabla">
-                        <div>Nombre:</div>
-                        <div>Saldo:</div>
-                        <div>Metodo:</div>
+                        <div style="flex:0.4;">Nombre:</div>
+                        <div style="flex:0.4;">Deuda:</div>
+                        <div style="flex:0.4;">Pais:</div>
                         <div>Acciones:</div>
                     </div>
                     <div layout="column" class="content-scroll">
-                        <!-- TODO: CAMBIAR POR DATOS REALES -->
-                        <div class="elemento">
+                        <div class="elemento" ng-repeat="d in designer.disenadores | filter:designer.b">
                             <div class="tabla-campo">
-                                <div class="nombre">Juanita</div>
-                                <div>$30</div>
-                                <div>Paypal</div>
+                                <div style="flex:0.4;">{{d.nombreCliente}}</div>
+                                <div style="flex:0.4;">$ {{d.deuda.deuda}}</div>
+                                <div style="flex:0.4;">{{d.pais}}</div>
                                 <div>
                                     <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, 'JUANITA')">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.notificarDisenador(d.idCliente)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Pagar</md-tooltip>
                                             <md-icon class="material-icon">payment</md-icon>
                                         </md-button>
                                     </div>
                                     <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('historial', $index, 'JUANITA')">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('historial', $index, d.nombreCliente, d.idCliente)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Historial de pagos</md-tooltip>
                                             <md-icon class="material-icon">account_balance</md-icon>
                                         </md-button>
                                     </div>
 
                                     <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, 'JUANITA')">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, d.idCliente)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logos del diseñador</md-tooltip>
                                             <md-icon class="material-icon">remove_red_eye</md-icon>
                                         </md-button>
                                     </div>
                                     <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.bloquearPlan('bloquear',elemento.idPlan,$index)">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.bloquearDisenador(d.idCliente)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear</md-tooltip>
                                             <md-icon class="material-icon">lock</md-icon>
                                         </md-button>
