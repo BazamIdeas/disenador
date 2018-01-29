@@ -133,6 +133,7 @@ router.get('/planes/comprar', controllers.planes.ListarFront);
 router.get('/planes', /*middleware.validarAdministrador,*/ controllers.planes.ListarBack);
 router.get('/plan/precios/:id', /*middleware.validarAdministrador,*/ controllers.planes.ListarPrecios); // lista precios activos
 router.post('/plan', /*middleware.validarAdministrador,*/ controllers.planes.Nuevo); // ingresar Nuevo y un precio
+router.post('/plan/caracteristicas', middleware.validarAdministrador, controllers.caracteristicas.Nuevos);
 router.post('/plan/bloquear', /*middleware.validarAdministrador,*/ controllers.planes.Bloquear);
 router.post('/plan/modificar', /*middleware.validarAdministrador,*/ controllers.planes.Modificar);
 

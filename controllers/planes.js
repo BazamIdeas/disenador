@@ -102,10 +102,37 @@ exports.ListarBack = (req, res, next) =>
 	plan.Listar( (error, data) => {
 		//si el usuario existe 
 		if (typeof data !== 'undefined' && data.length > 0) {
-			res.status(200).json(data);
-		}
-		//no existe
-		else {
+
+			async.forEachOf(data, (plan, key, callback) => {
+
+				caracteristica.ObtenerPorPlan(plan.idPlan, (err, caracteristicas) => {
+					
+					if (err) return callback(err);
+
+					try {
+
+						if (caracteristicas.length) {
+
+							data[key].caracteristicas = caracteristicas;
+						
+						}								
+					
+					} catch (e) {
+						return callback(e);
+					}
+
+					callback();
+				})
+
+			}, (err) => {
+				
+				if (err) res.status(402).json({});
+				
+				res.status(200).json(data);
+			
+			})
+			
+		}else {
 			res.status(404).json({
 				"msg": "No hay registro de planes en la base de datos"
 			})
