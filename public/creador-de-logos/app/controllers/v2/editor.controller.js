@@ -126,26 +126,23 @@ angular.module("disenador-de-logos")
                 if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
                     logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre).then(function (res) {
                         bz.logo.idLogo = res;
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+                        
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Su logo ha sido guardado con exito!',
+                                clase: "success"
+                            }
+                        }));
 
-                                var temporizador = $timeout(function () {
 
-                                    $mdToast.hide();
+                    }).catch(function () {
 
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-
-                                }
-                        }],
-                            templateUrl: 'toast-success-logo-save.html'
-                        });
-
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Un error ha ocurrido',
+                                clase: "danger"
+                            }
+                        }));
 
                     }).finally(function () {
 
@@ -156,26 +153,22 @@ angular.module("disenador-de-logos")
 
                     logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, fuentesId.principal, fuentesId.eslogan).then(function (res) {
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Su logo ha sido guardado con exito!',
+                                clase: "success"
+                            }
+                        }));
 
-                                var temporizador = $timeout(function () {
 
-                                    $mdToast.hide();
+                    }).catch(function () {
 
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-
-                                }
-                        }],
-                            templateUrl: 'toast-success-logo-save.html'
-                        });
-
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Un error ha ocurrido',
+                                clase: "danger"
+                            }
+                        }));
 
                     }).finally(function () {
 

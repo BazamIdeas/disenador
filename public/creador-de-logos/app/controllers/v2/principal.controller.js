@@ -32,7 +32,7 @@ angular.module("disenador-de-logos")
         bz.fuentes = [];
 
         bz.logos = [];
-        
+
         bz.aprobados = [];
 
         bz.logoSeleccionado = null;
@@ -209,60 +209,36 @@ angular.module("disenador-de-logos")
 
                     if (clientesService.autorizado(true)) {
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
-                                var temporizador = $timeout(function () {
-
-                                    $mdToast.hide();
-
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-
-                                }
-                            }],
-                            templateUrl: 'toast-success-login.html'
-                        });
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: '¡Bienvenido!',
+                                clase: "success"
+                            }
+                        }));
 
                         bz.mostrarModalLogin = false;
-                       
-                        switch(bz.objetivoEditor){
-                                
-                            case 'nuevo':  
+
+                        switch (bz.objetivoEditor) {
+
+                            case 'nuevo':
                                 bz.avanzar(bz.logoSeleccionado);
                                 break;
-                            
-                            case 'predisenado':  
-                                  bz.avanzarPredisenado(bz.predisenadoSeleccionado);
+
+                            case 'predisenado':
+                                bz.avanzarPredisenado(bz.predisenadoSeleccionado);
                                 break;
-                                
+
                         }
                     }
 
                 }).catch(function () {
 
-                    $mdToast.show({
-                        hideDelay: 0,
-                        position: 'top right',
-                        controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
-
-                            var temporizador = $timeout(function () {
-
-                                $mdToast.hide();
-
-                            }, 2000)
-
-                            $scope.closeToast = function () {
-                                $timeout.cancel(temporizador)
-                                $mdToast.hide();
-                            }
-                            }],
-                        templateUrl: 'toast-danger-login.html'
-                    });
+                    $mdToast.show($mdToast.base({
+                        args: {
+                            mensaje: 'Verifica tu Usuario y Contraseña',
+                            clase: "danger"
+                        }
+                    }));
 
                 }).finally(function (res) {
 
@@ -291,65 +267,39 @@ angular.module("disenador-de-logos")
 
                     if (clientesService.autorizado(true)) {
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
-
-                                var temporizador = $timeout(function () {
-
-                                    $mdToast.hide();
-
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-
-                                }
-                            }],
-                            templateUrl: 'toast-success-registro.html'
-                        });
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: '¡Registro exitoso!',
+                                clase: "success"
+                            }
+                        }));
 
                         bz.mostrarModalLogin = false;
-                       
-                        switch(bz.objetivoEditor){
-                                
-                            case 'nuevo':  
+
+                        switch (bz.objetivoEditor) {
+
+                            case 'nuevo':
                                 bz.avanzar(bz.logoSeleccionado);
                                 break;
-                            
-                            case 'predisenado':  
-                                  bz.avanzarPredisenado(bz.predisenadoSeleccionado);
+
+                            case 'predisenado':
+                                bz.avanzarPredisenado(bz.predisenadoSeleccionado);
                                 break;
-                                
+
                         }
-                        
-                      
+
+
 
                     }
 
                 }).catch(function () {
 
-                    $mdToast.show({
-                        hideDelay: 0,
-                        position: 'top right',
-                        controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
-
-                            var temporizador = $timeout(function () {
-
-                                $mdToast.hide();
-
-                            }, 2000)
-
-                            $scope.closeToast = function () {
-                                $timeout.cancel(temporizador)
-                                $mdToast.hide();
-
-                            }
-                        }],
-                        templateUrl: 'toast-danger-registro.html'
-                    });
+                    $mdToast.show($mdToast.base({
+                        args: {
+                            mensaje: 'Un error ha ocurrido',
+                            clase: "danger"
+                        }
+                    }));
 
 
                 }).finally(function () {
@@ -381,7 +331,7 @@ angular.module("disenador-de-logos")
         ////////////////////
         ////prediseñados////
         ////////////////////
-        
+
 
         logosService.mostrarDestacados().then(function (res) {
 
@@ -389,8 +339,8 @@ angular.module("disenador-de-logos")
 
         }).catch(function () {
 
-            
-            
+
+
         }).finally(function () {
 
             if (!bz.aprobados.length) {
@@ -457,9 +407,9 @@ angular.module("disenador-de-logos")
 
             return idFuente;
         }
-        
-        
-      
+
+
+
         bz.avanzarPredisenado = function (indiceLogo) {
 
             bz.predisenadoSeleccionado = indiceLogo;
