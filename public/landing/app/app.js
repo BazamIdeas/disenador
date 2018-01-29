@@ -1,4 +1,4 @@
-angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial"])
+angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", 'ui.carousel', 'base64'])
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
