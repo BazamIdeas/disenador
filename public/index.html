@@ -4,29 +4,35 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-    <link href="landing/assets/style.css" rel="stylesheet">
-    <link href="landing/assets/animation.css" rel="stylesheet">
-    
-  
-
-    <!---jQuery --->
-    <script src="/jquery/jquery.min.js"></script>
+    <link href="/landing/assets/style.css" rel="stylesheet">
+    <link href="/landing/assets/animation.css" rel="stylesheet">
+    <link rel="stylesheet" href="/landing/assets/flexboxgrid.css" type="text/css">
+    <link rel="stylesheet" href="/landing/assets/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
 
     <!--Librerias core de angualarJS -->
     <script src="/angular/angular.min.js"></script>
     <script src="/angular-messages/angular-messages.min.js"></script>
     <script src="/angular-animate/angular-animate.min.js"></script>
     <script src="/angular-aria/angular-aria.min.js"></script>
+    <script src="/angular-base64/angular-base64.min.js"></script>
 
     <!--Librerias 3r party angularJS -->
     <script src="/angular-ui-router/angular-ui-router.min.js"></script>
     <script src="/angular-material/angular-material.min.js"></script>
+    <script src="/angular-ui-carousel/ui-carousel.min.js"></script>
+    <!--<script src="/jquery/jquery.min.js"></script> -->
 
     <!--Archivos App diseñador -->
-    <script src="landing/app/app.js"></script>
+    <script src="/landing/app/app.js"></script>
+    <script src="/landing/app/directives.js"></script>
 
     <!-- Controladores -->
-    <script src="landing/app/controllers/controllers.js"></script>
+    <script src="/landing/app/controllers/comienzo.js"></script>
+    <script src="/landing/app/controllers/disenadores.js"></script>
+    <script src="/landing/app/controllers/equipo.js"></script>
+    <script src="/landing/app/controllers/legales.js"></script>
+    <script src="/landing/app/controllers/terminos.js"></script>
 
 </head>
 
@@ -34,14 +40,16 @@
     <!-- header -->
     <header>
         <md-toolbar class="header">
-            <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
+            <div layout flex class="md-toolbar-tools" layout-align="end center" layout-padding>
                 <div layout>
-                    DISEÑADOR
+                    <a href="/freelance/#!/login">
+                        <md-button>DISENADOR</md-button>
+                    </a>
                 </div>
-                <div class="login_header">
-                    <ingresar layout-padding>
-                       <a href="/creador-de-logos/#!/login">
-                        Ingresar
+                <div>
+                    <ingresar>
+                        <a href="/creador-de-logos/#!/login">
+                            <md-button>CLIENTE</md-button>
                         </a>
                     </ingresar>
                 </div>
@@ -54,10 +62,27 @@
     </md-content>
 
     <!-- Footer -->
-    <footer class="text-center" layout="row" layout-align="space-between center">
-            <div class="logo" flex="30">logo</div>
-            <p class="copyright" flex="30">Copyright 2017</p>
-            <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
+    <footer>
+        <div layout="row" layout-align="space-between center">
+            <div>
+                <div class="logo">LOGONOW</div>
+                <p class="copyright">© 2018 | LOGONOW - Todos los derechos reservados</p>
+            </div>
+            <div class="iconos-sociales">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+
+                <i class="fa fa-twitter-square" aria-hidden="true"></i>
+
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+
+            </div>
+        </div>
+        <div layout class="links-footer">
+            <a href="">Terminos y condiciones de uso</a>
+            <a href="">Avisos Legales</a>
+            <a href="">Nuestro Equipo</a>
+            <a href="">Trabaja con nosotros</a>
+        </div>
     </footer>
 </body>
 

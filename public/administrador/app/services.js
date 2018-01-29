@@ -806,6 +806,147 @@ angular.module("administrador")
 
     }])
 
+    /* SERVICIO PARA DISEÑADORES */
+
+    .service('designerService', ['$http', '$q', function ($http, $q) {
+
+        /***************************/
+        /**********LOGOS***********/
+        /***************************/
+
+        this.listarLogos = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            datos = {
+                estado: 'Por Aprobar'
+            }
+
+            $http.post('/app/logos/por-aprobar', datos).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.aprobarLogo = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            datos = {idLogo : id}
+            
+            $http.post('/app/logo/aprobar', datos).then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+
+        }
+
+        this.borrarLogo = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/logo/borrar/' + id).then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.calificarLogo = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            // idLogo, valor
+            $http.post('/app/logo/calificar-admin/', datos).then(function (res) {
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+            return promise;
+        }
+
+        /* DISENADORES */
+
+        this.listarDisenadores = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/clientes/freelancer').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.logosDisenador = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/planes/').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.historialDisenador = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/cliente/saldo').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+
+        this.notificarPago = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/cliente/notificar/'+ id).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+            return promise;
+        }
+
+        this.bloquearDisenador = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/cliente/bloquear/'+id).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+        }
+
+    }])
+
     /* NOTIFICACION */
 
     .service('notificacionService', ['$http', '$q', '$mdToast', function ($http, $q, $mdToast) {
@@ -814,11 +955,10 @@ angular.module("administrador")
         }
     }])
 
-
     .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
-
-            $rootScope.$broadcast('sesionExpiro', "true");
+            $rootScope.$broadcast("sesionExpiro");
+            $state.go('login');
         }
 
         function autorizado() {
@@ -862,7 +1002,6 @@ angular.module("administrador")
 
                 if (response.status === 401 || response.status === 403) {
                     salir();
-
 
                 }
 
@@ -1205,7 +1344,7 @@ angular.module("administrador")
 
     }])
 
-        .filter('unique', function () {
+    .filter('unique', function () {
 
         return function (items, filterOn) {
 
@@ -1244,6 +1383,7 @@ angular.module("administrador")
             return items;
         };
     })
+
     .value("monedasValue", {
         "USD": {
             "symbol": "$",

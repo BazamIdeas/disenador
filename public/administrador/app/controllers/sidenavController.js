@@ -38,6 +38,10 @@ angular.module("administrador")
             url: 'app.usuario',
             nombre: 'Usuarios',
             icono: 'person'
+        }, {
+            url: 'app.disenadores',
+            nombre: 'Diseñadores',
+            icono: 'face'
         }];
 
         /* VERIFICA SI EL USUARIO ESTA AUTORIZADO Y LO VIGILA */

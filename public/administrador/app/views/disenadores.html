@@ -1,0 +1,233 @@
+<div class="row start-xs" id="toast">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="listar">
+
+            <!-- LISTAR LOGOS -->
+
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex ng-click="designer.listarLogos()">LISTADO DE LOGOS</texto>
+                </div>
+                <div ng-show="designer.listaL">
+                    <!--
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="designer.a" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                -->
+                    <div class="tabla">
+                        <div>Logo:</div>
+                        <div>Estado:</div>
+                        <div>Acciones:</div>
+                    </div>
+                    <div layout="column" class="content-scroll">
+                        <div class="elemento" ng-repeat="logo in designer.logos">
+                            <div class="tabla-campo">
+                                <div>
+                                    <div ng-click="designer.verLogo(logo.logo, false)" class="pedido-logo lista elemento inside" md-whiteframe>
+                                        <bazam-visualizar data-svg="designer.base64(logo.logo)"></bazam-visualizar>
+                                    </div>
+                                </div>
+                                <div>{{logo.estado}}</div>
+                                <div>
+                                    <div ng-if="logo.estado == 'Por Aprobar'">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.aprobarLogo($index, logo.idLogo)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Aprobar</md-tooltip>
+                                            <md-icon class="material-icon">check</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.borrarLogo($index, logo.idLogo)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">No Aprobar</md-tooltip>
+                                            <md-icon class="material-icon">remove_circle_outline</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, logo.clientes_idCliente)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logos del diseñador</md-tooltip>
+                                            <md-icon class="material-icon">remove_red_eye</md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.element == $index && designer.cal">
+                                <p>Calificacion:</p>
+                                <md-input-container flex>
+                                    <md-select ng-model="logo.calificacion" ng-change="designer.ponerCalificacion({idLogo:logo.idLogo, valor: logo.calificacion})"
+                                        class="md-block" aria-label="filtro">
+                                        <md-option value="1">1</md-option>
+                                        <md-option value="2">2</md-option>
+                                        <md-option value="3">3</md-option>
+                                        <md-option value="4">4</md-option>
+                                        <md-option value="5">5</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LISTAR DIEÑADORES -->
+
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex ng-click="designer.listarDisenadores()">LISTADO DE DISEÑADORES</texto>
+                </div>
+                <div ng-show="designer.listaD">
+
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="designer.b" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div class="tabla">
+                        <div style="flex:0.4;">Nombre:</div>
+                        <div style="flex:0.4;">Deuda:</div>
+                        <div style="flex:0.4;">Pais:</div>
+                        <div>Acciones:</div>
+                    </div>
+                    <div layout="column" class="content-scroll">
+                        <div class="elemento" ng-repeat="d in designer.disenadores | filter:designer.b">
+                            <div class="tabla-campo">
+                                <div style="flex:0.4;">{{d.nombreCliente}}</div>
+                                <div style="flex:0.4;">$ {{d.deuda.deuda}}</div>
+                                <div style="flex:0.4;">{{d.pais}}</div>
+                                <div>
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.notificarDisenador(d.idCliente)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Pagar</md-tooltip>
+                                            <md-icon class="material-icon">payment</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('historial', $index, d.nombreCliente, d.idCliente)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Historial de pagos</md-tooltip>
+                                            <md-icon class="material-icon">account_balance</md-icon>
+                                        </md-button>
+                                    </div>
+
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, d.idCliente)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logos del diseñador</md-tooltip>
+                                            <md-icon class="material-icon">remove_red_eye</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.bloquearDisenador(d.idCliente)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear</md-tooltip>
+                                            <md-icon class="material-icon">lock</md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACCIONES VISTA -->
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-switch="designer.vista">
+        <div class="paneles md-whiteframe-2dp listar">
+            <!-- VER LOGOS DE UN DISEÑADOR-->
+            <div ng-switch-when="1">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>LOGOS DEL DISEÑADOR</texto>
+                    <md-button ng-click="designer.vista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="content-scroll elemento">
+                    <div layout layout-align="space-around center" layout-wrap>
+                        <div flex="30" class="margen_inferior" ng-repeat="logod in designer.logosDisenador">
+                            <div class="pedido-logo lista elemento inside" md-whiteframe ng-click="designer.modFun($index)">
+                                <bazam-visualizar data-svg="designer.base64(logod.logo)"></bazam-visualizar>
+                            </div>
+                            <div class="botones-logos-disenadores" layout layout-align="center center" ng-if="designer.modfire = $index && designer.modInit && !designer.cal2">
+                                <div>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('calificacion-aprobados', $index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Calificación</md-tooltip>
+                                        <md-icon class="material-icon">star_rate</md-icon>
+                                    </md-button>
+                                </div>
+                                <div>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="designer.verLogo(logod.logo, true)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logo</md-tooltip>
+                                        <md-icon class="material-icon">remove_red_eye</md-icon>
+                                    </md-button>
+                                </div>
+                                <div>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="designer.borrarLogo(logod.idLogo)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">No Aprobar</md-tooltip>
+                                        <md-icon class="material-icon">remove_circle_outline</md-icon>
+                                    </md-button>
+                                </div>
+
+                            </div>
+                            <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.modfire = $index && designer.cal2">
+                                <md-input-container flex>
+                                    <label>Calificación:</label>
+                                    <md-select ng-model="logod.calificacion" ng-change="designer.ponerCalificacion(logod.idLogo, logod.calificacion)" class="md-block"
+                                        aria-label="filtro">
+                                        <md-option value="1">1</md-option>
+                                        <md-option value="2">2</md-option>
+                                        <md-option value="3">3</md-option>
+                                        <md-option value="4">4</md-option>
+                                        <md-option value="5">5</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISUALIZAR UN LOGO -->
+
+            <div ng-switch-when="3">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>VISUALIZAR LOGO</texto>
+                    <md-button ng-click="designer.mostrarPop()" style="margin:0;">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="elemento">
+                    <div layout layout-align="center center" layout-wrap>
+                        <div flex class="margen_inferior">
+                            <div class="pedido-logo lista elemento inside" md-whiteframe>
+                                <bazam-visualizar data-svg="designer.base64(designer.logoVisualizar)"></bazam-visualizar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORIAL DE PAGOS DE UN DISEÑADOR-->
+            <div ng-switch-when="2">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>BALANCE DE CUENTA DE {{designer.nombreDesigner}}</texto>
+                    <md-button ng-click="designer.vista = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div class="tabla">
+                    <div>Fecha:</div>
+                    <div>Metodo:</div>
+                    <div>Cuanto:</div>
+                </div>
+                <div layout="column" class="content-scroll">
+                    <!-- TODO: CAMBIAR POR DATOS REALES -->
+                    <div class="elemento">
+                        <div class="tabla-campo">
+                            <div>24/01/2018</div>
+                            <div>Paypal</div>
+                            <div>$100</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

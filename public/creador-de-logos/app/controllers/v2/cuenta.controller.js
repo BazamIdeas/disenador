@@ -39,16 +39,16 @@ angular.module("disenador-de-logos")
             bz.formulario = 2;
 
         }
-        
-        
+
+
         bz.completado = true;
-        
+
         bz.guardar = function (datos, valido) {
 
             if (valido && bz.completado) {
-                
+
                 bz.completado = false;
-                
+
                 clientesService.modificar(datos.nombreCliente, datos.telefono, datos.pais)
 
                     .then(function (res) {
@@ -56,55 +56,36 @@ angular.module("disenador-de-logos")
                         bz.datos = angular.copy(datos);
                         bz.formulario = 1;
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
-
-                                var temporizador = $timeout(function () {
-                                    $mdToast.hide();
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-                                }
-                        }],
-                            templateUrl: 'toast-success-cuenta-modify.html'
-                        });
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: '¡Datos modificados!',
+                                clase: "success"
+                            }
+                        }));
 
                     })
                     .catch(function () {
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Un error ha ocurrido',
+                                clase: "danger"
+                            }
+                        }));
 
-                                var temporizador = $timeout(function () {
-                                    $mdToast.hide();
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-                                }
-                        }],
-                            templateUrl: 'toast-danger-cuenta-modify.html'
-                        });
                     })
-                    .finally(function(){
-                    
+                    .finally(function () {
+
                         bz.completado = true;
-                    
+
                     })
 
             }
 
         }
-        
-        
-       
+
+
+
 
         $scope.$on('sesionExpiro', function (event, data) {
 

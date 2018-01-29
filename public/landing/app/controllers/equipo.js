@@ -3,7 +3,7 @@ angular.module("landing")
 /* header */
 
 
-.controller('comienzoController', ['$window', function ($window) {
+.controller('equipoController', ['$window', function ($window) {
 
     var bz = this;
 

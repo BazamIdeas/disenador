@@ -36,9 +36,7 @@ angular.module("administrador")
 
             bz.prefs = [];
             categoriasService.listarPreferencias().then(function (res) {
-                angular.forEach(res.data, function (valor, llave) {
-                    bz.prefs.push(valor);
-                })
+                bz.prefs = res.data;
             })
 
         }
@@ -47,20 +45,25 @@ angular.module("administrador")
 
         /* MODIFICAR */
 
-        bz.modificarEm = function (id, nombre, opcion, index) {
+        bz.modificarEm = function (id, opcion, index, nombre, nombre2) {
 
             bz.elementoActivoIndex = index;
 
             if (opcion == 'categoria') {
                 bz.opcionesCategorias = 1;
                 bz.datos.modCategoria.idCategoria = id;
+                bz.modNombre = nombre;
             } else {
                 bz.opcionesCategorias = 2;
                 bz.datos.modPreferencia.idPreferencia = id;
+                bz.modNombre = {
+                    nombre1: nombre,
+                    nombre2: nombre2
+                };
             }
 
             bz.mostrarOpciones = !bz.mostrarOpciones;
-            bz.modNombre = nombre;
+
         }
 
         bz.modificarElemento = function (datos, opcion) {
@@ -91,7 +94,6 @@ angular.module("administrador")
 
         bz.crear = function (datos, opcion) {
             if (opcion == 'categoria') {
-                 console.log(datos)
                 categoriasService.nuevaCategoria(datos).then(function (res) {
                         notificacionService.mensaje('Registro Existoso');
                         datos.idCategoria = res.data.insertId;
@@ -120,7 +122,7 @@ angular.module("administrador")
             if (opcion == 'categoria') {
                 categoriasService.eliminarCategoria(id).then(function (res) {
                         notificacionService.mensaje('Eliminada!');
-                        delete bz.cats[index];
+                        bz.cats.splice(index, 1);
                         bz.listar('categoria');
                     })
                     .catch(function (res) {
@@ -129,7 +131,7 @@ angular.module("administrador")
             } else {
                 categoriasService.eliminarPreferencia(id).then(function (res) {
                         notificacionService.mensaje('Eliminada!');
-                        delete bz.prefs[index];
+                        bz.prefs.splice(index, 1);
                         bz.listar('preferencia');
                     })
                     .catch(function (res) {
@@ -138,7 +140,7 @@ angular.module("administrador")
             }
         }
 
-        bz.mostrarCat = function(){
+        bz.mostrarCat = function () {
             bz.mostrarC = !bz.mostrarC;
             bz.f = bz.mostrarC ? true : false;
         }
