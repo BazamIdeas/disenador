@@ -20,6 +20,7 @@ router.get('/cliente/datos', middleware.validarCliente, controllers.clientes.Dat
 router.get('/cliente/avatar', multipartMiddleware, controllers.clientes.Avatar);
 
 router.get('/cliente/pagos', middleware.validarCliente, controllers.pagos.ObtenerPorCliente);
+router.get('/cliente/:id/pago', middleware.validarAdministrador, controllers.pagos.Nuevo);
 router.get('/cliente/:id/pagos', middleware.validarAdministrador, controllers.pagos.ObtenerPorCliente);
 router.get('/cliente/bloquear/:id', middleware.validarAdministrador, controllers.clientes.Bloquear);
 
@@ -151,6 +152,7 @@ router.get('/comisiones', controllers.pagos.ObtenerComisiones);
 router.post('/logos/estado', middleware.validarCliente, controllers.logos.listaLogosPorEstado);
 router.post('/logos/por-aprobar', middleware.validarAdministrador, controllers.logos.listaLogosPorAprobar);
 router.post('/logos/aprobados', controllers.logos.listaLogosAprobados);
+router.get('/logos/:id/aprobados', middleware.validarAdministrador, controllers.logos.listaLogosAprobadosPorCliente);
 router.post('/logos/aprobados/destacados', controllers.logos.listaLogosAprobadosDestacados);
 router.post('/logos/guardados', middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables',  middleware.validarCliente, controllers.logos.listaLogosDescargables);
