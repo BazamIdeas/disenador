@@ -100,6 +100,16 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                 }
             })
             .state({
+                name: 'app.disenadores',
+                url: '/disenadores',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/disenadores.html',
+                        controller: 'disenadoresController as designer',
+                    }
+                }
+            })
+            .state({
                 name: 'login',
                 url: '/login',
                 templateUrl: 'app/views/login.html',

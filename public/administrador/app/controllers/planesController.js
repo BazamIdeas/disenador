@@ -7,7 +7,37 @@ angular.module("administrador")
         /* DATOS */
         bz.impuestos = [];
         bz.planes = [];
-        bz.nuevoPlan = {};
+        bz.nuevoPlan = {
+            atributos: [{
+                clave: 'resolucion',
+                valor: false,
+                descripcion: 'Logo en Alta Resolución.'
+            }, {
+                clave: 'png',
+                valor: false,
+                descripcion: 'Archivo Png Transparente.'
+            }, {
+                clave: 'licencia',
+                valor: false,
+                descripcion: 'Licencia comercial.'
+            }, {
+                clave: 'copia',
+                valor: false,
+                descripcion: 'Copia de seguridad de por vida.'
+            }, {
+                clave: 'tamanios',
+                valor: false,
+                descripcion: 'Tamaño del logo adaptado a papeleria y redes sociales.'
+            }, {
+                clave: 'editable',
+                valor: false,
+                descripcion: 'Archivo editable con la  tipografia incluida.'
+            }, {
+                clave: 'manual',
+                valor: false,
+                descripcion: 'Manual de marca.'
+            }]
+        };
         bz.modificarNombrePlan = {};
         bz.modificarPrecioPlan = {};
         bz.nuevoPrecioPlan = {};
@@ -115,6 +145,7 @@ angular.module("administrador")
         }
 
         bz.modificarPrecioPlan = function (datos) {
+            bz.modInit = !bz.modInit;
             datos.idPlan = datos.planes_idPlan;
             administrarService.modificarPrecioPlan(datos).then(function (res) {
                 notificacionService.mensaje('Peticion Realizada.');
@@ -180,6 +211,11 @@ angular.module("administrador")
                     bz.vista = 4;
                 })
             }
+        }
+
+        bz.modFun = function (i) {
+            bz.modfire = i;
+            bz.modInit = !bz.modInit;
         }
 
     }])

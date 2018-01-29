@@ -1,0 +1,91 @@
+<html lang="es" ng-app="landing">
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/angular-material/angular-material.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link href="assets/style.css" rel="stylesheet">
+    <link href="assets/animation.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/flexboxgrid.css" type="text/css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
+
+    <!--Librerias core de angualarJS -->
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular-messages/angular-messages.min.js"></script>
+    <script src="/angular-animate/angular-animate.min.js"></script>
+    <script src="/angular-aria/angular-aria.min.js"></script>
+    <script src="/angular-base64/angular-base64.min.js"></script>
+
+    <!--Librerias 3r party angularJS -->
+    <script src="/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="/angular-material/angular-material.min.js"></script>
+    <script src="/angular-ui-carousel/ui-carousel.min.js"></script>
+    <!--<script src="/jquery/jquery.min.js"></script> -->
+
+    <!--Archivos App diseñador -->
+    <script src="app/app.js"></script>
+    <script src="app/directives.js"></script>
+
+    <!-- Controladores -->
+    <script src="app/controllers/comienzo.js"></script>
+    <script src="app/controllers/disenadores.js"></script>
+    <script src="app/controllers/equipo.js"></script>
+    <script src="app/controllers/legales.js"></script>
+    <script src="app/controllers/terminos.js"></script>
+
+</head>
+
+<body class="back-landing">
+    <!-- header -->
+    <header>
+        <md-toolbar class="header">
+            <div layout flex class="md-toolbar-tools" layout-align="end center" layout-padding>
+                <div layout>
+                    <a href="/freelance/#!/login">
+                        <md-button>DISENADOR</md-button>
+                    </a>
+                </div>
+                <div>
+                    <ingresar>
+                        <a href="/creador-de-logos/#!/login">
+                            <md-button>CLIENTE</md-button>
+                        </a>
+                    </ingresar>
+                </div>
+            </div>
+        </md-toolbar>
+    </header>
+    <!-- contenedor principal -->
+    <md-content ui-view layout="row" class="trans">
+
+    </md-content>
+
+    <!-- Footer -->
+    <footer>
+        <div layout="row" layout-align="space-between center">
+            <div>
+                <div class="logo">LOGONOW</div>
+                <p class="copyright">© 2018 | LOGONOW - Todos los derechos reservados</p>
+            </div>
+            <div class="iconos-sociales">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+
+                <i class="fa fa-twitter-square" aria-hidden="true"></i>
+
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+
+            </div>
+        </div>
+        <div layout class="links-footer">
+            <a href="">Terminos y condiciones de uso</a>
+            <a href="">Avisos Legales</a>
+            <a href="">Nuestro Equipo</a>
+            <a href="">Trabaja con nosotros</a>
+        </div>
+    </footer>
+</body>
+
+
+
+</html>

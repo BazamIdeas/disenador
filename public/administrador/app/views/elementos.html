@@ -54,7 +54,7 @@
                         <div>Accion:</div>
                     </div>
                     <div layout="column" class="content-scroll lista">
-                        <div ng-repeat="elemento in elementos.elementos | filter:elementos.$" class="elemento nopadding">
+                        <div ng-repeat="elemento in elementos.elementos | filter:elementos.$  | orderBy:'idElemento'" class="elemento nopadding">
                             <div class="tabla-campo" layout-padding>
                                 <div>{{elemento.idElemento}}</div>
                                 <div>{{elemento.nombre}}</div>
@@ -86,7 +86,6 @@
                 <form id="formularioRegistro" name="formRegistro" ng-submit="elementos.nuevaFuente(elementos.registroFuente, formRegistro.$valid)"
                     novalidate>
                     <div layout="column" layout-align="space-between">
-                        <h3 class="text-center">Nueva Fuente</h3>
                         <div>
                             <md-input-container class="md-block">
                                 <label>NOMBRE</label>
@@ -158,7 +157,7 @@
                             </div>
                         </div>
                         <div layout>
-                            <md-button class="md-raised md-primary" type="submit" ng-disabled="elementos.valMulFonts">Enviar</md-button>
+                            <md-button class="md-raised md-primary" type="submit" ng-disabled="elementos.valMulFonts">REGISTRAR</md-button>
                         </div>
                     </div>
                 </form>
@@ -173,7 +172,6 @@
                 <form id="formularioRegistro" name="formRegistro" ng-submit="elementos.nuevoIcono(elementos.registroIcono, formRegistro.$valid)"
                     novalidate>
                     <div layout="column" layout-align="space-between">
-                        <h3 class="text-center">Nuevo Icono</h3>
                         <div>
                             <md-input-container class="md-block">
                                 <label>NOMBRE</label>
@@ -248,7 +246,7 @@
                             </div>
                         </div>
                         <div layout>
-                            <md-button class="md-raised md-primary" type="submit" ng-disabled="elementos.valMulIcons">Enviar</md-button>
+                            <md-button class="md-raised md-primary" type="submit" ng-disabled="elementos.valMulIcons">REGISTRAR</md-button>
                         </div>
                     </div>
                 </form>
@@ -276,7 +274,7 @@
                             </div>
                         </div>
                         <div layout>
-                            <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                            <md-button class="md-raised md-primary" type="submit">MODIFICAR</md-button>
                         </div>
                     </div>
                 </form>

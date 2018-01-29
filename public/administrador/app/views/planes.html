@@ -112,10 +112,22 @@
                             </div>
                             <md-input-container class="md-block">
                                 <label>Info del plan</label>
-                                <textarea ng-model="planes.nuevoPlan.info" md-maxlength="800" rows="5" name="info" required md-select-on-focus></textarea>
+                                <textarea ng-model="planes.nuevoPlan.info" md-maxlength="800" rows="3" name="info" required md-select-on-focus></textarea>
                             </md-input-container>
+
+                            <h3 class="text-center margen-superior" style="font-family: 'futura-heavy' !important;
+                               margin: 0 0 16px 0;" layout-padding ng-click="planes.attrs = !planes.attrs">ATRIBUTOS</h3>
+                            <div ng-if="planes.attrs">
+                                <md-checkbox ng-repeat="attr in planes.nuevoPlan.atributos" ng-model="attr.valor" aria-label="Checkbox $index" class="md-warn md-align-top-left"
+                                    flex>
+                                    {{attr.clave}} - 
+                                    <span class="ipsum">
+                                         {{attr.descripcion}}
+                                    </span>
+                                </md-checkbox>
+                            </div>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                                <md-button class="md-raised md-primary" type="submit">CREAR</md-button>
                             </div>
                             <div ng-if="planes.localidadVal2" class="validad-localidad">
                                 <h5>{{planes.localidadVal2}}</h5>
@@ -161,7 +173,7 @@
                                 <div ng-message="required">Este campo es requerido.</div>
                             </div>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                                <md-button class="md-raised md-primary" type="submit">AGREGAR</md-button>
                             </div>
                         </div>
 
@@ -194,13 +206,13 @@
                             <div ng-if="elemento.status == 0">Inactivo</div>
                             <div>{{elemento.moneda}}</div>
                             <div>
-                                <md-button class="md-fab md-mini md-warn" ng-click="planes.modfire = $index">
+                                <md-button class="md-fab md-mini md-warn" ng-click="planes.modFun($index)">
                                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Precio</md-tooltip>
                                     <md-icon class="material-icon">edit</md-icon>
                                 </md-button>
                             </div>
                         </div>
-                        <div ng-if="planes.modfire == $index" layout layout-align="space-between center">
+                        <div ng-if="planes.modfire == $index && planes.modInit" class="elemento inside" md-whiteframe layout layout-padding layout-align="space-between center">
                             <md-input-container style="margin-bottom:0;" flex>
                                 <label>Nuevo Precio</label>
                                 <input type="number" ng-model="elemento.precio" name="NuevoPrecio">
