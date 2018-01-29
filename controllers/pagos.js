@@ -6,7 +6,7 @@ var async    = require("async");
 
 exports.ObtenerPorCliente = function(req, res, next)
 {
-    var idCliente = req.idCliente ? req.idCliente : req.body.idCliente; 
+    var idCliente = req.idCliente ? req.idCliente : req.params.id; 
     
     pago.ObtenerPorCliente(idCliente, function(error, data)
 	{ 
@@ -16,6 +16,12 @@ exports.ObtenerPorCliente = function(req, res, next)
 			res.status(404).json({"msg":"No hay resgitro de pagos en la base de datos"})
 		}
 	});
+}
+
+exports.ObtenerComisiones = function(req, res, next)
+{
+    var data = 'var comisiones = '+JSON.stringify(config.freelancer)+';';
+    res.status(200).send(data)
 }
 
 exports.SaldoPorCliente = function(req, res, next)

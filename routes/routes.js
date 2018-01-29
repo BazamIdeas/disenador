@@ -20,6 +20,7 @@ router.get('/cliente/datos', middleware.validarCliente, controllers.clientes.Dat
 router.get('/cliente/avatar', multipartMiddleware, controllers.clientes.Avatar);
 
 router.get('/cliente/pagos', middleware.validarCliente, controllers.pagos.ObtenerPorCliente);
+router.get('/cliente/:id/pagos', middleware.validarAdministrador, controllers.pagos.ObtenerPorCliente);
 router.get('/cliente/bloquear/:id', middleware.validarAdministrador, controllers.clientes.Bloquear);
 
 
@@ -144,6 +145,7 @@ router.post('/precio', /*middleware.validarAdministrador,*/ controllers.precios.
 router.post('/precio/modificar', /*middleware.validarAdministrador,*/ controllers.precios.Modificar);
 //router.get('/plan/borrar/:id', controllers.planes.borrarPlan);
 
+router.get('/comisiones', controllers.pagos.ObtenerComisiones);
 
 //MODULO LOGOS
 router.post('/logos/estado', middleware.validarCliente, controllers.logos.listaLogosPorEstado);

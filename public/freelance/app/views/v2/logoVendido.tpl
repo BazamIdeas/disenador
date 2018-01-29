@@ -31,25 +31,29 @@
 				
 				<div class="col s8">		
 						
-					<div class="row" ng-if="logoVendido.logo.atributos['calificacion-admin']">
+					<div class="row margin-bottom-0" ng-if="logoVendido.logo.atributos['calificacion-admin']">
                         
-                        <div class="col s4">
-                            Calificación de nuestro Moderador:
+                        <div class="col s6">
+                            <p> Calificación de nuestro Moderador:</p>
                         </div>
                         
                         <div class="col s6">
                         
                             <div class="estrellas">
-                                <div ng-class="{'estrella-llena': (logoVendido.logo.atributos['calificacion-admin']  | number) > 0, 'estrella-vacia': (logoVendido.logo.atributos['calificacion-admin'] | number) < 1}"></div>
-
-                                <div ng-class="{'estrella-llena': (logoVendido.logo.atributos['calificacion-admin']  | number) > 1, 'estrella-vacia': (logoVendido.logo.atributos['calificacion-admin'] | number) < 2}"></div>
-
-                                <div ng-class="{'estrella-llena': (logoVendido.logo.atributos['calificacion-admin']  | number) > 2, 'estrella-vacia': (logoVendido.logo.atributos['calificacion-admin'] | number) < 3}"></div>
-
-                                <div ng-class="{'estrella-llena': (logoVendido.logo.atributos['calificacion-admin']  | number) > 3, 'estrella-vacia': (logoVendido.logo.atributos['calificacion-admin'] | number) < 4}"></div>
-
-                                <div ng-class="{'estrella-llena': (logoVendido.logo.atributos['calificacion-admin'] | number) > 4, 'estrella-vacia': (logoVendido.logo.atributos['calificacion-admin'] | number) < 5}"></div>
-
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] < 1">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] >= 1">star</i>
+    
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] < 2">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] >= 2">star</i>
+    
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] < 3">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] >= 3">star</i>
+    
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] < 4">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] >= 4">star</i>
+    
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] < 5">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-admin'] >= 5">star</i>
                             </div>
                         
                         </div>
@@ -59,23 +63,27 @@
                     
                     <div class="row" ng-if="logoVendido.logo.atributos['calificacion-cliente']">
                        
-                        <div class="col s4">
-                            Calificación del Comprador:
+                        <div class="col s6">
+                           <p>Calificación del Comprador:</p>
                         </div>
                         
                         <div class="col s6">
-                        
+
                             <div class="estrellas">
-                                <div ng-class="{'estrella-llena': logoVendido.logo.atributos['calificacion-cliente'] >= 1, 'estrella-vacia': logoVendido.logo.atributos['calificacion-cliente'] < 1}"></div>
-
-                                <div ng-class="{'estrella-llena': logoVendido.logo.atributos['calificacion-cliente'] >= 2, 'estrella-vacia': logoVendido.logo.atributos['calificacion-cliente'] < 2}"></div>
-
-                                <div ng-class="{'estrella-llena': logoVendido.logo.atributos['calificacion-cliente'] >= 3, 'estrella-vacia': logoVendido.logo.atributos['calificacion-cliente'] < 3}"></div>
-
-                                <div ng-class="{'estrella-llena': logoVendido.logo.atributos['calificacion-cliente'] >= 4, 'estrella-vacia': logoVendido.logo.atributos['calificacion-cliente'] < 4}"></div>
-
-                                <div ng-class="{'estrella-llena': logoVendido.logo.atributos['calificacion-cliente'] >= 5, 'estrella-vacia': logoVendido.logo.atributos['calificacion-cliente'] < 5}"></div>
-
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] < 1">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] >= 1">star</i>
+    
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] < 2">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] >= 2">star</i>
+    
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] < 3">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] >= 3">star</i>
+    
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] < 4">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] >= 4">star</i>
+    
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] < 5">star_border</i>
+                                <i class="material-icons" ng-if="logoVendido.logo.atributos['calificacion-cliente'] >= 5">star</i>
                             </div>
                         
                         </div>
@@ -87,7 +95,8 @@
                         
                         <div class="col s12">
                         
-                            {{'"'+logoVendido.logo.atributos.comentario+'"'}}
+                            <p>Comentario:</p>
+                            <p style="color: #636363; font-style: italic; font-size: 20px;"> {{'"'+logoVendido.logo.atributos.comentario+'"'}} </p>
                         
                         </div>
                         

@@ -2159,3 +2159,44 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     color: yellow;
     cursor: pointer;
 }
+
+
+.tab-freelance-activo::after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 12;
+    background-color: #4aaf57;
+}
+
+.tab-freelance-activo::before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 12;
+    background-color: #4aaf57;
+}
+
+.tab-freelance-activo {
+    background-color: white !important;
+    position: relative;
+    color: #49ae56 !important;
+}
+
+.estrellas i{
+    cursor: pointer;
+    width: 30px;
+    font-size: 30px;
+    color: #ffa200;
+    height: 30px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
