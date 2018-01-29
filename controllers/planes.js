@@ -1,6 +1,7 @@
 var pais     = require('../modelos/paisesModelo.js');
 var plan     = require('../modelos/planesModelo.js');
 var precio   = require('../modelos/preciosModelo.js');
+var caracteristica = require('../modelos/caracteristicasModelo.js');
 var services = require('../services');
 var async    = require("async");
 
@@ -43,13 +44,29 @@ exports.ListarFront = (req, res, next) =>
 									json.planes[key].precios = precios;
 								
 								}
+
+								caracteristica.ObtenerPorPlan(plan.idPlan, (err, caracteristicas) => {
 							
+									if (err) return callback(err);
+		
+									try {
+		
+										if (caracteristicas.length) {
+		
+											json.planes[key].caracteristicas = caracteristicas;
+										
+										}								
+									
+									} catch (e) {
+										return callback(e);
+									}
+		
+									callback();
+								})
+					
 							} catch (e) {
 							    return callback(e);
 							}
-
-
-							callback();
 						})
 
 					}, (err) => {

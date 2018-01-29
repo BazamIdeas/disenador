@@ -1588,7 +1588,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 
 .caja {
-    padding: 0px 0px 0px;
+    padding: 0px 0px 20px 0px !important;
     background-color: var(--fondo);
     margin-top: 20px;
     position: relative;
@@ -1621,7 +1621,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 }
 
 .caja.pedidos div table tbody tr{
-    border: 1px solid #d4d4d4;
+    border-top: 1px solid #d4d4d4;
 }
 
 .caja.pedidos div table tbody tr:first-child{
@@ -2153,4 +2153,9 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     flex: 1;
     border-radius: 0;
     margin-top: 0;
+}
+
+.col.s12.aviso-facturacion span {
+    color: yellow;
+    cursor: pointer;
 }

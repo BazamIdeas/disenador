@@ -174,6 +174,11 @@
                                         <td>{{pedido.moneda}} {{pedido.impuesto ?  (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)</td>
                                         <td>{{pedido.moneda}} {{pedido.impuesto ?  pedido.precio + (pedido.precio * (pedido.impuesto/100)) : pedido.precio}}</td>-->
                                     </tr>
+                                    <tr ng-if="!cuenta.facturacion.length">
+                                        <td colspan="3">
+                                            No posee metodos de cobro
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

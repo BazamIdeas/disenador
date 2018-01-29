@@ -1588,7 +1588,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 
 .caja {
-    padding: 0px 0px 0px;
+    padding: 0px 0px 20px 0px !important;
     background-color: var(--fondo);
     margin-top: 20px;
     position: relative;
@@ -1621,7 +1621,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 }
 
 .caja.pedidos div table tbody tr{
-    border: 1px solid #d4d4d4;
+    border-top: 1px solid #d4d4d4;
 }
 
 .caja.pedidos div table tbody tr:first-child{
@@ -2118,9 +2118,11 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 
 
 
-.estrellas div{
+.estrellas i{
     cursor: pointer;
     width: 30px;
+    font-size: 30px;
+    color: #ffa200;
     height: 30px;
     display: inline-block;
     margin-left: 5px;
@@ -2136,3 +2138,12 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     background-image: url('/assets/images/estrella-completa.png');
 }
 
+textarea {
+    width: 100%;
+    height: 3rem;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+}

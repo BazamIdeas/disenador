@@ -20,17 +20,34 @@
                     </div>
                     
                     <div ng-if="pagoCompleto.atributos.padre && pagoCompleto.atributos.calificacion === false" ng-form="pagoCompleto.calificacionForm" >
-                        <div>Califica tu plantilla:</div>
+                        <div> <p> Califica tu plantilla: </p> </div>
                         
-                        <div class="estrellas">
+                        <!--<div class="estrellas">
                             <div ng-mouseover="pagoCompleto.calificacionTentativa = 1" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 1, 'estrella-vacia': pagoCompleto.calificacionTentativa < 1}" class="estrella-llena"></div>
                             <div ng-mouseover="pagoCompleto.calificacionTentativa = 2" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 2, 'estrella-vacia': pagoCompleto.calificacionTentativa < 2}" class="estrella-llena"></div>
                             <div ng-mouseover="pagoCompleto.calificacionTentativa = 3" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 3, 'estrella-vacia': pagoCompleto.calificacionTentativa < 3}" class="estrella-llena"></div>
                             <div ng-mouseover="pagoCompleto.calificacionTentativa = 4" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 4, 'estrella-vacia': pagoCompleto.calificacionTentativa < 4}" class="estrella-llena"></div>
                             <div ng-mouseover="pagoCompleto.calificacionTentativa = 5" ng-class="{'estrella-llena': pagoCompleto.calificacionTentativa >= 5, 'estrella-vacia': pagoCompleto.calificacionTentativa < 5}" class="estrella-vacia"></div>
+                        </div>-->
+                            
+                        <div class="estrellas">
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa < 1" ng-mouseover="pagoCompleto.calificacionTentativa = 1">star_border</i>
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa >= 1" ng-mouseover="pagoCompleto.calificacionTentativa = 1">star</i>
+
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa < 2" ng-mouseover="pagoCompleto.calificacionTentativa = 2">star_border</i>
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa >= 2" ng-mouseover="pagoCompleto.calificacionTentativa = 2">star</i>
+
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa < 3" ng-mouseover="pagoCompleto.calificacionTentativa = 3">star_border</i>
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa >= 3" ng-mouseover="pagoCompleto.calificacionTentativa = 3">star</i>
+
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa < 4" ng-mouseover="pagoCompleto.calificacionTentativa = 4">star_border</i>
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa >= 4" ng-mouseover="pagoCompleto.calificacionTentativa = 4">star</i>
+
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa < 5" ng-mouseover="pagoCompleto.calificacionTentativa = 5">star_border</i>
+                            <i class="material-icons" ng-if="pagoCompleto.calificacionTentativa >= 5" ng-mouseover="pagoCompleto.calificacionTentativa = 5">star</i>
                         </div>
-                        
-                        ¡{{pagoCompleto.calificacionTentativa}} Estrellas!
+
+                        <p> ¡{{pagoCompleto.calificacionTentativa}} Estrellas! </p>
                         <div class="input-field">
                             <textarea ng-model="pagoCompleto.comentario" placeholder="¿Que opinas?" name="comentario"  minlength="5" required></textarea>
                         

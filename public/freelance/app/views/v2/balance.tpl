@@ -52,6 +52,11 @@
                                         <td>{{pago.medio }}</td>
                                         <td>{{pago.correo}}</td>
                                     </tr>
+                                    <tr ng-if="!balance.pagos.length">
+                                        <td colspan="4">
+                                            No posee pagos
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

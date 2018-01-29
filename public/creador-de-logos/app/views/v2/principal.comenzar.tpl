@@ -1,6 +1,6 @@
 <div class="row margin-bottom-0 lienzo">
     <div class="col s12" ng-if="$parent.principal.completado && !principalComenzar.logoCompartido.logo">
-        <p class="text-center tercero margin-bottom-0">EJEMPLOS EXITOSOS</p>
+        <p class="text-center tercero margin-bottom-0">LOGOS PREDISEÑADOS DESTACADOS</p>
     </div>
     <div class="col s12 cubos-logos" ng-if="$parent.principal.completado && !principalComenzar.logoCompartido.logo">
 
@@ -14,7 +14,7 @@
             <bazam-visualizar data-svg="principalComenzar.base64.decode(aprobado.logo)"></bazam-visualizar>
         </div>
 
-        <div ng-if="!$parent.principal.aprobados.length">No hay diseños</div>
+        <div ng-if="!$parent.principal.aprobados.length">  <p style="text-align: center;"> No hay diseños </p> </div>
 
     </div>
     <div class="row" ng-if="$parent.principal.aprobados.length">
