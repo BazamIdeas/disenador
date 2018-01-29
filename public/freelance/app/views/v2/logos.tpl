@@ -21,10 +21,10 @@
                 </div>
             </div>
             <div class="tab-freelance col s12">
-                <button ng-click="logos.opcionMostrar='borradores'" class="boton-verde">BORRADORES</button>
-                <button ng-click="logos.opcionMostrar='pendientes'" class="boton-verde">PENDIENTES POR APROBACIÓN</button>
-                <button ng-click="logos.opcionMostrar='aprobados'" class="boton-verde">APROBADOS</button>
-                <button ng-click="logos.opcionMostrar='vendidos'" class="boton-verde">VENDIDOS</button>
+                <button ng-click="logos.opcionMostrar='borradores'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='borradores'}" class="boton-verde">BORRADORES</button>
+                <button ng-click="logos.opcionMostrar='pendientes'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='pendientes'}" class="boton-verde">PENDIENTES POR APROBACIÓN</button>
+                <button ng-click="logos.opcionMostrar='aprobados'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='aprobados'}" class="boton-verde">APROBADOS</button>
+                <button ng-click="logos.opcionMostrar='vendidos'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='vendidos'}" class="boton-verde">VENDIDOS</button>
             </div>
             <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
 				<!--PENDIENTES DE APROBACION-->
@@ -39,16 +39,6 @@
 
                                 <div class="col l4" ng-repeat="pendiente in logos.pendientes | limitTo: 9 : logos.salto.pendientes track by pendiente.idLogo">
                                     <div>
-                                        <div class="overlay-combinacion"></div>
-                                        <span class="editar" ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: pendiente.elementos_idElemento, svg:  pendiente.logo}}, idLogopendiente: pendiente.idLogo, fuentes: {principal: logos.buscarAtributo(pendiente.atributos, 'principal'), eslogan: logos.buscarAtributo(pendiente.atributos,'eslogan')}}})">
-                                            <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
-                                            <i class="material-icons">edit</i>
-                                        </span>
-
-                                        <span class="borrar" ng-click="logos.borrarLogo(pendiente.idLogo)">
-                                            <md-tooltip md-delay="2" md-direction="top">Eliminar</md-tooltip>
-                                            <i class="material-icons">delete</i>
-                                        </span>
                                         <bazam-visualizar data-svg="logos.base64.decode(pendiente.logo)"></bazam-visualizar>
                                     </div>
                                 </div>
@@ -72,8 +62,6 @@
 
                                 <div class="col l4"  ng-repeat="aprobado in logos.aprobados | limitTo: 9 : logos.salto.aprobados track by aprobado.idLogo">
                                     <div>
-                                        <div class="overlay-combinacion"></div>
-                                                                                                        
                                         <bazam-visualizar data-svg="logos.base64.decode(aprobado.logo)"></bazam-visualizar>
                                     </div>
                                 </div>
@@ -98,7 +86,10 @@
                                 <div class="col l4"  ng-repeat="vendido in logos.vendidos | limitTo: 9 : logos.salto.vendidos track by vendido.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
-                                                                                                        
+                                        <span class="borrar" ui-sref="logoVendido({id: vendido.idLogo})">
+                                            <md-tooltip md-delay="2" md-direction="top">Ver Detalles</md-tooltip>
+                                            <i class="material-icons">remove_red_eye</i>
+                                        </span>                                                                   
                                         <bazam-visualizar data-svg="logos.base64.decode(vendido.logo)"></bazam-visualizar>
                                     </div>
                                 </div>
@@ -123,6 +114,16 @@
                                 <div class="col l4"  ng-repeat="borrador in logos.borradores | limitTo: 9 : logos.salto.borradores track by borrador.idLogo">
                                     <div>
                                         <div class="overlay-combinacion"></div>
+                                        
+                                        <div class="overlay-combinacion"></div>
+                                        <span class="editar" ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: borrador.elementos_idElemento, svg:  borrador.logo}}, idLogoGuardado: borrador.idLogo, fuentes: {principal: logos.buscarAtributo(borrador.atributos, 'principal'), eslogan: logos.buscarAtributo(borrador.atributos,'eslogan')}}})">
+                                            <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
+                                            <i class="material-icons">edit</i>
+                                        </span>
+                                        <span class="borrar" ng-click="logos.borrarLogo(borrador.idLogo)">
+                                            <md-tooltip md-delay="2" md-direction="top">Eliminar</md-tooltip>
+                                            <i class="material-icons">delete</i>
+                                        </span>
                                                                                                         
                                         <bazam-visualizar data-svg="logos.base64.decode(borrador.logo)"></bazam-visualizar>
                                     </div>

@@ -17,16 +17,16 @@ angular.module("disenador-de-logos")
         bz.datosMetodo = {};
 
         clientesService.datos(true).then(function (res) {
-            
-            if(res.facturacion){
+
+            if (res.facturacion) {
                 bz.facturacion = angular.copy(res.facturacion);
                 delete res.facturacion;
-            } 
-            
+            }
+
             bz.datos = res;
         });
 
-      
+
         bz.editar = function (datos) {
 
             bz.datosEspejo = angular.copy(datos);
@@ -50,42 +50,23 @@ angular.module("disenador-de-logos")
                         bz.datos = angular.copy(datos);
                         bz.formulario = 1;
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
-
-                                var temporizador = $timeout(function () {
-                                    $mdToast.hide();
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-                                }
-                        }],
-                            templateUrl: 'toast-success-cuenta-modify.html'
-                        });
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: '¡Datos modificados!',
+                                clase: "success"
+                            }
+                        }));
 
                     })
                     .catch(function () {
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Un error ha ocurrido',
+                                clase: "danger"
+                            }
+                        }));
 
-                                var temporizador = $timeout(function () {
-                                    $mdToast.hide();
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-                                }
-                        }],
-                            templateUrl: 'toast-danger-cuenta-modify.html'
-                        });
                     })
                     .finally(function () {
 
@@ -115,11 +96,24 @@ angular.module("disenador-de-logos")
                     };
 
                     bz.facturacion.push(facturacion);
-                    alert("Metodo guardado");
+
+                    $mdToast.show($mdToast.base({
+                        args: {
+                            mensaje: '¡Método agregado!',
+                            clase: "success"
+                        }
+                    }));
+
+
 
                 }).catch(function (res) {
 
-                    alert("Guardado fallido");
+                    $mdToast.show($mdToast.base({
+                        args: {
+                            mensaje: 'Un error ha ocurrido',
+                            clase: "danger"
+                        }
+                    }));
 
                 }).finally(function (res) {
 
@@ -130,22 +124,41 @@ angular.module("disenador-de-logos")
             }
 
         }
-        
-        
+
+
         bz.completadoBorrar = true;
-        bz.eliminarFacturacion = function(idMetodo){
-            
+        bz.eliminarFacturacion = function (idMetodo) {
+
             if (bz.completadoBorrar) {
 
-                bz.completadoMetodo = false;
+                bz.completadoBorrar = false;
 
                 clientesService.eliminarFacturacion(idMetodo).then(function (res) {
-                    
-                    alert("Metodo eliminar");
+
+                    angular.forEach(bz.facturacion, function (valor, indice) {
+
+                        if (valor.idFacturacion = idMetodo) {
+
+                            bz.facturacion.splice(indice, 1);
+
+                        }
+                    })
+
+                    $mdToast.show($mdToast.base({
+                        args: {
+                            mensaje: '¡Método eliminado!',
+                            clase: "success"
+                        }
+                    }));
 
                 }).catch(function (res) {
 
-                    alert("Metodo fallido");
+                    $mdToast.show($mdToast.base({
+                        args: {
+                            mensaje: 'Un error ha ocurrido',
+                            clase: "danger"
+                        }
+                    }));
 
                 }).finally(function (res) {
 
@@ -154,7 +167,7 @@ angular.module("disenador-de-logos")
                 })
 
             }
-            
+
         }
 
         $scope.$on('sesionExpiro', function (event, data) {

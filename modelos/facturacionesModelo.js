@@ -4,7 +4,7 @@ var facturacion = {};
 
 facturacion.ObtenerPorCliente = function(idCliente, callback) {
     
-    var q = `SELECT * FROM facturacion WHERE clientes_idCliente = ? AND borrado = NULL`;
+    var q = `SELECT * FROM facturacion WHERE clientes_idCliente = ? AND borrado IS NULL`;
     var par = [idCliente];
 
 	DB.getConnection(function(err, connection)
@@ -75,20 +75,24 @@ facturacion.Eliminar = function(idFacturacion, callback) {
 						
 						connection.commit(function(err) {
 							if (err) {
-							  return connection.rollback(function() {
+							  connection.rollback(function() {
 								throw err;
 							  });
-							}
-							return callback(null,{"affectedRows" : result.affectedRows});
+							}else{
+                                console.log("aqui")
+                                callback(null,{"affectedRows":result.affectedRows});
+                            }
+							connection.release(); 
 						});
-						connection.release(); 
+						
 					});
 
-				}
+				}else{
 
-				connection.rollback(function() {
-					return callback(null,{"msg":"no existe estos datos de Facturacion"})
-				});
+                    connection.rollback(function() {
+                        callback(null,{"msg":"no existe estos datos de Facturacion"})
+                    });
+                }
 			});
 		});
 	});

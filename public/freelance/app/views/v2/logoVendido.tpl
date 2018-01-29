@@ -31,7 +31,7 @@
 				
 				<div class="col s8">		
 						
-					<div class="row">
+					<div class="row" ng-if="logoVendido.logo.atributos['calificacion-admin']">
                         
                         <div class="col s4">
                             Calificación de nuestro Moderador:
@@ -57,7 +57,7 @@
                     
 					</div>
                     
-                    <div class="row">
+                    <div class="row" ng-if="logoVendido.logo.atributos['calificacion-cliente']">
                        
                         <div class="col s4">
                             Calificación del Comprador:
@@ -83,7 +83,7 @@
                     
 					</div>
                     
-                    <div class="row">
+                    <div class="row" ng-if="logoVendido.logo.atributos.comentario">
                         
                         <div class="col s12">
                         
