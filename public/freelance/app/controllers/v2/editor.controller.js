@@ -122,26 +122,23 @@ angular.module("disenador-de-logos")
                 if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
                     logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, 'Borrador').then(function (res) {
                         bz.logo.idLogo = res;
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
 
-                                var temporizador = $timeout(function () {
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Su logo ha sido guardado con exito!',
+                                clase: "success"
+                            }
+                        }));
 
-                                    $mdToast.hide();
 
-                                }, 2000)
+                    }).catch(function () {
 
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-
-                                }
-                        }],
-                            templateUrl: 'toast-success-logo-save.html'
-                        });
-
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Un error ha ocurrido',
+                                clase: "danger"
+                            }
+                        }));
 
                     }).finally(function () {
 
@@ -152,27 +149,22 @@ angular.module("disenador-de-logos")
 
                     logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, fuentesId.principal, fuentesId.eslogan).then(function (res) {
 
-                        console.log(res)
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Su logo ha sido guardado con exito!',
+                                clase: "success"
+                            }
+                        }));
 
-                                var temporizador = $timeout(function () {
 
-                                    $mdToast.hide();
+                    }).catch(function () {
 
-                                }, 2000)
-
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-
-                                }
-                        }],
-                            templateUrl: 'toast-success-logo-save.html'
-                        });
-
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Un error ha ocurrido',
+                                clase: "danger"
+                            }
+                        }));
 
                     }).finally(function () {
 
@@ -259,61 +251,73 @@ angular.module("disenador-de-logos")
 
                 //CONDICION PARA GUARDAR UN LOGO, VERIFICANDO SU PREVIA EXISTENCIA
                 if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
-                    
+
                     logosService.guardarLogo(bz.base64.encode(logo), 'Logo y nombre', bz.logo.icono.idElemento, idFuente, idFuenteEslogan, 'Por Aprobar').then(function (res) {
-                        
+
                         bz.logo.idLogo = res;
-                        
-                        logosService.publicar(bz.logo.idLogo).then(function(res){
-                            
-                             $state.go("publicado", {
+
+                        logosService.publicar(bz.logo.idLogo).then(function (res) {
+
+                            $state.go("publicado", {
                                 id: bz.logo.idLogo,
                                 status: true
                             })
-                            
-                        }).catch(function(res){
-                            
-                              /*TOAST DE ERROR */
-                            
-                        }).finally(function(){
-                            
+
+                        }).catch(function (res) {
+
+                            $mdToast.show($mdToast.base({
+                                args: {
+                                    mensaje: 'Un error ha ocurrido',
+                                    clase: "danger"
+                                }
+                            }));
+
+                        }).finally(function () {
+
                             bz.completadoGuardar = true;
-                            
+
                         })
 
 
-                    }).catch(function(res){
-                        /*TOAST DE ERROR */
-                        
-                        bz.completadoGuardar = true;
-                        
+                    }).catch(function (res) {
+
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Un error ha ocurrido',
+                                clase: "danger"
+                            }
+                        }));
+
+
+
                     }).finally(function () {
 
-                        /*
-                        $state.go("publicado", {
-                            id: bz.logo.idLogo,
-                            status: true
-                        })*/
+                        bz.completadoGuardar = true;
 
                     })
                 } else { //si es un logo guardado
 
-                   logosService.publicar(bz.logo.idLogo).then(function(res){
-                            
-                             $state.go("publicado", {
-                                id: bz.logo.idLogo,
-                                status: true
-                            })
-                            
-                        }).catch(function(res){
-                            
-                              /*TOAST DE ERROR */
-                            
-                        }).finally(function(){
-                            
-                            bz.completadoGuardar = true;
-                            
+                    logosService.publicar(bz.logo.idLogo).then(function (res) {
+
+                        $state.go("publicado", {
+                            id: bz.logo.idLogo,
+                            status: true
                         })
+
+                    }).catch(function (res) {
+
+                        $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: 'Un error ha ocurrido',
+                                clase: "danger"
+                            }
+                        }));
+
+                    }).finally(function () {
+
+                        bz.completadoGuardar = true;
+
+                    })
                 }
 
             }
@@ -475,7 +479,6 @@ angular.module("disenador-de-logos")
                 angular.forEach(bz.fuentes, function (valor, llave) {
 
                     if (valor.nombre == datos.fuente.nombre) {
-
                         fuenteElegida = {
                             nombre: valor.nombre,
                             url: valor.url

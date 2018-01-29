@@ -160,105 +160,12 @@
     </div>
 
     <bazam-redireccionar></bazam-redireccionar>
-    <!--
-    <div ng-show='loading'>
-      <strong>Loading.</strong>
-    </div>
-    -->
-    <!-- Footer 
-    <footer class="text-center" layout="row" layout-align="space-between center">
-            <div class="logo" flex="30">logo</div>
-            <p class="copyright" flex="30">Copyright 2017</p>
-            <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
-    </footer>
-    -->
+   
+    <!--TOAST BASE-->
     
-    <script type="text/ng-template" id="toast-success-logo-save.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>Su logo ha sido guardado con exito!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-danger-logo-save.html">
-        <md-toast class="danger">
-            <span class="md-toast-text" flex>Un error ha ocurrido</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    
-    <script type="text/ng-template" id="toast-success-login.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>¡Bienvenido!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    
-    <script type="text/ng-template" id="toast-danger-login.html">
-        <md-toast class="danger">
-            <span class="md-toast-text" flex>Verifica tu Usuario y Contraseña</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-success-registro.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>Registro exitoso!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-danger-registro.html">
-        <md-toast class="danger">
-            <span class="md-toast-text" flex>Un error ha ocurrido</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-success-logo-delete.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>El logo fue borrado exitosamente!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-danger-logo-delete.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>Un error ha ocurrido</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-success-cuenta-modify.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>La datos fueron actualizados!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-danger-cuenta-modify.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+    <script type="text/ng-template" id="toast-base.html">
+        <md-toast class="{{clase}}">
+            <span class="md-toast-text" flex>{{mensaje}}</span>
             <md-button ng-click="closeToast()">
                 <i class="material-icons">close</i>
             </md-button>
