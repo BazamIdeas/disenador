@@ -100,7 +100,6 @@ angular.module("disenador-de-logos")
                         }
                     }));
 
-
                 }).finally(function () {
 
                     bz.completadoRegistro = true;

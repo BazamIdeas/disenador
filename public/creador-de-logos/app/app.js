@@ -1,11 +1,41 @@
 angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar", "720kb.socialshare"])
 
-    .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider) {
+    .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
 
         $locationProvider.html5Mode(true)
 
         /* INTERCEPTADOR */
         $httpProvider.interceptors.push('AuthInterceptor');
+
+        $mdToastProvider.addPreset('base', {
+            options: function () {
+                return {
+                    templateUrl: 'toast-base.html',
+                    hideDelay: 0,
+                    position: 'top right',
+                    controller: ["$scope", "$mdToast", "$timeout", "args", function ($scope, $mdToast, $timeout, args) {
+
+                        if (args) {
+
+                            $scope.mensaje = args.mensaje;
+
+                            $scope.clase = args.clase;
+                        }
+
+                        var temporizador = $timeout(function () {
+                            $mdToast.hide();
+                        }, 2000)
+
+                        $scope.closeToast = function () {
+                            $timeout.cancel(temporizador)
+                            $mdToast.hide();
+
+                        }
+                    }],
+                    clickOutsideToClose: true
+                };
+            }
+        })
 
 
         /*------------------------ Ui router states ----------------------*/
@@ -426,10 +456,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
         $urlRouterProvider.when('/login', '/login/')
         $urlRouterProvider.when('/logos-galeria', '/logos-galeria/')
         */
-        
+
         $urlRouterProvider.when('', '/comenzar/');
         $urlRouterProvider.when('/', '/comenzar/');
-        
+
         $urlRouterProvider.rule(function ($injector, $location) {
             var path = $location.url();
 
@@ -486,7 +516,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                             case 'principal.combinaciones':
                                 break;
-                                
+
                             case 'logosGaleria':
                                 break;
 

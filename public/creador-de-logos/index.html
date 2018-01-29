@@ -169,6 +169,7 @@
     </footer>
     -->
     
+    <!--
     <script type="text/ng-template" id="toast-success-logo-save.html">
         <md-toast class="success">
             <span class="md-toast-text" flex>Su logo ha sido guardado con exito!</span>
@@ -261,6 +262,18 @@
         </md-toast>
     </script>
 
+-->
+     <!--TOAST BASE-->
+    
+    <script type="text/ng-template" id="toast-base.html">
+        <md-toast class="{{clase}}">
+            <span class="md-toast-text" flex>{{mensaje}}</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
+    
 </body>
 
 

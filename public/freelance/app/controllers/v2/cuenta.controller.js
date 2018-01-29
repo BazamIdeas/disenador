@@ -137,7 +137,7 @@ angular.module("disenador-de-logos")
 
                     angular.forEach(bz.facturacion, function (valor, indice) {
 
-                        if (valor.idFacturacion = idMetodo) {
+                        if (valor.idFacturacion == idMetodo) {
 
                             bz.facturacion.splice(indice, 1);
 
