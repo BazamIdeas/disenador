@@ -1,4 +1,4 @@
-var caracteristicas = require('../modelos/caracteristicasModelo.js');
+var caracteristica = require('../modelos/caracteristicasModelo.js');
 var async = require("async");
 
 
