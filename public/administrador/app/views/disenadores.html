@@ -9,13 +9,6 @@
                     <texto flex ng-click="designer.listarLogos()">LISTADO DE LOGOS</texto>
                 </div>
                 <div ng-show="designer.listaL">
-                    <!--
-                    <div layout class="elemento">
-                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
-                            <input type="text" ng-model="designer.a" class="md-block" aria-label="filtro" placeholder="Buscar:">
-                        </md-input-container>
-                    </div>
-                -->
                     <div class="tabla">
                         <div>Logo:</div>
                         <div>Estado:</div>
@@ -96,7 +89,7 @@
                                 <div style="flex:0.4;">{{d.pais}}</div>
                                 <div>
                                     <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.notificarDisenador(d.idCliente)">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.modFun($index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Pagar</md-tooltip>
                                             <md-icon class="material-icon">payment</md-icon>
                                         </md-button>
@@ -121,6 +114,15 @@
                                         </md-button>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.modfire == $index && designer.modInit">
+                                <p>Metodo de pago:</p>
+                                <md-input-container flex>
+<md-select ng-model="d.metodoSelecccionado" ng-change="designer.notificarDisenador(d.idCliente, d.metodoSelecccionado)"
+    class="md-block" aria-label="filtro">
+                                        <md-option ng-value="{{f.idFacturacion}}" ng-repeat="f in d.facturacion">{{f.medio}}</md-option>
+                                    </md-select>
+                                </md-input-container>
                             </div>
                         </div>
                     </div>
@@ -198,7 +200,7 @@
                     <div>Fecha:</div>
                     <div>Monto:</div>
                     <div>Medio:</div>
-<div style="flex:1.2;">Correo:</div>
+                    <div style="flex:1.2;">Correo:</div>
                 </div>
                 <div layout="column" class="content-scroll">
                     <div class="elemento" ng-repeat="h in designer.historialPagos">
@@ -206,7 +208,7 @@
                             <div>{{h.fecha | date :'yyyy-MM-dd' }}</div>
                             <div>{{h.monto}}</div>
                             <div>{{h.medio}}</div>
-<div style="flex:1.2;">{{h.correo}}</div>
+                            <div style="flex:1.2;">{{h.correo}}</div>
                         </div>
                     </div>
                 </div>

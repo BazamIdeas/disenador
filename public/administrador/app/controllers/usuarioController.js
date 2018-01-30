@@ -21,8 +21,8 @@ angular.module("administrador")
                 })
                 .catch(function (res) {
                     notificacionService.mensaje(res);
-                })
-        }
+                });
+        };
 
         bz.listarU()
 
@@ -51,7 +51,7 @@ angular.module("administrador")
                         notificacionService.mensaje(res);
                     })
             }
-        }
+        };
 
         /* MODIFICAR UN USUARIO */
 
@@ -65,7 +65,7 @@ angular.module("administrador")
 
             bz.index = index;
 
-        }
+        };
 
         bz.modificarU = function (datos, validado) {
             if (validado) {
@@ -78,9 +78,9 @@ angular.module("administrador")
                 }).catch(function (res) {
                     notificacionService.mensaje(res);
                     bz.loaderCargando = false;
-                })
+                });
             }
-        }
+        };
 
         bz.eliminarU = function (id, index) {
             clientesServiceAdmin.borrarUsuario(id).then(function (res) {
@@ -88,10 +88,8 @@ angular.module("administrador")
                 bz.usuarios.splice(index, 1);
             }).catch(function (res) {
                 console.log(res)
-            })
-        }
-
-
+            });
+        };
 
 
     }])
