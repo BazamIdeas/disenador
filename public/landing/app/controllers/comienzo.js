@@ -26,6 +26,9 @@ angular.module("landing")
 			
 		};
 
+
+		bz.navegar = navegarFactory;
+
 		bz.caracteristicas = estaticosLandingValue.caracteristicas;
 
 		bz.testimonios = estaticosLandingValue.testimonios;

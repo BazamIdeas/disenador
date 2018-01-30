@@ -6,6 +6,7 @@
                     <H1 style="text-align: center;" class="text-white">Cree su Logo en minutos</H1>
                     <p class="sub-titulo">“El diseño es el embajador silencioso de tu marca”</p>
                     <h4 style="color:white; text-align: center;">Paul Brand</h4>
+                    <span ng-click="comienzo.navegar.cliente('editor');">Hola</span>
                 </div>
             </div>
             <div layout="column" flex="30" class="formulario-landing">

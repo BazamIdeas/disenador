@@ -1,7 +1,7 @@
 angular.module("landing")
 	.value("rutasValue", {
 		cliente: {
-			base: "creador-de-logos/comenzar/",
+			base: "creador-de-logos/",
 			estado: {
 				login: "login/",
 				editor: "editor/",
@@ -9,7 +9,7 @@ angular.module("landing")
 			}
 		},
 		freelance: {
-			base: "freelance/comenzar/",
+			base: "freelance/",
 			estado: {
 				login: "login/",
 				editor: "editor/"
@@ -20,7 +20,8 @@ angular.module("landing")
 	.factory("navegarFactory",["rutasValue", "$window", "$httpParamSerializer", function(rutasValue, $window, $httpParamSerializer){
 		
 		var paramsFunction = function (params) {
-			return params ? "?" + $httpParamSerializer(params) : "";
+
+			return !angular.isUndefined(params) ? "?" + $httpParamSerializer(params) : "";
 		}
 
 		return {
@@ -31,8 +32,8 @@ angular.module("landing")
 					return;
 				} else {
 
-					if (rutasValue.cliente[estado]){
-						$window.location = rutasValue.cliente.base + rutasValue.cliente[estado] + paramsFunction(params);
+					if (rutasValue.cliente.estado[estado]){
+						$window.location = rutasValue.cliente.base + rutasValue.cliente.estado[estado] + paramsFunction(params);
 					} else{
 						return;
 					}
@@ -41,11 +42,11 @@ angular.module("landing")
 			freelance: function (estado, params) {
 				if (!estado) {
 					$window.location = rutasValue.freelance.base + paramsFunction(params);
-					return;
+					return ;
 				} else {
 
-					if (rutasValue.freelance[estado]){
-						$window.location = rutasValue.freelance.base + rutasValue.freelance[estado] + paramsFunction(params);
+					if (rutasValue.freelance.estado[estado]){
+						$window.location = rutasValue.freelance.base + rutasValue.freelance.estado[estado] + paramsFunction(params);
 					} else{
 						return;
 					}
