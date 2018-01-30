@@ -144,7 +144,7 @@ exports.Nuevo = function(req, res, next)
 
         pagado: function(callback) {
             pago.ObtenerPorCliente(idCliente,function(error,data){
-                //console.log("pagado")
+                console.log(data)
                 if(typeof data !== 'undefined' && data.length){
 
                     for(var key in data){
@@ -154,7 +154,6 @@ exports.Nuevo = function(req, res, next)
                     }
 
                 }
-
                 callback(null, pagado);
 
             });
@@ -163,13 +162,13 @@ exports.Nuevo = function(req, res, next)
         vendido: function(callback) {
             
             logo.getLogosTipo(par, function(error,data){
-                
+                console.log(par)
                 if(typeof data !== 'undefined' && data.length){
-                    
+                    //console.log(data)
                     async.forEachOf(data, function(val, key, callback){
                         
                        atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
-                            //console.log(data)
+                            console.log(data)
                             if (typeof data !== 'undefined' && data.length > 0){
 
                                 var cal = {};
@@ -201,14 +200,14 @@ exports.Nuevo = function(req, res, next)
                         });
                     }, function (err) {
                         if (err) console.error(err.message);
-                        //console.log(vendido)
                         callback(null, vendido);
-                    
+                        
                         
                     })
 
                 }else{
                     
+                    console.log(vendido)
                     callback(null, vendido);
                 
                 }
