@@ -441,8 +441,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             })
 
 
-        $urlRouterProvider.when('', '/comenzar/');
-        $urlRouterProvider.when('/', '/comenzar/');
+        $urlRouterProvider.when('/', ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
+            
+            return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
+        }]);
 
         $urlRouterProvider.rule(function ($injector, $location) {
             var path = $location.url();
