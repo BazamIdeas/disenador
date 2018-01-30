@@ -77,8 +77,8 @@
             <h2>ELIJA ENTRE LAS MEJORES CREACIONES</h2>
         </div>
         <div layout layout-align="space-around center" layout-wrap style="text-align: justify;" layout-padding>
-            <div class="margen_inferior" flex="23" md-whiteframe="2dp" layout-padding>
-                <!-- LOGOS DESSTACADOS AQUI -->
+            <div class="margen_inferior" flex="23" md-whiteframe="2dp" layout-padding ng-repeat="destacado in comienzo.destacados" ng-click="comienzo.editar(destacado)">
+                <bazam-visualizar data-svg="comienzo.base64.decode(destacado.logo)"></bazam-visualizar>
             </div>
         </div>
         <div layout layout-align="center">
