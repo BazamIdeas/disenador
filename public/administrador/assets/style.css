@@ -12,7 +12,6 @@
     background: transparent;
 }
 
-
 /* fallback */
 
 @font-face {
@@ -50,12 +49,12 @@
 }
 
 .pedido-logo {
-    width: 40%;
+    width: 90%;
     margin: auto;
 }
 
 .pedido-logo.lista {
-    width: 80%;
+    max-width: 80%;
 }
 
 .margen_inferior {
@@ -107,14 +106,13 @@
 
 .titulo-modulo {
     text-align: center;
-      position: relative;
+    position: relative;
 }
 
 .titulo-modulo button {
     position: absolute;
-    right:3%;
+    right: 3%;
 }
-
 
 /* INDEX */
 
@@ -217,7 +215,6 @@ md-icon {
     margin: 0;
 }
 
-
 /* HEADER */
 
 .icon-buttom {
@@ -233,7 +230,7 @@ md-icon {
     margin-bottom: 1%;
 }
 
-.listar .elemento.inside{
+.listar .elemento.inside {
     margin-bottom: 0px;
     margin-top: 8px;
 }
@@ -245,11 +242,11 @@ md-icon {
 .content-scroll .elemento {
     border-radius: 5px;
 }
+
 .calificacion p,
 .calificacion md-input-container {
     margin: 0;
 }
-
 
 /*LOGIN*/
 
@@ -298,11 +295,11 @@ md-icon {
     padding: 6px;
 }
 
-
 /* SCROLL */
 
 .content-scroll {
-    overflow-x: scroll;
+    overflow-x: HIDDEN;
+    OVERFLOW-Y: SCROLL;
     max-height: 50%;
     padding: 5px 8px 0px 8px;
 }
@@ -311,31 +308,29 @@ md-icon {
     overflow: auto;
 }
 
-
 /* Estilos Scroll Bar */
 
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 15px;
 }
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: rgba(0, 0, 0, .5) !important;
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
 }
 
- ::-moz-scrollbar {
+::-moz-scrollbar {
     -webkit-appearance: none;
     width: 4px;
 }
 
- ::-moz-scrollbar-thumb {
+::-moz-scrollbar-thumb {
     border-radius: 4px;
     background-color: rgba(0, 0, 0, .0);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
 }
-
 
 /* Estilos generales*/
 
@@ -385,12 +380,11 @@ md-icon {
     FONT-SIZE: 25PX;
 }
 
-
 /* CLIENTE */
 
 .titulo-modulo texto {
     font-size: 16px;
-    color:rgb(250, 250, 250);
+    color: rgb(250, 250, 250);
     font-weight: bold;
     display: block;
     font-family: 'futura-heavy' !important;
@@ -398,7 +392,6 @@ md-icon {
     text-align: center;
     width: 100%;
     text-transform: uppercase;
-
 }
 
 .botones-logos-disenadores button {

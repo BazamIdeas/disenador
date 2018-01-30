@@ -23,7 +23,8 @@ angular.module("administrador")
                 bz.listaL = !bz.listaL;
             }).catch(function (res) {
                 notificacionService.mensaje('No existen logos por aprobar!');
-               // bz.listarDisenadores();
+                bz.listaL = false;
+                // bz.listarDisenadores();
             })
         }
 
@@ -52,6 +53,7 @@ angular.module("administrador")
 
         bz.ponerCalificacion = function (datos) {
             designerService.calificarLogo(datos).then(function (res) {
+
                 bz.cal2 = !bz.cal2;
                 bz.cal = !bz.cal;
                 notificacionService.mensaje('Calificacion Colocada!');
@@ -60,13 +62,15 @@ angular.module("administrador")
             })
         }
 
-        bz.verLogo = function(logo, v){
+        bz.verLogo = function (logo, v) {
             bz.logoVisualizar = logo;
             bz.lda = v ? true : false;
+            bz.modfire = false;
+            bz.modInit = false;
             bz.vista = 3;
         }
 
-        bz.mostrarPop = function(){
+        bz.mostrarPop = function () {
             bz.vista = bz.lda ? 1 : 0;
         }
 
@@ -91,11 +95,26 @@ angular.module("administrador")
             })
         }
 
-        bz.notificarDisenador = function (id) {
-            designerService.notificarDisenador(id).then(function (res) {
+        bz.notificarDisenador = function (idC) {
+
+            datos = {
+                id: idC,
+                fecha: formatDate(new Date()),
+                monto: 0
+            }
+
+            angular.forEach(bz.disenadores, function (valor, llave) {
+                if (valor.idCliente == idC) {
+                    datos.monto = valor.deuda.deuda;
+                }
+            })
+
+            designerService.notificarPago(datos).then(function (res) {
                 notificacionService.mensaje('Usuario Notificado!');
+                console.log(res)
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+                console.log(res)
             })
         }
 
@@ -103,20 +122,19 @@ angular.module("administrador")
         bz.mostrar = function (opcion, index, id) {
             if (opcion == 'logos-designer') {
                 bz.modfire = index;
-                
+
                 designerService.logosDisenador(id).then(function (res) {
                     bz.logosDisenador = res;
                     bz.vista = 1;
+                    console.log(res)
                 }).catch(function (res) {
                     notificacionService.mensaje(res);
                 })
 
             } else if (opcion == 'historial') {
                 bz.vista = 2;
-                bz.nombreDesigner = nombreDesigner;
-
-                designerService.historialPagos(id).then(function (res) {
-
+                designerService.historialDisenador(id).then(function (res) {
+                    bz.historialPagos = res;
                 }).catch(function (res) {
                     notificacionService.mensaje(res);
                 })
@@ -138,6 +156,18 @@ angular.module("administrador")
 
             return $base64.decode(icono);
 
+        }
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
         }
 
     }])

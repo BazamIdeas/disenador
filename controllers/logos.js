@@ -302,7 +302,7 @@ exports.listaLogosAprobados = function(req, res, next) {
 //DEVUELVE LOGOS APROBADOS DE TODOS LOS CLIENTES
 exports.listaLogosAprobadosPorCliente = function(req, res, next) {
 
-	var idLogo = req.params.idCliente; 
+	var idCliente = req.params.id; 
 	
 	logo.getLogosAprobadosPorCliente(idCliente,function(error, data)
 	{

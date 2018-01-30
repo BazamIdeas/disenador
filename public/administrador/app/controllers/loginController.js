@@ -18,7 +18,6 @@ angular.module("administrador")
         /* FUNCION LOGIN */
 
         bz.login = function (datos, valido) {
-            console.log(datos)
             if (valido) {
                 bz.loaderCargando = true;
                 clientesService.login(datos).then(function (res) {
