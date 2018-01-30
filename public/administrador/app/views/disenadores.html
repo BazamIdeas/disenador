@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                                 <div>{{logo.estado}}</div>
-                                <div>
+                                <div ng-if="!designer.cal">
                                     <div ng-if="logo.estado == 'Por Aprobar'">
                                         <md-button class="md-fab md-mini md-warn" ng-click="designer.aprobarLogo($index, logo.idLogo)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Aprobar</md-tooltip>
@@ -102,7 +102,7 @@
                                         </md-button>
                                     </div>
                                     <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('historial', $index, d.nombreCliente, d.idCliente)">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('historial', $index, d.idCliente)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Historial de pagos</md-tooltip>
                                             <md-icon class="material-icon">account_balance</md-icon>
                                         </md-button>
@@ -141,18 +141,12 @@
                     </md-button>
                 </div>
                 <div layout-padding class="content-scroll elemento">
-                    <div layout layout-align="space-around center" layout-wrap>
+                    <div layout layout-align="space-around start" layout-wrap>
                         <div flex="30" class="margen_inferior" ng-repeat="logod in designer.logosDisenador">
                             <div class="pedido-logo lista elemento inside" md-whiteframe ng-click="designer.modFun($index)">
                                 <bazam-visualizar data-svg="designer.base64(logod.logo)"></bazam-visualizar>
                             </div>
-                            <div class="botones-logos-disenadores" layout layout-align="center center" ng-if="designer.modfire = $index && designer.modInit && !designer.cal2">
-                                <div>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('calificacion-aprobados', $index)">
-                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Calificación</md-tooltip>
-                                        <md-icon class="material-icon">star_rate</md-icon>
-                                    </md-button>
-                                </div>
+                            <div class="botones-logos-disenadores" layout layout-align="center center" ng-if="designer.modfire == $index && designer.modInit && !designer.cal2">
                                 <div>
                                     <md-button class="md-fab md-mini md-warn" ng-click="designer.verLogo(logod.logo, true)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logo</md-tooltip>
@@ -166,19 +160,6 @@
                                     </md-button>
                                 </div>
 
-                            </div>
-                            <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.modfire = $index && designer.cal2">
-                                <md-input-container flex>
-                                    <label>Calificación:</label>
-                                    <md-select ng-model="logod.calificacion" ng-change="designer.ponerCalificacion(logod.idLogo, logod.calificacion)" class="md-block"
-                                        aria-label="filtro">
-                                        <md-option value="1">1</md-option>
-                                        <md-option value="2">2</md-option>
-                                        <md-option value="3">3</md-option>
-                                        <md-option value="4">4</md-option>
-                                        <md-option value="5">5</md-option>
-                                    </md-select>
-                                </md-input-container>
                             </div>
                         </div>
                     </div>
@@ -197,7 +178,7 @@
                 <div layout-padding class="elemento">
                     <div layout layout-align="center center" layout-wrap>
                         <div flex class="margen_inferior">
-                            <div class="pedido-logo lista elemento inside" md-whiteframe>
+                            <div class="pedido-logo elemento inside" md-whiteframe>
                                 <bazam-visualizar data-svg="designer.base64(designer.logoVisualizar)"></bazam-visualizar>
                             </div>
                         </div>
@@ -208,23 +189,24 @@
             <!-- HISTORIAL DE PAGOS DE UN DISEÑADOR-->
             <div ng-switch-when="2">
                 <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
-                    <texto>BALANCE DE CUENTA DE {{designer.nombreDesigner}}</texto>
+                    <texto>BALANCE DE PAGOS</texto>
                     <md-button ng-click="designer.vista = 0" style="margin:0;">
                         <md-icon>keyboard_arrow_left</md-icon>
                     </md-button>
                 </div>
                 <div class="tabla">
                     <div>Fecha:</div>
-                    <div>Metodo:</div>
-                    <div>Cuanto:</div>
+                    <div>Monto:</div>
+                    <div>Medio:</div>
+<div style="flex:1.2;">Correo:</div>
                 </div>
                 <div layout="column" class="content-scroll">
-                    <!-- TODO: CAMBIAR POR DATOS REALES -->
-                    <div class="elemento">
+                    <div class="elemento" ng-repeat="h in designer.historialPagos">
                         <div class="tabla-campo">
-                            <div>24/01/2018</div>
-                            <div>Paypal</div>
-                            <div>$100</div>
+                            <div>{{h.fecha | date :'yyyy-MM-dd' }}</div>
+                            <div>{{h.monto}}</div>
+                            <div>{{h.medio}}</div>
+<div style="flex:1.2;">{{h.correo}}</div>
                         </div>
                     </div>
                 </div>

@@ -887,11 +887,11 @@ angular.module("administrador")
             return promise;
         }
 
-        this.logosDisenador = function () {
+        this.logosDisenador = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/planes/').then(function (res) {
+            $http.get('/app/logos/'+id+'/aprobados').then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -899,11 +899,11 @@ angular.module("administrador")
             return promise;
         }
 
-        this.historialDisenador = function () {
+        this.historialDisenador = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/cliente/saldo').then(function (res) {
+            $http.get('/app/cliente/'+id+'/pagos').then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -911,12 +911,12 @@ angular.module("administrador")
             return promise;
         }
 
-
-        this.notificarPago = function (id) {
+        // TODO: RUTA MALA
+        this.notificarPago = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/cliente/notificar/'+ id).then(function (res) {
+            $http.post('/app/cliente/pago', datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -958,7 +958,6 @@ angular.module("administrador")
     .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
             $rootScope.$broadcast("sesionExpiro");
-            $state.go('login');
         }
 
         function autorizado() {
