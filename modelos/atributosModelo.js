@@ -6,7 +6,7 @@ atributo.Guardar = (atributosData, callback) =>
 {
 	var q   = "INSERT INTO atributos SET ?";
 	var par = atributosData;
-    console.log(par)
+	
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, result){

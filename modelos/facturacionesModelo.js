@@ -79,7 +79,7 @@ facturacion.Eliminar = function(idFacturacion, callback) {
 								throw err;
 							  });
 							}else{
-                                console.log("aqui")
+								
                                 callback(null,{"affectedRows":result.affectedRows});
                             }
 							connection.release(); 

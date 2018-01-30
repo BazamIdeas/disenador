@@ -155,7 +155,7 @@ pasarela.DesasignarMoneda = function(pasarelaMoneda,callback)
 	{
 		connection.query( q , [pasarelaMoneda.pasarelas_idPasarela, pasarelaMoneda.monedas_idMoneda] , function(err, row)
 		{
-			console.log(row[0].cantidad)
+			
 	  	 	//si existe la id del cliente a eliminar
 		  	if (row[0].cantidad)
 		  	{
