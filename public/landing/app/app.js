@@ -1,38 +1,48 @@
 angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "ui.carousel", "base64"])
 
-    .config(function ($stateProvider, $urlRouterProvider) {
+	.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+        $locationProvider.html5Mode(true)
 
         /*------------------------ Ui router states ----------------------*/
 
         $stateProvider.state({
                 name: 'comienzo',
-                url: '',
+                url: '/',
                 templateUrl: '/landing/app/views/comienzo.tpl',
-                controller: 'comienzoController as comienzo',
-                params: {
-                    datos: null
-                }
+                controller: 'comienzoController as comienzo'
             })
             .state({
-                name:'terminos',
-                url: '/terminos-y-condiciones',
+                name: 'terminos',
+                url: '/terminos-y-condiciones/',
                 templateUrl: '/landing/app/views/terminos.tpl'
             })
             .state({
                 name: 'legales',
-                url: '/avisos-legales',
+                url: '/avisos-legales/',
                 templateUrl: '/landing/app/views/legales.tpl'
             })
             .state({
                 name: 'disenadores',
-                url: 'trabaja-con-nosotros',
-                templateUrl: '/landing/app/views/disenadores.tpl',
-                controller: 'dienadoresController as dienadores',
-                params: {
-                    datos: null
-                }
+                url: '/disenadores/',
+                templateUrl: '/landing/app/views/disenadores.tpl'
             })
 
-        $urlRouterProvider.otherwise("");
+
+            $urlRouterProvider.rule(function ($injector, $location) {
+                var path = $location.url();
+    
+                if ('/' === path[path.length - 1] || path.indexOf('/?') > -1) {
+                    return;
+                }
+    
+                if (path.indexOf('?') > -1) {
+                    return path.replace('?', '/?');
+                }
+    
+                return path + '/';
+            });
+    
+            //$urlRouterProvider.otherwise('/404/');
 
     });
