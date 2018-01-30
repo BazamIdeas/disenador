@@ -130,7 +130,7 @@ exports.Nuevo = function(req, res, next)
     var datosPago = {
         fecha: req.body.fecha,
         monto: req.body.monto,
-        clientes_idCliente: req.params.id 
+        facturacion_idFacturacion: req.body.idFacturacion 
     }
 
     var pagado = 0;
