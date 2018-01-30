@@ -440,22 +440,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 controller: 'logosGaleriaController as logosGaleria'
             })
 
-        //redirecciones
-        /*
-       
-        $urlRouterProvider.when('/comenzar', '/comenzar/');
-        $urlRouterProvider.when('/comenzar/opciones', '/comenzar/opciones/');
-        $urlRouterProvider.when('/comenzar/combinaciones', '/comenzar/combinaciones/');
-        $urlRouterProvider.when('/editor', '/editor/');
-        $urlRouterProvider.when('/planes', '/planes/');
-        $urlRouterProvider.when('/pago', '/pago/');
-        $urlRouterProvider.when('/pago/completo/:id','/pago/completo/:id/')
-        $urlRouterProvider.when('/cliente/cuenta', '/cliente/cuenta/')
-        $urlRouterProvider.when('/cliente/logos', '/cliente/logos/')
-        $urlRouterProvider.when('/cliente/logos/{id:int}/descargar', '/cliente/logos/{id:int}/descargar/')
-        $urlRouterProvider.when('/login', '/login/')
-        $urlRouterProvider.when('/logos-galeria', '/logos-galeria/')
-        */
 
         $urlRouterProvider.when('', '/comenzar/');
         $urlRouterProvider.when('/', '/comenzar/');

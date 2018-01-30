@@ -1,46 +1,48 @@
 angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "ui.carousel", "base64"])
 
-	.config(function ($stateProvider, $urlRouterProvider) {
+	.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+        $locationProvider.html5Mode(true)
 
 		/*------------------------ Ui router states ----------------------*/
 
         $stateProvider.state({
                 name: 'comienzo',
-                url: '',
-            templateUrl: '/landing/app/views/comienzo.tpl',
-                controller: 'comienzoController as comienzo',
-                params: {
-                    datos: null
-                }
+                url: '/',
+                templateUrl: '/landing/app/views/comienzo.tpl',
+                controller: 'comienzoController as comienzo'
             })
             .state({
                 name: 'terminos',
-                url: '/terminos-y-condiciones',
-                templateUrl: '/landing/app/views/terminos.tpl',
-                controller: 'terminosController as terminos',
-                params: {
-                    datos: null
-                }
+                url: '/terminos-y-condiciones/',
+                templateUrl: '/landing/app/views/terminos.tpl'
             })
             .state({
                 name: 'legales',
-                url: '/avisos-legales',
-                templateUrl: '/landing/app/views/legales.tpl',
-                controller: 'legalesController as legales',
-                params: {
-                    datos: null
-                }
+                url: '/avisos-legales/',
+                templateUrl: '/landing/app/views/legales.tpl'
             })
             .state({
-                name: 'dienadores',
-                url: '/trabaja-con-nosotros',
-                templateUrl: '/landing/app/views/disenadores.tpl',
-                controller: 'dienadoresController as dienadores',
-                params: {
-                    datos: null
-                }
+                name: 'disenadores',
+                url: '/disenadores/',
+                templateUrl: '/landing/app/views/disenadores.tpl'
             })
 
-		$urlRouterProvider.otherwise("");
 
-	});
+            $urlRouterProvider.rule(function ($injector, $location) {
+                var path = $location.url();
+    
+                if ('/' === path[path.length - 1] || path.indexOf('/?') > -1) {
+                    return;
+                }
+    
+                if (path.indexOf('?') > -1) {
+                    return path.replace('?', '/?');
+                }
+    
+                return path + '/';
+            });
+    
+            //$urlRouterProvider.otherwise('/404/');
+
+    });

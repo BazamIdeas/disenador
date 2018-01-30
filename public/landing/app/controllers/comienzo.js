@@ -1,10 +1,12 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$window", "$base64", "estaticosLandingValue", "logosService", function ($window, $base64, estaticosLandingValue, logosService) {
+	.controller("comienzoController", ["$window", "$base64", "estaticosLandingValue", "logosService", "navegarFactory", function ($window, $base64, estaticosLandingValue, logosService, navegarFactory) {
 
 		var bz = this;
 
 		bz.destacados = [];
+
+		//
 
 		logosService.mostrarDestacados().then(function(res){
 
@@ -19,8 +21,8 @@ angular.module("landing")
 		bz.enviarComenzar = function (nombreLogo, v) {
 
 			if (!v) return;
-            
-			$window.location.href = "http://" + location.host + "/creador-de-logos/comenzar/?n=" + nombreLogo;
+			
+			navegarFactory.cliente(false, {n: nombreLogo});
 			
 		};
 
