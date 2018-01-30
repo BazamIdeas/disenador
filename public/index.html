@@ -33,6 +33,7 @@
     <!-- Controladores -->
     <script src="/landing/app/controllers/comienzo.js"></script>
     <script src="/landing/app/controllers/disenadores.js"></script>
+    <script src="/landing/app/controllers/header.js"></script>
  
 
 </head>
@@ -40,18 +41,15 @@
 <body class="back-landing">
     <!-- header -->
     <header>
-        <md-toolbar class="header">
+        <md-toolbar class="header" ng-controller="headerController as h">
             <div layout flex class="md-toolbar-tools" layout-align="end center" layout-padding>
                 <div layout>
-                    <a href="/freelance/#!/login">
-                        <md-button>DISENADOR</md-button>
-                    </a>
+                    
+                        <md-button ng-click="h.navegar.freelance('login');">DISENADOR</md-button>
                 </div>
                 <div>
                     <ingresar>
-                        <a href="/creador-de-logos/#!/login">
-                            <md-button>CLIENTE</md-button>
-                        </a>
+                            <md-button ng-click="h.navegar.cliente('login');">CLIENTE</md-button>
                     </ingresar>
                 </div>
             </div>

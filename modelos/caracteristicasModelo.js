@@ -10,10 +10,9 @@ caracteristica.Guardar = (caracteristicasData, callback) =>
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, result){
-	  	
-	  		if(err)	throw err;
+			console.log(result)
 
-	  		else callback(null,{"insertId" : result.insertId}); 
+	  		callback(null,{"insertId" : result.insertId}); 
 	  		
 	  		connection.release();
 	  	});

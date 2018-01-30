@@ -6,7 +6,6 @@
                     <H1 style="text-align: center;" class="text-white">Cree su Logo en minutos</H1>
                     <p class="sub-titulo">“El diseño es el embajador silencioso de tu marca”</p>
                     <h4 style="color:white; text-align: center;">Paul Brand</h4>
-                    <span ng-click="comienzo.navegar.cliente('editor');">Hola</span>
                 </div>
             </div>
             <div layout="column" flex="30" class="formulario-landing">
@@ -77,18 +76,28 @@
         <div class="text-center">
             <h2>ELIJA ENTRE LAS MEJORES CREACIONES</h2>
         </div>
-        <div layout layout-align="space-around center" layout-wrap style="text-align: justify;" layout-padding>
-            <div class="margen_inferior" flex="23" md-whiteframe="2dp" layout-padding ng-repeat="destacado in comienzo.destacados" ng-click="comienzo.editar(destacado)">
+       <div layout layout-align="space-around center" layout-wrap style="text-align: justify;" layout-padding>
+            <div class="margen_inferior l-destacado-landing" md-whiteframe="2dp" layout-padding ng-repeat="destacado in comienzo.destacados | limitTo : 8" ng-click="comienzo.editar(destacado)">
                 <bazam-visualizar data-svg="comienzo.base64.decode(destacado.logo)"></bazam-visualizar>
             </div>
         </div>
-        <div layout layout-align="center">
-            <md-button class="md-raised">VER MAS</md-button>
+        
+        <!--
+        <ui-carousel slides="comienzo.destacados" slides-to-show="3" slides-to-scroll="1" initial-slide="1" autoplay="true" autoplay-speed="5000"
+            dots="false" arrows="false">
+            <carousel-item>
+                <img src="data:image/svg+xml;base64,{{item.logo}}">
+            </carousel-item>
+        </ui-carousel>
+    -->
+
+        <div layout layout-align="center" class="margen_inferior">
+            <md-button class="md-raised" ng-click="comienzo.navegar.cliente('galeria')">VER MAS</md-button>
         </div>
     </div>
     <div class="seccion-landing tres" layout layout-align="space-around center">
-        <div class="opcion uno">TRABAJA CON NOSOTROS</div>
-        <div class="opcion dos">CREAR MI LOGO</div>
+        <div class="opcion uno" ng-click="comienzo.navegar.freelance('editor');">TRABAJA CON NOSOTROS</div>
+        <div class="opcion dos" ng-click="comienzo.navegar.cliente('editor');">CREAR MI LOGO</div>
     </div>
     <div class="seccion-landing cuatro">
         <div class="text-center ">
@@ -118,7 +127,10 @@
             <h2>PREGUNTAS FRECUENTES</h2>
         </div>
         <div class="preguntas">
-            <div ng-repeat="p in comienzo.preguntas"><p ng-click="comienzo.modFun($index)">{{p.pregunta}}</p><p ng-if="comienzo.modfire == $index && comienzo.modInit">{{p.respuesta}}</p></div>
+            <div ng-repeat="p in comienzo.preguntas">
+                <p ng-click="comienzo.modFun($index)">{{p.pregunta}}</p>
+                <p ng-if="comienzo.modfire == $index && comienzo.modInit">{{p.respuesta}}</p>
+            </div>
         </div>
     </div>
 </div>

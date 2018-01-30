@@ -23,7 +23,6 @@ exports.Nuevo = function(req, res, next)
 exports.Nuevos = function(req, res, next)
 {
     var caracteristicas = req.body.caracteristicas;
-
     var inserts_ids = [];
 
     async.forEachOf(caracteristicas, (carac, key, callback) => {
@@ -36,10 +35,15 @@ exports.Nuevos = function(req, res, next)
         };
 
         caracteristica.Guardar(catacteristicasData, function(error, data) {
+            console.log(data)
             if(data && data.insertId){
                 inserts_ids.push(data.insertId);
+                
             }
+            
         })
+
+        callback()
 
     }, function(err) {
         if (err) console.error(err.message);
