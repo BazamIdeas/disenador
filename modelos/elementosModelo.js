@@ -196,7 +196,7 @@ elemento.cambiarEstado = function(data, callback)
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
 		  	if(err)	throw err;
 

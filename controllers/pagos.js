@@ -1,238 +1,238 @@
-var pago = require('../modelos/pagosModelo.js');
-var logo = require('../modelos/logosModelo.js');
-var atributo = require('../modelos/atributosModelo.js');
-var config = require('../configuracion.js');
+var pago = require("../modelos/pagosModelo.js");
+var logo = require("../modelos/logosModelo.js");
+var atributo = require("../modelos/atributosModelo.js");
+var config = require("../configuracion.js");
 var async    = require("async");
 
-exports.ObtenerPorCliente = function(req, res, next)
+exports.ObtenerPorCliente = function(req, res)
 {
-    var idCliente = req.idCliente ? req.idCliente : req.params.id; 
+	var idCliente = req.idCliente ? req.idCliente : req.params.id; 
     
-    pago.ObtenerPorCliente(idCliente, function(error, data)
+	pago.ObtenerPorCliente(idCliente, function(error, data)
 	{ 
-		if (typeof data !== 'undefined' && data.length > 0){
+		if (typeof data !== "undefined" && data.length > 0){
 			res.status(200).json(data);
 		}else{
-			res.status(404).json({"msg":"No hay resgitro de pagos en la base de datos"})
+			res.status(404).json({"msg":"No hay resgitro de pagos en la base de datos"});
 		}
 	});
-}
+};
 
-exports.ObtenerComisiones = function(req, res, next)
+exports.ObtenerComisiones = function(req, res)
 {
-    var data = 'var comisiones = '+JSON.stringify(config.freelancer)+';';
-    res.status(200).send(data)
-}
+	var data = "var comisiones = "+JSON.stringify(config.freelancer)+";";
+	res.status(200).send(data);
+};
 
-exports.SaldoPorCliente = function(req, res, next)
+exports.SaldoPorCliente = function(req, res)
 {
-    var pagado = 0;
-    var vendido = 0;
-    var deuda = 0;
+	var pagado = 0;
+	var vendido = 0;
 
-    var idCliente = req.idCliente ? req.idCliente : req.body.idCliente; 
-    var par = ["Vendido",idCliente];
+	var idCliente = req.idCliente ? req.idCliente : req.body.idCliente; 
+	var par = ["Vendido",idCliente];
 
-    async.series({
+	async.series({
 
-        pagado: function(callback) {
-            pago.ObtenerPorCliente(idCliente,function(error,data){
-                //console.log("pagado")
-                if(typeof data !== 'undefined' && data.length){
+		pagado: function(callback) {
+			pago.ObtenerPorCliente(idCliente,function(error,data){
+				//console.log("pagado")
+				if(typeof data !== "undefined" && data.length){
 
-                    for(var key in data){
+					for(var key in data){
 
-                        pagado = pagado + data[key].monto;
+						pagado = pagado + data[key].monto;
 
-                    }
+					}
 
-                }
+				}
 
-                callback(null, pagado);
+				callback(null, pagado);
 
-            });
-        },
+			});
+		},
         
-        vendido: function(callback) {
+		vendido: function(callback) {
             
-            logo.getLogosTipo(par, function(error,data){
+			logo.getLogosTipo(par, function(error,data){
                 
-                if(typeof data !== 'undefined' && data.length){
+				if(typeof data !== "undefined" && data.length){
                     
-                    async.forEachOf(data, function(val, key, callback){
+					async.forEachOf(data, function(val, key, callback){
                         
-                       atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
-                            //console.log(data)
-                            if (typeof data !== 'undefined' && data.length > 0){
+						atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
+							//console.log(data)
+							if (typeof data !== "undefined" && data.length > 0){
 
-                                var cal = {};
+								var cal = {};
 
-                                for(var key in data){
+								for(var key in data){
 
-                                    if(data[key].clave == "calificacion-admin"){
+									if(data[key].clave == "calificacion-admin"){
 
-                                        cal.moderador = data[key].valor;
-                                        vendido = vendido + config.freelancer["moderador"][data[key].valor];
-                                    }
+										cal.moderador = data[key].valor;
+										vendido = vendido + config.freelancer["moderador"][data[key].valor];
+									}
                                     
-                                    if(data[key].clave == "calificacion-cliente"){
-                                        cal.cliente = data[key].valor;
-                                    }
+									if(data[key].clave == "calificacion-cliente"){
+										cal.cliente = data[key].valor;
+									}
 
-                                }
+								}
                                 
-                                if(cal.cliente){
-                                    vendido = vendido + config.freelancer["cliente"][cal.cliente];
-                                }else if(cal.moderador){
-                                    vendido = vendido + config.freelancer["cliente"][cal.moderador];
-                                }
+								if(cal.cliente){
+									vendido = vendido + config.freelancer["cliente"][cal.cliente];
+								}else if(cal.moderador){
+									vendido = vendido + config.freelancer["cliente"][cal.moderador];
+								}
                                 
-                                 callback();
-                            }
+								callback();
+							}
                            
 
-                        });
-                    }, function (err) {
-                        if (err) console.error(err.message);
-                        //console.log(vendido)
-                        callback(null, vendido);
-                    
+						});
+					}, function () {
+
+						callback(null, vendido);
                         
-                    })
+					});
 
-                }else{
+				}else{
                     
-                    callback(null, vendido);
+					callback(null, vendido);
                 
-                }
+				}
 
-            });
-        }
+			});
+		}
         
-    }, function(err, results) {
+	}, function(err, results) {
         
-        //console.log(2)
+		//console.log(2)
         
-        if (err) res.status(500).json({msg: "Algo ocurrio"});
+		if (err) res.status(500).json({msg: "Algo ocurrio"});
 
-        var data = {
-            pagado: results.pagado,
-            vendido: results.vendido,
-            deuda: results.vendido - results.pagado
-        }
+		var data = {
+			pagado: results.pagado,
+			vendido: results.vendido,
+			deuda: results.vendido - results.pagado
+		};
 
-        res.status(200).json(data);
-    });
-}
+		res.status(200).json(data);
+	});
+};
 
-exports.Nuevo = function(req, res, next)
+exports.Nuevo = function(req, res)
 {
-    var datosPago = {
-        fecha: req.body.fecha,
-        monto: req.body.monto,
-        facturacion_idFacturacion: req.body.idFacturacion 
-    }
+	var datosPago = {
+		fecha: req.body.fecha,
+		monto: req.body.monto,
+		facturacion_idFacturacion: req.body.idFacturacion 
+	};
 
-    var pagado = 0;
-    var vendido = 0;
-    var deuda = 0;
+	var pagado = 0;
+	var vendido = 0;
+	var deuda = 0;
 
-    var idCliente = req.idCliente ? req.idCliente : req.body.idCliente; 
-    var par = ["Vendido",idCliente];
+	var idCliente = req.idCliente ? req.idCliente : req.body.idCliente; 
+	var par = ["Vendido",idCliente];
 
-    async.series({
+	async.series({
 
         pagado: function(callback) {
             pago.ObtenerPorCliente(idCliente,function(error,data){
-                console.log(data)
+
                 if(typeof data !== 'undefined' && data.length){
 
-                    for(var key in data){
+					for(var key in data){
 
-                        pagado = pagado + data[key].monto;
+						pagado = pagado + data[key].monto;
 
-                    }
+					}
 
                 }
                 callback(null, pagado);
 
-            });
-        },
+			});
+		},
         
-        vendido: function(callback) {
+		vendido: function(callback) {
             
+
             logo.getLogosTipo(par, function(error,data){
-                console.log(par)
+
                 if(typeof data !== 'undefined' && data.length){
                     //console.log(data)
                     async.forEachOf(data, function(val, key, callback){
                         
                        atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
-                            console.log(data)
+
                             if (typeof data !== 'undefined' && data.length > 0){
 
-                                var cal = {};
+								var cal = {};
 
-                                for(var key in data){
+								for(var key in data){
 
-                                    if(data[key].clave == "calificacion-admin"){
+									if(data[key].clave == "calificacion-admin"){
 
-                                        cal.moderador = data[key].valor;
-                                        vendido = vendido + config.freelancer["moderador"][data[key].valor];
-                                    }
+										cal.moderador = data[key].valor;
+										vendido = vendido + config.freelancer["moderador"][data[key].valor];
+									}
                                     
-                                    if(data[key].clave == "calificacion-cliente"){
-                                        cal.cliente = data[key].valor;
-                                    }
+									if(data[key].clave == "calificacion-cliente"){
+										cal.cliente = data[key].valor;
+									}
 
-                                }
+								}
                                 
-                                if(cal.cliente){
-                                    vendido = vendido + config.freelancer["cliente"][cal.cliente];
-                                }else if(cal.moderador){
-                                    vendido = vendido + config.freelancer["cliente"][cal.moderador];
-                                }
+								if(cal.cliente){
+									vendido = vendido + config.freelancer["cliente"][cal.cliente];
+								}else if(cal.moderador){
+									vendido = vendido + config.freelancer["cliente"][cal.moderador];
+								}
                                 
-                                 callback();
-                            }
+								callback();
+							}
                            
 
-                        });
-                    }, function (err) {
-                        if (err) console.error(err.message);
-                        callback(null, vendido);
-                        
-                        
-                    })
+						});
+					}, function () {
 
-                }else{
+						callback(null, vendido);
+                        
+
+                        
+					});
+
+				}else{
                     
-                    console.log(vendido)
-                    callback(null, vendido);
+
+					callback(null, vendido);
+
                 
-                }
+				}
 
-            });
-        }
+			});
+		}
         
-    }, function(err, results) {
+	}, function(err, results) {
         
         
-        if (err) res.status(500).json({msg: "Algo ocurrio"});
+		if (err) res.status(500).json({msg: "Algo ocurrio"});
 
-        deuda = results.vendido - results.pagado
+		deuda = results.vendido - results.pagado;
 
-        if(req.body.monto <= deuda) {
+		if(req.body.monto <= deuda) {
 
-            pago.Nuevo(datosPago, function(error,data){
-                if(typeof data !== 'undefined' && data.insertId){
-                    res.status(200).json(data);
-                }else{
-                    res.status(500).json({msg:"Algo ocurrio"})
-                }
-            })
-        }else{
-            res.status(403).json({msg:"No puede pagar mas de lo que debe"}) 
-        }
-    });
-}
+			pago.Nuevo(datosPago, function(error,data){
+				if(typeof data !== "undefined" && data.insertId){
+					res.status(200).json(data);
+				}else{
+					res.status(500).json({msg:"Algo ocurrio"});
+				}
+			});
+		}else{
+			res.status(403).json({msg:"No puede pagar mas de lo que debe"}); 
+		}
+	});
+};

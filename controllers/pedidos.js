@@ -1,109 +1,109 @@
-var pedido = require('../modelos/pedidosModelo.js');
-var logo = require('../modelos/logosModelo.js');
-var cliente = require('../modelos/clientesModelo.js');
-var services = require('../services');
-var elemento = require('../modelos/elementosModelo.js');
-var configuracion = require('../configuracion.js');
-var moment = require('moment');
-var pais = require('../modelos/paisesModelo.js');
-var precio = require('../modelos/preciosModelo.js');
-var pasarela = require('../modelos/pasarelasModelo.js');
-var atributo = require('../modelos/atributosModelo.js');
+var pedido = require("../modelos/pedidosModelo.js");
+var logo = require("../modelos/logosModelo.js");
+var cliente = require("../modelos/clientesModelo.js");
+var services = require("../services");
+var elemento = require("../modelos/elementosModelo.js");
+var configuracion = require("../configuracion.js");
+var moment = require("moment");
+var pais = require("../modelos/paisesModelo.js");
+var precio = require("../modelos/preciosModelo.js");
+var pasarela = require("../modelos/pasarelasModelo.js");
+var atributo = require("../modelos/atributosModelo.js");
 
 
-exports.listaPedidos = function (req, res, next) {
+exports.listaPedidos = function (req, res) {
 
 	pedido.getPedidos(function (error, data) {
 
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
 		}
 		//no existe
 		else {
 			res.status(404).json({
 				"msg": "No hay pedidos registrados"
-			})
+			});
 		}
 	});
 
-}
+};
 
-exports.ListarPorPais = function (req, res, next) {
+exports.ListarPorPais = function (req, res) {
 
 	pedido.ListarPorPais(req.params.iso, function (error, data) {
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
 		} else {
 			res.status(404).json({
 				"msg": "No hay pedidos registrados"
-			})
+			});
 		}
 	});
 
-}
+};
 
-exports.datosPedido = function (req, res, next) {
+exports.datosPedido = function (req, res) {
 	//id del pedido
 	var id = req.params.id;
 	pedido.getPedido(id, function (error, data) {
 		//si el pedido existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
 		}
 		//no existe
 		else {
 			res.status(204).json({
 				"msg": "No Encontrado"
-			})
+			});
 		}
 	});
 
-}
+};
 
-exports.datosPedidosCliente = function (req, res, next) {
+exports.datosPedidosCliente = function (req, res) {
 	//id del pedido
 	var id = req.params.id;
 	pedido.getPedidosCliente(id, function (error, data) {
 		//si el pedido existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
 		}
 		//no existe
 		else {
 			res.status(404).json({
 				"msg": "No Encontrado"
-			})
+			});
 		}
 	});
 
-}
+};
 
-exports.PedidosCliente = function (req, res, next) {
+exports.PedidosCliente = function (req, res) {
 	//id del pedido
 	var id = req.idCliente;
 	pedido.getPedidosCliente(id, function (error, data) {
 		//si el pedido existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
 		}
 		//no existe
 		else {
 			res.status(404).json({
 				"msg": "No Encontrado"
-			})
+			});
 		}
 	});
 
-}
+};
 
 exports.nuevoPedido = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
 
 	var logoData = {
 		idLogo: null,
-		estado: 'Editable',
+		estado: "Editable",
 		logo: req.body.logo,
 		tipoLogo: req.body.tipoLogo,
 		clientes_idCliente: req.idCliente,
@@ -117,39 +117,39 @@ exports.nuevoPedido = function (req, res) {
 		if (data && data.insertId) {
             
 
-            var atributos = req.body.atributos;
+			var atributos = req.body.atributos;
 
-            for(var key in atributos){
+			for(var key in atributos){
 
-                var atributosData = {
-                    clave : key,
-                    valor : atributos[key],
-                    logos_idLogo: data.insertId  
-                };
+				var atributosData = {
+					clave : key,
+					valor : atributos[key],
+					logos_idLogo: data.insertId  
+				};
 
-                atributo.Guardar(atributosData, function(error, data) {
+				atributo.Guardar(atributosData, function(error, data) {
 
-                    if(!data && !data.insertId)
-                    {
+					if(!data && !data.insertId)
+					{
 
-                        res.status(500).json({"msg":"Algo ocurrio"})
+						res.status(500).json({"msg":"Algo ocurrio"});
 
-                    }
+					}
 
-                })
+				});
 
-            } 
+			} 
 
-			idLogo = data.insertId
-			iso = services.geoipServices.iso(req.ip)
-			idPrecio = req.body.idPrecio
-			idPasarela = req.body.idPasarela
+			var idLogo = data.insertId;
+			var iso = services.geoipServices.iso(req.ip);
+			var idPrecio = req.body.idPrecio;
+			var idPasarela = req.body.idPasarela;
 
 			pais.ObtenerImpuesto(iso, function (error, impuesto) {
 				var pedidoData = {
 					idPedido: null,
 					fecha: moment().format("YYYY-MM-DD"),
-					estado: 'EN ESPERA',
+					estado: "EN ESPERA",
 					logos_idLogo: idLogo, // id del logo guardado
 					precios_idPrecio: idPrecio,
 					impuesto: impuesto,
@@ -162,20 +162,20 @@ exports.nuevoPedido = function (req, res) {
 					if (data && data.insertId) {
 						/// PAGO AQUI
 						//////////////////////
-						idPedido= data.insertId;
+						var idPedido= data.insertId;
 						precio.datos(idPrecio, function (error, data) {
 
-							if (typeof data !== 'undefined' && data.length > 0) {
+							if (typeof data !== "undefined" && data.length > 0) {
 								var plan = data;
 								elemento.datosElemento(req.body.idElemento, function (error, data) {
 
-									if (typeof data !== 'undefined' && data.length > 0) {
+									if (typeof data !== "undefined" && data.length > 0) {
 
-										tipoE = data[0].tipo.replace(" ", "");
+										var tipoE = data[0].tipo.replace(" ", "");
 
 										pasarela.Obtener(idPasarela, function (error, data) {
 											
-											if (typeof data !== 'undefined' && data.length > 0) {
+											if (typeof data !== "undefined" && data.length > 0) {
 
 												/////ENVIAR PAGO a paypal
 												if (idPasarela == 1) {
@@ -190,14 +190,14 @@ exports.nuevoPedido = function (req, res) {
 														tipoElemento: tipoE,
 														token: req.headers.auth,
 														idPedido: idPedido
-													}
+													};
 
 													if(req.body.atributos.padre){
 														datosPago.padre = req.body.atributos.padre; 
 													}
 													//console.log(req.body);
 													services.pagoServices.paypal(datosPago, function (error, data) {
-														res.json(data.link)
+														res.json(data.link);
 														//console.log(data.link)
 													});
 
@@ -205,13 +205,13 @@ exports.nuevoPedido = function (req, res) {
 													//falta Bloquear elemento
 													res.status(200).json({
 														"msg": true
-													})
+													});
 												}
 
 											} else {
 												res.status(404).json({
 													"msg": "No existe el medio de pago"
-												})
+												});
 											}
 
 										});
@@ -219,7 +219,7 @@ exports.nuevoPedido = function (req, res) {
 									} else {
 										res.status(404).json({
 											"msg": "No existe el elemento"
-										})
+										});
 									}
 								});
 
@@ -228,7 +228,7 @@ exports.nuevoPedido = function (req, res) {
 							else {
 								res.status(404).json({
 									"msg": "No existe el plan"
-								})
+								});
 							}
 
 						});
@@ -236,31 +236,31 @@ exports.nuevoPedido = function (req, res) {
 					} else {
 						res.status(500).json({
 							"msg": "Algo ocurrio al crear pedido"
-						})
+						});
 					}
 				});
 			});
 		} else {
 			res.status(500).json({
 				"msg": "Algo ocurrio"
-			})
+			});
 		}
 	});
 
 
-}
+};
 
 exports.nuevoPedidoGuardado = function (req, res) {
-	idLogo = req.body.idLogo
-	iso = services.geoipServices.iso(req.ip)
-	idPrecio = req.body.idPrecio
-	idPasarela = req.body.pasarelas_idPasarela
+	var idLogo = req.body.idLogo;
+	var iso = services.geoipServices.iso(req.ip);
+	var idPrecio = req.body.idPrecio;
+	var idPasarela = req.body.pasarelas_idPasarela;
 
 	pais.ObtenerImpuesto(iso, function (error, impuesto) {
 		var pedidoData = {
 			idPedido: null,
 			fecha: moment().format("YYYY-MM-DD"),
-			estado: 'EN ESPERA',
+			estado: "EN ESPERA",
 			logos_idLogo: idLogo, // id del logo guardado
 			precios_idPrecio: idPrecio,
 			impuesto: impuesto,
@@ -273,18 +273,18 @@ exports.nuevoPedidoGuardado = function (req, res) {
 			if (data && data.insertId) {
 				/// PAGO AQUI
 				//////////////////////
-				idPedido= data.insertId;
+				var idPedido= data.insertId;
 				precio.datos(idPrecio, function (error, data) {
-					if (typeof data !== 'undefined' && data.length > 0) {
+					if (typeof data !== "undefined" && data.length > 0) {
 						var plan = data;
 						elemento.datosElemento(req.body.idElemento, function (error, data) {
 
-							if (typeof data !== 'undefined' && data.length > 0) {
+							if (typeof data !== "undefined" && data.length > 0) {
 
-								tipoE = data[0].tipo.replace(" ", "");
+								var tipoE = data[0].tipo.replace(" ", "");
 
 								pasarela.Obtener(idPasarela, function (error, data) {
-									if (typeof data !== 'undefined' && data.length > 0) {
+									if (typeof data !== "undefined" && data.length > 0) {
 
 										/////ENVIAR PAGO
 
@@ -300,7 +300,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 												tipoElemento: tipoE,
 												token: req.headers.auth,
 												idPedido: idPedido
-											}
+											};
 
 											if(req.body.atributos.padre){
 												datosPago.padre = req.body.atributos.padre; 
@@ -309,7 +309,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 											//console.log(req.body);
 
 											services.pagoServices.paypal(datosPago, function (error, data) {
-												res.json(data.link)
+												res.json(data.link);
 												//console.log(data.link)
 											});
 
@@ -317,12 +317,12 @@ exports.nuevoPedidoGuardado = function (req, res) {
 											//falta Bloquear elemento
 											res.status(200).json({
 												"msg": true
-											})
+											});
 										}
 									} else {
 										res.status(404).json({
 											"msg": "No existe el medio de pago"
-										})
+										});
 									}
 
 								});
@@ -330,7 +330,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 							} else {
 								res.status(404).json({
 									"msg": "No existe el elemento"
-								})
+								});
 							}
 						});
 
@@ -339,18 +339,18 @@ exports.nuevoPedidoGuardado = function (req, res) {
 					else {
 						res.status(404).json({
 							"msg": "No existe el plan"
-						})
+						});
 					}
 
 				});
 			} else {
 				res.status(500).json({
 					"msg": "Algo ocurrio al crear pedido"
-				})
+				});
 			}
 		});
 	});
-}
+};
 
 exports.cambioEstadoPagado = function (req, res)
 
@@ -364,7 +364,7 @@ exports.cambioEstadoPagado = function (req, res)
 			//////cambiar estado al logo a descargable
 			var logoData = ["Descargable", req.params.idLogo];
 
-			logo.cambiarEstado(logoData, function (error, data) {
+			logo.cambiarEstado(logoData, function (error) {
 
 				if (!error) {
 
@@ -372,7 +372,7 @@ exports.cambioEstadoPagado = function (req, res)
 						
 						var logoPadre = ["Vendido", req.params.padre];
 
-						logo.cambiarEstado(logoPadre, function (error_p, data) {
+						logo.cambiarEstado(logoPadre, function (error_p) {
 
 							if (!error_p) {
 								
@@ -381,14 +381,14 @@ exports.cambioEstadoPagado = function (req, res)
 								cliente.getCliente(id, function (error, data) {
 			
 									//console.log(data);
-									services.emailServices.enviar('pedidoPago.html', {}, "Pedido pagado", data.correo);
+									services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
 			
 								});
 								res.redirect(configuracion.base+configuracion.pago + req.params.idLogo);
 							
 							}
 						
-						})
+						});
 					
 					}else{
 
@@ -397,7 +397,7 @@ exports.cambioEstadoPagado = function (req, res)
 						cliente.getCliente(id, function (error, data) {
 	
 							//console.log(data);
-							services.emailServices.enviar('pedidoPago.html', {}, "Pedido pagado", data.correo);
+							services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
 	
 						});
 						res.redirect(configuracion.base+configuracion.pago + req.params.idLogo);
@@ -411,24 +411,24 @@ exports.cambioEstadoPagado = function (req, res)
 		} else {
 			res.status(404).json({
 				"msg": "Algo ocurrio en cambio de icono"
-			})
+			});
 		}
 	});
 
-}
+};
 
 exports.noPago = function (req, res) {
 
 	res.redirect(configuracion.base+configuracion.dashboard);
 
-}
+};
 
 exports.modificarPedido = function (req, res) {
-	var idPedido = req.body.idPedido // 
+	var idPedido = req.body.idPedido; // 
 
 	pedido.getPedido(idPedido, function (error, data) {
 		//si el pedido existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 			//creamos un array con los datos a modificar del pedido
 			var pedidoData = [req.body.fecha, req.body.estado, req.body.tipoP, idPedido];
 
@@ -439,7 +439,7 @@ exports.modificarPedido = function (req, res) {
 				} else {
 					res.status(500).json({
 						"msg": "Algo ocurrio"
-					})
+					});
 				}
 			});
 		}
@@ -447,17 +447,17 @@ exports.modificarPedido = function (req, res) {
 		else {
 			res.status(404).json({
 				"msg": "No existe"
-			})
+			});
 		}
 	});
-}
+};
 
 exports.cambiarEstado = function (req, res) {
-	var idPedido = req.body.idPedido // 
+	var idPedido = req.body.idPedido; // 
 
 	pedido.getPedido(idPedido, function (error, data) {
 		//si el pedido existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 			//creamos un array con los datos a modificar del pedido
 			var pedidoData = [req.body.estado, idPedido];
 
@@ -468,7 +468,7 @@ exports.cambiarEstado = function (req, res) {
 				} else {
 					res.status(500).json({
 						"msg": "Algo ocurrio"
-					})
+					});
 				}
 			});
 		}
@@ -476,17 +476,17 @@ exports.cambiarEstado = function (req, res) {
 		else {
 			res.status(404).json({
 				"msg": "No existe"
-			})
+			});
 		}
 	});
-}
+};
 
 
-exports.borrarPedido = function (req, res, next) {
+exports.borrarPedido = function (req, res) {
 	//id del pedido
 	var id = req.params.id;
 	pedido.deletePedido(id, function (error, data) {
 		res.status(200).json(data);
 	});
 
-}
+};

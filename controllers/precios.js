@@ -1,4 +1,4 @@
-var precio = require('../modelos/preciosModelo.js');
+var precio = require("../modelos/preciosModelo.js");
 
 exports.Nuevo = (req, res) =>
 {
@@ -7,21 +7,21 @@ exports.Nuevo = (req, res) =>
 		precio           : req.body.precio,
 		monedas_idMoneda : req.body.idMoneda,
 		planes_idPlan    : req.body.idPlan
-	}
+	};
 
 	precio.Nuevo(precioData, (error, data) => {
 		
 		if (data && data.result) {
 
-			res.status(200).json({'insertId': data.result});
+			res.status(200).json({"insertId": data.result});
 		
 		} else {
 
-			res.status(500).json({"msg": "Algo ocurrio"})
+			res.status(500).json({"msg": "Algo ocurrio"});
 		
 		}
 	});
-}
+};
 
 exports.Modificar = (req, res) =>
 {
@@ -30,21 +30,21 @@ exports.Modificar = (req, res) =>
 		precio           : req.body.precio,
 		monedas_idMoneda : req.body.idMoneda,
 		planes_idPlan    : req.body.idPlan
-	}
+	};
 
 	precio.Bloquear(req.body.idPrecio, (error, bloqueo) => {
 
-		if (typeof bloqueo !== 'undefined' && bloqueo.affectedRows) {
+		if (typeof bloqueo !== "undefined" && bloqueo.affectedRows) {
 
 			precio.Nuevo(precioData, (error, data) => {
 				
 				if (data && data.result) {
 
-					res.status(200).json({'insertId': data.result});
+					res.status(200).json({"insertId": data.result});
 				
 				} else {
 
-					res.status(500).json({"msg": "Algo ocurrio 1"})
+					res.status(500).json({"msg": "Algo ocurrio 1"});
 				
 				}
 			
@@ -52,9 +52,9 @@ exports.Modificar = (req, res) =>
 
 		} else {
 		
-			res.status(500).json({"msg": "Algo ocurrio 2"})
+			res.status(500).json({"msg": "Algo ocurrio 2"});
 		
 		}
 
 	});
-}
+};

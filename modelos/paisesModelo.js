@@ -264,7 +264,6 @@ pais.AsignarDolar = function(idPais,callback)
 pais.DesasignarMoneda = function(paisMoneda,callback)
 {	
 	var q = 'SELECT count(*) as cantidad FROM monedas_has_paises WHERE paises_idPais = ? AND monedas_idMoneda = ?';
-	var par = paisMoneda //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -276,7 +275,7 @@ pais.DesasignarMoneda = function(paisMoneda,callback)
 		  		var qq = 'DELETE FROM monedas_has_paises WHERE paises_idPais = ? AND monedas_idMoneda = ? ;';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , [paisMoneda.paises_idPais, paisMoneda.monedas_idMoneda] , function(err, result)
+					connection.query( qq , [paisMoneda.paises_idPais, paisMoneda.monedas_idMoneda] , function(err)
 					{
 						//console.log('this.sql', this.sql);
 				  	
@@ -371,7 +370,7 @@ pais.Borrar = function(id, callback)
 		  		var qq = 'DELETE FROM paises WHERE idPais = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , par , function(err, row)
+					connection.query( qq , par , function(err)
 					{
 				  	
 				  		if(err)	throw err;

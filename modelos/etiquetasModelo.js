@@ -75,7 +75,7 @@ etiqueta.updateEtiqueta = function(etiquetaData, callback)
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
 		  	if(err)	throw err;
 
@@ -106,7 +106,7 @@ etiqueta.deleteEtiqueta = function(id, callback)
 		  		var qq = 'DELETE FROM etiquetas WHERE idEtiqueta = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , par , function(err, row)
+					connection.query( qq , par , function(err)
 					{
 				  	
 				  		if(err)	throw err;
