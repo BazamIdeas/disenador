@@ -32,15 +32,6 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
                 }
             })
             .state({
-                name: 'equipo',
-                url: '/nuestro-equipo',
-                templateUrl: '/landing/app/views/equipo.html',
-                controller: 'equipoController as equipo',
-                params: {
-                    datos: null
-                }
-            })
-            .state({
                 name: 'dienadores',
                 url: '/trabaja-con-nosotros',
                 templateUrl: '/landing/app/views/disenadores.html',

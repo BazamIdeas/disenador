@@ -21,7 +21,7 @@ angular.module("administrador")
 			designerService.listarLogos().then(function (res) {
 				bz.logos = res;
 				bz.listaL = !bz.listaL;
-			}).catch(function (res) {
+			}).catch(function () {
 				notificacionService.mensaje("No existen logos por aprobar!");
 				bz.listaL = false;
 				bz.listarDisenadores();
@@ -34,7 +34,7 @@ angular.module("administrador")
 			bz.cal = !bz.cal;
 			bz.element = i;
 
-			designerService.aprobarLogo(id).then(function (res) {
+			designerService.aprobarLogo(id).then(function () {
 				notificacionService.mensaje("Aprobado!");
 				bz.logos[i].estado = "Aprobado";
 			}).catch(function (res) {
@@ -42,19 +42,36 @@ angular.module("administrador")
 			});
 		};
 
-		bz.borrarLogo = function (i, id) {
-			designerService.borrarLogo(id).then(function (res) {
+		bz.borrarLogo = function (i, id, op) {
+			designerService.borrarLogo(id).then(function () {
 				notificacionService.mensaje("No Aprobado!");
+				if(op){
+					bz.modfire = false;
+					bz.logosDisenador.splice(i, 1);
+					angular.forEach(bz.logos, function (valor, llave) {
+						if (valor.idLogo == id) {
+							return bz.logos.splice(llave, 1);
+						}
+					});
+
+				}
 				bz.logos.splice(i, 1);
+				bz.listaL = !bz.listaL;
+				angular.forEach(bz.logosDisenador, function (valor, llave) {
+					if (valor.idLogo == id) {
+						return bz.logos.splice(llave, 1);
+					}
+				});
+				
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
 			});
 		};
 
 		bz.ponerCalificacion = function (datos) {
-			designerService.calificarLogo(datos).then(function (res) {
+			designerService.calificarLogo(datos).then(function () {
 
-				bz.cal2 = !bz.cal2;
+				bz.cal2 = false;
 				bz.cal = !bz.cal;
 				notificacionService.mensaje("Calificacion Colocada!");
 			}).catch(function (res) {
@@ -63,7 +80,7 @@ angular.module("administrador")
 		};
 
 		bz.verLogo = function (logo, v) {
-			bz.logoVisualizar = logo;
+			bz.logoVisualizar = bz.base64(logo);
 			bz.lda = v ? true : false;
 			bz.modfire = false;
 			bz.modInit = false;
@@ -78,9 +95,9 @@ angular.module("administrador")
 		/********DISEÑADORES********/
 		/***************************/
 
-		bz.listarDisenadores = function (v) {
+		bz.listarDisenadores = function () {
 			bz.listaD = !bz.listaD;
-			designerService.listarDisenadores(datos).then(function (res) {
+			designerService.listarDisenadores().then(function (res) {
 				bz.disenadores = res;
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
@@ -88,7 +105,7 @@ angular.module("administrador")
 		};
 
 		bz.bloquearDisenador = function (id) {
-			designerService.bloquearDisenador(id).then(function (res) {
+			designerService.bloquearDisenador(id).then(function () {
 				notificacionService.mensaje("Usuario Bloqueado!");
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
@@ -97,29 +114,28 @@ angular.module("administrador")
 
 		bz.notificarDisenador = function (idC, idF) {
 
-			datos = {
+			var datos = {
 				idCliente: idC,
 				fecha: formatDate(new Date()),
 				monto: 0,
 				idFacturacion: idF
 			};
 
-			angular.forEach(bz.disenadores, function (valor, llave) {
+			angular.forEach(bz.disenadores, function (valor) {
 				if (valor.idCliente == idC) {
 					datos.monto = valor.deuda.deuda;
 				}
 			});
 
-			designerService.notificarPago(datos).then(function (res) {
+			designerService.notificarPago(datos).then(function () {
 				notificacionService.mensaje("Usuario Notificado!");
-				angular.forEach(bz.disenadores, function (valor, llave) {
+				angular.forEach(bz.disenadores, function (valor) {
 					if (valor.idCliente == idC) {
 						valor.deuda.deuda = 0;
 					}
 				});
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
-				console.log(res);
 			});
 		};
 
@@ -131,7 +147,6 @@ angular.module("administrador")
 				designerService.logosDisenador(id).then(function (res) {
 					bz.logosDisenador = res;
 					bz.vista = 1;
-					console.log(res);
 				}).catch(function (res) {
 					notificacionService.mensaje(res);
 				});
