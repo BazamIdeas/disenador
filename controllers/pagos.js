@@ -139,17 +139,10 @@ exports.Nuevo = function(req, res)
 
 	async.series({
 
-<<<<<<< HEAD
-		pagado: function(callback) {
-			pago.ObtenerPorCliente(idCliente,function(error,data){
-				//console.log("pagado")
-				if(typeof data !== "undefined" && data.length){
-=======
         pagado: function(callback) {
             pago.ObtenerPorCliente(idCliente,function(error,data){
-                console.log(data)
+
                 if(typeof data !== 'undefined' && data.length){
->>>>>>> b1b02d7deb29217c0cf6004c378047fcb97daac5
 
 					for(var key in data){
 
@@ -157,41 +150,24 @@ exports.Nuevo = function(req, res)
 
 					}
 
-<<<<<<< HEAD
-				}
-
-				callback(null, pagado);
-=======
                 }
                 callback(null, pagado);
->>>>>>> b1b02d7deb29217c0cf6004c378047fcb97daac5
 
 			});
 		},
         
 		vendido: function(callback) {
             
-<<<<<<< HEAD
-			logo.getLogosTipo(par, function(error,data){
-                
-				if(typeof data !== "undefined" && data.length){
-                    
-					async.forEachOf(data, function(val, key, callback){
-                        
-						atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
-							//console.log(data)
-							if (typeof data !== "undefined" && data.length > 0){
-=======
+
             logo.getLogosTipo(par, function(error,data){
-                console.log(par)
+
                 if(typeof data !== 'undefined' && data.length){
                     //console.log(data)
                     async.forEachOf(data, function(val, key, callback){
                         
                        atributo.ObtenerPorLogo(data[key].idLogo, function(err, data){
-                            console.log(data)
+
                             if (typeof data !== 'undefined' && data.length > 0){
->>>>>>> b1b02d7deb29217c0cf6004c378047fcb97daac5
 
 								var cal = {};
 
@@ -219,29 +195,20 @@ exports.Nuevo = function(req, res)
 							}
                            
 
-<<<<<<< HEAD
 						});
 					}, function () {
 
 						callback(null, vendido);
-=======
-                        });
-                    }, function (err) {
-                        if (err) console.error(err.message);
-                        callback(null, vendido);
                         
->>>>>>> b1b02d7deb29217c0cf6004c378047fcb97daac5
+
                         
 					});
 
 				}else{
                     
-<<<<<<< HEAD
+
 					callback(null, vendido);
-=======
-                    console.log(vendido)
-                    callback(null, vendido);
->>>>>>> b1b02d7deb29217c0cf6004c378047fcb97daac5
+
                 
 				}
 
