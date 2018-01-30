@@ -1,4 +1,4 @@
-var DB = require('./db.js');
+var DB = require("./db.js");
  
 var caracteristica = {};
  
@@ -10,15 +10,15 @@ caracteristica.Guardar = (caracteristicasData, callback) =>
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, result){
-	  	
-	  		if(err)	throw err;
+		
+			if(err)	throw err;
 
-	  		else callback(null,{"insertId" : result.insertId}); 
-	  		
-	  		connection.release();
-	  	});
+			else callback(null,{"insertId" : result.insertId}); 
+				
+			connection.release();
+		});
 	});
-}
+};
 
 caracteristica.ObtenerPorClave = (clave, idLogo, callback) =>
 {
@@ -27,18 +27,18 @@ caracteristica.ObtenerPorClave = (clave, idLogo, callback) =>
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , [clave, idLogo] , function(err, rows){
-	  
+		
 
-	  		if(err)	throw err;
+			if(err)	throw err;
 
-	  		else{
-	  			callback(null, rows); 
-	  		}
+			else{
+				callback(null, rows); 
+			}
 
-	  		connection.release();
-	  	});
+			connection.release();
+		});
 	});
-}
+};
 
 caracteristica.ObtenerPorPlan = (idPlan, callback) =>
 {
@@ -47,35 +47,33 @@ caracteristica.ObtenerPorPlan = (idPlan, callback) =>
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , [idPlan] , function(err, rows){
-	  
+		
 
-	  		if(err)	throw err;
+			if(err)	throw err;
 
-	  		else{
-	  			callback(null, rows); 
-	  		}
+			else{
+				callback(null, rows); 
+			}
 
-	  		connection.release();
-	  	});
+			connection.release();
+		});
 	});
-}
+};
 
 caracteristica.BorrarPorPlan = (idPlan, objetivos, callback) => 
 {
-	var qq = 'DELETE FROM caracteristicas WHERE caracteristicas.planes_idPlanes = ? AND caracteristicas.clave IN(?)';
+	var qq = "DELETE FROM caracteristicas WHERE caracteristicas.planes_idPlanes = ? AND caracteristicas.clave IN(?)";
 	DB.getConnection(function(err, connection)
 	{
-		var query = connection.query( qq , [idPlan, objetivos] , function(err, row)
+		connection.query( qq , [idPlan, objetivos] , function(err, row)
 		{
-	  		if(err)	throw err;
+			if(err)	throw err;
 
-		  	else callback(null,{"affectedRows" : row.affectedRows }); 
-	  		
-	  		connection.release();
-	 	});
-        
-       
+			else callback(null,{"affectedRows" : row.affectedRows }); 
+		
+			connection.release();
+		}); 
 	});
-}
+};
 
 module.exports = caracteristica;

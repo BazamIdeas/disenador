@@ -6,6 +6,7 @@
                     <H1 style="text-align: center;" class="text-white">Cree su Logo en minutos</H1>
                     <p class="sub-titulo">“El diseño es el embajador silencioso de tu marca”</p>
                     <h4 style="color:white; text-align: center;">Paul Brand</h4>
+                    <span ng-click="comienzo.navegar.cliente('editor');">Hola</span>
                 </div>
             </div>
             <div layout="column" flex="30" class="formulario-landing">
@@ -77,8 +78,8 @@
             <h2>ELIJA ENTRE LAS MEJORES CREACIONES</h2>
         </div>
         <div layout layout-align="space-around center" layout-wrap style="text-align: justify;" layout-padding>
-            <div class="margen_inferior" flex="23" md-whiteframe="2dp" layout-padding>
-                <!-- LOGOS DESSTACADOS AQUI -->
+            <div class="margen_inferior" flex="23" md-whiteframe="2dp" layout-padding ng-repeat="destacado in comienzo.destacados" ng-click="comienzo.editar(destacado)">
+                <bazam-visualizar data-svg="comienzo.base64.decode(destacado.logo)"></bazam-visualizar>
             </div>
         </div>
         <div layout layout-align="center">

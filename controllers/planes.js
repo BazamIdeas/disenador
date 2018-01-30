@@ -1,14 +1,14 @@
-var pais     = require('../modelos/paisesModelo.js');
-var plan     = require('../modelos/planesModelo.js');
-var precio   = require('../modelos/preciosModelo.js');
-var caracteristica = require('../modelos/caracteristicasModelo.js');
-var services = require('../services');
+var pais     = require("../modelos/paisesModelo.js");
+var plan     = require("../modelos/planesModelo.js");
+var precio   = require("../modelos/preciosModelo.js");
+var caracteristica = require("../modelos/caracteristicasModelo.js");
+var services = require("../services");
 var async    = require("async");
 
-exports.ListarFront = (req, res, next) =>
+exports.ListarFront = (req, res) =>
 {
 
-	var iso = services.geoipServices.iso(req.ip)
+	var iso = services.geoipServices.iso(req.ip);
 
 	pais.ObtenerPorIso(iso, (err, pais) => {
 
@@ -18,7 +18,7 @@ exports.ListarFront = (req, res, next) =>
 
 			var json = pais[0];
 
-			json.monedaDefault = {idMoneda: json.idMoneda ,codigo : json.moneda}
+			json.monedaDefault = {idMoneda: json.idMoneda ,codigo : json.moneda};
 
 			delete json["idMoneda"]; 
 			delete json["moneda"]; 
@@ -62,12 +62,12 @@ exports.ListarFront = (req, res, next) =>
 									}
 		
 									callback();
-								})
+								});
 					
 							} catch (e) {
-							    return callback(e);
+								return callback(e);
 							}
-						})
+						});
 
 					}, (err) => {
 						
@@ -75,7 +75,7 @@ exports.ListarFront = (req, res, next) =>
 						
 						res.status(200).json(json);
 					
-					})
+					});
 				
 				}else{
 
@@ -83,7 +83,7 @@ exports.ListarFront = (req, res, next) =>
 
 				}
 			
-			})
+			});
 		
 		}else{
 
@@ -95,13 +95,13 @@ exports.ListarFront = (req, res, next) =>
 	
 	});
 
-}
+};
 
-exports.ListarBack = (req, res, next) =>
+exports.ListarBack = (req, res) =>
 {
 	plan.Listar( (error, data) => {
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 
 			async.forEachOf(data, (plan, key, callback) => {
 
@@ -122,7 +122,7 @@ exports.ListarBack = (req, res, next) =>
 					}
 
 					callback();
-				})
+				});
 
 			}, (err) => {
 				
@@ -130,33 +130,33 @@ exports.ListarBack = (req, res, next) =>
 				
 				res.status(200).json(data);
 			
-			})
+			});
 			
 		}else {
 			res.status(404).json({
 				"msg": "No hay registro de planes en la base de datos"
-			})
+			});
 		}
 	});
-}
+};
 
-exports.ListarPrecios = (req, res, next) =>
+exports.ListarPrecios = (req, res) =>
 {
 	var id = req.params.id;
 
 	plan.ListarPrecios(id , (error, data) => {
 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
 		}
 
 		else {
 			res.status(404).json({
 				"msg": "No hay resgitro de planes en la base de datos"
-			})
+			});
 		}
 	});	
-}
+};
 
 exports.Nuevo = (req, res) =>
 {
@@ -166,7 +166,7 @@ exports.Nuevo = (req, res) =>
 		plan   : req.body.plan,
 		status : 1,
 		info   :req.body.info
-	}
+	};
 
 	plan.Nuevo(planData, (error, data) => {
 		//si la etiqueta se ha insertado correctamente mostramos su info
@@ -186,28 +186,28 @@ exports.Nuevo = (req, res) =>
 					res.status(200).json(data);
 
 				} else {
-					res.status(500).json({"msg": precioData.planes_idPlan})
+					res.status(500).json({"msg": precioData.planes_idPlan});
 				}
 			});
 
 		} else {
-			res.status(500).json({"msg": error})
+			res.status(500).json({"msg": error});
 		}
 	});
-}
+};
 
-exports.Bloquear = (req, res, next) =>
+exports.Bloquear = (req, res) =>
 {
 	plan.Bloquear(req.body.idPlan, (error, data) => {
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.affectedRows) {
+		if (typeof data !== "undefined" && data.affectedRows) {
 			res.status(200).json(data);
 		}
 		else {
-			res.status(404).json({"msg": "No hay resgitro de planes en la base de datos"})
+			res.status(404).json({"msg": "No hay resgitro de planes en la base de datos"});
 		}
 	});
-}
+};
 
 exports.Modificar = (req, res) =>
 {
@@ -215,10 +215,10 @@ exports.Modificar = (req, res) =>
 
 	plan.Modificar(planData, (error, data) => {
 
-		if (typeof data !== 'undefined' && data.affectedRows) {
+		if (typeof data !== "undefined" && data.affectedRows) {
 			res.status(200).json(data);
 		} else {
-			res.status(500).json({"msg": "Algo ocurrio"})
+			res.status(500).json({"msg": "Algo ocurrio"});
 		}
 	});
-}
+};

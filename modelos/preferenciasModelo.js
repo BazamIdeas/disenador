@@ -72,7 +72,7 @@ preferencia.updatePreferencia = function(preferenciaData, callback)
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
 		  	if(err)	throw err;
 
@@ -102,7 +102,7 @@ preferencia.deletePreferencia = function(id, callback)
 		  		var qq = 'DELETE FROM preferencias WHERE idPreferencia = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , par , function(err, row)
+					connection.query( qq , par , function(err)
 					{
 				  	
 				  		if(err)	throw err;
@@ -122,8 +122,5 @@ preferencia.deletePreferencia = function(id, callback)
 	  	});	  
 	});
 }
-
-
-
 
 module.exports = preferencia;

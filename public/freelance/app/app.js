@@ -348,17 +348,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
         //redirecciones
 
-        /* $urlRouterProvider.when('', '/comenzar/');
-         $urlRouterProvider.when('/', '/comenzar/');
-         $urlRouterProvider.when('/comenzar', '/comenzar/');
-         $urlRouterProvider.when('/comenzar/opciones', '/comenzar/opciones/');
-         $urlRouterProvider.when('/comenzar/combinaciones', '/comenzar/combinaciones/');
-         $urlRouterProvider.when('/editor', '/editor/');*/
-
-
-        $urlRouterProvider.when('', '/comenzar/');
-        $urlRouterProvider.when('/', '/comenzar/');
-
+        $urlRouterProvider.when('/', ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
+            
+            return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
+        }]);
+       
         $urlRouterProvider.rule(function ($injector, $location) {
             var path = $location.url();
 

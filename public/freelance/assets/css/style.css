@@ -83,6 +83,7 @@
     word-wrap: normal;
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
 
@@ -494,9 +495,15 @@ div.acceder {
 
 div.acceder span{ 
     margin: 0 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .tooltip-header{
@@ -638,7 +645,7 @@ p.label-slider-input-left{
     display: inline-block; margin: 0; color: #8b8a8c; font-family: "futura-heavy" !important; font-size: 13px
 }
 p.label-slider-input-right{
-    float: right; display: inline-block; margin: 0; color: #8b8a8c; font-family: "futura-heavy" !important; font-size: 13px
+    float: right; margin: 0; color: #8b8a8c; font-family: "futura-heavy" !important; font-size: 13px
 }
 /*End SideBar 1*/
 
@@ -1605,8 +1612,6 @@ div.contenedor-planes .plan .plan-body .plan-precio{
     font-family: 'futura-heavy' !important;
 }
 
-.caja.pedidos div{
-}
 
 .caja.pedidos div table thead tr th{
     padding: 12px 0px;
@@ -2145,12 +2150,16 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 }
 
 .tab-freelance{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     padding: 0 !important;
 }
 
 .tab-freelance button{
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     border-radius: 0;
     margin-top: 0;
 }

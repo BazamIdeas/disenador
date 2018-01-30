@@ -1,10 +1,12 @@
 .DS_*
 node_modules
 
-vscode
+.vscode
 public/assets/icons/
 poiinonbkjn.png
 tmp/*
 .svg
 npm-debug.log
 fuentes/*
+.eslintrc.js
+.eslintrc.json

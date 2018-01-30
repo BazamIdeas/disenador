@@ -149,7 +149,6 @@ pasarela.AsignarMoneda = function(pasarelaMoneda,callback)
 pasarela.DesasignarMoneda = function(pasarelaMoneda,callback)
 {
 	var q = 'SELECT count(*) as cantidad FROM pasarelas_has_monedas WHERE pasarelas_idPasarela = ? AND monedas_idMoneda = ?';
-	var par = pasarelaMoneda //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -162,7 +161,7 @@ pasarela.DesasignarMoneda = function(pasarelaMoneda,callback)
 		  		var qq = 'DELETE FROM pasarelas_has_monedas WHERE pasarelas_idPasarela = ? AND monedas_idMoneda = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , [pasarelaMoneda.pasarelas_idPasarela, pasarelaMoneda.monedas_idMoneda] , function(err, result)
+					connection.query( qq , [pasarelaMoneda.pasarelas_idPasarela, pasarelaMoneda.monedas_idMoneda] , function(err)
 					{
 				  	
 				  		if(err)	throw err;
@@ -244,7 +243,7 @@ pasarela.Borrar = function(id, callback)
 		  		var qq = 'DELETE FROM pasarelas WHERE idPasarela = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , par , function(err, row)
+					connection.query( qq , par , function(err)
 					{
 				  	
 				  		if(err)	throw err;

@@ -1,6 +1,8 @@
 <html lang="es" ng-app="landing">
 
 <head>
+    <base href="/">
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
@@ -26,13 +28,12 @@
     <!--Archivos App diseñador -->
     <script src="/landing/app/app.js"></script>
     <script src="/landing/app/directives.js"></script>
+    <script src="/landing/app/services.js"></script>
 
     <!-- Controladores -->
     <script src="/landing/app/controllers/comienzo.js"></script>
     <script src="/landing/app/controllers/disenadores.js"></script>
-    <script src="/landing/app/controllers/equipo.js"></script>
-    <script src="/landing/app/controllers/legales.js"></script>
-    <script src="/landing/app/controllers/terminos.js"></script>
+ 
 
 </head>
 
@@ -78,10 +79,10 @@
             </div>
         </div>
         <div layout class="links-footer">
-            <a href="">Terminos y condiciones de uso</a>
-            <a href="">Avisos Legales</a>
-            <a href="">Nuestro Equipo</a>
-            <a href="">Trabaja con nosotros</a>
+            <a href="comienzo">Inicio</a>
+            <a ui-sref="terminos">Terminos y condiciones de uso</a>
+            <a ui-sref="legales">Avisos Legales</a>
+            <a href="disenadores">Trabaja con nosotros</a>
         </div>
     </footer>
 </body>

@@ -139,7 +139,7 @@ logo.updateLogo = function(logoData, callback)
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
 		  	if(err)	throw err;
 
@@ -160,7 +160,7 @@ logo.cambiarEstado = function(logoData, callback)
 	
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
 		  	if(err)	throw err;
 

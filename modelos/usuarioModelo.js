@@ -7,7 +7,6 @@ usuario.verificarUsuario = function (usuarioData, callback) {
 	var q = 'SELECT correo FROM usuarios WHERE correo = ?';
 
 	var correo = usuarioData[0];
-	var pass = usuarioData[1];
 
 
 	DB.getConnection(function (err, connection) {
@@ -144,7 +143,7 @@ usuario.insertUsuario = function (usuarioData, callback) {
 
 //actualizar un cliente
 usuario.updateUsuario = function (body, callback) {
-	if (typeof passActual !== 'undefined' && passActual.length > 0 && typeof body.pass !== 'undefined' && body.pass.length > 0) {
+	if (typeof body.passActual !== 'undefined' && body.passActual.length > 0 && typeof body.pass !== 'undefined' && body.pass.length > 0) {
 
 		var q = `SELECT * FROM usuarios WHERE idUsuario = ?`;
 		var par = [body.idUsuario]
@@ -154,7 +153,7 @@ usuario.updateUsuario = function (body, callback) {
 				//console.log(row)
 				if (typeof row !== 'undefined' && row.length > 0) {
 
-					if (passActual == row[0].pass) {
+					if (body.passActual == row[0].pass) {
 
 						var qq = 'UPDATE usuarios SET nombreUser = ?, pass = ? WHERE idUsuario = ?';
 
@@ -191,8 +190,8 @@ usuario.updateUsuario = function (body, callback) {
 
 	} else {
 
-		var q = 'UPDATE usuarios SET nombreUser = ? WHERE idUsuario = ?';
-		var par = [body.nombreUser, body.idUsuario]
+		q = 'UPDATE usuarios SET nombreUser = ? WHERE idUsuario = ?';
+		par = [body.nombreUser, body.idUsuario]
 
 
 		DB.getConnection(function (err, connection) {
@@ -217,7 +216,7 @@ usuario.changePassword = function (datos, callback) {
 	var par = datos //parametros
 
 	DB.getConnection(function (err, connection) {
-		connection.query(q, par, function (err, row) {
+		connection.query(q, par, function (err) {
 
 			if (err) throw err;
 
@@ -244,7 +243,7 @@ usuario.deleteUsuario = function (id, callback) {
 			if (typeof row !== 'undefined' && row.length > 0) {
 				var qq = 'DELETE FROM usuarios WHERE idUsuario = ?';
 				DB.getConnection(function (err, connection) {
-					connection.query(qq, par, function (err, row) {
+					connection.query(qq, par, function (err) {
 
 						if (err) throw err;
 
