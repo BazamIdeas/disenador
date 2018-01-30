@@ -6,6 +6,7 @@ var crypto = require('crypto');
 var pago = require('../modelos/pagosModelo.js');
 var logos = require('../modelos/logosModelo.js');
 var atributo = require('../modelos/atributosModelo.js');
+var config = require('../configuracion.js');
 var async = require('async');
 
 
@@ -89,7 +90,7 @@ exports.listaClientesFreelancer = function(req, res)
                     vendido: function(callback) {
 
                         par[0] = "Vendido";
-                        console.log(par)
+
                         logos.getLogosTipo(par, function(error,data){
 
                             if(typeof data !== 'undefined' && data.length){
@@ -145,7 +146,7 @@ exports.listaClientesFreelancer = function(req, res)
                     publicado: function(callback) {
 
                         par[0] = "Por Aprobar";
-                        console.log(par)
+
                         logos.getLogosTipo(par, function(error,data){
 
                             if(typeof data !== 'undefined' && data.length){
@@ -164,7 +165,7 @@ exports.listaClientesFreelancer = function(req, res)
                     aprobado: function(callback) {
 
                         par[0] = "Aprobado";
-                        console.log(par)
+                    
                         logos.getLogosTipo(par, function(error,data){
 
                             if(typeof data !== 'undefined' && data.length){
@@ -176,6 +177,16 @@ exports.listaClientesFreelancer = function(req, res)
                                 callback(null, logosAprobados)
                             }
                         });
+                    },
+
+                    metodos: function(callback) {
+                        facturacion.ObtenerPorCliente(cliente.idCliente, function(err, data){
+                            if(typeof data !== 'undefined' && data.length){
+                                callback(null, data);
+                            }else{
+                                callback(null, data);
+                            }
+                        })
                     }
 
                 }, function(err, results) {
@@ -192,6 +203,10 @@ exports.listaClientesFreelancer = function(req, res)
                     clientes[key].logosAprobados = results.aprobado;
                     clientes[key].logosPorAprobar = results.publicado;
                     clientes[key].logosVendidos = results.vendido[0];
+
+                    if(results.metodos.length){
+                        clientes[key].facturacion = results.metodos;
+                    }
 
                     callback()
                 });

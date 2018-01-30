@@ -600,7 +600,7 @@ exports.zip = function(req,res, next)
 				
 				if (typeof dataAttrs !== 'undefined' && dataAttrs.length > 0)
 				{
-					console.log({attrs: dataAttrs})
+					//console.log({attrs: dataAttrs})
 					async.forEachOf(dataAttrs, (row, key, callback) => {
 
 						if(row.clave == "principal" || row.clave == "eslogan"){

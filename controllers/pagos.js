@@ -94,7 +94,7 @@ exports.SaldoPorCliente = function(req, res, next)
                         });
                     }, function (err) {
                         if (err) console.error(err.message);
-                        console.log(vendido)
+                        //console.log(vendido)
                         callback(null, vendido);
                     
                         
@@ -201,7 +201,7 @@ exports.Nuevo = function(req, res, next)
                         });
                     }, function (err) {
                         if (err) console.error(err.message);
-                        console.log(vendido)
+                        //console.log(vendido)
                         callback(null, vendido);
                     
                         
