@@ -7,7 +7,7 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
 		$stateProvider.state({
 			name: "comienzo",
 			url: "",
-			templateUrl: "/landing/app/views/comienzo.html",
+			templateUrl: "/landing/app/views/comienzo.tpl",
 			controller: "comienzoController as comienzo",
 			params: {
 				datos: null

@@ -888,7 +888,6 @@ angular.module("disenador-de-logos")
 
 			if (logoPadreId) {
 				datos.atributos.padre = logoPadreId;
-
 			}
 
 			$http.post("/app/logo/guardar", datos).then(function (res) {
