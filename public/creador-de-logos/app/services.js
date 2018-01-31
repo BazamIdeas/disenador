@@ -1,6 +1,38 @@
 angular.module("disenador-de-logos")
 
 
+	.value("coloresValue",{
+		"#ffffff": [
+			"#d5d5d5",
+			"#d5d5d5",
+			"#d5d5d5",
+			"#d5d5d5",
+			"#d5d5d5",
+		],
+		"#cccccc": [
+			"#d5d5d5",
+			"#d5d5d5",
+			"#d5d5d5",
+			"#d5d5d5",
+			"#d5d5d5",			
+		],
+		"#000000": [
+			"#d5d5d5",
+			"#d5d5d5",
+			"#d5d5d5",
+			"#d5d5d5",
+			"#d5d5d5",			
+		]
+	}).factory("coloresFactory", ["coloresValue", function(coloresValue){
+		return function(primario){
+			if(coloresValue[primario]){
+				return coloresValue[primario][Math.floor(Math.random() * 5) + 1];
+			}else{
+				return coloresValue["#000000"][Math.floor(Math.random() * 5) + 1];
+			}
+		}
+	}])
+
 	.value("paisesValue", {
 		"BD": "Bangladesh",
 		"BE": "Belgium",
