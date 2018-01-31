@@ -1,18 +1,19 @@
 angular.module("landing")
 
-/* header */
-
-
-.controller('dienadoresController', ['$window', function ($window) {
+.controller('disenadoresController', ['clientesService', function (clientesService) {
 
     var bz = this;
+    bz.disenadores = [];
 
-    bz.enviarComenzar = function (nombreLogo) {
-
-        bz.url = 'http://' + location.host + '/creador-de-logos#!/comenzar/?n=' + nombreLogo;
-
-        $window.location.href = bz.url;
-        // $window.open(bz.url, "_blank");
-    }
+    clientesService.listarFreelancers()
+    .then(function (res) {
+        bz.disenadores = res;
+    })
+    .catch(function () {
+        
+    })
+    .finally(function () {
+        
+    })
 
 }])

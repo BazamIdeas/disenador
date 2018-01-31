@@ -98,13 +98,13 @@ exports.listaClientesFreelancer = function (req, res) {
 
                             if (typeof data !== 'undefined' && data.length) {
 
+                                var total = 0;
+
                                 async.forEachOf(data, function (val, key, callback) {
 
                                     atributo.ObtenerPorLogo(data[key].idLogo, function (err, data) {
 
                                         if (typeof data !== 'undefined' && data.length > 0) {
-
-                                            logosVendidos = data.length;
 
                                             var cal = {};
 
@@ -113,7 +113,7 @@ exports.listaClientesFreelancer = function (req, res) {
                                                 if (data[key].clave == "calificacion-admin") {
 
                                                     cal.moderador = data[key].valor;
-                                                    calificacionesAdmin = calificacionesAdmin + data[key].valor;
+                                                    calificacionesAdmin = calificacionesAdmin + parseInt(data[key].valor);
                                                     vendido = vendido + config.freelancer["moderador"][data[key].valor];
                                                 }
 
@@ -125,10 +125,14 @@ exports.listaClientesFreelancer = function (req, res) {
 
                                             if (cal.cliente) {
                                                 vendido = vendido + config.freelancer["cliente"][cal.cliente];
-                                                calificacionesCliente = calificacionesCliente + cal.cliente;
+                                                calificacionesCliente = calificacionesCliente + parseInt(cal.cliente);
                                             } else if (cal.moderador) {
                                                 vendido = vendido + config.freelancer["cliente"][cal.moderador];
-                                                calificacionesCliente = calificacionesCliente + cal.moderador;                                                
+                                                calificacionesCliente = calificacionesCliente + parseInt(cal.moderador);                                                
+                                            }
+
+                                            if(cal.moderador){
+                                                total = total + 1;
                                             }
 
                                             callback();
@@ -138,13 +142,13 @@ exports.listaClientesFreelancer = function (req, res) {
                                 }, function (err) {
                                     if (err) console.error(err.message);
 
-                                    callback(null, [vendido, logosVendidos, calificacionesAdmin, calificacionesCliente]);
+                                    callback(null, [vendido, total, calificacionesAdmin, calificacionesCliente]);
 
 
                                 })
                             } else {
 
-                                callback(null, [vendido, logosVendidos, calificacionesAdmin, calificacionesCliente])
+                                callback(null, [vendido, total, calificacionesAdmin, calificacionesCliente])
                             }
                         });
                     },
@@ -223,11 +227,11 @@ exports.listaClientesFreelancer = function (req, res) {
 
 
                     if(results.vendido[1] > 0){
-                        clientes[key].promedioCalAdmin = results.vendido[2] / results.vendido[1];
-                        clientes[key].promedioCalCliente = results.vendido[3] / results.vendido[1];
+                        clientes[key].promedioCalAdmin = Math.round(results.vendido[2] / results.vendido[1]);
+                        clientes[key].promedioCalCliente = Math.round(results.vendido[3] / results.vendido[1]);
                     }
 
-                    clientes[key].promedioCal = results.vendido[2] + results.vendido[3] / 2;
+                    clientes[key].promedioCal = Math.round((clientes[key].promedioCalAdmin + clientes[key].promedioCalCliente) / 2);
 
                     callback()
                 });

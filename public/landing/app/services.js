@@ -357,4 +357,22 @@ angular.module("landing")
 			return promise;
 		};
 
+
+		this.listarFreelancers = function () {
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/clientes/freelancers")
+
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function (res) {
+					defered.reject();
+				});
+
+			return promise;			
+		}
+
 	}])

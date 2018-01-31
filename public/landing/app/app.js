@@ -57,7 +57,8 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
             .state({
                 name: 'disenadores',
                 url: '/disenadores/',
-                templateUrl: '/landing/app/views/disenadores.tpl'
+                templateUrl: '/landing/app/views/disenadores.tpl',
+                controller: "disenadoresController as disenadores"
             })
 
 
@@ -75,6 +76,6 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
                 return path + '/';
             });
     
-            //$urlRouterProvider.otherwise('/404/');
+            $urlRouterProvider.otherwise('/404/');
 
     });
