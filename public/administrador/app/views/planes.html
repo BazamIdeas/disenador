@@ -249,14 +249,27 @@
 
                             <md-input-container class="md-block">
                                 <label>Info del plan</label>
-                                <textarea ng-model="planes.modificarNombrePlan.info" md-maxlength="800" rows="5" name="info" required md-select-on-focus></textarea>
+                                <textarea ng-model="planes.modificarNombrePlan.info" md-maxlength="800" rows="3" name="info" required md-select-on-focus></textarea>
                             </md-input-container>
                             <!-- VALIDACION -->
                             <div ng-messages="nombreplan.plan.$error" style="color:maroon" role="alert" ng-show="nombreplan.$submitted">
                                 <div ng-message="required">Este campo es requerido.</div>
                             </div>
+
+                            <h3 class="text-center margen-superior" style="margin: 0 0 16px 0;" layout-padding ng-click="planes.attrs = !planes.attrs">ATRIBUTOS</h3>
+                            <div ng-if="planes.attrs">
+                                <md-checkbox ng-repeat="attr in planes.modificarNombrePlan.caracteristicas" ng-model="attr.valor" aria-label="Checkbox $index" class="md-warn md-align-top-left"
+                                    flex>
+                                    {{attr.clave}} -
+                                    <span class="ipsum">
+                                        {{attr.descripcion}}
+                                    </span>
+                                </md-checkbox>
+                            </div>
+
+
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                                <md-button class="md-raised md-primary" type="submit">Modificar</md-button>
                             </div>
                         </div>
                     </form>

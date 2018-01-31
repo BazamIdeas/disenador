@@ -172,6 +172,7 @@ exports.Nuevo = (req, res) =>
 		//si la etiqueta se ha insertado correctamente mostramos su info
 		if (data && data.insertId) {
 
+			var i = data;
 			var precioData = {
 				idPrecio         : null,
 				precio           : req.body.precio,
@@ -183,7 +184,7 @@ exports.Nuevo = (req, res) =>
 
 				if (data && data.result) {
 
-					res.status(200).json(data);
+					res.status(200).json(i);
 
 				} else {
 					res.status(500).json({"msg": precioData.planes_idPlan});

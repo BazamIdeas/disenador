@@ -1,6 +1,6 @@
 <div class="row">
     <div class="padding-cero transparencia md-whiteframe-24dp sidemenu" ng-class="{grande:sidenav.menuMostrar, pequeno:!sidenav.menuMostrar}">
-        <menu class="transparencia" ng-class="{centrado:!sidenav.menuMostrar}" md-whiteframe="4" ng-if="sidenav.autorizado">
+        <menu ng-class="{centrado:!sidenav.menuMostrar}" ng-if="sidenav.autorizado">
             <md-toolbar class="transparencia-sin-fondo">
                 <div class="md-toolbar-tools logo" md-whiteframe ui-sref="app.pedidos">
                     <a ng-if="sidenav.menuMostrar" class="auto">LOGONOW</a>
@@ -52,7 +52,7 @@
                 </md-toolbar>
             </header>
             <!-- contenedor principal -->
-            <md-content name="menuContent" flex ui-view ng-cloak class="padding_top transparente">
+            <md-content name="menuContent" flex ui-view ng-cloak class="padding_top transparente" style="  overflow-y: scroll; max-height: 90%;">
             </md-content>
         </div>
     </div>

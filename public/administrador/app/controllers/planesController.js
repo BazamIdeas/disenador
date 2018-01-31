@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('planesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'paisesValue', 'monedasValue', 'notificacionService', 'monedasService', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, paisesValue, monedasValue, notificacionService, monedasService) {
+    .controller('planesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'paisesValue', 'monedasValue', 'notificacionService', 'monedasService', 'caracteristicasValue', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, paisesValue, monedasValue, notificacionService, monedasService, caracteristicasValue) {
 
         var bz = this;
 
@@ -8,36 +8,10 @@ angular.module("administrador")
         bz.impuestos = [];
         bz.planes = [];
         bz.nuevoPlan = {
-            caracteristicas: [{
-                clave: 'resolucion',
-                valor: false,
-                descripcion: 'Logo en Alta Resolución.'
-            }, {
-                clave: 'png',
-                valor: false,
-                descripcion: 'Archivo Png Transparente.'
-            }, {
-                clave: 'licencia',
-                valor: false,
-                descripcion: 'Licencia comercial.'
-            }, {
-                clave: 'copia',
-                valor: false,
-                descripcion: 'Copia de seguridad de por vida.'
-            }, {
-                clave: 'tamanios',
-                valor: false,
-                descripcion: 'Tamaño del logo adaptado a papeleria y redes sociales.'
-            }, {
-                clave: 'editable',
-                valor: false,
-                descripcion: 'Archivo editable con la  tipografia incluida.'
-            }, {
-                clave: 'manual',
-                valor: false,
-                descripcion: 'Manual de marca.'
-            }]
+            caracteristicas: caracteristicasValue
         };
+
+
         bz.modificarNombrePlan = {};
         bz.modificarPrecioPlan = {};
         bz.nuevoPrecioPlan = {};
@@ -64,7 +38,7 @@ angular.module("administrador")
             administrarService.listarPlanes().then(function (res) {
                 bz.listaP = !bz.listaP;
                 bz.planes = res;
-                angular.forEach(bz.planes, function (valor, llave) {
+                angular.forEach(bz.planes, function (valor) {
                     if (valor.status) {
                         valor.status = 1;
                     } else {
@@ -77,6 +51,8 @@ angular.module("administrador")
 
         }
 
+        bz.listarPlanes();
+
         bz.agregarPlan = function (datos, validacion) {
             angular.forEach(bz.planes, function (valor) {
                 if (valor.plan == datos.plan) {
@@ -88,11 +64,11 @@ angular.module("administrador")
             if (validacion) {
 
                 administrarService.agregarPlan(datos).then(function (res) {
+
                     datos.status = 1;
                     datos.estado = true;
-                    bz.planes.push(datos);
+                    bz.planes.push(res);
                     bz.nuevoPlan = {};
-
                     notificacionService.mensaje('Peticion Realizada!');
                     bz.localidadVal = '';
                     

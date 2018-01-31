@@ -83,15 +83,6 @@
                 <bazam-visualizar data-svg="comienzo.base64.decode(destacado.logo)" ng-click="comienzo.irEditor(destacado)"></bazam-visualizar>
             </div>
         </div>
-        
-        <!--
-        <ui-carousel slides="comienzo.destacados" slides-to-show="3" slides-to-scroll="1" initial-slide="1" autoplay="true" autoplay-speed="5000"
-            dots="false" arrows="false">
-            <carousel-item>
-                <img src="data:image/svg+xml;base64,{{item.logo}}">
-            </carousel-item>
-        </ui-carousel>
-    -->
 
         <div layout layout-align="center" class="margen_inferior">
             <md-button class="md-raised" ng-click="comienzo.navegar.cliente('galeria')">VER MAS</md-button>
