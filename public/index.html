@@ -85,6 +85,13 @@
     </footer>
 </body>
 
-
+<script type="text/ng-template" id="toast-base.html">
+    <md-toast class="{{clase}}">
+        <span class="md-toast-text" flex>{{mensaje}}</span>
+        <md-button ng-click="closeToast()">
+            <i class="material-icons">close</i>
+        </md-button>
+    </md-toast>
+</script>
 
 </html>

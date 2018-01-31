@@ -1,3 +1,5 @@
+<bazam-form-login data-mostrar="comienzo.mostrarLogin" data-callback="comienzo.callback"></bazam-form-login>
+
 <div layout="column" flex>
     <div style="min-height:90%;" layout="column" layout-align="center">
         <div layout class="seccion-landing uno layout-padding">
@@ -78,7 +80,7 @@
         </div>
        <div layout layout-align="space-around center" layout-wrap style="text-align: justify;" layout-padding>
             <div class="margen_inferior l-destacado-landing" md-whiteframe="2dp" layout-padding ng-repeat="destacado in comienzo.destacados | limitTo : 8" ng-click="comienzo.editar(destacado)">
-                <bazam-visualizar data-svg="comienzo.base64.decode(destacado.logo)"></bazam-visualizar>
+                <bazam-visualizar data-svg="comienzo.base64.decode(destacado.logo)" ng-click="comienzo.irEditor(destacado)"></bazam-visualizar>
             </div>
         </div>
         
