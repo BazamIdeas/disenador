@@ -21,7 +21,7 @@ angular.module("landing")
 		
 		var paramsFunction = function (params) {
 
-			return !angular.isUndefined(params) ? "?" + $httpParamSerializer(params) : "";
+			return params ? "?" + $httpParamSerializer(params) : "";
 		}
 
 		return {
@@ -54,6 +54,46 @@ angular.module("landing")
 			}
 		}
 
+	}])
+
+	.factory("arrayToJsonMetasFactory", [function(){
+    
+		return function(arrayMetas){
+        
+			var jsonMetas = {};
+        
+			angular.forEach(arrayMetas, function(meta, indice){
+            
+				jsonMetas[meta.clave] = meta.valor;
+            
+			});
+        
+			return jsonMetas;
+        
+		};
+    
+	}])
+
+
+	.factory("guardarLogoFactory", ["$window", function ($window) {
+		
+		return function (logo, atributos) {
+			var datosLogo = {
+				logo:{
+					icono:{
+						idElemento: logo.elementos_idElemento,
+						svg: logo.logo
+					}
+				},
+				idLogoPadre:logo.idLogo,
+				fuentes:{
+					principal: atributos.principal,
+					eslogan: atributos.eslogan
+				}
+			}
+			$window.localStorage.setItem('editor',angular.toJson(datosLogo));
+		}
+		
 	}])
 
 	.value("estaticosLandingValue", {
