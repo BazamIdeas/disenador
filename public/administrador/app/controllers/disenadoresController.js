@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-	.controller("disenadoresController", ["$state", "$mdSidenav", "$mdDialog", "$scope", "administrarService", "paisesValue", "monedasValue", "notificacionService", "monedasService", "$base64", "designerService", function ($state, $mdSidenav, $mdMenu, $scope, administrarService, paisesValue, monedasValue, notificacionService, monedasService, $base64, designerService) {
+	.controller("disenadoresController", ["$state", "$mdSidenav", "$scope", "administrarService", "notificacionService", "$base64", "designerService", function ($state, $mdSidenav, $scope, administrarService, notificacionService, $base64, designerService) {
 
 		var bz = this;
 
@@ -8,10 +8,8 @@ angular.module("administrador")
 
 		bz.logos = [];
 		bz.disenadores = [];
+		bz.logosDisenador = [];
 		bz.vista = 0;
-		bz.monedas = monedasValue;
-		bz.paises = paisesValue;
-		bz.monedasDisponibles = {};
 
 		/***************************/
 		/**********LOGOS***********/
@@ -19,6 +17,16 @@ angular.module("administrador")
 
 		bz.listarLogos = function () {
 			designerService.listarLogos().then(function (res) {
+				angular.forEach(res, function (valor) {
+					if (valor.atributos.length > 0) {
+						angular.forEach(valor.atributos, function (valor2) {
+							if (valor2.clave == 'calificacion-admin') {
+								valor.calificado = true;
+							}
+						});
+					}
+				});
+				
 				bz.logos = res;
 				bz.listaL = !bz.listaL;
 			}).catch(function () {
@@ -45,7 +53,10 @@ angular.module("administrador")
 		bz.borrarLogo = function (i, id, op) {
 			designerService.borrarLogo(id).then(function () {
 				notificacionService.mensaje("No Aprobado!");
-				if(op){
+				bz.listaL = !bz.listaL;
+
+				// Si es un logo aprobado
+				if (op) {
 					bz.modfire = false;
 					bz.logosDisenador.splice(i, 1);
 					angular.forEach(bz.logos, function (valor, llave) {
@@ -53,27 +64,40 @@ angular.module("administrador")
 							return bz.logos.splice(llave, 1);
 						}
 					});
-
 				}
+
+				// Si no 
+
 				bz.logos.splice(i, 1);
-				bz.listaL = !bz.listaL;
 				angular.forEach(bz.logosDisenador, function (valor, llave) {
 					if (valor.idLogo == id) {
-						return bz.logos.splice(llave, 1);
+						return bz.logosDisenador.splice(llave, 1);
 					}
 				});
-				
+
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
 			});
 		};
 
-		bz.ponerCalificacion = function (datos) {
+		bz.ponerCalificacion = function (datos, v, i) {
 			designerService.calificarLogo(datos).then(function () {
 
+				// Si es un logo aprobado
+				if (v) {
+					angular.forEach(bz.logos, function (valor, llave) {
+						if (valor.idLogo == datos.idLogo) {
+							return bz.logos.splice(llave, 1);
+						}
+					});
+				}
+
+				// Si no
 				bz.cal2 = false;
-				bz.cal = !bz.cal;
+				bz.cal = false;
+				bz.logosDisenador[i].calificado = true;
 				notificacionService.mensaje("Calificacion Colocada!");
+
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
 			});
@@ -128,12 +152,15 @@ angular.module("administrador")
 			});
 
 			designerService.notificarPago(datos).then(function () {
+
 				notificacionService.mensaje("Usuario Notificado!");
+
 				angular.forEach(bz.disenadores, function (valor) {
 					if (valor.idCliente == idC) {
 						valor.deuda.deuda = 0;
 					}
 				});
+
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
 			});
@@ -142,17 +169,31 @@ angular.module("administrador")
 
 		bz.mostrar = function (opcion, index, id) {
 			if (opcion == "logos-designer") {
-				bz.modfire = index;
 
+				bz.modfire = index;
 				designerService.logosDisenador(id).then(function (res) {
+
+					// Verificamos si tiene la calificacion del administrador
+					angular.forEach(res, function (valor) {
+						if (valor.atributos.length > 0) {
+							angular.forEach(valor.atributos, function (valor2) {
+								if (valor2.clave == 'calificacion-admin') {
+									valor.calificado = true;
+								}
+							});
+						}
+					});
+
 					bz.logosDisenador = res;
 					bz.vista = 1;
+
 				}).catch(function (res) {
 					notificacionService.mensaje(res);
 				});
 
 			} else if (opcion == "historial") {
 				bz.vista = 2;
+
 				designerService.historialDisenador(id).then(function (res) {
 					bz.historialPagos = res;
 				}).catch(function (res) {
@@ -162,14 +203,18 @@ angular.module("administrador")
 			} else if (opcion == "calificacion-aprobados") {
 				bz.cal2 = !bz.cal2;
 				bz.modfire = index;
+			} else if (opcion == "o") {
+				bz.mod = !bz.mod;
+				bz.modfire2 = index;
 			}
 		};
 
 		/* UTILIDADES */
 
-		bz.modFun = function (i) {
-			bz.modfire = i;
+		bz.modFun = function (id) {
+			bz.modfire = id;
 			bz.modInit = !bz.modInit;
+
 		};
 
 		bz.base64 = function (icono) {

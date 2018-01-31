@@ -642,14 +642,14 @@ angular.module("administrador")
             $http.post('/app/plan', datosn).then(function (res) {
 
                 angular.forEach(datosn.caracteristicas, function (valor) {
-                    valor.idPlan = res.data.result;
+                    valor.idPlan = res.data.insertId;
                 });
 
-                console.log(datosn)
+                datosn.idPlan = res.data.insertId;
 
-                $http.post('/app/plan/caracteristicas', datosn).then(function (res2) {
-                    console.log(res2)
-                    defered.resolve(res);
+                $http.post('/app/plan/caracteristicas/', datosn).then(function (res2) {
+
+                    defered.resolve(datosn);
 
                 }).catch(function (res) {
 
@@ -1400,6 +1400,36 @@ angular.module("administrador")
             return items;
         };
     })
+
+    .value("caracteristicasValue", [{
+        clave: 'resolucion',
+        valor: false,
+        descripcion: 'Logo en Alta Resolución.'
+    }, {
+        clave: 'png',
+        valor: false,
+        descripcion: 'Archivo Png Transparente.'
+    }, {
+        clave: 'licencia',
+        valor: false,
+        descripcion: 'Licencia comercial.'
+    }, {
+        clave: 'copia',
+        valor: false,
+        descripcion: 'Copia de seguridad de por vida.'
+    }, {
+        clave: 'tamanios',
+        valor: false,
+        descripcion: 'Tamaño del logo adaptado a papeleria y redes sociales.'
+    }, {
+        clave: 'editable',
+        valor: false,
+        descripcion: 'Archivo editable con la  tipografia incluida.'
+    }, {
+        clave: 'manual',
+        valor: false,
+        descripcion: 'Manual de marca.'
+    }])
 
     .value("monedasValue", {
         "USD": {
