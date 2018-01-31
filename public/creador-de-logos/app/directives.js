@@ -1013,5 +1013,17 @@ angular.module("disenador-de-logos")
 			}
 		};
 
-	});
+	})
 
+	.directive("fondoContraste", ["coloresFactory",function(coloresFactory){
+		return {
+			restrict: "AE",
+			scope: {
+				color: "<color"
+			},
+			link: function(scope, element){
+				console.log(coloresFactory(scope.color));
+				element.css({'background-color': coloresFactory(scope.color)});
+			}
+		}
+	}])

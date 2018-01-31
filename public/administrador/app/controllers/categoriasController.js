@@ -3,12 +3,13 @@ angular.module("administrador")
     .controller('categoriasController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'categoriasService', 'SweetAlert', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, categoriasService, SweetAlert, notificacionService) {
 
         var bz = this;
+        
         bz.opcionesCategorias = 0;
-
         bz.cats = [];
         bz.prefs = [];
 
         /* objeto datos vacios */
+
         this.datos = {
             modCategoria: {},
             nuevaCategoria: {},
@@ -20,7 +21,7 @@ angular.module("administrador")
 
         bz.listarCategorias = function (tipoCategoria) {
             bz.cats = [];
-            datos = {
+            var datos = {
                 tipo: tipoCategoria
             }
             categoriasService.listarCategorias(datos).then(function (res) {

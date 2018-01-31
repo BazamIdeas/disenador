@@ -1,6 +1,5 @@
 angular.module("disenador-de-logos")
 
-
 	.value("coloresValue",{
 		"#ffffff": [
 			"#d5d5d5",
@@ -17,11 +16,11 @@ angular.module("disenador-de-logos")
 			"#d5d5d5",			
 		],
 		"#000000": [
-			"#d5d5d5",
-			"#d5d5d5",
-			"#d5d5d5",
-			"#d5d5d5",
-			"#d5d5d5",			
+			"#b1d1d1",
+			"#d4d4d4",
+			"#d6d6d6",
+			"#c5c5c5",
+			"#a5a3a5",			
 		]
 	}).factory("coloresFactory", ["coloresValue", function(coloresValue){
 		return function(primario){

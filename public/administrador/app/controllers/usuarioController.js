@@ -9,19 +9,14 @@ angular.module("administrador")
         /* LISTAR TODOS LOS CLIENTES */
 
         bz.listarU = function () {
-
             bz.mostrarU = !bz.mostrarU;
-            bz.usuarios = [];
 
             clientesServiceAdmin.listarUsuarios().then(function (res) {
-                    bz.loaderMostrar = false;
-                    angular.forEach(res.data, function (valor, llave) {
-                        bz.usuarios.push(valor);
-                    })
-                })
-                .catch(function (res) {
-                    notificacionService.mensaje(res);
-                });
+                bz.loaderMostrar = false;
+                bz.usuarios = res.data;
+            }).catch(function (res) {
+                notificacionService.mensaje(res);
+            });
         };
 
         bz.listarU()
