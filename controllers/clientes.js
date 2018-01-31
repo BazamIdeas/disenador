@@ -64,6 +64,9 @@ exports.listaClientesFreelancer = function (req, res) {
                 var logosPorAprobar = 0;
                 var logosAprobados = 0;
 
+                var calificacionesAdmin = 0;
+                var calificacionesCliente = 0;
+
 
                 var par = ["", cliente.idCliente];
 
@@ -110,6 +113,7 @@ exports.listaClientesFreelancer = function (req, res) {
                                                 if (data[key].clave == "calificacion-admin") {
 
                                                     cal.moderador = data[key].valor;
+                                                    calificacionesAdmin = calificacionesAdmin + data[key].valor;
                                                     vendido = vendido + config.freelancer["moderador"][data[key].valor];
                                                 }
 
@@ -121,8 +125,10 @@ exports.listaClientesFreelancer = function (req, res) {
 
                                             if (cal.cliente) {
                                                 vendido = vendido + config.freelancer["cliente"][cal.cliente];
+                                                calificacionesCliente = calificacionesCliente + cal.cliente;
                                             } else if (cal.moderador) {
                                                 vendido = vendido + config.freelancer["cliente"][cal.moderador];
+                                                calificacionesCliente = calificacionesCliente + cal.moderador;                                                
                                             }
 
                                             callback();
@@ -132,13 +138,13 @@ exports.listaClientesFreelancer = function (req, res) {
                                 }, function (err) {
                                     if (err) console.error(err.message);
 
-                                    callback(null, [vendido, logosVendidos]);
+                                    callback(null, [vendido, logosVendidos, calificacionesAdmin, calificacionesCliente]);
 
 
                                 })
                             } else {
 
-                                callback(null, [vendido, logosVendidos])
+                                callback(null, [vendido, logosVendidos, calificacionesAdmin, calificacionesCliente])
                             }
                         });
                     },
@@ -201,14 +207,27 @@ exports.listaClientesFreelancer = function (req, res) {
                         deuda: results.vendido[0] - results.pagado
                     }
 
+
+
                     clientes[key].deuda = data;
                     clientes[key].logosAprobados = results.aprobado;
                     clientes[key].logosPorAprobar = results.publicado;
-                    clientes[key].logosVendidos = results.vendido[0];
+                    clientes[key].logosVendidos = results.vendido[1];
 
                     if (results.metodos.length) {
                         clientes[key].facturacion = results.metodos;
                     }
+
+                    clientes[key].promedioCalAdmin = 0;
+                    clientes[key].promedioCalCliente = 0;
+
+
+                    if(results.vendido[1] > 0){
+                        clientes[key].promedioCalAdmin = results.vendido[2] / results.vendido[1];
+                        clientes[key].promedioCalCliente = results.vendido[3] / results.vendido[1];
+                    }
+
+                    clientes[key].promedioCal = results.vendido[2] + results.vendido[3] / 2;
 
                     callback()
                 });

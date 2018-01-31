@@ -1,17 +1,15 @@
 var express             = require('express');
 var router              = express.Router();
-var fs                  = require('fs');
 var controllers         = require('.././controllers');
 var multipart           = require('connect-multiparty');
 var multipartMiddleware = multipart();
 var middleware          = require('./middleware');
-var configuracion       = require('../configuracion.js');
 
 //MODULO CLIENTES
 //no espera parametros
 router.get('/clientes', middleware.validarAdministrador, controllers.clientes.listaClientes);
 router.get('/clientes/freelancer', middleware.validarAdministrador, controllers.clientes.listaClientesFreelancer);
-router.get('/clientes/freelancers', middleware.validarCliente, controllers.clientes.listaClientesFreelancer);
+router.get('/clientes/freelancers', controllers.clientes.listaClientesFreelancer);
 router.get('/cliente/saldo-personal', middleware.validarCliente, controllers.pagos.SaldoPorCliente);
 router.get('/cliente/saldo', middleware.validarAdministrador, controllers.pagos.SaldoPorCliente);
 //parametro por get que debe ser el id del cliente.
