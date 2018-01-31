@@ -16,8 +16,8 @@
 
     <div class="col s12">
 
-        <div class="cubos-logos" ng-repeat="logo in logos = ($parent.principal.logos) track by $index" ng-if="$first || (($index+1) % 3) == 0">
-            <div class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index < 2 && ((logos.length - 1) >= $index)" ng-click="principalCombinaciones.avanzar($index)">
+        <div class="cubos-logos" ng-repeat="logo in logos = $parent.principal.logos track by $index" ng-if="$first || (($index+1) % 3) == 0">
+            <div fondo-contraste color="principalCombinaciones.convertidor(logo.atributos)['color-primario']" class="margin-right-20" ng-repeat="x in [1,2,3] track by $index" ng-if="$parent.$index < 2 && ((logos.length - 1) >= $index)" ng-click="principalCombinaciones.avanzar($index)">
                 <div class="overlay-combinacion"></div>
                 <span class="seleccionar">
                     <md-tooltip md-delay="2" md-direction="top">Seleccionar</md-tooltip>

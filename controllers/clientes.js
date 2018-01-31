@@ -113,7 +113,7 @@ exports.listaClientesFreelancer = function (req, res) {
                                                 if (data[key].clave == "calificacion-admin") {
 
                                                     cal.moderador = data[key].valor;
-                                                    calificacionesAdmin = calificacionesAdmin + data[key].valor;
+                                                    calificacionesAdmin = calificacionesAdmin + parseInt(data[key].valor);
                                                     vendido = vendido + config.freelancer["moderador"][data[key].valor];
                                                 }
 
@@ -125,10 +125,10 @@ exports.listaClientesFreelancer = function (req, res) {
 
                                             if (cal.cliente) {
                                                 vendido = vendido + config.freelancer["cliente"][cal.cliente];
-                                                calificacionesCliente = calificacionesCliente + cal.cliente;
+                                                calificacionesCliente = calificacionesCliente + parseInt(cal.cliente);
                                             } else if (cal.moderador) {
                                                 vendido = vendido + config.freelancer["cliente"][cal.moderador];
-                                                calificacionesCliente = calificacionesCliente + cal.moderador;                                                
+                                                calificacionesCliente = calificacionesCliente + parseInt(cal.moderador);                                                
                                             }
 
                                             callback();
