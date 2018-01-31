@@ -289,7 +289,7 @@ md-content {
 
 .seccion-landing.tres .opcion:nth-child(2):hover {
     cursor: pointer;
-    border:5px solid rgb(197, 17, 98);
+    border: 5px solid rgb(197, 17, 98);
 }
 
 .seccion-landing.tres .opcion:nth-child(1):hover {
@@ -406,16 +406,15 @@ p.hr-p {
     background: #eceff0;
 }
 
-
 .preguntas {
-  color: rgba(0, 0, 0, 0.87);
-  width: 80%;
-  margin: auto;
-  padding: 0px 0 40px 0;
+    color: rgba(0, 0, 0, 0.87);
+    width: 80%;
+    margin: auto;
+    padding: 0px 0 40px 0;
 }
 
 .preguntas>div {
-    background:rgba(255, 255, 255, 0.78);
+    background: rgba(255, 255, 255, 0.78);
     border-radius: 5px;
     font-weight: bold;
     margin: 0 1% 1% 0;
@@ -426,7 +425,7 @@ p.hr-p {
 }
 
 .preguntas>div p {
-    margin:0;
+    margin: 0;
     padding: 12px;
 }
 
@@ -438,15 +437,33 @@ p.hr-p {
     padding: 6% 0;
 }
 
-
-.terminos-condiciones, .legales {
+.terminos-condiciones,
+.legales {
     background: rgb(250, 250, 250);
     text-align: justify;
     padding: 5% 6%;
 }
 
 .terminos-condiciones h2,
-.legales h2{
+.legales h2 {
     text-align: center;
-    font-size:30px;
+    font-size: 30px;
+}
+
+.l-destacado-landing {
+    -webkit-box-flex: 23%;
+    -ms-flex: 23%;
+    flex: 23%;
+    max-width: 23%;
+    margin: 1%;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.l-destacado-landing:hover {
+    -webkit-box-flex: 25%;
+        -ms-flex: 25%;
+            flex: 25%;
+    max-width: 25%;
+    margin: 0%;
 }

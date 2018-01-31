@@ -118,7 +118,7 @@
                             <h3 class="text-center margen-superior" style="font-family: 'futura-heavy' !important;
                                margin: 0 0 16px 0;" layout-padding ng-click="planes.attrs = !planes.attrs">ATRIBUTOS</h3>
                             <div ng-if="planes.attrs">
-                                <md-checkbox ng-repeat="attr in planes.nuevoPlan.atributos" ng-model="attr.valor" aria-label="Checkbox $index" class="md-warn md-align-top-left"
+                                <md-checkbox ng-repeat="attr in planes.nuevoPlan.caracteristicas" ng-model="attr.valor" aria-label="Checkbox $index" class="md-warn md-align-top-left"
                                     flex>
                                     {{attr.clave}} - 
                                     <span class="ipsum">

@@ -8,7 +8,7 @@ angular.module("administrador")
         bz.impuestos = [];
         bz.planes = [];
         bz.nuevoPlan = {
-            atributos: [{
+            caracteristicas: [{
                 clave: 'resolucion',
                 valor: false,
                 descripcion: 'Logo en Alta Resolución.'
@@ -95,6 +95,7 @@ angular.module("administrador")
 
                     notificacionService.mensaje('Peticion Realizada!');
                     bz.localidadVal = '';
+                    
                 }).catch(function (res) {
                     console.log(res)
                 })

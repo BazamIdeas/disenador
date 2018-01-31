@@ -4,19 +4,10 @@ angular.module("landing")
 
 		var bz = this;
 
-		bz.destacados = [];
-
-		//
-
 		logosService.mostrarDestacados().then(function(res){
-
 			bz.destacados = res;
 
-		}).catch(function(){
-
-		}).finally(function(){
-
-		});
+		})
         
 		bz.enviarComenzar = function (nombreLogo, v) {
 

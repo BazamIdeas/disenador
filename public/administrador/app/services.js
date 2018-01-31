@@ -63,13 +63,13 @@ angular.module("administrador")
 
                 .then(function (res) {
 
-                    $window.localStorage.setItem('bzToken', angular.toJson(res.data));
+                    $window.localStorage.setItem('bzTokenAdmin', angular.toJson(res.data));
                     clienteDatosFactory.definir(res.data);
                     defered.resolve();
 
                 })
                 .catch(function (res) {
-                    $window.localStorage.removeItem('bzToken');
+                    $window.localStorage.removeItem('bzTokenAdmin');
                     defered.reject()
                 })
 
@@ -158,9 +158,9 @@ angular.module("administrador")
 
             } else {
 
-                if ($window.localStorage.getItem('bzToken')) {
+                if ($window.localStorage.getItem('bzTokenAdmin')) {
 
-                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzTokenAdmin')));
 
                     return clienteDatosFactory.obtener();
 
@@ -176,7 +176,7 @@ angular.module("administrador")
 
         this.salir = function (desactivarAlerta) {
 
-            $window.localStorage.removeItem('bzToken')
+            $window.localStorage.removeItem('bzTokenAdmin')
             clienteDatosFactory.eliminar();
 
             if (!desactivarAlerta) {
@@ -593,7 +593,7 @@ angular.module("administrador")
 
             /* Ver si se envia el archivo */
             console.log(datos)
-            
+
             Upload.upload({
                 url: '/app/elemento/masivo',
                 method: 'POST',
@@ -637,9 +637,25 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/plan', datos).then(function (res) {
+            var datosn = datos;
 
-                defered.resolve(res);
+            $http.post('/app/plan', datosn).then(function (res) {
+
+                angular.forEach(datosn.caracteristicas, function (valor) {
+                    valor.idPlan = res.data.result;
+                });
+
+                console.log(datosn)
+
+                $http.post('/app/plan/caracteristicas', datosn).then(function (res2) {
+                    console.log(res2)
+                    defered.resolve(res);
+
+                }).catch(function (res) {
+
+                    defered.reject(res);
+
+                })
 
             }).catch(function (res) {
 
@@ -834,8 +850,10 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            datos = {idLogo : id}
-            
+            datos = {
+                idLogo: id
+            }
+
             $http.post('/app/logo/aprobar', datos).then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
@@ -891,7 +909,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/logos/'+id+'/aprobados').then(function (res) {
+            $http.get('/app/logos/' + id + '/aprobados').then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -903,7 +921,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/cliente/'+id+'/pagos').then(function (res) {
+            $http.get('/app/cliente/' + id + '/pagos').then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -932,7 +950,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/cliente/bloquear/'+id).then(function (res) {
+            $http.post('/app/cliente/bloquear/' + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -965,7 +983,7 @@ angular.module("administrador")
                 $rootScope.$broadcast('sesionInicio', "true")
                 return clienteDatosFactory.obtener();
             } else {
-                if ($window.localStorage.getItem('bzToken')) {
+                if ($window.localStorage.getItem('bzTokenAdmin')) {
 
 
                     $rootScope.$broadcast('sesionInicio', "true")
