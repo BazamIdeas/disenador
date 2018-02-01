@@ -871,6 +871,19 @@ angular.module("administrador")
             return promise;
         }
 
+        this.destacado = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/logo/destacar/' + id).then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+        
+
         this.calificarLogo = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
@@ -965,7 +978,7 @@ angular.module("administrador")
 
     .service('notificacionService', ['$http', '$q', '$mdToast', function ($http, $q, $mdToast) {
         this.mensaje = function (mensaje) {
-            $mdToast.show($mdToast.simple().textContent(mensaje).position('top right').hideDelay(3000));
+            $mdToast.show($mdToast.simple().textContent(mensaje).position('bottom right').hideDelay(5000));
         }
     }])
 

@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert) {
+    .controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64) {
 
         var bz = this;
 
@@ -18,6 +18,12 @@ angular.module("administrador")
             bz.rFuente = !bz.rFuente;
             bz.listarCategorias(tipo);
         }
+
+        bz.base64 = function (icono) {
+
+            return $base64.decode(icono);
+
+        };
 
 
         bz.nuevaFuente = function (datos) {

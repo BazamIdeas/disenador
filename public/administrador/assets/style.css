@@ -586,3 +586,9 @@ menu.centrado md-icon {
     text-align: center;
     font-size: 32px;
 }
+
+.fuente-admin{
+    font-size: 20px;
+    text-align:center;
+    width: 100%;
+}

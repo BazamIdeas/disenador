@@ -50,15 +50,27 @@
                     <div class="tabla">
                         <div>Id Elemento:</div>
                         <div>Nombre:</div>
-                        <div>Tipo:</div>
+                        <div ng-if="elementos.listar.tipo == 'FUENTE'">Fuente:</div>
+                        <div ng-if="elementos.listar.tipo == 'ICONO'">Icono:</div>
                         <div>Accion:</div>
                     </div>
                     <div layout="column" class="content-scroll lista">
                         <div ng-repeat="elemento in elementos.elementos | filter:elementos.$  | orderBy:'idElemento'" class="elemento nopadding">
+                            <style ng-if="elemento.tipo == 'FUENTE'">
+                                @font-face {
+                                    font-family: '{{elemento.nombre}}';
+                                    src: url('{{elemento.url}}');
+                                }
+                            </style>
                             <div class="tabla-campo" layout-padding>
                                 <div>{{elemento.idElemento}}</div>
                                 <div>{{elemento.nombre}}</div>
-                                <div>{{elemento.tipo}}</div>
+                                <div ng-if="elemento.tipo == 'FUENTE'" class="elemento inside" md-whiteframe>
+                                    <span class="fuente-admin" style="font-family:'{{elemento.nombre}}' !important;">PRUEBA</span>
+                                </div>
+                                <div ng-if="elemento.tipo == 'ICONO'" class="pedido-logo lista elemento inside" md-whiteframe>
+                                    <bazam-visualizar data-svg="elementos.base64(elemento.svg)"></bazam-visualizar>
+                                </div>
                                 <div>
                                     <div>
                                         <md-button class="md-fab md-mini md-warn" ng-click="elementos.mostrarModificar($index)">

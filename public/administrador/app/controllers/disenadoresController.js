@@ -26,7 +26,7 @@ angular.module("administrador")
 						});
 					}
 				});
-				
+
 				bz.logos = res;
 				bz.listaL = !bz.listaL;
 			}).catch(function () {
@@ -85,11 +85,14 @@ angular.module("administrador")
 
 				// Si es un logo aprobado
 				if (v) {
+					/* 
 					angular.forEach(bz.logos, function (valor, llave) {
 						if (valor.idLogo == datos.idLogo) {
 							return bz.logos.splice(llave, 1);
 						}
 					});
+					*/
+					return notificacionService.mensaje("Calificacion Colocada!");
 				}
 
 				// Si no
@@ -114,6 +117,15 @@ angular.module("administrador")
 		bz.mostrarPop = function () {
 			bz.vista = bz.lda ? 1 : 0;
 		};
+
+
+		bz.destacado = function (id) {
+			designerService.destacado(id).then(function () {
+				notificacionService.mensaje("Destacado!");
+			}).catch(function (res) {
+				notificacionService.mensaje(res);
+			});
+		}
 
 		/***************************/
 		/********DISEÑADORES********/
