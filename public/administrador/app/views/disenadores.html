@@ -72,9 +72,17 @@
 
                     <div layout class="elemento">
                         <md-input-container flex style="margin-bottom: 0;height: 35px;">
-                            <input type="text" ng-model="designer.b" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                            <input type="text" ng-model="designer.filtrosActivos.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Estado:</label>
+                            <md-select ng-model="designer.filtrosActivos.bloqueado" class="md-block" aria-label="filtro">
+                                <md-option ng-value="0" selected>Activo</md-option>
+                                <md-option ng-value="1">Bloqueado</md-option>
+                            </md-select>
                         </md-input-container>
                     </div>
+                    
                     <div class="tabla">
                         <div style="flex:0.4;">Nombre:</div>
                         <div style="flex:0.4;">Deuda:</div>
@@ -82,7 +90,7 @@
                         <div>Acciones:</div>
                     </div>
                     <div layout="column" class="content-scroll">
-                        <div class="elemento" ng-repeat="d in designer.disenadores | filter:designer.b">
+                        <div class="elemento" ng-repeat="d in designer.disenadores | filter:designer.filtrosActivos">
                             <div class="tabla-campo">
                                 <div style="flex:0.4;">{{d.nombreCliente}}</div>
                                 <div style="flex:0.4;">${{d.deuda.deuda}}</div>

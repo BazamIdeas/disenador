@@ -31,7 +31,7 @@ angular.module("administrador")
                     datos.tipo = 'FUENTE';
                     bz.valMulFonts = false;
                 }).catch(function (res) {
-                    console.log(res)
+                    notificacionService.mensaje(res);
                 })
             }
         }
@@ -58,7 +58,7 @@ angular.module("administrador")
                 bz.valMulFonts = false;
                 bz.valMulIcons = false;
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
             })
         }
 
@@ -68,7 +68,7 @@ angular.module("administrador")
             iconoFuente.listar(bz.listar).then(function (res) {
                 bz.elementos = res.data;
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
             })
         }
 
@@ -77,7 +77,7 @@ angular.module("administrador")
 
         bz.listarCategorias = function (tipoCategoria) {
             bz.tipoListado = tipoCategoria;
-            datos = {
+            var datos = {
                 tipo: tipoCategoria
             }
             categoriasService.listarCategorias(datos).then(function (res) {
@@ -92,7 +92,7 @@ angular.module("administrador")
 
 
         categoriasService.listarPreferencias().then(function (res) {
-            angular.forEach(res.data, function (valor, llave) {
+            angular.forEach(res.data, function (valor) {
                 valor.valor = 2;
                 bz.preferencias.push(valor);
             })
@@ -112,7 +112,7 @@ angular.module("administrador")
                 bz.mod = false;
                 SweetAlert.swal("Genial", res.data.result, "success");
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
             })
         }
     }])

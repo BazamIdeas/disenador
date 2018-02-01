@@ -26,7 +26,6 @@ angular.module("administrador")
                 }).catch(function (res) {
                     bz.loaderCargando = false;
                     SweetAlert.swal("Error al ingresar", "", "error");
-                    console.error("Authentication failed:", res);
                 })
             }
         }
@@ -40,7 +39,6 @@ angular.module("administrador")
                     notificacionService.mensaje('Codigo Enviado al correo.');
                 }).catch(function (res) {
                     bz.loaderCargando = false;
-                    console.error(res);
                 })
             }
         }
@@ -51,7 +49,7 @@ angular.module("administrador")
                 if (val) {
                     clientesService.cambiarContrasena(bz.olvido).then(function (res) {
                         notificacionService.mensaje('Contrasena Cambiada!.');
-                        datos = {
+                        var datos = {
                             correo: bz.olvido.correo,
                             pass: bz.olvido.pass
                         };
@@ -59,7 +57,6 @@ angular.module("administrador")
                         bz.login(datos, true);
 
                     }).catch(function (res) {
-                        console.error(res);
                         bz.loaderCargando2 = false;
                     })
                 }
@@ -72,7 +69,6 @@ angular.module("administrador")
                     }
                 }).catch(function (res) {
                     bz.loaderCargando = false;
-                    console.error(res);
                 })
 
             }

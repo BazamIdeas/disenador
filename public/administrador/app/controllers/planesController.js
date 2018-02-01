@@ -71,40 +71,37 @@ angular.module("administrador")
                     bz.nuevoPlan = {};
                     notificacionService.mensaje('Peticion Realizada!');
                     bz.localidadVal = '';
-                    
+
                 }).catch(function (res) {
-                    console.log(res)
+                    notificacionService.mensaje(res);
                 })
             }
         }
 
         bz.agregarPrecioPlan = function (datos, validacion) {
+            
             administrarService.listarPreciosPlan(datos.idPlan).then(function (res) {
-                if (res == undefined) {
-                    notificacionService.mensaje('Este plan no posee precios.');
-                } else {
-                    if (res.data.length > 0) {
-                        var enuso = true;
-                        angular.forEach(res.data, function (valor, llave) {
+                var enuso = true;
+                if (res.data != undefined) {
+
+                    if (res.data.length > 0){
+                        angular.forEach(res.data, function (valor) {
                             if (valor.idMoneda == datos.idMoneda) {
                                 enuso = false;
                                 return notificacionService.mensaje('Moneda esta en uso!');
                             }
                         });
-
-                        if (validacion && enuso) {
-                            console.log(validacion)
-                            console.log(datos)
-                            administrarService.agregarPrecioPlan(datos).then(function (res) {
-                                document.getElementById('nuevoPrecioPlan').reset();
-                                bz.nuevoPrecioPlan = {};
-                                bz.vista = 0;
-                                notificacionService.mensaje('Peticion Realizada!');
-                            }).catch(function (res) {
-                                console.log(res)
-                            })
-                        }
                     }
+                    
+                    if (validacion && enuso)
+                        administrarService.agregarPrecioPlan(datos).then(function (res) {
+                            document.getElementById('nuevoPrecioPlan').reset();
+                            bz.nuevoPrecioPlan = {};
+                            bz.vista = 0;
+                            notificacionService.mensaje('Peticion Realizada!');
+                        }).catch(function (res) {
+                            notificacionService.mensaje(res);
+                    })
                 }
             })
         }
@@ -132,10 +129,10 @@ angular.module("administrador")
             })
         }
 
-        bz.bloquearPlan = function (opcion, id, index) {
+        bz.bloquearPlan = function (opcion, id) {
 
             bz.bloquearPlanDatos.idPlan = id;
-            angular.forEach(bz.planes, function (valor, llave) {
+            angular.forEach(bz.planes, function (valor) {
                 if (valor.idPlan == id) {
                     valor.status = valor.status ? false : true;
                     if (valor.status) {
@@ -149,7 +146,7 @@ angular.module("administrador")
             administrarService.bloquearPlan(bz.bloquearPlanDatos).then(function (res) {
                 bz.bloquearPlanDatos = {};
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
             })
         }
 
@@ -178,13 +175,13 @@ angular.module("administrador")
                 bz.preciosPlan = [];
                 administrarService.listarPreciosPlan(datos).then(function (res) {
                     if (res == undefined) {
-                        notificacionService.mensaje('Este plan no posee precios.');
-                    } else {
-                        bz.preciosPlan = res.data;
+                        return notificacionService.mensaje('Este plan no posee precios.');
                     }
+
+                    bz.preciosPlan = res.data;
                     bz.vista = 4;
                 }).catch(function (res) {
-                    console.log(res)
+                    notificacionService.mensaje(res);
                     bz.vista = 4;
                 })
             }

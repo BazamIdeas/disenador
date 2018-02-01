@@ -24,11 +24,12 @@
                                 <div>{{elemento.correo}}</div>
                                 <div>{{elemento.telefono}}</div>
                                 <div>
-                                    <div>
+                                    <div><!--
                                         <md-button class="md-fab md-mini md-warn" ng-click="cliente.eliminarC(elemento.idCliente, $index)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar</md-tooltip>
-                                            <md-icon class="material-icon">delete</md-icon>
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear</md-tooltip>
+                                            <md-icon class="material-icon">lock</md-icon>
                                         </md-button>
+                                    -->
                                         <md-button class="md-fab md-mini md-warn" ng-click="cliente.pedidosCliente(elemento.idCliente, $index)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Pedidos</md-tooltip>
                                             <md-icon class="material-icon">arrow_forward</md-icon>
@@ -106,7 +107,7 @@
                 </div>
 
                 <div ng-if="cliente.validarP" class="mensaje-resultado pequeno">
-                    <h3>NO SE ENCONTRARON CLIENTES</h3>
+                    <h3>NO SE ENCONTRARON PEDIDOS</h3>
                 </div>
             </div>
         </div>

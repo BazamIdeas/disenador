@@ -230,7 +230,7 @@ angular.module("landing")
 					defered.resolve();
 
 				})
-				.catch(function (res) {
+				.catch(function () {
 					$window.localStorage.removeItem("bzToken");
 					defered.reject();
 				});
