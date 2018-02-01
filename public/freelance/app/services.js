@@ -1,430 +1,430 @@
 angular.module("disenador-de-logos")
 
 
-    .value('paisesValue', {
-        "BD": "Bangladesh",
-        "BE": "Belgium",
-        "BF": "Burkina Faso",
-        "BG": "Bulgaria",
-        "BA": "Bosnia and Herzegovina",
-        "BB": "Barbados",
-        "WF": "Wallis and Futuna",
-        "BL": "Saint Barthelemy",
-        "BM": "Bermuda",
-        "BN": "Brunei",
-        "BO": "Bolivia",
-        "BH": "Bahrain",
-        "BI": "Burundi",
-        "BJ": "Benin",
-        "BT": "Bhutan",
-        "JM": "Jamaica",
-        "BV": "Bouvet Island",
-        "BW": "Botswana",
-        "WS": "Samoa",
-        "BQ": "Bonaire, Saint Eustatius and Saba ",
-        "BR": "Brazil",
-        "BS": "Bahamas",
-        "JE": "Jersey",
-        "BY": "Belarus",
-        "BZ": "Belize",
-        "RU": "Russia",
-        "RW": "Rwanda",
-        "RS": "Serbia",
-        "TL": "East Timor",
-        "RE": "Reunion",
-        "TM": "Turkmenistan",
-        "TJ": "Tajikistan",
-        "RO": "Romania",
-        "TK": "Tokelau",
-        "GW": "Guinea-Bissau",
-        "GU": "Guam",
-        "GT": "Guatemala",
-        "GS": "South Georgia and the South Sandwich Islands",
-        "GR": "Greece",
-        "GQ": "Equatorial Guinea",
-        "GP": "Guadeloupe",
-        "JP": "Japan",
-        "GY": "Guyana",
-        "GG": "Guernsey",
-        "GF": "French Guiana",
-        "GE": "Georgia",
-        "GD": "Grenada",
-        "GB": "United Kingdom",
-        "GA": "Gabon",
-        "SV": "El Salvador",
-        "GN": "Guinea",
-        "GM": "Gambia",
-        "GL": "Greenland",
-        "GI": "Gibraltar",
-        "GH": "Ghana",
-        "OM": "Oman",
-        "TN": "Tunisia",
-        "JO": "Jordan",
-        "HR": "Croatia",
-        "HT": "Haiti",
-        "HU": "Hungary",
-        "HK": "Hong Kong",
-        "HN": "Honduras",
-        "HM": "Heard Island and McDonald Islands",
-        "VE": "Venezuela",
-        "PR": "Puerto Rico",
-        "PS": "Palestinian Territory",
-        "PW": "Palau",
-        "PT": "Portugal",
-        "SJ": "Svalbard and Jan Mayen",
-        "PY": "Paraguay",
-        "IQ": "Iraq",
-        "PA": "Panama",
-        "PF": "French Polynesia",
-        "PG": "Papua New Guinea",
-        "PE": "Peru",
-        "PK": "Pakistan",
-        "PH": "Philippines",
-        "PN": "Pitcairn",
-        "PL": "Poland",
-        "PM": "Saint Pierre and Miquelon",
-        "ZM": "Zambia",
-        "EH": "Western Sahara",
-        "EE": "Estonia",
-        "EG": "Egypt",
-        "ZA": "South Africa",
-        "EC": "Ecuador",
-        "IT": "Italy",
-        "VN": "Vietnam",
-        "SB": "Solomon Islands",
-        "ET": "Ethiopia",
-        "SO": "Somalia",
-        "ZW": "Zimbabwe",
-        "SA": "Saudi Arabia",
-        "ES": "Spain",
-        "ER": "Eritrea",
-        "ME": "Montenegro",
-        "MD": "Moldova",
-        "MG": "Madagascar",
-        "MF": "Saint Martin",
-        "MA": "Morocco",
-        "MC": "Monaco",
-        "UZ": "Uzbekistan",
-        "MM": "Myanmar",
-        "ML": "Mali",
-        "MO": "Macao",
-        "MN": "Mongolia",
-        "MH": "Marshall Islands",
-        "MK": "Macedonia",
-        "MU": "Mauritius",
-        "MT": "Malta",
-        "MW": "Malawi",
-        "MV": "Maldives",
-        "MQ": "Martinique",
-        "MP": "Northern Mariana Islands",
-        "MS": "Montserrat",
-        "MR": "Mauritania",
-        "IM": "Isle of Man",
-        "UG": "Uganda",
-        "TZ": "Tanzania",
-        "MY": "Malaysia",
-        "MX": "Mexico",
-        "IL": "Israel",
-        "FR": "France",
-        "IO": "British Indian Ocean Territory",
-        "SH": "Saint Helena",
-        "FI": "Finland",
-        "FJ": "Fiji",
-        "FK": "Falkland Islands",
-        "FM": "Micronesia",
-        "FO": "Faroe Islands",
-        "NI": "Nicaragua",
-        "NL": "Netherlands",
-        "NO": "Norway",
-        "NA": "Namibia",
-        "VU": "Vanuatu",
-        "NC": "New Caledonia",
-        "NE": "Niger",
-        "NF": "Norfolk Island",
-        "NG": "Nigeria",
-        "NZ": "New Zealand",
-        "NP": "Nepal",
-        "NR": "Nauru",
-        "NU": "Niue",
-        "CK": "Cook Islands",
-        "XK": "Kosovo",
-        "CI": "Ivory Coast",
-        "CH": "Switzerland",
-        "CO": "Colombia",
-        "CN": "China",
-        "CM": "Cameroon",
-        "CL": "Chile",
-        "CC": "Cocos Islands",
-        "CA": "Canada",
-        "CG": "Republic of the Congo",
-        "CF": "Central African Republic",
-        "CD": "Democratic Republic of the Congo",
-        "CZ": "Czech Republic",
-        "CY": "Cyprus",
-        "CX": "Christmas Island",
-        "CR": "Costa Rica",
-        "CW": "Curacao",
-        "CV": "Cape Verde",
-        "CU": "Cuba",
-        "SZ": "Swaziland",
-        "SY": "Syria",
-        "SX": "Sint Maarten",
-        "KG": "Kyrgyzstan",
-        "KE": "Kenya",
-        "SS": "South Sudan",
-        "SR": "Suriname",
-        "KI": "Kiribati",
-        "KH": "Cambodia",
-        "KN": "Saint Kitts and Nevis",
-        "KM": "Comoros",
-        "ST": "Sao Tome and Principe",
-        "SK": "Slovakia",
-        "KR": "South Korea",
-        "SI": "Slovenia",
-        "KP": "North Korea",
-        "KW": "Kuwait",
-        "SN": "Senegal",
-        "SM": "San Marino",
-        "SL": "Sierra Leone",
-        "SC": "Seychelles",
-        "KZ": "Kazakhstan",
-        "KY": "Cayman Islands",
-        "SG": "Singapore",
-        "SE": "Sweden",
-        "SD": "Sudan",
-        "DO": "Dominican Republic",
-        "DM": "Dominica",
-        "DJ": "Djibouti",
-        "DK": "Denmark",
-        "VG": "British Virgin Islands",
-        "DE": "Germany",
-        "YE": "Yemen",
-        "DZ": "Algeria",
-        "US": "United States",
-        "UY": "Uruguay",
-        "YT": "Mayotte",
-        "UM": "United States Minor Outlying Islands",
-        "LB": "Lebanon",
-        "LC": "Saint Lucia",
-        "LA": "Laos",
-        "TV": "Tuvalu",
-        "TW": "Taiwan",
-        "TT": "Trinidad and Tobago",
-        "TR": "Turkey",
-        "LK": "Sri Lanka",
-        "LI": "Liechtenstein",
-        "LV": "Latvia",
-        "TO": "Tonga",
-        "LT": "Lithuania",
-        "LU": "Luxembourg",
-        "LR": "Liberia",
-        "LS": "Lesotho",
-        "TH": "Thailand",
-        "TF": "French Southern Territories",
-        "TG": "Togo",
-        "TD": "Chad",
-        "TC": "Turks and Caicos Islands",
-        "LY": "Libya",
-        "VA": "Vatican",
-        "VC": "Saint Vincent and the Grenadines",
-        "AE": "United Arab Emirates",
-        "AD": "Andorra",
-        "AG": "Antigua and Barbuda",
-        "AF": "Afghanistan",
-        "AI": "Anguilla",
-        "VI": "U.S. Virgin Islands",
-        "IS": "Iceland",
-        "IR": "Iran",
-        "AM": "Armenia",
-        "AL": "Albania",
-        "AO": "Angola",
-        "AQ": "Antarctica",
-        "AS": "American Samoa",
-        "AR": "Argentina",
-        "AU": "Australia",
-        "AT": "Austria",
-        "AW": "Aruba",
-        "IN": "India",
-        "AX": "Aland Islands",
-        "AZ": "Azerbaijan",
-        "IE": "Ireland",
-        "ID": "Indonesia",
-        "UA": "Ukraine",
-        "QA": "Qatar",
-        "MZ": "Mozambique"
-    })
-
-
-    /*-------------------------- Services --------------------------*/
-
-
-    /***************************/
-    /*******CATEGORIAS**********/
-    /***************************/
-
-    .service('categoriasService', ["$http", "$q", function ($http, $q) {
-
-        this.listaCategorias = function (tipo) {
-
-            var defered = $q.defer();
-
-            var promise = defered.promise;
-
-            $http.post("/app/categorias", {
-                tipo: tipo
-            }).then(function (res) {
-
-                defered.resolve(res.data);
-
-
-            }).catch(function (res) {
-
-                defered.reject();
-
-            })
-
-            return promise;
-
-
-        };
-
-
-        this.listaCategoriasElementos = function (idCategoria, tipo) {
-
-            var defered = $q.defer();
-
-            var promise = defered.promise;
-
-            $http.post("/app/elementos/categorias", {
-                idCategoria: idCategoria,
-                tipo: tipo
-            }).then(function (res) {
+	.value("paisesValue", {
+		"BD": "Bangladesh",
+		"BE": "Belgium",
+		"BF": "Burkina Faso",
+		"BG": "Bulgaria",
+		"BA": "Bosnia and Herzegovina",
+		"BB": "Barbados",
+		"WF": "Wallis and Futuna",
+		"BL": "Saint Barthelemy",
+		"BM": "Bermuda",
+		"BN": "Brunei",
+		"BO": "Bolivia",
+		"BH": "Bahrain",
+		"BI": "Burundi",
+		"BJ": "Benin",
+		"BT": "Bhutan",
+		"JM": "Jamaica",
+		"BV": "Bouvet Island",
+		"BW": "Botswana",
+		"WS": "Samoa",
+		"BQ": "Bonaire, Saint Eustatius and Saba ",
+		"BR": "Brazil",
+		"BS": "Bahamas",
+		"JE": "Jersey",
+		"BY": "Belarus",
+		"BZ": "Belize",
+		"RU": "Russia",
+		"RW": "Rwanda",
+		"RS": "Serbia",
+		"TL": "East Timor",
+		"RE": "Reunion",
+		"TM": "Turkmenistan",
+		"TJ": "Tajikistan",
+		"RO": "Romania",
+		"TK": "Tokelau",
+		"GW": "Guinea-Bissau",
+		"GU": "Guam",
+		"GT": "Guatemala",
+		"GS": "South Georgia and the South Sandwich Islands",
+		"GR": "Greece",
+		"GQ": "Equatorial Guinea",
+		"GP": "Guadeloupe",
+		"JP": "Japan",
+		"GY": "Guyana",
+		"GG": "Guernsey",
+		"GF": "French Guiana",
+		"GE": "Georgia",
+		"GD": "Grenada",
+		"GB": "United Kingdom",
+		"GA": "Gabon",
+		"SV": "El Salvador",
+		"GN": "Guinea",
+		"GM": "Gambia",
+		"GL": "Greenland",
+		"GI": "Gibraltar",
+		"GH": "Ghana",
+		"OM": "Oman",
+		"TN": "Tunisia",
+		"JO": "Jordan",
+		"HR": "Croatia",
+		"HT": "Haiti",
+		"HU": "Hungary",
+		"HK": "Hong Kong",
+		"HN": "Honduras",
+		"HM": "Heard Island and McDonald Islands",
+		"VE": "Venezuela",
+		"PR": "Puerto Rico",
+		"PS": "Palestinian Territory",
+		"PW": "Palau",
+		"PT": "Portugal",
+		"SJ": "Svalbard and Jan Mayen",
+		"PY": "Paraguay",
+		"IQ": "Iraq",
+		"PA": "Panama",
+		"PF": "French Polynesia",
+		"PG": "Papua New Guinea",
+		"PE": "Peru",
+		"PK": "Pakistan",
+		"PH": "Philippines",
+		"PN": "Pitcairn",
+		"PL": "Poland",
+		"PM": "Saint Pierre and Miquelon",
+		"ZM": "Zambia",
+		"EH": "Western Sahara",
+		"EE": "Estonia",
+		"EG": "Egypt",
+		"ZA": "South Africa",
+		"EC": "Ecuador",
+		"IT": "Italy",
+		"VN": "Vietnam",
+		"SB": "Solomon Islands",
+		"ET": "Ethiopia",
+		"SO": "Somalia",
+		"ZW": "Zimbabwe",
+		"SA": "Saudi Arabia",
+		"ES": "Spain",
+		"ER": "Eritrea",
+		"ME": "Montenegro",
+		"MD": "Moldova",
+		"MG": "Madagascar",
+		"MF": "Saint Martin",
+		"MA": "Morocco",
+		"MC": "Monaco",
+		"UZ": "Uzbekistan",
+		"MM": "Myanmar",
+		"ML": "Mali",
+		"MO": "Macao",
+		"MN": "Mongolia",
+		"MH": "Marshall Islands",
+		"MK": "Macedonia",
+		"MU": "Mauritius",
+		"MT": "Malta",
+		"MW": "Malawi",
+		"MV": "Maldives",
+		"MQ": "Martinique",
+		"MP": "Northern Mariana Islands",
+		"MS": "Montserrat",
+		"MR": "Mauritania",
+		"IM": "Isle of Man",
+		"UG": "Uganda",
+		"TZ": "Tanzania",
+		"MY": "Malaysia",
+		"MX": "Mexico",
+		"IL": "Israel",
+		"FR": "France",
+		"IO": "British Indian Ocean Territory",
+		"SH": "Saint Helena",
+		"FI": "Finland",
+		"FJ": "Fiji",
+		"FK": "Falkland Islands",
+		"FM": "Micronesia",
+		"FO": "Faroe Islands",
+		"NI": "Nicaragua",
+		"NL": "Netherlands",
+		"NO": "Norway",
+		"NA": "Namibia",
+		"VU": "Vanuatu",
+		"NC": "New Caledonia",
+		"NE": "Niger",
+		"NF": "Norfolk Island",
+		"NG": "Nigeria",
+		"NZ": "New Zealand",
+		"NP": "Nepal",
+		"NR": "Nauru",
+		"NU": "Niue",
+		"CK": "Cook Islands",
+		"XK": "Kosovo",
+		"CI": "Ivory Coast",
+		"CH": "Switzerland",
+		"CO": "Colombia",
+		"CN": "China",
+		"CM": "Cameroon",
+		"CL": "Chile",
+		"CC": "Cocos Islands",
+		"CA": "Canada",
+		"CG": "Republic of the Congo",
+		"CF": "Central African Republic",
+		"CD": "Democratic Republic of the Congo",
+		"CZ": "Czech Republic",
+		"CY": "Cyprus",
+		"CX": "Christmas Island",
+		"CR": "Costa Rica",
+		"CW": "Curacao",
+		"CV": "Cape Verde",
+		"CU": "Cuba",
+		"SZ": "Swaziland",
+		"SY": "Syria",
+		"SX": "Sint Maarten",
+		"KG": "Kyrgyzstan",
+		"KE": "Kenya",
+		"SS": "South Sudan",
+		"SR": "Suriname",
+		"KI": "Kiribati",
+		"KH": "Cambodia",
+		"KN": "Saint Kitts and Nevis",
+		"KM": "Comoros",
+		"ST": "Sao Tome and Principe",
+		"SK": "Slovakia",
+		"KR": "South Korea",
+		"SI": "Slovenia",
+		"KP": "North Korea",
+		"KW": "Kuwait",
+		"SN": "Senegal",
+		"SM": "San Marino",
+		"SL": "Sierra Leone",
+		"SC": "Seychelles",
+		"KZ": "Kazakhstan",
+		"KY": "Cayman Islands",
+		"SG": "Singapore",
+		"SE": "Sweden",
+		"SD": "Sudan",
+		"DO": "Dominican Republic",
+		"DM": "Dominica",
+		"DJ": "Djibouti",
+		"DK": "Denmark",
+		"VG": "British Virgin Islands",
+		"DE": "Germany",
+		"YE": "Yemen",
+		"DZ": "Algeria",
+		"US": "United States",
+		"UY": "Uruguay",
+		"YT": "Mayotte",
+		"UM": "United States Minor Outlying Islands",
+		"LB": "Lebanon",
+		"LC": "Saint Lucia",
+		"LA": "Laos",
+		"TV": "Tuvalu",
+		"TW": "Taiwan",
+		"TT": "Trinidad and Tobago",
+		"TR": "Turkey",
+		"LK": "Sri Lanka",
+		"LI": "Liechtenstein",
+		"LV": "Latvia",
+		"TO": "Tonga",
+		"LT": "Lithuania",
+		"LU": "Luxembourg",
+		"LR": "Liberia",
+		"LS": "Lesotho",
+		"TH": "Thailand",
+		"TF": "French Southern Territories",
+		"TG": "Togo",
+		"TD": "Chad",
+		"TC": "Turks and Caicos Islands",
+		"LY": "Libya",
+		"VA": "Vatican",
+		"VC": "Saint Vincent and the Grenadines",
+		"AE": "United Arab Emirates",
+		"AD": "Andorra",
+		"AG": "Antigua and Barbuda",
+		"AF": "Afghanistan",
+		"AI": "Anguilla",
+		"VI": "U.S. Virgin Islands",
+		"IS": "Iceland",
+		"IR": "Iran",
+		"AM": "Armenia",
+		"AL": "Albania",
+		"AO": "Angola",
+		"AQ": "Antarctica",
+		"AS": "American Samoa",
+		"AR": "Argentina",
+		"AU": "Australia",
+		"AT": "Austria",
+		"AW": "Aruba",
+		"IN": "India",
+		"AX": "Aland Islands",
+		"AZ": "Azerbaijan",
+		"IE": "Ireland",
+		"ID": "Indonesia",
+		"UA": "Ukraine",
+		"QA": "Qatar",
+		"MZ": "Mozambique"
+	})
+
+
+/*-------------------------- Services --------------------------*/
+
+
+/***************************/
+/*******CATEGORIAS**********/
+/***************************/
+
+	.service("categoriasService", ["$http", "$q", function ($http, $q) {
+
+		this.listaCategorias = function (tipo) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/categorias", {
+				tipo: tipo
+			}).then(function (res) {
+
+				defered.resolve(res.data);
+
+
+			}).catch(function () {
+
+				defered.reject();
+
+			});
+
+			return promise;
+
+
+		};
+
+
+		this.listaCategoriasElementos = function (idCategoria, tipo) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/elementos/categorias", {
+				idCategoria: idCategoria,
+				tipo: tipo
+			}).then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-
-            }).catch(function (res) {
+
+			}).catch(function () {
 
-                defered.reject();
+				defered.reject();
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
 
-    }])
+	}])
 
 
 
-    /***************************/
-    /******PREFERENCIAS*********/
-    /***************************/
+/***************************/
+/******PREFERENCIAS*********/
+/***************************/
 
-    .service('preferenciasService', ["$http", "$q", function ($http, $q) {
+	.service("preferenciasService", ["$http", "$q", function ($http, $q) {
 
-        this.listaPreferencias = function () {
+		this.listaPreferencias = function () {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.get("/app/preferencias").then(function (res) {
+			$http.get("/app/preferencias").then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
 
-            }).catch(function (res) {
+			}).catch(function () {
 
-                defered.reject();
+				defered.reject();
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        };
+		};
 
-    }])
+	}])
 
 
-    /***************************/
-    /*********ELEMENTOS*********/
-    /***************************/
+/***************************/
+/*********ELEMENTOS*********/
+/***************************/
 
 
 
-    .service('elementosService', ["$http", "$q", function ($http, $q) {
+	.service("elementosService", ["$http", "$q", function ($http, $q) {
 
-        this.listaSegunPref = function (datos) {
+		this.listaSegunPref = function (datos) {
 
-            return $http.post("/app/elementos/busqueda", datos)
+			return $http.post("/app/elementos/busqueda", datos)
 
-                .then(function (res) {
+				.then(function (res) {
 
-                    return res.data;
+					return res.data;
 
-                })
+				})
 
-                .catch(function (res) {
+				.catch(function () {
 
 
 
-                })
-        }
+				});
+		};
 
-        this.listarFuentes = function () {
+		this.listarFuentes = function () {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.get("/app/elementos/fuente").then(function (res) {
+			$http.get("/app/elementos/fuente").then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function (res) {
 
-                defered.reject(res);
+				defered.reject(res);
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-        this.listarIniciales = function (inicial) {
+		this.listarIniciales = function (inicial) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.post("/app/elementos/iniciales", {
-                inicial: inicial
-            }).then(function (res) {
+			$http.post("/app/elementos/iniciales", {
+				inicial: inicial
+			}).then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function (res) {
 
-                defered.reject(res);
+				defered.reject(res);
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-    }])
+	}])
 
 
-    /*********************/
-    /********PEDIDOS******/
-    /*********************/
+/*********************/
+/********PEDIDOS******/
+/*********************/
 
-    .service("pedidosService", ["$http", "$q", '$rootScope', function ($http, $q, $rootScope) {
+	.service("pedidosService", ["$http", "$q", function ($http, $q) {
 
-        /*
+		/*
         this.listarPlanes = function () {
 
             var defered = $q.defer();
@@ -509,582 +509,582 @@ angular.module("disenador-de-logos")
         }
 
 */
-        this.listarPedidos = function () {
+		this.listarPedidos = function () {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.get("/app/cliente/pedidos").then(function (res) {
+			$http.get("/app/cliente/pedidos").then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function (res) {
 
-                defered.reject(res);
+				defered.reject(res);
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-    }])
+	}])
 
-    /***************************************/
-    /***************CLIENTES****************/
-    /***************************************/
+/***************************************/
+/***************CLIENTES****************/
+/***************************************/
 
-    .factory("clienteDatosFactory", [function () {
+	.factory("clienteDatosFactory", [function () {
 
-        var cliente = null;
+		var cliente = null;
 
-        return {
-            obtener: function () {
+		return {
+			obtener: function () {
 
-                return cliente;
+				return cliente;
 
-            },
-            definir: function (objectoCliente) {
+			},
+			definir: function (objectoCliente) {
 
-                cliente = objectoCliente;
+				cliente = objectoCliente;
 
-            },
-            eliminar: function () {
+			},
+			eliminar: function () {
 
-                cliente = null;
+				cliente = null;
 
-            }
-        }
+			}
+		};
 
-    }])
+	}])
 
-    .service('clientesService', ['$http', '$q', '$window', '$rootScope', "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
+	.service("clientesService", ["$http", "$q", "$window", "$rootScope", "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
 
-        this.registrar = function (nombreCliente, correo, pass, telefono, pais) {
+		this.registrar = function (nombreCliente, correo, pass, telefono, pais) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.post("/app/cliente", {
-                    nombreCliente: nombreCliente,
-                    correo: correo,
-                    pass: pass,
-                    telefono: telefono,
-                    pais: pais
-                }).then(function (res) {
+			$http.post("/app/cliente", {
+				nombreCliente: nombreCliente,
+				correo: correo,
+				pass: pass,
+				telefono: telefono,
+				pais: pais
+			}).then(function (res) {
 
-                    $window.localStorage.setItem('bzToken', angular.toJson(res.data));
-                    clienteDatosFactory.definir(res.data);
-                    defered.resolve();
+				$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+				clienteDatosFactory.definir(res.data);
+				defered.resolve();
 
-                })
-                .catch(function (res) {
+			})
+				.catch(function (res) {
 
-                    $window.localStorage.removeItem('bzToken');
-                    defered.reject(res);
-                })
+					$window.localStorage.removeItem("bzToken");
+					defered.reject(res);
+				});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-        this.login = function (datos) {
+		this.login = function (datos) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.post("/app/cliente/login", datos)
+			$http.post("/app/cliente/login", datos)
 
-                .then(function (res) {
+				.then(function (res) {
 
-                    $window.localStorage.setItem('bzToken', angular.toJson(res.data));
-                    clienteDatosFactory.definir(res.data);
-                    defered.resolve();
+					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+					clienteDatosFactory.definir(res.data);
+					defered.resolve();
 
-                })
-                .catch(function (res) {
-                    $window.localStorage.removeItem('bzToken');
-                    defered.reject()
-                })
+				})
+				.catch(function () {
+					$window.localStorage.removeItem("bzToken");
+					defered.reject();
+				});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-        this.autorizado = function (emitir) {
+		this.autorizado = function (emitir) {
 
-            if (clienteDatosFactory.obtener()) {
+			if (clienteDatosFactory.obtener()) {
 
-                if (emitir) {
-                    $rootScope.$broadcast('sesionInicio', "true");
-                }
+				if (emitir) {
+					$rootScope.$broadcast("sesionInicio", "true");
+				}
 
-                return clienteDatosFactory.obtener();
+				return clienteDatosFactory.obtener();
 
-            } else {
+			} else {
 
-                if ($window.localStorage.getItem('bzToken')) {
+				if ($window.localStorage.getItem("bzToken")) {
 
-                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+					clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem("bzToken")));
 
-                    if (emitir) {
-                        $rootScope.$broadcast('sesionInicio', "true");
-                    }
+					if (emitir) {
+						$rootScope.$broadcast("sesionInicio", "true");
+					}
 
-                    return clienteDatosFactory.obtener();
+					return clienteDatosFactory.obtener();
 
-                } else {
+				} else {
 
-                    return false;
+					return false;
 
-                }
+				}
 
-            }
+			}
 
-        }
+		};
 
-        this.salir = function (emitir, desactivarAlerta) {
+		this.salir = function (emitir, desactivarAlerta) {
 
-            $window.localStorage.removeItem('bzToken');
-            clienteDatosFactory.eliminar();
+			$window.localStorage.removeItem("bzToken");
+			clienteDatosFactory.eliminar();
 
-            if (emitir) {
+			if (emitir) {
 
-                $rootScope.$broadcast("sesionExpiro")
+				$rootScope.$broadcast("sesionExpiro");
 
-            }
+			}
 
-            if (!desactivarAlerta) {
-                alert("Alerta Sesion Expiro");
-            }
-        }
+			if (!desactivarAlerta) {
+				alert("Alerta Sesion Expiro");
+			}
+		};
 
-        this.pais = function () {
+		this.pais = function () {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.get("/app/pais")
+			$http.get("/app/pais")
 
-                .then(function (res) {
+				.then(function (res) {
 
-                    defered.resolve(res.data);
+					defered.resolve(res.data);
 
-                })
-                .catch(function (res) {
+				})
+				.catch(function () {
 
-                    defered.reject()
-                })
+					defered.reject();
+				});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-        this.datos = function (facturacion) {
+		this.datos = function (facturacion) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            var pedirFacturacion = facturacion ? true : false;
+			var pedirFacturacion = facturacion ? true : false;
 
-            $http.get("/app/cliente/datos?facturacion=" + pedirFacturacion)
+			$http.get("/app/cliente/datos?facturacion=" + pedirFacturacion)
 
-                .then(function (res) {
+				.then(function (res) {
 
-                    defered.resolve(res.data);
+					defered.resolve(res.data);
 
-                })
-                .catch(function (res) {
+				})
+				.catch(function () {
 
-                    defered.reject()
-                })
+					defered.reject();
+				});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
 
-        this.modificar = function (nombreCliente, telefono, pais) {
+		this.modificar = function (nombreCliente, telefono, pais) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.post("/app/cliente/modificar", {
-                    telefono: telefono,
-                    nombreCliente: nombreCliente,
-                    pais: pais
-                })
+			$http.post("/app/cliente/modificar", {
+				telefono: telefono,
+				nombreCliente: nombreCliente,
+				pais: pais
+			})
 
-                .then(function (res) {
+				.then(function (res) {
 
-                    defered.resolve(res.data);
+					defered.resolve(res.data);
 
-                })
-                .catch(function (res) {
+				})
+				.catch(function () {
 
-                    defered.reject()
-                })
+					defered.reject();
+				});
 
-            return promise;
-        }
+			return promise;
+		};
 
 
-        this.nuevaFacturacion = function (metodo, correo) {
+		this.nuevaFacturacion = function (metodo, correo) {
 
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            var datos = {
-                medio: metodo,
-                correo: correo
-            };
+			var datos = {
+				medio: metodo,
+				correo: correo
+			};
 
-            $http.post("/app/cliente/facturacion", datos).then(function (res) {
+			$http.post("/app/cliente/facturacion", datos).then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function () {
 
-                defered.reject();
+				defered.reject();
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
         
-        this.eliminarFacturacion = function(idFacturacion){
+		this.eliminarFacturacion = function(idFacturacion){
             
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.get("/app/cliente/facturacion/"+idFacturacion+"/borrar").then(function (res) {
+			$http.get("/app/cliente/facturacion/"+idFacturacion+"/borrar").then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function () {
 
-                defered.reject();
+				defered.reject();
 
-            })
+			});
 
-            return promise;
-        }
+			return promise;
+		};
 
-        this.listaPagos = function () {
+		this.listaPagos = function () {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.get("/app/cliente/pagos").then(function (res) {
+			$http.get("/app/cliente/pagos").then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function () {
 
-                defered.reject();
+				defered.reject();
 
-            })
+			});
 
-            return promise;
-        }
+			return promise;
+		};
 
-        this.saldo = function () {
+		this.saldo = function () {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.get("/app/cliente/saldo-personal").then(function (res) {
+			$http.get("/app/cliente/saldo-personal").then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function () {
 
-                defered.reject();
+				defered.reject();
 
-            })
+			});
 
-            return promise;
-        }
+			return promise;
+		};
 
-    }])
+	}])
 
-    /*--------------------------- Factories aislados ------------------*/
+/*--------------------------- Factories aislados ------------------*/
 
-    .factory('compararLogosFactory', [function () {
+	.factory("compararLogosFactory", [function () {
 
-        var logos = {
+		var logos = {
 
-            comparar: [],
-            comprar: ""
+			comparar: [],
+			comprar: ""
 
-        };
+		};
 
-        var informacion = {
+		var informacion = {
 
-            definir: function (valor, tipo) {
+			definir: function (valor, tipo) {
 
-                if (tipo == "comprar") {
+				if (tipo == "comprar") {
 
-                    logos.comprar = valor;
+					logos.comprar = valor;
 
-                } else if (tipo == "comparar")
+				} else if (tipo == "comparar")
 
-                {
-                    logos.comparar.push(valor)
-                }
+				{
+					logos.comparar.push(valor);
+				}
 
-            },
+			},
 
-            obtener: function (tipo) {
+			obtener: function (tipo) {
 
-                if (tipo == "comprar") {
+				if (tipo == "comprar") {
 
-                    return logos.comprar;
+					return logos.comprar;
 
-                } else if (tipo == "comparar") {
-                    return logos.comparar;
-                }
-            }
+				} else if (tipo == "comparar") {
+					return logos.comparar;
+				}
+			}
 
-        }
+		};
 
-        return informacion;
+		return informacion;
 
-    }])
+	}])
 
-    .factory('compartirFactory', [function () {
-        var estados = [];
-        var informacion = {
-            definir: function (nombre, valor) {
-                estados[nombre] = valor;
-            },
-            obtener: function (nombre) {
-                return estados[nombre];
-            }
-        }
-        return informacion;
-    }])
+	.factory("compartirFactory", [function () {
+		var estados = [];
+		var informacion = {
+			definir: function (nombre, valor) {
+				estados[nombre] = valor;
+			},
+			obtener: function (nombre) {
+				return estados[nombre];
+			}
+		};
+		return informacion;
+	}])
 
-    .factory('crearLogoFactory', [function () {
+	.factory("crearLogoFactory", [function () {
 
-        return function (iconos, fuentes) {
+		return function (iconos, fuentes) {
 
-            var logos = [];
+			var logos = [];
 
-            angular.forEach(iconos, function (icono, indice) {
+			angular.forEach(iconos, function (icono) {
 
-                if (icono.estado == true) {
+				if (icono.estado == true) {
 
-                    angular.forEach(fuentes, function (fuente, indice) {
+					angular.forEach(fuentes, function (fuente) {
 
-                        if (fuente.estado == true) {
+						if (fuente.estado == true) {
 
-                            var logo = {
-                                icono: icono,
-                                fuente: fuente
-                            };
+							var logo = {
+								icono: icono,
+								fuente: fuente
+							};
 
-                            logos.push(logo);
-                        }
-                    })
+							logos.push(logo);
+						}
+					});
 
-                }
+				}
 
-            })
+			});
 
-            return logos;
+			return logos;
 
-        }
+		};
 
-    }])
+	}])
 
-    .factory('LS', ['$window', '$rootScope', function ($window, $rootScope) {
-        return {
-            definir: function (llave, valor) {
+	.factory("LS", ["$window", "$rootScope", function ($window) {
+		return {
+			definir: function (llave, valor) {
 
-                $window.localStorage.setItem(llave, angular.toJson(valor));
+				$window.localStorage.setItem(llave, angular.toJson(valor));
 
-            },
-            obtener: function (llave) {
+			},
+			obtener: function (llave) {
 
-                return angular.fromJson($window.localStorage.getItem(llave));
-            }
-        };
+				return angular.fromJson($window.localStorage.getItem(llave));
+			}
+		};
 
-    }])
+	}])
 
 
 
-    /*********************/
-    /***** Logos *********/
-    /*********************/
+/*********************/
+/***** Logos *********/
+/*********************/
 
-    .service("logosService", ["$http", "$q", function ($http, $q, clientesService) {
+	.service("logosService", ["$http", "$q", function ($http, $q) {
 
-        this.listarPorEstado = function (estado) {
+		this.listarPorEstado = function (estado) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.post("/app/logos/estado", {
-                estado: estado
-            }).then(function (res) {
+			$http.post("/app/logos/estado", {
+				estado: estado
+			}).then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function (res) {
 
-                defered.reject(res);
+				defered.reject(res);
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-        this.publicar = function (idLogo) {
+		this.publicar = function (idLogo) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.post("/app/logo/por-aprobar", {
-                idLogo: idLogo
-            }).then(function (res) {
+			$http.post("/app/logo/por-aprobar", {
+				idLogo: idLogo
+			}).then(function () {
 
-                defered.resolve();
+				defered.resolve();
 
-            }).catch(function (res) {
+			}).catch(function (res) {
 
-                defered.reject(res);
+				defered.reject(res);
 
-            })
+			});
 
-            return promise;
-        }
+			return promise;
+		};
 
-        this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId, estado) {
+		this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId, estado) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            var datos = {
-                logo: logo,
-                tipoLogo: tipoLogo,
-                idElemento: idElemento,
-                atributos: {
-                    principal: fuentePrincipalId
-                }
-            }
+			var datos = {
+				logo: logo,
+				tipoLogo: tipoLogo,
+				idElemento: idElemento,
+				atributos: {
+					principal: fuentePrincipalId
+				}
+			};
 
-            if (fuenteEsloganId) {
-                datos.atributos.eslogan = fuenteEsloganId;
-            }
+			if (fuenteEsloganId) {
+				datos.atributos.eslogan = fuenteEsloganId;
+			}
 
-            if (estado) {
-                datos.estado = estado
-            }
+			if (estado) {
+				datos.estado = estado;
+			}
 
-            $http.post("/app/logo/guardar", datos).then(function (res) {
+			$http.post("/app/logo/guardar", datos).then(function (res) {
 
-                defered.resolve(res.data.insertId);
+				defered.resolve(res.data.insertId);
 
-            }).catch(function (res) {
+			}).catch(function (res) {
 
-                defered.reject(res);
+				defered.reject(res);
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-        this.modificarLogo = function (logo, idlogo, fuentePrincipalId, fuenteEsloganId) {
+		this.modificarLogo = function (logo, idlogo, fuentePrincipalId, fuenteEsloganId) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            var datos = {
-                logo: logo,
-                idLogo: idlogo,
-                atributos: {
-                    principal: fuentePrincipalId
-                }
-            }
+			var datos = {
+				logo: logo,
+				idLogo: idlogo,
+				atributos: {
+					principal: fuentePrincipalId
+				}
+			};
 
-            if (fuenteEsloganId) {
-                datos.atributos.eslogan = fuenteEsloganId;
-            }
+			if (fuenteEsloganId) {
+				datos.atributos.eslogan = fuenteEsloganId;
+			}
 
-            $http.post("/app/logo/modificar", datos).then(function (res) {
+			$http.post("/app/logo/modificar", datos).then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function (res) {
 
-                defered.reject(res);
+				defered.reject(res);
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-        this.mostrarGuardados = function () {
+		this.mostrarGuardados = function () {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.post("/app/logos/guardados/").then(function (res) {
+			$http.post("/app/logos/guardados/").then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function () {
 
-                defered.reject();
+				defered.reject();
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-        this.mostrarComprados = function () {
+		this.mostrarComprados = function () {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.post("/app/logos/descargables/").then(function (res) {
+			$http.post("/app/logos/descargables/").then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function () {
 
-                defered.reject();
+				defered.reject();
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
-        /*
+		};
+		/*
         this.descargarLogo = function (idLogo, ancho, nombre, tipo) {
 
             var defered = $q.defer();
@@ -1113,141 +1113,141 @@ angular.module("disenador-de-logos")
         }
         */
 
-        this.obtenerPorId = function (idLogo) {
+		this.obtenerPorId = function (idLogo) {
 
-            var defered = $q.defer();
+			var defered = $q.defer();
 
-            var promise = defered.promise;
+			var promise = defered.promise;
 
-            $http.get("/app/logo/" + idLogo).then(function (res) {
+			$http.get("/app/logo/" + idLogo).then(function (res) {
 
-                defered.resolve(res.data);
+				defered.resolve(res.data);
 
-            }).catch(function (res) {
+			}).catch(function () {
 
-                defered.reject();
+				defered.reject();
 
-            })
+			});
 
-            return promise;
+			return promise;
 
-        }
+		};
 
-        this.borrarLogo = function (idLogo) {
-
-
-            var defered = $q.defer();
-
-            var promise = defered.promise;
+		this.borrarLogo = function (idLogo) {
 
 
-            $http.get("/app/logo/borrar/" + idLogo).then(function (res) {
+			var defered = $q.defer();
 
-                defered.resolve(res.data);
-
-            }).catch(function (res) {
-
-                defered.reject();
-
-            })
-
-            return promise;
-
-        }
+			var promise = defered.promise;
 
 
+			$http.get("/app/logo/borrar/" + idLogo).then(function (res) {
 
-    }])
+				defered.resolve(res.data);
 
-    /*********************/
-    /***** planes ********/
-    /*********************/
+			}).catch(function () {
 
-    .service("planesService", ["$http", "$q", function ($http, $q) {
+				defered.reject();
 
-        this.listar = function () {
+			});
 
-            var defered = $q.defer();
-            var promise = defered.promise;
+			return promise;
 
-            $http.get('/app/planesAll').then(function (res) {
-                defered.resolve(res.data);
-            }).catch(function (res) {
-                defered.reject(res);
-            })
-            return promise;
-        }
-
-    }])
+		};
 
 
-    .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
-        function salir() {
-            $window.localStorage.removeItem('bzToken')
-            clienteDatosFactory.eliminar();
-            $rootScope.$broadcast('sesionExpiro', "true");
-        }
 
-        function autorizado() {
-            if (clienteDatosFactory.obtener()) {
-                //$rootScope.$broadcast('sesionInicio', "true")
-                return clienteDatosFactory.obtener();
-            } else {
-                if ($window.localStorage.getItem('bzToken')) {
+	}])
 
-                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
-                    //$rootScope.$broadcast('sesionInicio', "true")
-                    return clienteDatosFactory.obtener();
-                } else {
-                    return false;
-                }
-            }
-        }
-        return {
-            request: function (config) {
+/*********************/
+/***** planes ********/
+/*********************/
 
+	.service("planesService", ["$http", "$q", function ($http, $q) {
 
-                config.headers = config.headers || {};
-                if (autorizado()) {
-                    config.headers.auth = autorizado().token;
-                }
+		this.listar = function () {
 
-                return config || $q.when(config);
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.get("/app/planesAll").then(function (res) {
+				defered.resolve(res.data);
+			}).catch(function (res) {
+				defered.reject(res);
+			});
+			return promise;
+		};
+
+	}])
 
 
-            },
-            response: function (response) {
+	.factory("AuthInterceptor", function ($window, $q, $rootScope, clienteDatosFactory) {
+		function salir() {
+			$window.localStorage.removeItem("bzToken");
+			clienteDatosFactory.eliminar();
+			$rootScope.$broadcast("sesionExpiro", "true");
+		}
 
-                return response || $q.when(response);
-            },
+		function autorizado() {
+			if (clienteDatosFactory.obtener()) {
+				//$rootScope.$broadcast('sesionInicio', "true")
+				return clienteDatosFactory.obtener();
+			} else {
+				if ($window.localStorage.getItem("bzToken")) {
 
-            responseError: function (response) {
+					clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem("bzToken")));
+					//$rootScope.$broadcast('sesionInicio', "true")
+					return clienteDatosFactory.obtener();
+				} else {
+					return false;
+				}
+			}
+		}
+		return {
+			request: function (config) {
 
-                if (response.status === 401 || response.status === 403) {
-                    salir();
 
-                }
-                return $q.reject(response);
+				config.headers = config.headers || {};
+				if (autorizado()) {
+					config.headers.auth = autorizado().token;
+				}
 
-            }
-        };
-    })
+				return config || $q.when(config);
 
 
-    .factory("arrayToJsonMetasFactory", [function () {
+			},
+			response: function (response) {
 
-        return function (arrayMetas) {
+				return response || $q.when(response);
+			},
 
-            var jsonMetas = {};
+			responseError: function (response) {
 
-            angular.forEach(arrayMetas, function (meta, indice) {
+				if (response.status === 401 || response.status === 403) {
+					salir();
 
-                jsonMetas[meta.clave] = meta.valor;
+				}
+				return $q.reject(response);
 
-            })
+			}
+		};
+	})
 
-            return jsonMetas;
 
-        }
+	.factory("arrayToJsonMetasFactory", [function () {
 
-}])
+		return function (arrayMetas) {
+
+			var jsonMetas = {};
+
+			angular.forEach(arrayMetas, function (meta, indice) {
+
+				jsonMetas[meta.clave] = meta.valor;
+
+			});
+
+			return jsonMetas;
+
+		};
+
+	}]);

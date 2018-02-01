@@ -2,90 +2,115 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
 
 	.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
 
-        $locationProvider.html5Mode(true)
+		$locationProvider.html5Mode(true);
 
 
-        $mdToastProvider.addPreset('base', {
-            options: function () {
-                return {
-                    templateUrl: 'toast-base.html',
-                    hideDelay: 0,
-                    position: 'top right',
-                    controller: ["$scope", "$mdToast", "$timeout", "args", function ($scope, $mdToast, $timeout, args) {
+		$mdToastProvider.addPreset("base", {
+			options: function () {
+				return {
+					templateUrl: "toast-base.html",
+					hideDelay: 0,
+					position: "top right",
+					controller: ["$scope", "$mdToast", "$timeout", "args", function ($scope, $mdToast, $timeout, args) {
 
-                        if (args) {
+						if (args) {
 
-                            $scope.mensaje = args.mensaje;
+							$scope.mensaje = args.mensaje;
 
-                            $scope.clase = args.clase;
-                        }
+							$scope.clase = args.clase;
+						}
 
-                        var temporizador = $timeout(function () {
-                            $mdToast.hide();
-                        }, 2000)
+						var temporizador = $timeout(function () {
+							$mdToast.hide();
+						}, 2000);
 
-                        $scope.closeToast = function () {
-                            $timeout.cancel(temporizador)
-                            $mdToast.hide();
+						$scope.closeToast = function () {
+							$timeout.cancel(temporizador);
+							$mdToast.hide();
 
-                        }
-                    }],
-                    clickOutsideToClose: true
-                };
-            }
-        })
+						};
+					}],
+					clickOutsideToClose: true
+				};
+			}
+		});
 
 
-        /*------------------------ Ui router states ----------------------*/
+		/*------------------------ Ui router states ----------------------*/
 
-        $stateProvider.state({
-                name: 'comienzo',
-                url: '/',
-                templateUrl: '/landing/app/views/comienzo.tpl',
-                controller: 'comienzoController as comienzo'
-            })
-            .state({
-                name: 'terminos',
-                url: '/terminos-y-condiciones/',
-                templateUrl: '/landing/app/views/terminos.tpl'
-            })
-            .state({
-                name: 'legales',
-                url: '/avisos-legales/',
-                templateUrl: '/landing/app/views/legales.tpl'
-            })
-            .state({
-                name: 'disenadores',
-                url: '/disenadores/',
-                templateUrl: '/landing/app/views/disenadores.tpl',
-                controller: "disenadoresController as disenadores"
-            })
-            .state({
-                name: 'disenador',
-                url: '/disenador/:id/',
-                templateUrl: '/landing/app/views/disenador.tpl',
-                controller: "disenadorController as disenador",
-                resolve: ["$stateParams", "$q", "$http", function($stateParams, $q, $http) {
+		$stateProvider.state({
+			name: "comienzo",
+			url: "/",
+			templateUrl: "/landing/app/views/comienzo.tpl",
+			controller: "comienzoController as comienzo"
+		})
+			.state({
+				name: "terminos",
+				url: "/terminos-y-condiciones/",
+				templateUrl: "/landing/app/views/terminos.tpl"
+			})
+			.state({
+				name: "legales",
+				url: "/avisos-legales/",
+				templateUrl: "/landing/app/views/legales.tpl"
+			})
+			.state({
+				name: "disenadores",
+				url: "/disenadores/",
+				templateUrl: "/landing/app/views/disenadores.tpl",
+				controller: "disenadoresController as disenadores"
+			})
+			.state({
+				name: "disenador",
+				url: "/disenador/:id/",
+				templateUrl: "/landing/app/views/disenador.tpl",
+				controller: "disenadorController as disenador",
+				resolve: {
                     
-                    return false;
-                }]
-            })
+					"clienteResolve": ["$stateParams", "$q", "clientesService", function($stateParams, $q, clientesService) {
+
+						var defered = $q.defer();
+
+						var promise = defered.promise;      
+                        
+						if(!$stateParams.id){
+							return $q.reject("NO_ID_SUPPLIED");
+                           
+						} else {
+                          
+							clientesService.datos($stateParams.id)
+                            
+								.then(function (res) {
+									defered.resolve(res);
+								})
+								.catch(function () {
+									defered.reject();
+								});
+
+                           
+						}
+
+						return promise;
+					}]
+				}
+			});
 
 
-            $urlRouterProvider.rule(function ($injector, $location) {
-                var path = $location.url();
+		$urlRouterProvider.rule(function ($injector, $location) {
+			var path = $location.url();
     
-                if ('/' === path[path.length - 1] || path.indexOf('/?') > -1) {
-                    return;
-                }
+			if ("/" === path[path.length - 1] || path.indexOf("/?") > -1) {
+				return;
+			}
     
-                if (path.indexOf('?') > -1) {
-                    return path.replace('?', '/?');
-                }
+			if (path.indexOf("?") > -1) {
+				return path.replace("?", "/?");
+			}
     
-                return path + '/';
-            });
+			return path + "/";
+		});
     
-            $urlRouterProvider.otherwise('/404/');
+		$urlRouterProvider.otherwise("/404/");
 
-    });
+	});
+    

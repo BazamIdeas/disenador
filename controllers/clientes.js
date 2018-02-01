@@ -269,17 +269,17 @@ exports.datosCliente = function (req, res, next) {
 
             var cliente = data[0];
 
-            if (req.params.facturacion) {
+            if (req.query.facturacion) {
                 facturacion.ObtenerPorCliente(req.params.id, function (err, data) {
                     if (typeof data !== 'undefined' && data.length) {
                         cliente.facturacion = data;
-                        res.status(200).json([cliente])
+                        res.status(200).json(cliente)
                     } else {
-                        res.status(200).json([cliente])
+                        res.status(200).json(cliente)
                     }
                 })
             } else {
-                res.status(200).json([cliente])
+                res.status(200).json(cliente)
             }
         }
         //no existe

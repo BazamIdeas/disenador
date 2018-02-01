@@ -1022,8 +1022,8 @@ angular.module("disenador-de-logos")
 				color: "<color"
 			},
 			link: function(scope, element){
-				console.log(coloresFactory(scope.color));
-				element.css({'background-color': coloresFactory(scope.color)});
+				
+				element.css({"background-color": coloresFactory(scope.color)});
 			}
-		}
-	}])
+		};
+	}]);

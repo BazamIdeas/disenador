@@ -1,13 +1,15 @@
 angular.module("landing")
 
-.controller('disenadoresController', ['clientesService', function (clientesService) {
+	.controller("disenadorController", ["clientesService", "verificarBase64Factory", "clienteResolve", "logosService",function (clientesService,verificarBase64Factory, clienteResolve, logosService) {
 
-    var bz = this;
-    bz.disenadores = [];
+		var bz = this;
 
-    bz.verificarBase64 = function (cadena) {
+		bz.logos = [];
+
+		bz.disenador = clienteResolve;
+
+		bz.verificarBase64 = verificarBase64Factory;
         
-        return /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(cadena);
-    }
+		//logosService.listarPorEstado()
 
-}])
+	}]);
