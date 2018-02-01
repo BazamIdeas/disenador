@@ -1025,5 +1025,48 @@ angular.module("disenador-de-logos")
 				
 				element.css({"background-color": coloresFactory(scope.color)});
 			}
+		}
+	}])
+
+
+
+/////////////////////////////////////////////
+//////Carousel de logos/////////////////////
+/////////////////////////////////////////////
+
+	.directive("carouselLogos",[  function () {
+
+		return {
+			restrict: "E",
+			templateUrl: "app/templates/carousel-logos.tpl",
+			controller: ['$scope', "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
+
+				bz = this;
+
+				bz.logos = $scope.logos;
+
+				bz.largoArray = bz.logos.length;
+
+				bz.nombre = $scope.nombre;
+
+				bz.callback = $scope.callback;
+
+				console.log(bz.callback);
+
+				bz.actual = 0;
+
+				bz.convertidor = arrayToJsonMetasFactory;
+
+				bz.base64 = $base64;
+
+			}],
+			controllerAs: 'carousel',
+			scope: {
+				callback: '<',
+				logos: '<',
+				nombre: '<'
+			}
 		};
-	}]);
+
+		
+	}])

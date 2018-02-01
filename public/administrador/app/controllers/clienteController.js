@@ -39,10 +39,10 @@ angular.module("administrador")
 
         bz.eliminarC = function (idCliente, index) {
             clientesServiceAdmin.borrarCliente(idCliente).then(function (res) {
-                SweetAlert.swal("Eliminado", "", "error");
+                SweetAlert.swal("Bloqueado", "", "success");
                 bz.clientes.splice(index, 1);
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
             })
         }
 
@@ -53,8 +53,7 @@ angular.module("administrador")
             bz.mostrarPedido = true;
 
             pedidosService.pedidosCliente(id).then(function (res) {
-                console.log(res)
-                angular.forEach(res.data, function (valor, llave) {
+                angular.forEach(res.data, function (valor) {
                     bz.pedidosC.push(valor);
                 })
                 

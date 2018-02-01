@@ -19,7 +19,7 @@ angular.module("administrador")
         bz.mostrar = function (opcion, id) {
             if (opcion == 'editarPais') {
 
-                angular.forEach(bz.paises, function (valor, llave) {
+                angular.forEach(bz.paises, function (valor) {
                     if(valor.idPais == id){
                         bz.editarPais = valor;
                         bz.editarPais.id = id;
@@ -29,7 +29,7 @@ angular.module("administrador")
 
             } else if (opcion == 'asignar') {
 
-                angular.forEach(bz.paises, function (valor, llave) {
+                angular.forEach(bz.paises, function (valor) {
                     if (valor.idPais == id) {
                         bz.ponerMoneda.idPais = valor.idPais;
                     }
@@ -42,8 +42,8 @@ angular.module("administrador")
             bz.listaP = !bz.listaP;
             paisesService.listarPaises().then(function (res) {
                 bz.paises = res.data;
-            }).catch(function(res){
-                console.log(res)
+            }).catch(function(){
+                notificacionService.mensaje('No hay paises registrados.');
             })
         }
 
@@ -73,7 +73,6 @@ angular.module("administrador")
         bz.borrarPais = function (datos, index) {
             paisesService.borrarPais(datos).then(function (res) {
                 bz.monedas.splice(index, 1);
-                console.log(res)
             })
         }
 

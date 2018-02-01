@@ -127,7 +127,7 @@ angular.module("administrador")
                         bz.listar('categoria');
                     })
                     .catch(function (res) {
-                        console.log(res)
+                        notificacionService.mensaje(res);
                     })
             } else {
                 categoriasService.eliminarPreferencia(id).then(function (res) {
@@ -136,7 +136,7 @@ angular.module("administrador")
                         bz.listar('preferencia');
                     })
                     .catch(function (res) {
-                        console.log(res)
+                        notificacionService.mensaje(res);
                     })
             }
         }

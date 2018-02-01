@@ -70,7 +70,7 @@ angular.module("administrador")
             
             pedidosService.datosPedido(id).then(function (res) {
                 bz.pedidoDetalle = res.data[0];
-            }).catch(function (res) {
+            }).catch(function () {
                 notificacionService.mensaje('No existen pedidos para este cliente.');
             })
         }
@@ -90,7 +90,7 @@ angular.module("administrador")
         /* CAMBIAR ESTADO PEDIDO */
 
         bz.cambiarEstado = function (id, estado, index) {
-            pedidosService.cambiarEstado(id, estado).then(function (res) {
+            pedidosService.cambiarEstado(id, estado).then(function () {
                 bz.modInit = !bz.modInit;
                 notificacionService.mensaje('Estado Cambiado');
                 bz.pedidoDetalle.estado = estado;
