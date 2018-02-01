@@ -68,7 +68,7 @@ angular.module("administrador")
                     defered.resolve();
 
                 })
-                .catch(function (res) {
+                .catch(function () {
                     $window.localStorage.removeItem('bzTokenAdmin');
                     defered.reject()
                 })
@@ -215,7 +215,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.get('/app/cliente/borrar/' + id).then(function (res) {
+            $http.post('/app/cliente/bloquear/' + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -589,10 +589,6 @@ angular.module("administrador")
         this.subidaMasiva = function (datos) {
 
             var defered = $q.defer();
-            var promise = defered.promise;
-
-            /* Ver si se envia el archivo */
-            console.log(datos)
 
             Upload.upload({
                 url: '/app/elemento/masivo',
@@ -647,7 +643,7 @@ angular.module("administrador")
 
                 datosn.idPlan = res.data.insertId;
 
-                $http.post('/app/plan/caracteristicas/', datosn).then(function (res2) {
+                $http.post('/app/plan/caracteristicas/', datosn).then(function () {
 
                     defered.resolve(datosn);
 
@@ -834,7 +830,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            datos = {
+            var datos = {
                 estado: 'Por Aprobar'
             }
 
@@ -850,7 +846,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            datos = {
+            var datos = {
                 idLogo: id
             }
 
@@ -950,7 +946,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/cliente/bloquear/' + id).then(function (res) {
+            $http.get('/app/cliente/bloquear/' + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1370,7 +1366,6 @@ angular.module("administrador")
             }
 
             if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-                var hashCheck = {},
                     newItems = [];
 
                 var extractValueToCompare = function (item) {
@@ -1382,7 +1377,7 @@ angular.module("administrador")
                 };
 
                 angular.forEach(items, function (item) {
-                    var valueToCheck, isDuplicate = false;
+                    var isDuplicate = false;
 
                     for (var i = 0; i < newItems.length; i++) {
                         if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {

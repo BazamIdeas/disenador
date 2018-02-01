@@ -54,10 +54,8 @@ angular.module("administrador")
         }
 
         bz.modificarMoneda = function (datos, v) {
-            console.log(datos)
             if (v) {
                 monedasService.modificarMoneda(datos).then(function (res) {
-                    console.log(res)
                     bz.monedas[bz.index] = datos;
                 })
             }
@@ -69,7 +67,6 @@ angular.module("administrador")
             }
             monedasService.borrarMoneda(datos).then(function (res) {
                 bz.monedas.splice(index, 1);
-                console.log(res)
             })
         }
 

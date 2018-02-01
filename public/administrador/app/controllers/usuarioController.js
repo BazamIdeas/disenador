@@ -35,14 +35,12 @@ angular.module("administrador")
             if (validado) {
                 bz.loaderCargando = true;
                 clientesService.registrar(datos).then(function (res) {
-                        console.log(res);
                         bz.loaderCargando = false;
                         SweetAlert.swal("Genial", "Registro Exitoso!", "success");
                         document.getElementById("formularioRegistro").reset();
                     })
                     .catch(function (res) {
                         bz.loaderCargando = false;
-                        console.log(res)
                         notificacionService.mensaje(res);
                     })
             }
@@ -82,7 +80,7 @@ angular.module("administrador")
                 SweetAlert.swal("Eliminado", "", "error");
                 bz.usuarios.splice(index, 1);
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
             });
         };
 
