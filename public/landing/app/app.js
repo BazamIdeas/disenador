@@ -60,6 +60,16 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
                 templateUrl: '/landing/app/views/disenadores.tpl',
                 controller: "disenadoresController as disenadores"
             })
+            .state({
+                name: 'disenador',
+                url: '/disenador/:id/',
+                templateUrl: '/landing/app/views/disenador.tpl',
+                controller: "disenadorController as disenador",
+                resolve: ["$stateParams", "$q", "$http", function($stateParams, $q, $http) {
+                    
+                    return false;
+                }]
+            })
 
 
             $urlRouterProvider.rule(function ($injector, $location) {
