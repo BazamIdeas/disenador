@@ -16,18 +16,18 @@ angular.module("disenador-de-logos")
 			"#d5d5d5",			
 		],
 		"#000000": [
-			"#b1d1d1",
-			"#d4d4d4",
-			"#d6d6d6",
-			"#c5c5c5",
-			"#a5a3a5",			
+			"blue",
+			"yellow",
+			"red",
+			"green",
+			"purple",			
 		]
 	}).factory("coloresFactory", ["coloresValue", function(coloresValue){
 		return function(primario){
 			if(coloresValue[primario]){
-				return coloresValue[primario][Math.floor(Math.random() * 5) + 1];
+				return coloresValue[primario][Math.floor(Math.random() * 4) + 1];
 			}else{
-				return coloresValue["#000000"][Math.floor(Math.random() * 5) + 1];
+				return coloresValue["#000000"][Math.floor(Math.random() * 4) + 1];
 			}
 		}
 	}])

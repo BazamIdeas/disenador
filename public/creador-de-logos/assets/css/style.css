@@ -2147,3 +2147,101 @@ textarea {
     padding: 5px;
     margin-bottom: 20px;
 }
+
+
+.logos{
+    float: left;width: 100%;height: 0;padding: 34% 0 0 0;margin: 4em 0 1em 0;position: relative;overflow: visible;transition: margin-top 0.5s
+}
+
+.logo-container{
+    width: 35%;
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out;
+}
+
+.logo-active {
+    opacity: 1;
+    margin-left: -20%;
+    z-index: 9;
+    width: 40%;
+}
+
+.logo-right {
+    margin-left: 22%;
+    margin-top: 2%;
+}
+
+.logo-left {
+    margin-left: -57%;
+    margin-top: 2%;
+}
+
+.logo-left, .logo-right {
+    opacity: 0.35;
+}
+
+.logo-active, .logo-left, .logo-right, .logo-left-1, .logo-right-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-arrow, .right-arrow{
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    margin-top: -30px;
+    line-height: 65px;
+    text-align: center;
+    padding: 0;
+    z-index: 10;
+    background-color: white;
+    color: var(--principal);
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid black;
+}
+.left-arrow i, .right-arrow i{
+    font-size: 30px !important;
+}
+
+.left-arrow {
+    position: absolute;
+    top: 50%;
+    left: 2%;
+}
+
+.right-arrow {
+    position: absolute;
+    top: 50%;
+    right: 2%;
+}
+
+
+.logo-container span.seleccionar {
+    position: absolute;
+    background-color: #fff;
+    border:1px solid var(--principal);
+    opacity: 0;
+    border-radius: 30px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: futura-bold !important;
+    transition: opacity 1s;
+    cursor: pointer;
+}
+
+.logo-container:hover span.seleccionar {
+    opacity: 1;
+}
