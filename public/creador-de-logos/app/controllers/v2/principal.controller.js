@@ -1,459 +1,458 @@
 angular.module("disenador-de-logos")
 
-    /* Comenzar */
+	.controller("principalController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService", "mostrarPopAyuda", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService, mostrarPopAyuda) {
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService", "$rootScope", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService, $rootScope) {
+		var bz = this;
 
-        var bz = this;
+		bz.paises = paisesValue;
 
-        bz.paises = paisesValue;
+		bz.paisDefecto = null;
+        
+		bz.mostrarPopAyuda = mostrarPopAyuda;
 
-        bz.paisDefecto = null;
+		clientesService.pais().then(function (res) {
 
-        clientesService.pais().then(function (res) {
+			bz.paisDefecto = res.iso;
 
-            bz.paisDefecto = res.iso;
+		});
 
-        });
+		bz.datos = {
+			nombre: "Mi logo",
+			preferencias: [],
+			categoria: {
+				icono: "",
+				fuente: ""
+			}
+		};
 
-        bz.datos = {
-            nombre: "Mi logo",
-            preferencias: [],
-            categoria: {
-                icono: "",
-                fuente: ""
-            }
-        }
+		bz.jqueryScrollbarOptions = {};
 
-        bz.jqueryScrollbarOptions = {};
+		bz.iconos = [];
 
-        bz.iconos = [];
+		bz.fuentes = [];
 
-        bz.fuentes = [];
+		bz.logos = [];
 
-        bz.logos = [];
+		bz.aprobados = [];
 
-        bz.aprobados = [];
+		bz.logoSeleccionado = null;
+		bz.predisenadoSeleccionado = null;
 
-        bz.logoSeleccionado = null;
-        bz.predisenadoSeleccionado = null;
+		bz.objetivoEditor = null; //posibles valores 'nuevo' o 'predisenado'
 
-        bz.objetivoEditor = null; //posibles valores 'nuevo' o 'predisenado'
+		bz.categoriasPosibles = {
+			fuentes: [],
+			iconos: []
+		};
 
-        bz.categoriasPosibles = {
-            fuentes: [],
-            iconos: []
-        };
+		bz.preferencias = [];
 
-        bz.preferencias = [];
+		categoriasService.listaCategorias("ICONO").then(function (res) {
 
-        categoriasService.listaCategorias('ICONO').then(function (res) {
+			bz.categoriasPosibles.iconos = res;
 
-            bz.categoriasPosibles.iconos = res;
 
+		});
 
-        })
+		categoriasService.listaCategorias("FUENTE").then(function (res) {
 
-        categoriasService.listaCategorias('FUENTE').then(function (res) {
+			bz.categoriasPosibles.fuentes = res;
 
-            bz.categoriasPosibles.fuentes = res;
 
+		});
 
-        })
+		preferenciasService.listaPreferencias().then(function (res) {
 
-        preferenciasService.listaPreferencias().then(function (res) {
+			angular.forEach(res, function (valor, llave) {
+				valor.valor = 2;
+				bz.datos.preferencias.push(valor);
 
-            angular.forEach(res, function (valor, llave) {
-                valor.valor = 2;
-                bz.datos.preferencias.push(valor);
+			});
 
-            })
+		});
 
-        })
+		bz.botonesTipo = [{
+			nombre: "Logo y nombre",
+			activo: true
+		}, {
+			nombre: "Tipografico",
+			activo: true
+		}, {
+			nombre: "Solo nombre",
+			activo: true
+		}];
 
-        bz.botonesTipo = [{
-            nombre: 'Logo y nombre',
-            activo: true
-        }, {
-            nombre: 'Tipografico',
-            activo: true
-        }, {
-            nombre: 'Solo nombre',
-            activo: true
-        }];
 
 
 
+		bz.completado = true;
 
-        bz.completado = true;
+		bz.solicitarElementos = function (inicial) {
 
-        bz.solicitarElementos = function (inicial) {
+			if ($scope.principal.datosForm.$valid && bz.completado) {
 
-            if ($scope.principal.datosForm.$valid && bz.completado) {
+				bz.completado = false;
 
-                bz.completado = false;
+				bz.datosIconos = {
+					categoria: bz.datos.categoria.icono,
+					preferencias: bz.datos.preferencias,
+					tipo: "ICONO"
+				};
 
-                bz.datosIconos = {
-                    categoria: bz.datos.categoria.icono,
-                    preferencias: bz.datos.preferencias,
-                    tipo: 'ICONO'
-                }
+				bz.datosFuentes = {
+					categoria: bz.datos.categoria.fuente,
+					preferencias: bz.datos.preferencias,
+					tipo: "FUENTE"
+				};
 
-                bz.datosFuentes = {
-                    categoria: bz.datos.categoria.fuente,
-                    preferencias: bz.datos.preferencias,
-                    tipo: 'FUENTE'
-                };
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos);
 
-                var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos);
+				$q.all([
+					promesaIconos,
+					elementosService.listaSegunPref(bz.datosFuentes)
+				])
+					.then(function (res) {
 
-                $q.all([
-                    promesaIconos,
-                    elementosService.listaSegunPref(bz.datosFuentes)
-                    ])
-                    .then(function (res) {
+						bz.iconos = res[0];
+						bz.fuentes = res[1];
 
-                        bz.iconos = res[0];
-                        bz.fuentes = res[1];
+						$state.go("principal.opciones", {
+							status: true
+						});
 
-                        $state.go("principal.opciones", {
-                            status: true
-                        });
+					}).catch(function (error) {
 
-                    }).catch(function (error) {
+						//$state.go('comenzar')
 
-                        //$state.go('comenzar')
+					}).finally(function (res) {
 
-                    }).finally(function (res) {
+						bz.completado = true;
 
-                        bz.completado = true;
+					});
 
-                    })
+			}
 
-            }
+		};
 
-        }
 
 
 
+		bz.asignarTipo = function (tipoLogo, iniciales) {
 
-        bz.asignarTipo = function (tipoLogo, iniciales) {
+			var inicial = iniciales ? bz.datos.nombre.charAt(0) : false;
 
-            var inicial = iniciales ? bz.datos.nombre.charAt(0) : false;
+			angular.forEach(bz.botonesTipo, function (valor, llave) {
 
-            angular.forEach(bz.botonesTipo, function (valor, llave) {
+				if (bz.botonesTipo[llave].nombre != tipoLogo.nombre) {
 
-                if (bz.botonesTipo[llave].nombre != tipoLogo.nombre) {
+					bz.botonesTipo[llave].activo = false;
 
-                    bz.botonesTipo[llave].activo = false;
+				} else {
 
-                } else {
+					bz.botonesTipo[llave].activo = true;
+				}
 
-                    bz.botonesTipo[llave].activo = true;
-                }
+			});
 
-            })
+			bz.solicitarElementos(inicial);
+		};
 
-            bz.solicitarElementos(inicial);
-        }
 
 
+		bz.combinar = function () {
 
-        bz.combinar = function () {
+			bz.logos = crearLogoFactory(bz.iconos, bz.fuentes);
 
-            bz.logos = crearLogoFactory(bz.iconos, bz.fuentes);
+			$state.go("principal.combinaciones", {
+				status: true
+			});
 
-            $state.go("principal.combinaciones", {
-                status: true
-            });
+		};
 
-        }
 
+		bz.avanzar = function (indiceLogo) {
 
-        bz.avanzar = function (indiceLogo) {
+			bz.logoSeleccionado = indiceLogo;
 
-            bz.logoSeleccionado = indiceLogo;
+			if (!clientesService.autorizado()) {
 
-            if (!clientesService.autorizado()) {
+				bz.mostrarModalLogin = true;
+				bz.objetivoEditor = "nuevo";
 
-                bz.mostrarModalLogin = true;
-                bz.objetivoEditor = 'nuevo';
+			} else {
 
-            } else {
+				$state.go("editor", {
+					status: true,
+					datos: {
+						logo: bz.logos[bz.logoSeleccionado],
+						texto: bz.datos.nombre,
+						categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
+					}
+				});
 
-                $state.go("editor", {
-                    status: true,
-                    datos: {
-                        logo: bz.logos[bz.logoSeleccionado],
-                        texto: bz.datos.nombre,
-                        categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
-                    }
-                });
+			}
 
-            }
+		};
 
-        }
 
+		bz.datosLogin = {};
 
-        bz.datosLogin = {};
+		bz.completadoLogin = true;
 
-        bz.completadoLogin = true;
+		bz.login = function (datos, valido) {
 
-        bz.login = function (datos, valido) {
+			if (valido) {
 
-            if (valido) {
+				bz.completadoLogin = false;
 
-                bz.completadoLogin = false;
+				clientesService.login(datos).then(function (res) {
 
-                clientesService.login(datos).then(function (res) {
+					if (clientesService.autorizado(true)) {
 
-                    if (clientesService.autorizado(true)) {
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "¡Bienvenido!",
+								clase: "success"
+							}
+						}));
 
-                        $mdToast.show($mdToast.base({
-                            args: {
-                                mensaje: '¡Bienvenido!',
-                                clase: "success"
-                            }
-                        }));
+						bz.mostrarModalLogin = false;
 
-                        bz.mostrarModalLogin = false;
+						switch (bz.objetivoEditor) {
 
-                        switch (bz.objetivoEditor) {
+						case "nuevo":
+							bz.avanzar(bz.logoSeleccionado);
+							break;
 
-                            case 'nuevo':
-                                bz.avanzar(bz.logoSeleccionado);
-                                break;
+						case "predisenado":
+							bz.avanzarPredisenado(bz.predisenadoSeleccionado);
+							break;
 
-                            case 'predisenado':
-                                bz.avanzarPredisenado(bz.predisenadoSeleccionado);
-                                break;
+						}
+					}
 
-                        }
-                    }
+				}).catch(function () {
 
-                }).catch(function () {
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Verifica tu Usuario y Contraseña",
+							clase: "danger"
+						}
+					}));
 
-                    $mdToast.show($mdToast.base({
-                        args: {
-                            mensaje: 'Verifica tu Usuario y Contraseña',
-                            clase: "danger"
-                        }
-                    }));
+				}).finally(function (res) {
 
-                }).finally(function (res) {
+					bz.completadoLogin = true;
 
-                    bz.completadoLogin = true;
+				});
 
-                });
 
+			};
 
-            };
+		};
 
-        };
 
 
+		bz.completadoRegistro = true;
 
-        bz.completadoRegistro = true;
+		bz.registrar = function (datos, valido) {
 
-        bz.registrar = function (datos, valido) {
 
 
+			if (valido && bz.completadoRegistro) {
 
-            if (valido && bz.completadoRegistro) {
+				bz.completadoRegistro = false;
 
-                bz.completadoRegistro = false;
+				clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function (res) {
 
-                clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function (res) {
+					if (clientesService.autorizado(true)) {
 
-                    if (clientesService.autorizado(true)) {
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "¡Registro exitoso!",
+								clase: "success"
+							}
+						}));
 
-                        $mdToast.show($mdToast.base({
-                            args: {
-                                mensaje: '¡Registro exitoso!',
-                                clase: "success"
-                            }
-                        }));
+						bz.mostrarModalLogin = false;
 
-                        bz.mostrarModalLogin = false;
+						switch (bz.objetivoEditor) {
 
-                        switch (bz.objetivoEditor) {
+						case "nuevo":
+							bz.avanzar(bz.logoSeleccionado);
+							break;
 
-                            case 'nuevo':
-                                bz.avanzar(bz.logoSeleccionado);
-                                break;
+						case "predisenado":
+							bz.avanzarPredisenado(bz.predisenadoSeleccionado);
+							break;
 
-                            case 'predisenado':
-                                bz.avanzarPredisenado(bz.predisenadoSeleccionado);
-                                break;
+						}
 
-                        }
 
 
+					}
 
-                    }
+				}).catch(function () {
 
-                }).catch(function () {
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Un error ha ocurrido",
+							clase: "danger"
+						}
+					}));
 
-                    $mdToast.show($mdToast.base({
-                        args: {
-                            mensaje: 'Un error ha ocurrido',
-                            clase: "danger"
-                        }
-                    }));
 
+				}).finally(function () {
 
-                }).finally(function () {
+					bz.completadoRegistro = true;
 
-                    bz.completadoRegistro = true;
+				});
 
-                })
+			};
 
-            };
+		};
 
-        }
 
+		bz.seleccionarFuenteCategoria = function (idCategoria) {
+			var fuenteNombre = "futura-heavy";
 
-        bz.seleccionarFuenteCategoria = function (idCategoria) {
-            var fuenteNombre = "futura-heavy";
+			angular.forEach(bz.categoriasPosibles.fuentes, function (fuenteCategoria, llave) {
+				if (fuenteCategoria.idCategoria == idCategoria) {
 
-            angular.forEach(bz.categoriasPosibles.fuentes, function (fuenteCategoria, llave) {
-                if (fuenteCategoria.idCategoria == idCategoria) {
+					fuenteNombre = fuenteCategoria.nombreCategoria;
+				}
+			});
 
-                    fuenteNombre = fuenteCategoria.nombreCategoria;
-                }
-            })
+			return fuenteNombre;
+		};
 
-            return fuenteNombre;
-        }
 
 
+		////////////////////
+		////prediseñados////
+		////////////////////
 
-        ////////////////////
-        ////prediseñados////
-        ////////////////////
 
+		logosService.mostrarDestacados().then(function (res) {
 
-        logosService.mostrarDestacados().then(function (res) {
+			bz.aprobados = res;
 
-            bz.aprobados = res;
+		}).catch(function () {
 
-        }).catch(function () {
 
 
+		}).finally(function () {
 
-        }).finally(function () {
+			if (!bz.aprobados.length) {
 
-            if (!bz.aprobados.length) {
+				logosService.mostrarAprobados().then(function (res) {
 
-                logosService.mostrarAprobados().then(function (res) {
+					bz.aprobados = res;
 
-                    bz.aprobados = res;
+				}).catch(function (res) {
 
-                }).catch(function (res) {
+					//console.log("hola")
 
-                    //console.log("hola")
+				}).finally(function () {
 
-                }).finally(function () {
 
+				});
 
-                })
+			}
 
-            }
+		});
+		bz.completadoCarga = true;
 
-        })
-        bz.completadoCarga = true;
+		bz.cargarMas = function (logo) {
 
-        bz.cargarMas = function (logo) {
+			if (bz.completadoCarga) {
 
-            if (bz.completadoCarga) {
+				bz.completadoCarga = false;
 
-                bz.completadoCarga = false;
+				var idLogo = logo.destacados ? false : logo.idLogo;
 
-                var idLogo = logo.destacados ? false : logo.idLogo;
+				logosService.mostrarAprobados(idLogo).then(function (res) {
 
-                logosService.mostrarAprobados(idLogo).then(function (res) {
+					angular.forEach(res, function (valor, llave) {
 
-                    angular.forEach(res, function (valor, llave) {
+						bz.aprobados.push(valor);
+                        
+					});
 
-                        bz.aprobados.push(valor)
+				}).catch(function () {
 
-                        $rootScope.$broadcast("cargarMas:carousel")
-                    })
+				}).finally(function () {
 
-                }).catch(function () {
+					bz.completadoCarga = true;
 
-                }).finally(function () {
+				});
 
-                    bz.completadoCarga = true;
+			}
 
-                })
+		};
 
-            }
+		bz.buscarAtributo = function (lista, objetivo) {
 
-        }
+			var idFuente = null;
 
-        bz.buscarAtributo = function (lista, objetivo) {
+			angular.forEach(lista, function (atributo, llave) {
 
-            var idFuente = null;
+				if (atributo.clave == objetivo) {
 
-            angular.forEach(lista, function (atributo, llave) {
+					idFuente = atributo.valor;
 
-                if (atributo.clave == objetivo) {
+				}
 
-                    idFuente = atributo.valor;
+			});
 
-                }
+			return idFuente;
+		};
 
-            })
 
-            return idFuente;
-        }
 
+		bz.avanzarPredisenado = function (indiceLogo) {
 
+			bz.predisenadoSeleccionado = indiceLogo;
 
-        bz.avanzarPredisenado = function (indiceLogo) {
+			if (!clientesService.autorizado()) {
 
-            bz.predisenadoSeleccionado = indiceLogo;
+				bz.mostrarModalLogin = true;
+				bz.objetivoEditor = "predisenado";
 
-            if (!clientesService.autorizado()) {
+			} else {
+				var aprobado = null;
 
-                bz.mostrarModalLogin = true;
-                bz.objetivoEditor = 'predisenado';
+				angular.forEach(bz.aprobados, function (valor, llave) {
 
-            } else {
-                var aprobado = null;
+					if (valor.idLogo == indiceLogo) {
 
-                angular.forEach(bz.aprobados, function (valor, llave) {
+						aprobado = valor;
+					}
 
-                    if (valor.idLogo == indiceLogo) {
+				});
+				if (aprobado) {
+					$state.go("editor", {
+						status: true,
+						datos: {
+							logo: {
+								icono: {
+									idElemento: aprobado.elementos_idElemento,
+									svg: aprobado.logo
+								}
+							},
+							idLogoPadre: aprobado.idLogo,
+							fuentes: {
+								principal: bz.buscarAtributo(aprobado.atributos, "principal"),
+								eslogan: bz.buscarAtributo(aprobado.atributos, "eslogan")
+							}
+						}
+					});
+				}
 
-                        aprobado = valor;
-                    }
+			}
 
-                })
-                if (aprobado) {
-                    $state.go("editor", {
-                        status: true,
-                        datos: {
-                            logo: {
-                                icono: {
-                                    idElemento: aprobado.elementos_idElemento,
-                                    svg: aprobado.logo
-                                }
-                            },
-                            idLogoPadre: aprobado.idLogo,
-                            fuentes: {
-                                principal: bz.buscarAtributo(aprobado.atributos, 'principal'),
-                                eslogan: bz.buscarAtributo(aprobado.atributos, 'eslogan')
-                            }
-                        }
-                    })
-                }
+		};
 
-            }
 
-        }
 
-
-
-}])
+	}]);

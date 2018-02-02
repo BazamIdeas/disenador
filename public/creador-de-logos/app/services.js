@@ -1217,4 +1217,12 @@ angular.module("disenador-de-logos")
         
 		};
     
-	}]);
+	}])
+
+	.factory("mostrarPopAyuda", ["$rootScope", function ($rootScope) {
+		
+		return function (accion) {
+			$rootScope.$broadcast("bazamAyuda:mostrar", accion);
+		}
+
+	}])

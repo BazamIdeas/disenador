@@ -1025,7 +1025,7 @@ angular.module("disenador-de-logos")
 				
 				element.css({"background-color": coloresFactory(scope.color)});
 			}
-		}
+		};
 	}])
 
 
@@ -1039,9 +1039,9 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/carousel-combinaciones.tpl",
-			controller: ['$scope', "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
+			controller: ["$scope", "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
 
-				bz = this;
+				var bz = this;
 
 				bz.logos = $scope.logos;
 
@@ -1062,11 +1062,11 @@ angular.module("disenador-de-logos")
 				bz.base64 = $base64;
 
 			}],
-			controllerAs: 'carouselCombinaciones',
+			controllerAs: "carouselCombinaciones",
 			scope: {
-				callback: '<',
-				logos: '<',
-				nombre: '<'
+				callback: "<",
+				logos: "<",
+				nombre: "<"
 			}
 		};
 
@@ -1082,7 +1082,7 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/carousel-destacados.tpl",
-			controller: ['$scope', "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
+			controller: ["$scope", "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
 
 				var bz = this;
 
@@ -1099,9 +1099,9 @@ angular.module("disenador-de-logos")
 						bz.actual = bz.actual + 2;
 					}
 					if( bz.actual == ($scope.logos.length - 6) ){
-						$scope.callback[1]($scope.logos[$scope.logos.length - 1])
+						$scope.callback[1]($scope.logos[$scope.logos.length - 1]);
 					}
-				}
+				};
 
 				/*$scope.$on("cargarMas:carousel", function(event, data){
 					if( bz.actual < ($scope.logos.length - 2) ){
@@ -1111,10 +1111,10 @@ angular.module("disenador-de-logos")
 				})*/
 
 			}],
-			controllerAs: 'carouselDestacados',
+			controllerAs: "carouselDestacados",
 			scope: {
-				callback: '<',
-				logos: '<'
+				callback: "<",
+				logos: "<"
 			}
 		};
 
@@ -1127,17 +1127,17 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/carousel-mis-logos.tpl",
-			controller: ['$scope', "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
+			controller: ["$scope", "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
 
-				bz = this;
+				var bz = this;
 
-                bz.logos = $scope.logos;
+				bz.logos = $scope.logos;
 
 				bz.largoArray = bz.logos.length;
 
 				bz.callback = $scope.callback;
 
-                bz.actual = 0;
+				bz.actual = 0;
 
 				if(bz.largoArray > 1){
 					bz.actual = 1;
@@ -1148,12 +1148,113 @@ angular.module("disenador-de-logos")
 				bz.base64 = $base64;
 
 			}],
-			controllerAs: 'carouselMisLogos',
+			controllerAs: "carouselMisLogos",
 			scope: {
-				callback: '<',
-				logos: '<'
+				callback: "<",
+				logos: "<"
 			}
 		};
 
 		
 	}])
+
+	.directive("bazamAyuda", ["$timeout",function($timeout) {
+		return {
+			restrict: "A",
+			controllerAs: "bazamAyuda",
+			scope: {
+				clases: "<",
+				texto: "@",
+				retraso: "@",
+				orientacion: "@",
+				identificador: "@"
+			},
+			link: function (scope, element) {
+				
+				if(!scope.clases){
+
+					scope.clases = [];
+				}
+
+				scope.$on("bazamAyuda:mostrar", function(evento, accion) {
+					
+					
+					if(accion){//mostrar pop
+
+						if(angular.element("#"+scope.identificador).length){
+							return;
+						}
+
+						var coordenadas = element[0].getClientRects()[0];
+						var body = angular.element("body");
+
+						var orientacion = scope.orientacion;
+						var orientacionFinal = {
+							top: 0,
+							left: 0
+						};
+
+						var popCreado = angular.element("<div class='pop-ayuda'>"+scope.texto+"</div>");
+				
+						
+						angular.forEach(scope.clases, function (clase, indice) {
+							popCreado.addClass(clase);
+						});
+
+							
+						body.append(popCreado);
+
+				
+						popCreado.css({ 
+							"position": "fixed",
+							"z-index": 2,
+							"opacity" : 0
+						});	
+				
+						switch (orientacion){
+						case "bottom":
+							orientacionFinal.top = coordenadas.bottom;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
+										
+						case "right": 
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.right;
+							break;
+			
+						case "left": 
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.left - popCreado.width();
+							break;
+					
+						case "top":
+							orientacionFinal.top = coordenadas.top;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
+			
+						}	
+				
+						popCreado.css({
+							"top":orientacionFinal.top,
+							"left": orientacionFinal.left
+						})
+
+						popCreado.attr({"id": scope.identificador})
+
+						if(scope.retraso){
+							$timeout(function () {
+								popCreado.addClass("aparecer");
+							}, scope.retraso)
+							
+						}
+
+					} else {
+
+						angular.element("#"+scope.identificador).remove()
+
+					}
+
+				})
+			}
+		};
+	}]);
