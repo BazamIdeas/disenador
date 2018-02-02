@@ -8,65 +8,56 @@
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="designer.listarLogos()">LISTADO DE LOGOS</texto>
                 </div>
-                <div ng-show="designer.listaL">
-                    <div class="tabla">
-                        <div>Logo:</div>
-                        <div>Estado:</div>
-                        <div>Acciones:</div>
-                    </div>
-                    <div layout="column" class="content-scroll">
-                        <div class="elemento" ng-repeat="logo in designer.logos">
-                            <div class="tabla-campo">
-                                <div>
-                                    <div ng-click="designer.verLogo(logo.logo, false)" class="pedido-logo lista elemento inside" md-whiteframe>
-                                        <bazam-visualizar data-svg="designer.base64(logo.logo)"></bazam-visualizar>
-                                    </div>
+                <div layout layout-align="space-between center" ng-if="designer.cal">
+                    <p>Calificacion:</p>
+                    <md-input-container flex>
+                        <md-select ng-model="designer.logoCalificarA.calificacion" ng-change="designer.ponerCalificacion({idLogo:designer.logoCalificarA.idLogo, valor: designer.logoCalificarA.calificacion}, true, $index)"
+                            class="md-block" aria-label="filtro">
+                            <md-option value="1">1</md-option>
+                            <md-option value="2">2</md-option>
+                            <md-option value="3">3</md-option>
+                            <md-option value="4">4</md-option>
+                            <md-option value="5">5</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="w3-responsive content-scroll" ng-show="designer.listaL">
+                    <table class="w3-table w3-bordered">
+                        <tr>
+                            <th>Logo:</th>
+                            <th>Estado:</th>
+                            <th>Acciones:</th>
+                        </tr>
+                        <tr ng-repeat="logo in designer.logos">
+                            <td>
+                                <div ng-click="designer.verLogo(logo.logo, false)" style="width:150px;">
+                                    <bazam-visualizar data-svg="designer.base64(logo.logo)"></bazam-visualizar>
                                 </div>
-                                <div>{{logo.estado}}</div>
-                                <div>
-                                    <div ng-if="logo.estado == 'Por Aprobar'">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.aprobarLogo($index, logo.idLogo)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Aprobar</md-tooltip>
-                                            <md-icon class="material-icon">check</md-icon>
-                                        </md-button>
-                                    </div>
-                                    <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.borrarLogo($index, logo.idLogo,false)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">No Aprobar</md-tooltip>
-                                            <md-icon class="material-icon">remove_circle_outline</md-icon>
-                                        </md-button>
-                                    </div>
+                            </td>
+                            <td>{{logo.estado}}</td>
+                            <td>
+                                <md-button ng-if="logo.estado == 'Por Aprobar'" class="md-fab md-mini md-warn" ng-click="designer.aprobarLogo($index, logo, logo.idLogo)">
+                                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Aprobar</md-tooltip>
+                                    <md-icon class="material-icon">check</md-icon>
+                                </md-button>
+                                <md-button class="md-fab md-mini md-warn" ng-click="designer.borrarLogo($index, logo.idLogo,false)">
+                                    <md-tooltip md-direction="top" md-visible="tooltipVisible">No Aprobar</md-tooltip>
+                                    <md-icon class="material-icon">remove_circle_outline</md-icon>
+                                </md-button>
 
-                                    <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.destacado(logo.idLogo)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Destacado</md-tooltip>
-                                            <md-icon class="material-icon">public</md-icon>
-                                        </md-button>
-                                    </div>
+                                <md-button class="md-fab md-mini md-warn" ng-click="designer.destacado(logo.idLogo)">
+                                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Destacado</md-tooltip>
+                                    <md-icon class="material-icon">public</md-icon>
+                                </md-button>
 
-                                    <div ng-if="logo.estado == 'Aprobado'">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, logo.clientes_idCliente)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logos del diseñador</md-tooltip>
-                                            <md-icon class="material-icon">remove_red_eye</md-icon>
-                                        </md-button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.element == $index && designer.cal && !logo.calificado">
-                                <p>Calificacion:</p>
-                                <md-input-container flex>
-                                    <md-select ng-model="logo.calificacion" ng-change="designer.ponerCalificacion({idLogo:logo.idLogo, valor: logo.calificacion}, true, $index)"
-                                        class="md-block" aria-label="filtro">
-                                        <md-option value="1">1</md-option>
-                                        <md-option value="2">2</md-option>
-                                        <md-option value="3">3</md-option>
-                                        <md-option value="4">4</md-option>
-                                        <md-option value="5">5</md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
-                        </div>
-                    </div>
+                                <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, logo.clientes_idCliente)"
+                                    ng-if="logo.estado == 'Aprobado'">
+                                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logos del diseñador</md-tooltip>
+                                    <md-icon class="material-icon">remove_red_eye</md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
@@ -77,7 +68,6 @@
                     <texto flex ng-click="designer.listarDisenadores()">LISTADO DE DISEÑADORES</texto>
                 </div>
                 <div ng-show="designer.listaD">
-
                     <div layout class="elemento">
                         <md-input-container flex style="margin-bottom: 0;height: 35px;">
                             <input type="text" ng-model="designer.filtrosActivos.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
@@ -90,57 +80,47 @@
                             </md-select>
                         </md-input-container>
                     </div>
-
-                    <div class="tabla">
-                        <div style="flex:0.4;">Nombre:</div>
-                        <div style="flex:0.4;">Deuda:</div>
-                        <div style="flex:0.4;">Pais:</div>
-                        <div>Acciones:</div>
+                    <div layout layout-align="space-between center" ng-if="designer.metodoPagoi">
+                        <p>Metodo de pago:</p>
+                        <md-input-container flex>
+                            <md-select ng-model="designer.datosPagar.ms" ng-change="designer.notificarDisenador(designer.datosPagar.idCliente, designer.datosPagar.ms)"
+                                class="md-block" aria-label="filtro">
+                                <md-option ng-value="{{f.idFacturacion}}" ng-repeat="f in designer.datosPagar.facturacion">{{f.medio}}</md-option>
+                            </md-select>
+                        </md-input-container>
                     </div>
-                    <div layout="column" class="content-scroll">
-                        <div class="elemento" ng-repeat="d in designer.disenadores | filter:designer.filtrosActivos">
-                            <div class="tabla-campo">
-                                <div style="flex:0.4;">{{d.nombreCliente}}</div>
-                                <div style="flex:0.4;">${{d.deuda.deuda}}</div>
-                                <div style="flex:0.4;">{{d.pais}}</div>
-                                <div>
-                                    <div ng-if="d.deuda.deuda < 0">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.modFun($index)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Pagar</md-tooltip>
-                                            <md-icon class="material-icon">payment</md-icon>
-                                        </md-button>
-                                    </div>
-                                    <div ng-if="d.deuda.vendido > 0">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('historial', $index, d.idCliente)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Historial de pagos</md-tooltip>
-                                            <md-icon class="material-icon">account_balance</md-icon>
-                                        </md-button>
-                                    </div>
-
-                                    <div ng-if="d.logosAprobados > 0">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, d.idCliente)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logos del diseñador</md-tooltip>
-                                            <md-icon class="material-icon">remove_red_eye</md-icon>
-                                        </md-button>
-                                    </div>
-                                    <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.bloquearDisenador(d.idCliente)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear</md-tooltip>
-                                            <md-icon class="material-icon">lock</md-icon>
-                                        </md-button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.modfire == $index && designer.modInit">
-                                <p>Metodo de pago:</p>
-                                <md-input-container flex>
-                                    <md-select ng-model="d.metodoSelecccionado" ng-change="designer.notificarDisenador(d.idCliente, d.metodoSelecccionado)"
-                                        class="md-block" aria-label="filtro">
-                                        <md-option ng-value="{{f.idFacturacion}}" ng-repeat="f in d.facturacion">{{f.medio}}</md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
-                        </div>
+                    <div class="w3-responsive content-scroll">
+                        <table class="w3-table w3-bordered">
+                            <tr>
+                                <th>Nombre:</th>
+                                <th>Deuda:</th>
+                                <th>Pais:</th>
+                                <th>Acciones:</th>
+                            </tr>
+                            <tr ng-repeat="d in designer.disenadores | filter:designer.filtrosActivos">
+                                <td>{{d.nombreCliente}}</td>
+                                <td>${{d.deuda.deuda}}</td>
+                                <td>{{d.pais}}</td>
+                                <td>
+                                    <md-button ng-if="d.deuda.deuda < 0 " class="md-fab md-mini md-warn" ng-click="designer.calDisenador(d)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Pagar</md-tooltip>
+                                        <md-icon class="material-icon">payment</md-icon>
+                                    </md-button>
+                                    <md-button ng-if="d.deuda.vendido > 0" class="md-fab md-mini md-warn" ng-click="designer.mostrar('historial', $index, d.idCliente)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Historial de pagos</md-tooltip>
+                                        <md-icon class="material-icon">account_balance</md-icon>
+                                    </md-button>
+                                    <md-button ng-if="d.logosAprobados > 0" class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, d.idCliente)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logos del diseñador</md-tooltip>
+                                        <md-icon class="material-icon">remove_red_eye</md-icon>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini md-warn" ng-if="d.bloqueado == 0" ng-click="designer.bloquearDisenador(d.idCliente)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear</md-tooltip>
+                                        <md-icon class="material-icon">lock</md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -160,8 +140,8 @@
                 </div>
                 <div layout-padding class="content-scroll elemento">
                     <div layout layout-align="space-around start" layout-wrap>
-                        <div flex="33" class="margen_inferior" ng-repeat="logod in designer.logosDisenador">
-                            <div class="pedido-logo lista elemento inside" md-whiteframe ng-click="designer.mostrar('o',$index)">
+                        <div flex="33" layout-padding class="margen_inferior" ng-repeat="logod in designer.logosDisenador">
+                            <div md-whiteframe ng-click="designer.mostrar('o',$index)">
                                 <bazam-visualizar data-svg="designer.base64(logod.logo)"></bazam-visualizar>
                             </div>
                             <div class="botones-logos-disenadores" layout layout-align="center center" ng-if="designer.modfire2 == $index && designer.mod && !designer.cal2">

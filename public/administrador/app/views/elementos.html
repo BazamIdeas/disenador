@@ -28,7 +28,7 @@
                     <div layout ng-if="elementos.categorias.length > 0" flex>
                         <md-input-container flex style="margin: 5PX;" class="md-block">
                             <md-select ng-model="elementos.listar.categoria" ng-change="elementos.listado(elementos.tipoListado)" class="md-block" aria-label="filtro">
-                                <md-option ng-value="TODOS" selected ng-if="elementos.categorias.length > 0">TODOS</md-option>
+                                <md-option ng-value="TODOS" selected ng-if="elementos.categorias.length > 0">   Selecciona</md-option>
                                 <md-option ng-value="TODOS" selected ng-if="elementos.categorias.length == 0">No hay categorias</md-option>
                                 <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in elementos.categorias">{{categoria.nombreCategoria}}</md-option>
                             </md-select>
@@ -73,10 +73,10 @@
                                     <bazam-visualizar data-svg="elementos.base64(elemento.svg)"></bazam-visualizar>
                                 </td>
                                 <td>
-                                    <opcion-tabla ng-click="elementos.mostrarModificar($index)">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="elementos.mostrarModificar($index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                                         <md-icon class="material-icon">edit</md-icon>
-                                    </opcion-tabla>
+                                    </md-button>
                                 </td>
                             </tr>
                         </table>

@@ -978,7 +978,7 @@ angular.module("administrador")
 
     .service('notificacionService', ['$http', '$q', '$mdToast', function ($http, $q, $mdToast) {
         this.mensaje = function (mensaje) {
-            $mdToast.show($mdToast.simple().textContent(mensaje).position('bottom right').hideDelay(5000));
+            $mdToast.show($mdToast.simple().textContent(mensaje).position('bottom right').hideDelay(3000));
         }
     }])
 

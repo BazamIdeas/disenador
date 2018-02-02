@@ -64,9 +64,9 @@
                             <td>{{elemento.estado}}</td>
                             <td>{{elemento.pais}}</td>
                             <td>
-                                <opcion-tabla ng-click="pedidos.pedidoDetalles(elemento.idPedido, $index)">
+                                <md-button class="md-fab md-mini md-warn" ng-click="pedidos.pedidoDetalles(elemento.idPedido, $index)">
                                     <md-icon class="material-icon">keyboard_arrow_right</md-icon>
-                                </opcion-tabla>
+                                </md-button>
                             </td>
                         </tr>
                     </table>

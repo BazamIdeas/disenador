@@ -93,6 +93,7 @@ angular.module("administrador")
                     return notificacionService.mensaje('No hay categorias.');
                 }
                 bz.categorias = res.data;
+                console.log(res)
             })
         }
 

@@ -79,12 +79,12 @@ angular.module("administrador")
         }
 
         bz.agregarPrecioPlan = function (datos, validacion) {
-            
+
             administrarService.listarPreciosPlan(datos.idPlan).then(function (res) {
                 var enuso = true;
-                if (res.data != undefined) {
 
-                    if (res.data.length > 0){
+                if (res != undefined) {
+                    if (res.data.length > 0) {
                         angular.forEach(res.data, function (valor) {
                             if (valor.idMoneda == datos.idMoneda) {
                                 enuso = false;
@@ -92,17 +92,20 @@ angular.module("administrador")
                             }
                         });
                     }
-                    
-                    if (validacion && enuso)
-                        administrarService.agregarPrecioPlan(datos).then(function (res) {
-                            document.getElementById('nuevoPrecioPlan').reset();
-                            bz.nuevoPrecioPlan = {};
-                            bz.vista = 0;
-                            notificacionService.mensaje('Peticion Realizada!');
-                        }).catch(function (res) {
-                            notificacionService.mensaje(res);
+                }
+
+
+                if (validacion && enuso) {
+                    administrarService.agregarPrecioPlan(datos).then(function (res) {
+                        document.getElementById('nuevoPrecioPlan').reset();
+                        bz.nuevoPrecioPlan = {};
+                        bz.vista = 0;
+                        notificacionService.mensaje('Peticion Realizada!');
+                    }).catch(function (res) {
+                        notificacionService.mensaje(res);
                     })
                 }
+
             })
         }
 
@@ -120,10 +123,13 @@ angular.module("administrador")
 
         bz.modificarPrecioPlan = function (datos) {
             bz.modInit = !bz.modInit;
+
             datos.idPlan = datos.planes_idPlan;
+            datos.idMoneda = datos.monedas_idMoneda;
+
             administrarService.modificarPrecioPlan(datos).then(function (res) {
                 notificacionService.mensaje('Peticion Realizada.');
-                bz.modfire = 'no';
+                console.log(res)
             }).catch(function (res) {
                 notificacionService.mensaje(res);
             })
@@ -187,9 +193,10 @@ angular.module("administrador")
             }
         }
 
-        bz.modFun = function (i) {
+        bz.modFun = function (i, datos) {
             bz.modfire = i;
             bz.modInit = !bz.modInit;
+            bz.planDatosPrecio = datos;
         }
 
     }])
