@@ -10,35 +10,26 @@
                         <input type="text" ng-model="cliente.buscar" class="md-block" aria-label="filtro" placeholder="Buscar:">
                     </md-input-container>
                 </div>
-                <div class="tabla">
-                    <div>Nombre:</div>
-                    <div>Correo:</div>
-                    <div>Telefono:</div>
-                    <div>Acciones:</div>
-                </div>
-                <div layout="column" class="content-scroll lista">
-                    <div ng-if="cliente.clientes.length > 0">
-                        <div ng-repeat="elemento in cliente.clientes | filter:cliente.buscar" class="elemento">
-                            <div class="tabla-campo">
-                                <div class="nombre">{{elemento.nombreCliente}}</div>
-                                <div>{{elemento.correo}}</div>
-                                <div>{{elemento.telefono}}</div>
-                                <div>
-                                    <div><!--
-                                        <md-button class="md-fab md-mini md-warn" ng-click="cliente.eliminarC(elemento.idCliente, $index)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear</md-tooltip>
-                                            <md-icon class="material-icon">lock</md-icon>
-                                        </md-button>
-                                    -->
-                                        <md-button class="md-fab md-mini md-warn" ng-click="cliente.pedidosCliente(elemento.idCliente, $index)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Pedidos</md-tooltip>
-                                            <md-icon class="material-icon">arrow_forward</md-icon>
-                                        </md-button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                <div class="w3-responsive content-scroll" ng-if="cliente.clientes.length > 0">
+                    <table class="w3-table w3-bordered">
+                        <tr>
+                            <th>Nombre:</th>
+                            <th>Correo:</th>
+                            <th>Telefono:</th>
+                            <th>Acciones:</th>
+                        </tr>
+                        <tr ng-repeat="elemento in cliente.clientes | filter:cliente.buscar">
+                            <td>{{elemento.nombreCliente}}</td>
+                            <td>{{elemento.correo}}</td>
+                            <td>{{elemento.telefono}}</td>
+                            <td>
+                                <opcion-tabla ng-click="cliente.pedidosCliente(elemento.idCliente, $index)">
+                                    <md-icon class="material-icon">arrow_forward</md-icon>
+                                </opcion-tabla>
+                            </td>
+                        </tr>
+                    </table>
                     <div ng-if="cliente.clientes.length == 0" class="mensaje-resultado">
                         <h3>NO SE HAY CLIENTES REGISTRADOS</h3>
                     </div>
@@ -47,14 +38,15 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-show="cliente.mostrarPedido">
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-if="cliente.mostrarPedido">
         <div class="paneles principal md-whiteframe-2dp listar">
             <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
                 <texto>PEDIDOS DEL CLIENTE</texto>
             </div>
             <div layout="column" class="content-scroll">
-                <div ng-repeat="pedido in cliente.pedidosC" class="elemento nopadding">
-                    <div class="estado-pedido {{pedido.estado}}"></div>
+                <div ng-repeat="pedido in cliente.pedidosC" class="elemento nopadding pedido"   ng-class="{ 'completado': (pedido.estado == 'COMPLETADO'), 'enproceso': (pedido.estado == 'EN PROCESO'), 'cancelado':
+                (pedido.estado == 'CANCELADO'), 'enespera': (pedido.estado == 'EN ESPERA'), 'activo': (pedidos.ac == pedido.idPedido),
+                }" style="margin-bottom: 8px; border-bottom: 1px solid silver;">
                     <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
                         <div flex="45">
                             <b>Fecha:</b> {{ pedido.fecha | date : 'M/d/yy h:mm a'}}</div>
@@ -65,9 +57,9 @@
                         <div flex="45">
                             <b>Precio:</b> {{pedido.precio}} {{pedido.moneda}}</div>
                         <div flex="45" layout layout-align="start center">
-                                <b>Estado:</b>
-                                <texto class="{{pedido.estado}}"> {{pedido.estado}}</texto>
-                            </div>
+                            <b>Estado:</b>
+                            <texto class="{{pedido.estado}}"> {{pedido.estado}}</texto>
+                        </div>
                         <div flex="45">
                             <md-button class="md-fab md-mini md-warn" ng-click="cliente.modFun($index)">
                                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Estado</md-tooltip>
@@ -95,11 +87,10 @@
                         </md-input-container>
                     </div>
 
-                    <h3 class="text-center margen-superior" style="font-family: 'futura-heavy' !important;
-                         margin: 10px 0 16px 0;" layout-padding ng-click="pedido.ver = !pedido.ver">VER LOGO VINCULADO</h3>
+                    <h3 class="text-center margen-superior" style="font-family: 'futura-heavy' !important; padding:0px; margin:0;" layout-padding ng-click="pedido.ver = !pedido.ver">VER LOGO VINCULADO</h3>
                     <div ng-if="pedido.logo.length > 0 && pedido.ver">
                         <br>
-                        <div class="pedido-logo elemento inside" md-whiteframe>
+                        <div class="pedido-logo pequeno elemento inside" md-whiteframe>
                             <bazam-visualizar data-svg="cliente.base64(pedido.logo)"></bazam-visualizar>
                         </div>
                         <br>

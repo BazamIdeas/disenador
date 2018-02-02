@@ -53,21 +53,15 @@ angular.module("administrador")
 		bz.borrarLogo = function (i, id, op) {
 			designerService.borrarLogo(id).then(function () {
 				notificacionService.mensaje("No Aprobado!");
-				bz.listaL = !bz.listaL;
 
 				// Si es un logo aprobado
 				if (op) {
 					bz.modfire = false;
-					bz.logosDisenador.splice(i, 1);
-					angular.forEach(bz.logos, function (valor, llave) {
-						if (valor.idLogo == id) {
-							return bz.logos.splice(llave, 1);
-						}
-					});
+					return bz.logosDisenador.splice(i, 1);
 				}
 
 				// Si no 
-
+				bz.listaL = !bz.listaL;
 				bz.logos.splice(i, 1);
 				angular.forEach(bz.logosDisenador, function (valor, llave) {
 					if (valor.idLogo == id) {
@@ -162,7 +156,7 @@ angular.module("administrador")
 					datos.monto = valor.deuda.deuda;
 				}
 			});
-
+			
 			designerService.notificarPago(datos).then(function () {
 
 				notificacionService.mensaje("Usuario Notificado!");
@@ -181,8 +175,7 @@ angular.module("administrador")
 
 		bz.mostrar = function (opcion, index, id) {
 			if (opcion == "logos-designer") {
-
-				bz.modfire = index;
+				
 				designerService.logosDisenador(id).then(function (res) {
 
 					// Verificamos si tiene la calificacion del administrador

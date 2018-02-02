@@ -47,40 +47,39 @@
                             <input type="text" ng-model="elementos.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
                         </md-input-container>
                     </div>
-                    <div class="tabla">
-                        <div>Id Elemento:</div>
-                        <div>Nombre:</div>
-                        <div ng-if="elementos.listar.tipo == 'FUENTE'">Fuente:</div>
-                        <div ng-if="elementos.listar.tipo == 'ICONO'">Icono:</div>
-                        <div>Accion:</div>
-                    </div>
-                    <div layout="column" class="content-scroll lista">
-                        <div ng-repeat="elemento in elementos.elementos | filter:elementos.$  | orderBy:'idElemento'" class="elemento nopadding">
-                            <style ng-if="elemento.tipo == 'FUENTE'">
-                                @font-face {
-                                    font-family: '{{elemento.nombre}}';
-                                    src: url('{{elemento.url}}');
-                                }
-                            </style>
-                            <div class="tabla-campo" layout-padding>
-                                <div>{{elemento.idElemento}}</div>
-                                <div>{{elemento.nombre}}</div>
-                                <div ng-if="elemento.tipo == 'FUENTE'" class="elemento inside" md-whiteframe>
+
+                    <div class="w3-responsive content-scroll">
+                        <table class="w3-table w3-bordered">
+                            <tr>
+                                <th>Id Elemento:</th>
+                                <th>Nombre:</th>
+                                <th ng-if="elementos.listar.tipo == 'FUENTE'">Fuente:</th>
+                                <th ng-if="elementos.listar.tipo == 'ICONO'">Icono:</th>
+                                <th>Accion:</th>
+                            </tr>
+                            <tr ng-repeat="elemento in elementos.elementos | filter:elementos.$ | orderBy:'idElemento'">
+                                <style ng-if="elemento.tipo == 'FUENTE'">
+                                    @font-face {
+                                        font-family: '{{elemento.nombre}}';
+                                        src: url('{{elemento.url}}');
+                                    }
+                                </style>
+                                <td>{{elemento.idElemento}}</td>
+                                <td>{{elemento.nombre}}</td>
+                                <td ng-if="elemento.tipo == 'FUENTE'">
                                     <span class="fuente-admin" style="font-family:'{{elemento.nombre}}' !important;">PRUEBA</span>
-                                </div>
-                                <div ng-if="elemento.tipo == 'ICONO'" class="pedido-logo lista elemento inside" md-whiteframe>
+                                </td>
+                                <td ng-if="elemento.tipo == 'ICONO'" class="pedido-logo tabla">
                                     <bazam-visualizar data-svg="elementos.base64(elemento.svg)"></bazam-visualizar>
-                                </div>
-                                <div>
-                                    <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="elementos.mostrarModificar($index)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
-                                            <md-icon class="material-icon">edit</md-icon>
-                                        </md-button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                </td>
+                                <td>
+                                    <opcion-tabla ng-click="elementos.mostrarModificar($index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
+                                        <md-icon class="material-icon">edit</md-icon>
+                                    </opcion-tabla>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,13 @@
     --margin-left: 16px;
     --margin-right: 16px;
     --margin-bottom: 16px;
-    background: transparent;
+    /*  COLORES */
+    --light-color: #f5f5f5;
+    --dark-color: #3d3d3d;
+    --alternal-color: #1caf9a;
+    --background-general: #e8e8e8;
+    --text-dark: #1b1e24;
+    --background-formularios: rgb(250, 250, 250);
 }
 
 /* fallback */
@@ -34,6 +40,7 @@
     word-wrap: normal;
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
 
@@ -44,13 +51,22 @@
     font-style: normal;
 }
 
-*:not(md-icon) {
+menu *:not(md-icon) {
     font-family: 'futura-heavy' !important;
 }
 
 .pedido-logo {
     width: 90%;
     margin: auto;
+}
+
+.pedido-logo.pequeno {
+    width: 35%;
+}
+
+.pedido-logo.tabla {
+    width: 20%;
+    background: white;
 }
 
 .pedido-logo.lista {
@@ -107,11 +123,60 @@
 .titulo-modulo {
     text-align: center;
     position: relative;
+    background: rgb(245, 245, 245);
+    border-bottom: 1px solid silver;
 }
 
 .titulo-modulo button {
     position: absolute;
     right: 3%;
+    background: var(--alternal-color);
+    padding: 0;
+}
+
+.bordered {
+    border: 1px solid silver;
+}
+
+*[role="button"] {
+    outline: none;
+}
+
+.md-button.md-fab.md-mini {
+    background: var(--alternal-color);
+}
+
+md-tooltip {
+    background: var(--alternal-color);
+    color: var(--light-color);
+    font-size: 20px;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .4);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .4)
+}
+
+.md-button.md-default-theme.md-primary.md-fab,
+.md-button.md-primary.md-fab,
+.md-button.md-default-theme.md-primary.md-raised,
+.md-button.md-primary.md-raised {
+    background: var(--alternal-color);
+}
+
+.md-button.md-default-theme.md-primary.md-fab:not([disabled]).md-focused,
+.md-button.md-primary.md-fab:not([disabled]).md-focused,
+.md-button.md-default-theme.md-primary.md-fab:not([disabled]):hover,
+.md-button.md-primary.md-fab:not([disabled]):hover,
+.md-button.md-default-theme.md-primary.md-raised:not([disabled]).md-focused,
+.md-button.md-primary.md-raised:not([disabled]).md-focused,
+.md-button.md-default-theme.md-primary.md-raised:not([disabled]):hover,
+.md-button.md-primary.md-raised:not([disabled]):hover {
+    background: var(--dark-color);
+}
+
+.w3-table td,
+.w3-table th,
+.w3-table-all td,
+.w3-table-all th {
+    vertical-align: middle !important;
 }
 
 /* INDEX */
@@ -119,27 +184,37 @@
 hmtl,
 body {
     overflow-x: hidden;
-    background: url(../assets/img/blur-bg.jpg) center center !important;
-    background-color: rgba(250, 250, 250, 0) !important;
-    background-repeat: repeat;
-}
-
-.transparente {
-    background-color: transparent !important;
+    background: var(--background-general) url('../assets/img/bg.png') left top repeat !important;
+    font-family: 'Open Sans' !important;
+    font-size: 12px;
+    color: #22262e;
+    overflow: hidden;
 }
 
 .auto {
     MARGIN: AUTO;
 }
 
+/* HEADER */
+
+header md-toolbar,
+md-toolbar:not(.md-menu-toolbar) {
+    background: var(--dark-color);
+}
+
+.estado-actual {
+    text-transform: capitalize;
+}
+
 .menu-header {
     position: absolute;
-    background: #fafafa;
+    background: var(--alternal-color);
     right: 0%;
     top: 100%;
     -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
-    color: black;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 16px;
     text-align: right;
     width: 15%;
@@ -162,22 +237,10 @@ body {
     color: white;
 }
 
-.transparencia {
-    background-color: rgba(82, 5, 5, 0.33) !important;
-}
-
-.transparencia-sin-fondo {
-    background-color: transparent !important;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
 .paneles {
-    background: rgba(192, 192, 192, 0.47);
-}
-
-.not-background {
-    background: none !important;
+    background: var(--light-color);
+    -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
 }
 
 .text-center {
@@ -199,23 +262,53 @@ md-icon {
     color: white;
     font-size: 14px;
     cursor: pointer;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
 }
 
 .menuItem:hover,
 .menuItem md-icon.md-default-theme:hover,
-.menuItem md-icon:hover {
-    background-color: #b22c3d;
-}
-
+.menuItem md-icon:hover,
 .menuItem.activo {
-    background-color: #b22c3d;
+    background-color: var(--alternal-color);
 }
 
 .listar h3 {
     margin: 0;
 }
 
-/* HEADER */
+/* body */
+
+table tr>th {
+    background: #f1f5f9;
+    color: #56688A;
+    font-size: 12px;
+}
+
+.table tr>th,
+.table tr>th,
+.table tr>th,
+.table tr>td,
+.table tr>td,
+.table tr>td {
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+.w3-bordered tr:hover,
+.w3-table-all tr:hover {
+    background-color: var(--background-general);
+}
+
+.w3-table tr,
+.w3-table th,
+.w3-table-all tr,
+.w3-table-all th {
+    background: white;
+}
 
 .icon-buttom {
     width: 100%;
@@ -224,10 +317,9 @@ md-icon {
 }
 
 .listar .elemento {
-    background: rgba(252, 252, 252, 0.92);
-    padding: 8px;
+    background: white;
     font-weight: 500;
-    margin-bottom: 1%;
+    padding: 8px 0;
 }
 
 .listar .elemento.inside {
@@ -239,25 +331,58 @@ md-icon {
     padding: 0 !important;
 }
 
-.content-scroll .elemento {
-    border-radius: 5px;
-}
-
 .calificacion p,
 .calificacion md-input-container {
     margin: 0;
 }
 
+opcion-tabla {
+    border: 2px solid var(--alternal-color);
+    border-radius: 6px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+      width: 40px;
+      height: 40px;
+}
+
+opcion-tabla md-icon {
+    color: var(--dark-color);
+}
+
 /*LOGIN*/
 
+.page-login {
+    width: 100vw;
+    min-height: 100vh;
+  background: var(--dark-color);
+}
+
+.formulario-ingreso {
+      background:var(--light-color);
+      padding: 20px;
+}
+
+.login-title {
+    font-size: 19px;
+    margin-bottom: 20px;
+    font-family: 'futura-heavy';
+}
+
+.logo-login {
+    text-align: center;
+    color: white;
+}
+
+
 .login {
-    background: white;
+    background: var(--light-color);
     margin: 2% 0;
 }
 
 .social-facebook {
     background-color: #3b5998 !important;
-    color: white !important;
+    color: var(--light-color) !important;
 }
 
 .social-gmail {
@@ -265,7 +390,8 @@ md-icon {
 }
 
 .formularios-login {
-    background: white;
+    background: var(--background-formularios);
+    padding: 0px;
 }
 
 .formularios-login h6 {
@@ -298,10 +424,9 @@ md-icon {
 /* SCROLL */
 
 .content-scroll {
-      overflow-x: hidden;
-      overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
     max-height: 50%;
-    padding: 5px 8px 0px 8px;
 }
 
 .scroll {
@@ -319,6 +444,7 @@ md-icon {
     border-radius: 4px;
     background-color: rgba(0, 0, 0, .5) !important;
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .0);
 }
 
 ::-moz-scrollbar {
@@ -330,6 +456,30 @@ md-icon {
     border-radius: 4px;
     background-color: rgba(0, 0, 0, .0);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+}
+
+/* PEDIDOS */
+
+.pedido.completado,
+.titulo-modulo {
+    border-top: 6px solid #1caf9a;
+}
+
+.pedido.enespera {
+    border-top: 6px solid #FF5722
+}
+
+.pedido.activo {
+    background: rgb(198, 197, 197);
+}
+
+.pedido.cancelado {
+    border-top: 6px solid #455A64
+}
+
+.pedido.enproceso {
+    border-top: 6px solid #00BCD4
 }
 
 /* Estilos generales*/
@@ -375,16 +525,16 @@ md-icon {
 }
 
 .logo {
-    background: rgb(250, 250, 250);
-    COLOR: rgba(0, 0, 0, 0.87);
+    background: var(--alternal-color);
+    COLOR: var(--light-color);
     FONT-SIZE: 25PX;
+    text-transform: capitalize;
 }
 
 /* CLIENTE */
 
 .titulo-modulo texto {
     font-size: 16px;
-    color: rgb(250, 250, 250);
     font-weight: bold;
     display: block;
     font-family: 'futura-heavy' !important;
@@ -410,7 +560,7 @@ md-icon {
     justify-content: space-around;
     font-weight: bold;
     padding: 8px 15px;
-    background: #f5f7f6;
+    background: var(--background-general);
 }
 
 .tabla div {
@@ -463,42 +613,6 @@ md-icon {
     font-size: 1rem;
 }
 
-.estado-pedido.COMPLETADO {
-    background: grey;
-    height: 8px;
-}
-
-.estado-pedido.EN.ESPERA {
-    height: 8px;
-    background: darkorange;
-}
-
-.estado-pedido.CANCELADO {
-    background: darkred;
-    height: 8px;
-}
-
-.estado-pedido.EN.PROCESO {
-    height: 8px;
-    background: darkgreen;
-}
-
-texto.COMPLETADO {
-    color: grey;
-}
-
-texto.EN.ESPERA {
-    color: darkorange;
-}
-
-texto.CANCELADO {
-    color: darkred;
-}
-
-texto.EN.PROCESO {
-    color: darkgreen;
-}
-
 .lista .elemento.true {
     background: rgb(187, 189, 185);
 }
@@ -534,6 +648,7 @@ menu {
     margin: 0;
     height: 100%;
     padding: 0;
+    background: var(--dark-color);
 }
 
 menu.centrado .menuItem {
@@ -570,25 +685,34 @@ menu.centrado md-icon {
     width: 5%
 }
 
-
 /* SIN FUNCIONES */
 
-
-.terminos-condiciones, .legales {
+.terminos-condiciones,
+.legales {
     background: rgb(250, 250, 250);
     padding: 5% 6%;
     text-align: justify;
 }
 
-
 .terminos-condiciones h2,
-.legales h2{
+.legales h2 {
     text-align: center;
     font-size: 32px;
 }
 
-.fuente-admin{
+.fuente-admin {
     font-size: 20px;
-    text-align:center;
+    text-align: center;
     width: 100%;
+}
+
+.md-button.md-default-theme.md-warn.md-fab:not([disabled]).md-focused,
+.md-button.md-warn.md-fab:not([disabled]).md-focused,
+.md-button.md-default-theme.md-warn.md-fab:not([disabled]):hover,
+.md-button.md-warn.md-fab:not([disabled]):hover,
+.md-button.md-default-theme.md-warn.md-raised:not([disabled]).md-focused,
+.md-button.md-warn.md-raised:not([disabled]).md-focused,
+.md-button.md-default-theme.md-warn.md-raised:not([disabled]):hover,
+.md-button.md-warn.md-raised:not([disabled]):hover {
+    background-color: #B2DFDB;
 }
