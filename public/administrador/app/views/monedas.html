@@ -240,24 +240,25 @@
               <input type="text" ng-model="moneda.lpm" class="md-block" aria-label="filtro" placeholder="Buscar:">
             </md-input-container>
           </div>
-          <div class="tabla">
-            <div>Id Moneda:</div>
-            <div>Nombre:</div>
-            <div>Accion:</div>
-          </div>
-          <div layout="column" class="content-scroll">
-            <div ng-repeat="elemento in moneda.pasarelasMonedas | filter:moneda.lpm | orderBy:'idPasarela'" class="elemento">
-              <div class="tabla-campo">
-                <div class="ISO">{{elemento.idMoneda}}</div>
-                <div class="nombre">{{elemento.moneda}}</div>
-                <div>
+
+          <div class="w3-responsive content-scroll">
+            <table class="w3-table w3-bordered">
+              <tr>
+                <th>Id Moneda:</th>
+                <th>Nombre:</th>
+                <th>Accion:</th>
+              </tr>
+              <tr ng-repeat="elemento in moneda.pasarelasMonedas | filter:moneda.lpm | orderBy:'idPasarela'">
+                <td>{{elemento.idMoneda}}</td>
+                <td>{{elemento.moneda}}</td>
+                <td>
                   <md-button class="md-fab md-mini md-warn" ng-click="moneda.desasignarMoneda(elemento.idMoneda, $index)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Desasignar</md-tooltip>
                     <md-icon class="material-icon">money_off</md-icon>
                   </md-button>
-                </div>
-              </div>
-            </div>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
