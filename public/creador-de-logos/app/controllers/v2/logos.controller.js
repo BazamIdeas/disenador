@@ -25,13 +25,21 @@ angular.module("disenador-de-logos")
 
         }
 
+        bz.terminados = {
+
+            comprados: false,
+            guardados: false
+
+        }
+
         logosService.mostrarGuardados().then(function (res) {
 
             bz.guardados = res;
             bz.cantidad.guardados = bz.guardados.length;
+            bz.terminados.guardados = true;
 
         }).catch(function (res) {
-
+            bz.terminados.guardados = true;
         })
 
 
@@ -39,9 +47,10 @@ angular.module("disenador-de-logos")
 
             bz.comprados = res;
             bz.cantidad.comprados = bz.comprados.length;
+            bz.terminados.comprados = true;            
 
         }).catch(function (res) {
-
+            bz.terminados.comprados = true;        
         });
 
 
@@ -84,6 +93,8 @@ angular.module("disenador-de-logos")
 
                     angular.forEach(bz.guardados, function (valor, indice) {
                         if (valor.idLogo == idLogo) {
+                            console.log({indice: indice})
+                            console.log({valor:valor})
                             bz.guardados.splice(indice, 1);
                             return false;
                         }

@@ -3,7 +3,7 @@
         <div class="left-arrow" ng-click="carouselMisLogos.actual = carouselMisLogos.actual == 0 ? carouselMisLogos.largoArray - 1 : carouselMisLogos.actual - 1" ng-if="carouselMisLogos.largoArray > 1">
             <i class="material-icons">keyboard_arrow_left</i>
         </div>
-        <div class="logo-wrapper" ng-repeat="logo in logos = carouselMisLogos.logos track by $index">
+        <div class="logo-wrapper" ng-repeat="logo in logos = carouselMisLogos.logos track by logo.idLogo">
             <div class="logo-container" ng-class="{'logo-left-1': $index == (carouselMisLogos.actual - 2),'logo-left': $index == (carouselMisLogos.actual - 1),'logo-active': $index == carouselMisLogos.actual, 'logo-right': $index == (carouselMisLogos.actual + 1), 'logo-right-1': $index == (carouselMisLogos.actual + 2)}">
                 
                 <span class="seleccionar"  ui-sref="logoVendido({id: logo.idLogo})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'vendidos'">
@@ -14,7 +14,7 @@
                 <span style="margin-bottom: 15%" class="seleccionar"  ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: logo.elementos_idElemento, svg:  logo.logo}}, idLogoGuardado: logo.idLogo, fuentes: {principal: carouselMisLogos.callback[2](logo.atributos, 'principal'), eslogan: carouselMisLogos.callback[2](logo.atributos,'eslogan')}}})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'borradores'">
                     EDITAR <i class="material-icons">edit</i>
                 </span>
-                <span style="margin-top: 15%" class="seleccionar"  ng-click="carouselMisLogos.callback[1](logo.idLogo)" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'borradores'">
+                <span style="margin-top: 15%" class="seleccionar"  ng-click="carouselMisLogos.borrarSlider(logo.idLogo)" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'borradores'">
                     BORRAR <i class="material-icons">delete</i>
                 </span>
                 
