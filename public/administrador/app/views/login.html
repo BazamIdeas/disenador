@@ -1,6 +1,7 @@
 <div class="row center-xs page-login">
     <div ng-switch="login.mostrarForm" class="col-xs-10 col-sm-4 col-md-3 pasos" style="margin-top:10%;">
         <h3 class="logo-login">Logonow</h3>
+        <div class="cont-form">
         <form ng-switch-default name="formLogin" ng-submit="login.login(login.datosLogin, formLogin.$valid)" novalidate class="formulario-ingreso">
             <h5 class="text-center login-title">Bienvenido, Por favor Ingresar</h5>
             <div>
@@ -34,7 +35,7 @@
         </form>
         <form ng-switch-when="3" name="olvido" ng-submit="login.forgotPass(login.olvido, olvido.$valid)" novalidate class="formulario-ingreso">
             <div ng-switch="login.rc">
-                <h3 class="text-center">Recuperar contraseña</h3>
+                <h5 class="text-center">Recuperar contraseña</h5>
                 <div ng-switch-when="1">
                     <md-input-container class="md-block">
                         <label>Correo</label>
@@ -61,8 +62,6 @@
                         <md-button class="md-raised md-primary" ng-click="login.mostrarForm=1">Regresar</md-button>
                     </div>
                 </div>
-
-                <!-- TODO: revisar -->
                 <div ng-switch-when="3">
                     <form name="formRecuperar" ng-submit="login.confirmarToken('cambiar',formRecuperar.$valid)" novalidate>
                         <md-input-container class="md-block">
@@ -85,5 +84,6 @@
                 </div>
             </div>
         </form>
+        </div>
     </div>
 </div>

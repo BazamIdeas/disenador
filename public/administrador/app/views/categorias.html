@@ -30,10 +30,10 @@
                                 <tr ng-repeat="elemento in categorias.cats| filter:categorias.buscarC track by $index">
                                     <td>{{elemento.nombreCategoria}}</td>
                                     <td>
-                                        <opcion-tabla ng-click="categorias.modificarEm(elemento.idCategoria, 'categoria', $index, elemento.nombreCategoria)">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idCategoria, 'categoria', $index, elemento.nombreCategoria)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Categoria</md-tooltip>
                                             <md-icon class="material-icon">edit</md-icon>
-                                        </opcion-tabla>
+                                        </md-button>
                                     </td>
                                 </tr>
                             </table>
@@ -67,10 +67,10 @@
                                 <td>{{elemento.nombre1}}</td>
                                 <td>{{elemento.nombre2}}</td>
                                 <td>
-                                    <opcion-tabla ng-click="categorias.modificarEm(elemento.idPreferencia, 'preferencia', $index, elemento.nombre1, elemento.nombre2)">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idPreferencia, 'preferencia', $index, elemento.nombre1, elemento.nombre2)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Preferencia</md-tooltip>
                                         <md-icon class="material-icon">edit</md-icon>
-                                    </opcion-tabla>
+                                    </md-button>
                                 </td>
                             </tr>
                         </table>

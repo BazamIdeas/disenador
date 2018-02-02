@@ -24,9 +24,9 @@
                             <td>{{elemento.correo}}</td>
                             <td>{{elemento.telefono}}</td>
                             <td>
-                                <opcion-tabla ng-click="cliente.pedidosCliente(elemento.idCliente, $index)">
+                                <md-button class="md-fab md-mini md-warn" ng-click="cliente.pedidosCliente(elemento.idCliente, $index)">
                                     <md-icon class="material-icon">arrow_forward</md-icon>
-                                </opcion-tabla>
+                                </md-button>
                             </td>
                         </tr>
                     </table>

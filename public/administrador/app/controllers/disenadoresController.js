@@ -32,15 +32,14 @@ angular.module("administrador")
 			}).catch(function () {
 				notificacionService.mensaje("No existen logos por aprobar!");
 				bz.listaL = false;
-				bz.listarDisenadores();
 			});
 		};
 
 		bz.listarLogos();
 
-		bz.aprobarLogo = function (i, id) {
+		bz.aprobarLogo = function (i, datos,id) {
 			bz.cal = !bz.cal;
-			bz.element = i;
+			bz.logoCalificarA = datos;
 
 			designerService.aprobarLogo(id).then(function () {
 				notificacionService.mensaje("Aprobado!");
@@ -86,7 +85,9 @@ angular.module("administrador")
 						}
 					});
 					*/
+					bz.cal = false;
 					return notificacionService.mensaje("Calificacion Colocada!");
+					
 				}
 
 				// Si no
@@ -135,6 +136,11 @@ angular.module("administrador")
 		};
 
 		bz.bloquearDisenador = function (id) {
+			angular.forEach(bz.disenadores, function (valor) {
+				if (valor.idCliente == id) {
+					valor.bloqueado = 1;
+				}
+			});
 			designerService.bloquearDisenador(id).then(function () {
 				notificacionService.mensaje("Usuario Bloqueado!");
 			}).catch(function (res) {
@@ -238,6 +244,11 @@ angular.module("administrador")
 			if (day.length < 2) day = "0" + day;
 
 			return [year, month, day].join("-");
+		}
+
+		bz.calDisenador = function(d){
+			bz.metodoPagoi = true;
+			bz.datosPagar = d;
 		}
 
 	}]);
