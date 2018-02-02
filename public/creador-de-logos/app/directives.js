@@ -1196,13 +1196,13 @@ angular.module("disenador-de-logos")
 						var coordenadas = element[0].getClientRects()[0];
 						var body = angular.element("body");
 
-						var orientacion = scope.orientacion;
+						var orientacion = scope.orientacion ? scope.orientacion : "right";
 						var orientacionFinal = {
 							top: 0,
 							left: 0
 						};
 
-						var popCreado = angular.element("<div class='pop-ayuda'>"+scope.texto+"</div>");
+						var popCreado = angular.element("<div class='pop-ayuda "+orientacion+"'>"+scope.texto+"</div>");
 				
 						
 						angular.forEach(scope.clases, function (clase, indice) {
@@ -1247,7 +1247,7 @@ angular.module("disenador-de-logos")
 							"left": orientacionFinal.left
 						})
 
-						popCreado.attr({"id": scope.identificador})
+						popCreado.attr({"id": scope.identificador});
 
 						if(scope.retraso){
 							$timeout(function () {
