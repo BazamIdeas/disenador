@@ -22,7 +22,7 @@ angular.module("landing")
 		var paramsFunction = function (params) {
 
 			return params ? "?" + $httpParamSerializer(params) : "";
-		}
+		};
 
 		return {
 			cliente: function (estado, params) {
@@ -52,8 +52,17 @@ angular.module("landing")
 					}
 				}
 			}
-		}
+		};
 
+	}])
+
+	.factory("verificarBase64Factory", [function () {
+		
+		return function (cadena) {
+			
+			return /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(cadena);
+
+		};
 	}])
 
 	.factory("arrayToJsonMetasFactory", [function(){
@@ -62,7 +71,7 @@ angular.module("landing")
         
 			var jsonMetas = {};
         
-			angular.forEach(arrayMetas, function(meta, indice){
+			angular.forEach(arrayMetas, function(meta){
             
 				jsonMetas[meta.clave] = meta.valor;
             
@@ -90,9 +99,9 @@ angular.module("landing")
 					principal: atributos.principal,
 					eslogan: atributos.eslogan
 				}
-			}
-			$window.localStorage.setItem('editor',angular.toJson(datosLogo));
-		}
+			};
+			$window.localStorage.setItem("editor",angular.toJson(datosLogo));
+		};
 		
 	}])
 
@@ -163,7 +172,7 @@ angular.module("landing")
 		};
 	}])
 
-    .factory("clienteDatosFactory", [function () {
+	.factory("clienteDatosFactory", [function () {
 
 		var cliente = null;
 
@@ -187,7 +196,7 @@ angular.module("landing")
 
 	}])
     
-    .service("clientesService", ["$http", "$q", "$window", "$rootScope", "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
+	.service("clientesService", ["$http", "$q", "$window", "$rootScope", "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
 
 		this.registrar = function (nombreCliente, correo, pass, telefono, pais) {
 
@@ -201,15 +210,16 @@ angular.module("landing")
 				pass: pass,
 				telefono: telefono,
 				pais: pais
-			}).then(function (res) {
-				$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-				clienteDatosFactory.definir(res.data);
-				defered.resolve();
 			})
-			.catch(function (res) {
-				$window.localStorage.removeItem("bzToken");
-				defered.reject(res);
-			});
+				.then(function (res) {
+					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+					clienteDatosFactory.definir(res.data);
+					defered.resolve();
+				})
+				.catch(function (res) {
+					$window.localStorage.removeItem("bzToken");
+					defered.reject(res);
+				});
 
 			return promise;
 
@@ -300,7 +310,7 @@ angular.module("landing")
 					defered.resolve(res.data);
 
 				})
-				.catch(function (res) {
+				.catch(function () {
 
 					defered.reject();
 				});
@@ -309,20 +319,20 @@ angular.module("landing")
 
 		};
 
-		this.datos = function () {
+		this.datos = function (idLogo) {
 
 			var defered = $q.defer();
 
 			var promise = defered.promise;
 
-			$http.get("/app/cliente/datos")
+			$http.get("/app/cliente/"+idLogo)
 
 				.then(function (res) {
 
 					defered.resolve(res.data);
 
 				})
-				.catch(function (res) {
+				.catch(function () {
 
 					defered.reject();
 				});
@@ -349,7 +359,7 @@ angular.module("landing")
 					defered.resolve(res.data);
 
 				})
-				.catch(function (res) {
+				.catch(function () {
 
 					defered.reject();
 				});
@@ -368,11 +378,36 @@ angular.module("landing")
 				.then(function (res) {
 					defered.resolve(res.data);
 				})
-				.catch(function (res) {
+				.catch(function () {
 					defered.reject();
 				});
 
 			return promise;			
-		}
+		};
 
 	}])
+
+	.service("logosService", ["$http", "$q", function ($http, $q) {
+
+		this.listarPorEstado = function (estado) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/logos/estado", {
+				estado: estado
+			}).then(function (res) {
+
+				defered.resolve(res.data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+			return promise;
+
+		};
+	}]);

@@ -4,9 +4,16 @@ angular.module("landing")
 
 		var bz = this;
 
-		logosService.mostrarDestacados().then(function(res){
-			bz.destacados = res;
-		})
+		logosService.mostrarDestacados()
+			.then(function(res){
+				bz.destacados = res;
+			})
+			.catch(function(){
+
+			})
+			.finally(function () {
+			
+			});
         
 		bz.enviarComenzar = function (nombreLogo, v) {
 
@@ -37,8 +44,8 @@ angular.module("landing")
 			var atributos = arrayToJsonMetasFactory(logoCopia.atributos);
 			bz.callback = function () {
 				guardarLogoFactory(logoCopia, atributos);
-				navegarFactory.cliente('editor');
-			}
+				navegarFactory.cliente("editor");
+			};
 
 			if(clientesService.autorizado()){
 				bz.callback();
@@ -46,7 +53,7 @@ angular.module("landing")
 				bz.mostrarLogin = true;
 			}
 
-		}
+		};
 
 		
 

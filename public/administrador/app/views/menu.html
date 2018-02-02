@@ -1,14 +1,14 @@
 <div class="row">
-    <div class="padding-cero transparencia md-whiteframe-24dp sidemenu" ng-class="{grande:sidenav.menuMostrar, pequeno:!sidenav.menuMostrar}">
+    <div class="padding-cero sidemenu" ng-class="{grande:sidenav.menuMostrar, pequeno:!sidenav.menuMostrar}">
         <menu ng-class="{centrado:!sidenav.menuMostrar}" ng-if="sidenav.autorizado">
-            <md-toolbar class="transparencia-sin-fondo">
-                <div class="md-toolbar-tools logo" md-whiteframe ui-sref="app.pedidos">
-                    <a ng-if="sidenav.menuMostrar" class="auto">LOGONOW</a>
-                    <a ng-if="!sidenav.menuMostrar" class="auto">LN</a>
+            <md-toolbar>
+                <div class="md-toolbar-tools logo " md-whiteframe ui-sref="app.pedidos">
+                    <a ng-if="sidenav.menuMostrar" class="auto">{{sidenav.autorizado.nombre}}</a>
+                    <a ng-if="!sidenav.menuMostrar" class="auto">A</a>
                 </div>
             </md-toolbar>
             <md-list ng-cloak layout="column">
-                <md-item ng-repeat="vistas in sidenav.vistas" class="menuItem" ui-sref="{{vistas.url}}">
+                <md-item ng-repeat="vistas in sidenav.vistas" ng-class="{'activo': (vistas.url == sidenav.estado)}" class="menuItem" ui-sref="{{vistas.url}}">
                     <md-icon>{{vistas.icono}}</md-icon>
                     <span ng-if="sidenav.menuMostrar">{{vistas.nombre}}</span>
                 </md-item>
@@ -18,26 +18,26 @@
 
     <div class="padding-cero sidemenu-menu" ng-class="{grande:!sidenav.menuMostrar, pequeno:sidenav.menuMostrar}">
         <div class="box">
-            <header ng-controller="headerController as header">
-                <md-toolbar class="transparencia" layout layout-align="none center">
+            <header ng-controller="headerController as header" class="header">
+                <md-toolbar layout layout-align="none center">
                     <div layout-padding ng-if="header.autorizado">
                         <div ng-click="sidenav.cambiarMenu()" style="max-width:40px;">
                             <md-icon>menu</md-icon>
                         </div>
                     </div>
-                    <div layout flex class="md-toolbar-tools" layout-align="space-between center" layout-padding>
+                    <div layout flex class="md-toolbar-tools text-white" layout-align="space-between center" layout-padding>
                         <div ng-if="!header.autorizado">
                             <div>LIDERLOGO</div>
                         </div>
-                        <div ng-if="header.autorizado">
-                            <div>{{header.autorizado.nombre}}</div>
+                        <div ng-if="header.autorizado" class="estado-actual">
+                            <div>{{header.estado}}</div>
                         </div>
                         <div ng-switch="header.autorizado" class="login_header">
                             <ingresar ng-switch-when="false" ui-sref="login" layout-padding>
                                 Ingresar
                             </ingresar>
 
-                            <ingresar ng-switch-default ng-click="header.menuMostrar()">
+                            <ingresar ng-switch-default ng-click="header.hmenuMostrar = !header.hmenuMostrar">
                                 <div layout-padding>
                                     <md-icon class="icono-header">account_circle</md-icon>
                                 </div>
@@ -52,7 +52,7 @@
                 </md-toolbar>
             </header>
             <!-- contenedor principal -->
-            <md-content name="menuContent" flex ui-view ng-cloak class="padding_top transparente" style="  overflow-y: scroll; max-height: 90%;">
+            <md-content name="menuContent" flex ui-view ng-cloak class="padding_top" style="overflow-y: scroll; max-height: 90%;">
             </md-content>
         </div>
     </div>

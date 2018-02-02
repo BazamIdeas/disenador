@@ -2,11 +2,6 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 
     .config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider, $httpProvider, $urlRouterProvider) {
 
-        /*------------------Material Angular --------------*/
-
-        $mdThemingProvider.theme('default').warnPalette('light-blue')
-
-
         /* INTERCEPTADOR */
         $httpProvider.interceptors.push('AuthInterceptor');
 
@@ -133,8 +128,9 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 
     .run(function ($rootScope, $state) {
 
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeSuccess', function () {
 
+            $rootScope.estadoActual = $state.current.url.replace('/', '');
 
 
         });

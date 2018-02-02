@@ -48,18 +48,14 @@ angular.module("administrador")
 
         /* TODOS LOS PEDIDOS DE UN CLIENTE */
 
-        bz.pedidosCliente = function (id, index) {
+        bz.pedidosCliente = function (id) {
             bz.pedidosC = [];
             bz.mostrarPedido = true;
 
             pedidosService.pedidosCliente(id).then(function (res) {
-                angular.forEach(res.data, function (valor) {
-                    bz.pedidosC.push(valor);
-                })
-                
-                bz.validarP = false;
+                bz.pedidosC = res.data;
             }).catch(function (res) {
-                bz.validarP = true;
+                bz.mostrarPedido = false;
                 notificacionService.mensaje('No existen pedidos de este cliente.');
             })
         }

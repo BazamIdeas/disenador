@@ -17,32 +17,18 @@
               <input type="text" ng-model="moneda.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
             </md-input-container>
           </div>
-          <div class="tabla">
-            <div>Id Moneda:</div>
-            <div>Nombre:</div>
-            <!--<div>Accion:</div>-->
-          </div>
-          <div layout="column" class="content-scroll">
-            <div ng-repeat="elemento in moneda.monedas | filter:moneda.$ | orderBy:'idMoneda'" class="elemento">
-              <div class="tabla-campo padding">
-                <div class="ISO">{{elemento.idMoneda}}</div>
-                <div class="nombre">{{elemento.moneda}}</div>
-                <!--
-                <div>
-                  
-                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.mostrar('editarMoneda', $index)">
-                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
-                    <md-icon class="material-icon">edit</md-icon>
-                  </md-button>
-                  
-                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.borrarMoneda(elemento.idMoneda, $index)">
-                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
-                    <md-icon class="material-icon">delete</md-icon>
-                  </md-button>
-                </div>
-                 -->
-              </div>
-            </div>
+
+          <div class="w3-responsive content-scroll">
+            <table class="w3-table w3-bordered">
+              <tr>
+                <th>Id Moneda:</th>
+                <th>Nombre:</th>
+              </tr>
+              <tr ng-repeat="elemento in moneda.monedas | filter:moneda.$ | orderBy:'idMoneda'">
+                <td>{{elemento.idMoneda}}</td>
+                <td>{{elemento.moneda}}</td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
@@ -62,32 +48,33 @@
               <input type="text" ng-model="moneda.p.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
             </md-input-container>
           </div>
-          <div class="tabla">
-            <div>Id Pasarela:</div>
-            <div>Nombre:</div>
-            <div>Accion:</div>
-          </div>
-          <div layout="column" class="content-scroll">
-            <div ng-repeat="elemento in moneda.pasarelas | filter:moneda.p.$ | orderBy:'idMoneda'" class="elemento">
-              <div class="tabla-campo">
-                <div class="ISO">{{elemento.idPasarela}}</div>
-                <div class="nombre">{{elemento.pasarela}}</div>
-                <div>
-                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.mostrar('editarPasarela', $index)">
+
+          <div class="w3-responsive content-scroll">
+            <table class="w3-table w3-bordered">
+              <tr>
+                <th>Id Pasarela:</th>
+                <th>Nombre:</th>
+                <th>Accion:</th>
+              </tr>
+              <tr ng-repeat="elemento in moneda.pasarelas | filter:moneda.p.$ | orderBy:'idMoneda'">
+                <td>{{elemento.idPasarela}}</td>
+                <td>{{elemento.pasarela}}</td>
+                <td>
+                  <md-button class="md-fab md-mini md-warn" nng-click="moneda.mostrar('editarPasarela', $index)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                     <md-icon class="material-icon">edit</md-icon>
                   </md-button>
                   <md-button class="md-fab md-mini md-warn" ng-click="moneda.listarPasarelaMonedas(elemento.idPasarela)">
-                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Monedas</md-tooltip>
+                    <md-tooltip md-direction="right" md-visible="tooltipVisible">Monedas</md-tooltip>
                     <md-icon class="material-icon">attach_money</md-icon>
                   </md-button>
                   <md-button class="md-fab md-mini md-warn" ng-click="moneda.mostrar('asignar', $index)">
-                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Asignar Moneda</md-tooltip>
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Asignar Moneda</md-tooltip>
                     <md-icon class="material-icon">monetization_on</md-icon>
                   </md-button>
-                </div>
-              </div>
-            </div>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
