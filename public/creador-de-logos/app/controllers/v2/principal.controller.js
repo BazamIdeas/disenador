@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* Comenzar */
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService) {
+    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService", "$rootScope", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService, $rootScope) {
 
         var bz = this;
 
@@ -377,6 +377,7 @@ angular.module("disenador-de-logos")
 
                         bz.aprobados.push(valor)
 
+                        $rootScope.$broadcast("cargarMas:carousel")
                     })
 
                 }).catch(function () {

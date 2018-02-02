@@ -28,115 +28,21 @@
             </div>
             <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
 				<!--PENDIENTES DE APROBACION-->
-				<div class="col l6 offset-l3 xl6 offset-xl3" ng-switch-when="pendientes">
-                    <div class="row caja logos">
-                        <p class="text-center tercero margin-bottom-0 margin-top-0">PENDIENTES DE APROBACIÓN</p>
-                        
-                        <span class="back-page"  ng-click="logos.modificarSalto(false, 'pendientes')" ng-show="logos.cantidad.pendientes > 9"><i class="material-icons">keyboard_arrow_left</i></span>
-                        
-                        <div class="col l10 offset-l1">
-                            <div class="row cubos-logos-cliente">
-
-                                <div class="col l4" ng-repeat="pendiente in logos.pendientes | limitTo: 9 : logos.salto.pendientes track by pendiente.idLogo">
-                                    <div>
-                                        <bazam-visualizar data-svg="logos.base64.decode(pendiente.logo)"></bazam-visualizar>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <span class="next-page" ng-click="logos.modificarSalto(true, 'pendientes')" ng-show="logos.cantidad.pendientes > 9"><i class="material-icons">keyboard_arrow_right</i></span>
-
-                    </div>
+				<div class="col s12" ng-switch-when="pendientes">
+                    <carousel-mis-logos ng-if="logos.pendientes.length" logos="logos.pendientes" callback="['pendientes']"></carousel-mis-logos>
                 </div>
                 <!--APROBADOS-->
-				<div class="col l6 offset-l3 xl6 offset-xl3" ng-switch-when="aprobados">
-                    <div class="row caja logos">
-                        <p class="text-center tercero margin-bottom-0 margin-top-0">APROBADOS</p>
-                        
-                        <span class="back-page" ng-click="logos.modificarSalto(false, 'aprobados')" ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
-                        
-                        <div class="col l10 offset-l1">
-                            <div class="row cubos-logos-cliente">
-
-                                <div class="col l4"  ng-repeat="aprobado in logos.aprobados | limitTo: 9 : logos.salto.aprobados track by aprobado.idLogo">
-                                    <div>
-                                        <bazam-visualizar data-svg="logos.base64.decode(aprobado.logo)"></bazam-visualizar>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    
-                        <span class="next-page" ng-click="logos.modificarSalto(true, 'aprobados')"  ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
-
-                    </div>
+				<div class="col s12" ng-switch-when="aprobados">
+                    <carousel-mis-logos ng-if="logos.aprobados.length" logos="logos.aprobados" callback="['aprobados']"></carousel-mis-logos>
                 </div>
                 <!--VENDIDOS-->
-                <div class="col l6 offset-l3 xl6 offset-xl3" ng-switch-when="vendidos">
-                    <div class="row caja logos">
-                        <p class="text-center tercero margin-bottom-0 margin-top-0">VENDIDOS</p>
-                        
-                        <span class="back-page" ng-click="logos.modificarSalto(false, 'vendidos')" ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
-                        
-                        <div class="col l10 offset-l1">
-                            <div class="row cubos-logos-cliente">
-
-                                <div class="col l4"  ng-repeat="vendido in logos.vendidos | limitTo: 9 : logos.salto.vendidos track by vendido.idLogo">
-                                    <div>
-                                        <div class="overlay-combinacion"></div>
-                                        <span class="borrar" ui-sref="logoVendido({id: vendido.idLogo})">
-                                            <md-tooltip md-delay="2" md-direction="top">Ver Detalles</md-tooltip>
-                                            <i class="material-icons">remove_red_eye</i>
-                                        </span>                                                                   
-                                        <bazam-visualizar data-svg="logos.base64.decode(vendido.logo)"></bazam-visualizar>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    
-                        <span class="next-page" ng-click="logos.modificarSalto(true, 'vendidos')"  ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
-
-                    </div>
+                <div class="col s12" ng-switch-when="vendidos">
+                    <carousel-mis-logos ng-if="logos.vendidos.length" logos="logos.vendidos" callback="['vendidos']"></carousel-mis-logos>               
                 </div>
                 <!--BORRADORES-->
-                <div class="col l6 offset-l3 xl6 offset-xl3" ng-switch-when="borradores">
-                    <div class="row caja logos">
-                        <p class="text-center tercero margin-bottom-0 margin-top-0">BORRADORES</p>
-                        
-                        <span class="back-page" ng-click="logos.modificarSalto(false, 'borradores')" ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_left</i></span>
-                        
-                        <div class="col l10 offset-l1">
-                            <div class="row cubos-logos-cliente">
-
-                                <div class="col l4"  ng-repeat="borrador in logos.borradores | limitTo: 9 : logos.salto.borradores track by borrador.idLogo">
-                                    <div>
-                                        <div class="overlay-combinacion"></div>
-                                        
-                                        <div class="overlay-combinacion"></div>
-                                        <span class="editar" ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: borrador.elementos_idElemento, svg:  borrador.logo}}, idLogoGuardado: borrador.idLogo, fuentes: {principal: logos.buscarAtributo(borrador.atributos, 'principal'), eslogan: logos.buscarAtributo(borrador.atributos,'eslogan')}}})">
-                                            <md-tooltip md-delay="2" md-direction="top">Editar</md-tooltip>
-                                            <i class="material-icons">edit</i>
-                                        </span>
-                                        <span class="borrar" ng-click="logos.borrarLogo(borrador.idLogo)">
-                                            <md-tooltip md-delay="2" md-direction="top">Eliminar</md-tooltip>
-                                            <i class="material-icons">delete</i>
-                                        </span>
-                                                                                                        
-                                        <bazam-visualizar data-svg="logos.base64.decode(borrador.logo)"></bazam-visualizar>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    
-                        <span class="next-page" ng-click="logos.modificarSalto(true, 'aprobados')"  ng-show="logos.cantidad.aprobados > 9"><i class="material-icons">keyboard_arrow_right</i></span>
-
-                    </div>
+                <div class="col s12" ng-switch-when="borradores">
+                    <carousel-mis-logos ng-if="logos.borradores.length" logos="logos.borradores" callback="['borradores',logos.borrarLogo, logos.buscarAtributo]"></carousel-mis-logos>
                 </div>
                 
             </div>
         </section>
-

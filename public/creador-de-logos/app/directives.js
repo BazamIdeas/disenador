@@ -1034,11 +1034,11 @@ angular.module("disenador-de-logos")
 //////Carousel de logos/////////////////////
 /////////////////////////////////////////////
 
-	.directive("carouselLogos",[  function () {
+	.directive("carouselCombinaciones",[  function () {
 
 		return {
 			restrict: "E",
-			templateUrl: "app/templates/carousel-logos.tpl",
+			templateUrl: "app/templates/carousel-combinaciones.tpl",
 			controller: ['$scope', "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
 
 				bz = this;
@@ -1051,20 +1051,107 @@ angular.module("disenador-de-logos")
 
 				bz.callback = $scope.callback;
 
-				console.log(bz.callback);
-
 				bz.actual = 0;
+
+				if(bz.largoArray > 1){
+					bz.actual = 1;
+				}
 
 				bz.convertidor = arrayToJsonMetasFactory;
 
 				bz.base64 = $base64;
 
 			}],
-			controllerAs: 'carousel',
+			controllerAs: 'carouselCombinaciones',
 			scope: {
 				callback: '<',
 				logos: '<',
 				nombre: '<'
+			}
+		};
+
+		
+	}])
+	
+/////////////////////////////////////////////
+/////Carousel de destacados/////////////////////
+/////////////////////////////////////////////
+
+	.directive("carouselDestacados",[  function () {
+
+		return {
+			restrict: "E",
+			templateUrl: "app/templates/carousel-destacados.tpl",
+			controller: ['$scope', "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
+
+				var bz = this;
+
+				bz.callback = $scope.callback;
+
+				bz.actual = 4;
+
+				bz.convertidor = arrayToJsonMetasFactory;
+
+				bz.base64 = $base64;
+
+				bz.avanzar = function() {
+					if( bz.actual < ($scope.logos.length - 2) ){
+						bz.actual = bz.actual + 2;
+					}
+					if( bz.actual == ($scope.logos.length - 6) ){
+						$scope.callback[1]($scope.logos[$scope.logos.length - 1])
+					}
+				}
+
+				/*$scope.$on("cargarMas:carousel", function(event, data){
+					if( bz.actual < ($scope.logos.length - 2) ){
+						bz.actual = bz.actual + 2;
+					}
+					console.log(3)
+				})*/
+
+			}],
+			controllerAs: 'carouselDestacados',
+			scope: {
+				callback: '<',
+				logos: '<'
+			}
+		};
+
+		
+	}])
+
+
+	.directive("carouselMisLogos",[  function () {
+
+		return {
+			restrict: "E",
+			templateUrl: "app/templates/carousel-mis-logos.tpl",
+			controller: ['$scope', "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
+
+				bz = this;
+
+                bz.logos = $scope.logos;
+
+				bz.largoArray = bz.logos.length;
+
+				bz.callback = $scope.callback;
+
+                bz.actual = 0;
+
+				if(bz.largoArray > 1){
+					bz.actual = 1;
+				}
+
+				bz.convertidor = arrayToJsonMetasFactory;
+
+				bz.base64 = $base64;
+
+			}],
+			controllerAs: 'carouselMisLogos',
+			scope: {
+				callback: '<',
+				logos: '<'
 			}
 		};
 
