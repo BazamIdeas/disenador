@@ -14,6 +14,6 @@
     </div>
 
 
-    <carousel-logos logos="$parent.principal.logos" nombre="$parent.principal.datos.nombre" callback="principalCombinaciones.avanzar"></carousel-logos>
+    <carousel-combinaciones logos="$parent.principal.logos" nombre="$parent.principal.datos.nombre" callback="principalCombinaciones.avanzar"></carousel-combinaciones>
 
 </div>

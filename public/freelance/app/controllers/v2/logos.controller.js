@@ -31,15 +31,27 @@ angular.module("disenador-de-logos")
 
         }
 
+        bz.terminados = {
+
+            borradores: false,
+            pendientes: false,
+            aprobados: false,
+            vendidos: false,
+
+        }
+
+        console.log(bz.terminados)
 
         //BORRADORES
         logosService.listarPorEstado('Borrador').then(function (res) {
 
             bz.borradores = res;
             bz.cantidad.borradores = bz.borradores.length;
+            bz.terminados.borradores = true;
+            console.log(bz.terminados)
 
         }).catch(function (res) {
-
+            bz.terminados.borradores = true;
         })
 
 
@@ -48,9 +60,11 @@ angular.module("disenador-de-logos")
 
             bz.pendientes = res;
             bz.cantidad.pendientes = bz.pendientes.length;
+            bz.terminados.pendientes = true;
+            console.log(bz.terminados)            
 
         }).catch(function (res) {
-
+            bz.terminados.pendientes = true;
         });
 
 
@@ -59,9 +73,11 @@ angular.module("disenador-de-logos")
 
             bz.aprobados = res;
             bz.cantidad.aprobados = bz.aprobados.length;
+            bz.terminados.aprobados = true;
+            console.log(bz.terminados) 
 
         }).catch(function (res) {
-
+            bz.terminados.aprobados = true;
         });
 
 
@@ -70,9 +86,11 @@ angular.module("disenador-de-logos")
 
             bz.vendidos = res;
             bz.cantidad.vendidos = bz.vendidos.length;
+            bz.terminados.vendidos = true; 
+            console.log(bz.terminados)
 
         }).catch(function (res) {
-
+            bz.terminados.vendidos = true; 
         });
 
 

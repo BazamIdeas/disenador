@@ -1016,6 +1016,58 @@ angular.module("disenador-de-logos")
     })
 
 
+	.directive("fondoContraste", ["coloresFactory",function(coloresFactory){
+		return {
+			restrict: "AE",
+			scope: {
+				color: "<color"
+			},
+			link: function(scope, element){
+				
+				element.css({"background-color": coloresFactory(scope.color)});
+			}
+		}
+	}])
+
+	.directive("carouselCombinaciones",[  function () {
+
+		return {
+			restrict: "E",
+			templateUrl: "app/templates/carousel-combinaciones.tpl",
+			controller: ['$scope', "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
+
+				bz = this;
+
+				bz.logos = $scope.logos;
+
+				bz.largoArray = bz.logos.length;
+
+				bz.nombre = $scope.nombre;
+
+				bz.callback = $scope.callback;
+
+				bz.actual = 0;
+
+				if(bz.largoArray > 1){
+					bz.actual = 1;
+				}
+
+				bz.convertidor = arrayToJsonMetasFactory;
+
+				bz.base64 = $base64;
+
+			}],
+			controllerAs: 'carouselCombinaciones',
+			scope: {
+				callback: '<',
+				logos: '<',
+				nombre: '<'
+			}
+		};
+
+		
+    }])
+    
     .directive("carouselMisLogos",[  function () {
 
 		return {
@@ -1040,6 +1092,14 @@ angular.module("disenador-de-logos")
 				bz.convertidor = arrayToJsonMetasFactory;
 
 				bz.base64 = $base64;
+
+				bz.borrarSlider = function(idLogo){
+					bz.callback[1](idLogo);
+
+					if(bz.actual == $scope.logos.length - 1){
+						bz.actual = bz.actual - 1;
+					}
+				}
 
 			}],
 			controllerAs: 'carouselMisLogos',

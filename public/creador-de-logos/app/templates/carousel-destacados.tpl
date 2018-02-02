@@ -1,4 +1,4 @@
-<div class="logos">
+<div class="mis-logos">
     <div>
         <div class="left-arrow" ng-click="carouselDestacados.actual = carouselDestacados.actual - 2" ng-if="carouselDestacados.actual > 0">
             <i class="material-icons">keyboard_arrow_left</i>

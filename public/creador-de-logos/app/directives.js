@@ -1088,7 +1088,17 @@ angular.module("disenador-de-logos")
 
 				bz.callback = $scope.callback;
 
-				bz.actual = 4;
+				bz.actual = 0;
+
+				if($scope.logos.length > 5){
+					bz.actual = 4;
+				}else if($scope.logos.length > 4){
+					bz.actual = 3;
+				}else if($scope.logos.length > 3){
+					bz.actual = 2;
+				}else if($scope.logos.length > 2){
+					bz.actual = 1;
+				}
 
 				bz.convertidor = arrayToJsonMetasFactory;
 
@@ -1103,12 +1113,6 @@ angular.module("disenador-de-logos")
 					}
 				}
 
-				/*$scope.$on("cargarMas:carousel", function(event, data){
-					if( bz.actual < ($scope.logos.length - 2) ){
-						bz.actual = bz.actual + 2;
-					}
-					console.log(3)
-				})*/
 
 			}],
 			controllerAs: 'carouselDestacados',
@@ -1131,21 +1135,25 @@ angular.module("disenador-de-logos")
 
 				bz = this;
 
-                bz.logos = $scope.logos;
-
-				bz.largoArray = bz.logos.length;
-
 				bz.callback = $scope.callback;
 
                 bz.actual = 0;
 
-				if(bz.largoArray > 1){
+				if($scope.logos.length > 1){
 					bz.actual = 1;
 				}
 
 				bz.convertidor = arrayToJsonMetasFactory;
 
 				bz.base64 = $base64;
+
+				bz.borrarSlider = function(idLogo){
+					bz.callback[3](idLogo);
+
+					if(bz.actual == $scope.logos.length - 1){
+						bz.actual = bz.actual - 1;
+					}
+				}
 
 			}],
 			controllerAs: 'carouselMisLogos',

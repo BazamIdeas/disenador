@@ -29,19 +29,19 @@
             <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
 				<!--PENDIENTES DE APROBACION-->
 				<div class="col s12" ng-switch-when="pendientes">
-                    <carousel-mis-logos ng-if="logos.pendientes.length" logos="logos.pendientes" callback="['pendientes']"></carousel-mis-logos>
+                    <carousel-mis-logos ng-if="logos.terminados.pendientes" logos="logos.pendientes" callback="['pendientes']"></carousel-mis-logos>
                 </div>
                 <!--APROBADOS-->
 				<div class="col s12" ng-switch-when="aprobados">
-                    <carousel-mis-logos ng-if="logos.aprobados.length" logos="logos.aprobados" callback="['aprobados']"></carousel-mis-logos>
+                    <carousel-mis-logos ng-if="logos.terminados.aprobados" logos="logos.aprobados" callback="['aprobados']"></carousel-mis-logos>
                 </div>
                 <!--VENDIDOS-->
                 <div class="col s12" ng-switch-when="vendidos">
-                    <carousel-mis-logos ng-if="logos.vendidos.length" logos="logos.vendidos" callback="['vendidos']"></carousel-mis-logos>               
+                    <carousel-mis-logos ng-if="logos.terminados.vendidos" logos="logos.vendidos" callback="['vendidos']"></carousel-mis-logos>               
                 </div>
                 <!--BORRADORES-->
                 <div class="col s12" ng-switch-when="borradores">
-                    <carousel-mis-logos ng-if="logos.borradores.length" logos="logos.borradores" callback="['borradores',logos.borrarLogo, logos.buscarAtributo]"></carousel-mis-logos>
+                    <carousel-mis-logos ng-if="logos.terminados.borradores" logos="logos.borradores" callback="['borradores',logos.borrarLogo, logos.buscarAtributo]"></carousel-mis-logos>
                 </div>
                 
             </div>
