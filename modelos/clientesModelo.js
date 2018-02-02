@@ -52,7 +52,11 @@ cliente.verificarCliente = function(clienteData,callback)
 //obtenemos todos los clientes
 cliente.getClientes = function(callback)
 {
+<<<<<<< HEAD
 	var q = "SELECT nombreCliente, idCliente, correo, pass, telefono, pais, foto, bloqueado FROM clientes ORDER BY idCliente"; 
+=======
+	var q = "SELECT nombreCliente, idCliente, correo, pass, telefono, pais, foto FROM clientes ORDER BY idCliente"; 
+>>>>>>> 90971e7e35c37a3178a9c9a16f8e2a31ba5d084f
 
 	DB.getConnection(function(err, connection)
 	{

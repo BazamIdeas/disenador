@@ -8,6 +8,8 @@ angular.module("disenador-de-logos")
 
         bz.base64 = $base64;
 
+        bz.opcionMostrar = "adquiridos";
+
         bz.guardados = [];
         bz.comprados = [];
 

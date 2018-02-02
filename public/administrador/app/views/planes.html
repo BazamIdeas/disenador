@@ -18,48 +18,41 @@
                             <input type="text" ng-model="planes.buscarPlanes" class="md-block" aria-label="filtro" placeholder="Buscar:">
                         </md-input-container>
                     </div>
-                    <div class="tabla">
-                        <div>Nombre:</div>
-                        <div>Acciones:</div>
-                    </div>
-                    <div layout="column" class="content-scroll">
-                        <div ng-repeat="elemento in planes.planes | filter:planes.buscarPlanes | orderBy:'idPlan'" class="elemento plan-{{elemento.status}}">
-                            <div class="tabla-campo">
-                                <div class="nombre">{{elemento.plan}}</div>
-                                <div>
-                                    <div ng-if="elemento.status">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('nombrePlan', elemento.idPlan, $index)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Nombre del Plan</md-tooltip>
-                                            <md-icon class="material-icon">edit</md-icon>
-                                        </md-button>
-                                    </div>
-                                    <div ng-if="elemento.status">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('preciosPlan', elemento.idPlan)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver precios de un Plan</md-tooltip>
-                                            <md-icon class="material-icon">remove_red_eye</md-icon>
-                                        </md-button>
-                                    </div>
-                                    <div ng-if="elemento.status">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('nuevoPrecioPlan',elemento.idPlan,$index)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Agregar Nuevo Precio</md-tooltip>
-                                            <md-icon class="material-icon">add</md-icon>
-                                        </md-button>
-                                    </div>
-                                    <div ng-if="elemento.status">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.bloquearPlan('bloquear',elemento.idPlan,$index)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear Plan</md-tooltip>
-                                            <md-icon class="material-icon">lock</md-icon>
-                                        </md-button>
-                                    </div>
-                                    <div ng-if="!elemento.status">
-                                        <md-button class="md-fab md-mini md-warn" ng-click="planes.bloquearPlan('desbloquear',elemento.idPlan,$index)">
-                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Desbloquear Plan</md-tooltip>
-                                            <md-icon class="material-icon">lock_open</md-icon>
-                                        </md-button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="w3-responsive content-scroll">
+                        <table class="w3-table w3-bordered">
+                            <tr>
+                                <th>Nombre:</th>
+                                <th colspan="2">Acciones:</th>
+                            </tr>
+                            <tr ng-repeat="elemento in planes.planes | filter:planes.buscarPlanes | orderBy:'idPlan'">
+                                <td>{{elemento.plan}}</td>
+                                <td ng-if="elemento.status">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('nombrePlan', elemento.idPlan, $index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Nombre del Plan</md-tooltip>
+                                        <md-icon class="material-icon">edit</md-icon>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('preciosPlan', elemento.idPlan)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver precios de un Plan</md-tooltip>
+                                        <md-icon class="material-icon">remove_red_eye</md-icon>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="planes.mostrar('nuevoPrecioPlan',elemento.idPlan,$index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Agregar Nuevo Precio</md-tooltip>
+                                        <md-icon class="material-icon">add</md-icon>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="planes.bloquearPlan('bloquear',elemento.idPlan,$index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Bloquear Plan</md-tooltip>
+                                        <md-icon class="material-icon">lock</md-icon>
+                                    </md-button>
+
+                                </td>
+                                <td ng-if="!elemento.status">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="planes.bloquearPlan('desbloquear',elemento.idPlan,$index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Desbloquear Plan</md-tooltip>
+                                        <md-icon class="material-icon">lock_open</md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -120,9 +113,9 @@
                             <div ng-if="planes.attrs">
                                 <md-checkbox ng-repeat="attr in planes.nuevoPlan.caracteristicas" ng-model="attr.valor" aria-label="Checkbox $index" class="md-warn md-align-top-left"
                                     flex>
-                                    {{attr.clave}} - 
+                                    {{attr.clave}} -
                                     <span class="ipsum">
-                                         {{attr.descripcion}}
+                                        {{attr.descripcion}}
                                     </span>
                                 </md-checkbox>
                             </div>
@@ -258,8 +251,8 @@
 
                             <h3 class="text-center margen-superior" style="margin: 0 0 16px 0;" layout-padding ng-click="planes.attrs = !planes.attrs">ATRIBUTOS</h3>
                             <div ng-if="planes.attrs">
-                                <md-checkbox ng-repeat="attr in planes.modificarNombrePlan.caracteristicas" ng-model="attr.valor" aria-label="Checkbox $index" class="md-warn md-align-top-left"
-                                    flex>
+                                <md-checkbox ng-repeat="attr in planes.modificarNombrePlan.caracteristicas" ng-model="attr.valor" aria-label="Checkbox $index"
+                                    class="md-warn md-align-top-left" flex>
                                     {{attr.clave}} -
                                     <span class="ipsum">
                                         {{attr.descripcion}}

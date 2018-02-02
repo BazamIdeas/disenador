@@ -64,6 +64,7 @@ angular.module("administrador")
         /* DETALLES DE UN PEDIDO  */
 
         bz.pedidoDetalles = function (id, index) {
+            bz.ac = id;
             bz.pedidoActivoIndex = index;
             bz.pedidoDetalle = {};
             bz.mostrarD = true;

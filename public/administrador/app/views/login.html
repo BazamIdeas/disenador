@@ -1,41 +1,38 @@
-<div class="row center-xs margen_superior" ng-switch="login.mostrarForm" style="  margin-top: 12%;">
-    <div ng-switch-default class="col-xs-10 col-sm-4 col-md-3 pasos formularios-login md-whiteframe-6dp">
-        <form name="formLogin" ng-submit="login.login(login.datosLogin, formLogin.$valid)" novalidate>
+<div class="row center-xs page-login">
+    <div ng-switch="login.mostrarForm" class="col-xs-10 col-sm-4 col-md-3 pasos" style="margin-top:10%;">
+        <h3 class="logo-login">Logonow</h3>
+        <form ng-switch-default name="formLogin" ng-submit="login.login(login.datosLogin, formLogin.$valid)" novalidate class="formulario-ingreso">
+            <h5 class="text-center login-title">Bienvenido, Por favor Ingresar</h5>
             <div>
-                <h3 class="text-center">Ingresar</h3>
-                <div>
-                    <md-input-container class="md-block">
-                        <label>Correo</label>
-                        <input type="email" ng-model="login.datosLogin.correo" name="correo" required ng-minlength="3">
-                    </md-input-container>
-                    <div ng-messages="formLogin.correo.$error" style="color:maroon" role="alert" ng-show="formLogin.$submitted">
-                        <div ng-message="required">Este campo es requerido.</div>
-                        <div ng-message="minlength">Debe contener minimo 3 caracteres</div>
-                        <div ng-message="email">Debe ser un email válido</div>
-                    </div>
-                    <md-input-container class="md-block">
-                        <label>Contraseña</label>
-                        <input type="password" ng-model="login.datosLogin.pass" name="pass" required ng-minlength="6">
-                    </md-input-container>
-                    <div ng-messages="formLogin.pass.$error" style="color:maroon" role="alert" ng-show="formLogin.$submitted">
-                        <div ng-message="required">Este campo es requerido.</div>
-                        <div ng-message="minlength">Debe contener minimo 6 caracteres</div>
-                    </div>
+                <md-input-container class="md-block">
+                    <label>Correo:</label>
+                    <input type="email" ng-model="login.datosLogin.correo" name="correo" required ng-minlength="3">
+                </md-input-container>
+                <div ng-messages="formLogin.correo.$error" style="color:maroon" role="alert" ng-show="formLogin.$submitted">
+                    <div ng-message="required">Este campo es requerido.</div>
+                    <div ng-message="minlength">Debe contener minimo 3 caracteres</div>
+                    <div ng-message="email">Debe ser un email válido</div>
+                </div>
+                <md-input-container class="md-block">
+                    <label>Contraseña:</label>
+                    <input type="password" ng-model="login.datosLogin.pass" name="pass" required ng-minlength="6">
+                </md-input-container>
+                <div ng-messages="formLogin.pass.$error" style="color:maroon" role="alert" ng-show="formLogin.$submitted">
+                    <div ng-message="required">Este campo es requerido.</div>
+                    <div ng-message="minlength">Debe contener minimo 6 caracteres</div>
                 </div>
             </div>
-            <div>
-                <h6 ng-click="login.mostrarForm=3">Olvidaste tu contraseña?
-                    <b class="login-link-h6">Recuperar</b>
-                </h6>
+            <div layout layout-align="space-around center">
+                <span ng-click="login.mostrarForm=3" style="font-family: 'futura-heavy';">
+                    Olvidaste tu contraseña?
+                </span>
                 <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
             </div>
             <div layout layout-align="center" ng-show="login.loaderCargando" class="margen_superior">
                 <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
             </div>
         </form>
-    </div>
-    <div ng-switch-when="3" layout-padding flex="25" class="col-xs-10 col-sm-4 col-md-3 formularios-login md-whiteframe-5dp margen_superior margen-inferior pasos">
-        <form name="olvido" ng-submit="login.forgotPass(login.olvido, olvido.$valid)" novalidate>
+        <form ng-switch-when="3" name="olvido" ng-submit="login.forgotPass(login.olvido, olvido.$valid)" novalidate class="formulario-ingreso">
             <div ng-switch="login.rc">
                 <h3 class="text-center">Recuperar contraseña</h3>
                 <div ng-switch-when="1">
@@ -89,5 +86,4 @@
             </div>
         </form>
     </div>
-</div>
 </div>

@@ -13,6 +13,25 @@
         </section>
 
         <section class="scrollbar-dynamic section-cliente" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
+            
+            <div class="tab-freelance col s12">
+                <button ng-click="logos.opcionMostrar='guardados'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='guardados'}" class="boton-verde">GUARDADOS</button>
+                <button ng-click="logos.opcionMostrar='adquiridos'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='adquiridos'}" class="boton-verde">COMPRADOS</button>
+            </div>
+            <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
+				<!--PENDIENTES DE APROBACION-->
+				<div class="col s12" ng-switch-when="guardados">
+                    <carousel-mis-logos ng-if="logos.guardados.length" logos="logos.guardados" callback="['guardados']"></carousel-mis-logos>
+                </div>
+                <!--APROBADOS-->
+				<div class="col s12" ng-switch-when="adquiridos">
+                    <carousel-mis-logos ng-if="logos.comprados.length" logos="logos.comprados" callback="['adquiridos']"></carousel-mis-logos>
+                </div>
+                
+            </div>
+        </section>
+
+        <section class="scrollbar-dynamic section-cliente" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
             <div class="row margin-bottom-0">
 				
 				<div class="col l6 xl5 offset-xl1">

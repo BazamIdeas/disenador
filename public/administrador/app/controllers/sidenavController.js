@@ -3,6 +3,9 @@ angular.module("administrador")
     .controller('sidenavController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'clientesService', '$rootScope', function ($state, $mdSidenav, $mdDialog, $scope, clientesService, $rootScope) {
 
         var bz = this;
+
+        bz.menuMostrar = true;
+
         bz.medidaP = bz.menuMostrar ? true : false;
         bz.medidaG = bz.menuMostrar ? false : true;
 
@@ -60,5 +63,14 @@ angular.module("administrador")
             bz.medidaP = bz.menuMostrar ? 2 : 0;
             bz.medidaG = bz.menuMostrar ? 10 : 11;
         }
+
+
+        bz.estado = $state.current.name.replace('/', '');
+
+        $rootScope.$on('$stateChangeSuccess', function () {
+
+            bz.estado = $state.current.name.replace('/', '');
+
+        });
 
     }])

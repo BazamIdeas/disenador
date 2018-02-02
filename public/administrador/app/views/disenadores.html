@@ -31,11 +31,19 @@
                                         </md-button>
                                     </div>
                                     <div>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.borrarLogo($index, logo.idLogo)">
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.borrarLogo($index, logo.idLogo,false)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">No Aprobar</md-tooltip>
                                             <md-icon class="material-icon">remove_circle_outline</md-icon>
                                         </md-button>
                                     </div>
+
+                                    <div>
+                                        <md-button class="md-fab md-mini md-warn" ng-click="designer.destacado(logo.idLogo)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Destacado</md-tooltip>
+                                            <md-icon class="material-icon">public</md-icon>
+                                        </md-button>
+                                    </div>
+
                                     <div ng-if="logo.estado == 'Aprobado'">
                                         <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, logo.clientes_idCliente)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logos del diseñador</md-tooltip>
@@ -47,7 +55,7 @@
                             <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.element == $index && designer.cal && !logo.calificado">
                                 <p>Calificacion:</p>
                                 <md-input-container flex>
-                                    <md-select ng-model="logo.calificacion" ng-change="designer.ponerCalificacion({idLogo:logo.idLogo, valor: logo.calificacion}, true)"
+                                    <md-select ng-model="logo.calificacion" ng-change="designer.ponerCalificacion({idLogo:logo.idLogo, valor: logo.calificacion}, true, $index)"
                                         class="md-block" aria-label="filtro">
                                         <md-option value="1">1</md-option>
                                         <md-option value="2">2</md-option>
@@ -82,7 +90,7 @@
                             </md-select>
                         </md-input-container>
                     </div>
-                    
+
                     <div class="tabla">
                         <div style="flex:0.4;">Nombre:</div>
                         <div style="flex:0.4;">Deuda:</div>
@@ -126,7 +134,7 @@
                             <div class="elemento inside calificacion" md-whiteframe layout layout-align="space-between center" ng-if="designer.modfire == $index && designer.modInit">
                                 <p>Metodo de pago:</p>
                                 <md-input-container flex>
-                                    <md-select ng-model="d.metodoSelecccionado" ng-change="designer.notificarDisenador(d.idCliente, d.metodoSelecccionadoF)"
+                                    <md-select ng-model="d.metodoSelecccionado" ng-change="designer.notificarDisenador(d.idCliente, d.metodoSelecccionado)"
                                         class="md-block" aria-label="filtro">
                                         <md-option ng-value="{{f.idFacturacion}}" ng-repeat="f in d.facturacion">{{f.medio}}</md-option>
                                     </md-select>

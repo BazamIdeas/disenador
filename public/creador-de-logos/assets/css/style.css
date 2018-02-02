@@ -2150,7 +2150,7 @@ textarea {
 
 
 .logos{
-    float: left;width: 100%;height: 0;padding: 34% 0 0 0;margin: 4em 0 1em 0;position: relative;overflow: visible;transition: margin-top 0.5s
+    float: left;width: 100%;height: 0;padding: 32% 0 0 0;margin: 2em 0 1em 0;position: relative;overflow: visible;transition: margin-top 0.5s
 }
 
 .logo-container{
@@ -2170,6 +2170,8 @@ textarea {
     margin-left: -20%;
     z-index: 9;
     width: 40%;
+    -webkit-box-shadow: 0px 1px 2px 1px #dedede;
+    box-shadow: 0px 1px 2px 1px #dedede;
 }
 
 .logo-right {
@@ -2201,14 +2203,13 @@ textarea {
     text-align: center;
     padding: 0;
     z-index: 10;
-    background-color: white;
-    color: var(--principal);
+    background-color: #61278780;
+    color: white;
     font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border: 1px solid black;
 }
 .left-arrow i, .right-arrow i{
     font-size: 30px !important;
@@ -2237,11 +2238,305 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: futura-bold !important;
+    font-family: futura-heavy !important;
     transition: opacity 1s;
     cursor: pointer;
 }
 
 .logo-container:hover span.seleccionar {
     opacity: 1;
+}
+
+
+
+
+
+
+.logo-container-d{
+    width: 17%;
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    background-color: white !important;
+    left: 50%;
+        -webkit-box-shadow: 0px 1px 2px 1px #dedede;
+    box-shadow: 0px 1px 2px 1px #dedede;
+    filter: grayscale(0.9);
+    transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out, filter 0.35s ease-in-out;
+}
+
+.logo-active-a,  .logo-active-b{
+    opacity: 1;
+    margin-left: -10%;
+    z-index: 9;
+    width: 20%;
+    filter: none;
+    background-color: white !important;
+    border: 2px solid var(--principal);
+    -webkit-box-shadow: 0px 1px 2px 1px #dedede;
+    box-shadow: 0px 1px 2px 1px #dedede;
+}
+.logo-active-b{
+    margin-top: 21%;
+}
+
+.logo-right-a, .logo-right-b{
+    margin-left: 9%;
+    margin-top: 2.5%;
+    z-index: 8;
+    width: 15%;
+}
+.logo-right-1-a, .logo-right-1-b{
+    margin-left: 23%;
+    margin-top: 5%;
+    z-index: 7;
+    width: 10%;
+}
+.logo-right-2-a, .logo-right-2-b{
+    margin-left: 32%;
+    margin-top: 7.5%;
+    z-index: 6;
+    width: 5%;
+    opacity: 0.35 !important;
+
+}
+
+.logo-left-a, .logo-left-b {
+    margin-left: -24%;
+    margin-top: 2.5%;
+    z-index: 8;
+    width: 15%;
+}
+.logo-left-1-a, .logo-left-1-b{
+    margin-left: -32%;
+    margin-top: 5%;
+    z-index: 7;
+    width: 10%;
+}
+.logo-left-2-a, .logo-left-2-b{
+    margin-left: -36%;
+    margin-top: 7.5%;
+    z-index: 6;
+    width: 5%;
+    opacity: 0.35;
+}
+
+.logo-right-b, .logo-left-b{
+    margin-top: 23.5%;
+}
+.logo-right-1-b,.logo-left-1-b{
+    margin-top: 26%;
+}
+.logo-right-2-b,.logo-left-2-b{
+    margin-top: 28.5%;
+}
+
+
+.logo-left-a, .logo-left-b, .logo-right-a, .logo-right-b{
+    opacity: 1;
+}
+.logo-left-1-a, .logo-left-1-b, .logo-right-1-a, .logo-right-1-b{
+    opacity: 1;
+}
+.logo-left-2-a, .logo-left-2-b, .logo-right-2-a, .logo-right-2-b{
+    opacity: 1;
+}
+.logo-left-3-a, .logo-left-3-b, .logo-right-3-a, .logo-right-3-b{
+    opacity: 0.35;
+}
+
+.logo-active-a, .logo-active-b, 
+.logo-left-a, .logo-left-b, 
+.logo-right-a, .logo-right-b, 
+.logo-left-1-a, .logo-left-1-b, 
+.logo-right-1-a, .logo-right-1-b,
+.logo-left-2-a, .logo-left-2-b, 
+.logo-right-2-a, .logo-right-2-b {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container-d span.seleccionar {
+    position: absolute;
+    background-color: white;
+    border:1px solid var(--principal);
+    color: var(--principal);
+    opacity: 0;
+    border-radius: 30px;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: futura-heavy !important;
+    transition: opacity 1s;
+    cursor: pointer;
+    font-size:10px;
+}
+
+.logo-container-d span.seleccionar i {
+    font-size:12px;
+}
+
+.logo-container-d:hover span.seleccionar {
+    opacity: 1;
+}
+
+
+
+
+
+/*Mis logos*/
+
+.mis-logos{
+    float: left;width: 100%;height: 0;padding: 32% 0 0 0;margin: 2em 0 1em 0;position: relative;overflow: visible;transition: margin-top 0.5s
+}
+
+.logo-container-m{
+    width: 24%;
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    top: 0;
+    left: 55%;
+    border: 2px solid var(--principal);
+    transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out;
+}
+
+.logo-active-m {
+    opacity: 1;
+    margin-left: -20%;
+    z-index: 9;
+    width: 30%;
+    -webkit-box-shadow: 0px 1px 2px 1px #dedede;
+    box-shadow: 0px 1px 2px 1px #dedede;
+}
+
+.logo-right-m {
+    margin-left: 9%;
+    margin-top: 3%;
+}
+
+.logo-left-m {
+    margin-left: -43%;
+    margin-top: 3%;
+}
+
+.logo-left-m, .logo-right-m {
+    opacity: 0.75;
+}
+
+.logo-active-m, .logo-left-m, .logo-right-m, .logo-left-1-m, .logo-right-1-m {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-arrow, .right-arrow{
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    margin-top: -30px;
+    line-height: 65px;
+    text-align: center;
+    padding: 0;
+    z-index: 10;
+    background-color: #61278780;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.35s;
+}
+
+.left-arrow:hover, .right-arrow:hover{
+    background-color: var(--principal);
+}
+
+.left-arrow i, .right-arrow i{
+    font-size: 30px !important;
+}
+
+.left-arrow {
+    position: absolute;
+    top: 44%;
+    left: 9%;
+}
+
+.right-arrow {
+    position: absolute;
+    top: 44%;
+    right: 9%;
+}
+
+
+.logo-container-m span.seleccionar {
+    position: absolute;
+    background-color: #fff;
+    border:1px solid var(--principal);
+    color: var(--principal);
+    opacity: 0;
+    border-radius: 30px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: futura-heavy !important;
+    transition: opacity 1s;
+    cursor: pointer;
+}
+
+.logo-container-m:hover span.seleccionar {
+    opacity: 1;
+}
+
+
+.tab-freelance{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 !important;
+}
+
+.tab-freelance button{
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    border-radius: 0;
+    margin-top: 0;
+}
+.tab-freelance-activo::after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 12;
+    background-color: #4aaf57;
+}
+
+.tab-freelance-activo::before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 12;
+    background-color: #4aaf57;
+}
+
+.tab-freelance-activo {
+    background-color: white !important;
+    position: relative;
+    color: #49ae56 !important;
 }

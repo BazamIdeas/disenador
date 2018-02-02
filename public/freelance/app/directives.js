@@ -1014,3 +1014,40 @@ angular.module("disenador-de-logos")
         }
 
     })
+
+
+    .directive("carouselMisLogos",[  function () {
+
+		return {
+			restrict: "E",
+			templateUrl: "app/templates/carousel-mis-logos.tpl",
+			controller: ['$scope', "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
+
+				bz = this;
+
+                bz.logos = $scope.logos;
+
+				bz.largoArray = bz.logos.length;
+
+				bz.callback = $scope.callback;
+
+                bz.actual = 0;
+
+				if(bz.largoArray > 1){
+					bz.actual = 1;
+				}
+
+				bz.convertidor = arrayToJsonMetasFactory;
+
+				bz.base64 = $base64;
+
+			}],
+			controllerAs: 'carouselMisLogos',
+			scope: {
+				callback: '<',
+				logos: '<'
+			}
+		};
+
+		
+	}])
