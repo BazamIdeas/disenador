@@ -470,16 +470,16 @@ exports.manualCliente = function (req, res, next) {
     }
 
     var config = {
-        "base": "./manual-marcas", 
-        "format": "Letter",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid
-        "orientation": "portrait", 
-        "border": "0",
-        "type": "pdf", // allowed file types: png, jpeg, pdf
-        "renderDelay": 1000,
-        "paginationOffset": 1
-    }
+            "base": "./manual-marcas",
+            "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid
+            "orientation": "portrait",
+            "border": "0",
+            "type": "pdf", // allowed file types: png, jpeg, pdf
+            "renderDelay": 1000,
+            "paginationOffset": 1
+        }
 
-    pdf.create(template, config).toFile('./public/tmp/manual-marcas.pdf', function (err, data) {
+    pdf.create(template, config).toFile('./public/tmp/manual-marcas-'+nombreEmpresa+'.pdf', function (err, data) {
         if (err) throw err;
         res.status(200).json(data)
     });

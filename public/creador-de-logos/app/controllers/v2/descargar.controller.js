@@ -162,6 +162,13 @@ angular.module("disenador-de-logos")
 
         };
 
+
+        bz.manualMarca = function(id){
+            logosService.manualMarca(id).then(function(res){
+                console.log(res);
+            })
+        }
+
         $scope.$on('sesionExpiro', function (event, data) {
 
             $state.go('principal.comenzar');

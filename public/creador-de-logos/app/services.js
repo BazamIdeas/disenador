@@ -1125,6 +1125,30 @@ angular.module("disenador-de-logos")
 
 		};
 
+		this.manualMarca = function (idLogo) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			var datos = {
+				idLogo: idLogo
+			};
+
+			$http.post("/app/cliente/manual", datos).then(function (res) {
+
+				defered.resolve(res.data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+			return promise;
+
+		};
+
 	}])
 
 /*********************/
