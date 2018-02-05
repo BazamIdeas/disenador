@@ -42,7 +42,7 @@
             <div class="row margin-bottom-0">
                 <form class="margin-bottom-0">
                     <div class="col l2 sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="principal.jqueryScrollbarOptions" ng-form="principal.datosForm">
-                        <div class="input-field col s12"  bazam-ayuda data-texto="Escribe el nombre de su logo" data-identificador="ahhhhh" data-orientacion="right" data-retraso="1000">
+                        <div class="input-field col s12" bazam-ayuda data-texto="Escribe el nombre de su logo" data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-retraso="1000">
                             <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
                             <label for="nombre" class="active">Nombre</label>
                         </div>
@@ -52,7 +52,7 @@
                             <label for="slogan">Slogan</label>
                         </div> 
                         -->
-                        <div bazam-ayuda data-texto="Selecciona la categoria y el nombre de su fuente" data-identificador="ahhhhhs" data-orientacion="right" data-retraso="1500">
+                        <div bazam-ayuda data-texto="Selecciona la categoria y el nombre de su fuente" data-clases="['corner-lt']" data-identificador="ayuda-categoria-fuente" data-orientacion="right" data-retraso="1500">
                             <md-input-container style="width:100%; padding: 0 0.75rem">
                                 <md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
                                     <md-option class="iconos" ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
@@ -69,7 +69,7 @@
 
 
                         <div class=" col s12 preferencias" >
-                            <p class="text-center principal" style="margin-top: 1rem;" bazam-ayuda data-texto="Combina tus preferencias" data-identificador="ahhhhhss" data-orientacion="right" data-retraso="2000">Preferencias</p>
+                            <p class="text-center principal" style="margin-top: 1rem;" bazam-ayuda data-texto="Combina tus preferencias" data-clases="['corner-lt']"  data-identificador="ayuda-preferencias" data-orientacion="right" data-retraso="2000">Preferencias</p>
                                 
                             <div class="slider-input" ng-repeat="preferencia in principal.datos.preferencias track by $index">                            
                                 <p class="label-slider-input-left">{{preferencia.nombre1}}</p> 

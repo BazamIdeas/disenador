@@ -2552,10 +2552,26 @@ textarea {
     opacity: 1 !important;
     background-color: white;
     padding: 6px 13px;
-    border-radius: 0px 20px 20px 20px;
     font-family: futura-heavy !important;
     font-size: 12px;
     color: #534f4f;
     font-weight: 600;
     box-shadow: 0px 0px 5px 1px #6e6767;
+}
+
+
+.pop-ayuda.corner-lt{
+    border-radius: 0px 20px 20px 20px;
+}
+
+.pop-ayuda.corner-rt{
+    border-radius: 20px 0px 20px 20px;
+}
+
+.pop-ayuda.corner-rb{
+    border-radius: 20px 20px 0px 20px;
+}
+
+.pop-ayuda.corner-lb{
+    border-radius: 20px 20px 20px 0px;
 }
