@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
     /* header */
 
-    .controller('headerController', ["$state", 'clientesService', '$rootScope', '$scope', function ($state, clientesService, $rootScope, $scope) {
+    .controller('headerController', ["$state", 'clientesService', '$rootScope', '$scope', "mostrarPopAyuda", function ($state, clientesService, $rootScope, $scope, mostrarPopAyuda) {
 
         var bz = this;
 
@@ -12,7 +12,9 @@ angular.module("disenador-de-logos")
     
         bz.autorizado = clientesService.autorizado();
         
-        
+        bz.mostrarPopAyuda = mostrarPopAyuda;
+
+        console.log(mostrarPopAyuda)
         
         bz.menuMostrar = function () {
             if (bz.hmenuMostrar) {

@@ -11,7 +11,7 @@
 
                         <div class="col l12 xl9">
                             
-                            <div class="row cubos-logos-opciones" ng-repeat="icono in iconos = ($parent.principal.iconos) track by icono.idElemento" ng-if="$first || (($index+1) % 4) == 0">
+                            <div bazam-ayuda data-texto="Selecciona tres iconos de tu gusto" data-identificador="ahhhhhsssss" data-orientacion="top" data-retraso="2500" class="row cubos-logos-opciones" ng-repeat="icono in iconos = ($parent.principal.iconos) track by icono.idElemento" ng-if="$first || (($index+1) % 4) == 0">
                                 
                                 <div class="col l3 xl9A" ng-repeat="repeticion in [1,2,3,4] track by $index" ng-if="$parent.$index < 3 && ((iconos.length - 1) >= $index)">
 
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="col l12 xl3" style="padding: 0 28px;">
-                        	<div class="row cubo-fuentes-opciones">
+                        	<div bazam-ayuda data-texto="Selecciona tres fuentes de tu gusto" data-identificador="ahhhhhssssasass" data-orientacion="left" data-retraso="3000"  class="row cubo-fuentes-opciones">
                                 <div class="col l3 xl12" ng-repeat="fuente in fuentes = ($parent.principal.fuentes) track by fuente.idElemento">
                         		    <div class="texto" style="font-family: '{{fuente.nombre}}' !important" ng-click="principalOpciones.agregarElemento($index, 'fuentes')" ng-class="{'seleccionado': fuentes[$index].estado}">{{$parent.principal.datos.nombre}} </div>
                         	    </div>

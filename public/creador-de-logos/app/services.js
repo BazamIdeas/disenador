@@ -1221,8 +1221,12 @@ angular.module("disenador-de-logos")
 
 	.factory("mostrarPopAyuda", ["$rootScope", function ($rootScope) {
 		
-		return function (accion) {
+		var accion = true;
+
+		return function () {
 			$rootScope.$broadcast("bazamAyuda:mostrar", accion);
+
+			accion = !accion;
 		}
 
 	}])

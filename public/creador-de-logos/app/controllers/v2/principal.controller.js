@@ -1,14 +1,12 @@
 angular.module("disenador-de-logos")
 
-	.controller("principalController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService", "mostrarPopAyuda", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService, mostrarPopAyuda) {
+	.controller("principalController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService) {
 
 		var bz = this;
 
 		bz.paises = paisesValue;
 
 		bz.paisDefecto = null;
-        
-		bz.mostrarPopAyuda = mostrarPopAyuda;
 
 		clientesService.pais().then(function (res) {
 

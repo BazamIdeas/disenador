@@ -2394,7 +2394,7 @@ textarea {
 /*Mis logos*/
 
 .mis-logos{
-    float: left;width: 100%;height: 0;padding: 32% 0 0 0;margin: 2em 0 1em 0;position: relative;overflow: visible;transition: margin-top 0.5s
+    float: left;width: 100%;height: 0;padding: 32% 0 0 0;margin: 1em 0 1em 0;position: relative;overflow: visible;transition: margin-top 0.5s
 }
 
 .logo-container-m{
@@ -2541,4 +2541,21 @@ textarea {
     background-color: white !important;
     position: relative;
     color: #49ae56 !important;
+}
+
+.pop-ayuda{
+    transition: opacity 0.3s ease-in-out;
+    max-width: 200px;
+    z-index: 15 !important;
+}
+.aparecer {
+    opacity: 1 !important;
+    background-color: white;
+    padding: 6px 13px;
+    border-radius: 0px 20px 20px 20px;
+    font-family: futura-heavy !important;
+    font-size: 12px;
+    color: #534f4f;
+    font-weight: 600;
+    box-shadow: 0px 0px 5px 1px #6e6767;
 }
