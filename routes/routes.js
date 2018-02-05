@@ -155,10 +155,12 @@ router.post('/logos/guardados', middleware.validarCliente, controllers.logos.lis
 router.post('/logos/descargables',  middleware.validarCliente, controllers.logos.listaLogosDescargables);
 router.get('/logo/:id', middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post('/logo/guardar', middleware.validarCliente, controllers.logos.guardar);
+router.post('/logo/plan/caracteristicas', middleware.validarCliente, controllers.caracteristicas.PlanConCaracteristicas);
 //Usuario diseñador
 router.post('/logo/por-aprobar',  middleware.validarCliente, controllers.logos.porAprobar);
 //Administrador
 router.post('/logo/aprobar',  middleware.validarAdministrador, controllers.logos.aprobar);
+router.post('/logo/destacar',  middleware.validarAdministrador, controllers.logos.Destacar);
 
 router.post('/logo/calificar-admin',  middleware.validarAdministrador, controllers.atributos.CalificarAdministrador);
 router.post('/logo/calificar-cliente',  middleware.validarCliente, controllers.atributos.CalificarCliente);

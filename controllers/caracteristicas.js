@@ -54,6 +54,39 @@ exports.PlanConCaracteristicas = function(req, res)
 	var idLogo = req.body.idLogo;
 
 	pedido.ObtenerPlanPorIDdeLogo(idLogo, function(err, data){
+		if(typeof data !== 'undefined' && data.length){
+			
+			var plan = data[0];
 
+			caracteristica.ObtenerPorPlan(plan.idPlan, function(err, data){
+				if(typeof data !== 'undefined' && data.length){
+
+					var caracteristicas = {}
+					
+					for(var key in data){
+
+						caracteristicas[data[key].clave] = {
+							valor: data[key].valor,
+							descripcion: data[key].descripcion
+						}
+
+					}
+
+					plan.caracteristicas = caracteristicas;
+
+					res.status(200).json(plan);
+
+				}else{
+
+					res.status(200).json(plan);
+		
+				}
+			})
+
+		}else{
+
+			res.status(500).json({"msg":"Algo ocurrio"});
+		
+		}
 	})
 };
