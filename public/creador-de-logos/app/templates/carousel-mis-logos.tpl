@@ -6,8 +6,12 @@
         <div class="logo-wrapper" ng-repeat="logo in logos track by logo.idLogo">
             <div class="logo-container-m" ng-class="{'logo-left-1-m': $index == (carouselMisLogos.actual - 2),'logo-left-m': $index == (carouselMisLogos.actual - 1),'logo-active-m': $index == carouselMisLogos.actual, 'logo-right-m': $index == (carouselMisLogos.actual + 1), 'logo-right-1-m': $index == (carouselMisLogos.actual + 2)}">
 
-                <span style="margin-bottom: 35%" class="seleccionar"  ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: logo.elementos_idElemento, svg:  logo.logo}}, idLogoGuardado: logo.idLogo, fuentes: {principal: carouselMisLogos.callback[1](logo.atributos, 'principal'), eslogan: carouselMisLogos.callback[1](logo.atributos,'eslogan')}}})" ng-if="carouselMisLogos.actual == $index && (carouselMisLogos.callback[0] == 'adquiridos' || carouselMisLogos.callback[0] == 'guardados')">
+                <span style="margin-bottom: 35%" class="seleccionar"  ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: logo.elementos_idElemento, svg:  logo.logo}}, idLogoGuardado: logo.idLogo, fuentes: {principal: carouselMisLogos.callback[1](logo.atributos, 'principal'), eslogan: carouselMisLogos.callback[1](logo.atributos,'eslogan')}}})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'guardados'">
                     EDITAR <i class="material-icons">edit</i>
+                </span>
+
+                <span style="margin-bottom: 35%" class="seleccionar"  ui-sref="descargar({id: logo.idLogo})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'adquiridos'">
+                    DESCARGAR <i class="material-icons">file_download</i>
                 </span>
 
                 <span style="margin-bottom: 5%" class="seleccionar"  ng-click="carouselMisLogos.callback[2](logo.idLogo)" ng-if="carouselMisLogos.actual == $index && (carouselMisLogos.callback[0] == 'adquiridos' || carouselMisLogos.callback[0] == 'guardados')">
