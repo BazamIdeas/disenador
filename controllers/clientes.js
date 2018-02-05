@@ -8,6 +8,7 @@ var logos = require('../modelos/logosModelo.js');
 var atributo = require('../modelos/atributosModelo.js');
 var config = require('../configuracion.js');
 var async = require('async');
+var pdf = require('html-pdf');
 
 
 exports.login = function (req, res, next) {
@@ -128,10 +129,10 @@ exports.listaClientesFreelancer = function (req, res) {
                                                 calificacionesCliente = calificacionesCliente + parseInt(cal.cliente);
                                             } else if (cal.moderador) {
                                                 vendido = vendido + config.freelancer["cliente"][cal.moderador];
-                                                calificacionesCliente = calificacionesCliente + parseInt(cal.moderador);                                                
+                                                calificacionesCliente = calificacionesCliente + parseInt(cal.moderador);
                                             }
 
-                                            if(cal.moderador){
+                                            if (cal.moderador) {
                                                 total = total + 1;
                                             }
 
@@ -226,7 +227,7 @@ exports.listaClientesFreelancer = function (req, res) {
                     clientes[key].promedioCalCliente = 0;
 
 
-                    if(results.vendido[1] > 0){
+                    if (results.vendido[1] > 0) {
                         clientes[key].promedioCalAdmin = Math.round(results.vendido[2] / results.vendido[1]);
                         clientes[key].promedioCalCliente = Math.round(results.vendido[3] / results.vendido[1]);
                     }
@@ -447,4 +448,39 @@ exports.Avatar = function (req, res, next) {
             });
         });
     }
+}
+
+exports.manualCliente = function (req, res, next) {
+
+
+    var template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
+        if (err) throw err;
+    });
+
+    //var dummy = {'uno' : "Hola", 'dos': "Hola de nuevo"};
+
+    var datos = {
+        'prueba': "Sistema funcionando"
+    }
+
+    var nombreEmpresa = 'Liderlogo';
+
+    for (var key in datos) {
+        template = template.replace('{#' + key + '#}', datos[key]);
+    }
+
+    var config = {
+        "base": "./manual-marcas", 
+        "format": "Letter",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid
+        "orientation": "portrait", 
+        "border": "0",
+        "type": "pdf", // allowed file types: png, jpeg, pdf
+        "renderDelay": 1000,
+        "paginationOffset": 1
+    }
+
+    pdf.create(template, config).toFile('./public/tmp/manual-marcas.pdf', function (err, data) {
+        if (err) throw err;
+        res.status(200).json(data)
+    });
 }

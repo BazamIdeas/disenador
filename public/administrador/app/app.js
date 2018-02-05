@@ -87,8 +87,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                         controller: 'planesController as planes',
                     }
                 }
-            })
-            .state({
+            }).state({
                 name: 'app.usuario',
                 url: '/usuario',
                 views: {
@@ -97,8 +96,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                         controller: 'usuarioController as usuario',
                     }
                 }
-            })
-            .state({
+            }).state({
                 name: 'app.disenadores',
                 url: '/disenadores',
                 views: {
@@ -107,10 +105,9 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                         controller: 'disenadoresController as designer',
                     }
                 }
-            })
-            .state({
+            }).state({
                 name: 'login',
-                url: '/',
+                url: '/login',
                 templateUrl: 'app/views/login.html',
                 controller: 'loginController as login',
                 resolve: {
@@ -140,7 +137,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
             return path + "/";
         });
 
-        $urlRouterProvider.otherwise("/404/");
+        $urlRouterProvider.otherwise("app/pedidos");
 
     })
 
