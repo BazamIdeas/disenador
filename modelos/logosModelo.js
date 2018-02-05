@@ -173,6 +173,26 @@ logo.cambiarEstado = function(logoData, callback)
 	});
 }
 
+logo.Destacar = function(logoData, callback)
+{
+	var q = 'UPDATE logos SET destacado = ? WHERE idLogo = ?';
+	var par = logoData 
+	
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err){
+	  	
+		  	if(err)	throw err;
+
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	
+		  	connection.release();
+		});
+
+	  
+	});
+}
+
 logo.Borrar = (id, callback) => 
 {
 	var q = 'SELECT * FROM logos WHERE idLogo = ?';
@@ -210,8 +230,7 @@ logo.Borrar = (id, callback) =>
 
 logo.getLogo = function(par,callback)
 { 
-	var q = 'SELECT * FROM logos WHERE clientes_idCliente = ? AND idLogo = ?' 
-	//console.log(par)
+	var q = 'SELECT * FROM logos WHERE clientes_idCliente = ? AND idLogo = ?';
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row){

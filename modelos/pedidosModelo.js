@@ -205,6 +205,35 @@ pedido.deletePedido = function(id, callback)
 	});
 }
 
+
+pedido.ObtenerPlanPorIDdeLogo = function(idLogo, callback){
+
+	var q = `SELECT planes.* 
+				FROM logos 
+				INNER JOIN pedidos ON logos.idLogo = pedidos.logos_idLogo
+				INNER JOIN precios ON pedidos.precios_idPrecio = precios.idPrecio
+				INNER JOIN planes ON precios.Planes_idPlan = planes.idPlan
+				WHERE logos.idLogo = ? AND logos.estado = 'Descargable'`;
+
+	var par = [idLogo];
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row)
+		{
+			if(row !== 'undefined' && row.length > 0){
+
+				callback(null, row)
+
+			}else{
+
+				callback(null, {"msg":"no existe el logo, pedido, precio o plan"});
+
+			}
+		})
+	})
+}
+
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = pedido;

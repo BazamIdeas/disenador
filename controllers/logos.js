@@ -83,6 +83,32 @@ exports.guardar =  function(req,res)
 	
 };
 
+
+exports.Destacar = function(req,res) {
+
+	var par = [req.body.idCliente,req.body.idLogo];
+
+	logo.getLogo(par,function(error, data){
+		
+		if (typeof data !== "undefined" && data.length > 0){
+			
+			var parr = [!data[0].destacado, req.body.idLogo];
+
+			logo.Destacar(parr, function(error,data){
+				if (typeof data !== "undefined" && data.msg){
+					res.status(200).json(data);
+				}else{
+					res.status(500).json({"msg":"Algo ocurrio"});
+				}
+			});
+
+		}else{
+			res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"});
+		}
+	})
+}
+
+
 //CAMBIAR EL ESTADO DE UN LOGO A 'POR APROBAR'
 exports.porAprobar = function(req,res) {
 	var par = ["Por Aprobar", req.body.idLogo];

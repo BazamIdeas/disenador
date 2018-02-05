@@ -1,4 +1,5 @@
 var caracteristica = require("../modelos/caracteristicasModelo.js");
+var pedido = require("../modelos/pedidosModelo.js");
 var async = require("async");
 
 
@@ -46,4 +47,13 @@ exports.Nuevos = function(req, res)
 	}, function() {
 		res.status(200).json({inserts_ids : inserts_ids});
 	});
+};
+
+exports.PlanConCaracteristicas = function(req, res)
+{
+	var idLogo = req.body.idLogo;
+
+	pedido.ObtenerPlanPorIDdeLogo(idLogo, function(err, data){
+
+	})
 };

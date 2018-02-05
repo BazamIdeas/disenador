@@ -3,7 +3,7 @@
         <div class="left-arrow" ng-click="carouselCombinaciones.actual = carouselCombinaciones.actual - 1" ng-if="carouselCombinaciones.actual > 0">
             <i class="material-icons">keyboard_arrow_left</i>
         </div>
-        <div class="logo-wrapper" ng-repeat="logo in logos = carouselCombinaciones.logos track by logo.idLogo">
+        <div class="logo-wrapper" ng-repeat="logo in logos = carouselCombinaciones.logos track by $index">
             <div fondo-contraste color="carouselCombinaciones.convertidor(logo.atributos)['color-primario']" class="logo-container" ng-class="{'logo-left-1': $index == (carouselCombinaciones.actual - 2),'logo-left': $index == (carouselCombinaciones.actual - 1),'logo-active': $index == carouselCombinaciones.actual, 'logo-right': $index == (carouselCombinaciones.actual + 1), 'logo-right-1': $index == (carouselCombinaciones.actual + 2)}">
                 <span class="seleccionar"  ng-click="carouselCombinaciones.callback($index)" ng-if="carouselCombinaciones.actual == $index">
                     SELECCIONAR <i class="material-icons">edit</i>
