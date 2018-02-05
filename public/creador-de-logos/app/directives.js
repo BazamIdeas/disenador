@@ -900,7 +900,10 @@ angular.module("disenador-de-logos")
 
 					scope.$on("editor:planes", function () {
 
-						$rootScope.$broadcast("directiva:planes", scope.svgFinal);
+						$rootScope.$broadcast("directiva:planes", {
+							svg: scope.svgFinal, 
+							colores: obtenerColores()
+						});
 
 					});
                     
@@ -949,11 +952,55 @@ angular.module("disenador-de-logos")
 						scope.svgFinal = elemento.html();
 						//});
                         
-                        
 					};
 
+					var obtenerColores = function () {
 
+						var parteSVG = null;
+						var tamañoPivote = 0;
+						var color = {
+							icono: "",
+							nombre: "",
+							eslogan: ""
+						};
+
+						element.find("g.contenedor-icono > svg [data-indice]:not(g)").each(function () {
+							
+							var elemento = angular.element(this)[0].getBoundingClientRect();
+
+							var tamanoElemento =  elemento.width * elemento.height;
+
+							if(tamanoElemento >= tamañoPivote){
+								tamañoPivote = tamanoElemento;
+								parteSVG = angular.element(this);
+							}
+
+						});
+						
+
+						if(parteSVG.css("fill")){
+
+							color.icono = parteSVG.css("fill");
+
+						} else if(parteSVG.attr("fill")){
+
+							color.icono = parteSVG.attr("fill");
+
+						} else{
+							
+							color.icono = "#fff";
+
+						}
+
+						color.nombre = element.find("text.textoPrincipal").css("fill");   
+						
+						color.eslogan = element.find("text.eslogan").length ? element.find("text.eslogan").css("fill") : "";
+						
+						return color;
+						
+					};	
 				}
+				
 			}
 		};
 	}])
@@ -1153,7 +1200,7 @@ angular.module("disenador-de-logos")
 					if(bz.actual == $scope.logos.length - 1){
 						bz.actual = bz.actual - 1;
 					}
-				}
+				};
 
 			}],
 			controllerAs: "carouselMisLogos",
@@ -1245,24 +1292,24 @@ angular.module("disenador-de-logos")
 						popCreado.css({
 							"top":orientacionFinal.top,
 							"left": orientacionFinal.left
-						})
+						});
 
 						popCreado.attr({"id": scope.identificador});
 
 						if(scope.retraso){
 							$timeout(function () {
 								popCreado.addClass("aparecer");
-							}, scope.retraso)
+							}, scope.retraso);
 							
 						}
 
 					} else {
 
-						angular.element("#"+scope.identificador).remove()
+						angular.element("#"+scope.identificador).remove();
 
 					}
 
-				})
+				});
 			}
 		};
 	}]);

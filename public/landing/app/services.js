@@ -170,6 +170,29 @@ angular.module("landing")
 			return promise;
 		
 		};
+
+
+		this.listarPorEstado = function (estado) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/logos/estado", {
+				estado: estado
+			}).then(function (res) {
+
+				defered.resolve(res.data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+			return promise;
+
+		};
 	}])
 
 	.factory("clienteDatosFactory", [function () {
@@ -385,29 +408,4 @@ angular.module("landing")
 			return promise;			
 		};
 
-	}])
-
-	.service("logosService", ["$http", "$q", function ($http, $q) {
-
-		this.listarPorEstado = function (estado) {
-
-			var defered = $q.defer();
-
-			var promise = defered.promise;
-
-			$http.post("/app/logos/estado", {
-				estado: estado
-			}).then(function (res) {
-
-				defered.resolve(res.data);
-
-			}).catch(function (res) {
-
-				defered.reject(res);
-
-			});
-
-			return promise;
-
-		};
 	}]);

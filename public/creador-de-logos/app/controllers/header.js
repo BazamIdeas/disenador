@@ -1,43 +1,38 @@
 angular.module("disenador-de-logos")
 
-    /* header */
+/* header */
 
-    .controller('headerController', ["$state", 'clientesService', '$rootScope', '$scope', "mostrarPopAyuda", function ($state, clientesService, $rootScope, $scope, mostrarPopAyuda) {
+	.controller("headerController", ["$state", "clientesService", "$rootScope", "$scope", "mostrarPopAyuda", function ($state, clientesService, $rootScope, $scope, mostrarPopAyuda) {
 
-        var bz = this;
+		var bz = this;
 
-        bz.salir = function () {
-            clientesService.salir(true, true);
-        }
+		bz.salir = function () {
+			clientesService.salir(true, true);
+		};
     
-        bz.autorizado = clientesService.autorizado();
+		bz.autorizado = clientesService.autorizado();
         
-        bz.mostrarPopAyuda = mostrarPopAyuda;
-
-        console.log(mostrarPopAyuda)
+		bz.mostrarPopAyuda = mostrarPopAyuda;
         
-        bz.menuMostrar = function () {
-            if (bz.hmenuMostrar) {
-                bz.hmenuMostrar = false;
-            } else {
-                bz.hmenuMostrar = true;
-            }
-        }
-        
+		bz.menuMostrar = function () {
+			if (bz.hmenuMostrar) {
+				bz.hmenuMostrar = false;
+			} else {
+				bz.hmenuMostrar = true;
+			}
+		};
+
+		$scope.$on("sesionExpiro", function () {
+
+			bz.autorizado = clientesService.autorizado();
+
+		});
+
+		$scope.$on("sesionInicio", function () {
+
+			bz.autorizado = clientesService.autorizado();
+
+		});
 
 
-        $scope.$on('sesionExpiro', function (event, data) {
-
-
-            bz.autorizado = clientesService.autorizado();
-
-        });
-
-        $scope.$on('sesionInicio', function (event, data) {
-
-            bz.autorizado = clientesService.autorizado();
-
-        });
-
-
-}])
+	}]);

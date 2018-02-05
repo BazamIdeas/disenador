@@ -1,156 +1,155 @@
 angular.module("disenador-de-logos")
 
-    /* Editor */
+	.controller("planesController", ["historicoResolve", "pedidosService", "$scope", "$state", "$base64", function (historicoResolve, pedidosService, $scope, $state, $base64) {
 
-    .controller('planesController', ["historicoResolve", "pedidosService", "$scope", "$state", "$base64", function (historicoResolve, pedidosService, $scope, $state, $base64) {
+		var bz = this;
 
-        var bz = this;
+		bz.base64 = $base64;
 
-        bz.base64 = $base64;
+		bz.logo = historicoResolve.logo;
+		bz.idElemento = historicoResolve.idElemento;
+		bz.fuentes  = {
+			principal: historicoResolve.fuentes.principal,
+			eslogan: historicoResolve.fuentes.eslogan
+		};
+        
+		bz.colores = historicoResolve.colores;
 
+		bz.monedas = {};
+		bz.moneda = {};
+		bz.monedaDefault = {};
+		bz.planes = [];
+		bz.impuesto = 0;
 
-        bz.logo = historicoResolve.logo;
-        bz.idElemento = historicoResolve.idElemento;
-        bz.fuentes  = {
-            principal: historicoResolve.fuentes.principal,
-            eslogan: historicoResolve.fuentes.eslogan
-        }
+		pedidosService.listarPlanes().then(function (res) {
 
-        bz.monedas = {};
-        bz.moneda = {};
-        bz.monedaDefault = {};
-        bz.planes = [];
-        bz.impuesto = 0;
-
-        pedidosService.listarPlanes().then(function (res) {
-
-            bz.monedaDefault = {
-                simbolo: res.monedaDefault.codigo,
-                idMoneda: res.monedaDefault.idMoneda
-            };
+			bz.monedaDefault = {
+				simbolo: res.monedaDefault.codigo,
+				idMoneda: res.monedaDefault.idMoneda
+			};
             
-            bz.impuesto = res.impuesto;
+			bz.impuesto = res.impuesto;
 
-            angular.forEach(res.planes, function (plan, indicePlan) {
+			angular.forEach(res.planes, function (plan) {
 
-                bz.planes = res.planes;
+				bz.planes = res.planes;
 
-                angular.forEach(plan.precios, function (precio, indicePrecio) {
+				angular.forEach(plan.precios, function (precio) {
 
-                    if (!bz.monedas[precio.moneda]) {
+					if (!bz.monedas[precio.moneda]) {
 
-                        bz.monedas[precio.moneda] = {
-                            simbolo: precio.moneda,
-                            idMoneda: precio.idMoneda
-                        };
+						bz.monedas[precio.moneda] = {
+							simbolo: precio.moneda,
+							idMoneda: precio.idMoneda
+						};
 
-                    }
+					}
 
-                })
+				});
 
-            })
+			});
 
-            bz.moneda = bz.monedaDefault;
+			bz.moneda = bz.monedaDefault;
 
-        });
-
-
-
-        bz.comprobarMonedas = function (plan) {
-
-            var coincidencia = false;
-
-            angular.forEach(plan.precios, function (valor, llave) {
-
-                if (valor.moneda == bz.moneda.simbolo) {
-
-                    coincidencia = true;
-                }
-
-            })
-
-            return coincidencia;
-
-        }
-
-        bz.precioSeleccionado = function (precios, moneda) {
-
-            var precioFinal = "";
-
-            angular.forEach(precios, function (valor, llave) {
-
-                if (valor.moneda == bz.moneda.simbolo) {
-
-                    precioFinal = valor.moneda + " " + valor.precio;
-                }
-
-            })
-
-            return precioFinal;
-
-        }
+		});
 
 
-        bz.avanzarCheckout = function (plan, moneda) {
 
-            angular.forEach(plan.precios, function (precio, llave) {
+		bz.comprobarMonedas = function (plan) {
 
-                if (precio.moneda == bz.moneda.simbolo) {
+			var coincidencia = false;
+
+			angular.forEach(plan.precios, function (valor) {
+
+				if (valor.moneda == bz.moneda.simbolo) {
+
+					coincidencia = true;
+				}
+
+			});
+
+			return coincidencia;
+
+		};
+
+		bz.precioSeleccionado = function (precios) {
+
+			var precioFinal = "";
+
+			angular.forEach(precios, function (valor) {
+
+				if (valor.moneda == bz.moneda.simbolo) {
+
+					precioFinal = valor.moneda + " " + valor.precio;
+				}
+
+			});
+
+			return precioFinal;
+
+		};
+
+
+		bz.avanzarCheckout = function (plan) {
+
+			angular.forEach(plan.precios, function (precio) {
+
+				if (precio.moneda == bz.moneda.simbolo) {
                     
-                    var datosPago = {
-                        status: true,
-                        datos: {
-                            logo: historicoResolve.logo,
-                            idElemento: bz.idElemento,
-                            tipo: 'Logo y nombre',
-                            plan: {
-                                nombre: plan.plan,
-                                idPlan: plan.idPlan
-                            },
-                            precio: {
-                                moneda: {
-                                    simbolo: precio.moneda,
-                                    idMoneda: precio.idMoneda
-                                },
-                                monto: precio.precio,
-                                idPrecio: precio.idPrecio
-                            }, 
-                            impuesto: bz.impuesto,
-                            atributos: {
-                                principal: bz.fuentes.principal
-                            }    
+					var datosPago = {
+						status: true,
+						datos: {
+							logo: historicoResolve.logo,
+							idElemento: bz.idElemento,
+							tipo: "Logo y nombre",
+							plan: {
+								nombre: plan.plan,
+								idPlan: plan.idPlan
+							},
+							precio: {
+								moneda: {
+									simbolo: precio.moneda,
+									idMoneda: precio.idMoneda
+								},
+								monto: precio.precio,
+								idPrecio: precio.idPrecio
+							}, 
+							impuesto: bz.impuesto,
+							atributos: {
+								principal: bz.fuentes.principal,
+								"color-nombre": bz.colores.nombre,
+								"color-icono": bz.colores.icono
+							}    
 
-                        }
-                    }
+						}
+					};
                     
                     
-                    if(historicoResolve.idPadre){
-                        
-                        datosPago.datos.atributos.padre = historicoResolve.idPadre;
-                       
-                    }
+					if(historicoResolve.idPadre){
+						datosPago.datos.atributos.padre = historicoResolve.idPadre;
+					}
                    
-                    if(bz.fuentes.eslogan){
-                        datosPago.datos.atributos.eslogan = bz.fuentes.eslogan;
-                    }
+					if(bz.fuentes.eslogan){
+						datosPago.datos.atributos.eslogan = bz.fuentes.eslogan;
+					}
                     
-                    console.log(datosPago.datos.atributos)
+					if(bz.colores["color-eslogan"]){
+						datosPago.datos.atributos["color-eslogan"] = bz.colores["color-eslogan"];
+					}
                     
-                    $state.go('pago', datosPago);
+					$state.go("pago", datosPago);
 
-                }
+				}
 
-            })
+			});
 
-
-        }
-
-
-        $scope.$on('sesionExpiro', function (event, data) {
-
-            $state.go('principal.comenzar');
-
-        });
+		};
 
 
-    }])
+		$scope.$on("sesionExpiro", function () {
+
+			$state.go("principal.comenzar");
+
+		});
+
+	}]);
