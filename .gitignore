@@ -12,7 +12,7 @@ fuentes/*
 .eslintrc.json
 
 # exclude everything
-public/temp/*
+public/tmp/*
 
 # exception to the rule
 !public/temp/.gitkeep 
