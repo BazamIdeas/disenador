@@ -28,6 +28,11 @@
                 </div>
 
             </div>
+
+            <div class="row">
+                <button style="margin:auto; display:block;" class="boton-verde ng-binding" style="background-color: var(--principal)" ng-click="descargar.manualMarca(descargar.logo.id)">
+                    MANUAL DE IDENTIDAD</button>
+            </div>
         </div>
 
         <div class="col s4">
@@ -69,8 +74,7 @@
                 <img src="assets/images/facebook.png" width="100%">
             </div>
             <div>
-                <button class="boton-verde ng-binding" style="background-color: var(--principal)" ng-click="descargar.manualMarca(descargar.logo.id)">
-                    DESCARGAR MANUAL DE MARCAS</button>
+
                 <button class="boton-verde" style="background-color: var(--principal)" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}}</button>
             </div>
         </div>

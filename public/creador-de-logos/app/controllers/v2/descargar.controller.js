@@ -164,9 +164,28 @@ angular.module("disenador-de-logos")
 
 
         bz.manualMarca = function(id){
-            logosService.manualMarca(id).then(function(res){
-                console.log(res);
+            logosService.obtenerPorId(id).then(function (res) {
+            console.log(res)
+                logosService.manualMarca(res).then(function (res) {
+                    var pdf = document.createElement('a');
+                    pdf.setAttribute('href', res.nombreArchivo);
+                    pdf.setAttribute('download', res.nombreArchivo);
+
+                    simulateClick(pdf)
+                })
+
             })
+        }
+
+        function simulateClick(control) {
+            if (document.all) {
+                control.click();
+            }
+            else {
+                var evObj = document.createEvent('MouseEvents');
+                evObj.initMouseEvent('click', true, true, window, 1, 12, 345, 7, 220, false, false, true, false, 0, null);
+                control.dispatchEvent(evObj);
+            }
         }
 
         $scope.$on('sesionExpiro', function (event, data) {

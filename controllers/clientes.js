@@ -9,6 +9,7 @@ var atributo = require('../modelos/atributosModelo.js');
 var config = require('../configuracion.js');
 var async = require('async');
 var pdf = require('html-pdf');
+var base64 = require("base-64");
 
 
 exports.login = function (req, res, next) {
@@ -452,35 +453,46 @@ exports.Avatar = function (req, res, next) {
 
 exports.manualCliente = function (req, res, next) {
 
-
     var template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
         if (err) throw err;
     });
 
-    //var dummy = {'uno' : "Hola", 'dos': "Hola de nuevo"};
+    var logo = req.body.logo
 
     var datos = {
-        'prueba': "Sistema funcionando"
+        logo: base64.decode(logo.logo)
     }
-
-    var nombreEmpresa = 'Liderlogo';
 
     for (var key in datos) {
         template = template.replace('{#' + key + '#}', datos[key]);
     }
 
     var config = {
-            "base": "./manual-marcas",
-            "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid
-            "orientation": "portrait",
-            "border": "0",
-            "type": "pdf", // allowed file types: png, jpeg, pdf
-            "renderDelay": 1000,
-            "paginationOffset": 1
-        }
+        "base": "./manual-marcas",
+        "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid
+        "orientation": "portrait",
+        "border": "0",
+        "type": "pdf", // allowed file types: png, jpeg, pdf
+        "renderDelay": 1000,
+        "paginationOffset": 1,
+        "footer": {
+            "height": "28mm",
+            "contents": {
+                default: '<span style="color: #444;">Creado por (LOGO)</span>'
+            }
+        },
+    }
 
-    pdf.create(template, config).toFile('./public/tmp/manual-marcas-'+nombreEmpresa+'.pdf', function (err, data) {
+    var nombreEmpresa = 'LL';
+
+    pdf.create(template, config).toFile('./public/tmp/manual-marcas-' + nombreEmpresa + '.pdf', function (err, data) {
+
         if (err) throw err;
+
+        data = {
+            nombreArchivo: '/tmp/manual-marcas-' + nombreEmpresa + '.pdf'
+        };
+
         res.status(200).json(data)
     });
 }

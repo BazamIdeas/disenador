@@ -39,7 +39,7 @@ router.get('/cliente/:id',  controllers.clientes.datosCliente);
 
 
 //los mismos datos que la ruta /cliente
-router.post('/cliente/manual', /*middleware.validarCliente, */ controllers.clientes.manualCliente);
+router.post('/cliente/manual', middleware.validarCliente, controllers.clientes.manualCliente);
 
 //MODULO USUARIOS
 //
