@@ -299,10 +299,10 @@
 							<div class="col s6" style="padding:0">
 				    			
 				    			<div style="position: relative;">
-				    				<div style="width: 30%;position: absolute;left: calc(28% - 18%);top: 11%;opacity: 0.9;filter: grayscale(1);">
+				    				<div style="width: 30%;position: absolute;left: calc(28% - 18%);top: 6%;opacity: 0.9;filter: grayscale(1);">
 				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
 									</div>
-									<div style="width: 23%;position: absolute;left: calc(27% - 18%);top: 72%;filter: grayscale(1);opacity: 0.8;">
+									<div style="width: 23%;position: absolute;left: calc(85% - 18%);top: 72%;filter: grayscale(1);opacity: 0.8;">
 				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
 				    				</div>
                                 	<img src="assets/images/mockups/sobre.jpg" width="100%">
@@ -317,21 +317,13 @@
 									<div style="width: 8%;position: absolute;left: calc(43.5% - 18%);top: 32%;">
 				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
 									</div>
-									<!--<div style="width: 8%;position: absolute;left: calc(43.5% - 18%);top: 62%;">
+									<div style="width: 8%;position: absolute;left: calc(43.5% - 18%);top: 62%;">
 				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
-				    				</div>-->
+				    				</div>
                                 	<img src="assets/images/mockups/red.jpg" width="100%">
 				    			</div>
 							</div>
-				    		<div class="col s6" style="padding:0">
-				    			
-				    			<div style="position: relative;">
-				    				<div style="width: 43%;position: absolute;left: calc(52% - 18%);top: 34%;filter: blur(0.6px) grayscale(0.5);opacity: 0.8;">
-				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
-				    				</div>
-                                	<img src="assets/images/mockups/taza.jpg" width="100%">
-				    			</div>
-							</div>
+
 							<div class="col s6" style="padding:0">
 				    			
 				    			<div style="position: relative;">
@@ -342,6 +334,26 @@
 				    			</div>
 							</div>
 							
+				    		<div class="col s6" style="padding:0">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 43%;position: absolute;left: calc(52% - 18%);top: 34%;filter: blur(0.6px) grayscale(0.5);opacity: 0.8;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/mockups/taza.jpg" width="100%">
+				    			</div>
+							</div>
+
+							<div class="col s6" style="padding:0">
+				    			
+				    			<div style="position: relative;">
+				    				<div style="width: 33%;position: absolute;left: calc(50% - 18%);top: 17.5%;opacity: 0.9;">
+				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
+				    				</div>
+                                	<img src="assets/images/mockups/envase.jpg" width="100%">
+				    			</div>
+				    		</div>
+
 							<div class="col s6" style="padding:0">
 				    			
 				    			<div style="position: relative;">
@@ -352,15 +364,6 @@
 				    			</div>
 							</div>
 							
-							<div class="col s6" style="padding:0">
-				    			
-				    			<div style="position: relative;">
-				    				<div style="width: 33%;position: absolute;left: calc(50% - 18%);top: 17.5%;background: #93bec4;opacity: 0.9;">
-				    					<bazam-visualizar ng-if="editor.preview" data-svg="editor.svgFinal"></bazam-visualizar>	
-				    				</div>
-                                	<img src="assets/images/mockups/envase.jpg" width="100%">
-				    			</div>
-				    		</div>
 				    	</div>				    						
 					</div>
 				</div>
