@@ -83,7 +83,7 @@ angular.module("disenador-de-logos")
 
 			}
 
-		}
+		};
 
 	})
 
@@ -110,7 +110,7 @@ angular.module("disenador-de-logos")
 
 			{
 				if (!$scope.idLogo) { //si no es un logo previamente guardado
-					$scope.svgSaneado = $scope.svg.trim()
+					$scope.svgSaneado = $scope.svg.trim();
 
 					var posicion1 = $scope.svgSaneado.search(">");
 
@@ -123,10 +123,10 @@ angular.module("disenador-de-logos")
 					$scope.seccionInterna = $scope.svgSaneado.substr(posicion1 + 1).substr(0, posicion2);
 
 					//recipiente de secciones del svg original
-					$scope.seccionInternaElementos = []
+					$scope.seccionInternaElementos = [];
 
 					//indices del elemento
-					$scope.elementosIndices = []
+					$scope.elementosIndices = [];
 
 					//division en partes del svg
 					$scope.seccionInterna.trim().split(">").forEach(function (parte, index) {
@@ -151,11 +151,11 @@ angular.module("disenador-de-logos")
 					//union del nuevo contenido
 					$scope.seccionInterna = $scope.seccionInternaElementos.join("");
 
-					$scope.svgTag = $scope.svgTagIncompleto + $scope.seccionInterna + "</svg>"
+					$scope.svgTag = $scope.svgTagIncompleto + $scope.seccionInterna + "</svg>";
 
 				} else if ($scope.idLogo) { //si es un logo previamente guardado
 
-					$scope.elementosIndices = []
+					$scope.elementosIndices = [];
 
 				}
 
@@ -176,7 +176,7 @@ angular.module("disenador-de-logos")
 
 						var svgIcono = element[0].children[0].children[0].children[0];
 
-						svgIcono.setAttribute("height", (tamanoBase / 2) + "px")
+						svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
 
 						/////////////////////////////////////////
 						////////creamos el elemento Text/////////
@@ -217,7 +217,7 @@ angular.module("disenador-de-logos")
 
 						svgIcono.y.baseVal.value = paddingTopIcono;
 
-						var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px"
+						var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
 						svgTexto.setAttribute("y", paddingTopText);
 
@@ -243,7 +243,7 @@ angular.module("disenador-de-logos")
 
 
 						//agregamos el Style Tag al svg
-						element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>")
+						element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>");
 
 					} else if (scope.idLogo) { // si es un logo previamenteguardado
                         
@@ -253,7 +253,7 @@ angular.module("disenador-de-logos")
 
 							scope.elementosIndices[parseInt(this.getAttribute("data-indice"))] = false;
 
-						})
+						});
                         
                         
 						scope.texto = element.find("text.textoPrincipal").text();
@@ -278,7 +278,7 @@ angular.module("disenador-de-logos")
 					var fuentes = {
 						principal: scope.fuente,
 						eslogan: null                        
-					}               
+					};               
                     
                     
 
@@ -298,12 +298,12 @@ angular.module("disenador-de-logos")
 
 							scope.elementosIndices[indice] = false;
 
-						})
+						});
 
 						//definimos en true la seccion objetivo
 						scope.elementosIndices[indiceParte] = true;
 
-					})
+					});
 
 
 					////////////////////////////////////////////
@@ -326,7 +326,7 @@ angular.module("disenador-de-logos")
 						}
 
 						obtenerSVGFinal();
-					})
+					});
 
 
 
@@ -343,7 +343,7 @@ angular.module("disenador-de-logos")
 						element.find(selector).text(textoFinal);
 						obtenerSVGFinal();
 
-					})
+					});
 
 					/////////////////////////////////////////////
 					///vigilamos el cambio de fuente del texto///
@@ -379,7 +379,7 @@ angular.module("disenador-de-logos")
 
 						obtenerSVGFinal();
 
-					})
+					});
 
 					/////////////////////////////////////////////
 					/////vigilamos las propiedades del texto/////
@@ -406,7 +406,7 @@ angular.module("disenador-de-logos")
 						}
 
 						obtenerSVGFinal();
-					})
+					});
 
 
 					/////////////////////////////////////////////
@@ -464,7 +464,7 @@ angular.module("disenador-de-logos")
 
 						obtenerSVGFinal();
 
-					})
+					});
 
 
 
@@ -506,7 +506,7 @@ angular.module("disenador-de-logos")
 
 						}
 
-					})
+					});
 
 					$("bazam-svg").on("mousemove", "text.eslogan[movimiento-bz], text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
 
@@ -551,7 +551,7 @@ angular.module("disenador-de-logos")
                         
 						scope.$apply(function() {
 							scope.svgFinal = clon.html();
-						})
+						});
 						intermediador = true;
 
 					});
@@ -570,7 +570,7 @@ angular.module("disenador-de-logos")
 
 
 
-					})
+					});
 
 
 
@@ -586,7 +586,7 @@ angular.module("disenador-de-logos")
 							creacion: Date.now()
 						});
 
-					})
+					});
 
 
 					/////////////////////////////////////////
@@ -693,7 +693,7 @@ angular.module("disenador-de-logos")
 							svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
 							svgIcono.removeAttribute("width");
 							svgIcono.removeAttribute("x");
-							svgIcono.parentElement.setAttribute("transform", "")
+							svgIcono.parentElement.setAttribute("transform", "");
 
 							/////////////////////////////////////////
 							////////creamos el elemento Text/////////
@@ -725,7 +725,7 @@ angular.module("disenador-de-logos")
 
 							svgIcono.setAttribute("y", paddingTopIcono);
 
-							var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px"
+							var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
 							svgTexto.setAttribute("y", paddingTopText);
 
@@ -779,7 +779,7 @@ angular.module("disenador-de-logos")
 						}
 
 						obtenerSVGFinal();
-					})
+					});
 
 
 					////////////////////////////////
@@ -847,7 +847,7 @@ angular.module("disenador-de-logos")
 
 						obtenerSVGFinal();
 
-					})
+					});
 
 
 					////////////////////////////////
@@ -865,7 +865,7 @@ angular.module("disenador-de-logos")
 
 							indices[parseInt(this.getAttribute("data-indice"))] = false;
 
-						})
+						});
 
 						element.find(".seleccionado").removeClass("seleccionado");
 
@@ -895,14 +895,17 @@ angular.module("disenador-de-logos")
 
 						obtenerSVGFinal();
 
-					})
+					});
 
 
 					scope.$on("editor:planes", function () {
 
-						$rootScope.$broadcast("directiva:planes", scope.svgFinal);
+						$rootScope.$broadcast("directiva:planes", {
+							svg: scope.svgFinal, 
+							colores: obtenerColores()
+						});
 
-					})
+					});
                     
                     
 					scope.$on("editor:agregarEslogan", function (evento, datos) {
@@ -935,12 +938,12 @@ angular.module("disenador-de-logos")
                         
 						obtenerSVGFinal();
 
-					})
+					});
                     
 
 					var obtenerSVGFinal = function () {
                         
-						var elemento = element.clone()
+						var elemento = element.clone();
 
 						//elemento.find("[data-indice]").removeAttr("data-indice");
 						elemento.find(".seleccionado").removeClass("seleccionado");
@@ -950,12 +953,59 @@ angular.module("disenador-de-logos")
 						//});
                         
                         
-					}
+					};
+
+
+					var obtenerColores = function () {
+
+						var parteSVG = null;
+						var tamañoPivote = 0;
+						var color = {
+							icono: "",
+							nombre: "",
+							eslogan: ""
+						};
+
+						element.find("g.contenedor-icono > svg [data-indice]:not(g)").each(function () {
+							
+							var elemento = angular.element(this)[0].getBoundingClientRect();
+
+							var tamanoElemento =  elemento.width * elemento.height;
+
+							if(tamanoElemento >= tamañoPivote){
+								tamañoPivote = tamanoElemento;
+								parteSVG = angular.element(this);
+							}
+
+						});
+						
+
+						if(parteSVG.css("fill")){
+
+							color.icono = parteSVG.css("fill");
+
+						} else if(parteSVG.attr("fill")){
+
+							color.icono = parteSVG.attr("fill");
+
+						} else{
+							
+							color.icono = "#fff";
+
+						}
+
+						color.nombre = element.find("text.textoPrincipal").css("fill");   
+						
+						color.eslogan = element.find("text.eslogan").length ? element.find("text.eslogan").css("fill") : "";
+						
+						return color;
+						
+					};	
 
 
 				}
 			}
-		}
+		};
 	}])
 
 
@@ -978,7 +1028,7 @@ angular.module("disenador-de-logos")
 
 
 			}
-		}
+		};
 
 	})
 
@@ -992,14 +1042,14 @@ angular.module("disenador-de-logos")
 			restrict: "AE",
 			link: function (scope, element, attributes) {
 
-				if(true){
+				
                     
-					if($window.innerWidth < 1024){
+				if($window.innerWidth < 1024){
                        
-						$window.location = "/m" + $location.url();
-					}
-                    
+					$window.location = "/m" + $location.url();
 				}
+                    
+				
                 
 				angular.element(window).resize(function(){
                                      
@@ -1008,10 +1058,10 @@ angular.module("disenador-de-logos")
 						$window.location = "/m" + $location.url();
 					}
                     
-				})
+				});
 
 			}
-		}
+		};
 
 	})
 
@@ -1026,7 +1076,7 @@ angular.module("disenador-de-logos")
 				
 				element.css({"background-color": coloresFactory(scope.color)});
 			}
-		}
+		};
 	}])
 
 	.directive("carouselCombinaciones",[  function () {
@@ -1036,7 +1086,7 @@ angular.module("disenador-de-logos")
 			templateUrl: "app/templates/carousel-combinaciones.tpl",
 			controller: ["$scope", "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
 
-				bz = this;
+				var bz = this;
 
 				bz.logos = $scope.logos;
 
@@ -1099,7 +1149,7 @@ angular.module("disenador-de-logos")
 					if(bz.actual == $scope.logos.length - 1){
 						bz.actual = bz.actual - 1;
 					}
-				}
+				};
 
 			}],
 			controllerAs: "carouselMisLogos",
@@ -1110,4 +1160,4 @@ angular.module("disenador-de-logos")
 		};
 
 		
-	}])
+	}]);

@@ -882,17 +882,6 @@ angular.module("disenador-de-logos")
 							$rootScope.$broadcast("directiva:restaurarEslogan", {accion: false});
 						}
 
-						/*var nuevaFuente = {
-                            url: angular.element(document.querySelector("bazam-svg > svg > style")).text().split("url('")[1].split("')")[0],
-                            nombre: texto.attr("font-family")
-
-                        }*/
-
-						//$rootScope.$broadcast("directiva:fuente", nuevaFuente);
-
-						//scope.fuente = nuevaFuente;
-
-
 						obtenerSVGFinal();
 
 					});
