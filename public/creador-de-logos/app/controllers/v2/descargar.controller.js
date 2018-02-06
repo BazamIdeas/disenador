@@ -41,16 +41,8 @@ angular.module("disenador-de-logos")
                 ancho: 200
             },
             {
-                nombre: "skype",
-                ancho: 214
-            },
-            {
                 nombre: "twitter",
                 ancho: 400
-            },
-            {
-                nombre: "flickr",
-                ancho: 60
             },
             {
                 nombre: "linkedin",
@@ -65,17 +57,9 @@ angular.module("disenador-de-logos")
                 ancho: 300
             },
             {
-                nombre: "tumblr",
-                ancho: 64
-            },
-            {
                 nombre: "vimeo",
                 ancho: 300
             },
-            {
-                nombre: "line",
-                ancho: 300
-            }
         ]
 
         bz.formatoSeleccionado = bz.formatos[0];
