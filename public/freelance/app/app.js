@@ -5,16 +5,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 		$locationProvider.html5Mode(true)
 
 		/* INTERCEPTADOR */
-		$httpProvider.interceptors.push('AuthInterceptor');
+		$httpProvider.interceptors.push("AuthInterceptor");
 
 
 
-		$mdToastProvider.addPreset('base', {
+		$mdToastProvider.addPreset("base", {
 			options: function () {
 				return {
-					templateUrl: 'toast-base.html',
+					templateUrl: "toast-base.html",
 					hideDelay: 0,
-					position: 'top right',
+					position: "top right",
 					controller: ["$scope", "$mdToast", "$timeout", "args", function ($scope, $mdToast, $timeout, args) {
 
 						if (args) {
@@ -50,25 +50,25 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 		///////////////////////////////////////////////////////////////
 
 			.state({
-				name: 'principal',
-				url: '/comenzar',
-				templateUrl: 'app/views/v2/principal.tpl',
-				controller: 'principalController as principal',
+				name: "principal",
+				url: "/comenzar",
+				templateUrl: "app/views/v2/principal.tpl",
+				controller: "principalController as principal",
 				abstract: true
 			})
 
 			.state({
-				name: 'principal.comenzar',
-				url: '/?id&?n',
-				templateUrl: 'app/views/v2/principal.comenzar.tpl',
-				controller: 'principalComenzarController as principalComenzar'
+				name: "principal.comenzar",
+				url: "/?id&?n",
+				templateUrl: "app/views/v2/principal.comenzar.tpl",
+				controller: "principalComenzarController as principalComenzar"
 			})
 
 			.state({
-				name: 'principal.opciones',
-				url: '/opciones/',
-				templateUrl: 'app/views/v2/principal.opciones.tpl',
-				controller: 'principalOpcionesController as principalOpciones',
+				name: "principal.opciones",
+				url: "/opciones/",
+				templateUrl: "app/views/v2/principal.opciones.tpl",
+				controller: "principalOpcionesController as principalOpciones",
 				params: {
 					status: null
 				},
@@ -83,11 +83,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			})
 
 			.state({
-				name: 'principal.combinaciones',
-				url: '/combinaciones/',
-				templateUrl: 'app/views/v2/principal.combinaciones.tpl',
+				name: "principal.combinaciones",
+				url: "/combinaciones/",
+				templateUrl: "app/views/v2/principal.combinaciones.tpl",
 
-				controller: 'principalCombinacionesController as principalCombinaciones',
+				controller: "principalCombinacionesController as principalCombinaciones",
 				params: {
 					status: null
 				},
@@ -102,10 +102,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			})
 
 			.state({
-				name: 'editor',
-				url: '/editor/',
-				templateUrl: 'app/views/v2/editor.tpl',
-				controller: 'editorController as editor',
+				name: "editor",
+				url: "/editor/",
+				templateUrl: "app/views/v2/editor.tpl",
+				controller: "editorController as editor",
 				params: {
 					status: null,
 					datos: {
@@ -134,18 +134,18 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 						if ($stateParams.status) {
 
-							LS.definir('editor-freelance', $stateParams.datos);
+							LS.definir("editor-freelance", $stateParams.datos);
 
 							defered.resolve($stateParams.datos);
 
-						} else if (LS.obtener('editor-freelance')) {
+						} else if (LS.obtener("editor-freelance")) {
 
-							defered.resolve(LS.obtener('editor-freelance'));
+							defered.resolve(LS.obtener("editor-freelance"));
 
 						} else {
 
 							defered.reject({
-								error: 'FALLO_HISTORICO'
+								error: "FALLO_HISTORICO"
 							});
 						}
 
@@ -157,10 +157,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			})
 
 			.state({
-				name: 'publicado',
-				url: '/publicado/:id/',
-				templateUrl: 'app/views/v2/publicado.tpl',
-				controller: 'publicadoController as publicado',
+				name: "publicado",
+				url: "/publicado/:id/",
+				templateUrl: "app/views/v2/publicado.tpl",
+				controller: "publicadoController as publicado",
 				params: {
 					status: null,
 					datos: null
@@ -220,10 +220,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			})
 
 			.state({
-				name: 'cuenta',
-				url: '/cliente/cuenta/',
-				templateUrl: 'app/views/v2/cuenta.tpl',
-				controller: 'cuentaController as cuenta',
+				name: "cuenta",
+				url: "/cliente/cuenta/",
+				templateUrl: "app/views/v2/cuenta.tpl",
+				controller: "cuentaController as cuenta",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
@@ -238,10 +238,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			})
 
 			.state({
-				name: 'balance',
-				url: '/cliente/balance/',
-				templateUrl: 'app/views/v2/balance.tpl',
-				controller: 'balanceController as balance',
+				name: "balance",
+				url: "/cliente/balance/",
+				templateUrl: "app/views/v2/balance.tpl",
+				controller: "balanceController as balance",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
@@ -256,10 +256,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			})
 
 			.state({
-				name: 'logos',
-				url: '/cliente/logos/',
-				templateUrl: 'app/views/v2/logos.tpl',
-				controller: 'logosController as logos',
+				name: "logos",
+				url: "/cliente/logos/",
+				templateUrl: "app/views/v2/logos.tpl",
+				controller: "logosController as logos",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
@@ -274,10 +274,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			})
 
 			.state({
-				name: 'logoVendido',
-				url: '/cliente/logo/:id/',
-				templateUrl: 'app/views/v2/logoVendido.tpl',
-				controller: 'logoVendidoController as logoVendido',
+				name: "logoVendido",
+				url: "/cliente/logo/:id/",
+				templateUrl: "app/views/v2/logoVendido.tpl",
+				controller: "logoVendidoController as logoVendido",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
@@ -329,10 +329,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			})
 
 			.state({
-				name: 'login',
-				url: '/login/',
-				templateUrl: 'app/views/v2/login.tpl',
-				controller: 'loginController as login',
+				name: "login",
+				url: "/login/",
+				templateUrl: "app/views/v2/login.tpl",
+				controller: "loginController as login",
 				resolve: {
 					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
@@ -348,7 +348,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 		//redirecciones
 
-		$urlRouterProvider.when('/', ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
+		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
             
 			return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
 		}]);
@@ -356,19 +356,19 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 		$urlRouterProvider.rule(function ($injector, $location) {
 			var path = $location.url();
 
-			if ('/' === path[path.length - 1] || path.indexOf('/?') > -1) {
+			if ("/" === path[path.length - 1] || path.indexOf("/?") > -1) {
 				return;
 			}
 
-			if (path.indexOf('?') > -1) {
-				return path.replace('?', '/?');
+			if (path.indexOf("?") > -1) {
+				return path.replace("?", "/?");
 			}
 
-			return path + '/';
+			return path + "/";
 		});
 
 
-		$urlRouterProvider.otherwise('/404/');
+		$urlRouterProvider.otherwise("/404/");
 
 	})
 
@@ -377,7 +377,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
 
-		$rootScope.$on('$viewContentLoaded', function (event) {
+		$rootScope.$on("$viewContentLoaded", function (event) {
 
 			$timeout(function () {
 				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
@@ -394,7 +394,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				switch (toState.name) {
 
-				case 'publicado':
+				case "publicado":
 					break;
 
 				default:
@@ -409,15 +409,15 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				switch (toState.name) {
 
-				case 'editor':
+				case "editor":
 
 					switch (fromState.name) {
 
-					case '':
+					case "":
 						$state.go("login");
 						break;
 
-					case 'principal.combinaciones':
+					case "principal.combinaciones":
 						break;
 
 
@@ -427,11 +427,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 					break;
 
-				case 'planes':
+				case "planes":
 
 					switch (fromState.name) {
 
-					case '':
+					case "":
 						$state.go("login");
 						break;
 
@@ -442,11 +442,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 					break;
 
-				case 'pago':
+				case "pago":
 
 					switch (fromState.name) {
 
-					case '':
+					case "":
 						$state.go("login");
 						break;
 
@@ -460,7 +460,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				case "pagoCompleto":
 					switch (fromState.name) {
 
-					case '':
+					case "":
 						$state.go("login");
 						break;
 
@@ -473,7 +473,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				case "cuenta":
 					switch (fromState.name) {
 
-					case '':
+					case "":
 						$state.go("login");
 						break;
 
@@ -486,7 +486,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				case "logos":
 					switch (fromState.name) {
 
-					case '':
+					case "":
 						$state.go("login");
 						break;
 
@@ -499,7 +499,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				case "descargar":
 					switch (fromState.name) {
 
-					case '':
+					case "":
 						$state.go("login");
 						break;
 
@@ -514,24 +514,24 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			} else if (error === "LOGOUT_REQUIRED") {
 
-				$state.go('cuenta');
+				$state.go("cuenta");
 
 			} else if (error.error === "FALLO_HISTORICO") {
 
 
 				switch (toState.name) {
 
-				case 'editor':
+				case "editor":
 
 					$state.go("principal.comenzar");
 					break;
 
-				case 'planes':
+				case "planes":
 
 					$state.go("editor");
 					break;
 
-				case 'pago':
+				case "pago":
 
 					$state.go("planes");
 					break;

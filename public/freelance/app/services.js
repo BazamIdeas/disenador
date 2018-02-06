@@ -986,14 +986,15 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.publicar = function (idLogo) {
+		this.publicar = function (idLogo, colores) {
 
 			var defered = $q.defer();
 
 			var promise = defered.promise;
 
 			$http.post("/app/logo/por-aprobar", {
-				idLogo: idLogo
+				idLogo: idLogo,
+				colores: colores
 			}).then(function () {
 
 				defered.resolve();
