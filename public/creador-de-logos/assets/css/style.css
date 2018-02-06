@@ -2494,6 +2494,7 @@ textarea {
     font-family: futura-heavy !important;
     transition: opacity 1s;
     cursor: pointer;
+    bottom: 0;
 }
 
 .logo-container-m:hover span.seleccionar {
@@ -2574,4 +2575,8 @@ textarea {
 
 .pop-ayuda.corner-lb{
     border-radius: 20px 20px 20px 0px;
+}
+
+.img-filter{
+    filter: grayscale(1)
 }
