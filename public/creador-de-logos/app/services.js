@@ -29,7 +29,7 @@ angular.module("disenador-de-logos")
 			}else{
 				return coloresValue["#000000"][Math.floor(Math.random() * 4) + 1];
 			}
-		}
+		};
 	}])
 
 	.value("paisesValue", {
@@ -1170,6 +1170,22 @@ angular.module("disenador-de-logos")
 			return promise;
 		};
 
+		this.porLogo = function (idLogo) {
+			
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.post("/app/logo/plan/caracteristicas", {idLogo: idLogo})
+				.then(function (res) {
+					defered.resolve(res.data);
+				}).catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+
+		};
+
 	}])
 
 
@@ -1251,6 +1267,6 @@ angular.module("disenador-de-logos")
 			$rootScope.$broadcast("bazamAyuda:mostrar", accion);
 
 			accion = !accion;
-		}
+		};
 
-	}])
+	}]);
