@@ -29,7 +29,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row" ng-if="descargar.plan.manual">
                 <button style="margin:auto; display:block;" class="boton-verde ng-binding" style="background-color: var(--principal)" ng-click="descargar.manualMarca(descargar.logo.id)">
                     MANUAL DE IDENTIDAD</button>
             </div>
@@ -43,14 +43,14 @@
 
                 <div class="col s10 offset-s1">
 
-                    <div class="col l3" ng-repeat="formato in descargar.formatosNoSociales">
+                    <div class="col l3" ng-repeat="formato in descargar.formatosNoSociales" ng-if="(formato.nombre == 'editable' && descargar.plan.editable) || (formato.nombre == 'papeleria' && descargar.plan.png) || (formato.nombre != 'editable' && formato.nombre != 'papeleria')">
                         <div class="formato" style=" margin-bottom: 20px;padding-top:0%;" ng-click="descargar.seleccionar(formato)">
                             <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
                             <img style="width:100%;" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
                         </div>
                     </div>
 
-                    <div class="col l3" ng-repeat="formato in descargar.formatos">
+                    <div class="col l3" ng-repeat="formato in descargar.formatos" ng-if="descargar.plan.png">
                         <div class="formato" style=" margin-bottom: 20px" ng-click="descargar.seleccionar(formato)">
                             <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
                             <img style="width:100%" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
@@ -64,7 +64,7 @@
 
         </div>
 
-        <div class="col s4 text-center" style="background-color: white;height: 100%; margin-top: 15px;">
+        <div class="col s4 text-center" style="background-color: white;height: 100%; margin-top: 15px;" ng-if="descargar.plan.png || descargar.plan.editable">
 
 
             <div style="position: relative;margin-top: 5px;box-shadow: 0px 0px 1px 1px #d4d4d4;">

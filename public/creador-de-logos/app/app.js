@@ -2,7 +2,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
 
-        $locationProvider.html5Mode(true)
+        $locationProvider.html5Mode(true);
 
         /* INTERCEPTADOR */
         $httpProvider.interceptors.push('AuthInterceptor');
@@ -24,18 +24,18 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
                         var temporizador = $timeout(function () {
                             $mdToast.hide();
-                        }, 2000)
+                        }, 2000);
 
                         $scope.closeToast = function () {
-                            $timeout.cancel(temporizador)
+                            $timeout.cancel(temporizador);
                             $mdToast.hide();
 
-                        }
+                        };
                     }],
                     clickOutsideToClose: true
                 };
             }
-        })
+        });
 
 
         /*------------------------ Ui router states ----------------------*/
@@ -77,7 +77,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                             .catch(function (res) {
 
                                 defered.reject(res);
-                            })
+                            });
 
                         return promise;
 
@@ -391,7 +391,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 params: {
 
                     datos: {
-                        logo: null
+                        logo: null,
+                        id: null
                     }
                 },
                 resolve: {
@@ -404,12 +405,35 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                         }
 
                     }],
-                    logoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
+                    logoResolve: ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
 
-                        return {
-                            logo: $stateParams.datos.logo,
-                            id: $stateParams.id
-                        };
+                        if($stateParams.id){
+                            var defered = $q.defer();
+                            var promise = defered.promise;
+
+                            logosService.obtenerPorId($stateParams.id).then(function (res) {
+
+                                if(res.estado == "Descargable"){
+                                    defered.resolve( {
+                                        logo: res.logo,
+                                        id: $stateParams.id
+                                    });
+                                } else{
+                                    defered.reject("INVALID_LOGO");
+                                }
+
+                            }).catch(function () {
+                
+                               // $state.go("logos");
+                               defered.reject("INVALID_LOGO");
+                            });
+
+                            return promise;
+                        } else{
+                            return $q.reject("INVALID_LOGO");
+                        }
+
+                    
 
                     }]
                 }
@@ -438,7 +462,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 url: '/logos-galeria/',
                 templateUrl: 'app/views/v2/logosGaleria.tpl',
                 controller: 'logosGaleriaController as logosGaleria'
-            })
+            });
 
 
         $urlRouterProvider.when('/', ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
@@ -474,7 +498,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
             $timeout(function () {
 
                 angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
-            }, 500)
+            }, 500);
 
 
         });
@@ -627,7 +651,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
                 }
 
             }
-            console.log(error)
+            console.log(error);
 
         });
-    })
+    });
