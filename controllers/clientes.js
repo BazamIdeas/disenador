@@ -460,7 +460,17 @@ exports.manualCliente = function (req, res, next) {
     var logo = req.body.logo
 
     var datos = {
-        logo: base64.decode(logo.logo)
+        logos : []
+    }
+
+    for(i = 0; i <= 21; i++){
+        datos.logos[i] = (base64.decode(logo.logo));
+    }
+
+    console.log(datos.logos)
+
+    for (var key in datos.logos) {
+        template = template.replace('{#' + key + '#}', datos[key]);
     }
 
     for (var key in datos) {
@@ -468,19 +478,11 @@ exports.manualCliente = function (req, res, next) {
     }
 
     var config = {
-        "base": "./manual-marcas",
-        "format": "Letter", // allowed units: A3, A4, A5, Legal, Letter, Tabloid
-        "orientation": "portrait",
-        "border": "0",
+        "height": "11in",        // allowed units: mm, cm, in, px
+        "width": "8.5in",
+        "base": "file:///D:/GitHub/disenador/manual-marcas/assets",
         "type": "pdf", // allowed file types: png, jpeg, pdf
-        "renderDelay": 1000,
-        "paginationOffset": 1,
-        "footer": {
-            "height": "28mm",
-            "contents": {
-                default: '<span style="color: #444;">Creado por (LOGO)</span>'
-            }
-        },
+        "renderDelay": 3000
     }
 
     var nombreEmpresa = 'LL';

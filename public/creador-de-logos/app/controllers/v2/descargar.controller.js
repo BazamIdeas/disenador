@@ -165,7 +165,6 @@ angular.module("disenador-de-logos")
 
         bz.manualMarca = function(id){
             logosService.obtenerPorId(id).then(function (res) {
-            console.log(res)
                 logosService.manualMarca(res).then(function (res) {
                     var pdf = document.createElement('a');
                     pdf.setAttribute('href', res.nombreArchivo);

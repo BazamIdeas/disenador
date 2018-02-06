@@ -56,11 +56,11 @@
                 <th>Nombre:</th>
                 <th>Accion:</th>
               </tr>
-              <tr ng-repeat="elemento in moneda.pasarelas | filter:moneda.p.$ | orderBy:'idMoneda'">
+              <tr ng-repeat="elemento in moneda.pasarelas | filter:moneda.p.$ | orderBy:'idPasarela'">
                 <td>{{elemento.idPasarela}}</td>
                 <td>{{elemento.pasarela}}</td>
                 <td>
-                  <md-button class="md-fab md-mini md-warn" nng-click="moneda.mostrar('editarPasarela', $index)">
+                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.mostrar('editarPasarela', $index)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                     <md-icon class="material-icon">edit</md-icon>
                   </md-button>

@@ -57,6 +57,7 @@ angular.module("administrador")
                     }
                     datos.idPais = res.data.insertId;
                     bz.paises.push(datos);
+                    bz.nuevoPais = {};
                     return notificacionService.mensaje('El pais ha si añadido.');
                 })
             }
