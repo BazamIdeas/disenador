@@ -111,12 +111,53 @@ exports.Destacar = function(req,res) {
 
 //CAMBIAR EL ESTADO DE UN LOGO A 'POR APROBAR'
 exports.porAprobar = function(req,res) {
+
 	var par = ["Por Aprobar", req.body.idLogo];
+
 	logo.cambiarEstado(par, function(error,data){
+
 		if (typeof data !== "undefined" && data.msg){
+
+			var atributos = [{
+					clave : "icono",
+					valor : req.body.colores.icono,
+					logos_idLogo: req.body.idLogo  
+				},{
+					clave : "nombre",
+					valor : req.body.colores.nombre,
+					logos_idLogo: req.body.idLogo  
+				}];
+
+			if(req.body.colores.eslogan){
+
+				atributos.push({
+					clave : "eslogan",
+					valor : req.body.colores.eslogan,
+					logos_idLogo: req.body.idLogo  
+				});
+				
+			}
+
+
+
+			for(var key in atributos){
+
+				atributo.Guardar(atributos[key], function(error, data) {
+
+					if(!data && !data.insertId)
+					{
+						res.status(500).json({"msg":"Algo ocurrio"});
+					}
+
+				});
+			}
+
 			res.status(200).json(data);
+
 		}else{
+			
 			res.status(500).json({"msg":"Algo ocurrio"});
+		
 		}
 	});
 };

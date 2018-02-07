@@ -1259,12 +1259,23 @@ angular.module("disenador-de-logos")
     
 	}])
 
-	.factory("mostrarPopAyuda", ["$rootScope", function ($rootScope) {
-		
+	.factory("mostrarPopAyudaFactory", ["$rootScope", function ($rootScope) {
+
+		return function (indice) {
+
+			$rootScope.$broadcast("bazamAyuda:mostrar", {indice: indice});
+
+		};
+
+	}])
+
+	.factory("mostrarPasoPopAyudaFactory", ["$rootScope", function ($rootScope) {
+
 		var accion = true;
 
 		return function () {
-			$rootScope.$broadcast("bazamAyuda:mostrar", accion);
+			console.log(accion)
+			$rootScope.$broadcast("bazamPasoAyuda:mostrar", accion);
 
 			accion = !accion;
 		};

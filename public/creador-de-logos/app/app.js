@@ -491,8 +491,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
     .run(function ($rootScope, $state, $timeout) {
 
-
-
         $rootScope.$on('$viewContentLoaded', function (event) {
 
             $timeout(function () {
@@ -503,7 +501,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
         });
 
+        $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
 
+            //Servicio para cerrar ayudas
+
+        })
 
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
