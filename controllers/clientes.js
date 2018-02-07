@@ -453,24 +453,47 @@ exports.Avatar = function (req, res, next) {
 
 exports.manualCliente = function (req, res, next) {
 
+    var logo = req.body.logo;
+
+
+    return console.log(logo)
+
+    /*------------------------------- PDF --------------------------*/
+
     var template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
         if (err) throw err;
     });
 
-    var logo = req.body.logo
-
     var datos = {
-        logos : []
+        logo: base64.decode(logo.logo),
+        color_principal: '#4087af',
+        fuente_c_hexa_p: '#4087af',
+        fuente_c_rgb_p: '#4087af',
+        fuente_c_hexa_n: '#4087af',
+        fuente_c_rgb_n: '#4087af',
+        fuente_c_hexa_e: '#4087af',
+        fuente_c_rgb_e: '#4087af',
+        tipografia_p: { url: '/fuentes/BadScript-Regular.ttf', nombre: 'BadScript'},
+        tipografia_s: { url: '/fuentes/BerkshireSwash-Regular.ttf', nombre: 'BerkshireSwash'},
     }
 
-    for(i = 0; i <= 21; i++){
-        datos.logos[i] = (base64.decode(logo.logo));
+    for (i = 0; i <= 6; i++) {
+        template = template.replace('{#fuente_c_hexa_p#}', datos.fuente_c_hexa_p);
+        template = template.replace('{#fuente_c_rgb_p#}', datos.fuente_c_rgb_p);
+        template = template.replace('{#fuente_c_hexa_n#}', datos.fuente_c_hexa_n);
+        template = template.replace('{#fuente_c_rgb_n#}', datos.fuente_c_rgb_n);
+        template = template.replace('{#fuente_c_hexa_e#}', datos.fuente_c_hexa_e);
+        template = template.replace('{#fuente_c_rgb_e#}', datos.fuente_c_rgb_e);
+        template = template.replace('{#tipografia_p_url#}', datos.tipografia_p.url);
+        template = template.replace('{#tipografia_p_nombre#}', datos.tipografia_p.nombre);
+        template = template.replace('{#tipografia_s_nombre#}', datos.tipografia_s.nombre);
+        template = template.replace('{#tipografia_s_url#}', datos.tipografia_s.url);
+
+        template = template.replace('{#color_principal#}', datos.color_principal);
     }
 
-    console.log(datos.logos)
-
-    for (var key in datos.logos) {
-        template = template.replace('{#' + key + '#}', datos[key]);
+    for(i = 0; i <= 11; i++){
+        template = template.replace('{#logo#}', datos.logo);
     }
 
     for (var key in datos) {
@@ -478,11 +501,7 @@ exports.manualCliente = function (req, res, next) {
     }
 
     var config = {
-        "height": "11in",        // allowed units: mm, cm, in, px
-        "width": "8.5in",
-        "base": "file:///D:/GitHub/disenador/manual-marcas/assets",
-        "type": "pdf", // allowed file types: png, jpeg, pdf
-        "renderDelay": 3000
+        "height": "11in","width": "8.5in","base": "file:///D:/GitHub/disenador/manual-marcas/assets","type": "pdf","renderDelay": 3000
     }
 
     var nombreEmpresa = 'LL';

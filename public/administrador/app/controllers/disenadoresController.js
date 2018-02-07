@@ -18,26 +18,26 @@ angular.module("administrador")
 		bz.listarLogos = function () {
 			designerService.listarLogos().then(function (res) {
 				angular.forEach(res, function (valor) {
-					if (valor.atributos.length > 0) {
-						angular.forEach(valor.atributos, function (valor2) {
-							if (valor2.clave == 'calificacion-admin') {
-								valor.calificado = true;
-							}
-						});
+					if (valor.atributos) {
+						if (valor.atributos.length > 0) {
+							angular.forEach(valor.atributos, function (valor2) {
+								if (valor2.clave == 'calificacion-admin') {
+									valor.calificado = true;
+								}
+							});
+						}
 					}
 				});
 
 				bz.logos = res;
 				bz.listaL = !bz.listaL;
-			}).catch(function () {
+			}).catch(function (res) {
 				notificacionService.mensaje("No existen logos por aprobar!");
 				bz.listaL = false;
 			});
 		};
 
-		bz.listarLogos();
-
-		bz.aprobarLogo = function (i, datos,id) {
+		bz.aprobarLogo = function (i, datos, id) {
 			bz.cal = !bz.cal;
 			bz.logoCalificarA = datos;
 
@@ -87,7 +87,7 @@ angular.module("administrador")
 					*/
 					bz.cal = false;
 					return notificacionService.mensaje("Calificacion Colocada!");
-					
+
 				}
 
 				// Si no
@@ -114,9 +114,10 @@ angular.module("administrador")
 		};
 
 
-		bz.destacado = function (id) {
-			designerService.destacado(id).then(function () {
+		bz.destacado = function (datos) {
+			designerService.destacado(datos).then(function () {
 				notificacionService.mensaje("Destacado!");
+				bz.logos[datos.i].destacado = true;
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
 			});
@@ -162,7 +163,7 @@ angular.module("administrador")
 					datos.monto = valor.deuda.deuda;
 				}
 			});
-			
+
 			designerService.notificarPago(datos).then(function () {
 
 				notificacionService.mensaje("Usuario Notificado!");
@@ -181,7 +182,7 @@ angular.module("administrador")
 
 		bz.mostrar = function (opcion, index, id) {
 			if (opcion == "logos-designer") {
-				
+
 				designerService.logosDisenador(id).then(function (res) {
 
 					// Verificamos si tiene la calificacion del administrador
@@ -246,7 +247,7 @@ angular.module("administrador")
 			return [year, month, day].join("-");
 		}
 
-		bz.calDisenador = function(d){
+		bz.calDisenador = function (d) {
 			bz.metodoPagoi = true;
 			bz.datosPagar = d;
 		}

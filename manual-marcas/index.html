@@ -7,20 +7,55 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Manual de Marcas</title>
     <link rel="stylesheet" href="assets/style.css">
+    <style>
+        .title:not(.text-white),
+        .color-principal {
+            color: {#color_principal#};
+        }
+
+        .header,
+        .fondo {
+            background: {#color_principal#} !important;
+        }
+
+        @font-face {
+            font-family: '{#tipografia_p_nombre#}';
+            src: url("../{#tipografia_p_url#}") format("truetype");
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: '{#tipografia_s_nombre#}';
+            src: url("../{#tipografia_s_url#}") format("truetype");
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        .fuente-principal{
+            font-family: '{#tipografia_p_nombre#}';
+        }
+
+        .fuente-secundaria{
+            font-family: '{#tipografia_s_nombre#}';
+        }
+    </style>
 </head>
 
 <body>
     <div class="page inicio no">
         <div class="cont-logo">
-            {#0#}
+            {#logo#}
         </div>
-        <h3 style="color:#4087AF; margin-top:2in; font-size: 48px; text-align: center;">MANUAL DE MARCA</h3>
+        <h3 class="color-principal" style="margin-top:2in; font-size: 48px; text-align: center;">MANUAL DE MARCA</h3>
 
         <div class="fondo">.</div>
-        <div class="footer text-white">Creado por {#1#}</div>
+        <div class="footer text-white">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 2 -->
-    <div class="page no" style="background:#4087AF;">
+    <div class="page no" style="background:{#color_principal#};">
         <h3 class="title text-white" style="margin-bottom:2in;">INTRODUCCIÓN</h3>
 
         <p class="text-right text-white" style="padding-left:2in; margin-bottom:3in;   line-height: 30px;">El presente Manual tiene como fin recoger los elementos de identidad gráfica de su logo y la gama de aplicaciones
@@ -29,13 +64,15 @@
             Visual.
         </p>
 
-        <div class="footer text-white">Creado por {#2#}</div>
+        <div class="footer text-white">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 3-->
     <div class="page no">
         <div class="header">01</div>
 
-        <h3 class="title" style="color:#4087AF;">LOGOTIPO</h3>
+        <h3 class="title">LOGOTIPO</h3>
 
         <h4 class="sub-title">Definición</h4>
         <p class="text-justify" style="margin-bottom:1in;">El logotipo es el elemento que puede ser reconocido a la vista pero que no puede ser pronunciado o expresado. El
@@ -44,33 +81,42 @@
             cierta analogía.</p>
 
         <div class="logo-regilla">
-            {#3#}
+            <div class="logo-auto">{#logo#}
+            </div>
         </div>
 
-        <div class="footer">Creado por {#4#}</div>
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 4 -->
     <div class="page">
         <div class="header">02</div>
-        <h3 class="title" style="color:#4087AF;">LOGOTIPO</h3>
+        <h3 class="title">LOGOTIPO</h3>
 
         <h4 class="sub-title">Zona de seguridad</h4>
-        <p class="text-justify" style="margin-bottom:1in;">Se entiende como zona de seguridad al espacio que debe existir alrededor del logotipo o marca sin que ningún otro
+        <p class="text-justify" style="margin-bottom:0.5in;">Se entiende como zona de seguridad al espacio que debe existir alrededor del logotipo o marca sin que ningún otro
             elemento lo rebase o interfiera, consiguiendo así una correcta visualización del mismo.
-            <br><br> Definir una zona de seguridad para el logotipo o marca asegura la independencia visual del mismo respecto a
+            <br>
+            <br> Definir una zona de seguridad para el logotipo o marca asegura la independencia visual del mismo respecto a
             otros elementos gráficos que pudieran acompañarlo, facilitando de esta forma su inmediata identificación.
         </p>
 
         <div class="logo-regilla seguridad">
-            {#5#}
+            <div class="logo-centrado seguridad">
+                <div class="logo-auto">{#logo#}
+                </div>
+            </div>
         </div>
 
-        <div class="footer">Creado por {#6#}</div>
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 5 -->
     <div class="page no" style="margin-top:-5px;">
         <div class="header">03</div>
-        <h3 class="title" style="color:#4087AF;">TIPOGRAFÍA</h3>
+        <h3 class="title">TIPOGRAFÍA</h3>
 
         <p class="text-justify" style="margin-bottom:1in; ">La normalización de la tipografía es un elemento que aporta homogeneidad y armonía a todos los soportes contemplados
             en un programa de identidad visual. Al igual que los colores corporativos, también deberá mantenerse constante,
@@ -79,35 +125,43 @@
 
         <div class="tipografias">
             <h3 style="font-weight:bold; border-bottom: 1px solid black;
-            display: inline;">Tipografía usada en el eslogan o pie de marca: (Nombre de la Fuente si existe)
+            display: inline;">Tipografía usada en el nombre: {#tipografia_p_nombre#}
             </h3>
             <div class="abc">
                 <h5 style="color:silver;">MAYÚSCULAS</h5>
-                <div style="letter-spacing:3px;">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
+                <div class="fuente-principal" style="letter-spacing:3px;">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
+            </div>
+            <div class="abc">
+                <h5 style="color:silver;">MINUSCULAS</h5>
+                <div class="fuente-principal" style="letter-spacing:3px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="tipografias">
+            <h3 style="font-weight:bold; border-bottom: 1px solid black;
+                                        display: inline;">Tipografía usada en el eslogan o pie de marca: {#tipografia_s_nombre#}
+            </h3>
+            <div class="abc">
+                <h5 style="color:silver;">MAYÚSCULAS</h5>
+                <div class="fuente-secundaria" style="letter-spacing:3px;">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
 
                 <div class="abc">
                     <h5 style="color:silver;">MINUSCULAS</h5>
-                    <div style="letter-spacing:3px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
+                    <div class="fuente-secundaria" style="letter-spacing:3px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
                 </div>
 
             </div>
-            <br>
-            <br>
-            <br>
-            <!-- SI EXISTE EL SLOGAN -->
-
-            <h3 style="font-weight:bold; border-bottom: 1px solid black;
-            display: inline;">Tipografía usada en el eslogan o pie de marca: (Nombre de la Fuente si existe)
-            </h3>
-
         </div>
 
-        <div class="footer">Creado por {#7#}</div>
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 6 -->
     <div class="page">
         <div class="header">04</div>
-        <h3 class="title" style="color:#4087AF;">COLORES</h3>
+        <h3 class="title">COLORES</h3>
 
         <h4 class="sub-title">Principales y complementarios</h4>
         <p class="text-justify" style="margin-bottom:1in;">El color es un elemento fundamental para identificar y personalizar la identidad visual corporativa. La aplicación
@@ -117,15 +171,15 @@
         <div class="colores">
             <h5 class="color-id">PRINCIPAL</h5>
             <div class="color">
-                <div class="muestra" style="background:#4087AF;">.</div>
+                <div class="muestra" style="background:{#fuente_c_hexa_p#};">.</div>
                 <div>
                     <div>
                         <p style="color:silver;">WEB #:</p>
-                        <P style="color: blue;">#E51B23</P>
+                        <P style="color:{#fuente_c_hexa_p#};">{#fuente_c_hexa_p#}</P>
                     </div>
                     <div>
                         <p style="color:silver;">RGB:</p>
-                        <P style="color: blue;">rgb(180,180,180)</P>
+                        <P style="color:{#fuente_c_rgb_p#};">{#fuente_c_rgb_p#})</P>
                     </div>
                 </div>
             </div>
@@ -134,15 +188,15 @@
 
             <h5 class="color-id">NOMBRE</h5>
             <div class="color">
-                <div class="muestra" style="background:rgb(69, 111, 136);">.</div>
+                <div class="muestra" style="background:{#fuente_c_hexa_n#};">.</div>
                 <div>
                     <div>
                         <p style="color:silver;">WEB #:</p>
-                        <P style="color: blue;">#E51B23</P>
+                        <P style="color:{#fuente_c_hexa_n#};">{#fuente_c_hexa_n#}</P>
                     </div>
                     <div>
                         <p style="color:silver;">RGB:</p>
-                        <P style="color: blue;">rgb(180,180,180)</P>
+                        <P style="color:{#fuente_c_rgb_n#};">{#fuente_c_rgb_n#})</P>
                     </div>
                 </div>
             </div>
@@ -150,129 +204,172 @@
 
             <h5 class="color-id">ESLOGAN</h5>
             <div class="color">
-                <div class="muestra" style="background:rgb(19, 68, 97);">.</div>
+                <div class="muestra" style="background:{#fuente_c_hexa_e#};">.</div>
                 <div>
                     <div>
                         <p style="color:silver;">WEB #:</p>
-                        <P style="color: blue;">#E51B23</P>
+                        <P style="color:{#fuente_c_hexa_e#};">{#fuente_c_hexa_e#}</P>
                     </div>
                     <div>
                         <p style="color:silver;">RGB:</p>
-                        <P style="color: blue;">rgb(180,180,180)</P>
+                        <P style="color:{#fuente_c_rgb_e#};">{#fuente_c_rgb_e#})</P>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="footer">Creado por {#8#}</div>
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 7 -->
     <div class="page">
         <div class="header">05</div>
-        <h3 class="title" style="color:#4087AF;">NORMAS DE USO</h3>
+        <h3 class="title">NORMAS DE USO</h3>
 
         <p class="text" style="margin-bottom:1in;">Para evitar resultados no deseados en la puesta en práctica de la marca se tienen que seguir una serie de normas
             genéricas.
-        <br>
-        <br> El valor de una marca depende en gran medida de la disciplina en su aplicación. Con el objetivo de no debilitar
-                    el mensaje visual de la marca es fundamental evitar los efectos contraproducentes en su aplicación.
-                    <br><br> Un uso desordenado de la identidad visual crea confusión, y repercute muy negativamente en el perfil de la marca
-                    y en la percepción que el público ha de tener de sus valores y servicios.
-        <br>
-        <br> Ordenar y aplicar de forma correcta el logotipo es garantía de que transmitirá perfectamente la jerarquía dentro
-                    del conjunto de la imagen corporativa.
+            <br>
+            <br> El valor de una marca depende en gran medida de la disciplina en su aplicación. Con el objetivo de no debilitar
+            el mensaje visual de la marca es fundamental evitar los efectos contraproducentes en su aplicación.
+            <br>
+            <br> Un uso desordenado de la identidad visual crea confusión, y repercute muy negativamente en el perfil de la marca
+            y en la percepción que el público ha de tener de sus valores y servicios.
+            <br>
+            <br> Ordenar y aplicar de forma correcta el logotipo es garantía de que transmitirá perfectamente la jerarquía dentro
+            del conjunto de la imagen corporativa.
         </p>
 
-        <div class="footer">Creado por {#9#}</div>
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 8 -->
     <div class="page">
         <div class="header">06</div>
-        <h3 class="title" style="color:#4087AF;">NORMAS DE USO</h3>
+        <h3 class="title">NORMAS DE USO</h3>
         <h4 class="sub-title">Aplicaciones correctas</h4>
-        <p class="text" style="margin-bottom:1in;">Siempre que sea posible se aplicará la marca en su versión principal. En el caso que no sea posible por razones técnicas
+        <p class="text" style="margin-bottom:0.5in;">Siempre que sea posible se aplicará la marca en su versión principal. En el caso que no sea posible por razones técnicas
             se utilizará la versión en blanco y negro.
         </p>
 
         <div class="aplicaciones">
             <div class="blanco">
-                {#10#}
+                <div class="logo-centrado">
+                    <div class="logo-auto">{#logo#}
+                    </div>
+                </div>
             </div>
             <div class="negro">
-                {#11#}
+                <div class="logo-centrado">
+                    <div class="logo-auto">{#logo#}
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="footer">Creado por {#12#}</div>
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 9 -->
     <div class="page">
         <div class="header">07</div>
-        <h3 class="title" style="color:#4087AF;">NORMAS DE USO</h3>
+        <h3 class="title">NORMAS DE USO</h3>
         <h4 class="sub-title">Aplicaciones correctas</h4>
         <p class="text" style="margin-bottom:1in;">La máxima visibilidad, legibilidad y contraste tienen que asegurarse en todas las aplicaciones.
-        <br>
-        <br>Si el logotipo se tiene que aplicar sobre fondos no corporativos o fotografías, debe aplicarse en blanco o negro,
-                    en función de la luminosidad del fondo.
+            <br>
+            <br>Si el logotipo se tiene que aplicar sobre fondos no corporativos o fotografías, debe aplicarse en blanco o negro,
+            en función de la luminosidad del fondo.
 
         </p>
 
-        <div class="aplicaciones sin-fondo">
+        <div class="aplicaciones sin-fondo" style="width: 7in;">
             <div class="paisaje">
-                {#13#}
+                <div class="logo-centrado">
+                    <div class="logo-auto">{#logo#}
+                    </div>
+                </div>
             </div>
             <div class="amarillo">
-                {#14#}
+                <div class="logo-centrado">
+                    <div class="logo-auto">{#logo#}
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="footer">Creado por {#15#}</div>
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 10 -->
     <div class="page">
         <div class="header">08</div>
-        <h3 class="title" style="color:#4087AF;">NORMAS DE USO</h3>
+        <h3 class="title">NORMAS DE USO</h3>
         <h4 class="sub-title">Aplicaciones incorrectas
         </h4>
         <p class="text">El logotipo tiene unas medidas y proporciones relativas determinadas por los criterios de composición, jerarquía
             y funcionalidad. Se recomienda no hacer modificaciones de estos tamaños y proporciones.
         </p>
 
-        <div class="aplicaciones incorrectas sin-fondo uno">
+        <div class="aplicaciones incorrectas sin-fondo uno" style="width: 7in;">
             <div class="deformacion">
                 <p class="title-aplicacion">Deformación</p>
-                <div>{#16#}</div>
+                <div>
+                    <div class="logo-centrado">
+                        <div class="logo-auto">{#logo#}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="similares">
                 <p class="title-aplicacion">Fondo con colores similares
                 </p>
-                <div>{#17#}</div>
+                <div>
+                    <div class="logo-centrado">
+                        <div class="logo-auto">{#logo#}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="aplicaciones incorrectas sin-fondo dos"> 
+        <div class="aplicaciones incorrectas sin-fondo dos" style="width:7in; margin-top:10mm;">
             <div class="margen">
                 <p class="title-aplicacion">Fondo sin margen
                 </p>
-                <div>{#18#}</div>
+                <div>
+                    <div class="logo-centrado">
+                        <div class="logo-auto">{#logo#}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="rotacion">
                 <p class="title-aplicacion">Rotación
                 </p>
-                <div>{#19#}</div>
+                <div>
+                    <div class="logo-centrado">
+                        <div class="logo-auto">{#logo#}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="footer">Creado por {#20#}</div>
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
     <!-- 11 -->
-    <div class="page no" style="margin-top:-5px;">
+    <div class="page no" style="margin-top:-5px;   height: 10in;">
         <div class="header">09</div>
-        <h3 class="title" style="color:#4087AF;">ACCESO A SU LOGO</h3>
+        <h3 class="title">ACCESO A SU LOGO</h3>
 
         <h4 class="sub-title">CUENTA CLIENTE</h4>
         <p class="text-justify">Su logotipo estará respaldado en nuestra plataforma y puede acceder a el siguiendo los sigueintes pasos:</p>
-    
+
         <ul style="color:silver;">
             <li>Iniciar sesion en diseñador.com
             </li>
@@ -296,7 +393,9 @@
             software de edición vectorial.
         </p>
 
-        <div class="footer">Creado por {#21#}</div>
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
     </div>
 </body>
 
