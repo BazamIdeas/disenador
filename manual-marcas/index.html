@@ -6,151 +6,397 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Manual de Marcas</title>
+    <link rel="stylesheet" href="assets/style.css">
     <style>
+        .title:not(.text-white),
+        .color-principal {
+            color: {#color_principal#};
+        }
+
+        .header,
+        .fondo {
+            background: {#color_principal#} !important;
+        }
+
         @font-face {
-            font-family: 'futura-heavy';
-            src: url("FuturaStd-Heavy.ttf?v=2.025") format("truetype");
+            font-family: '{#tipografia_p_nombre#}';
+            src: url("../{#tipografia_p_url#}") format("truetype");
             font-weight: 800;
             font-style: normal;
         }
 
-        * {
-            font-family: 'futura-heavy';
+        @font-face {
+            font-family: '{#tipografia_s_nombre#}';
+            src: url("../{#tipografia_s_url#}") format("truetype");
+            font-weight: 800;
+            font-style: normal;
         }
 
-        .title {
-            font-size: 32px;
-            text-align: center;
+        .fuente-principal{
+            font-family: '{#tipografia_p_nombre#}';
         }
 
-        page {
-            height: 27.94cm;
-            margin: 2cm 1cm 1cm 1cm;
-        }
-
-        .cont-logo {
-            width: 15%;
-            margin: auto;
-        }
-
-        .fondo.pequeno {
-            height: 30vh;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            color: transparent;
+        .fuente-secundaria{
+            font-family: '{#tipografia_s_nombre#}';
         }
     </style>
 </head>
 
 <body>
-    <page>
+    <div class="page inicio no">
         <div class="cont-logo">
-            <svg viewBox="0 0 100 100">
-                <style>
-                    @font-face {
-                        font-family: 'Audiowide';
-                        src: url('/fuentes/Audiowide-Regular.ttf')
-                    }
-                </style>
-                <g class="contenedor-icono" transform="matrix(1 0 0 1 23.737373737373744 24.494949494949502)">
-                    <svg version="1.1" id="Layer_1" width="27.26501579284668px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        x="11.673523902893066" y="37.867491722106934" viewBox="0 0 511.998 511.998" style="enable-background:new 0 0 511.998 511.998;"
-                        xml:space="preserve" height="27.26501579284668px">
-                        <path style="fill:#29ABE2;" d="M285.953,39.885h-59.909c-5.113,0-8.866-4.806-7.625-9.766l2.937-11.75
-                	c1.543-6.172,7.088-10.501,13.449-10.501h42.386c6.362,0,11.907,4.33,13.449,10.501l2.937,11.75
-                	C294.818,35.079,291.066,39.885,285.953,39.885z" data-indice="0"></path>
-                        <path style="fill:#F7931E;" d="M295.883,504.132h-79.77c-17.758,0-32.154-14.395-32.154-32.154V265.275
-                	c0-37.751,8.192-75.053,24.012-109.329l0.001-0.001c15.82-34.276,24.012-71.577,24.012-109.328v-6.733h48.025v6.732
-                	c0,37.751,8.193,75.053,24.013,109.33l0,0c15.82,34.276,24.013,71.578,24.013,109.33v206.703
-                	C328.036,489.737,313.641,504.132,295.883,504.132z" data-indice="1" class=""></path>
-                        <path style="fill:#FABE78;" d="M303.512,155.946c-15.82-34.276-23.604-71.578-23.604-109.33v-6.312h-24.129v6.312
-                	c0,37.752,8.309,75.054,24.129,109.33c15.82,34.276,24.129,71.578,24.129,109.33v206.702c0,17.758-14.408,32.016-32.167,32.016
-                	h24.013c17.758,0,31.233-14.258,31.233-32.016V265.276C327.116,227.525,319.332,190.223,303.512,155.946z"
-                            data-indice="2"></path>
-                        <path style="fill:#AA5E04;" d="M208.046,155.946c15.82-34.276,23.604-71.578,23.604-109.33v-6.312h24.129v6.312
-                	c0,37.752-7.784,75.054-23.604,109.33s-23.604,71.578-23.604,109.33v206.702c0,17.758,13.796,32.016,31.555,32.016h-24.013
-                	c-17.758,0-31.67-14.258-31.67-32.016V265.276C184.442,227.525,192.226,190.223,208.046,155.946z" data-indice="3"></path>
-                        <g data-indice="4">
-                            <polygon style="fill:#29ABE2;" points="296.019,135.935 215.976,135.935 223.981,95.914 288.015,95.914 	" data-indice="5"></polygon>
-                            <rect x="183.963" y="416.082" style="fill:#29ABE2;" width="144.079" height="24.013" data-indice="6"></rect>
-                        </g>
-                        <rect x="183.963" y="304.031" style="fill:#FFFFFF;" width="144.079" height="112.062" data-indice="8"></rect>
-                        <circle style="fill:#C7B299;" cx="256.003" cy="304.031" r="40.022" data-indice="9"></circle>
-                        <g data-indice="10">
-                            <rect x="183.963" y="280.018" style="fill:#29ABE2;" width="32.017" height="24.013" data-indice="11"></rect>
-                            <rect x="296.025" y="280.018" style="fill:#29ABE2;" width="32.017" height="24.013" data-indice="12"></rect>
-                            <circle style="fill:#29ABE2;" cx="256.003" cy="304.031" r="16.009" data-indice="13" class=""></circle>
-                        </g>
-                        <path d="M255.998,327.902c-13.166,0-23.877-10.711-23.877-23.877s10.711-23.877,23.877-23.877s23.877,10.711,23.877,23.877
-                	S269.163,327.902,255.998,327.902z M255.998,295.885c-4.489,0-8.141,3.652-8.141,8.141c0,4.489,3.652,8.141,8.141,8.141
-                	c4.489,0,8.141-3.652,8.141-8.141C264.139,299.537,260.486,295.885,255.998,295.885z" data-indice="15"></path>
-                        <rect x="208.574" y="384.401" width="95.465" height="15.736" data-indice="16"></rect>
-                        <rect x="223.261" y="360.272" width="65.042" height="15.736" data-indice="17" class=""></rect>
-                        <circle style="fill:#C7B299;" cx="256.003" cy="135.939" r="16.009" data-indice="18"></circle>
-                        <path d="M311.167,152.65c-15.094-32.706-23.126-68.997-23.274-105.021c4.121-0.504,7.858-2.596,10.456-5.924
-                	c3.001-3.844,4.044-8.763,2.862-13.494l-2.937-11.75C295.851,6.769,287.181,0,277.191,0h-42.386c-9.99,0-18.66,6.769-21.082,16.46
-                	l-2.937,11.75c-1.183,4.732-0.14,9.649,2.862,13.494c2.599,3.328,6.335,5.421,10.457,5.924
-                	c-0.148,36.025-8.181,72.318-23.275,105.021c-16.183,35.063-24.737,74.009-24.737,112.625v206.703
-                	c0,22.068,17.954,40.021,40.021,40.021h79.77c22.068,0,40.021-17.953,40.021-40.021V265.276
-                	C335.904,226.658,327.35,187.712,311.167,152.65z M278.658,128.426c-3.156-9.496-12.118-16.368-22.66-16.368
-                	c-10.542,0-19.504,6.87-22.66,16.368h-6.293c2.527-7.934,4.705-15.988,6.494-24.129h44.919c1.789,8.141,3.967,16.193,6.494,24.129
-                	H278.658z M264.138,135.935c0,4.488-3.652,8.141-8.141,8.141c-4.489,0-8.141-3.652-8.141-8.141c0-4.489,3.652-8.141,8.141-8.141
-                	C260.486,127.795,264.138,131.448,264.138,135.935z M272.146,47.754c0.06,13.63,1.202,27.293,3.349,40.808h-38.993
-                	c2.146-13.516,3.29-27.178,3.35-40.808H272.146z M234.805,15.736h42.386c2.756,0,5.149,1.867,5.817,4.541l2.965,11.738
-                	c0,0-0.006,0.001-0.019,0.001h-59.9l2.935-11.739C229.657,17.603,232.049,15.736,234.805,15.736z M215.116,159.243
-                	c2.285-4.951,4.4-9.987,6.378-15.08h12.088c3.359,9.125,12.14,15.65,22.415,15.65c10.276,0,19.056-6.525,22.415-15.65h12.087
-                	c1.979,5.094,4.093,10.13,6.378,15.081c15.236,33.01,23.288,69.676,23.288,106.033v6.872h-28.472
-                	c-8.775-9.818-21.525-16.013-35.699-16.013c-14.174,0-26.923,6.195-35.699,16.013h-28.472v-6.874
-                	C191.828,228.92,199.881,192.254,215.116,159.243z M191.828,408.528v-96.514h16.96c3.815,22.616,23.526,39.901,47.21,39.901
-                	s43.395-17.287,47.21-39.901h16.96v96.514H191.828z M320.168,424.264v7.344h-128.34v-7.344H320.168z M208.744,296.277h-16.917
-                	v-8.393h19.087C209.947,290.579,209.217,293.385,208.744,296.277z M223.844,304.026c0-17.729,14.424-32.153,32.153-32.153
-                	s32.153,14.424,32.153,32.153c0,17.729-14.424,32.153-32.153,32.153C238.268,336.179,223.844,321.755,223.844,304.026z
-                	 M303.251,296.277c-0.473-2.892-1.202-5.699-2.171-8.393h19.087v8.393H303.251z M295.883,496.264h-79.77
-                	c-13.391,0-24.285-10.895-24.285-24.285v-24.634h128.34v24.634C320.168,485.369,309.273,496.264,295.883,496.264z"
-                            data-indice="19" class=""></path>
-                        <g data-indice="20">
-                        </g>
-                        <g data-indice="22">
-                        </g>
-                        <g data-indice="24">
-                        </g>
-                        <g data-indice="26">
-                        </g>
-                        <g data-indice="28">
-                        </g>
-                        <g data-indice="30">
-                        </g>
-                        <g data-indice="32">
-                        </g>
-                        <g data-indice="34">
-                        </g>
-                        <g data-indice="36">
-                        </g>
-                        <g data-indice="38">
-                        </g>
-                        <g data-indice="40">
-                        </g>
-                        <g data-indice="42">
-                        </g>
-                        <g data-indice="44">
-                        </g>
-                        <g data-indice="46">
-                        </g>
-                        <g data-indice="48">
-                        </g>
-                    </svg>
-                </g>
-                <text x="40.9385404586792" text-anchor="left" font-family="Audiowide" class="textoPrincipal" style="font-size: 20.1325px; font-style: normal;"
-                    y="53.033125" transform="matrix(1 0 0 1 -31.565656565656568 -4.0404040404040416)">Mi logo</text>
-            </svg>
+            {#logo#}
         </div>
-        <h3 class="title" style="color:#4087AF; margin-top: 15vh;">MANUAL DE MARCA</h3>
+        <h3 class="color-principal" style="margin-top:2in; font-size: 48px; text-align: center;">MANUAL DE MARCA</h3>
 
-        <DIV class="fondo pequeno" style=" background:#4087AF;">
-            .
-        </DIV>
-    </page>
+        <div class="fondo">.</div>
+        <div class="footer text-white">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 2 -->
+    <div class="page no" style="background:{#color_principal#};">
+        <h3 class="title text-white" style="margin-bottom:2in;">INTRODUCCIÓN</h3>
+
+        <p class="text-right text-white" style="padding-left:2in; margin-bottom:3in;   line-height: 30px;">El presente Manual tiene como fin recoger los elementos de identidad gráfica de su logo y la gama de aplicaciones
+            de uso más generalizado. Se presenta la tipografía y los colores utilizados, se recomienda seguir las normas
+            contenidas en este documento, a fin de facilitar una difusión única y reforzar y asentar definitivamente su Identidad
+            Visual.
+        </p>
+
+        <div class="footer text-white">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 3-->
+    <div class="page no">
+        <div class="header">01</div>
+
+        <h3 class="title">LOGOTIPO</h3>
+
+        <h4 class="sub-title">Definición</h4>
+        <p class="text-justify" style="margin-bottom:1in;">El logotipo es el elemento que puede ser reconocido a la vista pero que no puede ser pronunciado o expresado. El
+            logotipo o logo es un importante elemento que forma parte de la marca porque ayuda a que ésta sea fácilmente
+            identificada, rápidamente reconocida y dependiendo el caso, mentalmente relacionada con algo con lo que existe
+            cierta analogía.</p>
+
+        <div class="logo-regilla">
+            <div class="logo-auto">{#logo#}
+            </div>
+        </div>
+
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 4 -->
+    <div class="page">
+        <div class="header">02</div>
+        <h3 class="title">LOGOTIPO</h3>
+
+        <h4 class="sub-title">Zona de seguridad</h4>
+        <p class="text-justify" style="margin-bottom:0.5in;">Se entiende como zona de seguridad al espacio que debe existir alrededor del logotipo o marca sin que ningún otro
+            elemento lo rebase o interfiera, consiguiendo así una correcta visualización del mismo.
+            <br>
+            <br> Definir una zona de seguridad para el logotipo o marca asegura la independencia visual del mismo respecto a
+            otros elementos gráficos que pudieran acompañarlo, facilitando de esta forma su inmediata identificación.
+        </p>
+
+        <div class="logo-regilla seguridad">
+            <div class="logo-centrado seguridad">
+                <div class="logo-auto">{#logo#}
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 5 -->
+    <div class="page no" style="margin-top:-5px;">
+        <div class="header">03</div>
+        <h3 class="title">TIPOGRAFÍA</h3>
+
+        <p class="text-justify" style="margin-bottom:1in; ">La normalización de la tipografía es un elemento que aporta homogeneidad y armonía a todos los soportes contemplados
+            en un programa de identidad visual. Al igual que los colores corporativos, también deberá mantenerse constante,
+            no obstante se definirá una tipografía auxiliar para soportes informáticos.
+        </p>
+
+        <div class="tipografias">
+            <h3 style="font-weight:bold; border-bottom: 1px solid black;
+            display: inline;">Tipografía usada en el nombre: {#tipografia_p_nombre#}
+            </h3>
+            <div class="abc">
+                <h5 style="color:silver;">MAYÚSCULAS</h5>
+                <div class="fuente-principal" style="letter-spacing:3px;">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
+            </div>
+            <div class="abc">
+                <h5 style="color:silver;">MINUSCULAS</h5>
+                <div class="fuente-principal" style="letter-spacing:3px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="tipografias">
+            <h3 style="font-weight:bold; border-bottom: 1px solid black;
+                                        display: inline;">Tipografía usada en el eslogan o pie de marca: {#tipografia_s_nombre#}
+            </h3>
+            <div class="abc">
+                <h5 style="color:silver;">MAYÚSCULAS</h5>
+                <div class="fuente-secundaria" style="letter-spacing:3px;">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
+
+                <div class="abc">
+                    <h5 style="color:silver;">MINUSCULAS</h5>
+                    <div class="fuente-secundaria" style="letter-spacing:3px;">a b c d e f g h i j k l m n o p q r s t u v w x y z</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 6 -->
+    <div class="page">
+        <div class="header">04</div>
+        <h3 class="title">COLORES</h3>
+
+        <h4 class="sub-title">Principales y complementarios</h4>
+        <p class="text-justify" style="margin-bottom:1in;">El color es un elemento fundamental para identificar y personalizar la identidad visual corporativa. La aplicación
+            de estos colores debe mantenerse constante en la medida de lo posible.
+        </p>
+
+        <div class="colores">
+            <h5 class="color-id">PRINCIPAL</h5>
+            <div class="color">
+                <div class="muestra" style="background:{#fuente_c_hexa_p#};">.</div>
+                <div>
+                    <div>
+                        <p style="color:silver;">WEB #:</p>
+                        <P style="color:{#fuente_c_hexa_p#};">{#fuente_c_hexa_p#}</P>
+                    </div>
+                    <div>
+                        <p style="color:silver;">RGB:</p>
+                        <P style="color:{#fuente_c_rgb_p#};">{#fuente_c_rgb_p#})</P>
+                    </div>
+                </div>
+            </div>
+
+            <!-- -------------------- -->
+
+            <h5 class="color-id">NOMBRE</h5>
+            <div class="color">
+                <div class="muestra" style="background:{#fuente_c_hexa_n#};">.</div>
+                <div>
+                    <div>
+                        <p style="color:silver;">WEB #:</p>
+                        <P style="color:{#fuente_c_hexa_n#};">{#fuente_c_hexa_n#}</P>
+                    </div>
+                    <div>
+                        <p style="color:silver;">RGB:</p>
+                        <P style="color:{#fuente_c_rgb_n#};">{#fuente_c_rgb_n#})</P>
+                    </div>
+                </div>
+            </div>
+            <!-- -------------------- -->
+
+            <h5 class="color-id">ESLOGAN</h5>
+            <div class="color">
+                <div class="muestra" style="background:{#fuente_c_hexa_e#};">.</div>
+                <div>
+                    <div>
+                        <p style="color:silver;">WEB #:</p>
+                        <P style="color:{#fuente_c_hexa_e#};">{#fuente_c_hexa_e#}</P>
+                    </div>
+                    <div>
+                        <p style="color:silver;">RGB:</p>
+                        <P style="color:{#fuente_c_rgb_e#};">{#fuente_c_rgb_e#})</P>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 7 -->
+    <div class="page">
+        <div class="header">05</div>
+        <h3 class="title">NORMAS DE USO</h3>
+
+        <p class="text" style="margin-bottom:1in;">Para evitar resultados no deseados en la puesta en práctica de la marca se tienen que seguir una serie de normas
+            genéricas.
+            <br>
+            <br> El valor de una marca depende en gran medida de la disciplina en su aplicación. Con el objetivo de no debilitar
+            el mensaje visual de la marca es fundamental evitar los efectos contraproducentes en su aplicación.
+            <br>
+            <br> Un uso desordenado de la identidad visual crea confusión, y repercute muy negativamente en el perfil de la marca
+            y en la percepción que el público ha de tener de sus valores y servicios.
+            <br>
+            <br> Ordenar y aplicar de forma correcta el logotipo es garantía de que transmitirá perfectamente la jerarquía dentro
+            del conjunto de la imagen corporativa.
+        </p>
+
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 8 -->
+    <div class="page">
+        <div class="header">06</div>
+        <h3 class="title">NORMAS DE USO</h3>
+        <h4 class="sub-title">Aplicaciones correctas</h4>
+        <p class="text" style="margin-bottom:0.5in;">Siempre que sea posible se aplicará la marca en su versión principal. En el caso que no sea posible por razones técnicas
+            se utilizará la versión en blanco y negro.
+        </p>
+
+        <div class="aplicaciones">
+            <div class="blanco">
+                <div class="logo-centrado">
+                    <div class="logo-auto">{#logo#}
+                    </div>
+                </div>
+            </div>
+            <div class="negro">
+                <div class="logo-centrado">
+                    <div class="logo-auto">{#logo#}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 9 -->
+    <div class="page">
+        <div class="header">07</div>
+        <h3 class="title">NORMAS DE USO</h3>
+        <h4 class="sub-title">Aplicaciones correctas</h4>
+        <p class="text" style="margin-bottom:1in;">La máxima visibilidad, legibilidad y contraste tienen que asegurarse en todas las aplicaciones.
+            <br>
+            <br>Si el logotipo se tiene que aplicar sobre fondos no corporativos o fotografías, debe aplicarse en blanco o negro,
+            en función de la luminosidad del fondo.
+
+        </p>
+
+        <div class="aplicaciones sin-fondo" style="width: 7in;">
+            <div class="paisaje">
+                <div class="logo-centrado">
+                    <div class="logo-auto">{#logo#}
+                    </div>
+                </div>
+            </div>
+            <div class="amarillo">
+                <div class="logo-centrado">
+                    <div class="logo-auto">{#logo#}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 10 -->
+    <div class="page">
+        <div class="header">08</div>
+        <h3 class="title">NORMAS DE USO</h3>
+        <h4 class="sub-title">Aplicaciones incorrectas
+        </h4>
+        <p class="text">El logotipo tiene unas medidas y proporciones relativas determinadas por los criterios de composición, jerarquía
+            y funcionalidad. Se recomienda no hacer modificaciones de estos tamaños y proporciones.
+        </p>
+
+        <div class="aplicaciones incorrectas sin-fondo uno" style="width: 7in;">
+            <div class="deformacion">
+                <p class="title-aplicacion">Deformación</p>
+                <div>
+                    <div class="logo-centrado">
+                        <div class="logo-auto">{#logo#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="similares">
+                <p class="title-aplicacion">Fondo con colores similares
+                </p>
+                <div>
+                    <div class="logo-centrado">
+                        <div class="logo-auto">{#logo#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="aplicaciones incorrectas sin-fondo dos" style="width:7in; margin-top:10mm;">
+            <div class="margen">
+                <p class="title-aplicacion">Fondo sin margen
+                </p>
+                <div>
+                    <div class="logo-centrado">
+                        <div class="logo-auto">{#logo#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rotacion">
+                <p class="title-aplicacion">Rotación
+                </p>
+                <div>
+                    <div class="logo-centrado">
+                        <div class="logo-auto">{#logo#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
+    <!-- 11 -->
+    <div class="page no" style="margin-top:-5px;   height: 10in;">
+        <div class="header">09</div>
+        <h3 class="title">ACCESO A SU LOGO</h3>
+
+        <h4 class="sub-title">CUENTA CLIENTE</h4>
+        <p class="text-justify">Su logotipo estará respaldado en nuestra plataforma y puede acceder a el siguiendo los sigueintes pasos:</p>
+
+        <ul style="color:silver;">
+            <li>Iniciar sesion en diseñador.com
+            </li>
+            <li>Seleccione su logo en la sección de logos adquiridos
+            </li>
+            <li>Haga click en la opción de descarga de su preferencia
+            </li>
+        </ul>
+        <br>
+
+        <h4 class="sub-title">FORMATOS</h4>
+        <p class="text-justify" style="margin-bottom:1in; color:silver;">Podrá descargar su logo en los siguientes formatos:
+            <br>
+            <br>
+            <b>PNG:</b> Son las siglas para Portable Network Graphics, la principal característica es la posibilidad de tener
+            el logo con el fondo transparente, y en diferentes tamaños, de acuerdo a la utilidad.
+            <br>
+            <br>
+            <b>SVG:</b> Gráficos Vectoriales Escalables, o “Gráficos Vectoriales Redimensionables” (del inglés Scalable Vector
+            Graphics) es un formato de gráficos vectoriales bidimensionales. Su logo en SVG permite ser editado con cualquier
+            software de edición vectorial.
+        </p>
+
+        <div class="footer">Creado por
+            <div class="logo">LOGONOW</div>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -871,11 +871,11 @@ angular.module("administrador")
             return promise;
         }
 
-        this.destacado = function (id) {
+        this.destacado = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/logo/destacar/' + id).then(function (res) {
+            $http.post('/app/logo/destacar', datos).then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
