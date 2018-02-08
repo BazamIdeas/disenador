@@ -57,10 +57,8 @@ angular.module("administrador")
             } else {
                 bz.opcionesCategorias = 2;
                 bz.datos.modPreferencia.idPreferencia = id;
-                bz.modNombre = {
-                    nombre1: nombre,
-                    nombre2: nombre2
-                };
+                bz.datos.modPreferencia.nombre1 = nombre;
+                bz.datos.modPreferencia.nombre2 = nombre2;
             }
 
             bz.mostrarOpciones = !bz.mostrarOpciones;

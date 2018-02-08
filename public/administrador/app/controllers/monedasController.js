@@ -106,6 +106,7 @@ angular.module("administrador")
             if (v) {
                 pasarelasService.modificarPasarela(datos).then(function (res) {
                     bz.pasarelas[bz.index] = datos;
+                    bz.editarPasarela = {};
                     notificacionService.mensaje('Modificacion Exitosa.');
                 })
             }

@@ -1,7 +1,6 @@
 :root {
     --principal: #612787;
     --secundario: #b92d00;
-    /*--tercero: #549788;*/
     --tercero: #4aaf57;
     --fondo: #eceff0;
     --blanco: #fff;
@@ -2364,9 +2363,9 @@ textarea {
 
 .logo-container-d span.seleccionar {
     position: absolute;
-    background-color: white;
+    background-color: var(--principal);
+    color: white;
     border:1px solid var(--principal);
-    color: var(--principal);
     opacity: 0;
     border-radius: 30px;
     padding: 8px 16px;
@@ -2379,6 +2378,11 @@ textarea {
     font-size:10px;
 }
 
+.logo-container-d span.seleccionar:hover {
+    background-color: white;
+    color: var(--principal);
+}
+
 .logo-container-d span.seleccionar i {
     font-size:12px;
 }
@@ -2386,6 +2390,8 @@ textarea {
 .logo-container-d:hover span.seleccionar {
     opacity: 1;
 }
+
+
 
 
 
@@ -2482,9 +2488,9 @@ textarea {
 
 .logo-container-m span.seleccionar {
     position: absolute;
-    background-color: #fff;
+    background-color: var(--principal);
     border:1px solid var(--principal);
-    color: var(--principal);
+    color: #fff;
     opacity: 0;
     border-radius: 30px;
     padding: 12px 20px;
@@ -2495,6 +2501,11 @@ textarea {
     transition: opacity 1s;
     cursor: pointer;
     bottom: 0;
+}
+
+.logo-container-m span.seleccionar:hover {
+    background-color: #fff;
+    color: var(--principal);
 }
 
 .logo-container-m:hover span.seleccionar {
@@ -2549,17 +2560,28 @@ textarea {
     max-width: 200px;
     z-index: 15 !important;
 }
-.aparecer {
+
+.titulo-ayuda{
+    font-size: 13px;
+    color: var(--tercero);
+    margin-top: 0;
+    margin-bottom: 3px;
+}
+.texto-ayuda{
+    font-size: 10px;
+    margin-top: 0;
+}
+
+.pop-ayuda.aparecer {
     opacity: 1 !important;
     background-color: white;
-    padding: 6px 13px;
+    padding: 6px 6px;
     font-family: futura-heavy !important;
     font-size: 12px;
-    color: #534f4f;
+    color: #8b8a8c;;
     font-weight: 600;
     box-shadow: 0px 0px 5px 1px #6e6767;
 }
-
 
 .pop-ayuda.corner-lt{
     border-radius: 0px 20px 20px 20px;
@@ -2579,4 +2601,50 @@ textarea {
 
 .img-filter{
     filter: grayscale(1)
+}
+
+.flecha-ayuda {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.flecha-ayuda span {
+    display: flex;
+    background-color: var(--principal);
+    color: white;
+    border-radius: 50%;
+}
+
+
+.flecha-ayuda.izquierda {
+    float: left;
+    text-align: left;
+}
+.flecha-ayuda.derecha {
+    float: right;
+    text-align: right;
+}
+
+.pop-paso-ayuda.aparecer {
+    opacity: 1 !important;
+    font-family: futura-heavy !important;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 5px 1px #6e6767;
+    background-color: var(--principal);
+    color: white;
+    cursor: pointer;
+}
+
+.pop-paso-ayuda:hover {
+    background-color: white;
+    color: var(--principal);
+}
+
+.pop-paso-ayuda p {
+    margin: 0;
 }

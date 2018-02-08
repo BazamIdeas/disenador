@@ -1,8 +1,7 @@
 :root {
     --principal: #265126;
     --secundario: #b92d00;
-    /*--tercero: #549788;*/
-    --tercero: #4aaf57;
+    --tercero: #612787;
     --fondo: #eceff0;
     --blanco: #fff;
 }
@@ -428,7 +427,7 @@ button.boton-verde {
 }
 
 button.boton-verde:hover {
-    background-color: #4aaf57c9;
+    background-color: #612787cc;
 }
 
 /* Let's get this party started 
@@ -2178,7 +2177,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     top: 0px;
     left: 0px;
     z-index: 12;
-    background-color: #4aaf57;
+    background-color: var(--tercero);
 }
 
 .tab-freelance-activo::before {
@@ -2189,13 +2188,13 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     bottom: 0px;
     left: 0px;
     z-index: 12;
-    background-color: #4aaf57;
+    background-color: var(--tercero);
 }
 
 .tab-freelance-activo {
     background-color: white !important;
     position: relative;
-    color: #49ae56 !important;
+    color: var(--tercero) !important;
 }
 
 .estrellas i{
@@ -2259,7 +2258,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     align-items: center;
 }
 
-.left-arrow, .right-arrow{
+.left-arrow, .right-arrow {
     width: 60px;
     height: 60px;
     border-radius: 30px;
@@ -2268,47 +2267,57 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     text-align: center;
     padding: 0;
     z-index: 10;
-    background-color: white;
-    color: var(--principal);
+    background-color: #265126b3;
+    color: white;
     font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border: 1px solid var(--principal);
+    border: 0px solid var(--principal);
 }
+
+.left-arrow:hover, .right-arrow:hover {
+    background-color: var(--principal);
+}
+
 .left-arrow i, .right-arrow i{
     font-size: 30px !important;
 }
 
 .left-arrow {
     position: absolute;
-    top: 44%;
-    left: 9%;
+    top: 55%;
+    left: 7%;
 }
 
 .right-arrow {
     position: absolute;
-    top: 44%;
-    right: 9%;
+    top: 55%;
+    right: 7%;
 }
 
 
 .logo-container span.seleccionar {
     position: absolute;
-    background-color: #fff;
-    border:1px solid var(--principal);
-    color: var(--principal);
+    background-color: var(--principal);
+    border: 1px solid var(--principal);
+    color: white;
     opacity: 0;
     border-radius: 30px;
     padding: 12px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: futura-heavy !important;
+    font-family: !futura-heavy important;
     transition: opacity 1s;
     cursor: pointer;
     bottom: 0;
+}
+
+.logo-container span.seleccionar:hover {
+    background-color: white;
+    color: var(--principal);
 }
 
 .logo-container:hover span.seleccionar {

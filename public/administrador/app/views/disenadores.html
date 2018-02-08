@@ -45,9 +45,9 @@
                                     <md-icon class="material-icon">remove_circle_outline</md-icon>
                                 </md-button>
 
-                                <md-button class="md-fab md-mini md-warn" ng-click="designer.destacado(logo.idLogo)">
+                                <md-button ng-if="!logo.destacado" class="md-fab md-mini md-warn" ng-click="designer.destacado({idLogo: logo.idLogo,idCliente: logo.clientes_idCliente, i: $index})">
                                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Destacado</md-tooltip>
-                                    <md-icon class="material-icon">public</md-icon>
+                                    <md-icon class="material-icon">favorite</md-icon>
                                 </md-button>
 
                                 <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('logos-designer', $index, logo.clientes_idCliente)"
