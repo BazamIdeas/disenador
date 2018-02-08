@@ -308,7 +308,7 @@ angular.module("disenador-de-logos")
 				defered.resolve(res.data);
 
 
-			}).catch(function (res) {
+			}).catch(function () {
 
 				defered.reject();
 
@@ -334,7 +334,7 @@ angular.module("disenador-de-logos")
 				defered.resolve(res.data);
 
 
-			}).catch(function (res) {
+			}).catch(function () {
 
 				defered.reject();
 
@@ -366,7 +366,7 @@ angular.module("disenador-de-logos")
 				defered.resolve(res.data);
 
 
-			}).catch(function (res) {
+			}).catch(function () {
 
 				defered.reject();
 
@@ -397,7 +397,7 @@ angular.module("disenador-de-logos")
 
 				})
 
-				.catch(function (res) {
+				.catch(function () {
 
 
 
@@ -453,7 +453,7 @@ angular.module("disenador-de-logos")
 /********PEDIDOS******/
 /*********************/
 
-	.service("pedidosService", ["$http", "$q", "$rootScope", function ($http, $q, $rootScope) {
+	.service("pedidosService", ["$http", "$q", function ($http, $q) {
 
 
 		this.listarPlanes = function () {
@@ -630,7 +630,7 @@ angular.module("disenador-de-logos")
 					defered.resolve();
 
 				})
-				.catch(function (res) {
+				.catch(function () {
 					$window.localStorage.removeItem("bzToken");
 					defered.reject();
 				});
@@ -700,7 +700,7 @@ angular.module("disenador-de-logos")
 					defered.resolve(res.data);
 
 				})
-				.catch(function (res) {
+				.catch(function () {
 
 					defered.reject();
 				});
@@ -722,7 +722,7 @@ angular.module("disenador-de-logos")
 					defered.resolve(res.data);
 
 				})
-				.catch(function (res) {
+				.catch(function () {
 
 					defered.reject();
 				});
@@ -749,7 +749,7 @@ angular.module("disenador-de-logos")
 					defered.resolve(res.data);
 
 				})
-				.catch(function (res) {
+				.catch(function () {
 
 					defered.reject();
 				});
@@ -822,11 +822,11 @@ angular.module("disenador-de-logos")
 
 			var logos = [];
 
-			angular.forEach(iconos, function (icono, indice) {
+			angular.forEach(iconos, function (icono) {
 
 				if (icono.estado == true) {
 
-					angular.forEach(fuentes, function (fuente, indice) {
+					angular.forEach(fuentes, function (fuente) {
 
 						if (fuente.estado == true) {
 
@@ -849,7 +849,7 @@ angular.module("disenador-de-logos")
 
 	}])
 
-	.factory("LS", ["$window", "$rootScope", function ($window, $rootScope) {
+	.factory("LS", ["$window", function ($window) {
 		return {
 			definir: function (llave, valor) {
 
@@ -977,7 +977,7 @@ angular.module("disenador-de-logos")
 
 				defered.resolve(res.data);
 
-			}).catch(function (res) {
+			}).catch(function () {
 
 				defered.reject();
 
@@ -997,7 +997,7 @@ angular.module("disenador-de-logos")
 
 				defered.resolve(res.data);
 
-			}).catch(function (res) {
+			}).catch(function () {
 
 				defered.reject();
 
@@ -1093,7 +1093,7 @@ angular.module("disenador-de-logos")
 
 				defered.resolve(res.data);
 
-			}).catch(function (res) {
+			}).catch(function () {
 
 				defered.reject();
 
@@ -1115,7 +1115,7 @@ angular.module("disenador-de-logos")
 
 				defered.resolve(res.data);
 
-			}).catch(function (res) {
+			}).catch(function () {
 
 				defered.reject();
 
@@ -1247,7 +1247,7 @@ angular.module("disenador-de-logos")
         
 			var jsonMetas = {};
         
-			angular.forEach(arrayMetas, function(meta, indice){
+			angular.forEach(arrayMetas, function(meta){
             
 				jsonMetas[meta.clave] = meta.valor;
             
