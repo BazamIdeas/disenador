@@ -1347,7 +1347,7 @@ angular.module("disenador-de-logos")
 						var elementPOP = angular.element("<div></div>");					
 						elementPOP.attr("mostrar-pop-ayuda", attrs.paso);					
 						elementPOP.addClass("pop-paso-ayuda");					
-						elementPOP.append("<p class='paso-ayuda'>"+attrs.paso+"</p>");			
+						elementPOP.append("<p class='paso-ayuda'>?</p>");			
 
 						var html = $compile(elementPOP[0].outerHTML)(scope);							
 						var popPasoCreado = angular.element(html);

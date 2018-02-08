@@ -154,6 +154,7 @@ router.post('/logos/estado', middleware.validarCliente, controllers.logos.listaL
 router.post('/logos/por-aprobar', middleware.validarAdministrador, controllers.logos.listaLogosPorAprobar);
 router.post('/logos/aprobados', controllers.logos.listaLogosAprobados);
 router.get('/logos/:id/aprobados', middleware.validarAdministrador, controllers.logos.listaLogosAprobadosPorCliente);
+router.get('/logos/:id/vendidos', controllers.logos.listaLogosVendidosPorCliente);
 router.post('/logos/aprobados/destacados', controllers.logos.listaLogosAprobadosDestacados);
 router.post('/logos/guardados', middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post('/logos/descargables',  middleware.validarCliente, controllers.logos.listaLogosDescargables);
