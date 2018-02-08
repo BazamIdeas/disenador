@@ -5,10 +5,20 @@
     font-style: normal;
 }
 
-*:not(.fuente) {
+@font-face {
+    font-family: 'Kurale';
+    src: url("Kurale-Regular.ttf?v=2.025") format("truetype");
+    font-weight: 500;
+    font-style:normal
+}
+
+h1,h2,h3,h4,h5,h6, .footer, .header, li{
     font-family: 'futura-heavy';
 }
 
+p{
+ font-family:'Kurale' !important; 
+}
 
 .fuente {
     font-family: initial;
@@ -32,6 +42,8 @@ html {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    font-size: 12px !important;
+    color: #aca6a6;
 }
 
 .header {
@@ -108,7 +120,7 @@ html {
 }
 
 .fondo {
-    height: 3in;
+    height: 2in;
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -132,8 +144,8 @@ p.text-justify {
 .logo-regilla {
     background: url(imagen1.png);
     background-repeat: no-repeat;
-    width: 4in;
-    height: 4in;
+    width: 3in;
+    height: 3in;
     margin: auto;
     background-size: cover;
 }
@@ -150,8 +162,12 @@ p.text-justify {
     width: 41%;
 }
 
-.amarillo .logo-auto svg * {
+.amarillo .logo-auto svg *:not(text) {
    fill: black !important;
+}
+
+.amarillo .logo-auto svg text {
+    fill: #555252 !important;
 }
 
 .colores .color> :last-child {
@@ -182,11 +198,19 @@ p.text-justify {
     padding-left: 8px;
 }
 
-.paisaje .logo-auto svg *,
-.similares .logo-auto *,
-.aplicaciones .negro svg * {
+.paisaje .logo-auto svg *:not(text),
+.similares .logo-auto svg *:not(text),
+.aplicaciones .negro svg *:not(text) {
     fill: white !important;
 }
+
+.negro svg text,
+.paisaje .logo-auto svg text,
+.similares .logo-auto svg text {
+    fill: #dedcdc !important;
+}
+
+
 
 .deformacion .logo-auto {
     -webkit-transform: scaley(2);

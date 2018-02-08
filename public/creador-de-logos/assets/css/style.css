@@ -430,6 +430,10 @@ button.boton-verde:hover {
     background-color: #4aaf57c9;
 }
 
+button.manual.en-espera{
+      background-color: #afacac;
+}
+
 /* Let's get this party started 
 ::-webkit-scrollbar {
     width: 4px;
@@ -494,9 +498,15 @@ div.acceder {
 
 div.acceder span{ 
     margin: 0 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .tooltip-header{
@@ -2150,7 +2160,7 @@ textarea {
 
 
 .logos{
-    float: left;width: 100%;height: 0;padding: 32% 0 0 0;margin: 4em 0 1em 0;position: relative;overflow: visible;transition: margin-top 0.5s
+    float: left;width: 100%;height: 0;padding: 32% 0 0 0;margin: 4em 0 1em 0;position: relative;overflow: visible;-webkit-transition: margin-top 0.5s;transition: margin-top 0.5s
 }
 
 .logo-container{
@@ -2164,6 +2174,7 @@ textarea {
     top: 0;
     left: 55%;
     border: 2px solid var(--principal);
+    -webkit-transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out;
     transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out;
 }
 
@@ -2191,9 +2202,15 @@ textarea {
 }
 
 .logo-active, .logo-left, .logo-right, .logo-left-1, .logo-right-1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .left-arrow, .right-arrow{
@@ -2208,9 +2225,15 @@ textarea {
     background-color: white;
     color: var(--principal);
     font-size: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     cursor: pointer;
 }
 .left-arrow i, .right-arrow i{
@@ -2238,10 +2261,17 @@ textarea {
     opacity: 0;
     border-radius: 30px;
     padding: 12px 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     font-family: futura-heavy !important;
+    -webkit-transition: opacity 1s;
     transition: opacity 1s;
     cursor: pointer;
 }
@@ -2266,8 +2296,12 @@ textarea {
     left: 50%;
         -webkit-box-shadow: 0px 1px 2px 1px #dedede;
     box-shadow: 0px 1px 2px 1px #dedede;
-    filter: grayscale(0.9);
+    -webkit-filter: grayscale(0.9);
+            filter: grayscale(0.9);
+    -webkit-transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out, -webkit-filter 0.35s ease-in-out;
+    transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out, -webkit-filter 0.35s ease-in-out;
     transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out, filter 0.35s ease-in-out;
+    transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out, filter 0.35s ease-in-out, -webkit-filter 0.35s ease-in-out;
 }
 
 .logo-active-a,  .logo-active-b{
@@ -2275,7 +2309,8 @@ textarea {
     margin-left: -10%;
     z-index: 9;
     width: 20%;
-    filter: none;
+    -webkit-filter: none;
+            filter: none;
     background-color: white !important;
     border: 2px solid var(--principal);
     -webkit-box-shadow: 0px 1px 2px 1px #dedede;
@@ -2357,9 +2392,15 @@ textarea {
 .logo-right-1-a, .logo-right-1-b,
 .logo-left-2-a, .logo-left-2-b, 
 .logo-right-2-a, .logo-right-2-b {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .logo-container-d span.seleccionar {
@@ -2370,10 +2411,17 @@ textarea {
     opacity: 0;
     border-radius: 30px;
     padding: 8px 16px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     font-family: futura-heavy !important;
+    -webkit-transition: opacity 1s;
     transition: opacity 1s;
     cursor: pointer;
     font-size:10px;
@@ -2394,7 +2442,7 @@ textarea {
 /*Mis logos*/
 
 .mis-logos{
-    float: left;width: 100%;height: 0;padding: 32% 0 0 0;margin: 1em 0 1em 0;position: relative;overflow: visible;transition: margin-top 0.5s
+    float: left;width: 100%;height: 0;padding: 32% 0 0 0;margin: 1em 0 1em 0;position: relative;overflow: visible;-webkit-transition: margin-top 0.5s;transition: margin-top 0.5s
 }
 
 .logo-container-m{
@@ -2408,6 +2456,7 @@ textarea {
     top: 0;
     left: 55%;
     border: 2px solid var(--principal);
+    -webkit-transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out;
     transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out;
 }
 
@@ -2435,9 +2484,15 @@ textarea {
 }
 
 .logo-active-m, .logo-left-m, .logo-right-m, .logo-left-1-m, .logo-right-1-m {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .left-arrow, .right-arrow{
@@ -2452,10 +2507,17 @@ textarea {
     background-color: #61278780;
     color: white;
     font-size: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     cursor: pointer;
+    -webkit-transition: background-color 0.35s;
     transition: background-color 0.35s;
 }
 
@@ -2488,10 +2550,17 @@ textarea {
     opacity: 0;
     border-radius: 30px;
     padding: 12px 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     font-family: futura-heavy !important;
+    -webkit-transition: opacity 1s;
     transition: opacity 1s;
     cursor: pointer;
     bottom: 0;
@@ -2545,6 +2614,7 @@ textarea {
 }
 
 .pop-ayuda{
+    -webkit-transition: opacity 0.3s ease-in-out;
     transition: opacity 0.3s ease-in-out;
     max-width: 200px;
     z-index: 15 !important;
@@ -2557,7 +2627,8 @@ textarea {
     font-size: 12px;
     color: #534f4f;
     font-weight: 600;
-    box-shadow: 0px 0px 5px 1px #6e6767;
+    -webkit-box-shadow: 0px 0px 5px 1px #6e6767;
+            box-shadow: 0px 0px 5px 1px #6e6767;
 }
 
 
@@ -2578,5 +2649,6 @@ textarea {
 }
 
 .img-filter{
-    filter: grayscale(1)
+    -webkit-filter: grayscale(1);
+            filter: grayscale(1)
 }

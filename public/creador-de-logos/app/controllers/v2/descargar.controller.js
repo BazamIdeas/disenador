@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService) {
+	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "elementosService", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, elementosService) {
 
 		var bz = this;
 
@@ -146,15 +146,45 @@ angular.module("disenador-de-logos")
 
 
         bz.manualMarca = function(id){
+			bz.esperaManual = true;
             logosService.obtenerPorId(id).then(function (res) {
-                logosService.manualMarca(res).then(function (res) {
-                    var pdf = document.createElement('a');
-                    pdf.setAttribute('href', res.nombreArchivo);
-                    pdf.setAttribute('download', res.nombreArchivo);
+				var logo = res;
 
-					simulateClick(pdf);
-				});
+				if (logo.atributos.length > 0){
+					angular.forEach(logo.atributos, function (valor, llave) {
 
+						if (valor.clave == 'principal') {
+							logo.tieneNombre = valor.valor;
+						}
+
+						if (valor.clave == 'eslogan'){
+							logo.tieneEslogan = valor.valor;
+						}
+					
+					})
+				}
+
+				elementosService.listarFuentes().then(function(res){
+					
+					angular.forEach(res, function (valor, llave) {
+						if(valor.idElemento == logo.tieneEslogan){
+							logo.tipografia_s = { nombre: valor.nombre, url: valor.url}
+						}
+
+						if (valor.idElemento == logo.tieneNombre) {
+							logo.tipografia_p = { nombre: valor.nombre, url: valor.url }
+						}
+					})
+
+					logosService.manualMarca(logo).then(function (res) {
+						var pdf = document.createElement('a');
+						pdf.setAttribute('href', res.url);
+						pdf.setAttribute('download', res.nombreArchivo);
+						simulateClick(pdf);
+					}).finally(function(res){
+						bz.esperaManual = false;
+					});
+				})
 			});
 		};
 
