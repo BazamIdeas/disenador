@@ -133,8 +133,8 @@ angular.module("disenador-de-logos")
 						datosPago.datos.atributos.eslogan = bz.fuentes.eslogan;
 					}
                     
-					if(bz.colores["color-eslogan"]){
-						datosPago.datos.atributos["color-eslogan"] = bz.colores["color-eslogan"];
+					if(bz.colores.eslogan){
+						datosPago.datos.atributos["color-eslogan"] = bz.colores.eslogan;
 					}
                     
 					$state.go("pago", datosPago);

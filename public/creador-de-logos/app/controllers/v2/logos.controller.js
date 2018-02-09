@@ -36,7 +36,7 @@ angular.module("disenador-de-logos")
 			bz.cantidad.guardados = bz.guardados.length;
 			bz.terminados.guardados = true;
 
-		}).catch(function (res) {
+		}).catch(function () {
 			bz.terminados.guardados = true;
 		});
 
@@ -47,7 +47,7 @@ angular.module("disenador-de-logos")
 			bz.cantidad.comprados = bz.comprados.length;
 			bz.terminados.comprados = true;            
 
-		}).catch(function (res) {
+		}).catch(function () {
 			bz.terminados.comprados = true;        
 		});
 
@@ -74,7 +74,6 @@ angular.module("disenador-de-logos")
 		bz.idLogoCompartir = null;
 
 		bz.abrirModal = function (idLogo) {
-			console.log(idLogo);
 			bz.mostrarModalSocial = true;
 			bz.idLogoCompartir = idLogo;
 
@@ -87,12 +86,10 @@ angular.module("disenador-de-logos")
 
 				bz.borradoCompleto = false;
 
-				logosService.borrarLogo(idLogo).then(function (res) {
+				logosService.borrarLogo(idLogo).then(function () {
 
 					angular.forEach(bz.guardados, function (valor, indice) {
 						if (valor.idLogo == idLogo) {
-							console.log({indice: indice});
-							console.log({valor:valor});
 							bz.guardados.splice(indice, 1);
 							return false;
 						}
@@ -127,7 +124,7 @@ angular.module("disenador-de-logos")
 
 			var idFuente = null;
 
-			angular.forEach(lista, function (atributo, llave) {
+			angular.forEach(lista, function (atributo) {
 
 				if (atributo.clave == objetivo) {
 
@@ -140,7 +137,7 @@ angular.module("disenador-de-logos")
 			return idFuente;
 		};
 
-		$scope.$on("sesionExpiro", function (event, data) {
+		$scope.$on("sesionExpiro", function () {
 
 			$state.go("principal.comenzar");
 
