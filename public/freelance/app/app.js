@@ -2,7 +2,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 	.config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
 
-		$locationProvider.html5Mode(true)
+		$locationProvider.html5Mode(true);
 
 		/* INTERCEPTADOR */
 		$httpProvider.interceptors.push("AuthInterceptor");
@@ -26,18 +26,18 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 						var temporizador = $timeout(function () {
 							$mdToast.hide();
-						}, 2000)
+						}, 2000);
 
 						$scope.closeToast = function () {
-							$timeout.cancel(temporizador)
+							$timeout.cancel(temporizador);
 							$mdToast.hide();
 
-						}
+						};
 					}],
 					clickOutsideToClose: true
 				};
 			}
-		})
+		});
 
 
 		/*------------------------ Ui router states ----------------------*/
@@ -199,7 +199,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 								defered.reject("INVALID_LOGO");
 
-							})
+							});
 
 							return promise;
 
@@ -308,11 +308,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 								}
 
-							}).catch(function (res) {
+							}).catch(function () {
 
 								defered.reject("INVALID_LOGO");
 
-							})
+							});
 
 							return promise;
 
@@ -344,7 +344,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 					}]
 				}
-			})
+			});
 
 		//redirecciones
 
@@ -377,11 +377,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 
 
-		$rootScope.$on("$viewContentLoaded", function (event) {
+		$rootScope.$on("$viewContentLoaded", function () {
 
 			$timeout(function () {
 				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
-			}, 500)
+			}, 500);
 
 
 		});
@@ -540,7 +540,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				}
 
 			}
-			console.log(error)
+			console.log(error);
 
 		});
-	})
+	});

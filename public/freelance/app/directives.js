@@ -70,11 +70,11 @@ angular.module("disenador-de-logos")
 
 					}
 
-					var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+					paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
 
 					svgIcono.y.baseVal.value = paddingTopIcono;
 
-					var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+					paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
 					svgTexto.setAttribute("y", paddingTopText);
 
@@ -161,7 +161,7 @@ angular.module("disenador-de-logos")
 
 			},
 			link: {
-				pre: function (scope, element, attributes) {
+				pre: function (scope, element) {
 
 					var tamanoBase = 100;
 
@@ -231,11 +231,11 @@ angular.module("disenador-de-logos")
 
 							}
 
-							var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+							paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
 
 							svgIcono.y.baseVal.value = paddingTopIcono;
 
-							var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+							paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
 							svgTexto.setAttribute("y", paddingTopText);
 
@@ -249,7 +249,7 @@ angular.module("disenador-de-logos")
                         
 						element.html(scope.svg);
                         
-						element.find("g.contenedor-icono > svg [data-indice]").each(function (indice) {
+						element.find("g.contenedor-icono > svg [data-indice]").each(function () {
 
 							scope.elementosIndices[parseInt(this.getAttribute("data-indice"))] = false;
 
@@ -268,7 +268,7 @@ angular.module("disenador-de-logos")
 					}
 
 				},
-				post: function (scope, element, attributes) {
+				post: function (scope, element) {
 
 					//reinsertamos el svg para permitir que se muestre
 					element.html(element.html());
@@ -285,13 +285,13 @@ angular.module("disenador-de-logos")
 					//evento para los hijos directos de seccion-icono
 
 					//element.find("g[data-seccion-icono] [data-indice]:not(g)").on("click", function () {
-					$("bazam-svg").on("click", "g.contenedor-icono > svg :not(g)", function () {
+					angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g)", function () {
 
 						angular.element(document.querySelector(".seleccionado")).removeClass("seleccionado");
-						$(this).addClass("seleccionado");
+						angular.element(this).addClass("seleccionado");
 
 						//obtenemos el indice que es espejo del array
-						var indiceParte = $(this).attr("data-indice");
+						var indiceParte = angular.element(this).attr("data-indice");
 
 						//definimos en false todos los valores del array
 						scope.elementosIndices.forEach(function (valor, indice) {
@@ -336,7 +336,7 @@ angular.module("disenador-de-logos")
 
 					scope.$on("editor:texto", function (evento, texto) {
                         
-						textoFinal = texto.texto;
+						var textoFinal = texto.texto;
                         
 						var selector = !texto.eslogan ? ".textoPrincipal" : ".eslogan";
                         
@@ -422,13 +422,15 @@ angular.module("disenador-de-logos")
 							var selector = datos.objetivo == "eslogan" ? "text.eslogan" : "text.textoPrincipal";
 							var texto = element.find(selector);
 
+							var tamano = "";
+
 							if (datos.accion) {
 
-								var tamano = (parseFloat(texto.css("font-size")) + 1) + "px";
+								tamano = (parseFloat(texto.css("font-size")) + 1) + "px";
 
 							} else if (!datos.accion) {
 
-								var tamano = (parseFloat(texto.css("font-size")) - 1) + "px";
+								tamano = (parseFloat(texto.css("font-size")) - 1) + "px";
 
 							}
 
@@ -441,15 +443,18 @@ angular.module("disenador-de-logos")
 							var alto = parseFloat(icono.attr("height"));
 							var ancho = icono.attr("width") ? parseFloat(icono.attr("width")) : null;
 
+							var altoFinal;
+							var anchoFinal;
+
 							if (datos.accion) {
 
-								var altoFinal = alto + 1;
-								var anchoFinal = ancho ? ancho + 1 : null;
+								altoFinal = alto + 1;
+								anchoFinal = ancho ? ancho + 1 : null;
 
 							} else if (!datos.accion) {
 
-								var altoFinal = alto - 1;
-								var anchoFinal = ancho ? ancho - 1 : null;
+								altoFinal = alto - 1;
+								anchoFinal = ancho ? ancho - 1 : null;
 
 							}
 
@@ -472,33 +477,29 @@ angular.module("disenador-de-logos")
 					///////////vigilamos el movimiento///////////
 					/////////////////////////////////////////////
 
-
-					var selectedElement = null;
 					var currentX = 0;
 					var currentY = 0;
 					var currentMatrix = 0;
 
 					var intermediador = true;
 
-					$("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono", function (evento) {
+					angular.element("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono", function (evento) {
 
 						intermediador = false;
 
-						if (!$(this).attr("transform")) {
+						if (!angular.element(this).attr("transform")) {
 
-							$(this).attr("transform", "matrix(1 0 0 1 0 0)");
+							angular.element(this).attr("transform", "matrix(1 0 0 1 0 0)");
 
 						}
 
-						$(this).attr("movimiento-bz", true);
-
-						selectedElement = evento.target;
+						angular.element(this).attr("movimiento-bz", true);
 
 						currentX = evento.clientX;
 
 						currentY = evento.clientY;
 
-						currentMatrix = $(this).attr("transform").slice(7, -1).split(" ");
+						currentMatrix = angular.element(this).attr("transform").slice(7, -1).split(" ");
 
 						for (var i = 0; i < currentMatrix.length; i++) {
 
@@ -508,13 +509,13 @@ angular.module("disenador-de-logos")
 
 					});
 
-					$("bazam-svg").on("mousemove", "text.eslogan[movimiento-bz], text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
+					angular.element("bazam-svg").on("mousemove", "text.eslogan[movimiento-bz], text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
 
 
-						if ($("[movimiento-bz]").length) {
+						if (angular.element("[movimiento-bz]").length) {
 
-							dx = evento.clientX - currentX;
-							dy = evento.clientY - currentY;
+							var dx = evento.clientX - currentX;
+							var dy = evento.clientY - currentY;
 
 							var svgPadre = element[0].children[0];
 
@@ -528,22 +529,22 @@ angular.module("disenador-de-logos")
 							currentMatrix[5] += (dy / relacionX);
 
 
-							newMatrix = "matrix(" + currentMatrix.join(" ") + ")";
+							var newMatrix = "matrix(" + currentMatrix.join(" ") + ")";
                             
                           
                             
-							$(this).attr("transform", newMatrix);
+							angular.element(this).attr("transform", newMatrix);
 							currentX = evento.clientX;
 							currentY = evento.clientY;
 
 
-						};
+						}
 
 					});
 
-					angular.element(document.querySelector("body")).mouseup(function (evento) {
+					angular.element(document.querySelector("body")).mouseup(function () {
 
-						$("text.textoPrincipal, g.contenedor-icono, text.eslogan").removeAttr("movimiento-bz");
+						angular.element("text.textoPrincipal, g.contenedor-icono, text.eslogan").removeAttr("movimiento-bz");
 
 						var clon = angular.element(document.querySelector("bazam-svg")).clone();
 
@@ -579,7 +580,7 @@ angular.module("disenador-de-logos")
 					///////////////////////////////////////////
 
 
-					scope.$on("editor:comparar", function (evento, datos) {
+					scope.$on("editor:comparar", function () {
 
 						$rootScope.$broadcast("directiva:comparar", {
 							svg: element.html(),
@@ -598,6 +599,9 @@ angular.module("disenador-de-logos")
 					scope.$on("editor:orientacion", function (evento, orientacion) {
 
 						var tamanoBase = 100;
+						var svgIcono;
+						var svgTexto;
+						var eslogan;
 
 						if (orientacion == "horizontal") {
 
@@ -605,7 +609,7 @@ angular.module("disenador-de-logos")
 							var alturaSVG = tamanoBase;
 							var anchoSVG = tamanoBase;
 
-							var svgIcono = element.find("g.contenedor-icono > svg")[0];
+							svgIcono = element.find("g.contenedor-icono > svg")[0];
 
 							svgIcono.setAttribute("height", (alturaSVG * 0.75) + "px");
 							svgIcono.setAttribute("width", (alturaSVG * 0.75) + "px");
@@ -616,8 +620,7 @@ angular.module("disenador-de-logos")
 							////////creamos el elemento Text/////////
 							/////////////////////////////////////////
 
-							var svgTexto = element.find("text.textoPrincipal")[0];
-							var texto = element.find("text.textoPrincipal").text();
+							svgTexto = element.find("text.textoPrincipal")[0];
 
 							svgTexto.style.fontSize = ((alturaSVG * 0.75) / 2) + "px";
 							svgTexto.setAttribute("text-anchor", "left");
@@ -656,7 +659,7 @@ angular.module("disenador-de-logos")
                                
 							if(element.find("text.eslogan").length){
                                 
-								var eslogan = element.find("text.eslogan")[0];
+								eslogan = element.find("text.eslogan")[0];
                                
 								eslogan.setAttribute("transform", "");
 								eslogan.setAttribute("text-anchor", "left");
@@ -688,7 +691,7 @@ angular.module("disenador-de-logos")
 							////////////////////////////////////////////////////////////
 
 
-							var svgIcono = element.find("g.contenedor-icono > svg")[0];
+							svgIcono = element.find("g.contenedor-icono > svg")[0];
 
 							svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
 							svgIcono.removeAttribute("width");
@@ -699,7 +702,7 @@ angular.module("disenador-de-logos")
 							////////creamos el elemento Text/////////
 							/////////////////////////////////////////
 
-							var svgTexto = element.find("text.textoPrincipal")[0];
+							svgTexto = element.find("text.textoPrincipal")[0];
 
 							svgTexto.style.fontSize = (tamanoBase / 2) + "px";
 							svgTexto.setAttribute("text-anchor", "middle");
@@ -739,7 +742,7 @@ angular.module("disenador-de-logos")
 
 								}
 
-								var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+								paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
 
 
 								svgIcono.setAttribute("y", paddingTopIcono);
@@ -753,7 +756,7 @@ angular.module("disenador-de-logos")
                             
 							if(element.find("text.eslogan").length){
                                 
-								var eslogan = element.find("text.eslogan")[0];
+								eslogan = element.find("text.eslogan")[0];
                                
 								eslogan.setAttribute("transform", "");
 								eslogan.setAttribute("text-anchor", "middle");
@@ -861,7 +864,7 @@ angular.module("disenador-de-logos")
 						var indices = [];
 
 						//division en partes del svg
-						element.find("g.contenedor-icono > svg [data-indice]").each(function (indice) {
+						element.find("g.contenedor-icono > svg [data-indice]").each(function () {
 
 							indices[parseInt(this.getAttribute("data-indice"))] = false;
 
@@ -1021,7 +1024,7 @@ angular.module("disenador-de-logos")
 				svg: "=svg"
 
 			},
-			link: function (scope, element, attributes) {
+			link: function (scope, element) {
 
 				element.html(scope.svg);
 				element.html(element.html());
@@ -1040,7 +1043,7 @@ angular.module("disenador-de-logos")
 
 		return {
 			restrict: "AE",
-			link: function (scope, element, attributes) {
+			link: function () {
 
 				
                     
@@ -1125,7 +1128,7 @@ angular.module("disenador-de-logos")
 			templateUrl: "app/templates/carousel-mis-logos.tpl",
 			controller: ["$scope", "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
 
-				bz = this;
+				var bz = this;
 
 				bz.logos = $scope.logos;
 
