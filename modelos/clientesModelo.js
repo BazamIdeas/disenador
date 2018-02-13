@@ -86,7 +86,7 @@ cliente.getCliente = function(id,callback)
 	});
 };
  
-cliente.getCliente = function(id,callback)
+cliente.getClienteByEmail = function(id,callback)
 { 
 	var q = "SELECT nombreCliente, idCliente, correo, pass, telefono, pais, foto FROM clientes WHERE correo = ?"; 
 	var par = [id]; //parametros
