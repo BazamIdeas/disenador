@@ -10,24 +10,26 @@
 
     </div>
 </section>
-<div class="row">
-    <div class="col s6 offset-s3">
-        <div class="row cubos-logos">
-            <div ng-repeat="aprobado in logosGaleria.aprobados | limitTo : 6 track by aprobado.idLogo ">
-                <div class="overlay-combinacion"></div>
-                <span class="seleccionar" ng-click="logosGaleria.avanzar(aprobado.idLogo)">
-                    <md-tooltip md-delay="2" md-direction="top">Seleccionar</md-tooltip>
-                    <i class="material-icons">check</i>
-                </span>
-                <bazam-visualizar data-svg="logosGaleria.base64.decode(aprobado.logo)"></bazam-visualizar>
-            </div>
-            
-            <div ng-if="!logosGaleria.aprobados.length">No hay diseños</div>
+<section style="height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: scroll;">
+    <div class="row margin-bottom-0">
+        <div class="col s6 offset-s3">
+            <div class="row cubos-logos">
+                <div ng-repeat="aprobado in logosGaleria.aprobados | limitTo : 6 track by aprobado.idLogo ">
+                    <div class="overlay-combinacion"></div>
+                    <span class="seleccionar" ng-click="logosGaleria.avanzar(aprobado.idLogo)">
+                        <md-tooltip md-delay="2" md-direction="top">Seleccionar</md-tooltip>
+                        <i class="material-icons">check</i>
+                    </span>
+                    <bazam-visualizar data-svg="logosGaleria.base64.decode(aprobado.logo)"></bazam-visualizar>
+                </div>
+                
+                <div ng-if="!logosGaleria.aprobados.length">No hay diseños</div>
 
-        </div>
-        <div class="row" ng-if="logosGaleria.aprobados.length">
-            <div class="col s6 offset-s3" style="text-align: center;">
-                <button class="boton-verde" ng-click="logosGaleria.cargarMas(logosGaleria.aprobados[logosGaleria.aprobados.length - 1])" ng-class="{'loading-white': !logosGaleria.completadoCarga}">VER MÁS</button>
+            </div>
+            <div class="row" ng-if="logosGaleria.aprobados.length">
+                <div class="col s6 offset-s3" style="text-align: center;">
+                    <button class="boton-verde" ng-click="logosGaleria.cargarMas(logosGaleria.aprobados[logosGaleria.aprobados.length - 1])" ng-class="{'loading-white': !logosGaleria.completadoCarga}">VER MÁS</button>
+                </div>
             </div>
         </div>
     </div>

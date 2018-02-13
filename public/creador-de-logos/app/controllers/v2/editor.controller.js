@@ -17,6 +17,8 @@ angular.module("disenador-de-logos")
 		bz.colorEslogan = "#000";
 		bz.colorIcono = "#000";
 
+		bz.jqueryScrollbarOptions = {};
+
 		bz.logo = historicoResolve.logo;
 
 		if (!historicoResolve.idLogoGuardado && !historicoResolve.idLogoPadre) { //si no es un logo guardado
