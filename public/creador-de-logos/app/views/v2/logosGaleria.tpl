@@ -12,16 +12,16 @@
 </section>
 <section style="height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: scroll;">
     <div class="row margin-bottom-0">
-        <div class="col s12" style="">
+        <div class="col s12">
             <div class="row">
 
-                <div class="col m3"  style="" ng-repeat="aprobado in logosGaleria.aprobados | limitTo : 6 track by aprobado.idLogo ">
-                    <div class="overlay-combinacion"></div>
-                    <!--<span class="seleccionar" ng-click="logosGaleria.avanzar(aprobado.idLogo)">
-                        <md-tooltip md-delay="2" md-direction="top">Seleccionar</md-tooltip>
-                        <i class="material-icons">check</i>
-                    </span>-->
-                    <bazam-visualizar data-svg="logosGaleria.base64.decode(aprobado.logo)"></bazam-visualizar>
+                <div class="col m3 logo-galeria" ng-repeat="aprobado in logosGaleria.aprobados | limitTo : 6 track by aprobado.idLogo ">
+                    <div>
+                        <span class="seleccionar"  ng-click="logosGaleria.avanzar(aprobado.idLogo)">
+                            QUIERO ESTE LOGO <i class="material-icons">shopping_cart</i>
+                        </span>
+                        <bazam-visualizar data-svg="logosGaleria.base64.decode(aprobado.logo)"></bazam-visualizar>
+                    </div>
                 </div>
                 
                 <div ng-if="!logosGaleria.aprobados.length">No hay diseños</div>
