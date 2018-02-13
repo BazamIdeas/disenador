@@ -1,174 +1,149 @@
 angular.module("disenador-de-logos")
 
-    /* Editor */
+	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast) {
 
-    .controller('logosController', ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast) {
+		var bz = this;
 
-        var bz = this;
+		bz.base64 = $base64;
 
-        bz.base64 = $base64;
+		bz.opcionMostrar = "guardados";
 
-        bz.opcionMostrar = "adquiridos";
+		bz.guardados = [];
+		bz.comprados = [];
 
-        bz.guardados = [];
-        bz.comprados = [];
+		bz.salto = {
+			comprados: 0,
+			guardados: 0
+		};
 
-        bz.salto = {
-            comprados: 0,
-            guardados: 0
-        };
+		bz.cantidad = {
 
-        bz.cantidad = {
+			comprados: 0,
+			guardados: 0
 
-            comprados: 0,
-            guardados: 0
+		};
 
-        }
+		bz.terminados = {
 
-        bz.terminados = {
+			comprados: false,
+			guardados: false
 
-            comprados: false,
-            guardados: false
+		};
 
-        }
+		logosService.mostrarGuardados().then(function (res) {
 
-        logosService.mostrarGuardados().then(function (res) {
+			bz.guardados = res;
+			bz.cantidad.guardados = bz.guardados.length;
+			bz.terminados.guardados = true;
 
-            bz.guardados = res;
-            bz.cantidad.guardados = bz.guardados.length;
-            bz.terminados.guardados = true;
+		}).catch(function (res) {
+			bz.terminados.guardados = true;
+		});
 
-        }).catch(function (res) {
-            bz.terminados.guardados = true;
-        })
 
+		logosService.mostrarComprados().then(function (res) {
 
-        logosService.mostrarComprados().then(function (res) {
+			bz.comprados = res;
+			bz.cantidad.comprados = bz.comprados.length;
+			bz.terminados.comprados = true;            
 
-            bz.comprados = res;
-            bz.cantidad.comprados = bz.comprados.length;
-            bz.terminados.comprados = true;            
+		}).catch(function (res) {
+			bz.terminados.comprados = true;        
+		});
 
-        }).catch(function (res) {
-            bz.terminados.comprados = true;        
-        });
 
+		bz.modificarSalto = function (accion, objetivo) {
 
-        bz.modificarSalto = function (accion, objetivo) {
+			if (accion) {
 
-            if (accion) {
+				if (bz[objetivo][bz.salto[objetivo] + 9]) {
 
-                if (bz[objetivo][bz.salto[objetivo] + 9]) {
+					bz.salto[objetivo] = bz.salto[objetivo] + 9;
+				}
 
-                    bz.salto[objetivo] = bz.salto[objetivo] + 9;
-                }
+			} else if ((bz.salto[objetivo] - 9) >= 0) {
 
-            } else if ((bz.salto[objetivo] - 9) >= 0) {
+				bz.salto[objetivo] = bz.salto[objetivo] - 9;
+			}
 
-                bz.salto[objetivo] = bz.salto[objetivo] - 9;
-            }
+		};
 
-        }
 
+		bz.urlCompartir = $window.location.protocol + "//" + $window.location.hostname + angular.element(document.querySelector("base")).attr("href");
+		bz.mostrarModalSocial = false;
+		bz.idLogoCompartir = null;
 
-        bz.urlCompartir = $window.location.protocol + "//" + $window.location.hostname + angular.element(document.querySelector("base")).attr("href");
-        bz.mostrarModalSocial = false;
-        bz.idLogoCompartir = null;
+		bz.abrirModal = function (idLogo) {
+			console.log(idLogo);
+			bz.mostrarModalSocial = true;
+			bz.idLogoCompartir = idLogo;
 
-        bz.abrirModal = function (idLogo) {
-            console.log(idLogo)
-            bz.mostrarModalSocial = true;
-            bz.idLogoCompartir = idLogo;
+		};
 
-        }
+		bz.borradoCompleto = true;
 
-        bz.borradoCompleto = true;
+		bz.borrarLogo = function (idLogo) {
+			if (bz.borradoCompleto) {
 
-        bz.borrarLogo = function (idLogo) {
-            if (bz.borradoCompleto) {
+				bz.borradoCompleto = false;
 
-                bz.borradoCompleto = false;
+				logosService.borrarLogo(idLogo).then(function (res) {
 
-                logosService.borrarLogo(idLogo).then(function (res) {
+					angular.forEach(bz.guardados, function (valor, indice) {
+						if (valor.idLogo == idLogo) {
+							console.log({indice: indice});
+							console.log({valor:valor});
+							bz.guardados.splice(indice, 1);
+							return false;
+						}
+					});
 
-                    angular.forEach(bz.guardados, function (valor, indice) {
-                        if (valor.idLogo == idLogo) {
-                            console.log({indice: indice})
-                            console.log({valor:valor})
-                            bz.guardados.splice(indice, 1);
-                            return false;
-                        }
-                    });
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "El logo fue borrado exitosamente!",
+							clase: "success"
+						}
+					}));
 
-                    $mdToast.show($mdToast.base({
-                        args: {
-                            mensaje: 'El logo fue borrado exitosamente!',
-                            clase: "success"
-                        }
-                    }));
+				}).catch(function () {
 
-                }).catch(function () {
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Un error ha ocurrido",
+							clase: "danger"
+						}
+					}));
 
-                    $mdToast.show($mdToast.base({
-                        args: {
-                            mensaje: 'Un error ha ocurrido',
-                            clase: "danger"
-                        }
-                    }));
+				}).finally(function () {
 
-                }).finally(function () {
+					bz.borradoCompleto = true;
 
-                    bz.borradoCompleto = true;
+				});
+			}
+		};
 
-                })
-            }
-        }
 
+		bz.buscarAtributo = function (lista, objetivo) {
 
-        bz.buscarAtributo = function (lista, objetivo) {
+			var idFuente = null;
 
-            var idFuente = null;
+			angular.forEach(lista, function (atributo, llave) {
 
-            angular.forEach(lista, function (atributo, llave) {
+				if (atributo.clave == objetivo) {
 
-                if (atributo.clave == objetivo) {
+					idFuente = atributo.valor;
 
-                    idFuente = atributo.valor;
+				}
 
-                }
+			});
 
-            })
+			return idFuente;
+		};
 
-            return idFuente;
-        }
+		$scope.$on("sesionExpiro", function (event, data) {
 
-        bz.obtenerMetas = function (filtrar) {
+			$state.go("principal.comenzar");
 
-            var metas = [];
+		});
 
-            angular.forEach(filtrar, function (meta, llave) {
-
-                angular.forEach(asdas, function () {
-
-                    if (meta.clave != objetivo) {
-
-                        idFuente = atributo.valor;
-
-                    }
-
-                })
-
-
-            })
-
-            return metas;
-        }
-
-
-        $scope.$on('sesionExpiro', function (event, data) {
-
-            $state.go('principal.comenzar');
-
-        });
-
-    }])
+	}]);

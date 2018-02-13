@@ -74,6 +74,23 @@ logo.getLogosAprobadosPorCliente = function(id,callback)
 	});
 }
 
+logo.getLogosVendidosPorCliente = function(id,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Vendido" AND clientes_idCliente = ? ORDER BY idLogo';  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query(q, [id], function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
 logo.getLogosAprobadosDestacados = function(callback)
 {
 	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" and destacado = 1 ORDER BY RAND() LIMIT 12';  

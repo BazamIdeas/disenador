@@ -111,12 +111,53 @@ exports.Destacar = function(req,res) {
 
 //CAMBIAR EL ESTADO DE UN LOGO A 'POR APROBAR'
 exports.porAprobar = function(req,res) {
+
 	var par = ["Por Aprobar", req.body.idLogo];
+
 	logo.cambiarEstado(par, function(error,data){
+
 		if (typeof data !== "undefined" && data.msg){
+
+			var atributos = [{
+					clave : "icono",
+					valor : req.body.colores.icono,
+					logos_idLogo: req.body.idLogo  
+				},{
+					clave : "nombre",
+					valor : req.body.colores.nombre,
+					logos_idLogo: req.body.idLogo  
+				}];
+
+			if(req.body.colores.eslogan){
+
+				atributos.push({
+					clave : "eslogan",
+					valor : req.body.colores.eslogan,
+					logos_idLogo: req.body.idLogo  
+				});
+				
+			}
+
+
+
+			for(var key in atributos){
+
+				atributo.Guardar(atributos[key], function(error, data) {
+
+					if(!data && !data.insertId)
+					{
+						res.status(500).json({"msg":"Algo ocurrio"});
+					}
+
+				});
+			}
+
 			res.status(200).json(data);
+
 		}else{
+			
 			res.status(500).json({"msg":"Algo ocurrio"});
+		
 		}
 	});
 };
@@ -374,6 +415,55 @@ exports.listaLogosAprobadosPorCliente = function(req, res) {
 
 };
 
+
+exports.listaLogosVendidosPorCliente = function(req, res) {
+
+	var idCliente = req.params.id; 
+	
+	logo.getLogosVendidosPorCliente(idCliente,function(error, data)
+	{
+		
+		if (typeof data !== "undefined" && data.length > 0)
+		{
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function(err, dataAttrs){
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0)
+						{
+							data[key]["atributos"] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}	
+
+					callback();						
+					
+				});
+
+			}, (err) => {
+				
+				if (err) res.status(402).json({});
+				
+				res.status(200).json(data);
+			
+			});
+		}
+		//no existe
+		else
+		{
+			res.status(404).json({"msg":"No hay logos aprobados"});
+		}
+	});
+
+};
 
 
 
