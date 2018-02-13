@@ -480,12 +480,20 @@ exports.manualCliente = function (req, res, next) {
 
     var datos = {
         logo: base64.decode(logo.logo),
-        color_principal: logo.atributos[2].valor,
-        fuente_c_hexa_p: toHexa(logo.atributos[2].valor),
-        fuente_c_rgb_p: logo.atributos[2].valor,
-        fuente_c_hexa_n: toHexa(logo.atributos[1].valor),
-        fuente_c_rgb_n: logo.atributos[1].valor,
         tipografia_p: logo.tipografia_p,
+    }
+
+    for (var attr in logo.atributos) {
+        if (logo.atributos[attr].clave == 'color-icono') {
+            datos.color_principal = logo.atributos[attr].valor
+            datos.fuente_c_hexa_p = toHexa(logo.atributos[attr].valor)
+            datos.fuente_c_rgb_p = logo.atributos[attr].valor
+        }
+
+        if (logo.atributos[attr].clave == 'color-nombre') {
+            datos.fuente_c_hexa_n = toHexa(logo.atributos[attr].valor)
+            datos.fuente_c_rgb_n = logo.atributos[attr].valor
+        }
     }
 
     var template;
@@ -493,20 +501,26 @@ exports.manualCliente = function (req, res, next) {
     /* SI EXISTE EL ESLOGAN */
 
     if (logo.tieneEslogan) {
-        
+
         template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
             if (err) throw err;
         });
 
-        datos.fuente_c_hexa_e = toHexa(logo.atributos[4].valor);
-        datos.fuente_c_rgb_e = logo.atributos[4].valor;
+        for (attr in logo.atributos) {
+            if (logo.atributos[attr].clave == 'color-eslogan') {
+                datos.fuente_c_hexa_e = logo.atributos[attr].valor
+                datos.fuente_c_rgb_e = logo.atributos[attr].valor
+            }
+        }
+
         datos.tipografia_s = logo.tipografia_s;
 
-    }else{
+    } else {
         template = fs.readFileSync('./manual-marcas/index.1.html', 'utf8', (err, data) => {
             if (err) throw err;
         });
     }
+
 
     /* ********************************* */
 
@@ -548,7 +562,8 @@ exports.manualCliente = function (req, res, next) {
         if (err) throw err;
 
         data = {
-            nombreArchivo: 'Manual de marca ' + nombreEmpresa + '.pdf', url: '/tmp/manual-marcas-' + nombreEmpresa + '.pdf'
+            nombreArchivo: 'Manual de marca ' + nombreEmpresa + '.pdf',
+            url: '/tmp/manual-marcas-' + nombreEmpresa + '.pdf'
         };
 
         res.status(200).json(data)
@@ -560,19 +575,19 @@ exports.manualCliente = function (req, res, next) {
     function toHexa(rgb) {
         rgb = rgb.slice(4, -2);
         arr = rgb.split(', ');
-        
+
         var hexa = '#';
 
         for (i = 0; i <= 2; i++) {
-            
+
             n = parseInt(arr[i]);
-            
+
 
             if (isNaN(n)) return "00";
             n = Math.max(0, Math.min(n, 255));
-            
-            n = "0123456789ABCDEF".charAt((n - n % 16) / 16)
-                + "0123456789ABCDEF".charAt(n % 16);
+
+            n = "0123456789ABCDEF".charAt((n - n % 16) / 16) +
+                "0123456789ABCDEF".charAt(n % 16);
 
             hexa = hexa.concat(n);
         }
