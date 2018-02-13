@@ -2671,7 +2671,8 @@ textarea {
 }
 
 .img-filter{
-    filter: grayscale(1)
+    -webkit-filter: grayscale(1);
+            filter: grayscale(1)
 }
 
 .flecha-ayuda {
@@ -2680,6 +2681,8 @@ textarea {
 }
 
 .flecha-ayuda span {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     background-color: var(--principal);
     color: white;
@@ -2702,10 +2705,17 @@ textarea {
     border-radius: 50%;
     width: 30px;
     height: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 0px 5px 1px #6e6767;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-shadow: 0px 0px 5px 1px #6e6767;
+            box-shadow: 0px 0px 5px 1px #6e6767;
     background-color: var(--principal);
     color: white;
     cursor: pointer;

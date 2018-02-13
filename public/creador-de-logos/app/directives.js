@@ -286,13 +286,13 @@ angular.module("disenador-de-logos")
 					//evento para los hijos directos de seccion-icono
 
 					//element.find("g[data-seccion-icono] [data-indice]:not(g)").on("click", function () {
-					$("bazam-svg").on("click", "g.contenedor-icono > svg :not(g)", function () {
+					angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g)", function () {
 
 						angular.element(document.querySelector(".seleccionado")).removeClass("seleccionado");
-						$(this).addClass("seleccionado");
+						angular.element(this).addClass("seleccionado");
 
 						//obtenemos el indice que es espejo del array
-						var indiceParte = $(this).attr("data-indice");
+						var indiceParte = angular.element(this).attr("data-indice");
 
 						//definimos en false todos los valores del array
 						scope.elementosIndices.forEach(function (valor, indice) {
@@ -480,23 +480,23 @@ angular.module("disenador-de-logos")
 
 					var intermediador = true;
 
-					$("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono", function (evento) {
+					angular.element("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono", function (evento) {
 
 						intermediador = false;
 
-						if (!$(this).attr("transform")) {
+						if (!angular.element(this).attr("transform")) {
 
-							$(this).attr("transform", "matrix(1 0 0 1 0 0)");
+							angular.element(this).attr("transform", "matrix(1 0 0 1 0 0)");
 
 						}
 
-						$(this).attr("movimiento-bz", true);
+						angular.element(this).attr("movimiento-bz", true);
 
 						currentX = evento.clientX;
 
 						currentY = evento.clientY;
 
-						currentMatrix = $(this).attr("transform").slice(7, -1).split(" ");
+						currentMatrix = angular.element(this).attr("transform").slice(7, -1).split(" ");
 
 						for (var i = 0; i < currentMatrix.length; i++) {
 
@@ -506,10 +506,10 @@ angular.module("disenador-de-logos")
 
 					});
 
-					$("bazam-svg").on("mousemove", "text.eslogan[movimiento-bz], text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
+					angular.element("bazam-svg").on("mousemove", "text.eslogan[movimiento-bz], text.textoPrincipal[movimiento-bz], g.contenedor-icono[movimiento-bz]", function (evento) {
 
 
-						if ($("[movimiento-bz]").length) {
+						if (angular.element("[movimiento-bz]").length) {
 
 							var dx = evento.clientX - currentX;
 							var dy = evento.clientY - currentY;
@@ -530,7 +530,7 @@ angular.module("disenador-de-logos")
                             
                           
                             
-							$(this).attr("transform", newMatrix);
+							angular.element(this).attr("transform", newMatrix);
 							currentX = evento.clientX;
 							currentY = evento.clientY;
 
@@ -541,7 +541,7 @@ angular.module("disenador-de-logos")
 
 					angular.element(document.querySelector("body")).mouseup(function () {
 
-						$("text.textoPrincipal, g.contenedor-icono, text.eslogan").removeAttr("movimiento-bz");
+						angular.element("text.textoPrincipal, g.contenedor-icono, text.eslogan").removeAttr("movimiento-bz");
 
 						var clon = angular.element(document.querySelector("bazam-svg")).clone();
 

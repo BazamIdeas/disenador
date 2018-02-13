@@ -2219,7 +2219,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     width: 24%;
     border-radius: 10px;
     overflow: hidden;
-    display: none;
+    visibility: hidden;
     opacity: 0;
     position: absolute;
     background-color: white;
@@ -2254,6 +2254,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 
 .logo-active, .logo-left, .logo-right, .logo-left-1, .logo-right-1 {
     display: flex;
+    visibility: visible;
     justify-content: center;
     align-items: center;
 }
