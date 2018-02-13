@@ -476,53 +476,69 @@ exports.manualCliente = function (req, res, next) {
 
     var logo = req.body.logo;
 
-
-    return console.log(logo)
-
     /*------------------------------- PDF --------------------------*/
-
-    var template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
-        if (err) throw err;
-    });
 
     var datos = {
         logo: base64.decode(logo.logo),
-        color_principal: '#4087af',
-        fuente_c_hexa_p: '#4087af',
-        fuente_c_rgb_p: '#4087af',
-        fuente_c_hexa_n: '#4087af',
-        fuente_c_rgb_n: '#4087af',
-        fuente_c_hexa_e: '#4087af',
-        fuente_c_rgb_e: '#4087af',
-        tipografia_p: { url: '/fuentes/BadScript-Regular.ttf', nombre: 'BadScript'},
-        tipografia_s: { url: '/fuentes/BerkshireSwash-Regular.ttf', nombre: 'BerkshireSwash'},
+        color_principal: logo.atributos[2].valor,
+        fuente_c_hexa_p: toHexa(logo.atributos[2].valor),
+        fuente_c_rgb_p: logo.atributos[2].valor,
+        fuente_c_hexa_n: toHexa(logo.atributos[1].valor),
+        fuente_c_rgb_n: logo.atributos[1].valor,
+        tipografia_p: logo.tipografia_p,
     }
+
+    var template;
+
+    /* SI EXISTE EL ESLOGAN */
+
+    if (logo.tieneEslogan) {
+        
+        template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
+            if (err) throw err;
+        });
+
+        datos.fuente_c_hexa_e = toHexa(logo.atributos[4].valor);
+        datos.fuente_c_rgb_e = logo.atributos[4].valor;
+        datos.tipografia_s = logo.tipografia_s;
+
+    }else{
+        template = fs.readFileSync('./manual-marcas/index.1.html', 'utf8', (err, data) => {
+            if (err) throw err;
+        });
+    }
+
+    /* ********************************* */
 
     for (i = 0; i <= 6; i++) {
         template = template.replace('{#fuente_c_hexa_p#}', datos.fuente_c_hexa_p);
         template = template.replace('{#fuente_c_rgb_p#}', datos.fuente_c_rgb_p);
         template = template.replace('{#fuente_c_hexa_n#}', datos.fuente_c_hexa_n);
         template = template.replace('{#fuente_c_rgb_n#}', datos.fuente_c_rgb_n);
-        template = template.replace('{#fuente_c_hexa_e#}', datos.fuente_c_hexa_e);
-        template = template.replace('{#fuente_c_rgb_e#}', datos.fuente_c_rgb_e);
         template = template.replace('{#tipografia_p_url#}', datos.tipografia_p.url);
         template = template.replace('{#tipografia_p_nombre#}', datos.tipografia_p.nombre);
-        template = template.replace('{#tipografia_s_nombre#}', datos.tipografia_s.nombre);
-        template = template.replace('{#tipografia_s_url#}', datos.tipografia_s.url);
-
         template = template.replace('{#color_principal#}', datos.color_principal);
     }
 
-    for(i = 0; i <= 11; i++){
+    if (logo.tieneEslogan) {
+        for (i = 0; i <= 6; i++) {
+            template = template.replace('{#tipografia_s_nombre#}', datos.tipografia_s.nombre);
+            template = template.replace('{#tipografia_s_url#}', datos.tipografia_s.url);
+            template = template.replace('{#fuente_c_hexa_e#}', datos.fuente_c_hexa_e);
+            template = template.replace('{#fuente_c_rgb_e#}', datos.fuente_c_rgb_e);
+        }
+    }
+
+    for (i = 0; i <= 11; i++) {
         template = template.replace('{#logo#}', datos.logo);
     }
 
-    for (var key in datos) {
-        template = template.replace('{#' + key + '#}', datos[key]);
-    }
-
     var config = {
-        "height": "11in","width": "8.5in","base": "file:///D:/GitHub/disenador/manual-marcas/assets","type": "pdf","renderDelay": 3000
+        "height": "11in",
+        "width": "8.5in",
+        "base": "file:///D:/GitHub/disenador/manual-marcas/assets",
+        "type": "pdf",
+        "renderDelay": 3000
     }
 
     var nombreEmpresa = 'LL';
@@ -532,9 +548,36 @@ exports.manualCliente = function (req, res, next) {
         if (err) throw err;
 
         data = {
-            nombreArchivo: '/tmp/manual-marcas-' + nombreEmpresa + '.pdf'
+            nombreArchivo: 'Manual de marca ' + nombreEmpresa + '.pdf', url: '/tmp/manual-marcas-' + nombreEmpresa + '.pdf'
         };
 
         res.status(200).json(data)
     });
+
+
+    /* UTILITARIOS */
+
+    function toHexa(rgb) {
+        rgb = rgb.slice(4, -2);
+        arr = rgb.split(', ');
+        
+        var hexa = '#';
+
+        for (i = 0; i <= 2; i++) {
+            
+            n = parseInt(arr[i]);
+            
+
+            if (isNaN(n)) return "00";
+            n = Math.max(0, Math.min(n, 255));
+            
+            n = "0123456789ABCDEF".charAt((n - n % 16) / 16)
+                + "0123456789ABCDEF".charAt(n % 16);
+
+            hexa = hexa.concat(n);
+        }
+
+        return hexa;
+    }
+
 }
