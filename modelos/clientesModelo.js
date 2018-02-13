@@ -86,6 +86,25 @@ cliente.getCliente = function(id,callback)
 	});
 };
  
+cliente.getCliente = function(id,callback)
+{ 
+	var q = "SELECT nombreCliente, idCliente, correo, pass, telefono, pais, foto FROM clientes WHERE correo = ?"; 
+	var par = [id]; //parametros
+
+	//console.log(par)
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+
+			if(err)	throw err;
+				
+			else callback(null, row);
+				
+			connection.release();
+		});
+	});
+};
+
 //obtenemos un cliente por su email
 cliente.getClienteEmail = function(correo,callback)
 { 

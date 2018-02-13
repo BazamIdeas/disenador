@@ -294,6 +294,27 @@ exports.datosCliente = function (req, res, next) {
 
 }
 
+exports.datosClientePorEmail = function (req, res, next) {
+    //id del cliente
+
+    var id = req.body.email;
+    cliente.getClienteByEmail(id, function (error, data) {
+        //si el usuario existe 
+        if (typeof data !== 'undefined' && data.length > 0) {
+
+            var cliente = data[0];
+
+            res.status(200).json(cliente)
+
+        } else {
+            res.status(404).json({
+                "msg": "No Encontrado"
+            })
+        }
+    });
+
+}
+
 exports.Datos = function (req, res, next) {
     //id del cliente
 

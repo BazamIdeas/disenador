@@ -36,6 +36,7 @@ router.post('/cliente/login',controllers.clientes.login);
 
 router.get('/cliente/pedidos', middleware.validarCliente, controllers.pedidos.PedidosCliente);//muestra la lista de pedidos de un cliente
 router.get('/cliente/:id',  controllers.clientes.datosCliente);
+router.post('/cliente/email', controllers.clientes.datosClientePorEmail);
 
 
 //los mismos datos que la ruta /cliente
