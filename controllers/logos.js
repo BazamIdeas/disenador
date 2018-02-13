@@ -119,11 +119,11 @@ exports.porAprobar = function(req,res) {
 		if (typeof data !== "undefined" && data.msg){
 
 			var atributos = [{
-					clave : "icono",
+					clave : "color-icono",
 					valor : req.body.colores.icono,
 					logos_idLogo: req.body.idLogo  
 				},{
-					clave : "nombre",
+					clave : "color-nombre",
 					valor : req.body.colores.nombre,
 					logos_idLogo: req.body.idLogo  
 				}];
@@ -131,7 +131,7 @@ exports.porAprobar = function(req,res) {
 			if(req.body.colores.eslogan){
 
 				atributos.push({
-					clave : "eslogan",
+					clave : "color-eslogan",
 					valor : req.body.colores.eslogan,
 					logos_idLogo: req.body.idLogo  
 				});
