@@ -1,6 +1,6 @@
 angular.module("landing")
 
-	.controller("disenadoresController", ["clientesService", "verificarBase64Factory",  function (clientesService, verificarBase64Factory) {
+	.controller("disenadoresController", ["clientesService", "verificarBase64Factory", function (clientesService, verificarBase64Factory) {
 
 		var bz = this;
 		bz.disenadores = [];
