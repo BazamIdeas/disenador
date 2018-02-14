@@ -824,13 +824,13 @@ angular.module("disenador-de-logos")
 
 			var logos = [];
 
-			angular.forEach(iconos, function (icono) {
+			angular.forEach(fuentes, function (fuente) {
 
-				if (icono.estado == true) {
+				if (fuente.estado == true) {
 
-					angular.forEach(fuentes, function (fuente) {
+					angular.forEach(iconos, function (icono) {
 
-						if (fuente.estado == true) {
+						if (icono.estado == true) {
 
 							var logo = {
 								icono: icono,
@@ -1276,7 +1276,6 @@ angular.module("disenador-de-logos")
 		var accion = true;
 
 		return function () {
-			console.log(accion)
 			$rootScope.$broadcast("bazamPasoAyuda:mostrar", accion);
 
 			accion = !accion;
