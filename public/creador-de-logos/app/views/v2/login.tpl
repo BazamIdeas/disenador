@@ -63,12 +63,15 @@
                                         
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="correo2" type="email" name="correo" ng-model="login.datosRegistro.correo" required>
+	                                    <input id="correo2" type="email" name="correo" ng-model="login.datosRegistro.correo" bazam-mail required>
 	                                    <label for="correo2">Correo</label>
                                         
                                         <div ng-messages="login.registroForm.correo.$error" ng-if="login.registroForm.$submitted || login.registroForm.correo.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="email">Debe ser un email válido.</div>
+                                        </div>
+                                        <div ng-messages="login.registroForm.correo.$pending">
+                                            <div ng-message="disponible">Verificando la disponibilidad del email.</div>
                                         </div>
 	                                </div>
 	                                <div class="input-field col s12">

@@ -193,6 +193,7 @@ angular.module("landing")
 			return promise;
 
 		};
+
 	}])
 
 	.factory("clienteDatosFactory", [function () {
@@ -406,6 +407,43 @@ angular.module("landing")
 				});
 
 			return promise;			
+		};
+
+		this.logosVendidos = function () {
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.get("/app/clientes/freelancers")
+
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function () {
+					defered.reject();
+				});
+
+			return promise;			
+		};
+
+		this.correoDisponible = function (correo) {
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.post("/app/cliente/email", {email: correo})
+
+				.then(function () {
+					defered.reject();
+				})
+				.catch(function (res) {
+					if(res.status == 404){
+						defered.resolve();
+					} else {
+						defered.reject();
+					}
+					
+				});
+
+			return promise;		
 		};
 
 	}]);

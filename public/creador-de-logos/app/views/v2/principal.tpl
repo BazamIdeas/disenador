@@ -119,8 +119,9 @@
             </div>
         </section>
 
+        <bazam-form-login data-mostrar="principal.mostrarModalLogin" data-tipo-logo="principal.objetivoEditor" data-logo="principal.logoSeleccionado" data-logo-predisenado="principal.predisenadoSeleccionado" data-callback="[principal.avanzar, principal.avanzarPredisenado]"></bazam-form-login>
 
-        <div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
+        <!--<div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
             <div class="row margin-bottom-0">
                 <div class="col s6 offset-s3">
 
@@ -170,13 +171,19 @@
                                         </div>
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="correo2" type="email" name="correo" ng-model="principal.datosRegistro.correo" required>
+	                                    <input id="correo2" type="email" name="correo" ng-model="principal.datosRegistro.correo" bazam-mail required>
 	                                    <label for="correo2">Correo</label>
                                         
                                         <div ng-messages="principal.registroForm.correo.$error" ng-if="principal.registroForm.$submitted || principal.registroForm.correo.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="email">Debe ser un email válido.</div>
+                                            <div ng-message="disponible">Este email no esta disponible.</div>
                                         </div>
+                                        <div ng-messages="principal.registroForm.correo.$pending">
+                                            <div ng-message="disponible">Verificando la disponibilidad del email.</div>
+                                        </div>
+
+
                                         
 	                                </div>
 	                                <div class="input-field col s12">
@@ -218,3 +225,5 @@
                 </div>
             </div>
         </div>
+
+    -->
