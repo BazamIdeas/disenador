@@ -48,7 +48,7 @@
             <div class="logo-container logo-active" ng-if="!logos.length">  <p style="text-align: center;"> No hay diseños </p> </div>
         </div>
 
-        <div class="right-arrow" ng-click="carouselDestacados.avanzar()">
+        <div ng-if="!((carouselDestacados.actual + 2) >= logos.length)" class="right-arrow" ng-click="carouselDestacados.avanzar()">
             <i class="material-icons">keyboard_arrow_right</i>
         </div>
     </div>
