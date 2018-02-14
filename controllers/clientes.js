@@ -547,10 +547,14 @@ exports.manualCliente = function (req, res, next) {
         template = template.replace('{#logo#}', datos.logo);
     }
 
+    url = __dirname.replace('\\controllers','')
+
+    url = 'file:///' + url + "\\/manual-marcas/assets";
+
     var config = {
         "height": "11in",
         "width": "8.5in",
-        "base": "../manual-marcas/assets",
+        "base": url,
         "type": "pdf",
         "renderDelay": 3000
     }
