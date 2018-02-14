@@ -7,10 +7,10 @@
 </style>
 <div class="row margin-bottom-0 lienzo" style="overflow:hidden">
     <div class="col s2">
-        <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}">REFRESCAR</button>
+        <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}">BUSCAR</button>
     </div>
     <div class="col s8">
-        <p class="text-center tercero margin-bottom-0">Selecciona la combinación que mas se adapte a ti</p>
+
     </div>
 
 
