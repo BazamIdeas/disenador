@@ -30,7 +30,7 @@ angular.module("administrador")
 
     }])
 
-    .service('clientesService', ['$http', '$q', '$window', '$rootScope', 'SweetAlert', "clienteDatosFactory", function ($http, $q, $window, $rootScope, SweetAlert, clienteDatosFactory) {
+    .service('clientesService', ['$http', '$q', '$window', '$rootScope', 'SweetAlert', "clienteDatosFactory", "$state", function ($http, $q, $window, $rootScope, SweetAlert, clienteDatosFactory, $state) {
 
 
         this.registrar = function (datos) {
@@ -181,6 +181,7 @@ angular.module("administrador")
 
             if (!desactivarAlerta) {
                 SweetAlert.swal("¡Ups!", "Tu sesion ha expirado", "warning");
+                $state.go('login')
             }
         }
 

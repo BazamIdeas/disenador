@@ -6,6 +6,8 @@ angular.module("administrador")
         bz.loaderMostrar = true;
         bz.usuarios = [];
 
+        bz.actual = clientesService.autorizado().nombre
+
         /* LISTAR TODOS LOS CLIENTES */
 
         bz.listarU = function () {

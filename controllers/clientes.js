@@ -550,7 +550,7 @@ exports.manualCliente = function (req, res, next) {
     var config = {
         "height": "11in",
         "width": "8.5in",
-        "base": "file:///D:/GitHub/disenador/manual-marcas/assets",
+        "base": "../manual-marcas/assets",
         "type": "pdf",
         "renderDelay": 3000
     }

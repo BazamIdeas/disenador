@@ -50,10 +50,8 @@ angular.module("administrador")
         /* VERIFICA SI EL USUARIO ESTA AUTORIZADO Y LO VIGILA */
         bz.autorizado = clientesService.autorizado();
 
-        $scope.$watch('$root.objectoCliente', function (valor, nuevoValor) {
-            if (valor !== nuevoValor) {
-                bz.autorizado = bz.autorizado = $rootScope.objectoCliente;
-            }
+        $scope.$on('sesionExpiro', function (valor) {
+            clientesService.salir();
         });
 
         /* INTERVALO DE ABRIR Y CERRAR EL MENU */

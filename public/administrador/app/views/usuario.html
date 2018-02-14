@@ -18,17 +18,15 @@
                     <div class="w3-responsive content-scroll">
                         <table class="w3-table w3-bordered">
                             <tr>
-                                <th>N°:</th>
                                 <th>Nombre:</th>
                                 <th>Correo:</th>
                                 <th>Acciones:</th>
                             </tr>
-                            <tr ng-repeat="elemento in usuario.usuarios | filter:usuario.buscar | orderBy:'idUsuario'">
-                                <td>{{$index}}</td>
+                            <tr ng-repeat="elemento in usuario.usuarios | filter:usuario.buscar | orderBy:'idUsuario'" >
                                 <td>{{elemento.nombreUser}}</td>
                                 <td>{{elemento.correo}}</td>
                                 <td>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="usuario.eliminarU(elemento.idUsuario, $index)">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="usuario.eliminarU(elemento.idUsuario, $index)" ng-if="elemento.nombreUser != usuario.actual">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar</md-tooltip>
                                         <md-icon class="material-icon">delete</md-icon>
                                     </md-button>

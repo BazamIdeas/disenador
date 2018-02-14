@@ -16,6 +16,7 @@ angular.module("administrador")
 		/***************************/
 
 		bz.listarLogos = function () {
+			bz.listaL = !bz.listaL;
 			designerService.listarLogos().then(function (res) {
 				angular.forEach(res, function (valor) {
 					if (valor.atributos) {
@@ -30,11 +31,7 @@ angular.module("administrador")
 				});
 
 				bz.logos = res;
-				bz.listaL = !bz.listaL;
-			}).catch(function (res) {
-				notificacionService.mensaje("No existen logos por aprobar!");
-				bz.listaL = false;
-			});
+			})
 		};
 
 		bz.aprobarLogo = function (i, datos, id) {
@@ -131,9 +128,7 @@ angular.module("administrador")
 			bz.listaD = !bz.listaD;
 			designerService.listarDisenadores().then(function (res) {
 				bz.disenadores = res;
-			}).catch(function (res) {
-				notificacionService.mensaje(res);
-			});
+			})
 		};
 
 		bz.bloquearDisenador = function (id) {
