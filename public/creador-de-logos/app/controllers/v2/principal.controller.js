@@ -1,18 +1,8 @@
 angular.module("disenador-de-logos")
 
-	.controller("principalController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService) {
+	.controller("principalController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService) {
 
 		var bz = this;
-
-		bz.paises = paisesValue;
-
-		bz.paisDefecto = null;
-
-		clientesService.pais().then(function (res) {
-
-			bz.paisDefecto = res.iso;
-
-		});
 
 		bz.datos = {
 			nombre: "Mi logo",
@@ -87,7 +77,7 @@ angular.module("disenador-de-logos")
 
 		bz.solicitarElementos = function (inicial) {
 
-			if ($scope.principal.datosForm.$valid && bz.completado) {
+			if (bz.datosForm.$valid && bz.completado) {
 
 				bz.completado = false;
 
@@ -118,11 +108,11 @@ angular.module("disenador-de-logos")
 							status: true
 						});
 
-					}).catch(function (error) {
+					}).catch(function () {
 
 						//$state.go('comenzar')
 
-					}).finally(function (res) {
+					}).finally(function () {
 
 						bz.completado = true;
 
@@ -167,7 +157,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-
+ 
 		bz.avanzar = function (indiceLogo) {
 
 			bz.logoSeleccionado = indiceLogo;
@@ -192,6 +182,7 @@ angular.module("disenador-de-logos")
 
 		};
 
+		/*
 
 		bz.datosLogin = {};
 
@@ -199,7 +190,7 @@ angular.module("disenador-de-logos")
 
 		bz.login = function (datos, valido) {
 
-			if (valido) {
+			if (valido && bz.completadoLogin) {
 
 				bz.completadoLogin = false;
 
@@ -238,7 +229,7 @@ angular.module("disenador-de-logos")
 						}
 					}));
 
-				}).finally(function (res) {
+				}).finally(function () {
 
 					bz.completadoLogin = true;
 
@@ -309,7 +300,7 @@ angular.module("disenador-de-logos")
 			};
 
 		};
-
+ */
 
 		bz.seleccionarFuenteCategoria = function (idCategoria) {
 			var fuenteNombre = "futura-heavy";
@@ -409,7 +400,6 @@ angular.module("disenador-de-logos")
 
 
 		bz.avanzarPredisenado = function (indiceLogo) {
-
 			bz.predisenadoSeleccionado = indiceLogo;
 
 			if (!clientesService.autorizado()) {
@@ -449,7 +439,7 @@ angular.module("disenador-de-logos")
 
 			}
 
-		};
+		}; 
 
 
 

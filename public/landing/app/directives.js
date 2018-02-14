@@ -27,9 +27,9 @@ angular.module("landing")
 		return {
 			restrict: "E",
 			templateUrl: "landing/app/templates/bazamFormLogin.tpl",
-			controller: ['$scope', "clientesService", "$mdToast", function ($scope, clientesService, $mdToast) {
+			controller: ["$scope", "clientesService", "$mdToast", function ($scope, clientesService, $mdToast) {
 
-				bz = this;
+				var bz = this;
 
 				bz.completadoLogin = true;
 
@@ -39,13 +39,13 @@ angular.module("landing")
 
 						bz.completadoLogin = false;
 
-						clientesService.login(datos).then(function (res) {
+						clientesService.login(datos).then(function () {
 
 							if (clientesService.autorizado(true)) {
 
 								$mdToast.show($mdToast.base({
 									args: {
-										mensaje: '¡Bienvenido!',
+										mensaje: "¡Bienvenido!",
 										clase: "success"
 									}
 								}));
@@ -60,19 +60,19 @@ angular.module("landing")
 
 							$mdToast.show($mdToast.base({
 								args: {
-									mensaje: 'Verifica tu Usuario y Contraseña',
+									mensaje: "Verifica tu Usuario y Contraseña",
 									clase: "danger"
 								}
 							}));
 
-						}).finally(function (res) {
+						}).finally(function () {
 
 							bz.completadoLogin = true;
 
 						});
 
 
-					};
+					}
 
 				};
 
@@ -82,19 +82,17 @@ angular.module("landing")
 
 				bz.registrar = function (datos, valido) {
 
-
-
 					if (valido && bz.completadoRegistro) {
 
 						bz.completadoRegistro = false;
 
-						clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function (res) {
+						clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function () {
 
 							if (clientesService.autorizado(true)) {
 
 								$mdToast.show($mdToast.base({
 									args: {
-										mensaje: '¡Registro exitoso!',
+										mensaje: "¡Registro exitoso!",
 										clase: "success"
 									}
 								}));
@@ -109,7 +107,7 @@ angular.module("landing")
 
 							$mdToast.show($mdToast.base({
 								args: {
-									mensaje: 'Un error ha ocurrido',
+									mensaje: "Un error ha ocurrido",
 									clase: "danger"
 								}
 							}));
@@ -119,21 +117,21 @@ angular.module("landing")
 
 							bz.completadoRegistro = true;
 
-						})
+						});
 
-					};
+					}
 
-				}
+				};
 
 
 			}],
-			controllerAs: 'bazamLogin',
+			controllerAs: "bazamLogin",
 			scope: {
-				callback: '<',
-				mostrar: '<'
+				callback: "<",
+				mostrar: "<"
 			}
-		  };
+		};
 
 		
-	}])
+	}]);
 
