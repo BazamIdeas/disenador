@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('paisesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', 'notificacionService', 'monedasService', 'paisesService', function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, Upload, notificacionService, monedasService, paisesService) {
+    .controller('paisesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', 'notificacionService', 'monedasService', 'paisesService', 'paisesValue', function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, Upload, notificacionService, monedasService, paisesService, paisesValue) {
 
         var bz = this;
 
@@ -10,7 +10,7 @@ angular.module("administrador")
         bz.monedasPasarela = {};
         bz.quitarMoneda = {};
         bz.ponerMoneda = {};
-
+        bz.paisesLista = paisesValue;
 
         monedasService.listarMonedas().then(function (res) {
             bz.monedas = res.data;
@@ -50,6 +50,10 @@ angular.module("administrador")
         bz.listarPaises();
 
         bz.guardarPais = function (datos, v) {
+
+            datos.iso = datos.pais.key
+            datos.nombre = datos.pais.value
+
             if (v) {
                 paisesService.guardarPais(datos).then(function (res) {
                     if (res == undefined) {

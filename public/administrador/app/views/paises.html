@@ -76,26 +76,17 @@
                         </md-input-container>
                         <br>
                         <div layout="column" layout-align="space-between">
+
                             <md-input-container class="md-block" style="margin-bottom:0;">
-                                <label>Nombre</label>
-                                <input type="text" ng-model="paises.nuevoPais.nombre" name="plan" required ng-minlength="3">
+                                <label>Pais</label>
+                                <md-select required ng-model="paises.nuevoPais.pais" class="md-block" name="plan">
+                                    <md-option ng-value="{key, value}" ng-repeat="(key, value) in paises.paisesLista">{{value}}</md-option>
+                                </md-select>
                             </md-input-container>
 
                             <!-- VALIDACION -->
                             <div ng-messages="form.plan.$error" style="color:maroon" role="alert" ng-show="form.$submitted">
                                 <div ng-message="required">Este campo es requerido.</div>
-                                <div ng-message="minlength">Minimo 3 caracteres.</div>
-                            </div>
-
-                            <md-input-container class="md-block" style="margin-bottom:0;">
-                                <label>Iso</label>
-                                <input type="text" ng-model="paises.nuevoPais.iso" name="iso" required ng-minlength="3">
-                            </md-input-container>
-
-                            <!-- VALIDACION -->
-                            <div ng-messages="form.iso.$error" style="color:maroon" role="alert" ng-show="form.$submitted">
-                                <div ng-message="required">Este campo es requerido.</div>
-                                <div ng-message="minlength">Minimo 3 caracteres.</div>
                             </div>
 
                             <md-input-container class="md-block" style="margin-bottom:0;">

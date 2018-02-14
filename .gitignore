@@ -8,6 +8,7 @@ tmp/*
 .svg
 npm-debug.log
 fuentes/*
+.ttf
 .eslintrc.js
 .eslintrc.json
 
