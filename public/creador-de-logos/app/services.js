@@ -1,7 +1,7 @@
 angular.module("disenador-de-logos")
 
 	.value("coloresValue",{
-		"#EB5D57": "#46143A",
+		"#EC5D57": "#46143A",
 		"#F38F19": "#0173A7",
 		"#F5D327": "#14263D",
 		"#70C041": "#63246A",
