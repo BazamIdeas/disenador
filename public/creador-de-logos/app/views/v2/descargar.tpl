@@ -24,8 +24,12 @@
                     
             </div>
 
-            <div class="col l9" style="padding: 0;margin-top: 5px" ng-if="descargar.plan.manual" >
-                <button ng-disabled="descargar.esperaManual" style="margin:auto; display:block;width: 100%" class="boton-verde manual ng-binding" style="background-color: var(--principal)"  ng-class="{'en-espera': descargar.esperaManual}" ng-click="descargar.manualMarca(descargar.logo.id)">MANUAL DE IDENTIDAD</button>
+            <div class="col l9" style="padding: 0;margin-top: 5px; text-align:center;"  ng-if="descargar.plan.manual" >
+<button ng-disabled="descargar.esperaManual" style="margin:auto; display:block;width: 100%" class="boton-verde manual ng-binding"
+    style="background-color: var(--principal)" ng-class="{'en-espera': descargar.esperaManual}" ng-click="descargar.manualMarca(descargar.logo.id)">
+<span ng-if="!descargar.esperaManual">MANUAL DE IDENTIDAD</span>
+<md-progress-circular ng-if="descargar.esperaManual" style="margin:auto;" class="md-hue-2" md-diameter="20px"></md-progress-circular>
+</button>
             </div>
 
                 

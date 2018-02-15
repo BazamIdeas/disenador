@@ -147,11 +147,13 @@ angular.module("disenador-de-logos")
 
         bz.manualMarca = function(id){
 			bz.esperaManual = true;
+			angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+
             logosService.obtenerPorId(id).then(function (res) {
 				var logo = res;
 
 				if (logo.atributos.length > 0){
-					angular.forEach(logo.atributos, function (valor, llave) {
+					angular.forEach(logo.atributos, function (valor) {
 
 						if (valor.clave == 'principal') {
 							logo.tieneNombre = valor.valor;
@@ -162,29 +164,30 @@ angular.module("disenador-de-logos")
 						}
 					
 					})
-				}
 
-				elementosService.listarFuentes().then(function(res){
-					
-					angular.forEach(res, function (valor, llave) {
-						if(valor.idElemento == logo.tieneEslogan){
-							logo.tipografia_s = { nombre: valor.nombre, url: valor.url}
-						}
+					elementosService.listarFuentes().then(function (res) {
 
-						if (valor.idElemento == logo.tieneNombre) {
-							logo.tipografia_p = { nombre: valor.nombre, url: valor.url }
-						}
+						angular.forEach(res, function (valor) {
+							if (valor.idElemento == logo.tieneEslogan) {
+								logo.tipografia_s = { nombre: valor.nombre, url: valor.url }
+							}
+
+							if (valor.idElemento == logo.tieneNombre) {
+								logo.tipografia_p = { nombre: valor.nombre, url: valor.url }
+							}
+						})
+						
+						logosService.manualMarca(logo).then(function (res) {
+							var pdf = document.createElement('a');
+							pdf.setAttribute('href', res.url);
+							pdf.setAttribute('download', res.nombreArchivo);
+							simulateClick(pdf);
+						}).finally(function () {
+							bz.esperaManual = false;
+							angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+						});
 					})
-
-					logosService.manualMarca(logo).then(function (res) {
-						var pdf = document.createElement('a');
-						pdf.setAttribute('href', res.url);
-						pdf.setAttribute('download', res.nombreArchivo);
-						simulateClick(pdf);
-					}).finally(function(res){
-						bz.esperaManual = false;
-					});
-				})
+				}
 			});
 		};
 

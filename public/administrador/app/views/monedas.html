@@ -6,7 +6,7 @@
 
       <div class="paneles individual md-whiteframe-2dp">
         <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
-          <texto flex ng-click="moneda.listarMonedas()">LISTADO DE MONEDAS</texto>
+          <texto flex ng-click="moneda.listarMonedas()" ng-disabled="moneda.peticion">LISTADO DE MONEDAS</texto>
           <md-button class="md-primary md-fab md-mini" ng-click="moneda.acciones = 1" style="margin:0;">
             <md-icon>add</md-icon>
           </md-button>
@@ -37,7 +37,7 @@
 
       <div class="paneles individual md-whiteframe-2dp">
         <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
-          <texto flex ng-click="moneda.listarPasarelas()">LISTADO DE PASARELAS</texto>
+          <texto flex ng-click="moneda.listarPasarelas()" ng-disabled="moneda.peticion">LISTADO DE PASARELAS</texto>
           <md-button class="md-primary md-fab md-mini" ng-click="moneda.acciones = 3" style="margin:0;">
             <md-icon>add</md-icon>
           </md-button>
@@ -64,7 +64,7 @@
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                     <md-icon class="material-icon">edit</md-icon>
                   </md-button>
-                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.listarPasarelaMonedas(elemento.idPasarela)">
+                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.listarPasarelaMonedas(elemento.idPasarela)" ng-disabled="moneda.peticion">
                     <md-tooltip md-direction="right" md-visible="tooltipVisible">Monedas</md-tooltip>
                     <md-icon class="material-icon">attach_money</md-icon>
                   </md-button>
@@ -111,7 +111,7 @@
               </div>
 
               <div layout>
-                <md-button class="md-raised md-primary" type="submit">REGISTRO</md-button>
+                <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">REGISTRO</md-button>
               </div>
             </div>
           </form>
@@ -136,7 +136,7 @@
                 </md-input-container>
               </div>
               <div layout>
-                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
               </div>
             </div>
           </form>
@@ -172,7 +172,7 @@
               </div>
 
               <div layout>
-                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
               </div>
             </div>
           </form>
@@ -197,7 +197,7 @@
                 </md-input-container>
               </div>
               <div layout>
-                <md-button class="md-raised md-primary" type="submit">MODIFICAR</md-button>
+                <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">MODIFICAR</md-button>
               </div>
             </div>
           </form>
@@ -219,7 +219,7 @@
                 <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in moneda.monedas">{{elemento.moneda}}</md-option>
               </md-select>
               <div layout>
-                <md-button class="md-raised md-primary" type="submit">Asignar</md-button>
+                <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">Asignar</md-button>
               </div>
             </div>
           </form>
@@ -234,7 +234,7 @@
             <md-icon>keyboard_arrow_left</md-icon>
           </md-button>
         </div>
-        <div>
+        <div ng-if="moneda.pasarelasMonedas.length > 0">
           <div layout class="elemento">
             <md-input-container flex style="margin-bottom: 0;height: 35px;">
               <input type="text" ng-model="moneda.lpm" class="md-block" aria-label="filtro" placeholder="Buscar:">
@@ -252,7 +252,7 @@
                 <td>{{elemento.idMoneda}}</td>
                 <td>{{elemento.moneda}}</td>
                 <td>
-                  <md-button class="md-fab md-mini md-warn" ng-click="moneda.desasignarMoneda(elemento.idMoneda, $index)">
+                  <md-button ng-disabled="moneda.peticion" class="md-fab md-mini md-warn" ng-click="moneda.desasignarMoneda(elemento.idMoneda, $index)">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Desasignar</md-tooltip>
                     <md-icon class="material-icon">money_off</md-icon>
                   </md-button>
@@ -260,6 +260,9 @@
               </tr>
             </table>
           </div>
+        </div>
+        <div ng-if="!moneda.pasarelasMonedas" class="mensaje-resultado pequeno" style="max-height:20%;">
+          <h3>NO TIENE MONEDAS</h3>
         </div>
       </div>
     </div>

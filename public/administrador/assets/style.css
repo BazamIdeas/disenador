@@ -61,7 +61,7 @@ menu *:not(md-icon) {
 }
 
 .pedido-logo.pequeno {
-    width: 35%;
+    width: 65%;
 }
 
 .pedido-logo.tabla {
@@ -185,7 +185,7 @@ hmtl,
 body {
     overflow-x: hidden;
     background: var(--background-general) url('../assets/img/bg.png') left top repeat !important;
-    font-family: 'Open Sans' !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     font-size: 12px;
     color: #22262e;
     overflow: hidden;

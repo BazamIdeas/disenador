@@ -11,6 +11,7 @@ angular.module("administrador")
         bz.listar = {};
 
         bz.mostrar = function (tipo) {
+            bz.peticion = true;
             if (tipo == 'ICONO') {
                 bz.rIcono = !bz.rIcono;
                 return bz.listarCategorias(tipo);
@@ -27,6 +28,7 @@ angular.module("administrador")
 
 
         bz.nuevaFuente = function (datos) {
+            bz.peticion = true;
             bz.valMulFonts = true;
             if (bz.regFmArchivos) {
                 return bz.subidaMasiva(datos);
@@ -38,11 +40,14 @@ angular.module("administrador")
                     bz.valMulFonts = false;
                 }).catch(function (res) {
                     notificacionService.mensaje(res);
+                }).finally(function () {
+                    bz.peticion = false;
                 })
             }
         }
 
         bz.nuevoIcono = function (datos) {
+            bz.peticion = true;
             bz.valMulIcons = true;
             if (bz.regImArchivos) {
                 return bz.subidaMasiva(datos);
@@ -54,6 +59,8 @@ angular.module("administrador")
                     bz.valMulIcons = false;
                 }).catch(function (res) {
                     console.log(res)
+                }).finally(function () {
+                    bz.peticion = false;
                 })
             }
         }
@@ -65,16 +72,21 @@ angular.module("administrador")
                 bz.valMulIcons = false;
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
         bz.listado = function (tipo) {
+            bz.peticion = true;
             bz.listar.tipo = tipo;
 
             iconoFuente.listar(bz.listar).then(function (res) {
                 bz.elementos = res.data;
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
@@ -82,6 +94,7 @@ angular.module("administrador")
         bz.preferencias = [];
 
         bz.listarCategorias = function (tipoCategoria) {
+            bz.peticion = true;
             bz.tipoListado = tipoCategoria;
             var datos = {
                 tipo: tipoCategoria
@@ -93,6 +106,8 @@ angular.module("administrador")
                     return notificacionService.mensaje('No hay categorias.');
                 }
                 bz.categorias = res.data;
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
@@ -114,11 +129,14 @@ angular.module("administrador")
         }
 
         bz.modificarElemento = function (datos) {
+            bz.peticion = true;
             iconoFuente.modificarPreferencias(datos).then(function (res) {
                 bz.mod = false;
                 SweetAlert.swal("Genial", res.data.result, "success");
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
     }])

@@ -11,11 +11,7 @@ angular.module("administrador")
         /* LISTAR TODOS LOS CLIENTES */
 
         bz.listarC = function () {
-            var elementosLista = document.querySelectorAll('.lista .elemento.true');
-            for (i = 0; i < elementosLista.length; i++) {
-                elementosLista[i].classList.remove('true');
-            }
-
+            bz.peticion = true;
             bz.clientes = [];
             bz.mostrarC = !bz.mostrarC;
             bz.mostrarPedido = false;
@@ -30,6 +26,8 @@ angular.module("administrador")
                 })
                 .catch(function (res) {
                     notificacionService.mensaje(res);
+                }).finally(function () {
+                    bz.peticion = false;
                 })
         }
 
@@ -38,17 +36,21 @@ angular.module("administrador")
         /* ELIMINAR CLIENTE */
 
         bz.eliminarC = function (idCliente, index) {
+            bz.peticion = true;
             clientesServiceAdmin.borrarCliente(idCliente).then(function (res) {
                 SweetAlert.swal("Bloqueado", "", "success");
                 bz.clientes.splice(index, 1);
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
         /* TODOS LOS PEDIDOS DE UN CLIENTE */
 
         bz.pedidosCliente = function (id) {
+            bz.peticion = true;
             bz.pedidosC = [];
             bz.mostrarPedido = true;
 
@@ -57,30 +59,24 @@ angular.module("administrador")
             }).catch(function (res) {
                 bz.mostrarPedido = false;
                 notificacionService.mensaje('No existen pedidos de este cliente.');
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
         /* CAMBIAR ESTADO PEDIDO */
 
         bz.cambiarEstado = function (id, estado, index) {
+            bz.peticion = true;
             pedidosService.cambiarEstado(id, estado).then(function (res) {
                 notificacionService.mensaje('Estado Cambiado!');
                 bz.pedidosC[index].estado = estado;
                 bz.modInit = !bz.modInit;
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
-        }
-
-        bz.activar = function (event) {
-            var elementosLista = document.querySelectorAll('.lista .elemento.true');
-            var elementoActual = event.currentTarget;
-
-            for (i = 0; i < elementosLista.length; i++) {
-                elementosLista[i].classList.remove('true');
-            }
-
-            elementoActual.classList.add('true');
         }
 
         bz.modFun = function (i) {
@@ -93,6 +89,5 @@ angular.module("administrador")
             return $base64.decode(icono);
 
         }
-
 
     }])
