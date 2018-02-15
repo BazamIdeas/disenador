@@ -1,21 +1,18 @@
 angular.module("disenador-de-logos")
 
-/* Editor */
-
 	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService) {
 
 		var bz = this;
 
 		bz.base64 = $base64;
-
 		bz.cuadricula = false;
 		bz.borradores = false;
 		bz.preview = false;
 		bz.busquedaIconos = false;
 		bz.colorFondo = "rgb(236,239,240)";
-		bz.colorTexto = "#000";
-		bz.colorEslogan = "#000";
-		bz.colorIcono = "#000";
+		bz.colorTexto = historicoResolve.color || "#000";
+		bz.colorEslogan = historicoResolve.color || "#000";
+		bz.colorIcono = historicoResolve.color || "#000";
 
 		bz.jqueryScrollbarOptions = {};
 
@@ -269,7 +266,7 @@ angular.module("disenador-de-logos")
 		/////////////////////////////////////
 
 		bz.cambioColor = function (color, objetivo) {
-
+			
 			$rootScope.$broadcast("editor:color", {
 				color: color,
 				objetivo: objetivo
@@ -277,6 +274,13 @@ angular.module("disenador-de-logos")
 
 		};
 
+
+		$timeout(function(){
+			$rootScope.$broadcast("editor:color", {
+				color: historicoResolve.color,
+				objetivo: "texto"
+			});
+		}, 10)
 
 		/////////////////////////////////////
 		//////////CAMBIO DE TEXTO////////////

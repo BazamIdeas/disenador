@@ -158,8 +158,8 @@ angular.module("disenador-de-logos")
 		};
 
  
-		bz.avanzar = function (indiceLogo) {
-
+		bz.avanzar = function (indiceLogo, color) {
+			console.log(color)
 			bz.logoSeleccionado = indiceLogo;
 
 			if (!clientesService.autorizado()) {
@@ -169,14 +169,22 @@ angular.module("disenador-de-logos")
 
 			} else {
 
-				$state.go("editor", {
+				var datos = {
 					status: true,
 					datos: {
 						logo: bz.logos[bz.logoSeleccionado],
 						texto: bz.datos.nombre,
 						categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
 					}
-				});
+				};
+
+				if(color){
+					datos.datos.color = color;
+				}
+
+				
+
+				$state.go("editor", datos);
 
 			}
 
