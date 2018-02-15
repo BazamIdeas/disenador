@@ -509,7 +509,7 @@ exports.manualCliente = function (req, res, next) {
 
         for (attr in logo.atributos) {
             if (logo.atributos[attr].clave == 'color-eslogan') {
-                datos.fuente_c_hexa_e = logo.atributos[attr].valor
+                datos.fuente_c_hexa_e = toHexa(logo.atributos[attr].valor),
                 datos.fuente_c_rgb_e = logo.atributos[attr].valor
             }
         }
@@ -539,7 +539,7 @@ exports.manualCliente = function (req, res, next) {
         for (i = 0; i <= 6; i++) {
             template = template.replace('{#tipografia_s_nombre#}', datos.tipografia_s.nombre);
             template = template.replace('{#tipografia_s_url#}', datos.tipografia_s.url);
-            template = template.replace('{#fuente_c_hexa_e#}', datos.fuente_c_hexa_e);
+            template = template.replace('{#fuente_c_hexa_e#}',datos.fuente_c_hexa_e);
             template = template.replace('{#fuente_c_rgb_e#}', datos.fuente_c_rgb_e);
         }
     }
@@ -557,7 +557,7 @@ exports.manualCliente = function (req, res, next) {
         "width": "8.5in",
         "base": url,
         "type": "pdf",
-        "renderDelay": 3000
+        "renderDelay": 2000
     }
 
     var nombreEmpresa = 'LL';
@@ -578,26 +578,15 @@ exports.manualCliente = function (req, res, next) {
     /* UTILITARIOS */
 
     function toHexa(rgb) {
-        rgb = rgb.slice(4, -2);
-        arr = rgb.split(', ');
+        rgb = rgb.slice(4, -1);
+        args = rgb.split(', ');
 
-        var hexa = '#';
+        var integer = ((Math.round(args[0]) & 0xFF) << 16)
+            + ((Math.round(args[1]) & 0xFF) << 8)
+            + (Math.round(args[2]) & 0xFF);
 
-        for (i = 0; i <= 2; i++) {
-
-            n = parseInt(arr[i]);
-
-
-            if (isNaN(n)) return "00";
-            n = Math.max(0, Math.min(n, 255));
-
-            n = "0123456789ABCDEF".charAt((n - n % 16) / 16) +
-                "0123456789ABCDEF".charAt(n % 16);
-
-            hexa = hexa.concat(n);
-        }
-
-        return hexa;
+        var string = integer.toString(16).toUpperCase();
+        return '#'+'000000'.substring(string.length) + string;
     }
 
 }

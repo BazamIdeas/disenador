@@ -1,21 +1,22 @@
 angular.module("disenador-de-logos")
 
 	.value("coloresValue",{
-		"#595657": "#80A583",
-		"#936DAD": "#d5d5d5",
-		"#61A0D7": "#320D29",
-		"#F6D427": "#14263D",
-		"#F28F19": "#0173A7",
-		"#75B846": "#63246A",
-		"#000000": "F2F0E9"
+		"#F5D327": "#14263D",
+		"#70C041": "#63246A",
+		"#51A7F9": "#320D29",
+		"#B36AE2": "#151616",
+		"#000000": "#8CB7C7",
+		"blanco" : "white",
+		"negro" : "black"
+	
 	}).factory("coloresFactory", ["coloresValue", function(coloresValue){
 		return function(primario){
 			if(coloresValue[primario]){
-				return coloresValue[primario][Math.floor(Math.random() * 4) + 1];
+				return coloresValue[primario];
 			}else{
-				return coloresValue["#000000"][Math.floor(Math.random() * 4) + 1];
+				return coloresValue["negro"];
 			}
-		}
+		};
 	}])
 
 	.value("paisesValue", {

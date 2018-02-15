@@ -15,7 +15,7 @@
                                 
                                 <div class="col l3 xl9A" ng-repeat="repeticion in [1,2,3,4] track by $index" ng-if="$parent.$index < 3 && ((iconos.length - 1) >= $index)">
 
-                                    <div ng-class="{'seleccionado': iconos[$index].estado}" ng-click="principalOpciones.agregarElemento($index, 'iconos')">
+                                    <div fondo-contraste color="iconos[$index].color" ng-class="{'seleccionado': iconos[$index].estado}" ng-click="principalOpciones.agregarElemento($index, 'iconos')">
                                         
                                         <bazam-visualizar data-svg="principalOpciones.base64.decode(iconos[$index].svg)"></bazam-visualizar>
                                 
@@ -26,7 +26,7 @@
                                 
                                <div class="col l3 xl3" ng-repeat="repeticion in [1,2,3,4] track by $index" ng-if="$parent.$index >= 3 && ((iconos.length - 1) >= ($parent.$index + $index + 1))" ng-click="principalOpciones.agregarElemento($parent.$parent.$index + $index + 1, 'iconos')">
                 
-                                    <div ng-class="{'seleccionado': iconos[$parent.$parent.$index + $index + 1].estado}">
+                                    <div fondo-contraste color="iconos[$parent.$parent.$index + $index + 1].color" ng-class="{'seleccionado': iconos[$parent.$parent.$index + $index + 1].estado}">
                                         
                                         <bazam-visualizar data-svg="principalOpciones.base64.decode(iconos[$parent.$parent.$index + $index + 1].svg)"></bazam-visualizar>
                                     

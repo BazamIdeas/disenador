@@ -12,19 +12,21 @@ angular.module("administrador")
 
         bz.listarU = function () {
             bz.mostrarU = !bz.mostrarU;
-
+            bz.peticion = true;
             clientesServiceAdmin.listarUsuarios().then(function (res) {
                 bz.loaderMostrar = false;
                 bz.usuarios = res.data;
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             });
         };
 
         bz.listarU()
 
         /* objeto datos vacios */
-        this.datos = {
+        bz.datos = {
 
             registrar: {},
             modificar: {}
@@ -35,15 +37,20 @@ angular.module("administrador")
 
         bz.registrarU = function (datos, validado) {
             if (validado) {
+                bz.peticion = true;
                 bz.loaderCargando = true;
                 clientesService.registrar(datos).then(function (res) {
                         bz.loaderCargando = false;
                         SweetAlert.swal("Genial", "Registro Exitoso!", "success");
-                        document.getElementById("formularioRegistro").reset();
+                        bz.datos.registrar = {};
+                        datos.idUsuario = res.data.insertId
+                        bz.usuarios.push(datos)
                     })
                     .catch(function (res) {
                         bz.loaderCargando = false;
-                        notificacionService.mensaje(res);
+                        console.log(res)
+                    }).finally(function () {
+                        bz.peticion = false;
                     })
             }
         };
@@ -64,6 +71,7 @@ angular.module("administrador")
 
         bz.modificarU = function (datos, validado) {
             if (validado) {
+                bz.peticion = true;
                 clientesService.modificarU(datos).then(function (res) {
                     bz.loaderCargando = false;
                     bz.usuarios[bz.index].nombreUser = datos.nombreUser;
@@ -73,16 +81,21 @@ angular.module("administrador")
                 }).catch(function (res) {
                     notificacionService.mensaje(res);
                     bz.loaderCargando = false;
+                }).finally(function () {
+                    bz.peticion = false;
                 });
             }
         };
 
         bz.eliminarU = function (id, index) {
+            bz.peticion = true;
             clientesServiceAdmin.borrarUsuario(id).then(function (res) {
                 SweetAlert.swal("Eliminado", "", "error");
                 bz.usuarios.splice(index, 1);
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             });
         };
 

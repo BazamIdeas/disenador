@@ -26,11 +26,11 @@
                                 <td>{{elemento.nombreUser}}</td>
                                 <td>{{elemento.correo}}</td>
                                 <td>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="usuario.eliminarU(elemento.idUsuario, $index)" ng-if="elemento.nombreUser != usuario.actual">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="usuario.eliminarU(elemento.idUsuario, $index)" ng-disabled="usuario.peticion" ng-if="elemento.nombreUser != usuario.actual">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar</md-tooltip>
                                         <md-icon class="material-icon">delete</md-icon>
                                     </md-button>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="usuario.modificarUsuario(elemento.idUsuario, elemento.nombreUser, $index)">
+                                    <md-button  class="md-fab md-mini md-warn" ng-click="usuario.modificarUsuario(elemento.idUsuario, elemento.nombreUser, $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                                         <md-icon class="material-icon">edit</md-icon>
                                     </md-button>
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Registrar</md-button>
+                                <md-button ng-disabled="usuario.peticion" class="md-raised md-primary" type="submit">Registrar</md-button>
                             </div>
                             <div layout layout-align="center" ng-show="usuario.loaderCargando" class="margen_superior">
                                 <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
@@ -126,7 +126,7 @@
                                 <div ng-message="required">Este campo es requerido.</div>
                             </div>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                                <md-button ng-disabled="usuario.peticion" class="md-raised md-primary" type="submit">Modificar</md-button>
                             </div>
                             <div layout layout-align="center" ng-show="usuario.loaderCargando" class="margen_superior">
                                 <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>

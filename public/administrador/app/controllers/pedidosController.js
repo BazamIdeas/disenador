@@ -33,11 +33,8 @@ angular.module("administrador")
         /* LISTA DE TODOS LOS PEDIDOS */
 
         bz.listaP = function () {
-            var elementosLista = document.querySelectorAll('.lista .elemento.true');
-            for (i = 0; i < elementosLista.length; i++) {
-                elementosLista[i].classList.remove('true');
-            }
 
+            bz.peticion = true;
             bz.elementos = [];
             bz.mostrarP = !bz.mostrarP;
             bz.mostrarD = false
@@ -50,10 +47,11 @@ angular.module("administrador")
                     bz.filtros.monedas.push(valor.moneda);
                     bz.filtros.paises.push(valor.pais);
                 })
-
             }).catch(function () {
                 bz.valPedidos = true;
                 notificacionService.mensaje('No existen pedidos.');
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
@@ -64,39 +62,33 @@ angular.module("administrador")
         /* DETALLES DE UN PEDIDO  */
 
         bz.pedidoDetalles = function (id, index) {
+            bz.peticion = true;
             bz.ac = id;
             bz.pedidoActivoIndex = index;
             bz.pedidoDetalle = {};
             bz.mostrarD = true;
-            
+
             pedidosService.datosPedido(id).then(function (res) {
                 bz.pedidoDetalle = res.data[0];
             }).catch(function () {
                 notificacionService.mensaje('No existen pedidos para este cliente.');
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
-        bz.activar = function (event) {
-            var elementosLista = document.querySelectorAll('.lista .elemento.true');
-            var elementoActual = event.currentTarget;
-
-            for (i = 0; i < elementosLista.length; i++) {
-                elementosLista[i].classList.remove('true');
-            }
-
-            elementoActual.classList.add('true');
-        }
-
-
         /* CAMBIAR ESTADO PEDIDO */
 
-        bz.cambiarEstado = function (id, estado, index) {
+        bz.cambiarEstado = function (id, estado) {
+            bz.peticion = true;
             pedidosService.cambiarEstado(id, estado).then(function () {
                 bz.modInit = !bz.modInit;
                 notificacionService.mensaje('Estado Cambiado');
                 bz.pedidoDetalle.estado = estado;
                 bz.elementos[bz.pedidoActivoIndex].estado = estado;
-                
+
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 

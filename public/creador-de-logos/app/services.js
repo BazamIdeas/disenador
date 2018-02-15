@@ -571,7 +571,7 @@ angular.module("disenador-de-logos")
 
 	}])
 
-	.service("clientesService", ["$http", "$q", "$window", "$rootScope", "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
+	.service("clientesService", ["$http", "$q", "$window", "$rootScope", "clienteDatosFactory", "Upload", function ($http, $q, $window, $rootScope, clienteDatosFactory, Upload) {
 
 		this.registrar = function (nombreCliente, correo, pass, telefono, pais) {
 
@@ -743,6 +743,26 @@ angular.module("disenador-de-logos")
 
 			return promise;
 		};
+
+		this.avatar = function(imagen){
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			Upload.upload({
+				url: "/app/cliente/avatar",
+				data: {
+					avatar: imagen
+				},
+			}).then(function (res) {
+
+				defered.resolve(res);
+
+			}).catch(function(){
+
+			})
+
+			return promise;
+		}
 
 		this.correoDisponible = function (correo) {
 			var defered = $q.defer();
@@ -1287,4 +1307,13 @@ angular.module("disenador-de-logos")
 			accion = !accion;
 		};
 
+	}])
+	
+	.factory("verificarBase64Factory", [function () {
+		
+		return function (cadena) {
+			
+			return /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(cadena);
+
+		};
 	}]);

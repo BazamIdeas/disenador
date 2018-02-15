@@ -11,9 +11,9 @@
                 </div>
                 <div>
                     <div ng-show="categorias.mostrarC" class="elemento text-center" style="padding: 0 0 0 0; border-bottom: 1px solid silver;">
-                        <md-button class="md-raised md-primary" ng-click="categorias.listarCategorias('ICONO')">ICONO</md-button>
+                        <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" ng-click="categorias.listarCategorias('ICONO')">ICONO</md-button >
                         <span>O </span>
-                        <md-button class="md-raised md-primary" ng-click="categorias.listarCategorias('FUENTE')">FUENTE</md-button>
+                        <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" ng-click="categorias.listarCategorias('FUENTE')">FUENTE</md-button>
                     </div>
                     <div ng-if="categorias.cats.length > 0 && categorias.f">
                         <div layout class="elemento">
@@ -30,7 +30,7 @@
                                 <tr ng-repeat="elemento in categorias.cats| filter:categorias.buscarC track by $index">
                                     <td>{{elemento.nombreCategoria}}</td>
                                     <td>
-                                        <md-button class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idCategoria, 'categoria', $index, elemento.nombreCategoria)">
+                                        <md-button ng-disabled="categorias.peticion" class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idCategoria, 'categoria', $index, elemento.nombreCategoria)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Categoria</md-tooltip>
                                             <md-icon class="material-icon">edit</md-icon>
                                         </md-button>
@@ -45,7 +45,7 @@
             <!-- LISTAR PREFERENCIAS -->
             <div class="paneles individual md-whiteframe-2dp">
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
-                    <texto flex ng-click="categorias.mostrarPre = !categorias.mostrarPre">LISTADO DE PREFERENCIAS</texto>
+                    <texto flex  ng-click="categorias.mostrarPre = !categorias.mostrarPre">LISTADO DE PREFERENCIAS</texto>
                     <md-button class="md-primary md-fab md-mini" ng-click="categorias.opcionesCategorias = 4" style="margin:0;">
                         <md-icon>add</md-icon>
                     </md-button>
@@ -100,7 +100,7 @@
                                 </md-input-container>
                             </div>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">MODIFICAR</md-button>
+                                <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">MODIFICAR</md-button>
                             </div>
                             <div layout layout-align="center" ng-show="categorias.loaderCargando" class="margen_superior">
                                 <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
@@ -134,7 +134,7 @@
                                 </md-input-container>
                             </div>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                                <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
                             </div>
                         </div>
                     </form>
@@ -173,7 +173,7 @@
                                 </md-input-container>
                             </div>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                                <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
                             </div>
                         </div>
                     </form>
@@ -206,7 +206,7 @@
                                 </md-input-container>
                             </div>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                                <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
                             </div>
                         </div>
                     </form>

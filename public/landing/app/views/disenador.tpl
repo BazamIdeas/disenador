@@ -2,10 +2,10 @@
     <style> bazam-visualizar svg {width: 150px}</style>
     
     <div style="display: inline-block; width: 15%; min-width: 200px; padding: 20px">
-        <div ng-if="disenador.verificarBase64(disenador.disenador.foto)">
+        <div ng-if="disenador.disenador.foto && disenador.verificarBase64(disenador.disenador.foto)">
             <img ng-src="{{'data:image/svg+xml;base64,' + disenador.disenador.foto}}">
         </div>
-        <div ng-if="!disenador.verificarBase64(disenador.disenador.foto)">
+        <div ng-if="disenador.disenador.foto && !disenador.verificarBase64(disenador.disenador.foto)">
             <img ng-src="{{disenador.disenador.foto}}">
         </div>
         <div style="text-align:center;">

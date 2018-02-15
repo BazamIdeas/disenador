@@ -12,12 +12,13 @@
     font-style:normal
 }
 
-h1,h2,h3,h4,h5,h6, .footer, .header, li{
+h1,h2,h3,h4,h5,h6, p:not(.introduccion), .footer, .header, li{
     font-family: 'futura-heavy';
+    font-style: normal;
 }
 
-p{
- font-family:'Kurale' !important; 
+.introduccion {
+    font-family: 'Kurale' !important;
 }
 
 .fuente {
@@ -128,6 +129,10 @@ html {
     color: transparent;
 }
 
+li{
+    color:#666666;
+}
+
 p {
     font-size: 18px;
     color:#666666;
@@ -163,8 +168,10 @@ p.text-justify {
 }
 
 .amarillo .logo-auto svg *:not(text) {
-   fill: black !important;
+    fill: black !important;
+    stroke: black !important;
 }
+
 
 .amarillo .logo-auto svg text {
     fill: #555252 !important;
@@ -202,6 +209,7 @@ p.text-justify {
 .similares .logo-auto svg *:not(text),
 .aplicaciones .negro svg *:not(text) {
     fill: white !important;
+      stroke: white !important;
 }
 
 .negro svg text,
