@@ -110,18 +110,17 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form id="nombrePlan" ng-submit="paises.modificarPais(paises.editarPais, nombreplan.$valid)" novalidate name="nombreplan">
-                        <div layout="column" layout-align="space-between">
-                            <div>
-                                <md-input-container class="md-block">
-                                    <label>Impuesto</label>
-                                    <input type="text" ng-model="paises.editarPais.impuesto" name="nombre" required>
-                                </md-input-container>
-                            </div>
-                            <div layout>
-                                <md-button ng-disabled="paises.peticion" class="md-raised md-primary" type="submit">MODIFICAR</md-button>
-                            </div>
+                    <form ng-submit="paises.modificarPais(paises.editarPais, impuestoplan.$valid)" novalidate name="impuestoplan">
+                        <md-input-container class="md-block">
+                            <label>Impuesto</label>
+                            <input type="number" ng-model="paises.editarPais.impuesto" name="nombre" required ng-maxlength="6">
+                        </md-input-container>
+                        <!-- VALIDACION -->
+                        <div ng-messages="impuestoplan.nombre.$error" style="color:maroon" role="alert" ng-show="impuestoplan.$submitted">
+                            <div ng-message="required">Este campo es requerido.</div>
+                            <div ng-message="maxlength">El impuesto es demasiado alto.</div>
                         </div>
+                        <md-button ng-disabled="paises.peticion" class="md-raised md-primary" type="submit">MODIFICAR</md-button>
                     </form>
                 </div>
             </div>
@@ -135,19 +134,18 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form id="asignacion" ng-submit="paises.asignarMoneda(paises.ponerMoneda)" novalidate name="asignacion">
-                        <div layout="column" layout-align="space-between">
-                            <md-input-container class="md-block">
-                                <label>Moneda</label>
-                                <md-select ng-model="paises.ponerMoneda.idMoneda" class="md-block" aria-label="filtro">
-                                    <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in paises.monedas">{{elemento.moneda}}</md-option>
-                                </md-select>
-                            </md-input-container>
-
-                            <div layout>
-                                <md-button ng-disabled="paises.peticion" class="md-raised md-primary" type="submit">Asignar</md-button>
-                            </div>
+                    <form ng-submit="paises.asignarMoneda(paises.ponerMoneda, asignacion.$valid)" novalidate name="asignacion">
+                        <md-input-container class="md-block">
+                            <label>Moneda</label>
+                            <md-select ng-model="paises.ponerMoneda.idMoneda" class="md-block" aria-label="filtro" required name="moneda">
+                                <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in paises.monedas">{{elemento.moneda}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <!-- VALIDACION -->
+                        <div ng-messages="asignacion.moneda.$error" style="color:maroon" role="alert" ng-show="asignacion.$submitted">
+                            <div ng-message="required">Este campo es requerido.</div>
                         </div>
+                        <md-button ng-disabled="paises.peticion" class="md-raised md-primary" type="submit">Asignar</md-button>
                     </form>
                 </div>
             </div>
@@ -174,11 +172,11 @@
                                 <th>Nombre:</th>
                                 <th>Accion:</th>
                             </tr>
-                            <tr ng-repeat="elemento in paises.paisMonedas | filter:paises.lpm track by $index" ng-hide="elemento.moneda == 'USD'">
+                            <tr ng-repeat="elemento in paises.paisMonedas | filter:paises.lpm track by $index">
                                 <td>{{elemento.idMoneda}}</td>
                                 <td>{{elemento.moneda}}</td>
                                 <td>
-                                    <md-button class="md-fab md-mini md-warn" ng-disabled="paises.peticion" ng-click="paises.desasignarMoneda(elemento.idMoneda, $index)">
+                                    <md-button class="md-fab md-mini md-warn" ng-disabled="paises.peticion" ng-click="paises.desasignarMoneda(elemento.idMoneda, $index)" ng-hide="elemento.moneda == 'USD'">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Desasignar</md-tooltip>
                                         <md-icon class="material-icon">money_off</md-icon>
                                     </md-button>

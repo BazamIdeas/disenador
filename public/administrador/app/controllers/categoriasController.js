@@ -58,7 +58,7 @@ angular.module("administrador")
             if (opcion == 'categoria') {
                 bz.opcionesCategorias = 1;
                 bz.datos.modCategoria.idCategoria = id;
-                bz.modNombre = nombre;
+                bz.datos.modCategoria.nombreCategoria = nombre;
             } else {
                 bz.opcionesCategorias = 2;
                 bz.datos.modPreferencia.idPreferencia = id;
@@ -70,8 +70,10 @@ angular.module("administrador")
 
         }
 
-        bz.modificarElemento = function (datos, opcion) {
-
+        bz.modificarElemento = function (datos, opcion, v) {
+            if (!v) {
+                return notificacionService.mensaje('Rellene los campos de forma correcta!');
+            }
             if (opcion == 'categoria') {
                 bz.peticion = true;
                 categoriasService.modificarCategoria(datos).then(function (res) {
@@ -102,7 +104,10 @@ angular.module("administrador")
 
         /* CREAR */
 
-        bz.crear = function (datos, opcion) {
+        bz.crear = function (datos, opcion, v) {
+            if (!v) {
+                return notificacionService.mensaje('Rellene los campos de forma correcta!');
+            }
             if (opcion == 'categoria') {
                 bz.peticion = true;
                 categoriasService.nuevaCategoria(datos).then(function (res) {

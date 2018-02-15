@@ -91,13 +91,18 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="categorias.modificarElemento(categorias.datos.modCategoria, 'categoria')" novalidate>
+                    <form ng-submit="categorias.modificarElemento(categorias.datos.modCategoria, 'categoria', formModificarCat.$valid)" novalidate name="formModificarCat">
                         <div layout="column" layout-align="space-between">
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Nombre</label>
-                                    <input type="text" ng-model="categorias.datos.modCategoria.nombreCategoria" name="nombre" ng-value="categorias.modNombre">
+                                    <input type="text" ng-model="categorias.datos.modCategoria.nombreCategoria" name="cat"  required ng-minlength="4">
                                 </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formModificarCat.cat.$error" style="color:maroon" role="alert" ng-show="formModificarCat.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Minimo de caracteres 4.</div>
+                                </div>
                             </div>
                             <div layout>
                                 <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">MODIFICAR</md-button>
@@ -118,20 +123,30 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="categorias.modificarElemento(categorias.datos.modPreferencia, 'preferencia')" novalidate>
+                    <form ng-submit="categorias.modificarElemento(categorias.datos.modPreferencia, 'preferencia', formModificarPre.$valid)" novalidate name="formModificarPre">
                         <div layout="column" layout-align="space-between">
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Nombre 1</label>
-                                    <input type="text" ng-model="categorias.datos.modPreferencia.nombre1" name="nombre">
+                                    <input type="text" ng-model="categorias.datos.modPreferencia.nombre1" name="nombre" required ng-minlength="4">
                                 </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formModificarPre.nombre.$error" style="color:maroon" role="alert" ng-show="formModificarPre.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Minimo de caracteres 4.</div>
+                                </div>
                             </div>
 
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Nombre 2</label>
-                                    <input type="text" ng-model="categorias.datos.modPreferencia.nombre2" name="nombre2">
+                                    <input type="text" ng-model="categorias.datos.modPreferencia.nombre2" name="nombre2" required ng-minlength="4">
                                 </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formModificarPre.nombre2.$error" style="color:maroon" role="alert" ng-show="formModificarPre.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Minimo de caracteres 4.</div>
+                                </div>
                             </div>
                             <div layout>
                                 <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
@@ -151,18 +166,24 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="categorias.crear(categorias.datos.nuevaCategoria, 'categoria')" novalidate id="form-new-category">
+                    <form ng-submit="categorias.crear(categorias.datos.nuevaCategoria, 'categoria', formRegistroCat.$valid)" novalidate name="formRegistroCat">
                         <div layout="column" layout-align="space-between">
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Nombre</label>
-                                    <input type="text" ng-model="categorias.datos.nuevaCategoria.nombreCategoria" name="nombre">
+                                    <input type="text" ng-model="categorias.datos.nuevaCategoria.nombreCategoria" name="nombre" required ng-minlength="4">
                                 </md-input-container>
+                                <br>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formRegistroCat.nombre.$error" style="color:maroon" role="alert" ng-show="formRegistroCat.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Minimo de caracteres 4.</div>
+                                </div>
                             </div>
                             <div>
                                 <md-input-container class="md-block">
                                     <label>TIPO</label>
-                                    <md-select ng-model="categorias.datos.nuevaCategoria.tipo" aria-label="estado">
+                                    <md-select ng-model="categorias.datos.nuevaCategoria.tipo" aria-label="estado" name="tipo" required>
                                         <md-option value="ICONO">
                                             ICONO
                                         </md-option>
@@ -171,6 +192,11 @@
                                         </md-option>
                                     </md-select>
                                 </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formRegistroCat.tipo.$error" style="color:maroon" role="alert" ng-show="formRegistroCat.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                </div>
+                                <br>
                             </div>
                             <div layout>
                                 <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
@@ -190,21 +216,34 @@
                     </md-button>
                 </div>
                 <div layout-padding class="formularios-login pasos">
-                    <form ng-submit="categorias.crear(categorias.datos.nuevaPreferencia, 'preferencia')" novalidate>
+                    <form ng-submit="categorias.crear(categorias.datos.nuevaPreferencia, 'preferencia', formRegistroPre.$valid)" novalidate name="formRegistroPre">
                         <div layout="column" layout-align="space-between">
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Nombre 1</label>
-                                    <input type="text" ng-model="categorias.datos.nuevaPreferencia.nombre1" name="nombre">
+                                    <input type="text" ng-model="categorias.datos.nuevaPreferencia.nombre1" name="nombre" required ng-minlength="4">
                                 </md-input-container>
+                            </div>
+                            
+                            <!-- VALIDACION -->
+                            <div ng-messages="formRegistroPre.nombre.$error" style="color:maroon" role="alert" ng-show="formRegistroPre.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                                <div ng-message="minlength">Minimo de caracteres 4.</div>
                             </div>
 
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Nombre 2</label>
-                                    <input type="text" ng-model="categorias.datos.nuevaPreferencia.nombre2" name="nombre2">
+                                    <input type="text" ng-model="categorias.datos.nuevaPreferencia.nombre2" name="nombre2" required ng-minlength="4">
                                 </md-input-container>
                             </div>
+                            
+                            <!-- VALIDACION -->
+                            <div ng-messages="formRegistroPre.nombre2.$error" style="color:maroon" role="alert" ng-show="formRegistroPre.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                                <div ng-message="minlength">Minimo de caracteres 4.</div>
+                            </div>
+
                             <div layout>
                                 <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
                             </div>
