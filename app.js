@@ -22,6 +22,7 @@ app.enable('trust proxy');
 app.use(configuracion.base+'/fuentes', express.static(__dirname + '/fuentes'))
 app.use('/m/fuentes', express.static(__dirname + '/fuentes'))
 app.use('/fuentes', express.static(__dirname + '/fuentes'))
+app.use('/avatares', express.static(__dirname + '/avatares'))
 
 app.use('/angular', express.static(__dirname + '/node_modules/angular'))
 app.use('/angular-material', express.static(__dirname + '/node_modules/angular-material'))

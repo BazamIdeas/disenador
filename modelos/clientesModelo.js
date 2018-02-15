@@ -355,7 +355,7 @@ cliente.Avatar = function(data, callback) {
 	  	 	//si existe la id del cliente a eliminar
 		  	if (typeof row !== 'undefined' && row.length > 0)
 		  	{
-		  		var qq = 'UPDATE clientes SET avatar = ? WHERE idCliente = ?';
+		  		var qq = 'UPDATE clientes SET foto = ? WHERE idCliente = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
 					connection.query( qq , data , function(err, row)

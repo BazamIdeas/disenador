@@ -50,7 +50,7 @@
                                 <i class="material-icons">file_upload</i>
                             </div>
                             <div ng-if="cuenta.datos.foto && !cuenta.verificarBase64(cuenta.datos.foto)">
-                                <img ng-src="{{cuenta.datos.foto}}">
+                                <img ng-src="{{cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" >
                                 <i class="material-icons">file_upload</i>
                             </div>
 						</div>
