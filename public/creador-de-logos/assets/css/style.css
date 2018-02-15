@@ -727,6 +727,16 @@ div.contenedor-principal{
             box-shadow: 0px 1px 2px 1px #dedede;
 }
 
+
+.cubos-logos-opciones div.col div{
+    text-align: center;
+}
+
+.cubos-logos-opciones div.col div bazam-visualizar svg{
+    width: 17vh;
+    height: 17vh;
+}
+
 .cubos-logos-opciones div.col div.seleccionado{
     border: 2px solid var(--principal);
 }
@@ -2769,4 +2779,14 @@ textarea {
     bottom: 45%;
     position: absolute;
     left: 13%;
+}
+
+div.icono{
+    padding: 7px ; 
+    text-align: center
+}
+
+div.icono bazam-visualizar svg{
+    width: 17vh;
+    height: 17vh;
 }

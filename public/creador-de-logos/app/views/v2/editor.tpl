@@ -13,7 +13,7 @@
                 </div>
                 <div class="col s8">
                 	<div class="row opciones-sub-header margin-bottom-0">
-	                    <div class="col l2 xl2" bazam-ayuda data-titulo="Fondo" data-texto="Visualice como se ve su logo en un color de fondo diferente." data-clases="['corner-lt']" data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
+	                    <div class="col l2 xl2" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']" data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
 	                    	<div color-picker color-picker-model="editor.colorFondo" ng-model="editor.colorFondo" color-picker-position="bottom" ng-click="editor.cuadricula = false" class="selector-fondo" ng-style="{'background-color': editor.colorFondo}" style="font-size: 0px;"></div>
 	                    	<span class="principal">Fondo</span>
 	                    </div>
