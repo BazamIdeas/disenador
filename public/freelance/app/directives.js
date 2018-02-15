@@ -34,6 +34,11 @@ angular.module("disenador-de-logos")
 				var svgTexto = element[0].children[0].children[1];
 
 				svgTexto.style.fontSize = (tamanoBase / 2) + "px";
+
+				if(attributes.color){
+					svgTexto.style.fill = attributes.color;
+				}
+
 				svgTexto.setAttribute("text-anchor", "middle");
 				svgTexto.setAttribute("font-family", attributes.fuente);
 
@@ -56,7 +61,7 @@ angular.module("disenador-de-logos")
 
 				svgIcono.y.baseVal.value = paddingTopIcono;
 
-				var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+				var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
 
 				svgTexto.setAttribute("y", paddingTopText);
                 
@@ -74,7 +79,7 @@ angular.module("disenador-de-logos")
 
 					svgIcono.y.baseVal.value = paddingTopIcono;
 
-					paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+					paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
 
 					svgTexto.setAttribute("y", paddingTopText);
 
@@ -217,7 +222,7 @@ angular.module("disenador-de-logos")
 
 						svgIcono.y.baseVal.value = paddingTopIcono;
 
-						var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+						var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
 
 						svgTexto.setAttribute("y", paddingTopText);
 
@@ -235,7 +240,7 @@ angular.module("disenador-de-logos")
 
 							svgIcono.y.baseVal.value = paddingTopIcono;
 
-							paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+							paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
 
 							svgTexto.setAttribute("y", paddingTopText);
 
@@ -728,7 +733,7 @@ angular.module("disenador-de-logos")
 
 							svgIcono.setAttribute("y", paddingTopIcono);
 
-							var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+							var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
 
 							svgTexto.setAttribute("y", paddingTopText);
 
@@ -747,7 +752,7 @@ angular.module("disenador-de-logos")
 
 								svgIcono.setAttribute("y", paddingTopIcono);
 
-								paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+								paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
 
 								svgTexto.setAttribute("y", paddingTopText);
 

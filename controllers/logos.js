@@ -713,7 +713,6 @@ exports.zip = function(req,res)
 				
 				if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0)
 				{
-					//console.log({attrs: dataAttrs})
 					async.forEachOf(dataAttrs, (row, key, callback) => {
 
 						if(row.clave == "principal" || row.clave == "eslogan"){
@@ -727,7 +726,6 @@ exports.zip = function(req,res)
 									if (typeof fuente !== "undefined" && fuente.length > 0)
 									{
 										fuentes[row.clave] = {nombre:fuente[0].nombre,url:fuente[0].url};
-										callback();
 									}
 		
 								} catch (e) {
@@ -737,11 +735,13 @@ exports.zip = function(req,res)
 							});
 
 						}
+
+						callback();
 	
 					}, (err) => {
-						
+						console.log({err: err})
 						if (err) res.status(402).json({});
-					
+						console.log({fuentes: fuentes})
 						var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
 						fs.open(path + nombre, "w", function(err, fd) {
 							if (err) {

@@ -31,6 +31,9 @@
                     <md-progress-circular ng-if="descargar.esperaManual" style="margin:auto;" class="md-hue-2" md-diameter="20px"></md-progress-circular>
                 </button>
             </div>
+            <div class="col l9" style="padding: 0;margin-top: 5px" ng-if="!(descargar.plan.manual.valor == '1')" >
+                <button style="margin:auto; visibility: hidden; width: 100%; " class="boton-verde manual">X</button>
+            </div>
 
 
         </div>
