@@ -27,7 +27,10 @@ angular.module("administrador")
         };
 
 
-        bz.nuevaFuente = function (datos) {
+        bz.nuevaFuente = function (datos, v) {
+            if (!v) {
+                return notificacionService.mensaje('Rellene los campos de forma correcta!');
+            }
             bz.peticion = true;
             bz.valMulFonts = true;
             if (bz.regFmArchivos) {
@@ -46,7 +49,10 @@ angular.module("administrador")
             }
         }
 
-        bz.nuevoIcono = function (datos) {
+        bz.nuevoIcono = function (datos, v) {
+            if (!v) {
+                return notificacionService.mensaje('Rellene los campos de forma correcta!');
+            }
             bz.peticion = true;
             bz.valMulIcons = true;
             if (bz.regImArchivos) {

@@ -150,7 +150,10 @@ angular.module("administrador")
             })
         }
 
-        bz.asignarMoneda = function (datos) {
+        bz.asignarMoneda = function (datos, v) {
+            if (!v) {
+                return notificacionService.mensaje('Rellene los campos de forma correcta!');
+            }
             bz.peticion = true;
             pasarelasService.asignarMoneda(datos).then(function (res) {
                 if(res == undefined){

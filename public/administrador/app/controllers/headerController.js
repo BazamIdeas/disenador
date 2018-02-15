@@ -33,9 +33,14 @@ angular.module("administrador")
 
         $rootScope.$on('$stateChangeSuccess', function () {
 
-            bz.estado = $state.current.url.replace('/', '');
+            bz.estado = jsUcfirst($state.current.url.replace('/', ''));
 
         });
+
+
+        function jsUcfirst(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
 
 
     }])

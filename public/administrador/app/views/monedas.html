@@ -94,26 +94,22 @@
         </div>
         <div layout-padding class="formularios-login pasos">
           <form ng-submit="moneda.guardarMoneda(moneda.nuevaMoneda, nuevoplan.$valid)" novalidate name="nuevoplan">
-            <div layout="column" layout-align="space-between">
-              <md-input-container class="md-block">
-                <label>MONEDA</label>
-                <md-select ng-model="moneda.nuevaMoneda.moneda" name="plan" ng-required="true">
-                  <span ng-repeat="mon in moneda.almacenDeMonedas">
-                    <md-option ng-value="mon.code">({{mon.symbol}}) - {{mon.nombre}}</md-option>
-                  </span>
-                </md-select>
-              </md-input-container>
+            <md-input-container class="md-block">
+              <label>MONEDA</label>
+              <md-select ng-model="moneda.nuevaMoneda.moneda" name="plan" required>
+                <span ng-repeat="mon in moneda.almacenDeMonedas">
+                  <md-option ng-value="mon.code">({{mon.symbol}}) - {{mon.nombre}}</md-option>
+                </span>
+              </md-select>
+            </md-input-container>
 
-              <!-- VALIDACION -->
-              <div ng-messages="nuevoplan.plan.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
-                <div ng-message="required">Este campo es requerido.</div>
-                <div ng-message="maxlength">Maximo 3 caracteres.</div>
-              </div>
-
-              <div layout>
-                <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">REGISTRO</md-button>
-              </div>
+            <!-- VALIDACION -->
+            <div ng-messages="nuevoplan.plan.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+              <div ng-message="required">Este campo es requerido.</div>
+              <div ng-message="maxlength">Maximo 3 caracteres.</div>
             </div>
+
+            <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">REGISTRO</md-button>
           </form>
         </div>
       </div>
@@ -155,26 +151,27 @@
           <form ng-submit="moneda.guardarPasarela(moneda.nuevaPasarela, nuevoplan.$valid)" novalidate name="nuevoplan">
             <md-input-container class="md-block" style="margin-bottom:0;">
               <label>Moneda</label>
-              <md-select ng-model="moneda.nuevaPasarela.idMoneda" class="md-block">
+              <md-select ng-model="moneda.nuevaPasarela.idMoneda" class="md-block" name="moneda" required>
                 <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in moneda.monedas">{{elemento.moneda}}</md-option>
               </md-select>
             </md-input-container>
-            <div layout="column" layout-align="space-between">
-              <md-input-container class="md-block" style="margin-bottom:0;">
-                <label>Nombre</label>
-                <input type="text" ng-model="moneda.nuevaPasarela.pasarela" name="plan" required ng-minlength="3">
-              </md-input-container>
-
-              <!-- VALIDACION -->
-              <div ng-messages="nuevoplan.plan.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
-                <div ng-message="required">Este campo es requerido.</div>
-                <div ng-message="minlength">Minimo 3 caracteres.</div>
-              </div>
-
-              <div layout>
-                <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
-              </div>
+            <!-- VALIDACION -->
+            <div ng-messages="nuevoplan.moneda.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+              <div ng-message="required">Este campo es requerido.</div>
             </div>
+            <br>
+            <md-input-container class="md-block" style="margin-bottom:0;">
+              <label>Nombre</label>
+              <input type="text" ng-model="moneda.nuevaPasarela.pasarela" name="plan" required ng-minlength="3">
+            </md-input-container>
+
+            <!-- VALIDACION -->
+            <div ng-messages="nuevoplan.plan.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+              <div ng-message="required">Este campo es requerido.</div>
+              <div ng-message="minlength">Minimo 3 caracteres.</div>
+            </div>
+            <br>
+            <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
           </form>
         </div>
       </div>
@@ -189,17 +186,15 @@
         </div>
         <div layout-padding class="formularios-login pasos">
           <form id="nombrePlan" ng-submit="moneda.modificarPasarela(moneda.editarPasarela, nombreplan.$valid)" novalidate name="nombreplan">
-            <div layout="column" layout-align="space-between">
-              <div>
-                <md-input-container class="md-block">
-                  <label>Nombre</label>
-                  <input type="text" ng-model="moneda.editarPasarela.pasarela" name="nombre" required>
-                </md-input-container>
-              </div>
-              <div layout>
-                <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">MODIFICAR</md-button>
-              </div>
+            <md-input-container class="md-block" style="margin-bottom: 0;">
+              <label>Nombre</label>
+              <input type="text" ng-model="moneda.editarPasarela.pasarela" name="plan" required>
+            </md-input-container>
+            <!-- VALIDACION -->
+            <div ng-messages="nombreplan.plan.$error" style="color:maroon" role="alert" ng-show="nombreplan.$submitted">
+              <div ng-message="required">Este campo es requerido.</div>
             </div>
+            <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">MODIFICAR</md-button>
           </form>
         </div>
       </div>
@@ -213,15 +208,19 @@
           </md-button>
         </div>
         <div layout-padding class="formularios-login pasos">
-          <form id="asignacion" ng-submit="moneda.asignarMoneda(moneda.ponerMoneda)" novalidate name="asignacion">
-            <div layout="column" layout-align="space-between">
-              <md-select ng-model="moneda.ponerMoneda.idMoneda" class="md-block" aria-label="filtro">
+          <form id="asignacion" ng-submit="moneda.asignarMoneda(moneda.ponerMoneda, asignacion.$valid)" novalidate name="asignacion">
+            <md-input-container class="md-block">
+              <label>Moneda</label>
+              <md-select ng-model="moneda.ponerMoneda.idMoneda" class="md-block" aria-label="filtro" required name="moneda">
                 <md-option ng-value="elemento.idMoneda" ng-repeat="elemento in moneda.monedas">{{elemento.moneda}}</md-option>
               </md-select>
-              <div layout>
-                <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">Asignar</md-button>
-              </div>
+            </md-input-container>
+            <!-- VALIDACION -->
+            <div ng-messages="asignacion.moneda.$error" style="color:maroon" role="alert" ng-show="asignacion.$submitted">
+              <div ng-message="required">Este campo es requerido.</div>
             </div>
+
+            <md-button ng-disabled="moneda.peticion" class="md-raised md-primary" type="submit">Asignar</md-button>
           </form>
         </div>
       </div>

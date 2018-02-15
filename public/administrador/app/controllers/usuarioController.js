@@ -69,8 +69,8 @@ angular.module("administrador")
 
         };
 
-        bz.modificarU = function (datos, validado) {
-            if (validado) {
+        bz.modificarU = function (datos, v) {
+            if (v) {
                 bz.peticion = true;
                 clientesService.modificarU(datos).then(function (res) {
                     bz.loaderCargando = false;

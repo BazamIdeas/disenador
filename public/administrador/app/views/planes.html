@@ -107,6 +107,11 @@
                                 <label>Info del plan</label>
                                 <textarea ng-model="planes.nuevoPlan.info" md-maxlength="800" rows="3" name="info" required md-select-on-focus></textarea>
                             </md-input-container>
+                            <!-- VALIDACION -->
+                            <div ng-messages="nuevoplan.info.$error" style="color:maroon" role="alert" ng-show="nuevoplan.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                            </div>
+                            <br>
 
                             <h3 class="text-center margen-superior" style="font-family: 'futura-heavy' !important;
                                margin: 0 0 16px 0;" layout-padding ng-click="planes.attrs = !planes.attrs">ATRIBUTOS</h3>
@@ -143,37 +148,32 @@
                 <div ng-if="planes.monedas.length == 0" class="mensaje-resultado">
                     <h3>NO HAY MONEDAS DISPONIBLES</h3>
                 </div>
-                <div layout-padding class="formularios-login pasos">
+                <div layout-padding class="formularios-login pasos" ng-if="planes.monedas.length > 0">
                     <form ng-submit="planes.agregarPrecioPlan(planes.nuevoPrecioPlan, nuevoprecioplan.$valid)" novalidate name="nuevoprecioplan"
                         id="nuevoPrecioPlan">
-                        <div layout="column" layout-align="space-between" ng-if="planes.monedas.length > 0">
-                            <md-input-container class="md-block">
-                                <label>MONEDA</label>
-                                <md-select ng-model="planes.nuevoPrecioPlan.idMoneda" name="moneda" ng-required="true">
-                                    <span ng-repeat="mon in planes.monedas">
-                                        <md-option ng-value="mon.idMoneda">{{mon.moneda}}</md-option>
-                                    </span>
-                                </md-select>
-                            </md-input-container>
-                            <div>
-                                <md-input-container class="md-block">
-                                    <label>Precio</label>
-                                    <input type="number" ng-model="planes.nuevoPrecioPlan.precio" name="precio" required>
-                                </md-input-container>
-                            </div>
-                            <!-- VALIDACION -->
-                            <div ng-messages="nuevoprecioplan.precio.$error" style="color:maroon" role="alert" ng-show="nuevoprecioplan.$submitted">
-                                <div ng-message="required">Este campo es requerido.</div>
-                            </div>
-                            <div layout>
-                                <md-button class="md-raised md-primary" type="submit" ng-disabled="planes.peticion">AGREGAR</md-button>
-                            </div>
+                        <md-input-container class="md-block">
+                            <label>MONEDA</label>
+                            <md-select ng-model="planes.nuevoPrecioPlan.idMoneda" name="moneda" required>
+                                <span ng-repeat="mon in planes.monedas">
+                                    <md-option ng-value="mon.idMoneda">{{mon.moneda}}</md-option>
+                                </span>
+                            </md-select>
+                        </md-input-container>
+                        <!-- VALIDACION -->
+                        <div ng-messages="nuevoprecioplan.moneda.$error" style="color:maroon" role="alert" ng-show="nuevoprecioplan.$submitted">
+                            <div ng-message="required">Este campo es requerido.</div>
                         </div>
-
+                        <md-input-container class="md-block">
+                            <label>Precio</label>
+                            <input type="number" ng-model="planes.nuevoPrecioPlan.precio" name="precio" required>
+                        </md-input-container>
+                        <!-- VALIDACION -->
+                        <div ng-messages="nuevoprecioplan.precio.$error" style="color:maroon" role="alert" ng-show="nuevoprecioplan.$submitted">
+                            <div ng-message="required">Este campo es requerido.</div>
+                        </div>
+                        <md-button class="md-raised md-primary" type="submit" ng-disabled="planes.peticion">AGREGAR</md-button>
                     </form>
-
                 </div>
-
             </div>
 
             <!-- VER PRECIOS DE UN PLAN -->
@@ -234,46 +234,52 @@
                 </div>
                 <div layout-padding class="pasos elemento">
                     <form id="nombrePlan" ng-submit="planes.modificarNombreP(planes.modificarNombrePlan, nombreplan.$valid)" novalidate name="nombreplan">
-                        <div layout="column" layout-align="space-between">
-                            <div>
-                                <md-input-container class="md-block">
-                                    <label>Nombre</label>
-                                    <input type="text" ng-model="planes.modificarNombrePlan.plan" name="nombre" required>
-                                </md-input-container>
-                            </div>
-
-                            <md-input-container class="md-block">
-                                <label>Info del plan</label>
-                                <textarea ng-model="planes.modificarNombrePlan.info" md-maxlength="800" rows="3" name="info" required md-select-on-focus></textarea>
-                            </md-input-container>
-                            <!-- VALIDACION -->
-                            <div ng-messages="nombreplan.plan.$error" style="color:maroon" role="alert" ng-show="nombreplan.$submitted">
-                                <div ng-message="required">Este campo es requerido.</div>
-                            </div>
-
-                            <div layout layout-align="center" class="margen_inferior">
-                                <h5 class="text-center margen-superior" style="font-family: 'futura-heavy' !important;   margin: 0; padding: 0;" layout-padding
-                                    ng-click="planes.attrs = !planes.attrs">ATRIBUTOS</h5>
-                                <md-icon style="margin-left:8px; color:black; margin:0; padding:0;" class="material-icon">keyboard_arrow_down</md-icon>
-                            </div>
-                            <div ng-if="planes.attrs">
-                                <md-checkbox ng-repeat="attr in planes.modificarNombrePlan.caracteristicas" ng-model="attr.valor" ng-value="attr.valor" aria-label="Checkbox $index"
-                                    class="md-warn md-align-top-left" flex ng-class="{'md-checked': attr.valor ? true : false }">
-                                    {{attr.clave}} -
-                                    <span class="ipsum">
-                                        {{attr.descripcion}}
-                                    </span>
-                                </md-checkbox>
-                            </div>
-
-
-                            <div layout>
-                                <md-button ng-disabled="planes.peticion" class="md-raised md-primary" type="submit">Modificar</md-button>
-                            </div>
+                        <md-input-container class="md-block">
+                            <label>Nombre</label>
+                            <input type="text" ng-model="planes.modificarNombrePlan.plan" name="nombre" required ng-minlength="4">
+                        </md-input-container>
+                        <!-- VALIDACION -->
+                        <div ng-messages="nombreplan.nombre.$error" style="color:maroon" role="alert" ng-show="nombreplan.$submitted">
+                            <div ng-message="required">Este campo es requerido.</div>
+                            <div ng-message="minlength">Minimo de caracteres 4.</div>
                         </div>
-                    </form>
+                        <br>
+
+                        <md-input-container class="md-block">
+                            <label>Info del plan</label>
+                            <textarea ng-model="planes.modificarNombrePlan.info" md-maxlength="800" rows="3" name="info" required md-select-on-focus
+                                ng-minlength="40"></textarea>
+                        </md-input-container>
+                        <!-- VALIDACION -->
+                        <div ng-messages="nombreplan.info.$error" style="color:maroon" role="alert" ng-show="nombreplan.$submitted">
+                            <div ng-message="required">Este campo es requerido.</div>
+                            <div ng-message="minlength">Minimo de caracteres 40.</div>
+                        </div>
+                        <br>
+
+                        <div layout layout-align="center" class="margen_inferior">
+                            <h5 class="text-center margen-superior" style="font-family: 'futura-heavy' !important;   margin: 0; padding: 0;" layout-padding
+                                ng-click="planes.attrs = !planes.attrs">ATRIBUTOS</h5>
+                            <md-icon style="margin-left:8px; color:black; margin:0; padding:0;" class="material-icon">keyboard_arrow_down</md-icon>
+                        </div>
+                        <div ng-if="planes.attrs">
+                            <md-checkbox ng-repeat="attr in planes.modificarNombrePlan.caracteristicas" ng-model="attr.valor" ng-value="attr.valor" aria-label="Checkbox $index"
+                                class="md-warn md-align-top-left" flex ng-class="{'md-checked': attr.valor ? true : false }">
+                                {{attr.clave}} -
+                                <span class="ipsum">
+                                    {{attr.descripcion}}
+                                </span>
+                            </md-checkbox>
+                        </div>
+
+
+                        <div layout>
+                            <md-button ng-disabled="planes.peticion" class="md-raised md-primary" type="submit">Modificar</md-button>
+                        </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>

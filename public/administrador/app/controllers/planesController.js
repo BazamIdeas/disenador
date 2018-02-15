@@ -117,19 +117,20 @@ angular.module("administrador")
             })
         }
 
-        bz.modificarNombreP = function (datos, validacion) {
-            if (validacion) {
-                bz.peticion = true;
-                administrarService.modificarNombrePlan(datos).then(function (res) {
-                    bz.planes[bz.index].plan = datos.plan;
-                    document.getElementById('nombrePlan').reset();
-                    notificacionService.mensaje('Peticion Realizada.');
-                }).catch(function (res) {
-                    notificacionService.mensaje(res);
-                }).finally(function () {
-                    bz.peticion = false;
-                })
+        bz.modificarNombreP = function (datos, v) {
+            if (!v) {
+                return notificacionService.mensaje('Rellene los campos de forma correcta!');
             }
+
+            bz.peticion = true;
+            administrarService.modificarNombrePlan(datos).then(function (res) {
+                bz.planes[bz.index] = datos;
+                notificacionService.mensaje('Peticion Realizada.');
+            }).catch(function (res) {
+                notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
+            })
         }
 
         bz.modificarPrecioPlan = function (datos) {
@@ -177,11 +178,13 @@ angular.module("administrador")
             if (opcion == 'nombrePlan') {
                 bz.vista = 5;
                 bz.index = index;
+                
                 angular.forEach(bz.planes, function (valor) {
                     if (valor.idPlan == datos) {
                         bz.modificarNombrePlan = valor;
                     }
                 });
+                
             } else if (opcion == 'nuevoPrecioPlan') {
                 bz.monedasDisponibles = {};
                 bz.nuevoPrecioPlan.idPlan = datos;
