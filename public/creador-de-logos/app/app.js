@@ -1,659 +1,659 @@
 angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar", "720kb.socialshare"])
 
-    .config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
+	.config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
 
-        $locationProvider.html5Mode(true);
+		$locationProvider.html5Mode(true);
 
-        /* INTERCEPTADOR */
-        $httpProvider.interceptors.push('AuthInterceptor');
+		/* INTERCEPTADOR */
+		$httpProvider.interceptors.push("AuthInterceptor");
 
-        $mdToastProvider.addPreset('base', {
-            options: function () {
-                return {
-                    templateUrl: 'toast-base.html',
-                    hideDelay: 0,
-                    position: 'top right',
-                    controller: ["$scope", "$mdToast", "$timeout", "args", function ($scope, $mdToast, $timeout, args) {
+		$mdToastProvider.addPreset("base", {
+			options: function () {
+				return {
+					templateUrl: "toast-base.html",
+					hideDelay: 0,
+					position: "top right",
+					controller: ["$scope", "$mdToast", "$timeout", "args", function ($scope, $mdToast, $timeout, args) {
 
-                        if (args) {
+						if (args) {
 
-                            $scope.mensaje = args.mensaje;
+							$scope.mensaje = args.mensaje;
 
-                            $scope.clase = args.clase;
-                        }
+							$scope.clase = args.clase;
+						}
 
-                        var temporizador = $timeout(function () {
-                            $mdToast.hide();
-                        }, 2000);
+						var temporizador = $timeout(function () {
+							$mdToast.hide();
+						}, 2000);
 
-                        $scope.closeToast = function () {
-                            $timeout.cancel(temporizador);
-                            $mdToast.hide();
+						$scope.closeToast = function () {
+							$timeout.cancel(temporizador);
+							$mdToast.hide();
 
-                        };
-                    }],
-                    clickOutsideToClose: true
-                };
-            }
-        });
+						};
+					}],
+					clickOutsideToClose: true
+				};
+			}
+		});
 
-
-        /*------------------------ Ui router states ----------------------*/
+
+		/*------------------------ Ui router states ----------------------*/
 
-        $stateProvider
-            .state({
-                name: 'metodo',
-                url: '/metodo-de-pago',
-                templateUrl: 'app/views/metodo-de-pago.html',
-                params: {
-                    logo: null,
-                    tipoLogo: null,
-                    localidad: null,
-                    idElemento: null,
-                    idPrecio: null,
-                },
-                controller: 'metodosController as metodo',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+		$stateProvider
+			.state({
+				name: "metodo",
+				url: "/metodo-de-pago",
+				templateUrl: "app/views/metodo-de-pago.html",
+				params: {
+					logo: null,
+					tipoLogo: null,
+					localidad: null,
+					idElemento: null,
+					idPrecio: null,
+				},
+				controller: "metodosController as metodo",
+				resolve: {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (!clientesService.autorizado()) {
+						if (!clientesService.autorizado()) {
 
-                            return $q.reject("AUTH_REQUIRED");
+							return $q.reject("AUTH_REQUIRED");
 
-                        }
+						}
 
-                    }],
+					}],
 
-                    historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
+					historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
 
-                        var defered = $q.defer();
-                        var promise = defered.promise;
+						var defered = $q.defer();
+						var promise = defered.promise;
 
-                        historicoFactory($stateParams, 'metodo', 'planes').then(function (res) {
-
-                                defered.resolve(res);
-
-                            })
-                            .catch(function (res) {
-
-                                defered.reject(res);
-                            });
-
-                        return promise;
-
-                    }]
-                }
-            })
-            .state({
-                name: 'administrar',
-                url: '/administrar',
-                templateUrl: 'app/views/administrarLogo.html',
-                controller: 'administrarController as administrar',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+						historicoFactory($stateParams, "metodo", "planes").then(function (res) {
+
+							defered.resolve(res);
+
+						})
+							.catch(function (res) {
+
+								defered.reject(res);
+							});
+
+						return promise;
+
+					}]
+				}
+			})
+			.state({
+				name: "administrar",
+				url: "/administrar",
+				templateUrl: "app/views/administrarLogo.html",
+				controller: "administrarController as administrar",
+				resolve: {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (!clientesService.autorizado()) {
+						if (!clientesService.autorizado()) {
 
-                            return $q.reject("AUTH_REQUIRED");
+							return $q.reject("AUTH_REQUIRED");
 
-                        }
+						}
 
-                    }]
-                },
-                params: {
-                    datos: null
-                }
-            })
+					}]
+				},
+				params: {
+					datos: null
+				}
+			})
 
 
-            ///////////////////////////////////////////////////////////////
-            ///////////////////////////ESTADOS V2//////////////////////////
-            ///////////////////////////////////////////////////////////////
-
-            .state({
-                name: 'principal',
-                url: '/comenzar',
-                templateUrl: 'app/views/v2/principal.tpl',
-                controller: 'principalController as principal',
-                abstract: true
-            })
+		///////////////////////////////////////////////////////////////
+		///////////////////////////ESTADOS V2//////////////////////////
+		///////////////////////////////////////////////////////////////
+
+			.state({
+				name: "principal",
+				url: "/comenzar",
+				templateUrl: "app/views/v2/principal.tpl",
+				controller: "principalController as principal",
+				abstract: true
+			})
 
-            .state({
-                name: 'principal.comenzar',
-                url: '/?id&?n',
-                templateUrl: 'app/views/v2/principal.comenzar.tpl',
-                controller: 'principalComenzarController as principalComenzar'
-            })
+			.state({
+				name: "principal.comenzar",
+				url: "/?id&?n",
+				templateUrl: "app/views/v2/principal.comenzar.tpl",
+				controller: "principalComenzarController as principalComenzar"
+			})
 
-            .state({
-                name: 'principal.opciones',
-                url: '/opciones/',
-                templateUrl: 'app/views/v2/principal.opciones.tpl',
-                controller: 'principalOpcionesController as principalOpciones',
-                params: {
-                    status: null
-                },
-                resolve: {
-                    statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
-
-                        return $stateParams.status || $q.reject("STEPS");
-
-                    }]
-
-                }
-            })
-
-            .state({
-                name: 'principal.combinaciones',
-                url: '/combinaciones/',
-                templateUrl: 'app/views/v2/principal.combinaciones.tpl',
+			.state({
+				name: "principal.opciones",
+				url: "/opciones/",
+				templateUrl: "app/views/v2/principal.opciones.tpl",
+				controller: "principalOpcionesController as principalOpciones",
+				params: {
+					status: null
+				},
+				resolve: {
+					statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
+
+						return $stateParams.status || $q.reject("STEPS");
+
+					}]
+
+				}
+			})
+
+			.state({
+				name: "principal.combinaciones",
+				url: "/combinaciones/",
+				templateUrl: "app/views/v2/principal.combinaciones.tpl",
 
-                controller: 'principalCombinacionesController as principalCombinaciones',
-                params: {
-                    status: null
-                },
-                resolve: {
-                    statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
+				controller: "principalCombinacionesController as principalCombinaciones",
+				params: {
+					status: null
+				},
+				resolve: {
+					statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
 
-                        return $stateParams.status || $q.reject("STEPS");
+						return $stateParams.status || $q.reject("STEPS");
 
-                    }]
+					}]
 
-                }
-            })
+				}
+			})
 
-            .state({
-                name: 'editor',
-                url: '/editor/',
-                templateUrl: 'app/views/v2/editor.tpl',
-                controller: 'editorController as editor',
-                params: {
-                    status: null,
-                    datos: {
-                        logo: null,
-                        texto: null,
-                        //eslogan: null,
-                        fuentes: null,
-                        idLogoGuardado: null
-                    }
-                },
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+			.state({
+				name: "editor",
+				url: "/editor/",
+				templateUrl: "app/views/v2/editor.tpl",
+				controller: "editorController as editor",
+				params: {
+					status: null,
+					datos: {
+						logo: null,
+						texto: null,
+						//eslogan: null,
+						fuentes: null,
+						idLogoGuardado: null
+					}
+				},
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (!clientesService.autorizado()) {
+						if (!clientesService.autorizado()) {
 
-                            return $q.reject("AUTH_REQUIRED");
+							return $q.reject("AUTH_REQUIRED");
 
-                        }
+						}
 
-                    }],
-                    historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
+					}],
+					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
 
-                        var defered = $q.defer();
+						var defered = $q.defer();
 
-                        var promise = defered.promise;
+						var promise = defered.promise;
 
-                        if ($stateParams.status) {
-
-                            LS.definir('editor', $stateParams.datos);
+						if ($stateParams.status) {
+
+							LS.definir("editor", $stateParams.datos);
 
-                            defered.resolve($stateParams.datos);
-
-                        } else if (LS.obtener('editor')) {
+							defered.resolve($stateParams.datos);
+
+						} else if (LS.obtener("editor")) {
 
-                            defered.resolve(LS.obtener('editor'));
+							defered.resolve(LS.obtener("editor"));
 
-                        } else {
+						} else {
 
-                            defered.reject({
-                                error: 'FALLO_HISTORICO'
-                            });
-                        }
+							defered.reject({
+								error: "FALLO_HISTORICO"
+							});
+						}
 
-                        return promise;
+						return promise;
 
-                    }]
+					}]
 
-                }
-            })
+				}
+			})
 
-            .state({
-                name: 'planes',
-                url: '/planes/',
-                templateUrl: 'app/views/v2/planes.tpl',
-                controller: 'planesController as planes',
-                params: {
-                    status: null,
-                    datos: {
-                        logo: null,
-                        idElemento: null,
-                        tipo: null,
-                        fuentes: null
-                    }
-                },
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+			.state({
+				name: "planes",
+				url: "/planes/",
+				templateUrl: "app/views/v2/planes.tpl",
+				controller: "planesController as planes",
+				params: {
+					status: null,
+					datos: {
+						logo: null,
+						idElemento: null,
+						tipo: null,
+						fuentes: null
+					}
+				},
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (!clientesService.autorizado()) {
+						if (!clientesService.autorizado()) {
 
-                            return $q.reject("AUTH_REQUIRED");
+							return $q.reject("AUTH_REQUIRED");
 
-                        }
+						}
 
-                    }],
-                    historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
+					}],
+					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
 
-                        var defered = $q.defer();
+						var defered = $q.defer();
 
-                        var promise = defered.promise;
+						var promise = defered.promise;
 
-                        if ($stateParams.status) {
+						if ($stateParams.status) {
 
-                            LS.definir('planes', $stateParams.datos);
+							LS.definir("planes", $stateParams.datos);
 
-                            defered.resolve($stateParams.datos);
+							defered.resolve($stateParams.datos);
 
-                        } else if (LS.obtener('planes')) {
+						} else if (LS.obtener("planes")) {
 
-                            defered.resolve(LS.obtener('planes'));
+							defered.resolve(LS.obtener("planes"));
 
-                        } else {
+						} else {
 
-                            defered.reject({
-                                error: 'FALLO_HISTORICO'
-                            });
-                        }
+							defered.reject({
+								error: "FALLO_HISTORICO"
+							});
+						}
 
-                        return promise;
+						return promise;
 
-                    }]
-                }
-            })
+					}]
+				}
+			})
 
-            .state({
-                name: 'pago',
-                url: '/pago/',
-                templateUrl: 'app/views/v2/pago.tpl',
-                controller: 'pagoController as pago',
-                params: {
-                    status: null,
-                    datos: {
+			.state({
+				name: "pago",
+				url: "/pago/",
+				templateUrl: "app/views/v2/pago.tpl",
+				controller: "pagoController as pago",
+				params: {
+					status: null,
+					datos: {
 
-                        logo: null,
-                        idElemento: null,
-                        tipo: null,
-                        plan: {
-                            nombre: null,
-                            idPlan: null
-                        },
-                        precio: {
-                            moneda: {
-                                simbolo: null,
-                                idMoneda: null
-                            },
-                            monto: null,
-                            idPrecio: null
-                        }
+						logo: null,
+						idElemento: null,
+						tipo: null,
+						plan: {
+							nombre: null,
+							idPlan: null
+						},
+						precio: {
+							moneda: {
+								simbolo: null,
+								idMoneda: null
+							},
+							monto: null,
+							idPrecio: null
+						}
 
-                    }
-                },
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					}
+				},
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (!clientesService.autorizado()) {
+						if (!clientesService.autorizado()) {
 
-                            return $q.reject("AUTH_REQUIRED");
+							return $q.reject("AUTH_REQUIRED");
 
-                        }
+						}
 
-                    }],
-                    historicoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
+					}],
+					historicoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
 
-                        var defered = $q.defer();
+						var defered = $q.defer();
 
-                        var promise = defered.promise;
+						var promise = defered.promise;
 
-                        if ($stateParams.status) {
+						if ($stateParams.status) {
 
-                            defered.resolve($stateParams.datos);
-                        } else {
+							defered.resolve($stateParams.datos);
+						} else {
 
-                            defered.reject({
-                                error: 'FALLO_HISTORICO'
-                            });
-                        }
+							defered.reject({
+								error: "FALLO_HISTORICO"
+							});
+						}
 
-                        return promise;
+						return promise;
 
-                    }]
-                }
-            })
+					}]
+				}
+			})
 
-            .state({
-                name: 'pagoCompleto',
-                url: '/pago/completo/:id/',
-                templateUrl: 'app/views/v2/pagoCompleto.tpl',
-                controller: 'pagoCompletoController as pagoCompleto',
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+			.state({
+				name: "pagoCompleto",
+				url: "/pago/completo/:id/",
+				templateUrl: "app/views/v2/pagoCompleto.tpl",
+				controller: "pagoCompletoController as pagoCompleto",
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (!clientesService.autorizado()) {
+						if (!clientesService.autorizado()) {
 
-                            return $q.reject("AUTH_REQUIRED");
+							return $q.reject("AUTH_REQUIRED");
 
-                        }
+						}
 
-                    }]
-                }
-            })
+					}]
+				}
+			})
 
-            .state({
-                name: 'cuenta',
-                url: '/cliente/cuenta/',
-                templateUrl: 'app/views/v2/cuenta.tpl',
-                controller: 'cuentaController as cuenta',
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+			.state({
+				name: "cuenta",
+				url: "/cliente/cuenta/",
+				templateUrl: "app/views/v2/cuenta.tpl",
+				controller: "cuentaController as cuenta",
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (!clientesService.autorizado()) {
+						if (!clientesService.autorizado()) {
 
-                            return $q.reject("AUTH_REQUIRED");
+							return $q.reject("AUTH_REQUIRED");
 
-                        }
+						}
 
-                    }]
-                }
-            })
+					}]
+				}
+			})
 
-            .state({
-                name: 'logos',
-                url: '/cliente/logos/',
-                templateUrl: 'app/views/v2/logos.tpl',
-                controller: 'logosController as logos',
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+			.state({
+				name: "logos",
+				url: "/cliente/logos/",
+				templateUrl: "app/views/v2/logos.tpl",
+				controller: "logosController as logos",
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (!clientesService.autorizado()) {
+						if (!clientesService.autorizado()) {
 
-                            return $q.reject("AUTH_REQUIRED");
+							return $q.reject("AUTH_REQUIRED");
 
-                        }
+						}
 
-                    }]
-                }
-            })
+					}]
+				}
+			})
 
-            .state({
-                name: 'descargar',
-                url: '/cliente/logos/{id:int}/descargar/',
-                templateUrl: 'app/views/v2/descargar.tpl',
-                controller: 'descargarController as descargar',
-                params: {
+			.state({
+				name: "descargar",
+				url: "/cliente/logos/{id:int}/descargar/",
+				templateUrl: "app/views/v2/descargar.tpl",
+				controller: "descargarController as descargar",
+				params: {
 
-                    datos: {
-                        logo: null,
-                        id: null
-                    }
-                },
-                resolve: {
-                    currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					datos: {
+						logo: null,
+						id: null
+					}
+				},
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (!clientesService.autorizado()) {
+						if (!clientesService.autorizado()) {
 
-                            return $q.reject("AUTH_REQUIRED");
+							return $q.reject("AUTH_REQUIRED");
 
-                        }
+						}
 
-                    }],
-                    logoResolve: ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
+					}],
+					logoResolve: ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
 
-                        if($stateParams.id){
-                            var defered = $q.defer();
-                            var promise = defered.promise;
+						if($stateParams.id){
+							var defered = $q.defer();
+							var promise = defered.promise;
 
-                            logosService.obtenerPorId($stateParams.id).then(function (res) {
+							logosService.obtenerPorId($stateParams.id).then(function (res) {
 
-                                if(res.estado == "Descargable"){
-                                    defered.resolve( {
-                                        logo: res.logo,
-                                        id: $stateParams.id
-                                    });
-                                } else{
-                                    defered.reject("INVALID_LOGO");
-                                }
+								if(res.estado == "Descargable"){
+									defered.resolve( {
+										logo: res.logo,
+										id: $stateParams.id
+									});
+								} else{
+									defered.reject("INVALID_LOGO");
+								}
 
-                            }).catch(function () {
+							}).catch(function () {
                 
-                               // $state.go("logos");
-                               defered.reject("INVALID_LOGO");
-                            });
+								// $state.go("logos");
+								defered.reject("INVALID_LOGO");
+							});
 
-                            return promise;
-                        } else{
-                            return $q.reject("INVALID_LOGO");
-                        }
+							return promise;
+						} else{
+							return $q.reject("INVALID_LOGO");
+						}
 
                     
 
-                    }]
-                }
-            })
+					}]
+				}
+			})
 
-            .state({
-                name: 'login',
-                url: '/login/',
-                templateUrl: 'app/views/v2/login.tpl',
-                controller: 'loginController as login',
-                resolve: {
-                    "currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+			.state({
+				name: "login",
+				url: "/login/",
+				templateUrl: "app/views/v2/login.tpl",
+				controller: "loginController as login",
+				resolve: {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
-                        if (clientesService.autorizado()) {
+						if (clientesService.autorizado()) {
 
-                            return $q.reject("LOGOUT_REQUIRED");
+							return $q.reject("LOGOUT_REQUIRED");
 
-                        }
+						}
 
-                    }]
-                }
-            })
+					}]
+				}
+			})
 
-            .state({
-                name: 'logosGaleria',
-                url: '/logos-galeria/',
-                templateUrl: 'app/views/v2/logosGaleria.tpl',
-                controller: 'logosGaleriaController as logosGaleria'
-            });
+			.state({
+				name: "logosGaleria",
+				url: "/logos-galeria/",
+				templateUrl: "app/views/v2/logosGaleria.tpl",
+				controller: "logosGaleriaController as logosGaleria"
+			});
 
 
-        $urlRouterProvider.when('/', ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
+		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
             
-            return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
-        }]);
+			return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
+		}]);
 
-        $urlRouterProvider.rule(function ($injector, $location) {
-            var path = $location.url();
+		$urlRouterProvider.rule(function ($injector, $location) {
+			var path = $location.url();
 
-            if ('/' === path[path.length - 1] || path.indexOf('/?') > -1) {
-                return;
-            }
+			if ("/" === path[path.length - 1] || path.indexOf("/?") > -1) {
+				return;
+			}
 
-            if (path.indexOf('?') > -1) {
-                return path.replace('?', '/?');
-            }
+			if (path.indexOf("?") > -1) {
+				return path.replace("?", "/?");
+			}
 
-            return path + '/';
-        });
+			return path + "/";
+		});
 
-        $urlRouterProvider.otherwise('/404/');
+		$urlRouterProvider.otherwise("/404/");
 
-    })
+	})
 
 
-    .run(function ($rootScope, $state, $timeout) {
+	.run(function ($rootScope, $state, $timeout) {
 
-        $rootScope.$on('$viewContentLoaded', function (event) {
+		$rootScope.$on("$viewContentLoaded", function (event) {
 
-            $timeout(function () {
+			$timeout(function () {
 
-                angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
-            }, 500);
+				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+			}, 500);
 
 
-        });
+		});
 
-        $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
+		$rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
 
-            //Servicio para cerrar ayudas
+			//Servicio para cerrar ayudas
 
-        })
+		})
 
-        $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
-            if (error == "STEPS") {
+			if (error == "STEPS") {
 
-                $state.go("principal.comenzar");
+				$state.go("principal.comenzar");
 
-            } else if (error === "AUTH_REQUIRED") {
+			} else if (error === "AUTH_REQUIRED") {
 
 
-                switch (toState.name) {
+				switch (toState.name) {
 
-                    case 'editor':
+				case "editor":
 
-                        switch (fromState.name) {
+					switch (fromState.name) {
 
-                            case '':
-                                $state.go("login");
-                                break;
+					case "":
+						$state.go("login");
+						break;
 
-                            case 'principal.combinaciones':
-                                break;
+					case "principal.combinaciones":
+						break;
 
-                            case 'logosGaleria':
-                                break;
+					case "logosGaleria":
+						break;
 
 
-                            default:
-                                $state.go("login");
-                        }
+					default:
+						$state.go("login");
+					}
 
-                        break;
+					break;
 
-                    case 'planes':
+				case "planes":
 
-                        switch (fromState.name) {
+					switch (fromState.name) {
 
-                            case '':
-                                $state.go("login");
-                                break;
+					case "":
+						$state.go("login");
+						break;
 
-                            default:
+					default:
 
-                                $state.go("login");
-                        }
+						$state.go("login");
+					}
 
-                        break;
+					break;
 
-                    case 'pago':
+				case "pago":
 
-                        switch (fromState.name) {
+					switch (fromState.name) {
 
-                            case '':
-                                $state.go("login");
-                                break;
+					case "":
+						$state.go("login");
+						break;
 
-                            default:
-                                $state.go("login");
-                        }
+					default:
+						$state.go("login");
+					}
 
-                        break;
+					break;
 
 
-                    case "pagoCompleto":
-                        switch (fromState.name) {
+				case "pagoCompleto":
+					switch (fromState.name) {
 
-                            case '':
-                                $state.go("login");
-                                break;
+					case "":
+						$state.go("login");
+						break;
 
-                            default:
-                                $state.go("login");
-                        }
+					default:
+						$state.go("login");
+					}
 
-                        break;
+					break;
 
-                    case "cuenta":
-                        switch (fromState.name) {
+				case "cuenta":
+					switch (fromState.name) {
 
-                            case '':
-                                $state.go("login");
-                                break;
+					case "":
+						$state.go("login");
+						break;
 
-                            default:
-                                $state.go("login");
-                        }
+					default:
+						$state.go("login");
+					}
 
-                        break;
+					break;
 
-                    case "logos":
-                        switch (fromState.name) {
+				case "logos":
+					switch (fromState.name) {
 
-                            case '':
-                                $state.go("login");
-                                break;
+					case "":
+						$state.go("login");
+						break;
 
-                            default:
-                                $state.go("login");
-                        }
+					default:
+						$state.go("login");
+					}
 
-                        break;
+					break;
 
-                    case "descargar":
-                        switch (fromState.name) {
+				case "descargar":
+					switch (fromState.name) {
 
-                            case '':
-                                $state.go("login");
-                                break;
+					case "":
+						$state.go("login");
+						break;
 
-                            default:
-                                $state.go("login");
-                        }
+					default:
+						$state.go("login");
+					}
 
-                        break;
+					break;
 
 
-                }
+				}
 
 
-            } else if (error === "LOGOUT_REQUIRED") {
+			} else if (error === "LOGOUT_REQUIRED") {
 
-                $state.go('cuenta');
+				$state.go("cuenta");
 
-            } else if (error.error === "FALLO_HISTORICO") {
+			} else if (error.error === "FALLO_HISTORICO") {
 
 
-                switch (toState.name) {
+				switch (toState.name) {
 
-                    case 'editor':
+				case "editor":
 
-                        $state.go("principal.comenzar");
-                        break;
+					$state.go("principal.comenzar");
+					break;
 
-                    case 'planes':
+				case "planes":
 
-                        $state.go("editor");
-                        break;
+					$state.go("editor");
+					break;
 
-                    case 'pago':
+				case "pago":
 
-                        $state.go("planes");
-                        break;
+					$state.go("planes");
+					break;
 
 
-                }
+				}
 
-            }
-            console.log(error);
+			}
+			console.log(error);
 
-        });
-    });
+		});
+	});

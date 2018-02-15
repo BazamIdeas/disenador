@@ -1,19 +1,20 @@
 angular.module("disenador-de-logos")
 
 	.value("coloresValue",{
-		"#EC5D57": "#46143A",
-		"#F38F19": "#0173A7",
 		"#F5D327": "#14263D",
 		"#70C041": "#63246A",
 		"#51A7F9": "#320D29",
 		"#B36AE2": "#151616",
-		"#000000": "#8CB7C7"
+		"#000000": "#8CB7C7",
+		"blanco" : "white",
+		"negro" : "black"
+		
 	}).factory("coloresFactory", ["coloresValue", function(coloresValue){
 		return function(primario){
 			if(coloresValue[primario]){
 				return coloresValue[primario];
 			}else{
-				return coloresValue["#000000"];
+				return coloresValue["negro"];
 			}
 		};
 	}])
@@ -829,13 +830,13 @@ angular.module("disenador-de-logos")
 
 			var logos = [];
 
-			angular.forEach(iconos, function (icono) {
+			angular.forEach(fuentes, function (fuente) {
 
-				if (icono.estado == true) {
+				if (fuente.estado == true) {
 
-					angular.forEach(fuentes, function (fuente) {
+					angular.forEach(iconos, function (icono) {
 
-						if (fuente.estado == true) {
+						if (icono.estado == true) {
 
 							var logo = {
 								icono: icono,
@@ -1281,7 +1282,6 @@ angular.module("disenador-de-logos")
 		var accion = true;
 
 		return function () {
-			console.log(accion)
 			$rootScope.$broadcast("bazamPasoAyuda:mostrar", accion);
 
 			accion = !accion;

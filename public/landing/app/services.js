@@ -175,7 +175,6 @@ angular.module("landing")
 		this.listarPorEstado = function (estado) {
 
 			var defered = $q.defer();
-
 			var promise = defered.promise;
 
 			$http.post("/app/logos/estado", {
@@ -192,6 +191,21 @@ angular.module("landing")
 
 			return promise;
 
+		};
+
+		this.vendidosPorCliente = function (idCLiente) {
+			
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.get("/app/logos/"+idCLiente+"/vendidos")
+				.then(function (res) {
+					defered.resolve(res.data);
+				}).catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
 		};
 
 	}])
