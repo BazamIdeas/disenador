@@ -15,7 +15,7 @@ router.get("/cliente/saldo", middleware.validarAdministrador, controllers.pagos.
 //parametro por get que debe ser el id del cliente.
 router.get("/cliente/datos", middleware.validarCliente, controllers.clientes.Datos);
 
-router.get("/cliente/avatar", multipartMiddleware, controllers.clientes.Avatar);
+router.post("/cliente/avatar", multipartMiddleware, controllers.clientes.Avatar);
 
 router.get("/cliente/pagos", middleware.validarCliente, controllers.pagos.ObtenerPorCliente);
 router.post("/cliente/pago", middleware.validarAdministrador, controllers.pagos.Nuevo);
