@@ -21,37 +21,44 @@
 
             <div class="col l9 logo-final" style="padding: 0;margin-top: 20px">
                 <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                    
+
             </div>
 
-            <div class="col l9" style="padding: 0;margin-top: 5px" ng-if="descargar.plan.manual.valor == '1'" >
-                <button ng-disabled="descargar.esperaManual" style="margin:auto; display:block;width: 100%" class="boton-verde manual" style="background-color: var(--principal)"  ng-class="{'en-espera': descargar.esperaManual}" ng-click="descargar.manualMarca(descargar.logo.id)">MANUAL DE IDENTIDAD</button>
+            <div class="col l9" style="padding: 0;margin-top: 5px; text-align:center;" ng-if="descargar.plan.manual.valor == '1'">
+                <button ng-disabled="descargar.esperaManual" style="margin:auto; display:block;width: 100%" class="boton-verde manual ng-binding"
+                    style="background-color: var(--principal)" ng-class="{'en-espera': descargar.esperaManual}" ng-click="descargar.manualMarca(descargar.logo.id)">
+                    <span ng-if="!descargar.esperaManual">MANUAL DE IDENTIDAD</span>
+                    <md-progress-circular ng-if="descargar.esperaManual" style="margin:auto;" class="md-hue-2" md-diameter="20px"></md-progress-circular>
+                </button>
             </div>
             <div class="col l9" style="padding: 0;margin-top: 5px" ng-if="!(descargar.plan.manual.valor == '1')" >
                 <button style="margin:auto; visibility: hidden; width: 100%; " class="boton-verde manual">X</button>
             </div>
-                
+
+
         </div>
 
         <div ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'" class="col s6 text-center" style="background-color: white;padding:0 .75rem; max-height: 323px">
-            
-            <div ng-repeat="formato in descargar.formatosNoSociales | filter: {'nombre': descargar.formatoSeleccionado.nombre} track by formato.nombre" style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede; height: 323px;width: 660.5px;">
+
+            <div ng-repeat="formato in descargar.formatosNoSociales | filter: {'nombre': descargar.formatoSeleccionado.nombre} track by formato.nombre"
+                style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede; height: 323px;width: 660.5px;">
 
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'editable'" style="width: 48%;position: absolute;left: calc(49% - 23%);top: 0%;">
-                        <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
 
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" style="width: 12%;position: absolute;left: calc(57% - 23%);top: 32%;transform: rotate(-48deg);">
-                        <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" style="width: 12%;position: absolute;left: calc(89% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(100%) invert(80%) contrast(100%);">
-                        <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>	
+                    <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
                 <img ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" src="assets/images/mockups/tarjeta.png" style="max-width:100%; height: 323px">
             </div>
-            
-            <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.formatoSeleccionado.nombre == formato.nombre" style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede;width: 660.5px;">                
-                
+
+            <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.formatoSeleccionado.nombre == formato.nombre"
+                style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede;width: 660.5px;">
+
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="width: 11.5%;position: absolute;left: calc(33% - 18%);top: 8%;background: #fff;">
                     <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
@@ -118,25 +125,28 @@
                 <img src="assets/images/redes/{{formato.nombre}}.jpg" style="max-width:100%; height: 323px">
             </div>
             <div>
-                <button class="boton-verde" style="background-color: var(--principal); width:100%; margin-top: 5px" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}} x {{descargar.formatoSeleccionado.ancho}})</button>
+                <button class="boton-verde" style="background-color: var(--principal); width:100%; margin-top: 5px" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}} x
+                    {{descargar.formatoSeleccionado.ancho}})</button>
             </div>
         </div>
 
 
 
         <div class="col s10 offset-s1" style="display:flex; padding: 20px 0;">
-            
-            <div ng-repeat="formato in descargar.formatosNoSociales track by formato.nombre"  ng-if="(formato.nombre == 'editable' && descargar.plan.editable.valor == '1') || (formato.nombre == 'papeleria' && descargar.plan.png.valor == '1') || (formato.nombre != 'editable' && formato.nombre != 'papeleria')">
+
+            <div ng-repeat="formato in descargar.formatosNoSociales track by formato.nombre" ng-if="(formato.nombre == 'editable' && descargar.plan.editable.valor == '1') || (formato.nombre == 'papeleria' && descargar.plan.png.valor == '1') || (formato.nombre != 'editable' && formato.nombre != 'papeleria')">
                 <div class="formato" style="margin-bottom: 20px;padding-top:0%;" ng-click="descargar.seleccionar(formato)">
                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
-                    <img ng-class="{'img-filter': descargar.formatoSeleccionado.nombre !== formato.nombre}" style="width:80%;background-color: #e7ebee; max-width: 96px;" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
+                    <img ng-class="{'img-filter': descargar.formatoSeleccionado.nombre !== formato.nombre}" style="width:80%;background-color: #e7ebee; max-width: 96px;"
+                        ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
                 </div>
             </div>
 
-            <div ng-repeat="formato in descargar.formatos track by formato.nombre"  ng-if="descargar.plan.png.valor == '1'">
+            <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.plan.png.valor == '1'">
                 <div class="formato" style=" margin-bottom: 20px; text-align: center;" ng-click="descargar.seleccionar(formato)">
                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
-                    <img ng-class="{'img-filter': descargar.formatoSeleccionado.nombre !== formato.nombre}" style="width:80%; max-width: 96px;" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
+                    <img ng-class="{'img-filter': descargar.formatoSeleccionado.nombre !== formato.nombre}" style="width:80%; max-width: 96px;"
+                        ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
                 </div>
             </div>
 

@@ -35,6 +35,7 @@ angular.module("administrador")
         /***************************/
 
         bz.listarPlanes = function () {
+            bz.peticion = true;
             administrarService.listarPlanes().then(function (res) {
                 bz.listaP = !bz.listaP;
                 bz.planes = res;
@@ -47,6 +48,8 @@ angular.module("administrador")
                 })
             }).catch(function (res) {
                 notificacionService.mensaje(res.data.msg);
+            }).finally(function () {
+                bz.peticion = false;
             })
 
         }
@@ -62,7 +65,7 @@ angular.module("administrador")
             });
 
             if (validacion) {
-
+                bz.peticion = true;
                 administrarService.agregarPlan(datos).then(function (res) {
 
                     datos.status = 1;
@@ -74,6 +77,8 @@ angular.module("administrador")
 
                 }).catch(function (res) {
                     notificacionService.mensaje(res);
+                }).finally(function () {
+                    bz.peticion = false;
                 })
             }
         }
@@ -96,6 +101,7 @@ angular.module("administrador")
 
 
                 if (validacion && enuso) {
+                    bz.peticion = true;
                     administrarService.agregarPrecioPlan(datos).then(function (res) {
                         document.getElementById('nuevoPrecioPlan').reset();
                         bz.nuevoPrecioPlan = {};
@@ -103,6 +109,8 @@ angular.module("administrador")
                         notificacionService.mensaje('Peticion Realizada!');
                     }).catch(function (res) {
                         notificacionService.mensaje(res);
+                    }).finally(function () {
+                        bz.peticion = false;
                     })
                 }
 
@@ -111,32 +119,36 @@ angular.module("administrador")
 
         bz.modificarNombreP = function (datos, validacion) {
             if (validacion) {
+                bz.peticion = true;
                 administrarService.modificarNombrePlan(datos).then(function (res) {
                     bz.planes[bz.index].plan = datos.plan;
                     document.getElementById('nombrePlan').reset();
                     notificacionService.mensaje('Peticion Realizada.');
                 }).catch(function (res) {
                     notificacionService.mensaje(res);
+                }).finally(function () {
+                    bz.peticion = false;
                 })
             }
         }
 
         bz.modificarPrecioPlan = function (datos) {
             bz.modInit = !bz.modInit;
-
+            bz.peticion = true;
             datos.idPlan = datos.planes_idPlan;
             datos.idMoneda = datos.monedas_idMoneda;
 
             administrarService.modificarPrecioPlan(datos).then(function (res) {
                 notificacionService.mensaje('Peticion Realizada.');
-                console.log(res)
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
         bz.bloquearPlan = function (opcion, id) {
-
+            bz.peticion = true;
             bz.bloquearPlanDatos.idPlan = id;
             angular.forEach(bz.planes, function (valor) {
                 if (valor.idPlan == id) {
@@ -153,6 +165,8 @@ angular.module("administrador")
                 bz.bloquearPlanDatos = {};
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
@@ -171,6 +185,7 @@ angular.module("administrador")
             } else if (opcion == 'nuevoPrecioPlan') {
                 bz.monedasDisponibles = {};
                 bz.nuevoPrecioPlan.idPlan = datos;
+
                 administrarService.listarPreciosPlan(datos).then(function (res) {
                     if (res != undefined) {
                         bz.preciosPlan = res.data;
@@ -179,6 +194,7 @@ angular.module("administrador")
                 bz.vista = 3;
             } else if (opcion == 'preciosPlan') {
                 bz.preciosPlan = [];
+                bz.peticion = true;
                 administrarService.listarPreciosPlan(datos).then(function (res) {
                     if (res == undefined) {
                         return notificacionService.mensaje('Este plan no posee precios.');
@@ -189,6 +205,8 @@ angular.module("administrador")
                 }).catch(function (res) {
                     notificacionService.mensaje(res);
                     bz.vista = 4;
+                }).finally(function () {
+                    bz.peticion = false;
                 })
             }
         }

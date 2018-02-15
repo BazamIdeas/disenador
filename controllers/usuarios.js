@@ -83,7 +83,8 @@ exports.nuevoUsuario =  function(req,res)
 		{
 			res.status(200).json({
 				"nombre":req.body.nombreUser,
-				"token":services.authServices.crearToken(data.insertId,"admin")
+				"token":services.authServices.crearToken(data.insertId,"admin"),
+				"insertId": data.insertId
 			});
 		}
 		else
