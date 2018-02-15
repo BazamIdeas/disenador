@@ -1,14 +1,20 @@
 angular.module("disenador-de-logos")
 
 	.value("coloresValue",{
-
+		"#F5D327": "#14263D",
+		"#70C041": "#63246A",
+		"#51A7F9": "#320D29",
+		"#B36AE2": "#151616",
+		"#000000": "#8CB7C7",
+		"blanco" : "white",
+		"negro" : "black"
 		
 	}).factory("coloresFactory", ["coloresValue", function(coloresValue){
 		return function(primario){
 			if(coloresValue[primario]){
 				return coloresValue[primario];
 			}else{
-				return coloresValue["#000000"];
+				return coloresValue["negro"];
 			}
 		};
 	}])
