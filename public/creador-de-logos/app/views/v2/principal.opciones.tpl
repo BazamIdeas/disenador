@@ -9,7 +9,7 @@
                             <button class="boton-verde" ng-click="principalOpciones.combinar(!principalOpciones.deshabilitado, $parent.principal.datosForm.$valid)" ng-class="{'deshabilitado': principalOpciones.deshabilitado || !$parent.principal.datosForm.$valid}">GENERAR OPCIONES</button>
                         </div>
 
-                        <div class="col l12 xl9" bazam-ayuda data-titulo="Iconos y Fuentes" data-texto="Seleccione los elementos y estilos de tipografia que quiera combinar" data-clases="['corner-lt']" data-identificador="ayuda-iconos-fuentes" data-orientacion="right" data-paso="5" bazam-pasos-ayuda>
+                        <div class="col l12 xl12" bazam-ayuda data-titulo="Iconos y Fuentes" data-texto="Seleccione los elementos y estilos de tipografia que quiera combinar" data-clases="['corner-lt']" data-identificador="ayuda-iconos-fuentes" data-orientacion="right" data-paso="5" bazam-pasos-ayuda>
                             
                             <div  class="row cubos-logos-opciones" ng-repeat="icono in iconos = ($parent.principal.iconos) track by icono.idElemento" ng-if="$first || (($index+1) % 4) == 0">
                                 
@@ -37,7 +37,7 @@
                             </div>
 
                         </div>
-
+                        <!--
                         <div class="col l12 xl3" style="padding: 0 28px;">
                         	<div bazam-ayuda data-texto="Selecciona tres fuentes de tu gusto" data-clases="['corner-rt']" data-identificador="ayuda-fuentes" data-orientacion="left" data-retraso="3000"  class="row cubo-fuentes-opciones">
                                 <div class="col l3 xl12" ng-repeat="fuente in fuentes = ($parent.principal.fuentes) track by fuente.idElemento">
@@ -45,4 +45,5 @@
                         	    </div>
                             </div>
                         </div>
+                    -->
                     </div>

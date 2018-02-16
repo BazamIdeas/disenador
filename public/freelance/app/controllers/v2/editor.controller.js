@@ -12,7 +12,7 @@ angular.module("disenador-de-logos")
 		bz.busquedaIconos = false;
 		bz.colorFondo = historicoResolve.color ?  coloresFactory(historicoResolve.color) : "rgb(236,239,240)";
 		bz.colorTexto = historicoResolve.color || "#000";
-		bz.colorEslogan = historicoResolve.color || "#000";
+		bz.colorEslogan = "#000";
 		bz.colorIcono = historicoResolve.color || "#000";
 
 		bz.logo = historicoResolve.logo;
@@ -23,17 +23,7 @@ angular.module("disenador-de-logos")
 			bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
 
 		} else if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
-			/*bz.logo.fuente = {
-                url: historicoResolve.fuentes.principal.url,
-                nombre: historicoResolve.fuentes.principal.nombre
-            };
-            
-            if(historicoResolve.fuentes.eslogan){
-                bz.logo.fuenteEslogan = {
-                    url: historicoResolve.fuentes.eslogan.url,
-                    nombre: historicoResolve.fuentes.eslogan.nombre
-                };
-            }*/
+		
 			bz.logo.idLogo = historicoResolve.idLogoGuardado;
 		}
 
@@ -340,7 +330,11 @@ angular.module("disenador-de-logos")
 			});
 
 		};
-
+		if(historicoResolve.color){
+			$timeout(function(){
+				bz.cambioColor( historicoResolve.color, "texto");
+			}, 10);
+		}
 
 		/////////////////////////////////////
 		//////////CAMBIO DE TEXTO////////////

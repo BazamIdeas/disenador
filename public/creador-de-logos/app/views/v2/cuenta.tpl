@@ -1,31 +1,3 @@
-        <style>
-            .imagen-perfil > div {
-                position: relative;
-                width: 50%;
-                margin: auto;
-            }
-
-            .imagen-perfil>div:hover img{
-                /*filter: opacity(50%);*/
-                opacity: 0.5;
-                cursor: pointer;
-            }
-            .imagen-perfil i{
-                visibility: hidden;
-                position: absolute;
-                top: calc(50% - 18px);
-                left: calc(50% - 18px);
-                font-size: 36px;
-            }
-            .imagen-perfil>div:hover i{
-                visibility: visible;
-            }
-
-            .imagen-perfil>div i:hover{
-                cursor: pointer;
-            }
-
-        </style>
         <section class="sub-header">
             <div class="row margin-bottom-0">
 
@@ -44,13 +16,13 @@
 
 				<div class="col s3 offset-s1">
 					<div class="caja datos row">
-						<div class="col s12 imagen-perfil" style="margin-top: 10px;" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 300, height: 300, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}" ngf-fix-orientation="true">
+						<div class="col s12 imagen-perfil" style="margin-top: 10px;">
 							<div ng-if="cuenta.datos.foto && cuenta.verificarBase64(cuenta.datos.foto)">
-                                <img ng-src="{{'data:image/svg+xml;base64,' + cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" >
+                                <img ng-src="{{'data:image/svg+xml;base64,' + cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)"  ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}" ngf-fix-orientation="true" >
                                 <i class="material-icons">file_upload</i>
                             </div>
                             <div ng-if="cuenta.datos.foto && !cuenta.verificarBase64(cuenta.datos.foto)">
-                                <img ng-src="{{cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" >
+                                <img ng-src="{{cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)"  ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}" ngf-fix-orientation="true" >
                                 <i class="material-icons">file_upload</i>
                             </div>
 						</div>

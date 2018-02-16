@@ -12,12 +12,12 @@
             </div>
         </section>
 
-        <section style="padding:0 30px;height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;" class="scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
-            <div class="row margin-bottom-0" style="overflow: hidden;">
+        <section style="padding:0 30px; background-color: var(--fondo);overflow: scroll;" class="scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
+            <div class="row margin-bottom-0">
 
 				
 				<div class="col s10 offset-s1" style="padding: 50px 40px 0 40px;">
-						
+						 
 					<div class="row" style="box-shadow: 0px 0px 2px 1px #d4d4d4;">
 						
 						<div>

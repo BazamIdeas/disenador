@@ -2334,3 +2334,62 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 .logo-container:hover span.seleccionar {
     opacity: 1;
 }
+
+
+div.icono{
+    padding: 7px ; 
+    text-align: center
+}
+
+div.icono bazam-visualizar svg{
+    width: 17vh;
+    height: 17vh;
+}
+
+.cubos-logos-opciones div.col div{
+    text-align: center;
+}
+
+.cubos-logos-opciones div.col div bazam-visualizar svg{
+    width: 17vh;
+    height: 17vh;
+}
+
+#select_8 {
+    width: 180px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+}
+
+.imagen-perfil img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.imagen-perfil > div {
+    position: relative;
+    width: 50%;
+    margin: auto;
+}
+
+.imagen-perfil>div:hover img{
+    /*filter: opacity(50%);*/
+    opacity: 0.5;
+    cursor: pointer;
+}
+.imagen-perfil i{
+    visibility: hidden;
+    position: absolute;
+    top: calc(50% - 18px);
+    left: calc(50% - 18px);
+    font-size: 36px;
+}
+.imagen-perfil>div:hover i{
+    visibility: visible;
+}
+
+.imagen-perfil>div i:hover{
+    cursor: pointer;
+}
+
+.sidebar-1 md-input-container md-select {
+    width: 180px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+}
