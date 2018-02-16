@@ -755,14 +755,14 @@ angular.module("disenador-de-logos")
 				},
 			}).then(function (res) {
 
-				defered.resolve(res);
+				defered.resolve(res.data.foto);
 
 			}).catch(function(){
 
-			})
+			});
 
 			return promise;
-		}
+		};
 
 		this.correoDisponible = function (correo) {
 			var defered = $q.defer();
@@ -849,25 +849,21 @@ angular.module("disenador-de-logos")
 		return function (iconos, fuentes) {
 
 			var logos = [];
-
+			
 			angular.forEach(fuentes, function (fuente) {
 
-				if (fuente.estado == true) {
+				angular.forEach(iconos, function (icono) {
 
-					angular.forEach(iconos, function (icono) {
+					if (icono.estado == true) {
 
-						if (icono.estado == true) {
+						var logo = {
+							icono: icono,
+							fuente: fuente
+						};
 
-							var logo = {
-								icono: icono,
-								fuente: fuente
-							};
-
-							logos.push(logo);
-						}
-					});
-
-				}
+						logos.push(logo);
+					}
+				});
 
 			});
 

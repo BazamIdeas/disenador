@@ -729,8 +729,8 @@ div.contenedor-principal{
 }
 
 .cubos-logos-opciones div.col div bazam-visualizar svg{
-    width: 17vh;
-    height: 17vh;
+    width: 23vh;
+    height: 33vh;
 }
 
 .cubos-logos-opciones div.col div.seleccionado{
@@ -2792,4 +2792,36 @@ div.icono{
 div.icono bazam-visualizar svg{
     width: 17vh;
     height: 17vh;
+}
+
+
+.imagen-perfil img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.imagen-perfil > div {
+    position: relative;
+    width: 50%;
+    margin: auto;
+}
+
+.imagen-perfil>div:hover img{
+    /*filter: opacity(50%);*/
+    opacity: 0.5;
+    cursor: pointer;
+}
+.imagen-perfil i{
+    visibility: hidden;
+    position: absolute;
+    top: calc(50% - 18px);
+    left: calc(50% - 18px);
+    font-size: 36px;
+}
+.imagen-perfil>div:hover i{
+    visibility: visible;
+}
+
+.imagen-perfil>div i:hover{
+    cursor: pointer;
 }

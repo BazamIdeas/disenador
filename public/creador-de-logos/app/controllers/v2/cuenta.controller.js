@@ -83,16 +83,37 @@ angular.module("disenador-de-logos")
 			}
 
 		};
-
+		bz.fotoCargaCompletada = true;
 		bz.cargarFoto = function(imagen){
-			clientesService.avatar(imagen)
-				.then(function(res){
+			if(imagen){
+				if(bz.fotoCargaCompletada){
+					bz.fotoCargaCompletada = false;
+			
+					clientesService.avatar(imagen)
+						.then(function(res){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "¡Foto de Perfil Cargada!",
+									clase: "success"
+								}
+							}));
+							bz.datos.foto = res;
+						})
+						.catch(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Error al cargar la foto",
+									clase: "danger"
+								}
+							}));
 
-				})
-				.catch(function(){
+						})
+						.finally(function(){
 
-
-				});
+							bz.fotoCargaCompletada = true;
+						});
+				}
+			}
 		};
 
 
