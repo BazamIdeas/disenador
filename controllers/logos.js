@@ -68,7 +68,7 @@ exports.guardar =  function(req,res)
 
 			cliente.getCliente(req.idCliente, function(error, dataCliente){
 
-				//console.log(data);
+				////console.log(data);
 				services.emailServices.enviar("logoGuardado.html", {}, "Logo guardado", dataCliente.correo);
 				res.status(200).json(data);
 			});
@@ -190,7 +190,7 @@ exports.datosLogo =  function(req, res) {
 			atributo.ObtenerPorLogo(req.params.id, function(error, data){
 
 
-				//console.log(data)
+				////console.log(data)
 				if (typeof data !== "undefined" && data.length > 0)
 				{
 					logo["atributos"] = data;
@@ -628,7 +628,7 @@ exports.modificarLogo =  function(req,res)
 
 	logo.getLogo(par,function(error, data)
 	{
-		//console.log(data)
+		////console.log(data)
 		
 	//si el logo existe 
 		if (typeof data !== "undefined" && data.length > 0)
@@ -710,9 +710,10 @@ exports.zip = function(req,res)
 			var path = "public/tmp/";
 
 			atributo.ObtenerPorLogo(data[0].idLogo, function(err, dataAttrs){
-				
+				//console.log(dataAttrs)
 				if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0)
 				{
+
 					async.forEachOf(dataAttrs, (row, key, callback) => {
 
 						if(row.clave == "principal" || row.clave == "eslogan"){
@@ -720,28 +721,33 @@ exports.zip = function(req,res)
 							elemento.datosElemento(row.valor, function(err, fuente){
 
 								if (err) return callback(err);
-		
+								
 								try {
 									
 									if (typeof fuente !== "undefined" && fuente.length > 0)
 									{
 										fuentes[row.clave] = {nombre:fuente[0].nombre,url:fuente[0].url};
+										//console.log(fuentes)
 									}
 		
 								} catch (e) {
 									return callback(e);
-								}	
+								}
+
+								callback();	
 		
 							});
 
+						}else{
+							callback();
 						}
 
-						callback();
+						
+						
 	
 					}, (err) => {
-						console.log({err: err})
-						if (err) res.status(402).json({});
-						console.log({fuentes: fuentes})
+						if (err) res.status(500).json({});
+						//console.log({"fuentes-callback": fuentes})
 						var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
 						fs.open(path + nombre, "w", function(err, fd) {
 							if (err) {
@@ -762,10 +768,11 @@ exports.zip = function(req,res)
 										archive.pipe(output);
 
 										archive.append(fs.createReadStream(svg), { name: "logo.svg" });
-										archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre });
+
+										archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre+'.ttf' });
 
 										if(fuentes.eslogan){
-											archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.eslogan.url), { name: fuentes.eslogan.nombre });
+											archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.eslogan.url), { name: fuentes.eslogan.nombre+'.ttf' });
 										}
 
 										archive.finalize();
@@ -784,7 +791,7 @@ exports.zip = function(req,res)
 												.then(buffer => {fs.writeFile(pngout, buffer);
 													res.json({png:pngout});
 												})
-												.catch(e => console.log(e));
+												.catch(e => //console.log(e));
 										});
 
 									}
@@ -826,7 +833,7 @@ exports.descargar = function(req, res) {
 			var nombre = idLogo +"-" + moment().format("YYYY-MM-DD")+"-"+ancho+".svg";
 			var path = "public/tmp/";
 			var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
-			//console.log(base64.decode(data[0].logo));
+			////console.log(base64.decode(data[0].logo));
 
 
 			fs.open(path+nombre, "w", function(err, fd) {
@@ -841,12 +848,12 @@ exports.descargar = function(req, res) {
 						var salida =  path + nombre.replace("svg", "png");
 						fs.readFile(img, (err, svg) => {
 							if (err) throw err;
-							//console.log()
+							////console.log()
 							svg2png(svg, { width: ancho})
 								.then(buffer => {fs.writeFile(salida, buffer);
 									res.json({svg:salida.replace("png","svg"),png:salida});
 								})
-								.catch(e => console.error(e));
+								.catch(e => //console.error(e));
 						});
 						
 						setTimeout(function () {
