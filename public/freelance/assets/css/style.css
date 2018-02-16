@@ -2334,3 +2334,27 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 .logo-container:hover span.seleccionar {
     opacity: 1;
 }
+
+
+div.icono{
+    padding: 7px ; 
+    text-align: center
+}
+
+div.icono bazam-visualizar svg{
+    width: 17vh;
+    height: 17vh;
+}
+
+.cubos-logos-opciones div.col div{
+    text-align: center;
+}
+
+.cubos-logos-opciones div.col div bazam-visualizar svg{
+    width: 17vh;
+    height: 17vh;
+}
+
+#select_8 {
+    width: 180px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+}

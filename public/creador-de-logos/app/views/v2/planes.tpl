@@ -45,7 +45,7 @@
 										<p>{{plan.info}}</p>
 
 										<ul class="plan-lista">
-											<li ng-repeat="carac in plan.caracteristicas">{{carac.descripcion}}</li>
+											<li ng-repeat="carac in plan.caracteristicas" >{{carac.descripcion}}</li>
 										</ul>
 
 										<div class="plan-precio">{{planes.precioSeleccionado(plan.precios, planes.moneda)}}</div>
