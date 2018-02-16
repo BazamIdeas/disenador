@@ -19,7 +19,16 @@
 
 				<div class="col s3 offset-s1">
 					<div class="caja datos row">
-						<p class="text-center tercero margin-bottom-0 margin-top-0">MIS DATOS </p>
+						<div class="col s12 imagen-perfil" style="margin-top: 10px;">
+							<div ng-if="cuenta.datos.foto && cuenta.verificarBase64(cuenta.datos.foto)">
+                                <img ng-src="{{'data:image/svg+xml;base64,' + cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)"  ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}" ngf-fix-orientation="true" >
+                                <i class="material-icons">file_upload</i>
+                            </div>
+                            <div ng-if="cuenta.datos.foto && !cuenta.verificarBase64(cuenta.datos.foto)">
+                                <img ng-src="{{cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)"  ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}" ngf-fix-orientation="true" >
+                                <i class="material-icons">file_upload</i>
+                            </div>
+						</div>
 						<div class="col s12">
 							<span class="label">Correo</span>
 							<div class="info">

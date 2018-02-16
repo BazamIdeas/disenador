@@ -51,7 +51,7 @@ angular.module("disenador-de-logos")
 
 		preferenciasService.listaPreferencias().then(function (res) {
 
-			angular.forEach(res, function (valor, llave) {
+			angular.forEach(res, function (valor) {
 				valor.valor = 2;
 				bz.datos.preferencias.push(valor);
 
@@ -159,11 +159,11 @@ angular.module("disenador-de-logos")
 
  
 		bz.avanzar = function (indiceLogo, color) {
-			console.log(color)
+
 			bz.logoSeleccionado = indiceLogo;
 
 			if (!clientesService.autorizado()) {
-
+				bz.colorIcono = color;
 				bz.mostrarModalLogin = true;
 				bz.objetivoEditor = "nuevo";
 
@@ -180,9 +180,9 @@ angular.module("disenador-de-logos")
 
 				if(color){
 					datos.datos.color = color;
-				}
-
-				
+				} else if(bz.colorIcono){
+					datos.datos.color = bz.colorIcono;
+				}				
 
 				$state.go("editor", datos);
 
@@ -313,7 +313,7 @@ angular.module("disenador-de-logos")
 		bz.seleccionarFuenteCategoria = function (idCategoria) {
 			var fuenteNombre = "futura-heavy";
 
-			angular.forEach(bz.categoriasPosibles.fuentes, function (fuenteCategoria, llave) {
+			angular.forEach(bz.categoriasPosibles.fuentes, function (fuenteCategoria) {
 				if (fuenteCategoria.idCategoria == idCategoria) {
 
 					fuenteNombre = fuenteCategoria.nombreCategoria;
@@ -346,7 +346,7 @@ angular.module("disenador-de-logos")
 
 					bz.aprobados = res;
 
-				}).catch(function (res) {
+				}).catch(function () {
 
 					//console.log("hola")
 
@@ -370,7 +370,7 @@ angular.module("disenador-de-logos")
 
 				logosService.mostrarAprobados(idLogo).then(function (res) {
 
-					angular.forEach(res, function (valor, llave) {
+					angular.forEach(res, function (valor) {
 
 						bz.aprobados.push(valor);
                         
@@ -392,7 +392,7 @@ angular.module("disenador-de-logos")
 
 			var idFuente = null;
 
-			angular.forEach(lista, function (atributo, llave) {
+			angular.forEach(lista, function (atributo) {
 
 				if (atributo.clave == objetivo) {
 
@@ -418,7 +418,7 @@ angular.module("disenador-de-logos")
 			} else {
 				var aprobado = null;
 
-				angular.forEach(bz.aprobados, function (valor, llave) {
+				angular.forEach(bz.aprobados, function (valor) {
 
 					if (valor.idLogo == indiceLogo) {
 

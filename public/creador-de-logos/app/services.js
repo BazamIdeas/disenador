@@ -755,14 +755,14 @@ angular.module("disenador-de-logos")
 				},
 			}).then(function (res) {
 
-				defered.resolve(res);
+				defered.resolve(res.data.foto);
 
 			}).catch(function(){
 
-			})
+			});
 
 			return promise;
-		}
+		};
 
 		this.correoDisponible = function (correo) {
 			var defered = $q.defer();

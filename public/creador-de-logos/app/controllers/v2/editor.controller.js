@@ -11,7 +11,7 @@ angular.module("disenador-de-logos")
 		bz.busquedaIconos = false;
 		bz.colorFondo = historicoResolve.color ?  coloresFactory(historicoResolve.color) : "rgb(236,239,240)";
 		bz.colorTexto = historicoResolve.color || "#000";
-		bz.colorEslogan = historicoResolve.color || "#000";
+		bz.colorEslogan = "#000";
 		bz.colorIcono = historicoResolve.color || "#000";
 
 		bz.jqueryScrollbarOptions = {};
@@ -274,13 +274,12 @@ angular.module("disenador-de-logos")
 
 		};
 
-
-		$timeout(function(){
-			$rootScope.$broadcast("editor:color", {
-				color: historicoResolve.color,
-				objetivo: "texto"
-			});
-		}, 10)
+		if(historicoResolve.color){
+			$timeout(function(){
+				bz.cambioColor(historicoResolve.color, "texto");
+			}, 10);
+		}
+		
 
 		/////////////////////////////////////
 		//////////CAMBIO DE TEXTO////////////
