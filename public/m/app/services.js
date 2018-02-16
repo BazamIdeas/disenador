@@ -1089,12 +1089,11 @@ angular.module("disenador-de-logos")
 
             responseError: function (response) {
 
-
                 if (response.status === 401 || response.status === 403) {
                     salir();
 
-
                 }
+                return $q.reject(response);
 
             }
         };

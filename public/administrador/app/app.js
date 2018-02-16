@@ -1,10 +1,9 @@
 angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", '720kb.socialshare', 'oitozero.ngSweetAlert', 'ngFileUpload'])
 
-    .config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider, $httpProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $mdThemingProvider, socialshareConfProvider, $httpProvider, $urlRouterProvider, $locationProvider) {
 
-        /*------------------Material Angular --------------*/
 
-        $mdThemingProvider.theme('default').warnPalette('light-blue')
+        $locationProvider.html5Mode(true);
 
 
         /* INTERCEPTADOR */
@@ -88,8 +87,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                         controller: 'planesController as planes',
                     }
                 }
-            })
-            .state({
+            }).state({
                 name: 'app.usuario',
                 url: '/usuario',
                 views: {
@@ -98,8 +96,16 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                         controller: 'usuarioController as usuario',
                     }
                 }
-            })
-            .state({
+            }).state({
+                name: 'app.disenadores',
+                url: '/disenadores',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/disenadores.html',
+                        controller: 'disenadoresController as designer',
+                    }
+                }
+            }).state({
                 name: 'login',
                 url: '/login',
                 templateUrl: 'app/views/login.html',
@@ -117,18 +123,25 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                 }
             });
 
-        $urlRouterProvider.otherwise('/app/pedidos');
-    })
+        $urlRouterProvider.rule(function ($injector, $location) {
+            var path = $location.url();
 
+            if ("/" === path[path.length - 1] || path.indexOf("/?") > -1) {
+                return;
+            }
 
-    .run(function ($rootScope, $state) {
+            if (path.indexOf("?") > -1) {
+                return path.replace("?", "/?");
+            }
 
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
-
-
+            return path + "/";
         });
 
+        $urlRouterProvider.otherwise("app/pedidos");
+
+    })
+
+    .run(function ($rootScope, $state) {
 
         $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             // We can catch the error thrown when the $requireSignIn promise is rejected

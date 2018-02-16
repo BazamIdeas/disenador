@@ -1,8 +1,7 @@
 :root {
     --principal: #265126;
     --secundario: #b92d00;
-    /*--tercero: #549788;*/
-    --tercero: #4aaf57;
+    --tercero: #612787;
     --fondo: #eceff0;
     --blanco: #fff;
 }
@@ -83,6 +82,7 @@
     word-wrap: normal;
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
 
@@ -427,7 +427,7 @@ button.boton-verde {
 }
 
 button.boton-verde:hover {
-    background-color: #4aaf57c9;
+    background-color: #612787cc;
 }
 
 /* Let's get this party started 
@@ -494,9 +494,15 @@ div.acceder {
 
 div.acceder span{ 
     margin: 0 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .tooltip-header{
@@ -638,7 +644,7 @@ p.label-slider-input-left{
     display: inline-block; margin: 0; color: #8b8a8c; font-family: "futura-heavy" !important; font-size: 13px
 }
 p.label-slider-input-right{
-    float: right; display: inline-block; margin: 0; color: #8b8a8c; font-family: "futura-heavy" !important; font-size: 13px
+    float: right; margin: 0; color: #8b8a8c; font-family: "futura-heavy" !important; font-size: 13px
 }
 /*End SideBar 1*/
 
@@ -1588,7 +1594,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 
 
 .caja {
-    padding: 0px 0px 0px;
+    padding: 0px 0px 20px 0px !important;
     background-color: var(--fondo);
     margin-top: 20px;
     position: relative;
@@ -1605,8 +1611,6 @@ div.contenedor-planes .plan .plan-body .plan-precio{
     font-family: 'futura-heavy' !important;
 }
 
-.caja.pedidos div{
-}
 
 .caja.pedidos div table thead tr th{
     padding: 12px 0px;
@@ -1621,7 +1625,7 @@ div.contenedor-planes .plan .plan-body .plan-precio{
 }
 
 .caja.pedidos div table tbody tr{
-    border: 1px solid #d4d4d4;
+    border-top: 1px solid #d4d4d4;
 }
 
 .caja.pedidos div table tbody tr:first-child{
@@ -2113,4 +2117,252 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 
 .tab.ng-leave-active {
     opacity: 0; 
+}
+
+
+
+.estrellas div{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.estrella-vacia{
+    background-image: url('/assets/images/estrella-vacía.png');
+}
+
+
+.estrella-llena{
+    background-image: url('/assets/images/estrella-completa.png');
+}
+
+
+.aviso-facturacion{
+    background: #bd1616;
+    font-family: 'futura-heavy';
+    text-align: center;
+    color: white;
+    padding: 8px !important;
+}
+
+.tab-freelance{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 !important;
+}
+
+.tab-freelance button{
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    border-radius: 0;
+    margin-top: 0;
+}
+
+.col.s12.aviso-facturacion span {
+    color: yellow;
+    cursor: pointer;
+}
+
+
+.tab-freelance-activo::after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 12;
+    background-color: var(--tercero);
+}
+
+.tab-freelance-activo::before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 12;
+    background-color: var(--tercero);
+}
+
+.tab-freelance-activo {
+    background-color: white !important;
+    position: relative;
+    color: var(--tercero) !important;
+}
+
+.estrellas i{
+    cursor: pointer;
+    width: 30px;
+    font-size: 30px;
+    color: #ffa200;
+    height: 30px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+
+
+.logos{
+    float: left;width: 100%;height: 0;padding: 32% 0 0 0;margin: 2em 0 1em 0;position: relative;overflow: visible;transition: margin-top 0.5s
+}
+
+.logo-container{
+    width: 24%;
+    border-radius: 10px;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    top: 0;
+    left: 55%;
+    border: 2px solid var(--principal);
+    transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out;
+}
+
+.logo-active {
+    opacity: 1;
+    margin-left: -20%;
+    z-index: 9;
+    width: 30%;
+    -webkit-box-shadow: 0px 1px 2px 1px #dedede;
+    box-shadow: 0px 1px 2px 1px #dedede;
+}
+
+.logo-right {
+    margin-left: 9%;
+    margin-top: 3%;
+}
+
+.logo-left {
+    margin-left: -43%;
+    margin-top: 3%;
+}
+
+.logo-left, .logo-right {
+    opacity: 0.75;
+}
+
+.logo-active, .logo-left, .logo-right, .logo-left-1, .logo-right-1 {
+    display: flex;
+    visibility: visible;
+    justify-content: center;
+    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.left-arrow, .right-arrow {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    margin-top: -30px;
+    line-height: 65px;
+    text-align: center;
+    padding: 0;
+    z-index: 10;
+    background-color: #265126b3;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border: 0px solid var(--principal);
+}
+
+.left-arrow:hover, .right-arrow:hover {
+    background-color: var(--principal);
+}
+
+.left-arrow i, .right-arrow i{
+    font-size: 30px !important;
+}
+
+.left-arrow {
+    position: absolute;
+    top: 55%;
+    left: 7%;
+}
+
+.right-arrow {
+    position: absolute;
+    top: 55%;
+    right: 7%;
+}
+
+
+.logo-container span.seleccionar {
+    position: absolute;
+    background-color: var(--principal);
+    border: 1px solid var(--principal);
+    color: white;
+    opacity: 0;
+    border-radius: 30px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: !futura-heavy important;
+    transition: opacity 1s;
+    cursor: pointer;
+    bottom: 0;
+}
+
+.logo-container span.seleccionar:hover {
+    background-color: white;
+    color: var(--principal);
+}
+
+.logo-container:hover span.seleccionar {
+    opacity: 1;
+}
+
+
+.imagen-perfil img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.imagen-perfil > div {
+    position: relative;
+    width: 50%;
+    margin: auto;
+}
+
+.imagen-perfil>div:hover img{
+    /*filter: opacity(50%);*/
+    opacity: 0.5;
+    cursor: pointer;
+}
+.imagen-perfil i{
+    visibility: hidden;
+    position: absolute;
+    top: calc(50% - 18px);
+    left: calc(50% - 18px);
+    font-size: 36px;
+}
+.imagen-perfil>div:hover i{
+    visibility: visible;
+}
+
+.imagen-perfil>div i:hover{
+    cursor: pointer;
 }

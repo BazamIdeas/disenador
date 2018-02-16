@@ -1,13 +1,14 @@
-var pais     = require('../modelos/paisesModelo.js');
-var plan     = require('../modelos/planesModelo.js');
-var precio   = require('../modelos/preciosModelo.js');
-var services = require('../services');
+var pais     = require("../modelos/paisesModelo.js");
+var plan     = require("../modelos/planesModelo.js");
+var precio   = require("../modelos/preciosModelo.js");
+var caracteristica = require("../modelos/caracteristicasModelo.js");
+var services = require("../services");
 var async    = require("async");
 
-exports.ListarFront = (req, res, next) =>
+exports.ListarFront = (req, res) =>
 {
 
-	var iso = services.geoipServices.iso(req.ip)
+	var iso = services.geoipServices.iso(req.ip);
 
 	pais.ObtenerPorIso(iso, (err, pais) => {
 
@@ -17,7 +18,7 @@ exports.ListarFront = (req, res, next) =>
 
 			var json = pais[0];
 
-			json.monedaDefault = {idMoneda: json.idMoneda ,codigo : json.moneda}
+			json.monedaDefault = {idMoneda: json.idMoneda ,codigo : json.moneda};
 
 			delete json["idMoneda"]; 
 			delete json["moneda"]; 
@@ -43,14 +44,30 @@ exports.ListarFront = (req, res, next) =>
 									json.planes[key].precios = precios;
 								
 								}
+
+								caracteristica.ObtenerPorPlan(plan.idPlan, (err, caracteristicas) => {
 							
+									if (err) return callback(err);
+		
+									try {
+		
+										if (caracteristicas.length) {
+		
+											json.planes[key].caracteristicas = caracteristicas;
+										
+										}								
+									
+									} catch (e) {
+										return callback(e);
+									}
+		
+									callback();
+								});
+					
 							} catch (e) {
-							    return callback(e);
+								return callback(e);
 							}
-
-
-							callback();
-						})
+						});
 
 					}, (err) => {
 						
@@ -58,7 +75,7 @@ exports.ListarFront = (req, res, next) =>
 						
 						res.status(200).json(json);
 					
-					})
+					});
 				
 				}else{
 
@@ -66,7 +83,7 @@ exports.ListarFront = (req, res, next) =>
 
 				}
 			
-			})
+			});
 		
 		}else{
 
@@ -78,41 +95,68 @@ exports.ListarFront = (req, res, next) =>
 	
 	});
 
-}
+};
 
-exports.ListarBack = (req, res, next) =>
+exports.ListarBack = (req, res) =>
 {
 	plan.Listar( (error, data) => {
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0) {
-			res.status(200).json(data);
-		}
-		//no existe
-		else {
+		if (typeof data !== "undefined" && data.length > 0) {
+
+			async.forEachOf(data, (plan, key, callback) => {
+
+				caracteristica.ObtenerPorPlan(plan.idPlan, (err, caracteristicas) => {
+					
+					if (err) return callback(err);
+
+					try {
+
+						if (caracteristicas.length) {
+
+							data[key].caracteristicas = caracteristicas;
+						
+						}								
+					
+					} catch (e) {
+						return callback(e);
+					}
+
+					callback();
+				});
+
+			}, (err) => {
+				
+				if (err) res.status(402).json({});
+				
+				res.status(200).json(data);
+			
+			});
+			
+		}else {
 			res.status(404).json({
 				"msg": "No hay registro de planes en la base de datos"
-			})
+			});
 		}
 	});
-}
+};
 
-exports.ListarPrecios = (req, res, next) =>
+exports.ListarPrecios = (req, res) =>
 {
 	var id = req.params.id;
 
 	plan.ListarPrecios(id , (error, data) => {
 
-		if (typeof data !== 'undefined' && data.length > 0) {
+		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
 		}
 
 		else {
 			res.status(404).json({
 				"msg": "No hay resgitro de planes en la base de datos"
-			})
+			});
 		}
 	});	
-}
+};
 
 exports.Nuevo = (req, res) =>
 {
@@ -122,12 +166,13 @@ exports.Nuevo = (req, res) =>
 		plan   : req.body.plan,
 		status : 1,
 		info   :req.body.info
-	}
+	};
 
 	plan.Nuevo(planData, (error, data) => {
 		//si la etiqueta se ha insertado correctamente mostramos su info
 		if (data && data.insertId) {
 
+			var i = data;
 			var precioData = {
 				idPrecio         : null,
 				precio           : req.body.precio,
@@ -139,31 +184,31 @@ exports.Nuevo = (req, res) =>
 
 				if (data && data.result) {
 
-					res.status(200).json(data);
+					res.status(200).json(i);
 
 				} else {
-					res.status(500).json({"msg": precioData.planes_idPlan})
+					res.status(500).json({"msg": precioData.planes_idPlan});
 				}
 			});
 
 		} else {
-			res.status(500).json({"msg": error})
+			res.status(500).json({"msg": error});
 		}
 	});
-}
+};
 
-exports.Bloquear = (req, res, next) =>
+exports.Bloquear = (req, res) =>
 {
 	plan.Bloquear(req.body.idPlan, (error, data) => {
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.affectedRows) {
+		if (typeof data !== "undefined" && data.affectedRows) {
 			res.status(200).json(data);
 		}
 		else {
-			res.status(404).json({"msg": "No hay resgitro de planes en la base de datos"})
+			res.status(404).json({"msg": "No hay resgitro de planes en la base de datos"});
 		}
 	});
-}
+};
 
 exports.Modificar = (req, res) =>
 {
@@ -171,10 +216,10 @@ exports.Modificar = (req, res) =>
 
 	plan.Modificar(planData, (error, data) => {
 
-		if (typeof data !== 'undefined' && data.affectedRows) {
+		if (typeof data !== "undefined" && data.affectedRows) {
 			res.status(200).json(data);
 		} else {
-			res.status(500).json({"msg": "Algo ocurrio"})
+			res.status(500).json({"msg": "Algo ocurrio"});
 		}
 	});
-}
+};

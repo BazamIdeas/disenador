@@ -4,7 +4,7 @@ var moment = require('moment');
 var configuracion = require('../configuracion.js');
 var services=require('../services');
 
-exports.validar = function(req,res,next){
+exports.validarCliente = function(req,res,next){
 
 	if(configuracion.seguridad){
 		
@@ -42,7 +42,7 @@ exports.validar = function(req,res,next){
 	}
 }
 
-exports.validarUsuario = function(req,res,next){
+exports.validarAdministrador = function(req,res,next){
 
 	if(configuracion.seguridad){
 		

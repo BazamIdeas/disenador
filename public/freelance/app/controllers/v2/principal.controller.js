@@ -1,357 +1,308 @@
 angular.module("disenador-de-logos")
 
-    /* Comenzar */
+	.controller("principalController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue) {
 
-    .controller('principalController', ["categoriasService", "preferenciasService", "elementosService", '$stateParams', "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "paisesValue", "logosService",function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, paisesValue, logosService) {
+		var bz = this;
 
-        var bz = this;
-        
-        bz.paises = paisesValue;
-        
-        bz.paisDefecto = null;
-        
-        clientesService.pais().then(function(res){
-            
-            bz.paisDefecto = res.iso;
-            
-        });
-        
-        bz.datos = {
-            nombre: "Mi logo",
-            preferencias: [],
-            categoria: {
-                icono: "",
-                fuente: ""
-            }
-        }
+		bz.paises = paisesValue;
 
-        bz.jqueryScrollbarOptions = {};
+		bz.paisDefecto = null;
 
-        bz.iconos = [];
+		clientesService.pais().then(function (res) {
 
-        bz.fuentes = [];
+			bz.paisDefecto = res.iso;
 
-        bz.logos = [];
+		});
 
-        bz.logoSeleccionado = null;
+		bz.datos = {
+			nombre: "Mi logo",
+			preferencias: [],
+			categoria: {
+				icono: "",
+				fuente: ""
+			}
+		};
 
+		bz.jqueryScrollbarOptions = {};
 
+		bz.iconos = [];
 
-        bz.categoriasPosibles = {
-            fuentes: [],
-            iconos: []
-        };
+		bz.fuentes = [];
 
-        bz.preferencias = [];
+		bz.logos = [];
 
-        categoriasService.listaCategorias('ICONO').then(function (res) {
+		bz.logoSeleccionado = null;
 
-            bz.categoriasPosibles.iconos = res;
 
 
-        })
+		bz.categoriasPosibles = {
+			fuentes: [],
+			iconos: []
+		};
 
-        categoriasService.listaCategorias('FUENTE').then(function (res) {
+		bz.preferencias = [];
 
-            bz.categoriasPosibles.fuentes = res;
+		categoriasService.listaCategorias("ICONO").then(function (res) {
 
+			bz.categoriasPosibles.iconos = res;
 
-        })
 
-        preferenciasService.listaPreferencias().then(function (res) {
+		});
 
-            angular.forEach(res, function (valor, llave) {
-                valor.valor = 2;
-                bz.datos.preferencias.push(valor);
+		categoriasService.listaCategorias("FUENTE").then(function (res) {
 
-            })
+			bz.categoriasPosibles.fuentes = res;
 
-        })
 
-        bz.botonesTipo = [{
-            nombre: 'Logo y nombre',
-            activo: true
-        }, {
-            nombre: 'Tipografico',
-            activo: true
-        }, {
-            nombre: 'Solo nombre',
-            activo: true
-        }];
+		});
 
+		preferenciasService.listaPreferencias().then(function (res) {
 
+			angular.forEach(res, function (valor) {
+				valor.valor = 2;
+				bz.datos.preferencias.push(valor);
 
+			});
 
-        bz.completado = true;
+		});
 
-        bz.solicitarElementos = function (inicial) {
+		bz.botonesTipo = [{
+			nombre: "Logo y nombre",
+			activo: true
+		}, {
+			nombre: "Tipografico",
+			activo: true
+		}, {
+			nombre: "Solo nombre",
+			activo: true
+		}];
 
-            if ($scope.principal.datosForm.$valid && bz.completado) {
 
-                bz.completado = false;
 
-                bz.datosIconos = {
-                    categoria: bz.datos.categoria.icono,
-                    preferencias: bz.datos.preferencias,
-                    tipo: 'ICONO'
-                }
 
-                bz.datosFuentes = {
-                    categoria: bz.datos.categoria.fuente,
-                    preferencias: bz.datos.preferencias,
-                    tipo: 'FUENTE'
-                };
-                
-                
-                var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos); 
+		bz.completado = true;
 
-                $q.all([
-                    promesaIconos,
-                    elementosService.listaSegunPref(bz.datosFuentes)
-                    ])
-                    .then(function (res) {
+		bz.solicitarElementos = function (inicial) {
 
+			if ($scope.principal.datosForm.$valid && bz.completado) {
 
+				bz.completado = false;
 
-                        bz.iconos = res[0];
-                        bz.fuentes = res[1];
+				bz.datosIconos = {
+					categoria: bz.datos.categoria.icono,
+					preferencias: bz.datos.preferencias,
+					tipo: "ICONO"
+				};
 
-                        $state.go("principal.opciones", {
-                            status: true
-                        });
+				bz.datosFuentes = {
+					categoria: bz.datos.categoria.fuente,
+					preferencias: bz.datos.preferencias,
+					tipo: "FUENTE"
+				};
 
-                    }).catch(function (error) {
 
-                        //$state.go('comenzar')
-                    
-                    }).finally(function(res){
-                    
-                    
-                        bz.completado = true;
-                    
-                })
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos);
 
-            }
+				$q.all([
+					promesaIconos,
+					elementosService.listaSegunPref(bz.datosFuentes)
+				])
+					.then(function (res) {
 
-        }
 
 
+						bz.iconos = res[0];
+						bz.fuentes = res[1];
 
+						$state.go("principal.opciones", {
+							status: true
+						});
 
-        bz.asignarTipo = function (tipoLogo, iniciales) {
-            
-            var inicial = iniciales ? bz.datos.nombre.charAt(0) : false;
+					}).catch(function () {
 
-            angular.forEach(bz.botonesTipo, function (valor, llave) {
+						//$state.go('comenzar')
 
-                if (bz.botonesTipo[llave].nombre != tipoLogo.nombre) {
+					}).finally(function () {
 
-                    bz.botonesTipo[llave].activo = false;
 
-                } else {
+						bz.completado = true;
 
-                    bz.botonesTipo[llave].activo = true;
-                }
+					});
 
-            })
+			}
 
-            bz.solicitarElementos(inicial);
-        }
+		};
 
 
 
-        bz.combinar = function () {
 
-            bz.logos = crearLogoFactory(bz.iconos, bz.fuentes);
+		bz.asignarTipo = function (tipoLogo, iniciales) {
 
-            $state.go("principal.combinaciones", {
-                status: true
-            });
+			var inicial = iniciales ? bz.datos.nombre.charAt(0) : false;
 
-        }
+			angular.forEach(bz.botonesTipo, function (valor, llave) {
 
+				if (bz.botonesTipo[llave].nombre != tipoLogo.nombre) {
 
-        bz.avanzar = function (indiceLogo) {
+					bz.botonesTipo[llave].activo = false;
 
-            bz.logoSeleccionado = indiceLogo;
+				} else {
 
-            if (!clientesService.autorizado()) {
+					bz.botonesTipo[llave].activo = true;
+				}
 
-                bz.mostrarModalLogin = true;
+			});
 
-            } else {
+			bz.solicitarElementos(inicial);
+		};
 
-                $state.go("editor", {
-                    status: true,
-                    datos: {
-                        logo: bz.logos[bz.logoSeleccionado],
-                        texto: bz.datos.nombre,
-                        categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
-                    }
-                });
 
-            }
 
-        }
+		bz.combinar = function () {
 
+			bz.logos = crearLogoFactory(bz.iconos, bz.fuentes);
 
-        bz.datosLogin = {};
-        
-        bz.completadoLogin = true;
+			$state.go("principal.combinaciones", {
+				status: true
+			});
 
-        bz.login = function (datos, valido) {
+		};
 
-            if (valido) {
-                
-                bz.completadoLogin = false;
 
-                clientesService.login(datos).then(function (res) {
+		bz.avanzar = function (indiceLogo, color) {
 
-                    if (clientesService.autorizado(true)) {
+			bz.logoSeleccionado = indiceLogo;
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
-                                var temporizador = $timeout(function () {
+			if (!clientesService.autorizado()) {
+				bz.colorIcono = color;
+				bz.mostrarModalLogin = true;
 
-                                    $mdToast.hide();
+			} else {
 
-                                }, 2000)
+				var datos = {
+					status: true,
+					datos: {
+						logo: bz.logos[bz.logoSeleccionado],
+						texto: bz.datos.nombre,
+						categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
+					}
+				};
 
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
+				if(color){
+					datos.datos.color = color;
+				} else if(bz.colorIcono){
+					datos.datos.color = bz.colorIcono;
+				}
 
-                                }
-                            }],
-                            templateUrl: 'toast-success-login.html'
-                        });
+				$state.go("editor", datos);
 
-                        bz.mostrarModalLogin = false;
-                        bz.avanzar(bz.logoSeleccionado);
-                    }
+			}
 
-                }).catch(function () {
+		};
 
-                    $mdToast.show({
-                        hideDelay: 0,
-                        position: 'top right',
-                        controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
 
-                            var temporizador = $timeout(function () {
+		bz.datosLogin = {};
 
-                                $mdToast.hide();
+		bz.completadoLogin = true;
 
-                            }, 2000)
+		bz.login = function (datos, valido) {
 
-                            $scope.closeToast = function () {
-                                $timeout.cancel(temporizador)
-                                $mdToast.hide();
-                            }
-                            }],
-                        templateUrl: 'toast-danger-login.html'
-                    });
+			if (valido) {
 
-                }).finally(function(res){
-                     
-                    bz.completadoLogin = true;
-                    
-                });
-                
+				bz.completadoLogin = false;
 
-            };
+				clientesService.login(datos).then(function () {
 
-        };
-        
-        
-        
-        bz.completadoRegistro = true;
-        
-        bz.registrar = function(datos, valido){
-            
-           
-            
-            if (valido && bz.completadoRegistro) {
-                
-                bz.completadoRegistro = false;
-                
-                 console.log("hola")
-                
-                clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function (res) {
+					if (clientesService.autorizado(true)) {
 
-                    if (clientesService.autorizado(true)) {
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "¡Bienvenido!",
+								clase: "success"
+							}
+						}));
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
+						bz.mostrarModalLogin = false;
+						bz.avanzar(bz.logoSeleccionado);
+					}
 
-                                var temporizador = $timeout(function () {
+				}).catch(function () {
 
-                                    $mdToast.hide();
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Verifica tu Usuario y Contraseña",
+							clase: "danger"
+						}
+					}));
 
-                                }, 2000)
+				}).finally(function () {
 
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
+					bz.completadoLogin = true;
 
-                                }
-                            }],
-                            templateUrl: 'toast-success-registro.html'
-                        });
+				});
 
-                        bz.mostrarModalLogin = false;
-                        bz.avanzar(bz.logoSeleccionado);
 
-                    }
+			}
 
-                }).catch(function () {
+		};
 
-                    $mdToast.show({
-                        hideDelay: 0,
-                        position: 'top right',
-                        controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
 
-                            var temporizador = $timeout(function () {
 
-                                $mdToast.hide();
+		bz.completadoRegistro = true;
 
-                            }, 2000)
+		bz.registrar = function (datos, valido) {
 
-                            $scope.closeToast = function () {
-                                $timeout.cancel(temporizador)
-                                $mdToast.hide();
+			if (valido && bz.completadoRegistro) {
 
-                            }
-                        }],
-                        templateUrl: 'toast-danger-registro.html'
-                    });
+				bz.completadoRegistro = false;
 
+				clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function () {
 
-                }).finally(function () {
-                    
-                    bz.completadoRegistro = true;
-                    
-                })
+					if (clientesService.autorizado(true)) {
 
-            };
-            
-        }
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "¡Registro exitoso!",
+								clase: "success"
+							}
+						}));
 
+						bz.mostrarModalLogin = false;
+						bz.avanzar(bz.logoSeleccionado);
 
-        bz.seleccionarFuenteCategoria = function(idCategoria){
-            var fuenteNombre = "futura-heavy";
+					}
 
-            angular.forEach(bz.categoriasPosibles.fuentes, function(fuenteCategoria, llave){
-                if(fuenteCategoria.idCategoria == idCategoria){
+				}).catch(function () {
 
-                    fuenteNombre = fuenteCategoria.nombreCategoria;
-                }
-            })
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Un error ha ocurrido",
+							clase: "danger"
+						}
+					}));
 
-            return fuenteNombre;
-        }
+				}).finally(function () {
 
-}])
+					bz.completadoRegistro = true;
+
+				});
+
+			}
+
+		};
+
+
+		bz.seleccionarFuenteCategoria = function (idCategoria) {
+			var fuenteNombre = "futura-heavy";
+
+			angular.forEach(bz.categoriasPosibles.fuentes, function (fuenteCategoria) {
+				if (fuenteCategoria.idCategoria == idCategoria) {
+
+					fuenteNombre = fuenteCategoria.nombreCategoria;
+				}
+			});
+
+			return fuenteNombre;
+		};
+
+	}]);

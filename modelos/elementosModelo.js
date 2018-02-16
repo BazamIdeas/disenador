@@ -26,7 +26,7 @@ elemento.datosElemento = function( id, callback)
 
 elemento.ListarFuentes = function(callback)
 {
-	var q = 'SELECT * FROM elementos WHERE tipo = "FUENTE"' ;
+	var q = 'SELECT * FROM elementos WHERE tipo = "FUENTE" ORDER BY RAND() LIMIT 100' ;
 
 	DB.getConnection(function(err, connection)
 	{ 
@@ -196,7 +196,7 @@ elemento.cambiarEstado = function(data, callback)
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
 		  	if(err)	throw err;
 

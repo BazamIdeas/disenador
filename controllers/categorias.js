@@ -1,14 +1,14 @@
-var categoria=require('../modelos/categoriasModelo.js');
+var categoria=require("../modelos/categoriasModelo.js");
 
-exports.listaCategorias = function(req, res, next)
+exports.listaCategorias = function(req, res)
 {
 
-	var tipo = ['Iniciales', req.body.tipo];
+	var tipo = ["Iniciales", req.body.tipo];
 
 	categoria.getCategorias(tipo,function(error, data)
 	{
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0)
+		if (typeof data !== "undefined" && data.length > 0)
 		{
 			res.status(200).json(data);
 		}
@@ -18,14 +18,14 @@ exports.listaCategorias = function(req, res, next)
 			res.status(404).json({"msg":"No hay categorias en la base de datos"});
 		}
 	});
-}
+};
 
 exports.ListarIconos = function(req,res) 
 {
 	categoria.ListarIconos(req.body.idCategoria,function(error, data)
 	{
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0)
+		if (typeof data !== "undefined" && data.length > 0)
 		{
 			res.status(200).json(data);
 		}
@@ -35,14 +35,14 @@ exports.ListarIconos = function(req,res)
 			res.status(404).json({"msg":"No hay iconos para esta categoria en la base de datos"});
 		}
 	});
-}
+};
 
 exports.ListarFuentes = function(req,res) 
 {
 	categoria.ListarFuentes(req.body.idCategoria,function(error, data)
 	{
 		//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0)
+		if (typeof data !== "undefined" && data.length > 0)
 		{
 			res.status(200).json(data);
 		}
@@ -52,7 +52,7 @@ exports.ListarFuentes = function(req,res)
 			res.status(404).json({"msg":"No hay fuentes para esta categoria en la base de datos"});
 		}
 	});
-}
+};
 
 exports.nuevaCategoria =  function(req,res)
 {
@@ -71,19 +71,19 @@ exports.nuevaCategoria =  function(req,res)
 		}
 		else
 		{
-			res.status(500).json({"msg":"Algo ocurrio"})
+			res.status(500).json({"msg":"Algo ocurrio"});
 		}
 	});
-}
+};
 
 exports.modificarCategoria =  function(req,res)
 {
-	var idCategoria = req.body.idCategoria // cambiar por valor de sesion o por parametro
+	var idCategoria = req.body.idCategoria; // cambiar por valor de sesion o por parametro
 
 	categoria.getCategoria(idCategoria,function(error, data)
 	{
 	//si el usuario existe 
-		if (typeof data !== 'undefined' && data.length > 0)
+		if (typeof data !== "undefined" && data.length > 0)
 		{
 			//creamos un array con los datos a modificar del cliente
 			var categoriaData = [req.body.nombreCategoria, idCategoria];
@@ -97,24 +97,21 @@ exports.modificarCategoria =  function(req,res)
 				}
 				else
 				{
-					res.status(500).json({"msg":"Algo ocurrio"})
+					res.status(500).json({"msg":"Algo ocurrio"});
 				}
 			});
-		}
-	//no existe
-		else
-		{
-			res.status(404).json({"msg":"No existe"})
+		
+		}else{
+			res.status(404).json({"msg":"No existe"});
 		}
 	});
-}
+};
 
-exports.borrarCategoria =  function(req, res, next)
+exports.borrarCategoria =  function(req, res)
 {
-	//id del cliente
 	var id = req.params.id;
 	categoria.deleteCategoria(id,function(error, data)
 	{
 		res.status(200).json(data);
 	});
-}
+};

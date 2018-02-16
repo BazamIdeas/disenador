@@ -1,101 +1,97 @@
 angular.module("disenador-de-logos")
 
-    /* Editor */
 
-    .controller('pagoController', ["$scope", "historicoResolve", "pedidosService", "$window", "$state", "$base64", function ($scope, historicoResolve, pedidosService, $window, $state, $base64) {
+	.controller("pagoController", ["$scope", "historicoResolve", "pedidosService", "$window", "$state", "$base64", function ($scope, historicoResolve, pedidosService, $window, $state, $base64) {
 
-        var bz = this;
+		var bz = this;
         
-        bz.base64 = $base64;
+		bz.base64 = $base64;
 
-        bz.pedido = historicoResolve;
+		bz.pedido = historicoResolve;
 
-        bz.pasarelas = [];
+		bz.pasarelas = [];
 
-        pedidosService.listarPasarelas(bz.pedido.precio.moneda.idMoneda).then(function (res) {
+		pedidosService.listarPasarelas(bz.pedido.precio.moneda.idMoneda).then(function (res) {
 
-            bz.pasarelas = res;
+			bz.pasarelas = res;
 
-        });
-
-
-        bz.mostrarMetodo = function (indice) {
-
-            angular.forEach(bz.pasarelas, function (pasarela, llave) {
-
-                if (pasarela.idPasarela != indice) {
-
-                    bz.pasarelas[llave].mostrar = false;
-
-                } else {
-
-                    bz.pasarelas[llave].mostrar = true;
-
-                }
-
-            })
+		});
 
 
+		bz.mostrarMetodo = function (indice) {
 
-        }
+			angular.forEach(bz.pasarelas, function (pasarela, llave) {
+
+				if (pasarela.idPasarela != indice) {
+
+					bz.pasarelas[llave].mostrar = false;
+
+				} else {
+
+					bz.pasarelas[llave].mostrar = true;
+
+				}
+
+			});
+
+		};
 
 
-        bz.completado = true;
+		bz.completado = true;
         
-        bz.pagar = function (idPasarela, terminos) {
+		bz.pagar = function (idPasarela, terminos) {
 
-            
-            if (terminos &&  bz.completado) {
+			if (terminos &&  bz.completado) {
                 
-                bz.completado = false;
+				bz.completado = false;
             
-                angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
                 
-                switch (idPasarela) {
+				switch (idPasarela) {
                     
-                    case 1://PAYPAL
-                        pedidosService.pagar.paypal(bz.pedido.idElemento, bz.pedido.atributos.principal, bz.pedido.atributos.eslogan, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
+				case 1://PAYPAL
+					pedidosService.pagar.paypal(bz.pedido.idElemento, bz.pedido.atributos, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
                             
-                            .then(function(res){
+						.then(function(res){
                             
-                                $window.location = res;
+							$window.location = res;
                             
-                            })
+						})
                         
-                            .finally(function(res){
+						.finally(function(){
 
-                                bz.completado = true;
+							bz.completado = true;
                             
-                            })
-                        break;
+						});
+					break;
                         
-                    case 2://STRIPE
+				case 2://STRIPE
                        
-                        break;
+					break;
                         
-                    case 3://PAYU
+				case 3://PAYU
                         
-                        break;
+					break;
                         
-                    default:
-                        break;
-                }
+				default:
+					break;
+				}
                 
-            }
+			}
 
 
-        }
+		};
         
         
         
         
 
 
-        $scope.$on('sesionExpiro', function (event, data) {
+		$scope.$on("sesionExpiro", function () {
 
-            $state.go('principal.comenzar');
+			$state.go("principal.comenzar");
 
-        });
+		});
 
 
-    }])
+	}]);

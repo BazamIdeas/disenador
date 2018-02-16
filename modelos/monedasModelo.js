@@ -76,7 +76,7 @@ moneda.Borrar = function(id, callback)
 		  		var qq = 'DELETE FROM monedas WHERE idMoneda = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , par , function(err, row)
+					connection.query( qq , par , function(err)
 					{
 				  	
 				  		if(err)	throw err;

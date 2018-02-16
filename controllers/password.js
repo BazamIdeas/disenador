@@ -1,28 +1,28 @@
-var cliente  = require('../modelos/clientesModelo.js');
-var usuario  = require('../modelos/usuarioModelo.js');
-var services = require('../services');
-var moment   = require('moment');
+var cliente  = require("../modelos/clientesModelo.js");
+var usuario  = require("../modelos/usuarioModelo.js");
+var services = require("../services");
+var moment   = require("moment");
 
-exports.enviarToken =  function(req,res,next)
+exports.enviarToken =  function(req,res)
 {
 
-	if(req.body.tipo == 'cliente'){
+	if(req.body.tipo == "cliente"){
 
 		cliente.getClienteEmail(req.body.correo, (error, data) => {
 			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0)
+			if (typeof data !== "undefined" && data.length > 0)
 			{	
 				var token = services.authServices.crearToken(data[0].idCliente, req.body.tipo);
 
-				var datos = {'token': token, 'correo': req.body.correo};
+				var datos = {"token": token, "correo": req.body.correo};
 				
-				services.emailServices.enviar(req.body.tipo+'CambiarContrasena.html', datos, "Cambiar contraseña", data[0].correo).then( data => {
+				services.emailServices.enviar(req.body.tipo+"CambiarContrasena.html", datos, "Cambiar contraseña", data[0].correo).then( () => {
 				
 					res.status(200).json({"msg":"Enviado"});
 				
-				}).catch(e => {
+				}).catch( () => {
 				
-					res.status(500).json({"msg":"Algo ocurrio"})
+					res.status(500).json({"msg":"Algo ocurrio"});
 				
 				});
 
@@ -35,18 +35,18 @@ exports.enviarToken =  function(req,res,next)
 
 		usuario.getUsuarioEmail(req.body.correo, (error, data) => {
 			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0)
+			if (typeof data !== "undefined" && data.length > 0)
 			{	
 				var token = services.authServices.crearToken(data[0].idUsuario, req.body.tipo);
 
-				var datos = {'token': token, 'correo': req.body.correo};
-				var enviado = services.emailServices.enviar(req.body.tipo+'CambiarContrasena.html', datos, "Cambiar contraseña", data[0].correo).then( data => {
+				var datos = {"token": token, "correo": req.body.correo};
+				services.emailServices.enviar(req.body.tipo+"CambiarContrasena.html", datos, "Cambiar contraseña", data[0].correo).then( () => {
 				
 					res.status(200).json({"msg":"Enviado"});
 				
-				}).catch(e => {
+				}).catch( () => {
 				
-					res.status(500).json({"msg":"Algo ocurrio"})
+					res.status(500).json({"msg":"Algo ocurrio"});
 				
 				});
 		
@@ -58,28 +58,28 @@ exports.enviarToken =  function(req,res,next)
 	}
 
 		
-}
+};
 
-exports.confirmarToken = function(req,res,next)
+exports.confirmarToken = function(req,res)
 {
-    var token = services.authServices.decodificar(req.params.tk);
+	var token = services.authServices.decodificar(req.params.tk);
 
-    if (token.final <= moment().unix()){
+	if (token.final <= moment().unix()){
 		return res.status(401).json({"mensaje":"El token ha expirado"});
 	}
 
 	return res.status(200).json(true);
-}
+};
 
-exports.cambiar = function(req,res,next)
+exports.cambiar = function(req,res)
 {
 
-	var token = services.authServices.decodificar(req.body.token)
+	var token = services.authServices.decodificar(req.body.token);
 
 	var datos = [
 		req.body.pass,
-	 	token.id
-	]
+		token.id
+	];
 
 	if (token.tipo == "cliente") {
 
@@ -87,7 +87,7 @@ exports.cambiar = function(req,res,next)
 		{
 			//console.log(data)
 			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0){
+			if (typeof data !== "undefined" && data.length > 0){
 
 				cliente.changePassword(datos,function(error, datau)
 				{
@@ -97,13 +97,13 @@ exports.cambiar = function(req,res,next)
 						res.status(200).json(datau);
 					}else{
 
-						res.status(500).json({"msg":"Algo ocurrio"})
+						res.status(500).json({"msg":"Algo ocurrio"});
 					}
 				});
 			
 			}else{
 
-				res.status(500).json({"msg":"No existe"})
+				res.status(500).json({"msg":"No existe"});
 			}
 		});
 	
@@ -112,7 +112,7 @@ exports.cambiar = function(req,res,next)
 		usuario.getUsuario(token.id,function(error, data)
 		{
 			//si el usuario existe 
-			if (typeof data !== 'undefined' && data.length > 0){
+			if (typeof data !== "undefined" && data.length > 0){
 
 				usuario.changePassword(datos,function(error, data)
 				{
@@ -122,15 +122,15 @@ exports.cambiar = function(req,res,next)
 						res.status(200).json(data);
 					}else{
 
-						res.status(500).json({"msg":"Algo ocurrio"})
+						res.status(500).json({"msg":"Algo ocurrio"});
 					}
 				});
 			
 			}else{
 
-				res.status(500).json({"msg":"No existe"})
+				res.status(500).json({"msg":"No existe"});
 			}
 		});
 
 	}
-}
+};

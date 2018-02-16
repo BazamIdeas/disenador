@@ -22,6 +22,23 @@ var configuracion = {
             user: 'disena',
             password: 'Esbz89%9',
             database: 'disenadorlogodb'
+        },
+        freelancer: {
+            moderador: {
+                1: 2.99,
+                2: 3.99,
+                3: 4.99,
+                4: 5.99,
+                5: 6.99
+            },
+            cliente: {
+                1: 2.99,
+                2: 3.99,
+                3: 4.99,
+                4: 5.99,
+                5: 6.99	
+            },
+            minimo: 300.99
         }
     },
 
@@ -46,8 +63,26 @@ var configuracion = {
             user: 'root',
             password: '',
             database: 'disenadorlogodb'
+        },
+        freelancer: {
+            moderador: {
+                1: 2,
+                2: 3,
+                3: 4,
+                4: 5,
+                5: 6,
+            },
+            cliente: {
+                1: 2,
+                2: 3,
+                3: 4,
+                4: 5,
+                5: 6,	
+            },
+            minimo: 300
         }
     }
 }
+
 
 module.exports = configuracion[node_env];

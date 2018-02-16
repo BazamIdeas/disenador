@@ -57,6 +57,8 @@
     <script src="/angular-material/angular-material.min.js"></script>
     <!--<script src="/angular-color-picker/angular-color-picker.js"></script>-->
     <script src="/angular-colorpicker-directive/js/color-picker.js"></script>
+    <script src="/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="/ng-file-upload/ng-file-upload.min.js"></script>
 
     <script src="/assets/js/scrollbars.js"></script>
     <script src="/assets/js/jquery.scrollbar.js"></script>
@@ -74,17 +76,6 @@
 
     <!-- Controladores -->
     <script src="app/controllers/header.js"></script>
-    <!--<script src="app/controllers/comenzar.js"></script>-->
-    <!--<script src="app/controllers/analisis.js"></script>-->
-    <!--<script src="app/controllers/opciones.js"></script>-->
-    <!--<script src="app/controllers/proceso.js"></script>-->
-    <!--<script src="app/controllers/editor.js"></script>-->
-    <!--<script src="app/controllers/previsualizar.js"></script>-->
-    <!--<script src="app/controllers/login.js"></script>-->
-    <!--<script src="app/controllers/cliente.js"></script>-->
-    <!--<script src="app/controllers/planes.js"></script>-->
-    <!--<script src="app/controllers/metodo_pago.js"></script>-->
-    <!--<script src="app/controllers/administrar.js"></script>-->
     
     <!--Controladores V2 -->
     <script src="app/controllers/v2/principal.controller.js"></script>
@@ -92,13 +83,12 @@
     <script src="app/controllers/v2/principal.opciones.controller.js"></script>
     <script src="app/controllers/v2/principal.combinaciones.controller.js"></script>
     <script src="app/controllers/v2/editor.controller.js"></script>
-    <script src="app/controllers/v2/planes.controller.js"></script>
-    <script src="app/controllers/v2/pago.controller.js"></script>
-    <script src="app/controllers/v2/pagoCompleto.controller.js"></script>
+    <script src="app/controllers/v2/publicado.controller.js"></script>
     <script src="app/controllers/v2/logos.controller.js"></script>
     <script src="app/controllers/v2/login.controller.js"></script>
-    <script src="app/controllers/v2/descargar.controller.js"></script>
     <script src="app/controllers/v2/cuenta.controller.js"></script>
+    <script src="app/controllers/v2/balance.controller.js"></script>
+    <script src="app/controllers/v2/logoVendido.controller.js"></script>
 
 </head>
 
@@ -129,6 +119,12 @@
                             <i class="material-icons">favorite</i>
                         </span>                        
 
+                        <span ui-sref="balance">
+                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi balance</md-tooltip>
+                            <i class="material-icons">monetization_on</i>
+                        </span>   
+                        
+                        
                         <span ui-sref="cuenta">
                             <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
                             <i class="material-icons">account_circle</i> &nbsp; {{header.autorizado.nombre}}
@@ -144,7 +140,7 @@
                     </div>                    
 
 
-                    <span>
+                    <span ng-click="header.mostrarPopAyuda()">
                         <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
                     </span>
 
@@ -166,105 +162,12 @@
     </div>
 
     <bazam-redireccionar></bazam-redireccionar>
-    <!--
-    <div ng-show='loading'>
-      <strong>Loading.</strong>
-    </div>
-    -->
-    <!-- Footer 
-    <footer class="text-center" layout="row" layout-align="space-between center">
-            <div class="logo" flex="30">logo</div>
-            <p class="copyright" flex="30">Copyright 2017</p>
-            <div class="iconos_sociales" flex="30">Facebook : Twitter : Instagram</div>
-    </footer>
-    -->
+   
+    <!--TOAST BASE-->
     
-    <script type="text/ng-template" id="toast-success-logo-save.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>Su logo ha sido guardado con exito!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-danger-logo-save.html">
-        <md-toast class="danger">
-            <span class="md-toast-text" flex>Un error ha ocurrido</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    
-    <script type="text/ng-template" id="toast-success-login.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>¡Bienvenido!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    
-    <script type="text/ng-template" id="toast-danger-login.html">
-        <md-toast class="danger">
-            <span class="md-toast-text" flex>Verifica tu Usuario y Contraseña</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-success-registro.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>Registro exitoso!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-danger-registro.html">
-        <md-toast class="danger">
-            <span class="md-toast-text" flex>Un error ha ocurrido</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-success-logo-delete.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>El logo fue borrado exitosamente!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-danger-logo-delete.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>Un error ha ocurrido</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-success-cuenta-modify.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>La datos fueron actualizados!</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
-    
-    <script type="text/ng-template" id="toast-danger-cuenta-modify.html">
-        <md-toast class="success">
-            <span class="md-toast-text" flex>Un error ha ocurrido</span>
+    <script type="text/ng-template" id="toast-base.html">
+        <md-toast class="{{clase}}">
+            <span class="md-toast-text" flex>{{mensaje}}</span>
             <md-button ng-click="closeToast()">
                 <i class="material-icons">close</i>
             </md-button>

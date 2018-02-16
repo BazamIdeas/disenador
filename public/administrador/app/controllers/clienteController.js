@@ -1,22 +1,17 @@
 angular.module("administrador")
 
-    .controller('clienteController', ["$state", "$mdSidenav", "clientesServiceAdmin", '$scope', 'pedidosService', 'SweetAlert', '$window', 'notificacionService', function ($state, $mdSidenav, clientesServiceAdmin, $scope, pedidosService, SweetAlert, $window, notificacionService) {
+    .controller('clienteController', ["$state", "$mdSidenav", "clientesServiceAdmin", '$scope', 'pedidosService', 'SweetAlert', '$window', 'notificacionService', "$base64", function ($state, $mdSidenav, clientesServiceAdmin, $scope, pedidosService, SweetAlert, $window, notificacionService, $base64) {
         var bz = this;
         bz.clientes = [];
         bz.mostrarPedido = false;
         bz.pedidosC = [];
-
         bz.filtrosActivos;
 
 
         /* LISTAR TODOS LOS CLIENTES */
 
         bz.listarC = function () {
-            var elementosLista = document.querySelectorAll('.lista .elemento.true');
-            for (i = 0; i < elementosLista.length; i++) {
-                elementosLista[i].classList.remove('true');
-            }
-
+            bz.peticion = true;
             bz.clientes = [];
             bz.mostrarC = !bz.mostrarC;
             bz.mostrarPedido = false;
@@ -31,6 +26,8 @@ angular.module("administrador")
                 })
                 .catch(function (res) {
                     notificacionService.mensaje(res);
+                }).finally(function () {
+                    bz.peticion = false;
                 })
         }
 
@@ -39,52 +36,58 @@ angular.module("administrador")
         /* ELIMINAR CLIENTE */
 
         bz.eliminarC = function (idCliente, index) {
+            bz.peticion = true;
             clientesServiceAdmin.borrarCliente(idCliente).then(function (res) {
-                SweetAlert.swal("Eliminado", "", "error");
+                SweetAlert.swal("Bloqueado", "", "success");
                 bz.clientes.splice(index, 1);
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
         /* TODOS LOS PEDIDOS DE UN CLIENTE */
 
-        bz.pedidosCliente = function (id, index) {
+        bz.pedidosCliente = function (id) {
+            bz.peticion = true;
             bz.pedidosC = [];
             bz.mostrarPedido = true;
 
             pedidosService.pedidosCliente(id).then(function (res) {
-                angular.forEach(res.data, function (valor, llave) {
-                    bz.pedidosC.push(valor);
-                })
-                bz.validarP = false;
+                bz.pedidosC = res.data;
             }).catch(function (res) {
-                bz.validarP = true;
+                bz.mostrarPedido = false;
                 notificacionService.mensaje('No existen pedidos de este cliente.');
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
         /* CAMBIAR ESTADO PEDIDO */
 
         bz.cambiarEstado = function (id, estado, index) {
+            bz.peticion = true;
             pedidosService.cambiarEstado(id, estado).then(function (res) {
                 notificacionService.mensaje('Estado Cambiado!');
                 bz.pedidosC[index].estado = estado;
+                bz.modInit = !bz.modInit;
             }).catch(function (res) {
                 notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
-        bz.activar = function (event) {
-            var elementosLista = document.querySelectorAll('.lista .elemento.true');
-            var elementoActual = event.currentTarget;
-
-            for (i = 0; i < elementosLista.length; i++) {
-                elementosLista[i].classList.remove('true');
-            }
-
-            elementoActual.classList.add('true');
+        bz.modFun = function (i) {
+            bz.modfire = i;
+            bz.modInit = !bz.modInit;
         }
 
+        bz.base64 = function (icono) {
+
+            return $base64.decode(icono);
+
+        }
 
     }])

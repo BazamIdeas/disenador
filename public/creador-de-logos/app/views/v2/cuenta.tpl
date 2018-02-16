@@ -1,9 +1,8 @@
-
         <section class="sub-header">
             <div class="row margin-bottom-0">
 
                 <div class="col s2 logo">
-                    <h5 class="secundario" ui-sref="comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
+                    <h5 class="secundario" ui-sref="principal.comenzar"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
                 </div>
                 <div class="col s8 texto">
                     <h5 class="principal"> MI CUENTA</h5>
@@ -17,7 +16,16 @@
 
 				<div class="col s3 offset-s1">
 					<div class="caja datos row">
-						<p class="text-center tercero margin-bottom-0 margin-top-0">MIS DATOS </p>
+						<div class="col s12 imagen-perfil" style="margin-top: 10px;">
+							<div ng-if="cuenta.datos.foto && cuenta.verificarBase64(cuenta.datos.foto)">
+                                <img ng-src="{{'data:image/svg+xml;base64,' + cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)"  ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}" ngf-fix-orientation="true" >
+                                <i class="material-icons">file_upload</i>
+                            </div>
+                            <div ng-if="cuenta.datos.foto && !cuenta.verificarBase64(cuenta.datos.foto)">
+                                <img ng-src="{{cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)"  ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}" ngf-fix-orientation="true" >
+                                <i class="material-icons">file_upload</i>
+                            </div>
+						</div>
 						<div class="col s12">
 							<span class="label">Correo</span>
 							<div class="info">

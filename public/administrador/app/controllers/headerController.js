@@ -11,8 +11,11 @@ angular.module("administrador")
             $rootScope.$broadcast("sesionExpiro");
             $state.go('login');
         }
+        
 
         /* VERIFICA SI EL USUARIO ESTA AUTORIZADO Y LO VIGILA */
+
+        bz.estado = $state.current.url.replace('/', '');
 
         bz.autorizado = clientesService.autorizado();
 
@@ -28,8 +31,16 @@ angular.module("administrador")
 
         });
 
-        bz.menuMostrar = function () {
-            bz.hmenuMostrar = !bz.hmenuMostrar;
+        $rootScope.$on('$stateChangeSuccess', function () {
+
+            bz.estado = jsUcfirst($state.current.url.replace('/', ''));
+
+        });
+
+
+        function jsUcfirst(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
         }
+
 
     }])

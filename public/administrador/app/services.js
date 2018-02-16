@@ -30,7 +30,7 @@ angular.module("administrador")
 
     }])
 
-    .service('clientesService', ['$http', '$q', '$window', '$rootScope', 'SweetAlert', "clienteDatosFactory", function ($http, $q, $window, $rootScope, SweetAlert, clienteDatosFactory) {
+    .service('clientesService', ['$http', '$q', '$window', '$rootScope', 'SweetAlert', "clienteDatosFactory", "$state", function ($http, $q, $window, $rootScope, SweetAlert, clienteDatosFactory, $state) {
 
 
         this.registrar = function (datos) {
@@ -63,13 +63,13 @@ angular.module("administrador")
 
                 .then(function (res) {
 
-                    $window.localStorage.setItem('bzToken', angular.toJson(res.data));
+                    $window.localStorage.setItem('bzTokenAdmin', angular.toJson(res.data));
                     clienteDatosFactory.definir(res.data);
                     defered.resolve();
 
                 })
-                .catch(function (res) {
-                    $window.localStorage.removeItem('bzToken');
+                .catch(function () {
+                    $window.localStorage.removeItem('bzTokenAdmin');
                     defered.reject()
                 })
 
@@ -158,9 +158,9 @@ angular.module("administrador")
 
             } else {
 
-                if ($window.localStorage.getItem('bzToken')) {
+                if ($window.localStorage.getItem('bzTokenAdmin')) {
 
-                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzTokenAdmin')));
 
                     return clienteDatosFactory.obtener();
 
@@ -176,11 +176,12 @@ angular.module("administrador")
 
         this.salir = function (desactivarAlerta) {
 
-            $window.localStorage.removeItem('bzToken')
+            $window.localStorage.removeItem('bzTokenAdmin')
             clienteDatosFactory.eliminar();
 
             if (!desactivarAlerta) {
                 SweetAlert.swal("¡Ups!", "Tu sesion ha expirado", "warning");
+                $state.go('login')
             }
         }
 
@@ -215,7 +216,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.get('/app/cliente/borrar/' + id).then(function (res) {
+            $http.post('/app/cliente/bloquear/' + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -589,11 +590,7 @@ angular.module("administrador")
         this.subidaMasiva = function (datos) {
 
             var defered = $q.defer();
-            var promise = defered.promise;
 
-            /* Ver si se envia el archivo */
-            console.log(datos)
-            
             Upload.upload({
                 url: '/app/elemento/masivo',
                 method: 'POST',
@@ -637,9 +634,25 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/plan', datos).then(function (res) {
+            var datosn = datos;
 
-                defered.resolve(res);
+            $http.post('/app/plan', datosn).then(function (res) {
+
+                angular.forEach(datosn.caracteristicas, function (valor) {
+                    valor.idPlan = res.data.insertId;
+                });
+
+                datosn.idPlan = res.data.insertId;
+
+                $http.post('/app/plan/caracteristicas/', datosn).then(function () {
+
+                    defered.resolve(datosn);
+
+                }).catch(function (res) {
+
+                    defered.reject(res);
+
+                })
 
             }).catch(function (res) {
 
@@ -806,19 +819,173 @@ angular.module("administrador")
 
     }])
 
+    /* SERVICIO PARA DISEÑADORES */
+
+    .service('designerService', ['$http', '$q', function ($http, $q) {
+
+        /***************************/
+        /**********LOGOS***********/
+        /***************************/
+
+        this.listarLogos = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            var datos = {
+                estado: 'Por Aprobar'
+            }
+
+            $http.post('/app/logos/por-aprobar', datos).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.aprobarLogo = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            var datos = {
+                idLogo: id
+            }
+
+            $http.post('/app/logo/aprobar', datos).then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+
+        }
+
+        this.borrarLogo = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/logo/borrar/' + id).then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.destacado = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/logo/destacar', datos).then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+        
+
+        this.calificarLogo = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            // idLogo, valor
+            $http.post('/app/logo/calificar-admin/', datos).then(function (res) {
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+            return promise;
+        }
+
+        /* DISENADORES */
+
+        this.listarDisenadores = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/clientes/freelancer').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.logosDisenador = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/logos/' + id + '/aprobados').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.historialDisenador = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/cliente/' + id + '/pagos').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        // TODO: RUTA MALA
+        this.notificarPago = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/cliente/pago', datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+            return promise;
+        }
+
+        this.bloquearDisenador = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/cliente/bloquear/' + id).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res);
+
+            })
+
+            return promise;
+        }
+
+    }])
+
     /* NOTIFICACION */
 
     .service('notificacionService', ['$http', '$q', '$mdToast', function ($http, $q, $mdToast) {
         this.mensaje = function (mensaje) {
-            $mdToast.show($mdToast.simple().textContent(mensaje).position('top right').hideDelay(3000));
+            $mdToast.show($mdToast.simple().textContent(mensaje).position('bottom right').hideDelay(3000));
         }
     }])
 
-
     .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
-
-            $rootScope.$broadcast('sesionExpiro', "true");
+            $rootScope.$broadcast("sesionExpiro");
         }
 
         function autorizado() {
@@ -826,7 +993,7 @@ angular.module("administrador")
                 $rootScope.$broadcast('sesionInicio', "true")
                 return clienteDatosFactory.obtener();
             } else {
-                if ($window.localStorage.getItem('bzToken')) {
+                if ($window.localStorage.getItem('bzTokenAdmin')) {
 
 
                     $rootScope.$broadcast('sesionInicio', "true")
@@ -862,7 +1029,6 @@ angular.module("administrador")
 
                 if (response.status === 401 || response.status === 403) {
                     salir();
-
 
                 }
 
@@ -1205,7 +1371,7 @@ angular.module("administrador")
 
     }])
 
-        .filter('unique', function () {
+    .filter('unique', function () {
 
         return function (items, filterOn) {
 
@@ -1214,7 +1380,6 @@ angular.module("administrador")
             }
 
             if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-                var hashCheck = {},
                     newItems = [];
 
                 var extractValueToCompare = function (item) {
@@ -1226,7 +1391,7 @@ angular.module("administrador")
                 };
 
                 angular.forEach(items, function (item) {
-                    var valueToCheck, isDuplicate = false;
+                    var isDuplicate = false;
 
                     for (var i = 0; i < newItems.length; i++) {
                         if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
@@ -1244,6 +1409,37 @@ angular.module("administrador")
             return items;
         };
     })
+
+    .value("caracteristicasValue", [{
+        clave: 'resolucion',
+        valor: false,
+        descripcion: 'Logo en Alta Resolución.'
+    }, {
+        clave: 'png',
+        valor: false,
+        descripcion: 'Archivo Png Transparente.'
+    }, {
+        clave: 'licencia',
+        valor: false,
+        descripcion: 'Licencia comercial.'
+    }, {
+        clave: 'copia',
+        valor: false,
+        descripcion: 'Copia de seguridad de por vida.'
+    }, {
+        clave: 'tamanios',
+        valor: false,
+        descripcion: 'Tamaño del logo adaptado a papeleria y redes sociales.'
+    }, {
+        clave: 'editable',
+        valor: false,
+        descripcion: 'Archivo editable con la  tipografia incluida.'
+    }, {
+        clave: 'manual',
+        valor: false,
+        descripcion: 'Manual de marca.'
+    }])
+
     .value("monedasValue", {
         "USD": {
             "symbol": "$",

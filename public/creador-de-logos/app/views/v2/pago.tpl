@@ -101,7 +101,7 @@
 										</div>
 										<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
 											Stripe es torito
-											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-clicl="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
+											<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
 										</div>
 									</div>
                                     <!--PayU-->

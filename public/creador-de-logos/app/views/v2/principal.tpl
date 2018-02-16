@@ -42,7 +42,7 @@
             <div class="row margin-bottom-0">
                 <form class="margin-bottom-0">
                     <div class="col l2 sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="principal.jqueryScrollbarOptions" ng-form="principal.datosForm">
-                        <div class="input-field col s12">
+                        <div class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo" data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1" bazam-pasos-ayuda>
                             <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
                             <label for="nombre" class="active">Nombre</label>
                         </div>
@@ -52,22 +52,24 @@
                             <label for="slogan">Slogan</label>
                         </div> 
                         -->
-
-						<md-input-container style="width:100%; padding: 0 0.75rem" >
-						  	<md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
-						    	<md-option class="iconos" ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-						  	</md-select>
-						</md-input-container>
+                        <div>
+                            <md-input-container style="width:100%; padding: 0 0.75rem" bazam-ayuda data-titulo="Categoria" data-texto="Seleccione la categoria o actividad de su empresa u ocupación" data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2" bazam-pasos-ayuda>
+                                <md-select ng-model="principal.datos.categoria.icono" placeholder="Categoria" required> 
+                                    <md-option class="iconos" ng-repeat="categoria in principal.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            
+                            <md-input-container style="width:100%; padding: 0 0.75rem" bazam-ayuda data-titulo="Estilo de fuente" data-texto="Escoja el estilo de fuente de su agrado" data-clases="['corner-lt']" data-identificador="ayuda-categoria-fuente" data-orientacion="right" data-paso="3" bazam-pasos-ayuda data-apaso="3">
+                                <md-select ng-style="{'font-family': principal.seleccionarFuenteCategoria(principal.datos.categoria.fuente)}" class="cat-fuente" ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
+                                    <md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
                         
-                        <md-input-container style="width:100%; padding: 0 0.75rem" >
-						  	<md-select ng-style="{'font-family': principal.seleccionarFuenteCategoria(principal.datos.categoria.fuente)}" class="cat-fuente" ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
-						    	<md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-						  	</md-select>
-						</md-input-container>
-                        
 
-                        <div class=" col s12 preferencias">
-                            <p class="text-center principal" style="margin-top: 1rem;">Preferencias</p>
+
+                        <div class=" col s12 preferencias" bazam-ayuda data-titulo="Preferencias" data-texto="Elija las caracteristicas que desea trasmitir con su logo" data-clases="['corner-lt']"  data-identificador="ayuda-preferencias" data-orientacion="right" data-paso="4" bazam-pasos-ayuda>
+                            <p class="text-center principal" style="margin-top: 1rem;" >Preferencias</p>
                                 
                             <div class="slider-input" ng-repeat="preferencia in principal.datos.preferencias track by $index">                            
                                 <p class="label-slider-input-left">{{preferencia.nombre1}}</p> 
@@ -117,7 +119,9 @@
             </div>
         </section>
 
-        <div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
+        <bazam-form-login data-mostrar="principal.mostrarModalLogin" data-tipo-logo="principal.objetivoEditor" data-logo="principal.logoSeleccionado" data-logo-predisenado="principal.predisenadoSeleccionado" data-callback="[principal.avanzar, principal.avanzarPredisenado]"></bazam-form-login>
+
+        <!--<div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
             <div class="row margin-bottom-0">
                 <div class="col s6 offset-s3">
 
@@ -167,13 +171,19 @@
                                         </div>
 	                                </div>
 	                                <div class="input-field col s12">
-	                                    <input id="correo2" type="email" name="correo" ng-model="principal.datosRegistro.correo" required>
+	                                    <input id="correo2" type="email" name="correo" ng-model="principal.datosRegistro.correo" bazam-mail required>
 	                                    <label for="correo2">Correo</label>
                                         
                                         <div ng-messages="principal.registroForm.correo.$error" ng-if="principal.registroForm.$submitted || principal.registroForm.correo.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="email">Debe ser un email válido.</div>
+                                            <div ng-message="disponible">Este email no esta disponible.</div>
                                         </div>
+                                        <div ng-messages="principal.registroForm.correo.$pending">
+                                            <div ng-message="disponible">Verificando la disponibilidad del email.</div>
+                                        </div>
+
+
                                         
 	                                </div>
 	                                <div class="input-field col s12">
@@ -215,3 +225,5 @@
                 </div>
             </div>
         </div>
+
+    -->

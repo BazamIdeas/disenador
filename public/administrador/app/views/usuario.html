@@ -14,23 +14,20 @@
                             <input type="text" ng-model="usuario.buscar" class="md-block" aria-label="filtro" placeholder="Buscar:">
                         </md-input-container>
                     </div>
-                    <div class="tabla">
-                        <div style="flex:0.2;">N°:</div>
-                        <div>Nombre:</div>
-                        <div style="flex:2;">Correo:</div>
-                        <div>Acciones:</div>
-                    </div>
-                    <div layout="column" class="content-scroll">
-                        <div layout layout-align="center" ng-show="usuario.loaderMostrar" class="margen_superior">
-                            <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
-                        </div>
-                        <div ng-repeat="elemento in usuario.usuarios | filter:usuario.buscar | orderBy:'idUsuario'" class="elemento">
-                            <div class="tabla-campo">
-                                <div style="flex:0.2;">{{$index}}</div>
-                                <div class="nombre">{{elemento.nombreUser}}</div>
-                                <div style="flex:2;">{{elemento.correo}}</div>
-                                <div>
-                                    <md-button class="md-fab md-mini md-warn" ng-click="usuario.eliminarU(elemento.idUsuario, $index)">
+
+                    <div class="w3-responsive content-scroll">
+                        <table class="w3-table w3-bordered">
+                            <tr>
+                                <th>Nombre:</th>
+                                <th>Correo:</th>
+                                <th>Acciones:</th>
+                            </tr>
+                            <tr ng-repeat="elemento in usuario.usuarios | filter:usuario.buscar | orderBy:'idUsuario'">
+                                <td>{{elemento.nombreUser}}</td>
+                                <td>{{elemento.correo}}</td>
+                                <td>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="usuario.eliminarU(elemento.idUsuario, $index)" ng-disabled="usuario.peticion"
+                                        ng-if="elemento.nombreUser != usuario.actual">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Eliminar</md-tooltip>
                                         <md-icon class="material-icon">delete</md-icon>
                                     </md-button>
@@ -38,9 +35,9 @@
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                                         <md-icon class="material-icon">edit</md-icon>
                                     </md-button>
-                                </div>
-                            </div>
-                        </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -55,14 +52,13 @@
                     <form id="formularioRegistro" name="formRegistro" ng-submit="usuario.registrarU(usuario.datos.registrar, formRegistro.$valid)"
                         novalidate>
                         <div layout="column" layout-align="space-between">
-                            <h3 class="text-center">Registrar</h3>
                             <div>
                                 <md-input-container class="md-block">
                                     <label>Nombre</label>
                                     <input type="text" ng-model="usuario.datos.registrar.nombreUser" name="nombre" required>
                                 </md-input-container>
                                 <!-- VALIDACION -->
-                                <div ng-messages="formRegistro.nombreUser.$error" style="color:maroon" role="alert" ng-show="formRegistro.$submitted">
+                                <div ng-messages="formRegistro.nombre.$error" style="color:maroon" role="alert" ng-show="formRegistro.$submitted">
                                     <div ng-message="required">Este campo es requerido.</div>
                                 </div>
                                 <md-input-container class="md-block">
@@ -85,7 +81,7 @@
                                 </div>
                             </div>
                             <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
+                                <md-button ng-disabled="usuario.peticion" class="md-raised md-primary" type="submit">Registrar</md-button>
                             </div>
                             <div layout layout-align="center" ng-show="usuario.loaderCargando" class="margen_superior">
                                 <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
@@ -96,6 +92,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-show="usuario.mostrarMo">
         <div class="paneles md-whiteframe-2dp listar">
 
@@ -107,35 +104,30 @@
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>
             </div>
+
             <div layout-padding class="formularios-login pasos">
                 <form id="formularioModificar" name="formModificar" ng-submit="usuario.modificarU(usuario.datos.modificar, formModificar.$valid)"
                     novalidate>
-                    <div layout="column" layout-align="space-between">
-                        <h3 class="text-center">Modificar {{usuario.uMod}}</h3>
-                        <div>
-                            <md-input-container class="md-block">
-                                <label>Nombre</label>
-                                <input type="text" ng-model="usuario.datos.modificar.nombreUser" name="nombre" required>
-                            </md-input-container>
-                            <!-- VALIDACION -->
-                            <div ng-messages="formModificar.nombreUser.$error" style="color:maroon" role="alert" ng-show="formModificar.$submitted" required>
-                                <div ng-message="required">Este campo es requerido.</div>
-                            </div>
-                            <md-input-container class="md-block">
-                                <label>Contraseña</label>
-                                <input type="password" ng-model="usuario.datos.modificar.pass" name="pass" required>
-                            </md-input-container>
-                            <!-- VALIDACION -->
-                            <div ng-messages="formModificar.pass.$error" style="color:maroon" role="alert" ng-show="formModificar.$submitted" required>
-                                <div ng-message="required">Este campo es requerido.</div>
-                            </div>
-                            <div layout>
-                                <md-button class="md-raised md-primary" type="submit">Enviar</md-button>
-                            </div>
-                            <div layout layout-align="center" ng-show="usuario.loaderCargando" class="margen_superior">
-                                <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
-                            </div>
-                        </div>
+                    <md-input-container class="md-block">
+                        <label>Nombre</label>
+                        <input type="text" ng-model="usuario.datos.modificar.nombreUser" name="nombre" required ng-value="usuario.uMod">
+                    </md-input-container>
+                    <!-- VALIDACION -->
+                    <div ng-messages="formModificar.nombre.$error" style="color:maroon" role="alert" ng-show="formModificar.$submitted" required>
+                        <div ng-message="required">Este campo es requerido.</div>
+                    </div>
+                    <md-input-container class="md-block">
+                        <label>Contraseña</label>
+                        <input type="password" ng-model="usuario.datos.modificar.pass" name="pass" required>
+                    </md-input-container>
+                    <!-- VALIDACION -->
+                    <div ng-messages="formModificar.pass.$error" style="color:maroon" role="alert" ng-show="formModificar.$submitted" required>
+                        <div ng-message="required">Este campo es requerido.</div>
+                    </div>
+                    <br>
+                    <md-button ng-disabled="usuario.peticion" class="md-raised md-primary" type="submit">Modificar</md-button>
+                    <div layout layout-align="center" ng-show="usuario.loaderCargando" class="margen_superior">
+                        <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
                     </div>
                 </form>
             </div>

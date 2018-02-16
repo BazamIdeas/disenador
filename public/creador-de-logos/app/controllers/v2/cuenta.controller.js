@@ -1,112 +1,128 @@
 angular.module("disenador-de-logos")
 
-    /* Editor */
+	.controller("cuentaController", ["$scope", "$state", "pedidosService", "clientesService", "$mdToast", "paisesValue", "verificarBase64Factory", function ($scope, $state, pedidosService, clientesService, $mdToast, paisesValue, verificarBase64Factory) {
 
-    .controller('cuentaController', ["$scope", "$state", "pedidosService", "clientesService", "$mdToast", "paisesValue", function ($scope, $state, pedidosService, clientesService, $mdToast, paisesValue) {
+		var bz = this;
 
-        var bz = this;
+		bz.formulario = 1;
 
-        bz.formulario = 1;
-
-        bz.paises = paisesValue;
-
-        bz.pedidos = [];
-        bz.datos = {};
-        bz.datosEspejo = {};
-
-        clientesService.datos().then(function (res) {
-
-            bz.datos = res;
-
-        });
-
-        pedidosService.listarPedidos().then(function (res) {
-
-            angular.forEach(res, function (valor, indice) {
-
-                if (valor.estado != "EN ESPERA") {
-                    bz.pedidos.push(valor)
-                }
-
-            });
-
-        });
-
-
-        bz.editar = function (datos) {
-
-            bz.datosEspejo = angular.copy(datos);
-            bz.formulario = 2;
-
-        }
+		bz.paises = paisesValue;
         
-        
-        bz.completado = true;
-        
-        bz.guardar = function (datos, valido) {
+		bz.verificarBase64 = verificarBase64Factory;
 
-            if (valido && bz.completado) {
-                
-                bz.completado = false;
-                
-                clientesService.modificar(datos.nombreCliente, datos.telefono, datos.pais)
+		bz.pedidos = [];
+		bz.datos = {};
+		bz.datosEspejo = {};
 
-                    .then(function (res) {
+		clientesService.datos().then(function (res) {
 
-                        bz.datos = angular.copy(datos);
-                        bz.formulario = 1;
+			bz.datos = res;
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+		});
 
-                                var temporizador = $timeout(function () {
-                                    $mdToast.hide();
-                                }, 2000)
+		pedidosService.listarPedidos().then(function (res) {
 
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-                                }
-                        }],
-                            templateUrl: 'toast-success-cuenta-modify.html'
-                        });
+			angular.forEach(res, function (valor) {
 
-                    })
-                    .catch(function () {
+				if (valor.estado != "EN ESPERA") {
+					bz.pedidos.push(valor);
+				}
 
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+			});
 
-                                var temporizador = $timeout(function () {
-                                    $mdToast.hide();
-                                }, 2000)
+		});
 
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
-                                }
-                        }],
-                            templateUrl: 'toast-danger-cuenta-modify.html'
-                        });
-                    })
-                    .finally(function(){
-                    
-                        bz.completado = true;
-                    
-                    })
 
-            }
+		bz.editar = function (datos) {
 
-        }
+			bz.datosEspejo = angular.copy(datos);
+			bz.formulario = 2;
 
-        $scope.$on('sesionExpiro', function (event, data) {
+		};
 
-            $state.go('principal.comenzar');
 
-        });
+		bz.completado = true;
 
-    }])
+		bz.guardar = function (datos, valido) {
+
+			if (valido && bz.completado) {
+
+				bz.completado = false;
+
+				clientesService.modificar(datos.nombreCliente, datos.telefono, datos.pais)
+
+					.then(function () {
+
+						bz.datos = angular.copy(datos);
+						bz.formulario = 1;
+
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "¡Datos modificados!",
+								clase: "success"
+							}
+						}));
+
+					})
+					.catch(function () {
+
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Un error ha ocurrido",
+								clase: "danger"
+							}
+						}));
+
+					})
+					.finally(function () {
+
+						bz.completado = true;
+
+					});
+
+			}
+
+		};
+		bz.fotoCargaCompletada = true;
+		bz.cargarFoto = function(imagen){
+			if(imagen){
+				if(bz.fotoCargaCompletada){
+					bz.fotoCargaCompletada = false;
+			
+					clientesService.avatar(imagen)
+						.then(function(res){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "¡Foto de Perfil Cargada!",
+									clase: "success"
+								}
+							}));
+							bz.datos.foto = res;
+						})
+						.catch(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Error al cargar la foto",
+									clase: "danger"
+								}
+							}));
+
+						})
+						.finally(function(){
+
+							bz.fotoCargaCompletada = true;
+						});
+				}
+			}
+		};
+
+
+
+
+		$scope.$on("sesionExpiro", function () {
+
+			$state.go("principal.comenzar");
+
+		});
+
+	}]);

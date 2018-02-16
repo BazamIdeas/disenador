@@ -23,6 +23,92 @@ logo.getLogos = function(callback)
 	});
 }
 
+logo.getLogosPorAprobar = function(par,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Por Aprobar" ORDER BY idLogo'  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par, function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+logo.getLogosAprobados = function(id,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" AND destacado = 0 AND idLogo > ? ORDER BY idLogo LIMIT 12';  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query(q, [id], function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+logo.getLogosAprobadosPorCliente = function(id,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" AND clientes_idCliente = ? ORDER BY idLogo';  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query(q, [id], function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+logo.getLogosVendidosPorCliente = function(id,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Vendido" AND clientes_idCliente = ? ORDER BY idLogo';  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query(q, [id], function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+logo.getLogosAprobadosDestacados = function(callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" and destacado = 1 ORDER BY RAND() LIMIT 12';  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+
 //obtenemos los logos guardados o comprados por un cliente
 logo.getLogosTipo = function(par,callback)
 {
@@ -70,7 +156,7 @@ logo.updateLogo = function(logoData, callback)
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
 		  	if(err)	throw err;
 
@@ -91,7 +177,27 @@ logo.cambiarEstado = function(logoData, callback)
 	
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
+	  	
+		  	if(err)	throw err;
+
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	
+		  	connection.release();
+		});
+
+	  
+	});
+}
+
+logo.Destacar = function(logoData, callback)
+{
+	var q = 'UPDATE logos SET destacado = ? WHERE idLogo = ?';
+	var par = logoData 
+	
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err){
 	  	
 		  	if(err)	throw err;
 
@@ -141,8 +247,7 @@ logo.Borrar = (id, callback) =>
 
 logo.getLogo = function(par,callback)
 { 
-	var q = 'SELECT * FROM logos WHERE clientes_idCliente = ? AND idLogo = ?' 
-	//console.log(par)
+	var q = 'SELECT * FROM logos WHERE clientes_idCliente = ? AND idLogo = ?';
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par , function(err, row){

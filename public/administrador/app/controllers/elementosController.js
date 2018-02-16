@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert) {
+    .controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64) {
 
         var bz = this;
 
@@ -11,6 +11,7 @@ angular.module("administrador")
         bz.listar = {};
 
         bz.mostrar = function (tipo) {
+            bz.peticion = true;
             if (tipo == 'ICONO') {
                 bz.rIcono = !bz.rIcono;
                 return bz.listarCategorias(tipo);
@@ -19,8 +20,18 @@ angular.module("administrador")
             bz.listarCategorias(tipo);
         }
 
+        bz.base64 = function (icono) {
 
-        bz.nuevaFuente = function (datos) {
+            return $base64.decode(icono);
+
+        };
+
+
+        bz.nuevaFuente = function (datos, v) {
+            if (!v) {
+                return notificacionService.mensaje('Rellene los campos de forma correcta!');
+            }
+            bz.peticion = true;
             bz.valMulFonts = true;
             if (bz.regFmArchivos) {
                 return bz.subidaMasiva(datos);
@@ -31,12 +42,18 @@ angular.module("administrador")
                     datos.tipo = 'FUENTE';
                     bz.valMulFonts = false;
                 }).catch(function (res) {
-                    console.log(res)
+                    notificacionService.mensaje(res);
+                }).finally(function () {
+                    bz.peticion = false;
                 })
             }
         }
 
-        bz.nuevoIcono = function (datos) {
+        bz.nuevoIcono = function (datos, v) {
+            if (!v) {
+                return notificacionService.mensaje('Rellene los campos de forma correcta!');
+            }
+            bz.peticion = true;
             bz.valMulIcons = true;
             if (bz.regImArchivos) {
                 return bz.subidaMasiva(datos);
@@ -48,6 +65,8 @@ angular.module("administrador")
                     bz.valMulIcons = false;
                 }).catch(function (res) {
                     console.log(res)
+                }).finally(function () {
+                    bz.peticion = false;
                 })
             }
         }
@@ -58,17 +77,22 @@ angular.module("administrador")
                 bz.valMulFonts = false;
                 bz.valMulIcons = false;
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
         bz.listado = function (tipo) {
+            bz.peticion = true;
             bz.listar.tipo = tipo;
 
             iconoFuente.listar(bz.listar).then(function (res) {
                 bz.elementos = res.data;
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
@@ -76,8 +100,9 @@ angular.module("administrador")
         bz.preferencias = [];
 
         bz.listarCategorias = function (tipoCategoria) {
+            bz.peticion = true;
             bz.tipoListado = tipoCategoria;
-            datos = {
+            var datos = {
                 tipo: tipoCategoria
             }
             categoriasService.listarCategorias(datos).then(function (res) {
@@ -87,12 +112,14 @@ angular.module("administrador")
                     return notificacionService.mensaje('No hay categorias.');
                 }
                 bz.categorias = res.data;
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
 
 
         categoriasService.listarPreferencias().then(function (res) {
-            angular.forEach(res.data, function (valor, llave) {
+            angular.forEach(res.data, function (valor) {
                 valor.valor = 2;
                 bz.preferencias.push(valor);
             })
@@ -108,11 +135,14 @@ angular.module("administrador")
         }
 
         bz.modificarElemento = function (datos) {
+            bz.peticion = true;
             iconoFuente.modificarPreferencias(datos).then(function (res) {
                 bz.mod = false;
                 SweetAlert.swal("Genial", res.data.result, "success");
             }).catch(function (res) {
-                console.log(res)
+                notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
             })
         }
     }])

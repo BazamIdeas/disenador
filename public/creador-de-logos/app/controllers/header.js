@@ -1,41 +1,38 @@
 angular.module("disenador-de-logos")
 
-    /* header */
+/* header */
 
-    .controller('headerController', ["$state", 'clientesService', '$rootScope', '$scope', function ($state, clientesService, $rootScope, $scope) {
+	.controller("headerController", ["$state", "clientesService", "$rootScope", "$scope", "mostrarPasoPopAyudaFactory", function ($state, clientesService, $rootScope, $scope, mostrarPasoPopAyudaFactory) {
 
-        var bz = this;
+		var bz = this;
 
-        bz.salir = function () {
-            clientesService.salir(true, true);
-        }
+		bz.salir = function () {
+			clientesService.salir(true, true);
+		};
     
-        bz.autorizado = clientesService.autorizado();
+		bz.autorizado = clientesService.autorizado();
         
-        
-        
-        bz.menuMostrar = function () {
-            if (bz.hmenuMostrar) {
-                bz.hmenuMostrar = false;
-            } else {
-                bz.hmenuMostrar = true;
-            }
-        }
-        
+		bz.mostrarPasoPopAyuda = mostrarPasoPopAyudaFactory
+		
+		bz.menuMostrar = function () {
+			if (bz.hmenuMostrar) {
+				bz.hmenuMostrar = false;
+			} else {
+				bz.hmenuMostrar = true;
+			}
+		};
+
+		$scope.$on("sesionExpiro", function () {
+
+			bz.autorizado = clientesService.autorizado();
+
+		});
+
+		$scope.$on("sesionInicio", function () {
+
+			bz.autorizado = clientesService.autorizado();
+
+		});
 
 
-        $scope.$on('sesionExpiro', function (event, data) {
-
-
-            bz.autorizado = clientesService.autorizado();
-
-        });
-
-        $scope.$on('sesionInicio', function (event, data) {
-
-            bz.autorizado = clientesService.autorizado();
-
-        });
-
-
-}])
+	}]);

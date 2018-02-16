@@ -1,477 +1,530 @@
 angular.module("disenador-de-logos")
 
-    /* Editor */
+	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory) {
 
-    .controller('editorController', ['$scope', '$stateParams', '$state', '$base64', 'categoriasService', 'logosService', 'clientesService', "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService) {
+		var bz = this;
 
-        var bz = this;
+		bz.base64 = $base64;
 
-        bz.base64 = $base64;
+		bz.cuadricula = false;
+		bz.borradores = false;
+		bz.preview = false;
+		bz.busquedaIconos = false;
+		bz.colorFondo = historicoResolve.color ?  coloresFactory(historicoResolve.color) : "rgb(236,239,240)";
+		bz.colorTexto = historicoResolve.color || "#000";
+		bz.colorEslogan = "#000";
+		bz.colorIcono = historicoResolve.color || "#000";
 
-        bz.cuadricula = false;
-        bz.borradores = false;
-        bz.preview = false;
-        bz.busquedaIconos = false;
-        bz.colorFondo = "rgb(236,239,240)";
-        bz.colorTexto = "#000";
-        bz.colorEslogan = "#000";
-        bz.colorIcono = "#000";
+		bz.logo = historicoResolve.logo;
 
-        bz.logo = historicoResolve.logo;
+		if (!historicoResolve.idLogoGuardado) { //si no es un logo guardado
 
-        if (!historicoResolve.idLogoGuardado) { //si no es un logo guardado
+			bz.logo.texto = historicoResolve.texto;
+			bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
 
-            bz.logo.texto = historicoResolve.texto;
-            bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
+		} else if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
+		
+			bz.logo.idLogo = historicoResolve.idLogoGuardado;
+		}
 
-        } else if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
-            /*bz.logo.fuente = {
-                url: historicoResolve.fuentes.principal.url,
-                nombre: historicoResolve.fuentes.principal.nombre
-            };
-            
-            if(historicoResolve.fuentes.eslogan){
-                bz.logo.fuenteEslogan = {
-                    url: historicoResolve.fuentes.eslogan.url,
-                    nombre: historicoResolve.fuentes.eslogan.nombre
-                };
-            }*/
-            bz.logo.idLogo = historicoResolve.idLogoGuardado;
-        }
+		/* CATEGORIAS EXISTENTES */
 
-        /* CATEGORIAS EXISTENTES */
+		bz.categoriasPosibles = [];
 
-        bz.categoriasPosibles = [];
+		categoriasService.listaCategorias("ICONO").then(function (res) {
 
-        categoriasService.listaCategorias('ICONO').then(function (res) {
+			angular.forEach(res, function (valor) {
 
-            angular.forEach(res, function (valor, llave) {
+				bz.categoriasPosibles.push(valor);
 
-                bz.categoriasPosibles.push(valor);
+			});
 
-            })
-
-        })
+		});
 
 
-        elementosService.listarFuentes().then(function (res) {
+		elementosService.listarFuentes().then(function (res) {
 
-            bz.fuentes = res;
+			bz.fuentes = res;
 
-            if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
-                
-                angular.forEach(bz.fuentes, function (valor, llave) {
+			if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
 
-                    if(valor.idElemento == historicoResolve.fuentes.principal){
-                        
-                        bz.logo.fuente = {
-                            url: valor.url,
-                            nombre: valor.nombre
-                        };
-                        
-                    } 
+				angular.forEach(bz.fuentes, function (valor) {
+
+					if (valor.idElemento == historicoResolve.fuentes.principal) {
+
+						bz.logo.fuente = {
+							url: valor.url,
+							nombre: valor.nombre
+						};
+
+					}
+
+					if (valor.idElemento == historicoResolve.fuentes.eslogan) {
+
+						bz.logo.fuenteEslogan = {
+							url: valor.url,
+							nombre: valor.nombre
+						};
+
+						bz.esloganActivo = true;
+
+					}
+
+				});
+
+
+			}
+
+		});
+
+
+
+		bz.completadoGuardar = true;
+
+		bz.guardarLogo = function (logo, tipoLogo, idElemento) {
+
+			if (bz.completadoGuardar) {
+
+				bz.completadoGuardar = false;
+
+				var fuentesId = {
+					principal: null,
+					eslogan: null
+				};
+
+				angular.forEach(bz.fuentes, function (fuente) {
+
+					if (bz.logo.fuente && (bz.logo.fuente.url == fuente.url)) {
+
+						fuentesId.principal = fuente.idElemento;
+
+					}
+
+					if (bz.logo.fuenteEslogan && (bz.logo.fuenteEslogan.url == fuente.url)) {
+
+						fuentesId.eslogan = fuente.idElemento;
+
+					}
+				});
+				//CONDICION PARA GUARDAR UN LOGO, VERIFICANDO SU PREVIA EXISTENCIA
+				if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
+					logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, "Borrador").then(function (res) {
+						bz.logo.idLogo = res;
+
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Su logo ha sido guardado con exito!",
+								clase: "success"
+							}
+						}));
+
+
+					}).catch(function () {
+
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Un error ha ocurrido",
+								clase: "danger"
+							}
+						}));
+
+					}).finally(function () {
+
+						bz.completadoGuardar = true;
+
+					});
+				} else { //si es un logo guardado
+
+					logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, fuentesId.principal, fuentesId.eslogan).then(function () {
+
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Su logo ha sido guardado con exito!",
+								clase: "success"
+							}
+						}));
+
+
+					}).catch(function () {
+
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Un error ha ocurrido",
+								clase: "danger"
+							}
+						}));
+
+					}).finally(function () {
+
+						bz.completadoGuardar = true;
+
+					});
+
+				}
+			}
+
+		};
+
+
+		bz.activarCuadricula = function () {
+
+			bz.cuadricula = !bz.cuadricula;
+
+		};
+
+		bz.mostrarBorradores = function () {
+
+			if (bz.borradores) {
+
+				bz.borradores = false;
+
+			} else {
+
+				bz.preview = false;
+				bz.busquedaIconos = false;
+				bz.borradores = true;
+
+			}
+
+		};
+
+		bz.mostrarPreviews = function () {
+
+			if (bz.preview) {
+
+				bz.preview = false;
+
+			} else {
+
+				bz.preview = true;
+				bz.busquedaIconos = false;
+				bz.borradores = false;
+
+			}
+
+		};
+
+		bz.buscarPlanes = function () {
+
+			$rootScope.$broadcast("editor:planes", true);
+
+		};
+
+		$scope.$on("directiva:planes", function (evento, datos) {
+
+			if (bz.completadoGuardar) {
+
+				bz.completadoGuardar = false;
+
+				var logo = datos.svg;
+				var idFuente = null;
+				var idFuenteEslogan = null;
+
+				angular.forEach(bz.fuentes, function (valor) {
+
+					if (valor.url == bz.logo.fuente.url) {
+
+						idFuente = valor.idElemento;
+
+					}
+
+					if (bz.logo.fuenteEslogan && (valor.url == bz.logo.fuenteEslogan.url)) {
+
+						idFuenteEslogan = valor.idElemento;
+					}
+
+				});
+
+				//CONDICION PARA GUARDAR UN LOGO, VERIFICANDO SU PREVIA EXISTENCIA
+				if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
+
+					logosService.guardarLogo(bz.base64.encode(logo), "Logo y nombre", bz.logo.icono.idElemento, idFuente, idFuenteEslogan, "Por Aprobar")
                     
-                    if(valor.idElemento == historicoResolve.fuentes.eslogan){
+						.then(function (res) {
+
+							bz.logo.idLogo = res;
+
+							logosService.publicar(bz.logo.idLogo, datos.colores)
                         
-                        bz.logo.fuenteEslogan = {
-                            url: valor.url,
-                            nombre: valor.nombre
-                        };
-                        
-                        bz.esloganActivo = true;
-                        
-                    }
+								.then(function () {
 
-                })
+									$state.go("publicado", {
+										id: bz.logo.idLogo,
+										status: true,
+										colores: datos.colores
+									});
 
+								})
+								.catch(function () {
 
-            }
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "Un error ha ocurrido",
+											clase: "danger"
+										}
+									}));
 
-        })
+								})
+								.finally(function () {
 
+									bz.completadoGuardar = true;
 
+								});
 
-        bz.completadoGuardar = true;
 
-        bz.guardarLogo = function (logo, tipoLogo, idElemento) {
+						}).catch(function () {
 
-            if (bz.completadoGuardar) {
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
 
-                bz.completadoGuardar = false;
 
-                var fuentesId = {
-                    principal: null,
-                    eslogan: null
-                }
 
-                angular.forEach(bz.fuentes, function (fuente, llave) {
+						}).finally(function () {
 
-                    if (bz.logo.fuente && (bz.logo.fuente.url == fuente.url)) {
+							bz.completadoGuardar = true;
 
-                        fuentesId.principal = fuente.idElemento;
+						});
+				} else { //si es un logo guardado
 
-                    }
+					logosService.publicar(bz.logo.idLogo, datos.colores).then(function () {
 
-                    if (bz.logo.fuenteEslogan && (bz.logo.fuenteEslogan.url == fuente.url)) {
+						$state.go("publicado", {
+							id: bz.logo.idLogo,
+							status: true,
+							colores: datos.colores
+						});
 
-                        fuentesId.eslogan = fuente.idElemento;
+					}).catch(function () {
 
-                    }
-                })
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Un error ha ocurrido",
+								clase: "danger"
+							}
+						}));
 
-                if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
-                    logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan).then(function (res) {
-                        bz.logo.idLogo = res;
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+					}).finally(function () {
 
-                                var temporizador = $timeout(function () {
+						bz.completadoGuardar = true;
 
-                                    $mdToast.hide();
+					});
+				}
 
-                                }, 2000)
+			}
+		});
 
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
 
-                                }
-                        }],
-                            templateUrl: 'toast-success-logo-save.html'
-                        });
+		/////////////////////////////////////
+		//////////CAMBIO DE COLOR////////////
+		/////////////////////////////////////
 
+		bz.cambioColor = function (color, objetivo) {
 
-                    }).finally(function () {
+			$rootScope.$broadcast("editor:color", {
+				color: color,
+				objetivo: objetivo
+			});
 
-                        bz.completadoGuardar = true;
+		};
+		if(historicoResolve.color){
+			$timeout(function(){
+				bz.cambioColor( historicoResolve.color, "texto");
+			}, 10);
+		}
 
-                    })
-                } else { //si es un logo guardado
+		/////////////////////////////////////
+		//////////CAMBIO DE TEXTO////////////
+		/////////////////////////////////////        
 
-                    logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, fuentesId.principal, fuentesId.eslogan).then(function (res) {
+		bz.cambioTexto = function (texto, eslogan) {
 
-                        console.log(res)
-                        $mdToast.show({
-                            hideDelay: 0,
-                            position: 'top right',
-                            controller: ["$scope", "$mdToast", "$timeout", function ($scope, $mdToast, $timeout) {
+			$rootScope.$broadcast("editor:texto", {
+				texto: texto,
+				eslogan: eslogan
+			});
 
-                                var temporizador = $timeout(function () {
+		};
 
-                                    $mdToast.hide();
 
-                                }, 2000)
+		/////////////////////////////////////
+		/////////CAMBIO DE FUENTE////////////
+		///////////////////////////////////// 
 
-                                $scope.closeToast = function () {
-                                    $timeout.cancel(temporizador)
-                                    $mdToast.hide();
+		bz.cambioFuente = function (fuente, objetivo) {
 
-                                }
-                        }],
-                            templateUrl: 'toast-success-logo-save.html'
-                        });
+			$rootScope.$broadcast("editor:fuente", {
+				fuente: angular.copy(fuente),
+				objetivo: objetivo
+			});
 
+		};
 
-                    }).finally(function () {
+		/////////////////////////////////////
+		////////CAMBIO DE PROPIEDAS//////////
+		///////////////////////////////////// 
 
-                        bz.completadoGuardar = true;
+		bz.cambioPropiedad = function (propiedad, eslogan) {
 
-                    })
+			$rootScope.$broadcast("editor:propiedad", {
+				propiedad: propiedad,
+				eslogan: eslogan
+			});
 
-                }
-            }
+		};
 
-        }
+		/////////////////////////////////////
+		/////////CAMBIO DE TAMAÑO////////////
+		///////////////////////////////////// 
 
+		bz.cambioTamano = function (objetivo, accion) {
 
-        bz.activarCuadricula = function () {
+			$rootScope.$broadcast("editor:tamano", {
+				objetivo: objetivo,
+				accion: accion
+			});
 
-            bz.cuadricula = !bz.cuadricula;
+		};
 
-        }
+		/////////////////////////////////////////////////////////////////////////
+		////Disparar el guardado de un svg como copia de comparacion/////////////
+		/////////////////////////////////////////////////////////////////////////
 
-        bz.mostrarBorradores = function () {
+		bz.comparaciones = [];
 
-            if (bz.borradores) {
+		bz.realizarComparacion = function () {
 
-                bz.borradores = false;
+			$rootScope.$broadcast("editor:comparar", true);
 
-            } else {
+		};
 
-                bz.preview = false;
-                bz.busquedaIconos = false;
-                bz.borradores = true;
+		$scope.$on("directiva:comparar", function (evento, valor) {
 
-            }
+			if (bz.comparaciones.length <= 10) {
+				bz.comparaciones.push(valor);
+			}
 
-        }
+		});
 
-        bz.mostrarPreviews = function () {
+		bz.removerComparacion = function (comparacion) {
 
-            if (bz.preview) {
+			var indice = bz.comparaciones.indexOf(comparacion);
+			bz.comparaciones.splice(indice, 1);
+		};
 
-                bz.preview = false;
+		//////////////////////////////////////////
+		///////////CAMBIAR ORIENTACION////////////
+		//////////////////////////////////////////
 
-            } else {
 
-                bz.preview = true;
-                bz.busquedaIconos = false;
-                bz.borradores = false;
+		bz.cambiarOrientacion = function (orientacion) {
 
-            }
+			$rootScope.$broadcast("editor:orientacion", orientacion);
 
-        }
+		};
 
-        bz.buscarPlanes = function () {
 
-            $rootScope.$broadcast("editor:planes", true);
+		////////////////////////////////////////
+		///////BUSCAR Y REEMPLAZAR ICONO////////
+		////////////////////////////////////////
 
-        }
+		bz.iconos = [];
 
-        $scope.$on("directiva:planes", function (evento, datos) {
+		bz.completadoBuscar = true;
 
-            var idFuente = null;
-            var idFuenteEslogan = null;
-            
-            angular.forEach(bz.fuentes, function (valor, llave) {
+		bz.buscarIconos = function (idCategoria, valido) {
 
-                    if(valor.url == bz.logo.fuente.url){
-                        
-                        idFuente = valor.idElemento;
-                        
-                    } 
-                    
-                    if(bz.logo.fuenteEslogan && (valor.url == bz.logo.fuenteEslogan.url)){
-                        
-                        idFuenteEslogan =  valor.idElemento                        
-                    }
+			bz.iconosForm.$setSubmitted();
 
-                })
-            
-            /*
-            $state.go("planes", {
-                status: true,
-                datos: {
-                    logo: datos,
-                    idElemento: bz.logo.icono.idElemento,
-                    tipo: 'Logo y nombre',
-                    fuentes: {
-                        principal: idFuente,
-                        eslogan:  idFuenteEslogan
-                        
-                    }
-                }
-            })*/
+			if (valido) {
 
-        })
+				bz.completadoBuscar = false;
 
 
-        /////////////////////////////////////
-        //////////CAMBIO DE COLOR////////////
-        /////////////////////////////////////
+				bz.borradores = false;
+				bz.preview = false;
+				bz.busquedaIconos = true;
 
-        bz.cambioColor = function (color, objetivo) {
 
-            $rootScope.$broadcast("editor:color", {
-                color: color,
-                objetivo: objetivo
-            });
+				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
+					.then(function (res) {
+						bz.iconos = res;
+					}).finally(function () {
+						bz.completadoBuscar = true;
+					});
+			}
 
-        }
+		};
 
 
-        /////////////////////////////////////
-        //////////CAMBIO DE TEXTO////////////
-        /////////////////////////////////////        
 
-        bz.cambioTexto = function (texto, eslogan) {
+		bz.reemplazarIcono = function (icono) {
 
-            $rootScope.$broadcast("editor:texto", {
-                texto: texto,
-                eslogan: eslogan
-            });
+			bz.logo.icono = icono;
+			$rootScope.$broadcast("editor:reemplazar", bz.base64.decode(icono.svg));
 
-        }
+		};
 
+		$scope.$on("directiva:restaurarEslogan", function (evento, datos) {
 
-        /////////////////////////////////////
-        /////////CAMBIO DE FUENTE////////////
-        ///////////////////////////////////// 
+			if (datos.accion) {
 
-        bz.cambioFuente = function (fuente, objetivo) {
+				var fuenteElegida = null;
 
-            $rootScope.$broadcast("editor:fuente", {
-                fuente: angular.copy(fuente),
-                objetivo: objetivo
-            });
+				angular.forEach(bz.fuentes, function (valor) {
 
-        }
+					if (valor.nombre == datos.fuente.nombre) {
+						fuenteElegida = {
+							nombre: valor.nombre,
+							url: valor.url
+						};
+					}
 
-        /////////////////////////////////////
-        ////////CAMBIO DE PROPIEDAS//////////
-        ///////////////////////////////////// 
+				});
 
-        bz.cambioPropiedad = function (propiedad, eslogan) {
+				bz.logo.fuenteEslogan = fuenteElegida;
+				bz.esloganActivo = true;
+			} else {
+				bz.logo.eslogan = "";
+				bz.logo.fuenteEslogan = null;
+				bz.esloganActivo = false;
+			}
+		});
 
-            $rootScope.$broadcast("editor:propiedad", {
-                propiedad: propiedad,
-                eslogan: eslogan
-            });
 
-        }
 
-        /////////////////////////////////////
-        /////////CAMBIO DE TAMAÑO////////////
-        ///////////////////////////////////// 
+		bz.agregarEslogan = function () {
 
-        bz.cambioTamano = function (objetivo, accion) {
+			bz.logo.eslogan = "Mi eslogan aquí";
+			bz.logo.fuenteEslogan = bz.logo.fuente;
 
-            $rootScope.$broadcast("editor:tamano", {
-                objetivo: objetivo,
-                accion: accion
-            });
+			$rootScope.$broadcast("editor:agregarEslogan", {
+				eslogan: bz.logo.eslogan,
+				fuente: bz.logo.fuenteEslogan
+			});
 
-        }
+			bz.esloganActivo = true;
 
-        /////////////////////////////////////////////////////////////////////////
-        ////Disparar el guardado de un svg como copia de comparacion/////////////
-        /////////////////////////////////////////////////////////////////////////
+		};
 
-        bz.comparaciones = [];
+		//////////////////////////////////////////
+		////////RESTAURAR COMPARACIONES///////////
+		//////////////////////////////////////////
 
-        bz.realizarComparacion = function () {
+		bz.restaurarComparacion = function (comparacion) {
 
-            $rootScope.$broadcast("editor:comparar", true);
+			$rootScope.$broadcast("editor:restaurar", comparacion);
 
-        }
+		};
 
-        $scope.$on("directiva:comparar", function (evento, valor) {
 
-            if (bz.comparaciones.length <= 10) {
-                bz.comparaciones.push(valor)
-            }
+		$scope.$on("sesionExpiro", function () {
 
-        })
+			$state.go("principal.comenzar");
 
-        bz.removerComparacion = function (comparacion) {
+		});
 
-            var indice = bz.comparaciones.indexOf(comparacion);
-            bz.comparaciones.splice(indice, 1);
-        }
-
-        //////////////////////////////////////////
-        ///////////CAMBIAR ORIENTACION////////////
-        //////////////////////////////////////////
-
-
-        bz.cambiarOrientacion = function (orientacion) {
-
-            $rootScope.$broadcast("editor:orientacion", orientacion);
-
-        }
-
-
-        ////////////////////////////////////////
-        ///////BUSCAR Y REEMPLAZAR ICONO////////
-        ////////////////////////////////////////
-
-        bz.iconos = [];
-
-        bz.completadoBuscar = true;
-
-        bz.buscarIconos = function (idCategoria, valido) {
-
-            bz.iconosForm.$setSubmitted();
-
-            if (valido) {
-
-                bz.completadoBuscar = false;
-
-
-                bz.borradores = false;
-                bz.preview = false;
-                bz.busquedaIconos = true;
-
-
-                categoriasService.listaCategoriasElementos(idCategoria, 'ICONO')
-                    .then(function (res) {
-                        bz.iconos = res;
-                    }).finally(function (res) {
-                        bz.completadoBuscar = true;
-                    })
-            }
-
-        }
-
-
-
-        bz.reemplazarIcono = function (icono) {
-
-            bz.logo.icono = icono;
-            $rootScope.$broadcast("editor:reemplazar", bz.base64.decode(icono.svg));
-
-        }
-
-        $scope.$on("directiva:restaurarEslogan", function (evento, datos) {
-
-            if (datos.accion) {
-
-                var fuenteElegida = null;
-
-                angular.forEach(bz.fuentes, function (valor, llave) {
-
-                    if (valor.nombre == datos.fuente.nombre) {
-
-                        fuenteElegida = {
-                            nombre: valor.nombre,
-                            url: valor.url
-                        };
-                    }
-
-                })
-
-                bz.logo.fuenteEslogan = fuenteElegida;
-                bz.esloganActivo = true;
-            } else {
-                bz.logo.eslogan = "";
-                bz.logo.fuenteEslogan = null;
-                bz.esloganActivo = false;
-            }
-        })
-
-
-
-        bz.agregarEslogan = function () {
-
-            bz.logo.eslogan = "Mi eslogan aquí";
-            bz.logo.fuenteEslogan = bz.logo.fuente;
-
-            $rootScope.$broadcast("editor:agregarEslogan", {
-                eslogan: bz.logo.eslogan,
-                fuente: bz.logo.fuenteEslogan
-            });
-
-            bz.esloganActivo = true;
-
-        }
-
-        //////////////////////////////////////////
-        ////////RESTAURAR COMPARACIONES///////////
-        //////////////////////////////////////////
-
-        bz.restaurarComparacion = function (comparacion) {
-
-            $rootScope.$broadcast("editor:restaurar", comparacion);
-
-        }
-
-
-        $scope.$on('sesionExpiro', function (event, data) {
-
-            $state.go('principal.comenzar');
-
-        });
-
-    }])
+	}]);

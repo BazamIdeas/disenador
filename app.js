@@ -22,6 +22,7 @@ app.enable('trust proxy');
 app.use(configuracion.base+'/fuentes', express.static(__dirname + '/fuentes'))
 app.use('/m/fuentes', express.static(__dirname + '/fuentes'))
 app.use('/fuentes', express.static(__dirname + '/fuentes'))
+app.use('/avatares', express.static(__dirname + '/avatares'))
 
 app.use('/angular', express.static(__dirname + '/node_modules/angular'))
 app.use('/angular-material', express.static(__dirname + '/node_modules/angular-material'))
@@ -37,7 +38,7 @@ app.use('/save-svg-as-png', express.static(__dirname + '/node_modules/save-svg-a
 app.use('/ng-file-upload', express.static(__dirname + '/node_modules/ng-file-upload/dist'))
 app.use('/angular-sweetalert', express.static(__dirname + '/node_modules/angular-sweetalert'))
 app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'))
-
+app.use('/angular-ui-carousel', express.static(__dirname + '/node_modules/angular-ui-carousel/dist'))
 
 app.use('/app',rutas);
  
@@ -55,6 +56,16 @@ app.use('/m/*', function(req, res, next) {
 app.use('/freelance/*', function(req, res, next) {
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('/public/freelance/index.html', { root: __dirname });
+});
+
+app.use('/administrador/*', function (req, res, next) {
+  // Just send the index.html for other files to support HTML5Mode
+  res.sendFile('/public/administrador/index.html', { root: __dirname });
+});
+
+app.use('', function (req, res, next) {
+  // Just send the index.html for other files to support HTML5Mode
+  res.sendFile('/public/index.html', { root: __dirname });
 });
 
 
