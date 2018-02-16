@@ -2825,3 +2825,7 @@ div.icono bazam-visualizar svg{
 .imagen-perfil>div i:hover{
     cursor: pointer;
 }
+
+#select_8 {
+    width: 180px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;
+}
