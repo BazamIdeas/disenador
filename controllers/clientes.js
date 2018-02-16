@@ -544,9 +544,9 @@ exports.manualCliente = function (req, res, next) {
         template = template.replace('{#logo#}', datos.logo);
     }
 
-    //url = __dirname.replace('\\controllers','')
+    url = __dirname.replace('\\controllers','')
 
-    url = "./manual-marcas/assets";
+    url = 'file:///' + url + "/manual-marcas/assets";
 
     var config = {
         "height": "11in",
