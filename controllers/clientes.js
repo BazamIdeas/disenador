@@ -544,17 +544,32 @@ exports.manualCliente = function (req, res, next) {
         template = template.replace('{#logo#}', datos.logo);
     }
 
-    url = __dirname.replace('\\controllers','')
+    url = __dirname.replace('controllers','')
 
-    url = 'file:///' + url + "/manual-marcas/assets";
+    url = 'file:///' + url + "manual-marcas/assets";
 
-    var config = {
-        "height": "11in",
-        "width": "8.5in",
-        "base": url,
-        "type": "pdf",
-        "renderDelay": 2000
+    if  (configuracion.servidor == "Produccion")
+        {
+            var config = {
+                "height": "14.66in",
+                "width": "11.305in",
+                "base": url,
+                "type": "pdf",
+                "renderDelay":3000
+            }
+        }
+
+    else{
+        var config = {
+            "height": "11in",
+            "width": "8.5in",
+            "base": url,
+            "type": "pdf",
+            "renderDelay": 2000
+        }
     }
+
+
 
     var nombreEmpresa = 'LL';
 
