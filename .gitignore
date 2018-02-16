@@ -1,8 +1,20 @@
 .DS_*
 node_modules
 
+.vscode
 public/assets/icons/
 poiinonbkjn.png
-tmp/
+tmp/*
 .svg
 npm-debug.log
+fuentes/*
+avatares/*
+.ttf
+.eslintrc.js
+.eslintrc.json
+
+# exclude everything
+public/tmp/*
+
+# exception to the rule
+!public/temp/.gitkeep 
