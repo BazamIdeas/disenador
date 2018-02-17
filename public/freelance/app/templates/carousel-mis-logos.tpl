@@ -24,7 +24,7 @@
 
         <div class="logo-wrapper" ng-if="!carouselMisLogos.largoArray">
             <div class="logo-container logo-active" style="height:300px; border: none;box-shadow:none;">
-                <span class="seleccionar" style="opacity: 1; font-size: 20px; border: none; width:100%;">
+                <span class="seleccionar" style="opacity: 1; font-size: 18px; border: none; width:100%;">
                     AUN NO TIENE LOGOS {{carouselMisLogos.callback[0].toUpperCase()}}
                 </span>
             </div>

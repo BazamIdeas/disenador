@@ -2323,7 +2323,6 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     font-family: !futura-heavy important;
     transition: opacity 1s;
     cursor: pointer;
-    bottom: 0;
 }
 
 .logo-container span.seleccionar:hover {
