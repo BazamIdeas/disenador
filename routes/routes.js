@@ -94,7 +94,8 @@ router.get("/etiqueta/borrar/:id", middleware.validarAdministrador, controllers.
 
 //MODULO ELEMENTOS
 router.post("/elementos/busqueda", controllers.elementos.listaSegunPref);
-router.post("/elementos/categorias", controllers.elementos.listaElemCat);
+router.post("/elementos/categorias", controllers.elementos.listaElemCategoria);
+router.post("/elementos/categoria", controllers.elementos.listaElemCat);
 router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono
 router.get("/elementos/fuente", controllers.elementos.ListarFuentes);
 router.post("/elemento/fuente", multipartMiddleware, controllers.elementos.nuevoElementoFuente);
