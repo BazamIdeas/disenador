@@ -1,12 +1,12 @@
                     <div class="row margin-bottom-0 lienzo scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
 						<div class="col l2">
-                            <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}">REFRESCAR</button>
+                            <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}">BUSCAR MÁS</button>
                         </div>
                        	<div class="col l8">
-                            <p class="text-center tercero margin-bottom-0">Selecciona las fuentes y iconos que prefieras</p>
+                            <p class="text-center tercero margin-bottom-0">Selecciona los simbolos que prefieras</p>
                         </div>
                         <div class="col l2 text-right">
-                            <button class="boton-verde" ng-click="principalOpciones.combinar(!principalOpciones.deshabilitado, $parent.principal.datosForm.$valid)" ng-class="{'deshabilitado': principalOpciones.deshabilitado || !$parent.principal.datosForm.$valid}">COMBINAR</button>
+                            <button class="boton-verde" ng-click="principalOpciones.combinar(!principalOpciones.deshabilitado, $parent.principal.datosForm.$valid)" ng-class="{'deshabilitado': principalOpciones.deshabilitado || !$parent.principal.datosForm.$valid}">GENERAR OPCIONES</button>
                         </div>
 
                         <div class="col l12 xl9">

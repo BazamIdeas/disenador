@@ -1,9 +1,9 @@
                     <div class="row margin-bottom-0 lienzo scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
 						<div class="col l2" bazam-ayuda data-titulo="Buscar" data-texto="Cambie sus preferencias y realice una nueva busqueda de elementos" data-clases="['corner-lt']" data-identificador="ayuda-buscar" data-orientacion="right" data-paso="4" bazam-pasos-ayuda>
-                            <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}" >BUSCAR</button>
+                            <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}" >BUSCAR MÁS</button>
                         </div>
                        	<div class="col l7">
-                            <p class="text-center tercero margin-bottom-0">Selecciona los simbolos y tipografias que prefieras</p>
+                            <p class="text-center tercero margin-bottom-0">Selecciona los simbolos que prefieras</p>
                         </div>
                         <div class="col l3 text-right" bazam-ayuda data-titulo="Generar" data-texto="Genere las combinaciones para su logo" data-clases="['corner-rt']" data-identificador="ayuda-generar" data-orientacion="left" data-paso="6" bazam-pasos-ayuda>
                             <button class="boton-verde" ng-click="principalOpciones.combinar(!principalOpciones.deshabilitado, $parent.principal.datosForm.$valid)" ng-class="{'deshabilitado': principalOpciones.deshabilitado || !$parent.principal.datosForm.$valid}">GENERAR OPCIONES</button>

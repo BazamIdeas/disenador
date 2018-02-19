@@ -2794,6 +2794,11 @@ div.icono bazam-visualizar svg{
     height: 17vh;
 }
 
+div.opcion-icono bazam-visualizar svg{
+    height: 16vh;
+    width: 14vh;
+}
+
 
 .imagen-perfil img{
     width: 100%;
