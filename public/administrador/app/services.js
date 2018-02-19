@@ -504,7 +504,7 @@ angular.module("administrador")
 
             datos.idCategoria = datos.categoria;
 
-            $http.post('/app/elementos/categorias', datos).then(function (res) {
+            $http.post('/app/elementos/categoria', datos).then(function (res) {
 
                 defered.resolve(res);
 
