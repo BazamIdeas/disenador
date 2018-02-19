@@ -16,6 +16,7 @@ angular.module("administrador")
 		/***************************/
 
 		bz.listarLogos = function () {
+			bz.logos = [];
 			bz.peticion = true;
 			bz.listaL = !bz.listaL;
 			designerService.listarLogos().then(function (res) {
@@ -141,6 +142,7 @@ angular.module("administrador")
 		/***************************/
 
 		bz.listarDisenadores = function () {
+			bz.disenadores = [];
 			bz.peticion = true;
 
 			bz.listaD = !bz.listaD;

@@ -41,7 +41,7 @@
         <section style="max-height: calc(100vh - 135px) !important; background-color: var(--fondo);">
             <div class="row margin-bottom-0">
                 <form class="margin-bottom-0">
-                    <div class="col l2 sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="principal.jqueryScrollbarOptions" ng-form="principal.datosForm">
+                    <div class="col l2 sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="principal.jqueryScrollbarOptions" ng-form="principal.datosForm" >
                         <div class="input-field col s12">
                             <input id="nombre" type="text"  ng-model="principal.datos.nombre" required>
                             <label for="nombre" class="active">Nombre</label>
