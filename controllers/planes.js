@@ -223,3 +223,143 @@ exports.Modificar = (req, res) =>
 		}
 	});
 };
+
+exports.PlanesSuperiores = (req, res) =>
+{
+
+	var iso = services.geoipServices.iso(req.ip);
+
+	pais.ObtenerPorIso(iso, (err, pais) => {
+
+		if (err) res.status(400).json({});
+
+		if (pais.length) {
+
+			var json = pais[0];
+
+			json.monedaDefault = {idMoneda: json.idMoneda ,codigo : json.moneda};
+
+			delete json["idMoneda"]; 
+			delete json["moneda"]; 
+
+			plan.ObtenerPlan(idPlan, (error, data) => {
+
+				if (typeof data !== "undefined" && data.length) {
+
+					json.planes.acutal = data[0];
+
+					precio.ListarPorPlan(json.idPais, plan.idPlan, (err, precios) => {
+
+						if (precios.length) {
+
+							json.planes.acutal.precios = precios;
+
+							var precioActual = 0
+
+							precios.forEach(function(element){
+								if(element.moneda = "USD"){
+									precioActual = elemento.precio
+								}
+							})
+						
+
+							caracteristica.ObtenerPorPlan(json.planes.acutal.idPlan, (err, caracteristicas) => {
+
+								if (caracteristicas.length) {
+	
+									json.planes.acutal.caracteristicas = caracteristicas;
+								
+									planes.ObtenerSuperiores(idPlan, json.idPais, (err, planes) => {
+
+										json.planes.superiores = []
+
+										if (planes.length) {
+
+											async.forEachOf(planes, (plan, key, callback) => {
+
+												precio.ListarPorPlan(json.idPais, plan.idPlan, (err, precios) => {
+													
+													if (err) return callback(err);
+						
+													try {
+						
+														if (precios.length) {
+						
+															var precioUsd = null; 
+
+															precios.forEach(function(element){
+																if(element.moneda = "USD"){
+																	precioActual = elemento.precio
+																}
+															})
+
+															if(precioUsd != null && precioUsd > precioActual){
+
+																planes[key].precios = precios;
+
+																caracteristica.ObtenerPorPlan(plan.idPlan, (err, caracteristicas) => {
+													
+																	if (err) return callback(err);
+										
+																	try {
+										
+																		if (caracteristicas.length) {
+										
+																			planes[key].caracteristicas = caracteristicas;
+																		
+																		}								
+																	
+																	} catch (e) {
+																		return callback(e);
+																	}
+										
+																	callback();
+																});
+
+															}else{
+
+																planes.splice(key, 1);
+																callback()
+															}
+
+														}
+											
+													} catch (e) {
+														return callback(e);
+													}
+												});
+						
+											}, (err) => {
+												
+												if (err) res.status(402).json({});
+
+												json.planes.superiores = planes;
+												
+												res.status(200).json(json);
+											
+											});
+
+										}else{
+
+										}
+	
+									})
+
+								}else{
+
+								}	
+	
+							});
+
+						}else{
+
+						}
+				
+					});
+
+				} else {
+					res.status(404).json({"msg": "No se encontro el plan"});
+				}
+
+			});
+};

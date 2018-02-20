@@ -142,5 +142,31 @@ planes.Modificar = function(planData, callback)
 	});
 }
 
+planes.ObtenerPlan = function(idPlan, idPais, callback){
+
+	var q = `SELECT planes.*
+				FROM planes
+				INNER JOIN precios ON precios.planes_idPlan = planes.idPlan
+				INNER JOIN monedas ON monedas.idMoneda = precios.monedas_idMoneda
+				INNER JOIN monedas_has_paises ON monedas_has_paises.monedas_idMoneda = monedas.idMoneda
+				INNER JOIN paises ON paises.idPais = monedas_has_paises.paises_idPais
+				WHERE planes.status = 1
+				AND planes.idPlan = ?
+				AND paises.idPais = ?
+				GROUP BY planes.idPlan
+				`;
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , [idPlan, idPais] , function(err, row){
+	  	
+		  	if(err)	throw err;
+
+			  else callback(null, row); 
+
+		  	connection.release();
+		});
+	});	
+}
 
 module.exports = planes;

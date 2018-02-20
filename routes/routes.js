@@ -134,6 +134,7 @@ router.get("/pasarela/monedas/:id", /*middleware.validarAdministrador,*/ control
 
 //MODULO DE PLANES
 router.get("/planes/comprar", controllers.planes.ListarFront);
+router.get("/planes/aumentar", controllers.planes.PlanesSuperiores);
 router.get("/planes", /*middleware.validarAdministrador,*/ controllers.planes.ListarBack);
 router.get("/plan/precios/:id", /*middleware.validarAdministrador,*/ controllers.planes.ListarPrecios); // lista precios activos
 router.post("/plan", /*middleware.validarAdministrador,*/ controllers.planes.Nuevo); // ingresar Nuevo y un precio
