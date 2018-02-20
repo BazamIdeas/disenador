@@ -157,158 +157,44 @@ angular.module("disenador-de-logos")
 
 		};
 
- 
-		bz.avanzar = function (indiceLogo, color) {
+		bz.preAvanzar = function(indiceLogo, color){
 
-			bz.logoSeleccionado = indiceLogo;
+			if(indiceLogo){
+				bz.logoSeleccionado = indiceLogo;
+			}
+
+			if(color){
+				bz.colorIcono = color;		
+			}
 
 			if (!clientesService.autorizado()) {
-				bz.colorIcono = color;
 				bz.mostrarModalLogin = true;
-				bz.objetivoEditor = "nuevo";
-
+				bz.callback = bz.avanzar;
 			} else {
-
-				var datos = {
-					status: true,
-					datos: {
-						logo: bz.logos[bz.logoSeleccionado],
-						texto: bz.datos.nombre,
-						categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
-					}
-				};
-
-				if(color){
-					datos.datos.color = color;
-				} else if(bz.colorIcono){
-					datos.datos.color = bz.colorIcono;
-				}				
-
-				$state.go("editor", datos);
-
+				bz.avanzar();
 			}
 
 		};
+ 
+		bz.avanzar = function () {
 
-		/*
-
-		bz.datosLogin = {};
-
-		bz.completadoLogin = true;
-
-		bz.login = function (datos, valido) {
-
-			if (valido && bz.completadoLogin) {
-
-				bz.completadoLogin = false;
-
-				clientesService.login(datos).then(function (res) {
-
-					if (clientesService.autorizado(true)) {
-
-						$mdToast.show($mdToast.base({
-							args: {
-								mensaje: "¡Bienvenido!",
-								clase: "success"
-							}
-						}));
-
-						bz.mostrarModalLogin = false;
-
-						switch (bz.objetivoEditor) {
-
-						case "nuevo":
-							bz.avanzar(bz.logoSeleccionado);
-							break;
-
-						case "predisenado":
-							bz.avanzarPredisenado(bz.predisenadoSeleccionado);
-							break;
-
-						}
-					}
-
-				}).catch(function () {
-
-					$mdToast.show($mdToast.base({
-						args: {
-							mensaje: "Verifica tu Usuario y Contraseña",
-							clase: "danger"
-						}
-					}));
-
-				}).finally(function () {
-
-					bz.completadoLogin = true;
-
-				});
-
-
+			var datos = {
+				status: true,
+				datos: {
+					logo: bz.logos[bz.logoSeleccionado],
+					texto: bz.datos.nombre,
+					categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
+				}
 			};
+
+			if(bz.colorIcono){
+				datos.datos.color = bz.colorIcono;
+			}				
+
+			$state.go("editor", datos);
 
 		};
 
-
-
-		bz.completadoRegistro = true;
-
-		bz.registrar = function (datos, valido) {
-
-
-
-			if (valido && bz.completadoRegistro) {
-
-				bz.completadoRegistro = false;
-
-				clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function (res) {
-
-					if (clientesService.autorizado(true)) {
-
-						$mdToast.show($mdToast.base({
-							args: {
-								mensaje: "¡Registro exitoso!",
-								clase: "success"
-							}
-						}));
-
-						bz.mostrarModalLogin = false;
-
-						switch (bz.objetivoEditor) {
-
-						case "nuevo":
-							bz.avanzar(bz.logoSeleccionado);
-							break;
-
-						case "predisenado":
-							bz.avanzarPredisenado(bz.predisenadoSeleccionado);
-							break;
-
-						}
-
-
-
-					}
-
-				}).catch(function () {
-
-					$mdToast.show($mdToast.base({
-						args: {
-							mensaje: "Un error ha ocurrido",
-							clase: "danger"
-						}
-					}));
-
-
-				}).finally(function () {
-
-					bz.completadoRegistro = true;
-
-				});
-
-			};
-
-		};
- */
 
 		bz.seleccionarFuenteCategoria = function (idCategoria) {
 			var fuenteNombre = "futura-heavy";
@@ -330,34 +216,36 @@ angular.module("disenador-de-logos")
 		////////////////////
 
 
-		logosService.mostrarDestacados().then(function (res) {
+		logosService.mostrarDestacados()
+			.then(function (res) {
 
-			bz.aprobados = res;
+				bz.aprobados = res;
 
-		}).catch(function () {
+			})
+			.catch(function () {
 
+			})
+			.finally(function () {
 
+				if (!bz.aprobados.length) {
 
-		}).finally(function () {
+					logosService.mostrarAprobados()
+						.then(function (res) {
 
-			if (!bz.aprobados.length) {
+							bz.aprobados = res;
 
-				logosService.mostrarAprobados().then(function (res) {
+						})
+						.catch(function () {
 
-					bz.aprobados = res;
+						})
+						.finally(function () {
 
-				}).catch(function () {
+						});
 
-					//console.log("hola")
+				}
 
-				}).finally(function () {
+			});
 
-
-				});
-
-			}
-
-		});
 		bz.completadoCarga = true;
 
 		bz.cargarMas = function (logo) {
@@ -405,50 +293,55 @@ angular.module("disenador-de-logos")
 			return idFuente;
 		};
 
-
-
-		bz.avanzarPredisenado = function (indiceLogo) {
+		bz.preAvanzarPredisenado = function(indiceLogo){
 			bz.predisenadoSeleccionado = indiceLogo;
 
 			if (!clientesService.autorizado()) {
 
 				bz.mostrarModalLogin = true;
-				bz.objetivoEditor = "predisenado";
+				bz.callback = bz.avanzarPredisenado;
 
-			} else {
-				var aprobado = null;
+			} else{
 
-				angular.forEach(bz.aprobados, function (valor) {
-
-					if (valor.idLogo == indiceLogo) {
-
-						aprobado = valor;
-					}
-
-				});
-				if (aprobado) {
-					$state.go("editor", {
-						status: true,
-						datos: {
-							logo: {
-								icono: {
-									idElemento: aprobado.elementos_idElemento,
-									svg: aprobado.logo
-								}
-							},
-							idLogoPadre: aprobado.idLogo,
-							fuentes: {
-								principal: bz.buscarAtributo(aprobado.atributos, "principal"),
-								eslogan: bz.buscarAtributo(aprobado.atributos, "eslogan")
-							}
-						}
-					});
-				}
+				bz.avanzarPredisenado();
 
 			}
 
+		}
+
+		bz.avanzarPredisenado = function () {
+		
+			var aprobado = null;
+
+			angular.forEach(bz.aprobados, function (valor) {
+
+				if (valor.idLogo == indiceLogo) {
+					aprobado = valor;
+				}
+
+			});
+
+			if (aprobado) {
+				$state.go("editor", {
+					status: true,
+					datos: {
+						logo: {
+							icono: {
+								idElemento: aprobado.elementos_idElemento,
+								svg: aprobado.logo
+							}
+						},
+						idLogoPadre: aprobado.idLogo,
+						fuentes: {
+							principal: bz.buscarAtributo(aprobado.atributos, "principal"),
+							eslogan: bz.buscarAtributo(aprobado.atributos, "eslogan")
+						}
+					}
+				});
+			}
+
+			
+
 		}; 
-
-
 
 	}]);

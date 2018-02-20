@@ -119,7 +119,7 @@
             </div>
         </section>
 
-        <bazam-form-login data-mostrar="principal.mostrarModalLogin" data-tipo-logo="principal.objetivoEditor" data-logo="principal.logoSeleccionado" data-logo-predisenado="principal.predisenadoSeleccionado" data-callback="[principal.avanzar, principal.avanzarPredisenado]"></bazam-form-login>
+        <bazam-form-login data-mostrar="principal.mostrarModalLogin" data-callback="principal.callback"></bazam-form-login>
 
         <!--<div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
             <div class="row margin-bottom-0">

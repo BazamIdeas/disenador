@@ -117,6 +117,9 @@
             </div>
         </section>
 
+        <bazam-form-login data-mostrar="principal.mostrarModalLogin" data-callback="principal.avanzar"></bazam-form-login>
+
+        <!--
         <div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
             <div class="row margin-bottom-0">
                 <div class="col s6 offset-s3">
@@ -215,3 +218,5 @@
                 </div>
             </div>
         </div>
+
+    -->

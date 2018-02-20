@@ -1168,4 +1168,159 @@ angular.module("disenador-de-logos")
 		};
 
 		
+	}])
+
+	.directive("bazamMail", ["clientesService", "$q", function (clientesService, $q) {
+		return {
+			require: "ngModel",
+			link: function (scope, element, attributes, ctrl) {
+
+
+				ctrl.$asyncValidators.disponible = function (modelValor) {
+
+					var defered = $q.defer();
+					var promise = defered.promise;
+
+					if (ctrl.$isEmpty(modelValor)) {
+						return defered.resolve();
+					}
+
+					clientesService.correoDisponible(modelValor)
+						.then(function () {
+							defered.resolve();
+						})
+						.catch(function () {
+							defered.reject();
+						});
+
+					return promise;
+
+				};
+
+			}
+		};
+
+	}])
+
+	.directive("bazamFormLogin",[ function () {
+
+		return {
+			restrict: "E",
+			templateUrl: "app/templates/bazamFormLogin.tpl",
+			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", function ($scope, clientesService, $mdToast, paisesValue) {
+
+				var bz = this; 
+
+				bz.paises = paisesValue;
+
+				bz.paisDefecto = null;
+
+				clientesService.pais()
+					.then(function (res) {
+						bz.paisDefecto = res.iso;
+					});
+
+
+				bz.completadoLogin = true;
+
+				bz.login = function (datos, valido) {
+
+					if (valido) {
+
+						bz.completadoLogin = false;
+
+						clientesService.login(datos).then(function () {
+
+							if (clientesService.autorizado(true)) {
+
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "¡Bienvenido!",
+										clase: "success"
+									}
+								}));
+
+								$scope.callback();
+
+								bz.mostrarModalLogin = false;
+							
+							}
+
+						}).catch(function () {
+
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Verifica tu Usuario y Contraseña",
+									clase: "danger"
+								}
+							}));
+
+						}).finally(function () {
+
+							bz.completadoLogin = true;
+
+						});
+
+					}
+
+				};
+
+				bz.completadoRegistro = true;
+
+				bz.registrar = function (datos, valido) {
+
+					if (valido && bz.completadoRegistro) {
+
+						bz.completadoRegistro = false;
+
+						clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais)
+						
+							.then(function () {
+
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Registro exitoso!",
+											clase: "success"
+										}
+									}));
+
+									$scope.callback();
+
+									bz.mostrarModalLogin = false;
+							
+								}
+
+							})
+							
+							.catch(function () {
+
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+
+							})
+							
+							.finally(function () {
+
+								bz.completadoRegistro = true;
+
+							});
+
+					}
+
+				};
+
+			}],
+			controllerAs: "bazamLogin",
+			scope: {
+				callback: "<",
+				mostrar: "="
+			}
+		};
+
 	}]);
