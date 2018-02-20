@@ -13,7 +13,7 @@
 
     </div>-->
 
-    <carousel-destacados ng-if="$parent.principal.aprobados.length" logos="$parent.principal.aprobados" callback="[$parent.principal.avanzarPredisenado, $parent.principal.cargarMas]"></carousel-destacados>
+    <carousel-destacados ng-if="$parent.principal.aprobados.length" logos="$parent.principal.aprobados" callback="[$parent.principal.preAvanzarPredisenado, $parent.principal.cargarMas]"></carousel-destacados>
     
 
 

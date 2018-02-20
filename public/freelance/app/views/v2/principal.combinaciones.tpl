@@ -13,6 +13,6 @@
         <p class="text-center tercero margin-bottom-0">Selecciona las fuentes y iconos que prefieras</p>
     </div>
 
-    <carousel-combinaciones logos="$parent.principal.logos" nombre="$parent.principal.datos.nombre" callback="$parent.principal.avanzar"></carousel-combinaciones>
+    <carousel-combinaciones logos="$parent.principal.logos" nombre="$parent.principal.datos.nombre" callback="$parent.principal.preAvanzar"></carousel-combinaciones>
 
 </div>

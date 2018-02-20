@@ -544,21 +544,36 @@ exports.manualCliente = function (req, res, next) {
         template = template.replace('{#logo#}', datos.logo);
     }
 
-    url = __dirname.replace('\\controllers','')
+    url = __dirname.replace('controllers','')
 
-    url = 'file:///' + url + "\\/manual-marcas/assets";
+    url = 'file:///' + url + "manual-marcas/assets";
 
-    var config = {
-        "height": "11in",
-        "width": "8.5in",
-        "base": url,
-        "type": "pdf",
-        "renderDelay": 2000
+    if  (config.servidor == "Produccion")
+        {
+            var configuracion = {
+                "height": "14.66in",
+                "width": "11.305in",
+                "base": url,
+                "type": "pdf",
+                "renderDelay":3000
+            }
+        }
+
+    else{
+        var configuracion = {
+            "height": "11in",
+            "width": "8.5in",
+            "base": url,
+            "type": "pdf",
+            "renderDelay": 2000
+        }
     }
+
+
 
     var nombreEmpresa = 'LL';
 
-    pdf.create(template, config).toFile('./public/tmp/manual-marcas-' + nombreEmpresa + '.pdf', function (err, data) {
+    pdf.create(template, configuracion).toFile('./public/tmp/manual-marcas-' + nombreEmpresa + '.pdf', function (err, data) {
 
         if (err) throw err;
 

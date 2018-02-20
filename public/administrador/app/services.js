@@ -502,7 +502,9 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/elementos/busqueda', datos).then(function (res) {
+            datos.idCategoria = datos.categoria;
+
+            $http.post('/app/elementos/categoria', datos).then(function (res) {
 
                 defered.resolve(res);
 
