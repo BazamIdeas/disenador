@@ -230,6 +230,8 @@ pedido.ObtenerPlanPorIDdeLogo = function(idLogo, callback){
 				callback(null, {"msg":"no existe el logo, pedido, precio o plan"});
 
 			}
+
+			connection.release();
 		})
 	})
 }
