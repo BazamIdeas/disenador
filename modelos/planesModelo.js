@@ -142,7 +142,7 @@ planes.Modificar = function(planData, callback)
 	});
 }
 
-planes.ObtenerPlan = function(idPlan, idPais, callback){
+planes.ObtenerPlan = function(idPlan, callback){
 
 	var q = `SELECT planes.*
 				FROM planes
@@ -152,13 +152,12 @@ planes.ObtenerPlan = function(idPlan, idPais, callback){
 				INNER JOIN paises ON paises.idPais = monedas_has_paises.paises_idPais
 				WHERE planes.status = 1
 				AND planes.idPlan = ?
-				AND paises.idPais = ?
 				GROUP BY planes.idPlan
 				`;
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , [idPlan, idPais] , function(err, row){
+		connection.query( q , [idPlan] , function(err, row){
 	  	
 		  	if(err)	throw err;
 

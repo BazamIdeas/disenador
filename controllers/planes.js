@@ -228,6 +228,7 @@ exports.PlanesSuperiores = (req, res) =>
 {
 
 	var iso = services.geoipServices.iso(req.ip);
+	var idPlan = req.body.idPlan;
 
 	pais.ObtenerPorIso(iso, (err, pais) => {
 
@@ -242,40 +243,41 @@ exports.PlanesSuperiores = (req, res) =>
 			delete json["idMoneda"]; 
 			delete json["moneda"]; 
 
+			json.planes = {};
+
 			plan.ObtenerPlan(idPlan, (error, data) => {
 
 				if (typeof data !== "undefined" && data.length) {
+					json.planes.actual = data[0];
 
-					json.planes.acutal = data[0];
-
-					precio.ListarPorPlan(json.idPais, plan.idPlan, (err, precios) => {
-
+					precio.ListarPorPlan(json.idPais, json.planes.actual.idPlan, (err, precios) => {
+						console.log(precios)
 						if (precios.length) {
-
-							json.planes.acutal.precios = precios;
+							
+							json.planes.actual.precios = precios;
 
 							var precioActual = 0
 
-							precios.forEach(function(element){
-								if(element.moneda = "USD"){
+							precios.forEach(function(elemento){
+								if(elemento.moneda = "USD"){
 									precioActual = elemento.precio
 								}
 							})
 						
 
-							caracteristica.ObtenerPorPlan(json.planes.acutal.idPlan, (err, caracteristicas) => {
+							caracteristica.ObtenerPorPlan(json.planes.actual.idPlan, (err, caracteristicas) => {
 
 								if (caracteristicas.length) {
 	
-									json.planes.acutal.caracteristicas = caracteristicas;
+									json.planes.actual.caracteristicas = caracteristicas;
 								
-									planes.ObtenerSuperiores(idPlan, json.idPais, (err, planes) => {
+									plan.ObtenerSuperiores(idPlan, json.idPais, (err, data_planes) => {
 
 										json.planes.superiores = []
 
-										if (planes.length) {
+										if (data_planes.length) {
 
-											async.forEachOf(planes, (plan, key, callback) => {
+											async.forEachOf(data_planes, (plan, key, callback) => {
 
 												precio.ListarPorPlan(json.idPais, plan.idPlan, (err, precios) => {
 													
@@ -295,7 +297,7 @@ exports.PlanesSuperiores = (req, res) =>
 
 															if(precioUsd != null && precioUsd > precioActual){
 
-																planes[key].precios = precios;
+																data_planes[key].precios = precios;
 
 																caracteristica.ObtenerPorPlan(plan.idPlan, (err, caracteristicas) => {
 													
@@ -305,7 +307,7 @@ exports.PlanesSuperiores = (req, res) =>
 										
 																		if (caracteristicas.length) {
 										
-																			planes[key].caracteristicas = caracteristicas;
+																			data_planes[key].caracteristicas = caracteristicas;
 																		
 																		}								
 																	
@@ -318,7 +320,7 @@ exports.PlanesSuperiores = (req, res) =>
 
 															}else{
 
-																planes.splice(key, 1);
+																data_planes.splice(key, 1);
 																callback()
 															}
 
@@ -333,7 +335,7 @@ exports.PlanesSuperiores = (req, res) =>
 												
 												if (err) res.status(402).json({});
 
-												json.planes.superiores = planes;
+												json.planes.superiores = data_planes;
 												
 												res.status(200).json(json);
 											
