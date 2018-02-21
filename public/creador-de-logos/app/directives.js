@@ -1276,7 +1276,7 @@ angular.module("disenador-de-logos")
 						var popCreado = angular.element(html);
 						body.append(popCreado);
 
-						angular.forEach(scope.clases, function (clase, indice) {
+						angular.forEach(scope.clases, function (clase) {
 							popCreado.addClass(clase);
 						});
 				
@@ -1501,7 +1501,7 @@ angular.module("disenador-de-logos")
 										clase: "success"
 									}
 								}));
-								$scope.callback()
+								$scope.callback();
 								bz.mostrarModalLogin = false;
 								/*
 								switch ($scope.tipoLogo) {
@@ -1560,7 +1560,7 @@ angular.module("disenador-de-logos")
 								}));
 
 								bz.mostrarModalLogin = false;
-								$scope.callback()
+								$scope.callback();
 								/*
 								switch ($scope.tipoLogo) {
 

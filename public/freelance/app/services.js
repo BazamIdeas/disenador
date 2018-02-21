@@ -1301,7 +1301,7 @@ angular.module("disenador-de-logos")
 
 			var jsonMetas = {};
 
-			angular.forEach(arrayMetas, function (meta, indice) {
+			angular.forEach(arrayMetas, function (meta) {
 
 				jsonMetas[meta.clave] = meta.valor;
 
