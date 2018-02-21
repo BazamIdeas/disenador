@@ -251,7 +251,6 @@ exports.PlanesSuperiores = (req, res) =>
 					json.planes.actual = data[0];
 
 					precio.ListarPorPlan(json.idPais, json.planes.actual.idPlan, (err, precios) => {
-						console.log(precios)
 						if (precios.length) {
 							
 							json.planes.actual.precios = precios;
@@ -290,8 +289,8 @@ exports.PlanesSuperiores = (req, res) =>
 															var precioUsd = null; 
 
 															precios.forEach(function(element){
-																if(element.moneda = "USD"){
-																	precioActual = elemento.precio
+																if(element.moneda == "USD"){
+																	precioUsd = element.precio
 																}
 															})
 
@@ -332,8 +331,8 @@ exports.PlanesSuperiores = (req, res) =>
 												});
 						
 											}, (err) => {
-												
-												if (err) res.status(402).json({});
+												console.log(err)
+												if (err) res.status(402).json(err);
 
 												json.planes.superiores = data_planes;
 												
