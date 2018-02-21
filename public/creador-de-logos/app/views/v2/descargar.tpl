@@ -19,8 +19,12 @@
 
         <div class="col s4 offset-s1">
 
-            <div class="col l9 logo-final" style="padding: 0;margin-top: 20px">
+            <div class="col l9 logo-final" style="padding: 0;margin-top: 20px; position: relative">
                 <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                <button style="position: absolute; bottom: 0%; width: 100%; opacity: 0.4" class="boton-verde"> 
+                    <i class="material-icons" style="vertical-align: middle;">monetization_on</i> 
+                    <span style="vertical-align: middle;">INCREMENTAR PLAN</span>
+                </button>
 
             </div>
 
