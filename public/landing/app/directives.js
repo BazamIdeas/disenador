@@ -128,7 +128,7 @@ angular.module("landing")
 			controllerAs: "bazamLogin",
 			scope: {
 				callback: "<",
-				mostrar: "<"
+				mostrar: "="
 			}
 		};
 

@@ -60,8 +60,8 @@
                             </md-input-container>
                             
                             <md-input-container style="width:100%; padding: 0 0.75rem" bazam-ayuda data-titulo="Estilo de fuente" data-texto="Escoja el estilo de fuente de su agrado" data-clases="['corner-lt']" data-identificador="ayuda-categoria-fuente" data-orientacion="right" data-paso="3" bazam-pasos-ayuda data-apaso="3">
-                                <md-select ng-style="{'font-family': principal.seleccionarFuenteCategoria(principal.datos.categoria.fuente)}" class="cat-fuente" ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
-                                    <md-option ng-style="{'font-family': categoria.nombreCategoria}" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+                                <md-select style="font-family: 'futura-heavy' !important" class="cat-fuente" ng-model="principal.datos.categoria.fuente" placeholder="Estilo de fuente" required> 
+                                    <md-option style="font-family: 'futura-heavy' !important" ng-repeat="categoria in principal.categoriasPosibles.fuentes track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
                                 </md-select>
                             </md-input-container>
                         </div>
@@ -119,7 +119,7 @@
             </div>
         </section>
 
-        <bazam-form-login data-mostrar="principal.mostrarModalLogin" data-tipo-logo="principal.objetivoEditor" data-logo="principal.logoSeleccionado" data-logo-predisenado="principal.predisenadoSeleccionado" data-callback="[principal.avanzar, principal.avanzarPredisenado]"></bazam-form-login>
+        <bazam-form-login data-mostrar="principal.mostrarModalLogin" data-callback="principal.callback"></bazam-form-login>
 
         <!--<div class="overlay" ng-class="{'show': principal.mostrarModalLogin, 'hide': !principal.mostrarModalLogin}"> 
             <div class="row margin-bottom-0">

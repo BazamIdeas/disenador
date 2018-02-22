@@ -1276,7 +1276,7 @@ angular.module("disenador-de-logos")
 						var popCreado = angular.element(html);
 						body.append(popCreado);
 
-						angular.forEach(scope.clases, function (clase, indice) {
+						angular.forEach(scope.clases, function (clase) {
 							popCreado.addClass(clase);
 						});
 				
@@ -1476,11 +1476,10 @@ angular.module("disenador-de-logos")
 
 				bz.paisDefecto = null;
 
-				clientesService.pais().then(function (res) {
-
-					bz.paisDefecto = res.iso;
-
-				});
+				clientesService.pais()
+					.then(function (res) {
+						bz.paisDefecto = res.iso;
+					});
 
 				bz.datosLogin = {};
 
@@ -1492,7 +1491,7 @@ angular.module("disenador-de-logos")
 
 						bz.completadoLogin = false;
 
-						clientesService.login(datos).then(function (res) {
+						clientesService.login(datos).then(function () {
 
 							if (clientesService.autorizado(true)) {
 
@@ -1502,9 +1501,9 @@ angular.module("disenador-de-logos")
 										clase: "success"
 									}
 								}));
-
+								$scope.callback();
 								bz.mostrarModalLogin = false;
-								
+								/*
 								switch ($scope.tipoLogo) {
 
 								case "nuevo":
@@ -1516,6 +1515,7 @@ angular.module("disenador-de-logos")
 									break;
 
 								}
+								*/
 							}
 
 						}).catch(function () {
@@ -1560,7 +1560,8 @@ angular.module("disenador-de-logos")
 								}));
 
 								bz.mostrarModalLogin = false;
-								
+								$scope.callback();
+								/*
 								switch ($scope.tipoLogo) {
 
 								case "nuevo":
@@ -1572,7 +1573,7 @@ angular.module("disenador-de-logos")
 									break;
 
 								}
-
+								*/
 
 
 							}
@@ -1698,10 +1699,10 @@ angular.module("disenador-de-logos")
 			controllerAs: "bazamLogin",
 			scope: {
 				callback: "<",
-				mostrar: "<",
-				tipoLogo: "<",
+				mostrar: "=",
+				/*tipoLogo: "<",
 				logo: "<",
-				logoPredisenado:"<"
+				logoPredisenado:"<"*/
 			}
 		};
 

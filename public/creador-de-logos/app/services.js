@@ -1206,6 +1206,28 @@ angular.module("disenador-de-logos")
 
 		};
 
+		
+		this.aumentarPlan = function(idPlan){
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+			console.log("hola")
+			$http.post("/app/planes/aumentar", {idPlan: idPlan})
+				.then(function (res) {
+
+					defered.resolve(res.data);
+
+				}).catch(function (res) {
+
+					defered.reject(res);
+
+				});
+
+			return promise;
+
+		};
+
 	}])
 
 

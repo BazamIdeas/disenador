@@ -67,7 +67,28 @@ elemento.getElementos = function( datos, callback)
 
 elemento.getElementosIncat = function( datos, callback)
 {
-	var q = 'SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12' ;
+	var q = 'SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 20' ;
+
+	DB.getConnection(function(err, connection)
+	{ //cmienzo del for
+		
+		connection.query( q ,datos, function(err, rows){
+
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  	callback(null, rows);
+		  	connection.release();
+	  	});
+
+	  
+	});
+}
+
+
+elemento.getElementosCat = function( datos, callback)
+{
+	var q = 'SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento' ;
 
 	DB.getConnection(function(err, connection)
 	{ //cmienzo del for

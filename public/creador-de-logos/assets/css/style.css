@@ -1,9 +1,9 @@
 :root {
     --principal: #612787;
     --secundario: #b92d00;
-    --tercero: #4aaf57;
+    --tercero: #009688;
     --fondo: #eceff0;
-    --blanco: #fff;
+    --blanco: #FCFCFC;
 }
 
 /* BEGIN Black */
@@ -97,7 +97,7 @@ button,
 input,
 select,
 textarea {
-    font-family: 'futura-bold' !important;
+    font-family: 'futura-heavy' !important;
     font-weight: 800;
 }
 
@@ -2651,6 +2651,7 @@ textarea {
 .texto-ayuda{
     font-size: 10px;
     margin-top: 0;
+    font-family: maven-bold !important;
 }
 
 .pop-ayuda.aparecer {
@@ -2727,7 +2728,7 @@ textarea {
             align-items: center;
     -webkit-box-shadow: 0px 0px 5px 1px #6e6767;
             box-shadow: 0px 0px 5px 1px #6e6767;
-    background-color: var(--principal);
+    background-color: var(--secundario);
     color: white;
     cursor: pointer;
 }
@@ -2792,6 +2793,11 @@ div.icono{
 div.icono bazam-visualizar svg{
     width: 17vh;
     height: 17vh;
+}
+
+div.opcion-icono bazam-visualizar svg{
+    height: 16vh;
+    width: 14vh;
 }
 
 

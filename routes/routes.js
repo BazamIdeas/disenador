@@ -94,7 +94,8 @@ router.get("/etiqueta/borrar/:id", middleware.validarAdministrador, controllers.
 
 //MODULO ELEMENTOS
 router.post("/elementos/busqueda", controllers.elementos.listaSegunPref);
-router.post("/elementos/categorias", controllers.elementos.listaElemCat);
+router.post("/elementos/categorias", controllers.elementos.listaElemCategoria);
+router.post("/elementos/categoria", controllers.elementos.listaElemCat);
 router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono
 router.get("/elementos/fuente", controllers.elementos.ListarFuentes);
 router.post("/elemento/fuente", multipartMiddleware, controllers.elementos.nuevoElementoFuente);
@@ -134,12 +135,13 @@ router.get("/pasarela/monedas/:id", /*middleware.validarAdministrador,*/ control
 
 //MODULO DE PLANES
 router.get("/planes/comprar", controllers.planes.ListarFront);
-router.get("/planes", /*middleware.validarAdministrador,*/ controllers.planes.ListarBack);
-router.get("/plan/precios/:id", /*middleware.validarAdministrador,*/ controllers.planes.ListarPrecios); // lista precios activos
-router.post("/plan", /*middleware.validarAdministrador,*/ controllers.planes.Nuevo); // ingresar Nuevo y un precio
-router.post("/plan/caracteristicas", /*middleware.validarAdministrador,*/ controllers.caracteristicas.Nuevos);
-router.post("/plan/bloquear", /*middleware.validarAdministrador,*/ controllers.planes.Bloquear);
-router.post("/plan/modificar", /*middleware.validarAdministrador,*/ controllers.planes.Modificar);
+router.post("/planes/aumentar", middleware.validarCliente, controllers.planes.PlanesSuperiores);
+router.get("/planes", middleware.validarAdministrador, controllers.planes.ListarBack);
+router.get("/plan/precios/:id", middleware.validarAdministrador, controllers.planes.ListarPrecios); // lista precios activos
+router.post("/plan", middleware.validarAdministrador, controllers.planes.Nuevo); // ingresar Nuevo y un precio
+router.post("/plan/caracteristicas", middleware.validarAdministrador, controllers.caracteristicas.Nuevos);
+router.post("/plan/bloquear", middleware.validarAdministrador, controllers.planes.Bloquear);
+router.post("/plan/modificar", middleware.validarAdministrador, controllers.planes.Modificar);
 
 
 

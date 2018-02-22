@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "elementosService", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, elementosService) {
+	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService) {
 
 		var bz = this;
 
@@ -17,48 +17,48 @@ angular.module("disenador-de-logos")
 			}
 		];
 
-        bz.formatos = [
-            {
-                nombre: "facebook",
-                ancho: 180
-            },
-            {
-                nombre: "whatsapp",
-                ancho: 300
-            },
-            {
-                nombre: "instagram",
-                ancho: 110
-            },
-            {
-                nombre: "google-plus",
-                ancho: 250
-            },
-            {
-                nombre: "youtube",
-                ancho: 200
-            },
-            {
-                nombre: "twitter",
-                ancho: 400
-            },
-            {
-                nombre: "linkedin",
-                ancho: 400
-            },
-            {
-                nombre: "pinterest",
-                ancho: 60
-            },
-            {
-                nombre: "telegram",
-                ancho: 300
-            },
-            {
-                nombre: "vimeo",
-                ancho: 300
-            },
-        ]
+		bz.formatos = [
+			{
+				nombre: "facebook",
+				ancho: 180
+			},
+			{
+				nombre: "whatsapp",
+				ancho: 300
+			},
+			{
+				nombre: "instagram",
+				ancho: 110
+			},
+			{
+				nombre: "google-plus",
+				ancho: 250
+			},
+			{
+				nombre: "youtube",
+				ancho: 200
+			},
+			{
+				nombre: "twitter",
+				ancho: 400
+			},
+			{
+				nombre: "linkedin",
+				ancho: 400
+			},
+			{
+				nombre: "pinterest",
+				ancho: 60
+			},
+			{
+				nombre: "telegram",
+				ancho: 300
+			},
+			{
+				nombre: "vimeo",
+				ancho: 300
+			},
+		];
 
 		//bz.formatoSeleccionado = bz.formatos[0];
        
@@ -69,7 +69,9 @@ angular.module("disenador-de-logos")
 		planesService.porLogo(bz.logo.id)
 			.then(function (res) {
 				bz.plan = res.caracteristicas;
-            
+				
+				planesService.aumentarPlan(res.idPlan)
+					
 				if(bz.plan && bz.plan.png){
 					bz.formatoSeleccionado = bz.formatos[0];
 				} else if(bz.plan && bz.plan.editable){
@@ -145,7 +147,7 @@ angular.module("disenador-de-logos")
 		};
 
 
-        bz.manualMarca = function(id){
+		bz.manualMarca = function(id){
 			bz.esperaManual = true;
 			angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 

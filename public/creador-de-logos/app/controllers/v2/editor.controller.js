@@ -396,6 +396,7 @@ angular.module("disenador-de-logos")
 
 				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
 					.then(function (res) {
+						bz.iconos = [];
 						bz.iconos = res;
 					}).finally(function () {
 						bz.completadoBuscar = true;

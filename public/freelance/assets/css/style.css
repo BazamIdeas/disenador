@@ -2323,7 +2323,6 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     font-family: !futura-heavy important;
     transition: opacity 1s;
     cursor: pointer;
-    bottom: 0;
 }
 
 .logo-container span.seleccionar:hover {
@@ -2350,9 +2349,14 @@ div.icono bazam-visualizar svg{
     text-align: center;
 }
 
-.cubos-logos-opciones div.col div bazam-visualizar svg{
+div.icono bazam-visualizar svg{
     width: 17vh;
     height: 17vh;
+}
+
+div.opcion-icono bazam-visualizar svg{
+    height: 16vh;
+    width: 14vh;
 }
 
 #select_8 {
