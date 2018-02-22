@@ -2,7 +2,7 @@
     --principal: #612787;
     --secundario: #b92d00;
     --tercero: #009688;
-    --fondo: #eceff0;
+    --fondo: #ECEFF0;
     --blanco: #FCFCFC;
 }
 
@@ -692,6 +692,11 @@ p.label-slider-input-right{
 /*End Sidebar 2*/
 
 /*Contenedor Principal*/
+
+.subtitulo{
+    font-size: 20px;
+}
+
 div.contenedor-principal{
     -webkit-transition: width 1s ease;
     transition: width 1s ease;
@@ -710,9 +715,6 @@ div.contenedor-principal{
 }
 
 
-.cubos-logos-opciones div.col {
-    padding: 0px 18px !important;
-}
 
 .cubos-logos-opciones div.col div{
     background-color: white;
@@ -730,7 +732,7 @@ div.contenedor-principal{
 
 .cubos-logos-opciones div.col div bazam-visualizar svg{
     width: 23vh;
-    height: 33vh;
+    height: 29vh;
 }
 
 .cubos-logos-opciones div.col div.seleccionado{
@@ -904,8 +906,6 @@ div.contenedor-principal{
     height: 50px;
     top: 41px;
 }
-
-
 
 
 
@@ -1498,16 +1498,15 @@ div.contenedor-planes .plan .plan-body .plan-lista {
 div.contenedor-planes .plan .plan-body .plan-lista li{
     position: relative;
     font-size: 13px;
+    list-style-type: initial;
+    font-family: maven-medium !important;
+    line-height: 1.5;
 }
 
-div.contenedor-planes .plan .plan-body .plan-lista li:after{
-    content: "";
-    width: 8px;
-    height: 2px;
-    background-color: var(--principal);
-    position: absolute;
-    left: -12px;
-    top: 8px;
+.subtitulo-plan{
+    font-size: 15px;
+    font-family: maven-regular !important;
+    color: var(--tercero);
 }
 
 div.contenedor-planes .plan .plan-body .plan-precio{
