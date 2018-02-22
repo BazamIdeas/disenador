@@ -24,8 +24,9 @@
                                 COMENZAR
                             </md-button>
                         </div>
-                        <div ng-if="form.nombre.$touched" style="margin-left:8px;">
-                            <div style="color:white; font-size:20px;" ng-if="form.nombre.$error.required">Por favor rellene el campo.</div>
+                        <br>
+                        <div ng-show="form.nombre.$touched" style="margin-left:8px;">
+                            <div style="color:white; font-size:20px;" ng-if="form.nombre.$error.required">Por favor rellenar el nombre de su logo</div>
                         </div>
                     </form>
                 </div>
@@ -47,6 +48,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+    <vertical-cards ng-if="comienzo.consejos.length > 0" consejos="comienzo.consejos"></vertical-cards>
     </div>
     <div class="formulario-landing dos">
         <form name="form2" novalidate layout layout-align="center center">
@@ -78,8 +82,9 @@
         <div class="text-center">
             <h2>ELIJA ENTRE LAS MEJORES CREACIONES</h2>
         </div>
-       <div layout layout-align="space-around center" layout-wrap style="text-align: justify;" layout-padding>
-            <div class="margen_inferior l-destacado-landing" md-whiteframe="2dp" layout-padding ng-repeat="destacado in comienzo.destacados | limitTo : 8" ng-click="comienzo.editar(destacado)">
+        <div layout layout-align="space-around center" layout-wrap style="text-align: justify;" layout-padding>
+            <div class="margen_inferior l-destacado-landing" md-whiteframe="2dp" layout-padding ng-repeat="destacado in comienzo.destacados | limitTo : 8"
+                ng-click="comienzo.editar(destacado)">
                 <bazam-visualizar data-svg="comienzo.base64.decode(destacado.logo)" ng-click="comienzo.irEditor(destacado)"></bazam-visualizar>
             </div>
         </div>

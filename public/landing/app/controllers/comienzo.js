@@ -1,26 +1,28 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory","clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory) {
 
 		var bz = this;
 
 		logosService.mostrarDestacados()
-			.then(function(res){
+			.then(function (res) {
 				bz.destacados = res;
 			})
-			.catch(function(){
+			.catch(function () {
 
 			})
 			.finally(function () {
-			
+
 			});
-        
+
 		bz.enviarComenzar = function (nombreLogo, v) {
 
 			if (!v) return;
-			
-			navegarFactory.cliente(false, {n: nombreLogo});
-			
+
+			navegarFactory.cliente(false, {
+				n: nombreLogo
+			});
+
 		};
 
 
@@ -47,16 +49,15 @@ angular.module("landing")
 				navegarFactory.cliente("editor");
 			};
 
-			if(clientesService.autorizado()){
+			if (clientesService.autorizado()) {
 				bz.callback();
-			} else{
+			} else {
 				bz.mostrarLogin = true;
 			}
 
 		};
 
-		
-
+		bz.consejos = estaticosLandingValue.consejos;
 
 		bz.base64 = $base64;
 

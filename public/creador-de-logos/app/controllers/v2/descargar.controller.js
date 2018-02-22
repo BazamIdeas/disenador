@@ -149,46 +149,16 @@ angular.module("disenador-de-logos")
 			bz.esperaManual = true;
 			angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-            logosService.obtenerPorId(id).then(function (res) {
-				var logo = res;
-
-				if (logo.atributos.length > 0){
-					angular.forEach(logo.atributos, function (valor) {
-
-						if (valor.clave == 'principal') {
-							logo.tieneNombre = valor.valor;
-						}
-
-						if (valor.clave == 'eslogan'){
-							logo.tieneEslogan = valor.valor;
-						}
-					
-					})
-
-					elementosService.listarFuentes().then(function (res) {
-
-						angular.forEach(res, function (valor) {
-							if (valor.idElemento == logo.tieneEslogan) {
-								logo.tipografia_s = { nombre: valor.nombre, url: valor.url }
-							}
-
-							if (valor.idElemento == logo.tieneNombre) {
-								logo.tipografia_p = { nombre: valor.nombre, url: valor.url }
-							}
-						})
-						
-						logosService.manualMarca(logo).then(function (res) {
-							var pdf = document.createElement('a');
-							pdf.setAttribute('href', res.url);
-							pdf.setAttribute('download', res.nombreArchivo);
-							simulateClick(pdf);
-						}).finally(function () {
-							bz.esperaManual = false;
-							angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
-						});
-					})
-				}
+			logosService.manualMarca(id).then(function (res) {
+				var pdf = document.createElement('a');
+				pdf.setAttribute('href', res.url);
+				pdf.setAttribute('download', res.nombreArchivo);
+				simulateClick(pdf);
+			}).finally(function () {
+				bz.esperaManual = false;
+				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
 			});
+
 		};
 
 		function simulateClick(control) {

@@ -20,8 +20,15 @@
 
 /* Header-Footer */
 
+.logo {
+    padding: 16px;
+    font-size: 20px;
+    text-align: center;
+}
+
 * {
     font-family: maven-regular;
+    outline: none
 }
 
 h1,
@@ -198,6 +205,11 @@ md-content {
 
 /* LANDING */
 
+button.boton-enviar:hover {
+    background: white;
+    color: black !important;
+}
+
 .seccion-landing.uno {
     padding: 5% 2%;
 }
@@ -342,15 +354,20 @@ p.hr-p {
     margin: 0;
 }
 
-.header button {
-    font-size: 19px;
-}
-
 .img-caracteristica {
     width: 30%;
     display: block;
     margin: auto;
     padding-bottom: 16px;
+}
+
+/* Comienzo */
+
+/* HEADER */
+
+.button-white {
+    background-color: white !important;
+    color: black !important;
 }
 
 /* CAROUSEL */
@@ -462,8 +479,8 @@ p.hr-p {
 
 .l-destacado-landing:hover {
     -webkit-box-flex: 25%;
-        -ms-flex: 25%;
-            flex: 25%;
+    -ms-flex: 25%;
+    flex: 25%;
     max-width: 25%;
     margin: 0%;
 }

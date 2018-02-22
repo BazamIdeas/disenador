@@ -17,8 +17,8 @@ angular.module("landing")
 		}
 	})
 
-	.factory("navegarFactory",["rutasValue", "$window", "$httpParamSerializer", function(rutasValue, $window, $httpParamSerializer){
-		
+	.factory("navegarFactory", ["rutasValue", "$window", "$httpParamSerializer", function (rutasValue, $window, $httpParamSerializer) {
+
 		var paramsFunction = function (params) {
 
 			return params ? "?" + $httpParamSerializer(params) : "";
@@ -32,9 +32,9 @@ angular.module("landing")
 					return;
 				} else {
 
-					if (rutasValue.cliente.estado[estado]){
+					if (rutasValue.cliente.estado[estado]) {
 						$window.location = rutasValue.cliente.base + rutasValue.cliente.estado[estado] + paramsFunction(params);
-					} else{
+					} else {
 						return;
 					}
 				}
@@ -42,12 +42,12 @@ angular.module("landing")
 			freelance: function (estado, params) {
 				if (!estado) {
 					$window.location = rutasValue.freelance.base + paramsFunction(params);
-					return ;
+					return;
 				} else {
 
-					if (rutasValue.freelance.estado[estado]){
+					if (rutasValue.freelance.estado[estado]) {
 						$window.location = rutasValue.freelance.base + rutasValue.freelance.estado[estado] + paramsFunction(params);
-					} else{
+					} else {
 						return;
 					}
 				}
@@ -57,77 +57,77 @@ angular.module("landing")
 	}])
 
 	.factory("verificarBase64Factory", [function () {
-		
+
 		return function (cadena) {
-			
+
 			return /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(cadena);
 
 		};
 	}])
 
-	.factory("arrayToJsonMetasFactory", [function(){
-    
-		return function(arrayMetas){
-        
+	.factory("arrayToJsonMetasFactory", [function () {
+
+		return function (arrayMetas) {
+
 			var jsonMetas = {};
-        
-			angular.forEach(arrayMetas, function(meta){
-            
+
+			angular.forEach(arrayMetas, function (meta) {
+
 				jsonMetas[meta.clave] = meta.valor;
-            
+
 			});
-        
+
 			return jsonMetas;
-        
+
 		};
-    
+
 	}])
 
 
 	.factory("guardarLogoFactory", ["$window", function ($window) {
-		
+
 		return function (logo, atributos) {
 			var datosLogo = {
-				logo:{
-					icono:{
+				logo: {
+					icono: {
 						idElemento: logo.elementos_idElemento,
 						svg: logo.logo
 					}
 				},
-				idLogoPadre:logo.idLogo,
-				fuentes:{
+				idLogoPadre: logo.idLogo,
+				fuentes: {
 					principal: atributos.principal,
 					eslogan: atributos.eslogan
 				}
 			};
-			$window.localStorage.setItem("editor",angular.toJson(datosLogo));
+			$window.localStorage.setItem("editor", angular.toJson(datosLogo));
 		};
-		
+
 	}])
 
 	.value("estaticosLandingValue", {
 		caracteristicas: [{
-			nombre: "Instantaneo",
+			nombre: "Simplicidad",
+			descripcion: "Evita cargarlo demasiado y añadir efectos pesados. Un diseño cargado puede ser distractor; un logo más elegante y minimalista se ve más organizado. Aunque nuestro creador de logos gratis ofrece miles de formas de personalizar tu diseño, ¡no te dejes llevar!",
+			img: "/landing/assets/img/a.jpg"
+		}, {
+			nombre: "Elección del color",
+			descripcion: "Ten en cuenta el primer consejo Quédate con un esquema de colores que refleje una identidad de marca profesional y cohesiva. Aunque haya miles de colores para elegir, sé listo/a.",
+			img: "/landing/assets/img/a.jpg"
+		}, {
+			nombre: "Tipografía práctica",
+			descripcion: "Piensa en la tipografía, el tamaño, la combinación, la fuente, y los colores. Hay mucho más que solo serif y sans serif. Normalmente, debes quedarte con solo una a dos fuentes dentro del diseño de tu logo.",
+			img: "/landing/assets/img/a.jpg"
+		}, {
+			nombre: "Manual De Marcas",
 			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quasi modi a nam, dicta inventore doloribus unde reprehenderit impedit ipsum temporibus qui, maiores soluta nisi. Ex voluptate asperiores nemo odio.",
 			img: "/landing/assets/img/a.jpg"
 		}, {
-			nombre: "Reutilizable",
+			nombre: "Gran variedad de diseños",
 			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quasi modi a nam, dicta inventore doloribus unde reprehenderit impedit ipsum temporibus qui, maiores soluta nisi. Ex voluptate asperiores nemo odio.",
 			img: "/landing/assets/img/a.jpg"
 		}, {
-			nombre: "Seguro",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quasi modi a nam, dicta inventore doloribus unde reprehenderit impedit ipsum temporibus qui, maiores soluta nisi. Ex voluptate asperiores nemo odio.",
-			img: "/landing/assets/img/a.jpg"
-		}, {
-			nombre: "Facil Uso",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quasi modi a nam, dicta inventore doloribus unde reprehenderit impedit ipsum temporibus qui, maiores soluta nisi. Ex voluptate asperiores nemo odio.",
-			img: "/landing/assets/img/a.jpg"
-		}, {
-			nombre: "Diseños llavamativos",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quasi modi a nam, dicta inventore doloribus unde reprehenderit impedit ipsum temporibus qui, maiores soluta nisi. Ex voluptate asperiores nemo odio.",
-			img: "/landing/assets/img/a.jpg"
-		}, {
-			nombre: "Borradores",
+			nombre: "Logos Hechos por Diseñadores",
 			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quasi modi a nam, dicta inventore doloribus unde reprehenderit impedit ipsum temporibus qui, maiores soluta nisi. Ex voluptate asperiores nemo odio.",
 			img: "/landing/assets/img/a.jpg"
 		}],
@@ -146,29 +146,44 @@ angular.module("landing")
 		}, {
 			pregunta: "Lorem ipsum dolor?",
 			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+		}],
+		consejos: [{
+			nombre: "Simplicidad",
+			descripcion: "Evita cargarlo demasiado y añadir efectos pesados. Un diseño cargado puede ser distractor; un logo más elegante y minimalista se ve más organizado. Aunque nuestro creador de logos gratis ofrece miles de formas de personalizar tu diseño, ¡no te dejes llevar!"
+		}, {
+			nombre: "Elección del color",
+			descripcion: "Ten en cuenta el primer consejo Quédate con un esquema de colores que refleje una identidad de marca profesional y cohesiva. Aunque haya miles de colores para elegir, sé listo/a."
+		}, {
+			nombre: "Tipografía práctica",
+			descripcion: "Piensa en la tipografía, el tamaño, la combinación, la fuente, y los colores. Hay mucho más que solo serif y sans serif. Normalmente, debes quedarte con solo una a dos fuentes dentro del diseño de tu logo."
+		}, {
+			nombre: "Borradores",
+			descripcion: "Ten en cuenta el primer consejo Quédate con un esquema de colores que refleje una identidad de marca profesional y cohesiva. Aunque haya miles de colores para elegir, sé listo/a."
+		}, {
+			nombre: "Colores a elegir",
+			descripcion: "Ten en cuenta el primer consejo Quédate con un esquema de colores que refleje una identidad de marca profesional y cohesiva. Aunque haya miles de colores para elegir, sé listo/a."
 		}]
-
 	})
 
 	.service("logosService", ["$http", "$q", function ($http, $q) {
 		this.mostrarDestacados = function () {
-			
+
 			var defered = $q.defer();
-		
+
 			var promise = defered.promise;
-		
+
 			$http.post("/app/logos/aprobados/destacados").then(function (res) {
-						
+
 				defered.resolve(res.data);
-		
+
 			}).catch(function (res) {
-		
+
 				defered.reject(res);
-		
+
 			});
-		
+
 			return promise;
-		
+
 		};
 
 
@@ -194,11 +209,11 @@ angular.module("landing")
 		};
 
 		this.vendidosPorCliente = function (idCLiente) {
-			
+
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.get("/app/logos/"+idCLiente+"/vendidos")
+			$http.get("/app/logos/" + idCLiente + "/vendidos")
 				.then(function (res) {
 					defered.resolve(res.data);
 				}).catch(function (res) {
@@ -233,7 +248,7 @@ angular.module("landing")
 		};
 
 	}])
-    
+
 	.service("clientesService", ["$http", "$q", "$window", "$rootScope", "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
 
 		this.registrar = function (nombreCliente, correo, pass, telefono, pais) {
@@ -243,12 +258,12 @@ angular.module("landing")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente", {
-				nombreCliente: nombreCliente,
-				correo: correo,
-				pass: pass,
-				telefono: telefono,
-				pais: pais
-			})
+					nombreCliente: nombreCliente,
+					correo: correo,
+					pass: pass,
+					telefono: telefono,
+					pais: pais
+				})
 				.then(function (res) {
 					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
 					clienteDatosFactory.definir(res.data);
@@ -363,7 +378,7 @@ angular.module("landing")
 
 			var promise = defered.promise;
 
-			$http.get("/app/cliente/"+idLogo)
+			$http.get("/app/cliente/" + idLogo)
 
 				.then(function (res) {
 
@@ -387,10 +402,10 @@ angular.module("landing")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente/modificar", {
-				telefono: telefono,
-				nombreCliente: nombreCliente,
-				pais: pais
-			})
+					telefono: telefono,
+					nombreCliente: nombreCliente,
+					pais: pais
+				})
 
 				.then(function (res) {
 
@@ -420,7 +435,7 @@ angular.module("landing")
 					defered.reject();
 				});
 
-			return promise;			
+			return promise;
 		};
 
 		this.logosVendidos = function () {
@@ -436,28 +451,30 @@ angular.module("landing")
 					defered.reject();
 				});
 
-			return promise;			
+			return promise;
 		};
 
 		this.correoDisponible = function (correo) {
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.post("/app/cliente/email", {email: correo})
+			$http.post("/app/cliente/email", {
+					email: correo
+				})
 
 				.then(function () {
 					defered.reject();
 				})
 				.catch(function (res) {
-					if(res.status == 404){
+					if (res.status == 404) {
 						defered.resolve();
 					} else {
 						defered.reject();
 					}
-					
+
 				});
 
-			return promise;		
+			return promise;
 		};
 
 	}]);

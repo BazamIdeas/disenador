@@ -133,5 +133,40 @@ angular.module("landing")
 		};
 
 		
-	}]);
+	}])
+
+	.directive("verticalCards", [function () {
+	return {
+		restrict: "E",
+		templateUrl: "landing/app/templates/verticalCards.tpl",
+		controller: ["$scope", function ($scope) {
+
+			var bz = this;
+
+			bz.actual = 0;
+			bz.indice = 3;
+
+			bz.consejos = $scope.consejos;
+
+			bz.changeCard = function (v) {
+				if (v) {
+					if (bz.consejos[bz.indice + 1] != undefined) {
+						bz.indice++;
+					}
+				} else {
+					if (bz.consejos[bz.indice - 1] != undefined) {
+						bz.indice--;
+					}
+				}
+			}
+
+		}],
+		controllerAs: "cards",
+		scope: {
+			consejos: "<"
+		}
+	};
+
+
+}])
 
