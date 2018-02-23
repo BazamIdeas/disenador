@@ -84,6 +84,134 @@ angular.module("landing")
 	}])
 
 
+	/***************************/
+	/*********ELEMENTOS*********/
+	/***************************/
+
+	.service("elementosService", ["$http", "$q", function ($http, $q) {
+
+		this.listaSegunPref = function (datos) {
+
+			return $http.post("/app/elementos/busqueda", datos)
+
+				.then(function (res) {
+
+					return res.data;
+
+				})
+
+				.catch(function () {
+
+
+
+				});
+		};
+
+		this.listarFuentes = function () {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/elementos/fuente").then(function (res) {
+
+				defered.resolve(res.data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+			return promise;
+
+		};
+
+		this.listarIniciales = function (inicial) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/elementos/iniciales", {
+				inicial: inicial
+			}).then(function (res) {
+
+				defered.resolve(res.data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+			return promise;
+
+		};
+
+	}])
+
+
+	/***************************/
+	/*******CATEGORIAS**********/
+	/***************************/
+
+	.service("categoriasService", ["$http", "$q", function ($http, $q) {
+
+		this.listaCategorias = function (tipo) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/categorias", {
+				tipo: tipo
+			}).then(function (res) {
+
+				defered.resolve(res.data);
+
+
+			}).catch(function () {
+
+				defered.reject();
+
+			});
+
+			return promise;
+
+
+		};
+
+
+		this.listaCategoriasElementos = function (idCategoria, tipo) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/elementos/categorias", {
+				idCategoria: idCategoria,
+				tipo: tipo
+			}).then(function (res) {
+
+				defered.resolve(res.data);
+
+
+			}).catch(function () {
+
+				defered.reject();
+
+			});
+
+			return promise;
+
+		};
+
+
+	}])
+
+
+
 	.factory("guardarLogoFactory", ["$window", function ($window) {
 
 		return function (logo, atributos) {
