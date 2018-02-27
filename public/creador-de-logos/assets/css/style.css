@@ -6,6 +6,13 @@
     --blanco: #FCFCFC;
 }
 
+*{
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
 /* BEGIN Black */
 @font-face {
     font-family: 'maven-black';
@@ -2800,9 +2807,10 @@ div.opcion-icono bazam-visualizar svg{
 }
 
 
-.imagen-perfil img{
+.imagen-perfil img {
     width: 100%;
     border-radius: 50%;
+    box-shadow: 0px 0px 1px 2px #7a8183;
 }
 
 .imagen-perfil > div {

@@ -315,7 +315,7 @@ angular.module("disenador-de-logos")
 
 			angular.forEach(bz.aprobados, function (valor) {
 
-				if (valor.idLogo == indiceLogo) {
+				if (valor.idLogo == bz.predisenadoSeleccionado) {
 					aprobado = valor;
 				}
 

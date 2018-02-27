@@ -111,7 +111,7 @@
                                     <td ng-if="d.bloqueado == 0">Activo</td>
                                     <td ng-if="d.bloqueado == 1">Bloqueado</td>
                                     <td>
-                                        <md-button ng-if="d.deuda.deuda < 0 " class="md-fab md-mini md-warn" ng-disabled="designer.peticion" ng-click="designer.calDisenador(d)">
+                                        <md-button ng-if="d.deuda.deuda > 0 " class="md-fab md-mini md-warn" ng-disabled="designer.peticion" ng-click="designer.calDisenador(d)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Pagar</md-tooltip>
                                             <md-icon class="material-icon">payment</md-icon>
                                         </md-button>
