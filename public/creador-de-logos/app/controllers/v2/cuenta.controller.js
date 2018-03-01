@@ -85,6 +85,7 @@ angular.module("disenador-de-logos")
 		};
 		bz.fotoCargaCompletada = true;
 		bz.cargarFoto = function(imagen){
+			console.log(imagen)
 			if(imagen){
 				if(bz.fotoCargaCompletada){
 					bz.fotoCargaCompletada = false;
