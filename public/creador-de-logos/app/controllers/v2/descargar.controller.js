@@ -65,22 +65,96 @@ angular.module("disenador-de-logos")
 		bz.logo = logoResolve;
 
 		bz.plan = {};
+		bz.planes = {};
+		bz.monedas = {};
+		bz.moneda = {};
+
+		bz.mostrarAumento = false;
 
 		planesService.porLogo(bz.logo.id)
 			.then(function (res) {
 				bz.plan = res.caracteristicas;
 				
-				planesService.aumentarPlan(res.idPlan)
+				bz.idPlan = res.idPlan;
+
+				bz.monedaDefault = res.monedaDefault;
+
+				planesService.aumentarPlan(bz.idPlan)
+					.then(function(res){
+						if(res.planes.superiores.length){
+							bz.mostrarAumento = true;
+							bz.planes = res.planes.superiores;
+							
+							angular.forEach(res.planes.superiores, function (plan) {
+				
+								angular.forEach(plan.precios, function (precio) {
+				
+									if (!bz.monedas[precio.moneda]) {
+				
+										bz.monedas[precio.moneda] = {
+											simbolo: precio.moneda,
+											idMoneda: precio.idMoneda
+										};
+				
+									}
+				
+								});
+				
+							});
+							
+						}
+					})
+					.catch(function(){
+
+					})
+					.finally(function(){
+
+					});
 					
-				if(bz.plan && bz.plan.png){
+				if(bz.plan && bz.plan.png.valor == "1"){
 					bz.formatoSeleccionado = bz.formatos[0];
-				} else if(bz.plan && bz.plan.editable){
+				} else if(bz.plan && (bz.plan.editable.valor == "1" || (bz.plan.png.valor == "0" && bz.plan.editable.valor == "0"))){
 					bz.formatoSeleccionado = bz.formatosNoSociales[0];
 				}
 			})
 			.catch(function () {
             
 			});
+
+		bz.comprobarMonedas = function (plan) {
+
+			var coincidencia = false;
+	
+			angular.forEach(plan.precios, function (valor) {
+	
+				if (valor.moneda == bz.moneda.simbolo) {
+	
+					coincidencia = true;
+				}
+	
+			});
+	
+			return coincidencia;
+	
+		};
+
+		bz.precioSeleccionado = function (precios) {
+
+			var precioFinal = "";
+			
+			angular.forEach(precios, function (valor) {
+				
+				if (valor.moneda == bz.moneda.simbolo) {
+					
+					precioFinal = valor.moneda + " " + valor.precio;
+				}
+
+			});
+
+			return precioFinal;
+
+		};
+
         
 		bz.seleccionar = function (formato) {
             

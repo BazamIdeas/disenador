@@ -94,10 +94,11 @@ angular.module("disenador-de-logos")
 				};
 
 				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos);
+				var promesaFuentes = elementosService.listaSegunPref(bz.datosFuentes);
 
 				$q.all([
 					promesaIconos,
-					elementosService.listaSegunPref(bz.datosFuentes)
+					promesaFuentes
 				])
 					.then(function (res) {
 
@@ -307,9 +308,9 @@ angular.module("disenador-de-logos")
 
 			}
 
-		}
+		};
 
-		bz.avanzarPredisenado = function () {
+		bz.avanzarPredisenado = function (indiceLogo) {
 		
 			var aprobado = null;
 

@@ -867,6 +867,8 @@ angular.module("disenador-de-logos")
 
 			});
 
+			//localStorage.setItem("combinaciones",angular.toJson({nombre: "prueba",logos:logos}));
+
 			return logos;
 
 		};
@@ -1216,7 +1218,7 @@ angular.module("disenador-de-logos")
 			var defered = $q.defer();
 
 			var promise = defered.promise;
-			console.log("hola")
+			
 			$http.post("/app/planes/aumentar", {idPlan: idPlan})
 				.then(function (res) {
 

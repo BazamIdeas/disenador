@@ -29,10 +29,10 @@ angular.module("disenador-de-logos")
 			};
             
 			bz.impuesto = res.impuesto;
+			
+			bz.planes = res.planes;
 
 			angular.forEach(res.planes, function (plan) {
-
-				bz.planes = res.planes;
 
 				angular.forEach(plan.precios, function (precio) {
 
