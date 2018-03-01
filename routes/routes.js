@@ -67,6 +67,8 @@ router.post("/pedido/guardado", middleware.validarCliente, controllers.pedidos.n
 router.post("/pedido/modificar", middleware.validarCliente, controllers.pedidos.modificarPedido); // modifica los datos de un pedido
 router.post("/pedido/cambiar", middleware.validarCliente, controllers.pedidos.cambiarEstado); // cambia de estado al pedido
 router.get("/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:padre?", controllers.pedidos.cambioEstadoPagado); //RUTAS INTERNAS
+
+router.get("/pedido/aumento/:idPedido/:idLogo", controllers.pedidos.cambioEstadoPagadoAumentoPlan); //RUTAS INTERNAS
 router.get("/pedido/no/pago/:tk", controllers.pedidos.noPago); // RUTAS INTERNAS
 
 //MODULO CATEGORIAS

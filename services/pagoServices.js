@@ -10,8 +10,14 @@ exports.paypal = function(datos,callback)
       var impuesto = datos.precio * (datos.impuesto/100)
       var total = datos.precio + impuesto
 
-      var return_url = configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/"+datos.idPedido+"/";
-
+      var return_url = ''; 
+      
+      if(!datos.aumento){
+        return_url = configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/"+datos.idPedido+"/";
+      }else{
+        return_url = configuracion.url+"app/pedido/aumento/"+datos.idPedido+"/"+datos.idLogo+"/";
+      }
+    
       if(datos.padre){
         return_url = return_url + datos.padre+"/";
       }

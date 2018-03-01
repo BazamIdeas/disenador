@@ -492,28 +492,125 @@ exports.borrarPedido = function (req, res) {
 };
 
 exports.aumentarPlan = function (req, res) {
-	//id del pedido
+
 	var idLogo = req.body.idLogo;
 	var idPrecioNuevo = req.body.idPrecio;
 	var idPasarela = req.body.idPasarela;
 	var iso = services.geoipServices.iso(req.ip);
 
-
 	// Buscar impuesto
+	pais.ObtenerImpuesto(iso, function (error, impuesto) {
+		var pedidoData = {
+			idPedido: null,
+			fecha: moment().format("YYYY-MM-DD"),
+			estado: "EN ESPERA",
+			logos_idLogo: idLogo, // id del logo guardado
+			precios_idPrecio: idPrecioNuevo,
+			impuesto: impuesto,
+			pasarelas_idPasarela: idPasarela,
+			iso: iso
+		};
 
-	// Generar pedido 
+		pedido.insertPedido(pedidoData, function (error, data) {
+			//si el pedido se ha insertado correctamente mostramos su info
+			if (data && data.insertId) {
+				/// PAGO AQUI
+				//////////////////////
+				var idPedido = data.insertId;
+				pedido.ObtenerPrecioViejoPorIDdeLogo(idLogo,idPedido, function (error, data) {
+					if (typeof data !== "undefined" && data.length > 0) {
+						var precio = data;
 
-	// Buscar precio del plan anterior con el id del logo
+						precio.datos(idPrecioNuevo, function (error, data) {
+							if (typeof data !== "undefined" && data.length > 0) {
+								var precioNuevo = data;
 
-	// Buscar precio del plan a comprar con el id del precio
+								var diferencia = precioNuevo.precio - precio.precio;
 
-	// restar precios
 
-	// verificar pasarela
+								elemento.datosElementoPorLogo(idLogo, function (error, data) {
 
-	// generar pago
+									if (typeof data !== "undefined" && data.length > 0) {
+		
+										var idElemento = data[0].idElemento;
+										var tipoE = data[0].tipo.replace(" ", "");
 
-	// redirigir a ruta de cambio pedido -> cambioEstadoPagadoAumentoPlan
+										pasarela.Obtener(idPasarela, function (error, data) {
+											if (typeof data !== "undefined" && data.length > 0) {
+
+												/////ENVIAR PAGO
+
+												if (data[0].pasarela == "Paypal") {
+
+													var datosPago = {
+														precio: diferencia,
+														moneda: precioNuevo.moneda,
+														descripcion: "Diseño de Logo- " + precioNuevo[0].plan,
+														idLogo: idLogo,
+														idElemento: idElemento,
+														impuesto: impuesto,
+														tipoElemento: tipoE,
+														token: req.headers.auth,
+														idPedido: idPedido,
+														aumento: 1,
+													};
+
+													if(req.body.atributos.padre){
+														datosPago.padre = req.body.atributos.padre; 
+													}
+
+													//console.log(req.body);
+
+													services.pagoServices.paypal(datosPago, function (error, data) {
+														res.json(data.link);
+														//console.log(data.link)
+													});
+
+												} else {
+													//falta Bloquear elemento
+													res.status(200).json({
+														"msg": true
+													});
+												}
+
+											} else {
+												res.status(404).json({
+													"msg": "No existe el medio de pago"
+												});
+											}
+
+										});
+
+									}else{
+										res.status(404).json({
+											"msg": "No existe el elemento"
+										});
+									}
+								});
+
+							} else {
+								res.status(404).json({
+									"msg": "No existe el precio"
+								});
+							}
+						});
+
+					}
+					//no existe
+					else {
+						res.status(404).json({
+							"msg": "No existe el plan"
+						});
+					}
+
+				});
+			} else {
+				res.status(500).json({
+					"msg": "Algo ocurrio al crear pedido"
+				});
+			}
+		});
+	});
 
 };
 

@@ -23,6 +23,26 @@ elemento.datosElemento = function( id, callback)
 	});
 }
 
+elemento.datosElementoPorLogo = function(idLogo, callback)
+{
+	var q = 'SELECT elementos.* FROM elementos INNER JOIN logos ON elementos.idElemento = logos.elementos_idElemento WHERE logos.idLogo = ?' ;
+
+	DB.getConnection(function(err, connection)
+	{ 
+		
+		connection.query( q , idLogo, function(err, rows){
+
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  	callback(null, rows);
+		  	connection.release();
+	  	});
+
+	  
+	});
+}
+
 
 elemento.ListarFuentes = function(callback)
 {
