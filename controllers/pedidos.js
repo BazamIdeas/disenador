@@ -493,17 +493,49 @@ exports.borrarPedido = function (req, res) {
 
 exports.aumentarPlan = function (req, res) {
 	//id del pedido
-	var idLogo = req.idLogo;
-	var idPlanAnt = req.idPlan;
+	var idLogo = req.body.idLogo;
+	var idPrecioNuevo = req.body.idPrecio;
+	var idPasarela = req.body.idPasarela;
+	var iso = services.geoipServices.iso(req.ip);
 
-	//Buscar costo del plan anterior
 
-	//Buscar costo del plan actual
+	// Buscar impuesto
 
-	//Generar pedido
+	// Generar pedido 
 
-	pedido.deletePedido(id, function (error, data) {
-		res.status(200).json(data);
+	// Buscar precio del plan anterior con el id del logo
+
+	// Buscar precio del plan a comprar con el id del precio
+
+	// restar precios
+
+	// verificar pasarela
+
+	// generar pago
+
+	// redirigir a ruta de cambio pedido -> cambioEstadoPagadoAumentoPlan
+
+};
+
+exports.cambioEstadoPagadoAumentoPlan = function (req, res) {
+
+	var pedidoData = ["COMPLETADO", req.params.idPedido];
+
+	pedido.cambiarEstado(pedidoData, function (error, data) {
+
+		if (data) {
+			var id = services.authServices.decodificar(req.params.tk).id;
+
+			cliente.getCliente(id, function (error, data) {
+				services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+			});
+
+			res.redirect(configuracion.base+configuracion.pago + req.params.idLogo);
+		}
+
+		else{
+			res.redirect(configuracion.base+configuracion.dashboard);
+		}
+
 	});
-
 };

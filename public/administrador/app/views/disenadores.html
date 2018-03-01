@@ -69,7 +69,8 @@
             <!-- LISTAR DIEÑADORES -->
 
             <div class="paneles individual md-whiteframe-2dp">
-                <div layout layout-align="space-around center" layout-padding class="titulo-modulo" ng-click="designer.listarDisenadores()" ng-disabled="designer.peticion">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo" ng-click="designer.listarDisenadores()"
+                    ng-disabled="designer.peticion">
                     <texto flex>LISTADO DE DISEÑADORES</texto>
                 </div>
                 <div ng-show="designer.listaD">
@@ -89,7 +90,7 @@
                         <div layout layout-align="space-between center" ng-if="designer.metodoPagoi">
                             <p>Metodo de pago:</p>
                             <md-input-container flex>
-                                <md-select  ng-disabled="designer.peticion" ng-model="designer.datosPagar.ms" ng-change="designer.notificarDisenador(designer.datosPagar.idCliente, designer.datosPagar.ms)"
+                                <md-select ng-disabled="designer.peticion" ng-model="designer.datosPagar.ms" ng-change="designer.notificarDisenador(designer.datosPagar.idCliente, designer.datosPagar.ms)"
                                     class="md-block" aria-label="filtro">
                                     <md-option ng-value="{{f.idFacturacion}}" ng-repeat="f in designer.datosPagar.facturacion">{{f.medio}}</md-option>
                                 </md-select>
@@ -115,11 +116,11 @@
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Pagar</md-tooltip>
                                             <md-icon class="material-icon">payment</md-icon>
                                         </md-button>
-                                        <md-button ng-if="d.deuda.vendido > 0"  ng-disabled="designer.peticion" class="md-fab md-mini md-warn" ng-click="designer.mostrar('historial', $index, d.idCliente)">
+                                        <md-button ng-if="d.deuda.vendido > 0" ng-disabled="designer.peticion" class="md-fab md-mini md-warn" ng-click="designer.mostrar('historial', $index, d.idCliente)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Historial de pagos</md-tooltip>
                                             <md-icon class="material-icon">account_balance</md-icon>
                                         </md-button>
-                                        <md-button ng-if="d.logosAprobados > 0" class="md-fab md-mini md-warn"  ng-disabled="designer.peticion" ng-click="designer.mostrar('logos-designer', $index, d.idCliente)">
+                                        <md-button ng-if="d.logosAprobados > 0" class="md-fab md-mini md-warn" ng-disabled="designer.peticion" ng-click="designer.mostrar('logos-designer', $index, d.idCliente)">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logos del diseñador</md-tooltip>
                                             <md-icon class="material-icon">remove_red_eye</md-icon>
                                         </md-button>
@@ -224,20 +225,22 @@
                         <md-icon>keyboard_arrow_left</md-icon>
                     </md-button>
                 </div>
-                <div class="tabla">
-                    <div>Fecha:</div>
-                    <div>Monto:</div>
-                    <div>Medio:</div>
-                    <div style="flex:1.2;">Correo:</div>
-                </div>
                 <div layout="column" class="content-scroll">
-                    <div class="elemento" ng-repeat="h in designer.historialPagos">
-                        <div class="tabla-campo">
-                            <div>{{h.fecha | date :'yyyy-MM-dd' }}</div>
-                            <div>${{h.monto}}</div>
-                            <div>{{h.medio}}</div>
-                            <div style="flex:1.2;">{{h.correo}}</div>
-                        </div>
+                    <div class="w3-responsive content-scroll">
+                        <table class="w3-table w3-bordered">
+                            <tr>
+                                <th>Fecha:</th>
+                                <th>Monto:</th>
+                                <th>Medio:</th>
+                                <th>Correo:</th>
+                            </tr>
+                            <tr ng-repeat="h in designer.historialPagos">
+                                <td>{{h.fecha | date :'yyyy-MM-dd' }}</td>
+                                <td>${{h.monto}}</td>
+                                <td>{{h.medio}}</td>
+                                <td>{{h.correo}}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

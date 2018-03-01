@@ -196,7 +196,10 @@ angular.module("administrador")
 					}
 				});
 
+				bz.metodoPagoi = false;
+
 			}).catch(function (res) {
+
 				notificacionService.mensaje(res);
 			}).finally(function () {
 				bz.peticion = false;
@@ -231,10 +234,13 @@ angular.module("administrador")
 				});
 
 			} else if (opcion == "historial") {
-				bz.vista = 2;
 				bz.peticion = true;
 				designerService.historialDisenador(id).then(function (res) {
-					bz.historialPagos = res;
+					if (res == undefined) {
+						return notificacionService.mensaje('No hay registro de pagos en la base de datos.');
+					}
+					bz.vista = 2;
+					bz.historialPagos = res.data;
 				}).catch(function (res) {
 					notificacionService.mensaje(res);
 				}).finally(function () {
