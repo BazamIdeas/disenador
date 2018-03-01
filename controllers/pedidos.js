@@ -502,8 +502,4 @@ exports.aumentarPlan = function (req, res) {
 
 	//Generar pedido
 
-	pedido.deletePedido(id, function (error, data) {
-		res.status(200).json(data);
-	});
-
 };
