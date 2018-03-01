@@ -105,6 +105,74 @@ exports.listaSegunPref = function(req, res) {
 	});
 };
 
+exports.listaSegunTagCat = function(req, res) {
+
+	var tags = req.body.tags;
+	var categoria = req.body.categoria;
+	var limit = req.body.limit ? req.body.limit : 12;
+	var ids = req.body.ids ? req.body.ids : [0];
+
+	elemento.getElementsByTags(tags, limit, ids, function(err, data){
+		if (typeof data !== "undefined" && data.length > 0) {
+			
+			var elementos = [];
+
+			for (var i = data.length - 1; i >= 0; i--) {
+				var id = data[i].idElemento;
+				var into = 0;
+				for (var j = elementos.length - 1; j >= 0; j--) {
+					var id2 = elementos[j].idElemento;
+					if (id == id2) {
+						into = 1;
+					}
+				}
+
+				if (into == 0) {
+					elementos = elementos.concat(data[i]);
+				}
+			}
+
+			if(elementos.length < limit) { 
+
+				elemento.getElementosIncat([categoria,'ICONO'], function(error, data) {
+					if (typeof data !== "undefined" && data.length > 0) {
+						
+						for (var i = data.length - 1; i >= 0; i--) {
+							var id = data[i].idElemento;
+							var into = 0;
+							for (var j = elementos.length - 1; j >= 0; j--) {
+								var id2 = elementos[j].idElemento;
+								if (id == id2) {
+									into = 1;
+								}
+							}
+			
+							if (into == 0 && elementos.length < limit) {
+								elementos = elementos.concat(data[i]);
+							}
+						}
+						
+						res.status(200).json(elementos);
+					}else {
+						res.status(404).json({
+							"msg": "No Encontrado2"
+						});
+					}
+				});
+			
+			}else {
+				res.status(200).json(elementos);
+			}
+		
+		}else {
+			res.status(404).json({
+				"msg": "No Encontrado1"
+			});
+		}
+	})
+
+};
+
 exports.listaElemCat = function(req, res) {
 
 	var cat = [req.body.idCategoria, req.body.tipo];
@@ -308,7 +376,6 @@ exports.nuevoElementoFuente = function(req, res) {
 		});
 	}
 };
-
 
 exports.ModificarPreferencias = function(req, res) {
 	for (var x in req.datoPrefe) {
