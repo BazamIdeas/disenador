@@ -1,85 +1,175 @@
 <bazam-form-login data-mostrar="comienzo.mostrarLogin" data-callback="comienzo.callback"></bazam-form-login>
 
-<div layout="column" flex>
-    <div style="min-height:90%;" layout="column" layout-align="center">
-        <div layout class="seccion-landing uno layout-padding">
-            <div flex>
-                <div>
-                    <H1 style="text-align: center;" class="text-white">Cree su Logo en minutos</H1>
-                    <p class="sub-titulo">“El diseño es el embajador silencioso de tu marca”</p>
-                    <h4 style="color:white; text-align: center;">Paul Brand</h4>
+<div class="row seccion uno">
+    <div class="col s12">
+        <form name="form" ng-submit="comienzo.enviarComenzar(comienzo.datosCombinaciones, form.$valid)" novalidate ng-switch="comienzo.pasos">
+            <div ng-switch-default>
+                <div class="label-form">
+                    NOMBRE DE SU LOGO
                 </div>
-            </div>
-            <div layout="column" flex="30" class="formulario-landing">
-                <div>
-                    <form name="form" novalidate layout="column" flex>
-                        <div>
-                            <md-input-container style=" margin-bottom: 0px; width:100%;" class="md-block">
-                                <label for="nombre">NOMBRE DEL LOGO</label>
-                                <input type="text" name="nombre" ng-model="comienzo.nombreLogo" aria-label="nombre" required>
-                            </md-input-container>
-                        </div>
-                        <div layout layout-align="end">
-                            <md-button class="boton-enviar" ng-disabled="!form.nombre.$valid" ng-click="comienzo.enviarComenzar(comienzo.nombreLogo, form.$valid)">
-                                COMENZAR
-                            </md-button>
-                        </div>
-                        <div ng-if="form.nombre.$touched" style="margin-left:8px;">
-                            <div style="color:white; font-size:20px;" ng-if="form.nombre.$error.required">Por favor rellene el campo.</div>
-                        </div>
-                    </form>
+                <md-input-row class="md-block">
+                    <input type="text" ng-model="comienzo.datosCombinaciones.nombre" name="nombre" required>
+                </md-input-row>
+                <!-- VALIDACION -->
+                <div ng-messages="form.nombre.$error" style="color:maroon" role="alert" ng-show="form.nombre.$touched && form.nombre.$invalid">
+                    <div ng-message="required">Este campo es requerido.</div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="seccion-landing dos">
-        <div class="text-center">
-            <h2>CARACTERISTICAS</h2>
-        </div>
-        <div layout layout-align="space-around center" layout-wrap style="text-align: justify;" layout-padding>
-            <div class="margen_inferior" flex="30" md-whiteframe="4dp" layout-padding ng-repeat="c in comienzo.caracteristicas">
-                <div>
-                    <img class="img-caracteristica" src="{{c.img}}" </div>
-                    <div>
-                        <h3 class="text-center">{{c.nombre}}</h3>
-                    </div>
-                    <div>{{c.descripcion}}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="formulario-landing dos">
-        <form name="form2" novalidate layout layout-align="center center">
-            <md-input-container flex="25" style=" margin-bottom: 0px;">
-                <label for="nombre">NOMBRE DEL LOGO</label>
-                <input type="text" name="nombre" ng-model="comienzo.nombreLogo2" aria-label="nombre" required>
-            </md-input-container>
-            <div>
-                <md-button class="boton-enviar" ng-disabled="!form2.nombre.$valid" ng-click="comienzo.enviarComenzar(comienzo.nombreLogo2, form2.$valid)">
-                    COMENZAR
+                <br>
+                <md-button ng-disabled="!form.$valid" class="md-raised md-primary md-mini" ng-click="comienzo.pasos = 1">
+                    <md-icon>arrow_forward</md-icon>
                 </md-button>
+
             </div>
-            <div ng-if="form2.nombre.$touched" style="margin-left:8px;">
-                <div style="color:white; font-size:20px;" ng-if="form2.nombre.$error.required">Por favor rellene el campo.</div>
+            <div ng-switch-when="1">
+                <div class="label-form">
+                    OCUPACIÓN
+                </div>
+                <md-input-container class="md-block">
+                    <md-select ng-model="comienzo.datosCombinaciones.idCategoria" class="md-block" aria-label="filtro" name="cat" required>
+                        <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in comienzo.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <!-- VALIDACION -->
+                <div ng-messages="form.cat.$error" style="color:maroon" role="alert" ng-show="form.cat.$touched && form.cat.$invalid">
+                    <div ng-message="required">Este campo es requerido.</div>
+                    </br>
+                </div>
+
+                <div layout layout-align="space-between">
+                    <md-button ng-disabled="!form.$valid" class="md-raised md-primary md-mini" ng-click="comienzo.pasos = 2">
+                        <md-icon>arrow_forward</md-icon>
+                    </md-button>
+                    <md-button class="md-raised md-primary md-mini" ng-click="comienzo.pasos = 'default'">
+                        <md-icon>arrow_back</md-icon>
+                    </md-button>
+                </div>
+            </div>
+            <div ng-switch-when="2">
+                <div class="label-form">
+                    ESTILO DE TIPOGRAFÍA
+                </div>
+                <div class="estilos-fuentes">
+                    <md-radio-group name="font" required ng-model="comienzo.datosCombinaciones.idFuente" class="md-primary">
+                        <md-radio-button ng-repeat="estilo in comienzo.categoriasPosibles.fuentes" ng-value="estilo.idCategoria" ng-disabled=" d.isDisabled ">
+                            <span class="estilo">A</span>
+                        </md-radio-button>
+                    </md-radio-group>
+                </div>
+
+                <!-- VALIDACION -->
+                <div ng-messages="form.font.$error" style="color:maroon" role="alert" ng-show="form.font.$touched && form.font.$invalid">
+                    <div ng-message="required">Este campo es requerido.</div>
+                    </br>
+                </div>
+
+                <div layout layout-align="space-between">
+                    <md-button type="submit" ng-disabled="!form.$valid" class="md-raised md-primary md-mini">
+                        <md-icon>arrow_forward</md-icon>
+                    </md-button>
+                    <md-button class="md-raised md-primary md-mini" ng-click="comienzo.pasos = 1">
+                        <md-icon>arrow_back</md-icon>
+                    </md-button>
+                </div>
             </div>
         </form>
+    </div>
+</div>
 
+<div class="row seccion dos">
+    <div class="col s12">
+        <h2 class="titulo">CREA UN LOGO QUE AMARÁS</h2>
+        <div class="caracteristicas">
+            <div class="caracteristicas__item" style="margin-top: 6%;">
+                <div style="border-color: #70c041;">
+                    <h4>Titulo</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit
+                        enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda
+                        delectus debitis?</p>
+                </div>
+                <img src="landing/assets/img/c1.png">
+            </div>
+            <div class="caracteristicas__item">
+                <div style="border-color: #f38f19;">
+                    <h4>Titulo</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit
+                        enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda
+                        delectus debitis?</p>
+                </div>
+                <img src="landing/assets/img/c2.png">
+            </div>
+            <div class="caracteristicas__item" style="margin-top: 6%;">
+                <div style="border-color: #b36ae2;">
+                    <h4>Titulo</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit
+                        enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda
+                        delectus debitis?</p>
+                </div>
+                <img src="landing/assets/img/c3.png">
+            </div>
+            <div class="caracteristicas__item">
+                <div style="border-color: #51a7f9;">
+                    <h4>Titulo</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit
+                        enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda
+                        delectus debitis?</p>
+                </div>
+                <img src="landing/assets/img/c4.png">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row s12 seccion tres">
+    <div class="titulo-destacado">TITULO DESTACADO</div>
+    <div class="ejemplos-papeleria">
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+        <div class="logo-svg">
+            <bazam-visualizar></bazam-visualizar>
+        </div>
+    </div>
+    <div layout layout-align="center" flex>
+        <md-button class="button-verde">CREAR MI LOGO AHORA</md-button>
     </div>
 
+</div>
 
-    <!--
-        **********************
-        ********************** 
-        LOGOS DESSTACADOS AQUI 
-        **********************
-        **********************
-    -->
-    <div class="seccion-landing dos">
+<div class="row seccion cuatro">
+    <div class="col s12">
         <div class="text-center">
-            <h2>ELIJA ENTRE LAS MEJORES CREACIONES</h2>
+            <h4>ELIJA ENTRE LAS MEJORES CREACIONES</h4>
         </div>
-       <div layout layout-align="space-around center" layout-wrap style="text-align: justify;" layout-padding>
-            <div class="margen_inferior l-destacado-landing" md-whiteframe="2dp" layout-padding ng-repeat="destacado in comienzo.destacados | limitTo : 8" ng-click="comienzo.editar(destacado)">
+        <div layout layout-align="space-around center" layout-wrap style="text-align: justify;">
+            <div class="margen_inferior l-destacado-landing" md-whiteframe="2dp" layout-padding ng-repeat="destacado in comienzo.destacados | limitTo : 8"
+                ng-click="comienzo.editar(destacado)">
                 <bazam-visualizar data-svg="comienzo.base64.decode(destacado.logo)" ng-click="comienzo.irEditor(destacado)"></bazam-visualizar>
             </div>
         </div>
@@ -88,13 +178,12 @@
             <md-button class="md-raised" ng-click="comienzo.navegar.cliente('galeria')">VER MAS</md-button>
         </div>
     </div>
-    <div class="seccion-landing tres" layout layout-align="space-around center">
-        <div class="opcion uno" ng-click="comienzo.navegar.freelance('editor');">TRABAJA CON NOSOTROS</div>
-        <div class="opcion dos" ng-click="comienzo.navegar.cliente('editor');">CREAR MI LOGO</div>
-    </div>
-    <div class="seccion-landing cuatro">
-        <div class="text-center ">
-            <h2>EJEMPLOS Y TESTIMONIOS</h2>
+</div>
+
+<div class="row seccion cinco">
+    <div class="col s12">
+        <div class="text-center">
+            <h4>EJEMPLOS Y TESTIMONIOS</h4>
         </div>
         <div>
             <ui-carousel slides="comienzo.testimonios" slides-to-show="1" slides-to-scroll="1" initial-slide="1" autoplay="true" autoplay-speed="5000"
@@ -115,15 +204,10 @@
             </ui-carousel>
         </div>
     </div>
-    <div class="seccion-landing cinco">
-        <div class="text-center text-white">
-            <h2>PREGUNTAS FRECUENTES</h2>
-        </div>
-        <div class="preguntas">
-            <div ng-repeat="p in comienzo.preguntas">
-                <p ng-click="comienzo.modFun($index)">{{p.pregunta}}</p>
-                <p ng-if="comienzo.modfire == $index && comienzo.modInit">{{p.respuesta}}</p>
-            </div>
-        </div>
+</div>
+
+<div class="row s12" style=" background: #00968859; padding: 3%; margin: 0; ">
+    <div layout layout-align="center" flex>
+        <md-button class="button-verde">CREAR MI LOGO AHORA</md-button>
     </div>
 </div>

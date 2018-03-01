@@ -1,27 +1,8 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory","clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService) {
 
 		var bz = this;
-
-		logosService.mostrarDestacados()
-			.then(function(res){
-				bz.destacados = res;
-			})
-			.catch(function(){
-
-			})
-			.finally(function () {
-			
-			});
-        
-		bz.enviarComenzar = function (nombreLogo, v) {
-
-			if (!v) return;
-			
-			navegarFactory.cliente(false, {n: nombreLogo});
-			
-		};
 
 
 		bz.navegar = navegarFactory;
@@ -31,6 +12,91 @@ angular.module("landing")
 		bz.testimonios = estaticosLandingValue.testimonios;
 
 		bz.preguntas = estaticosLandingValue.preguntas;
+
+		bz.consejos = estaticosLandingValue.consejos;
+
+		bz.base64 = $base64;
+
+
+		bz.categoriasPosibles = {
+			fuentes: [],
+			iconos: []
+		};
+
+		bz.preferencias = [];
+
+		categoriasService.listaCategorias("ICONO").then(function (res) {
+
+			bz.categoriasPosibles.iconos = res;
+
+
+		});
+
+		categoriasService.listaCategorias("FUENTE").then(function (res) {
+
+			bz.categoriasPosibles.fuentes = res;
+
+
+		});
+
+		bz.datosCombinaciones = {
+			preferencias: []
+		}
+
+		bz.enviarComenzar = function (datos, v) {
+
+			if (v) {
+
+				bz.datosIconos = {
+					categoria: datos.idCategoria,
+					preferencias: datos.preferencias,
+					tipo: "ICONO"
+				};
+
+				bz.datosFuentes = {
+					categoria: datos.idFuente,
+					preferencias: datos.preferencias,
+					tipo: "FUENTE"
+				};
+
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos);
+
+				$q.all([
+						promesaIconos,
+						elementosService.listaSegunPref(bz.datosFuentes)
+					])
+					.then(function (res) {
+
+						bz.iconos = res[0];
+						bz.fuentes = res[1];
+
+						console.log(res)
+
+						/*
+						if (!v) return;
+
+						navegarFactory.cliente(false, {
+							n: nombreLogo
+						});
+*/
+
+
+					})
+			}
+
+		};
+
+
+		logosService.mostrarDestacados()
+			.then(function (res) {
+				bz.destacados = res;
+			})
+			.catch(function () {
+
+			})
+			.finally(function () {
+
+			});
 
 		bz.modFun = function (i) {
 			bz.modfire = i;
@@ -47,17 +113,12 @@ angular.module("landing")
 				navegarFactory.cliente("editor");
 			};
 
-			if(clientesService.autorizado()){
+			if (clientesService.autorizado()) {
 				bz.callback();
-			} else{
+			} else {
 				bz.mostrarLogin = true;
 			}
 
 		};
-
-		
-
-
-		bz.base64 = $base64;
 
 	}]);

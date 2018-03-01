@@ -7,7 +7,7 @@
 </style>
 <div class="row margin-bottom-0 lienzo" style="overflow:hidden">
     <div class="col s2">
-        <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}">BUSCAR</button>
+        <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}">MÁS SIMBOLOS</button>
     </div>
     <div class="col s8">
 

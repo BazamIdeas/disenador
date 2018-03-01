@@ -170,6 +170,8 @@ angular.module("disenador-de-logos")
 
 		bz.preAvanzar = function(indiceLogo, color){
 
+			console.log(indiceLogo)
+
 			if(indiceLogo){
 				bz.logoSeleccionado = indiceLogo;
 			}
@@ -181,8 +183,10 @@ angular.module("disenador-de-logos")
 			if (!clientesService.autorizado()) {
 				
 				bz.mostrarModalLogin = true;
-
-			} 
+				bz.callback = bz.avanzar;
+			} else {
+				bz.avanzar();
+			}
 		};
 
 		bz.avanzar = function () {

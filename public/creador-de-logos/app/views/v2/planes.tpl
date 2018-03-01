@@ -42,7 +42,7 @@
 								<div>
 									<div class="plan-header">{{plan.plan}}</div>
 									<div class="plan-body">
-										<p>{{plan.info}}</p>
+										<p class="subtitulo-plan">{{plan.info}}</p>
 
 										<ul class="plan-lista">
 											<li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{carac.descripcion}}</li>

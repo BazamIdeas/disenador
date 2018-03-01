@@ -2,7 +2,7 @@
 
 <head>
     <base href="/">
-
+    <title>Logo en Minuntos | Logo</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/landing/assets/flexboxgrid.css" type="text/css">
     <link rel="stylesheet" href="/landing/assets/font-awesome/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
+    <link rel="stylesheet" href="/landing/assets/materialize.min.css">
 
     <!--Librerias core de angualarJS -->
     <script src="/angular/angular.min.js"></script>
@@ -23,41 +24,36 @@
     <script src="/angular-ui-router/angular-ui-router.min.js"></script>
     <script src="/angular-material/angular-material.min.js"></script>
     <script src="/angular-ui-carousel/ui-carousel.min.js"></script>
-    <!--<script src="/jquery/jquery.min.js"></script> -->
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="assets/js/materialize.min.js"></script>
 
     <!--Archivos App diseñador -->
     <script src="/landing/app/app.js"></script>
     <script src="/landing/app/directives.js"></script>
     <script src="/landing/app/services.js"></script>
 
+
     <!-- Controladores -->
     <script src="/landing/app/controllers/comienzo.js"></script>
     <script src="/landing/app/controllers/disenadores.js"></script>
     <script src="/landing/app/controllers/disenador.js"></script>
     <script src="/landing/app/controllers/header.js"></script>
- 
+
 
 </head>
 
 <body class="back-landing">
     <!-- header -->
-    <header>
-        <md-toolbar class="header" ng-controller="headerController as h">
-            <div layout flex class="md-toolbar-tools" layout-align="end center" layout-padding>
-                <div layout>
-                    
-                        <md-button ng-click="h.navegar.freelance('login');">DISENADOR</md-button>
-                </div>
-                <div>
-                    <ingresar>
-                            <md-button ng-click="h.navegar.cliente('login');">CLIENTE</md-button>
-                    </ingresar>
-                </div>
+    <header class="header" ng-controller="headerController as h" layout-padding>
+        <div layout layout-align="space-between">
+            <div class="logo" ui-sref="comienzo">Logo Pro</div>
+            <div layout flex layout-align="end center" layout-padding>
+                <md-button style="COLOR: #867e7e;">INGRESO</md-button>
             </div>
-        </md-toolbar>
+        </div>
     </header>
     <!-- contenedor principal -->
-    <md-content ui-view layout="row" class="trans">
+    <md-content ui-view>
 
     </md-content>
 
@@ -65,7 +61,7 @@
     <footer>
         <div layout="row" layout-align="space-between center">
             <div>
-                <div class="logo">LOGONOW</div>
+                <div class="text-white text-center">LOGO PRO</div>
                 <p class="copyright">© 2018 | LOGONOW - Todos los derechos reservados</p>
             </div>
             <div class="iconos-sociales">

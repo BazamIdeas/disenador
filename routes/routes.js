@@ -40,7 +40,7 @@ router.post("/cliente/email", controllers.clientes.datosClientePorEmail);
 
 
 //los mismos datos que la ruta /cliente
-router.post("/cliente/manual", middleware.validarCliente, controllers.clientes.manualCliente);
+router.get("/cliente/manual/:id", middleware.validarCliente, controllers.clientes.manualCliente);
 
 //MODULO USUARIOS
 //

@@ -1151,17 +1151,13 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.manualMarca = function (d) {
+		this.manualMarca = function (id) {
 
 			var defered = $q.defer();
 
 			var promise = defered.promise;
 
-			var datos = {
-				logo: d 
-			};
-
-			$http.post("/app/cliente/manual", datos).then(function (res) {
+			$http.get("/app/cliente/manual/"+id).then(function (res) {
 
 				defered.resolve(res.data);
 

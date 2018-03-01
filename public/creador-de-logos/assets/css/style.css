@@ -1,9 +1,16 @@
 :root {
     --principal: #612787;
     --secundario: #b92d00;
-    --tercero: #4aaf57;
-    --fondo: #eceff0;
-    --blanco: #fff;
+    --tercero: #009688;
+    --fondo: #ECEFF0;
+    --blanco: #FCFCFC;
+}
+
+*{
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
 }
 
 /* BEGIN Black */
@@ -97,7 +104,7 @@ button,
 input,
 select,
 textarea {
-    font-family: 'futura-bold' !important;
+    font-family: 'futura-heavy' !important;
     font-weight: 800;
 }
 
@@ -692,6 +699,11 @@ p.label-slider-input-right{
 /*End Sidebar 2*/
 
 /*Contenedor Principal*/
+
+.subtitulo{
+    font-size: 20px;
+}
+
 div.contenedor-principal{
     -webkit-transition: width 1s ease;
     transition: width 1s ease;
@@ -710,9 +722,6 @@ div.contenedor-principal{
 }
 
 
-.cubos-logos-opciones div.col {
-    padding: 0px 18px !important;
-}
 
 .cubos-logos-opciones div.col div{
     background-color: white;
@@ -730,7 +739,7 @@ div.contenedor-principal{
 
 .cubos-logos-opciones div.col div bazam-visualizar svg{
     width: 23vh;
-    height: 33vh;
+    height: 29vh;
 }
 
 .cubos-logos-opciones div.col div.seleccionado{
@@ -904,8 +913,6 @@ div.contenedor-principal{
     height: 50px;
     top: 41px;
 }
-
-
 
 
 
@@ -1498,16 +1505,15 @@ div.contenedor-planes .plan .plan-body .plan-lista {
 div.contenedor-planes .plan .plan-body .plan-lista li{
     position: relative;
     font-size: 13px;
+    list-style-type: initial;
+    font-family: maven-medium !important;
+    line-height: 1.5;
 }
 
-div.contenedor-planes .plan .plan-body .plan-lista li:after{
-    content: "";
-    width: 8px;
-    height: 2px;
-    background-color: var(--principal);
-    position: absolute;
-    left: -12px;
-    top: 8px;
+.subtitulo-plan{
+    font-size: 15px;
+    font-family: maven-regular !important;
+    color: var(--tercero);
 }
 
 div.contenedor-planes .plan .plan-body .plan-precio{
@@ -2651,6 +2657,7 @@ textarea {
 .texto-ayuda{
     font-size: 10px;
     margin-top: 0;
+    font-family: maven-bold !important;
 }
 
 .pop-ayuda.aparecer {
@@ -2727,7 +2734,7 @@ textarea {
             align-items: center;
     -webkit-box-shadow: 0px 0px 5px 1px #6e6767;
             box-shadow: 0px 0px 5px 1px #6e6767;
-    background-color: var(--principal);
+    background-color: var(--secundario);
     color: white;
     cursor: pointer;
 }
@@ -2800,9 +2807,10 @@ div.opcion-icono bazam-visualizar svg{
 }
 
 
-.imagen-perfil img{
+.imagen-perfil img {
     width: 100%;
     border-radius: 50%;
+    box-shadow: 0px 0px 1px 2px #7a8183;
 }
 
 .imagen-perfil > div {
