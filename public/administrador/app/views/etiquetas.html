@@ -1,0 +1,86 @@
+<div class="row start-xs" id="toast">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="listar">
+
+            <!-- LISTAR LOGOS -->
+
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout ng-click="catsv = !catsv" layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex>LISTADO DE ICONOS</texto>
+                </div>
+                <div layout ng-if="catsv" layout-align="space-between center">
+                    <md-input-container flex>
+                        <label>Categoria:</label>
+                        <md-select ng-model="etiquetas.idCategoria" ng-change="etiquetas.listarLogos(etiquetas.idCategoria)" class="md-block" aria-label="filtro">
+                            <md-option ng-value="cat.idCategoria" ng-repeat="cat in etiquetas.cats">{{cat.nombreCategoria}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div ng-show="etiquetas.listaL">
+                    <div class="w3-responsive content-scroll" ng-if="etiquetas.logos.length > 0">
+                        <table class="w3-table w3-bordered">
+                            <tr>
+                                <th>Logo:</th>
+                                <th>Etiquetas</th>
+                                <th>Acciones:</th>
+                            </tr>
+                            <tr ng-repeat="logo in etiquetas.logos">
+                                <td>
+                                    <div ng-click="etiquetas.verLogo(logo.svg, false)" style="width:150px;">
+                                        <bazam-visualizar data-svg="etiquetas.base64(logo.svg)"></bazam-visualizar>
+                                    </div>
+                                </td>
+                                <TD>amable</TD>
+                                <td>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="etiquetas.modificarEtiquetas($index, logo, logo.idLogo)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Aprobar</md-tooltip>
+                                        <md-icon class="material-icon">style</md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="height: 30%;" ng-if="etiquetas.logos.length == 0" class="mensaje-resultado">
+                        <h3>NO EXISTEN LOGOS POR APROBAR</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACCIONES VISTA -->
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-switch="etiquetas.vista">
+        <div class="paneles md-whiteframe-2dp listar">
+            <div>
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>ETIQUETAS</texto>
+                    <md-button ng-click="etiquetas.mostrarPop()" style="margin:0;">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="elemento">
+                    <md-chips ng-model="etiquetas.etiquetas" placeholder="Agrega una etiqueta..." md-removable="true" md-on-remove="etiquetas.onBorrarEtiqueta($chip)">
+                    </md-chips>
+                </div>
+                <md-button class="md-raised md-primary">Guardar</md-button>
+            </div>
+            <!-- VISUALIZAR UN LOGO -->
+            <div ng-switch-when="3">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>VISUALIZAR LOGO</texto>
+                    <md-button ng-click="etiquetas.mostrarPop()" style="margin:0;">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="elemento">
+                    <div layout layout-align="center center" layout-wrap>
+                        <div flex class="margen_inferior">
+                            <div class="pedido-logo elemento inside" md-whiteframe>
+                                <bazam-visualizar data-svg="etiquetas.logoVisualizar"></bazam-visualizar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

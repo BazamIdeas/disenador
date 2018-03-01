@@ -54,9 +54,6 @@
 header {
     cursor: default;
     background: #f5fafd;
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     z-index: 999;
 }
@@ -371,7 +368,7 @@ span.estilo.seleccionado {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#612787', endColorstr='#4cb5ab', GradientType=1);
     display: block;
     width: 100%;
-    padding: 5%;
+    padding: 60px 0 !important;
     text-align: center;
     color: white;
     font-size: 38px;

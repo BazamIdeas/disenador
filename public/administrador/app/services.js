@@ -838,6 +838,9 @@ angular.module("administrador")
             }
 
             $http.post('/app/logos/por-aprobar', datos).then(function (res) {
+                if (data == undefined) {
+                    return defered.reject(res);
+                }
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -885,7 +888,7 @@ angular.module("administrador")
             })
             return promise;
         }
-        
+
 
         this.calificarLogo = function (datos) {
             var defered = $q.defer();
@@ -934,7 +937,7 @@ angular.module("administrador")
             var promise = defered.promise;
 
             $http.get('/app/cliente/' + id + '/pagos').then(function (res) {
-                defered.resolve(res.data);
+                defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
             })
@@ -970,6 +973,33 @@ angular.module("administrador")
 
                 defered.reject(res);
 
+            })
+
+            return promise;
+        }
+
+    }])
+
+    /* SERVICIO PARA ETIQUETAS */
+
+    .service('etiquetasService', ['$http', '$q', function ($http, $q) {
+
+        /***************************/
+        /**********LOGOS***********/
+        /***************************/
+
+        this.listarLogos = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/elementos/categoria', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
             })
 
             return promise;
@@ -1382,7 +1412,7 @@ angular.module("administrador")
             }
 
             if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-                    newItems = [];
+                newItems = [];
 
                 var extractValueToCompare = function (item) {
                     if (angular.isObject(item) && angular.isString(filterOn)) {

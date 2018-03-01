@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("planesController", ["historicoResolve", "pedidosService", "$scope", "$state", "$base64", function (historicoResolve, pedidosService, $scope, $state, $base64) {
+	.controller("planesController", ["historicoResolve", "pedidosService", "$scope", "$state", "$base64", "$window", function (historicoResolve, pedidosService, $scope, $state, $base64, $window) {
 
 		var bz = this;
 
@@ -8,11 +8,11 @@ angular.module("disenador-de-logos")
 
 		bz.logo = historicoResolve.logo;
 		bz.idElemento = historicoResolve.idElemento;
-		bz.fuentes  = {
+		bz.fuentes = {
 			principal: historicoResolve.fuentes.principal,
 			eslogan: historicoResolve.fuentes.eslogan
 		};
-        
+
 		bz.colores = historicoResolve.colores;
 
 		bz.monedas = {};
@@ -27,7 +27,7 @@ angular.module("disenador-de-logos")
 				simbolo: res.monedaDefault.codigo,
 				idMoneda: res.monedaDefault.idMoneda
 			};
-            
+
 			bz.impuesto = res.impuesto;
 
 			angular.forEach(res.planes, function (plan) {
@@ -95,7 +95,7 @@ angular.module("disenador-de-logos")
 			angular.forEach(plan.precios, function (precio) {
 
 				if (precio.moneda == bz.moneda.simbolo) {
-                    
+
 					var datosPago = {
 						status: true,
 						datos: {
@@ -113,30 +113,30 @@ angular.module("disenador-de-logos")
 								},
 								monto: precio.precio,
 								idPrecio: precio.idPrecio
-							}, 
+							},
 							impuesto: bz.impuesto,
 							atributos: {
 								principal: bz.fuentes.principal,
 								"color-nombre": bz.colores.nombre,
 								"color-icono": bz.colores.icono
-							}    
+							}
 
 						}
 					};
-                    
-                    
-					if(historicoResolve.idPadre){
+
+
+					if (historicoResolve.idPadre) {
 						datosPago.datos.atributos.padre = historicoResolve.idPadre;
 					}
-                   
-					if(bz.fuentes.eslogan){
+
+					if (bz.fuentes.eslogan) {
 						datosPago.datos.atributos.eslogan = bz.fuentes.eslogan;
 					}
-                    
-					if(bz.colores.eslogan){
+
+					if (bz.colores.eslogan) {
 						datosPago.datos.atributos["color-eslogan"] = bz.colores.eslogan;
 					}
-                    
+
 					$state.go("pago", datosPago);
 
 				}
@@ -144,6 +144,61 @@ angular.module("disenador-de-logos")
 			});
 
 		};
+
+		/* Facebook */
+
+		bz.compartirFacebook = function () {
+			FB.getLoginStatus(function (response) {
+				if (response.status === 'connected') {
+					FB.ui({
+							method: 'share',
+							href: 'https://developers.facebook.com/docs/'
+						},
+						function (response) {
+							if (response && !response.error_code) {
+								if (typeof response != 'undefined') {
+									console.log('publicado')
+								}
+							}
+						});
+				} else {
+					FB.login(function (response) {
+						FB.ui({
+								method: 'share',
+								href: 'https://developers.facebook.com/docs/'
+							},
+							function (response) {
+								if (response && !response.error_code) {
+									if (typeof response != 'undefined') {
+										console.log('publicado')
+									}
+								}
+							});
+					});
+				}
+			});
+		};
+
+		$window.fbAsyncInit = function () {
+			FB.init({
+				appId: '152803392097078',
+				autoLogAppEvents: true,
+				xfbml: true,
+				version: 'v2.12'
+			});
+		};
+
+
+		(function (d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
 
 
 		$scope.$on("sesionExpiro", function () {

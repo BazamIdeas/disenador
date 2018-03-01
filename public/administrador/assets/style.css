@@ -132,6 +132,7 @@ menu *:not(md-icon) {
     right: 3%;
     background: var(--alternal-color);
     padding: 0;
+    min-width: 40px !important;
 }
 
 .bordered {
