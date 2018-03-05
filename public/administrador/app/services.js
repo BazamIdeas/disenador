@@ -838,7 +838,7 @@ angular.module("administrador")
             }
 
             $http.post('/app/logos/por-aprobar', datos).then(function (res) {
-                if (data == undefined) {
+                if (res.data == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res.data);

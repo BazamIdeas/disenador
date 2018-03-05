@@ -95,8 +95,8 @@ router.post("/etiqueta/modificar", middleware.validarAdministrador, controllers.
 router.get("/etiqueta/borrar/:id", middleware.validarAdministrador, controllers.etiquetas.borrarEtiqueta);
 
 //MODULO ELEMENTOS
-//router.post("/elementos/busqueda", controllers.elementos.listaSegunPref);
-router.post("/elementos/busqueda", controllers.elementos.listaSegunTagCat);
+router.post("/elementos/busqueda", controllers.elementos.listaSegunPref);
+//router.post("/elementos/busqueda", controllers.elementos.listaSegunTagCat);
 router.post("/elementos/categorias", controllers.elementos.listaElemCategoria);
 router.post("/elementos/categoria", controllers.elementos.listaElemCat);
 router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono

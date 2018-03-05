@@ -38,6 +38,25 @@
 
 				<div class="row">
 
+					<div class="plan col s4">
+						<div>
+							<div class="plan-header">PLAN GRATIS</div>
+							<div class="plan-body">
+								<p class="subtitulo-plan">descripcion</p>
+
+								<ul class="plan-lista">
+									<li>Poderosamente gratis</li>
+								</ul>
+
+								<div class="plan-precio">$0</div>
+
+								<div class="text-center">
+									<button class="boton-verde" ng-click="planes.avanzarCheckout(true)" ng-disabled="planes.peticion">DESCARGAR</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div class="plan col s4" ng-repeat="plan in planes.planes | filter: planes.comprobarMonedas">
 						<div>
 							<div class="plan-header">{{plan.plan}}</div>
@@ -51,7 +70,7 @@
 								<div class="plan-precio">{{planes.precioSeleccionado(plan.precios, planes.moneda)}}</div>
 
 								<div class="text-center">
-									<button class="boton-verde" ng-click="planes.avanzarCheckout(plan, planes.moneda)">SELECCIONAR</button>
+									<button class="boton-verde" ng-click="planes.avanzarCheckout(plan, planes.moneda, true)">SELECCIONAR</button>
 								</div>
 							</div>
 						</div>
@@ -64,19 +83,5 @@
 
 		</div>
 
-	</div>
-	<div>prueba compartir
-		<script>
-			function tracklinkedin(reponse) {
-				console.log('linkedin' + reponse);
-				//do here
-			}
-		</script>
-
-		<md-button ng-click="planes.compartirFacebook()">COMPARTIR FACEBBOK</md-button>
-		<script src="//platform.linkedin.com/in.js" type="text/javascript">
-			lang: es_ES
-		</script>
-		<script type="IN/Share" data-onsuccess="tracklinkedin" data-url="http://localhost:8080/creador-de-logos/planes/"></script>
 	</div>
 </section>

@@ -235,38 +235,86 @@ angular.module("landing")
 
 	.value("estaticosLandingValue", {
 		caracteristicas: [{
-			nombre: "Simplicidad",
-			descripcion: "Evita cargarlo demasiado y añadir efectos pesados. Un diseño cargado puede ser distractor; un logo más elegante y minimalista se ve más organizado. Aunque nuestro creador de logos gratis ofrece miles de formas de personalizar tu diseño, ¡no te dejes llevar!",
-			img: "/landing/assets/img/a.jpg"
+			titulo: "Titulo",
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			img: "/landing/assets/img/c1.png",
+			color: '#70c041'
 		}, {
-			nombre: "Elección del color",
-			descripcion: "Ten en cuenta el primer consejo Quédate con un esquema de colores que refleje una identidad de marca profesional y cohesiva. Aunque haya miles de colores para elegir, sé listo/a.",
-			img: "/landing/assets/img/a.jpg"
+			titulo: "Titulo",
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			img: "/landing/assets/img/c2.png",
+			color: '#f38f19'
 		}, {
-			nombre: "Tipografía práctica",
-			descripcion: "Piensa en la tipografía, el tamaño, la combinación, la fuente, y los colores. Hay mucho más que solo serif y sans serif. Normalmente, debes quedarte con solo una a dos fuentes dentro del diseño de tu logo.",
-			img: "/landing/assets/img/a.jpg"
+			titulo: "Titulo",
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			img: "/landing/assets/img/c3.png",
+			color: '#b36ae2'
 		}, {
-			nombre: "Manual De Marcas",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quasi modi a nam, dicta inventore doloribus unde reprehenderit impedit ipsum temporibus qui, maiores soluta nisi. Ex voluptate asperiores nemo odio.",
-			img: "/landing/assets/img/a.jpg"
+			titulo: "Titulo",
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			img: "/landing/assets/img/c4.png",
+			color: '#51a7f9'
 		}, {
-			nombre: "Gran variedad de diseños",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quasi modi a nam, dicta inventore doloribus unde reprehenderit impedit ipsum temporibus qui, maiores soluta nisi. Ex voluptate asperiores nemo odio.",
-			img: "/landing/assets/img/a.jpg"
+			titulo: "Titulo",
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			img: "/landing/assets/img/c3.png",
+			color: '#b36ae2'
 		}, {
-			nombre: "Logos Hechos por Diseñadores",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quasi modi a nam, dicta inventore doloribus unde reprehenderit impedit ipsum temporibus qui, maiores soluta nisi. Ex voluptate asperiores nemo odio.",
-			img: "/landing/assets/img/a.jpg"
+			titulo: "Titulo",
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			img: "/landing/assets/img/c4.png",
+			color: '#51a7f9'
 		}],
 		testimonios: [{
-			titulo: "Hi Baby",
-			img: "/landing/assets/img/bg_.jpg",
-			texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto nobis molestias consectetur numquam ducimus dolorum inventore. Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			logo: "/landing/assets/img/c4.png",
+			color: '#51a7f9',
+			client: {
+				img: "/landing/assets/img/bg_.jpg",
+				name: 'Harry Potter',
+				activity: 'Empresario magico'
+			},
+			isTestimonio: true
 		}, {
-			titulo: "Hi Baby",
-			img: "/landing/assets/img/bg_.jpg",
-			texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto nobis molestias consectetur numquam ducimus dolorum inventore. Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			logo: "/landing/assets/img/c4.png",
+			color: '#51a7f9',
+			client: {
+				img: "/landing/assets/img/bg_.jpg",
+				name: 'Harry Potter',
+				activity: 'Empresario magico'
+			},
+			isTestimonio: true
+		}, {
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			logo: "/landing/assets/img/c4.png",
+			color: '#51a7f9',
+			client: {
+				img: "/landing/assets/img/bg_.jpg",
+				name: 'Harry Potter',
+				activity: 'Empresario magico'
+			},
+			isTestimonio: true
+		}, {
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			logo: "/landing/assets/img/c4.png",
+			color: '#51a7f9',
+			client: {
+				img: "/landing/assets/img/bg_.jpg",
+				name: 'Harry Potter',
+				activity: 'Empresario magico'
+			},
+			isTestimonio: true
+		}, {
+			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+			logo: "/landing/assets/img/c4.png",
+			color: '#51a7f9',
+			client: {
+				img: "/landing/assets/img/bg_.jpg",
+				name: 'Harry Potter',
+				activity: 'Empresario magico'
+			},
+			isTestimonio: true
 		}],
 		preguntas: [{
 			pregunta: "CUANTO CUESTA EL SERVICIO?",
@@ -377,6 +425,113 @@ angular.module("landing")
 
 	}])
 
+	/*********************/
+	/********PEDIDOS******/
+	/*********************/
+
+	.service("pedidosService", ["$http", "$q", function ($http, $q) {
+
+
+		this.listarPlanes = function () {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/planes/comprar").then(function (res) {
+
+				defered.resolve(res.data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+
+			return promise;
+
+		};
+
+		this.listarPasarelas = function (idMoneda) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/pasarelas/moneda", {
+				idMoneda: idMoneda
+			}).then(function (res) {
+
+				defered.resolve(res.data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+			return promise;
+
+		};
+
+
+		this.pagar = {
+			paypal: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela) {
+
+
+				var defered = $q.defer();
+
+				var promise = defered.promise;
+
+				var datos = {
+					idElemento: idElemento,
+					logo: logo,
+					idPrecio: idPrecio,
+					tipoLogo: tipoLogo,
+					idPasarela: idPasarela,
+					atributos: atributos
+				};
+
+				$http.post("/app/pedido", datos).then(function (res) {
+
+					defered.resolve(res.data);
+
+				}).catch(function (res) {
+
+					defered.reject(res);
+
+				});
+
+				return promise;
+
+			}
+		};
+
+
+		this.listarPedidos = function () {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/cliente/pedidos").then(function (res) {
+
+				defered.resolve(res.data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+			return promise;
+
+		};
+
+	}])
+
+
 	.service("clientesService", ["$http", "$q", "$window", "$rootScope", "clienteDatosFactory", function ($http, $q, $window, $rootScope, clienteDatosFactory) {
 
 		this.registrar = function (nombreCliente, correo, pass, telefono, pais) {
@@ -429,6 +584,60 @@ angular.module("landing")
 			return promise;
 
 		};
+
+		this.forgotPass = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/recuperar-password", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
+
+		this.confirmarToken = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/recuperar-password/" + datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
+
+		this.cambiarContrasena = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/cambiar-password", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
 
 		this.autorizado = function (emitir) {
 
