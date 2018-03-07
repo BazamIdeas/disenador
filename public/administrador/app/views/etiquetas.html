@@ -59,7 +59,16 @@
                     </md-button>
                 </div>
                 <div layout-padding class="elemento">
-                    <md-chips ng-model="etiquetas.etiquetas" placeholder="Agrega una etiqueta..." md-removable="true" md-on-remove="etiquetas.onBorrarEtiqueta($chip)">
+                    <md-chips ng-model="etiquetas.datosCombinaciones.etiquetasSeleccionadas" md-autocomplete-snap md-transform-chip="etiquetas.transformChip($chip)">
+                        <md-autocomplete md-selected-item="etiquetas.selectedItem" md-search-text="etiquetas.searchText" md-items="item in etiquetas.querySearch(etiquetas.searchText)"
+                            md-item-text="item.name" placeholder="Etiquetas">
+                            <span md-highlight-text="etiquetas.searchText">{{item.name}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                <strong>{{$chip.name}}</strong>
+                            </span>
+                        </md-chip-template>
                     </md-chips>
                 </div>
                 <md-button class="md-raised md-primary">Guardar</md-button>

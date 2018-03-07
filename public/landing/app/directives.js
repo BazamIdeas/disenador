@@ -217,15 +217,15 @@ angular.module("landing")
 				bz.actual = 0;
 				bz.indice = 3;
 
-				bz.consejos = $scope.consejos;
+				bz.items = $scope.items;
 
 				bz.changeCard = function (v) {
 					if (v) {
-						if (bz.consejos[bz.indice + 1] != undefined) {
+						if (bz.items[bz.indice + 1] != undefined) {
 							bz.indice++;
 						}
 					} else {
-						if (bz.consejos[bz.indice - 1] != undefined) {
+						if (bz.items[bz.indice - 1] != undefined) {
 							bz.indice--;
 						}
 					}
@@ -234,7 +234,54 @@ angular.module("landing")
 			}],
 			controllerAs: "cards",
 			scope: {
-				consejos: "<"
+				items: "<"
+			}
+		};
+
+
+	}])
+
+	.directive("bazamCarousel", [function () {
+		return {
+			templateUrl: "landing/app/templates/bazam-carousel.tpl",
+			controller: ["$scope", function ($scope) {
+
+				var bz = this;
+
+				bz.indice = 0;
+				bz.items = $scope.items;
+				bz.opciones = $scope.opciones;
+
+				bz.change = function (v) {
+					if (v) {
+						if (bz.items[bz.indice + 1] != undefined) {
+							bz.indice++;
+						} else {
+							bz.indice = 0;
+						}
+					} else {
+						if (bz.items[bz.indice - 1] != undefined) {
+							bz.indice--;
+						} else {
+							bz.indice = bz.items.length - 1;
+						}
+					}
+				}
+
+
+				setInterval(function () {
+					if (bz.items[bz.indice + 1] != undefined) {
+						bz.indice++;
+					} else {
+						bz.indice = 0;
+					}
+				}, 2000);
+
+			}],
+			controllerAs: "ctrl",
+			scope: {
+				items: "<",
+				opciones: "<"
 			}
 		};
 

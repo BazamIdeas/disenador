@@ -73,11 +73,70 @@ angular.module("administrador")
 
 		/* ETIQUETAS */
 
-		bz.etiquetas = ['Prueba 1', 'Prueba 2'];
-		bz.etiquetasBorradas = [];
+		bz.datosCombinaciones = {
+			preferencias: [],
+			etiquetas: [],
+			etiquetasSeleccionadas: [],
+			colores: []
+		}
 
-		bz.onBorrarEtiqueta = function (etiqueta) {
-			bz.etiquetasBorradas.push(etiqueta);
+		bz.selectedItem = null;
+		bz.searchText = null;
+		bz.querySearch = querySearch;
+		bz.etiquetas = loadEtiquetas();
+		bz.transformChip = transformChip;
+
+		function loadEtiquetas() {
+
+			var etiquetas = [{
+					'name': 'Broccoli'
+				},
+				{
+					'name': 'Cabbage'
+				},
+				{
+					'name': 'Carrot'
+				},
+				{
+					'name': 'Lettuce'
+				},
+				{
+					'name': 'Spinach'
+				}
+			];
+
+			return etiquetas.map(function (et) {
+				et._lowername = et.name.toLowerCase();
+				return et;
+			});
+		}
+
+		function transformChip(chip) {
+
+			// If it is an object, it's already a known chip
+			if (angular.isObject(chip)) {
+				return chip;
+			}
+
+			// Otherwise, create a new one
+			return {
+				name: chip
+			}
+
+		}
+
+		function querySearch(query) {
+			var results = query ? bz.etiquetas.filter(createFilterFor(query)) : [];
+			return results;
+		}
+
+		function createFilterFor(query) {
+			var lowercaseQuery = angular.lowercase(query);
+
+			return function filterFn(etiqueta) {
+				return (etiqueta._lowername.indexOf(lowercaseQuery) === 0);
+			};
+
 		}
 
 		/* UTILIDADES */

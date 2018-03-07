@@ -1,9 +1,10 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS) {
 
 		var bz = this;
 
+		/* DATOS */
 
 		bz.navegar = navegarFactory;
 
@@ -21,38 +22,26 @@ angular.module("landing")
 
 		bz.base64 = $base64;
 
+		bz.opcionesCarousel = {
+			autoPlay: true,
+			autoplaySpeed: 5000
+		}
 
 		bz.categoriasPosibles = {
 			fuentes: [],
 			iconos: [],
 			colores: [{
-				primero: '#FA198B',
-				segundo: '#B91372',
-				tercero: '#6B0F1A',
-				cuarto: '#31081F',
-				quinto: '#0E0004'
-			}, {
-				primero: '#644536',
-				segundo: '#B2675E',
-				tercero: '#C4A381',
-				cuarto: '#BBD686',
-				quinto: '#0E0004'
-			}, {
-				primero: '#D7263D',
-				segundo: '#02182B',
-				tercero: '#0197F6',
-				cuarto: '#448FA3',
-				quinto: '#68C5DB'
-			}, {
-				primero: '#6E0D25',
-				segundo: '#FFFFB3',
-				tercero: '#DCAB6B',
-				cuarto: '#774E24',
-				quinto: '#6A381F'
+				idColor: 1,
+				colores: ['#FA198B', '#B91372', '#6B0F1A', '#31081F', '#0E0004']
 			}]
 		};
 
-		bz.preferencias = [];
+		bz.datosCombinaciones = {
+			preferencias: [],
+			etiquetas: [],
+			etiquetasSeleccionadas: [],
+			colores: []
+		}
 
 		categoriasService.listaCategorias("ICONO").then(function (res) {
 
@@ -68,73 +57,37 @@ angular.module("landing")
 
 		});
 
-		bz.datosCombinaciones = {
-			preferencias: [],
-			etiquetas: [],
-			etiquetasSeleccionadas: [],
-			colores: []
-		}
+		preferenciasService.listaPreferencias().then(function (res) {
+
+			angular.forEach(res, function (valor) {
+				valor.valor = 2;
+				bz.datosCombinaciones.preferencias.push(valor);
+
+			});
+
+		});
+
+		/* FUNCIONES */
+
+		/* ETIQUETAS */
 
 		bz.selectedItem = null;
 		bz.searchText = null;
-		bz.querySearch = querySearch;
-		bz.etiquetas = loadEtiquetas();
-		bz.transformChip = transformChip;
+		bz.querySearch = etiquetasService.querySearch;
+		bz.etiquetas = etiquetasService.loadEtiquetas();
+		bz.transformChip = etiquetasService.transformChip;
 
-		function loadEtiquetas() {
 
-			var etiquetas = [{
-					'name': 'Broccoli'
-				},
-				{
-					'name': 'Cabbage'
-				},
-				{
-					'name': 'Carrot'
-				},
-				{
-					'name': 'Lettuce'
-				},
-				{
-					'name': 'Spinach'
-				}
-			];
-
-			return etiquetas.map(function (et) {
-				et._lowername = et.name.toLowerCase();
-				return et;
-			});
-		}
-
-		function transformChip(chip) {
-
-			// If it is an object, it's already a known chip
-			if (angular.isObject(chip)) {
-				return chip;
-			}
-
-			// Otherwise, create a new one
-			return {
-				name: chip
-			}
-
-		}
-
-		function querySearch(query) {
-			var results = query ? bz.etiquetas.filter(createFilterFor(query)) : [];
-			return results;
-		}
-
-		function createFilterFor(query) {
-			var lowercaseQuery = angular.lowercase(query);
-
-			return function filterFn(etiqueta) {
-				return (etiqueta._lowername.indexOf(lowercaseQuery) === 0);
-			};
-
-		}
 
 		bz.enviarComenzar = function (datos, v) {
+
+			inicial = false
+
+			angular.forEach(datos.etiquetasSeleccionadas, (valor, key) => {
+				datos.etiquetas.push(valor.name)
+			})
+
+			delete datos.etiquetasSeleccionadas;
 
 			if (v) {
 
@@ -158,46 +111,22 @@ angular.module("landing")
 					])
 					.then(function (res) {
 
-						bz.iconos = res[0];
-						bz.fuentes = res[1];
+						datosF = {
+							iconos: res[0],
+							fuentes: res[1]
+						}
 
-						/*
+						LS.definir('comenzar', datosF);
+
+
 						if (!v) return;
 
 						navegarFactory.cliente(false, {
-							n: nombreLogo
+							n: datos.nombre
 						});
-*/
+
 
 					})
-			}
-
-		};
-
-
-		logosService.mostrarDestacados().then(function (res) {
-			bz.destacados = res;
-		}).catch(function () {
-
-		}).finally(function () {
-
-		});
-
-		bz.mostrarLogin = false;
-
-		bz.irEditor = function (logo) {
-
-			var logoCopia = angular.copy(logo);
-			var atributos = arrayToJsonMetasFactory(logoCopia.atributos);
-			bz.callback = function () {
-				guardarLogoFactory(logoCopia, atributos);
-				navegarFactory.cliente("editor");
-			};
-
-			if (clientesService.autorizado()) {
-				bz.callback();
-			} else {
-				bz.mostrarLogin = true;
 			}
 
 		};
@@ -241,7 +170,9 @@ angular.module("landing")
 			bz.moneda = bz.monedaDefault;
 		});
 
-		bz.precioSeleccionado = function (precios) {
+		/*
+
+				bz.precioSeleccionado = function (precios) {
 
 			var precioFinal = "";
 
@@ -257,12 +188,33 @@ angular.module("landing")
 			return precioFinal;
 
 		};
+				logosService.mostrarDestacados().then(function (res) {
+					bz.destacados = res;
+				}).catch(function () {
 
-		bz.modFun = function (i) {
-			bz.modfire = i;
-			bz.modInit = !bz.modInit;
+				}).finally(function () {
+
+				});
+
+
+		bz.irEditor = function (logo) {
+
+			var logoCopia = angular.copy(logo);
+			var atributos = arrayToJsonMetasFactory(logoCopia.atributos);
+			bz.callback = function () {
+				guardarLogoFactory(logoCopia, atributos);
+				navegarFactory.cliente("editor");
+			};
+
+			if (clientesService.autorizado()) {
+				bz.callback();
+			} else {
+				bz.mostrarLogin = true;
+			}
+
 		};
 
+		*/
 
 
 	}]);

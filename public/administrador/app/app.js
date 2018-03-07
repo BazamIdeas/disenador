@@ -57,7 +57,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                 views: {
                     'menuContent': {
                         templateUrl: 'app/views/elementos.html',
-                        controller: 'elementosController as elementos',
+                        controller: 'elementosController as ctrl',
                     }
                 }
             }).state({

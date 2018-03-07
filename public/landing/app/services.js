@@ -5,7 +5,8 @@ angular.module("landing")
 			estado: {
 				login: "login/",
 				editor: "editor/",
-				galeria: "logos-galeria/"
+				galeria: "logos-galeria/",
+				opciones: "comenzar/opciones/"
 			}
 		},
 		freelance: {
@@ -16,6 +17,21 @@ angular.module("landing")
 			}
 		}
 	})
+
+	.factory("LS", ["$window", function ($window) {
+		return {
+			definir: function (llave, valor) {
+
+				$window.localStorage.setItem(llave, angular.toJson(valor));
+
+			},
+			obtener: function (llave) {
+
+				return angular.fromJson($window.localStorage.getItem(llave));
+			}
+		};
+
+	}])
 
 	.factory("navegarFactory", ["rutasValue", "$window", "$httpParamSerializer", function (rutasValue, $window, $httpParamSerializer) {
 
@@ -276,45 +292,8 @@ angular.module("landing")
 			},
 			isTestimonio: true
 		}, {
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			logo: "/landing/assets/img/c4.png",
-			color: '#51a7f9',
-			client: {
-				img: "/landing/assets/img/bg_.jpg",
-				name: 'Harry Potter',
-				activity: 'Empresario magico'
-			},
-			isTestimonio: true
-		}, {
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			logo: "/landing/assets/img/c4.png",
-			color: '#51a7f9',
-			client: {
-				img: "/landing/assets/img/bg_.jpg",
-				name: 'Harry Potter',
-				activity: 'Empresario magico'
-			},
-			isTestimonio: true
-		}, {
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			logo: "/landing/assets/img/c4.png",
-			color: '#51a7f9',
-			client: {
-				img: "/landing/assets/img/bg_.jpg",
-				name: 'Harry Potter',
-				activity: 'Empresario magico'
-			},
-			isTestimonio: true
-		}, {
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			logo: "/landing/assets/img/c4.png",
-			color: '#51a7f9',
-			client: {
-				img: "/landing/assets/img/bg_.jpg",
-				name: 'Harry Potter',
-				activity: 'Empresario magico'
-			},
-			isTestimonio: true
+			url: "/landing/assets/img/ejemplos.jpg",
+			isTestimonio: false
 		}],
 		preguntas: [{
 			pregunta: "CUANTO CUESTA EL SERVICIO?",
@@ -340,6 +319,35 @@ angular.module("landing")
 			descripcion: "Ten en cuenta el primer consejo Quédate con un esquema de colores que refleje una identidad de marca profesional y cohesiva. Aunque haya miles de colores para elegir, sé listo/a."
 		}]
 	})
+
+	/***************************/
+	/******PREFERENCIAS*********/
+	/***************************/
+
+	.service("preferenciasService", ["$http", "$q", function ($http, $q) {
+
+		this.listaPreferencias = function () {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/preferencias").then(function (res) {
+
+				defered.resolve(res.data);
+
+
+			}).catch(function () {
+
+				defered.reject();
+
+			});
+
+			return promise;
+
+		};
+
+	}])
 
 	.service("logosService", ["$http", "$q", function ($http, $q) {
 		this.mostrarDestacados = function () {
@@ -528,6 +536,68 @@ angular.module("landing")
 			return promise;
 
 		};
+
+	}])
+
+	/*********************/
+	/********ETIQUETAS****/
+	/*********************/
+
+	.service("etiquetasService", ["$http", "$q", function ($http, $q) {
+
+		this.loadEtiquetas = function (etiquetas) {
+
+			var etiquetas = [{
+					'name': 'Broccoli'
+				},
+				{
+					'name': 'Cabbage'
+				},
+				{
+					'name': 'Carrot'
+				},
+				{
+					'name': 'Lettuce'
+				},
+				{
+					'name': 'Spinach'
+				}
+			];
+
+			return etiquetas.map(function (et) {
+				et._lowername = et.name.toLowerCase();
+				return et;
+			});
+		}
+
+		this.transformChip = function (chip) {
+
+			// If it is an object, it's already a known chip
+			if (angular.isObject(chip)) {
+				return chip;
+			}
+
+			// Otherwise, create a new one
+			return {
+				name: chip
+			}
+
+		}
+
+		this.querySearch = function (query, etiquetas) {
+			var results = query ? etiquetas.filter(createFilterFor(query)) : [];
+			return results;
+		}
+
+		function createFilterFor(query) {
+			var lowercaseQuery = angular.lowercase(query);
+
+			return function filterFn(etiqueta) {
+				return (etiqueta._lowername.indexOf(lowercaseQuery) === 0);
+			};
+
+		}
+
 
 	}])
 

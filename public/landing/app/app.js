@@ -39,15 +39,15 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
 		/*------------------------ Ui router states ----------------------*/
 
 		$stateProvider.state({
-			name: "comienzo",
-			url: "/",
-			templateUrl: "/landing/app/views/comienzo.tpl",
-			controller: "comienzoController as comienzo"
-		}).state({
-			name: "no-encontrado",
-			url: "/404/",
-			templateUrl: "/landing/app/views/404.tpl"
-		})
+				name: "comienzo",
+				url: "/",
+				templateUrl: "/landing/app/views/comienzo.tpl",
+				controller: "comienzoController as ctrl"
+			}).state({
+				name: "no-encontrado",
+				url: "/404/",
+				templateUrl: "/landing/app/views/404.tpl"
+			})
 			.state({
 				name: "terminos",
 				url: "/terminos-y-condiciones/",

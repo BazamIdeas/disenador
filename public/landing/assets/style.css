@@ -182,76 +182,6 @@ button.boton-enviar:hover {
     font-size: 30px;
 }
 
-/* CAROUSEL */
-
-.ui-carousel .slide {
-    height: auto !important;
-}
-
-.comienzo-carousel {
-    background: transparent;
-    width: 70%;
-    margin: auto;
-    display: block;
-    margin-bottom: 30px;
-    padding-bottom: 40px;
-    overflow: hidden;
-    margin-bottom: 2%;
-}
-
-.comienzo-carousel .slide {
-    min-height: 50vh !important;
-    padding: 2%;
-}
-
-.comienzo-carousel .track-wrapper {
-    background: rgba(255, 255, 255, 0.87);
-}
-
-ui-carousel {
-    -webkit-box-shadow: -1px 1px 34px 8px rgba(173, 173, 173, 0.8);
-    -moz-box-shadow: -1px 1px 34px 8px rgba(173, 173, 173, 0.8);
-    box-shadow: -1px 1px 34px 8px rgba(173, 173, 173, 0.8);
-}
-
-.testimonio .t-head {
-    display: flex;
-    height: 110px;
-    justify-content: space-around;
-    align-items: center;
-    padding: 8px;
-}
-
-.testimonio .t-head img {
-    width: 100px;
-    height: 100px;
-}
-
-.testimonio .t-head i {
-    font-size: 35px;
-}
-
-.t-body {
-    padding: 4%;
-    text-align: center;
-    font-size: 20px;
-    color: #7d7d7d;
-    font-family: 'maven-regular';
-}
-
-.t-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.t-footer img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 16px;
-}
-
 .seccion-landing.cinco h2 {
     color: white !important;
 }
@@ -290,7 +220,8 @@ h6.ver-video md-icon {
     font-family: 'futura-heavy';
 }
 
-md-select .md-select-value,
+md-select label,
+md-input-container:NOT(.md-input-has-value) md-select-value,
 .seccion.uno form input::placeholder,
 .seccion.uno form label {
     color: var(--secundario) !important;
@@ -349,11 +280,6 @@ span.estilo.seleccionado {
 .md-select-value>span:not(.md-select-icon) .md-text,
 .estilo-de-color .md-text {
     display: flex;
-    color: transparent;
-}
-
-md-input-container.md-input-has-value .md-select-value>span:not(.md-select-icon) {
-    color: transparent;
 }
 
 .seccion.uno form label,
@@ -454,15 +380,6 @@ md-chips-wrap#_md-chips-wrapper-7 {
     font-size: 38px;
 }
 
-.seccion.tres .ejemplos-papeleria {
-    background: url(img/ejemplos.jpg);
-    height: 77vh;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position-x: -28px;
-    background-position-y: 37px;
-}
-
 button.button-left,
 button.button-right {
     background: transparent;
@@ -500,7 +417,8 @@ button:focus {
     color: inherit !important;
 }
 
-.slider-pro button:hover {
+.slider-pro button.button-right:hover,
+.slider-pro button.button-left:hover {
     background: var(--principal);
     color: white;
 }
