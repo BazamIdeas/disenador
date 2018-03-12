@@ -1,10 +1,9 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService) {
 
 		var bz = this;
 
-		/* DATOS */
 
 		bz.navegar = navegarFactory;
 
@@ -14,34 +13,17 @@ angular.module("landing")
 
 		bz.preguntas = estaticosLandingValue.preguntas;
 
-		bz.preAct = 0;
-
-		comienzo.pasos = 0;
-
 		bz.consejos = estaticosLandingValue.consejos;
 
 		bz.base64 = $base64;
 
-		bz.opcionesCarousel = {
-			autoPlay: true,
-			autoplaySpeed: 5000
-		}
 
 		bz.categoriasPosibles = {
 			fuentes: [],
-			iconos: [],
-			colores: [{
-				idColor: 1,
-				colores: ['#FA198B', '#B91372', '#6B0F1A', '#31081F', '#0E0004']
-			}]
+			iconos: []
 		};
 
-		bz.datosCombinaciones = {
-			preferencias: [],
-			etiquetas: [],
-			etiquetasSeleccionadas: [],
-			colores: []
-		}
+		bz.preferencias = [];
 
 		categoriasService.listaCategorias("ICONO").then(function (res) {
 
@@ -57,37 +39,11 @@ angular.module("landing")
 
 		});
 
-		preferenciasService.listaPreferencias().then(function (res) {
-
-			angular.forEach(res, function (valor) {
-				valor.valor = 2;
-				bz.datosCombinaciones.preferencias.push(valor);
-
-			});
-
-		});
-
-		/* FUNCIONES */
-
-		/* ETIQUETAS */
-
-		bz.selectedItem = null;
-		bz.searchText = null;
-		bz.querySearch = etiquetasService.querySearch;
-		bz.etiquetas = etiquetasService.loadEtiquetas();
-		bz.transformChip = etiquetasService.transformChip;
-
-
+		bz.datosCombinaciones = {
+			preferencias: []
+		}
 
 		bz.enviarComenzar = function (datos, v) {
-
-			inicial = false
-
-			angular.forEach(datos.etiquetasSeleccionadas, (valor, key) => {
-				datos.etiquetas.push(valor.name)
-			})
-
-			delete datos.etiquetasSeleccionadas;
 
 			if (v) {
 
@@ -111,19 +67,18 @@ angular.module("landing")
 					])
 					.then(function (res) {
 
-						datosF = {
-							iconos: res[0],
-							fuentes: res[1]
-						}
+						bz.iconos = res[0];
+						bz.fuentes = res[1];
 
-						LS.definir('comenzar', datosF);
+						console.log(res)
 
-
+						/*
 						if (!v) return;
 
 						navegarFactory.cliente(false, {
-							n: datos.nombre
+							n: nombreLogo
 						});
+*/
 
 
 					})
@@ -132,71 +87,23 @@ angular.module("landing")
 		};
 
 
-		/* PLANES */
+		logosService.mostrarDestacados()
+			.then(function (res) {
+				bz.destacados = res;
+			})
+			.catch(function () {
 
-		bz.monedas = {};
-		bz.moneda = {};
-		bz.monedaDefault = {};
-		bz.planes = [];
-		bz.impuesto = 0;
-
-		pedidosService.listarPlanes().then(function (res) {
-
-			bz.monedaDefault = {
-				simbolo: res.monedaDefault.codigo,
-				idMoneda: res.monedaDefault.idMoneda
-			};
-
-			bz.impuesto = res.impuesto;
-
-			bz.planes = res.planes;
-
-			angular.forEach(res.planes, function (plan) {
-
-				angular.forEach(plan.precios, function (precio) {
-					if (!bz.monedas[precio.moneda]) {
-
-						bz.monedas[precio.moneda] = {
-							simbolo: precio.moneda,
-							idMoneda: precio.idMoneda
-						};
-
-					}
-
-				});
+			})
+			.finally(function () {
 
 			});
 
-			bz.moneda = bz.monedaDefault;
-		});
-
-		/*
-
-				bz.precioSeleccionado = function (precios) {
-
-			var precioFinal = "";
-
-			angular.forEach(precios, function (valor) {
-
-				if (valor.moneda == bz.moneda.simbolo) {
-
-					precioFinal = valor.moneda + " " + valor.precio;
-				}
-
-			});
-
-			return precioFinal;
-
+		bz.modFun = function (i) {
+			bz.modfire = i;
+			bz.modInit = !bz.modInit;
 		};
-				logosService.mostrarDestacados().then(function (res) {
-					bz.destacados = res;
-				}).catch(function () {
 
-				}).finally(function () {
-
-				});
-
-
+		bz.mostrarLogin = false;
 		bz.irEditor = function (logo) {
 
 			var logoCopia = angular.copy(logo);
@@ -213,8 +120,5 @@ angular.module("landing")
 			}
 
 		};
-
-		*/
-
 
 	}]);

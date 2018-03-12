@@ -10,7 +10,7 @@ logo.getLogos = function(callback)
 	var q = 'SELECT * FROM logos ORDER BY idLogo' 
 
 	DB.getConnection(function(err, connection)
-	{ 
+	{
 		connection.query( q ,  function(err, rows){
 	  	
 		  	if(err)	throw err;
@@ -40,25 +40,13 @@ logo.getLogosPorAprobar = function(par,callback)
 	});
 }
 
-logo.getLogosAprobados = function(id, etiqueta, callback)
+logo.getLogosAprobados = function(id, idCategoria, callback)
 {
-	var q = '', par = [id];
-
-	if(!etiqueta) {
-
-		par.push(etiqueta);
-
-		q = 'SELECT logos.* FROM logos INNER JOIN elementos ON logos.elementos_idElemento = elementos.idElemento INNER JOIN categorias ON elementos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.destacado = 0 AND logos.idLogo > ? AND categorias.idCategoria > ? ORDER BY logos.idLogo LIMIT 12';		
-	
-	}else{
-
-		q = '';
-
-	}
+	var q = 'SELECT logos.* FROM logos INNER JOIN elementos ON logos.elementos_idElemento = elementos.idElemento INNER JOIN categorias ON elementos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.destacado = 0 AND logos.idLogo > ? AND categorias.idCategoria > ? ORDER BY logos.idLogo LIMIT 12';  
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query(q, par, function(err, rows){
+		connection.query(q, [id, idCategoria], function(err, rows){
 	  	
 		  	if(err)	throw err;
 		  	

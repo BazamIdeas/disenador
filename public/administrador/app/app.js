@@ -34,15 +34,6 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                     }
                 }
             }).state({
-                name: 'app.etiquetas',
-                url: '/etiquetas',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'app/views/etiquetas.html',
-                        controller: 'etiquetasController as etiquetas'
-                    }
-                }
-            }).state({
                 name: 'app.cliente',
                 url: '/cliente',
                 views: {
@@ -57,7 +48,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                 views: {
                     'menuContent': {
                         templateUrl: 'app/views/elementos.html',
-                        controller: 'elementosController as ctrl',
+                        controller: 'elementosController as elementos',
                     }
                 }
             }).state({

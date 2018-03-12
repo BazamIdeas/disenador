@@ -9,8 +9,16 @@ angular.module("administrador")
         bz.registroIcono = {};
         bz.modificar = {};
         bz.listar = {};
-        bz.categorias = [];
-        bz.preferencias = [];
+
+        bz.mostrar = function (tipo) {
+            bz.peticion = true;
+            if (tipo == 'ICONO') {
+                bz.rIcono = !bz.rIcono;
+                return bz.listarCategorias(tipo);
+            }
+            bz.rFuente = !bz.rFuente;
+            bz.listarCategorias(tipo);
+        }
 
         bz.base64 = function (icono) {
 
@@ -18,46 +26,6 @@ angular.module("administrador")
 
         };
 
-        bz.mostrar = function (tipo) {
-            bz.mn = false;
-            bz.peticion = true;
-            if (tipo == 'ICONO') {
-                bz.acciones = 2;
-                return bz.listarCategorias(tipo);
-            }
-            bz.acciones = 1;
-            bz.listarCategorias(tipo);
-        }
-
-        bz.listarCategorias = function (tipoCategoria) {
-            bz.peticion = true;
-            bz.tipoListado = tipoCategoria;
-            var datos = {
-                tipo: tipoCategoria
-            }
-            categoriasService.listarCategorias(datos).then(function (res) {
-                if (res == undefined) {
-                    bz.categorias = [];
-                    bz.elementos = [];
-                    return notificacionService.mensaje('No hay categorias.');
-                }
-                bz.categorias = res.data;
-            }).finally(function () {
-                bz.peticion = false;
-            })
-        }
-
-
-        categoriasService.listarPreferencias().then(function (res) {
-            angular.forEach(res.data, function (valor) {
-                valor.valor = 2;
-                bz.preferencias.push(valor);
-            })
-            bz.registroFuente.datoPrefe = bz.preferencias;
-            bz.registroIcono.datoPrefe = bz.preferencias;
-            bz.modificar.preferencias = bz.preferencias;
-            bz.listar.preferencias = bz.preferencias;
-        })
 
         bz.nuevaFuente = function (datos, v) {
             if (!v) {
@@ -115,8 +83,6 @@ angular.module("administrador")
             })
         }
 
-
-
         bz.listado = function (tipo) {
             bz.peticion = true;
             bz.listar.tipo = tipo;
@@ -130,93 +96,53 @@ angular.module("administrador")
             })
         }
 
+        bz.categorias = [];
+        bz.preferencias = [];
 
-        bz.accionesMostrar = function (opcion, index) {
-            if (opcion == 'modElemento') {
-                bz.acciones = 3;
-                bz.modificarElemento.idElemento = bz.elementos[index].idElemento;
-            } else if (opcion == 'modEtiquetas') {
-                bz.acciones = 4;
-                bz.modificarEtiquetas = bz.elementos[index];
-            }
-        }
-
-        bz.modificarElemento = function (datos) {
+        bz.listarCategorias = function (tipoCategoria) {
             bz.peticion = true;
-            iconoFuente.modificarPreferencias(datos).then(function (res) {
-                bz.acciones = 0;
-                SweetAlert.swal("Genial", res.data.result, "success");
-            }).catch(function (res) {
-                notificacionService.mensaje(res);
+            bz.tipoListado = tipoCategoria;
+            var datos = {
+                tipo: tipoCategoria
+            }
+            categoriasService.listarCategorias(datos).then(function (res) {
+                if (res == undefined) {
+                    bz.categorias = [];
+                    bz.elementos = [];
+                    return notificacionService.mensaje('No hay categorias.');
+                }
+                bz.categorias = res.data;
             }).finally(function () {
                 bz.peticion = false;
             })
         }
 
 
-        bz.datosCombinaciones = {
-            preferencias: [],
-            etiquetas: [],
-            etiquetasSeleccionadas: [],
-            colores: []
+        categoriasService.listarPreferencias().then(function (res) {
+            angular.forEach(res.data, function (valor) {
+                valor.valor = 2;
+                bz.preferencias.push(valor);
+            })
+            bz.registroFuente.datoPrefe = bz.preferencias;
+            bz.registroIcono.datoPrefe = bz.preferencias;
+            bz.modificar.preferencias = bz.preferencias;
+            bz.listar.preferencias = bz.preferencias;
+        })
+
+        bz.mostrarModificar = function (index) {
+            bz.mod = true;
+            bz.modificarElemento.idElemento = bz.elementos[index].idElemento;
         }
 
-        bz.selectedItem = null;
-        bz.searchText = null;
-        bz.querySearch = querySearch;
-        bz.etiquetas = loadEtiquetas();
-        bz.transformChip = transformChip;
-
-        function loadEtiquetas() {
-
-            var etiquetas = [{
-                    'name': 'Broccoli'
-                },
-                {
-                    'name': 'Cabbage'
-                },
-                {
-                    'name': 'Carrot'
-                },
-                {
-                    'name': 'Lettuce'
-                },
-                {
-                    'name': 'Spinach'
-                }
-            ];
-
-            return etiquetas.map(function (et) {
-                et._lowername = et.name.toLowerCase();
-                return et;
-            });
-        }
-
-        function transformChip(chip) {
-
-            // If it is an object, it's already a known chip
-            if (angular.isObject(chip)) {
-                return chip;
-            }
-
-            // Otherwise, create a new one
-            return {
-                name: chip
-            }
-
-        }
-
-        function querySearch(query) {
-            var results = query ? bz.etiquetas.filter(createFilterFor(query)) : [];
-            return results;
-        }
-
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
-
-            return function filterFn(etiqueta) {
-                return (etiqueta._lowername.indexOf(lowercaseQuery) === 0);
-            };
-
+        bz.modificarElemento = function (datos) {
+            bz.peticion = true;
+            iconoFuente.modificarPreferencias(datos).then(function (res) {
+                bz.mod = false;
+                SweetAlert.swal("Genial", res.data.result, "success");
+            }).catch(function (res) {
+                notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
+            })
         }
     }])

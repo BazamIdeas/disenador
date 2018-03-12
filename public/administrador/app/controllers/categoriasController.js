@@ -36,7 +36,6 @@ angular.module("administrador")
             })
         }
 
-        bz.listarCategorias();
         bz.listarPreferencias = function () {
             bz.peticion = true;
             bz.prefs = [];

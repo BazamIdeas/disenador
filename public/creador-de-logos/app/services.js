@@ -1,19 +1,19 @@
 angular.module("disenador-de-logos")
 
-	.value("coloresValue", {
+	.value("coloresValue",{
 		"#F5D327": "#14263D",
 		"#70C041": "#63246A",
 		"#51A7F9": "#320D29",
 		"#B36AE2": "#151616",
 		"#000000": "#8CB7C7",
-		"blanco": "white",
-		"negro": "black"
-
-	}).factory("coloresFactory", ["coloresValue", function (coloresValue) {
-		return function (primario) {
-			if (coloresValue[primario]) {
+		"blanco" : "white",
+		"negro" : "black"
+		
+	}).factory("coloresFactory", ["coloresValue", function(coloresValue){
+		return function(primario){
+			if(coloresValue[primario]){
 				return coloresValue[primario];
-			} else {
+			}else{
 				return coloresValue["negro"];
 			}
 		};
@@ -273,12 +273,12 @@ angular.module("disenador-de-logos")
 	})
 
 
-	/*-------------------------- Services --------------------------*/
+/*-------------------------- Services --------------------------*/
 
 
-	/***************************/
-	/*******CATEGORIAS**********/
-	/***************************/
+/***************************/
+/*******CATEGORIAS**********/
+/***************************/
 
 	.service("categoriasService", ["$http", "$q", function ($http, $q) {
 
@@ -336,9 +336,9 @@ angular.module("disenador-de-logos")
 
 
 
-	/***************************/
-	/******PREFERENCIAS*********/
-	/***************************/
+/***************************/
+/******PREFERENCIAS*********/
+/***************************/
 
 	.service("preferenciasService", ["$http", "$q", function ($http, $q) {
 
@@ -366,9 +366,9 @@ angular.module("disenador-de-logos")
 	}])
 
 
-	/***************************/
-	/*********ELEMENTOS*********/
-	/***************************/
+/***************************/
+/*********ELEMENTOS*********/
+/***************************/
 
 
 
@@ -436,9 +436,9 @@ angular.module("disenador-de-logos")
 	}])
 
 
-	/*********************/
-	/********PEDIDOS******/
-	/*********************/
+/*********************/
+/********PEDIDOS******/
+/*********************/
 
 	.service("pedidosService", ["$http", "$q", function ($http, $q) {
 
@@ -543,9 +543,9 @@ angular.module("disenador-de-logos")
 
 	}])
 
-	/***************************************/
-	/***************CLIENTES****************/
-	/***************************************/
+/***************************************/
+/***************CLIENTES****************/
+/***************************************/
 
 	.factory("clienteDatosFactory", [function () {
 
@@ -580,18 +580,18 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente", {
-					nombreCliente: nombreCliente,
-					correo: correo,
-					pass: pass,
-					telefono: telefono,
-					pais: pais
-				}).then(function (res) {
+				nombreCliente: nombreCliente,
+				correo: correo,
+				pass: pass,
+				telefono: telefono,
+				pais: pais
+			}).then(function (res) {
 
-					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-					clienteDatosFactory.definir(res.data);
-					defered.resolve();
+				$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+				clienteDatosFactory.definir(res.data);
+				defered.resolve();
 
-				})
+			})
 				.catch(function (res) {
 
 					$window.localStorage.removeItem("bzToken");
@@ -625,60 +625,6 @@ angular.module("disenador-de-logos")
 			return promise;
 
 		};
-
-		this.forgotPass = function (datos) {
-
-			var defered = $q.defer();
-
-			var promise = defered.promise;
-
-			$http.post("/app/recuperar-password", datos)
-				.then(function (res) {
-					defered.resolve(res);
-				})
-				.catch(function (res) {
-					defered.reject(res)
-				})
-
-			return promise;
-
-		}
-
-		this.confirmarToken = function (datos) {
-
-			var defered = $q.defer();
-
-			var promise = defered.promise;
-
-			$http.get("/app/recuperar-password/" + datos)
-				.then(function (res) {
-					defered.resolve(res);
-				})
-				.catch(function (res) {
-					defered.reject(res)
-				})
-
-			return promise;
-
-		}
-
-		this.cambiarContrasena = function (datos) {
-
-			var defered = $q.defer();
-
-			var promise = defered.promise;
-
-			$http.post("/app/cambiar-password", datos)
-				.then(function (res) {
-					defered.resolve(res);
-				})
-				.catch(function (res) {
-					defered.reject(res)
-				})
-
-			return promise;
-
-		}
 
 		this.autorizado = function (emitir) {
 
@@ -780,10 +726,10 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente/modificar", {
-					telefono: telefono,
-					nombreCliente: nombreCliente,
-					pais: pais
-				})
+				telefono: telefono,
+				nombreCliente: nombreCliente,
+				pais: pais
+			})
 
 				.then(function (res) {
 
@@ -798,7 +744,7 @@ angular.module("disenador-de-logos")
 			return promise;
 		};
 
-		this.avatar = function (imagen) {
+		this.avatar = function(imagen){
 			var defered = $q.defer();
 			var promise = defered.promise;
 
@@ -811,7 +757,7 @@ angular.module("disenador-de-logos")
 
 				defered.resolve(res.data.foto);
 
-			}).catch(function () {
+			}).catch(function(){
 
 			});
 
@@ -822,28 +768,26 @@ angular.module("disenador-de-logos")
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.post("/app/cliente/email", {
-					email: correo
-				})
+			$http.post("/app/cliente/email", {email: correo})
 
 				.then(function () {
 					defered.reject();
 				})
 				.catch(function (res) {
-					if (res.status == 404) {
+					if(res.status == 404){
 						defered.resolve();
 					} else {
 						defered.reject();
 					}
-
+					
 				});
 
-			return promise;
+			return promise;		
 		};
 
 	}])
 
-	/*--------------------------- Factories aislados ------------------*/
+/*--------------------------- Factories aislados ------------------*/
 
 	.factory("compararLogosFactory", [function () {
 
@@ -905,7 +849,7 @@ angular.module("disenador-de-logos")
 		return function (iconos, fuentes) {
 
 			var logos = [];
-
+			
 			angular.forEach(fuentes, function (fuente) {
 
 				angular.forEach(iconos, function (icono) {
@@ -948,9 +892,9 @@ angular.module("disenador-de-logos")
 
 
 
-	/*********************/
-	/***** Logos *********/
-	/*********************/
+/*********************/
+/***** Logos *********/
+/*********************/
 
 	.service("logosService", ["$http", "$q", function ($http, $q) {
 
@@ -1103,12 +1047,12 @@ angular.module("disenador-de-logos")
 			}
 
 			$http.post("/app/logos/aprobados", datos).then(function (res) {
-
+             
 				defered.resolve(res.data);
 
 
 			}).catch(function (res) {
-
+    
 				defered.reject(res);
 
 			});
@@ -1124,7 +1068,7 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/logos/aprobados/destacados").then(function (res) {
-
+				
 				defered.resolve(res.data);
 
 			}).catch(function (res) {
@@ -1150,8 +1094,6 @@ angular.module("disenador-de-logos")
 				tipo: tipo
 			};
 
-			console.log(datos)
-
 			$http.post("/app/logo/zip/", datos).then(function (res) {
 
 				defered.resolve(res.data);
@@ -1163,23 +1105,6 @@ angular.module("disenador-de-logos")
 			});
 
 			return promise;
-
-		};
-
-		this.dispararDescarga = function (imgURI, nombre, ancho) {
-
-			var evento = new MouseEvent("click", {
-				view: window,
-				bubbles: false,
-				cancelable: true
-
-			});
-
-			var a = document.createElement("a");
-			a.setAttribute("download", nombre + "@" + ancho + "x" + ancho);
-			a.setAttribute("href", imgURI);
-			a.setAttribute("target", "_blank");
-			a.dispatchEvent(evento);
 
 		};
 
@@ -1232,7 +1157,7 @@ angular.module("disenador-de-logos")
 
 			var promise = defered.promise;
 
-			$http.get("/app/cliente/manual/" + id).then(function (res) {
+			$http.get("/app/cliente/manual/"+id).then(function (res) {
 
 				defered.resolve(res.data);
 
@@ -1248,60 +1173,9 @@ angular.module("disenador-de-logos")
 
 	}])
 
-	/*********************/
-	/***** facebook ******/
-	/*********************/
-
-	.service("facebookService", ["$http", "$q", function ($http, $q) {
-
-		this.compartir = function (datos) {
-
-			var defered = $q.defer();
-			var promise = defered.promise;
-
-			FB.getLoginStatus(function (response) {
-				if (response.status === 'connected') {
-					FB.ui({
-							method: 'share',
-							href: 'https://developers.facebook.com/docs/'
-						},
-						function (response) {
-							if (response && !response.error_code) {
-								if (typeof response != 'undefined') {
-									defered.resolve(response);
-								}
-							} else {
-								defered.reject(response);
-							}
-						});
-				} else {
-					FB.login(function (response) {
-						FB.ui({
-								method: 'share',
-								href: 'https://developers.facebook.com/docs/'
-							},
-							function (response) {
-								return console.log(response)
-								if (response && !response.error_code) {
-									if (typeof response != 'undefined') {
-										defered.resolve(response);
-									}
-								} else {
-									defered.reject(response);
-								}
-							});
-					});
-				}
-			});
-
-			return promise;
-		};
-
-	}])
-
-	/*********************/
-	/***** planes ********/
-	/*********************/
+/*********************/
+/***** planes ********/
+/*********************/
 
 	.service("planesService", ["$http", "$q", function ($http, $q) {
 
@@ -1319,13 +1193,11 @@ angular.module("disenador-de-logos")
 		};
 
 		this.porLogo = function (idLogo) {
-
+			
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.post("/app/logo/plan/caracteristicas", {
-					idLogo: idLogo
-				})
+			$http.post("/app/logo/plan/caracteristicas", {idLogo: idLogo})
 				.then(function (res) {
 					defered.resolve(res.data);
 				}).catch(function (res) {
@@ -1336,16 +1208,14 @@ angular.module("disenador-de-logos")
 
 		};
 
-
-		this.aumentarPlan = function (idPlan) {
+		
+		this.aumentarPlan = function(idPlan){
 
 			var defered = $q.defer();
 
 			var promise = defered.promise;
-
-			$http.post("/app/planes/aumentar", {
-					idPlan: idPlan
-				})
+			
+			$http.post("/app/planes/aumentar", {idPlan: idPlan})
 				.then(function (res) {
 
 					defered.resolve(res.data);
@@ -1415,31 +1285,29 @@ angular.module("disenador-de-logos")
 		};
 	})
 
-	.factory("arrayToJsonMetasFactory", [function () {
-
-		return function (arrayMetas) {
-
+	.factory("arrayToJsonMetasFactory", [function(){
+    
+		return function(arrayMetas){
+        
 			var jsonMetas = {};
-
-			angular.forEach(arrayMetas, function (meta) {
-
+        
+			angular.forEach(arrayMetas, function(meta){
+            
 				jsonMetas[meta.clave] = meta.valor;
-
+            
 			});
-
+        
 			return jsonMetas;
-
+        
 		};
-
+    
 	}])
 
 	.factory("mostrarPopAyudaFactory", ["$rootScope", function ($rootScope) {
 
 		return function (indice) {
 
-			$rootScope.$broadcast("bazamAyuda:mostrar", {
-				indice: indice
-			});
+			$rootScope.$broadcast("bazamAyuda:mostrar", {indice: indice});
 
 		};
 
@@ -1456,11 +1324,11 @@ angular.module("disenador-de-logos")
 		};
 
 	}])
-
+	
 	.factory("verificarBase64Factory", [function () {
-
+		
 		return function (cadena) {
-
+			
 			return /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(cadena);
 
 		};

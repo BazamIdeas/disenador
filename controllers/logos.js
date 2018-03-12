@@ -319,9 +319,9 @@ exports.listaLogosPorAprobar = function(req, res) {
 exports.listaLogosAprobados = function(req, res) {
 
 	var idLogo = req.body.idLogo ? req.body.idLogo : 0; 
-	var etiqueta = req.body.etiqueta ? req.body.etiqueta : null;
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 0;
 	
-	logo.getLogosAprobados(idLogo, etiqueta,function(error, data)
+	logo.getLogosAprobados(idLogo, idCategoria,function(error, data)
 	{
 		
 		if (typeof data !== "undefined" && data.length > 0)
@@ -728,6 +728,7 @@ exports.zip = function(req,res)
 									if (typeof fuente !== "undefined" && fuente.length > 0)
 									{
 										fuentes[row.clave] = {nombre:fuente[0].nombre,url:fuente[0].url};
+										console.log(fuentes)
 									}
 		
 								} catch (e) {

@@ -71,9 +71,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 						historicoFactory($stateParams, "metodo", "planes").then(function (res) {
 
-								defered.resolve(res);
+							defered.resolve(res);
 
-							})
+						})
 							.catch(function (res) {
 
 								defered.reject(res);
@@ -106,16 +106,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			})
 
 
-			///////////////////////////////////////////////////////////////
-			///////////////////////////ESTADOS V2//////////////////////////
-			///////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////
+		///////////////////////////ESTADOS V2//////////////////////////
+		///////////////////////////////////////////////////////////////
 
 			.state({
 				name: "principal",
 				url: "/comenzar",
 				templateUrl: "app/views/v2/principal.tpl",
 				controller: "principalController as principal",
-				abstract: true,
+				abstract: true
 			})
 
 			.state({
@@ -407,33 +407,33 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 					}],
 					logoResolve: ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
 
-						if ($stateParams.id) {
+						if($stateParams.id){
 							var defered = $q.defer();
 							var promise = defered.promise;
 
 							logosService.obtenerPorId($stateParams.id).then(function (res) {
 
-								if (res.estado == "Descargable") {
-									defered.resolve({
+								if(res.estado == "Descargable"){
+									defered.resolve( {
 										logo: res.logo,
 										id: $stateParams.id
 									});
-								} else {
+								} else{
 									defered.reject("INVALID_LOGO");
 								}
 
 							}).catch(function () {
-
+                
 								// $state.go("logos");
 								defered.reject("INVALID_LOGO");
 							});
 
 							return promise;
-						} else {
+						} else{
 							return $q.reject("INVALID_LOGO");
 						}
 
-
+                    
 
 					}]
 				}
@@ -465,9 +465,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			});
 
 
-		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function ($location, $httpParamSerializer) {
-
-			return $httpParamSerializer($location.search()) ? "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
+		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
+            
+			return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
 		}]);
 
 		$urlRouterProvider.rule(function ($injector, $location) {
@@ -518,108 +518,108 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				switch (toState.name) {
 
-					case "editor":
+				case "editor":
 
-						switch (fromState.name) {
+					switch (fromState.name) {
 
-							case "":
-								$state.go("login");
-								break;
-
-							case "principal.combinaciones":
-								break;
-
-							case "logosGaleria":
-								break;
-
-
-							default:
-								$state.go("login");
-						}
-
+					case "":
+						$state.go("login");
 						break;
 
-					case "planes":
-
-						switch (fromState.name) {
-
-							case "":
-								$state.go("login");
-								break;
-
-							default:
-
-								$state.go("login");
-						}
-
+					case "principal.combinaciones":
 						break;
 
-					case "pago":
-
-						switch (fromState.name) {
-
-							case "":
-								$state.go("login");
-								break;
-
-							default:
-								$state.go("login");
-						}
-
+					case "logosGaleria":
 						break;
 
 
-					case "pagoCompleto":
-						switch (fromState.name) {
+					default:
+						$state.go("login");
+					}
 
-							case "":
-								$state.go("login");
-								break;
+					break;
 
-							default:
-								$state.go("login");
-						}
+				case "planes":
 
+					switch (fromState.name) {
+
+					case "":
+						$state.go("login");
 						break;
 
-					case "cuenta":
-						switch (fromState.name) {
+					default:
 
-							case "":
-								$state.go("login");
-								break;
+						$state.go("login");
+					}
 
-							default:
-								$state.go("login");
-						}
+					break;
 
+				case "pago":
+
+					switch (fromState.name) {
+
+					case "":
+						$state.go("login");
 						break;
 
-					case "logos":
-						switch (fromState.name) {
+					default:
+						$state.go("login");
+					}
 
-							case "":
-								$state.go("login");
-								break;
+					break;
 
-							default:
-								$state.go("login");
-						}
 
+				case "pagoCompleto":
+					switch (fromState.name) {
+
+					case "":
+						$state.go("login");
 						break;
 
-					case "descargar":
-						switch (fromState.name) {
+					default:
+						$state.go("login");
+					}
 
-							case "":
-								$state.go("login");
-								break;
+					break;
 
-							default:
-								$state.go("login");
-						}
+				case "cuenta":
+					switch (fromState.name) {
 
+					case "":
+						$state.go("login");
 						break;
+
+					default:
+						$state.go("login");
+					}
+
+					break;
+
+				case "logos":
+					switch (fromState.name) {
+
+					case "":
+						$state.go("login");
+						break;
+
+					default:
+						$state.go("login");
+					}
+
+					break;
+
+				case "descargar":
+					switch (fromState.name) {
+
+					case "":
+						$state.go("login");
+						break;
+
+					default:
+						$state.go("login");
+					}
+
+					break;
 
 
 				}
@@ -634,20 +634,20 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				switch (toState.name) {
 
-					case "editor":
+				case "editor":
 
-						$state.go("principal.comenzar");
-						break;
+					$state.go("principal.comenzar");
+					break;
 
-					case "planes":
+				case "planes":
 
-						$state.go("editor");
-						break;
+					$state.go("editor");
+					break;
 
-					case "pago":
+				case "pago":
 
-						$state.go("planes");
-						break;
+					$state.go("planes");
+					break;
 
 
 				}

@@ -1,8 +1,8 @@
 angular.module("landing")
 
-	//////////////////////////////////////////
-	////VISUALIZA EL SVG SIN ACCION ALGUNA////
-	//////////////////////////////////////////
+//////////////////////////////////////////
+////VISUALIZA EL SVG SIN ACCION ALGUNA////
+//////////////////////////////////////////
 	.directive("bazamVisualizar", function () {
 
 		return {
@@ -22,7 +22,7 @@ angular.module("landing")
 		};
 
 	})
-	.directive("bazamFormLogin", [function () {
+	.directive("bazamFormLogin",[ function () {
 
 		return {
 			restrict: "E",
@@ -30,10 +30,6 @@ angular.module("landing")
 			controller: ["$scope", "clientesService", "$mdToast", function ($scope, clientesService, $mdToast) {
 
 				var bz = this;
-
-				bz.olvido = {
-					tipo: 'cliente'
-				};
 
 				bz.completadoLogin = true;
 
@@ -57,7 +53,7 @@ angular.module("landing")
 								$scope.callback();
 
 								bz.mostrarModalLogin = false;
-
+								
 							}
 
 						}).catch(function () {
@@ -79,6 +75,8 @@ angular.module("landing")
 					}
 
 				};
+
+
 
 				bz.completadoRegistro = true;
 
@@ -102,7 +100,7 @@ angular.module("landing")
 								$scope.callback();
 
 								bz.mostrarModalLogin = false;
-
+								
 							}
 
 						}).catch(function () {
@@ -126,75 +124,6 @@ angular.module("landing")
 				};
 
 
-				bz.forgotPass = function (datos, v) {
-					if (v) {
-						bz.peticion = true;
-						bz.loaderCargando2 = true;
-						clientesService.forgotPass(datos).then(function (res) {
-							bz.rc = 2;
-							bz.loaderCargando2 = false;
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Codigo enviado al correo.",
-									clase: "success"
-								}
-							}))
-						}).catch(function (res) {
-							bz.loaderCargando = false;
-						}).finally(function () {
-							bz.peticion = false;
-						})
-					}
-				}
-
-				bz.confirmarToken = function (opcion, val) {
-					bz.peticion = true;
-					if (opcion == true) {
-						if (val) {
-							clientesService.cambiarContrasena(bz.olvido).then(function (res) {
-
-								$mdToast.show($mdToast.base({
-									args: {
-										mensaje: "Contraseña cambiada.",
-										clase: "success"
-									}
-								}))
-
-								bz.completadoLogin = true;
-
-								var datos = {
-									correo: bz.olvido.correo,
-									pass: bz.olvido.pass
-								};
-
-								bz.loaderCargando2 = false;
-								bz.login(datos, true);
-
-							}).finally(function () {
-								bz.peticion = false;
-							})
-						}
-					} else {
-						clientesService.confirmarToken(bz.olvido.token).then(function (res) {
-							if (res) {
-								bz.rc = 3;
-								$mdToast.show($mdToast.base({
-									args: {
-										mensaje: "Codigo Confirmado.",
-										clase: "success"
-									}
-								}))
-							}
-						}).catch(function (res) {
-							console.log(res)
-						}).finally(function () {
-							bz.peticion = false;
-						})
-
-					}
-				}
-
-
 			}],
 			controllerAs: "bazamLogin",
 			scope: {
@@ -203,87 +132,41 @@ angular.module("landing")
 			}
 		};
 
-
+		
 	}])
 
 	.directive("verticalCards", [function () {
-		return {
-			restrict: "E",
-			templateUrl: "landing/app/templates/verticalCards.tpl",
-			controller: ["$scope", function ($scope) {
+	return {
+		restrict: "E",
+		templateUrl: "landing/app/templates/verticalCards.tpl",
+		controller: ["$scope", function ($scope) {
 
-				var bz = this;
+			var bz = this;
 
-				bz.actual = 0;
-				bz.indice = 3;
+			bz.actual = 0;
+			bz.indice = 3;
 
-				bz.items = $scope.items;
+			bz.consejos = $scope.consejos;
 
-				bz.changeCard = function (v) {
-					if (v) {
-						if (bz.items[bz.indice + 1] != undefined) {
-							bz.indice++;
-						}
-					} else {
-						if (bz.items[bz.indice - 1] != undefined) {
-							bz.indice--;
-						}
-					}
-				}
-
-			}],
-			controllerAs: "cards",
-			scope: {
-				items: "<"
-			}
-		};
-
-
-	}])
-
-	.directive("bazamCarousel", [function () {
-		return {
-			templateUrl: "landing/app/templates/bazam-carousel.tpl",
-			controller: ["$scope", function ($scope) {
-
-				var bz = this;
-
-				bz.indice = 0;
-				bz.items = $scope.items;
-				bz.opciones = $scope.opciones;
-
-				bz.change = function (v) {
-					if (v) {
-						if (bz.items[bz.indice + 1] != undefined) {
-							bz.indice++;
-						} else {
-							bz.indice = 0;
-						}
-					} else {
-						if (bz.items[bz.indice - 1] != undefined) {
-							bz.indice--;
-						} else {
-							bz.indice = bz.items.length - 1;
-						}
-					}
-				}
-
-
-				setInterval(function () {
-					if (bz.items[bz.indice + 1] != undefined) {
+			bz.changeCard = function (v) {
+				if (v) {
+					if (bz.consejos[bz.indice + 1] != undefined) {
 						bz.indice++;
-					} else {
-						bz.indice = 0;
 					}
-				}, 2000);
-
-			}],
-			controllerAs: "ctrl",
-			scope: {
-				items: "<",
-				opciones: "<"
+				} else {
+					if (bz.consejos[bz.indice - 1] != undefined) {
+						bz.indice--;
+					}
+				}
 			}
-		};
+
+		}],
+		controllerAs: "cards",
+		scope: {
+			consejos: "<"
+		}
+	};
 
 
-	}])
+}])
+

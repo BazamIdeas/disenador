@@ -1,15 +1,9 @@
 angular.module("landing")
 
-    .controller("headerController", ["navegarFactory", "clientesService", function (navegarFactory, clientesService) {
+    .controller("headerController", ["navegarFactory", function (navegarFactory) {
 
         var bz = this;
 
         bz.navegar = navegarFactory;
-
-        bz.mostrarLogin = false;
-
-        bz.callback = function () {
-            navegarFactory.cliente(false);
-        };
-
+        
     }]);

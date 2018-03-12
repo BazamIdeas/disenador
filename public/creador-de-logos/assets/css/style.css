@@ -595,9 +595,9 @@ div.sidebar-1 {
             box-sizing: border-box !important;
 }
 
-.scroll-wrapper.sidebar-1 {
+/*.scroll-wrapper.sidebar-1 {
     position: fixed !important;
-}
+}*/
 
 .scroll-wrapper.sidebar-1 .scroll-content{
     padding: 0 0.75rem;
@@ -712,7 +712,6 @@ div.contenedor-principal{
     max-height: calc(100vh - 9rem);
     height: 100%;
     display: inline-block;
-    float: none !important;
     position: relative;
 }
 /*Contenedor Principal*/

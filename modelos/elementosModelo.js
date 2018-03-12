@@ -23,26 +23,6 @@ elemento.datosElemento = function( id, callback)
 	});
 }
 
-elemento.datosElementoPorLogo = function(idLogo, callback)
-{
-	var q = 'SELECT elementos.* FROM elementos INNER JOIN logos ON elementos.idElemento = logos.elementos_idElemento WHERE logos.idLogo = ?' ;
-
-	DB.getConnection(function(err, connection)
-	{ 
-		
-		connection.query( q , idLogo, function(err, rows){
-
-		  	if(err)	throw err;
-		  	
-		  	else 
-		  	callback(null, rows);
-		  	connection.release();
-	  	});
-
-	  
-	});
-}
-
 
 elemento.ListarFuentes = function(callback)
 {
@@ -63,35 +43,6 @@ elemento.ListarFuentes = function(callback)
 	});
 }
 
-
-elemento.getElementsByTags = function(tags, limit, ids, callback) 
-{
-	var text = '';
-
-	for(var i = 0; i <= tags.length-1; i++) {
-		text = text + tags[i];
-		if(i != tags.length - 1) {
-			text = text + '|';
-		}
-	}
-
-	var q = 'SELECT * FROM elementos INNER JOIN elementos_has_etiquetas ON elementos.idElemento = elementos_has_etiquetas.elementos_idElemento INNER JOIN etiquetas ON elementos_has_etiquetas.etiquetas_idEtiqueta = etiquetas.idEtiqueta WHERE elementos.idElemento NOT IN (?) AND etiquetas.nombreEtiqueta REGEXP ? ORDER BY elementos.idElemento LIMIT ?'
-
-	DB.getConnection(function(err, connection)
-	{
-		
-		var query = connection.query( q ,[ids, text, limit], function(err, rows){
-
-		  	if(err)	throw err;
-		  	
-		  	else 
-		  	callback(null, rows);
-		  	connection.release();
-		});
-		  
-		console.log(query.sql);
-	});
-}
 
 
 elemento.getElementos = function( datos, callback)
