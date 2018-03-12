@@ -838,9 +838,7 @@ angular.module("administrador")
             }
 
             $http.post('/app/logos/por-aprobar', datos).then(function (res) {
-                if (res.data == undefined) {
-                    return defered.reject(res);
-                }
+                if (res == undefined) return defered.reject(res);
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -1004,6 +1002,175 @@ angular.module("administrador")
 
             return promise;
         }
+
+        /* ETIQUETAS*/
+
+
+        this.listarEtiquetas = function (etiquetas, v) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+            /*
+            $http.post('/app/elementos/categoria', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })*/
+
+            res = [{
+                "traducciones": [{
+                    "idioma": "ESP",
+                    "valor": "perro"
+                }, {
+                    "idioma": "ENG",
+                    "valor": "Gato"
+                }]
+            }];
+
+            defered.resolve(res);
+
+            return promise;
+        }
+
+
+        this.guardarEtiqueta = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/elementos/categoria', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        this.guardarEtiquetaIconos = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/elementos/categoria', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        this.bloquearEtiqueta = function (id) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/elementos/categoria/' + id).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        this.actualizarEtiqueta = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/elementos/categoria', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+
+
+
+        this.loadEtiquetas = function (etiquetas, v) {
+
+            var etiquetas = [];
+
+            res = [{
+                "traducciones": [{
+                    "idioma": "ESP",
+                    "valor": "perro"
+                }, {
+                    "idioma": "ENG",
+                    "valor": "Gato"
+                }],
+                "iconos": [1, 2, 3, 4, 5, 6, 7]
+            }, {
+                "traducciones": [{
+                    "idioma": "ESP",
+                    "valor": "Gato"
+                }, {
+                    "idioma": "ENG",
+                    "valor": "CAt"
+                }],
+                "iconos": [1, 2, 3, 4, 5, 6, 7]
+            }];
+
+            angular.forEach(res, (valor) => {
+                etiquetas.push(valor.traducciones[0]);
+            })
+
+            return etiquetas.map(function (et) {
+                et._lowername = et.valor.toLowerCase();
+                return et;
+            });
+        }
+
+        this.transformChip = function (chip) {
+
+            // If it is an object, it's already a known chip
+            if (angular.isObject(chip)) {
+                return chip;
+            }
+
+            // Otherwise, create a new one
+            return {
+                valor: chip
+            }
+
+        }
+
+        this.querySearch = function (query, etiquetas) {
+            var results = query ? etiquetas.filter(createFilterFor(query)) : [];
+            return results;
+        }
+
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+
+            return function filterFn(etiqueta) {
+                return (etiqueta._lowername.indexOf(lowercaseQuery) === 0);
+            };
+
+        }
+
+
+
 
     }])
 

@@ -190,7 +190,6 @@ button.boton-enviar:hover {
 
 .seccion.uno {
     background: #fcfcfc;
-    min-height: 90vh;
     background-size: 100% 100%;
     margin-bottom: 0;
 }
@@ -206,7 +205,6 @@ h6.ver-video {
     font-family: 'futura-heavy';
     font-size: 24px;
     cursor: pointer;
-    margin-top: 7%;
 }
 
 h6.ver-video md-icon {
@@ -225,6 +223,10 @@ md-input-container:NOT(.md-input-has-value) md-select-value,
 .seccion.uno form input::placeholder,
 .seccion.uno form label {
     color: var(--secundario) !important;
+}
+
+.input-tipografia {
+    width: 80%;
 }
 
 md-chips-wrap input {
@@ -428,7 +430,7 @@ button:focus {
     color: white;
     font-size: 22px;
     font-family: 'maven-regular';
-    padding: 8px !important;
+    padding: 8px 30px !important;
 }
 
 /* SECCION CUATRO */
@@ -474,8 +476,22 @@ bazam-visualizar {
 /* PLANES */
 
 .contenedor-planes {
-    width: 80%;
+    width: 90%;
     margin: auto;
+}
+
+.plan {
+    transition: transform 0.2s;
+}
+
+.plan:hover {
+    transform: scale(1.1);
+}
+
+a:active,
+a:hover,
+button:hover {
+    cursor: pointer;
 }
 
 div.contenedor-planes .plan>div {
@@ -501,8 +517,6 @@ div.contenedor-planes .plan .plan-body {
     color: gray;
     font-size: 12px;
     border-radius: 0 0 5px 5px;
-    max-height: 80%;
-    min-height: 62%;
     background: white;
     display: flex;
     flex-direction: column;
@@ -556,7 +570,7 @@ a.boton-verde {
 .pregunta {
     border: 1px solid silver;
     height: auto;
-    box-shadow: 0 0 40px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
     margin-bottom: 10px;
 }
 
@@ -566,3 +580,59 @@ a.boton-verde {
     font-family: 'futura-heavy';
     margin: 0;
 }
+
+.seccion.cinco {
+    background: white;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.seccion.seis {
+    padding: 3% 0;
+}
+
+/* MEDIAS */
+
+@media (min-device-width:320px) and (max-device-width:639px),
+(min-width:320px) and (max-width:639px) {
+    .seccion.uno {
+        min-height: auto;
+    }
+    .seccion.uno form {
+        width: 90%;
+        margin: auto;
+    }
+    .seccion.uno form>div {
+        flex-direction: column;
+    }
+    .seccion.uno form>div>div {
+        max-width: 100%;
+        height: auto;
+        -webkit-box-flex: unset;
+        -webkit-flex: unset;
+        flex: auto;
+    }
+    .seccion.dos {
+        padding: 4% 2%;
+    }
+    .caracteristicas__item {
+        width: 40%;
+    }
+    .caracteristicas> :nth-child(1),
+    .caracteristicas> :nth-child(3),
+    .caracteristicas> :nth-child(5) {
+        margin-top: 0;
+    }
+    .plan {
+        max-width: 30%;
+    }
+    .input-tipografia {
+        width: 50%;
+    }
+}
+
+@media (min-device-width:640px) and (max-device-width:980px),
+(min-width:640px) and (max-width:980px) {}
+
+@media (min-device-width:981px) and (max-device-width:1080px),
+(min-width:981px) and (max-width:1080px) {}

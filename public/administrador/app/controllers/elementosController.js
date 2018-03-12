@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64) {
+    .controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", "etiquetasService", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64, etiquetasService) {
 
         var bz = this;
 
@@ -11,6 +11,17 @@ angular.module("administrador")
         bz.listar = {};
         bz.categorias = [];
         bz.preferencias = [];
+        bz.idiomas = ['ESP', 'ENG', 'POR'];
+        bz.etiquetasIconos = [{
+            "traducciones": [{
+                "idioma": "ESP",
+                "valor": "perro"
+            }, {
+                "idioma": "ENG",
+                "valor": "Gato"
+            }],
+            "iconos": [1, 2, 3, 4, 5, 6, 7]
+        }];
 
         bz.base64 = function (icono) {
 
@@ -46,7 +57,6 @@ angular.module("administrador")
                 bz.peticion = false;
             })
         }
-
 
         categoriasService.listarPreferencias().then(function (res) {
             angular.forEach(res.data, function (valor) {
@@ -115,8 +125,6 @@ angular.module("administrador")
             })
         }
 
-
-
         bz.listado = function (tipo) {
             bz.peticion = true;
             bz.listar.tipo = tipo;
@@ -129,7 +137,6 @@ angular.module("administrador")
                 bz.peticion = false;
             })
         }
-
 
         bz.accionesMostrar = function (opcion, index) {
             if (opcion == 'modElemento') {
@@ -153,70 +160,21 @@ angular.module("administrador")
             })
         }
 
+        bz.desvincularEtiqueta = function (item) {
 
-        bz.datosCombinaciones = {
-            preferencias: [],
-            etiquetas: [],
-            etiquetasSeleccionadas: [],
-            colores: []
-        }
+            return;
 
-        bz.selectedItem = null;
-        bz.searchText = null;
-        bz.querySearch = querySearch;
-        bz.etiquetas = loadEtiquetas();
-        bz.transformChip = transformChip;
+            bz.peticion = true;
 
-        function loadEtiquetas() {
+            etiquetasService.desvincularEtiqueta(item).then(function (res) {
 
-            var etiquetas = [{
-                    'name': 'Broccoli'
-                },
-                {
-                    'name': 'Cabbage'
-                },
-                {
-                    'name': 'Carrot'
-                },
-                {
-                    'name': 'Lettuce'
-                },
-                {
-                    'name': 'Spinach'
+                if (res == undefined) {
+                    return;
                 }
-            ];
 
-            return etiquetas.map(function (et) {
-                et._lowername = et.name.toLowerCase();
-                return et;
-            });
+            }).finally(function () {
+                bz.peticion = false;
+            })
         }
 
-        function transformChip(chip) {
-
-            // If it is an object, it's already a known chip
-            if (angular.isObject(chip)) {
-                return chip;
-            }
-
-            // Otherwise, create a new one
-            return {
-                name: chip
-            }
-
-        }
-
-        function querySearch(query) {
-            var results = query ? bz.etiquetas.filter(createFilterFor(query)) : [];
-            return results;
-        }
-
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
-
-            return function filterFn(etiqueta) {
-                return (etiqueta._lowername.indexOf(lowercaseQuery) === 0);
-            };
-
-        }
     }])

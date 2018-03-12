@@ -39,7 +39,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                 views: {
                     'menuContent': {
                         templateUrl: 'app/views/etiquetas.html',
-                        controller: 'etiquetasController as etiquetas'
+                        controller: 'etiquetasController as ctrl'
                     }
                 }
             }).state({

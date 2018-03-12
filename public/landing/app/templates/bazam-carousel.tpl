@@ -1,14 +1,13 @@
 <div class="bazam-carousel">
     <div class="container-carousel" ng-repeat="item in ctrl.items" ng-class="{'activo': $index == ctrl.indice, 'oculto': $index != ctrl.indice}">
-        <div class="solo-imagen" style="background-image:url({{item.url}});" ng-if="!item.isTestimonio">
-            .
+        <div class="solo-imagen" ng-if="!item.isTestimonio">
+            <img src="{{item.url}}">
         </div>
         <div class="testimonio" ng-if="item.isTestimonio">
             <div class="t-head">
                 <i style="color:{{item.color}};" class="fas fa-quote-left"></i>
                 <img src="{{item.logo}}">
                 <i style="color:{{item.color}};" class="fas fa-quote-right"></i>
-
             </div>
             <div class="t-body">
                 {{item.descripcion}}
@@ -26,10 +25,10 @@
         </div>
     </div>
     <controles>
-        <button ng-click="ctrl.change(false)">
+        <button ng-click="ctrl.changeLeft()">
             <md-icon>keyboard_arrow_left</md-icon>
         </button>
-        <button ng-click="ctrl.change(true)">
+        <button ng-click="ctrl.changeRight()">
             <md-icon>keyboard_arrow_right</md-icon>
         </button>
     </controles>
@@ -40,7 +39,7 @@
 
     .bazam-carousel {
         position: relative;
-        width: 100vw;
+        width: 98vw;
     }
 
     .bazam-carousel .container-carousel {
@@ -49,14 +48,18 @@
         align-items: center;
         width: 80%;
         margin: 30px auto;
+        transition: transform 0.3s;
     }
 
     .container-carousel.oculto {
-        display: none;
+        transform: translateX(-100%);
+        position: absolute;
+        top: 0;
     }
 
     .testimonio {
-        height: 70vh;
+        height: auto;
+        padding: 16px;
     }
 
     .testimonio .t-head {
@@ -98,13 +101,12 @@
     }
 
     .solo-imagen {
-        background: url(../assets/img/ejemplos.jpg);
-        height: 70vh;
-        background-size: 100%;
-        background-repeat: no-repeat;
-        background-position-x: -28px;
-        background-position-y: 37px;
         width: 100vw;
+        color: transparent;
+    }
+
+    .solo-imagen img {
+        width: 100%;
     }
 
     controles button {

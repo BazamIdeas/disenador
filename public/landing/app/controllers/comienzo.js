@@ -111,12 +111,10 @@ angular.module("landing")
 					])
 					.then(function (res) {
 
-						datosF = {
-							iconos: res[0],
-							fuentes: res[1]
-						}
+						datos.iconos = res[0];
+						datos.fuentes = res[1];
 
-						LS.definir('comenzar', datosF);
+						LS.definir('comenzar', datos);
 
 
 						if (!v) return;
@@ -170,9 +168,9 @@ angular.module("landing")
 			bz.moneda = bz.monedaDefault;
 		});
 
-		/*
 
-				bz.precioSeleccionado = function (precios) {
+
+		bz.precioSeleccionado = function (precios) {
 
 			var precioFinal = "";
 
@@ -188,6 +186,7 @@ angular.module("landing")
 			return precioFinal;
 
 		};
+		/*
 				logosService.mostrarDestacados().then(function (res) {
 					bz.destacados = res;
 				}).catch(function () {

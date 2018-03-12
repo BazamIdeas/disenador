@@ -252,30 +252,21 @@ angular.module("landing")
 				bz.items = $scope.items;
 				bz.opciones = $scope.opciones;
 
-				bz.change = function (v) {
-					if (v) {
-						if (bz.items[bz.indice + 1] != undefined) {
-							bz.indice++;
-						} else {
-							bz.indice = 0;
-						}
-					} else {
-						if (bz.items[bz.indice - 1] != undefined) {
-							bz.indice--;
-						} else {
-							bz.indice = bz.items.length - 1;
-						}
-					}
-				}
-
-
-				setInterval(function () {
+				bz.changeRight = function (v) {
 					if (bz.items[bz.indice + 1] != undefined) {
 						bz.indice++;
 					} else {
 						bz.indice = 0;
 					}
-				}, 2000);
+				}
+
+				bz.changeLeft = function (v) {
+					if (bz.items[bz.indice - 1] != undefined) {
+						bz.indice--;
+					} else {
+						bz.indice = bz.items.length - 1;
+					}
+				}
 
 			}],
 			controllerAs: "ctrl",
