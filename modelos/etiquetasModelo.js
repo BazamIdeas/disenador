@@ -6,7 +6,9 @@ let etiqueta = {}
 etiqueta.ObtenerTodos = (callback) => {
     Mongo.connection((db) => {
         const collection = db.collection('etiquetas');
-        collection.aggregate([{ $unwind: '$traducciones' },{
+        collection.aggregate([{ 
+            $unwind: '$traducciones' 
+        },{
             $lookup: {
                 from: 'idiomas',
                 localField: 'traducciones.idioma',
@@ -34,17 +36,17 @@ etiqueta.ObtenerPorIcono = (id, callback) => {
     Mongo.connection((db) => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
-                $match: { 'iconos': id }
-            }, {
-                $lookup: {
-                    from: 'idiomas',
-                    localField: 'traducciones.idioma',
-                    foreignField: '_id',
-                    as: 'idioma'
-                }
-            },
-            { $unwind: '$idioma' }
-        ]).toArray((err, docs) => {
+            $match: { 'iconos': id }
+        },{
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        },{ 
+            $unwind: '$idioma' 
+        }]).toArray((err, docs) => {
             if (err) throw err;
             callback(null, docs);
         });
@@ -53,7 +55,7 @@ etiqueta.ObtenerPorIcono = (id, callback) => {
 
 etiqueta.Guardar = (etiquetaData, callback) => {
     etiquetaData.traducciones.forEach((traduccion, key) => {
-        etiquetaData.traducciones[key].idioma.$id = new ObjectId(traduccion.idioma.$id);
+        etiquetaData.traducciones[key].idioma = new ObjectId(traduccion.idioma);
     })
 
     Mongo.connection((db) => {
@@ -121,7 +123,9 @@ etiqueta.Analizar = (tags, callback) =>
 
 	Mongo.connection((db) => {
 		const collection = db.collection('etiquetas');
-		collection.aggregate([{ $unwind: '$traducciones' },{
+		collection.aggregate([{ 
+            $unwind: '$traducciones' 
+        },{
 			$match: { 
 				'traducciones.valor': { '$in': tags } 
 			}
@@ -134,19 +138,13 @@ etiqueta.Analizar = (tags, callback) =>
 
 			else {
 
-				docs.forEach((doc) => {
-					doc.iconos.forEach((i) => {
-						iconos.push(i);
-					})
-				})
+				docs.forEach((doc) => doc.iconos.forEach((i) => iconos.push(i) ) )
 			
-				Array.prototype.unique = function(a) {
-					return function() {
-						return this.filter(a)
-					}
-				}( function(a, b, c) {
-						return c.indexOf(a, b+1) < 0
-				})
+				Array.prototype.unique = function(a) { 
+                    return function() { 
+                        return this.filter(a) 
+                    }
+				}(function(a, b, c) { return c.indexOf(a, b+1) < 0 })
 
 				iconos = iconos.unique();
 

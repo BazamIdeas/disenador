@@ -29,10 +29,7 @@ exports.GuardarEtiquetas = (req, res) =>
 			Idioma.ObtenerPorCodigo(traduccion.idioma, (err, data) => {
 				if (data !== null) {
 					//Sobreescribe el campo idioma de la etiqueta actual
-					etiquetas[keyEtiqueta].traducciones[keyTraduccion].idioma = {
-						$ref: 'idiomas',
-						$id: data._id
-					}
+					etiquetas[keyEtiqueta].traducciones[keyTraduccion].idioma = data._id;
 					callback();
 				
 				} else {
@@ -97,7 +94,7 @@ exports.AsignarIconos = (req, res) =>
 				affectedRows.push(data.affectedRow);
 				callback();
 			} else {
-				return callback(e);
+				return callback(err);
 			}
 		})
 
