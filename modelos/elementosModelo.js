@@ -72,7 +72,7 @@ elemento.getElementsByTags = function(tags, limit, callback)
 	DB.getConnection(function(err, connection)
 	{
 		
-		let query = connection.query( q ,[tags, limit], function(err, rows){
+		connection.query( q ,[tags, limit], function(err, rows){
 
 		  	if(err)	throw err;
 		  	
@@ -81,7 +81,7 @@ elemento.getElementsByTags = function(tags, limit, callback)
 		  	connection.release();
 		});
 
-		console.log(query.sql)
+
 	});
 }
 

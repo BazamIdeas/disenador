@@ -1,11 +1,12 @@
 const Mongo = require('./mongo.js');
-const ObjectId = require('mongodb').ObjectID;
+const Connection = Mongo.connection;
+const objectId = Mongo.objectId;
 
 let idioma = {}
 
-idioma.ObtenerTodos = (callback) =>
+idioma.ObtenerTodos = callback =>
 { 
-	Mongo.connection((db) => {
+	Connection(db => {
 		const collection = db.collection('idiomas');
 		collection.find({}).toArray((err, docs) => {
 			if(err)	throw err;
@@ -14,9 +15,20 @@ idioma.ObtenerTodos = (callback) =>
 	})
 }
 
+idioma.Obtener = (_id, callback) =>
+{ 
+	Connection(db => {
+		const collection = db.collection('idiomas');
+		collection.findOne({'_id': objectId(_id) }, (err, doc) => {
+            if(err)	throw err;
+		  	callback(null, doc);
+		});
+	})
+}
+
 idioma.ObtenerPorCodigo = (codigo, callback) =>
 { 
-	Mongo.connection((db) => {
+	Connection(db => {
 		const collection = db.collection('idiomas');
 		collection.findOne({'codigo': codigo}, (err, doc) => {
             if(err)	throw err;
@@ -27,34 +39,34 @@ idioma.ObtenerPorCodigo = (codigo, callback) =>
  
 idioma.Guardar = (idiomaData, callback) =>
 {
-	Mongo.connection((db) => {
+	Connection(db => {
 		const collection = db.collection('idiomas');
 		collection.insertOne(idiomaData, (err, doc) => {
 			if(err)	throw err;
-		  	callback(null, {'insertId': doc._id});
+		  	callback(null, { 'insertId': doc.insertedId });
 		});
 	})
 }
 
 idioma.Actualizar = (_id, idiomaData, callback) =>
 {
-	Mongo.connection((db) => {
+	Connection(db => {
 		const collection = db.collection('idiomas');
-		collection.updateOne({'_id': new ObjectId(_id)}, idiomaData, (err, doc) => {
-			if(err)	throw err;
-		  	callback(null, {'affectedRows': doc.matchedCount});
-		});
+		collection.findOneAndUpdate({ '_id': objectId(_id) }, { $set: idiomaData }, (err, doc) => {
+			if (err) throw err;
+            callback(null, { 'affectedRow': doc.value });
+        });
 	})
 }
 
-idioma.Borrar = (id, callback) =>
+idioma.Borrar = (_id, callback) =>
 {
-	Mongo.connection((db) => {
+	Connection(db => {
 		const collection = db.collection('idiomas');
-		collection.deleteOne({'_id': new ObjectId(id)}, (err, doc) => {
-			if(err)	throw err;
-		  	callback(null, {'affectedRows': doc.deletedCount});
-		});
+		collection.findOneAndDelete({ '_id': objectId(_id) }, (err, doc) => {
+            if (err) throw err;
+            callback(null, { 'affectedRow': doc.value });
+        });
 	})
 }
 

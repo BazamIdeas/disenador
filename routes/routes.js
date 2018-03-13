@@ -94,9 +94,16 @@ router.post("/etiquetas/:_id/iconos", controllers.etiquetas.AsignarIconos);
 router.post("/etiqueta/:_id/iconos/desasignar", controllers.etiquetas.DesasignarIcono);
 router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
 
+//MODULO ETIQUETAS
+router.get("/idiomas", controllers.idiomas.ObtenerTodos);
+router.post("/idiomas", controllers.idiomas.Guardar);
+router.post("/idiomas/modificar", controllers.idiomas.Actualizar);
+router.get("/idiomas/borrar/:_id", controllers.idiomas.Borrar);
+
+
 //MODULO ELEMENTOS
-router.post("/elementos/busqueda", controllers.elementos.listaSegunPref);
-//router.post("/elementos/busqueda", controllers.elementos.listaSegunTagCat);
+//router.post("/elementos/busqueda", controllers.elementos.listaSegunPref);
+router.post("/elementos/busqueda", controllers.elementos.listaSegunTagCat);
 router.post("/elementos/categorias", controllers.elementos.listaElemCategoria);
 router.post("/elementos/categoria", controllers.elementos.listaElemCat);
 router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono

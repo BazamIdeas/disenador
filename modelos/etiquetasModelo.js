@@ -1,10 +1,11 @@
 const Mongo = require('./mongo.js');
-const ObjectId = require('mongodb').ObjectID;
+const Connection = Mongo.connection;
+const objectId = Mongo.objectId;
 
 let etiqueta = {}
 
-etiqueta.ObtenerTodos = (callback) => {
-    Mongo.connection((db) => {
+etiqueta.ObtenerTodos = callback => {
+    Connection(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{ 
             $unwind: '$traducciones' 
@@ -15,6 +16,8 @@ etiqueta.ObtenerTodos = (callback) => {
                 foreignField: '_id',
                 as: 'idioma'
             }
+        },{ 
+            $unwind: '$idioma' 
         },{
             $group: {
                 _id: '$_id',
@@ -33,7 +36,7 @@ etiqueta.ObtenerTodos = (callback) => {
 }
 
 etiqueta.ObtenerPorIcono = (id, callback) => {
-    Mongo.connection((db) => {
+    Connection(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
             $match: { 'iconos': id }
@@ -55,10 +58,10 @@ etiqueta.ObtenerPorIcono = (id, callback) => {
 
 etiqueta.Guardar = (etiquetaData, callback) => {
     etiquetaData.traducciones.forEach((traduccion, key) => {
-        etiquetaData.traducciones[key].idioma = new ObjectId(traduccion.idioma);
+        etiquetaData.traducciones[key].idioma = objectId(traduccion.idioma);
     })
 
-    Mongo.connection((db) => {
+    Connection(db => {
         const collection = db.collection('etiquetas');
         collection.insertOne(etiquetaData, (err, doc) => {
             if (err) throw err;
@@ -68,9 +71,9 @@ etiqueta.Guardar = (etiquetaData, callback) => {
 }
 
 etiqueta.Actualizar = (_id, etiquetaData, callback) => {
-    Mongo.connection((db) => {
+    Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.findOneAndUpdate({ '_id': new ObjectId(_id) }, { $set: etiquetaData }, (err, doc) => {
+        collection.findOneAndUpdate({ '_id': objectId(_id) }, { $set: etiquetaData }, (err, doc) => {
             if (err) throw err;
             callback(null, { 'affectedRow': doc.value });
         });
@@ -78,9 +81,9 @@ etiqueta.Actualizar = (_id, etiquetaData, callback) => {
 }
 
 etiqueta.AsignarIconos = (_id, iconos, callback) => {
-    Mongo.connection((db) => {
+    Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.findOneAndUpdate({ '_id': new ObjectId(_id) }, {
+        collection.findOneAndUpdate({ '_id': objectId(_id) }, {
             $addToSet: {
                 'iconos': {
                     $each: iconos
@@ -94,9 +97,9 @@ etiqueta.AsignarIconos = (_id, iconos, callback) => {
 }
 
 etiqueta.DesasignarIcono = (_id, icono, callback) => {
-    Mongo.connection((db) => {
+    Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.findOneAndUpdate({ '_id': new ObjectId(_id) }, {
+        collection.findOneAndUpdate({ '_id': objectId(_id) }, {
             $pull: {
                 'iconos': icono
             }
@@ -107,10 +110,10 @@ etiqueta.DesasignarIcono = (_id, icono, callback) => {
     })
 }
 
-etiqueta.Borrar = (id, callback) => {
-    Mongo.connection((db) => {
+etiqueta.Borrar = (_id, callback) => {
+    Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.findOneAndDelete({ '_id': new ObjectId(id) }, (err, doc) => {
+        collection.findOneAndDelete({ '_id': objectId(_id) }, (err, doc) => {
             if (err) throw err;
             callback(null, { 'affectedRow': doc.value });
         });
@@ -121,7 +124,7 @@ etiqueta.Analizar = (tags, callback) =>
 {
 	let iconos = [];
 
-	Mongo.connection((db) => {
+	Connection(db => {
 		const collection = db.collection('etiquetas');
 		collection.aggregate([{ 
             $unwind: '$traducciones' 
@@ -138,17 +141,15 @@ etiqueta.Analizar = (tags, callback) =>
 
 			else {
 
-				docs.forEach((doc) => doc.iconos.forEach((i) => iconos.push(i) ) )
+				docs.forEach(doc => doc.iconos.forEach(i => iconos.push(i) ) )
 			
 				Array.prototype.unique = function(a) { 
                     return function() { 
                         return this.filter(a) 
                     }
-				}(function(a, b, c) { return c.indexOf(a, b+1) < 0 })
+                }((a, b, c) =>  c.indexOf(a, b+1) < 0 )
 
-				iconos = iconos.unique();
-
-				callback(null, iconos);
+				callback(null, iconos.unique());
 			}
 		})
 	})
