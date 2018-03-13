@@ -27,7 +27,7 @@
                             <tr ng-repeat="etiqueta in ctrl.etiquetas">
                                 <td>
                                     <div ng-repeat="item in etiqueta.traducciones">
-                                        <span ng-if="item.idioma == 'ESP'">
+                                        <span ng-if="item.idioma.codigo == 'ESP'">
                                             {{item.valor}}
                                         </span>
                                     </div>
@@ -39,7 +39,7 @@
                                         <md-icon>language</md-icon>
                                     </md-button>
 
-                                    <md-button class="md-fab md-mini md-warn" ng-click="ctrl.bloquearEtiqueta(item)">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="ctrl.borrarEtiqueta(etiqueta._id)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Borrar</md-tooltip>
                                         <md-icon>lock</md-icon>
                                     </md-button>

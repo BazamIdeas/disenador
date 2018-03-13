@@ -19,10 +19,8 @@ angular.module("administrador")
 		};
 
 		/* DATOS */
-
-		bz.logos = [];
-		bz.cats = [];
 		bz.base64 = $base64;
+
 		bz.listarCategorias = function (tipoCategoria) {
 			bz.peticion = true;
 			bz.cats = [];
@@ -43,9 +41,9 @@ angular.module("administrador")
 				bz.peticion = false;
 			})
 		}
-		bz.iconos = [];
-
 		bz.listarCategorias();
+
+		bz.iconos = [];
 
 		/***************************/
 		/**********LOGOS***********/
@@ -87,7 +85,8 @@ angular.module("administrador")
 			bz.etiquetas = [];
 			bz.peticion = true;
 			etiquetasService.listarEtiquetas(datos).then(function (res) {
-				bz.etiquetas = res;
+				bz.etiquetas = res.data;
+				$scope.etiqm = true;
 			}).catch(function (res) {
 				console.log(res)
 			}).finally(function () {
@@ -100,16 +99,22 @@ angular.module("administrador")
 		/* GUARDAR */
 
 		bz.guardarEtiqueta = function (datos, v) {
-			//bz.peticion = true;
 
-			if (!v) return notificacionService.mensaje('Rellene todos los campos por favor')
+			if (!v) return notificacionService.mensaje('Rellene todos los campos por favor');
+			bz.peticion = true;
 
-			return console.log(datos)
+			etiquetasService.guardarEtiqueta({
+				etiquetas: datos
+			}).then(function (res) {
 
-			etiquetasService.guardarEtiqueta(datos).then(function (res) {
+				if (res == undefined) return;
 
-				if (res == undefined) {
-					return;
+				for (let i = 0; i < res.data.length; i++) {
+					console.log(datos[i])
+					bz.etiquetas.push({
+						_id: res.data[i],
+						traducciones: datos[i].traducciones
+					})
 				}
 
 			}).finally(function () {
@@ -136,16 +141,14 @@ angular.module("administrador")
 			console.log(datos);
 
 			bz.iconos = [];
-			datos.etiquetas = [];
 			bz.searchText = null;
 			return;
 
 			etiquetasService.guardarEtiquetaIconos(datos).then(function (res) {
 
 
-				if (res == undefined) {
-					return;
-				}
+				if (res == undefined) return;
+
 
 			}).finally(function () {
 				bz.peticion = false;
@@ -154,17 +157,14 @@ angular.module("administrador")
 
 		/* BLOQUEAR */
 
-		bz.bloquearEtiqueta = function (id) {
-
-			return;
+		bz.borrarEtiqueta = function (id) {
 
 			bz.peticion = true;
 
-			etiquetasService.bloquearEtiqueta(id).then(function (res) {
+			etiquetasService.borrarEtiqueta(id).then(function (res) {
 
-				if (res == undefined) {
-					return;
-				}
+				if (res == undefined) return;
+				console.log(res)
 
 			}).finally(function () {
 				bz.peticion = false;
@@ -179,9 +179,8 @@ angular.module("administrador")
 
 				etiquetasService.actualizarEtiqueta(params).then(function (res) {
 
-					if (res == undefined) {
-						return;
-					}
+					if (res == undefined) return;
+
 
 				}).finally(function () {
 					bz.peticion = false;

@@ -942,7 +942,6 @@ angular.module("administrador")
             return promise;
         }
 
-        // TODO: RUTA MALA
         this.notificarPago = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
@@ -1006,31 +1005,19 @@ angular.module("administrador")
         /* ETIQUETAS*/
 
 
-        this.listarEtiquetas = function (etiquetas, v) {
+        this.listarEtiquetas = function () {
 
             var defered = $q.defer();
             var promise = defered.promise;
-            /*
-            $http.post('/app/elementos/categoria', datos).then(function (res) {
+
+            $http.get('/app/etiquetas').then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })*/
-
-            res = [{
-                "traducciones": [{
-                    "idioma": "ESP",
-                    "valor": "perro"
-                }, {
-                    "idioma": "ENG",
-                    "valor": "Gato"
-                }]
-            }];
-
-            defered.resolve(res);
+            })
 
             return promise;
         }
@@ -1041,7 +1028,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/elementos/categoria', datos).then(function (res) {
+            $http.post('/app/etiquetas', datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
@@ -1058,7 +1045,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/elementos/categoria', datos).then(function (res) {
+            $http.post('/app/etiquetas/' + datos._id + '/iconos', datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
@@ -1070,12 +1057,29 @@ angular.module("administrador")
             return promise;
         }
 
-        this.bloquearEtiqueta = function (id) {
+        this.borrarEtiqueta = function (id) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/elementos/categoria/' + id).then(function (res) {
+            $http.get('/app/etiquetas/borrar/' + id).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        this.desasignarEtiqueta = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/etiqueta/' + datos._id + '/iconos/desasignar', datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
@@ -1092,7 +1096,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/elementos/categoria', datos).then(function (res) {
+            $http.post('/app/etiquetas/modificar', datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
@@ -1104,34 +1108,11 @@ angular.module("administrador")
             return promise;
         }
 
-
-
-
-        this.loadEtiquetas = function (etiquetas, v) {
+        this.loadEtiquetas = function (arr, v) {
 
             var etiquetas = [];
 
-            res = [{
-                "traducciones": [{
-                    "idioma": "ESP",
-                    "valor": "perro"
-                }, {
-                    "idioma": "ENG",
-                    "valor": "Gato"
-                }],
-                "iconos": [1, 2, 3, 4, 5, 6, 7]
-            }, {
-                "traducciones": [{
-                    "idioma": "ESP",
-                    "valor": "Gato"
-                }, {
-                    "idioma": "ENG",
-                    "valor": "CAt"
-                }],
-                "iconos": [1, 2, 3, 4, 5, 6, 7]
-            }];
-
-            angular.forEach(res, (valor) => {
+            angular.forEach(arr, (valor) => {
                 etiquetas.push(valor.traducciones[0]);
             })
 
