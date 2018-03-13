@@ -66,13 +66,13 @@ router.post("/pedido", middleware.validarCliente, controllers.pedidos.nuevoPedid
 router.post("/pedido/guardado", middleware.validarCliente, controllers.pedidos.nuevoPedidoGuardado); //crea un pedido de un logo ya guardado
 router.post("/pedido/modificar", middleware.validarCliente, controllers.pedidos.modificarPedido); // modifica los datos de un pedido
 router.post("/pedido/cambiar", middleware.validarCliente, controllers.pedidos.cambiarEstado); // cambia de estado al pedido
-router.get("/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:padre?", controllers.pedidos.cambioEstadoPagado); //RUTAS INTERNAS
+router.get("/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:padre?", controllers.pedidos.cambioEstadoPagado); 
 
+//RUTAS INTERNAS
 router.get("/pedido/aumento/:idPedido/:idLogo", controllers.pedidos.cambioEstadoPagadoAumentoPlan); //RUTAS INTERNAS
 router.get("/pedido/no/pago/:tk", controllers.pedidos.noPago); // RUTAS INTERNAS
 
 //MODULO CATEGORIAS
-
 router.post("/categorias", controllers.categorias.listaCategorias);
 router.get("/categoria/iconos/:id", controllers.categorias.ListarIconos);
 router.get("/categoria/fuentes/:id", controllers.categorias.ListarFuentes);
@@ -81,18 +81,18 @@ router.post("/categoria/modificar", middleware.validarAdministrador, controllers
 router.get("/categoria/borrar/:id", middleware.validarAdministrador, controllers.categorias.borrarCategoria);
 
 //MODULO PREFERENCIA
-
 router.get("/preferencias", controllers.preferencias.listaPreferencias);
 router.post("/preferencia", middleware.validarAdministrador, controllers.preferencias.nuevaPreferencia);
 router.post("/preferencia/modificar", middleware.validarAdministrador, controllers.preferencias.modificarPreferencia);
 router.get("/preferencia/borrar/:id", middleware.validarAdministrador, controllers.preferencias.borrarPreferencia);
 
-//etiquetas
-
-router.get("/etiquetas", controllers.etiquetas.listaEtiquetas);
-router.post("/etiqueta", controllers.etiquetas.nuevaEtiqueta);
-router.post("/etiqueta/modificar", middleware.validarAdministrador, controllers.etiquetas.modificarEtiqueta);
-router.get("/etiqueta/borrar/:id", middleware.validarAdministrador, controllers.etiquetas.borrarEtiqueta);
+//MODULO ETIQUETAS
+router.get("/etiquetas", controllers.etiquetas.ObtenerTodos);
+router.post("/etiquetas", controllers.etiquetas.GuardarEtiquetas);
+router.post("/etiquetas/modificar", controllers.etiquetas.Actualizar);
+router.post("/etiquetas/:_id/iconos", controllers.etiquetas.AsignarIconos);
+router.post("/etiqueta/:_id/iconos/desasignar", controllers.etiquetas.DesasignarIcono);
+router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
 
 //MODULO ELEMENTOS
 //router.post("/elementos/busqueda", controllers.elementos.listaSegunPref);

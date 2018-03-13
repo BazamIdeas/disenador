@@ -1,4 +1,5 @@
 var elemento = require("../modelos/elementosModelo.js");
+var etiqueta = require("../modelos/etiquetasModelo.js");
 var async = require("async");
 var base64 = require("base-64");
 var fs = require("fs");
@@ -107,69 +108,77 @@ exports.listaSegunPref = function(req, res) {
 
 exports.listaSegunTagCat = function(req, res) {
 
-	var tags = req.body.tags;
-	var categoria = req.body.categoria;
-	var limit = req.body.limit ? req.body.limit : 12;
-	var ids = req.body.ids ? req.body.ids : [0];
+	const tags      = req.body.tags ? req.body.tags : [];
+	const categoria = req.body.categoria;
+	const limit     = req.body.limit ? req.body.limit : 12;
+	const ids       = req.body.ids ? req.body.ids : [0];
+	
+	etiqueta.Analizar(tags, (err, arr) => {
+		if (typeof arr !== "undefined" && arr.length > 0) {
 
-	elemento.getElementsByTags(tags, limit, ids, function(err, data){
-		if (typeof data !== "undefined" && data.length > 0) {
-			
-			var elementos = [];
+			ids.forEach(ele => {
+				let index = arr.indexOf(ele);
+				if (index !== -1) arr.splice(index, 1);
+			});
 
-			for (var i = data.length - 1; i >= 0; i--) {
-				var id = data[i].idElemento;
-				var into = 0;
-				for (var j = elementos.length - 1; j >= 0; j--) {
-					var id2 = elementos[j].idElemento;
-					if (id == id2) {
-						into = 1;
-					}
-				}
+			//console.log(arr)
+			elemento.getElementsByTags(arr, limit, (err, data) => {
+				if (typeof data !== "undefined" && data.length > 0) {
+					
+					let elementos = [];
 
-				if (into == 0) {
-					elementos = elementos.concat(data[i]);
-				}
-			}
-
-			if(elementos.length < limit) { 
-
-				elemento.getElementosIncat([categoria,'ICONO'], function(error, data) {
-					if (typeof data !== "undefined" && data.length > 0) {
-						
-						for (var i = data.length - 1; i >= 0; i--) {
-							var id = data[i].idElemento;
-							var into = 0;
-							for (var j = elementos.length - 1; j >= 0; j--) {
-								var id2 = elementos[j].idElemento;
-								if (id == id2) {
-									into = 1;
-								}
-							}
-			
-							if (into == 0 && elementos.length < limit) {
-								elementos = elementos.concat(data[i]);
+					for (let i = data.length - 1; i >= 0; i--) {
+						let id = data[i].idElemento;
+						let into = 0;
+						for (let j = elementos.length - 1; j >= 0; j--) {
+							let id2 = elementos[j].idElemento;
+							if (id == id2) {
+								into = 1;
 							}
 						}
-						
-						res.status(200).json(elementos);
-					}else {
-						res.status(404).json({
-							"msg": "No Encontrado2"
-						});
+
+						if (into == 0) {
+							elementos = elementos.concat(data[i]);
+						}
 					}
-				});
-			
-			}else {
-				res.status(200).json(elementos);
-			}
-		
-		}else {
-			res.status(404).json({
-				"msg": "No Encontrado1"
-			});
+
+					if(elementos.length < limit) { 
+
+						elemento.getElementosIncat([categoria,'ICONO'], (error, data) => {
+							if (typeof data !== "undefined" && data.length > 0) {
+								
+								for (let i = data.length - 1; i >= 0; i--) {
+									let id = data[i].idElemento;
+									let into = 0;
+									for (let j = elementos.length - 1; j >= 0; j--) {
+										let id2 = elementos[j].idElemento;
+										if (id == id2) {
+											into = 1;
+										}
+									}
+					
+									if (into == 0 && elementos.length < limit) {
+										elementos = elementos.concat(data[i]);
+									}
+								}
+								
+								res.status(200).json(elementos);
+							}else {
+								res.status(404).json({"msg": "No Encontrado2"});
+							}
+						});
+					
+					}else {
+						res.status(200).json(elementos);
+					}
+				}else {
+					res.status(404).json({"msg": "No Encontrado1"});
+				}
+			})
+		}else{
+			res.status(404).json({"msg": "No Encontrado1"});
 		}
-	})
+	});
 
 };
 
