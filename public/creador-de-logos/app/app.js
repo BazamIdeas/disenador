@@ -40,76 +40,17 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 		/*------------------------ Ui router states ----------------------*/
 
+	
 		$stateProvider
+	
 			.state({
-				name: "metodo",
-				url: "/metodo-de-pago",
-				templateUrl: "app/views/metodo-de-pago.html",
-				params: {
-					logo: null,
-					tipoLogo: null,
-					localidad: null,
-					idElemento: null,
-					idPrecio: null,
-				},
-				controller: "metodosController as metodo",
-				resolve: {
-					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-						if (!clientesService.autorizado()) {
-
-							return $q.reject("AUTH_REQUIRED");
-
-						}
-
-					}],
-
-					historicoResolve: ["historicoFactory", "$q", "$stateParams", function (historicoFactory, $q, $stateParams) {
-
-						var defered = $q.defer();
-						var promise = defered.promise;
-
-						historicoFactory($stateParams, "metodo", "planes").then(function (res) {
-
-							defered.resolve(res);
-
-						})
-							.catch(function (res) {
-
-								defered.reject(res);
-							});
-
-						return promise;
-
-					}]
-				}
-			})
-			.state({
-				name: "administrar",
-				url: "/administrar",
-				templateUrl: "app/views/administrarLogo.html",
-				controller: "administrarController as administrar",
-				resolve: {
-					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
-
-						if (!clientesService.autorizado()) {
-
-							return $q.reject("AUTH_REQUIRED");
-
-						}
-
-					}]
-				},
-				params: {
-					datos: null
-				}
+				name: "inicio",
+				url: "/",
+				templateUrl: "app/views/v2/inicio.tpl",
+				controller: "inicioController as inicio"
 			})
 
-
-		///////////////////////////////////////////////////////////////
-		///////////////////////////ESTADOS V2//////////////////////////
-		///////////////////////////////////////////////////////////////
-
+		/*
 			.state({
 				name: "principal",
 				url: "/comenzar",
@@ -142,7 +83,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				}
 			})
-
+			
 			.state({
 				name: "principal.combinaciones",
 				url: "/combinaciones/",
@@ -161,7 +102,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				}
 			})
-
+			*/
 			.state({
 				name: "editor",
 				url: "/editor/",
@@ -172,7 +113,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 					datos: {
 						logo: null,
 						texto: null,
-						//eslogan: null,
 						fuentes: null,
 						idLogoGuardado: null
 					}
@@ -463,13 +403,14 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				templateUrl: "app/views/v2/logosGaleria.tpl",
 				controller: "logosGaleriaController as logosGaleria"
 			});
-
+		
+		/*
 
 		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
             
 			return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
 		}]);
-
+		*/
 		$urlRouterProvider.rule(function ($injector, $location) {
 			var path = $location.url();
 
@@ -505,7 +446,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			//Servicio para cerrar ayudas
 
-		})
+		});
 
 		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 

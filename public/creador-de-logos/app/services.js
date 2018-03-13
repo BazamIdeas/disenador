@@ -854,15 +854,15 @@ angular.module("disenador-de-logos")
 
 				angular.forEach(iconos, function (icono) {
 
-					if (icono.estado == true) {
+					//if (icono.estado == true) {
 
-						var logo = {
-							icono: icono,
-							fuente: fuente
-						};
+					var logo = {
+						icono: icono,
+						fuente: fuente
+					};
 
-						logos.push(logo);
-					}
+					logos.push(logo);
+					//}
 				});
 
 			});
@@ -1332,4 +1332,52 @@ angular.module("disenador-de-logos")
 			return /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/.test(cadena);
 
 		};
+	}])
+	
+	.factory("fontFactory", ["$document", function($document){
+
+
+
+		return {
+			check: function (fuente) {
+				return $document[0].fonts.check("200px " + fuente);
+			},
+			load: function(fuente, url){
+				var newFuente = new FontFace(fuente, 'url('+url+')');
+				
+				$document[0].fonts.add(newFuente);
+			
+				return newFuente.load()
+	
+			}
+		}
+
+	}])
+
+	.service("fontService", ["$q", "$document", "fontFactory", function($q, $document, fontFactory){
+
+		this.preparar = function(fuente, url){
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+			
+			if(fontFactory.check(fuente)){
+				
+				defered.resolve({fuente: fuente, url: url})
+
+			} else {
+
+				fontFactory.load(fuente, url)
+					.then(function(){
+						defered.resolve({fuente: fuente, url: url});
+					})
+					.catch(function(){
+						defered.reject();	
+					})
+				
+			}
+
+			return promise;
+		};
+
 	}]);

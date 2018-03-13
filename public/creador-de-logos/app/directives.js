@@ -1,96 +1,106 @@
 angular.module("disenador-de-logos")
 
-	.directive("bazamSvgText", function () {
+	.directive("bazamSvgText", ["fontService", "$timeout", function (fontService, $timeout) {
 		return {
 			restrict: "AE",
+			scope: {
+				callback: "="
+			},
 			link: function (scope, element, attributes) {
 
-				var tamanoBase = 200;
+				fontService.preparar(attributes.fuente, attributes.url)
 
-				////////////////////////////////////////////////////////////
-				//////Insertamos el SVG del icono dentro del SVG padre//////
-				////////////////////////////////////////////////////////////
+					.then(function(res){
+						
+						var tamanoBase = 200;
 
-				element[0].innerHTML = "<svg  viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'>" + attributes.icono + "</svg>";
+						////////////////////////////////////////////////////////////
+						//////Insertamos el SVG del icono dentro del SVG padre//////
+						////////////////////////////////////////////////////////////
 
-				var svgIcono = element[0].children[0].children[0];
+						element[0].innerHTML = "<svg  viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'>" + attributes.icono + "</svg>";
+	
+						var svgIcono = element[0].children[0].children[0];
 
-				svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
+						svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
 
-				/////////////////////////////////////////
-				////////creamos el elemento Text/////////
-				/////////////////////////////////////////
+						/////////////////////////////////////////
+						////////creamos el elemento Text/////////
+						/////////////////////////////////////////
 
-				var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
+						var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
 
-				texto.setAttributeNS(null, "x", (tamanoBase / 2));
+						texto.setAttributeNS(null, "x", (tamanoBase / 2));
 
-				var textoNode = document.createTextNode(attributes.texto);
+						var textoNode = document.createTextNode(attributes.texto);
 
-				texto.appendChild(textoNode);
+						texto.appendChild(textoNode);
 
-				element[0].children[0].appendChild(texto);
+						element[0].children[0].appendChild(texto);
 
-				var svgTexto = element[0].children[0].children[1];
+						var svgTexto = element[0].children[0].children[1];
 
-				svgTexto.style.fontSize = (tamanoBase / 2) + "px";
+						svgTexto.style.fontSize = (tamanoBase / 2) + "px";
 
-				if(attributes.color){
-					svgTexto.style.fill = attributes.color;
-				}
+						if(attributes.color){
+							svgTexto.style.fill = attributes.color;
+						}
 
-				svgTexto.setAttribute("text-anchor", "middle");
-				svgTexto.setAttribute("font-family", attributes.fuente);
+						svgTexto.setAttribute("text-anchor", "middle");
+						svgTexto.setAttribute("font-family", attributes.fuente);
 
-				//////////////////////////////////////////////////////////////////////
-				////ajustamos el tamaño del texto en relacion al tamaño del icono/////
-				//////////////////////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////////////////////
+						////ajustamos el tamaño del texto en relacion al tamaño del icono/////
+						//////////////////////////////////////////////////////////////////////
 
-                
-				while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
+						
+						while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
 
-					svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
+							svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
 
-				}
+						}
 
-				///////////////////////////////////
-				/////centramos los elementos///////
-				///////////////////////////////////
+						///////////////////////////////////
+						/////centramos los elementos///////
+						///////////////////////////////////
 
-				var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+						var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
 
-				svgIcono.y.baseVal.value = paddingTopIcono;
+						svgIcono.y.baseVal.value = paddingTopIcono;
 
-				var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
+						var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
 
-				svgTexto.setAttribute("y", paddingTopText);
-                
-				if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+						svgTexto.setAttribute("y", paddingTopText);
+						
+						if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
 
-					while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+							while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
 
-						svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
+								svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
 
-						svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+								svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
 
-					}
+							}
 
-					paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+							paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
 
-					svgIcono.y.baseVal.value = paddingTopIcono;
+							svgIcono.y.baseVal.value = paddingTopIcono;
 
-					paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+							paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
-					svgTexto.setAttribute("y", paddingTopText);
+							svgTexto.setAttribute("y", paddingTopText);
 
-				}
-
-
+						}
+						
+						$timeout(function() {
+							scope.callback = element[0].innerHTML;
+						}, 1000);
+						
+					})	
 			}
-
 		};
 
-	})
+	}])
 
 
 //////////////////////////////
@@ -286,12 +296,69 @@ angular.module("disenador-de-logos")
 						eslogan: null                        
 					};               
                     
-                    
+					var paletaColores = ["#66ff66","#ff0000", "#FFFFFF", "#6699ff", "#00ff99", "#d11aff", "#ffff00", "#33cccc", "#333399", "#ff66ff", "#ff3300", "#990099", "#99cc00", "#ff9933", "#ff6666", "#996633", "#666633", "#6699ff", "#00ff99", "#d11aff"];
 
 					//evento para los hijos directos de seccion-icono
 
-					//element.find("g[data-seccion-icono] [data-indice]:not(g)").on("click", function () {
-					angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g)", function () {
+					angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
+
+						/* COLOPICKER */
+						
+
+						angular.element(".color-picker-bazam").remove();
+
+						var coordenadasCon = angular.element(".contenedor-svg")[0].getBoundingClientRect();
+
+						var titulo = "";
+						var id = "";
+
+						var clicked = angular.element(e.target);
+
+						console.log(clicked.hasClass("textoPrincipal"))
+
+						if(clicked.hasClass("textoPrincipal")){
+							titulo = "TEXTO";
+							id = "color-picker-texto"
+						} else if(clicked.hasClass("eslogan")){
+							titulo = "ESLOGAN";
+							id = "color-picker-eslogan"
+						} else{
+							titulo = "ICONO";
+							id = "color-picker-icono"
+						}	
+
+
+						var colorPicker = angular.element("<div class='color-picker-bazam'><div style='height: 20%; text-align: center'>"+titulo+" <span>X</span></div></div>");
+
+						colorPicker.attr("id", id);
+
+						colorPicker.css({"position": "fixed", "left": coordenadasCon.right + 10, "top": coordenadasCon.top + (coordenadasCon.height / 4), "width": coordenadasCon.width / 2, "height": coordenadasCon.height / 2, "background-color": "white"});
+
+						angular.forEach(paletaColores, function(color){
+
+							var colorIndividual = angular.element("<div></div>");
+
+							colorIndividual.attr("data-color", color);
+
+							colorIndividual.css({"background-color": color, "width": "20%", "height": "20%", "display": "inline-block"})
+
+							colorPicker.append(colorIndividual);
+
+						});
+
+						angular.element(".contenedor-principal.editor").append(colorPicker);
+
+						
+
+						
+
+						if(clicked.hasClass(".textoPrincipal") || clicked.hasClass(".eslogan")){
+							return;
+						}
+						
+
+
+						//angular.element("body").append("<div style='position:fixed; left: 50%; top: 50%; background: white; width: 200px; height: 200px'> hola </div>")
 
 						angular.element(document.querySelector(".seleccionado")).removeClass("seleccionado");
 						angular.element(this).addClass("seleccionado");
@@ -312,9 +379,43 @@ angular.module("disenador-de-logos")
 					});
 
 
+
+					angular.element(".contenedor-principal.editor").on("click", "#color-picker-icono, #color-picker-texto, #color-picker-eslogan", function (e) {
+
+						var contenedorColor = angular.element(e.target);
+
+						var color = contenedorColor.data("color");
+
+						var colorPicker = contenedorColor.parent();
+
+						console.log(colorPicker.attr("id"))
+
+						switch(colorPicker.attr("id")) {
+
+						case "color-picker-icono":
+
+							var indice = scope.elementosIndices.indexOf(true);
+							//cambiamos el color al correcto
+							element.find("[data-indice=" + indice + "]").css("fill", color);
+							break;
+
+						case "color-picker-texto":
+							element.find("text.textoPrincipal").css("fill", color);
+							break;
+
+						case "color-picker-eslogan":
+							element.find("text.eslogan").css("fill", color);
+							
+						}
+
+					});
+
+
 					////////////////////////////////////////////
 					///////////// cambio de color //////////////
 					////////////////////////////////////////////
+
+					/*
 					scope.$on("editor:color", function (evento, datos) {
 
 						if (datos.objetivo == "icono") {
@@ -332,7 +433,10 @@ angular.module("disenador-de-logos")
 						}
 
 						obtenerSVGFinal();
-					});
+					}); */
+
+
+
 
 
 
@@ -525,15 +629,10 @@ angular.module("disenador-de-logos")
 
 							var relacionY = (svgPadre.getClientRects()[0].height / parseFloat(element.children().attr("viewBox").split(" ")[3]));
                             
-                           
-                            
 							currentMatrix[4] += (dx / relacionY);
 							currentMatrix[5] += (dy / relacionX);
 
-
 							var newMatrix = "matrix(" + currentMatrix.join(" ") + ")";
-                            
-                          
                             
 							angular.element(this).attr("transform", newMatrix);
 							currentX = evento.clientX;
@@ -562,16 +661,11 @@ angular.module("disenador-de-logos")
 
 					angular.element(document.querySelector(".editor")).mouseup(function () {
 
-
 						if (intermediador) {
 
 							element.find(".seleccionado").removeClass("seleccionado");
 
 						}
-
-
-
-
 
 					});
 
@@ -1013,9 +1107,34 @@ angular.module("disenador-de-logos")
 
 			},
 			link: function (scope, element) {
-
 				element.html(scope.svg);
 				element.html(element.html());
+
+
+			}
+		};
+
+	})
+
+	.directive("bazamActualizar", function () {
+
+		return {
+			restrict: "AE",
+			scope: {
+
+				svg: "<svg"
+
+			},
+			link: function (scope, element) {
+				
+				element.html(scope.svg);
+				element.html(element.html());
+
+				scope.$watch('svg', function() {
+					element.html(scope.svg);
+					element.html(element.html());
+				});
+				
 
 
 			}
@@ -1597,103 +1716,6 @@ angular.module("disenador-de-logos")
 					}
 
 				};
-
-
-				/*
-				var bz = this;
-
-				bz.completadoLogin = true;
-
-				bz.login = function (datos, valido) {
-
-					if (valido) {
-
-						bz.completadoLogin = false;
-
-						clientesService.login(datos).then(function () {
-
-							if (clientesService.autorizado(true)) {
-
-								$mdToast.show($mdToast.base({
-									args: {
-										mensaje: "¡Bienvenido!",
-										clase: "success"
-									}
-								}));
-
-								$scope.callback();
-
-								bz.mostrarModalLogin = false;
-								
-							}
-
-						}).catch(function () {
-
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Verifica tu Usuario y Contraseña",
-									clase: "danger"
-								}
-							}));
-
-						}).finally(function () {
-
-							bz.completadoLogin = true;
-
-						});
-
-
-					}
-
-				};
-
-
-
-				bz.completadoRegistro = true;
-
-				bz.registrar = function (datos, valido) {
-
-					if (valido && bz.completadoRegistro) {
-
-						bz.completadoRegistro = false;
-
-						clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function () {
-
-							if (clientesService.autorizado(true)) {
-
-								$mdToast.show($mdToast.base({
-									args: {
-										mensaje: "¡Registro exitoso!",
-										clase: "success"
-									}
-								}));
-
-								$scope.callback();
-
-								bz.mostrarModalLogin = false;
-								
-							}
-
-						}).catch(function () {
-
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Un error ha ocurrido",
-									clase: "danger"
-								}
-							}));
-
-
-						}).finally(function () {
-
-							bz.completadoRegistro = true;
-
-						});
-
-					}
-
-				};
-*/
 
 			}],
 			controllerAs: "bazamLogin",
