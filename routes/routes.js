@@ -1,9 +1,9 @@
-var express             = require("express");
-var router              = express.Router();
-var controllers         = require(".././controllers");
-var multipart           = require("connect-multiparty");
+var express = require("express");
+var router = express.Router();
+var controllers = require(".././controllers");
+var multipart = require("connect-multiparty");
 var multipartMiddleware = multipart();
-var middleware          = require("./middleware");
+var middleware = require("./middleware");
 
 //MODULO CLIENTES
 //no espera parametros
@@ -32,10 +32,10 @@ router.post("/cliente", multipartMiddleware, controllers.clientes.nuevoCliente);
 //los mismos datos que la ruta /cliente
 router.post("/cliente/modificar", middleware.validarCliente, controllers.clientes.modificarCliente);
 //correo, contraseña => email, pass
-router.post("/cliente/login",controllers.clientes.login);
+router.post("/cliente/login", controllers.clientes.login);
 
-router.get("/cliente/pedidos", middleware.validarCliente, controllers.pedidos.PedidosCliente);//muestra la lista de pedidos de un cliente
-router.get("/cliente/:id",  controllers.clientes.datosCliente);
+router.get("/cliente/pedidos", middleware.validarCliente, controllers.pedidos.PedidosCliente); //muestra la lista de pedidos de un cliente
+router.get("/cliente/:id", controllers.clientes.datosCliente);
 router.post("/cliente/email", controllers.clientes.datosClientePorEmail);
 
 
@@ -54,7 +54,7 @@ router.get("/usuario/borrar/:id", middleware.validarAdministrador, controllers.u
 router.post("/usuario", controllers.usuarios.nuevoUsuario);
 //los mismos datos que la ruta /usuario
 router.post("/usuario/modificar", middleware.validarAdministrador, controllers.usuarios.modificarUsuario);
-router.post("/usuario/login",controllers.usuarios.login);
+router.post("/usuario/login", controllers.usuarios.login);
 
 //MODULO PEDIDOS
 router.get("/pedidos", middleware.validarAdministrador, controllers.pedidos.listaPedidos); //lista todos los pedidos
@@ -91,10 +91,10 @@ router.get("/etiquetas", controllers.etiquetas.ObtenerTodos);
 router.post("/etiquetas", controllers.etiquetas.GuardarEtiquetas);
 router.post("/etiquetas/modificar", controllers.etiquetas.Actualizar);
 router.post("/etiquetas/:_id/iconos", controllers.etiquetas.AsignarIconos);
-router.post("/etiqueta/:_id/iconos/desasignar", controllers.etiquetas.DesasignarIcono);
+router.post("/etiquetas/:_id/iconos/desasignar", controllers.etiquetas.DesasignarIcono);
 router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
 
-//MODULO IDIOMAS
+//MODULO ETIQUETAS
 router.get("/idiomas", controllers.idiomas.ObtenerTodos);
 router.post("/idiomas", controllers.idiomas.Guardar);
 router.post("/idiomas/modificar", controllers.idiomas.Actualizar);
@@ -170,23 +170,23 @@ router.get("/logos/:id/aprobados", middleware.validarAdministrador, controllers.
 router.get("/logos/:id/vendidos", controllers.logos.listaLogosVendidosPorCliente);
 router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobadosDestacados);
 router.post("/logos/guardados", middleware.validarCliente, controllers.logos.listaLogosGuardados);
-router.post("/logos/descargables",  middleware.validarCliente, controllers.logos.listaLogosDescargables);
+router.post("/logos/descargables", middleware.validarCliente, controllers.logos.listaLogosDescargables);
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);
 router.post("/logo/plan/caracteristicas", middleware.validarCliente, controllers.caracteristicas.PlanConCaracteristicas);
 //Usuario diseñador
-router.post("/logo/por-aprobar",  middleware.validarCliente, controllers.logos.porAprobar);
+router.post("/logo/por-aprobar", middleware.validarCliente, controllers.logos.porAprobar);
 //Administrador
-router.post("/logo/aprobar",  middleware.validarAdministrador, controllers.logos.aprobar);
-router.post("/logo/destacar",  middleware.validarAdministrador, controllers.logos.Destacar);
+router.post("/logo/aprobar", middleware.validarAdministrador, controllers.logos.aprobar);
+router.post("/logo/destacar", middleware.validarAdministrador, controllers.logos.Destacar);
 
-router.post("/logo/calificar-admin",  middleware.validarAdministrador, controllers.atributos.CalificarAdministrador);
-router.post("/logo/calificar-cliente",  middleware.validarCliente, controllers.atributos.CalificarCliente);
+router.post("/logo/calificar-admin", middleware.validarAdministrador, controllers.atributos.CalificarAdministrador);
+router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.atributos.CalificarCliente);
 
-router.post("/logo/modificar",  middleware.validarCliente, controllers.logos.modificarLogo);
-router.post("/logo/descargar",  controllers.logos.descargar);
-router.get("/logo/borrar/:id",  controllers.logos.Borrar);
-router.post("/logo/zip",  middleware.validarCliente, controllers.logos.zip);
+router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
+router.post("/logo/descargar", controllers.logos.descargar);
+router.get("/logo/borrar/:id", controllers.logos.Borrar);
+router.post("/logo/zip", middleware.validarCliente, controllers.logos.zip);
 
 
 //RECUPERAR CONTRASEÑA

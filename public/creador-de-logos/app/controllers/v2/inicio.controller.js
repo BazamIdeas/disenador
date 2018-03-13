@@ -89,7 +89,7 @@ angular.module("disenador-de-logos")
 					categoria: bz.datos.categoria.icono,
 					preferencias: bz.datos.preferencias,
 					tipo: "ICONO",
-					limit: 5,
+					limit: 4,
 					ids: bz.iconos
 				};
 
@@ -97,7 +97,7 @@ angular.module("disenador-de-logos")
 					categoria: bz.datos.categoria.fuente,
 					preferencias: bz.datos.preferencias,
 					tipo: "FUENTE",
-					limit: 5
+					limit: 4
 				};
 
 				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos);
@@ -163,9 +163,9 @@ angular.module("disenador-de-logos")
 		bz.combinar = function (iconos, fuentes) {
 
 
-			//var logos = crearLogoFactory(iconos, fuentes);
+			var logos = crearLogoFactory(iconos, fuentes);
 
-			var logos = crearLogoFactory([iconos[0], iconos[1], iconos[2], iconos[3], iconos[4]], [fuentes[0], fuentes[1], fuentes[2], fuentes[3], fuentes[4]]);
+			//var logos = crearLogoFactory([iconos[0], iconos[1], iconos[2], iconos[3], iconos[4]], [fuentes[0], fuentes[1], fuentes[2], fuentes[3], fuentes[4]]);
 
 			var cantidadLogos = logos.length;
 			

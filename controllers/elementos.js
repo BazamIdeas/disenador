@@ -109,75 +109,78 @@ exports.listaSegunPref = function(req, res) {
 exports.listaSegunTagCat = function(req, res) {
 
 	const tags      = req.body.tags ? req.body.tags : [];
+	const tipo      = req.body.tipo;
 	const categoria = req.body.categoria;
 	const limit     = req.body.limit ? req.body.limit : 12;
 	const ids       = req.body.ids ? req.body.ids : [0];
 	
+	if(tipo === 'FUENTE'){
+		tags.splice(0,tags.length)
+	}
+
+	console.log(tags)
+
 	etiqueta.Analizar(tags, (err, arr) => {
-		if (typeof arr !== "undefined" && arr.length > 0) {
+		
+		ids.forEach(ele => {
+			let index = arr.indexOf(ele);
+			if (index !== -1) arr.splice(index, 1);
+		});
 
-			ids.forEach(ele => {
-				let index = arr.indexOf(ele);
-				if (index !== -1) arr.splice(index, 1);
-			});
-
-			//console.log(arr)
-			elemento.getElementsByTags(arr, limit, (err, data) => {
-				if (typeof data !== "undefined" && data.length > 0) {
-					
-					let elementos = [];
-
-					for (let i = data.length - 1; i >= 0; i--) {
-						let id = data[i].idElemento;
-						let into = 0;
-						for (let j = elementos.length - 1; j >= 0; j--) {
-							let id2 = elementos[j].idElemento;
-							if (id == id2) {
-								into = 1;
-							}
-						}
-
-						if (into == 0) {
-							elementos = elementos.concat(data[i]);
-						}
-					}
-
-					if(elementos.length < limit) { 
-
-						elemento.getElementosIncat([categoria,'ICONO'], (error, data) => {
-							if (typeof data !== "undefined" && data.length > 0) {
-								
-								for (let i = data.length - 1; i >= 0; i--) {
-									let id = data[i].idElemento;
-									let into = 0;
-									for (let j = elementos.length - 1; j >= 0; j--) {
-										let id2 = elementos[j].idElemento;
-										if (id == id2) {
-											into = 1;
-										}
-									}
-					
-									if (into == 0 && elementos.length < limit) {
-										elementos = elementos.concat(data[i]);
-									}
-								}
-								
-								res.status(200).json(elementos);
-							}else {
-								res.status(404).json({"msg": "No Encontrado2"});
-							}
-						});
-					
-					}else {
-						res.status(200).json(elementos);
-					}
-				}else {
-					res.status(404).json({"msg": "No Encontrado1"});
-				}
-			})
-		}else{
-			res.status(404).json({"msg": "No Encontrado1"});
+		if(!arr.length){
+			arr = [0];
 		}
+
+		elemento.getElementsByTags(arr, limit, (err, data) => {
+			let elementos = [];
+
+			for (let i = data.length - 1; i >= 0; i--) {
+				let id = data[i].idElemento;
+				let into = 0;
+				for (let j = elementos.length - 1; j >= 0; j--) {
+					let id2 = elementos[j].idElemento;
+					if (id == id2) {
+						into = 1;
+					}
+				}
+
+				if (into == 0) {
+					elementos = elementos.concat(data[i]);
+				}
+			}
+
+			if(elementos.length < limit) { 
+
+				elemento.getElementosIncat([categoria,tipo], (error, data) => {
+					if (typeof data !== "undefined" && data.length > 0) {
+						
+						for (let i = data.length - 1; i >= 0; i--) {
+							let id = data[i].idElemento;
+							let into = 0;
+							for (let j = elementos.length - 1; j >= 0; j--) {
+								let id2 = elementos[j].idElemento;
+								if (id == id2) {
+									into = 1;
+								}
+							}
+			
+							if (into == 0 && elementos.length < limit) {
+								elementos = elementos.concat(data[i]);
+							}
+						}
+						
+						res.status(200).json(elementos);
+					}else {
+						res.status(404).json({"msg": "No Encontrado2"});
+					}
+				});
+			
+			}else {
+				res.status(200).json(elementos);
+			}
+
+		})
+
 	});
 
 };
