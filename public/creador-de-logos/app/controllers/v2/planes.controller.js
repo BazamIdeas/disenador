@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("planesController", ["historicoResolve", "pedidosService", "$scope", "$state", "$base64", "$window", function (historicoResolve, pedidosService, $scope, $state, $base64, $window) {
+	.controller("planesController", ["historicoResolve", "pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", function (historicoResolve, pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter) {
 
 		var bz = this;
 
@@ -29,7 +29,7 @@ angular.module("disenador-de-logos")
 			};
 
 			bz.impuesto = res.impuesto;
-			
+
 			bz.planes = res.planes;
 
 			angular.forEach(res.planes, function (plan) {
@@ -92,6 +92,47 @@ angular.module("disenador-de-logos")
 
 		bz.avanzarCheckout = function (plan) {
 
+			if (plan === true) {
+				bz.peticion = true;
+
+				facebookService.compartir().then(function () {
+
+					angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+
+					nombre = "editable";
+					ancho = 50;
+
+					logosService.descargarLogo(historicoResolve.idElemento, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+						var url = "";
+						if (res.zip) {
+
+							url = res.zip.replace("public", "");
+
+						} else if (res.png) {
+
+							url = res.png.replace("public", "");
+
+						}
+
+						logosService.dispararDescarga(url, nombre, ancho);
+
+					}).finally(function () {
+						angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+
+					});
+
+				}).catch(function (res) {
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Debes compartir para obtener tu logo gratis.",
+							clase: "danger"
+						}
+					}))
+				}).finally(function () {
+					bz.peticion = false;
+				})
+			}
+
 			angular.forEach(plan.precios, function (precio) {
 
 				if (precio.moneda == bz.moneda.simbolo) {
@@ -145,40 +186,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-		/* Facebook */
-
-		bz.compartirFacebook = function () {
-			FB.getLoginStatus(function (response) {
-				if (response.status === 'connected') {
-					FB.ui({
-							method: 'share',
-							href: 'https://developers.facebook.com/docs/'
-						},
-						function (response) {
-							if (response && !response.error_code) {
-								if (typeof response != 'undefined') {
-									console.log('publicado')
-								}
-							}
-						});
-				} else {
-					FB.login(function (response) {
-						FB.ui({
-								method: 'share',
-								href: 'https://developers.facebook.com/docs/'
-							},
-							function (response) {
-								if (response && !response.error_code) {
-									if (typeof response != 'undefined') {
-										console.log('publicado')
-									}
-								}
-							});
-					});
-				}
-			});
-		};
-
 		$window.fbAsyncInit = function () {
 			FB.init({
 				appId: '152803392097078',
@@ -199,7 +206,6 @@ angular.module("disenador-de-logos")
 			js.src = "https://connect.facebook.net/en_US/sdk.js";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
-
 
 		$scope.$on("sesionExpiro", function () {
 

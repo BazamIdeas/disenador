@@ -115,7 +115,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				url: "/comenzar",
 				templateUrl: "app/views/v2/principal.tpl",
 				controller: "principalController as principal",
-				abstract: true
+				abstract: true,
 			})
 
 			.state({

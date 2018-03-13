@@ -1,6 +1,9 @@
 angular.module("disenador-de-logos")
 
-	.controller("principalController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService) {
+	.controller("principalController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "LS", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, LS) {
+
+
+		console.log(LS.obtener("comenzar"))
 
 		var bz = this;
 
@@ -97,9 +100,9 @@ angular.module("disenador-de-logos")
 				var promesaFuentes = elementosService.listaSegunPref(bz.datosFuentes);
 
 				$q.all([
-					promesaIconos,
-					promesaFuentes
-				])
+						promesaIconos,
+						promesaFuentes
+					])
 					.then(function (res) {
 
 						bz.iconos = res[0];
@@ -158,14 +161,14 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.preAvanzar = function(indiceLogo, color){
+		bz.preAvanzar = function (indiceLogo, color) {
 
-			if(indiceLogo){
+			if (indiceLogo) {
 				bz.logoSeleccionado = indiceLogo;
 			}
 
-			if(color){
-				bz.colorIcono = color;		
+			if (color) {
+				bz.colorIcono = color;
 			}
 
 			if (!clientesService.autorizado()) {
@@ -176,7 +179,7 @@ angular.module("disenador-de-logos")
 			}
 
 		};
- 
+
 		bz.avanzar = function () {
 
 			var datos = {
@@ -188,9 +191,9 @@ angular.module("disenador-de-logos")
 				}
 			};
 
-			if(bz.colorIcono){
+			if (bz.colorIcono) {
 				datos.datos.color = bz.colorIcono;
-			}				
+			}
 
 			$state.go("editor", datos);
 
@@ -262,7 +265,7 @@ angular.module("disenador-de-logos")
 					angular.forEach(res, function (valor) {
 
 						bz.aprobados.push(valor);
-                        
+
 					});
 
 				}).catch(function () {
@@ -294,7 +297,7 @@ angular.module("disenador-de-logos")
 			return idFuente;
 		};
 
-		bz.preAvanzarPredisenado = function(indiceLogo){
+		bz.preAvanzarPredisenado = function (indiceLogo) {
 			bz.predisenadoSeleccionado = indiceLogo;
 
 			if (!clientesService.autorizado()) {
@@ -302,7 +305,7 @@ angular.module("disenador-de-logos")
 				bz.mostrarModalLogin = true;
 				bz.callback = bz.avanzarPredisenado;
 
-			} else{
+			} else {
 
 				bz.avanzarPredisenado();
 
@@ -311,7 +314,7 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.avanzarPredisenado = function (indiceLogo) {
-		
+
 			var aprobado = null;
 
 			angular.forEach(bz.aprobados, function (valor) {
@@ -341,8 +344,8 @@ angular.module("disenador-de-logos")
 				});
 			}
 
-			
 
-		}; 
+
+		};
 
 	}]);

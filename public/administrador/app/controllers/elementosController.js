@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64) {
+    .controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", "etiquetasService", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64, etiquetasService) {
 
         var bz = this;
 
@@ -9,16 +9,19 @@ angular.module("administrador")
         bz.registroIcono = {};
         bz.modificar = {};
         bz.listar = {};
-
-        bz.mostrar = function (tipo) {
-            bz.peticion = true;
-            if (tipo == 'ICONO') {
-                bz.rIcono = !bz.rIcono;
-                return bz.listarCategorias(tipo);
-            }
-            bz.rFuente = !bz.rFuente;
-            bz.listarCategorias(tipo);
-        }
+        bz.categorias = [];
+        bz.preferencias = [];
+        bz.idiomas = ['ESP', 'ENG', 'POR'];
+        bz.etiquetasIconos = [{
+            "traducciones": [{
+                "idioma": "ESP",
+                "valor": "perro"
+            }, {
+                "idioma": "ENG",
+                "valor": "Gato"
+            }],
+            "iconos": [1, 2, 3, 4, 5, 6, 7]
+        }];
 
         bz.base64 = function (icono) {
 
@@ -26,6 +29,45 @@ angular.module("administrador")
 
         };
 
+        bz.mostrar = function (tipo) {
+            bz.mn = false;
+            bz.peticion = true;
+            if (tipo == 'ICONO') {
+                bz.acciones = 2;
+                return bz.listarCategorias(tipo);
+            }
+            bz.acciones = 1;
+            bz.listarCategorias(tipo);
+        }
+
+        bz.listarCategorias = function (tipoCategoria) {
+            bz.peticion = true;
+            bz.tipoListado = tipoCategoria;
+            var datos = {
+                tipo: tipoCategoria
+            }
+            categoriasService.listarCategorias(datos).then(function (res) {
+                if (res == undefined) {
+                    bz.categorias = [];
+                    bz.elementos = [];
+                    return notificacionService.mensaje('No hay categorias.');
+                }
+                bz.categorias = res.data;
+            }).finally(function () {
+                bz.peticion = false;
+            })
+        }
+
+        categoriasService.listarPreferencias().then(function (res) {
+            angular.forEach(res.data, function (valor) {
+                valor.valor = 2;
+                bz.preferencias.push(valor);
+            })
+            bz.registroFuente.datoPrefe = bz.preferencias;
+            bz.registroIcono.datoPrefe = bz.preferencias;
+            bz.modificar.preferencias = bz.preferencias;
+            bz.listar.preferencias = bz.preferencias;
+        })
 
         bz.nuevaFuente = function (datos, v) {
             if (!v) {
@@ -96,48 +138,20 @@ angular.module("administrador")
             })
         }
 
-        bz.categorias = [];
-        bz.preferencias = [];
-
-        bz.listarCategorias = function (tipoCategoria) {
-            bz.peticion = true;
-            bz.tipoListado = tipoCategoria;
-            var datos = {
-                tipo: tipoCategoria
+        bz.accionesMostrar = function (opcion, index) {
+            if (opcion == 'modElemento') {
+                bz.acciones = 3;
+                bz.modificarElemento.idElemento = bz.elementos[index].idElemento;
+            } else if (opcion == 'modEtiquetas') {
+                bz.acciones = 4;
+                bz.modificarEtiquetas = bz.elementos[index];
             }
-            categoriasService.listarCategorias(datos).then(function (res) {
-                if (res == undefined) {
-                    bz.categorias = [];
-                    bz.elementos = [];
-                    return notificacionService.mensaje('No hay categorias.');
-                }
-                bz.categorias = res.data;
-            }).finally(function () {
-                bz.peticion = false;
-            })
-        }
-
-
-        categoriasService.listarPreferencias().then(function (res) {
-            angular.forEach(res.data, function (valor) {
-                valor.valor = 2;
-                bz.preferencias.push(valor);
-            })
-            bz.registroFuente.datoPrefe = bz.preferencias;
-            bz.registroIcono.datoPrefe = bz.preferencias;
-            bz.modificar.preferencias = bz.preferencias;
-            bz.listar.preferencias = bz.preferencias;
-        })
-
-        bz.mostrarModificar = function (index) {
-            bz.mod = true;
-            bz.modificarElemento.idElemento = bz.elementos[index].idElemento;
         }
 
         bz.modificarElemento = function (datos) {
             bz.peticion = true;
             iconoFuente.modificarPreferencias(datos).then(function (res) {
-                bz.mod = false;
+                bz.acciones = 0;
                 SweetAlert.swal("Genial", res.data.result, "success");
             }).catch(function (res) {
                 notificacionService.mensaje(res);
@@ -145,4 +159,22 @@ angular.module("administrador")
                 bz.peticion = false;
             })
         }
+
+        bz.desvincularEtiqueta = function (item) {
+
+            return;
+
+            bz.peticion = true;
+
+            etiquetasService.desvincularEtiqueta(item).then(function (res) {
+
+                if (res == undefined) {
+                    return;
+                }
+
+            }).finally(function () {
+                bz.peticion = false;
+            })
+        }
+
     }])

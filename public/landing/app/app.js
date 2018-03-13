@@ -39,15 +39,15 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
 		/*------------------------ Ui router states ----------------------*/
 
 		$stateProvider.state({
-			name: "comienzo",
-			url: "/",
-			templateUrl: "/landing/app/views/comienzo.tpl",
-			controller: "comienzoController as comienzo"
-		}).state({
-			name: "no-encontrado",
-			url: "/404/",
-			templateUrl: "/landing/app/views/404.tpl"
-		})
+				name: "comienzo",
+				url: "/",
+				templateUrl: "/landing/app/views/comienzo.tpl",
+				controller: "comienzoController as ctrl"
+			}).state({
+				name: "no-encontrado",
+				url: "/404/",
+				templateUrl: "/landing/app/views/404.tpl"
+			})
 			.state({
 				name: "terminos",
 				url: "/terminos-y-condiciones/",
@@ -59,44 +59,10 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
 				templateUrl: "/landing/app/views/legales.tpl"
 			})
 			.state({
-				name: "disenadores",
-				url: "/disenadores/",
-				templateUrl: "/landing/app/views/disenadores.tpl",
-				controller: "disenadoresController as disenadores"
-			})
-			.state({
-				name: "disenador",
-				url: "/disenador/:id/",
-				templateUrl: "/landing/app/views/disenador.tpl",
-				controller: "disenadorController as disenador",
-				resolve: {
-
-					"clienteResolve": ["$stateParams", "$q", "clientesService", function ($stateParams, $q, clientesService) {
-
-						var defered = $q.defer();
-
-						var promise = defered.promise;
-
-						if (!$stateParams.id) {
-							return $q.reject("NO_ID_SUPPLIED");
-
-						} else {
-
-							clientesService.datos($stateParams.id)
-
-								.then(function (res) {
-									defered.resolve(res);
-								})
-								.catch(function () {
-									defered.reject();
-								});
-
-
-						}
-
-						return promise;
-					}]
-				}
+				name: "blog",
+				url: "/blog/",
+				templateUrl: "/landing/app/views/blog.tpl",
+				controller: "blogController as ctrl"
 			});
 
 
