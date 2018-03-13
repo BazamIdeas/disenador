@@ -11,6 +11,7 @@ exports.listaSegunPref = function(req, res) {
 	var datos = [];
 	var datoIncat = [];
 	var x;
+	var limit     = req.body.limit ? req.body.limit : 4;
 	for (x in datos2.preferencias) {
 		datos.push([datos2.preferencias[x].idPreferencia, datos2.preferencias[x].valor, datos2.categoria, datos2.tipo]);
 	}
@@ -19,7 +20,7 @@ exports.listaSegunPref = function(req, res) {
         datoIncat.push([datos2.categoria, datos2.tipo])
     }*/
 	datoIncat = [
-		[datos2.categoria, datos2.tipo]
+		[datos2.categoria, 'FUENTE']
 	];
 	//console.log(datos);
 	//console.log(datoIncat);
@@ -40,7 +41,7 @@ exports.listaSegunPref = function(req, res) {
 					} // fin del for coincidencia
 
 					if (coin == 0) { // verificamos si la variable no cambio de dato
-						if (coincidencias.length < 12) {
+						if (coincidencias.length < limit) {
 							coincidencias = coincidencias.concat(data[i]);
 						} // concatenamos data con coincidencias
 					} // fin del if
@@ -56,7 +57,7 @@ exports.listaSegunPref = function(req, res) {
 		if (err)
 			res.status(500);
 		else {
-			if (coincidencias.length < 12) {
+			if (coincidencias.length < limit) {
 				async.each(datoIncat, function(dato, callback) {
 
 					elemento.getElementosIncat(dato, function(error, data) {
@@ -109,19 +110,14 @@ exports.listaSegunPref = function(req, res) {
 exports.listaSegunTagCat = function(req, res) {
 
 	const tags      = req.body.tags ? req.body.tags : [];
-	const tipo      = req.body.tipo;
 	const categoria = req.body.categoria;
-	const limit     = req.body.limit ? req.body.limit : 12;
+	const limit     = req.body.limit ? req.body.limit : 4;
 	const ids       = req.body.ids ? req.body.ids : [0];
-	
-	if(tipo === 'FUENTE'){
-		tags.splice(0,tags.length)
-	}
-
-	console.log(tags)
 
 	etiqueta.Analizar(tags, (err, arr) => {
 		
+		// Aqui se registran las busquedas
+
 		ids.forEach(ele => {
 			let index = arr.indexOf(ele);
 			if (index !== -1) arr.splice(index, 1);
@@ -151,7 +147,7 @@ exports.listaSegunTagCat = function(req, res) {
 
 			if(elementos.length < limit) { 
 
-				elemento.getElementosIncat([categoria,tipo], (error, data) => {
+				elemento.getElementosIncat([categoria,'ICONO'], (error, data) => {
 					if (typeof data !== "undefined" && data.length > 0) {
 						
 						for (let i = data.length - 1; i >= 0; i--) {
