@@ -59,7 +59,7 @@ exports.Actualizar = (req, res) =>
 
 exports.Borrar = (req, res) => 
 {
-	const _id = req.body._id;
+	const _id = req.params._id;
 
 	Idioma.Borrar(_id, (err, data) => {
 		if (data !== null && data.affectedRow) {

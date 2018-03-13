@@ -82,7 +82,7 @@ exports.Actualizar = (req, res) =>
 
 exports.AsignarIconos = (req, res) => 
 {
-	const _ids = req.body._ids;
+	const _ids = req.params._ids;
 	const idsIconos = req.body.iconos;
 
 	let affectedRows = [];
@@ -107,7 +107,7 @@ exports.AsignarIconos = (req, res) =>
 
 exports.DesasignarIcono = (req, res) => 
 {
-	const _id = req.body._id;
+	const _id = req.params._id;
 	const idIcono = req.body.idIcono;
 
 	Etiqueta.DesasignarIcono(_id, idIcono, (err, data) => {
