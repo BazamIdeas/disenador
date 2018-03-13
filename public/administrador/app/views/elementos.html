@@ -14,6 +14,7 @@
             </div>
 
             <div ng-if="ctrl.l">
+
                 <div class="elemento">
                     <div class="preferencias-oculto" ng-click="ctrl.mp1 = !ctrl.mp1">
                         <span>PREFERENCIAS</span>
@@ -88,7 +89,7 @@
                                         <md-icon class="material-icon">edit</md-icon>
                                     </md-button>
 
-                                    <md-button class="md-fab md-mini md-warn" ng-click="ctrl.accionesMostrar('modEtiquetas', $index)">
+                                    <md-button ng-if="ctrl.listar.tipo == 'ICONO'" class="md-fab md-mini md-warn" ng-click="ctrl.accionesMostrar('modEtiquetas', $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Etiquetas</md-tooltip>
                                         <md-icon class="material-icon">style</md-icon>
                                     </md-button>
@@ -316,27 +317,22 @@
 
         <!-- ADMINISTRAR ETIQUETAS -->
 
-        <div ng-switch-when="4" class="paneles principal md-whiteframe-2dp listar margen_inferior">
-            <div layout layout-align="none center" layout-padding class="titulo-modulo">
-                <texto>MODIFICAR ETIQUETAS</texto>
+        <div ng-switch-when="4">
+            <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                <texto>TRADUCCIONES</texto>
                 <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
-                    <md-icon>keyboard_arrow_left</md-icon>
+                    <md-icon>close</md-icon>
                 </md-button>
             </div>
-            <div layout-padding class="pasos">
-                <md-chips ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-autocomplete-snap md-transform-chip="ctrl.transformChip($chip)">
-                    <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)"
-                        md-item-text="item.name" placeholder="Etiquetas">
-                        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
-                    </md-autocomplete>
-                    <md-chip-template>
-                        <span>
-                            <strong>{{$chip.name}}</strong>
-                        </span>
-                    </md-chip-template>
-                </md-chips>
-                <BR>
-                <md-button class="md-raised md-primary">Guardar</md-button>
+            <div layout-padding class="elemento">
+                <div>
+                    <div ng-repeat="item in ctrl.etiquetasIcono">
+                        <div ng-repeat="traduccion in item.traducciones">
+                            <p>Traduccion {{traduccion.idioma}}: {{traduccion.valor}}</p>
+                        </div>
+                        <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">close</md-button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

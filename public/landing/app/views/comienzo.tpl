@@ -42,7 +42,7 @@
                     </div>
 
                     <br>
-                    <div style="width: 80%;">
+                    <div class="input-tipografia">
                         <div class="label-form ">
                             ESTILO DE TIPOGRAFÍA
                         </div>
@@ -142,7 +142,7 @@
     <div class="contenedor-planes" layout layout-align="space-around">
         <div class="plan" flex="25">
             <div>
-                <div class="plan-header">PLAN GRATIS</div>
+                <div class="plan-header">Plan gratis</div>
                 <div class="plan-body">
                     <div>
                         <p class="subtitulo-plan">descripcion</p>

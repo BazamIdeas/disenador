@@ -1,11 +1,11 @@
-<div class="overlay" ng-class="{'show': mostrar, 'hide': !mostrar}" style="position: fixed; z-index: 10; width: 100%; height: 100%; background: grey">
+<div class="overlay" ng-class="{'show': mostrar, 'hide': !mostrar}" style="position: fixed; z-index: 10; width: 100%; height: 100%;">
     <div class="row margin-bottom-0">
         <div class="col s6 offset-s3">
             <div class="login-form-flex">
                 <div ng-switch="bazamLogin.formPasos">
                     <div class="cubo-form row" ng-switch-default>
 
-                        <i class="material-icons cerrar" ng-click="mostrar = false">clear</i>
+                        <i class="material-icons cerrar" ng-click="$parent.mostrar = false">clear</i>
 
                         <div class="login-form col s6">
                             <p class="text-center tercero">INGRESA</p>
@@ -27,10 +27,14 @@
                                         <div ng-message="required">Este campo es requerido.</div>
                                         <div ng-message="minlength">Debe tener más de 5 carácteres.</div>
                                         <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
-                                        <small ng-click="bazamLogin.formPasos = 1">
-                                            <b>Olvidaste tu contraseña?</b>
-                                        </small>
+
                                     </div>
+
+                                </div>
+                                <div class="input-field col s12">
+                                    <small ng-click="bazamLogin.formPasos = 1">
+                                        <b>Olvidaste tu contraseña?</b>
+                                    </small>
                                 </div>
                                 <div class="text-center">
                                     <button class="boton-verde" ng-class="{'loading-white': !bazamLogin.completadoLogin}">ENVIAR</button>
@@ -150,3 +154,102 @@
         </div>
     </div>
 </div>
+
+<style>
+    .overlay.show {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        background: #808080d9;
+        /*dim the background*/
+    }
+
+    .overlay.hide {
+        height: 0%;
+        z-index: 0;
+        display: none
+    }
+
+    div.login-form-flex {
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    div.cubo-form {
+        background-color: var(--blanco);
+        border: 2px solid var(--principal);
+        border-radius: 10px;
+        padding: 20px 20px;
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        background: white;
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    }
+
+    div.cubo-form i.cerrar {
+        background-color: var(--blanco);
+        border-radius: 50%;
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        cursor: pointer;
+    }
+
+    .login-form,
+    .registro-form {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+        flex-flow: column;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    button.boton-verde {
+        background-color: var(--tercero);
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        padding: 8px 8px;
+        margin-top: 11px;
+        -webkit-transition: 0.3 all;
+        transition: 0.3 all;
+        font-family: 'futura-heavy' !important;
+    }
+
+    button.boton-verde:hover {
+        background-color: #4aaf57;
+    }
+
+    p.text-center.tercero {
+        color: var(--principal);
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    .input-field input {
+        margin-bottom: 0;
+    }
+
+    /*END LOGIN MODAL*/
+</style>

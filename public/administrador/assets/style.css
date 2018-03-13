@@ -343,8 +343,8 @@ opcion-tabla {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-      width: 40px;
-      height: 40px;
+    width: 40px;
+    height: 40px;
 }
 
 opcion-tabla md-icon {
@@ -356,12 +356,12 @@ opcion-tabla md-icon {
 .page-login {
     width: 100vw;
     min-height: 100vh;
-  background: var(--dark-color);
+    background: var(--dark-color);
 }
 
 .formulario-ingreso {
-      background:var(--light-color);
-      padding: 20px;
+    background: var(--light-color);
+    padding: 20px;
 }
 
 .cont-form:before {
@@ -391,7 +391,6 @@ opcion-tabla md-icon {
     text-align: center;
     color: white;
 }
-
 
 .login {
     background: var(--light-color);

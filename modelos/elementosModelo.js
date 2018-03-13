@@ -1,11 +1,11 @@
-var DB=require('./db.js');
+var DB = require("./db.js");
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var elemento = {};
  
 elemento.datosElemento = function( id, callback)
 {
-	var q = 'SELECT * FROM elementos WHERE idElemento = ?' ;
+	var q = "SELECT * FROM elementos WHERE idElemento = ?" ;
 
 	DB.getConnection(function(err, connection)
 	{ 
@@ -21,12 +21,12 @@ elemento.datosElemento = function( id, callback)
 
 	  
 	});
-}
+};
 
 
 elemento.ListarFuentes = function(callback)
 {
-	var q = 'SELECT * FROM elementos WHERE tipo = "FUENTE" ORDER BY RAND() LIMIT 100' ;
+	var q = "SELECT * FROM elementos WHERE tipo = \"FUENTE\" ORDER BY RAND() LIMIT 100" ;
 
 	DB.getConnection(function(err, connection)
 	{ 
@@ -41,13 +41,34 @@ elemento.ListarFuentes = function(callback)
 	  	});
 	  
 	});
-}
+};
 
+
+elemento.getElementsByTags = function(tags, limit, callback) 
+{
+
+	var q = "SELECT * FROM elementos WHERE elementos.idElemento IN (?) ORDER BY elementos.idElemento LIMIT ?";
+
+	DB.getConnection(function(err, connection)
+	{
+		
+		connection.query( q ,[tags, limit], function(err, rows){
+
+		  	if(err)	throw err;
+		  	
+		  	else 
+		  	callback(null, rows);
+		  	connection.release();
+		});
+
+
+	});
+};
 
 
 elemento.getElementos = function( datos, callback)
 {
-	var q = 'SELECT * FROM elementos INNER JOIN elementos_has_preferencias ON elementos_has_preferencias.elementos_idElemento = elementos.idElemento WHERE elementos_has_preferencias.preferencias_idPreferencia = ? AND elementos_has_preferencias.valor = ? AND elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12' ;
+	var q = "SELECT * FROM elementos INNER JOIN elementos_has_preferencias ON elementos_has_preferencias.elementos_idElemento = elementos.idElemento WHERE elementos_has_preferencias.preferencias_idPreferencia = ? AND elementos_has_preferencias.valor = ? AND elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12" ;
 
 	DB.getConnection(function(err, connection)
 	{ //cmienzo del for
@@ -63,11 +84,11 @@ elemento.getElementos = function( datos, callback)
 
 	  
 	});
-}
+};
 
 elemento.getElementosIncat = function( datos, callback)
 {
-	var q = 'SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 20' ;
+	var q = "SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 20" ;
 
 	DB.getConnection(function(err, connection)
 	{ //cmienzo del for
@@ -83,12 +104,12 @@ elemento.getElementosIncat = function( datos, callback)
 
 	  
 	});
-}
+};
 
 
 elemento.getElementosCat = function( datos, callback)
 {
-	var q = 'SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento' ;
+	var q = "SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento" ;
 
 	DB.getConnection(function(err, connection)
 	{ //cmienzo del for
@@ -104,11 +125,11 @@ elemento.getElementosCat = function( datos, callback)
 
 	  
 	});
-}
+};
 
 elemento.getIniciales = function( datos, callback)
 {
-	var q = 'SELECT * FROM elementos INNER JOIN categorias ON idCategoria = categorias_idCategoria  WHERE nombreCategoria = ? AND elementos.nombre = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12' ;
+	var q = "SELECT * FROM elementos INNER JOIN categorias ON idCategoria = categorias_idCategoria  WHERE nombreCategoria = ? AND elementos.nombre = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12" ;
 
 	DB.getConnection(function(err, connection)
 	{ //cmienzo del for
@@ -122,13 +143,13 @@ elemento.getIniciales = function( datos, callback)
 		  	connection.release();
 	  	});  
 	});
-}
+};
 
 // insertar  te quedaste aqui
 elemento.insertElemento = function(datos,callback)
 {
-	var q = 'INSERT INTO elementos SET ? ' 
-	var elemen = datos //parametros
+	var q = "INSERT INTO elementos SET ? "; 
+	var elemen = datos; //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -143,11 +164,11 @@ elemento.insertElemento = function(datos,callback)
 
 	  
 	});
-}
+};
 elemento.getElementosInpref = function( datos, callback)
 {
-	var q = 'INSERT INTO elementos_has_preferencias SET ? ' 
-	var elePrefer = datos
+	var q = "INSERT INTO elementos_has_preferencias SET ? "; 
+	var elePrefer = datos;
 
 	DB.getConnection(function(err, connection)
 	{
@@ -165,12 +186,12 @@ elemento.getElementosInpref = function( datos, callback)
 
 	  
 	});
-}
+};
 
 elemento.ModificarPreferencias = function(datos, callback)
 {
-	var q = 'UPDATE elementos_has_preferencias SET valor = ? WHERE elementos_idElemento = ? AND preferencias_idPreferencia = ?'; 
-	var elePrefer = datos
+	var q = "UPDATE elementos_has_preferencias SET valor = ? WHERE elementos_idElemento = ? AND preferencias_idPreferencia = ?"; 
+	var elePrefer = datos;
 
 	DB.getConnection(function(err, connection)
 	{
@@ -188,12 +209,12 @@ elemento.ModificarPreferencias = function(datos, callback)
 
 	  
 	});	
-}
+};
 
 elemento.insertFuente = function(datos,callback)
 {
-	var q = 'INSERT INTO elementos SET ? ' 
-	var fuen = datos //parametros
+	var q = "INSERT INTO elementos SET ? "; 
+	var fuen = datos; //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -208,12 +229,12 @@ elemento.insertFuente = function(datos,callback)
 
 	  
 	});
-}
+};
 
 elemento.cambiarEstado = function(data, callback)
 {
-	var q = 'UPDATE elementos SET comprado = ? WHERE idElemento = ?';
-	var par = data //parametros
+	var q = "UPDATE elementos SET comprado = ? WHERE idElemento = ?";
+	var par = data; //parametros
 
 	DB.getConnection(function(err, connection)
 	{
@@ -227,7 +248,7 @@ elemento.cambiarEstado = function(data, callback)
 
 	  
 	});
-}
+};
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas*/
 module.exports = elemento;

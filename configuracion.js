@@ -64,6 +64,10 @@ var configuracion = {
             password: '',
             database: 'disenadorlogodb'
         },
+        "mongo": {
+            url: 'mongodb://127.0.0.1:27017',
+            database: 'disenador'
+        },
         freelancer: {
             moderador: {
                 1: 2,

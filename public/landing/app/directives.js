@@ -136,37 +136,71 @@ angular.module("landing")
 	}])
 
 	.directive("verticalCards", [function () {
-	return {
-		restrict: "E",
-		templateUrl: "landing/app/templates/verticalCards.tpl",
-		controller: ["$scope", function ($scope) {
+		return {
+			restrict: "E",
+			templateUrl: "landing/app/templates/verticalCards.tpl",
+			controller: ["$scope", function ($scope) {
 
-			var bz = this;
+				var bz = this;
 
-			bz.actual = 0;
-			bz.indice = 3;
+				bz.actual = 0;
+				bz.indice = 3;
 
-			bz.consejos = $scope.consejos;
+				bz.consejos = $scope.consejos;
 
-			bz.changeCard = function (v) {
-				if (v) {
-					if (bz.consejos[bz.indice + 1] != undefined) {
-						bz.indice++;
+				bz.changeCard = function (v) {
+					if (v) {
+						if (bz.consejos[bz.indice + 1] != undefined) {
+							bz.indice++;
+						}
 					}
-				} else {
-					if (bz.consejos[bz.indice - 1] != undefined) {
-						bz.indice--;
-					}
-				}
+
+				};
+			}],
+			controllerAs: "cards",
+			scope: {
+				items: "<"
 			}
-
-		}],
-		controllerAs: "cards",
-		scope: {
-			consejos: "<"
-		}
-	};
+		};
 
 
-}])
+	}])
+
+	.directive("bazamCarousel", [function () {
+		return {
+			templateUrl: "landing/app/templates/bazam-carousel.tpl",
+			controller: ["$scope", function ($scope) {
+
+				var bz = this;
+
+				bz.indice = 0;
+				bz.items = $scope.items;
+				bz.opciones = $scope.opciones;
+
+				bz.changeRight = function () {
+					if (bz.items[bz.indice + 1] != undefined) {
+						bz.indice++;
+					} else {
+						bz.indice = 0;
+					}
+				};
+			
+
+				bz.changeLeft = function () {
+					if (bz.items[bz.indice - 1] != undefined) {
+						bz.indice--;
+					} else {
+						bz.indice = bz.items.length - 1;
+					}
+				};
+
+			}],
+			controllerAs: "ctrl",
+			scope: {
+				items: "<",
+				opciones: "<"
+			}
+		};
+
+	}]);
 

@@ -1,89 +1,133 @@
-var etiqueta=require("../modelos/etiquetasModelo.js");
+const Etiqueta = require('../modelos/etiquetasModelo.js');
+const Idioma = require('../modelos/idiomasModelo.js');
+const async = require('async');
 
-exports.listaEtiquetas = function(req, res) {
-		
-	etiqueta.getEtiquetas(function(error, data)
-	{
-		//si el usuario existe 
-		if (typeof data !== "undefined" && data.length > 0)
-		{
-			res.status(200).json(data);
-		}
-		//no existe
-		else
-		{
-			res.status(404).json({"msg":"No hay etiquetas en la base de datos"});
-		}
-	});
-
-};
-
-
-exports.nuevaEtiqueta =  function(req,res)
+exports.ObtenerTodos = (req, res) =>
 {
-	//creamos un objeto con los datos a insertar del cliente
-	var etiquetaData = {nombreEtiqueta :req.body.nombreEtiqueta,
-		idEtiqueta : null
-	};
-			
-		
-	etiqueta.insertEtiqueta(etiquetaData,function(error, data)
-	{
-		//si la etiqueta se ha insertado correctamente mostramos su info
-		if(data && data.insertId)
-		{
+	Etiqueta.ObtenerTodos((err, data) => { 
+		if (data.length > 0) {
 			res.status(200).json(data);
-		}
-		else
-		{
-			res.status(500).json({"msg":"Algo ocurrio"});
+		} else {
+			res.status(404).json({'msg':'No hay etiquetas en la base de datos'});
 		}
 	});
-};
+}
 
-
-
-exports.modificarEtiqueta =  function(req,res)
+exports.GuardarEtiquetas = (req, res) =>
 {
-	var idEtiqueta = req.body.idEtiqueta; // cambiar por valor de sesion o por parametro
+	const etiquetas = req.body.etiquetas;
+	
+	let insertIds = [];
 
-	etiqueta.getEtiqueta(idEtiqueta,function(error, data)
-	{
-		//si el usuario existe 
-		if (typeof data !== "undefined" && data.length > 0)
-		{
-			//creamos un array con los datos a modificar del cliente
-			var etiquetaData = [req.body.nombreEtiqueta,req.body.idEtiqueta];
-					
-			etiqueta.updateEtiqueta(etiquetaData,function(error, data)
-			{
-				//si el cliente se ha modificado correctamente
-				if(data)
-				{
-					res.status(200).json(data);
+	// itera cada etiqueta
+	async.forEachOf(etiquetas, (etiqueta, keyEtiqueta, callback) => {
+
+		// itera las traducciones de la etiqueta actual
+		async.forEachOf(etiqueta.traducciones, (traduccion, keyTraduccion, callback) => {
+
+			// obtiene el idioma de la traduccion actual
+			Idioma.ObtenerPorCodigo(traduccion.idioma, (err, data) => {
+				if (data !== null) {
+					// sobreescribe el campo idioma de la etiqueta actual
+					etiquetas[keyEtiqueta].traducciones[keyTraduccion].idioma = data._id;
+					callback();
+				
+				} else {
+					return callback({msg: "No existe el idioma"});
 				}
-				else
-				{
-					res.status(500).json({"msg":"Algo ocurrio"});
+			})
+		}, err => { // fin de each para las traducciones
+
+			if (err) return callback(err);
+
+			let etiquetaData = etiquetas[keyEtiqueta];
+			etiquetaData.iconos = [];
+	
+			// guardamos la etiqueta sobreescrita despues que termine el loop de sus traducciones
+			Etiqueta.Guardar(etiquetaData, (err, data) => {
+				if (typeof data !== 'undefined' && data.insertId) {
+					insertIds.push(data.insertId);
+					callback();
+				} else {
+					return callback(err);
 				}
-			});
+			})
+		})
+
+	}, err => { // fin de each para las etiquetas
+
+		if (err) {
+			res.status(500).json(err);
+		}else{
+			res.status(200).json(insertIds);
 		}
-		//no existe
-		else
-		{
-			res.status(404).json({"msg":"No existe"});
+
+	})
+
+}
+
+exports.Actualizar = (req, res) =>
+{
+	const _id = req.body._id;
+	const etiquetaData = req.body.etiqueta;
+
+	Etiqueta.Actualizar(_id, etiquetaData, (err, data) => {
+		if (data !== null && data.affectedRow) {
+			res.status(200).json(data);
+		} else {
+			res.status(500).json({'msg':'Algo ocurrio'});
 		}
-	});
-};
+	})
+}
 
+exports.AsignarIconos = (req, res) => 
+{
+	const _ids = req.params._ids;
+	const idsIconos = req.body.iconos;
 
+	let affectedRows = [];
 
-exports.borrarEtiqueta =  function(req, res) {
-	//id del cliente
-	var id = req.params.id;
-	etiqueta.deleteEtiqueta(id,function(error, data)
-	{
-		res.status(200).json(data);
-	});
+	async.forEachOf(_ids, (id, key, callback) => {
 
-};
+		Etiqueta.AsignarIconos(id, idsIconos, (err, data) => {
+			if (data !== null && data.affectedRow) {
+				affectedRows.push(data.affectedRow);
+				callback();
+			} else {
+				return callback(err);
+			}
+		})
+
+	}, err => {
+		if (err) res.status(500).json({'msg':'Algo ocurrio'});
+
+		res.status(200).json(affectedRows);
+	})
+}
+
+exports.DesasignarIcono = (req, res) => 
+{
+	const _id = req.params._id;
+	const idIcono = req.body.idIcono;
+
+	Etiqueta.DesasignarIcono(_id, idIcono, (err, data) => {
+		if (data !== null && data.affectedRow) {
+			res.status(200).json(data);
+		} else {
+			res.status(500).json({'msg':'Algo ocurrio'});
+		}
+	})
+}
+
+exports.Borrar = (req, res) => 
+{
+	const _id = req.params._id;
+
+	Etiqueta.Borrar(_id, (err, data) => {
+		if (data !== null && data.affectedRow) {
+			res.status(200).json(data);
+		} else {
+			res.status(500).json({'msg':'Algo ocurrio'});
+		}
+	})
+}
