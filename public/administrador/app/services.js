@@ -1045,7 +1045,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/etiquetas/' + datos._id + '/iconos', datos).then(function (res) {
+            $http.post('/app/etiquetas/iconos', datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
@@ -1113,11 +1113,14 @@ angular.module("administrador")
             var etiquetas = [];
 
             angular.forEach(arr, (valor) => {
-                etiquetas.push(valor.traducciones[0]);
+                etiquetas.push({
+                    _id: valor._id,
+                    traduccion: valor.traducciones[0]
+                });
             })
 
             return etiquetas.map(function (et) {
-                et._lowername = et.valor.toLowerCase();
+                et.traduccion._lowername = et.traduccion.valor.toLowerCase();
                 return et;
             });
         }
@@ -1145,7 +1148,7 @@ angular.module("administrador")
             var lowercaseQuery = angular.lowercase(query);
 
             return function filterFn(etiqueta) {
-                return (etiqueta._lowername.indexOf(lowercaseQuery) === 0);
+                return (etiqueta.traduccion._lowername.indexOf(lowercaseQuery) === 0);
             };
 
         }
