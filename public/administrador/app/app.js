@@ -87,6 +87,16 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                         controller: 'pedidosController as pedidos',
                     }
                 }
+            })
+            .state({
+                name: 'app.idiomas',
+                url: '/idiomas',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/idiomas.html',
+                        controller: 'idiomasController as ctrl',
+                    }
+                }
             }).state({
                 name: 'app.planes',
                 url: '/planes',

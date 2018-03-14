@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-	.controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", "etiquetasService", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64, etiquetasService) {
+	.controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", "etiquetasService", "idiomasService", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64, etiquetasService, idiomasService) {
 
 		var bz = this;
 
@@ -11,34 +11,10 @@ angular.module("administrador")
 		bz.listar = {};
 		bz.categorias = [];
 		bz.preferencias = [];
-		bz.idiomas = ['ESP', 'ENG', 'POR'];
-		bz.etiquetasIconos = [{
-			"traducciones": [{
-				"idioma": "ESP",
-				"valor": "perro"
-			}, {
-				"idioma": "ENG",
-				"valor": "Gato"
-			}],
-			"iconos": [1, 2, 3, 4, 5, 6, 7]
-		}];
-
-		bz.base64 = function (icono) {
-
-			return $base64.decode(icono);
-
-		};
-
-		bz.mostrar = function (tipo) {
-			bz.mn = false;
-			bz.peticion = true;
-			if (tipo == 'ICONO') {
-				bz.acciones = 2;
-				return bz.listarCategorias(tipo);
-			}
-			bz.acciones = 1;
-			bz.listarCategorias(tipo);
-		}
+		bz.base64 = $base64;
+		idiomasService.listarIdiomas().then(function (res) {
+			bz.idiomas = res;
+		})
 
 		bz.listarCategorias = function (tipoCategoria) {
 			bz.peticion = true;
@@ -70,14 +46,13 @@ angular.module("administrador")
 		})
 
 		bz.nuevaFuente = function (datos, v) {
-			if (!v) {
-				return notificacionService.mensaje('Rellene los campos de forma correcta!');
-			}
+			if (!v) return notificacionService.mensaje('Rellene los campos de forma correcta!');
+
 			bz.peticion = true;
 			bz.valMulFonts = true;
-			if (bz.regFmArchivos) {
-				return bz.subidaMasiva(datos);
-			} else {
+
+			if (bz.regFmArchivos) return bz.subidaMasiva(datos);
+			else {
 				iconoFuente.nuevaFuente(datos).then(function (res) {
 					SweetAlert.swal("Genial", "Fuente Agregada!", "success");
 					datos.idElemento = res.data.insertId;
@@ -92,14 +67,12 @@ angular.module("administrador")
 		}
 
 		bz.nuevoIcono = function (datos, v) {
-			if (!v) {
-				return notificacionService.mensaje('Rellene los campos de forma correcta!');
-			}
+			if (!v) return notificacionService.mensaje('Rellene los campos de forma correcta!');
+
 			bz.peticion = true;
 			bz.valMulIcons = true;
-			if (bz.regImArchivos) {
-				return bz.subidaMasiva(datos);
-			} else {
+			if (bz.regImArchivos) return bz.subidaMasiva(datos);
+			else {
 				iconoFuente.nuevoIcono(datos).then(function (res) {
 					datos.idElemento = res.data.insertId;
 					datos.tipo = 'ICONO';
@@ -148,6 +121,17 @@ angular.module("administrador")
 			}
 		}
 
+		bz.mostrar = function (tipo) {
+			bz.mn = false;
+			bz.peticion = true;
+			if (tipo == 'ICONO') {
+				bz.acciones = 2;
+				return bz.listarCategorias(tipo);
+			}
+			bz.acciones = 1;
+			bz.listarCategorias(tipo);
+		}
+
 		bz.modificarElemento = function (datos) {
 			bz.peticion = true;
 			iconoFuente.modificarPreferencias(datos).then(function (res) {
@@ -162,19 +146,16 @@ angular.module("administrador")
 
 		bz.desvincularEtiqueta = function (item) {
 
-			return;
-
 			bz.peticion = true;
 
 			etiquetasService.desvincularEtiqueta(item).then(function (res) {
 
-				if (res == undefined) {
-					return;
-				}
+				if (res == undefined) return;
 
 			}).finally(function () {
 				bz.peticion = false;
 			})
+
 		}
 
 	}])

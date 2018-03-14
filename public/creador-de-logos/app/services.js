@@ -374,23 +374,41 @@ angular.module("disenador-de-logos")
 
 	.service("elementosService", ["$http", "$q", function ($http, $q) {
 
-		this.listaSegunPref = function (datos) {
+		this.listaFuentesSegunPref = function (idCategoria, preferencias, limit) {
 
-			return $http.post("/app/elementos/busqueda", datos)
+			var defered = $q.defer();
 
-				.then(function (res) {
+			var promise = defered.promise;
 
-					return res.data;
-
+			$http.post("/app/elementos/busqueda/fuentes", {categoria: idCategoria, preferencias: preferencias, tipo: "FUENTE"})
+				.then(function(res){
+					defered.resolve(res.data);
 				})
-
-				.catch(function () {
-
-
-
+				.catch(function(res){
+					defered.reject(res);
 				});
+
+			return promise;
 		};
 
+		this.listarIconosSegunTags = function(tags, idCategoria, ids, limit ){
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/elementos/busqueda/iconos", {tags: tags, categoria: idCategoria, ids: ids, limit: limit} )
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+		};
+
+		
+	
 		this.listarFuentes = function () {
 
 			var defered = $q.defer();
@@ -410,7 +428,7 @@ angular.module("disenador-de-logos")
 			return promise;
 
 		};
-
+		
 		this.listarIniciales = function (inicial) {
 
 			var defered = $q.defer();

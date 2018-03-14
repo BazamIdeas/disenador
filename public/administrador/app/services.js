@@ -612,6 +612,64 @@ angular.module("administrador")
     }])
 
 
+    /***************************/
+    /**********IDIOMAS**********/
+    /***************************/
+
+    .service('idiomasService', ['$http', '$q', function ($http, $q) {
+
+
+        this.listarIdiomas = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/idiomas').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.guardarIdioma = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/idiomas/', datos).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.modificarIdioma = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/idiomas/modificar', datos).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.borrarIdioma = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/idiomas/borrar/' + id).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+    }])
+
+
     /* SERVICIO PARA ADMINISTRAR */
 
     .service('administrarService', ['$http', '$q', function ($http, $q) {
@@ -1045,7 +1103,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/etiquetas/' + datos._id + '/iconos', datos).then(function (res) {
+            $http.post('/app/etiquetas/iconos', datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
@@ -1113,11 +1171,14 @@ angular.module("administrador")
             var etiquetas = [];
 
             angular.forEach(arr, (valor) => {
-                etiquetas.push(valor.traducciones[0]);
+                etiquetas.push({
+                    _id: valor._id,
+                    traduccion: valor.traducciones[0]
+                });
             })
 
             return etiquetas.map(function (et) {
-                et._lowername = et.valor.toLowerCase();
+                et.traduccion._lowername = et.traduccion.valor.toLowerCase();
                 return et;
             });
         }
@@ -1145,7 +1206,7 @@ angular.module("administrador")
             var lowercaseQuery = angular.lowercase(query);
 
             return function filterFn(etiqueta) {
-                return (etiqueta._lowername.indexOf(lowercaseQuery) === 0);
+                return (etiqueta.traduccion._lowername.indexOf(lowercaseQuery) === 0);
             };
 
         }

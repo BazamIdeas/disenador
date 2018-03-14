@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-	.controller("etiquetasController", ["$state", "$mdSidenav", "$scope", "administrarService", "notificacionService", "$base64", "etiquetasService", "etiquetasService", "categoriasService", function ($state, $mdSidenav, $scope, administrarService, notificacionService, $base64, etiquetasService, etiquetasService, categoriasService) {
+	.controller("etiquetasController", ["$state", "$mdSidenav", "$scope", "administrarService", "notificacionService", "$base64", "etiquetasService", "etiquetasService", "categoriasService", "idiomasService", function ($state, $mdSidenav, $scope, administrarService, notificacionService, $base64, etiquetasService, etiquetasService, categoriasService, idiomasService) {
 
 		var bz = this;
 
@@ -9,14 +9,18 @@ angular.module("administrador")
 		bz.selectedItem = null;
 		bz.searchText = null;
 		bz.querySearch = etiquetasService.querySearch;
-		bz.etiquetasParaVincular = etiquetasService.loadEtiquetas();
+		bz.etiquetasParaVincular = [];
 		bz.transformChip = etiquetasService.transformChip;
-		bz.idiomas = ['ESP', 'ENG', 'POR'];
+		idiomasService.listarIdiomas().then(function (res) {
+			bz.idiomas = res;
+		})
 		bz.guardarEtiquetas = [];
 		bz.guardarEtiquetasIconos = {
 			etiquetas: [],
 			iconos: []
 		};
+
+		bz.logos = [];
 
 		/* DATOS */
 		bz.base64 = $base64;
@@ -86,6 +90,7 @@ angular.module("administrador")
 			bz.peticion = true;
 			etiquetasService.listarEtiquetas(datos).then(function (res) {
 				bz.etiquetas = res.data;
+				bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res.data);
 				$scope.etiqm = true;
 			}).catch(function (res) {
 				console.log(res)
@@ -110,10 +115,20 @@ angular.module("administrador")
 				if (res == undefined) return;
 
 				for (let i = 0; i < res.data.length; i++) {
-					console.log(datos[i])
+					traducciones = [];
+
+					angular.forEach(datos[i].traducciones, function (valor) {
+						traducciones.push({
+							idioma: {
+								codigo: valor.idioma
+							},
+							valor: valor.valor
+						})
+					})
+
 					bz.etiquetas.push({
 						_id: res.data[i],
-						traducciones: datos[i].traducciones
+						traducciones: traducciones
 					})
 				}
 
@@ -138,17 +153,20 @@ angular.module("administrador")
 
 			datos.iconos = bz.iconos;
 
-			console.log(datos);
+			datos._ids = datos.etiquetas.map(function (et) {
+				et = et._id;
+				return et;
+			});
 
 			bz.iconos = [];
 			bz.searchText = null;
-			return;
 
 			etiquetasService.guardarEtiquetaIconos(datos).then(function (res) {
 
-
 				if (res == undefined) return;
-
+				bz.guardarEtiquetaIconos = [];
+				console.log(res)
+				return notificacionService.mensaje('Logos Vinculados')
 
 			}).finally(function () {
 				bz.peticion = false;
@@ -157,14 +175,14 @@ angular.module("administrador")
 
 		/* BLOQUEAR */
 
-		bz.borrarEtiqueta = function (id) {
+		bz.borrarEtiqueta = function (id, index) {
 
 			bz.peticion = true;
 
 			etiquetasService.borrarEtiqueta(id).then(function (res) {
 
 				if (res == undefined) return;
-				console.log(res)
+				return bz.etiquetas.splice(index, 1)
 
 			}).finally(function () {
 				bz.peticion = false;
@@ -177,10 +195,12 @@ angular.module("administrador")
 			funcion: function (params, v) {
 				if (!v) return notificacionService.mensaje('Rellene todos los campos por favor')
 
-				etiquetasService.actualizarEtiqueta(params).then(function (res) {
+				etiquetasService.actualizarEtiqueta({
+					_id: params._id,
+					etiqueta: params
+				}).then(function (res) {
 
 					if (res == undefined) return;
-
 
 				}).finally(function () {
 					bz.peticion = false;
@@ -189,17 +209,25 @@ angular.module("administrador")
 			datos: {}
 		}
 
-		bz.incrementarEtiquetas = function () {
-			item = [];
-			angular.forEach(bz.idiomas, (valor) => {
-				item.push({
-					idioma: valor,
-					valor: ''
+		bz.incrementarEtiquetas = function (eliminar) {
+
+			if (!eliminar) {
+				item = [];
+				angular.forEach(bz.idiomas, (valor) => {
+					item.push({
+						idioma: valor.codigo,
+						valor: ''
+					});
 				});
-			});
-			bz.guardarEtiquetas.push({
-				traducciones: item
-			});
+				bz.guardarEtiquetas.push({
+					traducciones: item
+				});
+
+			} else if (bz.guardarEtiquetas.length > 1) {
+				return bz.guardarEtiquetas.pop();
+			};
+
+
 		}
 
 		bz.mostrar = function (params) {

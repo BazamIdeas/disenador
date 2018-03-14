@@ -702,6 +702,35 @@ menu.centrado md-icon {
     width: 5%
 }
 
+.menu-scroll {
+    height: 100vh;
+    overflow-x: scroll;
+}
+
+/* Estilos Scroll Bar */
+
+.menu-scroll::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 15px;
+}
+
+.menu-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    box-shadow: 0 0 1px rgb(255, 255, 255);
+}
+
+.menu-scroll::-moz-scrollbar {
+    -webkit-appearance: none;
+    width: 4px;
+}
+
+.menu-scroll::-moz-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    box-shadow: 0 0 1px rgb(255, 255, 255);
+}
+
 /* SIN FUNCIONES */
 
 .terminos-condiciones,

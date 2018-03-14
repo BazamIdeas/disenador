@@ -81,7 +81,7 @@
                                     <span class="fuente-admin" style="font-family:'{{elemento.nombre}}' !important;">PRUEBA</span>
                                 </td>
                                 <td ng-if="elemento.tipo == 'ICONO'" class="pedido-logo tabla">
-                                    <bazam-visualizar data-svg="ctrl.base64(elemento.svg)"></bazam-visualizar>
+                                    <bazam-visualizar data-svg="ctrl.base64.decode(elemento.svg)"></bazam-visualizar>
                                 </td>
                                 <td colspan="2">
                                     <md-button class="md-fab md-mini md-warn" ng-click="ctrl.accionesMostrar('modElemento', $index)">
