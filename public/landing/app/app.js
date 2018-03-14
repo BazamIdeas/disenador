@@ -39,11 +39,15 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
 		/*------------------------ Ui router states ----------------------*/
 
 		$stateProvider.state({
-			name: "comienzo",
-			url: "/",
-			templateUrl: "/landing/app/views/comienzo.tpl",
-			controller: "comienzoController as comienzo"
-		})
+				name: "comienzo",
+				url: "/",
+				templateUrl: "/landing/app/views/comienzo.tpl",
+				controller: "comienzoController as ctrl"
+			}).state({
+				name: "no-encontrado",
+				url: "/404/",
+				templateUrl: "/landing/app/views/404.tpl"
+			})
 			.state({
 				name: "terminos",
 				url: "/terminos-y-condiciones/",
@@ -64,19 +68,18 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
 
 		$urlRouterProvider.rule(function ($injector, $location) {
 			var path = $location.url();
-    
+
 			if ("/" === path[path.length - 1] || path.indexOf("/?") > -1) {
 				return;
 			}
-    
+
 			if (path.indexOf("?") > -1) {
 				return path.replace("?", "/?");
 			}
-    
+
 			return path + "/";
 		});
-    
+
 		$urlRouterProvider.otherwise("/404/");
 
 	});
-    
