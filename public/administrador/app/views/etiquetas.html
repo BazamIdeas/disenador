@@ -39,7 +39,7 @@
                                         <md-icon>language</md-icon>
                                     </md-button>
 
-                                    <md-button class="md-fab md-mini md-warn" ng-click="ctrl.borrarEtiqueta(etiqueta._id)">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="ctrl.borrarEtiqueta(etiqueta._id, $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Borrar</md-tooltip>
                                         <md-icon>lock</md-icon>
                                     </md-button>
@@ -63,7 +63,7 @@
             <div class="paneles individual md-whiteframe-2dp ">
                 <div layout layout-align="space-around center " layout-padding class="titulo-modulo ">
                     <texto flex>LISTADO DE ICONOS</texto>
-                    <md-button ng-click="ctrl.mostrar({op: 'crear-etiqueta', ce: true}) " style="margin:0; ">
+                    <md-button ng-click="ctrl.mostrar({op: 'asignar-etiqueta', ce: true}) " style="margin:0; ">
                         <md-icon>close</md-icon>
                     </md-button>
                 </div>
@@ -100,8 +100,6 @@
 
     <!-- ACCIONES VISTA -->
     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-switch="ctrl.acciones">
-
-        <!-- TRADUCCIONES -->
         <div class="paneles md-whiteframe-2dp listar">
 
             <!-- CREAR ETIQUETAS -->
@@ -129,12 +127,16 @@
                             </div>
                         </div>
                         <div layout layout-align="space-between">
-                            <md-button class="md-raised md-primary" ng-click="ctrl.incrementarEtiquetas()">Agregar Etiqueta</md-button>
+                            <div>
+                                <md-button class="md-raised md-primary" ng-click="ctrl.incrementarEtiquetas()">Agregar</md-button>
+                                <md-button class="md-raised md-primary" ng-click="ctrl.incrementarEtiquetas(true)">Eliminar</md-button>
+                            </div>
                             <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">Guardar</md-button>
                         </div>
                     </form>
                 </div>
             </div>
+            <!-- TRADUCCIONES -->
             <div ng-switch-when="2">
                 <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
                     <texto>TRADUCCIONES</texto>
@@ -147,7 +149,7 @@
                         <div ng-repeat="item in ctrl.actualizarEtiqueta.datos.traducciones">
                             <md-input-container class="md-block">
                                 <label>
-                                    Traduccion {{item.idioma}}:</label>
+                                    Traduccion {{item.idioma.codigo}}:</label>
                                 <input type="text" ng-model="item.valor" name="item{{$index}}" required ng-minlength="4">
                             </md-input-container>
                         </div>
@@ -169,12 +171,12 @@
                             <md-chips required ng-model="ctrl.guardarEtiquetasIconos.etiquetas" md-autocomplete-snap md-transform-chip="ctrl.transformChip($chip)"
                                 md-require-match="true">
                                 <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText, ctrl.etiquetasParaVincular)"
-                                    md-item-text="item.valor" placeholder="Etiquetas">
-                                    <span md-highlight-text="ctrl.searchText">{{item.valor}}</span>
+                                    md-item-text="item.traduccion.valor" placeholder="Etiquetas">
+                                    <span md-highlight-text="ctrl.searchText">{{item.traduccion.valor}}</span>
                                 </md-autocomplete>
                                 <md-chip-template>
                                     <span>
-                                        <strong>{{$chip.valor}}</strong>
+                                        <strong>{{$chip.traduccion.valor}}</strong>
                                     </span>
                                 </md-chip-template>
                             </md-chips>

@@ -2,21 +2,21 @@ const Etiqueta = require('../modelos/etiquetasModelo.js');
 const Idioma = require('../modelos/idiomasModelo.js');
 const async = require('async');
 
-exports.ObtenerTodos = (req, res) =>
-{
-	Etiqueta.ObtenerTodos((err, data) => { 
+exports.ObtenerTodos = (req, res) => {
+	Etiqueta.ObtenerTodos((err, data) => {
 		if (data.length > 0) {
 			res.status(200).json(data);
 		} else {
-			res.status(404).json({'msg':'No hay etiquetas en la base de datos'});
+			res.status(404).json({
+				'msg': 'No hay etiquetas en la base de datos'
+			});
 		}
 	});
 }
 
-exports.GuardarEtiquetas = (req, res) =>
-{
+exports.GuardarEtiquetas = (req, res) => {
 	const etiquetas = req.body.etiquetas;
-	
+
 	let insertIds = [];
 
 	// itera cada etiqueta
@@ -31,9 +31,11 @@ exports.GuardarEtiquetas = (req, res) =>
 					// sobreescribe el campo idioma de la etiqueta actual
 					etiquetas[keyEtiqueta].traducciones[keyTraduccion].idioma = data._id;
 					callback();
-				
+
 				} else {
-					return callback({msg: "No existe el idioma"});
+					return callback({
+						msg: "No existe el idioma"
+					});
 				}
 			})
 		}, err => { // fin de each para las traducciones
@@ -42,7 +44,7 @@ exports.GuardarEtiquetas = (req, res) =>
 
 			let etiquetaData = etiquetas[keyEtiqueta];
 			etiquetaData.iconos = [];
-	
+
 			// guardamos la etiqueta sobreescrita despues que termine el loop de sus traducciones
 			Etiqueta.Guardar(etiquetaData, (err, data) => {
 				if (typeof data !== 'undefined' && data.insertId) {
@@ -58,7 +60,7 @@ exports.GuardarEtiquetas = (req, res) =>
 
 		if (err) {
 			res.status(500).json(err);
-		}else{
+		} else {
 			res.status(200).json(insertIds);
 		}
 
@@ -66,8 +68,7 @@ exports.GuardarEtiquetas = (req, res) =>
 
 }
 
-exports.Actualizar = (req, res) =>
-{
+exports.Actualizar = (req, res) => {
 	const _id = req.body._id;
 	const etiquetaData = req.body.etiqueta;
 
@@ -75,14 +76,15 @@ exports.Actualizar = (req, res) =>
 		if (data !== null && data.affectedRow) {
 			res.status(200).json(data);
 		} else {
-			res.status(500).json({'msg':'Algo ocurrio'});
+			res.status(500).json({
+				'msg': 'Algo ocurrio'
+			});
 		}
 	})
 }
 
-exports.AsignarIconos = (req, res) => 
-{
-	const _ids = req.params._ids;
+exports.AsignarIconos = (req, res) => {
+	const _ids = req.body._ids;
 	const idsIconos = req.body.iconos;
 
 	let affectedRows = [];
@@ -99,14 +101,15 @@ exports.AsignarIconos = (req, res) =>
 		})
 
 	}, err => {
-		if (err) res.status(500).json({'msg':'Algo ocurrio'});
+		if (err) res.status(500).json({
+			'msg': 'Algo ocurrio'
+		});
 
 		res.status(200).json(affectedRows);
 	})
 }
 
-exports.DesasignarIcono = (req, res) => 
-{
+exports.DesasignarIcono = (req, res) => {
 	const _id = req.params._id;
 	const idIcono = req.body.idIcono;
 
@@ -114,20 +117,23 @@ exports.DesasignarIcono = (req, res) =>
 		if (data !== null && data.affectedRow) {
 			res.status(200).json(data);
 		} else {
-			res.status(500).json({'msg':'Algo ocurrio'});
+			res.status(500).json({
+				'msg': 'Algo ocurrio'
+			});
 		}
 	})
 }
 
-exports.Borrar = (req, res) => 
-{
+exports.Borrar = (req, res) => {
 	const _id = req.params._id;
 
 	Etiqueta.Borrar(_id, (err, data) => {
 		if (data !== null && data.affectedRow) {
 			res.status(200).json(data);
 		} else {
-			res.status(500).json({'msg':'Algo ocurrio'});
+			res.status(500).json({
+				'msg': 'Algo ocurrio'
+			});
 		}
 	})
 }
