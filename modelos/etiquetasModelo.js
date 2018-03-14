@@ -71,9 +71,23 @@ etiqueta.Guardar = (etiquetaData, callback) => {
 }
 
 etiqueta.Actualizar = (_id, etiquetaData, callback) => {
+
+    delete etiquetaData._id;
+
+    etiquetaData.traducciones.forEach((el,key) => {
+        delete etiquetaData.traducciones[key].codigo;
+        delete etiquetaData.traducciones[key].nombre;
+
+        etiquetaData.traducciones[key]._id = objectId(etiquetaData.traducciones[key]._id);
+    })
+
     Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.findOneAndUpdate({ '_id': objectId(_id) }, { $set: etiquetaData }, (err, doc) => {
+        collection.findOneAndUpdate({ '_id': objectId(_id) }, { 
+            $set: { 
+                traducciones: etiquetaData.traducciones 
+            } 
+        }, (err, doc) => {
             if (err) throw err;
             callback(null, { 'affectedRow': doc.value });
         });
@@ -96,13 +110,15 @@ etiqueta.AsignarIconos = (_id, iconos, callback) => {
     })
 }
 
-etiqueta.DesasignarIcono = (_id, icono, callback) => {
+etiqueta.DesasignarIcono = (_id, iconos, callback) => {
     Connection(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndUpdate({ '_id': objectId(_id) }, {
             $pull: {
-                'iconos': icono
+                'iconos': { $in: iconos }
             }
+        },{ 
+            multi: true,
         }, (err, doc) => {
             if (err) throw err;
             callback(null, { 'affectedRow': doc.value });
