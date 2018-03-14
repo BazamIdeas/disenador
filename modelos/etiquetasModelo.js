@@ -110,12 +110,12 @@ etiqueta.AsignarIconos = (_id, iconos, callback) => {
     })
 }
 
-etiqueta.DesasignarIcono = (_id, iconos, callback) => {
+etiqueta.DesasignarIcono = (_id, icono, callback) => {
     Connection(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndUpdate({ '_id': objectId(_id) }, {
             $pull: {
-                'iconos': { $in: iconos }
+                'iconos':  icono
             }
         },{ 
             multi: true,

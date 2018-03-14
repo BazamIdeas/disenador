@@ -65,7 +65,7 @@ var configuracion = {
             database: 'disenadorlogodb'
         },
         "mongo": {
-            url: 'mongodb://127.0.0.1:27017',
+            url: "mongodb+srv://cis:unaclavemuysegura5000@bazam-cgzwr.mongodb.net/admin",
             database: 'disenador'
         },
         freelancer: {
