@@ -12,7 +12,9 @@ angular.module("disenador-de-logos")
 			categoria: {
 				icono: "",
 				fuente: ""
-			}
+			},
+			tags: [],
+
 		};
 
 		bz.jqueryScrollbarOptions = {};
@@ -84,7 +86,7 @@ angular.module("disenador-de-logos")
 			if (bz.datosForm.$valid && bz.completado) {
 
 				bz.completado = false;
-
+				/*
 				bz.datosIconos = {
 					categoria: bz.datos.categoria.icono,
 					preferencias: bz.datos.preferencias,
@@ -92,16 +94,9 @@ angular.module("disenador-de-logos")
 					limit: 4,
 					ids: bz.iconos
 				};
-
-				bz.datosFuentes = {
-					categoria: bz.datos.categoria.fuente,
-					preferencias: bz.datos.preferencias,
-					tipo: "FUENTE",
-					limit: 4
-				};
-
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos);
-				var promesaFuentes = elementosService.listaSegunPref(bz.datosFuentes);
+				*/
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial,bz.datos.categoria.icono, bz.iconos, 4) : elementosService.listarIconosSegunTags(bz.datos.tags);
+				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
 					promesaIconos,
