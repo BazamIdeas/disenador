@@ -1,15 +1,43 @@
 angular.module("disenador-de-logos")
 
-	.value("coloresValue",{
-		"#F5D327": "#14263D",
-		"#70C041": "#63246A",
-		"#51A7F9": "#320D29",
-		"#B36AE2": "#151616",
-		"#000000": "#8CB7C7",
-		"blanco" : "white",
-		"negro" : "black"
+	.value("coloresValue",[
+		["#FFFFFF","#HHHSHA", "#AAAAAA"],
+		["#FFFFFF","#HHHSHA", "#AAAAAA"],
+		["#FFFFFF","#HHHSHA", "#AAAAAA"],
+		["#FFFFFF","#HHHSHA", "#AAAAAA"],
+		["#FFFFFF","#HHHSHA", "#AAAAAA"]
+	])
+	
+	.factory("coloresFactory", ["coloresValue", function(coloresValue){
 		
-	}).factory("coloresFactory", ["coloresValue", function(coloresValue){
+		
+		return function(indice){
+			
+			var coloresCopia = angular.copy(coloresValue[indice]);
+			var colores = [];
+
+			angular.forEach(coloresCopia, function(color){
+
+				var limite = 2;
+				var base = 0;
+				var indice;
+
+				while(colores.length < 3){
+					
+					indice = Math.floor(Math.random() * limite) + base;
+
+					if(!colores[indice]){
+						colores[indice] = color;
+					} 
+
+				}
+	
+			});
+
+		};
+		
+		/*
+
 		return function(primario){
 			if(coloresValue[primario]){
 				return coloresValue[primario];
@@ -17,6 +45,8 @@ angular.module("disenador-de-logos")
 				return coloresValue["negro"];
 			}
 		};
+
+		*/
 	}])
 
 	.value("paisesValue", {
