@@ -21,19 +21,19 @@
 
 //COLLECTION BUSQUEDAS
 {
-    "claves": [{
-        "palabra": "palabra",
-        "etiqueta" : {
-            "$ref": "etiquetas", //opcional
-            "$id": "ObjectId('xxxxxx')",
+    "claves": [
+        {
+            "palabra": "palabra",
+            "etiqueta" : {
+                "$ref": "etiquetas", //opcional
+                "$id": "ObjectId('xxxxxx')",
+            }
+        },{
+            "palabra": "palabra",
         }
-    },{
-        "palabra": "palabra",
-    }],
+    ],
     "fecha": "00-00-0000",
     "ip": "127.0.0.1",
     "qty": 10;
 }
-
-//Etiquetas mas buscadas full, por pais y con mas resultados.
 
