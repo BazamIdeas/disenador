@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-	.controller("etiquetasController", ["$state", "$mdSidenav", "$scope", "administrarService", "notificacionService", "$base64", "etiquetasService", "etiquetasService", "categoriasService", function ($state, $mdSidenav, $scope, administrarService, notificacionService, $base64, etiquetasService, etiquetasService, categoriasService) {
+	.controller("etiquetasController", ["$state", "$mdSidenav", "$scope", "administrarService", "notificacionService", "$base64", "etiquetasService", "etiquetasService", "categoriasService", "idiomasService", function ($state, $mdSidenav, $scope, administrarService, notificacionService, $base64, etiquetasService, etiquetasService, categoriasService, idiomasService) {
 
 		var bz = this;
 
@@ -11,7 +11,9 @@ angular.module("administrador")
 		bz.querySearch = etiquetasService.querySearch;
 		bz.etiquetasParaVincular = [];
 		bz.transformChip = etiquetasService.transformChip;
-		bz.idiomas = ['ESP', 'ENG', 'POR'];
+		idiomasService.listarIdiomas().then(function (res) {
+			bz.idiomas = res;
+		})
 		bz.guardarEtiquetas = [];
 		bz.guardarEtiquetasIconos = {
 			etiquetas: [],
@@ -213,7 +215,7 @@ angular.module("administrador")
 				item = [];
 				angular.forEach(bz.idiomas, (valor) => {
 					item.push({
-						idioma: valor,
+						idioma: valor.codigo,
 						valor: ''
 					});
 				});

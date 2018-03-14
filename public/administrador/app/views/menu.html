@@ -7,7 +7,7 @@
                     <a ng-if="!sidenav.menuMostrar" class="auto">A</a>
                 </div>
             </md-toolbar>
-            <md-list ng-cloak layout="column">
+            <md-list ng-cloak layout="column" class="menu-scroll">
                 <md-item ng-repeat="vistas in sidenav.vistas" ng-class="{'activo': (vistas.url == sidenav.estado)}" class="menuItem" ui-sref="{{vistas.url}}">
                     <md-icon>{{vistas.icono}}</md-icon>
                     <span ng-if="sidenav.menuMostrar">{{vistas.nombre}}</span>

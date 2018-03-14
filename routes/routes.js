@@ -94,7 +94,7 @@ router.post("/etiquetas/iconos", controllers.etiquetas.AsignarIconos);
 router.post("/etiquetas/:_id/iconos/desasignar", controllers.etiquetas.DesasignarIcono);
 router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
 
-//MODULO ETIQUETAS
+//MODULO IDIOMAS
 router.get("/idiomas", controllers.idiomas.ObtenerTodos);
 router.post("/idiomas", controllers.idiomas.Guardar);
 router.post("/idiomas/modificar", controllers.idiomas.Actualizar);

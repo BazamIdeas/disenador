@@ -612,6 +612,64 @@ angular.module("administrador")
     }])
 
 
+    /***************************/
+    /**********IDIOMAS**********/
+    /***************************/
+
+    .service('idiomasService', ['$http', '$q', function ($http, $q) {
+
+
+        this.listarIdiomas = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/idiomas').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.guardarIdioma = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/idiomas/', datos).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.modificarIdioma = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/idiomas/modificar', datos).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.borrarIdioma = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/idiomas/borrar/' + id).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+    }])
+
+
     /* SERVICIO PARA ADMINISTRAR */
 
     .service('administrarService', ['$http', '$q', function ($http, $q) {
