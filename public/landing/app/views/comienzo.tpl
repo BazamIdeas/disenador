@@ -49,7 +49,8 @@
                             <md-radio-group name="font " required ng-model="ctrl.datosCombinaciones.idFuente " class="md-primary ">
                                 <md-radio-button ng-repeat="estilo in ctrl.categoriasPosibles.fuentes " ng-value="estilo.idCategoria
                                         " ng-disabled=" d.isDisabled ">
-                                    <span class="estilo ">A</span>
+                                    <md-tooltip md-direction="top">{{estilo.nombreCategoria}}}</md-tooltip>
+                                    <span class="estilo " ng-class="{'amatic':estilo.nombreCategoria == 'Clásicas', 'niconne':estilo.nombreCategoria == 'Moderna', 'julee':estilo.nombreCategoria == 'Llamativas', 'cabin':estilo.nombreCategoria == 'Minimalista'}">A</span>
                                 </md-radio-button>
                             </md-radio-group>
                         </div>

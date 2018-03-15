@@ -25,25 +25,41 @@
     font-style: normal;
 }
 
-@font-face {
+.amatic {
     font-family: 'Amatic';
+}
+
+@font-face {
+    font-family: 'Niconne';
     src: url("./fonts/para-mostrar/Niconne-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
 }
 
+.niconne {
+    font-family: 'Niconne';
+}
+
 @font-face {
-    font-family: 'Amatic';
+    font-family: 'Julee';
     src: url("./fonts/para-mostrar/Julee-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
 }
 
+.julee {
+    font-family: 'Julee';
+}
+
 @font-face {
-    font-family: 'Englebert';
-    src: url("./fonts/para-mostrar/Englebert-Regular.ttf") format("truetype");
+    font-family: 'Cabin';
+    src: url("./fonts/para-mostrar/Cabin-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
+}
+
+.cabin {
+    font-family: 'Cabin';
 }
 
 /* Estilos generales*/
@@ -293,13 +309,17 @@ md-radio-button[aria-checked="true"] span.estilo {
 }
 
 span.estilo {
-    padding: 11px 16px;
     background: #E4E7E8;
     border: 2px solid var(--secundario);
     color: var(--secundario);
-    font-size: 20px;
+    font-size: 28px;
     transition: all 0.2s;
     border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 span.estilo.seleccionado {
@@ -310,6 +330,7 @@ span.estilo.seleccionado {
 .md-select-value>span:not(.md-select-icon) .md-text,
 .estilo-de-color .md-text {
     display: flex;
+    width: 100%;
 }
 
 .seccion.uno form label,
@@ -319,7 +340,7 @@ span.estilo.seleccionado {
 }
 
 .estilo-de-color .md-text>span {
-    flex: 1 1 100%;
+    width: 33%;
     padding: 10px;
     color: transparent;
 }

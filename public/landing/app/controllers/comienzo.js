@@ -48,6 +48,7 @@ angular.module("landing")
 			bz.etiquetas = etiquetasService.loadEtiquetas(res[0].data);
 			bz.categoriasPosibles.iconos = res[1];
 			bz.categoriasPosibles.fuentes = res[2];
+
 			angular.forEach(res[3], function (valor) {
 				valor.valor = 2;
 				bz.datosCombinaciones.preferencias.push(valor);
@@ -106,15 +107,12 @@ angular.module("landing")
 						datos.iconos = res[0];
 						datos.fuentes = res[1];
 
-						delete datos.idFuente;
-						delete datos.idCategoria;
-
-						LS.definir('comenzar', datos);
+						LS.definir('comenzar', datosAenviar);
 
 						if (!v) return;
 
 						navegarFactory.cliente(false, {
-							n: datos.nombre
+							n: datosAenviar.nombre
 						});
 
 
