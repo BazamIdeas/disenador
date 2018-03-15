@@ -114,7 +114,32 @@ exports.listaSegunTagCat = function (req, res) {
 	const limit = req.body.limit ? req.body.limit : 4;
 	const ids = req.body.ids ? req.body.ids : [0];
 
-	etiqueta.Analizar(tags, (err, arr) => {
+	let normalize = (() => {
+		const from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
+			to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
+			mapping = {};
+
+		for (let i = 0, j = from.length; i < j; i++)
+			mapping[from.charAt(i)] = to.charAt(i);
+
+		return (str) => {
+			let ret = [];
+			for (var i = 0, j = str.length; i < j; i++) {
+				let c = str.charAt(i);
+				if (mapping.hasOwnProperty(str.charAt(i)))
+					ret.push(mapping[c]);
+				else
+					ret.push(c);
+			}
+			return ret.join('');
+		}
+	})();
+
+	let tagsNormalize = [];
+
+	tags.forEach(el => tagsNormalize.push(normalize(el.toLowerCase())));
+
+	etiqueta.Analizar(tagsNormalize, (err, arr) => {
 
 		// Aqui se registran las busquedas
 
