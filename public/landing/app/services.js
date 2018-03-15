@@ -106,21 +106,37 @@ angular.module("landing")
 
 	.service("elementosService", ["$http", "$q", function ($http, $q) {
 
-		this.listaSegunPref = function (datos) {
+		this.listaFuentesSegunPref = function (datos) {
 
-			return $http.post("/app/elementos/busqueda", datos)
+			var defered = $q.defer();
 
+			var promise = defered.promise;
+
+			$http.post("/app/elementos/busqueda/fuentes", datos)
 				.then(function (res) {
-
-					return res.data;
-
+					defered.resolve(res.data);
 				})
-
-				.catch(function () {
-
-
-
+				.catch(function (res) {
+					defered.reject(res);
 				});
+
+			return promise;
+		};
+
+		this.listarIconosSegunTags = function (datos) {
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/elementos/busqueda/iconos", datos)
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
 		};
 
 		this.listarFuentes = function () {
@@ -543,29 +559,64 @@ angular.module("landing")
 	/********ETIQUETAS****/
 	/*********************/
 
-	.service("etiquetasService", ["$http", "$q", function ($http, $q) {
+	/* SERVICIO PARA ETIQUETAS */
 
-		this.loadEtiquetas = function (etiquetas) {
+	.service('etiquetasService', ['$http', '$q', function ($http, $q) {
 
-			var etiquetas = [{
-					'name': 'Broccoli'
-				},
-				{
-					'name': 'Cabbage'
-				},
-				{
-					'name': 'Carrot'
-				},
-				{
-					'name': 'Lettuce'
-				},
-				{
-					'name': 'Spinach'
+		/***************************/
+		/**********LOGOS***********/
+		/***************************/
+
+		this.listarLogos = function (datos) {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.post('/app/elementos/categoria', datos).then(function (res) {
+				if (res == undefined) {
+					return defered.reject(res);
 				}
-			];
+				defered.resolve(res);
+			}).catch(function (res) {
+				defered.reject(res);
+			})
+
+			return promise;
+		}
+
+		/* ETIQUETAS*/
+
+
+		this.listarEtiquetas = function () {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.get('/app/etiquetas').then(function (res) {
+				if (res == undefined) {
+					return defered.reject(res);
+				}
+				defered.resolve(res);
+			}).catch(function (res) {
+				defered.reject(res);
+			})
+
+			return promise;
+		}
+
+		this.loadEtiquetas = function (arr, v) {
+
+			var etiquetas = [];
+
+			angular.forEach(arr, (valor) => {
+				etiquetas.push({
+					_id: valor._id,
+					traduccion: valor.traducciones[0]
+				});
+			})
 
 			return etiquetas.map(function (et) {
-				et._lowername = et.name.toLowerCase();
+				et.traduccion._lowername = et.traduccion.valor.toLowerCase();
 				return et;
 			});
 		}
@@ -579,7 +630,9 @@ angular.module("landing")
 
 			// Otherwise, create a new one
 			return {
-				name: chip
+				traduccion: {
+					valor: chip
+				}
 			}
 
 		}
@@ -593,11 +646,10 @@ angular.module("landing")
 			var lowercaseQuery = angular.lowercase(query);
 
 			return function filterFn(etiqueta) {
-				return (etiqueta._lowername.indexOf(lowercaseQuery) === 0);
+				return (etiqueta.traduccion._lowername.indexOf(lowercaseQuery) === 0);
 			};
 
 		}
-
 
 	}])
 

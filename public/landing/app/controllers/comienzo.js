@@ -7,65 +7,54 @@ angular.module("landing")
 		/* DATOS */
 
 		bz.navegar = navegarFactory;
-
-		bz.caracteristicas = estaticosLandingValue.caracteristicas;
-
-		bz.testimonios = estaticosLandingValue.testimonios;
-
-		bz.preguntas = estaticosLandingValue.preguntas;
-
+		bz.estaticos = estaticosLandingValue;
 		bz.preAct = 0;
-
-		comienzo.pasos = 0;
-
-		bz.consejos = estaticosLandingValue.consejos;
-
 		bz.base64 = $base64;
-
 		bz.opcionesCarousel = {
 			autoPlay: true,
 			autoplaySpeed: 5000
 		}
-
 		bz.categoriasPosibles = {
 			fuentes: [],
 			iconos: [],
 			colores: [{
-				idColor: 1,
-				colores: ['#FA198B', '#B91372', '#6B0F1A', '#31081F', '#0E0004']
+				color: ['#FA198B', '#B91372', '#6B0F1A']
 			}]
 		};
-
 		bz.datosCombinaciones = {
 			preferencias: [],
-			etiquetas: [],
 			etiquetasSeleccionadas: [],
 			colores: []
 		}
 
-		categoriasService.listaCategorias("ICONO").then(function (res) {
+		/* Etiquetas */
 
-			bz.categoriasPosibles.iconos = res;
+		bz.selectedItem = null;
+		bz.searchText = null;
+		bz.etiquetasFunciones = etiquetasService;
 
+		bz.peticion = true;
 
-		});
+		bz.promesas = [
+			etiquetasService.listarEtiquetas(),
+			categoriasService.listaCategorias("ICONO"),
+			categoriasService.listaCategorias("FUENTE"),
+			preferenciasService.listaPreferencias()
+		]
 
-		categoriasService.listaCategorias("FUENTE").then(function (res) {
-
-			bz.categoriasPosibles.fuentes = res;
-
-
-		});
-
-		preferenciasService.listaPreferencias().then(function (res) {
-
-			angular.forEach(res, function (valor) {
+		$q.all(bz.promesas).then(function (res) {
+			bz.etiquetas = etiquetasService.loadEtiquetas(res[0].data);
+			bz.categoriasPosibles.iconos = res[1];
+			bz.categoriasPosibles.fuentes = res[2];
+			angular.forEach(res[3], function (valor) {
 				valor.valor = 2;
 				bz.datosCombinaciones.preferencias.push(valor);
-
 			});
-
-		});
+		}).catch(function (res) {
+			console.log(res)
+		}).finally(function () {
+			bz.peticion = false;
+		})
 
 		/* FUNCIONES */
 
@@ -77,21 +66,20 @@ angular.module("landing")
 		bz.etiquetas = etiquetasService.loadEtiquetas();
 		bz.transformChip = etiquetasService.transformChip;
 
-
-
 		bz.enviarComenzar = function (datos, v) {
 
 			inicial = false
 
-			angular.forEach(datos.etiquetasSeleccionadas, (valor, key) => {
-				datos.etiquetas.push(valor.name)
-			})
-
-			delete datos.etiquetasSeleccionadas;
-
 			if (v) {
+				bz.peticion = true;
+				datos.etiquetasParaBusqueda = [];
+
+				angular.forEach(datos.etiquetasSeleccionadas, function (valor) {
+					datos.etiquetasParaBusqueda.push(valor.traduccion.valor)
+				})
 
 				bz.datosIconos = {
+					tags: datos.etiquetasParaBusqueda,
 					categoria: datos.idCategoria,
 					preferencias: datos.preferencias,
 					tipo: "ICONO"
@@ -103,19 +91,23 @@ angular.module("landing")
 					tipo: "FUENTE"
 				};
 
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listaSegunPref(bz.datosIconos);
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial, bz.datosIconos) : elementosService.listarIconosSegunTags(bz.datosIconos);
+
+				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datosFuentes);
 
 				$q.all([
 						promesaIconos,
-						elementosService.listaSegunPref(bz.datosFuentes)
+						promesaFuentes
 					])
 					.then(function (res) {
 
 						datos.iconos = res[0];
 						datos.fuentes = res[1];
 
-						LS.definir('comenzar', datos);
+						delete datos.idFuente;
+						delete datos.idCategoria;
 
+						LS.definir('comenzar', datos);
 
 						if (!v) return;
 
@@ -124,6 +116,8 @@ angular.module("landing")
 						});
 
 
+					}).finally(function (res) {
+						bz.peticion = false;
 					})
 			}
 

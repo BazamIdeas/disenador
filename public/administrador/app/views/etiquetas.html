@@ -7,16 +7,16 @@
             <div class="paneles individual md-whiteframe-2dp">
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="etiqm = !etiqm">LISTADO DE ETIQUETAS</texto>
-                    <md-button class="md-primary md-fab md-mini" ng-click="ctrl.mostrar({op:'crear-etiqueta'})" style="margin:0;">
+                    <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.mostrar({op:'crear-etiqueta'})" style="margin:0;">
                         <md-icon>add</md-icon>
                     </md-button>
-                    <md-button style="right: 11%; top: 4%;" class="md-primary md-fab md-mini" ng-click="ctrl.mostrar({op:'asignar-etiqueta'})"
+                    <md-button ng-disabled="ctrl.peticion" style="right: 11%; top: 4%;" class="md-primary md-fab md-mini" ng-click="ctrl.mostrar({op:'asignar-etiqueta'})"
                         style="margin:0;">
                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Vincular etiquetas</md-tooltip>
                         <md-icon>style</md-icon>
                     </md-button>
                 </div>
-                <div ng-show="etiqm">
+                <div>
                     <div class="w3-responsive content-scroll" ng-if="ctrl.etiquetas.length > 0">
                         <table class="w3-table w3-bordered">
                             <tr>
@@ -71,8 +71,7 @@
                     <div layout layout-align="space-between center ">
                         <md-input-container flex>
                             <label>Categoria:</label>
-                            <md-select ng-model="ctrl.idCategoria " ng-change="ctrl.listarLogos(ctrl.idCategoria)
-        " class="md-block " aria-label="filtro ">
+                            <md-select ng-model="ctrl.idCategoria " ng-change="ctrl.listarLogos(ctrl.idCategoria)" class="md-block " aria-label="filtro ">
                                 <md-option ng-value="cat.idCategoria " ng-repeat="cat in ctrl.cats ">{{cat.nombreCategoria}}</md-option>
                             </md-select>
                         </md-input-container>
@@ -118,8 +117,7 @@
                                 <div layout layout-wrap>
                                     <span ng-repeat="itemChild in item.traducciones" flex="33">
                                         <md-input-container class="md-block">
-                                            <label>
-                                                {{itemChild.idioma}}:</label>
+                                            <label> {{itemChild.idioma}}:</label>
                                             <input type="text" ng-model="itemChild.valor" name="itemChild{{$index}}" required ng-minlength="3">
                                         </md-input-container>
                                     </span>
@@ -150,7 +148,7 @@
                             <md-input-container class="md-block">
                                 <label>
                                     Traduccion {{item.idioma.codigo}}:</label>
-                                <input type="text" ng-model="item.valor" name="item{{$index}}" required ng-minlength="4">
+                                <input type="text" ng-model="item.valor" name="item{{$index}}" required>
                             </md-input-container>
                         </div>
                         <md-button ng-disabled="ctrl.peticion || !form2.$valid" class="md-raised md-primary" type="submit">Guardar</md-button>

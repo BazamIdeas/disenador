@@ -25,11 +25,9 @@
                         <md-select ng-model="ctrl.datosCombinaciones.colores" multiple class="md-block " aria-label="filtro" name="color" required>
                             <md-optgroup label="Colores">
                                 <md-option ng-value="item" class="estilo-de-color" ng-value="item" ng-repeat="item in ctrl.categoriasPosibles.colores">
-                                    <span style="background:{{item.colores[0]}}; color:transparent;">{{item.colores[0]}}</span>
-                                    <span style="background:{{item.colores[1]}};">{{item.colores[1]}}</span>
-                                    <span style="background:{{item.colores[2]}};">{{item.colores[2]}}</span>
-                                    <span style="background:{{item.colores[3]}};">{{item.colores[3]}}</span>
-                                    <span style="background:{{item.colores[4]}};">{{item.colores[4]}}</span>
+                                    <span style="background:{{item.color[0]}}; color:transparent;">{{item.color[0]}}</span>
+                                    <span style="background:{{item.color[1]}};">{{item.color[1]}}</span>
+                                    <span style="background:{{item.color[2]}};">{{item.color[2]}}</span>
                                 </md-option>
                             </md-optgroup>
                         </md-select>
@@ -80,14 +78,14 @@
                     </div>
 
                     <div>
-                        <md-chips ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-autocomplete-snap md-transform-chip="ctrl.transformChip($chip)">
-                            <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText, ctrl.etiquetas)"
-                                md-item-text="item.name" placeholder="Etiquetas">
-                                <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+                        <md-chips required ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
+                            <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
+                                md-item-text="item.traduccion.valor" placeholder="Etiquetas">
+                                <span md-highlight-text="ctrl.searchText">{{item.traduccion.valor}}</span>
                             </md-autocomplete>
                             <md-chip-template>
                                 <span>
-                                    <strong>{{$chip.name}}</strong>
+                                    <strong>{{$chip.traduccion.valor}}</strong>
                                 </span>
                             </md-chip-template>
                         </md-chips>
@@ -96,8 +94,7 @@
                     <br>
                     <div layout-padding>
                         <md-button type="submit " style="margin: 5% auto; display: block; color:white;    margin-top: 5%; background: var(--principal) !important; "
-                            ng-disabled="!form.$valid
-                                        " class="md-raised md-primary md-mini ">
+                            ng-disabled="ctrl.peticion" class="md-raised md-primary">
                             Generar su logo ahora
                         </md-button>
                     </div>
@@ -116,7 +113,7 @@
     <div class="col s12 ">
         <h2 class="titulo text-green">TITULO SECUNDARIO</h2>
         <div class="caracteristicas ">
-            <div class="caracteristicas__item " ng-repeat="caracteristica in ctrl.caracteristicas ">
+            <div class="caracteristicas__item " ng-repeat="caracteristica in ctrl.estaticos.caracteristicas">
                 <div style="border-color:{{caracteristica.color}} ">
                     <h4>{{caracteristica.titulo}}</h4>
                     <p>{{caracteristica.descripcion}}</p>
@@ -129,7 +126,7 @@
 
 <div class="row s12 seccion tres ">
     <div class="titulo-destacado">EJEMPLOS Y TESTIMONIOS</div>
-    <bazam-carousel items="ctrl.testimonios" opciones="ctrl.opcionesCarousel">
+    <bazam-carousel items="ctrl.estaticos.testimonios" opciones="ctrl.opcionesCarousel">
     </bazam-carousel>
 
     <div layout layout-align="center " flex>
@@ -184,7 +181,7 @@
     <div class="col s12 ">
         <div class="titulo-destacado text-green">PREGUNTAS FRECUENTES</div>
         <div class="preguntas">
-            <div class="pregunta" ng-repeat="item in ctrl.preguntas">
+            <div class="pregunta" ng-repeat="item in ctrl.estaticos.preguntas">
                 <h6 ng-click="ctrl.preAct = $index">{{item.pregunta}}</h6>
                 <p ng-show="ctrl.preAct == $index">
                     {{item.respuesta}}
