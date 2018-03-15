@@ -5,7 +5,6 @@ angular.module("landing")
 		var bz = this;
 
 		/* DATOS */
-
 		bz.navegar = navegarFactory;
 		bz.estaticos = estaticosLandingValue;
 		bz.preAct = 0;
@@ -17,9 +16,13 @@ angular.module("landing")
 		bz.categoriasPosibles = {
 			fuentes: [],
 			iconos: [],
-			colores: [{
-				color: ['#FA198B', '#B91372', '#6B0F1A']
-			}]
+			colores: [
+				['#FA198B', '#B91372', '#6B0F1A'],
+				['#FA198B', '#B91372', '#6B0F1A'],
+				['#FA198B', '#B91372', '#6B0F1A'],
+				['#FA198B', '#B91372', '#6B0F1A'],
+				['#FA198B', '#B91372', '#6B0F1A']
+			]
 		};
 		bz.datosCombinaciones = {
 			preferencias: [],

@@ -18,6 +18,34 @@
 
 /* END Regular */
 
+@font-face {
+    font-family: 'Amatic';
+    src: url("./fonts/para-mostrar/AmaticSC-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Amatic';
+    src: url("./fonts/para-mostrar/Niconne-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Amatic';
+    src: url("./fonts/para-mostrar/Julee-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Englebert';
+    src: url("./fonts/para-mostrar/Englebert-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
 /* Estilos generales*/
 
 * {

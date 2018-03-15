@@ -1,26 +1,28 @@
 angular.module("administrador")
 
-	.controller("etiquetasController", ["$state", "$mdSidenav", "$scope", "administrarService", "notificacionService", "$base64", "etiquetasService", "etiquetasService", "categoriasService", "idiomasService", "$q", function ($state, $mdSidenav, $scope, administrarService, notificacionService, $base64, etiquetasService, etiquetasService, categoriasService, idiomasService, $q) {
+	.controller("etiquetasController", ["$state", "$scope", "notificacionService", "$base64", "etiquetasService", "categoriasService", "idiomasService", "$q", function ($state, $scope, notificacionService, $base64, etiquetasService, categoriasService, idiomasService, $q) {
 
 		var bz = this;
 
-		/* ETIQUETAS */
-		bz.guardarTraducciones = {
+		/* DATOS */
 
-		};
 		bz.base64 = $base64;
 		bz.iconos = [];
 		bz.selectedItem = null;
 		bz.searchText = null;
 		bz.querySearch = etiquetasService.querySearch;
-		bz.etiquetasParaVincular = [];
 		bz.transformChip = etiquetasService.transformChip;
+		bz.etiquetasParaVincular = [];
 		bz.guardarEtiquetas = [];
+		bz.actualizarEtiquetaDatos = {};
 		bz.guardarEtiquetasIconos = {
 			etiquetas: [],
 			iconos: []
 		};
 		bz.logos = [];
+
+		/* Traer datos iniciales */
+
 		bz.promesas = [idiomasService.listarIdiomas(), categoriasService.listarCategorias({
 			tipo: 'ICONO'
 		}), etiquetasService.listarEtiquetas()]
@@ -34,16 +36,14 @@ angular.module("administrador")
 			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res[2].data);
 
 		}).catch(function (res) {
-			console.log(res)
+			//console.log(res)
 		}).finally(function () {
 			bz.peticion = false;
 		})
 
-		/***************************/
-		/**********LOGOS***********/
-		/***************************/
+		/**********ICONOS***********/
 
-		bz.listarLogos = function (id) {
+		bz.listarIconos = function (id) {
 
 			if (bz.logos.length > 0) {
 				angular.forEach(bz.logos, (valor) => {
@@ -71,9 +71,7 @@ angular.module("administrador")
 			})
 		};
 
-		/***************************/
-		/********ETIQUETAS***********/
-		/***************************/
+		/********ETIQUETAS**********/
 
 		/* GUARDAR */
 
@@ -106,15 +104,17 @@ angular.module("administrador")
 					})
 				}
 
+				return notificacionService.mensaje('Etiquetas Agregadas.')
+
 			}).finally(function () {
 				bz.peticion = false;
 			})
 		}
 
-		/* GUARDAR Etiqueta Iconos */
+		/* VINCULAR ETIQUETAS A ICONOS */
 
 		bz.guardarEtiquetaIconos = function (datos, v) {
-			//bz.peticion = true;
+			bz.peticion = true;
 
 			angular.forEach(bz.logos, (valor) => {
 				if (valor.on != undefined && valor.on === true) {
@@ -139,7 +139,6 @@ angular.module("administrador")
 
 				if (res == undefined) return;
 				bz.guardarEtiquetaIconos = [];
-				console.log(res)
 				return notificacionService.mensaje('Logos Vinculados')
 
 			}).finally(function () {
@@ -157,7 +156,7 @@ angular.module("administrador")
 
 				if (res == undefined) return;
 				return bz.etiquetas.splice(index, 1)
-
+				return notificacionService.mensaje('Etiqueta Borrada')
 			}).finally(function () {
 				bz.peticion = false;
 			})
@@ -165,22 +164,19 @@ angular.module("administrador")
 
 		/* ACTUALIZAR */
 
-		bz.actualizarEtiqueta = {
-			funcion: function (params, v) {
-				if (!v) return notificacionService.mensaje('Rellene todos los campos por favor')
+		bz.actualizarEtiqueta = function (params, v) {
+			if (!v) return notificacionService.mensaje('Rellene todos los campos por favor')
 
-				etiquetasService.actualizarEtiqueta({
-					_id: params._id,
-					etiqueta: params
-				}).then(function (res) {
+			etiquetasService.actualizarEtiqueta({
+				_id: params._id,
+				etiqueta: params
+			}).then(function (res) {
 
-					if (res == undefined) return;
+				if (res == undefined) return;
 
-				}).finally(function () {
-					bz.peticion = false;
-				})
-			},
-			datos: {}
+			}).finally(function () {
+				bz.peticion = false;
+			})
 		}
 
 		bz.incrementarEtiquetas = function (eliminar) {
@@ -209,7 +205,18 @@ angular.module("administrador")
 		bz.mostrar = function (params) {
 			if (params.op == 'traducciones') {
 				bz.acciones = 2;
-				bz.actualizarEtiqueta.datos = params.datosEtiqueta;
+				bz.actualizarEtiquetaDatos = params.datosEtiqueta;
+
+				var etiqueta = angular.toJson(params.datosEtiqueta.traducciones);
+
+				angular.forEach(bz.idiomas, function (valor, key) {
+					if (!etiqueta.includes(valor.codigo)) {
+						bz.actualizarEtiquetaDatos.traducciones.push({
+							idioma: valor,
+							valor: ''
+						});
+					}
+				})
 
 			} else if (params.op == 'crear-etiqueta') {
 				bz.incrementarEtiquetas();
@@ -222,16 +229,6 @@ angular.module("administrador")
 				bz.asignarEtiqueta = !bz.asignarEtiqueta;
 				bz.acciones = 3;
 			}
-		}
-
-		bz.obtenerTraducciones = function (idioma, traducciones) {
-			var texto = {};
-			angular.forEach(traducciones, function (traduccion) {
-				if (idioma.codigo == traduccion.idioma.codigo) {
-					texto = traduccion
-				}
-			})
-			return texto;
 		}
 
 	}]);

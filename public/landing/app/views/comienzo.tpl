@@ -12,7 +12,7 @@
                 <div flex="40">
                     <md-input-container class=" md-block " style=" margin-bottom: 0; ">
                         <label>Nombre de su logo</label>
-                        <input type="text " ng-model="ctrl.datosCombinaciones.nombre" name="nombre " required>
+                        <input type="text " md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre " required>
                     </md-input-container>
                     <!-- VALIDACION -->
                     <div ng-messages="form.nombre.$error " style="color:maroon " role="alert " ng-show="form.nombre.$touched
@@ -22,12 +22,13 @@
 
                     <md-input-container class="md-block ">
                         <label>Colores</label>
-                        <md-select ng-model="ctrl.datosCombinaciones.colores" multiple class="md-block " aria-label="filtro" name="color" required>
+                        <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.colores" multiple class="md-block " aria-label="filtro" name="color"
+                            required>
                             <md-optgroup label="Colores">
                                 <md-option ng-value="item" class="estilo-de-color" ng-value="item" ng-repeat="item in ctrl.categoriasPosibles.colores">
-                                    <span style="background:{{item.color[0]}}; color:transparent;">{{item.color[0]}}</span>
-                                    <span style="background:{{item.color[1]}};">{{item.color[1]}}</span>
-                                    <span style="background:{{item.color[2]}};">{{item.color[2]}}</span>
+                                    <span style="background:{{item[0]}}; color:transparent;">{{item[0]}}</span>
+                                    <span style="background:{{item[1]}};">{{item[1]}}</span>
+                                    <span style="background:{{item[2]}};">{{item[2]}}</span>
                                 </md-option>
                             </md-optgroup>
                         </md-select>
@@ -65,7 +66,7 @@
 
                     <md-input-container class="md-block ">
                         <label>Actividad</label>
-                        <md-select ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block " aria-label="filtro
+                        <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block " aria-label="filtro
                             " name="cat" required>
                             <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
                         </md-select>
@@ -78,9 +79,10 @@
                     </div>
 
                     <div>
-                        <md-chips required ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
+                        <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                            md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
                             <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
-                                md-item-text="item.traduccion.valor" placeholder="Etiquetas">
+                                md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
                                 <span md-highlight-text="ctrl.searchText">{{item.traduccion.valor}}</span>
                             </md-autocomplete>
                             <md-chip-template>

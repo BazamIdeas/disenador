@@ -26,9 +26,9 @@
                             </tr>
                             <tr ng-repeat="etiqueta in ctrl.etiquetas">
                                 <td>
-                                    <div ng-repeat="item in etiqueta.traducciones">
-                                        <span ng-if="item.idioma.codigo == 'ESP'">
-                                            {{item.valor}}
+                                    <div ng-repeat="traduccion in etiqueta.traducciones">
+                                        <span ng-if="traduccion.idioma.codigo == 'ESP'">
+                                            {{traduccion.valor}}
                                         </span>
                                     </div>
                                 </td>
@@ -41,7 +41,7 @@
 
                                     <md-button class="md-fab md-mini md-warn" ng-click="ctrl.borrarEtiqueta(etiqueta._id, $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Borrar</md-tooltip>
-                                        <md-icon>lock</md-icon>
+                                        <md-icon>close</md-icon>
                                     </md-button>
                                 </td>
                             </tr>
@@ -71,7 +71,7 @@
                     <div layout layout-align="space-between center ">
                         <md-input-container flex>
                             <label>Categoria:</label>
-                            <md-select ng-model="ctrl.idCategoria " ng-change="ctrl.listarLogos(ctrl.idCategoria)" class="md-block " aria-label="filtro ">
+                            <md-select ng-model="ctrl.idCategoria " ng-change="ctrl.listarIconos(ctrl.idCategoria)" class="md-block " aria-label="filtro ">
                                 <md-option ng-value="cat.idCategoria " ng-repeat="cat in ctrl.cats ">{{cat.nombreCategoria}}</md-option>
                             </md-select>
                         </md-input-container>
@@ -143,8 +143,8 @@
                     </md-button>
                 </div>
                 <div layout-padding class="elemento">
-                    <form name="form2" ng-submit="ctrl.actualizarEtiqueta.funcion(ctrl.actualizarEtiqueta.datos, form2.$valid)" novalidate>
-                        <div ng-repeat="item in ctrl.actualizarEtiqueta.datos.traducciones">
+                    <form name="form2" ng-submit="ctrl.actualizarEtiqueta(ctrl.actualizarEtiquetaDatos, form2.$valid)" novalidate>
+                        <div ng-repeat="item in ctrl.actualizarEtiquetaDatos.traducciones">
                             <md-input-container class="md-block">
                                 <label>
                                     Traduccion {{item.idioma.codigo}}:</label>
