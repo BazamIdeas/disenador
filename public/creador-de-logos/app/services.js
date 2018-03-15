@@ -1,13 +1,15 @@
 angular.module("disenador-de-logos")
 
 	.value("coloresValue",[
-		["#6597fe","#ff0000", "#ffee00"]
+		["#6597fe","#ff0000", "#80ff00"],
+		["#3366ff","#00ffff", "#ffee00"],
+		["#ffff80","#e600e6", "#ff6600"],
+		["#999966","#ff9900", "#b30059"],
 	])
 	
 	.factory("coloresFactory", ["coloresValue", function(coloresValue){
 		
-		
-		return function(indice){
+		var obtenerArrayRandom = function(indice){
 			
 			var coloresCopia = angular.copy(coloresValue[indice]);
 			var colores = [];
@@ -36,20 +38,29 @@ angular.module("disenador-de-logos")
 			return colores;
 
 		};
-		
-		/*
 
-		return function(primario){
-			if(coloresValue[primario]){
-				return coloresValue[primario];
-			}else{
-				return coloresValue["negro"];
-			}
+		var indiceColores = function (coloresBuscados) {
+
+			var indiceBuscado;
+	
+			angular.forEach(coloresValue, function(color, indice){
+				if(angular.equals(coloresBuscados, color)){
+					indiceBuscado = indice;
+				}
+			});
+	
+			return indiceBuscado;
 		};
-
-		*/
+	
+		
+		return function(coloresArrays){
+			var i = Math.floor(Math.random() * coloresArrays.length) + 0;
+			return obtenerArrayRandom(indiceColores(coloresArrays[i]));
+		};
+		
 	}])
 
+	
 	.value("paisesValue", {
 		"BD": "Bangladesh",
 		"BE": "Belgium",
@@ -405,7 +416,7 @@ angular.module("disenador-de-logos")
 
 			var promise = defered.promise;
 
-			$http.post("/app/elementos/busqueda/fuentes", {categoria: idCategoria, preferencias: preferencias, tipo: "FUENTE"})
+			$http.post("/app/elementos/busqueda/fuentes", {categoria: idCategoria, preferencias: preferencias, tipo: "FUENTE", limit: limit})
 				.then(function(res){
 					defered.resolve(res.data);
 				})
