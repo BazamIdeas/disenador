@@ -1,53 +1,43 @@
 angular.module("administrador")
 
-	.controller("etiquetasController", ["$state", "$mdSidenav", "$scope", "administrarService", "notificacionService", "$base64", "etiquetasService", "etiquetasService", "categoriasService", "idiomasService", function ($state, $mdSidenav, $scope, administrarService, notificacionService, $base64, etiquetasService, etiquetasService, categoriasService, idiomasService) {
+	.controller("etiquetasController", ["$state", "$mdSidenav", "$scope", "administrarService", "notificacionService", "$base64", "etiquetasService", "etiquetasService", "categoriasService", "idiomasService", "$q", function ($state, $mdSidenav, $scope, administrarService, notificacionService, $base64, etiquetasService, etiquetasService, categoriasService, idiomasService, $q) {
 
 		var bz = this;
 
 		/* ETIQUETAS */
+		bz.guardarTraducciones = {
 
+		};
+		bz.base64 = $base64;
+		bz.iconos = [];
 		bz.selectedItem = null;
 		bz.searchText = null;
 		bz.querySearch = etiquetasService.querySearch;
 		bz.etiquetasParaVincular = [];
 		bz.transformChip = etiquetasService.transformChip;
-		idiomasService.listarIdiomas().then(function (res) {
-			bz.idiomas = res;
-		})
 		bz.guardarEtiquetas = [];
 		bz.guardarEtiquetasIconos = {
 			etiquetas: [],
 			iconos: []
 		};
-
 		bz.logos = [];
+		bz.promesas = [idiomasService.listarIdiomas(), categoriasService.listarCategorias({
+			tipo: 'ICONO'
+		}), etiquetasService.listarEtiquetas()]
 
-		/* DATOS */
-		bz.base64 = $base64;
+		bz.peticion = true;
 
-		bz.listarCategorias = function (tipoCategoria) {
-			bz.peticion = true;
-			bz.cats = [];
+		$q.all(bz.promesas).then(function (res) {
+			bz.idiomas = res[0];
+			bz.cats = res[1].data;
+			bz.etiquetas = res[2].data;
+			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res[2].data);
 
-			datos = {
-				tipo: 'ICONO'
-			}
-
-			categoriasService.listarCategorias(datos).then(function (res) {
-
-				if (res == undefined) {
-					return;
-				}
-
-				bz.cats = res.data;
-
-			}).finally(function () {
-				bz.peticion = false;
-			})
-		}
-		bz.listarCategorias();
-
-		bz.iconos = [];
+		}).catch(function (res) {
+			console.log(res)
+		}).finally(function () {
+			bz.peticion = false;
+		})
 
 		/***************************/
 		/**********LOGOS***********/
@@ -84,22 +74,6 @@ angular.module("administrador")
 		/***************************/
 		/********ETIQUETAS***********/
 		/***************************/
-
-		bz.listarEtiquetas = function (id) {
-			bz.etiquetas = [];
-			bz.peticion = true;
-			etiquetasService.listarEtiquetas(datos).then(function (res) {
-				bz.etiquetas = res.data;
-				bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res.data);
-				$scope.etiqm = true;
-			}).catch(function (res) {
-				console.log(res)
-			}).finally(function () {
-				bz.peticion = false;
-			})
-		};
-
-		bz.listarEtiquetas();
 
 		/* GUARDAR */
 
@@ -213,12 +187,14 @@ angular.module("administrador")
 
 			if (!eliminar) {
 				item = [];
+
 				angular.forEach(bz.idiomas, (valor) => {
 					item.push({
 						idioma: valor.codigo,
 						valor: ''
 					});
 				});
+
 				bz.guardarEtiquetas.push({
 					traducciones: item
 				});
@@ -233,22 +209,6 @@ angular.module("administrador")
 		bz.mostrar = function (params) {
 			if (params.op == 'traducciones') {
 				bz.acciones = 2;
-
-				/* TODO: COLOCAR MAS TRADUCCIONES 
-
-				angular.forEach(params.datosEtiqueta.traducciones, (valor) => {
-					angular.forEach(bz.idiomas, (item) => {
-						if (valor.idioma != item) {
-							params.datosEtiqueta.traducciones.push({
-								idioma: item,
-								valor: ''
-							});
-						}
-					});
-				});
-
-				*/
-
 				bz.actualizarEtiqueta.datos = params.datosEtiqueta;
 
 			} else if (params.op == 'crear-etiqueta') {
@@ -259,10 +219,19 @@ angular.module("administrador")
 					bz.asignarEtiqueta = false;
 					return bz.acciones = 0;
 				}
-				bz.incrementarEtiquetas();
 				bz.asignarEtiqueta = !bz.asignarEtiqueta;
 				bz.acciones = 3;
 			}
+		}
+
+		bz.obtenerTraducciones = function (idioma, traducciones) {
+			var texto = {};
+			angular.forEach(traducciones, function (traduccion) {
+				if (idioma.codigo == traduccion.idioma.codigo) {
+					texto = traduccion
+				}
+			})
+			return texto;
 		}
 
 	}]);

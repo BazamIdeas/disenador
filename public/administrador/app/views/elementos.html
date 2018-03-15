@@ -8,14 +8,9 @@
                 </md-button>
             </div>
 
-            <div layout layout-align="center" class="elemento" ng-show="ctrl.mn">
-                <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" ng-click="ctrl.mostrar('ICONO')">ICONO</md-button>
-                <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" ng-click="ctrl.mostrar('FUENTE')">FUENTE</md-button>
-            </div>
-
             <div ng-if="ctrl.l">
 
-                <div class="elemento">
+                <div class="elemento" ng-hide="true">
                     <div class="preferencias-oculto" ng-click="ctrl.mp1 = !ctrl.mp1">
                         <span>PREFERENCIAS</span>
                     </div>
@@ -53,17 +48,9 @@
                 </div>
 
                 <div ng-if="ctrl.elementos.length > 0">
-                    <div layout class="elemento">
-                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
-                            <input type="text" ng-model="ctrl.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
-                        </md-input-container>
-                    </div>
-
                     <div class="w3-responsive content-scroll">
                         <table class="w3-table w3-bordered">
                             <tr>
-                                <th>Id Elemento:</th>
-                                <th>Nombre:</th>
                                 <th ng-if="ctrl.listar.tipo == 'FUENTE'">Fuente:</th>
                                 <th ng-if="ctrl.listar.tipo == 'ICONO'">Icono:</th>
                                 <th colspan="2">Accion:</th>
@@ -75,8 +62,6 @@
                                         src: url('{{elemento.url}}');
                                     }
                                 </style>
-                                <td>{{elemento.idElemento}}</td>
-                                <td>{{elemento.nombre}}</td>
                                 <td ng-if="elemento.tipo == 'FUENTE'">
                                     <span class="fuente-admin" style="font-family:'{{elemento.nombre}}' !important;">PRUEBA</span>
                                 </td>

@@ -5,13 +5,13 @@ var base64 = require("base-64");
 var fs = require("fs");
 
 // FUNCION QUE DEVUELVE LOS ICONOS SEGUN 
-exports.listaSegunPref = function(req, res) {
+exports.listaSegunPref = function (req, res) {
 
 	var datos2 = req.body;
 	var datos = [];
 	var datoIncat = [];
 	var x;
-	var limit     = req.body.limit ? req.body.limit : 4;
+	var limit = req.body.limit ? req.body.limit : 4;
 	for (x in datos2.preferencias) {
 		datos.push([datos2.preferencias[x].idPreferencia, datos2.preferencias[x].valor, datos2.categoria, datos2.tipo]);
 	}
@@ -25,97 +25,122 @@ exports.listaSegunPref = function(req, res) {
 	//console.log(datos);
 	//console.log(datoIncat);
 	var coincidencias = [];
-	async.each(datos, function(dato, callback) {
-		elemento.getElementos(dato, function(error, data) {
-			if (typeof data !== "undefined" && data.length > 0) {
-				for (var i = data.length - 1; i >= 0; i--) { // recorremos la data 
-					var res = data[i].idElemento; // almacenamos el id del elemento
-					var coin = 0; // declaramos una variable para saber y encontro o no
-					for (var j = coincidencias.length - 1; j >= 0; j--) { // recorremos la coincidencia 
-						var ress = coincidencias[j].idElemento; // asignamos el id de la coincidencia
-						if (res == ress) { // verificamos si son iguales
-							coin = 1; // cambiamos el valor de la variable
+	async.each(datos, function (dato, callback) {
+			elemento.getElementos(dato, function (error, data) {
+				if (typeof data !== "undefined" && data.length > 0) {
+					for (var i = data.length - 1; i >= 0; i--) { // recorremos la data 
+						var res = data[i].idElemento; // almacenamos el id del elemento
+						var coin = 0; // declaramos una variable para saber y encontro o no
+						for (var j = coincidencias.length - 1; j >= 0; j--) { // recorremos la coincidencia 
+							var ress = coincidencias[j].idElemento; // asignamos el id de la coincidencia
+							if (res == ress) { // verificamos si son iguales
+								coin = 1; // cambiamos el valor de la variable
 
+							} // fin del if
+
+						} // fin del for coincidencia
+
+						if (coin == 0) { // verificamos si la variable no cambio de dato
+							if (coincidencias.length < limit) {
+								coincidencias = coincidencias.concat(data[i]);
+							} // concatenamos data con coincidencias
 						} // fin del if
 
-					} // fin del for coincidencia
+					} // fin del for data*/
+					callback();
+					//console.log(coincidencias);
+				} else
+					callback();
+			});
+		},
+		function (err) {
+			if (err)
+				res.status(500);
+			else {
+				if (coincidencias.length < limit) {
+					async.each(datoIncat, function (dato, callback) {
 
-					if (coin == 0) { // verificamos si la variable no cambio de dato
-						if (coincidencias.length < limit) {
-							coincidencias = coincidencias.concat(data[i]);
-						} // concatenamos data con coincidencias
-					} // fin del if
+							elemento.getElementosIncat(dato, function (error, data) {
+								if (typeof data !== "undefined" && data.length > 0) {
+									for (var i = data.length - 1; i >= 0; i--) { // recorremos la data 
+										var res = data[i].idElemento; // almacenamos el id del elemento
+										var coin = 0; // declaramos una variable para saber y encontro o no
+										for (var j = coincidencias.length - 1; j >= 0; j--) { // recorremos la coincidencia 
+											var ress = coincidencias[j].idElemento; // asignamos el id de la coincidencia
+											if (res == ress) { // verificamos si son iguales
+												coin = 1; // cambiamos el valor de la variable
 
-				} // fin del for data*/
-				callback();
-				//console.log(coincidencias);
-			} else
-				callback();
-		});
-	},
-	function(err) {
-		if (err)
-			res.status(500);
-		else {
-			if (coincidencias.length < limit) {
-				async.each(datoIncat, function(dato, callback) {
+											} // fin del if
 
-					elemento.getElementosIncat(dato, function(error, data) {
-						if (typeof data !== "undefined" && data.length > 0) {
-							for (var i = data.length - 1; i >= 0; i--) { // recorremos la data 
-								var res = data[i].idElemento; // almacenamos el id del elemento
-								var coin = 0; // declaramos una variable para saber y encontro o no
-								for (var j = coincidencias.length - 1; j >= 0; j--) { // recorremos la coincidencia 
-									var ress = coincidencias[j].idElemento; // asignamos el id de la coincidencia
-									if (res == ress) { // verificamos si son iguales
-										coin = 1; // cambiamos el valor de la variable
+										} // fin del for coincidencia
 
-									} // fin del if
+										if (coin == 0) { // verificamos si la variable no cambio de dato
 
-								} // fin del for coincidencia
+											coincidencias = coincidencias.concat(data[i]); // concatenamos data con coincidencias
+										} // fin del if
 
-								if (coin == 0) { // verificamos si la variable no cambio de dato
+									} // fin del for data*/
 
-									coincidencias = coincidencias.concat(data[i]); // concatenamos data con coincidencias
-								} // fin del if
+									callback();
 
-							} // fin del for data*/
+								} else
+									callback();
 
-							callback();
+							});
 
-						} else
-							callback();
+						},
+						function (err) {
+							if (err)
+								res.status(500);
+							else {
 
-					});
+								res.json(coincidencias);
+							}
+						});
+				} else {
+					res.json(coincidencias);
 
-				},
-				function(err) {
-					if (err)
-						res.status(500);
-					else {
+				}
 
-						res.json(coincidencias);
-					}
-				});
-			} else {
-				res.json(coincidencias);
 
 			}
-
-
-		}
-	});
+		});
 };
- 
-exports.listaSegunTagCat = function(req, res) {
 
-	const tags      = req.body.tags ? req.body.tags : [];
+exports.listaSegunTagCat = function (req, res) {
+
+	const tags = req.body.tags ? req.body.tags : [];
 	const categoria = req.body.categoria;
-	const limit     = req.body.limit ? req.body.limit : 4;
-	const ids       = req.body.ids ? req.body.ids : [0];
+	const limit = req.body.limit ? req.body.limit : 4;
+	const ids = req.body.ids ? req.body.ids : [0];
 
-	etiqueta.Analizar(tags, (err, arr) => {
-		
+	let normalize = (() => {
+		const from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
+			to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
+			mapping = {};
+
+		for (let i = 0, j = from.length; i < j; i++)
+			mapping[from.charAt(i)] = to.charAt(i);
+
+		return (str) => {
+			let ret = [];
+			for (var i = 0, j = str.length; i < j; i++) {
+				let c = str.charAt(i);
+				if (mapping.hasOwnProperty(str.charAt(i)))
+					ret.push(mapping[c]);
+				else
+					ret.push(c);
+			}
+			return ret.join('');
+		}
+	})();
+
+	let tagsNormalize = [];
+
+	tags.forEach(el => tagsNormalize.push(normalize(el.toLowerCase())));
+
+	etiqueta.Analizar(tagsNormalize, (err, arr) => {
+
 		// Aqui se registran las busquedas
 
 		ids.forEach(ele => {
@@ -123,7 +148,7 @@ exports.listaSegunTagCat = function(req, res) {
 			if (index !== -1) arr.splice(index, 1);
 		});
 
-		if(!arr.length){
+		if (!arr.length) {
 			arr = [0];
 		}
 
@@ -145,11 +170,11 @@ exports.listaSegunTagCat = function(req, res) {
 				}
 			}
 
-			if(elementos.length < limit) { 
+			if (elementos.length < limit) {
 
-				elemento.getElementosIncat([categoria,'ICONO'], (error, data) => {
+				elemento.getElementosIncat([categoria, 'ICONO'], (error, data) => {
 					if (typeof data !== "undefined" && data.length > 0) {
-						
+
 						for (let i = data.length - 1; i >= 0; i--) {
 							let id = data[i].idElemento;
 							let into = 0;
@@ -159,19 +184,21 @@ exports.listaSegunTagCat = function(req, res) {
 									into = 1;
 								}
 							}
-			
+
 							if (into == 0 && elementos.length < limit) {
 								elementos = elementos.concat(data[i]);
 							}
 						}
-						
+
 						res.status(200).json(elementos);
-					}else {
-						res.status(404).json({"msg": "No Encontrado2"});
+					} else {
+						res.status(404).json({
+							"msg": "No Encontrado2"
+						});
 					}
 				});
-			
-			}else {
+
+			} else {
 				res.status(200).json(elementos);
 			}
 
@@ -181,12 +208,12 @@ exports.listaSegunTagCat = function(req, res) {
 
 };
 
-exports.listaElemCat = function(req, res) {
+exports.listaElemCat = function (req, res) {
 
 	var cat = [req.body.idCategoria, req.body.tipo];
 
 
-	elemento.getElementosIncat(cat, function(error, data) {
+	elemento.getElementosIncat(cat, function (error, data) {
 
 		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
@@ -201,12 +228,12 @@ exports.listaElemCat = function(req, res) {
 
 };
 
-exports.listaElemCategoria = function(req, res) {
+exports.listaElemCategoria = function (req, res) {
 
 	var cat = [req.body.idCategoria, req.body.tipo];
 
 
-	elemento.getElementosIncat(cat, function(error, data) {
+	elemento.getElementosIncat(cat, function (error, data) {
 
 		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
@@ -221,12 +248,12 @@ exports.listaElemCategoria = function(req, res) {
 
 };
 
-exports.ListaIniciales = function(req, res) {
+exports.ListaIniciales = function (req, res) {
 
 	var cat = ["Iniciales", req.body.inicial.toLowerCase()];
 
 
-	elemento.getIniciales(cat, function(error, data) {
+	elemento.getIniciales(cat, function (error, data) {
 
 		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
@@ -240,29 +267,31 @@ exports.ListaIniciales = function(req, res) {
 	});
 };
 
-exports.ListarFuentes = function(req, res) {
+exports.ListarFuentes = function (req, res) {
 
-	elemento.ListarFuentes(function(error, data) {
+	elemento.ListarFuentes(function (error, data) {
 
 		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
 		}
 		//no existe
 		else {
-			res.status(404).json({ "msg": "No Encontrado" });
+			res.status(404).json({
+				"msg": "No Encontrado"
+			});
 		}
 	});
 
 };
 
-exports.nuevoElementoIcono = function(req, res) {
+exports.nuevoElementoIcono = function (req, res) {
 	/*console.log(req.body);*/
 	/*console.log(req.files);*/
 	var datoPrefe = req.body.datoPrefe;
 	var svg_path = req.files.misvg.path;
 	var tiposvg = req.files.misvg.type;
 	if (tiposvg == "image/svg+xml") {
-		fs.readFile(svg_path, function(error, contenido) {
+		fs.readFile(svg_path, function (error, contenido) {
 			var str = (contenido.toString());
 			var dd = "<svg" + str.split("<svg")[1];
 			var dd2 = base64.encode(dd.replace("xmlns=", "width=\"100%\" xmlns="));
@@ -277,7 +306,7 @@ exports.nuevoElementoIcono = function(req, res) {
 				categorias_idCategoria: req.body.categoria
 			};
 
-			elemento.insertElemento(elem, function(error, data) {
+			elemento.insertElemento(elem, function (error, data) {
 				//si el pedido existe 
 				if (data && data.insertId) {
 
@@ -288,7 +317,7 @@ exports.nuevoElementoIcono = function(req, res) {
 							valor: datoPrefe[x].valor
 						};
 
-						elemento.getElementosInpref(elecat, function(error) {
+						elemento.getElementosInpref(elecat, function (error) {
 
 							if (error) {
 								res.status(500).json(error);
@@ -315,7 +344,7 @@ exports.nuevoElementoIcono = function(req, res) {
 	}
 };
 
-exports.nuevoElementoFuente = function(req, res) {
+exports.nuevoElementoFuente = function (req, res) {
 	//var tmp_path = req.files.mifuente.name;
 	var datoPrefe = req.body.datoPrefe;
 	var tmp_path = req.files.mifuente.path;
@@ -333,8 +362,8 @@ exports.nuevoElementoFuente = function(req, res) {
 
 		var nombrefuente = req.files.mifuente.name;
 		var targer_path = "/fuentes/" + nombrefuente;
-		fs.rename(tmp_path, "." + targer_path, function() {
-			fs.unlink(tmp_path, function() {
+		fs.rename(tmp_path, "." + targer_path, function () {
+			fs.unlink(tmp_path, function () {
 
 				var fuente = {
 					idElemento: null,
@@ -347,7 +376,7 @@ exports.nuevoElementoFuente = function(req, res) {
 					categorias_idcategoria: req.body.categoria
 				};
 
-				elemento.insertFuente(fuente, function(error, data) {
+				elemento.insertFuente(fuente, function (error, data) {
 
 					if (data && data.insertId) {
 
@@ -358,7 +387,7 @@ exports.nuevoElementoFuente = function(req, res) {
 								valor: datoPrefe[x].valor
 							};
 
-							elemento.getElementosInpref(elecat, function(error) {
+							elemento.getElementosInpref(elecat, function (error) {
 
 								if (error) {
 									res.status(500).json(error);
@@ -386,7 +415,7 @@ exports.nuevoElementoFuente = function(req, res) {
 };
 
 
-exports.ModificarPreferencias = function(req, res) {
+exports.ModificarPreferencias = function (req, res) {
 	for (var x in req.datoPrefe) {
 
 		var eleCat = {
@@ -395,7 +424,7 @@ exports.ModificarPreferencias = function(req, res) {
 			preferencias_idPreferencia: req.datoPrefe[x].idPreferencia,
 		};
 
-		elemento.ModificarPreferencias(eleCat, function(error) {
+		elemento.ModificarPreferencias(eleCat, function (error) {
 
 			if (error) {
 				res.status(500).json(error);
@@ -406,5 +435,7 @@ exports.ModificarPreferencias = function(req, res) {
 
 	}
 
-	res.status(200).json({ "result": "Todo bien" });
+	res.status(200).json({
+		"result": "Todo bien"
+	});
 };
