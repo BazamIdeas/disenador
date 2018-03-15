@@ -1,11 +1,7 @@
 angular.module("disenador-de-logos")
 
 	.value("coloresValue",[
-		["#FFFFFF","#HHHSHA", "#AAAAAA"],
-		["#FFFFFF","#HHHSHA", "#AAAAAA"],
-		["#FFFFFF","#HHHSHA", "#AAAAAA"],
-		["#FFFFFF","#HHHSHA", "#AAAAAA"],
-		["#FFFFFF","#HHHSHA", "#AAAAAA"]
+		["#6597fe","#ff0000", "#ffee00"]
 	])
 	
 	.factory("coloresFactory", ["coloresValue", function(coloresValue){
@@ -18,21 +14,26 @@ angular.module("disenador-de-logos")
 
 			angular.forEach(coloresCopia, function(color){
 
-				var limite = 2;
+				var limite = 3;
 				var base = 0;
-				var indice;
-
-				while(colores.length < 3){
+				var i;
+				
+				var continuar = true;
+			
+				while(continuar){
 					
-					indice = Math.floor(Math.random() * limite) + base;
-
-					if(!colores[indice]){
-						colores[indice] = color;
+					i = Math.floor(Math.random() * limite) + base;
+					
+					if(!colores[i]){
+						colores[i] = color;
+						return;
 					} 
-
+					
 				}
-	
+				
 			});
+
+			return colores;
 
 		};
 		
@@ -320,16 +321,13 @@ angular.module("disenador-de-logos")
 
 			$http.post("/app/categorias", {
 				tipo: tipo
-			}).then(function (res) {
-
-				defered.resolve(res.data);
-
-
-			}).catch(function () {
-
-				defered.reject();
-
-			});
+			})
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function () {
+					defered.reject();
+				});
 
 			return promise;
 
@@ -346,16 +344,13 @@ angular.module("disenador-de-logos")
 			$http.post("/app/elementos/categorias", {
 				idCategoria: idCategoria,
 				tipo: tipo
-			}).then(function (res) {
-
-				defered.resolve(res.data);
-
-
-			}).catch(function () {
-
-				defered.reject();
-
-			});
+			})
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function () {
+					defered.reject();
+				});
 
 			return promise;
 

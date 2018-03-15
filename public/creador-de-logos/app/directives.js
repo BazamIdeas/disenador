@@ -4,13 +4,19 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "AE",
 			scope: {
+				icono: "<",
+				texto: "<",
+				colorTexto: "<colorTexto",
+				colorIcono: "<colorIcono",
+				fuente: "<",
+				url: "<",
 				callback: "="
 			},
 			link: function (scope, element, attributes) {
 
-				fontService.preparar(attributes.fuente, attributes.url)
+				fontService.preparar(scope.fuente, scope.url)
 
-					.then(function(res){
+					.then(function(){
 						
 						var tamanoBase = 200;
 
@@ -18,7 +24,7 @@ angular.module("disenador-de-logos")
 						//////Insertamos el SVG del icono dentro del SVG padre//////
 						////////////////////////////////////////////////////////////
 
-						element[0].innerHTML = "<svg  viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'>" + attributes.icono + "</svg>";
+						element[0].innerHTML = "<svg  viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'>" + scope.icono + "</svg>";
 	
 						var svgIcono = element[0].children[0].children[0];
 
@@ -32,7 +38,7 @@ angular.module("disenador-de-logos")
 
 						texto.setAttributeNS(null, "x", (tamanoBase / 2));
 
-						var textoNode = document.createTextNode(attributes.texto);
+						var textoNode = document.createTextNode(scope.texto);
 
 						texto.appendChild(textoNode);
 
@@ -42,12 +48,12 @@ angular.module("disenador-de-logos")
 
 						svgTexto.style.fontSize = (tamanoBase / 2) + "px";
 
-						if(attributes.color){
-							svgTexto.style.fill = attributes.color;
+						if(scope.colorTexto){
+							svgTexto.style.fill = scope.colorTexto;
 						}
 
 						svgTexto.setAttribute("text-anchor", "middle");
-						svgTexto.setAttribute("font-family", attributes.fuente);
+						svgTexto.setAttribute("font-family", scope.fuente);
 
 						//////////////////////////////////////////////////////////////////////
 						////ajustamos el tamaño del texto en relacion al tamaño del icono/////
@@ -92,6 +98,8 @@ angular.module("disenador-de-logos")
 
 						}
 						
+						svgIcono.setAttribute("fill", scope.colorIcono);
+
 						$timeout(function() {
 							scope.callback = element[0].innerHTML;
 						}, 1000);

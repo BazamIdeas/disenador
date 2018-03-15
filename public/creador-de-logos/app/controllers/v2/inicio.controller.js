@@ -16,6 +16,7 @@ angular.module("disenador-de-logos")
 				fuente: ""
 			},
 			tags: [],
+			colores: 0
 
 		};
 
@@ -97,7 +98,7 @@ angular.module("disenador-de-logos")
 					ids: bz.iconos
 				};
 				*/
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial,bz.datos.categoria.icono, bz.iconos, 4) : elementosService.listarIconosSegunTags(bz.datos.tags);
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(bz.datos.tags, bz.datos.categoria.icono, bz.iconos, 4);
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
@@ -106,23 +107,24 @@ angular.module("disenador-de-logos")
 				])
 					.then(function (res) {
 
-						angular.forEach(res[0], function(icono, indice){
+						angular.forEach(res[0], function(icono){
 							bz.iconos.push(icono.idElemento);
-						})
+						});
 
+						bz.combinar(res[0], res[1]);
 						/*
 						$state.go("principal.opciones", {
 							status: true
 						});
 						*/
 
-						bz.combinar(res[0], res[1]);
-
-					}).catch(function () {
+					})
+					.catch(function () {
 
 						//$state.go('comenzar')
 
-					}).finally(function () {
+					})
+					.finally(function () {
 
 						bz.completado = true;
 
@@ -169,10 +171,9 @@ angular.module("disenador-de-logos")
 			while(cantidadLogos){
 
 				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0 
-
-				bz.logos.push(logos[indiceRandom])
-				logos.splice(indiceRandom, 1)
-				cantidadLogos--
+				bz.logos.push(logos[indiceRandom]);
+				logos.splice(indiceRandom, 1);
+				cantidadLogos--;
 			}
 			
 			
