@@ -72,7 +72,7 @@
         <div class="contenedor-principal col l8" style="overflow: scroll;">
             <div class="row">
                 <div class="col l3" style="position: relative" ng-repeat="logo in inicio.logos" ng-click="inicio.logoElegido = {svg: logo.cargado, id: $index}" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
-                    <bazam-svg-text icono='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado" color-texto="logo.colores[1]" color-icono="logo.colores[0]"></bazam-svg-text>
+                    <bazam-svg-text icono='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado" color-texto="logo.colores[1]" color-icono="logo.colores[2]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
                     <button ng-if="inicio.logoElegido.id == $index" style="position: absolute; top: 0px; left: 0px;" ng-click="inicio.preAvanzar($index, logo.icono.color)">Editar</button>
