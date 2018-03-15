@@ -47,62 +47,36 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				name: "inicio",
 				url: "/",
 				templateUrl: "app/views/v2/inicio.tpl",
-				controller: "inicioController as inicio"
-			})
-
-		/*
-			.state({
-				name: "principal",
-				url: "/comenzar",
-				templateUrl: "app/views/v2/principal.tpl",
-				controller: "principalController as principal",
-				abstract: true
-			})
-
-			.state({
-				name: "principal.comenzar",
-				url: "/?id&?n",
-				templateUrl: "app/views/v2/principal.comenzar.tpl",
-				controller: "principalComenzarController as principalComenzar"
-			})
-
-			.state({
-				name: "principal.opciones",
-				url: "/opciones/",
-				templateUrl: "app/views/v2/principal.opciones.tpl",
-				controller: "principalOpcionesController as principalOpciones",
-				params: {
-					status: null
-				},
+				controller: "inicioController as inicio",
 				resolve: {
-					statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
+					landingResolve: ["LS", function(LS){
 
-						return $stateParams.status || $q.reject("STEPS");
+						var datosLanding = LS.obtener("comenzar");
+						
+						if(datosLanding){
+							/*
+							return {busqueda:{
+								nombre: datosLanding.nombre,
+								categoria: {
+									icono: datosLanding.id,
+									fuente: ""
+								},
+								tags: [],
+								colores: [
+									["#6597fe","#ff0000", "#80ff00"],
+									["#3366ff","#00ffff", "#ffee00"],
+									["#ffff80","#e600e6", "#ff6600"],
+									["#999966","#ff9900", "#b30059"],
+								]
+							}
+							*/
+							};
+						}
 
+						return false;
 					}]
-
 				}
 			})
-			
-			.state({
-				name: "principal.combinaciones",
-				url: "/combinaciones/",
-				templateUrl: "app/views/v2/principal.combinaciones.tpl",
-
-				controller: "principalCombinacionesController as principalCombinaciones",
-				params: {
-					status: null
-				},
-				resolve: {
-					statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
-
-						return $stateParams.status || $q.reject("STEPS");
-
-					}]
-
-				}
-			})
-			*/
 			.state({
 				name: "editor",
 				url: "/editor/",

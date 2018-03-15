@@ -59,33 +59,6 @@ angular.module("disenador-de-logos")
 			})
 			.catch(function(){});
 
-		/*
-
-		preferenciasService.listaPreferencias().then(function (res) {
-
-			angular.forEach(res, function (valor) {
-				valor.valor = 2;
-				bz.datos.preferencias.push(valor);
-
-			});
-
-		});
-
-        
-
-		bz.botonesTipo = [{
-			nombre: "Logo y nombre",
-			activo: true
-		}, {
-			nombre: "Tipografico",
-			activo: true
-		}, {
-			nombre: "Solo nombre",
-			activo: true
-		}];
-
-        */
-
 
 		bz.completado = true;
 
@@ -94,15 +67,7 @@ angular.module("disenador-de-logos")
 			if (bz.datosForm.$valid && bz.completado) {
 
 				bz.completado = false;
-				/*
-				bz.datosIconos = {
-					categoria: bz.datos.categoria.icono,
-					preferencias: bz.datos.preferencias,
-					tipo: "ICONO",
-					limit: 4,
-					ids: bz.iconos
-				};
-				*/
+				
 				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(bz.datos.tags, bz.datos.categoria.icono, bz.iconos, 4);
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
@@ -117,16 +82,10 @@ angular.module("disenador-de-logos")
 						});
 
 						bz.combinar(res[0], res[1]);
-						/*
-						$state.go("principal.opciones", {
-							status: true
-						});
-						*/
+				
 
 					})
 					.catch(function () {
-
-						//$state.go('comenzar')
 
 					})
 					.finally(function () {
@@ -139,37 +98,11 @@ angular.module("disenador-de-logos")
 
 		};
 
-       
-/*
-
-		bz.asignarTipo = function (tipoLogo, iniciales) {
-
-			var inicial = iniciales ? bz.datos.nombre.charAt(0) : false;
-
-			angular.forEach(bz.botonesTipo, function (valor, llave) {
-
-				if (bz.botonesTipo[llave].nombre != tipoLogo.nombre) {
-
-					bz.botonesTipo[llave].activo = false;
-
-				} else {
-
-					bz.botonesTipo[llave].activo = true;
-				}
-
-			});
-
-			bz.solicitarElementos(inicial);
-		};
-*/
-
 
 		bz.combinar = function (iconos, fuentes) {
 
 
 			var logos = crearLogoFactory(iconos, fuentes);
-
-			//var logos = crearLogoFactory([iconos[0], iconos[1], iconos[2], iconos[3], iconos[4]], [fuentes[0], fuentes[1], fuentes[2], fuentes[3], fuentes[4]]);
 
 			var cantidadLogos = logos.length;
 			
@@ -181,13 +114,6 @@ angular.module("disenador-de-logos")
 				cantidadLogos--;
 			}
 			
-			
-
-/*
-			$state.go("principal.combinaciones", {
-				status: true
-			});
-*/
 		};
 
 		bz.preAvanzar = function(indiceLogo, color){
@@ -227,154 +153,5 @@ angular.module("disenador-de-logos")
 			$state.go("editor", datos);
 
 		};
-/*
-
-		bz.seleccionarFuenteCategoria = function (idCategoria) {
-			var fuenteNombre = "futura-heavy";
-
-			angular.forEach(bz.categoriasPosibles.fuentes, function (fuenteCategoria) {
-				if (fuenteCategoria.idCategoria == idCategoria) {
-
-					fuenteNombre = fuenteCategoria.nombreCategoria;
-				}
-			});
-
-			return fuenteNombre;
-		};
-
-
-
-		////////////////////
-		////prediseñados////
-		////////////////////
-
-
-		logosService.mostrarDestacados()
-			.then(function (res) {
-
-				bz.aprobados = res;
-
-			})
-			.catch(function () {
-
-			})
-			.finally(function () {
-
-				if (!bz.aprobados.length) {
-
-					logosService.mostrarAprobados()
-						.then(function (res) {
-
-							bz.aprobados = res;
-
-						})
-						.catch(function () {
-
-						})
-						.finally(function () {
-
-						});
-
-				}
-
-			});
-
-		bz.completadoCarga = true;
-
-		bz.cargarMas = function (logo) {
-
-			if (bz.completadoCarga) {
-
-				bz.completadoCarga = false;
-
-				var idLogo = logo.destacados ? false : logo.idLogo;
-
-				logosService.mostrarAprobados(idLogo).then(function (res) {
-
-					angular.forEach(res, function (valor) {
-
-						bz.aprobados.push(valor);
-                        
-					});
-
-				}).catch(function () {
-
-				}).finally(function () {
-
-					bz.completadoCarga = true;
-
-				});
-
-			}
-
-		};
-
-		bz.buscarAtributo = function (lista, objetivo) {
-
-			var idFuente = null;
-
-			angular.forEach(lista, function (atributo) {
-
-				if (atributo.clave == objetivo) {
-
-					idFuente = atributo.valor;
-
-				}
-
-			});
-
-			return idFuente;
-		};
-
-		bz.preAvanzarPredisenado = function(indiceLogo){
-			bz.predisenadoSeleccionado = indiceLogo;
-
-			if (!clientesService.autorizado()) {
-
-				bz.mostrarModalLogin = true;
-				bz.callback = bz.avanzarPredisenado;
-
-			} else{
-
-				bz.avanzarPredisenado();
-
-			}
-
-		};
-
-		bz.avanzarPredisenado = function (indiceLogo) {
 		
-			var aprobado = null;
-
-			angular.forEach(bz.aprobados, function (valor) {
-
-				if (valor.idLogo == bz.predisenadoSeleccionado) {
-					aprobado = valor;
-				}
-
-			});
-
-			if (aprobado) {
-				$state.go("editor", {
-					status: true,
-					datos: {
-						logo: {
-							icono: {
-								idElemento: aprobado.elementos_idElemento,
-								svg: aprobado.logo
-							}
-						},
-						idLogoPadre: aprobado.idLogo,
-						fuentes: {
-							principal: bz.buscarAtributo(aprobado.atributos, "principal"),
-							eslogan: bz.buscarAtributo(aprobado.atributos, "eslogan")
-						}
-					}
-				});
-			}
-
-			
-
-		}; 
-         */
 	}]);
