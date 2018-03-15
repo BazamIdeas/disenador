@@ -69,7 +69,7 @@
             </div>
         </form>
 
-        <div class="contenedor-principal col l8" style="overflow: scroll;">
+        <div class="contenedor-principal col l7" style="overflow: scroll;">
             <div class="row">
                 <div class="col l3" style="position: relative" ng-repeat="logo in inicio.logos" ng-click="inicio.logoElegido = {svg: logo.cargado, id: $index}" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
                     <bazam-svg-text icono='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado" color-texto="logo.colores[1]" color-icono="logo.colores[0]"></bazam-svg-text>
@@ -83,11 +83,99 @@
                
         </div>
 
-        <div class="col l2" style="background-color: white; padding-top: 10px !important; max-height: calc(100vh - 9rem); overflow-y: auto; position: relative; height: 100%; margin: 0 0;">
+        <div class="col l3" style="background-color: white; padding: 0px !important; max-height: calc(100vh - 9rem); overflow-y: auto; position: relative; height: 100%; margin: 0 0;">
             <div ng-if="!inicio.logoElegido">Preview</div>
-            <div ng-if="inicio.logoElegido">
-                <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
-            </div>
+            <div class="row padding-bottom-0 margin-bottom-0" ng-if="inicio.logoElegido">
+                <div class="col s12" style="padding:0">
+                    
+                    <div style="position: relative;">
+                        <div style="width: 25%;position: absolute;left: calc(40% - 23%);top: 32%;transform: rotate(-48deg);">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <div style="width: 25%;position: absolute;left: calc(93% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(100%) invert(80%) contrast(100%);">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <img src="assets/images/mockups/tarjeta.png" width="100%">
+                    </div>
+                </div>
+                <div class="col s12" style="padding:0">
+                    
+                    <div style="position: relative;">
+                        <div style="width: 30.5%;position: absolute;left: calc(54% - 18%);top: 30%;">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <img src="assets/images/mockups/camiseta.jpg" width="100%">
+                    </div>
+                </div>
+                <div class="col s12" style="padding:0">
+                    
+                    <div style="position: relative;">
+                        <div style="width: 30%;position: absolute;left: calc(28% - 18%);top: 6%;opacity: 0.9;filter: grayscale(1);">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <div style="width: 23%;position: absolute;left: calc(85% - 18%);top: 72%;filter: grayscale(1);opacity: 0.8;">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <img src="assets/images/mockups/sobre.jpg" width="100%">
+                    </div>
+                </div>
+                <div class="col s12" style="padding:0">
+                    
+                    <div style="position: relative;">
+                        <div style="width: 14%;position: absolute;left: calc(66% - 18%);top: 32%;">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <div style="width: 8%;position: absolute;left: calc(43.5% - 18%);top: 32%;">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <div style="width: 8%;position: absolute;left: calc(43.5% - 18%);top: 62%;">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <img src="assets/images/mockups/red.jpg" width="100%">
+                    </div>
+                </div>
+
+                <div class="col s12" style="padding:0">
+                    
+                    <div style="position: relative;">
+                        <div style="width: 22%;position: absolute;left: calc(73% - 18%);top: 30%;filter: blur(0.4px) grayscale(0.5);">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <img src="assets/images/mockups/camioneta.jpg" width="100%">
+                    </div>
+                </div>
+                
+                <div class="col s12" style="padding:0">
+                    
+                    <div style="position: relative;">
+                        <div style="width: 43%;position: absolute;left: calc(52% - 18%);top: 34%;filter: blur(0.6px) grayscale(0.5);opacity: 0.8;">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <img src="assets/images/mockups/taza.jpg" width="100%">
+                    </div>
+                </div>
+
+                <div class="col s12" style="padding:0">
+                    
+                    <div style="position: relative;">
+                        <div style="width: 33%;position: absolute;left: calc(50% - 18%);top: 17.5%;opacity: 0.9;">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <img src="assets/images/mockups/envase.jpg" width="100%">
+                    </div>
+                </div>
+
+                <div class="col s12" style="padding:0">
+                    
+                    <div style="position: relative;">
+                        <div style="width: 40%;position: absolute;left: calc(47.7% - 18%);top: 46%;transform: rotate(89deg);filter: grayscale(100%) contrast(50%);">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                        </div>
+                        <img src="assets/images/mockups/etiqueta.jpg" width="100%">
+                    </div>
+                </div>
+                
+            </div>		
         </div>
 
     </div>
