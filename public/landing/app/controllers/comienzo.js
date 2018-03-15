@@ -18,10 +18,8 @@ angular.module("landing")
 			iconos: [],
 			colores: [
 				['#FA198B', '#B91372', '#6B0F1A'],
-				['#FA198B', '#B91372', '#6B0F1A'],
-				['#FA198B', '#B91372', '#6B0F1A'],
-				['#FA198B', '#B91372', '#6B0F1A'],
-				['#FA198B', '#B91372', '#6B0F1A']
+				['#B91372', '#B91372', '#6B0F1A'],
+				['#6B0F1A', '#B91372', '#6B0F1A']
 			]
 		};
 		bz.datosCombinaciones = {
@@ -86,13 +84,15 @@ angular.module("landing")
 					tags: datos.etiquetasParaBusqueda,
 					categoria: datos.idCategoria,
 					preferencias: datos.preferencias,
-					tipo: "ICONO"
+					tipo: "ICONO",
+					limit: 4
 				};
 
 				bz.datosFuentes = {
 					categoria: datos.idFuente,
 					preferencias: datos.preferencias,
-					tipo: "FUENTE"
+					tipo: "FUENTE",
+					limit: 4
 				};
 
 				var promesaIconos = inicial ? elementosService.listarIniciales(inicial, bz.datosIconos) : elementosService.listarIconosSegunTags(bz.datosIconos);

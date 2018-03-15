@@ -22,8 +22,8 @@
 
                     <md-input-container class="md-block ">
                         <label>Colores</label>
-                        <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.colores" multiple class="md-block " aria-label="filtro" name="color"
-                            required>
+                        <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.colores" multiple class="md-block selector-de-colores" aria-label="filtro"
+                            name="color" required>
                             <md-optgroup label="Colores">
                                 <md-option ng-value="item" class="estilo-de-color" ng-value="item" ng-repeat="item in ctrl.categoriasPosibles.colores">
                                     <span style="background:{{item[0]}}; color:transparent;">{{item[0]}}</span>
@@ -49,7 +49,7 @@
                             <md-radio-group name="font " required ng-model="ctrl.datosCombinaciones.idFuente " class="md-primary ">
                                 <md-radio-button ng-repeat="estilo in ctrl.categoriasPosibles.fuentes " ng-value="estilo.idCategoria
                                         " ng-disabled=" d.isDisabled ">
-                                    <md-tooltip md-direction="top">{{estilo.nombreCategoria}}}</md-tooltip>
+                                    <md-tooltip md-direction="top">{{estilo.nombreCategoria}}</md-tooltip>
                                     <span class="estilo " ng-class="{'amatic':estilo.nombreCategoria == 'Clásicas', 'niconne':estilo.nombreCategoria == 'Moderna', 'julee':estilo.nombreCategoria == 'Llamativas', 'cabin':estilo.nombreCategoria == 'Minimalista'}">A</span>
                                 </md-radio-button>
                             </md-radio-group>

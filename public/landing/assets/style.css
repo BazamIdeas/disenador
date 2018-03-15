@@ -333,6 +333,14 @@ span.estilo.seleccionado {
     width: 100%;
 }
 
+.selector-de-colores md-select-value {
+    color: transparent;
+}
+
+md-select-value .md-text>:first-child {
+    width: 100%;
+}
+
 .seccion.uno form label,
 .seccion.uno form md-select,
 .seccion.uno form input {
