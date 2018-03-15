@@ -17,11 +17,10 @@ angular.module("landing")
 			fuentes: [],
 			iconos: [],
 			colores: [
-				['#FA198B', '#B91372', '#6B0F1A'],
-				['#FA198B', '#B91372', '#6B0F1A'],
-				['#FA198B', '#B91372', '#6B0F1A'],
-				['#FA198B', '#B91372', '#6B0F1A'],
-				['#FA198B', '#B91372', '#6B0F1A']
+				["#6597fe","#ff0000", "#80ff00"],
+				["#3366ff","#00ffff", "#ffee00"],
+				["#ffff80","#e600e6", "#ff6600"],
+				["#999966","#ff9900", "#b30059"],
 			]
 		};
 		bz.datosCombinaciones = {
