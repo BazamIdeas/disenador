@@ -54,22 +54,19 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 						var datosLanding = LS.obtener("comenzar");
 						
 						if(datosLanding){
-							/*
-							return {busqueda:{
-								nombre: datosLanding.nombre,
-								categoria: {
-									icono: datosLanding.id,
-									fuente: ""
+							
+							return {
+								datos:{
+									nombre: datosLanding.nombre,
+									categoria: {
+										icono: datosLanding.idCategoria,
+										fuente: datosLanding.idFuente
+									},
+									tags: datosLanding.etiquetasParaBusqueda,
+									colores: datosLanding.colores
 								},
-								tags: [],
-								colores: [
-									["#6597fe","#ff0000", "#80ff00"],
-									["#3366ff","#00ffff", "#ffee00"],
-									["#ffff80","#e600e6", "#ff6600"],
-									["#999966","#ff9900", "#b30059"],
-								]
-							}
-							*/
+								iconos: datosLanding.iconos,
+								fuentes: datosLanding.fuentes
 							};
 						}
 

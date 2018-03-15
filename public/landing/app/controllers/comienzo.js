@@ -107,12 +107,12 @@ angular.module("landing")
 						datos.iconos = res[0];
 						datos.fuentes = res[1];
 
-						LS.definir('comenzar', datosAenviar);
+						LS.definir('comenzar', datos);
 
 						if (!v) return;
 
 						navegarFactory.cliente(false, {
-							n: datosAenviar.nombre
+							n: datos.nombre
 						});
 
 

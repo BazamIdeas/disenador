@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve",function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve) {
 
 		var bz = this;
 
@@ -8,7 +8,7 @@ angular.module("disenador-de-logos")
 
 		bz.obtenerColores = coloresFactory;
 
-		bz.datos = {
+		bz.datos = landingResolve ? landingResolve.datos : {
 			nombre: "Mi logo",
 			preferencias: [],
 			categoria: {
@@ -16,12 +16,7 @@ angular.module("disenador-de-logos")
 				fuente: ""
 			},
 			tags: [],
-			colores: [
-				["#6597fe","#ff0000", "#80ff00"],
-				["#3366ff","#00ffff", "#ffee00"],
-				["#ffff80","#e600e6", "#ff6600"],
-				["#999966","#ff9900", "#b30059"],
-			]
+			colores: []
 
 		};
 
@@ -153,5 +148,5 @@ angular.module("disenador-de-logos")
 			$state.go("editor", datos);
 
 		};
-		
+
 	}]);
