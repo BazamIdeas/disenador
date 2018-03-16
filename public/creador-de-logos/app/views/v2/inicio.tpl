@@ -55,21 +55,20 @@
                 </div>
 
                 <div>
-                    <md-input-container style="width:100%; padding: 0 0.75rem" bazam-ayuda data-titulo="Categoria" data-texto="Seleccione la categoria o actividad de su empresa u ocupación"
+                    <md-input-container style="width:100%" bazam-ayuda data-titulo="Categoria" data-texto="Seleccione la categoria o actividad de su empresa u ocupación"
                         data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                         bazam-pasos-ayuda>
-                        <md-select ng-model="inicio.datos.categoria.icono" placeholder="Categoria" required>
+                        <md-select style="width:100%" ng-model="inicio.datos.categoria.icono" placeholder="Categoria" required>
                             <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
                         </md-select>
                     </md-input-container>
                 </div>
                 <div>
-                    <md-input-container class="md-block " style="width:100%; padding: 0 0.75rem">
-                        <label>Colores</label>
-                        <md-select md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores" aria-label="filtro"
-                            name="color" required>
+                    <md-input-container class="md-block " style="width:100%;">
+                        <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores" aria-label="filtro"
+                            name="color" placeholder="Colores" required>
                             <md-optgroup label="Colores">
-                                <md-option ng-value="color" class="estilo-de-color" ng-repeat="color in inicio.colores" ng-selected="inicio.coloresIguales(color)">
+                                <md-option ng-value="color" class="estilo-de-color" ng-repeat="color in inicio.colores" ng-selected="inicio.coloresIguales(color) || $index == 0">
                                     <span ng-style="{'background-color': color[0]}" style="color:transparent;" class="color-p">{{color[0]}}</span>
                                     <span ng-style="{'background-color': color[1]}">{{color[1]}}</span>
                                     <span ng-style="{'background-color': color[2]}">{{color[2]}}</span>
@@ -109,7 +108,7 @@
 
                 -->
                 <div>
-                    <md-chips md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                    <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                         md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
                         <label>Etiquetas</label>
                         <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
@@ -124,31 +123,40 @@
                     </md-chips>
                     <br/>
                 </div>
-                <div>
+                <div style="text-align: center;">
                     <button class="boton-verde" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "Cargar Más" : "Actualizar"}}</button>
                 </div>
             </div>
         </form>
 
-        <div class="contenedor-principal col l7" style="overflow: scroll;">
-            <div class="row">
-                <div class="col l3" style="position: relative" ng-repeat="logo in inicio.logos" ng-click="inicio.logoElegido = {svg: logo.cargado, id: $index}"
+        <div class="contenedor-principal col l7">
+            <div class="row" style="margin-bottom:0;overflow-y: scroll;height: 100%;">
+                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos" ng-click="inicio.logoElegido = {svg: logo.cargado, id: $index, colores: logo.colores, iconoColor: logo.icono.color}"
                     ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
                     <bazam-svg-text icono='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
                         callback="logo.cargado" color-texto="logo.colores[1]" color-icono="logo.colores[2]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
-                    <button ng-if="inicio.logoElegido.id == $index" style="position: absolute; top: 0px; left: 0px;" ng-click="inicio.preAvanzar($index, logo.icono.color)">Editar</button>
-
                 </div>
 
+            </div>
+              
+            <div class="overlay-combinacion" ng-class="{'open':inicio.logoElegido}">
+                <div ng-style="{'background-color': inicio.logoElegido.colores[0]}">
+                    <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                </div>
+
+                <button ng-if="inicio.logoElegido.id > 0" ng-click="inicio.moverse()" style="left: 9%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_left</i></button>
+                <button ng-if="inicio.logoElegido.id < inicio.logos.length - 1" ng-click="inicio.moverse('siguiente')" style="right: 11%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_right</i></button>
+
+                <button style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 35px;width: 20%;margin: 0;font-size: 25px;padding: 5px;" ng-click="inicio.preAvanzar(inicio.logoElegido.id, inicio.logoElegido.iconoColor)">Editar</button>
+                <button ng-click="inicio.logoElegido = null"><i class="material-icons cerrar">clear</i></button>
             </div>
 
         </div>
 
         <div class="col l3" style="background-color: white; padding: 0px !important; max-height: calc(100vh - 9rem); overflow-y: auto; position: relative; height: 100%; margin: 0 0;">
-            <div ng-if="!inicio.logoElegido">Preview</div>
-            <div class="row padding-bottom-0 margin-bottom-0" ng-if="inicio.logoElegido">
+            <div class="row padding-bottom-0 margin-bottom-0">
                 <div class="col s12" style="padding:0">
 
                     <div style="position: relative;">

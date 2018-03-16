@@ -13,14 +13,14 @@ exports.listaSegunPref = function (req, res) {
 	var x;
 	var limit = req.body.limit ? req.body.limit : 4;
 	for (x in datos2.preferencias) {
-		datos.push([datos2.preferencias[x].idPreferencia, datos2.preferencias[x].valor, datos2.categoria, datos2.tipo]);
+		datos.push([datos2.preferencias[x].idPreferencia, datos2.preferencias[x].valor, datos2.categoria, datos2.tipo, limit]);
 	}
 	//console.log(datos);
 	/*for (x in datos2.preferencias){
         datoIncat.push([datos2.categoria, datos2.tipo])
     }*/
 	datoIncat = [
-		[datos2.categoria, 'FUENTE']
+		[datos2.categoria, 'FUENTE', limit]
 	];
 	//console.log(datos);
 	//console.log(datoIncat);
@@ -59,8 +59,8 @@ exports.listaSegunPref = function (req, res) {
 			else {
 				if (coincidencias.length < limit) {
 					async.each(datoIncat, function (dato, callback) {
-
 							elemento.getElementosIncat(dato, function (error, data) {
+								console.log(data)
 								if (typeof data !== "undefined" && data.length > 0) {
 									for (var i = data.length - 1; i >= 0; i--) { // recorremos la data 
 										var res = data[i].idElemento; // almacenamos el id del elemento
@@ -172,7 +172,7 @@ exports.listaSegunTagCat = function (req, res) {
 
 			if (elementos.length < limit) {
 
-				elemento.getElementosIncat([categoria, 'ICONO'], (error, data) => {
+				elemento.getElementosIncat([categoria, 'ICONO', limit], (error, data) => {
 					if (typeof data !== "undefined" && data.length > 0) {
 
 						for (let i = data.length - 1; i >= 0; i--) {

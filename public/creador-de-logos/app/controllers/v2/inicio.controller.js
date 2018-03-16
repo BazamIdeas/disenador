@@ -64,6 +64,7 @@ angular.module("disenador-de-logos")
 		bz.aprobados = [];
 
 		bz.logoSeleccionado = null;
+		bz.logoElegido = null;
 		bz.predisenadoSeleccionado = null;
 
 		bz.objetivoEditor = null; //posibles valores 'nuevo' o 'predisenado'
@@ -153,6 +154,8 @@ angular.module("disenador-de-logos")
 
 		bz.preAvanzar = function(indiceLogo, color){
 
+console.log(indiceLogo); console.log(color)
+
 			if(indiceLogo){
 				bz.logoSeleccionado = indiceLogo;
 			}
@@ -188,5 +191,18 @@ angular.module("disenador-de-logos")
 			$state.go("editor", datos);
 
 		};
+
+		bz.moverse = function(accion) {
+			console.log(bz.logoElegido)
+			if(accion){
+				if(bz.logos[bz.logoElegido.id+1]){
+					bz.logoElegido = {svg: bz.logos[bz.logoElegido.id+1].cargado, id: bz.logoElegido.id+1, colores: bz.logos[bz.logoElegido.id+1].colores}
+				}
+			} else {
+				if(bz.logos[bz.logoElegido.id-1]){
+					bz.logoElegido = {svg: bz.logos[bz.logoElegido.id-1].cargado, id: bz.logoElegido.id-1, colores: bz.logos[bz.logoElegido.id-1].colores}
+				}
+			}
+		}
 
 	}]);
