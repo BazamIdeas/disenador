@@ -29,7 +29,7 @@ angular.module("disenador-de-logos")
 
 	.factory("coloresFactory", ["coloresValue", function (coloresValue) {
 
-		var obtenerArrayRandom = function (indice) {
+		/*var obtenerArrayRandom = function (indice) {
 
 			var coloresCopia = angular.copy(coloresValue[indice]);
 			var colores = [];
@@ -57,8 +57,7 @@ angular.module("disenador-de-logos")
 
 			return colores;
 
-		};
-		*/
+		};*/
 		var indiceColores = function (coloresBuscados) {
 
 			var indiceBuscado;
