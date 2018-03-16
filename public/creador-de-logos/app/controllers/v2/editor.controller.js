@@ -13,6 +13,7 @@ angular.module("disenador-de-logos")
 		bz.colorTexto = historicoResolve.color || "#000";
 		bz.colorEslogan = "#000";
 		bz.colorIcono = historicoResolve.color || "#000";
+		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
 
