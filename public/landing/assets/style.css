@@ -327,7 +327,19 @@ span.estilo.seleccionado {
     transform: scale(1.1);
 }
 
-.md-select-value>span:not(.md-select-icon) .md-text,
+.seccion.uno form label,
+.seccion.uno form md-select,
+.seccion.uno form input {
+    font-size: 14px;
+}
+
+/* selector de colores */
+.md-select-value>span:not(.md-select-icon) .md-text {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
 .estilo-de-color .md-text {
     display: flex;
     width: 100%;
@@ -339,12 +351,6 @@ span.estilo.seleccionado {
 
 md-select-value .md-text>:first-child {
     width: 100%;
-}
-
-.seccion.uno form label,
-.seccion.uno form md-select,
-.seccion.uno form input {
-    font-size: 14px;
 }
 
 .estilo-de-color .md-text>span {
