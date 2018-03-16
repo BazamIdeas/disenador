@@ -18,6 +18,50 @@
 
 /* END Regular */
 
+@font-face {
+    font-family: 'Amatic';
+    src: url("./fonts/para-mostrar/AmaticSC-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+.amatic {
+    font-family: 'Amatic';
+}
+
+@font-face {
+    font-family: 'Niconne';
+    src: url("./fonts/para-mostrar/Niconne-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+.niconne {
+    font-family: 'Niconne';
+}
+
+@font-face {
+    font-family: 'Julee';
+    src: url("./fonts/para-mostrar/Julee-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+.julee {
+    font-family: 'Julee';
+}
+
+@font-face {
+    font-family: 'Cabin';
+    src: url("./fonts/para-mostrar/Cabin-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+.cabin {
+    font-family: 'Cabin';
+}
+
 /* Estilos generales*/
 
 * {
@@ -265,23 +309,22 @@ md-radio-button[aria-checked="true"] span.estilo {
 }
 
 span.estilo {
-    padding: 11px 16px;
     background: #E4E7E8;
     border: 2px solid var(--secundario);
     color: var(--secundario);
-    font-size: 20px;
+    font-size: 28px;
     transition: all 0.2s;
     border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 span.estilo.seleccionado {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
-}
-
-.md-select-value>span:not(.md-select-icon) .md-text,
-.estilo-de-color .md-text {
-    display: flex;
 }
 
 .seccion.uno form label,
@@ -290,8 +333,28 @@ span.estilo.seleccionado {
     font-size: 14px;
 }
 
+/* selector de colores */
+.md-select-value>span:not(.md-select-icon) .md-text {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.estilo-de-color .md-text {
+    display: flex;
+    width: 100%;
+}
+
+.selector-de-colores md-select-value {
+    color: transparent;
+}
+
+md-select-value .md-text>:first-child {
+    width: 100%;
+}
+
 .estilo-de-color .md-text>span {
-    flex: 1 1 100%;
+    width: 33%;
     padding: 10px;
     color: transparent;
 }

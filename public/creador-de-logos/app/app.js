@@ -47,62 +47,34 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				name: "inicio",
 				url: "/",
 				templateUrl: "app/views/v2/inicio.tpl",
-				controller: "inicioController as inicio"
-			})
-
-		/*
-			.state({
-				name: "principal",
-				url: "/comenzar",
-				templateUrl: "app/views/v2/principal.tpl",
-				controller: "principalController as principal",
-				abstract: true
-			})
-
-			.state({
-				name: "principal.comenzar",
-				url: "/?id&?n",
-				templateUrl: "app/views/v2/principal.comenzar.tpl",
-				controller: "principalComenzarController as principalComenzar"
-			})
-
-			.state({
-				name: "principal.opciones",
-				url: "/opciones/",
-				templateUrl: "app/views/v2/principal.opciones.tpl",
-				controller: "principalOpcionesController as principalOpciones",
-				params: {
-					status: null
-				},
+				controller: "inicioController as inicio",
 				resolve: {
-					statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
+					landingResolve: ["LS", function(LS){
 
-						return $stateParams.status || $q.reject("STEPS");
+						var datosLanding = LS.obtener("comenzar");
+						
+						if(datosLanding){
+							
+							return {
+								datos:{
+									nombre: datosLanding.nombre,
+									categoria: {
+										icono: datosLanding.idCategoria,
+										fuente: datosLanding.idFuente
+									},
+									tags: datosLanding.etiquetasParaBusqueda,
+									colores: datosLanding.colores,
+									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
+								},
+								iconos: datosLanding.iconos,
+								fuentes: datosLanding.fuentes
+							};
+						}
 
+						return false;
 					}]
-
 				}
 			})
-			
-			.state({
-				name: "principal.combinaciones",
-				url: "/combinaciones/",
-				templateUrl: "app/views/v2/principal.combinaciones.tpl",
-
-				controller: "principalCombinacionesController as principalCombinaciones",
-				params: {
-					status: null
-				},
-				resolve: {
-					statusResolve: ["$stateParams", "$q", function ($stateParams, $q) {
-
-						return $stateParams.status || $q.reject("STEPS");
-
-					}]
-
-				}
-			})
-			*/
 			.state({
 				name: "editor",
 				url: "/editor/",

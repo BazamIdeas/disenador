@@ -5,7 +5,6 @@ angular.module("landing")
 		var bz = this;
 
 		/* DATOS */
-
 		bz.navegar = navegarFactory;
 		bz.estaticos = estaticosLandingValue;
 		bz.preAct = 0;
@@ -13,13 +12,18 @@ angular.module("landing")
 		bz.opcionesCarousel = {
 			autoPlay: true,
 			autoplaySpeed: 5000
-		}
+		};
 		bz.categoriasPosibles = {
 			fuentes: [],
 			iconos: [],
-			colores: [{
-				color: ['#FA198B', '#B91372', '#6B0F1A']
-			}]
+			colores: [
+				["#6597fe","#ff0000", "#80ff00"],
+				["#3366ff","#00ffff", "#ffee00"],
+				["#ffff80","#e600e6", "#ff6600"],
+				["#999966","#ff9900", "#b30059"],
+				["#e600e6","#e600e6", "#ff6600"],
+				["#ff9900","#ff9900", "#b30059"]
+			]
 		};
 		bz.datosCombinaciones = {
 			preferencias: [],
@@ -46,6 +50,7 @@ angular.module("landing")
 			bz.etiquetas = etiquetasService.loadEtiquetas(res[0].data);
 			bz.categoriasPosibles.iconos = res[1];
 			bz.categoriasPosibles.fuentes = res[2];
+
 			angular.forEach(res[3], function (valor) {
 				valor.valor = 2;
 				bz.datosCombinaciones.preferencias.push(valor);
@@ -57,14 +62,6 @@ angular.module("landing")
 		})
 
 		/* FUNCIONES */
-
-		/* ETIQUETAS */
-
-		bz.selectedItem = null;
-		bz.searchText = null;
-		bz.querySearch = etiquetasService.querySearch;
-		bz.etiquetas = etiquetasService.loadEtiquetas();
-		bz.transformChip = etiquetasService.transformChip;
 
 		bz.enviarComenzar = function (datos, v) {
 
@@ -82,13 +79,15 @@ angular.module("landing")
 					tags: datos.etiquetasParaBusqueda,
 					categoria: datos.idCategoria,
 					preferencias: datos.preferencias,
-					tipo: "ICONO"
+					tipo: "ICONO",
+					limit: 4
 				};
 
 				bz.datosFuentes = {
 					categoria: datos.idFuente,
 					preferencias: datos.preferencias,
-					tipo: "FUENTE"
+					tipo: "FUENTE",
+					limit: 4
 				};
 
 				var promesaIconos = inicial ? elementosService.listarIniciales(inicial, bz.datosIconos) : elementosService.listarIconosSegunTags(bz.datosIconos);
@@ -103,9 +102,6 @@ angular.module("landing")
 
 						datos.iconos = res[0];
 						datos.fuentes = res[1];
-
-						delete datos.idFuente;
-						delete datos.idCategoria;
 
 						LS.definir('comenzar', datos);
 
