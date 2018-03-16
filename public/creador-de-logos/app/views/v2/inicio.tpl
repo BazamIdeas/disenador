@@ -142,7 +142,7 @@
             </div>
               
             <div class="overlay-combinacion" ng-class="{'open':inicio.logoElegido}">
-                <div ng-style="{'background-color': inicio.logoElegido.colores[0]}">
+                <div class="logo-elegido" ng-class="{'cambio': inicio.cambio}" ng-style="{'background-color': inicio.logoElegido.colores[0]}">
                     <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
                 </div>
 

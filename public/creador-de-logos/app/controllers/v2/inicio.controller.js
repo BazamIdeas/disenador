@@ -154,8 +154,6 @@ angular.module("disenador-de-logos")
 
 		bz.preAvanzar = function(indiceLogo, color){
 
-console.log(indiceLogo); console.log(color)
-
 			if(indiceLogo){
 				bz.logoSeleccionado = indiceLogo;
 			}
@@ -192,17 +190,28 @@ console.log(indiceLogo); console.log(color)
 
 		};
 
+		bz.cambio = false;
+
 		bz.moverse = function(accion) {
-			console.log(bz.logoElegido)
-			if(accion){
-				if(bz.logos[bz.logoElegido.id+1]){
-					bz.logoElegido = {svg: bz.logos[bz.logoElegido.id+1].cargado, id: bz.logoElegido.id+1, colores: bz.logos[bz.logoElegido.id+1].colores}
+			bz.cambio = true;
+
+			$timeout(function(){
+				if(accion){
+					if(bz.logos[bz.logoElegido.id+1]){
+						bz.logoElegido = {svg: bz.logos[bz.logoElegido.id+1].cargado, id: bz.logoElegido.id+1, colores: bz.logos[bz.logoElegido.id+1].colores}
+					}
+				} else {
+					if(bz.logos[bz.logoElegido.id-1]){
+						bz.logoElegido = {svg: bz.logos[bz.logoElegido.id-1].cargado, id: bz.logoElegido.id-1, colores: bz.logos[bz.logoElegido.id-1].colores}
+					}
 				}
-			} else {
-				if(bz.logos[bz.logoElegido.id-1]){
-					bz.logoElegido = {svg: bz.logos[bz.logoElegido.id-1].cargado, id: bz.logoElegido.id-1, colores: bz.logos[bz.logoElegido.id-1].colores}
-				}
-			}
+			}, 450);
+
+
+			$timeout(function(){
+				bz.cambio = false;
+			}, 1000);
+			
 		}
 
 	}]);
