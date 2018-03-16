@@ -74,7 +74,7 @@ angular.module("disenador-de-logos")
 
 		return function (coloresArrays) {
 			var i = Math.floor(Math.random() * coloresArrays.length) + 0;
-			return coloresArrays[indiceColores(coloresArrays[i])];
+			return coloresArrays[i];
 		};
 
 	}])

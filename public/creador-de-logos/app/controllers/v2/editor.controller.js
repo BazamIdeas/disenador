@@ -9,10 +9,10 @@ angular.module("disenador-de-logos")
 		bz.borradores = false;
 		bz.preview = false;
 		bz.busquedaIconos = false;
-		bz.colorFondo = historicoResolve.color ?  coloresFactory(historicoResolve.color) : "rgb(236,239,240)";
-		bz.colorTexto = historicoResolve.color || "#000";
+		bz.colorFondo =  "rgb(243, 243, 243)";
+		bz.colorTexto = "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono = historicoResolve.color || "#000";
+		bz.colorIcono =  "#000";
 		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
