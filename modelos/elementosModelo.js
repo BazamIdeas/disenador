@@ -68,7 +68,7 @@ elemento.getElementsByTags = function(tags, limit, callback)
 
 elemento.getElementos = function( datos, callback)
 {
-	var q = "SELECT * FROM elementos INNER JOIN elementos_has_preferencias ON elementos_has_preferencias.elementos_idElemento = elementos.idElemento WHERE elementos_has_preferencias.preferencias_idPreferencia = ? AND elementos_has_preferencias.valor = ? AND elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 12" ;
+	var q = "SELECT * FROM elementos INNER JOIN elementos_has_preferencias ON elementos_has_preferencias.elementos_idElemento = elementos.idElemento WHERE elementos_has_preferencias.preferencias_idPreferencia = ? AND elementos_has_preferencias.valor = ? AND elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT ?" ;
 
 	DB.getConnection(function(err, connection)
 	{ //cmienzo del for
@@ -88,7 +88,9 @@ elemento.getElementos = function( datos, callback)
 
 elemento.getElementosIncat = function( datos, callback)
 {
-	var q = "SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT 20" ;
+	var q = "SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT ?" ;
+
+console.log(datos)
 
 	DB.getConnection(function(err, connection)
 	{ //cmienzo del for

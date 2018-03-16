@@ -5,6 +5,8 @@ angular.module("disenador-de-logos")
 		["#3366ff", "#00ffff", "#ffee00"],
 		["#ffff80", "#e600e6", "#ff6600"],
 		["#999966", "#ff9900", "#b30059"],
+		["#e600e6", "#e600e6", "#ff6600"],
+		["#ff9900", "#ff9900", "#b30059"]
 	])
 
 	.factory("coloresFactory", ["coloresValue", function (coloresValue) {
@@ -316,6 +318,104 @@ angular.module("disenador-de-logos")
 
 
 	/*-------------------------- Services --------------------------*/
+
+	/*********************/
+	/********ETIQUETAS****/
+	/*********************/
+
+	/* SERVICIO PARA ETIQUETAS */
+
+	.service('etiquetasService', ['$http', '$q', function ($http, $q) {
+
+		/***************************/
+		/**********LOGOS***********/
+		/***************************/
+
+		this.listarLogos = function (datos) {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.post('/app/elementos/categoria', datos).then(function (res) {
+				if (res == undefined) {
+					return defered.reject(res);
+				}
+				defered.resolve(res);
+			}).catch(function (res) {
+				defered.reject(res);
+			})
+
+			return promise;
+		}
+
+		/* ETIQUETAS*/
+
+
+		this.listarEtiquetas = function () {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.get('/app/etiquetas').then(function (res) {
+				if (res == undefined) {
+					return defered.reject(res);
+				}
+				defered.resolve(res);
+			}).catch(function (res) {
+				defered.reject(res);
+			})
+
+			return promise;
+		}
+
+		this.loadEtiquetas = function (arr, v) {
+
+			var etiquetas = [];
+
+			angular.forEach(arr, (valor) => {
+				etiquetas.push({
+					_id: valor._id,
+					traduccion: valor.traducciones[0]
+				});
+			})
+
+			return etiquetas.map(function (et) {
+				et.traduccion._lowername = et.traduccion.valor.toLowerCase();
+				return et;
+			});
+		}
+
+		this.transformChip = function (chip) {
+
+			// If it is an object, it's already a known chip
+			if (angular.isObject(chip)) {
+				return chip;
+			}
+
+			// Otherwise, create a new one
+			return {
+				traduccion: {
+					valor: chip
+				}
+			}
+
+		}
+
+		this.querySearch = function (query, etiquetas) {
+			var results = query ? etiquetas.filter(createFilterFor(query)) : [];
+			return results;
+		}
+
+		function createFilterFor(query) {
+			var lowercaseQuery = angular.lowercase(query);
+
+			return function filterFn(etiqueta) {
+				return (etiqueta.traduccion._lowername.indexOf(lowercaseQuery) === 0);
+			};
+
+		}
+
+	}])
 
 
 	/***************************/

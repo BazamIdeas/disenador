@@ -88,7 +88,6 @@ angular.module("disenador-de-logos")
 			return precioFinal;
 
 		};
-		console.log(historicoResolve)
 
 		bz.avanzarCheckout = function (plan) {
 
@@ -99,10 +98,8 @@ angular.module("disenador-de-logos")
 
 					angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-					nombre = "editable";
-					ancho = 50;
-
-					console.log(historicoResolve)
+					var nombre = "editable";
+					var ancho = 50;
 
 					logosService.descargarLogo(historicoResolve.idElemento, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 						var url = "";

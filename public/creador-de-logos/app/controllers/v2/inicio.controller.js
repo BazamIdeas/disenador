@@ -1,12 +1,14 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve",function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService) {
 
 		var bz = this;
 
 		bz.base64 = $base64;
 
 		bz.obtenerColores = coloresFactory;
+
+		bz.colores = coloresValue;
 
 		bz.datos = landingResolve ? landingResolve.datos : {
 			nombre: "Mi logo",
@@ -16,7 +18,38 @@ angular.module("disenador-de-logos")
 				fuente: ""
 			},
 			tags: [],
-			colores: []
+			colores: [],
+			etiquetasSeleccionadas:[]
+		};
+
+		/* Etiquetas */
+
+		bz.selectedItem = null;
+		bz.searchText = null;
+		bz.etiquetasFunciones = etiquetasService;
+
+		etiquetasService.listarEtiquetas().then(function (res) {
+			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
+		}).catch(function(){});
+
+		categoriasService.listaCategorias("FUENTE").then(function (res) {
+			bz.datos.fuentes = res;
+		}).catch(function(){});
+
+		bz.coloresIguales = function (color){
+
+			var coincidencia;
+
+			angular.forEach(bz.datos.colores, function(datosColor){
+
+				if(angular.equals(color, datosColor)){
+					coincidencia = true;
+				}
+			});
+
+			
+			
+			return coincidencia;
 
 		};
 
@@ -53,6 +86,29 @@ angular.module("disenador-de-logos")
 				bz.categoriasPosibles.fuentes = res;
 			})
 			.catch(function(){});
+
+		
+			
+		bz.combinar = function (iconos, fuentes) {
+
+			var logos = crearLogoFactory(iconos, fuentes);
+
+			var cantidadLogos = logos.length;
+			
+			while(cantidadLogos){
+
+				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0 
+				bz.logos.push(logos[indiceRandom]);
+				logos.splice(indiceRandom, 1);
+				cantidadLogos--;
+			}
+			
+		};
+
+
+		if(landingResolve){
+			bz.combinar(landingResolve.iconos, landingResolve.fuentes)
+		}
 
 
 		bz.completado = true;
@@ -94,22 +150,6 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.combinar = function (iconos, fuentes) {
-
-
-			var logos = crearLogoFactory(iconos, fuentes);
-
-			var cantidadLogos = logos.length;
-			
-			while(cantidadLogos){
-
-				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0 
-				bz.logos.push(logos[indiceRandom]);
-				logos.splice(indiceRandom, 1);
-				cantidadLogos--;
-			}
-			
-		};
 
 		bz.preAvanzar = function(indiceLogo, color){
 

@@ -25,7 +25,7 @@
                         <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.colores" multiple class="md-block selector-de-colores" aria-label="filtro"
                             name="color" required>
                             <md-optgroup label="Colores">
-                                <md-option ng-value="item" class="estilo-de-color" ng-value="item" ng-repeat="item in ctrl.categoriasPosibles.colores">
+                                <md-option ng-value="item" class="estilo-de-color" ng-repeat="item in ctrl.categoriasPosibles.colores">
                                     <span style="background:{{item[0]}}; color:transparent;">{{item[0]}}</span>
                                     <span style="background:{{item[1]}};">{{item[1]}}</span>
                                     <span style="background:{{item[2]}};">{{item[2]}}</span>
