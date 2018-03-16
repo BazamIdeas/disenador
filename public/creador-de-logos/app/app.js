@@ -40,23 +40,23 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 		/*------------------------ Ui router states ----------------------*/
 
-	
+
 		$stateProvider
-	
+
 			.state({
 				name: "inicio",
 				url: "/",
 				templateUrl: "app/views/v2/inicio.tpl",
 				controller: "inicioController as inicio",
 				resolve: {
-					landingResolve: ["LS", function(LS){
+					landingResolve: ["LS", function (LS) {
 
 						var datosLanding = LS.obtener("comenzar");
-						
-						if(datosLanding){
-							
+
+						if (datosLanding) {
+
 							return {
-								datos:{
+								datos: {
 									nombre: datosLanding.nombre,
 									categoria: {
 										icono: datosLanding.idCategoria,
@@ -129,6 +129,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				}
 			})
 
+			/* 
 			.state({
 				name: "planes",
 				url: "/planes/",
@@ -181,7 +182,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 					}]
 				}
 			})
-
+*/
 			.state({
 				name: "pago",
 				url: "/pago/",
@@ -319,33 +320,33 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 					}],
 					logoResolve: ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
 
-						if($stateParams.id){
+						if ($stateParams.id) {
 							var defered = $q.defer();
 							var promise = defered.promise;
 
 							logosService.obtenerPorId($stateParams.id).then(function (res) {
 
-								if(res.estado == "Descargable"){
-									defered.resolve( {
+								if (res.estado == "Descargable") {
+									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id
 									});
-								} else{
+								} else {
 									defered.reject("INVALID_LOGO");
 								}
 
 							}).catch(function () {
-                
+
 								// $state.go("logos");
 								defered.reject("INVALID_LOGO");
 							});
 
 							return promise;
-						} else{
+						} else {
 							return $q.reject("INVALID_LOGO");
 						}
 
-                    
+
 
 					}]
 				}
@@ -375,7 +376,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				templateUrl: "app/views/v2/logosGaleria.tpl",
 				controller: "logosGaleriaController as logosGaleria"
 			});
-		
+
 		/*
 
 		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
@@ -431,108 +432,108 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				switch (toState.name) {
 
-				case "editor":
+					case "editor":
 
-					switch (fromState.name) {
+						switch (fromState.name) {
 
-					case "":
-						$state.go("login");
+							case "":
+								$state.go("login");
+								break;
+
+							case "principal.combinaciones":
+								break;
+
+							case "logosGaleria":
+								break;
+
+
+							default:
+								$state.go("login");
+						}
+
 						break;
 
-					case "principal.combinaciones":
+					case "planes":
+
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+
+								$state.go("login");
+						}
+
 						break;
 
-					case "logosGaleria":
+					case "pago":
+
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
 						break;
 
 
-					default:
-						$state.go("login");
-					}
+					case "pagoCompleto":
+						switch (fromState.name) {
 
-					break;
+							case "":
+								$state.go("login");
+								break;
 
-				case "planes":
+							default:
+								$state.go("login");
+						}
 
-					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
 						break;
 
-					default:
+					case "cuenta":
+						switch (fromState.name) {
 
-						$state.go("login");
-					}
+							case "":
+								$state.go("login");
+								break;
 
-					break;
+							default:
+								$state.go("login");
+						}
 
-				case "pago":
-
-					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
 						break;
 
-					default:
-						$state.go("login");
-					}
+					case "logos":
+						switch (fromState.name) {
 
-					break;
+							case "":
+								$state.go("login");
+								break;
 
+							default:
+								$state.go("login");
+						}
 
-				case "pagoCompleto":
-					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
 						break;
 
-					default:
-						$state.go("login");
-					}
+					case "descargar":
+						switch (fromState.name) {
 
-					break;
+							case "":
+								$state.go("login");
+								break;
 
-				case "cuenta":
-					switch (fromState.name) {
+							default:
+								$state.go("login");
+						}
 
-					case "":
-						$state.go("login");
 						break;
-
-					default:
-						$state.go("login");
-					}
-
-					break;
-
-				case "logos":
-					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
-						break;
-
-					default:
-						$state.go("login");
-					}
-
-					break;
-
-				case "descargar":
-					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
-						break;
-
-					default:
-						$state.go("login");
-					}
-
-					break;
 
 
 				}
@@ -547,20 +548,20 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				switch (toState.name) {
 
-				case "editor":
+					case "editor":
 
-					$state.go("principal.comenzar");
-					break;
+						$state.go("principal.comenzar");
+						break;
 
-				case "planes":
+					case "planes":
 
-					$state.go("editor");
-					break;
+						$state.go("editor");
+						break;
 
-				case "pago":
+					case "pago":
 
-					$state.go("planes");
-					break;
+						$state.go("planes");
+						break;
 
 
 				}
