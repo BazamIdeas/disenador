@@ -134,7 +134,7 @@
                 <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos" ng-click="inicio.logoElegido = {svg: logo.cargado, id: $index, colores: logo.colores, iconoColor: logo.icono.color}"
                     ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
                     <bazam-svg-text icono='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
-                        callback="logo.cargado" color-texto="logo.colores[1]" color-icono="logo.colores[2]"></bazam-svg-text>
+                        callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
                 </div>

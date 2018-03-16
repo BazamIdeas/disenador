@@ -104,7 +104,7 @@ angular.module("disenador-de-logos")
 							scope.callback = element[0].innerHTML;
 						}, 1000);
 
-					})
+					});
 			}
 		};
 
@@ -403,29 +403,29 @@ angular.module("disenador-de-logos")
 										"width": "9%",
 										"height": "10%",
 										"display": "inline-block"
-									})
+									});
 
 									colorPicker.append(colorIndividual);
 
 								});
 
 								angular.element(".contenedor-principal.editor").append(colorPicker);
-							}
+							};
 
 
 
 							var clicked = angular.element(e.target);
 
 							if (clicked.hasClass("textoPrincipal")) {
-								titulo = "TEXTO";
+								titulo = "NOMBRE";
 								id = "color-picker-texto";
 
 							} else if (clicked.hasClass("eslogan")) {
 								titulo = "ESLOGAN";
-								id = "color-picker-eslogan"
+								id = "color-picker-eslogan";
 							} else {
 								titulo = "ICONO";
-								id = "color-picker-icono"
+								id = "color-picker-icono";
 							}
 
 							crearPicker(id);
@@ -1028,7 +1028,7 @@ angular.module("disenador-de-logos")
 							});
 
 							element.find(".seleccionado").removeClass("seleccionado");
-							angular.element(".color-picker-bazam").remove()
+							angular.element(".color-picker-bazam").remove();
 
 							scope.elementosIndices = indices;
 
@@ -1201,7 +1201,7 @@ angular.module("disenador-de-logos")
 				element.html(scope.svg);
 				element.html(element.html());
 
-				scope.$watch('svg', function () {
+				scope.$watch("svg", function () {
 					element.html(scope.svg);
 					element.html(element.html());
 				});
@@ -1820,11 +1820,13 @@ angular.module("disenador-de-logos")
 
 				bz.base64 = $base64;
 
+				$scope.estadoDirectiva = angular.copy($scope.estado)
+
 				bz.cerrarPop = function () {
-					$scope.estado2 = false;
+					$scope.estadoDirectiva = false;
 					$timeout(function () {
 						$scope.estado = false;
-					}, 1000);
+					}, 2000);
 				}
 
 				var historicoResolve = angular.copy($scope.datos);
@@ -1949,10 +1951,10 @@ angular.module("disenador-de-logos")
 									mensaje: "Debes compartir para obtener tu logo gratis.",
 									clase: "danger"
 								}
-							}))
+							}));
 						}).finally(function () {
 							bz.peticion = false;
-						})
+						});
 					}
 
 					angular.forEach(plan.precios, function (precio) {

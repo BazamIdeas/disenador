@@ -46,8 +46,6 @@ angular.module("disenador-de-logos")
 					coincidencia = true;
 				}
 			});
-
-			
 			
 			return coincidencia;
 
@@ -98,7 +96,7 @@ angular.module("disenador-de-logos")
 			
 			while(cantidadLogos){
 
-				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0 
+				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0; 
 				bz.logos.push(logos[indiceRandom]);
 				logos.splice(indiceRandom, 1);
 				cantidadLogos--;
@@ -108,7 +106,7 @@ angular.module("disenador-de-logos")
 
 
 		if(landingResolve){
-			bz.combinar(landingResolve.iconos, landingResolve.fuentes)
+			bz.combinar(landingResolve.iconos, landingResolve.fuentes);
 		}
 
 
