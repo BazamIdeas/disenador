@@ -424,14 +424,13 @@ angular.module("disenador-de-logos")
 
 							crearPicker(id);							
 
-							if(clicked.hasClass(".textoPrincipal") || clicked.hasClass(".eslogan")){
+							if(clicked.hasClass("textoPrincipal") || clicked.hasClass("eslogan")){
 								return;
 							}
 						
 							//angular.element("body").append("<div style='position:fixed; left: 50%; top: 50%; background: white; width: 200px; height: 200px'> hola </div>")
 
-							angular.element(document.querySelector(".seleccionado")).removeClass("seleccionado");
-							console.log("adios")
+							angular.element(".seleccionado").removeClass("seleccionado");
 							angular.element(this).addClass("seleccionado");
 
 							//obtenemos el indice que es espejo del array
@@ -474,6 +473,21 @@ angular.module("disenador-de-logos")
 								element.find("text.eslogan").css("fill", color);
 							
 							}
+
+						});
+
+
+						angular.element(".contenedor-principal.editor").on("click", ".cerrar-color-picker", function(){
+
+							var colorPicker = angular.element(this).parents(".color-picker-bazam");
+							
+							if(colorPicker.attr("id") == "color-picker-icono"){
+								angular.element(".seleccionado").removeClass("seleccionado");
+							}
+
+							colorPicker.remove();
+
+
 
 						});
 
@@ -697,8 +711,8 @@ angular.module("disenador-de-logos")
 
 						});
 
-
-						angular.element(document.querySelector(".editor")).mouseup(function () {
+						/*
+						angular.element(document.querySelector(".editor *")).mouseup(function () {
 
 							if (intermediador) {
 
@@ -709,7 +723,7 @@ angular.module("disenador-de-logos")
 							}
 
 						});
-
+						*/
 
 
 						///////////////////////////////////////////
