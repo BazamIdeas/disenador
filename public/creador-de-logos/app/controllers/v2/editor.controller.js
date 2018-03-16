@@ -9,10 +9,10 @@ angular.module("disenador-de-logos")
 		bz.borradores = false;
 		bz.preview = false;
 		bz.busquedaIconos = false;
-		bz.colorFondo = historicoResolve.color ? coloresFactory(historicoResolve.color) : "rgb(236,239,240)";
-		bz.colorTexto = historicoResolve.color || "#000";
+		bz.colorFondo =  "rgb(243, 243, 243)";
+		bz.colorTexto = "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono = historicoResolve.color || "#000";
+		bz.colorIcono =  "#000";
 		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
@@ -135,8 +135,6 @@ angular.module("disenador-de-logos")
 							}
 
 						}).catch(function () {
-
-							bz.logo.idLogo = res;
 
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
@@ -278,7 +276,7 @@ angular.module("disenador-de-logos")
 				bz.abrirPlanes = true;
 
 				if (bz.idLogoPadre) {
-					datosComprar.idPadre = bz.idLogoPadre;
+					bz.datosComprar.idPadre = bz.idLogoPadre;
 				}
 
 				/* $state.go("planes", {
@@ -286,7 +284,7 @@ angular.module("disenador-de-logos")
 					datos: datosComprar
 				}); */
 
-			})
+			});
 
 
 		});
@@ -490,10 +488,10 @@ angular.module("disenador-de-logos")
 
 		$window.fbAsyncInit = function () {
 			FB.init({
-				appId: '152803392097078',
+				appId: "152803392097078",
 				autoLogAppEvents: true,
 				xfbml: true,
-				version: 'v2.12'
+				version: "v2.12"
 			});
 		};
 
@@ -507,7 +505,7 @@ angular.module("disenador-de-logos")
 			js.id = id;
 			js.src = "https://connect.facebook.net/en_US/sdk.js";
 			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
+		}(document, "script", "facebook-jssdk"));
 
 		//////////////////////////////////////////
 		////////RESTAURAR COMPARACIONES///////////

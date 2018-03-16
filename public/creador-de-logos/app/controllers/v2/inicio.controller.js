@@ -46,8 +46,6 @@ angular.module("disenador-de-logos")
 					coincidencia = true;
 				}
 			});
-
-			
 			
 			return coincidencia;
 
@@ -98,7 +96,7 @@ angular.module("disenador-de-logos")
 			
 			while(cantidadLogos){
 
-				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0 
+				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0; 
 				bz.logos.push(logos[indiceRandom]);
 				logos.splice(indiceRandom, 1);
 				cantidadLogos--;
@@ -108,7 +106,7 @@ angular.module("disenador-de-logos")
 
 
 		if(landingResolve){
-			bz.combinar(landingResolve.iconos, landingResolve.fuentes)
+			bz.combinar(landingResolve.iconos, landingResolve.fuentes);
 		}
 
 
@@ -154,8 +152,6 @@ angular.module("disenador-de-logos")
 
 		bz.preAvanzar = function(indiceLogo, color){
 
-console.log(indiceLogo); console.log(color)
-
 			if(indiceLogo){
 				bz.logoSeleccionado = indiceLogo;
 			}
@@ -193,16 +189,16 @@ console.log(indiceLogo); console.log(color)
 		};
 
 		bz.moverse = function(accion) {
-			console.log(bz.logoElegido)
+			
 			if(accion){
 				if(bz.logos[bz.logoElegido.id+1]){
-					bz.logoElegido = {svg: bz.logos[bz.logoElegido.id+1].cargado, id: bz.logoElegido.id+1, colores: bz.logos[bz.logoElegido.id+1].colores}
+					bz.logoElegido = {svg: bz.logos[bz.logoElegido.id+1].cargado, id: bz.logoElegido.id+1, colores: bz.logos[bz.logoElegido.id+1].colores};
 				}
 			} else {
 				if(bz.logos[bz.logoElegido.id-1]){
-					bz.logoElegido = {svg: bz.logos[bz.logoElegido.id-1].cargado, id: bz.logoElegido.id-1, colores: bz.logos[bz.logoElegido.id-1].colores}
+					bz.logoElegido = {svg: bz.logos[bz.logoElegido.id-1].cargado, id: bz.logoElegido.id-1, colores: bz.logos[bz.logoElegido.id-1].colores};
 				}
 			}
-		}
+		};
 
 	}]);
