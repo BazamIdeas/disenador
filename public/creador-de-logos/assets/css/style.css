@@ -3415,3 +3415,7 @@ div.color-picker-bazam div.titulo span i {
     font-size: 15px;
     font-family: 'futura-heavy';
 }
+
+.boton-planes-unico md-icon {
+    color: white;
+}

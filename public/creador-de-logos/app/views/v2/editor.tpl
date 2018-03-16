@@ -371,6 +371,10 @@
 				</div>
 			</div>
 
+			<div ng-click="editor.buscarPlanes()" class="boton-planes-unico">
+				<md-icon>arrow_drop_up</md-icon>
+				Planes
+			</div>
 		</div>
 
 		<div class="contenedor-previews scrollbar-dynamic col s2" style="position:static" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
@@ -470,10 +474,6 @@
 			</div>
 		</div>
 
-		<div ng-click="editor.buscarPlanes()" class="boton-planes-unico">
-			<md-icon>arrow_drop_up</md-icon>
-			Planes
-		</div>
 	</div>
 </section>
 

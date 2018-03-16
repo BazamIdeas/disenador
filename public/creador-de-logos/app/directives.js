@@ -1820,11 +1820,13 @@ angular.module("disenador-de-logos")
 
 				bz.base64 = $base64;
 
+				$scope.estadoDirectiva = angular.copy($scope.estado)
+
 				bz.cerrarPop = function () {
-					$scope.estado2 = false;
+					$scope.estadoDirectiva = false;
 					$timeout(function () {
 						$scope.estado = false;
-					}, 1000);
+					}, 2000);
 				}
 
 				var historicoResolve = angular.copy($scope.datos);
