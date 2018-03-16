@@ -319,7 +319,9 @@ angular.module("disenador-de-logos")
 							eslogan: null                        
 						};               
 						
-						var paletaColores = ["#66ff66","#ff0000", "#FFFFFF", "#6699ff", "#00ff99", "#d11aff", "#ffff00", "#33cccc", "#333399", "#ff66ff", "#ff3300", "#990099", "#99cc00", "#ff9933", "#ff6666", "#996633", "#666633", "#6699ff", "#00ff99", "#d11aff"];	
+						var paletaColores = ["#66ff66","#ff0000", "#FFFFFF", "#6699ff", "#00ff99", "#d11aff", "#ffff00", "#33cccc", "#333399", "#ff66ff", "#ff3300", "#990099", "#99cc00", "#ff9933", "#ff6666", "#996633", "#666633", "#6699ff", "#00ff99", "#d11aff",
+					
+						"#66ff66","#ff0000", "#FFFFFF", "#6699ff", "#00ff99", "#d11aff", "#ffff00", "#33cccc", "#333399", "#ff66ff", "#ff3300", "#990099", "#99cc00", "#ff9933", "#ff6666", "#996633", "#666633", "#6699ff", "#00ff99", "#d11aff","#66ff66","#ff0000", "#FFFFFF", "#6699ff", "#00ff99", "#d11aff", "#ffff00", "#33cccc", "#333399", "#ff66ff", "#ff3300", "#990099", "#99cc00", "#ff9933", "#ff6666", "#996633", "#666633", "#6699ff", "#00ff99", "#d11aff","#66ff66","#ff0000", "#FFFFFF", "#6699ff", "#00ff99", "#d11aff", "#ffff00", "#33cccc", "#333399", "#ff66ff", "#ff3300", "#990099", "#99cc00", "#ff9933", "#ff6666", "#996633", "#666633", "#6699ff", "#00ff99", "#d11aff"];	
 
 						//evento para los hijos directos de seccion-icono
 						angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
@@ -381,7 +383,7 @@ angular.module("disenador-de-logos")
 									};
 								}
 
-								var colorPicker = angular.element("<div class='color-picker-bazam'><div style='height: 20%; text-align: center'>"+titulo+" <span class='cerrar-color-picker'>X</span></div></div>");
+								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo' text-align: center'>"+titulo+" <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
 
 								colorPicker.attr("id", id);
 
@@ -391,9 +393,11 @@ angular.module("disenador-de-logos")
 
 									var colorIndividual = angular.element("<div></div>");
 
+									colorIndividual.addClass("color");
+
 									colorIndividual.attr("data-color", color);
 
-									colorIndividual.css({"background-color": color, "width": "20%", "height": "20%", "display": "inline-block"})
+									colorIndividual.css({"background-color": color, "width": "9%", "height": "10%", "display": "inline-block"})
 
 									colorPicker.append(colorIndividual);
 
