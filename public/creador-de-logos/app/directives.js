@@ -416,13 +416,8 @@ angular.module("disenador-de-logos")
 
 							var clicked = angular.element(e.target);
 
-<<<<<<< HEAD
 							if(clicked.hasClass("textoPrincipal")){
 								titulo = "NOMBRE";
-=======
-							if (clicked.hasClass("textoPrincipal")) {
-								titulo = "TEXTO";
->>>>>>> d7dc1a89ad36678175b3a49523b1f283f5fdfda3
 								id = "color-picker-texto";
 
 							} else if (clicked.hasClass("eslogan")) {
