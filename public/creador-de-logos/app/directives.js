@@ -104,7 +104,7 @@ angular.module("disenador-de-logos")
 							scope.callback = element[0].innerHTML;
 						}, 1000);
 
-					})
+					});
 			}
 		};
 
@@ -348,40 +348,40 @@ angular.module("disenador-de-logos")
 
 								switch (id) {
 
-									case "color-picker-icono":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.right + 10,
-											"top": coordenadasCon.top - 10,
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
-										break;
+								case "color-picker-icono":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.right + 10,
+										"top": coordenadasCon.top - 10,
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
+									break;
 
-									case "color-picker-texto":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-											"top": coordenadasCon.top - 10,
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
-										break;
+								case "color-picker-texto":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+										"top": coordenadasCon.top - 10,
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
+									break;
 
-									case "color-picker-eslogan":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-											"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
+								case "color-picker-eslogan":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+										"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
 								}
 
 								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo' text-align: center'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
@@ -403,14 +403,14 @@ angular.module("disenador-de-logos")
 										"width": "9%",
 										"height": "10%",
 										"display": "inline-block"
-									})
+									});
 
 									colorPicker.append(colorIndividual);
 
 								});
 
 								angular.element(".contenedor-principal.editor").append(colorPicker);
-							}
+							};
 
 
 
@@ -422,10 +422,10 @@ angular.module("disenador-de-logos")
 
 							} else if (clicked.hasClass("eslogan")) {
 								titulo = "ESLOGAN";
-								id = "color-picker-eslogan"
+								id = "color-picker-eslogan";
 							} else {
 								titulo = "ICONO";
-								id = "color-picker-icono"
+								id = "color-picker-icono";
 							}
 
 							crearPicker(id);
@@ -464,19 +464,19 @@ angular.module("disenador-de-logos")
 
 							switch (colorPicker.attr("id")) {
 
-								case "color-picker-icono":
+							case "color-picker-icono":
 
-									var indice = scope.elementosIndices.indexOf(true);
-									//cambiamos el color al correcto
-									element.find("[data-indice=" + indice + "]").css("fill", color);
-									break;
+								var indice = scope.elementosIndices.indexOf(true);
+								//cambiamos el color al correcto
+								element.find("[data-indice=" + indice + "]").css("fill", color);
+								break;
 
-								case "color-picker-texto":
-									element.find("text.textoPrincipal").css("fill", color);
-									break;
+							case "color-picker-texto":
+								element.find("text.textoPrincipal").css("fill", color);
+								break;
 
-								case "color-picker-eslogan":
-									element.find("text.eslogan").css("fill", color);
+							case "color-picker-eslogan":
+								element.find("text.eslogan").css("fill", color);
 
 							}
 
@@ -1028,7 +1028,7 @@ angular.module("disenador-de-logos")
 							});
 
 							element.find(".seleccionado").removeClass("seleccionado");
-							angular.element(".color-picker-bazam").remove()
+							angular.element(".color-picker-bazam").remove();
 
 							scope.elementosIndices = indices;
 
@@ -1201,7 +1201,7 @@ angular.module("disenador-de-logos")
 				element.html(scope.svg);
 				element.html(element.html());
 
-				scope.$watch('svg', function () {
+				scope.$watch("svg", function () {
 					element.html(scope.svg);
 					element.html(element.html());
 				});
@@ -1479,25 +1479,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-							case "bottom":
-								orientacionFinal.top = coordenadas.bottom;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "bottom":
+							orientacionFinal.top = coordenadas.bottom;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
-							case "right":
-								orientacionFinal.top = coordenadas.top + (element.height() / 2);
-								orientacionFinal.left = coordenadas.right;
-								break;
+						case "right":
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.right;
+							break;
 
-							case "left":
-								orientacionFinal.top = coordenadas.top + (element.height() / 2);
-								orientacionFinal.left = coordenadas.left - popCreado.width();
-								break;
+						case "left":
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.left - popCreado.width();
+							break;
 
-							case "top":
-								orientacionFinal.top = coordenadas.top;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "top":
+							orientacionFinal.top = coordenadas.top;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
 						}
 
@@ -1559,25 +1559,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-							case "bottom":
-								orientacionFinal.top = coordenadas.bottom - 40;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "bottom":
+							orientacionFinal.top = coordenadas.bottom - 40;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
-							case "right":
-								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-								orientacionFinal.left = coordenadas.right - 35;
-								break;
+						case "right":
+							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+							orientacionFinal.left = coordenadas.right - 35;
+							break;
 
-							case "left":
-								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-								orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
-								break;
+						case "left":
+							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+							orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
+							break;
 
-							case "top":
-								orientacionFinal.top = coordenadas.top + 40;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "top":
+							orientacionFinal.top = coordenadas.top + 40;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
 						}
 
@@ -1825,7 +1825,7 @@ angular.module("disenador-de-logos")
 					$timeout(function () {
 						$scope.estado = false;
 					}, 1000);
-				}
+				};
 
 				var historicoResolve = angular.copy($scope.datos);
 
@@ -1949,10 +1949,10 @@ angular.module("disenador-de-logos")
 									mensaje: "Debes compartir para obtener tu logo gratis.",
 									clase: "danger"
 								}
-							}))
+							}));
 						}).finally(function () {
 							bz.peticion = false;
-						})
+						});
 					}
 
 					angular.forEach(plan.precios, function (precio) {
