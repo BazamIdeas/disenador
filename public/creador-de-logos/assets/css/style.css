@@ -3187,8 +3187,10 @@ div.color-picker-bazam div.titulo {
 
 div.color-picker-bazam div.titulo span {
     float: right;
-    border: 1px solid var(--principal);
+    color: white;
+    background:var(--principal);
     border-radius: 50%;
+    cursor: pointer;
 }
 
 div.color-picker-bazam div.titulo span i {
