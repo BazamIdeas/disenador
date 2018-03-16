@@ -2853,3 +2853,95 @@ div.opcion-icono bazam-visualizar svg{
     left: 0px;
 }
 
+div.combinacion {
+    border: 1px solid white;
+    cursor:pointer;
+}
+
+@keyframes topToMiddle {
+    0%   {top: -50%;}
+    100% {top: 33%;}
+}
+
+div.combinacion.seleccionada {
+    z-index: 2;
+    width: 22% !important;
+    border-radius:4px;
+    box-shadow: 0px 0px 3px 0px #000000;
+    position: absolute !important;
+    left: 33% !important;
+    background-color: rgb(153, 153, 102);
+    animation-name: topToMiddle;
+    animation-duration: 1s;
+    top: 33% !important;
+}
+
+@keyframes menu-animation {
+  0% {
+    display:none;
+    opacity: 0;
+    transform: scale(0.04)
+               translateY(300%);
+  }
+  40% {
+    transform: scale(0.04)
+               translateY(0);
+    transition: ease-out;
+  }
+  40% {
+    transform: scale(0.04)
+               translateY(0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.02)
+               translateY(0px);
+  }
+  61% {
+    transform: scale(0.04);
+  }
+  99.99% {
+    height: 0;
+    padding-bottom: 100%;
+    border-radius: 0%;
+  }
+  100% {
+    transform: scale(1);
+    height: 100%;
+    padding-bottom: 0;
+    border-radius: 0;
+  }
+}
+
+.overlay-combinacion.close {
+    animation: menu-animation 0.8s ease-out reverse;
+}
+
+
+.overlay-combinacion.open {
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    animation: menu-animation 0.8s ease-out forwards;
+    background-color: #00000085;
+}
+
+.overlay-combinacion div {
+    width: 50%;
+    position: absolute;
+    left: calc(50% - 26%);
+    top: 10%;
+    border-radius: 15px;
+    box-shadow: 0px 0px 3px 1px black;
+}
+
+.overlay-combinacion button {
+    background: var(--principal);
+    color: white;
+    border: 1px solid white;
+    border-radius: 50%;
+    padding: 2px;
+    margin: 7px;
+}

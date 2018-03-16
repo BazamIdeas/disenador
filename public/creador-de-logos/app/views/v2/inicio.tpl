@@ -69,18 +69,24 @@
             </div>
         </form>
 
-        <div class="contenedor-principal col l7" style="overflow: scroll;">
-            <div class="row">
-                <div class="col l3" style="position: relative" ng-repeat="logo in inicio.logos" ng-click="inicio.logoElegido = {svg: logo.cargado, id: $index}" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
+        <div class="contenedor-principal col l7" style="position: relative;">
+            <div class="row" style="overflow-y: scroll; max-height:100%;">
+                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos" ng-click="inicio.logoElegido = {svg: logo.cargado, id: $index, colores: logo.colores}" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
                     <bazam-svg-text icono='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado" color-texto="logo.colores[1]" color-icono="logo.colores[2]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
-
-                    <button ng-if="inicio.logoElegido.id == $index" style="position: absolute; top: 0px; left: 0px;" ng-click="inicio.preAvanzar($index, logo.icono.color)">Editar</button>
                     
                 </div>
             
             </div>
-               
+              
+            <div class="overlay-combinacion" ng-class="{'open':inicio.logoElegido, 'close': !inicio.logoElegido}">
+                <div ng-style="{'background-color': inicio.logoElegido.colores[0]}">
+                    <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                    <button ng-if="inicio.logoElegido.id == $index" style="position: absolute; top: 0px; left: 0px;" ng-click="inicio.preAvanzar($index, logo.icono.color)">Editar</button>
+                </div>
+                <button ng-click="inicio.logoElegido = null"><i class="material-icons cerrar">clear</i></button>
+            </div>
+
         </div>
 
         <div class="col l3" style="background-color: white; padding: 0px !important; max-height: calc(100vh - 9rem); overflow-y: auto; position: relative; height: 100%; margin: 0 0;">
