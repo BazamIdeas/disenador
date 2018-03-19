@@ -46,9 +46,8 @@
 
 <section style="max-height: calc(100vh - 135px) !important; background-color: var(--fondo);">
     <div class="row margin-bottom-0">
-        <form class="margin-bottom-0">
-            <div class="col l2 sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="inicio.jqueryScrollbarOptions" ng-form="inicio.datosForm"
-                style="position: static !important">
+        <form class="margin-bottom-0" name="inicio.datosForm">
+            <div class="col l2 sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="inicio.jqueryScrollbarOptions" style="position: static !important">
                 <div class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo" data-clases="['corner-lt']"
                     data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1" bazam-pasos-ayuda>
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
@@ -59,7 +58,7 @@
                     <md-input-container style="width:100%" bazam-ayuda data-titulo="Categoria" data-texto="Seleccione la categoria o actividad de su empresa u ocupación"
                         data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                         bazam-pasos-ayuda>
-                        <md-select style="width:100%" ng-model="inicio.datos.categoria.icono" placeholder="Categoria" required>
+                        <md-select style="width:100%" ng-model="inicio.datos.categoria.icono" placeholder="Categoria" md-no-asterisk required>
                             <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
                         </md-select>
                     </md-input-container>
@@ -83,20 +82,22 @@
                     <div class="label-form ">
                         ESTILO DE TIPOGRAFÍA
                     </div>
-                    <div class="estilos-fuentes ">
+                    <div class="estilos-fuentes" style="position: relative">
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
                             <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes" ng-value="fuenteCategoria.idCategoria"> <!--ng-disabled=" d.isDisabled "-->
                                 <md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
                                 <span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
                             </md-radio-button>
                         </md-radio-group>
+
+                         <!-- VALIDACION -->
+                        <div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
+                            <div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
+                            </br>
+                        </div>
                     </div>
 
-                    <!-- VALIDACION -->
-                    <div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon " role="alert " ng-show="inicio.datosForm.fuente.$dirty || inicio.datosForm.$submitted ">
-                        <div ng-message="required ">Este campo es requerido.</div>
-                        </br>
-                    </div>
+                   
                 </div>
                 <!--
                 <div>
@@ -125,7 +126,7 @@
                     <br/>
                 </div>
                 <div style="text-align: center;">
-                    <button class="boton-verde" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "Cargar Más" : "Actualizar"}}</button>
+                    <button class="boton-verde" ng-class="{'loading-white': !inicio.completado}" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "Cargar Más" : "Buscar"}}</button>
                 </div>
             </div>
         </form>
