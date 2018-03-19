@@ -126,7 +126,9 @@ angular.module("disenador-de-logos")
 				svgFinal: "=svgFinal",
 				idLogo: "=idLogo",
 				idPadre: "=idPadre",
-				eslogan: "=eslogan"
+				eslogan: "=eslogan",
+				colorIcono: "=colorIcono",
+				colorTexto: "=colorTexto",
 
 
 			},
@@ -208,6 +210,7 @@ angular.module("disenador-de-logos")
 							var svgIcono = element[0].children[0].children[0].children[0];
 
 							svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
+							svgIcono.setAttribute("fill", scope.colorIcono);
 
 							/////////////////////////////////////////
 							////////creamos el elemento Text/////////
@@ -225,6 +228,8 @@ angular.module("disenador-de-logos")
 
 							var svgTexto = element[0].children[0].children[1];
 
+						
+							svgTexto.style.fill = scope.colorTexto;
 							svgTexto.style.fontSize = (tamanoBase / 2) + "px";
 							svgTexto.setAttribute("text-anchor", "middle");
 							svgTexto.setAttribute("font-family", scope.fuente.nombre);
@@ -328,10 +333,6 @@ angular.module("disenador-de-logos")
 						angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
 
 							/* COLOPICKER */
-
-
-							//angular.element(".color-picker-bazam").remove();
-
 							var coordenadasCon = angular.element(".contenedor-svg")[0].getBoundingClientRect();
 
 							var titulo = "";

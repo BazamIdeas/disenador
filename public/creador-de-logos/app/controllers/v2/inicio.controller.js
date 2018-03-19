@@ -175,13 +175,11 @@ angular.module("disenador-de-logos")
 				datos: {
 					logo: bz.logos[bz.logoSeleccionado],
 					texto: bz.datos.nombre,
-					categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
+					categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria,
+					colores: bz.logos[bz.logoSeleccionado].colores
 				}
 			};
 
-			if(bz.colorIcono){
-				datos.datos.color = bz.colorIcono;
-			}				
 
 			$state.go("editor", datos);
 
@@ -189,6 +187,7 @@ angular.module("disenador-de-logos")
 
 		bz.cambio = false;
 
+		/*
 		bz.moverse = function(accion) {
 			bz.cambio = true;
 
@@ -210,5 +209,6 @@ angular.module("disenador-de-logos")
 			}, 1000);
 			
 		}
+		*/
 
 	}]);
