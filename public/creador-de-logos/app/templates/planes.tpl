@@ -1,5 +1,7 @@
 <div class="contenedor-principal-planes" ng-class="{'activo': estadoDirectiva, 'oculto': !estadoDirectiva}">
-	<section style="height:100%; background-color: white; overflow: hidden;">
+	<section style="height:100%; background-color: white; overflow: hidden;     position: absolute;
+    width: 100vw;
+    height: 100vh;">
 		<div ng-click="planes.cerrarPop()" class="boton-planes-unico activo">
 			<md-icon>arrow_drop_down</md-icon>Planes
 		</div>
@@ -167,8 +169,8 @@
 						<md-icon>close</md-icon>
 					</md-button>
 				</cerrar-pop>
-				<h5 class="principal" style="text-align:center; font-size: 22px;">GRACIAS POR TOMAR NUESTRO PLAN GRATIS</h5>
-				<h6 style="text-align:  center;" class="pricipal principal">
+				<h5 class="principal" style="text-align:center; ">GRACIAS POR TOMAR NUESTRO PLAN GRATIS</h5>
+				<h6 style="text-align: center; font-size: 22px; " class="pricipal principal">
 					<b>¿Deseas elegir otro plan?</b>
 				</h6>
 				<div layout layout-align="space-between" class="flex-80 layout-align-space-between-stretch layout-row margin-auto" style="padding-top:  8%;">

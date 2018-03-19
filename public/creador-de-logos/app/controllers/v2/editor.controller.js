@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window) {
+	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService) {
 
 		var bz = this;
 
@@ -268,7 +268,9 @@ angular.module("disenador-de-logos")
 					principal: idFuente,
 					eslogan: idFuenteEslogan
 				},
-				colores: datos.colores
+				colores: datos.colores,
+				planes: bz.planes,
+				moneda: bz.moneda
 			};
 
 			if (bz.idLogoPadre) {
@@ -280,12 +282,6 @@ angular.module("disenador-de-logos")
 			}
 
 			bz.abrirPlanes = true;
-
-
-			/* $state.go("planes", {
-				status: true,
-				datos: datosComprar
-			}); */
 
 		});
 
@@ -529,6 +525,64 @@ angular.module("disenador-de-logos")
 			$state.go("principal.comenzar");
 
 		});
+
+
+		/* PLANES */
+
+		bz.monedas = {};
+		bz.moneda = {};
+		bz.monedaDefault = {};
+		bz.planes = [];
+		bz.impuesto = 0;
+
+		pedidosService.listarPlanes().then(function (res) {
+
+			bz.monedaDefault = {
+				simbolo: res.monedaDefault.codigo,
+				idMoneda: res.monedaDefault.idMoneda
+			};
+
+			bz.impuesto = res.impuesto;
+
+			bz.planes = res.planes;
+
+			angular.forEach(res.planes, function (plan) {
+
+				angular.forEach(plan.precios, function (precio) {
+
+					if (!bz.monedas[precio.moneda]) {
+
+						bz.monedas[precio.moneda] = {
+							simbolo: precio.moneda,
+							idMoneda: precio.idMoneda
+						};
+
+					}
+
+				});
+
+			});
+
+			bz.moneda = bz.monedaDefault;
+
+		});
+
+		bz.precioSeleccionado = function (precios) {
+
+			var precioFinal = "";
+
+			angular.forEach(precios, function (valor) {
+
+				if (valor.moneda == bz.moneda.simbolo) {
+
+					precioFinal = valor.moneda + " " + valor.precio;
+				}
+
+			});
+
+			return precioFinal;
+
+		};
 
 
 	}]);
