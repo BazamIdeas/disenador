@@ -104,8 +104,8 @@ router.get("/idiomas/borrar/:_id", controllers.idiomas.Borrar);
 //MODULO ELEMENTOS
 router.post("/elementos/busqueda/fuentes", controllers.elementos.listaSegunPref);
 router.post("/elementos/busqueda/iconos", controllers.elementos.listaSegunTagCat);
-router.post("/elementos/categorias", controllers.elementos.listaElemCategoria);
-router.post("/elementos/categoria", controllers.elementos.listaElemCat);
+router.post("/elementos/categorias", controllers.elementos.listaElemCategoria); // iconos en editor
+router.post("/elementos/categoria", controllers.elementos.listaElemCat); //iconos back
 router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono
 router.get("/elementos/fuente", controllers.elementos.ListarFuentes);
 router.post("/elemento/fuente", multipartMiddleware, controllers.elementos.nuevoElementoFuente);

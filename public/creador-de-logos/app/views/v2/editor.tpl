@@ -364,7 +364,7 @@
 
 
 						<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="icono in editor.iconos">
-							<div fondo-contraste color="icono.color" class="opcion-icono">
+							<div class="opcion-icono">
 								<div class="overlay-opcion"></div>
 								<span class="seleccionar">
 									<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
