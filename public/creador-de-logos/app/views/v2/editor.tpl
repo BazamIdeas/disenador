@@ -9,7 +9,7 @@
 	<div class="row margin-bottom-0">
 
 		<div class="col s4 logo">
-			<h5 class="secundario" ui-sref="principal.comenzar">
+			<h5 class="secundario" ui-sref="inicio">
 				<i class="material-icons md-48 aling-top">fingerprint</i>
 				<span>DISEÑADOR</span>
 			</h5>
@@ -35,10 +35,10 @@
 					    data-identificador="ayuda-borradores" data-orientacion="right" data-paso="12" bazam-pasos-ayuda>
 						<i class="material-icons">queue</i> BORRADORES</button>
 
-					<button class="boton-oborder" ng-class="{'active': editor.preview}" ng-click="editor.mostrarPreviews()" bazam-ayuda data-titulo="Previews"
+					<!--<button class="boton-oborder" ng-class="{'active': editor.preview}" ng-click="editor.mostrarPreviews()" bazam-ayuda data-titulo="Previews"
 					    data-texto="Previsualice su logo en diferentes elementos publicitarios y de papelería" data-clases="['corner-lt']" data-identificador="ayuda-preview"
 					    data-orientacion="right" data-paso="13" bazam-pasos-ayuda>
-						<i class="material-icons">remove_red_eye</i> PREVIEW</button>
+						<i class="material-icons">remove_red_eye</i> PREVIEW</button>-->
 
 					<button class="boton-oborder" ng-class="{'loading-purple': !editor.completadoGuardar}" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"
 					    bazam-ayuda data-titulo="Guardar" data-texto="Guarde su logo para su posterior edicion" data-clases="['corner-lt']"
