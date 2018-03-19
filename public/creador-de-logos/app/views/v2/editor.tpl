@@ -307,9 +307,10 @@
 
 		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
 		    style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
-			<div class="contenedor-svg">
+			<div class="contenedor-svg" style="position:relative">
 				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
-				    data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan"></bazam-svg>
+					data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan" data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto"></bazam-svg>
+					<div class='overlay-logo loading-purple' ng-hide="editor.svgFinal"></div>
 			</div>
 			<div class="overlay-svg" ng-class="{'abierto': (editor.borradores || editor.busquedaIconos) }"></div>
 			<div class="overlay-svg-previews" ng-class="{'abierto': editor.preview }"></div>

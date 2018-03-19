@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "$filter", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, $filter) {
 
 		var bz = this;
 
@@ -148,17 +148,16 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.preAvanzar = function(logo){
 
-
-		bz.preAvanzar = function(indiceLogo, color){
-
-			if(indiceLogo){
-				bz.logoSeleccionado = indiceLogo;
-			}
-
+			
+			bz.logoSeleccionado = bz.logos.indexOf(logo);
+			
+			/*
 			if(color){
 				bz.colorIcono = color;		
 			}
+			*/
 
 			if (!clientesService.autorizado()) {
 				bz.mostrarModalLogin = true;
@@ -176,13 +175,11 @@ angular.module("disenador-de-logos")
 				datos: {
 					logo: bz.logos[bz.logoSeleccionado],
 					texto: bz.datos.nombre,
-					categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
+					categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria,
+					colores: bz.logos[bz.logoSeleccionado].colores
 				}
 			};
 
-			if(bz.colorIcono){
-				datos.datos.color = bz.colorIcono;
-			}				
 
 			$state.go("editor", datos);
 
@@ -190,6 +187,7 @@ angular.module("disenador-de-logos")
 
 		bz.cambio = false;
 
+		/*
 		bz.moverse = function(accion) {
 			bz.cambio = true;
 
@@ -211,5 +209,6 @@ angular.module("disenador-de-logos")
 			}, 1000);
 			
 		}
+		*/
 
 	}]);
