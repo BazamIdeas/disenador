@@ -34,6 +34,15 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                     }
                 }
             }).state({
+                name: 'app.etiquetas',
+                url: '/etiquetas',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/etiquetas.html',
+                        controller: 'etiquetasController as ctrl'
+                    }
+                }
+            }).state({
                 name: 'app.cliente',
                 url: '/cliente',
                 views: {
@@ -48,7 +57,7 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                 views: {
                     'menuContent': {
                         templateUrl: 'app/views/elementos.html',
-                        controller: 'elementosController as elementos',
+                        controller: 'elementosController as ctrl',
                     }
                 }
             }).state({
@@ -76,6 +85,16 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                     'menuContent': {
                         templateUrl: 'app/views/pedidos.html',
                         controller: 'pedidosController as pedidos',
+                    }
+                }
+            })
+            .state({
+                name: 'app.idiomas',
+                url: '/idiomas',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/idiomas.html',
+                        controller: 'idiomasController as ctrl',
                     }
                 }
             }).state({

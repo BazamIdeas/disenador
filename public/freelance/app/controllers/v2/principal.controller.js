@@ -168,35 +168,43 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.preAvanzar = function(indiceLogo, color){
 
-		bz.avanzar = function (indiceLogo, color) {
+			console.log(indiceLogo)
 
-			bz.logoSeleccionado = indiceLogo;
-
-			if (!clientesService.autorizado()) {
-				bz.colorIcono = color;
-				bz.mostrarModalLogin = true;
-
-			} else {
-
-				var datos = {
-					status: true,
-					datos: {
-						logo: bz.logos[bz.logoSeleccionado],
-						texto: bz.datos.nombre,
-						categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
-					}
-				};
-
-				if(color){
-					datos.datos.color = color;
-				} else if(bz.colorIcono){
-					datos.datos.color = bz.colorIcono;
-				}
-
-				$state.go("editor", datos);
-
+			if(indiceLogo){
+				bz.logoSeleccionado = indiceLogo;
 			}
+
+			if(color){
+				bz.colorIcono = color;
+			}
+			
+			if (!clientesService.autorizado()) {
+				
+				bz.mostrarModalLogin = true;
+				bz.callback = bz.avanzar;
+			} else {
+				bz.avanzar();
+			}
+		};
+
+		bz.avanzar = function () {
+
+			var datos = {
+				status: true,
+				datos: {
+					logo: bz.logos[bz.logoSeleccionado],
+					texto: bz.datos.nombre,
+					categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria
+				}
+			};
+
+			if(bz.colorIcono){
+				datos.datos.color = bz.colorIcono;
+			}
+
+			$state.go("editor", datos);
 
 		};
 

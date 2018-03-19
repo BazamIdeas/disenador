@@ -43,6 +43,8 @@
     "jwt-simple": "^0.5.1",
     "mmdb-reader": "^1.1.0",
     "moment": "^2.17.1",
+    "mongodb": "^3.0.3",
+    "mongojs": "^2.5.0",
     "morgan": "^1.7.0",
     "mysql": "^2.13.0",
     "ng-file-upload": "^12.2.13",

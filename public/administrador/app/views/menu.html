@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="min-height: 100vh;">
     <div class="padding-cero sidemenu" ng-class="{grande:sidenav.menuMostrar, pequeno:!sidenav.menuMostrar}">
         <menu ng-class="{centrado:!sidenav.menuMostrar}" ng-if="sidenav.autorizado">
             <md-toolbar>
@@ -7,7 +7,7 @@
                     <a ng-if="!sidenav.menuMostrar" class="auto">A</a>
                 </div>
             </md-toolbar>
-            <md-list ng-cloak layout="column">
+            <md-list ng-cloak layout="column" class="menu-scroll">
                 <md-item ng-repeat="vistas in sidenav.vistas" ng-class="{'activo': (vistas.url == sidenav.estado)}" class="menuItem" ui-sref="{{vistas.url}}">
                     <md-icon>{{vistas.icono}}</md-icon>
                     <span ng-if="sidenav.menuMostrar">{{vistas.nombre}}</span>
@@ -52,7 +52,7 @@
                 </md-toolbar>
             </header>
             <!-- contenedor principal -->
-            <md-content name="menuContent" flex ui-view ng-cloak class="padding_top" style="overflow-y: scroll; max-height: 90%;">
+            <md-content name="menuContent" flex ui-view ng-cloak class="padding_top" style="overflow-y: scroll; max-height: 90%; height: 90%;">
             </md-content>
         </div>
     </div>

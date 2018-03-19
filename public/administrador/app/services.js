@@ -612,6 +612,64 @@ angular.module("administrador")
     }])
 
 
+    /***************************/
+    /**********IDIOMAS**********/
+    /***************************/
+
+    .service('idiomasService', ['$http', '$q', function ($http, $q) {
+
+
+        this.listarIdiomas = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/idiomas').then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.guardarIdioma = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/idiomas/', datos).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.modificarIdioma = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/idiomas/modificar', datos).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+        this.borrarIdioma = function (id) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/idiomas/borrar/' + id).then(function (res) {
+                defered.resolve(res.data);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+    }])
+
+
     /* SERVICIO PARA ADMINISTRAR */
 
     .service('administrarService', ['$http', '$q', function ($http, $q) {
@@ -838,6 +896,7 @@ angular.module("administrador")
             }
 
             $http.post('/app/logos/por-aprobar', datos).then(function (res) {
+                if (res == undefined) return defered.reject(res);
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
@@ -885,7 +944,7 @@ angular.module("administrador")
             })
             return promise;
         }
-        
+
 
         this.calificarLogo = function (datos) {
             var defered = $q.defer();
@@ -934,14 +993,13 @@ angular.module("administrador")
             var promise = defered.promise;
 
             $http.get('/app/cliente/' + id + '/pagos').then(function (res) {
-                defered.resolve(res.data);
+                defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
             })
             return promise;
         }
 
-        // TODO: RUTA MALA
         this.notificarPago = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
@@ -974,6 +1032,187 @@ angular.module("administrador")
 
             return promise;
         }
+
+    }])
+
+    /* SERVICIO PARA ETIQUETAS */
+
+    .service('etiquetasService', ['$http', '$q', function ($http, $q) {
+
+        /***************************/
+        /**********LOGOS***********/
+        /***************************/
+
+        this.listarLogos = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/elementos/categoria', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        /* ETIQUETAS*/
+
+
+        this.listarEtiquetas = function () {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/etiquetas').then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+
+        this.guardarEtiqueta = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/etiquetas', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        this.guardarEtiquetaIconos = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/etiquetas/iconos', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        this.borrarEtiqueta = function (id) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/etiquetas/borrar/' + id).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        this.desasignarEtiqueta = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/etiqueta/' + datos._id + '/iconos/desasignar', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        this.actualizarEtiqueta = function (datos) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.post('/app/etiquetas/modificar', datos).then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
+        this.loadEtiquetas = function (arr, v) {
+
+            var etiquetas = [];
+
+            angular.forEach(arr, (valor) => {
+                etiquetas.push({
+                    _id: valor._id,
+                    traduccion: valor.traducciones[0]
+                });
+            })
+
+            return etiquetas.map(function (et) {
+                et.traduccion._lowername = et.traduccion.valor.toLowerCase();
+                return et;
+            });
+        }
+
+        this.transformChip = function (chip) {
+
+            // If it is an object, it's already a known chip
+            if (angular.isObject(chip)) {
+                return chip;
+            }
+
+            // Otherwise, create a new one
+            return {
+                valor: chip
+            }
+
+        }
+
+        this.querySearch = function (query, etiquetas) {
+            var results = query ? etiquetas.filter(createFilterFor(query)) : [];
+            return results;
+        }
+
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+
+            return function filterFn(etiqueta) {
+                return (etiqueta.traduccion._lowername.indexOf(lowercaseQuery) === 0);
+            };
+
+        }
+
+
+
 
     }])
 
@@ -1382,7 +1621,7 @@ angular.module("administrador")
             }
 
             if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-                    newItems = [];
+                newItems = [];
 
                 var extractValueToCompare = function (item) {
                     if (angular.isObject(item) && angular.isString(filterOn)) {

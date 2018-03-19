@@ -132,6 +132,7 @@ menu *:not(md-icon) {
     right: 3%;
     background: var(--alternal-color);
     padding: 0;
+    min-width: 40px !important;
 }
 
 .bordered {
@@ -342,8 +343,8 @@ opcion-tabla {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-      width: 40px;
-      height: 40px;
+    width: 40px;
+    height: 40px;
 }
 
 opcion-tabla md-icon {
@@ -355,12 +356,12 @@ opcion-tabla md-icon {
 .page-login {
     width: 100vw;
     min-height: 100vh;
-  background: var(--dark-color);
+    background: var(--dark-color);
 }
 
 .formulario-ingreso {
-      background:var(--light-color);
-      padding: 20px;
+    background: var(--light-color);
+    padding: 20px;
 }
 
 .cont-form:before {
@@ -390,7 +391,6 @@ opcion-tabla md-icon {
     text-align: center;
     color: white;
 }
-
 
 .login {
     background: var(--light-color);
@@ -700,6 +700,35 @@ menu.centrado md-icon {
 
 .sidemenu.pequeno {
     width: 5%
+}
+
+.menu-scroll {
+    height: 100vh;
+    overflow-x: scroll;
+}
+
+/* Estilos Scroll Bar */
+
+.menu-scroll::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 15px;
+}
+
+.menu-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    box-shadow: 0 0 1px rgb(255, 255, 255);
+}
+
+.menu-scroll::-moz-scrollbar {
+    -webkit-appearance: none;
+    width: 4px;
+}
+
+.menu-scroll::-moz-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
+    box-shadow: 0 0 1px rgb(255, 255, 255);
 }
 
 /* SIN FUNCIONES */

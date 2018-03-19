@@ -6,6 +6,7 @@ var crypto = require('crypto');
 var pago = require('../modelos/pagosModelo.js');
 var logos = require('../modelos/logosModelo.js');
 var atributo = require('../modelos/atributosModelo.js');
+var elemento = require("../modelos/elementosModelo.js");
 var config = require('../configuracion.js');
 var async = require('async');
 var pdf = require('html-pdf');
@@ -429,7 +430,7 @@ exports.Avatar = function (req, res, next) {
 
     var nombre = crypto.randomBytes(Math.ceil(16 / 2)).toString('hex').slice(0, 16).toUpperCase();
     var tmp_path = req.files.avatar.path;
-    var target_path = '/avatares/' + nombre+'.'+req.files.avatar.type.split('/')[1];
+    var target_path = '/avatares/' + nombre + '.' + req.files.avatar.type.split('/')[1];
 
     if (req.files.avatar.type.indexOf('image') == -1) {
 
@@ -440,14 +441,14 @@ exports.Avatar = function (req, res, next) {
     } else {
 
         cliente.getCliente(id, function (error, data) {
-            fs.rename(tmp_path, '.'+target_path, function (err) {
+            fs.rename(tmp_path, '.' + target_path, function (err) {
 
                 if (err) throw err;
-                
+
                 var cli = data[0];
-                if (fs.existsSync('.'+cli.foto)) {
-                    
-                    fs.unlink('.'+cli.foto, function (err) {
+                if (fs.existsSync('.' + cli.foto)) {
+
+                    fs.unlink('.' + cli.foto, function (err) {
                         if (err) throw err;
 
                     })
@@ -457,7 +458,9 @@ exports.Avatar = function (req, res, next) {
                 cliente.Avatar(data, function (error, data) {
                     if (err) throw err;
                     if (typeof data !== "undefined" && data.affectedRows) {
-                        res.status(200).json({foto: target_path});
+                        res.status(200).json({
+                            foto: target_path
+                        });
                     } else {
                         res.status(500).json({
                             "msg": "Algo ocurrio"
@@ -469,122 +472,175 @@ exports.Avatar = function (req, res, next) {
     }
 }
 
+
 exports.manualCliente = function (req, res, next) {
 
-    var logo = req.body.logo;
+    var par = [req.idCliente, req.params.id];
 
-    /*------------------------------- PDF --------------------------*/
+    logos.getLogo(par, function (error, data) {
+        //si el pedido existe 
 
-    var datos = {
-        logo: base64.decode(logo.logo),
-        tipografia_p: logo.tipografia_p,
-    }
+        if (typeof data !== "undefined" && data.length > 0) {
+            var logo = data[0];
 
-    for (var attr in logo.atributos) {
-        if (logo.atributos[attr].clave == 'color-icono') {
-            datos.color_principal = logo.atributos[attr].valor
-            datos.fuente_c_hexa_p = toHexa(logo.atributos[attr].valor)
-            datos.fuente_c_rgb_p = logo.atributos[attr].valor
+            atributo.ObtenerPorLogo(req.params.id, function (error, data) {
+
+                //console.log(data)
+                if (typeof data !== "undefined" && data.length > 0) {
+                    logo["atributos"] = data;
+
+                    data.forEach(element => {
+                        if (element.clave == 'eslogan') {
+                            logo.tieneEslogan = element.valor;
+                        }
+
+                        if (element.clave == 'principal') {
+                            logo.tieneNombre = element.valor;
+                        }
+                    });
+
+                    elemento.ListarFuentes(function (error, data) {
+                        if (typeof data !== "undefined" && data.length > 0) {
+
+                            data.forEach(element => {
+                                if (element.idElemento == logo.tieneEslogan) {
+                                    logo["tipografia_s"] = {
+                                        nombre: element.nombre,
+                                        url: element.url
+                                    };
+                                }
+
+                                if (element.idElemento == logo.tieneNombre) {
+                                    
+                                    logo["tipografia_p"] = {
+                                        nombre: element.nombre,
+                                        url: element.url
+                                    };
+                                }
+                                
+                            });
+
+                            /*-- PDF --*/
+
+                            var datos = {
+                                logo: base64.decode(logo.logo),
+                                tipografia_p: logo.tipografia_p,
+                            }
+
+                            for (var attr in logo.atributos) {
+                                if (logo.atributos[attr].clave == 'color-icono') {
+                                    datos.color_principal = logo.atributos[attr].valor
+                                    datos.fuente_c_hexa_p = toHexa(logo.atributos[attr].valor)
+                                    datos.fuente_c_rgb_p = logo.atributos[attr].valor
+                                }
+
+                                if (logo.atributos[attr].clave == 'color-nombre') {
+                                    datos.fuente_c_hexa_n = toHexa(logo.atributos[attr].valor)
+                                    datos.fuente_c_rgb_n = logo.atributos[attr].valor
+                                }
+                            }
+
+                            var template;
+
+                            /* SI EXISTE EL ESLOGAN */
+
+                            if (logo.tieneEslogan) {
+
+                                template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
+                                    if (err) throw err;
+                                });
+
+                                for (attr in logo.atributos) {
+                                    if (logo.atributos[attr].clave == 'color-eslogan') {
+                                        datos.fuente_c_hexa_e = toHexa(logo.atributos[attr].valor),
+                                            datos.fuente_c_rgb_e = logo.atributos[attr].valor
+                                    }
+                                }
+
+                                datos.tipografia_s = logo.tipografia_s;
+
+                            } else {
+                                template = fs.readFileSync('./manual-marcas/index.1.html', 'utf8', (err, data) => {
+                                    if (err) throw err;
+                                });
+                            }
+
+                            /* ********************************* */
+
+                            for (i = 0; i <= 6; i++) {
+                                template = template.replace('{#fuente_c_hexa_p#}', datos.fuente_c_hexa_p);
+                                template = template.replace('{#fuente_c_rgb_p#}', datos.fuente_c_rgb_p);
+                                template = template.replace('{#fuente_c_hexa_n#}', datos.fuente_c_hexa_n);
+                                template = template.replace('{#fuente_c_rgb_n#}', datos.fuente_c_rgb_n);
+                                template = template.replace('{#tipografia_p_url#}', datos.tipografia_p.url);
+                                template = template.replace('{#tipografia_p_nombre#}', datos.tipografia_p.nombre);
+                                template = template.replace('{#color_principal#}', datos.color_principal);
+                            }
+
+                            if (logo.tieneEslogan) {
+                                for (i = 0; i <= 6; i++) {
+                                    template = template.replace('{#tipografia_s_nombre#}', datos.tipografia_s.nombre);
+                                    template = template.replace('{#tipografia_s_url#}', datos.tipografia_s.url);
+                                    template = template.replace('{#fuente_c_hexa_e#}', datos.fuente_c_hexa_e);
+                                    template = template.replace('{#fuente_c_rgb_e#}', datos.fuente_c_rgb_e);
+                                }
+                            }
+
+                            for (i = 0; i <= 11; i++) {
+                                template = template.replace('{#logo#}', datos.logo);
+                            }
+
+                            url = __dirname.replace('controllers', '')
+
+                            url = 'file:///' + url + "manual-marcas/assets";
+
+                            if (config.servidor == "Produccion") {
+                                var configuracion = {
+                                    "height": "14.66in",
+                                    "width": "11.305in",
+                                    "base": url,
+                                    "type": "pdf",
+                                    "renderDelay": 3000
+                                }
+                            }
+
+                            else {
+                                var configuracion = {
+                                    "height": "11in",
+                                    "width": "8.5in",
+                                    "base": url,
+                                    "type": "pdf",
+                                    "renderDelay": 2000
+                                }
+                            }
+
+                            var nombreEmpresa = 'LL';
+
+                            pdf.create(template, configuracion).toFile('./public/tmp/manual-marcas-' + nombreEmpresa + '.pdf', function (err, data) {
+
+                                if (err) throw err;
+
+                                data = {
+                                    nombreArchivo: 'Manual de marca ' + nombreEmpresa + '.pdf',
+                                    url: '/tmp/manual-marcas-' + nombreEmpresa + '.pdf'
+                                };
+
+                                res.status(200).json(data)
+                            });
+
+                        }
+                    });
+                }
+            });
         }
+        //no existe
+        else {
+            res.status(404).json({
+                "msg": "No existe el logo o no le pertenece al cliente"
+            });
 
-        if (logo.atributos[attr].clave == 'color-nombre') {
-            datos.fuente_c_hexa_n = toHexa(logo.atributos[attr].valor)
-            datos.fuente_c_rgb_n = logo.atributos[attr].valor
         }
-    }
-
-    var template;
-
-    /* SI EXISTE EL ESLOGAN */
-
-    if (logo.tieneEslogan) {
-
-        template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
-            if (err) throw err;
-        });
-
-        for (attr in logo.atributos) {
-            if (logo.atributos[attr].clave == 'color-eslogan') {
-                datos.fuente_c_hexa_e = toHexa(logo.atributos[attr].valor),
-                datos.fuente_c_rgb_e = logo.atributos[attr].valor
-            }
-        }
-
-        datos.tipografia_s = logo.tipografia_s;
-
-    } else {
-        template = fs.readFileSync('./manual-marcas/index.1.html', 'utf8', (err, data) => {
-            if (err) throw err;
-        });
-    }
-
-
-    /* ********************************* */
-
-    for (i = 0; i <= 6; i++) {
-        template = template.replace('{#fuente_c_hexa_p#}', datos.fuente_c_hexa_p);
-        template = template.replace('{#fuente_c_rgb_p#}', datos.fuente_c_rgb_p);
-        template = template.replace('{#fuente_c_hexa_n#}', datos.fuente_c_hexa_n);
-        template = template.replace('{#fuente_c_rgb_n#}', datos.fuente_c_rgb_n);
-        template = template.replace('{#tipografia_p_url#}', datos.tipografia_p.url);
-        template = template.replace('{#tipografia_p_nombre#}', datos.tipografia_p.nombre);
-        template = template.replace('{#color_principal#}', datos.color_principal);
-    }
-
-    if (logo.tieneEslogan) {
-        for (i = 0; i <= 6; i++) {
-            template = template.replace('{#tipografia_s_nombre#}', datos.tipografia_s.nombre);
-            template = template.replace('{#tipografia_s_url#}', datos.tipografia_s.url);
-            template = template.replace('{#fuente_c_hexa_e#}',datos.fuente_c_hexa_e);
-            template = template.replace('{#fuente_c_rgb_e#}', datos.fuente_c_rgb_e);
-        }
-    }
-
-    for (i = 0; i <= 11; i++) {
-        template = template.replace('{#logo#}', datos.logo);
-    }
-
-    url = __dirname.replace('controllers','')
-
-    url = 'file:///' + url + "manual-marcas/assets";
-
-    if  (config.servidor == "Produccion")
-        {
-            var configuracion = {
-                "height": "14.66in",
-                "width": "11.305in",
-                "base": url,
-                "type": "pdf",
-                "renderDelay":3000
-            }
-        }
-
-    else{
-        var configuracion = {
-            "height": "11in",
-            "width": "8.5in",
-            "base": url,
-            "type": "pdf",
-            "renderDelay": 2000
-        }
-    }
-
-
-
-    var nombreEmpresa = 'LL';
-
-    pdf.create(template, configuracion).toFile('./public/tmp/manual-marcas-' + nombreEmpresa + '.pdf', function (err, data) {
-
-        if (err) throw err;
-
-        data = {
-            nombreArchivo: 'Manual de marca ' + nombreEmpresa + '.pdf',
-            url: '/tmp/manual-marcas-' + nombreEmpresa + '.pdf'
-        };
-
-        res.status(200).json(data)
     });
-
 
     /* UTILITARIOS */
 
@@ -592,12 +648,12 @@ exports.manualCliente = function (req, res, next) {
         rgb = rgb.slice(4, -1);
         args = rgb.split(', ');
 
-        var integer = ((Math.round(args[0]) & 0xFF) << 16)
-            + ((Math.round(args[1]) & 0xFF) << 8)
-            + (Math.round(args[2]) & 0xFF);
+        var integer = ((Math.round(args[0]) & 0xFF) << 16) +
+            ((Math.round(args[1]) & 0xFF) << 8) +
+            (Math.round(args[2]) & 0xFF);
 
         var string = integer.toString(16).toUpperCase();
-        return '#'+'000000'.substring(string.length) + string;
+        return '#' + '000000'.substring(string.length) + string;
     }
 
 }

@@ -45,6 +45,14 @@ angular.module("administrador")
             url: 'app.disenadores',
             nombre: 'Diseñadores',
             icono: 'face'
+        }, {
+            url: 'app.etiquetas',
+            nombre: 'Etiquetas',
+            icono: 'style'
+        }, {
+            url: 'app.idiomas',
+            nombre: 'Idiomas',
+            icono: 'assistant_photo'
         }];
 
         /* VERIFICA SI EL USUARIO ESTA AUTORIZADO Y LO VIGILA */

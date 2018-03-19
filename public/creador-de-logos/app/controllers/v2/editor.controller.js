@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory) {
+	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService) {
 
 		var bz = this;
 
@@ -9,10 +9,11 @@ angular.module("disenador-de-logos")
 		bz.borradores = false;
 		bz.preview = false;
 		bz.busquedaIconos = false;
-		bz.colorFondo = historicoResolve.color ?  coloresFactory(historicoResolve.color) : "rgb(236,239,240)";
-		bz.colorTexto = historicoResolve.color || "#000";
+		bz.colorFondo = historicoResolve.colores[0] || "rgb(243, 243, 243)";
+		bz.colorTexto = historicoResolve.colores[2] || "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono = historicoResolve.color || "#000";
+		bz.colorIcono = historicoResolve.colores[1] || "#000";
+		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
 
@@ -51,7 +52,7 @@ angular.module("disenador-de-logos")
 		elementosService.listarFuentes().then(function (res) {
 
 			bz.fuentes = res;
-            
+
 			if (historicoResolve.idLogoGuardado || historicoResolve.idLogoPadre) { // si es un logo previamente guardado
 
 				angular.forEach(bz.fuentes, function (valor) {
@@ -86,7 +87,10 @@ angular.module("disenador-de-logos")
 
 		bz.completadoGuardar = true;
 
-		bz.guardarLogo = function (logo, tipoLogo, idElemento) {
+		bz.guardarLogo = function (logo, tipoLogo, idElemento, regresar) {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
 
 			if (bz.completadoGuardar) {
 
@@ -114,26 +118,34 @@ angular.module("disenador-de-logos")
 
 				if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
 					logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre)
-                    
+
 						.then(function (res) {
+
 							bz.logo.idLogo = res;
-                        
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Su logo ha sido guardado con exito!",
-									clase: "success"
-								}
-							}));
 
+							if (!regresar) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Su logo ha sido guardado con exito!",
+										clase: "success"
+									}
+								}));
+							} else {
+								defered.resolve(res);
+							}
 
-						}).catch(function () {
+						}).catch(function (res) {
 
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Un error ha ocurrido",
-									clase: "danger"
-								}
-							}));
+							if (!regresar) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							} else {
+								defered.reject(res);
+							}
 
 						}).finally(function () {
 
@@ -143,24 +155,31 @@ angular.module("disenador-de-logos")
 				} else { //si es un logo guardado
 
 					logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, fuentesId.principal, fuentesId.eslogan)
-						.then(function () {
+						.then(function (res) {
 
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Su logo ha sido guardado con exito!",
-									clase: "success"
-								}
-							}));
+							if (!regresar) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Su logo ha sido guardado con exito!",
+										clase: "success"
+									}
+								}));
+							} else {
+								return defered.resolve(res);
+							}
 
+						}).catch(function (res) {
 
-						}).catch(function () {
-
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Un error ha ocurrido",
-									clase: "danger"
-								}
-							}));
+							if (!regresar) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							} else {
+								defered.reject(res);
+							}
 
 						}).finally(function () {
 
@@ -170,6 +189,8 @@ angular.module("disenador-de-logos")
 
 				}
 			}
+
+			return promise;
 
 		};
 
@@ -238,25 +259,29 @@ angular.module("disenador-de-logos")
 
 			});
 
-			var datosComprar = {
+			bz.datosComprar = {
 				logo: datos.svg,
+				idLogo: null,
 				idElemento: bz.logo.icono.idElemento,
 				tipo: "Logo y nombre",
 				fuentes: {
 					principal: idFuente,
 					eslogan: idFuenteEslogan
 				},
-				colores: datos.colores 
+				colores: datos.colores,
+				planes: bz.planes,
+				moneda: bz.moneda
 			};
 
 			if (bz.idLogoPadre) {
-				datosComprar.idPadre = bz.idLogoPadre;
+				bz.datosComprar.idPadre = bz.idLogoPadre;
 			}
 
-			$state.go("planes", {
-				status: true,
-				datos: datosComprar
-			});
+			if (bz.logo.idLogo) {
+				bz.datosComprar.idLogo = bz.logo.idLogo;
+			}
+
+			bz.abrirPlanes = true;
 
 		});
 
@@ -266,7 +291,7 @@ angular.module("disenador-de-logos")
 		/////////////////////////////////////
 
 		bz.cambioColor = function (color, objetivo) {
-			
+
 			$rootScope.$broadcast("editor:color", {
 				color: color,
 				objetivo: objetivo
@@ -274,12 +299,18 @@ angular.module("disenador-de-logos")
 
 		};
 
-		if(historicoResolve.color){
-			$timeout(function(){
-				bz.cambioColor(historicoResolve.color, "texto");
-			}, 10);
+		/*
+		if (historicoResolve.colores) {
+			console.log("hola")
+			$timeout(function () {
+				bz.cambioColor(historicoResolve.colores[2], "texto");
+			}, 5000);
+			$timeout(function () {
+				bz.cambioColor(historicoResolve.colores[1], "icono");
+			}, 5000);
 		}
-		
+		*/
+
 
 		/////////////////////////////////////
 		//////////CAMBIO DE TEXTO////////////
@@ -396,6 +427,7 @@ angular.module("disenador-de-logos")
 
 				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
 					.then(function (res) {
+						bz.iconos = [];
 						bz.iconos = res;
 					}).finally(function () {
 						bz.completadoBuscar = true;
@@ -456,6 +488,27 @@ angular.module("disenador-de-logos")
 
 		};
 
+		$window.fbAsyncInit = function () {
+			FB.init({
+				appId: "152803392097078",
+				autoLogAppEvents: true,
+				xfbml: true,
+				version: "v2.12"
+			});
+		};
+
+
+		(function (d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, "script", "facebook-jssdk"));
+
 		//////////////////////////////////////////
 		////////RESTAURAR COMPARACIONES///////////
 		//////////////////////////////////////////
@@ -472,5 +525,64 @@ angular.module("disenador-de-logos")
 			$state.go("principal.comenzar");
 
 		});
+
+
+		/* PLANES */
+
+		bz.monedas = {};
+		bz.moneda = {};
+		bz.monedaDefault = {};
+		bz.planes = [];
+		bz.impuesto = 0;
+
+		pedidosService.listarPlanes().then(function (res) {
+
+			bz.monedaDefault = {
+				simbolo: res.monedaDefault.codigo,
+				idMoneda: res.monedaDefault.idMoneda
+			};
+
+			bz.impuesto = res.impuesto;
+
+			bz.planes = res.planes;
+
+			angular.forEach(res.planes, function (plan) {
+
+				angular.forEach(plan.precios, function (precio) {
+
+					if (!bz.monedas[precio.moneda]) {
+
+						bz.monedas[precio.moneda] = {
+							simbolo: precio.moneda,
+							idMoneda: precio.idMoneda
+						};
+
+					}
+
+				});
+
+			});
+
+			bz.moneda = bz.monedaDefault;
+
+		});
+
+		bz.precioSeleccionado = function (precios) {
+
+			var precioFinal = "";
+
+			angular.forEach(precios, function (valor) {
+
+				if (valor.moneda == bz.moneda.simbolo) {
+
+					precioFinal = valor.moneda + " " + valor.precio;
+				}
+
+			});
+
+			return precioFinal;
+
+		};
+
 
 	}]);

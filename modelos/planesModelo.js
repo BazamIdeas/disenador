@@ -29,6 +29,33 @@ planes.ListarPorPais = function(idPais, callback)
 	});	
 }
 
+planes.ObtenerSuperiores = function(idPlan,idPais, callback)
+{
+	var q = `SELECT planes.*
+				FROM planes
+				INNER JOIN precios ON precios.planes_idPlan = planes.idPlan
+				INNER JOIN monedas ON monedas.idMoneda = precios.monedas_idMoneda
+				INNER JOIN monedas_has_paises ON monedas_has_paises.monedas_idMoneda = monedas.idMoneda
+				INNER JOIN paises ON paises.idPais = monedas_has_paises.paises_idPais
+				WHERE planes.status = 1
+				AND paises.idPais = ?
+				AND planes.idPlan != ?
+				GROUP BY planes.idPlan
+				`;
+
+	DB.getConnection(function(err, connection)
+	{
+		return connection.query( q , [idPais, idPlan], function(err, rows){
+
+		  	if(err)	throw err;
+
+		  	else callback(null, rows);
+
+		  	connection.release();
+		});
+	});	
+}
+
 planes.Listar = function(callback)
 {
 	var q = 'SELECT * FROM planes ORDER BY plan';
@@ -142,5 +169,30 @@ planes.Modificar = function(planData, callback)
 	});
 }
 
+planes.ObtenerPlan = function(idPlan, callback){
+
+	var q = `SELECT planes.*
+				FROM planes
+				INNER JOIN precios ON precios.planes_idPlan = planes.idPlan
+				INNER JOIN monedas ON monedas.idMoneda = precios.monedas_idMoneda
+				INNER JOIN monedas_has_paises ON monedas_has_paises.monedas_idMoneda = monedas.idMoneda
+				INNER JOIN paises ON paises.idPais = monedas_has_paises.paises_idPais
+				WHERE planes.status = 1
+				AND planes.idPlan = ?
+				GROUP BY planes.idPlan
+				`;
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , [idPlan] , function(err, row){
+	  	
+		  	if(err)	throw err;
+
+			  else callback(null, row); 
+
+		  	connection.release();
+		});
+	});	
+}
 
 module.exports = planes;

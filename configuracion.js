@@ -64,6 +64,10 @@ var configuracion = {
             password: '',
             database: 'disenadorlogodb'
         },
+        "mongo": {
+            url: "mongodb+srv://cis:unaclavemuysegura5000@bazam-cgzwr.mongodb.net/admin",
+            database: 'disenador'
+        },
         freelancer: {
             moderador: {
                 1: 2,
