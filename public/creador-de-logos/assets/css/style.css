@@ -3495,3 +3495,33 @@ div.color-picker-bazam div.titulo span i {
         opacity: 1;
     }
 }
+
+.tabs-textos {
+    position: relative;
+}
+
+/*.tab-editor {
+    position: absolute;
+}
+
+.pasos.ng-animate {
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+}
+
+.pasos.ng-leave {
+    opacity: 0;
+    display: none;
+}
+
+.pasos.ng-leave-active {
+    display: none;
+}
+
+.pasos.ng-enter {
+    opacity: 0;
+}
+
+.pasos.ng-enter-active {
+    opacity: 1;
+}*/

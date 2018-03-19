@@ -78,10 +78,9 @@
 					</div>
 				</div>
 
-				<div class="tabs-textos" ng-switch="editor.menuSwitch" style="width: 100%">
-					<div ng-switch-when="1">
+				<div class="col s11 tabs-textos" style="width: 100%">
+					<div class="tab-editor" ng-show="editor.menuSwitch == 1">
 						<div class="row">
-							<!--<p class="text-center principal titulo" ng-if="!editor.esloganActivo">TEXTO</p>-->
 							<div class="input-field col s12">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Nombre del logo</md-tooltip>
 								<input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}"
@@ -126,7 +125,7 @@
 						</div>
 					</div>
 					<!--ESLOGAN-->
-					<div ng-switch-when="2">
+					<div class="tab-editor" ng-show="editor.menuSwitch == 2">
 						<div class="row">
 							<div class=" col s12" style="padding: 0">
 								<button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="editor.agregarEslogan()" style="margin-top: 40px;">
@@ -181,7 +180,7 @@
 						</div>
 					</div>
 
-					<div ng-switch-when="3">
+					<div class="tab-editor" ng-show="editor.menuSwitch == 3">
 						<div class="row">
 							<div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
 								<md-input-container style="width:80%; padding: 0 0.75rem">
@@ -415,18 +414,6 @@
 				<div class="col s12" style="padding:0">
 
 					<div style="position: relative;">
-						<div style="width: 30%;position: absolute;left: calc(28% - 18%);top: 6%;opacity: 0.9;filter: grayscale(1);">
-							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
-						</div>
-						<div style="width: 23%;position: absolute;left: calc(85% - 18%);top: 72%;filter: grayscale(1);opacity: 0.8;">
-							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
-						</div>
-						<img src="assets/images/mockups/sobre.jpg" width="100%">
-					</div>
-				</div>
-				<div class="col s12" style="padding:0">
-
-					<div style="position: relative;">
 						<div style="width: 14%;position: absolute;left: calc(66% - 18%);top: 32%;">
 							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
 						</div>
@@ -437,6 +424,19 @@
 							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
 						</div>
 						<img src="assets/images/mockups/red.jpg" width="100%">
+					</div>
+				</div>
+
+				<div class="col s12" style="padding:0">
+
+					<div style="position: relative;">
+						<div style="width: 30%;position: absolute;left: calc(28% - 18%);top: 6%;opacity: 0.9;filter: grayscale(1);">
+							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
+						</div>
+						<div style="width: 23%;position: absolute;left: calc(85% - 18%);top: 72%;filter: grayscale(1);opacity: 0.8;">
+							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
+						</div>
+						<img src="assets/images/mockups/sobre.jpg" width="100%">
 					</div>
 				</div>
 
@@ -459,6 +459,15 @@
 						<img src="assets/images/mockups/taza.jpg" width="100%">
 					</div>
 				</div>
+				<div class="col s12" style="padding:0">
+
+					<div style="position: relative;">
+						<div style="width: 40%;position: absolute;left: calc(47.7% - 18%);top: 46%;transform: rotate(89deg);filter: grayscale(100%) contrast(50%);">
+							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
+						</div>
+						<img src="assets/images/mockups/etiqueta.jpg" width="100%">
+					</div>
+				</div>
 
 				<div class="col s12" style="padding:0">
 
@@ -467,16 +476,6 @@
 							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
 						</div>
 						<img src="assets/images/mockups/envase.jpg" width="100%">
-					</div>
-				</div>
-
-				<div class="col s12" style="padding:0">
-
-					<div style="position: relative;">
-						<div style="width: 40%;position: absolute;left: calc(47.7% - 18%);top: 46%;transform: rotate(89deg);filter: grayscale(100%) contrast(50%);">
-							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
-						</div>
-						<img src="assets/images/mockups/etiqueta.jpg" width="100%">
 					</div>
 				</div>
 
