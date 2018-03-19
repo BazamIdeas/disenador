@@ -2,7 +2,7 @@
     <div class="row margin-bottom-0">
 
         <div class="col s2 logo">
-            <h5 class="secundario" ui-sref="principal.comenzar">
+            <h5 class="secundario" ui-sref="inicio">
                 <i class="material-icons md-48 aling-top">fingerprint</i>
                 <span>DISEÑADOR</span>
             </h5>
