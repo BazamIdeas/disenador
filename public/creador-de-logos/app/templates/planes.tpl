@@ -31,7 +31,7 @@
 							</div>
 						</div>
 
-						<div class="plan col s4" ng-repeat="plan in planes.planes | filter: planes.comprobarMonedas" style="border-radius:0px;">
+						<div class="plan col s4" ng-repeat="plan in planes.planes | filter: planes.comprobarMonedas" style="border-radius:0px;" ng-class="{'plan-principal': plan.plan == 'Plan Profesional', 'plan-secundario': plan.plan == 'Plan Básico'}">
 							<div>
 								<div class="plan-header">{{plan.plan}}</div>
 								<div class="plan-body">
@@ -159,9 +159,27 @@
 				</div>
 			</div>
 		</div>
-
-		<promocion ng-if="promocion">
-			PRUEBA
+		<!-- ng-if="planes.promocion" -->
+		<promocion class="md-whiteframe-6dp" ng-if="planes.promocion">
+			<div>
+				<cerrar-pop>
+					<md-button ng-click="planes.promocion = false" class="back-principal md-primary md-fab md-mini">
+						<md-icon>close</md-icon>
+					</md-button>
+				</cerrar-pop>
+				<h5 class="principal" style="text-align:center; font-size: 22px;">GRACIAS POR TOMAR NUESTRO PLAN GRATIS</h5>
+				<h6 style="text-align:  center;" class="pricipal principal">
+					<b>¿Deseas elegir otro plan?</b>
+				</h6>
+				<div layout layout-align="space-between" class="flex-80 layout-align-space-between-stretch layout-row margin-auto" style="padding-top:  8%;">
+					<md-button class="md-raised md-primary back-principal" ng-click="planes.promocion = false">
+						ELEGIR OTRO PLAN
+					</md-button>
+					<md-button class="md-raised md-primary back-principal" ng-click="planes.cerrarPop()">
+						SEGUIR EDITANDO MI LOGO
+					</md-button>
+				</div>
+			</div>
 		</promocion>
 	</section>
 
@@ -170,7 +188,6 @@
 			position: absolute;
 			bottom: 0;
 			z-index: 999;
-
 		}
 
 		.contenedor-principal-planes {
@@ -224,6 +241,50 @@
 		.principal {
 			font-family: futura-heavy;
 			margin-top: 5%;
+		}
+
+		/* PROMOCION*/
+
+		promocion {
+			position: fixed;
+			top: 25%;
+			left: 25%;
+			width: 50%;
+			height: 50vh;
+			background: white;
+			box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+			padding: 2%;
+		}
+
+		.back-principal,
+		.back-principal:focus {
+			background: var(--tercero) !important;
+		}
+
+		.plan.plan-secundario .plan-header,
+		.plan.plan-secundario .boton-verde {
+			background: var(--principal) !important;
+		}
+
+		.plan.plan-secundario .subtitulo-plan,
+		.plan.plan-secundario .plan-precio {
+			color: var(--principal) !important;
+		}
+
+		.plan.plan-principal .plan-header,
+		.plan.plan-principal .boton-verde {
+			background: var(--secundario) !important;
+		}
+
+		.plan.plan-principal .subtitulo-plan,
+		.plan.plan-principal .plan-precio {
+			color: var(--secundario) !important;
+		}
+
+		cerrar-pop {
+			position: absolute;
+			right: 1%;
+			top: 1%;
 		}
 	</style>
 </div>

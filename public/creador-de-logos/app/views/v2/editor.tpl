@@ -477,4 +477,5 @@
 	</div>
 </section>
 
-<bazam-planes estado="editor.abrirPlanes" datos="editor.datosComprar" ng-if="editor.abrirPlanes"></bazam-planes>
+<bazam-planes estado="editor.abrirPlanes" id='editor.logo.idLogo' datos="editor.datosComprar" guardar-logo="editor.guardarLogo"
+    ng-if="editor.abrirPlanes"></bazam-planes>

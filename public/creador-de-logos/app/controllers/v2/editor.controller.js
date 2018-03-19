@@ -9,10 +9,10 @@ angular.module("disenador-de-logos")
 		bz.borradores = false;
 		bz.preview = false;
 		bz.busquedaIconos = false;
-		bz.colorFondo =  "rgb(243, 243, 243)";
+		bz.colorFondo = "rgb(243, 243, 243)";
 		bz.colorTexto = "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono =  "#000";
+		bz.colorIcono = "#000";
 		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
@@ -131,10 +131,10 @@ angular.module("disenador-de-logos")
 									}
 								}));
 							} else {
-								defered.resolve();
+								defered.resolve(res);
 							}
 
-						}).catch(function () {
+						}).catch(function (res) {
 
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
@@ -144,7 +144,7 @@ angular.module("disenador-de-logos")
 									}
 								}));
 							} else {
-								defered.reject();
+								defered.reject(res);
 							}
 
 						}).finally(function () {
@@ -155,7 +155,7 @@ angular.module("disenador-de-logos")
 				} else { //si es un logo guardado
 
 					logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, fuentesId.principal, fuentesId.eslogan)
-						.then(function () {
+						.then(function (res) {
 
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
@@ -165,10 +165,10 @@ angular.module("disenador-de-logos")
 									}
 								}));
 							} else {
-								return defered.resolve();
+								return defered.resolve(res);
 							}
 
-						}).catch(function () {
+						}).catch(function (res) {
 
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
@@ -178,7 +178,7 @@ angular.module("disenador-de-logos")
 									}
 								}));
 							} else {
-								defered.reject();
+								defered.reject(res);
 							}
 
 						}).finally(function () {
@@ -259,33 +259,33 @@ angular.module("disenador-de-logos")
 
 			});
 
-			bz.guardarLogo(datos.svg, "Logo y nombre", bz.logo.icono.idElemento, true).then(function () {
+			bz.datosComprar = {
+				logo: datos.svg,
+				idLogo: null,
+				idElemento: bz.logo.icono.idElemento,
+				tipo: "Logo y nombre",
+				fuentes: {
+					principal: idFuente,
+					eslogan: idFuenteEslogan
+				},
+				colores: datos.colores
+			};
 
-				bz.datosComprar = {
-					logo: datos.svg,
-					idLogo: bz.logo.idLogo,
-					idElemento: bz.logo.icono.idElemento,
-					tipo: "Logo y nombre",
-					fuentes: {
-						principal: idFuente,
-						eslogan: idFuenteEslogan
-					},
-					colores: datos.colores
-				};
+			if (bz.idLogoPadre) {
+				bz.datosComprar.idPadre = bz.idLogoPadre;
+			}
 
-				bz.abrirPlanes = true;
+			if (bz.logo.idLogo) {
+				bz.datosComprar.idLogo = bz.logo.idLogo;
+			}
 
-				if (bz.idLogoPadre) {
-					bz.datosComprar.idPadre = bz.idLogoPadre;
-				}
+			bz.abrirPlanes = true;
 
-				/* $state.go("planes", {
-					status: true,
-					datos: datosComprar
-				}); */
 
-			});
-
+			/* $state.go("planes", {
+				status: true,
+				datos: datosComprar
+			}); */
 
 		});
 

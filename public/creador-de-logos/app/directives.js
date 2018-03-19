@@ -1812,7 +1812,9 @@ angular.module("disenador-de-logos")
 			controllerAs: "planes",
 			scope: {
 				datos: "<",
-				estado: "="
+				estado: "=",
+				id: "=",
+				guardarLogo: "<"
 			},
 			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout) {
 
@@ -1820,14 +1822,14 @@ angular.module("disenador-de-logos")
 
 				bz.base64 = $base64;
 
-				$scope.estadoDirectiva = angular.copy($scope.estado)
+				$scope.estadoDirectiva = angular.copy($scope.estado);
 
 				bz.cerrarPop = function () {
 					$scope.estadoDirectiva = false;
 					$timeout(function () {
 						$scope.estado = false;
-					}, 2000);
-				}
+					}, 1050);
+				};
 
 				var historicoResolve = angular.copy($scope.datos);
 
@@ -1878,8 +1880,6 @@ angular.module("disenador-de-logos")
 
 				});
 
-
-
 				bz.comprobarMonedas = function (plan) {
 
 					var coincidencia = false;
@@ -1923,30 +1923,53 @@ angular.module("disenador-de-logos")
 
 							angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-							var nombre = "editable";
-							var ancho = 50;
+							if ($scope.id) {
+								logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+									var url = "";
+									if (res.zip) {
 
-							logosService.descargarLogo(historicoResolve.idLogo, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
-								var url = "";
-								if (res.zip) {
+										url = res.zip.replace("public", "");
 
-									url = res.zip.replace("public", "");
+									} else if (res.png) {
 
-								} else if (res.png) {
+										url = res.png.replace("public", "");
 
-									url = res.png.replace("public", "");
+									}
 
-								}
+									logosService.dispararDescarga(url, nombre, ancho);
+									bz.desabilitado = true;
+									bz.promocion = true;
+								});
+							} else {
+								$scope.guardarLogo(historicoResolve.logo, "Logo y nombre", historicoResolve.idElemento, true).then(function (res) {
 
-								logosService.dispararDescarga(url, nombre, ancho);
+									var nombre = "editable";
+									var ancho = 50;
 
-							}).finally(function () {
-								angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+										var url = "";
+										if (res.zip) {
 
-							});
+											url = res.zip.replace("public", "");
 
-							bz.desabilitado = true;
-							bz.promocion = true;
+										} else if (res.png) {
+
+											url = res.png.replace("public", "");
+
+										}
+
+										logosService.dispararDescarga(url, nombre, ancho);
+
+									}).catch(function (res) {
+										//console.log(res)
+									}).finally(function () {
+										angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+
+										bz.desabilitado = true;
+										bz.promocion = true;
+									});
+								});
+							}
 
 						}).catch(function () {
 							$mdToast.show($mdToast.base({
