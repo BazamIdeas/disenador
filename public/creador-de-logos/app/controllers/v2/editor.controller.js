@@ -9,10 +9,10 @@ angular.module("disenador-de-logos")
 		bz.borradores = false;
 		bz.preview = false;
 		bz.busquedaIconos = false;
-		bz.colorFondo = "rgb(243, 243, 243)";
-		bz.colorTexto = "#000";
+		bz.colorFondo = historicoResolve.colores[0] || "rgb(243, 243, 243)";
+		bz.colorTexto = historicoResolve.colores[2] || "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono = "#000";
+		bz.colorIcono = historicoResolve.colores[1] || "#000";
 		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
@@ -303,11 +303,17 @@ angular.module("disenador-de-logos")
 
 		};
 
-		if (historicoResolve.color) {
+		/*
+		if (historicoResolve.colores) {
+			console.log("hola")
 			$timeout(function () {
-				bz.cambioColor(historicoResolve.color, "texto");
-			}, 10);
+				bz.cambioColor(historicoResolve.colores[2], "texto");
+			}, 5000);
+			$timeout(function () {
+				bz.cambioColor(historicoResolve.colores[1], "icono");
+			}, 5000);
 		}
+		*/
 
 
 		/////////////////////////////////////

@@ -126,7 +126,9 @@ angular.module("disenador-de-logos")
 				svgFinal: "=svgFinal",
 				idLogo: "=idLogo",
 				idPadre: "=idPadre",
-				eslogan: "=eslogan"
+				eslogan: "=eslogan",
+				colorIcono: "=colorIcono",
+				colorTexto: "=colorTexto",
 
 
 			},
@@ -208,6 +210,7 @@ angular.module("disenador-de-logos")
 							var svgIcono = element[0].children[0].children[0].children[0];
 
 							svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
+							svgIcono.setAttribute("fill", scope.colorIcono);
 
 							/////////////////////////////////////////
 							////////creamos el elemento Text/////////
@@ -225,6 +228,8 @@ angular.module("disenador-de-logos")
 
 							var svgTexto = element[0].children[0].children[1];
 
+
+							svgTexto.style.fill = scope.colorTexto;
 							svgTexto.style.fontSize = (tamanoBase / 2) + "px";
 							svgTexto.setAttribute("text-anchor", "middle");
 							svgTexto.setAttribute("font-family", scope.fuente.nombre);
@@ -328,10 +333,6 @@ angular.module("disenador-de-logos")
 						angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
 
 							/* COLOPICKER */
-
-
-							//angular.element(".color-picker-bazam").remove();
-
 							var coordenadasCon = angular.element(".contenedor-svg")[0].getBoundingClientRect();
 
 							var titulo = "";
@@ -1918,35 +1919,16 @@ angular.module("disenador-de-logos")
 
 					if (plan === true) {
 						bz.peticion = true;
+						var nombre = "editable";
+						var ancho = 50;
 
-						facebookService.compartir().then(function () {
+						facebookService.compartir()
+							.then(function () {
 
-							angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+								angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-							if ($scope.id) {
-								logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
-									var url = "";
-									if (res.zip) {
-
-										url = res.zip.replace("public", "");
-
-									} else if (res.png) {
-
-										url = res.png.replace("public", "");
-
-									}
-
-									logosService.dispararDescarga(url, nombre, ancho);
-									bz.desabilitado = true;
-									bz.promocion = true;
-								});
-							} else {
-								$scope.guardarLogo(historicoResolve.logo, "Logo y nombre", historicoResolve.idElemento, true).then(function (res) {
-
-									var nombre = "editable";
-									var ancho = 50;
-
-									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+								if ($scope.id) {
+									logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 										var url = "";
 										if (res.zip) {
 
@@ -1959,28 +1941,47 @@ angular.module("disenador-de-logos")
 										}
 
 										logosService.dispararDescarga(url, nombre, ancho);
-
-									}).catch(function (res) {
-										//console.log(res)
-									}).finally(function () {
-										angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
-
 										bz.desabilitado = true;
 										bz.promocion = true;
 									});
-								});
-							}
+								} else {
+									$scope.guardarLogo(historicoResolve.logo, "Logo y nombre", historicoResolve.idElemento, true).then(function (res) {
 
-						}).catch(function () {
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Debes compartir para obtener tu logo gratis.",
-									clase: "danger"
+										logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+											var url = "";
+											if (res.zip) {
+
+												url = res.zip.replace("public", "");
+
+											} else if (res.png) {
+
+												url = res.png.replace("public", "");
+
+											}
+
+											logosService.dispararDescarga(url, nombre, ancho);
+
+										}).catch(function () {
+											//console.log(res)
+										}).finally(function () {
+											angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+
+											bz.desabilitado = true;
+											bz.promocion = true;
+										});
+									});
 								}
-							}));
-						}).finally(function () {
-							bz.peticion = false;
-						});
+
+							}).catch(function () {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Debes compartir para obtener tu logo gratis.",
+										clase: "danger"
+									}
+								}));
+							}).finally(function () {
+								bz.peticion = false;
+							});
 					}
 
 					angular.forEach(plan.precios, function (precio) {

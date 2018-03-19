@@ -4,7 +4,7 @@
         src: url('{{fuente.url}}');
     }
 </style>
--->
+
 <style type="text/css">
     /*
     @font-face {
@@ -19,19 +19,20 @@
         font-family: 'serif';
         src: url('./assets/fonts/serif.ttf');
     }
-    */
+   
 
     @font-face {
         font-family: 'Sin Serif';
         src: url('./assets/fonts/sinserif.ttf');
     }
-</style>
+     */
+</style>-->
 
 <section class="sub-header">
     <div class="row margin-bottom-0">
 
         <div class="col l2 logo">
-            <h5 class="secundario" ui-sref="inicio.comenzar">
+            <h5 class="secundario" ui-sref="inicio">
                 <i class="material-icons md-48 aling-top">fingerprint</i>
                 <span>DISEÑADOR</span>
             </h5>
@@ -45,9 +46,8 @@
 
 <section style="max-height: calc(100vh - 135px) !important; background-color: var(--fondo);">
     <div class="row margin-bottom-0">
-        <form class="margin-bottom-0">
-            <div class="col l2 sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="inicio.jqueryScrollbarOptions" ng-form="inicio.datosForm"
-                style="position: static !important">
+        <form class="margin-bottom-0" name="inicio.datosForm">
+            <div class="col l2 sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="inicio.jqueryScrollbarOptions" style="position: static !important">
                 <div class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo" data-clases="['corner-lt']"
                     data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1" bazam-pasos-ayuda>
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
@@ -58,7 +58,7 @@
                     <md-input-container style="width:100%" bazam-ayuda data-titulo="Categoria" data-texto="Seleccione la categoria o actividad de su empresa u ocupación"
                         data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                         bazam-pasos-ayuda>
-                        <md-select style="width:100%" ng-model="inicio.datos.categoria.icono" placeholder="Categoria" required>
+                        <md-select style="width:100%" ng-model="inicio.datos.categoria.icono" placeholder="Categoria" md-no-asterisk required>
                             <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
                         </md-select>
                     </md-input-container>
@@ -82,20 +82,22 @@
                     <div class="label-form ">
                         ESTILO DE TIPOGRAFÍA
                     </div>
-                    <div class="estilos-fuentes ">
-                        <md-radio-group name="font" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
+                    <div class="estilos-fuentes" style="position: relative">
+                        <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
                             <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes" ng-value="fuenteCategoria.idCategoria"> <!--ng-disabled=" d.isDisabled "-->
                                 <md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
                                 <span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
                             </md-radio-button>
                         </md-radio-group>
+
+                         <!-- VALIDACION -->
+                        <div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
+                            <div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
+                            </br>
+                        </div>
                     </div>
 
-                    <!-- VALIDACION -->
-                    <div ng-messages="form.font.$error " style="color:maroon " role="alert " ng-show="form.font.$touched && form.font.$invalid ">
-                        <div ng-message="required ">Este campo es requerido.</div>
-                        </br>
-                    </div>
+                   
                 </div>
                 <!--
                 <div>
@@ -124,14 +126,22 @@
                     <br/>
                 </div>
                 <div style="text-align: center;">
-                    <button class="boton-verde" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "Cargar Más" : "Actualizar"}}</button>
+                    <button class="boton-verde" ng-class="{'loading-white': !inicio.completado}" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "Cargar Más" : "Buscar"}}</button>
                 </div>
             </div>
         </form>
 
         <div class="contenedor-principal col l7">
-            <div class="row" style="margin-bottom:0;overflow-y: scroll;height: 100%;">
-                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos" ng-click="inicio.logoElegido = {svg: logo.cargado, id: $index, colores: logo.colores, iconoColor: logo.icono.color}"
+
+            <div class="row" style="margin-bottom:0;overflow-y: scroll; height: 100% ;width: 100%; display: flex; justify-content: center; align-items: center;" ng-if="!inicio.logos.length">
+                <div style="width: 60%; height: 60%;">
+                    <img style="width: 100%;" src="assets/images/logo-design.gif">
+                </div>
+            </div>  
+
+            <div class="row" style="margin-bottom:0;overflow-y: scroll;height: 100%;" ng-if="inicio.logos.length">
+
+                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-click="inicio.logoElegido = {svg: logo.cargado, colores: logo.colores, logoCompleto: logo}"
                     ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
                     <bazam-svg-text icono='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
                         callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
@@ -146,10 +156,12 @@
                     <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
                 </div>
 
-                <button ng-if="inicio.logoElegido.id > 0" ng-click="inicio.moverse()" style="left: 9%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_left</i></button>
-                <button ng-if="inicio.logoElegido.id < inicio.logos.length - 1" ng-click="inicio.moverse('siguiente')" style="right: 11%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_right</i></button>
+                <!--<button ng-if="inicio.logoElegido.id > 0" ng-click="inicio.moverse()" style="left: 9%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_left</i></button>
 
-                <button style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 35px;width: 20%;margin: 0;font-size: 25px;padding: 5px;" ng-click="inicio.preAvanzar(inicio.logoElegido.id, inicio.logoElegido.iconoColor)">Editar</button>
+                <button ng-if="inicio.logoElegido.id < inicio.logos.length - 1" ng-click="inicio.moverse('siguiente')" style="right: 11%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_right</i></button>
+                -->
+
+                <button class="inicio-editar"  style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 35px;width: 20%;margin: 0;font-size: 25px;padding: 5px;" ng-click="inicio.preAvanzar(inicio.logoElegido.logoCompleto)">Editar</button>
                 <button ng-click="inicio.logoElegido = null"><i class="material-icons cerrar">clear</i></button>
             </div>
 
