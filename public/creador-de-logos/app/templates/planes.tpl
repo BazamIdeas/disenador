@@ -27,7 +27,7 @@
 									<div class="plan-precio">GRATIS</div>
 
 									<div class="text-center">
-										<button class="boton-verde" ng-click="planes.avanzarCheckout(true)" ng-disabled="planes.peticion">DESCARGAR</button>
+										<button ng-disabled="planes.peticion" class="boton-verde" ng-click="planes.avanzarCheckout(true)" ng-disabled="planes.peticion">DESCARGAR</button>
 									</div>
 								</div>
 							</div>
@@ -46,7 +46,7 @@
 									<div class="plan-precio">{{planes.precioSeleccionado(plan.precios, planes.moneda)}}</div>
 
 									<div class="text-center">
-										<button class="boton-verde" ng-click="planes.avanzarCheckout(plan, planes.moneda, true)">SELECCIONAR</button>
+										<button ng-disabled="planes.peticion" ng-class="{'loading-white': planes.peticion}" class="boton-verde" ng-click="planes.avanzarCheckout(plan, planes.moneda, true)">SELECCIONAR</button>
 									</div>
 								</div>
 							</div>

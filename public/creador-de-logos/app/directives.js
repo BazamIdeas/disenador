@@ -1890,6 +1890,7 @@ angular.module("disenador-de-logos")
 										logosService.dispararDescarga(url, nombre, ancho);
 										bz.desabilitado = true;
 										bz.promocion = true;
+										bz.peticion = false;
 									});
 								} else {
 									$scope.guardarLogo(historicoResolve.logo, "Logo y nombre", historicoResolve.idElemento, true).then(function (res) {
@@ -1915,6 +1916,7 @@ angular.module("disenador-de-logos")
 
 											bz.desabilitado = true;
 											bz.promocion = true;
+											bz.peticion = false;
 										});
 									});
 								}

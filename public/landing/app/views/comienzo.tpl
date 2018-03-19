@@ -96,7 +96,7 @@
                     </div>
                     <br>
                     <div layout-padding>
-                        <md-button type="submit " style="margin: 5% auto; display: block; color:white;    margin-top: 5%; background: var(--principal) !important; "
+                        <md-button ng-class="{'loading-white': ctrl.peticion}" type="submit " style="margin: 5% auto; display: block; color:white;    margin-top: 5%; background-color: var(--principal) !important; "
                             ng-disabled="ctrl.peticion" class="md-raised md-primary">
                             Generar su logo ahora
                         </md-button>

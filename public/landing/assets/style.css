@@ -666,6 +666,22 @@ h3 {
     margin: 1.46rem 0 1.168rem 0;
 }
 
+.loading-white {
+    background-image: url(img/spinner-white.gif);
+    color: transparent !important;
+    background-size: auto 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.loading-purple {
+    background-image: url(img/spinner-purple.gif);
+    color: transparent !important;
+    background-size: auto 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 /* MEDIAS */
 
 @media (min-device-width:320px) and (max-device-width:639px),
