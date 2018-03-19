@@ -1945,7 +1945,10 @@ angular.module("disenador-de-logos")
 
 							});
 
-						}).catch(function (res) {
+							bz.desabilitado = true;
+							bz.promocion = true;
+
+						}).catch(function () {
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "Debes compartir para obtener tu logo gratis.",

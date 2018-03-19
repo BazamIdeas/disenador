@@ -12,9 +12,9 @@
 
 					<div class="row">
 
-						<div class="plan col s4" style="border-radius:0px;">
+						<div class="plan col s4" style="border-radius:0px;" ng-class="planes.desabilitado" ng-disable="planes.desabilitado">
 							<div>
-								<div class="plan-header">PLAN GRATIS</div>
+								<div class="plan-header">Plan Gratis</div>
 								<div class="plan-body">
 									<p class="subtitulo-plan">descripcion</p>
 
@@ -22,7 +22,7 @@
 										<li>Poderosamente gratis</li>
 									</ul>
 
-									<div class="plan-precio">$0</div>
+									<div class="plan-precio">GRATIS</div>
 
 									<div class="text-center">
 										<button class="boton-verde" ng-click="planes.avanzarCheckout(true)" ng-disabled="planes.peticion">DESCARGAR</button>
@@ -65,7 +65,7 @@
 			overflow-y: auto;
 			position: relative;
 			height: 61%;">
-					<div class="row padding-bottom-0 margin-bottom-0">
+					<div class="row padding-bottom-0 margin-bottom-0 ">
 						<div class="col s12" style="padding:0">
 
 							<div style="position: relative;">
@@ -160,6 +160,9 @@
 			</div>
 		</div>
 
+		<promocion ng-if="promocion">
+			PRUEBA
+		</promocion>
 	</section>
 
 	<style>
@@ -167,6 +170,7 @@
 			position: absolute;
 			bottom: 0;
 			z-index: 999;
+
 		}
 
 		.contenedor-principal-planes {
@@ -197,6 +201,10 @@
 
 		.contenedor-principal-planes.oculto .boton-planes-unico.activo {
 			visibility: hidden;
+		}
+
+		section {
+			position: relative;
 		}
 
 
