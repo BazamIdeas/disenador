@@ -27,7 +27,7 @@
 									<div class="plan-precio">GRATIS</div>
 
 									<div class="text-center">
-										<button ng-disabled="planes.peticion" class="boton-verde" ng-click="planes.avanzarCheckout(true)" ng-disabled="planes.peticion">DESCARGAR</button>
+										<button ng-disabled="planes.peticion" ng-class="{'loading-white': planes.peticion}" class="boton-verde" ng-click="planes.avanzarCheckout(true)">DESCARGAR</button>
 									</div>
 								</div>
 							</div>
@@ -46,7 +46,7 @@
 									<div class="plan-precio">{{planes.precioSeleccionado(plan.precios, planes.moneda)}}</div>
 
 									<div class="text-center">
-										<button ng-disabled="planes.peticion" ng-class="{'loading-white': planes.peticion}" class="boton-verde" ng-click="planes.avanzarCheckout(plan, planes.moneda, true)">SELECCIONAR</button>
+										<button ng-disabled="planes.peticion" ng-class="{'loading-white':planes.peticion}" class="boton-verde" ng-click="planes.avanzarCheckout(plan, planes.moneda, true)">SELECCIONAR</button>
 									</div>
 								</div>
 							</div>
@@ -265,7 +265,7 @@
 
 		.plan.plan-secundario .plan-header,
 		.plan.plan-secundario .boton-verde {
-			background: var(--principal) !important;
+			background-color: var(--principal) !important;
 		}
 
 		.plan.plan-secundario .subtitulo-plan,
@@ -275,7 +275,7 @@
 
 		.plan.plan-principal .plan-header,
 		.plan.plan-principal .boton-verde {
-			background: var(--secundario) !important;
+			background-color: var(--secundario) !important;
 		}
 
 		.plan.plan-principal .subtitulo-plan,
