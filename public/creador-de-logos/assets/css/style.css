@@ -3425,9 +3425,8 @@ div.color-picker-bazam {
 }
 
 div.color-picker-bazam div.color {
-    border-radius: 50%;
     box-shadow: 0px 0px 1px 0px #585858d4;
-    border-radius: 50%;
+    border-radius: 15%;
     margin: .5%;
     cursor: pointer;
 }
