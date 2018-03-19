@@ -3431,9 +3431,8 @@ div.color-picker-bazam {
 }
 
 div.color-picker-bazam div.color {
-    border-radius: 50%;
     box-shadow: 0px 0px 1px 0px #585858d4;
-    border-radius: 50%;
+    border-radius: 15%;
     margin: .5%;
     cursor: pointer;
 }
@@ -3502,3 +3501,33 @@ div.color-picker-bazam div.titulo span i {
         opacity: 1;
     }
 }
+
+.tabs-textos {
+    position: relative;
+}
+
+/*.tab-editor {
+    position: absolute;
+}
+
+.pasos.ng-animate {
+    -webkit-transition: 1s linear all;
+    transition: 1s linear all;
+}
+
+.pasos.ng-leave {
+    opacity: 0;
+    display: none;
+}
+
+.pasos.ng-leave-active {
+    display: none;
+}
+
+.pasos.ng-enter {
+    opacity: 0;
+}
+
+.pasos.ng-enter-active {
+    opacity: 1;
+}*/

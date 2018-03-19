@@ -103,7 +103,7 @@ angular.module("disenador-de-logos")
 			}
 			
 		};
-
+															
 
 		if(landingResolve){
 			bz.combinar(landingResolve.iconos, landingResolve.fuentes);

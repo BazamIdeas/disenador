@@ -213,7 +213,7 @@ exports.listaElemCat = function (req, res) {
 	var cat = [req.body.idCategoria, req.body.tipo];
 
 
-	elemento.getElementosIncat(cat, function (error, data) {
+	elemento.getElementosCat(cat, function (error, data) {
 
 		if (typeof data !== "undefined" && data.length > 0) {
 			res.status(200).json(data);
@@ -230,7 +230,7 @@ exports.listaElemCat = function (req, res) {
 
 exports.listaElemCategoria = function (req, res) {
 
-	var cat = [req.body.idCategoria, req.body.tipo];
+	var cat = [req.body.idCategoria, req.body.tipo, 18];
 
 
 	elemento.getElementosIncat(cat, function (error, data) {

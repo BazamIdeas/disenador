@@ -193,18 +193,6 @@
                 <div class="col s12" style="padding:0">
 
                     <div style="position: relative;">
-                        <div style="width: 30%;position: absolute;left: calc(28% - 18%);top: 6%;opacity: 0.9;filter: grayscale(1);">
-                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
-                        </div>
-                        <div style="width: 23%;position: absolute;left: calc(85% - 18%);top: 72%;filter: grayscale(1);opacity: 0.8;">
-                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
-                        </div>
-                        <img src="assets/images/mockups/sobre.jpg" width="100%">
-                    </div>
-                </div>
-                <div class="col s12" style="padding:0">
-
-                    <div style="position: relative;">
                         <div style="width: 14%;position: absolute;left: calc(66% - 18%);top: 32%;">
                             <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
                         </div>
@@ -215,6 +203,18 @@
                             <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
                         </div>
                         <img src="assets/images/mockups/red.jpg" width="100%">
+                    </div>
+                </div>
+                <div class="col s12" style="padding:0">
+
+                    <div style="position: relative;">
+                        <div style="width: 30%;position: absolute;left: calc(28% - 18%);top: 6%;opacity: 0.9;filter: grayscale(1);">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
+                        </div>
+                        <div style="width: 23%;position: absolute;left: calc(85% - 18%);top: 72%;filter: grayscale(1);opacity: 0.8;">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
+                        </div>
+                        <img src="assets/images/mockups/sobre.jpg" width="100%">
                     </div>
                 </div>
 
@@ -238,15 +238,6 @@
                     </div>
                 </div>
 
-                <div class="col s12" style="padding:0">
-
-                    <div style="position: relative;">
-                        <div style="width: 33%;position: absolute;left: calc(50% - 18%);top: 17.5%;opacity: 0.9;">
-                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
-                        </div>
-                        <img src="assets/images/mockups/envase.jpg" width="100%">
-                    </div>
-                </div>
 
                 <div class="col s12" style="padding:0">
 
@@ -255,6 +246,16 @@
                             <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
                         </div>
                         <img src="assets/images/mockups/etiqueta.jpg" width="100%">
+                    </div>
+                </div>
+                
+                <div class="col s12" style="padding:0">
+
+                    <div style="position: relative;">
+                        <div style="width: 33%;position: absolute;left: calc(50% - 18%);top: 17.5%;opacity: 0.9;">
+                            <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
+                        </div>
+                        <img src="assets/images/mockups/envase.jpg" width="100%">
                     </div>
                 </div>
 
