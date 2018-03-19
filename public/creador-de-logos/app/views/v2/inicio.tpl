@@ -159,7 +159,7 @@
                 <button ng-if="inicio.logoElegido.id > 0" ng-click="inicio.moverse()" style="left: 9%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_left</i></button>
                 <button ng-if="inicio.logoElegido.id < inicio.logos.length - 1" ng-click="inicio.moverse('siguiente')" style="right: 11%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_right</i></button>
 
-                <button style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 35px;width: 20%;margin: 0;font-size: 25px;padding: 5px;" ng-click="inicio.preAvanzar(inicio.logoElegido.logoCompleto)">Editar</button>
+                <button class="inicio-editar"  style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 35px;width: 20%;margin: 0;font-size: 25px;padding: 5px;" ng-click="inicio.preAvanzar(inicio.logoElegido.logoCompleto)">Editar</button>
                 <button ng-click="inicio.logoElegido = null"><i class="material-icons cerrar">clear</i></button>
             </div>
 
