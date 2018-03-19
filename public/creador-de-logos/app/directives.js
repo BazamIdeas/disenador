@@ -228,7 +228,7 @@ angular.module("disenador-de-logos")
 
 							var svgTexto = element[0].children[0].children[1];
 
-						
+
 							svgTexto.style.fill = scope.colorTexto;
 							svgTexto.style.fontSize = (tamanoBase / 2) + "px";
 							svgTexto.setAttribute("text-anchor", "middle");
@@ -349,40 +349,40 @@ angular.module("disenador-de-logos")
 
 								switch (id) {
 
-								case "color-picker-icono":
-									posicionPicker = {
-										"position": "fixed",
-										"left": coordenadasCon.right + 10,
-										"top": coordenadasCon.top - 10,
-										"width": coordenadasCon.width / 2,
-										"height": coordenadasCon.height / 2,
-										"background-color": "white",
-										"z-index": "2"
-									};
-									break;
+									case "color-picker-icono":
+										posicionPicker = {
+											"position": "fixed",
+											"left": coordenadasCon.right + 10,
+											"top": coordenadasCon.top - 10,
+											"width": coordenadasCon.width / 2,
+											"height": coordenadasCon.height / 2,
+											"background-color": "white",
+											"z-index": "2"
+										};
+										break;
 
-								case "color-picker-texto":
-									posicionPicker = {
-										"position": "fixed",
-										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-										"top": coordenadasCon.top - 10,
-										"width": coordenadasCon.width / 2,
-										"height": coordenadasCon.height / 2,
-										"background-color": "white",
-										"z-index": "2"
-									};
-									break;
+									case "color-picker-texto":
+										posicionPicker = {
+											"position": "fixed",
+											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+											"top": coordenadasCon.top - 10,
+											"width": coordenadasCon.width / 2,
+											"height": coordenadasCon.height / 2,
+											"background-color": "white",
+											"z-index": "2"
+										};
+										break;
 
-								case "color-picker-eslogan":
-									posicionPicker = {
-										"position": "fixed",
-										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-										"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
-										"width": coordenadasCon.width / 2,
-										"height": coordenadasCon.height / 2,
-										"background-color": "white",
-										"z-index": "2"
-									};
+									case "color-picker-eslogan":
+										posicionPicker = {
+											"position": "fixed",
+											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+											"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
+											"width": coordenadasCon.width / 2,
+											"height": coordenadasCon.height / 2,
+											"background-color": "white",
+											"z-index": "2"
+										};
 								}
 
 								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo' text-align: center'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
@@ -465,19 +465,19 @@ angular.module("disenador-de-logos")
 
 							switch (colorPicker.attr("id")) {
 
-							case "color-picker-icono":
+								case "color-picker-icono":
 
-								var indice = scope.elementosIndices.indexOf(true);
-								//cambiamos el color al correcto
-								element.find("[data-indice=" + indice + "]").css("fill", color);
-								break;
+									var indice = scope.elementosIndices.indexOf(true);
+									//cambiamos el color al correcto
+									element.find("[data-indice=" + indice + "]").css("fill", color);
+									break;
 
-							case "color-picker-texto":
-								element.find("text.textoPrincipal").css("fill", color);
-								break;
+								case "color-picker-texto":
+									element.find("text.textoPrincipal").css("fill", color);
+									break;
 
-							case "color-picker-eslogan":
-								element.find("text.eslogan").css("fill", color);
+								case "color-picker-eslogan":
+									element.find("text.eslogan").css("fill", color);
 
 							}
 
@@ -1480,25 +1480,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-						case "bottom":
-							orientacionFinal.top = coordenadas.bottom;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "bottom":
+								orientacionFinal.top = coordenadas.bottom;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
-						case "right":
-							orientacionFinal.top = coordenadas.top + (element.height() / 2);
-							orientacionFinal.left = coordenadas.right;
-							break;
+							case "right":
+								orientacionFinal.top = coordenadas.top + (element.height() / 2);
+								orientacionFinal.left = coordenadas.right;
+								break;
 
-						case "left":
-							orientacionFinal.top = coordenadas.top + (element.height() / 2);
-							orientacionFinal.left = coordenadas.left - popCreado.width();
-							break;
+							case "left":
+								orientacionFinal.top = coordenadas.top + (element.height() / 2);
+								orientacionFinal.left = coordenadas.left - popCreado.width();
+								break;
 
-						case "top":
-							orientacionFinal.top = coordenadas.top;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "top":
+								orientacionFinal.top = coordenadas.top;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
 						}
 
@@ -1560,25 +1560,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-						case "bottom":
-							orientacionFinal.top = coordenadas.bottom - 40;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "bottom":
+								orientacionFinal.top = coordenadas.bottom - 40;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
-						case "right":
-							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-							orientacionFinal.left = coordenadas.right - 35;
-							break;
+							case "right":
+								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+								orientacionFinal.left = coordenadas.right - 35;
+								break;
 
-						case "left":
-							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-							orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
-							break;
+							case "left":
+								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+								orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
+								break;
 
-						case "top":
-							orientacionFinal.top = coordenadas.top + 40;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "top":
+								orientacionFinal.top = coordenadas.top + 40;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
 						}
 
@@ -1813,7 +1813,9 @@ angular.module("disenador-de-logos")
 			controllerAs: "planes",
 			scope: {
 				datos: "<",
-				estado: "="
+				estado: "=",
+				id: "=",
+				guardarLogo: "<"
 			},
 			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout) {
 
@@ -1821,14 +1823,14 @@ angular.module("disenador-de-logos")
 
 				bz.base64 = $base64;
 
-				$scope.estadoDirectiva = angular.copy($scope.estado)
+				$scope.estadoDirectiva = true;
 
 				bz.cerrarPop = function () {
 					$scope.estadoDirectiva = false;
 					$timeout(function () {
 						$scope.estado = false;
-					}, 2000);
-				}
+					}, 1050);
+				};
 
 				var historicoResolve = angular.copy($scope.datos);
 
@@ -1840,46 +1842,8 @@ angular.module("disenador-de-logos")
 				};
 
 				bz.colores = historicoResolve.colores;
-
-				bz.monedas = {};
-				bz.moneda = {};
-				bz.monedaDefault = {};
-				bz.planes = [];
-				bz.impuesto = 0;
-
-				pedidosService.listarPlanes().then(function (res) {
-
-					bz.monedaDefault = {
-						simbolo: res.monedaDefault.codigo,
-						idMoneda: res.monedaDefault.idMoneda
-					};
-
-					bz.impuesto = res.impuesto;
-
-					bz.planes = res.planes;
-
-					angular.forEach(res.planes, function (plan) {
-
-						angular.forEach(plan.precios, function (precio) {
-
-							if (!bz.monedas[precio.moneda]) {
-
-								bz.monedas[precio.moneda] = {
-									simbolo: precio.moneda,
-									idMoneda: precio.idMoneda
-								};
-
-							}
-
-						});
-
-					});
-
-					bz.moneda = bz.monedaDefault;
-
-				});
-
-
+				bz.planes = historicoResolve.planes;
+				bz.moneda = historicoResolve.moneda;
 
 				bz.comprobarMonedas = function (plan) {
 
@@ -1898,58 +1862,64 @@ angular.module("disenador-de-logos")
 
 				};
 
-				bz.precioSeleccionado = function (precios) {
-
-					var precioFinal = "";
-
-					angular.forEach(precios, function (valor) {
-
-						if (valor.moneda == bz.moneda.simbolo) {
-
-							precioFinal = valor.moneda + " " + valor.precio;
-						}
-
-					});
-
-					return precioFinal;
-
-				};
-
 				bz.avanzarCheckout = function (plan) {
 
 					if (plan === true) {
 						bz.peticion = true;
+						var nombre = "editable";
+						var ancho = 50;
 
 						facebookService.compartir()
 							.then(function () {
 
 								angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-								var nombre = "editable";
-								var ancho = 50;
+								if ($scope.id) {
+									logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+										var url = "";
+										if (res.zip) {
 
-								logosService.descargarLogo(historicoResolve.idLogo, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
-									var url = "";
-									if (res.zip) {
+											url = res.zip.replace("public", "");
 
-										url = res.zip.replace("public", "");
+										} else if (res.png) {
 
-									} else if (res.png) {
+											url = res.png.replace("public", "");
 
-										url = res.png.replace("public", "");
+										}
 
-									}
-
-									logosService.dispararDescarga(url, nombre, ancho);
-
-								})
-									.finally(function () {
-										angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
-
+										logosService.dispararDescarga(url, nombre, ancho);
+										bz.desabilitado = true;
+										bz.promocion = true;
 									});
+								} else {
+									$scope.guardarLogo(historicoResolve.logo, "Logo y nombre", historicoResolve.idElemento, true).then(function (res) {
 
-							})
-							.catch(function (res) {
+										logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+											var url = "";
+											if (res.zip) {
+
+												url = res.zip.replace("public", "");
+
+											} else if (res.png) {
+
+												url = res.png.replace("public", "");
+
+											}
+
+											logosService.dispararDescarga(url, nombre, ancho);
+
+										}).catch(function () {
+											//console.log(res)
+										}).finally(function () {
+											angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+
+											bz.desabilitado = true;
+											bz.promocion = true;
+										});
+									});
+								}
+
+							}).catch(function () {
 								$mdToast.show($mdToast.base({
 									args: {
 										mensaje: "Debes compartir para obtener tu logo gratis.",

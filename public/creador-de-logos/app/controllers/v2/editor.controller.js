@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window) {
+	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService) {
 
 		var bz = this;
 
@@ -9,10 +9,10 @@ angular.module("disenador-de-logos")
 		bz.borradores = false;
 		bz.preview = false;
 		bz.busquedaIconos = false;
-		bz.colorFondo =  historicoResolve.colores[0] || "rgb(243, 243, 243)";
-		bz.colorTexto = historicoResolve.colores[2] ||"#000";
+		bz.colorFondo = historicoResolve.colores[0] || "rgb(243, 243, 243)";
+		bz.colorTexto = historicoResolve.colores[2] || "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono =  historicoResolve.colores[1] || "#000";
+		bz.colorIcono = historicoResolve.colores[1] || "#000";
 		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
@@ -131,10 +131,10 @@ angular.module("disenador-de-logos")
 									}
 								}));
 							} else {
-								defered.resolve();
+								defered.resolve(res);
 							}
 
-						}).catch(function () {
+						}).catch(function (res) {
 
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
@@ -144,7 +144,7 @@ angular.module("disenador-de-logos")
 									}
 								}));
 							} else {
-								defered.reject();
+								defered.reject(res);
 							}
 
 						}).finally(function () {
@@ -155,7 +155,7 @@ angular.module("disenador-de-logos")
 				} else { //si es un logo guardado
 
 					logosService.modificarLogo(bz.base64.encode(logo), bz.logo.idLogo, fuentesId.principal, fuentesId.eslogan)
-						.then(function () {
+						.then(function (res) {
 
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
@@ -165,10 +165,10 @@ angular.module("disenador-de-logos")
 									}
 								}));
 							} else {
-								return defered.resolve();
+								return defered.resolve(res);
 							}
 
-						}).catch(function () {
+						}).catch(function (res) {
 
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
@@ -178,7 +178,7 @@ angular.module("disenador-de-logos")
 									}
 								}));
 							} else {
-								defered.reject();
+								defered.reject(res);
 							}
 
 						}).finally(function () {
@@ -259,33 +259,29 @@ angular.module("disenador-de-logos")
 
 			});
 
-			bz.guardarLogo(datos.svg, "Logo y nombre", bz.logo.icono.idElemento, true).then(function () {
+			bz.datosComprar = {
+				logo: datos.svg,
+				idLogo: null,
+				idElemento: bz.logo.icono.idElemento,
+				tipo: "Logo y nombre",
+				fuentes: {
+					principal: idFuente,
+					eslogan: idFuenteEslogan
+				},
+				colores: datos.colores,
+				planes: bz.planes,
+				moneda: bz.moneda
+			};
 
-				bz.datosComprar = {
-					logo: datos.svg,
-					idLogo: bz.logo.idLogo,
-					idElemento: bz.logo.icono.idElemento,
-					tipo: "Logo y nombre",
-					fuentes: {
-						principal: idFuente,
-						eslogan: idFuenteEslogan
-					},
-					colores: datos.colores
-				};
+			if (bz.idLogoPadre) {
+				bz.datosComprar.idPadre = bz.idLogoPadre;
+			}
 
-				bz.abrirPlanes = true;
+			if (bz.logo.idLogo) {
+				bz.datosComprar.idLogo = bz.logo.idLogo;
+			}
 
-				if (bz.idLogoPadre) {
-					bz.datosComprar.idPadre = bz.idLogoPadre;
-				}
-
-				/* $state.go("planes", {
-					status: true,
-					datos: datosComprar
-				}); */
-
-			});
-
+			bz.abrirPlanes = true;
 
 		});
 
@@ -529,6 +525,64 @@ angular.module("disenador-de-logos")
 			$state.go("principal.comenzar");
 
 		});
+
+
+		/* PLANES */
+
+		bz.monedas = {};
+		bz.moneda = {};
+		bz.monedaDefault = {};
+		bz.planes = [];
+		bz.impuesto = 0;
+
+		pedidosService.listarPlanes().then(function (res) {
+
+			bz.monedaDefault = {
+				simbolo: res.monedaDefault.codigo,
+				idMoneda: res.monedaDefault.idMoneda
+			};
+
+			bz.impuesto = res.impuesto;
+
+			bz.planes = res.planes;
+
+			angular.forEach(res.planes, function (plan) {
+
+				angular.forEach(plan.precios, function (precio) {
+
+					if (!bz.monedas[precio.moneda]) {
+
+						bz.monedas[precio.moneda] = {
+							simbolo: precio.moneda,
+							idMoneda: precio.idMoneda
+						};
+
+					}
+
+				});
+
+			});
+
+			bz.moneda = bz.monedaDefault;
+
+		});
+
+		bz.precioSeleccionado = function (precios) {
+
+			var precioFinal = "";
+
+			angular.forEach(precios, function (valor) {
+
+				if (valor.moneda == bz.moneda.simbolo) {
+
+					precioFinal = valor.moneda + " " + valor.precio;
+				}
+
+			});
+
+			return precioFinal;
+
+		};
 
 
 	}]);

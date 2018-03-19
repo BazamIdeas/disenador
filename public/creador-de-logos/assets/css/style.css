@@ -3172,10 +3172,18 @@ div.combinacion.seleccionada {
 }*/
 
 @keyframes outIn {
-    0% { top: 3%}
-    45% { top: -100% }
-    50% { bottom: -100%;}
-    100% { top: 3% }
+    0% {
+        top: 3%
+    }
+    45% {
+        top: -100%
+    }
+    50% {
+        bottom: -100%;
+    }
+    100% {
+        top: 3%
+    }
 }
 
 @keyframes bounce {
@@ -3187,7 +3195,6 @@ div.combinacion.seleccionada {
 .logo-elegido.cambio {
     animation: outIn 1s ease-out forwards;
 }
-
 
 /*.logo-elegido:before {
     content: "";
@@ -3203,6 +3210,7 @@ div.combinacion.seleccionada {
     animation: outIn 1s ease-out forwards;
 }
 */
+
 .overlay-combinacion {
     z-index: -1;
     position: absolute;
@@ -3345,7 +3353,7 @@ md-chip-template strong {
 /* Estilo tipografia */
 
 .label-form {
-    color: var(--secundario);
+    color: var(--principal);
     font-family: 'futura-heavy';
 }
 
@@ -3356,8 +3364,7 @@ md-chip-template strong {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: 16px 0;
-    margin-top: 8px;
+    padding: 15px 0 0px 0;
 }
 
 .estilos-fuentes md-radio-button .md-label {
@@ -3374,14 +3381,14 @@ md-radio-button[aria-checked="true"] {
 }
 
 md-radio-button[aria-checked="true"] span.estilo {
-    background: var(--secundario);
+    background: var(--principal);
     color: white;
 }
 
 span.estilo {
     background: #E4E7E8;
-    border: 2px solid var(--secundario);
-    color: var(--secundario);
+    border: 2px solid var(--principal);
+    color: var(--principal);
     font-size: 28px;
     transition: all 0.2s;
     border-radius: 5px;

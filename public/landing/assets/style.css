@@ -95,7 +95,12 @@
 .seccion.dos h2.titulo,
 .titulo-destacado,
 .seccion.cuatro h4,
-.seccion.cinco h4 {
+.seccion.cinco h4,
+input,
+button,
+label,
+md-select-value,
+select {
     font-family: 'futura-heavy' !important;
 }
 
@@ -334,6 +339,7 @@ span.estilo.seleccionado {
 }
 
 /* selector de colores */
+
 .md-select-value>span:not(.md-select-icon) .md-text {
     display: flex;
     flex-wrap: wrap;
