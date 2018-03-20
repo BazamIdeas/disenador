@@ -505,8 +505,8 @@ button.boton-verde {
     color: #fff;
     padding: 8px 8px;
     margin-top: 11px;
-    -webkit-transition: 0.3 all;
-    transition: 0.3 all;
+    -webkit-transition: all 0.3;
+    transition: all 0.3;
     font-family: 'futura-heavy' !important;
 }
 
@@ -3474,6 +3474,7 @@ div.color-picker-bazam div.titulo span i {
     color: white;
     font-size: 15px;
     font-family: 'futura-heavy';
+    cursor: pointer;
 }
 
 .boton-planes-unico md-icon {

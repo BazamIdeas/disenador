@@ -1896,7 +1896,7 @@ angular.module("disenador-de-logos")
 			templateUrl: "app/templates/planes.tpl",
 			controllerAs: "planes",
 			scope: {
-				datos: "<",
+				datos: "=",
 				estado: "=",
 				id: "=",
 				guardarLogo: "<"

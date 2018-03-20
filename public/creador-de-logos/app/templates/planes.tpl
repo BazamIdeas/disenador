@@ -226,6 +226,18 @@
 			position: relative;
 		}
 
+		.boton-planes-unico.activo:hover {
+			background: var(--principal) !important;
+			color: white !important;
+		}
+
+		.boton-planes-unico.activo:hover md-icon.material-icons {
+			color: white;
+		}
+
+		.plan:hover button {
+			transform: scale(1.1);
+		}
 
 		.plan {
 			padding-top: 6% !important;

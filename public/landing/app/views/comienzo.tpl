@@ -13,11 +13,11 @@
                     <div flex="40">
                         <md-input-container class=" md-block " style=" margin-bottom: 0; ">
                             <label>Nombre de su logo</label>
-                            <input type="text " md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre " required>
+                            <input type="text" md-no-asterisk style="margin-bottom: 0;" ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required>
                         </md-input-container>
                         <!-- VALIDACION -->
-                        <div ng-messages="form.nombre.$error " style="color:maroon " role="alert " ng-show="form.nombre.$touched
-                            && form.nombre.$invalid ">
+                        <div ng-messages="form.nombre.$error" style="color:maroon " role="alert " ng-show="(form.nombre.$dirty
+                            && form.nombre.$invalid) || (form.$sumitted && form.$valid)">
                             <div ng-message="required ">Este campo es requerido.</div>
                         </div>
 
@@ -35,8 +35,8 @@
                             </md-select>
                         </md-input-container>
                         <!-- VALIDACION -->
-                        <div ng-messages="form.cat.$error " style="color:maroon " role="alert " ng-show="form.cat.$touched
-                                && form.cat.$invalid ">
+                        <div ng-messages="form.color.$error" style="color:maroon " role="alert " ng-show="(form.color.$touched
+                                && form.color.$invalid) || (form.$sumitted && form.$valid)">
                             <div ng-message="required ">Este campo es requerido.</div>
                             </br>
                         </div>
@@ -57,9 +57,9 @@
                             </div>
 
                             <!-- VALIDACION -->
-                            <div ng-messages="form.font.$error " style="color:maroon " role="alert " ng-show="form.font.$touched
-                                        && form.font.$invalid ">
-                                <div ng-message="required ">Este campo es requerido.</div>
+                            <div ng-messages="form.font.$error" style="color:maroon " role="alert " ng-show="(form.font.$touched
+                                        && form.font.$invalid) ||  (form.$sumitted && form.$valid)">
+                                <div ng-message="required">Este campo es requerido.</div>
                                 </br>
                             </div>
                         </div>
@@ -75,8 +75,8 @@
                         </md-input-container>
                         <!-- VALIDACION -->
                         <div ng-messages="form.cat.$error " style="color:maroon " role="alert " ng-show="form.cat.$touched
-                            && form.cat.$invalid ">
-                            <div ng-message="required ">Este campo es requerido.</div>
+                            && form.cat.$invalid || form.$submitted">
+                            <div ng-message="required">Este campo es requerido.</div>
                             </br>
                         </div>
 
