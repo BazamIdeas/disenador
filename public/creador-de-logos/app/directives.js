@@ -1897,7 +1897,10 @@ angular.module("disenador-de-logos")
 
 				$scope.estadoDirectiva = true;
 
-				bz.cerrarPop = function () {
+				bz.cerrarPop = function (v) {
+					if (v) {
+						bz.promocion = false;
+					}
 					$scope.estadoDirectiva = false;
 					$timeout(function () {
 						$scope.estado = false;
