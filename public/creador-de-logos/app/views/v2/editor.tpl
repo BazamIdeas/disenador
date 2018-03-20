@@ -1,9 +1,9 @@
-<style ng-repeat="fuente in editor.fuentes">
+<!--<style ng-repeat="fuente in editor.fuentes">
 	@font-face {
 		font-family: '{{fuente.nombre}}';
 		src: url('{{fuente.url}}');
 	}
-</style>
+</style>-->
 
 <section class="sub-header-principal">
 	<div class="row margin-bottom-0">
@@ -65,8 +65,7 @@
 						<p class="text-center principal titulo" style="margin-bottom: 10px">NOMBRE</p>
 					</div>
 				</div>
-				<div class="col s4" style="padding: 0" bazam-ayuda data-titulo="Nombre y Eslogan" data-texto="Modifique el estilo del texto de su nombre o eslogan"
-				    data-clases="['corner-lt']" data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
+				<div class="col s4" style="padding: 0" bazam-ayuda data-titulo="Nombre y Eslogan" data-texto="Modifique el estilo del texto de su nombre o eslogan" data-clases="['corner-lt']" data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
 					<div ng-click="editor.menuSwitch = 2" ng-class="{'seleccionadoo': editor.menuSwitch == 2}" class="tab">
 						<p class="text-center principal titulo" style="margin-bottom: 10px">ESLOGAN</p>
 					</div>
@@ -89,8 +88,7 @@
 
 							<md-input-container style="width:100%;">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Tipografia</md-tooltip>
-								<md-select style="width:100%" class="cat-fuente" ng-style="{'font-family': editor.logo.fuente.nombre}" ng-model="editor.logo.fuente" placeholder="Fuente"
-									ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" md-no-asterisk required>
+								<md-select style="width:100%" class="cat-fuente" ng-style="{'font-family': editor.logo.fuente.nombre}" ng-model="editor.logo.fuente" placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" md-no-asterisk required>
 									<md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"
 										ng-selected="editor.logo.fuente.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
 								</md-select>
@@ -136,8 +134,7 @@
 								<!--<p class="text-center principal titulo" style="margin-top: 40px;">ESLOGAN</p>-->
 								<div class="input-field col s12">
 									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
-									<input id="nombre" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}"
-										ng-change="editor.cambioTexto(editor.logo.eslogan, true)">
+									<input id="nombre" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.eslogan, true)"  ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
 								</div>
 
 								<md-input-container style="width:100%;">
