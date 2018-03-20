@@ -1793,6 +1793,78 @@ angular.module("disenador-de-logos")
 
 				};
 
+				bz.olvido = {
+					tipo: "cliente"
+				};
+
+				bz.forgotPass = function (datos, v) {
+					if (v) {
+						bz.peticion = true;
+						bz.loaderCargando2 = true;
+						clientesService.forgotPass(datos).then(function (res) {
+							bz.rc = 2;
+							bz.loaderCargando2 = false;
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Codigo enviado al correo.",
+									clase: "success"
+								}
+							}));
+						}).catch(function () {
+							bz.loaderCargando = false;
+						}).finally(function () {
+							bz.peticion = false;
+						});
+					}
+				};
+
+				bz.confirmarToken = function (opcion, val) {
+					bz.peticion = true;
+					if (opcion == true) {
+						if (val) {
+							clientesService.cambiarContrasena(bz.olvido).then(function (res) {
+
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Contraseña cambiada.",
+										clase: "success"
+									}
+								}));
+
+								bz.completadoLogin = true;
+
+								var datos = {
+									correo: bz.olvido.correo,
+									pass: bz.olvido.pass
+								};
+
+								bz.loaderCargando2 = false;
+								bz.login(datos, true);
+
+							}).finally(function () {
+								bz.peticion = false;
+							});
+						}
+					} else {
+						clientesService.confirmarToken(bz.olvido.token).then(function (res) {
+							if (res) {
+								bz.rc = 3;
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Codigo Confirmado.",
+										clase: "success"
+									}
+								}));
+							}
+						}).catch(function () {
+							//console.log(res)
+						}).finally(function () {
+							bz.peticion = false;
+						});
+
+					}
+				};
+
 			}],
 			controllerAs: "bazamLogin",
 			scope: {

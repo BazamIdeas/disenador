@@ -389,7 +389,7 @@ angular.module("disenador-de-logos")
 
 			var etiquetas = [];
 
-			angular.forEach(arr, (valor) => {
+			angular.forEach(arr, function (valor) {
 				etiquetas.push({
 					_id: valor._id,
 					traduccion: valor.traducciones[0]
@@ -858,6 +858,60 @@ angular.module("disenador-de-logos")
 			return promise;
 
 		};
+
+		this.forgotPass = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/recuperar-password", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
+
+		this.confirmarToken = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/recuperar-password/" + datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
+
+		this.cambiarContrasena = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/cambiar-password", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
 
 		this.autorizado = function (emitir) {
 

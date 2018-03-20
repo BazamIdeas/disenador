@@ -36,7 +36,7 @@ angular.module("landing")
 				["#ADD8C5", "#0E0D08", "#293377"],
 				["#C2E6FB", "#028374", "#5F2160"],
 				["#FDF083", "#0078B3", "#212C56"],
-				
+
 				["#CDE9F5", "#0078B3", "#007259"],
 				["#DCEEFC", "#263470", "#B21921"],
 				["#E1AED1", "#E40921", "#A51916"],
@@ -194,6 +194,8 @@ angular.module("landing")
 			return precioFinal;
 
 		};
+
+
 		/*
 				logosService.mostrarDestacados().then(function (res) {
 					bz.destacados = res;

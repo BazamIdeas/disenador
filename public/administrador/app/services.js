@@ -1170,7 +1170,7 @@ angular.module("administrador")
 
             var etiquetas = [];
 
-            angular.forEach(arr, (valor) => {
+            angular.forEach(arr, function (valor) {
                 etiquetas.push({
                     _id: valor._id,
                     traduccion: valor.traducciones[0]
