@@ -271,7 +271,7 @@
         <div class="col s3" style="padding: 0 40px;">
             <p class="principal text-center">Cambiar moneda de pago:</p>
             <md-input-container style="width:100%; padding: 10px;">
-                <md-select ng-model="descargar.moneda" placeholder="Moneda">
+                <md-select ng-model="descargar.moneda" ng-change="descargar.mps = true" placeholder="Moneda">
                     <md-option ng-value="moneda" ng-repeat="moneda in descargar.monedas">{{moneda.simbolo}}
 
                     </md-option>
@@ -282,7 +282,7 @@
 
             <p class="tercero text-center"></p>
 
-            <div class="contenedor-planes">
+            <div class="contenedor-planes" ng-if="descargar.mps">
 
                 <div class="row">
 
@@ -299,7 +299,7 @@
                                 <div class="plan-precio">{{descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
 
                                 <div class="text-center">
-                                    <button class="boton-verde" ng-click="descargar.avanzarCheckout(plan, planes.moneda)">SELECCIONAR</button>
+                                    <button class="boton-verde" ng-click="descargar.aumentarPlan(plan, descargar.moneda)">SELECCIONAR</button>
                                 </div>
                             </div>
                         </div>

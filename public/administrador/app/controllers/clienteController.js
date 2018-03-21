@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('clienteController', ["$state", "$mdSidenav", "clientesServiceAdmin", '$scope', 'pedidosService', 'SweetAlert', '$window', 'notificacionService', "$base64", function ($state, $mdSidenav, clientesServiceAdmin, $scope, pedidosService, SweetAlert, $window, notificacionService, $base64) {
+    .controller("clienteController", ["$state", "$mdSidenav", "clientesServiceAdmin", "$scope", "pedidosService", "SweetAlert", "$window", "notificacionService", "$base64", function ($state, $mdSidenav, clientesServiceAdmin, $scope, pedidosService, SweetAlert, $window, notificacionService, $base64) {
         var bz = this;
         bz.clientes = [];
         bz.mostrarPedido = false;
@@ -21,17 +21,17 @@ angular.module("administrador")
                         angular.forEach(res.data, function (valor, llave) {
                             bz.clientes.push(valor);
                             bz.clientes[llave].estadoE = false;
-                        })
+                        });
                     }
                 })
                 .catch(function (res) {
                     notificacionService.mensaje(res);
                 }).finally(function () {
                     bz.peticion = false;
-                })
-        }
+                });
+        };
 
-        bz.listarC()
+        bz.listarC();
 
         /* ELIMINAR CLIENTE */
 
@@ -44,8 +44,8 @@ angular.module("administrador")
                 notificacionService.mensaje(res);
             }).finally(function () {
                 bz.peticion = false;
-            })
-        }
+            });
+        };
 
         /* TODOS LOS PEDIDOS DE UN CLIENTE */
 
@@ -58,36 +58,36 @@ angular.module("administrador")
                 bz.pedidosC = res.data;
             }).catch(function (res) {
                 bz.mostrarPedido = false;
-                notificacionService.mensaje('No existen pedidos de este cliente.');
+                notificacionService.mensaje("No existen pedidos de este cliente.");
             }).finally(function () {
                 bz.peticion = false;
-            })
-        }
+            });
+        };
 
         /* CAMBIAR ESTADO PEDIDO */
 
         bz.cambiarEstado = function (id, estado, index) {
             bz.peticion = true;
             pedidosService.cambiarEstado(id, estado).then(function (res) {
-                notificacionService.mensaje('Estado Cambiado!');
+                notificacionService.mensaje("Estado Cambiado!");
                 bz.pedidosC[index].estado = estado;
                 bz.modInit = !bz.modInit;
             }).catch(function (res) {
                 notificacionService.mensaje(res);
             }).finally(function () {
                 bz.peticion = false;
-            })
-        }
+            });
+        };
 
         bz.modFun = function (i) {
             bz.modfire = i;
             bz.modInit = !bz.modInit;
-        }
+        };
 
         bz.base64 = function (icono) {
 
             return $base64.decode(icono);
 
-        }
+        };
 
-    }])
+    }]);
