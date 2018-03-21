@@ -26,13 +26,18 @@
         opacity: 1;
     }
 
-    .planes-superiores {
+    planes-superiores {
         background: white;
         width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 0%;
+        height: 0;
+        position: absolute;
+        bottom: 0;
         z-index: 2;
+        transition: all 0.5s;
+    }
+
+    planes-superiores.activo {
+        height: 100vh;
     }
 
     .necesita-aumentar {
@@ -246,64 +251,63 @@
 
 
         </div>
-
-        <div class="planes-superiores" ng-class="{'activo': descargar.mostrarPlanesSuperiores, 'oculto': !descargar.mostrarPlanesSuperiores}">
-
-            <cerrar-pop>
-                <md-button ng-click="descargar.mostrarPlanesSuperiores = false" class="back-principal md-primary md-fab md-mini">
-                    <md-icon>close</md-icon>
-                </md-button>
-            </cerrar-pop>
-            <h4 class="principal titulo-planes" style="text-align:center;">ESCOJA EL MEJOR PLAN PARA USTED</h4>
-            <div class="row margin-bottom-0" style="overflow: hidden;">
-
-                <div class="col s3" style="padding: 0 40px;">
-                    <p class="principal text-center">Cambiar moneda de pago:</p>
-                    <md-input-container style="width:100%; padding: 10px;">
-                        <md-select ng-model="descargar.moneda" placeholder="Moneda">
-                            <md-option ng-value="moneda" ng-repeat="moneda in descargar.monedas">{{moneda.simbolo}}
-
-                            </md-option>
-                        </md-select>
-                    </md-input-container>
-                </div>
-                <div class="col s9" style="padding: 0 40px;">
-
-                    <p class="tercero text-center"></p>
-
-                    <div class="contenedor-planes">
-
-                        <div class="row">
-
-                            <div class="plan col s4" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
-                                <div>
-                                    <div class="plan-header">{{plan.plan}}</div>
-                                    <div class="plan-body">
-                                        <p>{{plan.info}}</p>
-
-                                        <ul class="plan-lista">
-                                            <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{carac.descripcion}}</li>
-                                        </ul>
-
-                                        <div class="plan-precio">{{descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
-
-                                        <div class="text-center">
-                                            <button class="boton-verde" ng-click="descargar.avanzarCheckout(plan, planes.moneda)">SELECCIONAR</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 
 
 
 </section>
+
+<planes-superiores ng-class="{'activo': descargar.mostrarPlanesSuperiores}">
+    <div>
+        <cerrar-pop>
+            <md-button ng-click="descargar.mostrarPlanesSuperiores = false" class="back-principal md-primary md-fab md-mini">
+                <md-icon>close</md-icon>
+            </md-button>
+        </cerrar-pop>
+        <h4 class="principal titulo-planes" style="text-align:center;">ESCOJA EL MEJOR PLAN PARA USTED</h4>
+    </div>
+    <div class="row margin-bottom-0">
+
+        <div class="col s3" style="padding: 0 40px;">
+            <p class="principal text-center">Cambiar moneda de pago:</p>
+            <md-input-container style="width:100%; padding: 10px;">
+                <md-select ng-model="descargar.moneda" placeholder="Moneda">
+                    <md-option ng-value="moneda" ng-repeat="moneda in descargar.monedas">{{moneda.simbolo}}
+
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div class="col s9" style="padding: 0 40px;">
+
+            <p class="tercero text-center"></p>
+
+            <div class="contenedor-planes">
+
+                <div class="row">
+
+                    <div class="plan col s4" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
+                        <div>
+                            <div class="plan-header">{{plan.plan}}</div>
+                            <div class="plan-body">
+                                <p>{{plan.info}}</p>
+
+                                <ul class="plan-lista">
+                                    <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{carac.descripcion}}</li>
+                                </ul>
+
+                                <div class="plan-precio">{{descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
+
+                                <div class="text-center">
+                                    <button class="boton-verde" ng-click="descargar.avanzarCheckout(plan, planes.moneda)">SELECCIONAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</planes-superiores>

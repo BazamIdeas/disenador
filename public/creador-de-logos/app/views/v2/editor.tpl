@@ -240,6 +240,14 @@
 					</div>
 
 				</div>
+				<ver-mas-opciones ui-sref="inicio">
+					<md-button ng-click="descargar.mostrarPlanesSuperiores = false" class="back-principal">
+						<md-icon>arrow_back</md-icon> Volver
+					</md-button>
+				</ver-mas-opciones>
+
+
+				</div>
 			</div>
 
 
