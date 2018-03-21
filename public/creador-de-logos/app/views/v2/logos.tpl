@@ -18,7 +18,7 @@
 
     <div class="row margin-bottom-0">
 
-        <div class="col s10">
+        <div class="col s9">
 
             <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
 
@@ -39,7 +39,7 @@
 
         </div>
 
-		<div class="contenedor-previews col s2" style="position:static; padding:0; overflow-y: auto">
+		<div class="contenedor-previews col s3" style="position:static; padding:0; overflow-y: auto">
             <div class="cerrar-contenedor-p" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
                 <i class="material-icons cerrar">clear</i>
             </div>

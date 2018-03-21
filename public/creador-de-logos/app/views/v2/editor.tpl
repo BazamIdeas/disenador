@@ -247,7 +247,6 @@
 				</ver-mas-opciones>
 
 
-				</div>
 			</div>
 
 
@@ -310,7 +309,7 @@
 				</div>-->
 
 
-		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
+		<div class="contenedor-principal editor col s6" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
 		    style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
 			<div class="contenedor-svg" style="position:relative">
 				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
@@ -346,7 +345,7 @@
 								<div class="overlay-opcion"></div>
 								<span class="usar">
 									<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
-									<i class="material-icons" ng-click="editor.restaurarComparacion(comparacion.svg)">file_upload</i>
+									<i class="material-icons" ng-click="editor.restaurarComparacion(comparacion.svg);editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">file_upload</i>
 								</span>
 								<span class="remover">
 									<md-tooltip md-delay="2" md-direction="top">Remover</md-tooltip>
@@ -372,7 +371,7 @@
 					<i class="material-icons cerrar">clear</i>
 				</div>
 				<div class="row padding-bottom-0 margin-bottom-0">
-					<div class="col s10 offset-s1" style="position: relative;">
+					<div class="col s11" style="position: relative;">
 
 
 						<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="icono in editor.iconos">
@@ -380,7 +379,7 @@
 								<div class="overlay-opcion"></div>
 								<span class="seleccionar">
 									<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
-									<i class="material-icons" ng-click="editor.reemplazarIcono(icono)">check</i>
+									<i class="material-icons" ng-click="editor.reemplazarIcono(icono);editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">check</i>
 								</span>
 								<bazam-visualizar data-svg="editor.base64.decode(icono.svg)">
 								</bazam-visualizar>
@@ -398,7 +397,7 @@
 			</div>
 		</div>
 
-		<div class="contenedor-previews col s2" style="position:static; padding:0; overflow-y: auto">
+		<div class="contenedor-previews col s3" style="position:static; padding:0; overflow-y: auto">
 			<div class="cerrar-contenedor-p" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
 				<i class="material-icons cerrar">clear</i>
 			</div>

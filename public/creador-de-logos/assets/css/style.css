@@ -2804,7 +2804,7 @@ textarea {
     color: #fff;
     opacity: 0;
     border-radius: 30px;
-    padding: 12px 20px;
+    padding: 4px 16px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3426,6 +3426,11 @@ div.color-picker-bazam div.color {
     border-radius: 15%;
     margin: .5%;
     cursor: pointer;
+}
+
+div.color-picker-bazam div.color:active {
+    transform: scale(1.4);
+    transition: .1s all;
 }
 
 div.color-picker-bazam div.titulo {
