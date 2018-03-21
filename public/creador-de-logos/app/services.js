@@ -360,10 +360,10 @@ angular.module("disenador-de-logos")
 				defered.resolve(res);
 			}).catch(function (res) {
 				defered.reject(res);
-			})
+			});
 
 			return promise;
-		}
+		};
 
 		/* ETIQUETAS*/
 
@@ -380,10 +380,10 @@ angular.module("disenador-de-logos")
 				defered.resolve(res);
 			}).catch(function (res) {
 				defered.reject(res);
-			})
+			});
 
 			return promise;
-		}
+		};
 
 		this.loadEtiquetas = function (arr, v) {
 
@@ -394,13 +394,13 @@ angular.module("disenador-de-logos")
 					_id: valor._id,
 					traduccion: valor.traducciones[0]
 				});
-			})
+			});
 
 			return etiquetas.map(function (et) {
 				et.traduccion._lowername = et.traduccion.valor.toLowerCase();
 				return et;
 			});
-		}
+		};
 
 		this.transformChip = function (chip) {
 
@@ -414,14 +414,14 @@ angular.module("disenador-de-logos")
 				traduccion: {
 					valor: chip
 				}
-			}
+			};
 
-		}
+		};
 
 		this.querySearch = function (query, etiquetas) {
 			var results = query ? etiquetas.filter(createFilterFor(query)) : [];
 			return results;
-		}
+		};
 
 		function createFilterFor(query) {
 			var lowercaseQuery = angular.lowercase(query);

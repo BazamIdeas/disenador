@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", "fontService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService, fontService) {
+	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", "fontService", "etiquetasService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService, fontService, etiquetasService) {
 
 		var bz = this;
 
@@ -327,8 +327,8 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.verificarEslogan = function(eslogan){
-			if(eslogan === ""){
+		bz.verificarEslogan = function (eslogan) {
+			if (eslogan === "") {
 				bz.esloganActivo = false;
 				bz.logo.fuenteEslogan = null;
 				$rootScope.$broadcast("editor:eliminarEslogan");
@@ -421,17 +421,49 @@ angular.module("disenador-de-logos")
 
 		bz.completadoBuscar = true;
 
+		/* Etiquetas */
+
+		bz.selectedItem = null;
+		bz.searchText = null;
+		bz.etiquetasFunciones = etiquetasService;
+
+		etiquetasService.listarEtiquetas().then(function (res) {
+			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
+		}).catch(function () {});
+
+		bz.etiquetasSeleccionadas = [];
+
 		bz.buscarIconos = function (idCategoria, valido) {
 
 			bz.iconosForm.$setSubmitted();
 
 			if (valido) {
 
+				var tags = [];
+				var iconos = [];
+
+				angular.forEach(bz.etiquetasSeleccionadas, function (valor) {
+					tags.push(valor.traduccion.valor);
+				});
+
+				if (bz.iconos.length > 0) {
+					angular.forEach(bz.iconos, function (valor) {
+						iconos.push(valor.idElemento);
+					});
+				}
+
 				bz.completadoBuscar = false;
 				bz.borradores = false;
 				bz.preview = false;
 				bz.busquedaIconos = true;
 
+				elementosService.listarIconosSegunTags(tags, idCategoria, iconos, 17).then(function (res) {
+					bz.iconos = [];
+					bz.iconos = res;
+
+					bz.completadoBuscar = true;
+				});
+				/*
 				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
 					.then(function (res) {
 						bz.iconos = [];
@@ -439,6 +471,7 @@ angular.module("disenador-de-logos")
 					}).finally(function () {
 						bz.completadoBuscar = true;
 					});
+					*/
 			}
 
 		};

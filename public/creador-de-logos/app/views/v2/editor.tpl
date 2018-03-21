@@ -182,16 +182,32 @@
 
 					<div class="tab-editor" ng-show="editor.menuSwitch == 3">
 						<div class="row">
-							<div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
-								<md-input-container style="width:80%; padding: 0 0.75rem">
+							<div class="col s12 no-padding">
+								<md-chips style="padding:0;" md-add-on-blur="true" ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+								    md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
+									<label>Etiquetas</label>
+									<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
+									    md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
+										<span md-highlight-text="editor.searchText">{{item.traduccion.valor}}</span>
+									</md-autocomplete>
+									<md-chip-template>
+										<span>
+											<strong>{{$chip.traduccion.valor}}</strong>
+										</span>
+									</md-chip-template>
+								</md-chips>
+								<br/>
+							</div>
+							<div class="col s12 text-center no-padding" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
+								<md-input-container style="width:90%; padding: 0 0.75rem 0 0">
 									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
-									<md-select ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
+									<md-select flex ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
 									    md-no-asterisk required>
 										<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 									</md-select>
 								</md-input-container>
-								<span style="background: var(--principal);color: white;border-radius: 3px;padding: 2;cursor: pointer;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-								    ng-class="{ 'loading-white': !editor.completadoBuscar}">
+								<span class="refresh-icon" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-class="{ 'loading-white': !editor.completadoBuscar}"
+								    ng-disabled="!editor.completadoBuscar">
 									<i class="material-icons">refresh</i>
 								</span>
 							</div>

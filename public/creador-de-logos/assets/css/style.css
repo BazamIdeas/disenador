@@ -3077,10 +3077,26 @@ div.opcion-icono bazam-visualizar svg {
 }
 
 .sidebar-1 md-input-container md-select {
-    width: 180px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
+}
+
+.sidebar-1 md-input-container md-select md-select-value {
+    color: var(--principal) !important;
+}
+
+.md-select-value>span:not(.md-select-icon) {
+    overflow: visible;
+}
+
+.refresh-icon {
+    background: var(--principal);
+    color: white;
+    border-radius: 3px;
+    padding: 2;
+    cursor: pointer;
 }
 
 .overlay-logo {
