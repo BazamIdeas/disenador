@@ -1371,30 +1371,48 @@ angular.module("disenador-de-logos")
 				var bz = this;
 
 				bz.callback = $scope.callback;
+				bz.elegido = $scope.elegido;
+				bz.logos = $scope.logos;
+
+				bz.base64 = $base64;
 
 				bz.actual = 0;
+				$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 
 				if ($scope.logos.length > 1) {
 					bz.actual = 1;
+					$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 				}
 
 				bz.convertidor = arrayToJsonMetasFactory;
 
-				bz.base64 = $base64;
+				bz.mover = function (accion) {
+
+					if (accion) {
+						bz.actual = bz.actual == (bz.logos.length - 1) ? 0 : bz.actual + 1
+						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
+					} else {
+						bz.actual = bz.actual == 0 ? bz.logos.length - 1 : bz.actual - 1
+						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
+					}
+
+				}
 
 				bz.borrarSlider = function (idLogo) {
 					bz.callback[3](idLogo);
 
 					if (bz.actual == $scope.logos.length - 1) {
 						bz.actual = bz.actual - 1;
+						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 					}
-				};
+				}
 
 			}],
 			controllerAs: "carouselMisLogos",
 			scope: {
 				callback: "<",
-				logos: "<"
+				logos: "<",
+				elegido: "="
 			}
 		};
 
