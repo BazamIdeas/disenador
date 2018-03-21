@@ -1393,6 +1393,7 @@ p.titulo {
 
 .contenedor-svg {
     width: 400px;
+    height: 400px;
     margin: auto;
     border-radius: 5px;
     border: 2px dotted #d4d4d4;

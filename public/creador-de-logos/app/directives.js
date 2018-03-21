@@ -32,6 +32,7 @@ angular.module("disenador-de-logos")
 							var svgIcono = element[0].children[0].children[0];
 
 							svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
+							svgIcono.setAttribute("fill", scope.colorIcono);
 
 							/////////////////////////////////////////
 							////////creamos el elemento Text/////////
@@ -101,8 +102,6 @@ angular.module("disenador-de-logos")
 
 							}
 
-							svgIcono.setAttribute("fill", scope.colorIcono);
-
 							$timeout(function () {
 								scope.callback = element[0].innerHTML;
 							}, 1000);
@@ -139,11 +138,13 @@ angular.module("disenador-de-logos")
 			controller: function ($scope)
 
 			{
+
 				$scope.svgPreparado = $q.defer();
 
-				$scope.fuenteCargada = fontService.preparar($scope.fuente.nombre, $scope.fuente.url);
-
 				if (!$scope.idLogo && !$scope.idPadre) { //si no es un logo previamente guardado
+
+					$scope.fuenteCargada = fontService.preparar($scope.fuente.nombre, $scope.fuente.url);
+
 					$scope.svgSaneado = $scope.svg.trim();
 
 					var posicion1 = $scope.svgSaneado.search(">");
@@ -197,16 +198,14 @@ angular.module("disenador-de-logos")
 			link: {
 				pre: function (scope, element) {
 
+					var tamanoBase = 100;
 
-					scope.fuenteCargada
-						.then(function () {})
-						.catch(function () {})
-						.finally(function () {
+					if (!scope.idLogo && !scope.idPadre) { // si no es un logo guardado previamente
 
-							var tamanoBase = 100;
-
-							if (!scope.idLogo && !scope.idPadre) { // si no es un logo guardado previamente
-
+						scope.fuenteCargada
+							.then(function () {})
+							.catch(function () {})
+							.finally(function () {
 
 								////////////////////////////////////////////////////////////
 								//////Insertamos el SVG del icono dentro del SVG padre//////
@@ -260,7 +259,7 @@ angular.module("disenador-de-logos")
 
 								svgIcono.y.baseVal.value = paddingTopIcono;
 
-								var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+								var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
 
 								svgTexto.setAttribute("y", paddingTopText);
 
@@ -278,7 +277,7 @@ angular.module("disenador-de-logos")
 
 									svgIcono.y.baseVal.value = paddingTopIcono;
 
-									paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
+									paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
 
 									svgTexto.setAttribute("y", paddingTopText);
 
@@ -288,31 +287,32 @@ angular.module("disenador-de-logos")
 								//agregamos el Style Tag al svg
 								element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>");
 
-							} else if (scope.idLogo || scope.idPadre) { // si es un logo previamenteguardado
+								scope.svgPreparado.resolve();
 
-								element.html(scope.svg);
+							});
 
-								element.find("g.contenedor-icono > svg [data-indice]").each(function () {
+					} else if (scope.idLogo || scope.idPadre) { // si es un logo previamenteguardado
 
-									scope.elementosIndices[parseInt(this.getAttribute("data-indice"))] = false;
+						element.html(scope.svg);
 
-								});
+						element.find("g.contenedor-icono > svg [data-indice]").each(function () {
 
-
-								scope.texto = element.find("text.textoPrincipal").text();
-
-								if (element.find("text.eslogan").length) {
-
-
-									scope.eslogan = element.find("text.eslogan").text();
-								}
-
-
-							}
-
-							scope.svgPreparado.resolve();
+							scope.elementosIndices[parseInt(this.getAttribute("data-indice"))] = false;
 
 						});
+
+						scope.texto = element.find("text.textoPrincipal").text();
+
+						if (element.find("text.eslogan").length) {
+
+
+							scope.eslogan = element.find("text.eslogan").text();
+						}
+						scope.svgPreparado.resolve();
+
+					}
+
+
 
 
 				},
