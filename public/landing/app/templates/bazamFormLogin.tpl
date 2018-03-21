@@ -1,6 +1,6 @@
 <div class="overlay" ng-class="{'show': mostrar, 'hide': !mostrar}" style="position: fixed; z-index: 10; width: 100%; height: 100%;">
     <div class="row margin-bottom-0">
-        <div class="col s6 offset-s3">
+        <div class="col s8 offset-s2 l6 offset-l3">
             <div class="login-form-flex">
                 <div ng-switch="bazamLogin.formPasos">
                     <div class="cubo-form row" ng-switch-default>

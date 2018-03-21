@@ -7,8 +7,8 @@
                 <span>DISEÑADOR</span>
             </h5>
         </div>
-        <div class="col s10 texto">
-            <h5 class="principal"></h5>
+        <div class="col s10 texto text-login">
+            <h5 class="principal">INGRESO</h5>
         </div>
 
     </div>

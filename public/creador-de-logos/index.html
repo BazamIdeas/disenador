@@ -25,18 +25,13 @@
         <meta property="og:site_name" content="Nombre de la web, i.e. Moz" />
         <meta property="fb:admins" content="ID de Facebook" />
 
-
-
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-        <!--<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Indie+Flower|Lobster|Shadows+Into+Light|Spectral+SC" rel="stylesheet">-->
         <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 
         <link href="/angular-material/angular-material.min.css" rel="stylesheet">
         <link href="/angular-colorpicker-directive/css/color-picker.css" rel="stylesheet">
-        <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">-->
 
-        <!---jQuery --->
+        <!---jQuery -->
         <script src="/jquery/jquery.min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css">
@@ -90,7 +85,30 @@
         <script src="app/controllers/v2/descargar.controller.js"></script>
         <script src="app/controllers/v2/cuenta.controller.js"></script>
         <script src="app/controllers/v2/logosGaleria.controller.js"></script>
+        <script>
+            /* FACEBOOK */
 
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: "152803392097078",
+                    autoLogAppEvents: true,
+                    xfbml: true,
+                    version: "v2.12"
+                });
+            };
+
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, "script", "facebook-jssdk"));
+        </script>
     </head>
 
     <body>
@@ -101,7 +119,7 @@
 
                 <div ng-switch="header.autorizado" class="login" ng-cloak>
 
-                    <div ng-switch-when="false" class="acceder" style="cursor: pointer">
+                    <div ng-switch-when="false" ui-sref="inicio" class="acceder" style="cursor: pointer; padding-right:20px">
                         <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
                         <i class="material-icons">add_circle_outline</i>
                     </div>

@@ -32,26 +32,34 @@ angular.module("disenador-de-logos")
 
 		};
 
-		logosService.mostrarGuardados().then(function (res) {
+		logosService.mostrarGuardados()
+			.then(function (res) {
 
-			bz.guardados = res;
-			bz.cantidad.guardados = bz.guardados.length;
-			bz.terminados.guardados = true;
+				bz.guardados = res;
+				bz.cantidad.guardados = bz.guardados.length;
 
-		}).catch(function () {
-			bz.terminados.guardados = true;
-		});
+			})
+			.catch(function () {
+				
+			})
+			.finally(function(){
+				bz.terminados.guardados = true;
+			});
 
 
-		logosService.mostrarComprados().then(function (res) {
+		logosService.mostrarComprados()
+			.then(function (res) {
 
-			bz.comprados = res;
-			bz.cantidad.comprados = bz.comprados.length;
-			bz.terminados.comprados = true;            
+				bz.comprados = res;
+				bz.cantidad.comprados = bz.comprados.length;
 
-		}).catch(function () {
-			bz.terminados.comprados = true;        
-		});
+			})
+			.catch(function () {
+			
+			})
+			.finally(function(){
+				bz.terminados.comprados = true;            
+			});
 
 
 		bz.modificarSalto = function (accion, objetivo) {
@@ -88,36 +96,39 @@ angular.module("disenador-de-logos")
 
 				bz.borradoCompleto = false;
 
-				logosService.borrarLogo(idLogo).then(function () {
+				logosService.borrarLogo(idLogo)
+					.then(function () {
 
-					angular.forEach(bz.guardados, function (valor, indice) {
-						if (valor.idLogo == idLogo) {
-							bz.guardados.splice(indice, 1);
-							return false;
-						}
+						angular.forEach(bz.guardados, function (valor, indice) {
+							if (valor.idLogo == idLogo) {
+								bz.guardados.splice(indice, 1);
+								return false;
+							}
+						});
+
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "El logo fue borrado exitosamente!",
+								clase: "success"
+							}
+						}));
+
+					})
+					.catch(function () {
+
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Un error ha ocurrido",
+								clase: "danger"
+							}
+						}));
+
+					})
+					.finally(function () {
+
+						bz.borradoCompleto = true;
+
 					});
-
-					$mdToast.show($mdToast.base({
-						args: {
-							mensaje: "El logo fue borrado exitosamente!",
-							clase: "success"
-						}
-					}));
-
-				}).catch(function () {
-
-					$mdToast.show($mdToast.base({
-						args: {
-							mensaje: "Un error ha ocurrido",
-							clase: "danger"
-						}
-					}));
-
-				}).finally(function () {
-
-					bz.borradoCompleto = true;
-
-				});
 			}
 		};
 

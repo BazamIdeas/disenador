@@ -177,7 +177,7 @@
 					<md-button class="md-raised md-primary back-principal" ng-click="planes.promocion = false">
 						ELEGIR OTRO PLAN
 					</md-button>
-					<md-button class="md-raised md-primary back-principal" ng-click="planes.cerrarPop()">
+					<md-button class="md-raised md-primary back-principal" ng-click="planes.cerrarPop(true)">
 						SEGUIR EDITANDO MI LOGO
 					</md-button>
 				</div>
@@ -226,6 +226,18 @@
 			position: relative;
 		}
 
+		.boton-planes-unico.activo:hover {
+			background: var(--principal) !important;
+			color: white !important;
+		}
+
+		.boton-planes-unico.activo:hover md-icon.material-icons {
+			color: white;
+		}
+
+		.plan:hover button {
+			transform: scale(1.1);
+		}
 
 		.plan {
 			padding-top: 6% !important;

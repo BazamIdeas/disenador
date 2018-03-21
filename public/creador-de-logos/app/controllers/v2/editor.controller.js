@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService) {
+	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", "fontService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService, fontService) {
 
 		var bz = this;
 
@@ -9,10 +9,10 @@ angular.module("disenador-de-logos")
 		bz.borradores = false;
 		bz.preview = false;
 		bz.busquedaIconos = false;
-		bz.colorFondo = historicoResolve.colores[0] || "rgb(243, 243, 243)";
-		bz.colorTexto = historicoResolve.colores[2] || "#000";
+		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[0] : "rgb(243, 243, 243)";
+		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[2] : "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono = historicoResolve.colores[1] || "#000";
+		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[1] : "#000";
 		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
@@ -52,6 +52,8 @@ angular.module("disenador-de-logos")
 		elementosService.listarFuentes().then(function (res) {
 
 			bz.fuentes = res;
+
+			fontService.agregarGeneral(bz.fuentes);
 
 			if (historicoResolve.idLogoGuardado || historicoResolve.idLogoPadre) { // si es un logo previamente guardado
 
@@ -325,6 +327,14 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.verificarEslogan = function(eslogan){
+			if(eslogan === ""){
+				bz.esloganActivo = false;
+				bz.logo.fuenteEslogan = null;
+				$rootScope.$broadcast("editor:eliminarEslogan");
+			}
+		};
+
 
 		/////////////////////////////////////
 		/////////CAMBIO DE FUENTE////////////
@@ -418,12 +428,9 @@ angular.module("disenador-de-logos")
 			if (valido) {
 
 				bz.completadoBuscar = false;
-
-
 				bz.borradores = false;
 				bz.preview = false;
 				bz.busquedaIconos = true;
-
 
 				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
 					.then(function (res) {
@@ -487,27 +494,6 @@ angular.module("disenador-de-logos")
 			bz.esloganActivo = true;
 
 		};
-
-		$window.fbAsyncInit = function () {
-			FB.init({
-				appId: "152803392097078",
-				autoLogAppEvents: true,
-				xfbml: true,
-				version: "v2.12"
-			});
-		};
-
-
-		(function (d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) {
-				return;
-			}
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "https://connect.facebook.net/en_US/sdk.js";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, "script", "facebook-jssdk"));
 
 		//////////////////////////////////////////
 		////////RESTAURAR COMPARACIONES///////////

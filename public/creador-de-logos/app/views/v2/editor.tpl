@@ -1,9 +1,9 @@
-<style ng-repeat="fuente in editor.fuentes">
+<!--<style ng-repeat="fuente in editor.fuentes">
 	@font-face {
 		font-family: '{{fuente.nombre}}';
 		src: url('{{fuente.url}}');
 	}
-</style>
+</style>-->
 
 <section class="sub-header-principal">
 	<div class="row margin-bottom-0">
@@ -136,7 +136,8 @@
 							<div class="input-field col s12">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
 								<input id="nombre" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}"
-									ng-change="editor.cambioTexto(editor.logo.eslogan, true)">
+									ng-change="editor.cambioTexto(editor.logo.eslogan, true)"
+									ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
 							</div>
 
 							<md-input-container style="width:100%;">
@@ -174,7 +175,6 @@
 									+
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>

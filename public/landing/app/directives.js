@@ -278,3 +278,21 @@ angular.module("landing")
 
 
 	}])
+
+	.directive("bazamScroll", [function () {
+		return {
+			restrict: "AE",
+			link: function (scope, element, atribute) {
+
+				element.find('.link-scroll').click(function () {
+					angular.element('body').animate({
+						scrollTop: 0
+					}, 1000);
+					return false;
+				});
+
+			}
+		};
+
+
+	}]);

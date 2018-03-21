@@ -317,6 +317,18 @@ angular.module("landing")
 		}, {
 			pregunta: "Lorem ipsum dolor?",
 			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+		}, {
+			pregunta: "CUANTO CUESTA EL SERVICIO?",
+			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+		}, {
+			pregunta: "Lorem ipsum dolor?",
+			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+		}, {
+			pregunta: "CUANTO CUESTA EL SERVICIO?",
+			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+		}, {
+			pregunta: "Lorem ipsum dolor?",
+			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
 		}],
 		consejos: [{
 			nombre: "Simplicidad",
@@ -608,7 +620,7 @@ angular.module("landing")
 
 			var etiquetas = [];
 
-			angular.forEach(arr, (valor) => {
+			angular.forEach(arr, function (valor) {
 				etiquetas.push({
 					_id: valor._id,
 					traduccion: valor.traducciones[0]
