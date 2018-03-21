@@ -62,8 +62,13 @@
 
 <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
 	<div class="row margin-bottom-0" style="overflow: hidden;">
+<<<<<<< HEAD
 		<div class="col s2 editor-p sidebar-1" ng-form="editor.datosForm"
 			style="padding: 10px 0px 0px 0px !important;text-align: center;" ng-init="editor.menuSwitch = 1">
+=======
+		<div class="col s3 editor-p sidebar-1" ng-form="editor.datosForm" style="padding-top: 10px !important;text-align: center;"
+		    ng-init="editor.menuSwitch = 1">
+>>>>>>> 8dd673957660a9c58bc71d7a9f38e51234007b09
 
 			<div class="col s4" style="padding: 0">
 				<div ng-click="editor.menuSwitch = 1" ng-class="{'seleccionadoo': editor.menuSwitch == 1}" class="tab">
@@ -71,7 +76,7 @@
 				</div>
 			</div>
 			<div class="col s4" style="padding: 0" bazam-ayuda data-titulo="Nombre y Eslogan" data-texto="Modifique el estilo del texto de su nombre o eslogan"
-				data-clases="['corner-lt']" data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
+			    data-clases="['corner-lt']" data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
 				<div ng-click="editor.menuSwitch = 2" ng-class="{'seleccionadoo': editor.menuSwitch == 2}" class="tab">
 					<p class="text-center principal titulo" style="margin-bottom: 10px">ESLOGAN</p>
 				</div>
@@ -89,7 +94,7 @@
 						<div class="input-field col s12">
 							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Nombre del logo</md-tooltip>
 							<input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}"
-								ng-change="editor.cambioTexto(editor.logo.texto)">
+							    ng-change="editor.cambioTexto(editor.logo.texto)">
 						</div>
 
 						<div class="estilos-fuentes col s12" style="position: relative">
@@ -109,10 +114,10 @@
 
 						<!--<md-input-container style="width:100%;">
 							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Tipografia</md-tooltip>
-							<md-select style="width:100%" class="cat-fuente" ng-style="{'font-family': editor.logo.fuente.nombre}" ng-model="editor.logo.fuente" placeholder="Fuente"
-								ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" md-no-asterisk required>
+							<md-select style="width:100%" class="cat-fuente" ng-style="{'font-family': editor.logo.fuente.nombre}" ng-model="editor.logo.fuente"
+							    placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" md-no-asterisk required>
 								<md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"
-									ng-selected="editor.logo.fuente.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
+								    ng-selected="editor.logo.fuente.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
 							</md-select>
 						</md-input-container>-->
 
@@ -121,8 +126,13 @@
 									<div color-picker color-picker-model="editor.colorTexto" ng-model="editor.colorTexto" ng-change="editor.cambioColor(editor.colorTexto, 'texto')" color-picker-position="right" class="color" style="background-color: {{editor.colorTexto}}"></div>               
 								</div>-->
 
+<<<<<<< HEAD
 						<div class="col s6 estilo-texto" style="padding:0;" bazam-ayuda data-titulo="Negrita, Cursiva, Tamaño" data-texto="Cambia a Negrita (N), Cursiva (C), Aumente (+) o disminuya (-) el tamaño del texto"
 							data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
+=======
+						<div class=" col s6 estilo-texto" bazam-ayuda data-titulo="Negrita, Cursiva, Tamaño" data-texto="Cambia a Negrita (N), Cursiva (C), Aumente (+) o disminuya (-) el tamaño del texto"
+						    data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
+>>>>>>> 8dd673957660a9c58bc71d7a9f38e51234007b09
 							<div class="negrita" ng-click="editor.cambioPropiedad('bold')">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
 								N
@@ -156,17 +166,22 @@
 							<!--<p class="text-center principal titulo" style="margin-top: 40px;">ESLOGAN</p>-->
 							<div class="input-field col s12">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
+<<<<<<< HEAD
 								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}"
 									ng-change="editor.cambioTexto(editor.logo.eslogan, true)"
 									ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
+=======
+								<input id="nombre" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}"
+								    ng-change="editor.cambioTexto(editor.logo.eslogan, true)" ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
+>>>>>>> 8dd673957660a9c58bc71d7a9f38e51234007b09
 							</div>
 
 							<!--<md-input-container style="width:100%;">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Tipografia</md-tooltip>
 								<md-select style="width:100%;" class="cat-fuente" ng-style="{'font-family': editor.logo.fuenteEslogan.nombre}" ng-model="editor.logo.fuenteEslogan"
-									placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')" md-no-asterisk required>
+								    placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')" md-no-asterisk required>
 									<md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"
-										ng-selected="editor.logo.fuenteEslogan.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
+									    ng-selected="editor.logo.fuenteEslogan.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
 								</md-select>
 							</md-input-container>-->
 
@@ -202,21 +217,51 @@
 
 				<div class="tab-editor" ng-show="editor.menuSwitch == 3">
 					<div class="row">
+<<<<<<< HEAD
 						<div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center; padding:0;">
 							<md-input-container style="width:80%;">
+=======
+						<div class="col s12 no-padding">
+							<md-chips style="padding:0;" md-add-on-blur="true" ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+							    md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
+								<label>Etiquetas</label>
+								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
+								    md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
+									<span md-highlight-text="editor.searchText">{{item.traduccion.valor}}</span>
+								</md-autocomplete>
+								<md-chip-template>
+									<span>
+										<strong>{{$chip.traduccion.valor}}</strong>
+									</span>
+								</md-chip-template>
+							</md-chips>
+							<br/>
+						</div>
+						<div class="col s12 text-center no-padding" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
+							<md-input-container style="width:90%; padding: 0 0.75rem 0 0">
+>>>>>>> 8dd673957660a9c58bc71d7a9f38e51234007b09
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
-								<md-select ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-									md-no-asterisk required>
+								<md-select flex ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
+								    md-no-asterisk required>
 									<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
 								</md-select>
 							</md-input-container>
-							<span style="background: var(--principal);color: white;border-radius: 3px;padding: 2;cursor: pointer;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-								ng-class="{ 'loading-white': !editor.completadoBuscar}">
+							<span class="refresh-icon" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-class="{ 'loading-white': !editor.completadoBuscar}"
+							    ng-disabled="!editor.completadoBuscar">
 								<i class="material-icons">refresh</i>
 							</span>
 						</div>
 
+<<<<<<< HEAD
 						<div class=" col s12 estilo-texto" style="padding:0;">
+=======
+						<!--<div class=" col s12 estilo-texto" style="font-size:0px">
+										<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Color del área seleccionada</md-tooltip>
+										<div color-picker color-picker-model="editor.colorIcono" ng-model="editor.colorIcono" ng-change="editor.cambioColor(editor.colorIcono, 'icono')" color-picker-position="bottom" class="color" style="background-color: {{editor.colorIcono}}"></div>
+									</div>-->
+
+						<div class=" col s12 estilo-texto">
+>>>>>>> 8dd673957660a9c58bc71d7a9f38e51234007b09
 							<div class="menos" ng-click="editor.cambioTamano('icono', false)">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
 								-
@@ -226,11 +271,20 @@
 								+
 							</div>
 						</div>
+<<<<<<< HEAD
 						<div class=" col s12 estilo-texto" style="padding:0;">
 							<p class="text-center principal" style="margin-top: 20px; margin-bottom:0px;">Orientación</p>
 						</div>
 
 						<div class=" col s6" style="padding:0;">
+=======
+						<div class=" col s12 estilo-texto">
+							<p class="text-center principal" style="margin-top: 35px;margin-bottom: 0;">Orientación</p>
+						</div>
+
+
+						<div class=" col s6">
+>>>>>>> 8dd673957660a9c58bc71d7a9f38e51234007b09
 							<div class="cubo-logo-orientacion vertical" ng-click="editor.cambiarOrientacion('vertical')">
 								<div>
 									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo arriba</md-tooltip>
@@ -254,17 +308,14 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
-				<ver-mas-opciones ui-sref="inicio">
-					<md-button ng-click="descargar.mostrarPlanesSuperiores = false" class="back-principal">
-						<md-icon>arrow_back</md-icon> Volver
-					</md-button>
-				</ver-mas-opciones>
-
 
 			</div>
-
+			<ver-mas-opciones ui-sref="inicio">
+				<md-button ng-click="descargar.mostrarPlanesSuperiores = false" class="back-principal">
+					<md-icon>arrow_back</md-icon> Volver
+				</md-button>
+			</ver-mas-opciones>
 
 
 		</div>
@@ -287,13 +338,13 @@
 				<div class="row padding-bottom-0 margin-bottom-0">
 					<div class="col l11 xl11" style="position: relative;">
 
-					    <div class="col l2 xl2 contenedor-opcion-icono">
+						<div class="col l2 xl2 contenedor-opcion-icono">
 							<div class="agregar" ng-click="editor.realizarComparacion(editor.comparar)">
 								<img style="width:100%" src="assets/images/a.png" alt="">
 								<div style="position:absolute;display: flex;
-								flex-flow: column;
-								text-align: center;">
-								    <i class="material-icons">add</i>
+									flex-flow: column;
+									text-align: center;">
+									<i class="material-icons">add</i>
 									<span>AGREGAR</span>
 								</div>
 							</div>

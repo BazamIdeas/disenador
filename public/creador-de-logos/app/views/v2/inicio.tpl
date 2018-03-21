@@ -65,8 +65,8 @@
                 </div>
                 <div>
                     <md-input-container class="md-block " style="width:100%;">
-                        <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores" aria-label="filtro"
-                            name="color" placeholder="Colores" required>
+                        <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores"
+                            aria-label="filtro" name="color" placeholder="Colores" required>
                             <md-optgroup label="Colores">
                                 <md-option ng-value="color" class="estilo-de-color" ng-repeat="color in inicio.colores" ng-selected="inicio.coloresIguales(color) || $index == 0">
                                     <span ng-style="{'background-color': color[0]}" style="color:transparent;" class="color-p">{{color[0]}}</span>
@@ -84,20 +84,21 @@
                     </div>
                     <div class="estilos-fuentes" style="position: relative">
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
-                            <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes" ng-value="fuenteCategoria.idCategoria"> <!--ng-disabled=" d.isDisabled "-->
+                            <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes" ng-value="fuenteCategoria.idCategoria">
+                                <!--ng-disabled=" d.isDisabled "-->
                                 <md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
                                 <span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
                             </md-radio-button>
                         </md-radio-group>
 
-                         <!-- VALIDACION -->
+                        <!-- VALIDACION -->
                         <div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
                             <div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
                             </br>
                         </div>
                     </div>
 
-                   
+
                 </div>
                 <!--
                 <div>
@@ -133,11 +134,12 @@
 
         <div class="contenedor-principal col l7">
 
-            <div class="row" style="margin-bottom:0;overflow-y: scroll; height: 100% ;width: 100%; display: flex; justify-content: center; align-items: center;" ng-if="!inicio.logos.length">
+            <div class="row" style="margin-bottom:0;overflow-y: scroll; height: 100% ;width: 100%; display: flex; justify-content: center; align-items: center;"
+                ng-if="!inicio.logos.length">
                 <div style="width: 60%; height: 60%;">
                     <img style="width: 100%;" src="assets/images/logo-design.gif">
                 </div>
-            </div>  
+            </div>
 
             <div class="row" style="margin-bottom:0;overflow-y: scroll;height: 100%;" ng-if="inicio.logos.length">
 
@@ -150,10 +152,10 @@
                 </div>
 
             </div>
-              
+
             <div class="overlay-combinacion" ng-class="{'open':inicio.logoElegido}">
                 <div class="logo-elegido" ng-class="{'cambio': inicio.cambio}" ng-style="{'background-color': inicio.logoElegido.colores[0]}">
-                    <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>	
+                    <bazam-actualizar data-svg="inicio.logoElegido.svg"></bazam-actualizar>
                 </div>
 
                 <!--<button ng-if="inicio.logoElegido.id > 0" ng-click="inicio.moverse()" style="left: 9%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_left</i></button>
@@ -161,8 +163,11 @@
                 <button ng-if="inicio.logoElegido.id < inicio.logos.length - 1" ng-click="inicio.moverse('siguiente')" style="right: 11%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_right</i></button>
                 -->
 
-                <button class="inicio-editar"  style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 35px;width: 20%;margin: 0;font-size: 25px;padding: 5px;" ng-click="inicio.preAvanzar(inicio.logoElegido.logoCompleto)">Editar</button>
-                <button ng-click="inicio.logoElegido = null"><i class="material-icons cerrar">clear</i></button>
+                <button class="inicio-editar" style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 35px;width: 20%;margin: 0;font-size: 25px;padding: 5px;"
+                    ng-click="inicio.preAvanzar(inicio.logoElegido.logoCompleto)">Editar</button>
+                <button ng-click="inicio.logoElegido = null">
+                    <i class="material-icons cerrar">clear</i>
+                </button>
             </div>
 
         </div>
@@ -248,7 +253,7 @@
                         <img src="assets/images/mockups/etiqueta.jpg" width="100%">
                     </div>
                 </div>
-                
+
                 <div class="col s12" style="padding:0">
 
                     <div style="position: relative;">

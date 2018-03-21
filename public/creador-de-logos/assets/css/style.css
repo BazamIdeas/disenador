@@ -3061,6 +3061,23 @@ div.opcion-icono bazam-visualizar svg {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
+}
+
+.sidebar-1 md-input-container md-select md-select-value {
+    color: var(--principal) !important;
+}
+
+.md-select-value>span:not(.md-select-icon) {
+    overflow: visible;
+}
+
+.refresh-icon {
+    background: var(--principal);
+    color: white;
+    border-radius: 3px;
+    padding: 2;
+    cursor: pointer;
 }
 
 .overlay-logo {
@@ -3323,6 +3340,11 @@ md-chip-template strong {
     font-size: 12px !important;
 }
 
+.md-chips md-chip{
+    height: 29px;
+    line-height: 29px;
+}
+
 .md-chips md-chip .md-chip-remove {
     text-align: center;
     width: 21px;
@@ -3334,7 +3356,7 @@ md-chip-template strong {
     font-size: 10px;
     height: 15px;
     width: 15px;
-    top: 80%;
+    top: 70%;
     min-height: auto;
     min-width: auto;
     left: 50%;
