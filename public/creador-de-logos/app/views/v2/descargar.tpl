@@ -15,10 +15,10 @@
 </section>
 <style>
     .aumentar-plan {
-        position: absolute; 
+        position: absolute;
         top: 0%;
-        margin-top: 0px !important; 
-        width: 100%; 
+        margin-top: 0px !important;
+        width: 100%;
         opacity: 0.3;
     }
 
@@ -35,7 +35,7 @@
         z-index: 2;
     }
 
-    .necesita-aumentar{
+    .necesita-aumentar {
 
         opacity: 0.4;
         filter: grayscale(100%);
@@ -49,6 +49,16 @@
         z-index: 2;
     }
 
+    cerrar-pop {
+        position: absolute;
+        right: 1%;
+        top: 1%;
+    }
+
+    .back-principal,
+    .back-principal:focus {
+        background: var(--tercero) !important;
+    }
 </style>
 
 <section style="height: calc(100vh - 135px) !important;overflow: hidden;">
@@ -58,8 +68,8 @@
 
             <div class="col l9 logo-final" style="padding: 0;margin-top: 20px; position: relative">
                 <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                <button class="boton-verde aumentar-plan" ng-if="descargar.mostrarAumento" ng-click="descargar.mostrarPlanesSuperiores = true"> 
-                    <i class="material-icons" style="vertical-align: middle;">monetization_on</i> 
+                <button class="boton-verde aumentar-plan" ng-if="descargar.mostrarAumento" ng-click="descargar.mostrarPlanesSuperiores = true">
+                    <i class="material-icons" style="vertical-align: middle;">monetization_on</i>
                     <span style="vertical-align: middle;">MEJORAR MI PLAN</span>
                 </button>
 
@@ -68,16 +78,16 @@
             <div class="col l9" style="padding: 0;margin-top: 5px; text-align:center;">
                 <!--BLOQUEADO -->
                 <div ng-if="!(descargar.plan.manual.valor == '1')" style="position: relative;">
-                   
+
                     <button style="margin:auto; display:block;width: 100%;" class="boton-verde manual necesita-aumentar">
                         <span>MANUAL DE IDENTIDAD</span>
                     </button>
                     <i class="material-icons candado-bloqueado">lock</i>
                 </div>
-                
+
                 <!--DESBLOQUEADO -->
-                <button ng-disabled="descargar.esperaManual" style="margin:auto; display:block;width: 100%" class="boton-verde manual"
-                    style="background-color: var(--principal)" ng-class="{'en-espera': descargar.esperaManual}" ng-click="descargar.manualMarca(descargar.logo.id)" ng-if="descargar.plan.manual.valor == '1'">
+                <button ng-disabled="descargar.esperaManual" style="margin:auto; display:block;width: 100%" class="boton-verde manual" style="background-color: var(--principal)"
+                    ng-class="{'en-espera': descargar.esperaManual}" ng-click="descargar.manualMarca(descargar.logo.id)" ng-if="descargar.plan.manual.valor == '1'">
                     <span ng-if="!descargar.esperaManual">MANUAL DE IDENTIDAD</span>
                     <md-progress-circular ng-if="descargar.esperaManual" style="margin:auto;" class="md-hue-2" md-diameter="20px"></md-progress-circular>
                 </button>
@@ -180,17 +190,19 @@
             </div>
             <div ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'">
                 <button class="boton-verde" style="background-color: var(--principal); width:100%; margin-top: 5px" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}} x
-                    {{descargar.formatoSeleccionado.ancho}})</button>
+                    {{descargar.formatoSeleccionado.ancho}})
+                </button>
             </div>
 
-            <div ng-if="!(descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1')"  style="position: relative;">
-                <button class="boton-verde necesita-aumentar" style="background-color: var(--principal); width:100%; margin-top: 5px">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}} x {{descargar.formatoSeleccionado.ancho}})
+            <div ng-if="!(descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1')" style="position: relative;">
+                <button class="boton-verde necesita-aumentar" style="background-color: var(--principal); width:100%; margin-top: 5px">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}} x
+                    {{descargar.formatoSeleccionado.ancho}})
 
                 </button>
                 <i class="material-icons candado-bloqueado">lock</i>
             </div>
 
-            
+
 
         </div>
 
@@ -200,93 +212,98 @@
 
             <div ng-repeat="formato in descargar.formatosNoSociales track by formato.nombre">
                 <!--DESBLOQUEADO-->
-                <div class="formato" style="margin-bottom: 20px;padding-top:0%;" ng-click="descargar.seleccionar(formato)"  ng-if="(formato.nombre == 'editable' && descargar.plan.editable.valor == '1') || (formato.nombre == 'papeleria' && descargar.plan.png.valor == '1') || (formato.nombre != 'editable' && formato.nombre != 'papeleria')">
+                <div class="formato" style="margin-bottom: 20px;padding-top:0%;" ng-click="descargar.seleccionar(formato)" ng-if="(formato.nombre == 'editable' && descargar.plan.editable.valor == '1') || (formato.nombre == 'papeleria' && descargar.plan.png.valor == '1') || (formato.nombre != 'editable' && formato.nombre != 'papeleria')">
                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
-                    <img ng-class="{'img-filter': descargar.formatoSeleccionado.nombre !== formato.nombre}" style="width:80%;background-color: #e7ebee; max-width: 96px;" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
+                    <img ng-class="{'img-filter': descargar.formatoSeleccionado.nombre !== formato.nombre}" style="width:80%;background-color: #e7ebee; max-width: 96px;"
+                        ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
                 </div>
                 <!--BLOQUEADO-->
-                <div class="formato" style="margin-bottom: 20px;padding-top:0%; position: relative;"  ng-if="(formato.nombre == 'editable' && descargar.plan.editable.valor == '0') || (formato.nombre == 'papeleria' && descargar.plan.png.valor == '0') || (formato.nombre != 'editable' && formato.nombre != 'papeleria')">
-                        <img style="width:80%;background-color: #e7ebee; max-width: 96px;"
-                            ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png" class="necesita-aumentar">
-                        <i class="material-icons candado-bloqueado">lock</i>
-                    </div>
+                <div class="formato" style="margin-bottom: 20px;padding-top:0%; position: relative;" ng-if="(formato.nombre == 'editable' && descargar.plan.editable.valor == '0') || (formato.nombre == 'papeleria' && descargar.plan.png.valor == '0') || (formato.nombre != 'editable' && formato.nombre != 'papeleria')">
+                    <img style="width:80%;background-color: #e7ebee; max-width: 96px;" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png"
+                        class="necesita-aumentar">
+                    <i class="material-icons candado-bloqueado">lock</i>
+                </div>
             </div>
 
             <!--BLOQUEADOS-->
             <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.plan.png.valor == '0'">
-                    
-                    
+
+
                 <div class="formato" style=" margin-bottom: 20px; text-align: center; position: relative;">
-                    <img style="width:80%; max-width: 96px;" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png"  class="necesita-aumentar">
+                    <img style="width:80%; max-width: 96px;" ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png" class="necesita-aumentar">
                     <i class="material-icons candado-bloqueado">lock</i>
                 </div>
             </div>
 
             <!--DESBLOQUEADOS-->
             <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.plan.png.valor == '1'">
-                    <div class="formato" style=" margin-bottom: 20px; text-align: center;" ng-click="descargar.seleccionar(formato)">
-                        <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
-                        <img ng-class="{'img-filter': descargar.formatoSeleccionado.nombre !== formato.nombre}" style="width:80%; max-width: 96px;"
-                            ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
-                    </div>
+                <div class="formato" style=" margin-bottom: 20px; text-align: center;" ng-click="descargar.seleccionar(formato)">
+                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
+                    <img ng-class="{'img-filter': descargar.formatoSeleccionado.nombre !== formato.nombre}" style="width:80%; max-width: 96px;"
+                        ng-src="/creador-de-logos/assets/images/descarga/{{formato.nombre}}.png">
+                </div>
             </div>
 
 
         </div>
 
-        <div class="planes-superiores" ng-if="descargar.mostrarPlanesSuperiores"> 
+        <div class="planes-superiores" ng-class="{'activo': descargar.mostrarPlanesSuperiores, 'oculto': !descargar.mostrarPlanesSuperiores}">
 
-            <span ng-click="descargar.mostrarPlanesSuperiores = false">x</span>
+            <cerrar-pop>
+                <md-button ng-click="descargar.mostrarPlanesSuperiores = false" class="back-principal md-primary md-fab md-mini">
+                    <md-icon>close</md-icon>
+                </md-button>
+            </cerrar-pop>
+            <h4 class="principal titulo-planes" style="text-align:center;">ESCOJA EL MEJOR PLAN PARA USTED</h4>
             <div class="row margin-bottom-0" style="overflow: hidden;">
 
                 <div class="col s3" style="padding: 0 40px;">
                     <p class="principal text-center">Cambiar moneda de pago:</p>
-                    <md-input-container style="width:100%; padding: 10px;" >
-                        <md-select ng-model="descargar.moneda" placeholder="Moneda"> 
+                    <md-input-container style="width:100%; padding: 10px;">
+                        <md-select ng-model="descargar.moneda" placeholder="Moneda">
                             <md-option ng-value="moneda" ng-repeat="moneda in descargar.monedas">{{moneda.simbolo}}
-                
+
                             </md-option>
                         </md-select>
                     </md-input-container>
                 </div>
                 <div class="col s9" style="padding: 0 40px;">
 
-                        <p class="tercero text-center"></p>
-                        
-                        <div class="contenedor-planes">
-                            
-                            <div class="row">
-                        
-                                <div class="plan col s4" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
-                                    <div>
-                                        <div class="plan-header">{{plan.plan}}</div>
-                                        <div class="plan-body">
-                                            <p>{{plan.info}}</p>
-    
-                                            <ul class="plan-lista">
-                                                <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{carac.descripcion}}</li>
-                                            </ul>
-    
-                                            <div class="plan-precio">{{descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
-    
-                                            <div class="text-center">
-                                                <button class="boton-verde" ng-click="descargar.avanzarCheckout(plan, planes.moneda)">SELECCIONAR</button>
-                                            </div>
+                    <p class="tercero text-center"></p>
+
+                    <div class="contenedor-planes">
+
+                        <div class="row">
+
+                            <div class="plan col s4" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
+                                <div>
+                                    <div class="plan-header">{{plan.plan}}</div>
+                                    <div class="plan-body">
+                                        <p>{{plan.info}}</p>
+
+                                        <ul class="plan-lista">
+                                            <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{carac.descripcion}}</li>
+                                        </ul>
+
+                                        <div class="plan-precio">{{descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
+
+                                        <div class="text-center">
+                                            <button class="boton-verde" ng-click="descargar.avanzarCheckout(plan, planes.moneda)">SELECCIONAR</button>
                                         </div>
                                     </div>
-                                </div>	
-        
-    
+                                </div>
                             </div>
-                        
+
+
                         </div>
-    
+
                     </div>
+
+                </div>
             </div>
         </div>
     </div>
 
-    
-    
-</section>
 
+
+</section>
