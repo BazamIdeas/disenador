@@ -11,6 +11,8 @@ angular.module("disenador-de-logos")
 		bz.guardados = [];
 		bz.comprados = [];
 
+		bz.elegido = null
+
 		bz.salto = {
 			comprados: 0,
 			guardados: 0

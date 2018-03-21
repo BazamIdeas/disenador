@@ -514,7 +514,7 @@ button.boton-verde:hover {
     background-color: #4aaf57;
 }
 
-/* Let's get this party started 
+/*Let's get this party started */
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -539,7 +539,6 @@ button.boton-verde:hover {
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(97,39,135,0.4);  
 }
-*/
 
 /*Begin header*/
 
@@ -1443,8 +1442,6 @@ p.titulo {
 }
 
 .contenedor-borradores .col .agregar {
-    width: 97px;
-    padding: 18px;
     border-radius: 5px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2807,7 +2804,7 @@ textarea {
     color: #fff;
     opacity: 0;
     border-radius: 30px;
-    padding: 12px 20px;
+    padding: 4px 16px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2829,7 +2826,7 @@ textarea {
     color: var(--principal);
 }
 
-.logo-container-m:hover span.seleccionar {
+.logo-container-m.logo-active-m:hover span.seleccionar {
     opacity: 1;
 }
 
@@ -2843,37 +2840,20 @@ textarea {
 .tab-freelance button {
     -webkit-box-flex: 1;
     -ms-flex: 1;
+    color: grey;
     flex: 1;
     border-radius: 0;
     margin-top: 0;
-}
-
-.tab-freelance-activo::after {
-    content: "";
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 12;
-    background-color: #4aaf57;
-}
-
-.tab-freelance-activo::before {
-    content: "";
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    z-index: 12;
-    background-color: #4aaf57;
+    background-color: #fcfcfc;
+    border: none;
+    padding: 15px;
+    transition: .1s all;
 }
 
 .tab-freelance-activo {
-    background-color: white !important;
     position: relative;
-    color: #49ae56 !important;
+    font-size: 17px;
+    color: var(--principal) !important;
 }
 
 .pop-ayuda {
@@ -3104,7 +3084,7 @@ div.opcion-icono bazam-visualizar svg {
     width: 100%;
     display: block !important;
     padding-top: 100%;
-    z-index: 3;
+    z-index: 2;
     background-color: white;
     top: 0px;
     left: 0px;
@@ -3270,7 +3250,7 @@ div.combinacion.seleccionada {
 
 .overlay-combinacion.open {
     top: 0;
-    z-index: 2
+    z-index: 3;
 }
 
 .overlay-combinacion.open:before {
@@ -3453,7 +3433,7 @@ md-chips .md-chips {
 
 div.color-picker-bazam {
     box-shadow: 0px 0px 3px 1px #b7b7b7b0;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: .5% 0.5% 1.5% .5%;
 }
 
@@ -3462,6 +3442,11 @@ div.color-picker-bazam div.color {
     border-radius: 15%;
     margin: .5%;
     cursor: pointer;
+}
+
+div.color-picker-bazam div.color:active {
+    transform: scale(1.4);
+    transition: .1s all;
 }
 
 div.color-picker-bazam div.titulo {
@@ -3558,3 +3543,34 @@ div.color-picker-bazam div.titulo span i {
 .pasos.ng-enter-active {
     opacity: 1;
 }*/
+
+
+.left-div-action{
+    cursor: pointer;
+    margin-left: -43%;
+    margin-top: 3%;  
+    width: 24%;
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    top: 0;
+    left: 55%;
+    padding-top: 24%;
+}
+
+.right-div-action{
+    cursor: pointer;    
+    margin-left: 9%;
+    margin-top: 3%;
+    width: 24%;
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    top: 0;
+    left: 55%;
+    padding-top: 24%;
+}

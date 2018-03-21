@@ -1,4 +1,4 @@
-                    <div class="row margin-bottom-0 lienzo scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
+                    <div class="row margin-bottom-0 lienzo">
 						<div class="col l2" bazam-ayuda data-titulo="Buscar" data-texto="Cambie sus preferencias y realice una nueva busqueda de elementos" data-clases="['corner-lt']" data-identificador="ayuda-buscar" data-orientacion="right" data-paso="4" bazam-pasos-ayuda>
                             <button class="boton-verde" ng-click="$parent.principal.solicitarElementos()" ng-class="{ 'loading-white': !$parent.principal.completado}" >MÁS SIMBOLOS</button>
                         </div>
