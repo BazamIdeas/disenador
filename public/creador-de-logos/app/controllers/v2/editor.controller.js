@@ -9,10 +9,10 @@ angular.module("disenador-de-logos")
 		bz.borradores = false;
 		bz.preview = false;
 		bz.busquedaIconos = false;
-		bz.colorFondo = historicoResolve.colores[0] || "rgb(243, 243, 243)";
-		bz.colorTexto = historicoResolve.colores[2] || "#000";
+		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[0] : "rgb(243, 243, 243)";
+		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[2] : "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono = historicoResolve.colores[1] || "#000";
+		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[1] : "#000";
 		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
