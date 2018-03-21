@@ -774,7 +774,7 @@ p.label-slider-input-right {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .cubo-logo div {
@@ -1232,7 +1232,7 @@ button:not(.loading-purple).boton-oborder.active {
 /*BEGIN opciones sidebar 1 editor*/
 
 p.titulo {
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .estilo-texto {
@@ -1255,11 +1255,11 @@ p.titulo {
 
 .estilo-texto .negrita {
     font-weight: bold;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .estilo-texto .menos {
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .estilo-texto .mas {
@@ -2294,6 +2294,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 .tab.seleccionadoo .titulo {
     color: var(--principal) !important;
+    transition: 0.2s transform;
 }
 
 .tab {
@@ -3057,7 +3058,6 @@ div.opcion-icono bazam-visualizar svg {
 }
 
 .sidebar-1 md-input-container md-select {
-    width: 180px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
