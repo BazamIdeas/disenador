@@ -786,7 +786,6 @@ angular.module("disenador-de-logos")
 								href: "https://developers.facebook.com/docs/"
 							},
 							function (response) {
-								return console.log(response)
 								if (response && !response.error_code) {
 									if (typeof response != "undefined") {
 										defered.resolve(response);
@@ -1652,7 +1651,7 @@ angular.module("disenador-de-logos")
 		return {
 			check: function (fuente) {
 
-				if(!$document[0].fonts){
+				if (!$document[0].fonts) {
 					return false;
 				}
 
@@ -1660,10 +1659,10 @@ angular.module("disenador-de-logos")
 			},
 			load: function (fuente, url) {
 
-				if(!$document[0].fonts){
-					var nombreFuente = fuente.replace(/\s/g,"-");
-					if(!angular.element("."+nombreFuente).length){
-						angular.element("html head").append("<style class='"+nombreFuente+"'>@font-face {font-family: " + fuente + ";src: url('" + url + "');}</style>");
+				if (!$document[0].fonts) {
+					var nombreFuente = fuente.replace(/\s/g, "-");
+					if (!angular.element("." + nombreFuente).length) {
+						angular.element("html head").append("<style class='" + nombreFuente + "'>@font-face {font-family: " + fuente + ";src: url('" + url + "');}</style>");
 					}
 					return false;
 				}
@@ -1695,18 +1694,20 @@ angular.module("disenador-de-logos")
 
 			} else {
 
-				$q.race([$timeout(function(){return "exceso";}, 10000), fontFactory.load(fuente, url)])
-					.then(function(res){
-						if(res === "exceso"){
+				$q.race([$timeout(function () {
+						return "exceso";
+					}, 10000), fontFactory.load(fuente, url)])
+					.then(function (res) {
+						if (res === "exceso") {
 							defered.reject();
-						} else{
+						} else {
 							defered.resolve({
 								fuente: fuente,
 								url: url
 							});
 						}
 					})
-					.catch(function(){
+					.catch(function () {
 						defered.reject();
 					});
 
@@ -1715,13 +1716,13 @@ angular.module("disenador-de-logos")
 			return promise;
 		};
 
-		this.agregarGeneral = function(fuentes){
+		this.agregarGeneral = function (fuentes) {
 
 			var fontService = this;
 
-			angular.forEach(fuentes, function(fuente){
+			angular.forEach(fuentes, function (fuente) {
 				fontService.preparar(fuente.nombre, fuente.url);
-			});	
+			});
 
 		};
 

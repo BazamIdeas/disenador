@@ -4,7 +4,7 @@ angular.module("disenador-de-logos")
 	.controller("pagoController", ["$scope", "historicoResolve", "pedidosService", "$window", "$state", "$base64", function ($scope, historicoResolve, pedidosService, $window, $state, $base64) {
 
 		var bz = this;
-        
+
 		bz.base64 = $base64;
 
 		bz.pedido = historicoResolve;
@@ -16,6 +16,8 @@ angular.module("disenador-de-logos")
 			bz.pasarelas = res;
 
 		});
+
+		bz.terminos = true;
 
 
 		bz.mostrarMetodo = function (indice) {
@@ -38,53 +40,53 @@ angular.module("disenador-de-logos")
 
 
 		bz.completado = true;
-        
+
 		bz.pagar = function (idPasarela, terminos) {
 
-			if (terminos &&  bz.completado) {
-                
-				bz.completado = false;
-            
-				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
-                
-				switch (idPasarela) {
-                    
-				case 1://PAYPAL
-					pedidosService.pagar.paypal(bz.pedido.idElemento, bz.pedido.atributos, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
-                            
-						.then(function(res){
-                            
-							$window.location = res;
-                            
-						})
-                        
-						.finally(function(){
+			if (terminos && bz.completado) {
 
-							bz.completado = true;
-                            
-						});
-					break;
-                        
-				case 2://STRIPE
-                       
-					break;
-                        
-				case 3://PAYU
-                        
-					break;
-                        
-				default:
-					break;
+				bz.completado = false;
+
+				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+
+				switch (idPasarela) {
+
+					case 1: //PAYPAL
+						pedidosService.pagar.paypal(bz.pedido.idElemento, bz.pedido.atributos, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
+
+							.then(function (res) {
+
+								$window.location = res;
+
+							})
+
+							.finally(function () {
+
+								bz.completado = true;
+
+							});
+						break;
+
+					case 2: //STRIPE
+
+						break;
+
+					case 3: //PAYU
+
+						break;
+
+					default:
+						break;
 				}
-                
+
 			}
 
 
 		};
-        
-        
-        
-        
+
+
+
+
 
 
 		$scope.$on("sesionExpiro", function () {

@@ -241,8 +241,13 @@
 						</div>
 
 					</div>
-				</div>
 
+				</div>
+				<ver-mas-opciones ui-sref="inicio">
+					<md-button ng-click="descargar.mostrarPlanesSuperiores = false" class="back-principal">
+						<md-icon>arrow_back</md-icon> Volver
+					</md-button>
+				</ver-mas-opciones>
 
 
 			</div>
@@ -302,8 +307,6 @@
 
                     </div>-->
 		</form>
-
-
 		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
 		    style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
 			<div class="contenedor-svg" style="position:relative">
