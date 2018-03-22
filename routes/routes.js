@@ -63,6 +63,7 @@ router.get("/pedido/:id", middleware.validarAdministrador, controllers.pedidos.d
 router.get("/pedidos/cliente/:id", middleware.validarAdministrador, controllers.pedidos.datosPedidosCliente); //muestra la lista de pedidos de un cliente
 router.get("/pedido/borrar/:id", middleware.validarAdministrador, controllers.pedidos.borrarPedido); //borra un pedido
 router.post("/pedido", middleware.validarCliente, controllers.pedidos.nuevoPedido); //crea un pedido primero guardando el logo 
+router.post("/pedido/aumentar", middleware.validarCliente, controllers.pedidos.aumentarPlan);
 router.post("/pedido/guardado", middleware.validarCliente, controllers.pedidos.nuevoPedidoGuardado); //crea un pedido de un logo ya guardado
 router.post("/pedido/modificar", middleware.validarCliente, controllers.pedidos.modificarPedido); // modifica los datos de un pedido
 router.post("/pedido/cambiar", middleware.validarCliente, controllers.pedidos.cambiarEstado); // cambia de estado al pedido

@@ -267,7 +267,7 @@
         <h4 class="principal titulo-planes" style="text-align:center;">ESCOJA EL MEJOR PLAN PARA USTED</h4>
     </div>
     <div class="row margin-bottom-0">
-
+        <!--
         <div class="col s3" style="padding: 0 40px;">
             <p class="principal text-center">Cambiar moneda de pago:</p>
             <md-input-container style="width:100%; padding: 10px;">
@@ -278,7 +278,8 @@
                 </md-select>
             </md-input-container>
         </div>
-        <div class="col s9" style="padding: 0 40px;">
+    -->
+        <div class="col s12" style="padding: 0 40px;">
 
             <p class="tercero text-center"></p>
 
@@ -286,7 +287,7 @@
 
                 <div class="row">
 
-                    <div class="plan col s4" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
+                    <div class="plan col s3 " ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
                         <div>
                             <div class="plan-header">{{plan.plan}}</div>
                             <div class="plan-body">

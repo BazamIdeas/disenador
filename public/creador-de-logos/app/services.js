@@ -1538,6 +1538,27 @@ angular.module("disenador-de-logos")
 
 		};
 
+		this.aumentarPedidoPlan = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/pedido/aumentar", datos)
+				.then(function (res) {
+
+					defered.resolve(res.data);
+
+				}).catch(function (res) {
+
+					defered.reject(res);
+
+				});
+
+			return promise;
+
+		};
+
 	}])
 
 

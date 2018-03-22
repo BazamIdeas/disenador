@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "$mdToast", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, $mdToast) {
+	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "pedidosService", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, pedidosService) {
 
 		var bz = this;
 
@@ -96,6 +96,14 @@ angular.module("disenador-de-logos")
 
 									}
 
+									if (precio.moneda == 'USD') {
+										bz.moneda = {
+											idMoneda: precio.idMoneda,
+											simbolo: precio.moneda
+										}
+										bz.mps = true;
+									}
+
 								});
 
 							});
@@ -161,57 +169,41 @@ angular.module("disenador-de-logos")
 
 		};
 
+
+
 		bz.aumentarPlan = function (plan) {
-			planesService.aumentarPlan(plan.idPlan).then(function (res) {
 
-				console.log(res)
-				/* 			var monto = '';
-							var precio = '';
+			var datos = {
+				idLogo: bz.logo.id,
+				idPrecio: null,
+				idPasarela: null
+			};
 
-							angular.forEach(res.planes.actual.precios, function (valor) {
-								if ('USD' == valor.moneda) {
-									monto = valor.precio;
-									precio = valor.idPrecio;
-								}
-							})
+			angular.forEach(plan.precios, function (valor) {
+				if (valor.moneda == bz.moneda.simbolo) {
+					datos.idPrecio = valor.idPrecio;
+				}
+			})
 
-							var datos = {
-								status: true,
-								datos: {
-									logo: bz.base64.decode(bz.logo.logo),
-									idElemento: bz.logo.idElemento,
-									tipo: bz.logo.tipo,
-									plan: {
-										nombre: res.planes.actual.plan,
-										idPlan: res.planes.actual.idPlan
-									},
-									precio: {
-										moneda: {
-											simbolo: bz.moneda.simbolo,
-											idMoneda: bz.moneda.idMoneda
-										},
-										monto: monto,
-										idPrecio: precio
-									}
-								}
-							};
+			pedidosService.listarPasarelas(bz.moneda.idMoneda).then(function (res) {
 
-							$state.go('pago', datos); */
-
-
-
-				$mdToast.show($mdToast.base({
-					args: {
-						mensaje: "¡Su cambio fue realizado con exito!",
-						clase: "success"
+				angular.forEach(res, function (valor) {
+					if (valor.pasarela == 'Paypal') {
+						datos.idPasarela = valor.idPasarela;
 					}
-				}));
+				})
 
-				bz.mostrarPlanesSuperiores = false;
+				planesService.aumentarPedidoPlan(datos).then(function (res) {
 
-			}).catch(function () {
-				//console.log(res)
+
+				}).catch(function () {
+					console.log(res)
+				});
+
+
 			});
+
+
 		};
 
 
