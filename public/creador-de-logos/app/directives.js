@@ -29,6 +29,7 @@ angular.module("disenador-de-logos")
 
 							element[0].innerHTML = "<svg  viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'>" + scope.icono + "</svg>";
 
+							var relacion = element[0].children[0].getClientRects()[0].height / tamanoBase;
 							var svgIcono = element[0].children[0].children[0];
 
 							svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
@@ -63,7 +64,7 @@ angular.module("disenador-de-logos")
 							////ajustamos el tamaño del texto en relacion al tamaño del icono/////
 							//////////////////////////////////////////////////////////////////////
 
-
+			
 							while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
 
 								svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
@@ -73,18 +74,19 @@ angular.module("disenador-de-logos")
 							///////////////////////////////////
 							/////centramos los elementos///////
 							///////////////////////////////////
-
-							var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+						
+							var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
 
 							svgIcono.y.baseVal.value = paddingTopIcono;
 
-							var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
+							var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (svgTexto.getClientRects()[0].height / relacion)) + "px";
 
 							svgTexto.setAttribute("y", paddingTopText);
+						
 
-							if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
-
-								while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+							if ((((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) * 1.5 ) >= tamanoBase) {
+								
+								while ((((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) * 1.5 ) >= tamanoBase) {
 
 									svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
 
@@ -92,11 +94,11 @@ angular.module("disenador-de-logos")
 
 								}
 
-								paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+								paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
 
 								svgIcono.y.baseVal.value = paddingTopIcono;
 
-								paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+								paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
 
 								svgTexto.setAttribute("y", paddingTopText);
 
@@ -206,12 +208,15 @@ angular.module("disenador-de-logos")
 							.then(function () {})
 							.catch(function () {})
 							.finally(function () {
+								
 
 								////////////////////////////////////////////////////////////
 								//////Insertamos el SVG del icono dentro del SVG padre//////
 								////////////////////////////////////////////////////////////
 
 								element[0].innerHTML = "<svg viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'><g class='contenedor-icono'>" + scope.svgTag + "</g></svg>";
+
+								var relacion = element[0].children[0].getClientRects()[0].height / tamanoBase;
 
 								var svgIcono = element[0].children[0].children[0].children[0];
 
@@ -255,17 +260,17 @@ angular.module("disenador-de-logos")
 								/////centramos los elementos///////
 								///////////////////////////////////
 
-								var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+								var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
 
-								svgIcono.y.baseVal.value = paddingTopIcono;
+								svgIcono.setAttribute("y", paddingTopIcono);
 
-								var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.3)) + "px";
+								var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
 
 								svgTexto.setAttribute("y", paddingTopText);
 
-								if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+								if (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
 
-									while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+									while (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
 
 										svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
 
@@ -273,11 +278,11 @@ angular.module("disenador-de-logos")
 
 									}
 
-									paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+									paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
 
-									svgIcono.y.baseVal.value = paddingTopIcono;
+									svgIcono.setAttribute("y", paddingTopIcono);
 
-									paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+									paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
 
 									svgTexto.setAttribute("y", paddingTopText);
 
@@ -772,8 +777,9 @@ angular.module("disenador-de-logos")
 							var svgTexto;
 							var eslogan;
 
-							if (orientacion == "horizontal") {
+							var relacion = element[0].children[0].getClientRects()[0].height / tamanoBase;
 
+							if (orientacion == "horizontal") {
 
 								var alturaSVG = tamanoBase;
 								var anchoSVG = tamanoBase;
@@ -818,11 +824,11 @@ angular.module("disenador-de-logos")
 
 								var paddingLeft = (anchoSVG - totalEspacioIconoFuente) / 2;
 
-
 								svgIcono.setAttribute("y", (alturaSVG / 2) - (svgIcono.height.baseVal.value / 2));
 								svgIcono.setAttribute("x", paddingLeft);
+
 								svgTexto.setAttribute("x", paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05)));
-								svgTexto.setAttribute("y", (alturaSVG / 2) + (parseFloat(svgTexto.style.fontSize) / 4));
+								svgTexto.setAttribute("y", (alturaSVG / 2) + ((svgTexto.getClientRects()[0].height / relacion) / 4));
 
 								//SI EXISTE EL ESLOGAN
 
@@ -836,17 +842,30 @@ angular.module("disenador-de-logos")
 
 									eslogan.style.fontSize = svgTexto.style.fontSize;
 
+									eslogan.setAttribute("x", svgTexto.getAttribute("x"));
+									/*
 									while ((eslogan.getComputedTextLength() > (svgTexto.getComputedTextLength() * 0.8))) {
-
 
 										eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
 
 									}
 
+									*/
+									
+									svgTexto.setAttribute("y", (alturaSVG / 2) + ((svgTexto.getClientRects()[0].height / relacion) / 4) * 0.5)
 
 
-									eslogan.setAttribute("x", (paddingLeft + (svgIcono.width.baseVal.value + (anchoSVG * 0.05))) * 1.15);
-									eslogan.setAttribute("y", (alturaSVG / 1.7));
+
+									//AJUSTAR ALTURA ESLOGAN AQUI
+									//eslogan.setAttribute("y", (alturaSVG / 1.65));
+
+									
+									
+									while(((eslogan.getClientRects()[0].height / relacion) * 1.5)  >=  (svgTexto.getClientRects()[0].height / relacion)){
+										eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+									}
+
+									eslogan.setAttribute("y",  ((alturaSVG / 2) + ((svgTexto.getClientRects()[0].height / relacion) / 4) * 0.5) + ((eslogan.getClientRects()[0].height / relacion) * 0.9) );
 
 								}
 
@@ -858,7 +877,6 @@ angular.module("disenador-de-logos")
 								////////////////////////////////////////////////////////////
 								//////Insertamos el SVG del icono dentro del SVG padre//////
 								////////////////////////////////////////////////////////////
-
 
 								svgIcono = element.find("g.contenedor-icono > svg")[0];
 
@@ -893,17 +911,17 @@ angular.module("disenador-de-logos")
 								/////centramos los elementos///////
 								///////////////////////////////////
 
-								var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+								var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
 
 								svgIcono.setAttribute("y", paddingTopIcono);
 
-								var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+								var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
 
 								svgTexto.setAttribute("y", paddingTopText);
 
-								if ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+								if (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
 
-									while ((parseFloat(svgTexto.style.fontSize) + svgIcono.height.baseVal.value) >= tamanoBase) {
+									while (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
 
 										svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
 
@@ -911,12 +929,12 @@ angular.module("disenador-de-logos")
 
 									}
 
-									paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + parseFloat(svgTexto.style.fontSize))) / 2);
+									paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
 
 
 									svgIcono.setAttribute("y", paddingTopIcono);
 
-									paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + (parseFloat(svgTexto.style.fontSize) / 1.5)) + "px";
+									paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
 
 									svgTexto.setAttribute("y", paddingTopText);
 
@@ -926,25 +944,42 @@ angular.module("disenador-de-logos")
 								if (element.find("text.eslogan").length) {
 
 									eslogan = element.find("text.eslogan")[0];
-
 									eslogan.setAttribute("transform", "");
 									eslogan.setAttribute("text-anchor", "middle");
 
-
 									eslogan.style.fontSize = svgTexto.style.fontSize;
+									
+									eslogan.setAttribute("x", (tamanoBase / 2));
 
-									while ((eslogan.getComputedTextLength() > (svgTexto.getComputedTextLength() * 0.8))) {
+									while(((eslogan.getClientRects()[0].height / relacion) * 2.5)  >=  (svgTexto.getClientRects()[0].height / relacion)){
+										eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+									}
 
+
+									//verificamos que los elementos no superen el alto del lienzo
+
+									while( (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion) + (eslogan.getClientRects()[0].height / relacion ) * 1.3 >= tamanoBase) ){
+										
+										svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
+
+										svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
 
 										eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
 
 									}
 
+									var espacioSobrante = tamanoBase - ((svgIcono.getClientRects()[0].height + svgTexto.getClientRects()[0].height  + eslogan.getClientRects()[0].height) / relacion); 
 
 
+									//AJUSTAR AQUI EL ESLOGAN
+									svgIcono.setAttribute("y", (espacioSobrante / 2) + "px");
 
-									eslogan.setAttribute("y", (parseFloat(paddingTopText) * 1.1) + "px");
-									eslogan.setAttribute("x", (tamanoBase / 2));
+									svgTexto.setAttribute("y", (espacioSobrante / 2) + ((svgIcono.getClientRects()[0].height + svgTexto.getClientRects()[0].height) / relacion) + "px");
+
+									eslogan.setAttribute("y",  ((espacioSobrante / 2) + ((svgIcono.getClientRects()[0].height + svgTexto.getClientRects()[0].height + eslogan.getClientRects()[0].height) / relacion)) + "px");
+
+									
+									
 
 								}
 
