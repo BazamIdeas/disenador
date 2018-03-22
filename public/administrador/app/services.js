@@ -1080,6 +1080,23 @@ angular.module("administrador")
             return promise;
         }
 
+        this.obtenerPorIcono = function (id) {
+
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/iconos/' + id + '/etiquetas').then(function (res) {
+                if (res == undefined) {
+                    return defered.reject(res);
+                }
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+
+            return promise;
+        }
+
 
         this.guardarEtiqueta = function (datos) {
 
@@ -1132,12 +1149,16 @@ angular.module("administrador")
             return promise;
         }
 
-        this.desasignarEtiqueta = function (datos) {
+        this.desasignarEtiqueta = function (_id, idIcono) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/etiqueta/' + datos._id + '/iconos/desasignar', datos).then(function (res) {
+            var datos = {
+                idIcono: idIcono
+            };
+
+            $http.post('/app/etiquetas/' + _id + '/iconos/desasignar', datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
