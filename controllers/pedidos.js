@@ -109,36 +109,37 @@ exports.nuevoPedido = function (req, res) {
 		clientes_idCliente: req.idCliente,
 		elementos_idElemento: req.body.idElemento
 	};
-	
+
 
 	logo.insertLogo(logoData, function (error, data) {
 
 		//si el logo se ha insertado correctamente
 		if (data && data.insertId) {
-            
+
 
 			var atributos = req.body.atributos;
 
-			for(var key in atributos){
+			for (var key in atributos) {
 
 				var atributosData = {
-					clave : key,
-					valor : atributos[key],
-					logos_idLogo: data.insertId  
+					clave: key,
+					valor: atributos[key],
+					logos_idLogo: data.insertId
 				};
 
-				atributo.Guardar(atributosData, function(error, data) {
+				atributo.Guardar(atributosData, function (error, data) {
 
-					if(!data && !data.insertId)
-					{
+					if (!data && !data.insertId) {
 
-						res.status(500).json({"msg":"Algo ocurrio"});
+						res.status(500).json({
+							"msg": "Algo ocurrio"
+						});
 
 					}
 
 				});
 
-			} 
+			}
 
 			var idLogo = data.insertId;
 			var iso = services.geoipServices.iso(req.ip);
@@ -162,7 +163,7 @@ exports.nuevoPedido = function (req, res) {
 					if (data && data.insertId) {
 						/// PAGO AQUI
 						//////////////////////
-						var idPedido= data.insertId;
+						var idPedido = data.insertId;
 						precio.datos(idPrecio, function (error, data) {
 
 							if (typeof data !== "undefined" && data.length > 0) {
@@ -174,7 +175,7 @@ exports.nuevoPedido = function (req, res) {
 										var tipoE = data[0].tipo.replace(" ", "");
 
 										pasarela.Obtener(idPasarela, function (error, data) {
-											
+
 											if (typeof data !== "undefined" && data.length > 0) {
 
 												/////ENVIAR PAGO a paypal
@@ -192,8 +193,8 @@ exports.nuevoPedido = function (req, res) {
 														idPedido: idPedido
 													};
 
-													if(req.body.atributos.padre){
-														datosPago.padre = req.body.atributos.padre; 
+													if (req.body.atributos.padre) {
+														datosPago.padre = req.body.atributos.padre;
 													}
 													//console.log(req.body);
 													services.pagoServices.paypal(datosPago, function (error, data) {
@@ -273,7 +274,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 			if (data && data.insertId) {
 				/// PAGO AQUI
 				//////////////////////
-				var idPedido= data.insertId;
+				var idPedido = data.insertId;
 				precio.datos(idPrecio, function (error, data) {
 					if (typeof data !== "undefined" && data.length > 0) {
 						var plan = data;
@@ -302,8 +303,8 @@ exports.nuevoPedidoGuardado = function (req, res) {
 												idPedido: idPedido
 											};
 
-											if(req.body.atributos.padre){
-												datosPago.padre = req.body.atributos.padre; 
+											if (req.body.atributos.padre) {
+												datosPago.padre = req.body.atributos.padre;
 											}
 
 											//console.log(req.body);
@@ -368,44 +369,44 @@ exports.cambioEstadoPagado = function (req, res)
 
 				if (!error) {
 
-					if(req.params.padre){
-						
+					if (req.params.padre) {
+
 						var logoPadre = ["Vendido", req.params.padre];
 
 						logo.cambiarEstado(logoPadre, function (error_p) {
 
 							if (!error_p) {
-								
+
 								var id = services.authServices.decodificar(req.params.tk).id;
 
 								cliente.getCliente(id, function (error, data) {
-			
+
 									//console.log(data);
 									services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
-			
+
 								});
-								res.redirect(configuracion.base+configuracion.pago + req.params.idLogo);
-							
+								res.redirect(configuracion.base + configuracion.pago + req.params.idLogo);
+
 							}
-						
+
 						});
-					
-					}else{
+
+					} else {
 
 						var id = services.authServices.decodificar(req.params.tk).id;
 
 						cliente.getCliente(id, function (error, data) {
-	
+
 							//console.log(data);
 							services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
-	
+
 						});
-						res.redirect(configuracion.base+configuracion.pago + req.params.idLogo);
+						res.redirect(configuracion.base + configuracion.pago + req.params.idLogo);
 
 					}
 
 				} else {
-					res.redirect(configuracion.base+configuracion.dashboard);
+					res.redirect(configuracion.base + configuracion.dashboard);
 				}
 			});
 		} else {
@@ -419,7 +420,7 @@ exports.cambioEstadoPagado = function (req, res)
 
 exports.noPago = function (req, res) {
 
-	res.redirect(configuracion.base+configuracion.dashboard);
+	res.redirect(configuracion.base + configuracion.dashboard);
 
 };
 
@@ -517,21 +518,21 @@ exports.aumentarPlan = function (req, res) {
 				/// PAGO AQUI
 				//////////////////////
 				var idPedido = data.insertId;
-				pedido.ObtenerPrecioViejoPorIDdeLogo(idLogo,idPedido, function (error, data) {
+				pedido.ObtenerPrecioViejoPorIDdeLogo(idLogo, idPedido, function (error, data) {
 					if (typeof data !== "undefined" && data.length > 0) {
-						var precio = data;
-
+						//var precio2 = data;
+						//console.log(precio2)
 						precio.datos(idPrecioNuevo, function (error, data) {
 							if (typeof data !== "undefined" && data.length > 0) {
 								var precioNuevo = data;
 
-								var diferencia = precioNuevo.precio - precio.precio;
+								var diferencia = precioNuevo[0].precio;
 
 
 								elemento.datosElementoPorLogo(idLogo, function (error, data) {
 
 									if (typeof data !== "undefined" && data.length > 0) {
-		
+
 										var idElemento = data[0].idElemento;
 										var tipoE = data[0].tipo.replace(" ", "");
 
@@ -544,7 +545,7 @@ exports.aumentarPlan = function (req, res) {
 
 													var datosPago = {
 														precio: diferencia,
-														moneda: precioNuevo.moneda,
+														moneda: precioNuevo[0].moneda,
 														descripcion: "Diseño de Logo- " + precioNuevo[0].plan,
 														idLogo: idLogo,
 														idElemento: idElemento,
@@ -555,15 +556,11 @@ exports.aumentarPlan = function (req, res) {
 														aumento: 1,
 													};
 
-													if(req.body.atributos.padre){
-														datosPago.padre = req.body.atributos.padre; 
-													}
-
-													//console.log(req.body);
+													console.log(datosPago)
 
 													services.pagoServices.paypal(datosPago, function (error, data) {
 														res.json(data.link);
-														//console.log(data.link)
+														console.log(data)
 													});
 
 												} else {
@@ -581,7 +578,7 @@ exports.aumentarPlan = function (req, res) {
 
 										});
 
-									}else{
+									} else {
 										res.status(404).json({
 											"msg": "No existe el elemento"
 										});
@@ -627,11 +624,9 @@ exports.cambioEstadoPagadoAumentoPlan = function (req, res) {
 				services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
 			});
 
-			res.redirect(configuracion.base+configuracion.pago + req.params.idLogo);
-		}
-
-		else{
-			res.redirect(configuracion.base+configuracion.dashboard);
+			res.redirect(configuracion.base + configuracion.pago + req.params.idLogo);
+		} else {
+			res.redirect(configuracion.base + configuracion.dashboard);
 		}
 
 	});

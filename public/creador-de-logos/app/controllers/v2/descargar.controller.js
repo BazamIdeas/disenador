@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "pedidosService", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, pedidosService) {
+	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "pedidosService", "$window", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, pedidosService, $window) {
 
 		var bz = this;
 
@@ -173,6 +173,8 @@ angular.module("disenador-de-logos")
 
 		bz.aumentarPlan = function (plan) {
 
+			bz.peticion = true;
+
 			var datos = {
 				idLogo: bz.logo.id,
 				idPrecio: null,
@@ -194,10 +196,11 @@ angular.module("disenador-de-logos")
 				})
 
 				planesService.aumentarPedidoPlan(datos).then(function (res) {
-
-
+					$window.location = res;
 				}).catch(function () {
-					console.log(res)
+					//console.log(res)
+				}).finally(function () {
+					bz.peticion = false;
 				});
 
 

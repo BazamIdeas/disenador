@@ -300,7 +300,7 @@
                                 <div class="plan-precio">{{descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
 
                                 <div class="text-center">
-                                    <button class="boton-verde" ng-click="descargar.aumentarPlan(plan, descargar.moneda)">SELECCIONAR</button>
+                                    <button class="boton-verde" ng-class="{'loading-white': descargar.peticion}" ng-click="descargar.aumentarPlan(plan, descargar.moneda)">SELECCIONAR</button>
                                 </div>
                             </div>
                         </div>
