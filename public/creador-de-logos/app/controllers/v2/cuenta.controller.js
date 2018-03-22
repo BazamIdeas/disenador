@@ -7,7 +7,7 @@ angular.module("disenador-de-logos")
 		bz.formulario = 1;
 
 		bz.paises = paisesValue;
-        
+
 		bz.verificarBase64 = verificarBase64Factory;
 
 		bz.pedidos = [];
@@ -84,14 +84,14 @@ angular.module("disenador-de-logos")
 
 		};
 		bz.fotoCargaCompletada = true;
-		bz.cargarFoto = function(imagen){
+		bz.cargarFoto = function (imagen) {
 			console.log(imagen)
-			if(imagen){
-				if(bz.fotoCargaCompletada){
+			if (imagen) {
+				if (bz.fotoCargaCompletada) {
 					bz.fotoCargaCompletada = false;
-			
+
 					clientesService.avatar(imagen)
-						.then(function(res){
+						.then(function (res) {
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "¡Foto de Perfil Cargada!",
@@ -100,7 +100,7 @@ angular.module("disenador-de-logos")
 							}));
 							bz.datos.foto = res;
 						})
-						.catch(function(){
+						.catch(function () {
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "Error al cargar la foto",
@@ -109,13 +109,45 @@ angular.module("disenador-de-logos")
 							}));
 
 						})
-						.finally(function(){
+						.finally(function () {
 
 							bz.fotoCargaCompletada = true;
 						});
 				}
 			}
 		};
+
+		bz.datosOlvido = {
+			tipo: 'cliente',
+		};
+
+		bz.cambiarContrasena = function (datos, v) {
+			bz.peticion = true;
+			if (!v) return $mdToast.show($mdToast.base({
+				args: {
+					mensaje: "LLene los campos correctamente.",
+					clase: "danger"
+				}
+			}));
+			clientesService.verificarCambiaContrasena(datos).then(function (res) {
+				console.log(res)
+				bz.formulario = 1;
+				$mdToast.show($mdToast.base({
+					args: {
+						mensaje: "Contraseña Modificada.",
+						clase: "success"
+					}
+				}));
+
+				bz.datosOlvido = {
+					tipo: 'cliente',
+				};
+			}).catch(function () {
+				//console.log(res)
+			}).finally(function () {
+				bz.peticion = false;
+			})
+		}
 
 
 

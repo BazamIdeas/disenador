@@ -912,6 +912,24 @@ angular.module("disenador-de-logos")
 
 		}
 
+		this.verificarCambiaContrasena = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/cliente/cambiar-contrasena", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
+
 		this.autorizado = function (emitir) {
 
 			if (clienteDatosFactory.obtener()) {
@@ -1524,6 +1542,27 @@ angular.module("disenador-de-logos")
 			$http.post("/app/planes/aumentar", {
 					idPlan: idPlan
 				})
+				.then(function (res) {
+
+					defered.resolve(res.data);
+
+				}).catch(function (res) {
+
+					defered.reject(res);
+
+				});
+
+			return promise;
+
+		};
+
+		this.aumentarPedidoPlan = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/pedido/aumentar", datos)
 				.then(function (res) {
 
 					defered.resolve(res.data);

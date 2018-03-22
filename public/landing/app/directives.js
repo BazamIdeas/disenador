@@ -295,4 +295,29 @@ angular.module("landing")
 		};
 
 
+	}])
+
+	.directive("bazamPosts", [function () {
+		return {
+			restrict: "E",
+			templateUrl: "landing/app/templates/posts.tpl",
+			controller: ["$scope", function ($scope) {
+
+				var bz = this;
+
+				bz.actual = 0;
+				bz.indice = 3;
+
+				bz.posts = $scope.posts;
+
+
+
+			}],
+			controllerAs: "ctrl",
+			scope: {
+				posts: "<"
+			}
+		};
+
+
 	}]);

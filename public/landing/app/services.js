@@ -345,6 +345,11 @@ angular.module("landing")
 		}, {
 			nombre: "Colores a elegir",
 			descripcion: "Ten en cuenta el primer consejo Quédate con un esquema de colores que refleje una identidad de marca profesional y cohesiva. Aunque haya miles de colores para elegir, sé listo/a."
+		}],
+		posts: [{
+			title: 'Prueba Post',
+			description: 'Descripcion',
+			img: '/landing/assets/img/c4.png'
 		}]
 	})
 

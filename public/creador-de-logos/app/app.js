@@ -325,11 +325,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 							var promise = defered.promise;
 
 							logosService.obtenerPorId($stateParams.id).then(function (res) {
-
 								if (res.estado == "Descargable") {
 									defered.resolve({
 										logo: res.logo,
-										id: $stateParams.id
+										id: $stateParams.id,
+										idElemento: res.elementos_idElemento,
+										tipo: res.tipoLogo
 									});
 								} else {
 									defered.reject("INVALID_LOGO");

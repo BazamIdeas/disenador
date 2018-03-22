@@ -1166,7 +1166,7 @@ angular.module("administrador")
             return promise;
         }
 
-        this.loadEtiquetas = function (arr, v) {
+        this.loadEtiquetas = function (arr) {
 
             var etiquetas = [];
 
