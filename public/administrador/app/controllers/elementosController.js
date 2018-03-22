@@ -116,8 +116,17 @@ angular.module("administrador")
 				bz.acciones = 3;
 				bz.modificarElemento.idElemento = bz.elementos[index].idElemento;
 			} else if (opcion == 'modEtiquetas') {
+
+				etiquetasService.obtenerPorIcono().then(function (res) {
+					console.log(res)
+				}).catch(function (res) {
+					console.log(res)
+				}).finally(function () {
+
+				})
+
 				bz.acciones = 4;
-				bz.modificarEtiquetas = bz.elementos[index];
+
 			}
 		}
 
