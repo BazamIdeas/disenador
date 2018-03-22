@@ -918,7 +918,7 @@ angular.module("disenador-de-logos")
 
 			var promise = defered.promise;
 
-			$http.post("/app/verificar-cambiar-password", datos)
+			$http.post("/app/cliente/cambiar-contrasena", datos)
 				.then(function (res) {
 					defered.resolve(res);
 				})

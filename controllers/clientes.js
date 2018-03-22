@@ -472,40 +472,44 @@ exports.Avatar = function (req, res, next) {
     }
 }
 
-exports.cambiarContrasena = function( req, res, next) {
+exports.cambiarContrasena = function (req, res, next) {
 
     var datos = [
         req.body.pass,
-        req.body.idCliente
+        req.idCliente
     ]
 
-    cliente.getCliente(req.idCliente,function(error, data)
-    {
+    cliente.getCliente(req.idCliente, function (error, data) {
         //console.log(data)
         //si el usuario existe 
-        if (typeof data !== "undefined" && data.length > 0){
+        if (typeof data !== "undefined" && data.length > 0) {
 
-            if(req.body.passVieja == data[0].pass){
+            if (req.body.passVieja == data[0].pass) {
 
-                cliente.changePassword(datos,function(error, datau)
-                {
+                cliente.changePassword(datos, function (error, datau) {
                     //si el cliente se ha modificado correctamente
-                    if(datau){
+                    if (datau) {
 
                         res.status(200).json(datau);
-                    }else{
+                    } else {
 
-                        res.status(500).json({"msg":"Algo ocurrio"});
+                        res.status(500).json({
+                            "msg": "Algo ocurrio"
+                        });
                     }
                 });
 
-            }else{
-                res.status(500).json({"msg":"Las contraseñan no coinciden"});
+            } else {
+                res.status(500).json({
+                    "msg": "Las contraseñan no coinciden"
+                });
             }
-        
-        }else{
 
-            res.status(500).json({"msg":"No existe"});
+        } else {
+
+            res.status(500).json({
+                "msg": "No existe"
+            });
         }
     });
 
@@ -549,13 +553,13 @@ exports.manualCliente = function (req, res, next) {
                                 }
 
                                 if (element.idElemento == logo.tieneNombre) {
-                                    
+
                                     logo["tipografia_p"] = {
                                         nombre: element.nombre,
                                         url: element.url
                                     };
                                 }
-                                
+
                             });
 
                             /*-- PDF --*/
@@ -640,9 +644,7 @@ exports.manualCliente = function (req, res, next) {
                                     "type": "pdf",
                                     "renderDelay": 3000
                                 }
-                            }
-
-                            else {
+                            } else {
                                 var configuracion = {
                                     "height": "11in",
                                     "width": "8.5in",

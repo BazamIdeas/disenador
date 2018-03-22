@@ -42,7 +42,7 @@
                         </div>
 
                         <br>
-                        <div class="input-tipografia">
+                        <div class="input-tipografia" ng-show="ctrl.categoriasPosibles.fuentes.length > 0">
                             <div class="label-form ">
                                 ESTILO DE TIPOGRAFÍA
                             </div>

@@ -75,6 +75,14 @@
     --tercero: #009688;
 }
 
+body h3 {
+    font-size: 1.92rem;
+}
+
+body h2 {
+    font-size: 2.56rem;
+}
+
 .text-center {
     text-align: center;
 }
