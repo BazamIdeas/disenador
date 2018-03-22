@@ -472,6 +472,44 @@ exports.Avatar = function (req, res, next) {
     }
 }
 
+exports.cambiarContrasena = function( req, res, next) {
+
+    var datos = [
+        req.body.pass,
+        req.body.idCliente
+    ]
+
+    cliente.getCliente(req.idCliente,function(error, data)
+    {
+        //console.log(data)
+        //si el usuario existe 
+        if (typeof data !== "undefined" && data.length > 0){
+
+            if(req.body.passVieja == data[0].pass){
+
+                cliente.changePassword(datos,function(error, datau)
+                {
+                    //si el cliente se ha modificado correctamente
+                    if(datau){
+
+                        res.status(200).json(datau);
+                    }else{
+
+                        res.status(500).json({"msg":"Algo ocurrio"});
+                    }
+                });
+
+            }else{
+                res.status(500).json({"msg":"Las contraseñan no coinciden"});
+            }
+        
+        }else{
+
+            res.status(500).json({"msg":"No existe"});
+        }
+    });
+
+}
 
 exports.manualCliente = function (req, res, next) {
 

@@ -31,6 +31,7 @@ router.get("/cliente/facturacion/:idFacturacion/borrar", middleware.validarClien
 router.post("/cliente", multipartMiddleware, controllers.clientes.nuevoCliente);
 //los mismos datos que la ruta /cliente
 router.post("/cliente/modificar", middleware.validarCliente, controllers.clientes.modificarCliente);
+router.post("/cliente/cambiar-contrasena", middleware.validarCliente, controllers.clientes.cambiarContrasena);
 //correo, contraseña => email, pass
 router.post("/cliente/login", controllers.clientes.login);
 
