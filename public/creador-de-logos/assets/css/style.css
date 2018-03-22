@@ -515,29 +515,30 @@ button.boton-verde:hover {
 }
 
 /*Let's get this party started */
+
 ::-webkit-scrollbar {
     width: 4px;
 }
- 
 
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.0);
     -webkit-border-radius: 0;
     border-radius: 0;
 }
 
-::-webkit-scrollbar:window-inactive { 
+::-webkit-scrollbar:window-inactive {
     width: 1px;
 }
 
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 0;
     border-radius: 0;
-    background: rgba(97,39,135,1); 
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);  
+    background: rgba(97, 39, 135, 1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
+
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(97,39,135,0.4);  
+    background: rgba(97, 39, 135, 0.4);
 }
 
 /*Begin header*/
@@ -3340,7 +3341,7 @@ md-chip-template strong {
     font-size: 12px !important;
 }
 
-.md-chips md-chip{
+.md-chips md-chip {
     height: 29px;
     line-height: 29px;
 }
@@ -3416,8 +3417,9 @@ span.estilo.seleccionado {
     transform: scale(1.1);
 }
 
-.input-field {
-    padding: 0 !important;
+.input-field,
+.input-field label {
+    padding: 0 12px !important;
 }
 
 .md-select-value .md-select-icon {
@@ -3550,11 +3552,10 @@ div.color-picker-bazam div.titulo span i {
     opacity: 1;
 }*/
 
-
-.left-div-action{
+.left-div-action {
     cursor: pointer;
     margin-left: -43%;
-    margin-top: 3%;  
+    margin-top: 3%;
     width: 24%;
     border-radius: 10px;
     overflow: hidden;
@@ -3566,8 +3567,8 @@ div.color-picker-bazam div.titulo span i {
     padding-top: 24%;
 }
 
-.right-div-action{
-    cursor: pointer;    
+.right-div-action {
+    cursor: pointer;
     margin-left: 9%;
     margin-top: 3%;
     width: 24%;

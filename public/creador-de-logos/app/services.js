@@ -912,6 +912,24 @@ angular.module("disenador-de-logos")
 
 		}
 
+		this.verificarCambiaContrasena = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/verificar-cambiar-password", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
+
 		this.autorizado = function (emitir) {
 
 			if (clienteDatosFactory.obtener()) {
