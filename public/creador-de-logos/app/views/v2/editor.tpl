@@ -66,19 +66,19 @@
 			style="padding: 10px 0px 0px 0px !important;text-align: center;" ng-init="editor.menuSwitch = 1">
 
 			<div class="col s4" style="padding: 0">
-				<div ng-click="editor.menuSwitch = 1" ng-class="{'seleccionadoo': editor.menuSwitch == 1}" class="tab">
+				<div ng-click="editor.menuSwitch = 1; editor.cerrarContenedores()" ng-class="{'seleccionadoo': editor.menuSwitch == 1}" class="tab">
 					<p class="text-center principal titulo" style="margin-bottom: 10px">NOMBRE</p>
 				</div>
 			</div>
 			<div class="col s4" style="padding: 0" bazam-ayuda data-titulo="Nombre y Eslogan" data-texto="Modifique el estilo del texto de su nombre o eslogan"
 			    data-clases="['corner-lt']" data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
-				<div ng-click="editor.menuSwitch = 2" ng-class="{'seleccionadoo': editor.menuSwitch == 2}" class="tab">
+				<div ng-click="editor.menuSwitch = 2; editor.cerrarContenedores()" ng-class="{'seleccionadoo': editor.menuSwitch == 2}" class="tab">
 					<p class="text-center principal titulo" style="margin-bottom: 10px">ESLOGAN</p>
 				</div>
 			</div>
 
 			<div class="col s4" style="padding: 0">
-				<div ng-click="editor.menuSwitch = 3" ng-class="{'seleccionadoo': editor.menuSwitch == 3}" class="tab">
+				<div ng-click="editor.menuSwitch = 3; editor.cerrarContenedores()" ng-class="{'seleccionadoo': editor.menuSwitch == 3}" class="tab">
 					<p class="text-center principal titulo" style="margin-bottom: 10px">ICONO</p>
 				</div>
 			</div>
@@ -93,7 +93,7 @@
 						</div>
 
 						<div class="estilos-fuentes col s12" style="padding: 0 !important;position: relative">
-							<md-radio-group name="fuente" required ng-model="editor.categoriaFuenteSeleccionada" class="md-primary">
+							<md-radio-group name="fuente" required ng-model="editor.categoriaTextoSeleccionada" ng-change="editor.categoriaEsloganSeleccionada = false"  class="md-primary">
 								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias" ng-value="fuenteCategoria.idCategoria" ng-click="editor.abrirContenedor('fuentes', true)"> <!--ng-disabled=" d.isDisabled "-->
 									<md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
 									<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
@@ -162,7 +162,7 @@
 							</div>
 
 							<div class="estilos-fuentes col s12" style="padding: 0 !important;position: relative">
-									<md-radio-group name="fuente" required ng-model="editor.categoriaFuenteSeleccionada" class="md-primary">
+									<md-radio-group name="fuente" required ng-model="editor.categoriaEsloganSeleccionada" ng-change="editor.categoriaTextoSeleccionada = false" class="md-primary">
 										<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias" ng-value="fuenteCategoria.idCategoria" ng-click="editor.abrirContenedor('fuentes', true)"> <!--ng-disabled=" d.isDisabled "-->
 											<md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
 											<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
@@ -289,7 +289,7 @@
 
 			</div>
 			<ver-mas-opciones ui-sref="inicio">
-				<md-button ng-click="descargar.mostrarPlanesSuperiores = false" class="back-principal">
+				<md-button class="back-principal">
 					<md-icon>arrow_back</md-icon> Volver
 				</md-button>
 			</ver-mas-opciones>
@@ -314,9 +314,23 @@
 				</div>
 				<div class="row padding-bottom-0 margin-bottom-0">
 					<div class="col l12" style="position: relative; padding:0 !important; border-bottom: 1px solid var(--principal);cursor:pointer">
-                        <div class="fuente">
-                            <p class="text-center">Mi puto logo</p>
-						</div>
+                       <!-- <div class="fuente" ng-repeat="fuente in editor.fuentes">
+                            <p class="text-center">{{}}</p>
+						</div>-->
+
+						<!-- TEXTO PRINCIPAL LISTA DE FUENTES -->
+						<md-radio-group ng-model="editor.logo.fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')"  class="md-primary">
+							<md-radio-button ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaTextoSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
+								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuente.nombre == fuente.nombre ? 'color: red  !important' : 'color: black !important'}}">{{fuente.nombre}}</span>
+							</md-radio-button>
+						</md-radio-group>
+
+						<!-- ESLOGAN LISTA DE FUENTES -->
+						<md-radio-group ng-model="editor.logo.fuenteEslogan" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')"  class="md-primary">
+							<md-radio-button ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaEsloganSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
+								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuenteEslogan.nombre == fuente.nombre ? 'color: red  !important' : 'color: black !important'}}">{{fuente.nombre}}</span>
+							</md-radio-button>
+						</md-radio-group>
 					</div>
 				</div>
 			</div>
