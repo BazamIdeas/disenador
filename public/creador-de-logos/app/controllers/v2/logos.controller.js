@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast) {
+	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory) {
 
 		var bz = this;
 
@@ -135,24 +135,113 @@ angular.module("disenador-de-logos")
 
 		bz.buscarAtributo = function (lista, objetivo) {
 
-			var idFuente = null;
+			var valor = null;
 
 			angular.forEach(lista, function (atributo) {
 
 				if (atributo.clave == objetivo) {
 
-					idFuente = atributo.valor;
+					valor = atributo.valor;
 
 				}
 
 			});
 
-			return idFuente;
+			return valor;
+		};
+
+
+		/* PLANES */
+
+		bz.monedas = {};
+		bz.moneda = {};
+		bz.monedaDefault = {};
+		bz.planes = [];
+		bz.impuesto = 0;
+
+		pedidosService.listarPlanes().then(function (res) {
+
+			bz.monedaDefault = {
+				simbolo: res.monedaDefault.codigo,
+				idMoneda: res.monedaDefault.idMoneda
+			};
+
+			bz.impuesto = res.impuesto;
+
+			bz.planes = res.planes;
+
+			angular.forEach(res.planes, function (plan) {
+
+				angular.forEach(plan.precios, function (precio) {
+
+					if (!bz.monedas[precio.moneda]) {
+
+						bz.monedas[precio.moneda] = {
+							simbolo: precio.moneda,
+							idMoneda: precio.idMoneda
+						};
+
+					}
+
+				});
+
+			});
+
+			bz.moneda = bz.monedaDefault;
+
+		});
+
+		bz.precioSeleccionado = function (precios) {
+
+			var precioFinal = "";
+
+			angular.forEach(precios, function (valor) {
+
+				if (valor.moneda == bz.moneda.simbolo) {
+
+					precioFinal = valor.moneda + " " + valor.precio;
+				}
+
+			});
+
+			return precioFinal;
+
+		};
+
+		bz.mostrarPlanes = function(index) {
+			var datos = angular.copy(bz.guardados[index]);
+			datos.atributos = arrayToJsonMetasFactory(datos.atributos);
+		
+
+			bz.datosComprar = {
+				idLogo: datos.idLogo,
+				logo: bz.base64.decode(datos.logo),
+				idElemento: datos.elementos_idElemento,
+				tipo: "Logo y nombre",
+				fuentes: {
+					principal: datos.atributos.principal,
+					eslogan: datos.atributos.principal.eslogan
+				},
+				colores: {
+					icono: datos.atributos["color-icono"],
+					nombre: datos.atributos["color-nombre"],
+					eslogan: datos.atributos["color-eslogan"]
+				},
+				planes: bz.planes,
+				moneda: bz.moneda
+			};
+			/*
+			if (bz.idLogoPadre) {
+				bz.datosComprar.idPadre = bz.idLogoPadre;
+			}*/
+
+			bz.abrirPlanes = true; // modelo para abrir la directiva
+
 		};
 
 		$scope.$on("sesionExpiro", function () {
 
-			$state.go("principal.comenzar");
+			$state.go("inicio");
 
 		});
 

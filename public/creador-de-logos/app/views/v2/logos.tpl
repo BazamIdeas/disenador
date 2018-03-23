@@ -28,7 +28,7 @@
                 </div>
                 <!--PENDIENTES DE APROBACION-->
                 <div class="col s12" ng-switch-when="guardados">
-                    <carousel-mis-logos ng-if="logos.terminados.guardados" logos="logos.guardados" callback="['guardados', logos.buscarAtributo, logos.abrirModal, logos.borrarLogo]" elegido="logos.elegido"></carousel-mis-logos>
+                    <carousel-mis-logos ng-if="logos.terminados.guardados" logos="logos.guardados" callback="['guardados', logos.buscarAtributo, logos.abrirModal, logos.borrarLogo, logos.mostrarPlanes]" elegido="logos.elegido"></carousel-mis-logos>
                 </div>
                 <!--APROBADOS-->
                 <div class="col s12" ng-switch-when="adquiridos">
@@ -176,3 +176,6 @@
         </div>
     </div>
 </div>
+
+<bazam-planes estado="logos.abrirPlanes" id='logos.logo.idLogo' datos="logos.datosComprar" guardar-logo="logos.guardarLogo"
+    ng-if="logos.abrirPlanes"></bazam-planes>

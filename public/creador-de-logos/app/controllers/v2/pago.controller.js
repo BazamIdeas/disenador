@@ -46,7 +46,7 @@ angular.module("disenador-de-logos")
 			if (terminos && bz.completado) {
 
 				bz.completado = false;
-
+				
 				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
 				switch (idPasarela) {
@@ -91,7 +91,7 @@ angular.module("disenador-de-logos")
 
 		$scope.$on("sesionExpiro", function () {
 
-			$state.go("principal.comenzar");
+			$state.go("inicio");
 
 		});
 
