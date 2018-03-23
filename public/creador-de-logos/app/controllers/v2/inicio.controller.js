@@ -28,13 +28,17 @@ angular.module("disenador-de-logos")
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
 
-		etiquetasService.listarEtiquetas().then(function (res) {
-			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-		}).catch(function () {});
+		etiquetasService.listarEtiquetas()
+			.then(function (res) {
+				bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
+			})
+			.catch(function () {});
 
-		categoriasService.listaCategorias("FUENTE").then(function (res) {
-			bz.datos.fuentes = res;
-		}).catch(function () {});
+		categoriasService.listaCategorias("FUENTE")
+			.then(function (res) {
+				bz.datos.fuentes = res;
+			})
+			.catch(function () {});
 
 		bz.coloresIguales = function (color) {
 
@@ -109,7 +113,6 @@ angular.module("disenador-de-logos")
 			bz.combinar(landingResolve.iconos, landingResolve.fuentes);
 		}
 
-
 		bz.completado = true;
 
 		bz.solicitarElementos = function (inicial) {
@@ -122,9 +125,9 @@ angular.module("disenador-de-logos")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
-						promesaIconos,
-						promesaFuentes
-					])
+					promesaIconos,
+					promesaFuentes
+				])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {

@@ -48,6 +48,12 @@ angular.module("disenador-de-logos")
 
 		});
 
+		categoriasService.listaCategorias("FUENTE")
+			.then(function (res) {
+				bz.fuentesCategorias = res;
+			})
+			.catch(function () {});
+
 
 		elementosService.listarFuentes().then(function (res) {
 
