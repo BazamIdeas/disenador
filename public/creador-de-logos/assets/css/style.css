@@ -668,6 +668,7 @@ div.lienzo {
     position: relative;
     height: 100%;
     margin: 0 0;
+    z-index: 2;
 }
 
 div.sidebar-1,
@@ -1558,6 +1559,24 @@ p.titulo {
     top: 41px;
 }
 
+.contenedor-fuentes {
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    background: #ffffff;
+    left: -100%;
+    bottom: 0;
+    -webkit-transition: 1s all;
+    transition: 1s all;
+    border-left: 1px solid #f3f3f3;
+    z-index: 1;
+}
+
+.contenedor-fuentes.abierto {
+    left: 0;
+}
+
+
 /*OVERLAY PARA EL LIENZO*/
 
 .overlay-svg {
@@ -1578,12 +1597,12 @@ p.titulo {
 .overlay-svg-previews {
     position: absolute;
     top: 0%;
-    left: 0%;
+    right: 0%;
     height: 100%;
     width: 0%;
     background-color: #00000042;
-    -webkit-transition: 1.5s;
-    transition: 1.5s;
+    -webkit-transition: 1s;
+    transition: 1s;
 }
 
 .overlay-svg-previews.abierto {
@@ -1933,12 +1952,28 @@ div.info span {
     right: 3px;
 }
 
+.cerrar-contenedor-bi.fuentes {
+    background-color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid var(--principal);
+    color: var(--principal);
+    position: absolute;
+    opacity: 0;
+    -webkit-transition: 0.5s all;
+    transition: 0.5s all;
+    top: 0px;
+    right: -10px;
+}
+
+
 .cerrar-contenedor-bi i {
     font-size: 20px;
 }
 
 .contenedor-iconos.abierto .cerrar-contenedor-bi,
-.contenedor-borradores.abierto .cerrar-contenedor-bi {
+.contenedor-borradores.abierto .cerrar-contenedor-bi,
+.contenedor-fuentes.abierto .cerrar-contenedor-bi {
     opacity: 1;
 }
 
