@@ -93,7 +93,7 @@
 						</div>
 
 						<div class="estilos-fuentes col s12" style="position: relative">
-							<md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
+							<md-radio-group name="fuente" required ng-model="editor.categoriaFuenteSeleccionada" class="md-primary">
 								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias" ng-value="fuenteCategoria.idCategoria"> <!--ng-disabled=" d.isDisabled "-->
 									<md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
 									<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
