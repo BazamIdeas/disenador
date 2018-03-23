@@ -1964,6 +1964,7 @@ div.info span {
     transition: 0.5s all;
     top: 0px;
     right: -10px;
+    z-index: 3;
 }
 
 
@@ -3109,7 +3110,7 @@ div.opcion-icono bazam-visualizar svg {
 }
 
 .refresh-icon {
-    background: var(--principal);
+    background-color: var(--principal);
     color: white;
     border-radius: 3px;
     padding: 2;
@@ -3615,4 +3616,25 @@ div.color-picker-bazam div.titulo span i {
     top: 0;
     left: 55%;
     padding-top: 24%;
+}
+
+md-radio-button.opcion-fuente {
+    margin: 0 17px;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--principal);
+}
+
+md-radio-button.opcion-fuente .md-container.md-ink-ripple {
+    display: none;
+}
+
+md-radio-button.opcion-fuente .md-label{
+    margin: 0;
+}
+
+md-radio-button.opcion-fuente[aria-checked="true"] {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    
 }

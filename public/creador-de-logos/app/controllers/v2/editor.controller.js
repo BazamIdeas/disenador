@@ -413,7 +413,9 @@ angular.module("disenador-de-logos")
 
 			bz.iconosForm.$setSubmitted();
 
-			if (valido) {
+			if (valido && bz.completadoBuscar) {
+
+                bz.completadoBuscar = false;
 
 				var tags = [];
 				var iconos = [];
@@ -435,10 +437,11 @@ angular.module("disenador-de-logos")
 					bz.iconos = [];
 					bz.iconos = res;
 
-					bz.completadoBuscar = true;
 				}).catch(function (res) {
 					console.log(res)
-				});
+				}).finally(function () {
+						bz.completadoBuscar = true;
+					});
 				/*
 				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
 					.then(function (res) {

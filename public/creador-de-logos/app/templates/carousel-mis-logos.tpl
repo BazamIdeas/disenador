@@ -12,7 +12,7 @@
             <div class="logo-container-m" ng-class="{'logo-left-1-m': $index == (carouselMisLogos.actual - 2),'logo-left-m': $index == (carouselMisLogos.actual - 1),'logo-active-m': $index == carouselMisLogos.actual, 'logo-right-m': $index == (carouselMisLogos.actual + 1), 'logo-right-1-m': $index == (carouselMisLogos.actual + 2)}" >
 
 
-                <span style="margin-bottom: 90%" class="seleccionar"  ng-click="carouselMisLogos.callback[4]($index)" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'guardados'">
+                <span style="margin-bottom: 20%" class="seleccionar"  ng-click="carouselMisLogos.callback[4]($index)" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'guardados'">
                     COMPRAR <i class="material-icons">edit</i>
                 </span>
 

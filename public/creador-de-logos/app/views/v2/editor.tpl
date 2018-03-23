@@ -234,7 +234,7 @@
 							<br/>
 						</div>
 						<div class="col s12 text-center no-padding" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
-							<md-input-container style="width:90%; padding: 0 0.75rem 0 0">
+							<md-input-container style="width:87%; padding: 0 0.75rem 0 0">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
 								<md-select flex ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
 								    md-no-asterisk required>
@@ -313,20 +313,21 @@
 					<i class="material-icons cerrar">clear</i>
 				</div>
 				<div class="row padding-bottom-0 margin-bottom-0">
-					<div class="col l12" style="position: relative; padding:0 !important; border-bottom: 1px solid var(--principal);cursor:pointer">
+					<div class="col l12" style="position: relative; padding:0 !important; border-bottom: 1px solid var(--principal);cursor:pointer; overflow-y: scroll;
+					max-height: 80vh;">
                        <!-- <div class="fuente" ng-repeat="fuente in editor.fuentes">
                             <p class="text-center">{{}}</p>
 						</div>-->
 
 						<!-- TEXTO PRINCIPAL LISTA DE FUENTES -->
 						<md-radio-group ng-model="editor.logo.fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')"  class="md-primary">
-							<md-radio-button ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaTextoSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
-								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuente.nombre == fuente.nombre ? 'color: red  !important' : 'color: black !important'}}">{{fuente.nombre}}</span>
+							<md-radio-button class="opcion-fuente" ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaTextoSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
+								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuente.nombre == fuente.nombre ? 'color: var(--principal) !important;    transform: scale(1.2) !important' : 'color: black !important'}};     letter-spacing: 2px;">{{fuente.nombre}}</span>
 							</md-radio-button>
 						</md-radio-group>
 
 						<!-- ESLOGAN LISTA DE FUENTES -->
-						<md-radio-group ng-model="editor.logo.fuenteEslogan" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')"  class="md-primary">
+						<md-radio-group class="fuente" ng-model="editor.logo.fuenteEslogan" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')"  class="md-primary">
 							<md-radio-button ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaEsloganSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
 								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuenteEslogan.nombre == fuente.nombre ? 'color: red  !important' : 'color: black !important'}}">{{fuente.nombre}}</span>
 							</md-radio-button>
@@ -389,6 +390,19 @@
 					<div class="col s11" style="position: relative;">
 
 
+						<div class="col l3 xl2 contenedor-opcion-icono" ng-if="!editor.iconos.length" ng-repeat="icono in [1,2,3,4,5,6]">
+						    <div class="opcion-icono loading-purple">
+								<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
+									<img style="width:100%" src="assets/images/a.png" alt="">
+									<div style="position:absolute;display: flex;
+										flex-flow: column;top: 0;height: 100%;
+										justify-content: center; text-align:center; width:100%;">
+									</div>
+									</div>
+								</div>
+						</div>
+
+
 						<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="icono in editor.iconos">
 							<div class="opcion-icono">
 								<div class="overlay-opcion"></div>
@@ -401,6 +415,19 @@
 							</div>
 						</div>
 
+						<div class="col l3 xl2 contenedor-opcion-icono" ng-if="editor.iconos.length">
+							<div class="opcion-icono" ng-class="{ 'loading-purple': !editor.completadoBuscar}">
+							<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
+								<img style="width:100%" src="assets/images/a.png" alt="">
+								<div style="position:absolute;display: flex;
+									flex-flow: column;top: 0;height: 100%;
+									justify-content: center; text-align:center; width:100%;">
+									<i class="material-icons">add</i>
+									<span>BUSCAR MAS</span>
+								</div>
+							    </div>
+						    </div>
+						</div>
 
 					</div>
 				</div>
