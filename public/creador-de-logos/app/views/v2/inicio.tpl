@@ -48,7 +48,7 @@
     <div class="row margin-bottom-0">
         <form class="margin-bottom-0" name="inicio.datosForm">
             <div class="col l2 sidebar-1" style="position: static !important">
-                <div class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo" data-clases="['corner-lt']"
+                <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo" data-clases="['corner-lt']"
                     data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1" bazam-pasos-ayuda>
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
                     <label for="nombre" class="active">Nombre</label>
