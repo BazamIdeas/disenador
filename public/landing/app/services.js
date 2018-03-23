@@ -317,6 +317,18 @@ angular.module("landing")
 		}, {
 			pregunta: "Lorem ipsum dolor?",
 			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+		}, {
+			pregunta: "CUANTO CUESTA EL SERVICIO?",
+			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+		}, {
+			pregunta: "Lorem ipsum dolor?",
+			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+		}, {
+			pregunta: "CUANTO CUESTA EL SERVICIO?",
+			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
+		}, {
+			pregunta: "Lorem ipsum dolor?",
+			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
 		}],
 		consejos: [{
 			nombre: "Simplicidad",
@@ -333,6 +345,11 @@ angular.module("landing")
 		}, {
 			nombre: "Colores a elegir",
 			descripcion: "Ten en cuenta el primer consejo Quédate con un esquema de colores que refleje una identidad de marca profesional y cohesiva. Aunque haya miles de colores para elegir, sé listo/a."
+		}],
+		posts: [{
+			title: 'Prueba Post',
+			description: 'Descripcion',
+			img: '/landing/assets/img/c4.png'
 		}]
 	})
 
@@ -608,7 +625,7 @@ angular.module("landing")
 
 			var etiquetas = [];
 
-			angular.forEach(arr, (valor) => {
+			angular.forEach(arr, function (valor) {
 				etiquetas.push({
 					_id: valor._id,
 					traduccion: valor.traducciones[0]

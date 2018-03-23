@@ -7,26 +7,26 @@ let etiqueta = {}
 etiqueta.ObtenerTodos = callback => {
     Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.aggregate([{ 
-            $unwind: '$traducciones' 
-        },{
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
             $lookup: {
                 from: 'idiomas',
                 localField: 'traducciones.idioma',
                 foreignField: '_id',
                 as: 'idioma'
             }
-        },{ 
-            $unwind: '$idioma' 
-        },{
+        }, {
+            $unwind: '$idioma'
+        }, {
             $group: {
                 _id: '$_id',
-                traducciones: { 
-					$push: { 
-						idioma: '$idioma', 
-						valor: '$traducciones.valor' 
-					} 
-				}
+                traducciones: {
+                    $push: {
+                        idioma: '$idioma',
+                        valor: '$traducciones.valor'
+                    }
+                }
             }
         }]).toArray((err, docs) => {
             if (err) throw err;
@@ -36,21 +36,25 @@ etiqueta.ObtenerTodos = callback => {
 }
 
 etiqueta.ObtenerPorIcono = (id, callback) => {
+    console.log(id)
     Connection(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
-            $match: { 'iconos': id }
-        },{
+            $match: {
+                'iconos': +id
+            }
+        }, {
             $lookup: {
                 from: 'idiomas',
                 localField: 'traducciones.idioma',
                 foreignField: '_id',
                 as: 'idioma'
             }
-        },{ 
-            $unwind: '$idioma' 
+        }, {
+            $unwind: '$idioma'
         }]).toArray((err, docs) => {
             if (err) throw err;
+            console.log(docs)
             callback(null, docs);
         });
     })
@@ -65,7 +69,9 @@ etiqueta.Guardar = (etiquetaData, callback) => {
         const collection = db.collection('etiquetas');
         collection.insertOne(etiquetaData, (err, doc) => {
             if (err) throw err;
-            callback(null, { 'insertId': doc.insertedId });
+            callback(null, {
+                'insertId': doc.insertedId
+            });
         });
     })
 }
@@ -74,7 +80,7 @@ etiqueta.Actualizar = (_id, etiquetaData, callback) => {
 
     delete etiquetaData._id;
 
-    etiquetaData.traducciones.forEach((el,key) => {
+    etiquetaData.traducciones.forEach((el, key) => {
         delete etiquetaData.traducciones[key].codigo;
         delete etiquetaData.traducciones[key].nombre;
 
@@ -83,13 +89,17 @@ etiqueta.Actualizar = (_id, etiquetaData, callback) => {
 
     Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.findOneAndUpdate({ '_id': objectId(_id) }, { 
-            $set: { 
-                traducciones: etiquetaData.traducciones 
-            } 
+        collection.findOneAndUpdate({
+            '_id': objectId(_id)
+        }, {
+            $set: {
+                traducciones: etiquetaData.traducciones
+            }
         }, (err, doc) => {
             if (err) throw err;
-            callback(null, { 'affectedRow': doc.value });
+            callback(null, {
+                'affectedRow': doc.value
+            });
         });
     })
 }
@@ -97,7 +107,9 @@ etiqueta.Actualizar = (_id, etiquetaData, callback) => {
 etiqueta.AsignarIconos = (_id, iconos, callback) => {
     Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.findOneAndUpdate({ '_id': objectId(_id) }, {
+        collection.findOneAndUpdate({
+            '_id': objectId(_id)
+        }, {
             $addToSet: {
                 'iconos': {
                     $each: iconos
@@ -105,7 +117,9 @@ etiqueta.AsignarIconos = (_id, iconos, callback) => {
             }
         }, (err, doc) => {
             if (err) throw err;
-            callback(null, { 'affectedRow': doc.value });
+            callback(null, {
+                'affectedRow': doc.value
+            });
         });
     })
 }
@@ -113,15 +127,19 @@ etiqueta.AsignarIconos = (_id, iconos, callback) => {
 etiqueta.DesasignarIcono = (_id, icono, callback) => {
     Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.findOneAndUpdate({ '_id': objectId(_id) }, {
+        collection.findOneAndUpdate({
+            '_id': objectId(_id)
+        }, {
             $pull: {
-                'iconos':  icono
+                'iconos': icono
             }
-        },{ 
+        }, {
             multi: true,
         }, (err, doc) => {
             if (err) throw err;
-            callback(null, { 'affectedRow': doc.value });
+            callback(null, {
+                'affectedRow': doc.value
+            });
         });
     })
 }
@@ -129,46 +147,55 @@ etiqueta.DesasignarIcono = (_id, icono, callback) => {
 etiqueta.Borrar = (_id, callback) => {
     Connection(db => {
         const collection = db.collection('etiquetas');
-        collection.findOneAndDelete({ '_id': objectId(_id) }, (err, doc) => {
+        collection.findOneAndDelete({
+            '_id': objectId(_id)
+        }, (err, doc) => {
             if (err) throw err;
-            callback(null, { 'affectedRow': doc.value });
+            callback(null, {
+                'affectedRow': doc.value
+            });
         });
     })
 }
 
-etiqueta.Analizar = (tags, callback) =>
-{
-	let iconos = [];
+etiqueta.Analizar = (tags, callback) => {
+    let iconos = [];
 
-	Connection(db => {
-		const collection = db.collection('etiquetas');
-		collection.aggregate([{ 
-            $unwind: '$traducciones' 
-        },{
-			$match: { 
-				'traducciones.valor': { '$in': tags } 
-			}
-		},{
-			$addFields: { valor: '$traducciones.valor' }
-		},{
-			$project: { traducciones: false }
-		}]).toArray((err, docs) => {
-			if (err) throw err;
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
+            $match: {
+                'traducciones.valor': {
+                    '$in': tags
+                }
+            }
+        }, {
+            $addFields: {
+                valor: '$traducciones.valor'
+            }
+        }, {
+            $project: {
+                traducciones: false
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
 
-			else {
+            else {
 
-				docs.forEach(doc => doc.iconos.forEach(i => iconos.push(i) ) )
-			
-				Array.prototype.unique = function(a) { 
-                    return function() { 
-                        return this.filter(a) 
+                docs.forEach(doc => doc.iconos.forEach(i => iconos.push(i)))
+
+                Array.prototype.unique = function (a) {
+                    return function () {
+                        return this.filter(a)
                     }
-                }((a, b, c) =>  c.indexOf(a, b+1) < 0 )
+                }((a, b, c) => c.indexOf(a, b + 1) < 0)
 
-				callback(null, iconos.unique());
-			}
-		})
-	})
+                callback(null, iconos.unique());
+            }
+        })
+    })
 }
 
 module.exports = etiqueta;

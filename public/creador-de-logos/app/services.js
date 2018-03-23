@@ -342,7 +342,7 @@ angular.module("disenador-de-logos")
 
 	/* SERVICIO PARA ETIQUETAS */
 
-	.service('etiquetasService', ['$http', '$q', function ($http, $q) {
+	.service("etiquetasService", ["$http", "$q", function ($http, $q) {
 
 		/***************************/
 		/**********LOGOS***********/
@@ -353,17 +353,17 @@ angular.module("disenador-de-logos")
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.post('/app/elementos/categoria', datos).then(function (res) {
+			$http.post("/app/elementos/categoria", datos).then(function (res) {
 				if (res == undefined) {
 					return defered.reject(res);
 				}
 				defered.resolve(res);
 			}).catch(function (res) {
 				defered.reject(res);
-			})
+			});
 
 			return promise;
-		}
+		};
 
 		/* ETIQUETAS*/
 
@@ -373,34 +373,34 @@ angular.module("disenador-de-logos")
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.get('/app/etiquetas').then(function (res) {
+			$http.get("/app/etiquetas").then(function (res) {
 				if (res == undefined) {
 					return defered.reject(res);
 				}
 				defered.resolve(res);
 			}).catch(function (res) {
 				defered.reject(res);
-			})
+			});
 
 			return promise;
-		}
+		};
 
 		this.loadEtiquetas = function (arr, v) {
 
 			var etiquetas = [];
 
-			angular.forEach(arr, (valor) => {
+			angular.forEach(arr, function (valor) {
 				etiquetas.push({
 					_id: valor._id,
 					traduccion: valor.traducciones[0]
 				});
-			})
+			});
 
 			return etiquetas.map(function (et) {
 				et.traduccion._lowername = et.traduccion.valor.toLowerCase();
 				return et;
 			});
-		}
+		};
 
 		this.transformChip = function (chip) {
 
@@ -414,14 +414,14 @@ angular.module("disenador-de-logos")
 				traduccion: {
 					valor: chip
 				}
-			}
+			};
 
-		}
+		};
 
 		this.querySearch = function (query, etiquetas) {
 			var results = query ? etiquetas.filter(createFilterFor(query)) : [];
 			return results;
-		}
+		};
 
 		function createFilterFor(query) {
 			var lowercaseQuery = angular.lowercase(query);
@@ -765,14 +765,14 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			FB.getLoginStatus(function (response) {
-				if (response.status === 'connected') {
+				if (response.status === "connected") {
 					FB.ui({
-							method: 'share',
-							href: 'https://developers.facebook.com/docs/'
+							method: "share",
+							href: "https://developers.facebook.com/docs/"
 						},
 						function (response) {
 							if (response && !response.error_code) {
-								if (typeof response != 'undefined') {
+								if (typeof response != "undefined") {
 									defered.resolve(response);
 								}
 							} else {
@@ -782,13 +782,12 @@ angular.module("disenador-de-logos")
 				} else {
 					FB.login(function (response) {
 						FB.ui({
-								method: 'share',
-								href: 'https://developers.facebook.com/docs/'
+								method: "share",
+								href: "https://developers.facebook.com/docs/"
 							},
 							function (response) {
-								return console.log(response)
 								if (response && !response.error_code) {
-									if (typeof response != 'undefined') {
+									if (typeof response != "undefined") {
 										defered.resolve(response);
 									}
 								} else {
@@ -858,6 +857,78 @@ angular.module("disenador-de-logos")
 			return promise;
 
 		};
+
+		this.forgotPass = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/recuperar-password", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
+
+		this.confirmarToken = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/recuperar-password/" + datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
+
+		this.cambiarContrasena = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/cambiar-password", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
+
+		this.verificarCambiaContrasena = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/cliente/cambiar-contrasena", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res)
+				})
+
+			return promise;
+
+		}
 
 		this.autorizado = function (emitir) {
 
@@ -1485,6 +1556,27 @@ angular.module("disenador-de-logos")
 
 		};
 
+		this.aumentarPedidoPlan = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/pedido/aumentar", datos)
+				.then(function (res) {
+
+					defered.resolve(res.data);
+
+				}).catch(function (res) {
+
+					defered.reject(res);
+
+				});
+
+			return promise;
+
+		};
+
 	}])
 
 
@@ -1597,21 +1689,35 @@ angular.module("disenador-de-logos")
 
 		return {
 			check: function (fuente) {
+
+				if (!$document[0].fonts) {
+					return false;
+				}
+
 				return $document[0].fonts.check("200px " + fuente);
 			},
 			load: function (fuente, url) {
-				var newFuente = new FontFace(fuente, 'url(' + url + ')');
+
+				if (!$document[0].fonts) {
+					var nombreFuente = fuente.replace(/\s/g, "-");
+					if (!angular.element("." + nombreFuente).length) {
+						angular.element("html head").append("<style class='" + nombreFuente + "'>@font-face {font-family: " + fuente + ";src: url('" + url + "');}</style>");
+					}
+					return false;
+				}
+
+				var newFuente = new FontFace(fuente, "url(" + url + ")");
 
 				$document[0].fonts.add(newFuente);
 
-				return newFuente.load()
+				return newFuente.load();
 
 			}
-		}
+		};
 
 	}])
 
-	.service("fontService", ["$q", "$document", "fontFactory", function ($q, $document, fontFactory) {
+	.service("fontService", ["$q", "$document", "fontFactory", "$timeout", function ($q, $document, fontFactory, $timeout) {
 
 		this.preparar = function (fuente, url) {
 
@@ -1623,24 +1729,40 @@ angular.module("disenador-de-logos")
 				defered.resolve({
 					fuente: fuente,
 					url: url
-				})
+				});
 
 			} else {
 
-				fontFactory.load(fuente, url)
-					.then(function () {
-						defered.resolve({
-							fuente: fuente,
-							url: url
-						});
+				$q.race([$timeout(function () {
+						return "exceso";
+					}, 10000), fontFactory.load(fuente, url)])
+					.then(function (res) {
+						if (res === "exceso") {
+							defered.reject();
+						} else {
+							defered.resolve({
+								fuente: fuente,
+								url: url
+							});
+						}
 					})
 					.catch(function () {
 						defered.reject();
-					})
+					});
 
 			}
 
 			return promise;
+		};
+
+		this.agregarGeneral = function (fuentes) {
+
+			var fontService = this;
+
+			angular.forEach(fuentes, function (fuente) {
+				fontService.preparar(fuente.nombre, fuente.url);
+			});
+
 		};
 
 	}]);

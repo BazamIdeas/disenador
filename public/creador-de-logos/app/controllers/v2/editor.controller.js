@@ -1,18 +1,20 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService) {
+	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", "fontService", "etiquetasService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService, fontService, etiquetasService) {
 
 		var bz = this;
 
 		bz.base64 = $base64;
 		bz.cuadricula = false;
-		bz.borradores = false;
-		bz.preview = false;
-		bz.busquedaIconos = false;
-		bz.colorFondo = historicoResolve.colores[0] || "rgb(243, 243, 243)";
-		bz.colorTexto = historicoResolve.colores[2] || "#000";
+		bz.contenedores = {
+			busquedaIconos: false,
+			borradores: false,
+			fuentes: false
+		}
+		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[0] : "rgb(243, 243, 243)";
+		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[2] : "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono = historicoResolve.colores[1] || "#000";
+		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[1] : "#000";
 		bz.svgFinal = "";
 
 		bz.jqueryScrollbarOptions = {};
@@ -48,10 +50,18 @@ angular.module("disenador-de-logos")
 
 		});
 
+		categoriasService.listaCategorias("FUENTE")
+			.then(function (res) {
+				bz.fuentesCategorias = res;
+			})
+			.catch(function () {});
+
 
 		elementosService.listarFuentes().then(function (res) {
 
 			bz.fuentes = res;
+
+			fontService.agregarGeneral(bz.fuentes);
 
 			if (historicoResolve.idLogoGuardado || historicoResolve.idLogoPadre) { // si es un logo previamente guardado
 
@@ -201,38 +211,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.mostrarBorradores = function () {
-
-			if (bz.borradores) {
-
-				bz.borradores = false;
-
-			} else {
-
-				bz.preview = false;
-				bz.busquedaIconos = false;
-				bz.borradores = true;
-
-			}
-
-		};
-
-		bz.mostrarPreviews = function () {
-
-			if (bz.preview) {
-
-				bz.preview = false;
-
-			} else {
-
-				bz.preview = true;
-				bz.busquedaIconos = false;
-				bz.borradores = false;
-
-			}
-
-		};
-
 		bz.buscarPlanes = function () {
 
 			$rootScope.$broadcast("editor:planes", true);
@@ -325,6 +303,14 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.verificarEslogan = function (eslogan) {
+			if (eslogan === "") {
+				bz.esloganActivo = false;
+				bz.logo.fuenteEslogan = null;
+				$rootScope.$broadcast("editor:eliminarEslogan");
+			}
+		};
+
 
 		/////////////////////////////////////
 		/////////CAMBIO DE FUENTE////////////
@@ -411,20 +397,52 @@ angular.module("disenador-de-logos")
 
 		bz.completadoBuscar = true;
 
+		/* Etiquetas */
+
+		bz.selectedItem = null;
+		bz.searchText = null;
+		bz.etiquetasFunciones = etiquetasService;
+
+		etiquetasService.listarEtiquetas().then(function (res) {
+			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
+		}).catch(function () {});
+
+		bz.etiquetasSeleccionadas = [];
+
 		bz.buscarIconos = function (idCategoria, valido) {
 
 			bz.iconosForm.$setSubmitted();
 
-			if (valido) {
+			if (valido && bz.completadoBuscar) {
 
-				bz.completadoBuscar = false;
+                bz.completadoBuscar = false;
 
+				var tags = [];
+				var iconos = [];
 
-				bz.borradores = false;
-				bz.preview = false;
-				bz.busquedaIconos = true;
+				angular.forEach(bz.etiquetasSeleccionadas, function (valor) {
+					tags.push(valor.traduccion.valor);
+				});
 
+				if (bz.iconos.length > 0) {
+					angular.forEach(bz.iconos, function (valor) {
+						iconos.push(valor.idElemento);
+					});
+				}
 
+                bz.cerrarContenedores();
+				bz.contenedores.busquedaIconos = true;
+
+				elementosService.listarIconosSegunTags(tags, idCategoria, iconos, 17).then(function (res) {
+					bz.iconos = [];
+					bz.iconos = res;
+
+				}).catch(function (res) {
+					console.log(res)
+				}).finally(function () {
+						bz.completadoBuscar = true;
+					});
+				/*
 				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
 					.then(function (res) {
 						bz.iconos = [];
@@ -432,6 +450,7 @@ angular.module("disenador-de-logos")
 					}).finally(function () {
 						bz.completadoBuscar = true;
 					});
+					*/
 			}
 
 		};
@@ -487,27 +506,6 @@ angular.module("disenador-de-logos")
 			bz.esloganActivo = true;
 
 		};
-
-		$window.fbAsyncInit = function () {
-			FB.init({
-				appId: "152803392097078",
-				autoLogAppEvents: true,
-				xfbml: true,
-				version: "v2.12"
-			});
-		};
-
-
-		(function (d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) {
-				return;
-			}
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "https://connect.facebook.net/en_US/sdk.js";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, "script", "facebook-jssdk"));
 
 		//////////////////////////////////////////
 		////////RESTAURAR COMPARACIONES///////////
@@ -584,5 +582,20 @@ angular.module("disenador-de-logos")
 
 		};
 
+        bz.abrirContenedor = function(contenedor, noCerrar){
+			
+			if(!noCerrar && bz.contenedores[contenedor]) return bz.contenedores[contenedor] = false;
+
+			bz.cerrarContenedores(contenedor);
+
+	        bz.contenedores[contenedor] = true;
+		}
+
+        bz.cerrarContenedores = function(contenedor){
+			angular.forEach(bz.contenedores, function(el, k){
+				if(contenedor == k) return;
+                bz.contenedores[k] = false;
+			})
+		}
 
 	}]);

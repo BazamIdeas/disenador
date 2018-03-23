@@ -302,22 +302,36 @@
 
         <!-- ADMINISTRAR ETIQUETAS -->
 
-        <div ng-switch-when="4">
+        <div ng-switch-when="4" class="paneles principal md-whiteframe-2dp listar margen_inferior">
             <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
-                <texto>TRADUCCIONES</texto>
+                <texto>ETIQUETAS</texto>
                 <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
                     <md-icon>close</md-icon>
                 </md-button>
             </div>
-            <div layout-padding class="elemento">
-                <div>
-                    <div ng-repeat="item in ctrl.etiquetasIcono">
-                        <div ng-repeat="traduccion in item.traducciones">
-                            <p>Traduccion {{traduccion.idioma}}: {{traduccion.valor}}</p>
-                        </div>
-                        <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">close</md-button>
-                    </div>
+            <div ng-if="ctrl.etiquetasIcono.length > 0">
+                <div class="w3-responsive content-scroll">
+                    <table class="w3-table w3-bordered">
+                        <tr>
+                            <th>Etiqueta:</th>
+                            <th>Accion:</th>
+                        </tr>
+                        <tr ng-repeat="item in ctrl.etiquetasIcono | unique">
+                            <td>
+                                {{item.traducciones[0].valor}}
+                            </td>
+                            <td>
+                                <md-button class="md-fab md-mini md-warn" ng-click="ctrl.desvincularEtiqueta(item, $index)">
+                                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Desvincular</md-tooltip>
+                                    <md-icon class="material-icon">close</md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
+            </div>
+            <div style="height: 30%;" ng-if="ctrl.etiquetasIcono.length == 0" class="mensaje-resultado">
+                <h3>NO EXISTEN ETIQUETAS</h3>
             </div>
         </div>
     </div>

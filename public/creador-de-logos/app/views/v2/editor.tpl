@@ -1,20 +1,26 @@
-<style ng-repeat="fuente in editor.fuentes">
-	@font-face {
+<style>
+	/*@font-face {
 		font-family: '{{fuente.nombre}}';
 		src: url('{{fuente.url}}');
+	}*/
+	input#nombre {
+		font-family: '{{editor.logo.fuente.nombre}}' !important;
+	}
+	input#eslogan {
+		font-family: '{{editor.logo.fuenteEslogan.nombre}}' !important;
 	}
 </style>
 
 <section class="sub-header-principal">
 	<div class="row margin-bottom-0">
 
-		<div class="col s4 logo">
+		<div class="col s3 logo">
 			<h5 class="secundario" ui-sref="inicio">
 				<i class="material-icons md-48 aling-top">fingerprint</i>
 				<span>DISEÑADOR</span>
 			</h5>
 		</div>
-		<div class="col s8">
+		<div class="col s9">
 			<div class="row opciones-sub-header margin-bottom-0">
 				<div class="col l2 xl2" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']"
 				    data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
@@ -29,8 +35,8 @@
 					</div>
 					<span class="principal">Cuadricula</span>
 				</div>
-				<div class="col l7 xl6 offset-xl2">
-					<button class="boton-oborder" ng-class="{'active': editor.borradores}" ng-click="editor.mostrarBorradores()" bazam-ayuda
+				<div class="col l6 xl5 offset-xl3">
+					<button class="boton-oborder" ng-class="{'active': editor.borradores}" ng-click="editor.abrirContenedor('borradores')" bazam-ayuda
 					    data-titulo="Borradores" data-texto="Guarde versiones de su logo para compararlos y restaurar la mejor opción" data-clases="['corner-lt']"
 					    data-identificador="ayuda-borradores" data-orientacion="right" data-paso="12" bazam-pasos-ayuda>
 						<i class="material-icons">queue</i> BORRADORES</button>
@@ -56,253 +62,240 @@
 
 <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
 	<div class="row margin-bottom-0" style="overflow: hidden;">
-		<form class="margin-bottom-0">
-			<div class="col s3 editor-p sidebar-1 scrollbar-dynamic" data-jquery-scrollbar="editor.jqueryScrollbarOptions" ng-form="editor.datosForm"
-			    style="padding-top: 10px !important;text-align: center; width: 100% !important;" ng-init="editor.menuSwitch = 1">
+		<div class="col s2 editor-p sidebar-1" ng-form="editor.datosForm"
+			style="padding: 10px 0px 0px 0px !important;text-align: center;" ng-init="editor.menuSwitch = 1">
 
-				<div class="col s4" style="padding: 0">
-					<div ng-click="editor.menuSwitch = 1" ng-class="{'seleccionadoo': editor.menuSwitch == 1}" class="tab">
-						<p class="text-center principal titulo" style="margin-bottom: 10px">NOMBRE</p>
+			<div class="col s4" style="padding: 0">
+				<div ng-click="editor.menuSwitch = 1; editor.cerrarContenedores()" ng-class="{'seleccionadoo': editor.menuSwitch == 1}" class="tab">
+					<p class="text-center principal titulo" style="margin-bottom: 10px">NOMBRE</p>
+				</div>
+			</div>
+			<div class="col s4" style="padding: 0" bazam-ayuda data-titulo="Nombre y Eslogan" data-texto="Modifique el estilo del texto de su nombre o eslogan"
+			    data-clases="['corner-lt']" data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
+				<div ng-click="editor.menuSwitch = 2; editor.cerrarContenedores()" ng-class="{'seleccionadoo': editor.menuSwitch == 2}" class="tab">
+					<p class="text-center principal titulo" style="margin-bottom: 10px">ESLOGAN</p>
+				</div>
+			</div>
+
+			<div class="col s4" style="padding: 0">
+				<div ng-click="editor.menuSwitch = 3; editor.cerrarContenedores()" ng-class="{'seleccionadoo': editor.menuSwitch == 3}" class="tab">
+					<p class="text-center principal titulo" style="margin-bottom: 10px">ICONO</p>
+				</div>
+			</div>
+
+			<div class="col s12 tabs-textos" style="width: 100%">
+				<div class="tab-editor" ng-show="editor.menuSwitch == 1">
+					<div class="row">
+						<div class="input-field col s12" style="padding: 0 !important">
+							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Nombre del logo</md-tooltip>
+							<input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}"
+							    ng-change="editor.cambioTexto(editor.logo.texto)">
+						</div>
+
+						<div class="estilos-fuentes col s12" style="padding: 0 !important;position: relative">
+							<md-radio-group name="fuente" required ng-model="editor.categoriaTextoSeleccionada" ng-change="editor.categoriaEsloganSeleccionada = false"  class="md-primary">
+								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias" ng-value="fuenteCategoria.idCategoria" ng-click="editor.abrirContenedor('fuentes', true)"> <!--ng-disabled=" d.isDisabled "-->
+									<md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
+									<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
+								</md-radio-button>
+							</md-radio-group>
+	
+							 <!-- VALIDACION -->
+							<div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
+								<div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
+								</br>
+							</div>
+						</div>
+
+						<!--<md-input-container style="width:100%;">
+							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Tipografia</md-tooltip>
+							<md-select style="width:100%" class="cat-fuente" ng-style="{'font-family': editor.logo.fuente.nombre}" ng-model="editor.logo.fuente"
+							    placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" md-no-asterisk required>
+								<md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"
+								    ng-selected="editor.logo.fuente.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
+							</md-select>
+						</md-input-container>-->
+
+						<!--<div class=" col s12 estilo-texto" style="font-size: 0px;" bazam-ayuda data-titulo="Color" data-texto="Seleccione un area del simbolo y cambie el color" data-clases="['corner-lt']" data-identificador="ayuda-color" data-orientacion="right" data-paso="8" bazam-pasos-ayuda>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Color</md-tooltip>
+									<div color-picker color-picker-model="editor.colorTexto" ng-model="editor.colorTexto" ng-change="editor.cambioColor(editor.colorTexto, 'texto')" color-picker-position="right" class="color" style="background-color: {{editor.colorTexto}}"></div>               
+								</div>-->
+
+						<div class="col s6 estilo-texto" style="padding:0;" bazam-ayuda data-titulo="Negrita, Cursiva, Tamaño" data-texto="Cambia a Negrita (N), Cursiva (C), Aumente (+) o disminuya (-) el tamaño del texto"
+							data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
+							<div class="negrita" ng-click="editor.cambioPropiedad('bold')">
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
+								N
+							</div>
+							<div class="cursiva" ng-click="editor.cambioPropiedad('cursive')">
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cursiva</md-tooltip>
+								C
+							</div>
+						</div>
+						<div class=" col s6 estilo-texto" style="padding:0;" >
+							<div class="menos" ng-click="editor.cambioTamano('texto', false)">
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+								-
+							</div>
+							<div class="mas" ng-click="editor.cambioTamano('texto', true)">
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+								+
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="col s4" style="padding: 0" bazam-ayuda data-titulo="Nombre y Eslogan" data-texto="Modifique el estilo del texto de su nombre o eslogan"
-				    data-clases="['corner-lt']" data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
-					<div ng-click="editor.menuSwitch = 2" ng-class="{'seleccionadoo': editor.menuSwitch == 2}" class="tab">
-						<p class="text-center principal titulo" style="margin-bottom: 10px">ESLOGAN</p>
-					</div>
-				</div>
-
-				<div class="col s4" style="padding: 0">
-					<div ng-click="editor.menuSwitch =3" ng-class="{'seleccionadoo': editor.menuSwitch == 3}" class="tab">
-						<p class="text-center principal titulo" style="margin-bottom: 10px">ICONO</p>
-					</div>
-				</div>
-
-				<div class="col s11 tabs-textos" style="width: 100%">
-					<div class="tab-editor" ng-show="editor.menuSwitch == 1">
-						<div class="row">
-							<div class="input-field col s12">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Nombre del logo</md-tooltip>
-								<input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}"
-									ng-change="editor.cambioTexto(editor.logo.texto)">
+				<!--ESLOGAN-->
+				<div class="tab-editor" ng-show="editor.menuSwitch == 2">
+					<div class="row">
+						<div class=" col s12" style="padding: 0">
+							<button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="editor.agregarEslogan()" style="margin-top: 40px;">
+								Agregar Eslogan
+							</button>
+						</div>
+						<div ng-if="editor.esloganActivo">
+							<!--<p class="text-center principal titulo" style="margin-top: 40px;">ESLOGAN</p>-->
+							<div class="input-field col s12" style="padding: 0 !important">
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
+								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}"
+									ng-change="editor.cambioTexto(editor.logo.eslogan, true)"
+									ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
 							</div>
 
-							<md-input-container style="width:100%;">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Tipografia</md-tooltip>
-								<md-select style="width:100%" class="cat-fuente" ng-style="{'font-family': editor.logo.fuente.nombre}" ng-model="editor.logo.fuente" placeholder="Fuente"
-									ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" md-no-asterisk required>
-									<md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"
-										ng-selected="editor.logo.fuente.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
-								</md-select>
-							</md-input-container>
+							<div class="estilos-fuentes col s12" style="padding: 0 !important;position: relative">
+									<md-radio-group name="fuente" required ng-model="editor.categoriaEsloganSeleccionada" ng-change="editor.categoriaTextoSeleccionada = false" class="md-primary">
+										<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias" ng-value="fuenteCategoria.idCategoria" ng-click="editor.abrirContenedor('fuentes', true)"> <!--ng-disabled=" d.isDisabled "-->
+											<md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
+											<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
+										</md-radio-button>
+									</md-radio-group>
+			
+									 <!-- VALIDACION -->
+									<div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
+										<div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
+										</br>
+									</div>
+								</div>
 
-							<!--<div class=" col s12 estilo-texto" style="font-size: 0px;" bazam-ayuda data-titulo="Color" data-texto="Seleccione un area del simbolo y cambie el color" data-clases="['corner-lt']" data-identificador="ayuda-color" data-orientacion="right" data-paso="8" bazam-pasos-ayuda>
+							<!--<md-input-container style="width:100%;">
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Tipografia</md-tooltip>
+								<md-select style="width:100%;" class="cat-fuente" ng-style="{'font-family': editor.logo.fuenteEslogan.nombre}" ng-model="editor.logo.fuenteEslogan"
+								    placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')" md-no-asterisk required>
+									<md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"
+									    ng-selected="editor.logo.fuenteEslogan.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
+								</md-select>
+							</md-input-container>-->
+
+							<!--<div class=" col s12 estilo-texto" style="font-size: 0px;" >
 										<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Color</md-tooltip>
-										<div color-picker color-picker-model="editor.colorTexto" ng-model="editor.colorTexto" ng-change="editor.cambioColor(editor.colorTexto, 'texto')" color-picker-position="right" class="color" style="background-color: {{editor.colorTexto}}"></div>               
+										<div color-picker color-picker-model="editor.colorEslogan" ng-model="editor.colorEslogan" ng-change="editor.cambioColor(editor.colorEslogan, 'eslogan')" color-picker-position="right" class="color" style="background-color: {{editor.colorEslogan}}"></div>               
 									</div>-->
 
-							<div class=" col s6 estilo-texto" bazam-ayuda data-titulo="Negrita, Cursiva, Tamaño" data-texto="Cambia a Negrita (N), Cursiva (C), Aumente (+) o disminuya (-) el tamaño del texto"
-								data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
-								<div class="negrita" ng-click="editor.cambioPropiedad('bold')">
+							<div class=" col s6 estilo-texto" style="padding:0;" >
+								<div class="negrita" ng-click="editor.cambioPropiedad('bold', true)">
 									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
 									N
 								</div>
-								<div class="cursiva" ng-click="editor.cambioPropiedad('cursive')">
+								<div class="cursiva" ng-click="editor.cambioPropiedad('cursive', true)">
 									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cursiva</md-tooltip>
 									C
 								</div>
 							</div>
-							<div class=" col s6 estilo-texto">
-								<div class="menos" ng-click="editor.cambioTamano('texto', false)">
+
+							<div class=" col s6 estilo-texto" style="padding:0;" >
+								<div class="menos" ng-click="editor.cambioTamano('eslogan', false)">
 									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
 									-
 								</div>
-								<div class="mas" ng-click="editor.cambioTamano('texto', true)">
+								<div class="mas" ng-click="editor.cambioTamano('eslogan', true)">
 									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
 									+
 								</div>
 							</div>
 						</div>
-					</div>
-					<!--ESLOGAN-->
-					<div class="tab-editor" ng-show="editor.menuSwitch == 2">
-						<div class="row">
-							<div class=" col s12" style="padding: 0">
-								<button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="editor.agregarEslogan()" style="margin-top: 40px;">
-									Agregar Eslogan
-								</button>
-							</div>
-							<div ng-if="editor.esloganActivo">
-								<!--<p class="text-center principal titulo" style="margin-top: 40px;">ESLOGAN</p>-->
-								<div class="input-field col s12">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
-									<input id="nombre" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}"
-										ng-change="editor.cambioTexto(editor.logo.eslogan, true)">
-								</div>
-
-								<md-input-container style="width:100%;">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Tipografia</md-tooltip>
-									<md-select style="width:100%;" class="cat-fuente" ng-style="{'font-family': editor.logo.fuenteEslogan.nombre}" ng-model="editor.logo.fuenteEslogan"
-										placeholder="Fuente" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')" md-no-asterisk required>
-										<md-option ng-value="{url:fuente.url, nombre: fuente.nombre}" ng-repeat="fuente in editor.fuentes track by $index" ng-style="{'font-family' : fuente.nombre}"
-											ng-selected="editor.logo.fuenteEslogan.nombre == fuente.nombre">{{fuente.nombre}}</md-option>
-									</md-select>
-								</md-input-container>
-
-								<!--<div class=" col s12 estilo-texto" style="font-size: 0px;" >
-											<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Color</md-tooltip>
-											<div color-picker color-picker-model="editor.colorEslogan" ng-model="editor.colorEslogan" ng-change="editor.cambioColor(editor.colorEslogan, 'eslogan')" color-picker-position="right" class="color" style="background-color: {{editor.colorEslogan}}"></div>               
-										</div>-->
-
-								<div class=" col s6 estilo-texto">
-									<div class="negrita" ng-click="editor.cambioPropiedad('bold', true)">
-										<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
-										N
-									</div>
-									<div class="cursiva" ng-click="editor.cambioPropiedad('cursive', true)">
-										<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cursiva</md-tooltip>
-										C
-									</div>
-								</div>
-
-								<div class=" col s6 estilo-texto">
-									<div class="menos" ng-click="editor.cambioTamano('eslogan', false)">
-										<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
-										-
-									</div>
-									<div class="mas" ng-click="editor.cambioTamano('eslogan', true)">
-										<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
-										+
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="tab-editor" ng-show="editor.menuSwitch == 3">
-						<div class="row">
-							<div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
-								<md-input-container style="width:80%; padding: 0 0.75rem">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
-									<md-select ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-										md-no-asterisk required>
-										<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-									</md-select>
-								</md-input-container>
-								<span style="background: var(--principal);color: white;border-radius: 3px;padding: 2;cursor: pointer;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-									ng-class="{ 'loading-white': !editor.completadoBuscar}">
-									<i class="material-icons">refresh</i>
-								</span>
-							</div>
-
-							<!--<div class=" col s12 estilo-texto" style="font-size:0px">
-										<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Color del área seleccionada</md-tooltip>
-										<div color-picker color-picker-model="editor.colorIcono" ng-model="editor.colorIcono" ng-change="editor.cambioColor(editor.colorIcono, 'icono')" color-picker-position="bottom" class="color" style="background-color: {{editor.colorIcono}}"></div>
-									</div>-->
-
-							<div class=" col s12 estilo-texto">
-								<div class="menos" ng-click="editor.cambioTamano('icono', false)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
-									-
-								</div>
-								<div class="mas" ng-click="editor.cambioTamano('icono', true)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
-									+
-								</div>
-							</div>
-							<div class=" col s12 estilo-texto">
-								<p class="text-center principal" style="margin-top: 20px;">Orientación</p>
-							</div>
-
-							<div class=" col s6">
-								<div class="cubo-logo-orientacion vertical" ng-click="editor.cambiarOrientacion('vertical')">
-									<div>
-										<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo arriba</md-tooltip>
-										<span>
-											<i class="material-icons">thumb_up</i>
-										</span>
-										<span>TU LOGO</span>
-									</div>
-								</div>
-
-							</div>
-							<div class=" col s6">
-								<div class="cubo-logo-orientacion horizontal" ng-click="editor.cambiarOrientacion('horizontal')">
-									<div>
-										<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo a la izquierda</md-tooltip>
-										<span style="margin-right: 5px;">
-											<i class="material-icons">thumb_up</i>
-										</span>
-										<span>TU LOGO</span>
-									</div>
-								</div>
-							</div>
-						</div>
-
 					</div>
 				</div>
 
+				<div class="tab-editor" ng-show="editor.menuSwitch == 3">
+					<div class="row">
+						<div class="col s12 no-padding">
+							<md-chips style="padding:0;" md-add-on-blur="true" ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+							    md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
+								<label>Etiquetas</label>
+								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
+								    md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
+									<span md-highlight-text="editor.searchText">{{item.traduccion.valor}}</span>
+								</md-autocomplete>
+								<md-chip-template>
+									<span>
+										<strong>{{$chip.traduccion.valor}}</strong>
+									</span>
+								</md-chip-template>
+							</md-chips>
+							<br/>
+						</div>
+						<div class="col s12 text-center no-padding" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
+							<md-input-container style="width:87%; padding: 0 0.75rem 0 0">
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
+								<md-select flex ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
+								    md-no-asterisk required>
+									<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+								</md-select>
+							</md-input-container>
+							<span class="refresh-icon" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-class="{ 'loading-white': !editor.completadoBuscar}"
+							    ng-disabled="!editor.completadoBuscar">
+								<i class="material-icons">refresh</i>
+							</span>
+						</div>
 
+						<div class=" col s12 estilo-texto" style="padding:0;">
+							<div class="menos" ng-click="editor.cambioTamano('icono', false)">
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+								-
+							</div>
+							<div class="mas" ng-click="editor.cambioTamano('icono', true)">
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+								+
+							</div>
+						</div>
+						<div class=" col s12 estilo-texto" style="padding:0;">
+							<p class="text-center principal" style="margin-top: 20px; margin-bottom:0px;">Orientación</p>
+						</div>
+
+						<div class=" col s6" style="padding:0;">
+							<div class="cubo-logo-orientacion vertical" ng-click="editor.cambiarOrientacion('vertical')">
+								<div>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo arriba</md-tooltip>
+									<span>
+										<i class="material-icons">thumb_up</i>
+									</span>
+									<span>TU LOGO</span>
+								</div>
+							</div>
+
+						</div>
+						<div class=" col s6" style="padding:0;">
+							<div class="cubo-logo-orientacion horizontal" ng-click="editor.cambiarOrientacion('horizontal')">
+								<div>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo a la izquierda</md-tooltip>
+									<span style="margin-right: 5px;">
+										<i class="material-icons">thumb_up</i>
+									</span>
+									<span>TU LOGO</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 			</div>
-			<!--
-                    <div class="col s2 sidebar-2 scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions" style="width: 100% !important;">
-                        <p class="text-center principal titulo">ICONO</p>
-
-	                    <div class="col s12 text-center" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
-		                    <md-input-container style="width:80%; padding: 0 0.75rem" >
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
-							  	<md-select ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" md-no-asterisk required> 
-							    	<md-option ng-repeat="categoria in editor.categoriasPosibles track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
-							  	</md-select>
-							</md-input-container>
-							<span style="background: var(--principal);color: white;border-radius: 3px;padding: 2;cursor: pointer;" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-class="{ 'loading-white': !editor.completadoBuscar}">
-                                <i class="material-icons">refresh</i>
-                            </span>
-	                    </div>
-
-						<!--<div class=" col s12 estilo-texto" style="font-size:0px">
-							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Color del área seleccionada</md-tooltip>
-                    		<div color-picker color-picker-model="editor.colorIcono" ng-model="editor.colorIcono" ng-change="editor.cambioColor(editor.colorIcono, 'icono')" color-picker-position="bottom" class="color" style="background-color: {{editor.colorIcono}}"></div>
-                        </div>--
-
-						<div class=" col s12 estilo-texto">
-                    		<div class="menos" ng-click="editor.cambioTamano('icono', false)">
-                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
-                    			-
-                    		</div>               
-                    		<div class="mas" ng-click="editor.cambioTamano('icono', true)">
-                    			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
-                    			+
-                    		</div>               
-                        </div>
-						<div class=" col s12 estilo-texto">
-                        	<p class="text-center principal" style="margin-top: 20px;">Orientación</p>
-                        </div>
-
-                        <div class=" col s12">
-	                        <div class="cubo-logo-orientacion vertical" ng-click="editor.cambiarOrientacion('vertical')">
-	                            <div>
-	                            	<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo arriba</md-tooltip>
-	                                <span><i class="material-icons">thumb_up</i></span>
-	                                <span>TU LOGO</span>
-	                            </div>
-	                        </div>
-
-	                        <div class="cubo-logo-orientacion horizontal" ng-click="editor.cambiarOrientacion('horizontal')">
-	                            <div>
-	                            	<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo a la izquierda</md-tooltip>
-	                                <span style="margin-right: 5px;"><i class="material-icons">thumb_up</i></span>
-	                                <span>TU LOGO</span>
-	                            </div>
-	                        </div>
-	                    </div>
+			<ver-mas-opciones ui-sref="inicio">
+				<md-button class="back-principal">
+					<md-icon>arrow_back</md-icon> Volver
+				</md-button>
+			</ver-mas-opciones>
 
 
-                    </div>-->
-		</form>
-
+		</div>
 
 		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
 		    style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
@@ -312,29 +305,63 @@
 				    data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto"></bazam-svg>
 				<div class='overlay-logo loading-purple' ng-hide="editor.svgFinal"></div>
 			</div>
-			<div class="overlay-svg" ng-class="{'abierto': (editor.borradores || editor.busquedaIconos) }"></div>
-			<div class="overlay-svg-previews" ng-class="{'abierto': editor.preview }"></div>
+			<div class="overlay-svg" ng-class="{'abierto': (editor.contenedores.borradores || editor.contenedores.busquedaIconos) }"></div>
+			<div class="overlay-svg-previews" ng-class="{'abierto': editor.contenedores.fuentes }"></div>
 
-			<div class="contenedor-borradores" ng-class="{'abierto': editor.borradores}">
-				<div class="cerrar-contenedor-bi" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
+			<div class="contenedor-fuentes" ng-class="{'abierto': editor.contenedores.fuentes}">
+				<div class="cerrar-contenedor-bi fuentes" ng-click="editor.cerrarContenedores()">
 					<i class="material-icons cerrar">clear</i>
 				</div>
 				<div class="row padding-bottom-0 margin-bottom-0">
-					<div class="col l3 xl2" style="padding: 0.42rem .35rem !important;">
-						<div class="agregar" ng-click="editor.realizarComparacion(editor.comparar)">
-							<i class="material-icons">add</i>
-							<span>AGREGAR</span>
-						</div>
-					</div>
-					<div class="col l8 xl9" style="position: relative;">
+					<div class="col l12" style="position: relative; padding:0 !important; border-bottom: 1px solid var(--principal);cursor:pointer; overflow-y: scroll;
+					max-height: 80vh;">
+                       <!-- <div class="fuente" ng-repeat="fuente in editor.fuentes">
+                            <p class="text-center">{{}}</p>
+						</div>-->
 
-						<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="comparacion in editor.comparaciones track by comparacion.creacion">
+						<!-- TEXTO PRINCIPAL LISTA DE FUENTES -->
+						<md-radio-group ng-model="editor.logo.fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')"  class="md-primary">
+							<md-radio-button class="opcion-fuente" ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaTextoSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
+								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuente.nombre == fuente.nombre ? 'color: var(--principal) !important;    transform: scale(1.2) !important' : 'color: black !important'}};     letter-spacing: 2px;">{{fuente.nombre}}</span>
+							</md-radio-button>
+						</md-radio-group>
+
+						<!-- ESLOGAN LISTA DE FUENTES -->
+						<md-radio-group class="fuente" ng-model="editor.logo.fuenteEslogan" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')"  class="md-primary">
+							<md-radio-button ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaEsloganSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
+								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuenteEslogan.nombre == fuente.nombre ? 'color: red  !important' : 'color: black !important'}}">{{fuente.nombre}}</span>
+							</md-radio-button>
+						</md-radio-group>
+					</div>
+				</div>
+			</div>
+
+			<div class="contenedor-borradores" ng-class="{'abierto': editor.contenedores.borradores}">
+				<div class="cerrar-contenedor-bi" ng-click="editor.cerrarContenedores()">
+					<i class="material-icons cerrar">clear</i>
+				</div>
+				<div class="row padding-bottom-0 margin-bottom-0">
+					<div class="col l11 xl11" style="position: relative;">
+
+						<div class="col l2 xl2 contenedor-opcion-icono">
+							<div class="agregar" ng-click="editor.realizarComparacion(editor.comparar)">
+								<img style="width:100%" src="assets/images/a.png" alt="">
+								<div style="position:absolute;display: flex;
+									flex-flow: column;
+									text-align: center;">
+									<i class="material-icons">add</i>
+									<span>AGREGAR</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="col l2 xl2 contenedor-opcion-icono" ng-repeat="comparacion in editor.comparaciones track by comparacion.creacion">
 
 							<div class="opcion-borrador">
 								<div class="overlay-opcion"></div>
 								<span class="usar">
 									<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
-									<i class="material-icons" ng-click="editor.restaurarComparacion(comparacion.svg)">file_upload</i>
+									<i class="material-icons" ng-click="editor.restaurarComparacion(comparacion.svg); editor.cerrarContenedores()">file_upload</i>
 								</span>
 								<span class="remover">
 									<md-tooltip md-delay="2" md-direction="top">Remover</md-tooltip>
@@ -355,12 +382,25 @@
 				</div>
 			</div>
 
-			<div class="contenedor-iconos" ng-class="{'abierto': editor.busquedaIconos}">
+			<div class="contenedor-iconos" ng-class="{'abierto': editor.contenedores.busquedaIconos}">
 				<div class="cerrar-contenedor-bi" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
 					<i class="material-icons cerrar">clear</i>
 				</div>
 				<div class="row padding-bottom-0 margin-bottom-0">
-					<div class="col s10 offset-s1" style="position: relative;">
+					<div class="col s11" style="position: relative;">
+
+
+						<div class="col l3 xl2 contenedor-opcion-icono" ng-if="!editor.iconos.length" ng-repeat="icono in [1,2,3,4,5,6]">
+						    <div class="opcion-icono loading-purple">
+								<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
+									<img style="width:100%" src="assets/images/a.png" alt="">
+									<div style="position:absolute;display: flex;
+										flex-flow: column;top: 0;height: 100%;
+										justify-content: center; text-align:center; width:100%;">
+									</div>
+									</div>
+								</div>
+						</div>
 
 
 						<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="icono in editor.iconos">
@@ -368,13 +408,26 @@
 								<div class="overlay-opcion"></div>
 								<span class="seleccionar">
 									<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
-									<i class="material-icons" ng-click="editor.reemplazarIcono(icono)">check</i>
+									<i class="material-icons" ng-click="editor.reemplazarIcono(icono); editor.cerrarContenedores()">check</i>
 								</span>
 								<bazam-visualizar data-svg="editor.base64.decode(icono.svg)">
 								</bazam-visualizar>
 							</div>
 						</div>
 
+						<div class="col l3 xl2 contenedor-opcion-icono" ng-if="editor.iconos.length">
+							<div class="opcion-icono" ng-class="{ 'loading-purple': !editor.completadoBuscar}">
+							<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
+								<img style="width:100%" src="assets/images/a.png" alt="">
+								<div style="position:absolute;display: flex;
+									flex-flow: column;top: 0;height: 100%;
+									justify-content: center; text-align:center; width:100%;">
+									<i class="material-icons">add</i>
+									<span>BUSCAR MAS</span>
+								</div>
+							    </div>
+						    </div>
+						</div>
 
 					</div>
 				</div>
@@ -386,7 +439,7 @@
 			</div>
 		</div>
 
-		<div class="contenedor-previews scrollbar-dynamic col s2" style="position:static" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
+		<div class="contenedor-previews col s3" style="position:static; padding:0; overflow-y: auto">
 			<div class="cerrar-contenedor-p" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
 				<i class="material-icons cerrar">clear</i>
 			</div>

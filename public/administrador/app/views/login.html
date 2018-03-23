@@ -33,7 +33,8 @@
                     <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
                 </div>
             </form>
-            <form ng-switch-when="3" name="olvido" ng-submit="login.forgotPass(login.olvido, olvido.$valid)" novalidate class="formulario-ingreso">
+            <form ng-switch-when="3" name="olvido" style="    min-width: 25vw;" ng-submit="login.forgotPass(login.olvido, olvido.$valid)"
+                novalidate class="formulario-ingreso">
                 <div ng-switch="login.rc">
                     <h5 class="text-center">Recuperar contraseña</h5>
                     <div ng-switch-when="1">

@@ -75,6 +75,14 @@
     --tercero: #009688;
 }
 
+body h3 {
+    font-size: 1.92rem;
+}
+
+body h2 {
+    font-size: 2.56rem;
+}
+
 .text-center {
     text-align: center;
 }
@@ -267,6 +275,10 @@ h6.ver-video md-icon {
     font-family: 'futura-heavy';
 }
 
+md-select-menu md-content md-option {
+    font-family: 'futura-heavy' !important;
+}
+
 md-select label,
 md-input-container:NOT(.md-input-has-value) md-select-value,
 .seccion.uno form input::placeholder,
@@ -351,7 +363,9 @@ span.estilo.seleccionado {
     width: 100%;
 }
 
-.selector-de-colores md-select-value {
+.selector-de-colores md-select-value,
+.selector-de-colores md-select-value[aria-hidden="true"],
+md-select.selector-de-colores:not([disabled]):focus .md-select-value {
     color: transparent;
 }
 
@@ -386,6 +400,8 @@ md-chips-wrap#_md-chips-wrapper-7 {
 .seccion.dos h2.titulo {
     text-align: center;
     font-size: 43px;
+    margin: 0;
+    padding: 0 0 30px 0 !important;
 }
 
 .caracteristicas {
@@ -437,15 +453,16 @@ md-chips-wrap#_md-chips-wrapper-7 {
 /* SECCION TRES */
 
 .seccion.tres {
-    background: white;
-    padding-bottom: 2%;
+    background: white !important;
+    padding: 4% 0 6% 0;
+    margin: 0;
     position: relative;
 }
 
 .titulo-destacado {
     display: block;
     width: 100%;
-    padding: 30px 0 !important;
+    padding: 0 0 30px 0 !important;
     text-align: center;
     color: var(--secundario);
     font-size: 38px;
@@ -545,7 +562,7 @@ bazam-visualizar {
 /* PLANES */
 
 .contenedor-planes {
-    width: 90%;
+    width: 80%;
     margin: auto;
 }
 
@@ -654,10 +671,11 @@ a.boton-verde {
     background: white;
     margin: 0;
     padding-bottom: 20px;
+    padding: 4% 0;
 }
 
 .seccion.seis {
-    padding: 3% 0;
+    padding: 4% 0;
 }
 
 h3 {
@@ -682,10 +700,41 @@ h3 {
     background-position: center;
 }
 
+/* MD-CHIPS AHOI*/
+
+.md-chips {
+    padding: 0;
+}
+
+.md-chips md-chip {
+    border-radius: 6px;
+}
+
+md-chip-template strong {
+    font-size: 15px !important;
+}
+
+.md-chips md-chip .md-chip-remove {
+    text-align: center;
+    width: 21px;
+    height: 21px;
+    min-width: auto;
+}
+
+.md-chips md-chip .md-chip-remove md-icon {
+    font-size: 10px;
+    height: 15px;
+    width: 15px;
+    top: 80%;
+    min-height: auto;
+    min-width: auto;
+    left: 50%;
+}
+
 /* MEDIAS */
 
-@media (min-device-width:320px) and (max-device-width:639px),
-(min-width:320px) and (max-width:639px) {
+@media (min-device-width:360px) and (max-device-width:639px),
+(min-width:360px) and (max-width:639px) {
     .seccion.uno {
         min-height: auto;
     }
@@ -714,8 +763,15 @@ h3 {
     .caracteristicas> :nth-child(5) {
         margin-top: 0;
     }
-    .plan {
-        max-width: 30%;
+    .contenedor-planes {
+        flex-wrap: wrap-reverse;
+    }
+    .plan.flex-25 {
+        max-width: 45%;
+        margin-top: 4%;
+    }
+    div.contenedor-planes .plan .plan-body {
+        min-height: 280px;
     }
     .input-tipografia {
         width: 50%;
@@ -726,4 +782,8 @@ h3 {
 (min-width:640px) and (max-width:980px) {}
 
 @media (min-device-width:981px) and (max-device-width:1080px),
-(min-width:981px) and (max-width:1080px) {}
+(min-width:981px) and (max-width:1080px) {
+    .plan.flex-25 {
+        max-width: 30%;
+    }
+}

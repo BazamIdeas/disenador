@@ -19,7 +19,7 @@ angular.module("disenador-de-logos")
 			},
 			tags: [],
 			colores: [],
-			etiquetasSeleccionadas:[]
+			etiquetasSeleccionadas: []
 		};
 
 		/* Etiquetas */
@@ -28,25 +28,29 @@ angular.module("disenador-de-logos")
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
 
-		etiquetasService.listarEtiquetas().then(function (res) {
-			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-		}).catch(function(){});
+		etiquetasService.listarEtiquetas()
+			.then(function (res) {
+				bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
+			})
+			.catch(function () {});
 
-		categoriasService.listaCategorias("FUENTE").then(function (res) {
-			bz.datos.fuentes = res;
-		}).catch(function(){});
+		categoriasService.listaCategorias("FUENTE")
+			.then(function (res) {
+				bz.datos.fuentes = res;
+			})
+			.catch(function () {});
 
-		bz.coloresIguales = function (color){
+		bz.coloresIguales = function (color) {
 
 			var coincidencia;
 
-			angular.forEach(bz.datos.colores, function(datosColor){
+			angular.forEach(bz.datos.colores, function (datosColor) {
 
-				if(angular.equals(color, datosColor)){
+				if (angular.equals(color, datosColor)) {
 					coincidencia = true;
 				}
 			});
-			
+
 			return coincidencia;
 
 		};
@@ -78,37 +82,36 @@ angular.module("disenador-de-logos")
 			.then(function (res) {
 				bz.categoriasPosibles.iconos = res;
 			})
-			.catch(function(){});
+			.catch(function () {});
 
 		categoriasService.listaCategorias("FUENTE")
 			.then(function (res) {
 				bz.categoriasPosibles.fuentes = res;
 			})
-			.catch(function(){});
+			.catch(function () {});
 
-		
-			
+
+
 		bz.combinar = function (iconos, fuentes) {
 
 			var logos = crearLogoFactory(iconos, fuentes);
 
 			var cantidadLogos = logos.length;
-			
-			while(cantidadLogos){
 
-				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0; 
+			while (cantidadLogos) {
+
+				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0;
 				bz.logos.push(logos[indiceRandom]);
 				logos.splice(indiceRandom, 1);
 				cantidadLogos--;
 			}
-			
-		};
-															
 
-		if(landingResolve){
+		};
+
+
+		if (landingResolve) {
 			bz.combinar(landingResolve.iconos, landingResolve.fuentes);
 		}
-
 
 		bz.completado = true;
 
@@ -117,7 +120,7 @@ angular.module("disenador-de-logos")
 			if (bz.datosForm.$valid && bz.completado) {
 
 				bz.completado = false;
-				
+
 				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(bz.datos.tags, bz.datos.categoria.icono, bz.iconos, 4);
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
@@ -127,12 +130,12 @@ angular.module("disenador-de-logos")
 				])
 					.then(function (res) {
 
-						angular.forEach(res[0], function(icono){
+						angular.forEach(res[0], function (icono) {
 							bz.iconos.push(icono.idElemento);
 						});
 
 						bz.combinar(res[0], res[1]);
-				
+
 
 					})
 					.catch(function () {
@@ -148,11 +151,11 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.preAvanzar = function(logo){
+		bz.preAvanzar = function (logo) {
 
-			
+
 			bz.logoSeleccionado = bz.logos.indexOf(logo);
-			
+
 			/*
 			if(color){
 				bz.colorIcono = color;		
@@ -167,7 +170,7 @@ angular.module("disenador-de-logos")
 			}
 
 		};
- 
+
 		bz.avanzar = function () {
 
 			var datos = {

@@ -7,8 +7,8 @@
                 <span>DISEÑADOR</span>
             </h5>
         </div>
-        <div class="col s10 texto">
-            <h5 class="principal"></h5>
+        <div class="col s10 texto text-login">
+            <h5 class="principal">INGRESO</h5>
         </div>
 
     </div>
@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="cubo-form login row" ng-switch-when="1">
-                        <div class="col s12">
+                        <div class="col s12" style="    min-width: 22vw;">
                             <div ng-switch="login.rc">
                                 <p class="text-center tercero">RECUPERAR CONTRASEÑA</p>
                                 <br>

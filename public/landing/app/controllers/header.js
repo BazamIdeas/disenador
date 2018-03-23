@@ -5,5 +5,7 @@ angular.module("landing")
         var bz = this;
 
         bz.navegar = navegarFactory;
-        
+
+
+
     }]);

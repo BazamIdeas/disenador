@@ -12,7 +12,7 @@
             </div>
         </section>
 
-        <section style="padding:0 30px; background-color: var(--fondo);overflow: scroll;" class="scrollbar-dynamic" data-jquery-scrollbar="$parent.principal.jqueryScrollbarOptions">
+        <section style="padding:0 30px; background-color: var(--fondo);overflow: scroll;">
             <div class="row margin-bottom-0">
 
 				

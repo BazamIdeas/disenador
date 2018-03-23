@@ -26,23 +26,23 @@ exports.GuardarEtiquetas = (req, res) => {
 		async.forEachOf(etiqueta.traducciones, (traduccion, keyTraduccion, callback) => {
 
 			let normalize = (() => {
-				const from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç", 
-					to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
+				const from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
+					to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
 					mapping = {};
-			   
-				for(let i = 0, j = from.length; i < j; i++ )
-					mapping[ from.charAt( i ) ] = to.charAt( i );
-			   
-				return ( str ) => {
+
+				for (let i = 0, j = from.length; i < j; i++)
+					mapping[from.charAt(i)] = to.charAt(i);
+
+				return (str) => {
 					let ret = [];
-					for( var i = 0, j = str.length; i < j; i++ ) {
-						let c = str.charAt( i );
-						if( mapping.hasOwnProperty( str.charAt( i ) ) )
-							ret.push( mapping[ c ] );
+					for (var i = 0, j = str.length; i < j; i++) {
+						let c = str.charAt(i);
+						if (mapping.hasOwnProperty(str.charAt(i)))
+							ret.push(mapping[c]);
 						else
-							ret.push( c );
-					}      
-					return ret.join( '' );
+							ret.push(c);
+					}
+					return ret.join('');
 				}
 			})();
 
@@ -89,6 +89,21 @@ exports.GuardarEtiquetas = (req, res) => {
 
 	})
 
+}
+
+
+exports.ObtenerPorIcono = (req, res) => {
+	const id = req.params.id;
+
+	Etiqueta.ObtenerPorIcono(id, (err, data) => {
+		if (data.length > 0) {
+			res.status(200).json(data);
+		} else {
+			res.status(404).json({
+				'msg': 'No hay etiquetas en la base de datos'
+			});
+		}
+	})
 }
 
 exports.Actualizar = (req, res) => {

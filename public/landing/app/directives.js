@@ -278,3 +278,46 @@ angular.module("landing")
 
 
 	}])
+
+	.directive("bazamScroll", [function () {
+		return {
+			restrict: "AE",
+			link: function (scope, element, atribute) {
+
+				element.find('.link-scroll').click(function () {
+					angular.element('body').animate({
+						scrollTop: 0
+					}, 1000);
+					return false;
+				});
+
+			}
+		};
+
+
+	}])
+
+	.directive("bazamPosts", [function () {
+		return {
+			restrict: "E",
+			templateUrl: "landing/app/templates/posts.tpl",
+			controller: ["$scope", function ($scope) {
+
+				var bz = this;
+
+				bz.actual = 0;
+				bz.indice = 3;
+
+				bz.posts = $scope.posts;
+
+
+
+			}],
+			controllerAs: "ctrl",
+			scope: {
+				posts: "<"
+			}
+		};
+
+
+	}]);
