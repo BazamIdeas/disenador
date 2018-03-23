@@ -328,8 +328,8 @@
 
 						<!-- ESLOGAN LISTA DE FUENTES -->
 						<md-radio-group class="fuente" ng-model="editor.logo.fuenteEslogan" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')"  class="md-primary">
-							<md-radio-button ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaEsloganSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
-								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuenteEslogan.nombre == fuente.nombre ? 'color: red  !important' : 'color: black !important'}}">{{fuente.nombre}}</span>
+							<md-radio-button class="opcion-fuente" ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaEsloganSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
+								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuenteEslogan.nombre == fuente.nombre ? 'color: var(--principal) !important;    transform: scale(1.2) !important' : 'color: black !important'}};     letter-spacing: 2px;">{{fuente.nombre}}</span>
 							</md-radio-button>
 						</md-radio-group>
 					</div>

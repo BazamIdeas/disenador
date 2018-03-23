@@ -336,14 +336,15 @@ angular.module("disenador-de-logos")
 							eslogan: null
 						};
 
-						var paletaColores = ['#FFFFFF',	'#D7CCC8',	'#FFF59D',	'#FFFF8D',	'#DCEDC8',	'#B2DFDB',	'#BBDEFB',	'#E1BEE7',	'#FCE4EC',	'#EF9A9A',
-						'#EEEEEE',	'#BCAAA4',	'#FFEE58',	'#FFF176',	'#C5E1A5',	'#80CBC4',	'#4FC3F7',	'#CE93D8',	'#F8BBD0',	'#E57373',
-						'#E0E0E0',	'#A1887F',	'#FFEB3B',	'#FFEB3B',	'#AED581',	'#4DB6AC',	'#64B5F6',	'#BA68C8',	'#F06292',	'#EF5350',
-						'#BDBDBD',	'#8D6E63',	'#FBC02D',	'#FFFF00',	'#9CCC65',	'#26A69A',	'#2196F3',	'#AB47BC',	'#EC407A',	'#F44336',
-						'#9E9E9E',	'#795548',	'#FFA726',	'#FFEA00',	'#8BC34A',	'#009688',	'#1976D2',	'#9C27B0',	'#E91E63',	'#E53935',
-						'#757575',	'#6D4C41',	'#FB8C00',	'#FFD600',	'#4CAF50',	'#00796B',	'#01579B',	'#8E24AA',	'#D81B60',	'#D32F2F',
-						'#424242',	'#4E342E',	'#F57C00',	'#FFC400',	'#388E3C',	'#00695C',	'#0D47A1',	'#6A1B9A',	'#C2185B',	'#B71C1C',
-						'#000000',	'#3E2723',	'#E65100',	'#FFAB00',	'#1B5E20',	'#004D40',	'#1A237E',	'#4A148C',	'#AD1457',	'#D50000'];
+						var paletaColores = ['#FFFFFF', '#D7CCC8', '#FFF59D', '#FFFF8D', '#DCEDC8', '#B2DFDB', '#BBDEFB', '#E1BEE7', '#FCE4EC', '#EF9A9A',
+							'#EEEEEE', '#BCAAA4', '#FFEE58', '#FFF176', '#C5E1A5', '#80CBC4', '#4FC3F7', '#CE93D8', '#F8BBD0', '#E57373',
+							'#E0E0E0', '#A1887F', '#FFEB3B', '#FFEB3B', '#AED581', '#4DB6AC', '#64B5F6', '#BA68C8', '#F06292', '#EF5350',
+							'#BDBDBD', '#8D6E63', '#FBC02D', '#FFFF00', '#9CCC65', '#26A69A', '#2196F3', '#AB47BC', '#EC407A', '#F44336',
+							'#9E9E9E', '#795548', '#FFA726', '#FFEA00', '#8BC34A', '#009688', '#1976D2', '#9C27B0', '#E91E63', '#E53935',
+							'#757575', '#6D4C41', '#FB8C00', '#FFD600', '#4CAF50', '#00796B', '#01579B', '#8E24AA', '#D81B60', '#D32F2F',
+							'#424242', '#4E342E', '#F57C00', '#FFC400', '#388E3C', '#00695C', '#0D47A1', '#6A1B9A', '#C2185B', '#B71C1C',
+							'#000000', '#3E2723', '#E65100', '#FFAB00', '#1B5E20', '#004D40', '#1A237E', '#4A148C', '#AD1457', '#D50000'
+						];
 
 						//evento para los hijos directos de seccion-icono
 						angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
@@ -1960,7 +1961,7 @@ angular.module("disenador-de-logos")
 				id: "=",
 				guardarLogo: "<"
 			},
-			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout) {
+			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q) {
 
 				var bz = this;
 
@@ -2015,11 +2016,20 @@ angular.module("disenador-de-logos")
 						var nombre = "editable";
 						var ancho = 50;
 
-						facebookService.compartir()
-							.then(function () {
 
+						var defered = $q.defer();
+						var promise = defered.promise;
+
+						var promesas = [$timeout(function () {
+							return "exceso";
+						}, 60000), facebookService.compartir()]
+
+						$q.race(promesas).then(function (res) {
+
+							if (res === "exceso") {
+								return defered.reject(res);
+							} else {
 								angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
-
 								if ($scope.id) {
 									logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 										var url = "";
@@ -2066,17 +2076,19 @@ angular.module("disenador-de-logos")
 										});
 									});
 								}
+							}
 
-							}).catch(function () {
-								$mdToast.show($mdToast.base({
-									args: {
-										mensaje: "Debes compartir para obtener tu logo gratis.",
-										clase: "danger"
-									}
-								}));
-							}).finally(function () {
-								bz.peticion = false;
-							});
+						}).catch(function () {
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Debes compartir para obtener tu logo gratis.",
+									clase: "danger"
+								}
+							}));
+						}).finally(function () {
+							bz.peticion = false;
+						});
+
 					}
 
 					angular.forEach(plan.precios, function (precio) {
