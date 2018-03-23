@@ -99,8 +99,10 @@
 
                             </div>
                             <div class="col s12">
-                                <button class="boton-verde" type="submit">Guardar</button>
-                                <button class="boton-verde" ng-click="cuenta.formulario = 1;">Cancelar</button>
+                                <div layout layout-align="space-between">
+                                    <button class="boton-verde" ng-click="cuenta.formulario = 1;">Cancelar</button>
+                                    <button class="boton-verde" type="submit">Guardar</button>
+                                </div>
                             </div>
 
                         </form>
