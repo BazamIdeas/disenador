@@ -1198,7 +1198,7 @@ angular.module("disenador-de-logos")
 							color.nombre = element.find("text.textoPrincipal").css("fill");
 
 							color.eslogan = element.find("text.eslogan").length ? element.find("text.eslogan").css("fill") : "";
-
+							
 							return color;
 
 						};
@@ -1309,10 +1309,10 @@ angular.module("disenador-de-logos")
 	}])
 
 
-
+	/*
 
 	/////////////////////////////////////////////
-	//////Carousel de logos/////////////////////
+	//////Carousel de logos//////////////////////
 	/////////////////////////////////////////////
 
 	.directive("carouselCombinaciones", [function () {
@@ -1405,7 +1405,7 @@ angular.module("disenador-de-logos")
 
 
 	}])
-
+	*/
 
 	.directive("carouselMisLogos", [function () {
 
@@ -1973,7 +1973,7 @@ angular.module("disenador-de-logos")
 
 				var historicoResolve = angular.copy($scope.datos);
 
-				bz.logo = historicoResolve.logo;
+				bz.logo = historicoResolve.logo; //SVG del logo
 				bz.idElemento = historicoResolve.idElemento;
 				bz.fuentes = {
 					principal: historicoResolve.fuentes.principal,

@@ -6,9 +6,11 @@ angular.module("disenador-de-logos")
 
 		bz.base64 = $base64;
 		bz.cuadricula = false;
-		bz.borradores = false;
-		bz.preview = false;
-		bz.busquedaIconos = false;
+		bz.contenedores = {
+			busquedaIconos: false,
+			borradores: false,
+			fuentes: false
+		}
 		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[0] : "rgb(243, 243, 243)";
 		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[2] : "#000";
 		bz.colorEslogan = "#000";
@@ -206,38 +208,6 @@ angular.module("disenador-de-logos")
 		bz.activarCuadricula = function () {
 
 			bz.cuadricula = !bz.cuadricula;
-
-		};
-
-		bz.mostrarBorradores = function () {
-
-			if (bz.borradores) {
-
-				bz.borradores = false;
-
-			} else {
-
-				bz.preview = false;
-				bz.busquedaIconos = false;
-				bz.borradores = true;
-
-			}
-
-		};
-
-		bz.mostrarPreviews = function () {
-
-			if (bz.preview) {
-
-				bz.preview = false;
-
-			} else {
-
-				bz.preview = true;
-				bz.busquedaIconos = false;
-				bz.borradores = false;
-
-			}
 
 		};
 
@@ -458,10 +428,8 @@ angular.module("disenador-de-logos")
 					});
 				}
 
-				bz.completadoBuscar = false;
-				bz.borradores = false;
-				bz.preview = false;
-				bz.busquedaIconos = true;
+                bz.cerrarContenedores();
+				bz.contenedores.busquedaIconos = true;
 
 				elementosService.listarIconosSegunTags(tags, idCategoria, iconos, 17).then(function (res) {
 					bz.iconos = [];
@@ -611,5 +579,20 @@ angular.module("disenador-de-logos")
 
 		};
 
+        bz.abrirContenedor = function(contenedor, noCerrar){
+			
+			if(!noCerrar && bz.contenedores[contenedor]) return bz.contenedores[contenedor] = false;
+
+			bz.cerrarContenedores(contenedor);
+
+	        bz.contenedores[contenedor] = true;
+		}
+
+        bz.cerrarContenedores = function(contenedor){
+			angular.forEach(bz.contenedores, function(el, k){
+				if(contenedor == k) return;
+                bz.contenedores[k] = false;
+			})
+		}
 
 	}]);
