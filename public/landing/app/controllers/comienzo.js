@@ -24,7 +24,7 @@ angular.module("landing")
 		["#FFDAB8", "#FFB26C", "#7F4917"],
 		["#FFD6C6", "#FF9F7A", "#7F3A1E "],
 		["#FFCDC9", "#FF857C", "#7F2620"],
-		["#FF393D", "#FF9193", "#7F0A0C"],
+		["#FF9193", "#FF393D", "#7F0A0C"],
 
 		["#FFC1E9", "#FF75CE", "#7F1C5C"],
 		["#FFBDFA", "#FF71F5", "#7F1A78 "],
