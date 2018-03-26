@@ -59,7 +59,7 @@
                         data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                         bazam-pasos-ayuda>
                         <md-select style="width:100%" ng-model="inicio.datos.categoria.icono" placeholder="Categoria" md-no-asterisk required>
-                            <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+                            <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
                         </md-select>
                     </md-input-container>
                 </div>
@@ -68,10 +68,10 @@
                         <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores"
                             aria-label="filtro" name="color" placeholder="Colores" required>
                             <md-optgroup label="Colores">
-                                <md-option ng-value="color" class="estilo-de-color" ng-repeat="color in inicio.colores" ng-selected="inicio.coloresIguales(color) || $index == 0">
-                                    <span ng-style="{'background-color': color[0]}" style="color:transparent;" class="color-p">{{color[0]}}</span>
-                                    <span ng-style="{'background-color': color[1]}">{{color[1]}}</span>
-                                    <span ng-style="{'background-color': color[2]}">{{color[2]}}</span>
+                                <md-option ng-value="color" class="estilo-de-color" ng-repeat="color in inicio.colores track by $index" ng-selected="inicio.coloresIguales(color) || $index == 0">
+                                    <span ng-style="{'background-color': color[0]}" style="color:transparent;" class="color-p">{{::color[0]}}</span>
+                                    <span ng-style="{'background-color': color[1]}">{{::color[1]}}</span>
+                                    <span ng-style="{'background-color': color[2]}">{{::color[2]}}</span>
                                 </md-option>
                             </md-optgroup>
                         </md-select>
@@ -84,9 +84,9 @@
                     </div>
                     <div class="estilos-fuentes" style="position: relative">
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
-                            <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes" ng-value="fuenteCategoria.idCategoria">
+                            <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria">
                                 <!--ng-disabled=" d.isDisabled "-->
-                                <md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
+                                <md-tooltip md-direction="top">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
                                 <span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
                             </md-radio-button>
                         </md-radio-group>
@@ -116,7 +116,7 @@
                         <label>Etiquetas</label>
                         <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
                             md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
-                            <span md-highlight-text="inicio.searchText">{{item.traduccion.valor}}</span>
+                            <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
                         </md-autocomplete>
                         <md-chip-template>
                             <span>
@@ -164,7 +164,7 @@
                 -->
 
                 <button class="inicio-editar" ng-click="inicio.preAvanzar(inicio.logoElegido.logoCompleto)">Editar</button>
-                <button class="inicio-comprar" ng-click="inicio.comprarLogo()">Comprar</button>
+                <button class="inicio-comprar" ng-click="::inicio.comprarLogo()">Comprar</button>
                 <button class="inicio-cerrar" ng-click="inicio.logoElegido = null">
                     <i class="material-icons cerrar">clear</i>
                 </button>
