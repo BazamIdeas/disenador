@@ -2096,6 +2096,8 @@ angular.module("disenador-de-logos")
 
 				bz.base64 = $base64;
 
+				bz.estado = $scope.estado;
+
 				/* PLANES */
 
 				bz.monedas = {};
@@ -2208,7 +2210,7 @@ angular.module("disenador-de-logos")
 									bz.peticion = false;
 								});
 							} else {
-								$scope.guardarLogo($scope.datos.logo, "Logo y nombre", $scope.datos.idElemento, true).then(function (res) {
+								$scope.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.idElemento, true).then(function (res) {
 
 									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 										var url = "";
@@ -2325,7 +2327,7 @@ angular.module("disenador-de-logos")
 
 					var promesas = [$timeout(function () {
 						return "exceso";
-					}, 15000), facebookService.compartir()]
+					}, 60000), facebookService.compartir()]
 
 					$q.race(promesas).then(function (res) {
 						if (res === "exceso") {

@@ -48,8 +48,9 @@
     <div class="row margin-bottom-0">
         <form class="margin-bottom-0" name="inicio.datosForm">
             <div class="col l2 sidebar-1" style="position: static !important">
-                <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo" data-clases="['corner-lt']"
-                    data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1" bazam-pasos-ayuda>
+                <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo"
+                    data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1"
+                    bazam-pasos-ayuda>
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
                     <label for="nombre" class="active">Nombre</label>
                 </div>
@@ -143,7 +144,7 @@
 
             <div class="row" style="margin-bottom:0;overflow-y: scroll;height: 100%;" ng-if="inicio.logos.length">
 
-                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-click="inicio.logoElegido = {svg: logo.cargado, colores: logo.colores, logoCompleto: logo}"
+                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo)"
                     ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
                     <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
                         callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>

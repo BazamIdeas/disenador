@@ -178,7 +178,7 @@
 					<md-button class="md-raised md-primary back-principal" ng-click="planes.promocion = false">
 						ELEGIR OTRO PLAN
 					</md-button>
-					<md-button class="md-raised md-primary back-principal" ng-click="estado = false">
+					<md-button class="md-raised md-primary back-principal" ng-click="$parent.estado = false; planes.promocion = false">
 						SEGUIR EDITANDO MI LOGO
 					</md-button>
 				</div>

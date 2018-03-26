@@ -773,7 +773,7 @@ angular.module("disenador-de-logos")
 						function (response) {
 							if (response && !response.error_code) {
 								if (typeof response != "undefined") {
-									defered.resolve(response);
+									defered.resolve();
 								}
 							} else {
 								defered.reject(response);

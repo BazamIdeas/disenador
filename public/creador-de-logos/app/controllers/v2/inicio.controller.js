@@ -22,6 +22,15 @@ angular.module("disenador-de-logos")
 			etiquetasSeleccionadas: []
 		};
 
+		bz.seleccionarLogo = function (svg, colores, logo) {
+			bz.logoElegido = {
+				svg: svg,
+				colores: colores,
+				logoCompleto: logo
+			}
+		}
+
+
 		/* Etiquetas */
 
 		bz.selectedItem = null;
@@ -271,6 +280,47 @@ angular.module("disenador-de-logos")
 			};
 
 			bz.abrirPlanes = true;
+		};
+
+		/* guardar logo */
+
+		bz.completadoGuardar = true;
+
+		bz.guardarLogo = function (logo, tipoLogo, idElemento) {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			if (bz.completadoGuardar) {
+
+				bz.completadoGuardar = false;
+
+				var fuentesId = {
+					principal: bz.logoElegido.logoCompleto.fuente.idElemento
+				};
+
+				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre)
+
+					.then(function (res) {
+
+						bz.idLogo = res;
+
+						defered.resolve(res);
+
+					}).catch(function (res) {
+
+						defered.reject(res);
+
+					}).finally(function () {
+
+						bz.completadoGuardar = true;
+
+					});
+
+			}
+
+			return promise;
+
 		};
 
 
