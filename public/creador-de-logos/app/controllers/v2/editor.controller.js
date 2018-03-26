@@ -592,6 +592,9 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.cerrarContenedores = function(contenedor){
+
+			$scope.$broadcast('editor:cerrarColorPickers', true)
+
 			angular.forEach(bz.contenedores, function(el, k){
 				if(contenedor == k) return;
 				bz.contenedores[k] = false;

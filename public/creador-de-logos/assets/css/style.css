@@ -3315,16 +3315,31 @@ div.combinacion.seleccionada {
     position: absolute;
     background: white;
     border: 1px solid var(--principal);
-    border-radius: 50%;
     z-index: 2;
     margin: 7px;
-    right: 20px;
     font-weight: bold;
     padding: 2px;
 }
 
+.inicio-cerrar {
+    border-radius: 50%;
+}
+
+.inicio-editar, .inicio-comprar {
+    position: absolute;
+    border-radius: 7px;
+    bottom: 35px;
+    width: 20%;
+    margin: 0;font-size: 25px;
+    padding: 5px;
+}
+
 .inicio-editar {
-    animation: bounce 1.3s infinite, opacity 1.6s ease-out forwards;
+    left: calc(50% - 27%);
+}
+
+.inicio-comprar {
+    right: calc(50% - 25%);
 }
 
 /* selector de colores */
