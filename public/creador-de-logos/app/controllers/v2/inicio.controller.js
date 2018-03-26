@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "$filter", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, $filter) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService ) {
 
 		var bz = this;
 
@@ -190,28 +190,88 @@ angular.module("disenador-de-logos")
 
 		bz.cambio = false;
 
-		/*
-		bz.moverse = function(accion) {
-			bz.cambio = true;
 
-			$timeout(function(){
-				if(accion){
-					if(bz.logos[bz.logoElegido.id+1]){
-						bz.logoElegido = {svg: bz.logos[bz.logoElegido.id+1].cargado, id: bz.logoElegido.id+1, colores: bz.logos[bz.logoElegido.id+1].colores}
+		//////////////////
+		//////PLANES//////
+		//////////////////
+
+		bz.monedas = {};
+		bz.moneda = {};
+		bz.monedaDefault = {};
+		bz.planes = [];
+		bz.impuesto = 0;
+
+		pedidosService.listarPlanes().then(function (res) {
+
+			bz.monedaDefault = {
+				simbolo: res.monedaDefault.codigo,
+				idMoneda: res.monedaDefault.idMoneda
+			};
+
+			bz.impuesto = res.impuesto;
+
+			bz.planes = res.planes;
+
+			angular.forEach(res.planes, function (plan) {
+
+				angular.forEach(plan.precios, function (precio) {
+
+					if (!bz.monedas[precio.moneda]) {
+
+						bz.monedas[precio.moneda] = {
+							simbolo: precio.moneda,
+							idMoneda: precio.idMoneda
+						};
+
 					}
-				} else {
-					if(bz.logos[bz.logoElegido.id-1]){
-						bz.logoElegido = {svg: bz.logos[bz.logoElegido.id-1].cargado, id: bz.logoElegido.id-1, colores: bz.logos[bz.logoElegido.id-1].colores}
-					}
+
+				});
+
+			});
+
+			bz.moneda = bz.monedaDefault;
+
+		});
+
+		bz.precioSeleccionado = function (precios) {
+
+			var precioFinal = "";
+
+			angular.forEach(precios, function (valor) {
+
+				if (valor.moneda == bz.moneda.simbolo) {
+
+					precioFinal = valor.moneda + " " + valor.precio;
 				}
-			}, 450);
+
+			});
+
+			return precioFinal;
+
+		};
 
 
-			$timeout(function(){
-				bz.cambio = false;
-			}, 1000);
+		bz.comprarLogo = function (){
 			
-		}
-		*/
+
+			bz.datosComprar = {
+				logo: bz.logoElegido.svg,
+				idLogo: null,
+				idElemento: bz.logoElegido.logoCompleto.icono.idElemento,
+				tipo: "Logo y nombre",
+				fuentes: {
+					principal: bz.logoElegido.logoCompleto.fuente.idElemento
+				},
+				colores: color = {
+					icono: bz.logoElegido.colores[1],
+					nombre: bz.logoElegido.colores[2]			
+				},
+				planes: bz.planes,
+				moneda: bz.moneda
+			};
+
+			bz.abrirPlanes = true;
+		};
+
 
 	}]);
