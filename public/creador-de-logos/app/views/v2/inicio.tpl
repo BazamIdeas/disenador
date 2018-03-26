@@ -270,6 +270,6 @@
     </div>
 </section>
 
-<bazam-planes estado="inicio.abrirPlanes" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo" ng-if="inicio.abrirPlanes"></bazam-planes>
+<bazam-planes estado="inicio.abrirPlanes" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo"></bazam-planes>
 
 <bazam-form-login data-mostrar="inicio.mostrarModalLogin" data-callback="inicio.callback"></bazam-form-login>
