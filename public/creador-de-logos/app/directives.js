@@ -2095,30 +2095,62 @@ angular.module("disenador-de-logos")
 
 				bz.base64 = $base64;
 
-				$scope.estadoDirectiva = true;
+				/* PLANES */
 
-				bz.cerrarPop = function (v) {
-					if (v) {
-						bz.promocion = false;
-					}
-					$scope.estadoDirectiva = false;
-					$timeout(function () {
-						$scope.estado = false;
-					}, 1050);
+				bz.monedas = {};
+				bz.moneda = {};
+				bz.monedaDefault = {};
+				bz.planes = [];
+				bz.impuesto = 0;
+
+				pedidosService.listarPlanes().then(function (res) {
+
+					bz.monedaDefault = {
+						simbolo: res.monedaDefault.codigo,
+						idMoneda: res.monedaDefault.idMoneda
+					};
+
+					bz.impuesto = res.impuesto;
+
+					bz.planes = res.planes;
+
+					angular.forEach(res.planes, function (plan) {
+
+						angular.forEach(plan.precios, function (precio) {
+
+							if (!bz.monedas[precio.moneda]) {
+
+								bz.monedas[precio.moneda] = {
+									simbolo: precio.moneda,
+									idMoneda: precio.idMoneda
+								};
+
+							}
+
+						});
+
+					});
+
+					bz.moneda = bz.monedaDefault;
+
+				});
+
+				bz.precioSeleccionado = function (precios) {
+
+					var precioFinal = "";
+
+					angular.forEach(precios, function (valor) {
+
+						if (valor.moneda == bz.moneda.simbolo) {
+
+							precioFinal = valor.moneda + " " + valor.precio;
+						}
+
+					});
+
+					return precioFinal;
+
 				};
-
-				var historicoResolve = angular.copy($scope.datos);
-
-				bz.logo = historicoResolve.logo; //SVG del logo
-				bz.idElemento = historicoResolve.idElemento;
-				bz.fuentes = {
-					principal: historicoResolve.fuentes.principal,
-					eslogan: historicoResolve.fuentes.eslogan
-				};
-
-				bz.colores = historicoResolve.colores;
-				bz.planes = historicoResolve.planes;
-				bz.moneda = historicoResolve.moneda;
 
 				bz.comprobarMonedas = function (plan) {
 
@@ -2139,27 +2171,47 @@ angular.module("disenador-de-logos")
 
 				bz.avanzarCheckout = function (plan) {
 
+					var historicoResolve = angular.copy($scope.datos);
+
+					bz.logo = historicoResolve.logo; //SVG del logo
+					bz.idElemento = historicoResolve.idElemento;
+					bz.fuentes = {
+						principal: historicoResolve.fuentes.principal,
+						eslogan: historicoResolve.fuentes.eslogan
+					};
+					bz.colores = historicoResolve.colores;
+
 					if (plan === true) {
 						bz.peticion = true;
 						var nombre = "editable";
 						var ancho = 50;
 
+						bz.compatirFacebook().then(function (res) {
 
-						var defered = $q.defer();
-						var promise = defered.promise;
+							angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-						var promesas = [$timeout(function () {
-							return "exceso";
-						}, 60000), facebookService.compartir()]
+							if ($scope.id) {
+								logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+									var url = "";
+									if (res.zip) {
 
-						$q.race(promesas).then(function (res) {
+										url = res.zip.replace("public", "");
 
-							if (res === "exceso") {
-								return defered.reject(res);
+									} else if (res.png) {
+
+										url = res.png.replace("public", "");
+
+									}
+
+									logosService.dispararDescarga(url, nombre, ancho);
+									bz.desabilitado = true;
+									bz.promocion = true;
+									bz.peticion = false;
+								});
 							} else {
-								angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
-								if ($scope.id) {
-									logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+								$scope.guardarLogo(historicoResolve.logo, "Logo y nombre", historicoResolve.idElemento, true).then(function (res) {
+
+									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 										var url = "";
 										if (res.zip) {
 
@@ -2172,47 +2224,41 @@ angular.module("disenador-de-logos")
 										}
 
 										logosService.dispararDescarga(url, nombre, ancho);
+
+									}).catch(function () {
+										//console.log(res)
+									}).finally(function () {
+										angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+
 										bz.desabilitado = true;
 										bz.promocion = true;
 										bz.peticion = false;
 									});
-								} else {
-									$scope.guardarLogo(historicoResolve.logo, "Logo y nombre", historicoResolve.idElemento, true).then(function (res) {
-
-										logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
-											var url = "";
-											if (res.zip) {
-
-												url = res.zip.replace("public", "");
-
-											} else if (res.png) {
-
-												url = res.png.replace("public", "");
-
-											}
-
-											logosService.dispararDescarga(url, nombre, ancho);
-
-										}).catch(function () {
-											//console.log(res)
-										}).finally(function () {
-											angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
-
-											bz.desabilitado = true;
-											bz.promocion = true;
-											bz.peticion = false;
-										});
-									});
-								}
+								});
 							}
 
-						}).catch(function () {
+
+						}).catch(function (res) {
+
+							if (res === 'exceso') {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Tiempo excedido, Debes compartir en facebook para obtener tu logo gratis.",
+										clase: "danger"
+									}
+								}));
+
+							}
+
 							$mdToast.show($mdToast.base({
 								args: {
-									mensaje: "Debes compartir para obtener tu logo gratis.",
+									mensaje: "Debes compartir en facebook para obtener tu logo gratis.",
 									clase: "danger"
 								}
 							}));
+
+							bz.peticion = false;
+
 						}).finally(function () {
 							bz.peticion = false;
 						});
@@ -2271,6 +2317,27 @@ angular.module("disenador-de-logos")
 					});
 
 				};
+
+				bz.compatirFacebook = function () {
+					var defered = $q.defer();
+					var promise = defered.promise;
+
+					var promesas = [$timeout(function () {
+						return "exceso";
+					}, 60000), facebookService.compartir()]
+
+					$q.race(promesas).then(function (res) {
+						if (res === "exceso") {
+							defered.reject('exceso');
+						} else {
+							defered.resolve(res);
+						}
+					}).catch(function () {
+						defered.reject();
+					});
+					return promise;
+
+				}
 
 			}]
 		};
