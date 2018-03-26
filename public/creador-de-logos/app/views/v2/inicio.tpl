@@ -145,7 +145,7 @@
 
                 <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-click="inicio.logoElegido = {svg: logo.cargado, colores: logo.colores, logoCompleto: logo}"
                     ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
-                    <bazam-svg-text icono='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
+                    <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
                         callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
@@ -163,8 +163,8 @@
                 <button ng-if="inicio.logoElegido.id < inicio.logos.length - 1" ng-click="inicio.moverse('siguiente')" style="right: 11%;top: 34%;padding: 12px;"><i class="material-icons">keyboard_arrow_right</i></button>
                 -->
 
-                <button class="inicio-editar" style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 35px;width: 20%;margin: 0;font-size: 25px;padding: 5px;"
-                    ng-click="inicio.preAvanzar(inicio.logoElegido.logoCompleto)">Editar</button>
+                <button class="inicio-editar" style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 35px;width: 20%;margin: 0;font-size: 25px;padding: 5px;" ng-click="inicio.preAvanzar(inicio.logoElegido.logoCompleto)">Editar</button>
+                <button class="inicio-editar" style="position: absolute;left: calc(50% - 10%);border-radius: 30px;bottom: 50px;width: 20%;margin: 0;font-size: 25px;padding: 5px;" ng-click="inicio.comprarLogo()">Comprar</button>
                 <button ng-click="inicio.logoElegido = null">
                     <i class="material-icons cerrar">clear</i>
                 </button>
@@ -269,5 +269,7 @@
 
     </div>
 </section>
+
+<bazam-planes estado="inicio.abrirPlanes" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo" ng-if="inicio.abrirPlanes"></bazam-planes>
 
 <bazam-form-login data-mostrar="inicio.mostrarModalLogin" data-callback="inicio.callback"></bazam-form-login>
