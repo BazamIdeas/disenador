@@ -645,6 +645,7 @@ angular.module("disenador-de-logos")
 						scope.$on("editor:cerrarColorPickers", function () {
 
 							angular.element(".color-picker-bazam").remove();
+							angular.element(".seleccionado").removeClass("seleccionado");
 
 						});
 
