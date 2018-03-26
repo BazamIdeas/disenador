@@ -85,30 +85,6 @@
         <script src="app/controllers/v2/descargar.controller.js"></script>
         <script src="app/controllers/v2/cuenta.controller.js"></script>
         <script src="app/controllers/v2/logosGaleria.controller.js"></script>
-        <script>
-            /* FACEBOOK */
-
-            window.fbAsyncInit = function () {
-                FB.init({
-                    appId: "152803392097078",
-                    autoLogAppEvents: true,
-                    xfbml: true,
-                    version: "v2.12"
-                });
-            };
-
-
-            (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {
-                    return;
-                }
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "https://connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, "script", "facebook-jssdk"));
-        </script>
     </head>
 
     <body>
@@ -189,7 +165,30 @@
         </script>
 
     </body>
+    <script>
+        /* FACEBOOK */
 
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: "152803392097078",
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: "v2.12"
+            });
+        };
+
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, "script", "facebook-jssdk"));
+    </script>
 
 
 
