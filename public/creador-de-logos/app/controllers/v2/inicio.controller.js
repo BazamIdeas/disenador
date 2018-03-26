@@ -262,7 +262,7 @@ angular.module("disenador-de-logos")
 				fuentes: {
 					principal: bz.logoElegido.logoCompleto.fuente.idElemento
 				},
-				colores: color = {
+				colores: {
 					icono: bz.logoElegido.colores[1],
 					nombre: bz.logoElegido.colores[2]			
 				},
