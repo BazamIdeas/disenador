@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService ) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService) {
 
 		var bz = this;
 
@@ -125,9 +125,9 @@ angular.module("disenador-de-logos")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
-					promesaIconos,
-					promesaFuentes
-				])
+						promesaIconos,
+						promesaFuentes
+					])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {
@@ -251,8 +251,8 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.comprarLogo = function (){
-			
+		bz.comprarLogo = function () {
+
 
 			bz.datosComprar = {
 				logo: bz.logoElegido.svg,
@@ -264,7 +264,7 @@ angular.module("disenador-de-logos")
 				},
 				colores: {
 					icono: bz.logoElegido.colores[1],
-					nombre: bz.logoElegido.colores[2]			
+					nombre: bz.logoElegido.colores[2]
 				},
 				planes: bz.planes,
 				moneda: bz.moneda

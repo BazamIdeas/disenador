@@ -493,40 +493,40 @@ angular.module("disenador-de-logos")
 
 								switch (id) {
 
-								case "color-picker-icono":
-									posicionPicker = {
-										"position": "fixed",
-										"left": coordenadasCon.right + 10,
-										"top": coordenadasCon.top - 10,
-										"width": coordenadasCon.width / 2,
-										"height": coordenadasCon.height / 2,
-										"background-color": "white",
-										"z-index": "2"
-									};
-									break;
+									case "color-picker-icono":
+										posicionPicker = {
+											"position": "fixed",
+											"left": coordenadasCon.right + 10,
+											"top": coordenadasCon.top - 10,
+											"width": coordenadasCon.width / 2,
+											"height": coordenadasCon.height / 2,
+											"background-color": "white",
+											"z-index": "2"
+										};
+										break;
 
-								case "color-picker-texto":
-									posicionPicker = {
-										"position": "fixed",
-										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-										"top": coordenadasCon.top - 10,
-										"width": coordenadasCon.width / 2,
-										"height": coordenadasCon.height / 2,
-										"background-color": "white",
-										"z-index": "2"
-									};
-									break;
+									case "color-picker-texto":
+										posicionPicker = {
+											"position": "fixed",
+											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+											"top": coordenadasCon.top - 10,
+											"width": coordenadasCon.width / 2,
+											"height": coordenadasCon.height / 2,
+											"background-color": "white",
+											"z-index": "2"
+										};
+										break;
 
-								case "color-picker-eslogan":
-									posicionPicker = {
-										"position": "fixed",
-										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-										"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
-										"width": coordenadasCon.width / 2,
-										"height": coordenadasCon.height / 2,
-										"background-color": "white",
-										"z-index": "2"
-									};
+									case "color-picker-eslogan":
+										posicionPicker = {
+											"position": "fixed",
+											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+											"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
+											"width": coordenadasCon.width / 2,
+											"height": coordenadasCon.height / 2,
+											"background-color": "white",
+											"z-index": "2"
+										};
 								}
 
 								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo' text-align: center'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
@@ -609,19 +609,19 @@ angular.module("disenador-de-logos")
 
 							switch (colorPicker.attr("id")) {
 
-							case "color-picker-icono":
+								case "color-picker-icono":
 
-								var indice = scope.elementosIndices.indexOf(true);
-								//cambiamos el color al correcto
-								element.find("[data-indice=" + indice + "]").css("fill", color);
-								break;
+									var indice = scope.elementosIndices.indexOf(true);
+									//cambiamos el color al correcto
+									element.find("[data-indice=" + indice + "]").css("fill", color);
+									break;
 
-							case "color-picker-texto":
-								element.find("text.textoPrincipal").css("fill", color);
-								break;
+								case "color-picker-texto":
+									element.find("text.textoPrincipal").css("fill", color);
+									break;
 
-							case "color-picker-eslogan":
-								element.find("text.eslogan").css("fill", color);
+								case "color-picker-eslogan":
+									element.find("text.eslogan").css("fill", color);
 
 							}
 
@@ -803,7 +803,7 @@ angular.module("disenador-de-logos")
 						var currentY = 0;
 						var currentMatrix = 0;
 
-						angular.element("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono svg", function (evento) { 
+						angular.element("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono svg", function (evento) {
 
 							var selector = evento.currentTarget.tagName == "svg" ? "g.contenedor-icono" : this;
 
@@ -1680,25 +1680,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-						case "bottom":
-							orientacionFinal.top = coordenadas.bottom;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "bottom":
+								orientacionFinal.top = coordenadas.bottom;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
-						case "right":
-							orientacionFinal.top = coordenadas.top + (element.height() / 2);
-							orientacionFinal.left = coordenadas.right;
-							break;
+							case "right":
+								orientacionFinal.top = coordenadas.top + (element.height() / 2);
+								orientacionFinal.left = coordenadas.right;
+								break;
 
-						case "left":
-							orientacionFinal.top = coordenadas.top + (element.height() / 2);
-							orientacionFinal.left = coordenadas.left - popCreado.width();
-							break;
+							case "left":
+								orientacionFinal.top = coordenadas.top + (element.height() / 2);
+								orientacionFinal.left = coordenadas.left - popCreado.width();
+								break;
 
-						case "top":
-							orientacionFinal.top = coordenadas.top;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "top":
+								orientacionFinal.top = coordenadas.top;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
 						}
 
@@ -1760,25 +1760,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-						case "bottom":
-							orientacionFinal.top = coordenadas.bottom - 40;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "bottom":
+								orientacionFinal.top = coordenadas.bottom - 40;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
-						case "right":
-							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-							orientacionFinal.left = coordenadas.right - 35;
-							break;
+							case "right":
+								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+								orientacionFinal.left = coordenadas.right - 35;
+								break;
 
-						case "left":
-							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-							orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
-							break;
+							case "left":
+								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+								orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
+								break;
 
-						case "top":
-							orientacionFinal.top = coordenadas.top + 40;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "top":
+								orientacionFinal.top = coordenadas.top + 40;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
 						}
 
@@ -2171,15 +2171,13 @@ angular.module("disenador-de-logos")
 
 				bz.avanzarCheckout = function (plan) {
 
-					var historicoResolve = angular.copy($scope.datos);
-
-					bz.logo = historicoResolve.logo; //SVG del logo
-					bz.idElemento = historicoResolve.idElemento;
+					bz.logo = $scope.datos.logo; //SVG del logo
+					bz.idElemento = $scope.datos.idElemento;
 					bz.fuentes = {
-						principal: historicoResolve.fuentes.principal,
-						eslogan: historicoResolve.fuentes.eslogan
+						principal: $scope.datos.fuentes.principal,
+						eslogan: $scope.datos.fuentes.eslogan
 					};
-					bz.colores = historicoResolve.colores;
+					bz.colores = $scope.datos.colores;
 
 					if (plan === true) {
 						bz.peticion = true;
@@ -2209,7 +2207,7 @@ angular.module("disenador-de-logos")
 									bz.peticion = false;
 								});
 							} else {
-								$scope.guardarLogo(historicoResolve.logo, "Logo y nombre", historicoResolve.idElemento, true).then(function (res) {
+								$scope.guardarLogo($scope.datos.logo, "Logo y nombre", $scope.datos.idElemento, true).then(function (res) {
 
 									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 										var url = "";
@@ -2248,6 +2246,8 @@ angular.module("disenador-de-logos")
 									}
 								}));
 
+								return;
+
 							}
 
 							$mdToast.show($mdToast.base({
@@ -2272,7 +2272,7 @@ angular.module("disenador-de-logos")
 							var datosPago = {
 								status: true,
 								datos: {
-									logo: historicoResolve.logo,
+									logo: $scope.datos.logo,
 									idElemento: bz.idElemento,
 									tipo: "Logo y nombre",
 									plan: {
@@ -2298,8 +2298,8 @@ angular.module("disenador-de-logos")
 							};
 
 
-							if (historicoResolve.idPadre) {
-								datosPago.datos.atributos.padre = historicoResolve.idPadre;
+							if ($scope.datos.idPadre) {
+								datosPago.datos.atributos.padre = $scope.datos.idPadre;
 							}
 
 							if (bz.fuentes.eslogan) {
@@ -2324,7 +2324,7 @@ angular.module("disenador-de-logos")
 
 					var promesas = [$timeout(function () {
 						return "exceso";
-					}, 60000), facebookService.compartir()]
+					}, 15000), facebookService.compartir()]
 
 					$q.race(promesas).then(function (res) {
 						if (res === "exceso") {
@@ -2338,7 +2338,6 @@ angular.module("disenador-de-logos")
 					return promise;
 
 				}
-
 			}]
 		};
 

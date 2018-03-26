@@ -1,1 +1,0 @@
-<bazam-posts posts="ctrl.posts"></bazam-posts>

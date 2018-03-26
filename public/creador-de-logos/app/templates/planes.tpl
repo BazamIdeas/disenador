@@ -67,15 +67,15 @@
 			overflow-y: auto;
 			position: relative;
 			height: 61%;">
-					<div class="row padding-bottom-0 margin-bottom-0 ">
+					<div class="row padding-bottom-0 margin-bottom-0 " ng-if="datos.logo">
 						<div class="col s12" style="padding:0">
 
 							<div style="position: relative;">
 								<div style="width: 25%;position: absolute;left: calc(40% - 23%);top: 32%;transform: rotate(-48deg);">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<div style="width: 25%;position: absolute;left: calc(93% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(100%) invert(80%) contrast(100%);">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/tarjeta.png" width="100%">
 							</div>
@@ -84,7 +84,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 30.5%;position: absolute;left: calc(54% - 18%);top: 30%;">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/camiseta.jpg" width="100%">
 							</div>
@@ -93,10 +93,10 @@
 
 							<div style="position: relative;">
 								<div style="width: 30%;position: absolute;left: calc(28% - 18%);top: 6%;opacity: 0.9;filter: grayscale(1);">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<div style="width: 23%;position: absolute;left: calc(85% - 18%);top: 72%;filter: grayscale(1);opacity: 0.8;">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/sobre.jpg" width="100%">
 							</div>
@@ -105,13 +105,13 @@
 
 							<div style="position: relative;">
 								<div style="width: 14%;position: absolute;left: calc(66% - 18%);top: 32%;">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<div style="width: 8%;position: absolute;left: calc(43.5% - 18%);top: 32%;">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<div style="width: 8%;position: absolute;left: calc(43.5% - 18%);top: 62%;">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/red.jpg" width="100%">
 							</div>
@@ -121,7 +121,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 22%;position: absolute;left: calc(73% - 18%);top: 30%;filter: blur(0.4px) grayscale(0.5);">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/camioneta.jpg" width="100%">
 							</div>
@@ -131,7 +131,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 43%;position: absolute;left: calc(52% - 18%);top: 34%;filter: blur(0.6px) grayscale(0.5);opacity: 0.8;">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/taza.jpg" width="100%">
 							</div>
@@ -141,7 +141,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 33%;position: absolute;left: calc(50% - 18%);top: 17.5%;opacity: 0.9;">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/envase.jpg" width="100%">
 							</div>
@@ -151,7 +151,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 40%;position: absolute;left: calc(47.7% - 18%);top: 46%;transform: rotate(89deg);filter: grayscale(100%) contrast(50%);">
-									<bazam-visualizar data-svg="planes.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/etiqueta.jpg" width="100%">
 							</div>
