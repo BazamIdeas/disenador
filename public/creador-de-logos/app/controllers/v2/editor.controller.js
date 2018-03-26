@@ -415,7 +415,7 @@ angular.module("disenador-de-logos")
 
 			if (valido && bz.completadoBuscar) {
 
-                bz.completadoBuscar = false;
+				bz.completadoBuscar = false;
 
 				var tags = [];
 				var iconos = [];
@@ -430,7 +430,7 @@ angular.module("disenador-de-logos")
 					});
 				}
 
-                bz.cerrarContenedores();
+				bz.cerrarContenedores();
 				bz.contenedores.busquedaIconos = true;
 
 				elementosService.listarIconosSegunTags(tags, idCategoria, iconos, 17).then(function (res) {
@@ -440,8 +440,8 @@ angular.module("disenador-de-logos")
 				}).catch(function (res) {
 					console.log(res)
 				}).finally(function () {
-						bz.completadoBuscar = true;
-					});
+					bz.completadoBuscar = true;
+				});
 				/*
 				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
 					.then(function (res) {
@@ -520,7 +520,7 @@ angular.module("disenador-de-logos")
 
 		$scope.$on("sesionExpiro", function () {
 
-			$state.go("principal.comenzar");
+			$state.go("inicio");
 
 		});
 
@@ -582,20 +582,20 @@ angular.module("disenador-de-logos")
 
 		};
 
-        bz.abrirContenedor = function(contenedor, noCerrar){
+		bz.abrirContenedor = function(contenedor, noCerrar){
 			
 			if(!noCerrar && bz.contenedores[contenedor]) return bz.contenedores[contenedor] = false;
 
 			bz.cerrarContenedores(contenedor);
 
-	        bz.contenedores[contenedor] = true;
-		}
+			bz.contenedores[contenedor] = true;
+		};
 
-        bz.cerrarContenedores = function(contenedor){
+		bz.cerrarContenedores = function(contenedor){
 			angular.forEach(bz.contenedores, function(el, k){
 				if(contenedor == k) return;
-                bz.contenedores[k] = false;
-			})
-		}
+				bz.contenedores[k] = false;
+			});
+		};
 
 	}]);

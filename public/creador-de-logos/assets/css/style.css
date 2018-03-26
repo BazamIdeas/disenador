@@ -3638,3 +3638,7 @@ md-radio-button.opcion-fuente[aria-checked="true"] {
     transform: scale(1);
     
 }
+
+g.contenedor-icono {
+    pointer-events: bounding-box;
+}
