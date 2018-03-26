@@ -156,7 +156,7 @@
                     </div>
 
 
-                    <span ng-click="header.mostrarPasoPopAyuda()">
+                    <span ng-click="::header.mostrarPasoPopAyuda()">
                         <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
                     </span>
 
@@ -181,7 +181,7 @@
 
         <script type="text/ng-template" id="toast-base.html">
             <md-toast class="{{clase}}">
-                <span class="md-toast-text" flex>{{mensaje}}</span>
+                <span class="md-toast-text" flex>{{::mensaje}}</span>
                 <md-button ng-click="closeToast()">
                     <i class="material-icons">close</i>
                 </md-button>
