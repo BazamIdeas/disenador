@@ -33,17 +33,18 @@
 							</div>
 						</div>
 
-						<div class="plan col s4" ng-repeat="plan in planes.planes | filter: planes.comprobarMonedas" style="border-radius:0px;" ng-class="{'plan-principal': plan.plan == 'Plan Profesional', 'plan-secundario': plan.plan == 'Plan Básico'}">
+						<div class="plan col s4" ng-repeat="plan in planes.planes | filter: planes.comprobarMonedas track by $index" style="border-radius:0px;"
+						    ng-class="{'plan-principal': plan.plan == 'Plan Profesional', 'plan-secundario': plan.plan == 'Plan Básico'}">
 							<div>
-								<div class="plan-header">{{plan.plan}}</div>
+								<div class="plan-header">{{::plan.plan}}</div>
 								<div class="plan-body">
-									<p class="subtitulo-plan">{{plan.info}}</p>
+									<p class="subtitulo-plan">{{::plan.info}}</p>
 
 									<ul class="plan-lista">
-										<li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{carac.descripcion}}</li>
+										<li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{::carac.descripcion}}</li>
 									</ul>
 
-									<div class="plan-precio">{{planes.precioSeleccionado(plan.precios, planes.moneda)}}</div>
+									<div class="plan-precio">{{::planes.precioSeleccionado(plan.precios, planes.moneda)}}</div>
 
 									<div class="text-center">
 										<button ng-disabled="planes.peticion" ng-class="{'loading-white':planes.peticion}" class="boton-verde" ng-click="planes.avanzarCheckout(plan, planes.moneda, true)">SELECCIONAR</button>
@@ -72,10 +73,10 @@
 
 							<div style="position: relative;">
 								<div style="width: 25%;position: absolute;left: calc(40% - 23%);top: 32%;transform: rotate(-48deg);">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<div style="width: 25%;position: absolute;left: calc(93% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(100%) invert(80%) contrast(100%);">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/tarjeta.png" width="100%">
 							</div>
@@ -84,7 +85,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 30.5%;position: absolute;left: calc(54% - 18%);top: 30%;">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/camiseta.jpg" width="100%">
 							</div>
@@ -93,10 +94,10 @@
 
 							<div style="position: relative;">
 								<div style="width: 30%;position: absolute;left: calc(28% - 18%);top: 6%;opacity: 0.9;filter: grayscale(1);">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<div style="width: 23%;position: absolute;left: calc(85% - 18%);top: 72%;filter: grayscale(1);opacity: 0.8;">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/sobre.jpg" width="100%">
 							</div>
@@ -105,13 +106,13 @@
 
 							<div style="position: relative;">
 								<div style="width: 14%;position: absolute;left: calc(66% - 18%);top: 32%;">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<div style="width: 8%;position: absolute;left: calc(43.5% - 18%);top: 32%;">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<div style="width: 8%;position: absolute;left: calc(43.5% - 18%);top: 62%;">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/red.jpg" width="100%">
 							</div>
@@ -121,7 +122,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 22%;position: absolute;left: calc(73% - 18%);top: 30%;filter: blur(0.4px) grayscale(0.5);">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/camioneta.jpg" width="100%">
 							</div>
@@ -131,7 +132,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 43%;position: absolute;left: calc(52% - 18%);top: 34%;filter: blur(0.6px) grayscale(0.5);opacity: 0.8;">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/taza.jpg" width="100%">
 							</div>
@@ -141,7 +142,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 33%;position: absolute;left: calc(50% - 18%);top: 17.5%;opacity: 0.9;">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/envase.jpg" width="100%">
 							</div>
@@ -151,7 +152,7 @@
 
 							<div style="position: relative;">
 								<div style="width: 40%;position: absolute;left: calc(47.7% - 18%);top: 46%;transform: rotate(89deg);filter: grayscale(100%) contrast(50%);">
-									<bazam-visualizar data-svg="datos.logo"></bazam-visualizar>
+									<bazam-visualizar data-svg="::datos.logo"></bazam-visualizar>
 								</div>
 								<img src="assets/images/mockups/etiqueta.jpg" width="100%">
 							</div>
@@ -177,7 +178,7 @@
 					<md-button class="md-raised md-primary back-principal" ng-click="planes.promocion = false">
 						ELEGIR OTRO PLAN
 					</md-button>
-					<md-button class="md-raised md-primary back-principal" ng-click="planes.cerrarPop(true)">
+					<md-button class="md-raised md-primary back-principal" ng-click="estado = false">
 						SEGUIR EDITANDO MI LOGO
 					</md-button>
 				</div>

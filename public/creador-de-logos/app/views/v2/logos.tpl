@@ -23,8 +23,8 @@
             <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
 
                 <div class="tab-freelance col s12">
-                    <button ng-click="logos.opcionMostrar='guardados'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='guardados'}">GUARDADOS</button>
-                    <button ng-click="logos.opcionMostrar='adquiridos'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='adquiridos'}">COMPRADOS</button>
+                    <button ng-click="::logos.opcionMostrar='guardados'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='guardados'}">GUARDADOS</button>
+                    <button ng-click="::logos.opcionMostrar='adquiridos'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='adquiridos'}">COMPRADOS</button>
                 </div>
                 <!--PENDIENTES DE APROBACION-->
                 <div class="col s12" ng-switch-when="guardados">
