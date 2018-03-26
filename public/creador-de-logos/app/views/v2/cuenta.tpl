@@ -36,7 +36,7 @@
                 <div class="col s12">
                     <span class="label">Correo</span>
                     <div class="info">
-                        <span>{{cuenta.datos.correo}}</span>
+                        <span>{{::cuenta.datos.correo}}</span>
                     </div>
                 </div>
                 <div ng-switch="cuenta.formulario">
@@ -44,19 +44,19 @@
                         <div class="col s12">
                             <span class="label">Nombre</span>
                             <div class="info">
-                                <span>{{cuenta.datos.nombreCliente}}</span>
+                                <span>{{::cuenta.datos.nombreCliente}}</span>
                             </div>
                         </div>
                         <div class="col s12">
                             <span class="label">Telefono</span>
                             <div class="info">
-                                <span>{{cuenta.datos.telefono}}</span>
+                                <span>{{::cuenta.datos.telefono}}</span>
                             </div>
                         </div>
                         <div class="col s12">
                             <span class="label">País</span>
                             <div class="info">
-                                <span>{{cuenta.paises[cuenta.datos.pais]}}</span>
+                                <span>{{::cuenta.paises[cuenta.datos.pais]}}</span>
                             </div>
                         </div>
                         <div class="col s12">
@@ -93,7 +93,7 @@
 
                                 <md-input-container style="width: 100%;padding: 0 0rem;margin-top: 0;">
                                     <md-select ng-model="cuenta.datosEspejo.pais" placeholder="Pais" required>
-                                        <md-option ng-repeat="(llave, valor) in cuenta.paises track by $index" ng-value="llave" ng-selected="llave == cuenta.datos.pais">{{valor}}</md-option>
+                                        <md-option ng-repeat="(llave, valor) in cuenta.paises track by $index" ng-value="::llave" ng-selected="llave == cuenta.datos.pais">{{::valor}}</md-option>
                                     </md-select>
                                 </md-input-container>
 
@@ -160,13 +160,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="pedido in cuenta.pedidos">
-                                <td>{{pedido.fecha | date: 'dd-MM-yyyy'}}</td>
-                                <td>{{pedido.estado}}</td>
-                                <td>{{pedido.plan}}</td>
-                                <td>{{pedido.moneda + ' ' + pedido.precio}}</td>
-                                <td>{{pedido.moneda}} {{pedido.impuesto ? (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)</td>
-                                <td>{{pedido.moneda}} {{pedido.impuesto ? pedido.precio + (pedido.precio * (pedido.impuesto/100))
+                            <tr ng-repeat="pedido in cuenta.pedidos track by pedido.idPedido">
+                                <td>{{::pedido.fecha | date: 'dd-MM-yyyy'}}</td>
+                                <td>{{::pedido.estado}}</td>
+                                <td>{{::pedido.plan}}</td>
+                                <td>{{::pedido.moneda + ' ' + pedido.precio}}</td>
+                                <td>{{::pedido.moneda}} {{pedido.impuesto ? (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)</td>
+                                <td>{{::pedido.moneda}} {{pedido.impuesto ? pedido.precio + (pedido.precio * (pedido.impuesto/100))
                                     : pedido.precio}}</td>
                             </tr>
                         </tbody>

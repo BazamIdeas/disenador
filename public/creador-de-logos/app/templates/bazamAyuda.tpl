@@ -1,3 +1,3 @@
-<div class="{{clase}}">
-    {{texto}}
+<div class="{{::clase}}">
+    {{::texto}}
 </div>
