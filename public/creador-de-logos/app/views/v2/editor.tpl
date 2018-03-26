@@ -14,13 +14,13 @@
 <section class="sub-header-principal">
 	<div class="row margin-bottom-0">
 
-		<div class="col s3 logo">
+		<div class="col s2 logo">
 			<h5 class="secundario" ui-sref="inicio">
 				<i class="material-icons md-48 aling-top">fingerprint</i>
 				<span>DISEÑADOR</span>
 			</h5>
 		</div>
-		<div class="col s9">
+		<div class="col s10">
 			<div class="row opciones-sub-header margin-bottom-0">
 				<div class="col l2 xl2" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']"
 				    data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
@@ -35,7 +35,7 @@
 					</div>
 					<span class="principal">Cuadricula</span>
 				</div>
-				<div class="col l6 xl5 offset-xl3">
+				<div class="col l5 xl4 offset-xl4">
 					<button class="boton-oborder" ng-class="{'active': editor.borradores}" ng-click="editor.abrirContenedor('borradores')" bazam-ayuda
 					    data-titulo="Borradores" data-texto="Guarde versiones de su logo para compararlos y restaurar la mejor opción" data-clases="['corner-lt']"
 					    data-identificador="ayuda-borradores" data-orientacion="right" data-paso="12" bazam-pasos-ayuda>
@@ -325,7 +325,7 @@
 								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuente.nombre == fuente.nombre ? 'color: var(--principal) !important;    transform: scale(1.2) !important' : 'color: black !important'}};     letter-spacing: 2px;">{{fuente.nombre}}</span>
 							</md-radio-button>
 						</md-radio-group>
-
+ 
 						<!-- ESLOGAN LISTA DE FUENTES -->
 						<md-radio-group class="fuente" ng-model="editor.logo.fuenteEslogan" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')"  class="md-primary">
 							<md-radio-button class="opcion-fuente" ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaEsloganSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
