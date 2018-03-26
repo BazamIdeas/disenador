@@ -85,30 +85,6 @@
         <script src="app/controllers/v2/descargar.controller.js"></script>
         <script src="app/controllers/v2/cuenta.controller.js"></script>
         <script src="app/controllers/v2/logosGaleria.controller.js"></script>
-        <script>
-            /* FACEBOOK */
-
-            window.fbAsyncInit = function () {
-                FB.init({
-                    appId: "152803392097078",
-                    autoLogAppEvents: true,
-                    xfbml: true,
-                    version: "v2.12"
-                });
-            };
-
-
-            (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {
-                    return;
-                }
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "https://connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, "script", "facebook-jssdk"));
-        </script>
     </head>
 
     <body>
@@ -156,7 +132,7 @@
                     </div>
 
 
-                    <span ng-click="header.mostrarPasoPopAyuda()">
+                    <span ng-click="::header.mostrarPasoPopAyuda()">
                         <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
                     </span>
 
@@ -181,7 +157,7 @@
 
         <script type="text/ng-template" id="toast-base.html">
             <md-toast class="{{clase}}">
-                <span class="md-toast-text" flex>{{mensaje}}</span>
+                <span class="md-toast-text" flex>{{::mensaje}}</span>
                 <md-button ng-click="closeToast()">
                     <i class="material-icons">close</i>
                 </md-button>
@@ -189,7 +165,30 @@
         </script>
 
     </body>
+    <script>
+        /* FACEBOOK */
 
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: "152803392097078",
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: "v2.12"
+            });
+        };
+
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, "script", "facebook-jssdk"));
+    </script>
 
 
 

@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", "fontService", "etiquetasService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService, fontService, etiquetasService) {
+	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", "fontService", "etiquetasService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, coloresFactory, $q, $window, pedidosService, fontService, etiquetasService) {
 
 		var bz = this;
 
@@ -277,17 +277,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-		/*
-		if (historicoResolve.colores) {
-			console.log("hola")
-			$timeout(function () {
-				bz.cambioColor(historicoResolve.colores[2], "texto");
-			}, 5000);
-			$timeout(function () {
-				bz.cambioColor(historicoResolve.colores[1], "icono");
-			}, 5000);
-		}
-		*/
 
 
 		/////////////////////////////////////
@@ -415,7 +404,7 @@ angular.module("disenador-de-logos")
 
 			if (valido && bz.completadoBuscar) {
 
-                bz.completadoBuscar = false;
+				bz.completadoBuscar = false;
 
 				var tags = [];
 				var iconos = [];
@@ -430,7 +419,7 @@ angular.module("disenador-de-logos")
 					});
 				}
 
-                bz.cerrarContenedores();
+				bz.cerrarContenedores();
 				bz.contenedores.busquedaIconos = true;
 
 				elementosService.listarIconosSegunTags(tags, idCategoria, iconos, 17).then(function (res) {
@@ -440,8 +429,8 @@ angular.module("disenador-de-logos")
 				}).catch(function (res) {
 					console.log(res)
 				}).finally(function () {
-						bz.completadoBuscar = true;
-					});
+					bz.completadoBuscar = true;
+				});
 				/*
 				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
 					.then(function (res) {
@@ -520,7 +509,7 @@ angular.module("disenador-de-logos")
 
 		$scope.$on("sesionExpiro", function () {
 
-			$state.go("principal.comenzar");
+			$state.go("inicio");
 
 		});
 
@@ -582,20 +571,23 @@ angular.module("disenador-de-logos")
 
 		};
 
-        bz.abrirContenedor = function(contenedor, noCerrar){
+		bz.abrirContenedor = function(contenedor, noCerrar){
 			
 			if(!noCerrar && bz.contenedores[contenedor]) return bz.contenedores[contenedor] = false;
 
 			bz.cerrarContenedores(contenedor);
 
-	        bz.contenedores[contenedor] = true;
-		}
+			bz.contenedores[contenedor] = true;
+		};
 
-        bz.cerrarContenedores = function(contenedor){
+		bz.cerrarContenedores = function(contenedor){
+
+			$scope.$broadcast('editor:cerrarColorPickers', true)
+
 			angular.forEach(bz.contenedores, function(el, k){
 				if(contenedor == k) return;
-                bz.contenedores[k] = false;
-			})
-		}
+				bz.contenedores[k] = false;
+			});
+		};
 
 	}]);

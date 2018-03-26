@@ -4,7 +4,7 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "AE",
 			scope: {
-				icono: "<",
+				svg: "<",
 				texto: "<",
 				colorTexto: "<colorTexto",
 				colorIcono: "<colorIcono",
@@ -21,8 +21,8 @@ angular.module("disenador-de-logos")
 					.finally(function () {
 						{
 
-							var tamanoBase = 200;
-
+							var tamanoBase = 100;
+							/*
 							////////////////////////////////////////////////////////////
 							//////Insertamos el SVG del icono dentro del SVG padre//////
 							////////////////////////////////////////////////////////////
@@ -103,6 +103,133 @@ angular.module("disenador-de-logos")
 								svgTexto.setAttribute("y", paddingTopText);
 
 							}
+							*/
+
+
+							scope.svgSaneado = scope.svg.trim();
+
+							var posicion1 = scope.svgSaneado.search(">");
+
+							//svg tag
+							scope.svgTagIncompleto = scope.svgSaneado.substr(0, posicion1 + 1);
+
+							var posicion2 = scope.svgSaneado.substr(posicion1 + 1).search("</svg>");
+
+							//contenido del svg
+							scope.seccionInterna = scope.svgSaneado.substr(posicion1 + 1).substr(0, posicion2);
+
+							//recipiente de secciones del svg original
+							scope.seccionInternaElementos = [];
+
+							//indices del elemento
+							scope.elementosIndices = [];
+
+							//division en partes del svg
+							scope.seccionInterna.trim().split(">").forEach(function (parte, index) {
+								var indiceParte = " data-indice='" + index + "'";
+								if (parte != "") { //si no es un tag de cerrar
+									if (parte.search("</") == -1) {
+										//si es un tag compuesto, ej: 
+										if (parte.search("/") == -1) {
+											scope.seccionInternaElementos.push(parte + indiceParte + ">");
+										}
+										//si no es un tag compuesto, ej: path
+										else {
+											scope.seccionInternaElementos.push(parte.replace("/", "") + indiceParte + "/>");
+										}
+										//si es un tag de cerrar
+									} else {
+										scope.seccionInternaElementos.push(parte + ">");
+									}
+								}
+								scope.elementosIndices.push(false);
+							});
+							//union del nuevo contenido
+							scope.seccionInterna = scope.seccionInternaElementos.join("");
+
+							scope.svgTag = scope.svgTagIncompleto + scope.seccionInterna + "</svg>";
+
+							////////////////////////////////////////////////////////////
+							//////Insertamos el SVG del icono dentro del SVG padre//////
+							////////////////////////////////////////////////////////////
+
+							element[0].innerHTML = "<svg viewBox='0 0 " + tamanoBase + " " + tamanoBase + "'><g class='contenedor-icono'>" + scope.svgTag + "</g></svg>";
+
+							var relacion = element[0].children[0].getClientRects()[0].height / tamanoBase;
+
+							var svgIcono = element[0].children[0].children[0].children[0];
+
+							svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
+							svgIcono.setAttribute("fill", scope.colorIcono);
+
+							/////////////////////////////////////////
+							////////creamos el elemento Text/////////
+							/////////////////////////////////////////
+
+							var texto = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+							texto.setAttributeNS(null, "x", (tamanoBase / 2));
+
+							var textoNode = document.createTextNode(scope.texto);
+
+							texto.appendChild(textoNode);
+
+							element[0].children[0].appendChild(texto);
+
+							var svgTexto = element[0].children[0].children[1];
+
+
+							svgTexto.style.fill = scope.colorTexto;
+							svgTexto.style.fontSize = (tamanoBase / 2) + "px";
+							svgTexto.setAttribute("text-anchor", "middle");
+							svgTexto.setAttribute("font-family", scope.fuente);
+							svgTexto.setAttribute("class", "textoPrincipal");
+
+							//////////////////////////////////////////////////////////////////////
+							////ajustamos el tamaño del texto en relacion al tamaño del icono/////
+							//////////////////////////////////////////////////////////////////////
+
+							while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
+
+								svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
+
+							}
+
+							///////////////////////////////////
+							/////centramos los elementos///////
+							///////////////////////////////////
+
+							var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
+
+							svgIcono.setAttribute("y", paddingTopIcono);
+
+							var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
+
+							svgTexto.setAttribute("y", paddingTopText);
+
+							if (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+								while (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+									svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
+
+									svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+
+								}
+
+								paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
+
+								svgIcono.setAttribute("y", paddingTopIcono);
+
+								paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
+
+								svgTexto.setAttribute("y", paddingTopText);
+
+							}
+
+
+							//agregamos el Style Tag al svg
+							element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>");
 
 							$timeout(function () {
 								scope.callback = element[0].innerHTML;
@@ -515,6 +642,13 @@ angular.module("disenador-de-logos")
 
 						});
 
+						scope.$on("editor:cerrarColorPickers", function () {
+
+							angular.element(".color-picker-bazam").remove();
+							angular.element(".seleccionado").removeClass("seleccionado");
+
+						});
+
 
 						////////////////////////////////////////////
 						////////vigilamos el cambio de texto////////
@@ -670,25 +804,23 @@ angular.module("disenador-de-logos")
 						var currentY = 0;
 						var currentMatrix = 0;
 
-						var intermediador = true;
+						angular.element("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono svg", function (evento) {
 
-						angular.element("bazam-svg").on("mousedown", "text.eslogan, text.textoPrincipal, g.contenedor-icono", function (evento) {
+							var selector = evento.currentTarget.tagName == "svg" ? "g.contenedor-icono" : this;
 
-							intermediador = false;
+							if (!angular.element(selector).attr("transform")) {
 
-							if (!angular.element(this).attr("transform")) {
-
-								angular.element(this).attr("transform", "matrix(1 0 0 1 0 0)");
+								angular.element(selector).attr("transform", "matrix(1 0 0 1 0 0)");
 
 							}
 
-							angular.element(this).attr("movimiento-bz", true);
+							angular.element(selector).attr("movimiento-bz", true);
 
 							currentX = evento.clientX;
 
 							currentY = evento.clientY;
 
-							currentMatrix = angular.element(this).attr("transform").slice(7, -1).split(" ");
+							currentMatrix = angular.element(selector).attr("transform").slice(7, -1).split(" ");
 
 							for (var i = 0; i < currentMatrix.length; i++) {
 
@@ -738,7 +870,6 @@ angular.module("disenador-de-logos")
 							scope.$apply(function () {
 								scope.svgFinal = clon.html();
 							});
-							intermediador = true;
 
 						});
 
@@ -846,8 +977,6 @@ angular.module("disenador-de-logos")
 
 									eslogan.setAttribute("transform", "");
 									eslogan.setAttribute("text-anchor", "left");
-
-
 									eslogan.style.fontSize = svgTexto.style.fontSize;
 
 									eslogan.setAttribute("x", svgTexto.getAttribute("x"));
@@ -1967,30 +2096,64 @@ angular.module("disenador-de-logos")
 
 				bz.base64 = $base64;
 
-				$scope.estadoDirectiva = true;
+				bz.estado = $scope.estado;
 
-				bz.cerrarPop = function (v) {
-					if (v) {
-						bz.promocion = false;
-					}
-					$scope.estadoDirectiva = false;
-					$timeout(function () {
-						$scope.estado = false;
-					}, 1050);
+				/* PLANES */
+
+				bz.monedas = {};
+				bz.moneda = {};
+				bz.monedaDefault = {};
+				bz.planes = [];
+				bz.impuesto = 0;
+
+				pedidosService.listarPlanes().then(function (res) {
+
+					bz.monedaDefault = {
+						simbolo: res.monedaDefault.codigo,
+						idMoneda: res.monedaDefault.idMoneda
+					};
+
+					bz.impuesto = res.impuesto;
+
+					bz.planes = res.planes;
+
+					angular.forEach(res.planes, function (plan) {
+
+						angular.forEach(plan.precios, function (precio) {
+
+							if (!bz.monedas[precio.moneda]) {
+
+								bz.monedas[precio.moneda] = {
+									simbolo: precio.moneda,
+									idMoneda: precio.idMoneda
+								};
+
+							}
+
+						});
+
+					});
+
+					bz.moneda = bz.monedaDefault;
+
+				});
+
+				bz.precioSeleccionado = function (precios) {
+
+					var precioFinal = "";
+
+					angular.forEach(precios, function (valor) {
+
+						if (valor.moneda == bz.moneda.simbolo) {
+
+							precioFinal = valor.moneda + " " + valor.precio;
+						}
+
+					});
+
+					return precioFinal;
+
 				};
-
-				var historicoResolve = angular.copy($scope.datos);
-
-				bz.logo = historicoResolve.logo; //SVG del logo
-				bz.idElemento = historicoResolve.idElemento;
-				bz.fuentes = {
-					principal: historicoResolve.fuentes.principal,
-					eslogan: historicoResolve.fuentes.eslogan
-				};
-
-				bz.colores = historicoResolve.colores;
-				bz.planes = historicoResolve.planes;
-				bz.moneda = historicoResolve.moneda;
 
 				bz.comprobarMonedas = function (plan) {
 
@@ -2011,27 +2174,45 @@ angular.module("disenador-de-logos")
 
 				bz.avanzarCheckout = function (plan) {
 
+					bz.logo = $scope.datos.logo; //SVG del logo
+					bz.idElemento = $scope.datos.idElemento;
+					bz.fuentes = {
+						principal: $scope.datos.fuentes.principal,
+						eslogan: $scope.datos.fuentes.eslogan
+					};
+					bz.colores = $scope.datos.colores;
+
 					if (plan === true) {
 						bz.peticion = true;
 						var nombre = "editable";
 						var ancho = 50;
 
+						bz.compatirFacebook().then(function (res) {
 
-						var defered = $q.defer();
-						var promise = defered.promise;
+							angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-						var promesas = [$timeout(function () {
-							return "exceso";
-						}, 60000), facebookService.compartir()]
+							if ($scope.id) {
+								logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+									var url = "";
+									if (res.zip) {
 
-						$q.race(promesas).then(function (res) {
+										url = res.zip.replace("public", "");
 
-							if (res === "exceso") {
-								return defered.reject(res);
+									} else if (res.png) {
+
+										url = res.png.replace("public", "");
+
+									}
+
+									logosService.dispararDescarga(url, nombre, ancho);
+									bz.desabilitado = true;
+									bz.promocion = true;
+									bz.peticion = false;
+								});
 							} else {
-								angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
-								if ($scope.id) {
-									logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+								$scope.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.idElemento, true).then(function (res) {
+
+									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 										var url = "";
 										if (res.zip) {
 
@@ -2044,47 +2225,43 @@ angular.module("disenador-de-logos")
 										}
 
 										logosService.dispararDescarga(url, nombre, ancho);
+
+									}).catch(function () {
+										//console.log(res)
+									}).finally(function () {
+										angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+
 										bz.desabilitado = true;
 										bz.promocion = true;
 										bz.peticion = false;
 									});
-								} else {
-									$scope.guardarLogo(historicoResolve.logo, "Logo y nombre", historicoResolve.idElemento, true).then(function (res) {
-
-										logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
-											var url = "";
-											if (res.zip) {
-
-												url = res.zip.replace("public", "");
-
-											} else if (res.png) {
-
-												url = res.png.replace("public", "");
-
-											}
-
-											logosService.dispararDescarga(url, nombre, ancho);
-
-										}).catch(function () {
-											//console.log(res)
-										}).finally(function () {
-											angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
-
-											bz.desabilitado = true;
-											bz.promocion = true;
-											bz.peticion = false;
-										});
-									});
-								}
+								});
 							}
 
-						}).catch(function () {
+
+						}).catch(function (res) {
+
+							if (res === 'exceso') {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Tiempo excedido, Debes compartir en facebook para obtener tu logo gratis.",
+										clase: "danger"
+									}
+								}));
+
+								return;
+
+							}
+
 							$mdToast.show($mdToast.base({
 								args: {
-									mensaje: "Debes compartir para obtener tu logo gratis.",
+									mensaje: "Debes compartir en facebook para obtener tu logo gratis.",
 									clase: "danger"
 								}
 							}));
+
+							bz.peticion = false;
+
 						}).finally(function () {
 							bz.peticion = false;
 						});
@@ -2098,7 +2275,7 @@ angular.module("disenador-de-logos")
 							var datosPago = {
 								status: true,
 								datos: {
-									logo: historicoResolve.logo,
+									logo: $scope.datos.logo,
 									idElemento: bz.idElemento,
 									tipo: "Logo y nombre",
 									plan: {
@@ -2124,8 +2301,8 @@ angular.module("disenador-de-logos")
 							};
 
 
-							if (historicoResolve.idPadre) {
-								datosPago.datos.atributos.padre = historicoResolve.idPadre;
+							if ($scope.datos.idPadre) {
+								datosPago.datos.atributos.padre = $scope.datos.idPadre;
 							}
 
 							if (bz.fuentes.eslogan) {
@@ -2144,6 +2321,26 @@ angular.module("disenador-de-logos")
 
 				};
 
+				bz.compatirFacebook = function () {
+					var defered = $q.defer();
+					var promise = defered.promise;
+
+					var promesas = [$timeout(function () {
+						return "exceso";
+					}, 60000), facebookService.compartir()]
+
+					$q.race(promesas).then(function (res) {
+						if (res === "exceso") {
+							defered.reject('exceso');
+						} else {
+							defered.resolve(res);
+						}
+					}).catch(function () {
+						defered.reject();
+					});
+					return promise;
+
+				}
 			}]
 		};
 

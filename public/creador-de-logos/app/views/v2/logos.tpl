@@ -23,23 +23,25 @@
             <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
 
                 <div class="tab-freelance col s12">
-                    <button ng-click="logos.opcionMostrar='guardados'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='guardados'}">GUARDADOS</button>
-                    <button ng-click="logos.opcionMostrar='adquiridos'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='adquiridos'}">COMPRADOS</button>
+                    <button ng-click="::logos.opcionMostrar='guardados'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='guardados'}">GUARDADOS</button>
+                    <button ng-click="::logos.opcionMostrar='adquiridos'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='adquiridos'}">COMPRADOS</button>
                 </div>
                 <!--PENDIENTES DE APROBACION-->
                 <div class="col s12" ng-switch-when="guardados">
-                    <carousel-mis-logos ng-if="logos.terminados.guardados" logos="logos.guardados" callback="['guardados', logos.buscarAtributo, logos.abrirModal, logos.borrarLogo, logos.mostrarPlanes]" elegido="logos.elegido"></carousel-mis-logos>
+                    <carousel-mis-logos ng-if="logos.terminados.guardados" logos="logos.guardados" callback="['guardados', logos.buscarAtributo, logos.abrirModal, logos.borrarLogo, logos.mostrarPlanes]"
+                        elegido="logos.elegido"></carousel-mis-logos>
                 </div>
                 <!--APROBADOS-->
                 <div class="col s12" ng-switch-when="adquiridos">
-                    <carousel-mis-logos ng-if="logos.terminados.comprados" logos="logos.comprados" callback="['adquiridos', logos.buscarAtributo, logos.abrirModal]" elegido="logos.elegido"></carousel-mis-logos>
+                    <carousel-mis-logos ng-if="logos.terminados.comprados" logos="logos.comprados" callback="['adquiridos', logos.buscarAtributo, logos.abrirModal]"
+                        elegido="logos.elegido"></carousel-mis-logos>
                 </div>
-    
+
             </div>
 
         </div>
 
-		<div class="contenedor-previews col s3" style="position:static; padding:0; overflow-y: auto">
+        <div class="contenedor-previews col s3" style="position:static; padding:0; overflow-y: auto">
             <div class="cerrar-contenedor-p" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
                 <i class="material-icons cerrar">clear</i>
             </div>
@@ -137,7 +139,7 @@
         </div>
     </div>
 
-    
+
 </section>
 
 <div class="overlay" ng-class="{'show': logos.mostrarModalSocial, 'hide': !logos.mostrarModalSocial}">
@@ -177,5 +179,4 @@
     </div>
 </div>
 
-<bazam-planes estado="logos.abrirPlanes" id='logos.logo.idLogo' datos="logos.datosComprar" guardar-logo="logos.guardarLogo"
-    ng-if="logos.abrirPlanes"></bazam-planes>
+<bazam-planes estado="logos.abrirPlanes" id='logos.logo.idLogo' datos="logos.datosComprar" guardar-logo="logos.guardarLogo"></bazam-planes>

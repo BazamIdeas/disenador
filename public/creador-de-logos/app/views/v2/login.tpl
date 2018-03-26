@@ -105,7 +105,7 @@
 
                                     <md-input-container style="width: 100%;padding: 0 0rem;margin-top: 0;">
                                         <md-select ng-model="login.datosRegistro.pais" placeholder="Pais" required>
-                                            <md-option ng-repeat="(llave, valor) in login.paises track by $index" ng-value="llave" ng-selected="llave == login.paisDefecto">{{valor}}</md-option>
+                                            <md-option ng-repeat="(llave, valor) in login.paises track by $index" ng-value="llave" ng-selected="llave == login.paisDefecto">{{::valor}}</md-option>
                                         </md-select>
                                     </md-input-container>
                                 </div>
