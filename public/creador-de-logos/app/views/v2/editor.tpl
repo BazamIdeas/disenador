@@ -3,9 +3,11 @@
 		font-family: '{{fuente.nombre}}';
 		src: url('{{fuente.url}}');
 	}*/
+
 	input#nombre {
 		font-family: '{{editor.logo.fuente.nombre}}' !important;
 	}
+
 	input#eslogan {
 		font-family: '{{editor.logo.fuenteEslogan.nombre}}' !important;
 	}
@@ -62,8 +64,8 @@
 
 <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
 	<div class="row margin-bottom-0" style="overflow: hidden;">
-		<div class="col s2 editor-p sidebar-1" ng-form="editor.datosForm"
-			style="padding: 10px 0px 0px 0px !important;text-align: center;" ng-init="editor.menuSwitch = 1">
+		<div class="col s2 editor-p sidebar-1" ng-form="editor.datosForm" style="padding: 10px 0px 0px 0px !important;text-align: center;"
+		    ng-init="editor.menuSwitch = 1">
 
 			<div class="col s4" style="padding: 0">
 				<div ng-click="editor.menuSwitch = 1; editor.cerrarContenedores()" ng-class="{'seleccionadoo': editor.menuSwitch == 1}" class="tab">
@@ -93,14 +95,16 @@
 						</div>
 
 						<div class="estilos-fuentes col s12" style="padding: 0 !important;position: relative">
-							<md-radio-group name="fuente" required ng-model="editor.categoriaTextoSeleccionada" ng-change="editor.categoriaEsloganSeleccionada = false"  class="md-primary">
-								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias" ng-value="fuenteCategoria.idCategoria" ng-click="editor.abrirContenedor('fuentes', true)"> <!--ng-disabled=" d.isDisabled "-->
+							<md-radio-group name="fuente" required ng-model="editor.categoriaTextoSeleccionada" ng-change="editor.categoriaEsloganSeleccionada = false"
+							    class="md-primary">
+								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias" ng-value="fuenteCategoria.idCategoria" ng-click="editor.abrirContenedor('fuentes', true)">
+									<!--ng-disabled=" d.isDisabled "-->
 									<md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
 									<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
 								</md-radio-button>
 							</md-radio-group>
-	
-							 <!-- VALIDACION -->
+
+							<!-- VALIDACION -->
 							<div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
 								<div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
 								</br>
@@ -122,7 +126,7 @@
 								</div>-->
 
 						<div class="col s6 estilo-texto" style="padding:0;" bazam-ayuda data-titulo="Negrita, Cursiva, Tamaño" data-texto="Cambia a Negrita (N), Cursiva (C), Aumente (+) o disminuya (-) el tamaño del texto"
-							data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
+						    data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
 							<div class="negrita" ng-click="editor.cambioPropiedad('bold')">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
 								N
@@ -132,7 +136,7 @@
 								C
 							</div>
 						</div>
-						<div class=" col s6 estilo-texto" style="padding:0;" >
+						<div class=" col s6 estilo-texto" style="padding:0;">
 							<div class="menos" ng-click="editor.cambioTamano('texto', false)">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
 								-
@@ -157,24 +161,25 @@
 							<div class="input-field col s12" style="padding: 0 !important">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
 								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}"
-									ng-change="editor.cambioTexto(editor.logo.eslogan, true)"
-									ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
+								    ng-change="editor.cambioTexto(editor.logo.eslogan, true)" ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
 							</div>
 
 							<div class="estilos-fuentes col s12" style="padding: 0 !important;position: relative">
-									<md-radio-group name="fuente" required ng-model="editor.categoriaEsloganSeleccionada" ng-change="editor.categoriaTextoSeleccionada = false" class="md-primary">
-										<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias" ng-value="fuenteCategoria.idCategoria" ng-click="editor.abrirContenedor('fuentes', true)"> <!--ng-disabled=" d.isDisabled "-->
-											<md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
-											<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
-										</md-radio-button>
-									</md-radio-group>
-			
-									 <!-- VALIDACION -->
-									<div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
-										<div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
-										</br>
-									</div>
+								<md-radio-group name="fuente" required ng-model="editor.categoriaEsloganSeleccionada" ng-change="editor.categoriaTextoSeleccionada = false"
+								    class="md-primary">
+									<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias" ng-value="fuenteCategoria.idCategoria" ng-click="editor.abrirContenedor('fuentes', true)">
+										<!--ng-disabled=" d.isDisabled "-->
+										<md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
+										<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
+									</md-radio-button>
+								</md-radio-group>
+
+								<!-- VALIDACION -->
+								<div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
+									<div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
+									</br>
 								</div>
+							</div>
 
 							<!--<md-input-container style="width:100%;">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Tipografia</md-tooltip>
@@ -190,7 +195,7 @@
 										<div color-picker color-picker-model="editor.colorEslogan" ng-model="editor.colorEslogan" ng-change="editor.cambioColor(editor.colorEslogan, 'eslogan')" color-picker-position="right" class="color" style="background-color: {{editor.colorEslogan}}"></div>               
 									</div>-->
 
-							<div class=" col s6 estilo-texto" style="padding:0;" >
+							<div class=" col s6 estilo-texto" style="padding:0;">
 								<div class="negrita" ng-click="editor.cambioPropiedad('bold', true)">
 									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
 									N
@@ -201,7 +206,7 @@
 								</div>
 							</div>
 
-							<div class=" col s6 estilo-texto" style="padding:0;" >
+							<div class=" col s6 estilo-texto" style="padding:0;">
 								<div class="menos" ng-click="editor.cambioTamano('eslogan', false)">
 									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
 									-
@@ -315,20 +320,25 @@
 				<div class="row padding-bottom-0 margin-bottom-0">
 					<div class="col l12" style="position: relative; padding:0 !important; border-bottom: 1px solid var(--principal);cursor:pointer; overflow-y: scroll;
 					max-height: 80vh;">
-                       <!-- <div class="fuente" ng-repeat="fuente in editor.fuentes">
+						<!-- <div class="fuente" ng-repeat="fuente in editor.fuentes">
                             <p class="text-center">{{}}</p>
 						</div>-->
 
 						<!-- TEXTO PRINCIPAL LISTA DE FUENTES -->
-						<md-radio-group ng-model="editor.logo.fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')"  class="md-primary">
-							<md-radio-button class="opcion-fuente" ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaTextoSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
+						<md-radio-group ng-model="editor.logo.fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" class="md-primary">
+							<md-radio-button class="opcion-fuente" ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaTextoSeleccionada }"
+							    ng-value="{url:fuente.url, nombre: fuente.nombre}">
+								<!--ng-disabled=" d.isDisabled "-->
 								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuente.nombre == fuente.nombre ? 'color: var(--principal) !important;    transform: scale(1.2) !important' : 'color: black !important'}};     letter-spacing: 2px;">{{fuente.nombre}}</span>
 							</md-radio-button>
 						</md-radio-group>
 
 						<!-- ESLOGAN LISTA DE FUENTES -->
-						<md-radio-group class="fuente" ng-model="editor.logo.fuenteEslogan" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')"  class="md-primary">
-							<md-radio-button ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaEsloganSeleccionada }"  ng-value="{url:fuente.url, nombre: fuente.nombre}"> <!--ng-disabled=" d.isDisabled "-->
+						<md-radio-group class="fuente" ng-model="editor.logo.fuenteEslogan" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')"
+						    class="md-primary">
+							<md-radio-button ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaEsloganSeleccionada }"
+							    ng-value="{url:fuente.url, nombre: fuente.nombre}">
+								<!--ng-disabled=" d.isDisabled "-->
 								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuenteEslogan.nombre == fuente.nombre ? 'color: red  !important' : 'color: black !important'}}">{{fuente.nombre}}</span>
 							</md-radio-button>
 						</md-radio-group>
@@ -391,15 +401,15 @@
 
 
 						<div class="col l3 xl2 contenedor-opcion-icono" ng-if="!editor.iconos.length" ng-repeat="icono in [1,2,3,4,5,6]">
-						    <div class="opcion-icono loading-purple">
+							<div class="opcion-icono loading-purple">
 								<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
 									<img style="width:100%" src="assets/images/a.png" alt="">
 									<div style="position:absolute;display: flex;
 										flex-flow: column;top: 0;height: 100%;
 										justify-content: center; text-align:center; width:100%;">
 									</div>
-									</div>
 								</div>
+							</div>
 						</div>
 
 
@@ -417,16 +427,16 @@
 
 						<div class="col l3 xl2 contenedor-opcion-icono" ng-if="editor.iconos.length">
 							<div class="opcion-icono" ng-class="{ 'loading-purple': !editor.completadoBuscar}">
-							<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
-								<img style="width:100%" src="assets/images/a.png" alt="">
-								<div style="position:absolute;display: flex;
+								<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
+									<img style="width:100%" src="assets/images/a.png" alt="">
+									<div style="position:absolute;display: flex;
 									flex-flow: column;top: 0;height: 100%;
 									justify-content: center; text-align:center; width:100%;">
-									<i class="material-icons">add</i>
-									<span>BUSCAR MAS</span>
+										<i class="material-icons">add</i>
+										<span>BUSCAR MAS</span>
+									</div>
 								</div>
-							    </div>
-						    </div>
+							</div>
 						</div>
 
 					</div>
@@ -539,5 +549,4 @@
 	</div>
 </section>
 
-<bazam-planes estado="editor.abrirPlanes" id='editor.logo.idLogo' datos="editor.datosComprar" guardar-logo="editor.guardarLogo"
-    ng-if="editor.abrirPlanes"></bazam-planes>
+<bazam-planes estado="editor.abrirPlanes" id='editor.logo.idLogo' datos="editor.datosComprar" guardar-logo="editor.guardarLogo"></bazam-planes>
