@@ -112,7 +112,7 @@
                                     <td ng-if="d.bloqueado == 0">Activo</td>
                                     <td ng-if="d.bloqueado == 1">Bloqueado</td>
                                     <td>
-                                        <md-button ng-if="d.deuda.deuda > 0 " class="md-fab md-mini md-warn" ng-disabled="designer.peticion" ng-click="designer.calDisenador(d)">
+                                        <md-button ng-if="d.deuda.deuda < 0 " class="md-fab md-mini md-warn" ng-disabled="designer.peticion" ng-click="designer.metodoPagoi = true; designer.datosPagar = d;">
                                             <md-tooltip md-direction="top" md-visible="tooltipVisible">Pagar</md-tooltip>
                                             <md-icon class="material-icon">payment</md-icon>
                                         </md-button>
@@ -156,12 +156,13 @@
                 <div layout-padding class="content-scroll elemento">
                     <div layout layout-align="space-around start" layout-wrap>
                         <div flex="33" layout-padding class="margen_inferior" ng-repeat="logod in designer.logosDisenador">
-                            <div md-whiteframe ng-click="designer.mostrar('o',$index)">
+                            <div md-whiteframe ng-click="designer.mod = !designer.mod;
+                            designer.modfire2 = $index;">
                                 <bazam-visualizar data-svg="designer.base64(logod.logo)"></bazam-visualizar>
                             </div>
                             <div class="botones-logos-disenadores" layout layout-align="center center" ng-if="designer.modfire2 == $index && designer.mod && !designer.cal2">
                                 <div ng-if="!logod.calificado">
-                                    <md-button class="md-fab md-mini md-warn" ng-click="designer.mostrar('calificacion-aprobados',$index)">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="designer.cal2 = !designer.cal2; designer.modfire = index;">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Calificar</md-tooltip>
                                         <md-icon class="material-icon">check</md-icon>
                                     </md-button>

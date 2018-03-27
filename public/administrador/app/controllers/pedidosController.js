@@ -3,13 +3,6 @@ angular.module("administrador")
     .controller('pedidosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'pedidosService', 'SweetAlert', 'notificacionService', '$base64', function ($state, $mdSidenav, $mdMenu, $scope, pedidosService, SweetAlert, notificacionService, $base64) {
 
         var bz = this;
-        bz.elementos = [];
-
-        bz.base64 = function (icono) {
-
-            return $base64.decode(icono);
-
-        }
 
         /* FILTROS PARA LOS PEDIDOS */
 
@@ -37,7 +30,7 @@ angular.module("administrador")
             bz.peticion = true;
             bz.elementos = [];
             bz.mostrarP = !bz.mostrarP;
-            bz.mostrarD = false
+            bz.mostrarD = false;
 
             pedidosService.listarPedidos().then(function (res) {
                 angular.forEach(res.data, function (valor, llave) {
@@ -48,7 +41,6 @@ angular.module("administrador")
                     bz.filtros.paises.push(valor.pais);
                 })
             }).catch(function () {
-                bz.valPedidos = true;
                 notificacionService.mensaje('No existen pedidos.');
             }).finally(function () {
                 bz.peticion = false;
@@ -63,12 +55,11 @@ angular.module("administrador")
 
         bz.pedidoDetalles = function (id, index) {
             bz.peticion = true;
-            bz.ac = id;
             bz.pedidoActivoIndex = index;
             bz.pedidoDetalle = {};
-            bz.mostrarD = true;
 
             pedidosService.datosPedido(id).then(function (res) {
+                bz.mostrarD = true;
                 bz.pedidoDetalle = res.data[0];
             }).catch(function () {
                 notificacionService.mensaje('No existen pedidos para este cliente.');
@@ -77,19 +68,25 @@ angular.module("administrador")
             })
         }
 
+
         /* CAMBIAR ESTADO PEDIDO */
+
+        bz.estadoPedidos = ['EN PROCESO', 'EN ESPERA', 'CANCELADO', 'COMPLETADO'];
 
         bz.cambiarEstado = function (id, estado) {
             bz.peticion = true;
             pedidosService.cambiarEstado(id, estado).then(function () {
-                bz.modInit = !bz.modInit;
-                notificacionService.mensaje('Estado Cambiado');
-                bz.pedidoDetalle.estado = estado;
+                notificacionService.mensaje("Estado Cambiado!");
                 bz.elementos[bz.pedidoActivoIndex].estado = estado;
-
+                bz.modInit = !bz.modInit;
+            }).catch(function (res) {
+                notificacionService.mensaje(res);
             }).finally(function () {
                 bz.peticion = false;
-            })
-        }
+            });
+        };
+
+
+        bz.base64 = $base64;
 
     }])
