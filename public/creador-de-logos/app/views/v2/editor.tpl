@@ -41,11 +41,11 @@
 					<span class="principal">Cuadricula</span>
 				</div>
 				<div class="col l5 xl4 offset-xl4">
-					<button class="boton-oborder" ng-class="{'active': editor.borradores}" ng-click="::editor.abrirContenedor('borradores')" bazam-ayuda
+					<!--<button class="boton-oborder" ng-class="{'active': editor.borradores}" ng-click="::editor.abrirContenedor('borradores')" bazam-ayuda
 					    data-titulo="Borradores" data-texto="Guarde versiones de su logo para compararlos y restaurar la mejor opción" data-clases="['corner-lt']"
 					    data-identificador="ayuda-borradores" data-orientacion="right" data-paso="12" bazam-pasos-ayuda>
 						<i class="material-icons">queue</i> BORRADORES</button>
-
+					-->
 					<!--<button class="boton-oborder" ng-class="{'active': editor.preview}" ng-click="editor.mostrarPreviews()" bazam-ayuda data-titulo="Previews"
 					    data-texto="Previsualice su logo en diferentes elementos publicitarios y de papelería" data-clases="['corner-lt']" data-identificador="ayuda-preview"
 					    data-orientacion="right" data-paso="13" bazam-pasos-ayuda>
@@ -163,7 +163,7 @@
 							<!--<p class="text-center principal titulo" style="margin-top: 40px;">ESLOGAN</p>-->
 							<div class="input-field col s12" style="padding: 0 !important">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
-								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}"
+								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-click="editor.quitarEsloganDefault(editor.logo.eslogan)" ng-model-options="{allowInvalid: true}"
 								    ng-change="editor.cambioTexto(editor.logo.eslogan, true)" ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
 							</div>
 

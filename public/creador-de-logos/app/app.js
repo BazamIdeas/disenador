@@ -424,117 +424,85 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
-			if (error == "STEPS") {
-
-				$state.go("principal.comenzar");
-
-			} else if (error === "AUTH_REQUIRED") {
-
+			if (error === "AUTH_REQUIRED") {
 
 				switch (toState.name) {
 
-					case "editor":
+				case "editor":
 
-						switch (fromState.name) {
+					switch (fromState.name) {
 
-							case "":
-								$state.go("login");
-								break;
+					default:
+						$state.go("login");
+					}
 
-							case "principal.combinaciones":
-								break;
+					break;
 
-							case "logosGaleria":
-								break;
+				case "pago":
+
+					switch (fromState.name) {
+
+					default:
+						$state.go("login");
+					}
+
+					break;
 
 
-							default:
-								$state.go("login");
-						}
+				case "pagoCompleto":
+					switch (fromState.name) {
 
+					case "":
+						$state.go("login");
 						break;
 
-					case "planes":
+					default:
+						$state.go("login");
+					}
 
-						switch (fromState.name) {
+					break;
 
-							case "":
-								$state.go("login");
-								break;
+				case "cuenta":
+					switch (fromState.name) {
 
-							default:
-
-								$state.go("login");
-						}
-
+					case "":
+						$state.go("login");
 						break;
 
-					case "pago":
+					default:
+						$state.go("login");
+					}
 
-						switch (fromState.name) {
+					break;
 
-							case "":
-								$state.go("login");
-								break;
+				case "logos":
+					switch (fromState.name) {
 
-							default:
-								$state.go("login");
-						}
-
+					case "":
+						$state.go("login");
 						break;
 
+					default:
+						$state.go("login");
+					}
 
-					case "pagoCompleto":
-						switch (fromState.name) {
+					break;
 
-							case "":
-								$state.go("login");
-								break;
+				case "descargar":
+					switch (fromState.name) {
 
-							default:
-								$state.go("login");
-						}
-
+					case "":
+						$state.go("login");
 						break;
 
-					case "cuenta":
-						switch (fromState.name) {
+					default:
+						$state.go("login");
+					}
 
-							case "":
-								$state.go("login");
-								break;
-
-							default:
-								$state.go("login");
-						}
-
-						break;
-
-					case "logos":
-						switch (fromState.name) {
-
-							case "":
-								$state.go("login");
-								break;
-
-							default:
-								$state.go("login");
-						}
-
-						break;
-
-					case "descargar":
-						switch (fromState.name) {
-
-							case "":
-								$state.go("login");
-								break;
-
-							default:
-								$state.go("login");
-						}
-
-						break;
+					break;
+				
+				default:
+					$state.go("inicio");
 
 
 				}
@@ -549,23 +517,23 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				switch (toState.name) {
 
-					case "editor":
+				case "editor":
 
-						$state.go("principal.comenzar");
-						break;
+					$state.go("inicio");
+					break;
 
-					case "planes":
+				case "pago":
 
-						$state.go("editor");
-						break;
+					$state.go("inicio");
+					break;
 
-					case "pago":
-
-						$state.go("planes");
-						break;
-
+				default: 
+					$state.go("inicio")
 
 				}
+
+				
+
 
 			}
 			console.log(error);

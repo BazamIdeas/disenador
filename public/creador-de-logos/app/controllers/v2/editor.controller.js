@@ -93,8 +93,6 @@ angular.module("disenador-de-logos")
 
 		});
 
-
-
 		bz.completadoGuardar = true;
 
 		bz.guardarLogo = function (logo, tipoLogo, idElemento, regresar) {
@@ -299,6 +297,15 @@ angular.module("disenador-de-logos")
 				$rootScope.$broadcast("editor:eliminarEslogan");
 			}
 		};
+
+		bz.quitarEsloganDefault = function(eslogan){
+			if(eslogan === "Mi eslogan aquí"){
+				bz.logo.eslogan = "";
+
+				bz.cambioTexto("", true);
+			}
+		};
+
 
 
 		/////////////////////////////////////
