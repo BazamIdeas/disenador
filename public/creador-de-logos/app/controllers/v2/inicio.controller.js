@@ -27,8 +27,8 @@ angular.module("disenador-de-logos")
 				svg: svg,
 				colores: colores,
 				logoCompleto: logo
-			}
-		}
+			};
+		};
 
 
 		/* Etiquetas */
@@ -134,9 +134,9 @@ angular.module("disenador-de-logos")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
-						promesaIconos,
-						promesaFuentes
-					])
+					promesaIconos,
+					promesaFuentes
+				])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {
@@ -161,7 +161,6 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.preAvanzar = function (logo) {
-
 
 			bz.logoSeleccionado = bz.logos.indexOf(logo);
 
@@ -191,7 +190,6 @@ angular.module("disenador-de-logos")
 					colores: bz.logos[bz.logoSeleccionado].colores
 				}
 			};
-
 
 			$state.go("editor", datos);
 
@@ -260,20 +258,21 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.comprarLogo = function () {
+		bz.comprarLogo = function (svg, colores, logo) {
 
-
+			bz.seleccionarLogo(svg, colores, logo);
+			
 			bz.datosComprar = {
-				logo: bz.logoElegido.svg,
+				logo: svg,
 				idLogo: null,
-				idElemento: bz.logoElegido.logoCompleto.icono.idElemento,
+				idElemento: logo.icono.idElemento,
 				tipo: "Logo y nombre",
 				fuentes: {
-					principal: bz.logoElegido.logoCompleto.fuente.idElemento
+					principal: logo.fuente.idElemento
 				},
 				colores: {
-					icono: bz.logoElegido.colores[1],
-					nombre: bz.logoElegido.colores[2]
+					icono: colores[1],
+					nombre: colores[2]
 				},
 				planes: bz.planes,
 				moneda: bz.moneda

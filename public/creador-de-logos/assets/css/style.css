@@ -522,7 +522,6 @@ button.boton-verde:hover {
 
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.0);
-    -webkit-border-radius: 0;
     border-radius: 0;
 }
 
@@ -531,7 +530,6 @@ button.boton-verde:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 0;
     border-radius: 0;
     background: rgba(97, 39, 135, 1);
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
@@ -2331,7 +2329,10 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 .tab.seleccionadoo .titulo {
     color: var(--principal) !important;
+    -webkit-transition: 0.2s -webkit-transform;
+    transition: 0.2s -webkit-transform;
     transition: 0.2s transform;
+    transition: 0.2s transform, 0.2s -webkit-transform;
 }
 
 .tab {
@@ -2842,7 +2843,7 @@ textarea {
     color: #fff;
     opacity: 0;
     border-radius: 30px;
-    padding: 4px 16px;
+    padding: 12%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2853,15 +2854,27 @@ textarea {
     -ms-flex-align: center;
     align-items: center;
     font-family: futura-heavy !important;
+    -webkit-transition: opacity 1s, width 2s; -webkit-transform: 2s; transform: 2s;
     -webkit-transition: opacity 1s;
     transition: opacity 1s;
     cursor: pointer;
     bottom: 0;
 }
 
+
 .logo-container-m span.seleccionar:hover {
     background-color: #fff;
     color: var(--principal);
+    width: 50%;
+}
+
+.logo-container-m span.seleccionar i {
+    transition: -webkit-transform 2s; -webkit-transform: 2s; transform: 2s;
+}
+
+.logo-container-m span.seleccionar:hover i {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
 }
 
 .logo-container-m.logo-active-m:hover span.seleccionar {
@@ -2885,6 +2898,7 @@ textarea {
     background-color: #fcfcfc;
     border: none;
     padding: 15px;
+    -webkit-transition: .1s all;
     transition: .1s all;
 }
 
@@ -3063,7 +3077,8 @@ div.opcion-icono bazam-visualizar svg {
 .imagen-perfil img {
     width: 100%;
     border-radius: 50%;
-    box-shadow: 0px 0px 1px 2px #7a8183;
+    -webkit-box-shadow: 0px 0px 1px 2px #7a8183;
+            box-shadow: 0px 0px 1px 2px #7a8183;
 }
 
 .imagen-perfil>div {
@@ -3135,6 +3150,15 @@ div.combinacion {
     border-radius: 8px;
 }
 
+@-webkit-keyframes topToMiddle {
+    0% {
+        top: -50%;
+    }
+    100% {
+        top: 33%;
+    }
+}
+
 @keyframes topToMiddle {
     0% {
         top: -50%;
@@ -3148,34 +3172,43 @@ div.combinacion.seleccionada {
     z-index: 2;
     width: 22% !important;
     border-radius: 4px;
-    box-shadow: 0px 0px 3px 0px #000000;
+    -webkit-box-shadow: 0px 0px 3px 0px #000000;
+            box-shadow: 0px 0px 3px 0px #000000;
     position: absolute !important;
     left: 33% !important;
     background-color: rgb(153, 153, 102);
-    animation-name: topToMiddle;
-    animation-duration: 1s;
+    -webkit-animation-name: topToMiddle;
+            animation-name: topToMiddle;
+    -webkit-animation-duration: 1s;
+            animation-duration: 1s;
     top: 33% !important;
 }
 
-@keyframes menu-animation {
+@-webkit-keyframes menu-animation {
     0% {
         opacity: 0;
-        transform: scale(0.04) translateY(300%);
+        -webkit-transform: scale(0.04) translateY(300%);
+                transform: scale(0.04) translateY(300%);
         background: var(--principal);
     }
     40% {
-        transform: scale(0.04) translateY(0);
+        -webkit-transform: scale(0.04) translateY(0);
+                transform: scale(0.04) translateY(0);
+        -webkit-transition: ease-out;
         transition: ease-out;
     }
     40% {
-        transform: scale(0.04) translateY(0);
+        -webkit-transform: scale(0.04) translateY(0);
+                transform: scale(0.04) translateY(0);
     }
     60% {
         opacity: 1;
-        transform: scale(0.02) translateY(0px);
+        -webkit-transform: scale(0.02) translateY(0px);
+                transform: scale(0.02) translateY(0px);
     }
     61% {
-        transform: scale(0.04);
+        -webkit-transform: scale(0.04);
+                transform: scale(0.04);
     }
     99.9% {
         height: 0;
@@ -3183,10 +3216,63 @@ div.combinacion.seleccionada {
         border-radius: 100%;
     }
     100% {
-        transform: scale(2);
+        -webkit-transform: scale(2);
+                transform: scale(2);
         height: 100%;
         padding-bottom: 0;
         border-radius: 0;
+    }
+}
+
+@keyframes menu-animation {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(0.04) translateY(300%);
+                transform: scale(0.04) translateY(300%);
+        background: var(--principal);
+    }
+    40% {
+        -webkit-transform: scale(0.04) translateY(0);
+                transform: scale(0.04) translateY(0);
+        -webkit-transition: ease-out;
+        transition: ease-out;
+    }
+    40% {
+        -webkit-transform: scale(0.04) translateY(0);
+                transform: scale(0.04) translateY(0);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: scale(0.02) translateY(0px);
+                transform: scale(0.02) translateY(0px);
+    }
+    61% {
+        -webkit-transform: scale(0.04);
+                transform: scale(0.04);
+    }
+    99.9% {
+        height: 0;
+        padding-bottom: 100%;
+        border-radius: 100%;
+    }
+    100% {
+        -webkit-transform: scale(2);
+                transform: scale(2);
+        height: 100%;
+        padding-bottom: 0;
+        border-radius: 0;
+    }
+}
+
+@-webkit-keyframes opacity {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 
@@ -3209,6 +3295,21 @@ div.combinacion.seleccionada {
     100% { height: 0% }
 }*/
 
+@-webkit-keyframes outIn {
+    0% {
+        top: 3%
+    }
+    45% {
+        top: -100%
+    }
+    50% {
+        bottom: -100%;
+    }
+    100% {
+        top: 3%
+    }
+}
+
 @keyframes outIn {
     0% {
         top: 3%
@@ -3224,20 +3325,39 @@ div.combinacion.seleccionada {
     }
 }
 
-@keyframes bounce {
+@-webkit-keyframes bounce {
     0% {
-        transform: scale(1)
+        -webkit-transform: scale(1);
+                transform: scale(1)
     }
     50% {
-        transform: scale(1.3)
+        -webkit-transform: scale(1.3);
+                transform: scale(1.3)
     }
     100% {
-        transform: scale(1)
+        -webkit-transform: scale(1);
+                transform: scale(1)
+    }
+}
+
+@keyframes bounce {
+    0% {
+        -webkit-transform: scale(1);
+                transform: scale(1)
+    }
+    50% {
+        -webkit-transform: scale(1.3);
+                transform: scale(1.3)
+    }
+    100% {
+        -webkit-transform: scale(1);
+                transform: scale(1)
     }
 }
 
 .logo-elegido.cambio {
-    animation: outIn 1s ease-out forwards;
+    -webkit-animation: outIn 1s ease-out forwards;
+            animation: outIn 1s ease-out forwards;
 }
 
 /*.logo-elegido:before {
@@ -3282,7 +3402,8 @@ div.combinacion.seleccionada {
     height: 0;
     padding-bottom: 100%;
     border-radius: 100%;
-    transform: scale(0.04), translateY(9999px);
+    -webkit-transform: scale(0.04), translateY(9999px);
+            transform: scale(0.04), translateY(9999px);
     overflow: hidden;
 }
 
@@ -3292,7 +3413,8 @@ div.combinacion.seleccionada {
 }
 
 .overlay-combinacion.open:before {
-    animation: menu-animation 0.8s ease-out forwards;
+    -webkit-animation: menu-animation 0.8s ease-out forwards;
+            animation: menu-animation 0.8s ease-out forwards;
 }
 
 .overlay-combinacion div {
@@ -3302,12 +3424,14 @@ div.combinacion.seleccionada {
     left: calc(50% - 26%);
     top: 3%;
     border-radius: 15px;
-    box-shadow: 0px 0px 3px 1px rgb(255, 255, 255);
+    -webkit-box-shadow: 0px 0px 3px 1px rgb(255, 255, 255);
+            box-shadow: 0px 0px 3px 1px rgb(255, 255, 255);
 }
 
 .overlay-combinacion button:not(.inicio-editar),
 .overlay-combinacion.open div {
-    animation: opacity 1.6s ease-out forwards;
+    -webkit-animation: opacity 1.6s ease-out forwards;
+            animation: opacity 1.6s ease-out forwards;
 }
 
 .overlay-combinacion button {
@@ -3345,10 +3469,14 @@ div.combinacion.seleccionada {
 /* selector de colores */
 
 .selector-de-colores .md-select-value>span:not(.md-select-icon) .md-text {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
 .estilo-de-color .md-text {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
 }
@@ -3369,9 +3497,14 @@ div.combinacion.seleccionada {
 }
 
 md-select[multiple].selector-de-colores md-select-value>span {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 
 md-select[multiple].selector-de-colores md-select-value span>div.md-text>*:not(:first-child) {
@@ -3454,13 +3587,20 @@ span.estilo {
     border: 2px solid var(--principal);
     color: var(--principal);
     font-size: 28px;
+    -webkit-transition: all 0.2s;
     transition: all 0.2s;
     border-radius: 5px;
     width: 40px;
     height: 40px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 span.estilo.seleccionado {
@@ -3482,7 +3622,8 @@ span.estilo.seleccionado {
 }
 
 md-chips .md-chips {
-    box-shadow: 0 2px var(--principal);
+    -webkit-box-shadow: 0 2px var(--principal);
+            box-shadow: 0 2px var(--principal);
 }
 
 .scroll-wrapper.sidebar-1 .scroll-content {
@@ -3491,20 +3632,24 @@ md-chips .md-chips {
 }
 
 div.color-picker-bazam {
-    box-shadow: 0px 0px 3px 1px #b7b7b7b0;
+    -webkit-box-shadow: 0px 0px 3px 1px #b7b7b7b0;
+            box-shadow: 0px 0px 3px 1px #b7b7b7b0;
     border-radius: 5px;
     padding: .5% 0.5% 1.5% .5%;
 }
 
 div.color-picker-bazam div.color {
-    box-shadow: 0px 0px 1px 0px #585858d4;
+    -webkit-box-shadow: 0px 0px 1px 0px #585858d4;
+            box-shadow: 0px 0px 1px 0px #585858d4;
     border-radius: 15%;
     margin: .5%;
     cursor: pointer;
 }
 
 div.color-picker-bazam div.color:active {
-    transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+    -webkit-transition: .1s all;
     transition: .1s all;
 }
 
