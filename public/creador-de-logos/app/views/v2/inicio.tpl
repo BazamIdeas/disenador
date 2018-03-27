@@ -143,13 +143,13 @@
 
             <div class="row" style="margin-bottom:0;overflow-y: scroll;height: 100%;" ng-if="inicio.logos.length">
 
-                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" 
-                    ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
+                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}" >
                     <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
                         callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
-                    <div ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);inicio.comprarLogo()">COMPRAR</div>
+                    <div ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)">COMPRAR</div>
                     <div ng-click="inicio.preAvanzar(logo)">EDITAR</div>
+                    <div ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);">ver</div>
                 </div>
 
             </div>

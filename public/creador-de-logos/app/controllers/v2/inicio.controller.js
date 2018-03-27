@@ -258,20 +258,21 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.comprarLogo = function () {
+		bz.comprarLogo = function (svg, colores, logo) {
 
-
+			bz.seleccionarLogo(svg, colores, logo);
+			
 			bz.datosComprar = {
-				logo: bz.logoElegido.svg,
+				logo: svg,
 				idLogo: null,
-				idElemento: bz.logoElegido.logoCompleto.icono.idElemento,
+				idElemento: logo.icono.idElemento,
 				tipo: "Logo y nombre",
 				fuentes: {
-					principal: bz.logoElegido.logoCompleto.fuente.idElemento
+					principal: logo.fuente.idElemento
 				},
 				colores: {
-					icono: bz.logoElegido.colores[1],
-					nombre: bz.logoElegido.colores[2]
+					icono: colores[1],
+					nombre: colores[2]
 				},
 				planes: bz.planes,
 				moneda: bz.moneda
