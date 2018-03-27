@@ -48,8 +48,9 @@
     <div class="row margin-bottom-0">
         <form class="margin-bottom-0" name="inicio.datosForm">
             <div class="col l2 sidebar-1" style="position: static !important">
-                <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo" data-clases="['corner-lt']"
-                    data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1" bazam-pasos-ayuda>
+                <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo"
+                    data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1"
+                    bazam-pasos-ayuda>
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
                     <label for="nombre" class="active">Nombre</label>
                 </div>
@@ -59,7 +60,7 @@
                         data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                         bazam-pasos-ayuda>
                         <md-select style="width:100%" ng-model="inicio.datos.categoria.icono" placeholder="Categoria" md-no-asterisk required>
-                            <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by $index" ng-value="categoria.idCategoria">{{categoria.nombreCategoria}}</md-option>
+                            <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
                         </md-select>
                     </md-input-container>
                 </div>
@@ -68,10 +69,10 @@
                         <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores"
                             aria-label="filtro" name="color" placeholder="Colores" required>
                             <md-optgroup label="Colores">
-                                <md-option ng-value="color" class="estilo-de-color" ng-repeat="color in inicio.colores" ng-selected="inicio.coloresIguales(color) || $index == 0">
-                                    <span ng-style="{'background-color': color[0]}" style="color:transparent;" class="color-p">{{color[0]}}</span>
-                                    <span ng-style="{'background-color': color[1]}">{{color[1]}}</span>
-                                    <span ng-style="{'background-color': color[2]}">{{color[2]}}</span>
+                                <md-option ng-value="color" class="estilo-de-color" ng-repeat="color in inicio.colores track by $index" ng-selected="inicio.coloresIguales(color) || $index == 0">
+                                    <span ng-style="{'background-color': color[0]}" style="color:transparent;" class="color-p">{{::color[0]}}</span>
+                                    <span ng-style="{'background-color': color[1]}">{{::color[1]}}</span>
+                                    <span ng-style="{'background-color': color[2]}">{{::color[2]}}</span>
                                 </md-option>
                             </md-optgroup>
                         </md-select>
@@ -84,17 +85,16 @@
                     </div>
                     <div class="estilos-fuentes" style="position: relative">
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
-                            <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes" ng-value="fuenteCategoria.idCategoria">
+                            <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria">
                                 <!--ng-disabled=" d.isDisabled "-->
-                                <md-tooltip md-direction="top">{{fuenteCategoria.nombreCategoria}}</md-tooltip>
+                                <md-tooltip md-direction="top">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
                                 <span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
                             </md-radio-button>
                         </md-radio-group>
 
                         <!-- VALIDACION -->
-                        <div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
-                            <div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
-                            </br>
+                        <div ng-messages="inicio.datosForm.fuente.$error" style="color:maroon; padding-bottom:20px;" role="alert " >
+                            <div ng-message="required" style="top: 64px; margin-bottom: 10px;" ng-show="inicio.datosForm.fuente.$error && inicio.datosForm.$submitted">Debes elegir un estilo de Tipografía.</div>
                         </div>
                     </div>
 
@@ -116,7 +116,7 @@
                         <label>Etiquetas</label>
                         <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
                             md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
-                            <span md-highlight-text="inicio.searchText">{{item.traduccion.valor}}</span>
+                            <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
                         </md-autocomplete>
                         <md-chip-template>
                             <span>
@@ -143,7 +143,7 @@
 
             <div class="row" style="margin-bottom:0;overflow-y: scroll;height: 100%;" ng-if="inicio.logos.length">
 
-                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-click="inicio.logoElegido = {svg: logo.cargado, colores: logo.colores, logoCompleto: logo}"
+                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo)"
                     ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}">
                     <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
                         callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
@@ -164,7 +164,7 @@
                 -->
 
                 <button class="inicio-editar" ng-click="inicio.preAvanzar(inicio.logoElegido.logoCompleto)">Editar</button>
-                <button class="inicio-comprar" ng-click="inicio.comprarLogo()">Comprar</button>
+                <button class="inicio-comprar" ng-click="::inicio.comprarLogo()">Comprar</button>
                 <button class="inicio-cerrar" ng-click="inicio.logoElegido = null">
                     <i class="material-icons cerrar">clear</i>
                 </button>

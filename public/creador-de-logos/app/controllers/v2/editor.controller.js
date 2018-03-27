@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "$timeout", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", "fontService", "etiquetasService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, $timeout, elementosService, coloresFactory, $q, $window, pedidosService, fontService, etiquetasService) {
+	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", "fontService", "etiquetasService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, coloresFactory, $q, $window, pedidosService, fontService, etiquetasService) {
 
 		var bz = this;
 
@@ -10,7 +10,7 @@ angular.module("disenador-de-logos")
 			busquedaIconos: false,
 			borradores: false,
 			fuentes: false
-		}
+		};
 		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[0] : "rgb(243, 243, 243)";
 		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[2] : "#000";
 		bz.colorEslogan = "#000";
@@ -277,17 +277,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-		/*
-		if (historicoResolve.colores) {
-			console.log("hola")
-			$timeout(function () {
-				bz.cambioColor(historicoResolve.colores[2], "texto");
-			}, 5000);
-			$timeout(function () {
-				bz.cambioColor(historicoResolve.colores[1], "icono");
-			}, 5000);
-		}
-		*/
 
 
 		/////////////////////////////////////
@@ -438,7 +427,7 @@ angular.module("disenador-de-logos")
 					bz.iconos = res;
 
 				}).catch(function (res) {
-					console.log(res)
+					console.log(res);
 				}).finally(function () {
 					bz.completadoBuscar = true;
 				});
@@ -593,7 +582,7 @@ angular.module("disenador-de-logos")
 
 		bz.cerrarContenedores = function(contenedor){
 
-			$scope.$broadcast('editor:cerrarColorPickers', true)
+			$scope.$broadcast("editor:cerrarColorPickers", true);
 
 			angular.forEach(bz.contenedores, function(el, k){
 				if(contenedor == k) return;

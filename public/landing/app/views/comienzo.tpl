@@ -16,9 +16,10 @@
                             <input type="text" md-no-asterisk style="margin-bottom: 0;" ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required>
                         </md-input-container>
                         <!-- VALIDACION -->
-                        <div ng-messages="form.nombre.$error" style="color:maroon " role="alert " ng-show="(form.nombre.$dirty
-                            && form.nombre.$invalid) || (form.$sumitted && form.$valid)">
-                            <div ng-message="required ">Este campo es requerido.</div>
+                        <div ng-messages="form.nombre.$error " style="color:maroon " role="alert " ng-show="form.nombre.$touched
+                            && form.nombre.$invalid || form.$submitted">
+                            <div ng-message="required">No dejes en blanco el nombre de tu logo.</div>
+                            </br>
                         </div>
 
                         <md-input-container class="md-block ">
@@ -35,9 +36,9 @@
                             </md-select>
                         </md-input-container>
                         <!-- VALIDACION -->
-                        <div ng-messages="form.color.$error" style="color:maroon " role="alert " ng-show="(form.color.$touched
-                                && form.color.$invalid) || (form.$sumitted && form.$valid)">
-                            <div ng-message="required ">Este campo es requerido.</div>
+                        <div ng-messages="form.color.$error " style="color:maroon " role="alert " ng-show="form.color.$touched
+                            && form.color.$invalid || form.$submitted">
+                            <div ng-message="required">Selecciona algun color.</div>
                             </br>
                         </div>
 
@@ -47,7 +48,7 @@
                                 ESTILO DE TIPOGRAFÍA
                             </div>
                             <div class="estilos-fuentes ">
-                                <md-radio-group name="font " required ng-model="ctrl.datosCombinaciones.idFuente " class="md-primary ">
+                                <md-radio-group name="font" required ng-model="ctrl.datosCombinaciones.idFuente" class="md-primary ">
                                     <md-radio-button ng-repeat="estilo in ctrl.categoriasPosibles.fuentes " ng-value="estilo.idCategoria
                                         " ng-disabled=" d.isDisabled ">
                                         <md-tooltip md-direction="top">{{estilo.nombreCategoria}}</md-tooltip>
@@ -57,9 +58,9 @@
                             </div>
 
                             <!-- VALIDACION -->
-                            <div ng-messages="form.font.$error" style="color:maroon " role="alert " ng-show="(form.font.$touched
-                                        && form.font.$invalid) ||  (form.$sumitted && form.$valid)">
-                                <div ng-message="required">Este campo es requerido.</div>
+                            <div ng-messages="form.font.$error " style="color:maroon " role="alert " ng-show="form.font.$touched
+                        && form.font.$invalid || form.$submitted">
+                                <div ng-message="required">Selecciona un estilo de tipografía.</div>
                                 </br>
                             </div>
                         </div>
@@ -76,7 +77,7 @@
                         <!-- VALIDACION -->
                         <div ng-messages="form.cat.$error " style="color:maroon " role="alert " ng-show="form.cat.$touched
                             && form.cat.$invalid || form.$submitted">
-                            <div ng-message="required">Este campo es requerido.</div>
+                            <div ng-message="required">Selecciona la actividad que te agrade.</div>
                             </br>
                         </div>
 

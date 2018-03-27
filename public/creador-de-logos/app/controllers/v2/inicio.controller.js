@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService ) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService) {
 
 		var bz = this;
 
@@ -21,6 +21,15 @@ angular.module("disenador-de-logos")
 			colores: [],
 			etiquetasSeleccionadas: []
 		};
+
+		bz.seleccionarLogo = function (svg, colores, logo) {
+			bz.logoElegido = {
+				svg: svg,
+				colores: colores,
+				logoCompleto: logo
+			};
+		};
+
 
 		/* Etiquetas */
 
@@ -153,7 +162,6 @@ angular.module("disenador-de-logos")
 
 		bz.preAvanzar = function (logo) {
 
-
 			bz.logoSeleccionado = bz.logos.indexOf(logo);
 
 			/*
@@ -182,7 +190,6 @@ angular.module("disenador-de-logos")
 					colores: bz.logos[bz.logoSeleccionado].colores
 				}
 			};
-
 
 			$state.go("editor", datos);
 
@@ -251,8 +258,8 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.comprarLogo = function (){
-			
+		bz.comprarLogo = function () {
+
 
 			bz.datosComprar = {
 				logo: bz.logoElegido.svg,
@@ -264,13 +271,54 @@ angular.module("disenador-de-logos")
 				},
 				colores: {
 					icono: bz.logoElegido.colores[1],
-					nombre: bz.logoElegido.colores[2]			
+					nombre: bz.logoElegido.colores[2]
 				},
 				planes: bz.planes,
 				moneda: bz.moneda
 			};
 
 			bz.abrirPlanes = true;
+		};
+
+		/* guardar logo */
+
+		bz.completadoGuardar = true;
+
+		bz.guardarLogo = function (logo, tipoLogo, idElemento) {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			if (bz.completadoGuardar) {
+
+				bz.completadoGuardar = false;
+
+				var fuentesId = {
+					principal: bz.logoElegido.logoCompleto.fuente.idElemento
+				};
+
+				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre)
+
+					.then(function (res) {
+
+						bz.idLogo = res;
+
+						defered.resolve(res);
+
+					}).catch(function (res) {
+
+						defered.reject(res);
+
+					}).finally(function () {
+
+						bz.completadoGuardar = true;
+
+					});
+
+			}
+
+			return promise;
+
 		};
 
 

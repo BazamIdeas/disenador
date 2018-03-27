@@ -282,8 +282,14 @@ md-select-menu md-content md-option {
 md-select label,
 md-input-container:NOT(.md-input-has-value) md-select-value,
 .seccion.uno form input::placeholder,
-.seccion.uno form label {
+.seccion.uno form label,
+.seccion.uno form md-select-value,
+md-input-container.md-default-theme.md-input-invalid .md-input,
+md-input-container.md-input-invalid .md-input,
+md-select.md-default-theme.ng-invalid.ng-touched .md-select-value,
+md-select.ng-invalid.ng-touched .md-select-value {
     color: var(--secundario) !important;
+    border-bottom-color: var(--secundario) !important;
 }
 
 .input-tipografia {

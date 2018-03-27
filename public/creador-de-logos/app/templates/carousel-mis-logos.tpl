@@ -6,7 +6,7 @@
         <div class="logo-wrapper" ng-repeat="logo in logos track by logo.idLogo">
 
 
-            <div class="left-div-action" ng-click="carouselMisLogos.mover()" ng-if="logos.length > 1">
+            <div class="left-div-action" ng-click="::carouselMisLogos.mover()" ng-if="logos.length > 1">
             </div>
 
             <div class="logo-container-m" ng-class="{'logo-left-1-m': $index == (carouselMisLogos.actual - 2),'logo-left-m': $index == (carouselMisLogos.actual - 1),'logo-active-m': $index == carouselMisLogos.actual, 'logo-right-m': $index == (carouselMisLogos.actual + 1), 'logo-right-1-m': $index == (carouselMisLogos.actual + 2)}" >
@@ -35,7 +35,7 @@
                 <bazam-visualizar style="width:100%" data-svg="carouselMisLogos.base64.decode(logo.logo)"></bazam-visualizar>
             </div>
 
-            <div class="right-div-action" ng-click="carouselMisLogos.mover(true)" ng-if="logos.length > 1">
+            <div class="right-div-action" ng-click="::carouselMisLogos.mover(true)" ng-if="logos.length > 1">
             </div>
 
         </div>
@@ -43,12 +43,12 @@
         <div class="logo-wrapper" ng-if="!logos.length">
             <div class="logo-container-m logo-active-m" style="height:300px; border: none;box-shadow:none;">
                 <span class="seleccionar" style="opacity: 1; font-size: 20px; border: none; width:100%;">
-                    AUN NO TIENE LOGOS {{carouselMisLogos.callback[0].toUpperCase()}}
+                    AUN NO TIENE LOGOS {{::carouselMisLogos.callback[0].toUpperCase()}}
                 </span>
             </div>
         </div>
 
-        <div class="right-arrow" ng-click="carouselMisLogos.mover(true)" ng-if="logos.length > 1">
+        <div class="right-arrow" ng-click="::carouselMisLogos.mover(true)" ng-if="logos.length > 1">
             <i class="material-icons">keyboard_arrow_right</i>
         </div>
     </div>

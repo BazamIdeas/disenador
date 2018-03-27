@@ -90,7 +90,7 @@
 
                                     <md-input-container style="width: 100%;padding: 0 0rem;margin-top: 0;">
                                         <md-select ng-model="bazamLogin.datosRegistro.pais" placeholder="Pais" required>
-                                            <md-option ng-repeat="(llave, valor) in bazamLogin.paises track by $index" ng-value="llave" ng-selected="llave == bazamLogin.paisDefecto">{{valor}}</md-option>
+                                            <md-option ng-repeat="(llave, valor) in bazamLogin.paises track by $index" ng-value="llave" ng-selected="llave == bazamLogin.paisDefecto">{{::valor}}</md-option>
                                         </md-select>
                                     </md-input-container>
                                 </div>
@@ -130,7 +130,7 @@
                                     </md-input-container>
                                     <div layout layout-align="space-between">
                                         <button class="boton-verde" ng-click="bazamLogin.rc=1">Regresar</button>
-                                        <button ng-disabled="bazamLogin.peticion" class="boton-verde" ng-click="bazamLogin.confirmarToken(false)">Enviar</button>
+                                        <button ng-disabled="bazamLogin.peticion" class="boton-verde" ng-click="::bazamLogin.confirmarToken(false)">Enviar</button>
                                     </div>
                                 </div>
                                 <div ng-switch-when="3">
