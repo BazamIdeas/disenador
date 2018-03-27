@@ -10,7 +10,6 @@ angular.module("administrador")
 
         idiomasService.listarIdiomas().then(function (res) {
             bz.idiomas = res;
-            bz.listaM = !bz.listaM;
         })
 
         bz.guardarIdioma = function (datos, v) {

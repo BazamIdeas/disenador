@@ -41,40 +41,39 @@
         <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     </head>
 
-    <body class="back-landing">
-        <!-- header -->
-        <div ng-controller="headerController as h">
-            <bazam-form-login data-mostrar="h.mostrarLogin" data-callback="h.callback"></bazam-form-login>
-            <header class="header" id="comienzo" layout-padding>
-                <div layout layout-align="space-between">
-                    <div class="logo" ui-sref="comienzo">Logo Pro</div>
-                    <div layout flex layout-align="end center">
-                        <md-button style="COLOR: #867e7e;" ng-click="h.mostrarLogin = true">INGRESO</md-button>
-                    </div>
-                </div>
-            </header>
-        </div>
-
-        <!-- contenedor principal -->
-        <md-content ui-view>
-
-        </md-content>
-
-        <!-- Footer -->
-        <footer>
-            <div layout="row" layout-align="space-between center">
-                <div layout class="links-footer">
-                    <a ui-sref="terminos">TÉRMINOS Y CONDICIONES</a>
-                    <a ui-sref="legales">AVISOS LEGALES</a>
-                    <a href="blog">BLOG</a>
-                </div>
-                <div class="iconos-sociales">
-                    <i class="fab fa-facebook"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i>
+    <!-- header -->
+    <div ng-controller="headerController as h">
+        <bazam-form-login data-mostrar="h.mostrarLogin" data-callback="h.callback"></bazam-form-login>
+        <header class="header" id="comienzo" layout-padding>
+            <div layout layout-align="space-between">
+                <div class="logo" ui-sref="comienzo">Logo Pro</div>
+                <div layout flex layout-align="end center">
+                    <md-button style="COLOR: #867e7e;" ng-click="h.mostrarLogin = true">INGRESO</md-button>
                 </div>
             </div>
-        </footer>
+        </header>
+    </div>
+
+    <!-- contenedor principal -->
+    <md-content ui-view>
+
+    </md-content>
+
+    <!-- Footer -->
+    <footer>
+        <div layout="row" layout-align="space-between center">
+            <div layout class="links-footer">
+                <a ui-sref="terminos">TÉRMINOS Y CONDICIONES</a>
+                <a ui-sref="legales">AVISOS LEGALES</a>
+                <a href="blog">BLOG</a>
+            </div>
+            <div class="iconos-sociales">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+            </div>
+        </div>
+    </footer>
     </body>
 
     <script type="text/ng-template" id="toast-base.html">

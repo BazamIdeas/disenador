@@ -28,29 +28,7 @@ angular.module("administrador")
                     bz.nuevoPais.idMoneda = value.idMoneda;
                 }
             });
-        })
-
-        bz.mostrar = function (opcion, id) {
-            if (opcion == 'editarPais') {
-
-                angular.forEach(bz.paises, function (valor) {
-                    if (valor.idPais == id) {
-                        bz.editarPais = valor;
-                        bz.editarPais.id = id;
-                    }
-                })
-                bz.acciones = 2;
-
-            } else if (opcion == 'asignar') {
-
-                angular.forEach(bz.paises, function (valor) {
-                    if (valor.idPais == id) {
-                        bz.ponerMoneda.idPais = valor.idPais;
-                    }
-                })
-                bz.acciones = 3;
-            }
-        }
+        });
 
         bz.listarPaises = function () {
             bz.peticion = true;
@@ -72,36 +50,35 @@ angular.module("administrador")
             datos.moneda = datos.pais.iso
             datos.nombre = datos.pais.moneda
 
-            if (v) {
-                bz.peticion = true;
-                paisesService.guardarPais(datos).then(function (res) {
-                    if (res == undefined) {
-                        return notificacionService.mensaje('El pais ya existe.');
-                    }
-                    datos.idPais = res.data.insertId;
-                    bz.paises.push(datos);
-                    bz.nuevoPais = {};
-                    return notificacionService.mensaje('El pais ha si añadido.');
-                }).finally(function () {
-                    bz.peticion = false;
-                })
-            }
+            if (!v) return;
+            bz.peticion = true;
+            paisesService.guardarPais(datos).then(function (res) {
+                if (res == undefined) return notificacionService.mensaje('El pais ya existe.');
+
+                datos.idPais = res.data.insertId;
+                bz.paises.push(datos);
+                bz.nuevoPais = {};
+                return notificacionService.mensaje('El pais ha si añadido.');
+            }).finally(function () {
+                bz.peticion = false;
+            })
+
         }
 
         bz.modificarPais = function (datos, v) {
-            if (v) {
-                bz.peticion = true;
-                paisesService.modificarPais(datos).then(function (res) {
-                    notificacionService.mensaje('Modificación Exitosa.');
-                }).finally(function () {
-                    bz.peticion = false;
-                })
-            }
+            if (!v) return;
+            bz.peticion = true;
+            paisesService.modificarPais(datos).then(function () {
+                notificacionService.mensaje('Modificación Exitosa.');
+            }).finally(function () {
+                bz.peticion = false;
+            })
+
         }
 
         bz.borrarPais = function (datos, index) {
             bz.peticion = true;
-            paisesService.borrarPais(datos).then(function (res) {
+            paisesService.borrarPais(datos).then(function () {
                 bz.monedas.splice(index, 1);
             }).finally(function () {
                 bz.peticion = false;
@@ -113,23 +90,20 @@ angular.module("administrador")
             bz.acciones = 4;
             bz.quitarMoneda.idPais = id;
             paisesService.paisMonedas(id).then(function (res) {
-                if (res != undefined) {
-                    bz.paisMonedas = res.data;
-                }
+                if (res != undefined) return bz.paisMonedas = res.data;
+
             }).finally(function () {
                 bz.peticion = false;
             })
         }
 
         bz.asignarMoneda = function (datos, v) {
-            if (!v) {
-                return notificacionService.mensaje('Rellene los campos de forma correcta!');
-            }
+            if (!v) return notificacionService.mensaje('Rellene los campos de forma correcta!');
+
             bz.peticion = true;
             paisesService.asignarMoneda(datos).then(function (res) {
-                if (res == undefined) {
-                    return notificacionService.mensaje('La moneda seleccionada ya esta asignada.');
-                }
+                if (res == undefined) return notificacionService.mensaje('La moneda seleccionada ya esta asignada.');
+
                 notificacionService.mensaje('Asignación Exitosa.');
             }).finally(function () {
                 bz.peticion = false;

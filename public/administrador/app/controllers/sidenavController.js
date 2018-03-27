@@ -58,7 +58,7 @@ angular.module("administrador")
         /* VERIFICA SI EL USUARIO ESTA AUTORIZADO Y LO VIGILA */
         bz.autorizado = clientesService.autorizado();
 
-        $scope.$on('sesionExpiro', function (valor) {
+        $scope.$on('sesionExpiro', function () {
             clientesService.salir();
         });
 
