@@ -19,10 +19,10 @@ angular.module("administrador")
 		bz.listarCategorias = function (tipoCategoria) {
 			bz.peticion = true;
 			bz.tipoListado = tipoCategoria;
-			var datos = {
+
+			categoriasService.listarCategorias({
 				tipo: tipoCategoria
-			}
-			categoriasService.listarCategorias(datos).then(function (res) {
+			}).then(function (res) {
 				if (res == undefined) {
 					bz.categorias = [];
 					bz.elementos = [];
@@ -38,11 +38,11 @@ angular.module("administrador")
 			angular.forEach(res.data, function (valor) {
 				valor.valor = 2;
 				bz.preferencias.push(valor);
-			})
-			bz.registroFuente.datoPrefe = bz.preferencias;
-			bz.registroIcono.datoPrefe = bz.preferencias;
-			bz.modificar.preferencias = bz.preferencias;
-			bz.listar.preferencias = bz.preferencias;
+			});
+			bz.registroFuente.datoPrefe = angular.copy(bz.preferencias);
+			bz.registroIcono.datoPrefe = angular.copy(bz.preferencias);
+			bz.modificar.preferencias = angular.copy(bz.preferencias);
+			bz.listar.preferencias = angular.copy(bz.preferencias);
 		})
 
 		bz.nuevaFuente = function (datos, v) {
@@ -54,7 +54,7 @@ angular.module("administrador")
 			if (bz.regFmArchivos) return bz.subidaMasiva(datos);
 			else {
 				iconoFuente.nuevaFuente(datos).then(function (res) {
-					SweetAlert.swal("Genial", "Fuente Agregada!", "success");
+					notificacionService.mensaje('Fuente Agregada!');
 					datos.idElemento = res.data.insertId;
 					datos.tipo = 'FUENTE';
 					bz.valMulFonts = false;
@@ -76,10 +76,10 @@ angular.module("administrador")
 				iconoFuente.nuevoIcono(datos).then(function (res) {
 					datos.idElemento = res.data.insertId;
 					datos.tipo = 'ICONO';
-					SweetAlert.swal("Genial", 'Icono Agregado', "success");
+					notificacionService.mensaje('Icono Agregado!');
 					bz.valMulIcons = false;
-				}).catch(function (res) {
-					console.log(res)
+				}).catch(function () {
+					//	console.log(res)
 				}).finally(function () {
 					bz.peticion = false;
 				})
@@ -87,8 +87,8 @@ angular.module("administrador")
 		}
 
 		bz.subidaMasiva = function (datos) {
-			iconoFuente.subidaMasiva(datos).then(function (res) {
-				SweetAlert.swal("Genial", "Datos Agregados!", "success");
+			iconoFuente.subidaMasiva(datos).then(function () {
+				notificacionService.mensaje('Datos Agregados!');
 				bz.valMulFonts = false;
 				bz.valMulIcons = false;
 			}).catch(function (res) {

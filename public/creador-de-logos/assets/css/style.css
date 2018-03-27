@@ -2779,19 +2779,13 @@ textarea {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
 }
 
 .left-arrow,
 .right-arrow {
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
     margin-top: -30px;
     line-height: 65px;
     text-align: center;
@@ -2827,57 +2821,76 @@ textarea {
 .left-arrow {
     position: absolute;
     top: 50%;
-    left: 7%;
+    left: 5%;
 }
 
 .right-arrow {
     position: absolute;
     top: 50%;
-    right: 7%;
+    right: 5%;
 }
 
-.logo-container-m span.seleccionar {
+.logo-container-m span.seleccionar, .combinacion span.seleccionar {
     position: absolute;
-    background-color: var(--principal);
-    border: 1px solid var(--principal);
-    color: #fff;
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: var(--principal);
     opacity: 0;
-    border-radius: 30px;
-    padding: 12%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    border-radius: 8px;
+    height: 40px;
+    display: block;
     font-family: futura-heavy !important;
-    -webkit-transition: opacity 1s, width 2s; -webkit-transform: 2s; transform: 2s;
-    -webkit-transition: opacity 1s;
-    transition: opacity 1s;
+    -webkit-transition: opacity 1s, width 0.5s;
+    transition: opacity 0.5s, width 0.5s;
     cursor: pointer;
     bottom: 0;
+    right: 3%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: flex-end;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }
 
-
-.logo-container-m span.seleccionar:hover {
-    background-color: #fff;
-    color: var(--principal);
-    width: 50%;
+.combinacion span.seleccionar {
+    background-color: #ffffffcf;
 }
 
-.logo-container-m span.seleccionar i {
-    transition: -webkit-transform 2s; -webkit-transform: 2s; transform: 2s;
+.logo-container-m span.seleccionar p, .combinacion span.seleccionar p {
+    opacity: 0;
+    margin: 0 0 0 0px;
+    width: 0;
+
 }
 
-.logo-container-m span.seleccionar:hover i {
+.logo-container-m span.seleccionar:hover, .combinacion span.seleccionar:hover {
+    background-color: var(--principal);
+    color: white;
+}
+
+.logo-container-m span.seleccionar i, .combinacion span.seleccionar i {
+    transition: -webkit-transform 1s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container-m span.seleccionar:hover p, .combinacion span.seleccionar:hover p{
+    display: block;
+    opacity: 1;
+    margin: 0 0 0 12px;
+    width: 65%;
+    
+}
+
+.logo-container-m span.seleccionar:hover i, .combinacion span.seleccionar:hover i {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
 }
 
-.logo-container-m.logo-active-m:hover span.seleccionar {
+.logo-container-m.logo-active-m:hover span.seleccionar, .combinacion:hover span.seleccionar {
     opacity: 1;
 }
 
