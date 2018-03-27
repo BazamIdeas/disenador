@@ -247,7 +247,7 @@ angular.module("disenador-de-logos")
 	//////EDICION DEL SVG/////////
 	//////////////////////////////
 
-	.directive("bazamSvg", ["$rootScope", "fontService", "$timeout", "$q", function ($rootScope, fontService, $timeout, $q) {
+	.directive("bazamSvg", ["$rootScope", "fontService", "$timeout", "$q", "coloresPaletaValue", function ($rootScope, fontService, $timeout, $q, coloresPaletaValue) {
 		return {
 			restrict: "AE",
 			scope: {
@@ -463,15 +463,7 @@ angular.module("disenador-de-logos")
 							eslogan: null
 						};
 
-						var paletaColores = ['#FFFFFF', '#D7CCC8', '#FFF59D', '#FFFF8D', '#DCEDC8', '#B2DFDB', '#BBDEFB', '#E1BEE7', '#FCE4EC', '#EF9A9A',
-							'#EEEEEE', '#BCAAA4', '#FFEE58', '#FFF176', '#C5E1A5', '#80CBC4', '#4FC3F7', '#CE93D8', '#F8BBD0', '#E57373',
-							'#E0E0E0', '#A1887F', '#FFEB3B', '#FFEB3B', '#AED581', '#4DB6AC', '#64B5F6', '#BA68C8', '#F06292', '#EF5350',
-							'#BDBDBD', '#8D6E63', '#FBC02D', '#FFFF00', '#9CCC65', '#26A69A', '#2196F3', '#AB47BC', '#EC407A', '#F44336',
-							'#9E9E9E', '#795548', '#FFA726', '#FFEA00', '#8BC34A', '#009688', '#1976D2', '#9C27B0', '#E91E63', '#E53935',
-							'#757575', '#6D4C41', '#FB8C00', '#FFD600', '#4CAF50', '#00796B', '#01579B', '#8E24AA', '#D81B60', '#D32F2F',
-							'#424242', '#4E342E', '#F57C00', '#FFC400', '#388E3C', '#00695C', '#0D47A1', '#6A1B9A', '#C2185B', '#B71C1C',
-							'#000000', '#3E2723', '#E65100', '#FFAB00', '#1B5E20', '#004D40', '#1A237E', '#4A148C', '#AD1457', '#D50000'
-						];
+						var paletaColores = coloresPaletaValue;
 
 						//evento para los hijos directos de seccion-icono
 						angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
@@ -529,7 +521,7 @@ angular.module("disenador-de-logos")
 										};
 								}
 
-								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo' text-align: center'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
+								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
 
 								colorPicker.attr("id", id);
 
@@ -644,7 +636,7 @@ angular.module("disenador-de-logos")
 
 						scope.$on("editor:cerrarColorPickers", function () {
 
-							angular.element(".color-picker-bazam").remove();
+							angular.element(".color-picker-bazam:not(#color-picker-fondo)").remove();
 							angular.element(".seleccionado").removeClass("seleccionado");
 
 						});
@@ -989,7 +981,7 @@ angular.module("disenador-de-logos")
 
 									*/
 
-									svgTexto.setAttribute("y", (alturaSVG / 2) + ((svgTexto.getClientRects()[0].height / relacion) / 4) * 0.5)
+									svgTexto.setAttribute("y", (alturaSVG / 2) + ((svgTexto.getClientRects()[0].height / relacion) / 4) * 0.5);
 
 
 
@@ -1407,29 +1399,21 @@ angular.module("disenador-de-logos")
 			restrict: "AE",
 			link: function () {
 
-
-
 				if ($window.innerWidth < 1024) {
-
 					$window.location = "/m" + $location.url();
 				}
 
-
-
 				angular.element(window).resize(function () {
-
 					if ($window.innerWidth < 1024) {
-
 						$window.location = "/m" + $location.url();
 					}
-
 				});
 
 			}
 		};
 
 	})
-
+	/*
 	.directive("fondoContraste", ["coloresFactory", function (coloresFactory) {
 		return {
 			restrict: "AE",
@@ -1445,7 +1429,7 @@ angular.module("disenador-de-logos")
 		};
 	}])
 
-
+	*/
 	/*
 
 	/////////////////////////////////////////////
@@ -1572,14 +1556,14 @@ angular.module("disenador-de-logos")
 				bz.mover = function (accion) {
 
 					if (accion) {
-						bz.actual = bz.actual == (bz.logos.length - 1) ? 0 : bz.actual + 1
+						bz.actual = bz.actual == (bz.logos.length - 1) ? 0 : bz.actual + 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 					} else {
-						bz.actual = bz.actual == 0 ? bz.logos.length - 1 : bz.actual - 1
+						bz.actual = bz.actual == 0 ? bz.logos.length - 1 : bz.actual - 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 					}
 
-				}
+				};
 
 				bz.borrarSlider = function (idLogo) {
 					bz.callback[3](idLogo);
@@ -1588,7 +1572,7 @@ angular.module("disenador-de-logos")
 						bz.actual = bz.actual - 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 					}
-				}
+				};
 
 			}],
 			controllerAs: "carouselMisLogos",
@@ -2241,7 +2225,7 @@ angular.module("disenador-de-logos")
 
 						}).catch(function (res) {
 
-							if (res === 'exceso') {
+							if (res === "exceso") {
 								$mdToast.show($mdToast.base({
 									args: {
 										mensaje: "Tiempo excedido, Debes compartir en facebook para obtener tu logo gratis.",
@@ -2327,11 +2311,11 @@ angular.module("disenador-de-logos")
 
 					var promesas = [$timeout(function () {
 						return "exceso";
-					}, 60000), facebookService.compartir()]
+					}, 60000), facebookService.compartir()];
 
 					$q.race(promesas).then(function (res) {
 						if (res === "exceso") {
-							defered.reject('exceso');
+							defered.reject("exceso");
 						} else {
 							defered.resolve(res);
 						}
@@ -2340,8 +2324,44 @@ angular.module("disenador-de-logos")
 					});
 					return promise;
 
-				}
+				};
 			}]
 		};
 
 	}])
+
+	.directive("bazamColorPicker", [function(){
+		return {
+			template:	"<div style='position:relative;'>\
+							<div class='selector-fondo' ng-style='jsonColor(color)' ng-click='mostrarPicker = !mostrarPicker'>\
+							</div>\
+							<div class='color-picker-bazam' id='color-picker-fondo' ng-show='mostrarPicker' style='position: absolute; width: 200px; height: 200px; background-color: white; z-index: 2; padding: 10px;'>\
+									<div class='titulo'>\
+										FONDO\
+										<span class='cerrar-color-picker' ng-click='mostrarPicker = !mostrarPicker'>\
+											<i class='material-icons cerrar'>clear</i>\
+										</span>\
+									</div>\
+									<div ng-repeat='paletaColor in paletaColores track by $index' class='color' ng-style='jsonColor(paletaColor)' style='width: 9%; height: 10%; display: inline-block;' ng-click='$parent.color=paletaColor'></div>\
+								</div>\
+						</div>",
+			scope: {
+				color: "="
+			},
+			controller: ["$scope", "coloresPaletaValue", function($scope, coloresPaletaValue){
+				$scope.paletaColores = coloresPaletaValue;
+
+				$scope.jsonColor = function(color){
+					return {"background-color" : color};
+				};
+
+				$scope.mostrarPicker = false;
+
+				$scope.$on("editor:cerrarColorPickers", function () {
+					
+					$scope.mostrarPicker = false;
+
+				});
+			}]
+		};
+	}]);

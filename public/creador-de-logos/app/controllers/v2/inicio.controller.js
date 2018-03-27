@@ -27,8 +27,8 @@ angular.module("disenador-de-logos")
 				svg: svg,
 				colores: colores,
 				logoCompleto: logo
-			}
-		}
+			};
+		};
 
 
 		/* Etiquetas */
@@ -134,9 +134,9 @@ angular.module("disenador-de-logos")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
-						promesaIconos,
-						promesaFuentes
-					])
+					promesaIconos,
+					promesaFuentes
+				])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {
@@ -161,7 +161,6 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.preAvanzar = function (logo) {
-
 
 			bz.logoSeleccionado = bz.logos.indexOf(logo);
 
@@ -191,7 +190,6 @@ angular.module("disenador-de-logos")
 					colores: bz.logos[bz.logoSeleccionado].colores
 				}
 			};
-
 
 			$state.go("editor", datos);
 

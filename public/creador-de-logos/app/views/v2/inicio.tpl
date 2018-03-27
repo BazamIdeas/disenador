@@ -93,9 +93,8 @@
                         </md-radio-group>
 
                         <!-- VALIDACION -->
-                        <div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
-                            <div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
-                            </br>
+                        <div ng-messages="inicio.datosForm.fuente.$error" style="color:maroon; padding-bottom:20px;" role="alert " >
+                            <div ng-message="required" style="top: 64px; margin-bottom: 10px;" ng-show="inicio.datosForm.fuente.$error && inicio.datosForm.$submitted">Debes elegir un estilo de Tipografía.</div>
                         </div>
                     </div>
 
