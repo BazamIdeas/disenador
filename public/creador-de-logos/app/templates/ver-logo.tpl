@@ -2,9 +2,9 @@
     <div ng-click="estado = false" class="cerrar-prev">
         <md-icon>close</md-icon>
     </div>
-    <div class="contenedor-ver-logo" style="background-color:{{colores[0]}}">
+    <div class="contenedor-ver-logo" style="background-color:{{datos.fondo}}">
         <div class="logo">
-            <bazam-actualizar data-svg="logo"></bazam-actualizar>
+            <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
         </div>
     </div>
     <div class="contenedor-ver-previsualizar uno">
@@ -13,12 +13,12 @@
         background-image: url(assets/images/shirt.png), url(assets/images/shirt_overlay.png), url(assets/images/shirt_multiply.png);
         background-size: 100%;
         background-blend-mode: normal, overlay, multiply;
-        background-color: {{colores[0]}};
+        background-color: {{datos.fondo}};
         background-repeat: no-repeat;
             ">
             <div style="    left: 43%;
             padding-top: 21%;">
-                <bazam-actualizar data-svg="logo"></bazam-actualizar>
+                <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
             </div>
         </div>
         <div style="display: flex; flex-direction: column;     padding-left: 5px;">
@@ -27,7 +27,7 @@
                 <div style="    transform: rotate(46deg);
                 padding-top: 15%;
                 left: 21%;">
-                    <bazam-actualizar data-svg="logo"></bazam-actualizar>
+                    <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
                 </div>
                 <img src="assets/images/card.png" width="100%">
             </div>
@@ -35,7 +35,7 @@
                 <div style="    transform: rotate(55deg);
                 padding-top: 14%;
                 left: 58%;">
-                    <bazam-actualizar data-svg="logo"></bazam-actualizar>
+                    <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
                 </div>
                 <img src="assets/images/leica.jpg" width="100%">
             </div>
@@ -43,9 +43,7 @@
         </div>
     </div>
 
-    <bazam-planes>
-
-    </bazam-planes>
+    <bazam-planes></bazam-planes>
 
     <div class="contenedor-ver-previsualizar dos" style="padding-bottom:5px;">
         <div class="contenedor-logoprev" style="padding-right:5px;">
@@ -53,7 +51,7 @@
             padding-top: 4%;
             left: 33.5%;
             width: 15%;">
-                <bazam-actualizar data-svg="logo"></bazam-actualizar>
+                <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
             </div>
             <img src="assets/images/sign.jpg" width="100%" style="    height: 76.8vh;">
         </div>
@@ -62,7 +60,7 @@
             padding-top: 12%;
             left: 30.5%;
             width: 25%;">
-                <bazam-actualizar data-svg="logo"></bazam-actualizar>
+                <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
             </div>
 
             <div style="transform: perspective(500px) rotateY(15deg) skewY(-3deg) skewX(1deg);
@@ -74,7 +72,7 @@
             top: 0px;
             opacity: 0.5;
             filter: blur(2px);">
-                <bazam-actualizar data-svg="logo"></bazam-actualizar>
+                <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
             </div>
             <img src="assets/images/box2.jpg" width="100%" style="height: 76.8vh;">
         </div>

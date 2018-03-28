@@ -274,14 +274,15 @@ angular.module("disenador-de-logos")
 				},
 				colores: {
 					icono: colores[1],
-					nombre: colores[2]
+					nombre: colores[2],
 				},
+				fondo: colores[0],
 				planes: bz.planes,
 				moneda: bz.moneda
 			};
 
-			if (v === 'VER-LOGO') {
-				bz.verPrevisualizar = true;
+			if (v) {
+				return bz.verPrevisualizar = true;
 			}
 			bz.abrirPlanes = true;
 		};
