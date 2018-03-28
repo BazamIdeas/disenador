@@ -485,40 +485,40 @@ angular.module("disenador-de-logos")
 
 								switch (id) {
 
-									case "color-picker-icono":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.right + 10,
-											"top": coordenadasCon.top - 10,
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
-										break;
+								case "color-picker-icono":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.right + 10,
+										"top": coordenadasCon.top - 10,
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
+									break;
 
-									case "color-picker-texto":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-											"top": coordenadasCon.top - 10,
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
-										break;
+								case "color-picker-texto":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+										"top": coordenadasCon.top - 10,
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
+									break;
 
-									case "color-picker-eslogan":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-											"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
+								case "color-picker-eslogan":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+										"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
 								}
 
 								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
@@ -601,19 +601,19 @@ angular.module("disenador-de-logos")
 
 							switch (colorPicker.attr("id")) {
 
-								case "color-picker-icono":
+							case "color-picker-icono":
 
-									var indice = scope.elementosIndices.indexOf(true);
-									//cambiamos el color al correcto
-									element.find("[data-indice=" + indice + "]").css("fill", color);
-									break;
+								var indice = scope.elementosIndices.indexOf(true);
+								//cambiamos el color al correcto
+								element.find("[data-indice=" + indice + "]").css("fill", color);
+								break;
 
-								case "color-picker-texto":
-									element.find("text.textoPrincipal").css("fill", color);
-									break;
+							case "color-picker-texto":
+								element.find("text.textoPrincipal").css("fill", color);
+								break;
 
-								case "color-picker-eslogan":
-									element.find("text.eslogan").css("fill", color);
+							case "color-picker-eslogan":
+								element.find("text.eslogan").css("fill", color);
 
 							}
 
@@ -1243,6 +1243,138 @@ angular.module("disenador-de-logos")
 
 							if (!element.find(".eslogan").length) {
 
+
+								var tamanoBase = 100;
+								var svgIcono;
+								var svgTexto;
+								var eslogan;
+
+								var relacion = element[0].children[0].getClientRects()[0].height / tamanoBase;
+
+								////////////////////////////////////////////////////////////
+								//////Insertamos el SVG del icono dentro del SVG padre//////
+								////////////////////////////////////////////////////////////
+
+								svgIcono = element.find("g.contenedor-icono > svg")[0];
+
+								svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
+								svgIcono.removeAttribute("width");
+								svgIcono.removeAttribute("x");
+								svgIcono.parentElement.setAttribute("transform", "");
+
+								/////////////////////////////////////////
+								////////creamos el elemento Text/////////
+								/////////////////////////////////////////
+
+								svgTexto = element.find("text.textoPrincipal")[0];
+
+								svgTexto.style.fontSize = (tamanoBase / 2) + "px";
+								svgTexto.setAttribute("text-anchor", "middle");
+
+								svgTexto.setAttribute("transform", "");
+								svgTexto.setAttribute("x", tamanoBase / 2);
+
+								//////////////////////////////////////////////////////////////////////
+								////ajustamos el tamaño del texto en relacion al tamaño del icono/////
+								//////////////////////////////////////////////////////////////////////
+
+								while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
+
+									svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
+
+								}
+
+								///////////////////////////////////
+								/////centramos los elementos///////
+								///////////////////////////////////
+
+								var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
+
+								svgIcono.setAttribute("y", paddingTopIcono);
+
+								var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
+
+								svgTexto.setAttribute("y", paddingTopText);
+
+								if (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+									while (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+										svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
+
+										svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+
+									}
+
+									paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
+
+
+									svgIcono.setAttribute("y", paddingTopIcono);
+
+									paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
+
+									svgTexto.setAttribute("y", paddingTopText);
+
+								}
+
+								var textoEslogan = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+								textoEslogan.setAttributeNS(null, "x", tamanoBase / 2);
+								textoEslogan.setAttributeNS(null, "y", tamanoBase * 0.9);
+
+								var textoNodeEslogan = document.createTextNode(datos.eslogan);
+
+								textoEslogan.appendChild(textoNodeEslogan);
+
+								element.children()[0].appendChild(textoEslogan);
+
+								var eslogan = element.children()[0].children[3];
+
+								eslogan.setAttribute("text-anchor", "middle");
+								eslogan.setAttribute("font-family", datos.fuente.nombre);
+								eslogan.setAttribute("class", "eslogan");
+
+								eslogan.setAttribute("transform", "");
+								eslogan.setAttribute("text-anchor", "middle");
+
+								eslogan.style.fontSize = svgTexto.style.fontSize;
+
+								eslogan.setAttribute("x", (tamanoBase / 2));
+
+								while (((eslogan.getClientRects()[0].height / relacion) * 2.5) >= (svgTexto.getClientRects()[0].height / relacion)) {
+									eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+								}
+
+
+								//verificamos que los elementos no superen el alto del lienzo
+
+								while ((svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion) + (eslogan.getClientRects()[0].height / relacion) * 1.3 >= tamanoBase)) {
+
+									svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
+
+									svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+
+									eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+
+								}
+
+								var espacioSobrante = tamanoBase - ((svgIcono.getClientRects()[0].height + svgTexto.getClientRects()[0].height + eslogan.getClientRects()[0].height) / relacion);
+
+
+								//AJUSTAR AQUI EL ESLOGAN
+								svgIcono.setAttribute("y", (espacioSobrante / 2) + "px");
+
+								svgTexto.setAttribute("y", (espacioSobrante / 2) + ((svgIcono.getClientRects()[0].height + svgTexto.getClientRects()[0].height) / relacion) + "px");
+
+								eslogan.setAttribute("y", ((espacioSobrante / 2) + ((svgIcono.getClientRects()[0].height + svgTexto.getClientRects()[0].height + eslogan.getClientRects()[0].height) / relacion)) + "px");
+
+
+
+
+
+
+
+								/*
 								var tamanoBase = 100;
 
 								var textoEslogan = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -1264,7 +1396,7 @@ angular.module("disenador-de-logos")
 								svgEslogan.setAttribute("text-anchor", "middle");
 								svgEslogan.setAttribute("font-family", datos.fuente.nombre);
 								svgEslogan.setAttribute("class", "eslogan");
-
+								*/
 							}
 
 							obtenerSVGFinal();
@@ -1665,25 +1797,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-							case "bottom":
-								orientacionFinal.top = coordenadas.bottom;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "bottom":
+							orientacionFinal.top = coordenadas.bottom;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
-							case "right":
-								orientacionFinal.top = coordenadas.top + (element.height() / 2);
-								orientacionFinal.left = coordenadas.right;
-								break;
+						case "right":
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.right;
+							break;
 
-							case "left":
-								orientacionFinal.top = coordenadas.top + (element.height() / 2);
-								orientacionFinal.left = coordenadas.left - popCreado.width();
-								break;
+						case "left":
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.left - popCreado.width();
+							break;
 
-							case "top":
-								orientacionFinal.top = coordenadas.top;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "top":
+							orientacionFinal.top = coordenadas.top;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
 						}
 
@@ -1745,25 +1877,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-							case "bottom":
-								orientacionFinal.top = coordenadas.bottom - 40;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "bottom":
+							orientacionFinal.top = coordenadas.bottom - 40;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
-							case "right":
-								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-								orientacionFinal.left = coordenadas.right - 35;
-								break;
+						case "right":
+							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+							orientacionFinal.left = coordenadas.right - 35;
+							break;
 
-							case "left":
-								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-								orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
-								break;
+						case "left":
+							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+							orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
+							break;
 
-							case "top":
-								orientacionFinal.top = coordenadas.top + 40;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "top":
+							orientacionFinal.top = coordenadas.top + 40;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
 						}
 
@@ -1941,20 +2073,6 @@ angular.module("disenador-de-logos")
 
 								bz.mostrarModalLogin = false;
 								$scope.callback();
-								/*
-								switch ($scope.tipoLogo) {
-
-								case "nuevo":
-									$scope.callback[0]($scope.logo);
-									break;
-
-								case "predisenado":
-									$scope.callback[1]($scope.logoPredisenado);
-									break;
-
-								}
-								*/
-
 
 							}
 
