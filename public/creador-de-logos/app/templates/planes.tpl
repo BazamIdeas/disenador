@@ -11,7 +11,7 @@
 			<div class="col s9" style="padding: 0 40px;">
 
 				<div class="contenedor-planes">
-					<bazam-listar-planes datos="datos" guardar-logo="guardarLogo" data-id="id"></bazam-listar-planes>
+					<bazam-listar-planes datos="datos" guardar-logo="guardarLogo" data-id="id" promocion="planes.promocion"></bazam-listar-planes>
 				</div>
 
 			</div>
@@ -195,19 +195,6 @@
 			color: white;
 		}
 
-		.plan:hover button {
-			transform: scale(1.1);
-		}
-
-		.plan {
-			padding-top: 6% !important;
-		}
-
-		div.contenedor-planes .plan .plan-header,
-		div.contenedor-planes .plan .plan-body {
-			border-radius: 0;
-		}
-
 		.contenedor-planes {
 			padding-left: 5%;
 		}
@@ -233,26 +220,6 @@
 		.back-principal,
 		.back-principal:focus {
 			background: var(--tercero) !important;
-		}
-
-		.plan.plan-secundario .plan-header,
-		.plan.plan-secundario .boton-verde {
-			background-color: var(--principal) !important;
-		}
-
-		.plan.plan-secundario .subtitulo-plan,
-		.plan.plan-secundario .plan-precio {
-			color: var(--principal) !important;
-		}
-
-		.plan.plan-principal .plan-header,
-		.plan.plan-principal .boton-verde {
-			background-color: var(--secundario) !important;
-		}
-
-		.plan.plan-principal .subtitulo-plan,
-		.plan.plan-principal .plan-precio {
-			color: var(--secundario) !important;
 		}
 
 		cerrar-pop {

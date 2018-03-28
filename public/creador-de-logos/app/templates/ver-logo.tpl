@@ -43,7 +43,10 @@
         </div>
     </div>
 
-    <bazam-planes></bazam-planes>
+    <div class="ver-logo-planes">
+        <bazam-listar-planes datos="datos" guardar-logo="guardarLogo" data-id="id" verlogo="true"></bazam-listar-planes>
+    </div>
+
 
     <div class="contenedor-ver-previsualizar dos" style="padding-bottom:5px;">
         <div class="contenedor-logoprev" style="padding-right:5px;">
@@ -87,7 +90,7 @@
         transition: height 1s;
         width: 100vw;
         height: 0;
-        background: white;
+        background: rgb(246, 246, 246);
     }
 
     .ver-logo-enorme.activo {
@@ -97,7 +100,7 @@
     }
 
     .ver-logo-enorme .contenedor-ver-logo {
-        height: 80vh;
+        height: 60vh;
     }
 
     /**************/
@@ -137,7 +140,7 @@
     }
 
     .contenedor-ver-previsualizar.uno {
-        padding: 5px 0;
+        padding: 5px 0 0 0;
     }
 
     .contenedor-ver-previsualizar>div {
@@ -156,4 +159,11 @@
     }
 
     /*************/
+
+    /* PLANES */
+
+    .ver-logo-planes {
+        background-color: rgb(246, 246, 246);
+        padding: 4% 7%;
+    }
 </style>

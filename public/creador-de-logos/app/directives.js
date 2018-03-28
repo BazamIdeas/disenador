@@ -2189,7 +2189,9 @@ angular.module("disenador-de-logos")
 			scope: {
 				datos: "=",
 				dataId: "=",
-				guardarLogo: "<"
+				guardarLogo: "<",
+				verlogo: "<",
+				promocion: "="
 			},
 			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q) {
 
@@ -2198,6 +2200,8 @@ angular.module("disenador-de-logos")
 				bz.base64 = $base64;
 
 				bz.estado = $scope.estado;
+
+				bz.promocion = $scope.promocion;
 
 				/* PLANES */
 

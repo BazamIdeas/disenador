@@ -50,7 +50,7 @@
                     </md-input-container>
                 </div>
                 <div>
-                    <md-input-container class="md-block " style="width:100%;">
+                    <md-input-container class="md-block " style="width:100%; box-sizing: content-box;">
                         <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores"
                             aria-label="filtro" name="color" placeholder="Colores" required>
                             <md-optgroup label="Colores">
