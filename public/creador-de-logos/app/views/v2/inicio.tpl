@@ -135,9 +135,10 @@
                         color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
-                    <span class="seleccionar" style="margin-bottom: 15%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p> <i class="material-icons">shopping_cart</i></span>
-                    <span class="seleccionar" style="margin-bottom: 42%;" ng-click="inicio.preAvanzar(logo)"> <p>EDITAR</p> <i class="material-icons">edit</i></span>
-                    <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);"> <p>VER</p> <i class="material-icons">crop_original</i></span>
+                    <span class="seleccionar" style="margin-bottom: 38%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
+                    <span class="seleccionar" style="margin-bottom: 58%;" ng-click="inicio.preAvanzar(logo)"> <p>EDITAR</p><img src="assets/images/edit_white.svg" alt=""></span>
+                    <span class="seleccionar" style="margin-bottom: 78%;"> <p>COMPARTIR</p><img src="assets/images/share.svg" alt=""></span>
+                    <!--<span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);"> <p>VER</p><img src="assets/images/" alt=""></span>-->
                 </div>
 
             </div>
@@ -262,7 +263,7 @@
     </div>
 </section>
 
-<bazam-previsualizar-dos estado="inicio.verPrevisualizar" logo="inicio.logoElegido.svg" colores="inicio.logoElegido.colores"></bazam-previsualizar-dos>
+<bazam-previsualizar-dos estado="inicio.verPrevisualizar" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo"></bazam-previsualizar-dos>
 
 <bazam-planes estado="inicio.abrirPlanes" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo"></bazam-planes>
 

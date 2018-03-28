@@ -2880,13 +2880,14 @@ textarea {
 
 .logo-container-m span.seleccionar,
 .combinacion span.seleccionar {
+    width: 50px;
     position: absolute;
     background-color: transparent;
     border: 1px solid transparent;
     color: var(--principal);
     opacity: 0;
     border-radius: 8px;
-    height: 40px;
+    height: 50px;
     display: block;
     font-family: futura-heavy !important;
     -webkit-transition: opacity 1s, width 0.5s;
@@ -2898,11 +2899,7 @@ textarea {
     flex-flow: row;
     align-items: center;
     justify-content: flex-end;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
-}
-
-.logo-container-m span.seleccionar, .combinacion span.seleccionar {
-    background-color: #ffffffcf;
+    background: rgba(0,0,0,0.2);
 }
 
 .logo-container-m span.seleccionar p,
@@ -2914,16 +2911,17 @@ textarea {
 
 .logo-container-m span.seleccionar:hover,
 .combinacion span.seleccionar:hover {
-    background-color: var(--principal);
+    background: rgba(0,0,0,0.2);
     color: white;
+    width:50%;
 }
 
-.logo-container-m span.seleccionar i, .combinacion span.seleccionar i {
-    width: 40px;
-    height: 40px;
+.logo-container-m span.seleccionar img, .combinacion span.seleccionar img {
+    width: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 10px;
 }
 
 .logo-container-m span.seleccionar:hover p,
