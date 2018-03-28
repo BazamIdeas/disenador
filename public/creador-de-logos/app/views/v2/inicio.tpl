@@ -263,7 +263,7 @@
     </div>
 </section>
 
-<bazam-previsualizar-dos estado="inicio.verPrevisualizar" logo="inicio.logoElegido.svg" colores="inicio.logoElegido.colores"></bazam-previsualizar-dos>
+<bazam-previsualizar-dos estado="inicio.verPrevisualizar" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo"></bazam-previsualizar-dos>
 
 <bazam-planes estado="inicio.abrirPlanes" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo"></bazam-planes>
 

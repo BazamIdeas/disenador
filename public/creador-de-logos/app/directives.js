@@ -2182,14 +2182,13 @@ angular.module("disenador-de-logos")
 
 	}])
 
-	.directive("bazamPlanes", [function () {
+	.directive("bazamListarPlanes", [function () {
 		return {
-			templateUrl: "app/templates/planes.tpl",
-			controllerAs: "planes",
+			templateUrl: "app/templates/listar-planes.tpl",
+			controllerAs: "listarPlanes",
 			scope: {
 				datos: "=",
-				estado: "=",
-				id: "=",
+				dataId: "=",
 				guardarLogo: "<"
 			},
 			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q) {
@@ -2293,7 +2292,7 @@ angular.module("disenador-de-logos")
 
 							angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-							if ($scope.id) {
+							if ($scope.dataId) {
 								logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 									var url = "";
 									if (res.zip) {
@@ -2445,7 +2444,32 @@ angular.module("disenador-de-logos")
 				};
 			}]
 		};
+	}])
 
+	.directive("bazamPlanes", [function () {
+		return {
+			templateUrl: "app/templates/planes.tpl",
+			controllerAs: "planes",
+			scope: {
+				datos: "=",
+				estado: "=",
+				dataId: "=",
+				guardarLogo: "<"
+			}
+		};
+
+	}])
+
+	.directive("bazamPrevisualizarDos", [function () {
+		return {
+			templateUrl: "app/templates/ver-logo.tpl",
+			scope: {
+				datos: "=",
+				estado: "=",
+				dataId: "=",
+				guardarLogo: "<"
+			}
+		}
 	}])
 
 	.directive("bazamColorPicker", [function () {
@@ -2484,15 +2508,4 @@ angular.module("disenador-de-logos")
 				});
 			}]
 		};
-	}])
-
-	.directive("bazamPrevisualizarDos", [function () {
-		return {
-			templateUrl: "app/templates/ver-logo.tpl",
-			scope: {
-				logo: "=",
-				estado: "=",
-				colores: "="
-			}
-		}
 	}]);
