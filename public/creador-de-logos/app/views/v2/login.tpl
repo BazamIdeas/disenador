@@ -76,14 +76,14 @@
                                         <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
                                     </div>
                                 </div>
-                                <div class="input-field col s12">
+                                <!--<div class="input-field col s12">
                                     <input id="telefono" type="text" ng-model="login.datosRegistro.telefono" name="telefono" required>
                                     <label for="telefono">Telefóno</label>
 
                                     <div ng-messages="login.registroForm.telefono.$error" ng-if="login.registroForm.$submitted || login.registroForm.telefono.$dirty">
                                         <div ng-message="required">Este campo es requerido.</div>
                                     </div>
-
+                                
                                 </div>
                                 <div class="input-field col s12">
 
@@ -93,6 +93,7 @@
                                         </md-select>
                                     </md-input-container>
                                 </div>
+                                -->
                                 <div class="text-center">
                                     <button class="boton-verde">ENVIAR</button>
                                 </div>
