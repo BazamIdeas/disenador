@@ -143,7 +143,7 @@
                         <p>EDITAR</p>
                         <i class="material-icons">edit</i>
                     </span>
-                    <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo, true);">
+                    <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo, 'VER-LOGO')">
                         <p>VER</p>
                         <i class="material-icons">remove_red_eye</i>
                     </span>
@@ -271,7 +271,7 @@
     </div>
 </section>
 
-<bazam-previsualizar-dos estado="inicio.verPrevisualizar" logo="inicio.logoElegido.svg" colores="inicio.logoElegido.colores"></bazam-previsualizar-dos>
+<bazam-previsualizar-dos estado="inicio.verPrevisualizar" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo"></bazam-previsualizar-dos>
 
 <bazam-planes estado="inicio.abrirPlanes" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo"></bazam-planes>
 

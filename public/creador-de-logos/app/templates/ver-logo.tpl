@@ -43,6 +43,10 @@
         </div>
     </div>
 
+    <bazam-planes>
+
+    </bazam-planes>
+
     <div class="contenedor-ver-previsualizar dos" style="padding-bottom:5px;">
         <div class="contenedor-logoprev" style="padding-right:5px;">
             <div style="    transform: skewY(16deg) skewX(-4deg);

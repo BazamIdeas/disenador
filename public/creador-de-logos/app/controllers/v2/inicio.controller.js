@@ -22,17 +22,13 @@ angular.module("disenador-de-logos")
 			etiquetasSeleccionadas: []
 		};
 
-		bz.seleccionarLogo = function (svg, colores, logo, v) {
+		bz.seleccionarLogo = function (svg, colores, logo) {
 
 			bz.logoElegido = {
 				svg: svg,
 				colores: colores,
 				logoCompleto: logo
 			};
-
-			if (v) {
-				bz.verPrevisualizar = true;
-			}
 
 		};
 
@@ -264,7 +260,7 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.comprarLogo = function (svg, colores, logo) {
+		bz.comprarLogo = function (svg, colores, logo, v) {
 
 			bz.seleccionarLogo(svg, colores, logo);
 
@@ -284,6 +280,9 @@ angular.module("disenador-de-logos")
 				moneda: bz.moneda
 			};
 
+			if (v === 'VER-LOGO') {
+				bz.verPrevisualizar = true;
+			}
 			bz.abrirPlanes = true;
 		};
 
