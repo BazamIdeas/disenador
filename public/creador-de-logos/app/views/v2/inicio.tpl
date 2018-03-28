@@ -28,25 +28,10 @@
      */
 </style>-->
 
-<section class="sub-header">
-    <div class="row margin-bottom-0">
-
-        <div class="col l2 logo">
-            <h5 class="secundario" ui-sref="inicio">
-                <i class="material-icons md-48 aling-top">fingerprint</i>
-                <span>DISEÑADOR</span>
-            </h5>
-        </div>
-        <div class="col l10 texto">
-            <h5 class="principal"> CREA EN MINUTOS UN LOGO QUE AMARÁS</h5>
-        </div>
-
-    </div>
-</section>
-
 <section style="max-height: calc(100vh - 135px) !important; background-color: var(--fondo);">
     <div class="row margin-bottom-0">
         <form class="margin-bottom-0" name="inicio.datosForm">
+
             <div class="col l2 sidebar-1" style="position: static !important">
                 <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo"
                     data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1"
@@ -93,7 +78,7 @@
                         </md-radio-group>
 
                         <!-- VALIDACION -->
-                        <div ng-messages="inicio.datosForm.fuente.$error" style="color:maroon; padding-bottom:20px;" role="alert " >
+                        <div ng-messages="inicio.datosForm.fuente.$error" style="color:maroon; padding-bottom:20px;" role="alert ">
                             <div ng-message="required" style="top: 64px; margin-bottom: 10px;" ng-show="inicio.datosForm.fuente.$error && inicio.datosForm.$submitted">Debes elegir un estilo de Tipografía.</div>
                         </div>
                     </div>
@@ -132,7 +117,7 @@
             </div>
         </form>
 
-        <div class="contenedor-principal col l7">
+        <div class="contenedor-principal col l10">
 
             <div class="row" style="margin-bottom:0;overflow-y: scroll; height: 100% ;width: 100%; display: flex; justify-content: center; align-items: center;"
                 ng-if="!inicio.logos.length">
@@ -143,14 +128,25 @@
 
             <div class="row" style="margin-bottom:0;overflow-y: scroll;overflow-x: hidden;;height: 100%;" ng-if="inicio.logos.length">
 
-                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)" ng-style="{'background-color': logo.colores[0]}" >
-                    <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
-                        callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
+                <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)"
+                    ng-style="{'background-color': logo.colores[0]}">
+                    <bazam-svg-text ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);" svg='inicio.base64.decode(logo.icono.svg)'
+                        url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado"
+                        color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
-                    <span class="seleccionar" style="margin-bottom: 15%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p> <i class="material-icons">shopping_cart</i></span>
-                    <span class="seleccionar" style="margin-bottom: 42%;" ng-click="inicio.preAvanzar(logo)"> <p>EDITAR</p> <i class="material-icons">edit</i></span>
-                    <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);"> <p>VER</p> <i class="material-icons">remove_red_eye</i></span>
+                    <span class="seleccionar" style="margin-bottom: 15%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)">
+                        <p>COMPRAR</p>
+                        <i class="material-icons">shopping_cart</i>
+                    </span>
+                    <span class="seleccionar" style="margin-bottom: 42%;" ng-click="inicio.preAvanzar(logo)">
+                        <p>EDITAR</p>
+                        <i class="material-icons">edit</i>
+                    </span>
+                    <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo, true);">
+                        <p>VER</p>
+                        <i class="material-icons">remove_red_eye</i>
+                    </span>
                 </div>
 
             </div>
@@ -176,6 +172,7 @@
             -->
         </div>
 
+        <!--
         <div class="col l3" style="background-color: white; padding: 0px !important; max-height: calc(100vh - 9rem); overflow-y: auto; position: relative; height: 100%; margin: 0 0;">
             <div class="row padding-bottom-0 margin-bottom-0">
                 <div class="col s12" style="padding:0">
@@ -270,9 +267,11 @@
 
             </div>
         </div>
-
+        -->
     </div>
 </section>
+
+<bazam-previsualizar-dos estado="inicio.verPrevisualizar" logo="inicio.logoElegido.svg" colores="inicio.logoElegido.colores"></bazam-previsualizar-dos>
 
 <bazam-planes estado="inicio.abrirPlanes" datos="inicio.datosComprar" guardar-logo="inicio.guardarLogo"></bazam-planes>
 
