@@ -566,24 +566,44 @@ button.boton-verde:hover {
 /*Begin header*/
 
 header {
-    background-color: var(--principal);
-    height: 45px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    background-color: #ffffff;
+    height: 60px;
+    font-size: 14px;
+    padding: 0 10px;
+    -webkit-box-shadow: 0px 0px 1px 0px #d6d6d6;
+    box-shadow: 0px 0px 1px 0px #d6d6d6;
+    position: relative;
+    z-index: 1;
+}
+
+header div {
+    color: var(--principal);
+    height: 100%;
+    display: inline-flex;
+    vertical-align: middle;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
-    text-align: right;
-    font-size: 14px;
-    padding: 0 10px;
 }
 
-header div div.login {
-    color: white
+header div.menu {
+    color: var(--principal);
+    height: 100%;
+    display: inline-flex;
+    vertical-align: middle;
+    -webkit-box-pack: flex-end;
+    -ms-flex-pack: flex-end;
+    justify-content: flex-end;
+}
+
+header div.logo {
+    color: var(--principal);
+    height: 100%;
+    display: inline-flex;
+    vertical-align: middle;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 div.acceder {
@@ -623,6 +643,11 @@ div.acceder span {
 
 div.acceder span i {
     vertical-align: top;
+    font-size: 28px;
+}
+
+.input-field, .input-field label {
+    padding: 0 0px !important;
 }
 
 /*End header*/
@@ -684,13 +709,14 @@ section.sub-header .row .col.texto h5 {
 div.sidebar-1,
 div.sidebar-2,
 div.lienzo {
-    padding-top: 10px !important;
+    padding-top: 20px !important;
     max-height: calc(100vh - 3rem);
     overflow-y: auto;
     position: relative;
     height: 100%;
     margin: 0 0;
     z-index: 2;
+    border-right: 1px solid #f3f3f3;
 }
 
 div.sidebar-1,
@@ -844,7 +870,7 @@ div.contenedor-principal {
     -webkit-transition: width 1s ease;
     transition: width 1s ease;
     padding: 0 !important;
-    background-color: var(--fondo);
+    background-color: #ffffff;
     max-height: calc(100vh - 3rem);
     height: 100%;
     display: inline-block;
@@ -2911,12 +2937,8 @@ textarea {
 .logo-container-m span.seleccionar:hover i,
 .combinacion span.seleccionar:hover i {
     -webkit-transform: rotate(360deg);
-<<<<<<< HEAD
             transform: rotate(360deg);
     transition: -webkit-transform 1s;
-=======
-    transform: rotate(360deg);
->>>>>>> 3fb9c7b02d3c0f09e0f1147c768501cfdeecdc2f
 }
 
 .logo-container-m.logo-active-m:hover span.seleccionar,
@@ -3653,10 +3675,6 @@ span.estilo.seleccionado {
     transform: scale(1.1);
 }
 
-.input-field,
-.input-field label {
-    padding: 0 12px !important;
-}
 
 .md-select-value .md-select-icon {
     width: 13px;

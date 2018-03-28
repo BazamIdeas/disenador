@@ -112,7 +112,7 @@
                     <br/>
                 </div>
                 <div style="text-align: center;">
-                    <button class="boton-verde" ng-class="{'loading-white': !inicio.completado}" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "Cargar Más" : "Buscar"}}</button>
+                    <button class="boton-verde" style="width: 100%;" ng-class="{'loading-white': !inicio.completado}" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "Cargar Más" : "Buscar"}}</button>
                 </div>
             </div>
         </form>
@@ -126,7 +126,7 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-bottom:0;overflow-y: scroll;overflow-x: hidden;;height: 100%;" ng-if="inicio.logos.length">
+            <div class="row" style="margin-bottom:0; padding: 2px;overflow-y: scroll;overflow-x: hidden;;height: 100%;" ng-if="inicio.logos.length">
 
                 <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)"
                     ng-style="{'background-color': logo.colores[0]}">
@@ -135,24 +135,9 @@
                         color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
-<<<<<<< HEAD
                     <span class="seleccionar" style="margin-bottom: 15%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p> <i class="material-icons">shopping_cart</i></span>
                     <span class="seleccionar" style="margin-bottom: 42%;" ng-click="inicio.preAvanzar(logo)"> <p>EDITAR</p> <i class="material-icons">edit</i></span>
                     <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);"> <p>VER</p> <i class="material-icons">crop_original</i></span>
-=======
-                    <span class="seleccionar" style="margin-bottom: 15%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)">
-                        <p>COMPRAR</p>
-                        <i class="material-icons">shopping_cart</i>
-                    </span>
-                    <span class="seleccionar" style="margin-bottom: 42%;" ng-click="inicio.preAvanzar(logo)">
-                        <p>EDITAR</p>
-                        <i class="material-icons">edit</i>
-                    </span>
-                    <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo, true);">
-                        <p>VER</p>
-                        <i class="material-icons">remove_red_eye</i>
-                    </span>
->>>>>>> 3fb9c7b02d3c0f09e0f1147c768501cfdeecdc2f
                 </div>
 
             </div>
