@@ -13,7 +13,7 @@
 	}
 </style>
 
-<section class="sub-header-principal">
+<!--<section class="sub-header-principal">
 	<div class="row margin-bottom-0">
 
 		<div class="col s2 logo">
@@ -26,10 +26,10 @@
 			<div class="row opciones-sub-header margin-bottom-0">
 				<div class="col l2 xl2" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']"
 				    data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
-					<!--<div color-picker color-picker-model="editor.colorFondo" ng-model="editor.colorFondo" color-picker-position="bottom" ng-click="editor.cuadricula = false"
+					<div color-picker color-picker-model="editor.colorFondo" ng-model="editor.colorFondo" color-picker-position="bottom" ng-click="editor.cuadricula = false"
 					    class="selector-fondo" ng-style="{'background-color': editor.colorFondo}" style="font-size: 0px;"></div>
 					<span class="principal">Fondo</span>
-					-->
+				
 					<bazam-color-picker data-color="editor.colorFondo"></bazam-color-picker>
 					<span class="principal">Fondo</span>
 				</div>
@@ -41,15 +41,15 @@
 					<span class="principal">Cuadricula</span>
 				</div>
 				<div class="col l5 xl4 offset-xl4">
-					<!--<button class="boton-oborder" ng-class="{'active': editor.borradores}" ng-click="::editor.abrirContenedor('borradores')" bazam-ayuda
+					<button class="boton-oborder" ng-class="{'active': editor.borradores}" ng-click="::editor.abrirContenedor('borradores')" bazam-ayuda
 					    data-titulo="Borradores" data-texto="Guarde versiones de su logo para compararlos y restaurar la mejor opción" data-clases="['corner-lt']"
 					    data-identificador="ayuda-borradores" data-orientacion="right" data-paso="12" bazam-pasos-ayuda>
 						<i class="material-icons">queue</i> BORRADORES</button>
-					-->
-					<!--<button class="boton-oborder" ng-class="{'active': editor.preview}" ng-click="editor.mostrarPreviews()" bazam-ayuda data-titulo="Previews"
+					
+					<button class="boton-oborder" ng-class="{'active': editor.preview}" ng-click="editor.mostrarPreviews()" bazam-ayuda data-titulo="Previews"
 					    data-texto="Previsualice su logo en diferentes elementos publicitarios y de papelería" data-clases="['corner-lt']" data-identificador="ayuda-preview"
 					    data-orientacion="right" data-paso="13" bazam-pasos-ayuda>
-						<i class="material-icons">remove_red_eye</i> PREVIEW</button>-->
+						<i class="material-icons">remove_red_eye</i> PREVIEW</button>
 
 					<button class="boton-oborder" ng-class="{'loading-purple': !editor.completadoGuardar}" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"
 					    bazam-ayuda data-titulo="Guardar" data-texto="Guarde su logo para su posterior edicion" data-clases="['corner-lt']"
@@ -63,9 +63,9 @@
 		</div>
 
 	</div>
-</section>
+</section>-->
 
-<section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
+<section style="height: calc(100vh - 60px) !important; background-color: var(--fondo);overflow: hidden;">
 	<div class="row margin-bottom-0" style="overflow: hidden;">
 		<div class="col s2 editor-p sidebar-1" ng-form="editor.datosForm" style="padding: 10px 0px 0px 0px !important;text-align: center;"
 		    ng-init="editor.menuSwitch = 1">
@@ -296,17 +296,36 @@
 				</div>
 
 			</div>
-			<ver-mas-opciones ui-sref="inicio">
-				<md-button>
-					<md-icon>arrow_back</md-icon> Volver
+
+			<div class="col s6" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']"
+			data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
+				<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fondo</md-tooltip>
+				<bazam-color-picker data-color="editor.colorFondo"></bazam-color-picker>
+			</div>
+			<div class="col s6" bazam-ayuda data-titulo="Cuadricula" data-texto="Utiice la cuadricula para orientar los elementos de su logo "
+				data-clases="['corner-lt']" data-identificador="ayuda-cuadricula" data-orientacion="right" data-paso="11" 		bazam-pasos-ayuda>
+				<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cuadricula</md-tooltip>
+				<div class="selector-cuadricula" ng-class="{'active': editor.cuadricula }" ng-click="::editor.activarCuadricula()">
+					<i class="material-icons">apps</i>
+				</div>
+			</div>
+
+			<div class=" col s12">
+				<md-button style="margin:30px 0 0 0; font-weight:bold; font-family: futura-heavy;width:100%; border-radius:4px; background-color: var(--principal); color:white;" ui-sref="inicio">
+					Volver
 				</md-button>
-			</ver-mas-opciones>
+			</div>
 
 
 		</div>
 
 		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
-		    style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
+			style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
+			
+			<span class="seleccionar" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)" style="margin-bottom: 67%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+			
+			<span class="seleccionar" ng-click="::editor.buscarPlanes()" style="margin-bottom: 60%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
+
 			<div class="contenedor-svg" style="position:relative">
 				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
 				    data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan"
