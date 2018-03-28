@@ -1676,7 +1676,10 @@ angular.module("disenador-de-logos")
 				bz.base64 = $base64;
 
 				bz.actual = 0;
-				$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
+				if($scope.logos.length){
+					$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
+				}
+				
 
 				if ($scope.logos.length > 1) {
 					bz.actual = 1;

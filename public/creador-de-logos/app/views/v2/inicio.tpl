@@ -28,7 +28,7 @@
      */
 </style>-->
 
-<section style="max-height: calc(100vh - 135px) !important; background-color: var(--fondo);">
+<section style="max-height: calc(100vh - 60px) !important; background-color: var(--fondo);">
     <div class="row margin-bottom-0">
         <form class="margin-bottom-0" name="inicio.datosForm">
 
@@ -135,18 +135,15 @@
                         color-texto="logo.colores[2]" color-icono="logo.colores[1]"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
-                    <span class="seleccionar" style="margin-bottom: 15%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)">
-                        <p>COMPRAR</p>
-                        <i class="material-icons">shopping_cart</i>
-                    </span>
-                    <span class="seleccionar" style="margin-bottom: 42%;" ng-click="inicio.preAvanzar(logo)">
-                        <p>EDITAR</p>
-                        <i class="material-icons">edit</i>
-                    </span>
-                    <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo, true)">
-                        <p>VER</p>
-                        <i class="material-icons">crop_original</i>
-                    </span>
+                    <span class="seleccionar" style="margin-bottom: 83%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+
+                    <span class="seleccionar" style="margin-bottom: 66%;" ng-click="inicio.preAvanzar(logo)"> <p>EDITAR</p><img src="assets/images/edit_white.svg" alt=""></span>
+
+                    <span class="seleccionar" style="margin-bottom: 49%;"> <p>COMPARTIR</p><img src="assets/images/share.svg" alt=""></span>
+
+                    <span class="comprar" style="margin-bottom: 4%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
+
+                    <!--<span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);"> <p>VER</p><img src="assets/images/" alt=""></span>-->
                 </div>
 
             </div>

@@ -509,7 +509,7 @@ table.table-admin td {
 
 /*PARTES Y PEQUEÑOS ELEMENTOS*/
 
-.md-tooltip {
+md-tooltip {
     background-color: white !important;
     color: var(--principal) !important;
     font-family: 'futura-heavy' !important;
@@ -573,7 +573,7 @@ header {
     -webkit-box-shadow: 0px 0px 1px 0px #d6d6d6;
     box-shadow: 0px 0px 1px 0px #d6d6d6;
     position: relative;
-    z-index: 1;
+    z-index: 5;
 }
 
 header div {
@@ -637,7 +637,7 @@ div.acceder span {
 .tooltip-header {
     font-family: 'futura-heavy' !important;
     font-size: 14px !important;
-    color: white !important;
+    color:var(--principal) !important;
     background-color: white !important;
 }
 
@@ -711,7 +711,7 @@ div.sidebar-1,
 div.sidebar-2,
 div.lienzo {
     padding-top: 20px !important;
-    max-height: calc(100vh - 3rem);
+    max-height: calc(100vh - 60px);
     overflow-y: auto;
     position: relative;
     height: 100%;
@@ -872,7 +872,7 @@ div.contenedor-principal {
     transition: width 1s ease;
     padding: 0 !important;
     background-color: #ffffff;
-    max-height: calc(100vh - 3rem);
+    max-height: calc(100vh - 60px);
     height: 100%;
     display: inline-block;
     position: relative;
@@ -1202,7 +1202,7 @@ div.cubo-form i.cerrar {
 
 .selector-fondo,
 .selector-cuadricula {
-    width: 49px;
+    width: 100%;
     height: 49px;
     background-color: var(--fondo);
     border-radius: 10px;
@@ -2136,7 +2136,7 @@ path.seleccionado {
 }
 
 .section-cliente {
-    height: calc(100vh - 135px) !important;
+    height: calc(100vh - 60px) !important;
     background-color: var(--blanco);
     overflow: hidden;
 }
@@ -2836,7 +2836,8 @@ textarea {
 }
 
 .logo-container-m span.seleccionar,
-.combinacion span.seleccionar {
+.combinacion span.seleccionar, .contenedor-principal.editor span.seleccionar, .comprar {
+    width: 40px;
     position: absolute;
     background-color: transparent;
     border: 1px solid transparent;
@@ -2855,53 +2856,60 @@ textarea {
     flex-flow: row;
     align-items: center;
     justify-content: flex-end;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
-}
-
-.logo-container-m span.seleccionar,
-.combinacion span.seleccionar {
-    background-color: #ffffffcf;
+    background: rgba(0,0,0,0.2);
 }
 
 .logo-container-m span.seleccionar p,
-.combinacion span.seleccionar p {
+.combinacion span.seleccionar p , .contenedor-principal.editor span.seleccionar p{
     opacity: 0;
     margin: 0 0 0 0px;
     width: 0;
 }
 
 .logo-container-m span.seleccionar:hover,
-.combinacion span.seleccionar:hover {
-    background-color: var(--principal);
+.combinacion span.seleccionar:hover, .combinacion .comprar {
+    background: rgba(0,0,0,0.4);
     color: white;
+    width:50%;
 }
 
-.logo-container-m span.seleccionar i,
-.combinacion span.seleccionar i {
-    width: 40px;
-    height: 40px;
+.contenedor-principal.editor span.seleccionar:hover{
+    background: rgba(0,0,0,0.4);
+    color: white;
+    width:20%;
+}
+
+.combinacion .comprar {
+    justify-content: center;
+    right: calc(100% - 75%);
+}
+
+.logo-container-m span.seleccionar img, .combinacion span.seleccionar img, .contenedor-principal.editor span.seleccionar img {
+    width: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 10px;
 }
 
 .logo-container-m span.seleccionar:hover p,
-.combinacion span.seleccionar:hover p {
+.combinacion span.seleccionar:hover p, .contenedor-principal.editor:hover span.seleccionar:hover p {
     display: block;
     opacity: 1;
     margin: 0 0 0 12px;
     width: 65%;
+    -webkit-transition: opacity 1s, width 0.5s;
 }
 
-.logo-container-m span.seleccionar:hover i,
-.combinacion span.seleccionar:hover i {
+.logo-container-m span.seleccionar:hover img,
+.combinacion span.seleccionar:hover img {
     -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-    transition: -webkit-transform 1s;
+            transform: rotate(360deg);
+    transition: -webkit-transform 0.6s;
 }
 
 .logo-container-m.logo-active-m:hover span.seleccionar,
-.combinacion:hover span.seleccionar {
+.combinacion:hover span.seleccionar, .contenedor-principal.editor span.seleccionar, .contenedor-principal.editor span.comprar, .combinacion:hover span.comprar {
     opacity: 1;
 }
 
@@ -3171,7 +3179,11 @@ div.combinacion {
     border: 3px solid white;
     cursor: pointer;
     padding: 0 !important;
-    border-radius: 0px;
+    border-radius: 6px;
+}
+
+div.combinacion:hover {
+    border: 3px solid rgba(0,0,0,0.2);
 }
 
 @-webkit-keyframes topToMiddle {

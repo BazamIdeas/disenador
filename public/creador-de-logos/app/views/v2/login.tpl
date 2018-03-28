@@ -1,19 +1,3 @@
-<section class="sub-header">
-    <div class="row margin-bottom-0">
-
-        <div class="col s2 logo">
-            <h5 class="secundario" ui-sref="inicio">
-                <i class="material-icons md-48 aling-top">fingerprint</i>
-                <span>DISEÑADOR</span>
-            </h5>
-        </div>
-        <div class="col s10 texto text-login">
-            <h5 class="principal">INGRESO</h5>
-        </div>
-
-    </div>
-</section>
-
 <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
     <div class="row margin-bottom-0" style="overflow: hidden;">
 
@@ -92,14 +76,14 @@
                                         <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
                                     </div>
                                 </div>
-                                <div class="input-field col s12">
+                                <!--<div class="input-field col s12">
                                     <input id="telefono" type="text" ng-model="login.datosRegistro.telefono" name="telefono" required>
                                     <label for="telefono">Telefóno</label>
 
                                     <div ng-messages="login.registroForm.telefono.$error" ng-if="login.registroForm.$submitted || login.registroForm.telefono.$dirty">
                                         <div ng-message="required">Este campo es requerido.</div>
                                     </div>
-
+                                
                                 </div>
                                 <div class="input-field col s12">
 
@@ -109,6 +93,7 @@
                                         </md-select>
                                     </md-input-container>
                                 </div>
+                                -->
                                 <div class="text-center">
                                     <button class="boton-verde">ENVIAR</button>
                                 </div>
