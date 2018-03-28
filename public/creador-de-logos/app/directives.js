@@ -2330,9 +2330,9 @@ angular.module("disenador-de-logos")
 
 	}])
 
-	.directive("bazamColorPicker", [function(){
+	.directive("bazamColorPicker", [function () {
 		return {
-			template:	"<div style='position:relative;'>\
+			template: "<div style='position:relative;'>\
 							<div class='selector-fondo' ng-style='jsonColor(color)' ng-click='mostrarPicker = !mostrarPicker'>\
 							</div>\
 							<div class='color-picker-bazam' id='color-picker-fondo' ng-show='mostrarPicker' style='position: absolute; width: 200px; height: 200px; background-color: white; z-index: 2; padding: 10px;'>\
@@ -2348,20 +2348,33 @@ angular.module("disenador-de-logos")
 			scope: {
 				color: "="
 			},
-			controller: ["$scope", "coloresPaletaValue", function($scope, coloresPaletaValue){
+			controller: ["$scope", "coloresPaletaValue", function ($scope, coloresPaletaValue) {
 				$scope.paletaColores = coloresPaletaValue;
 
-				$scope.jsonColor = function(color){
-					return {"background-color" : color};
+				$scope.jsonColor = function (color) {
+					return {
+						"background-color": color
+					};
 				};
 
 				$scope.mostrarPicker = false;
 
 				$scope.$on("editor:cerrarColorPickers", function () {
-					
+
 					$scope.mostrarPicker = false;
 
 				});
 			}]
 		};
+	}])
+
+	.directive("bazamPrevisualizarDos", [function () {
+		return {
+			templateUrl: "app/templates/ver-logo.tpl",
+			scope: {
+				logo: "=",
+				estado: "=",
+				colores: "="
+			}
+		}
 	}]);
