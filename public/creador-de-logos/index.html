@@ -24,8 +24,6 @@
         <meta property="og:description" content="Descripcion" />
         <meta property="og:site_name" content="Nombre de la web, i.e. Moz" />
         <meta property="fb:admins" content="ID de Facebook" />
-
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 
         <link href="/angular-material/angular-material.min.css" rel="stylesheet">
@@ -86,6 +84,12 @@
 
         <header ng-controller="headerController as header">
 
+            <div class="col s3 logo">
+                <h5 class="secundario" ui-sref="inicio">
+                    <i class="material-icons md-48 aling-top">fingerprint</i>
+                    <span>DISEÑADOR</span>
+                </h5>
+            </div>
             <div class="col s6 m9" show-gt-sm>
 
                 <div ng-switch="header.autorizado" class="login" ng-cloak>

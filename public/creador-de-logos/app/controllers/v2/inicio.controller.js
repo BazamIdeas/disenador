@@ -22,12 +22,18 @@ angular.module("disenador-de-logos")
 			etiquetasSeleccionadas: []
 		};
 
-		bz.seleccionarLogo = function (svg, colores, logo) {
+		bz.seleccionarLogo = function (svg, colores, logo, v) {
+
 			bz.logoElegido = {
 				svg: svg,
 				colores: colores,
 				logoCompleto: logo
 			};
+
+			if (v) {
+				bz.verPrevisualizar = true;
+			}
+
 		};
 
 
@@ -134,9 +140,9 @@ angular.module("disenador-de-logos")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
-					promesaIconos,
-					promesaFuentes
-				])
+						promesaIconos,
+						promesaFuentes
+					])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {
@@ -261,7 +267,7 @@ angular.module("disenador-de-logos")
 		bz.comprarLogo = function (svg, colores, logo) {
 
 			bz.seleccionarLogo(svg, colores, logo);
-			
+
 			bz.datosComprar = {
 				logo: svg,
 				idLogo: null,
