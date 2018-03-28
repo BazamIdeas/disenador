@@ -150,7 +150,7 @@
 
                     <span class="seleccionar" style="margin-bottom: 15%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p> <i class="material-icons">shopping_cart</i></span>
                     <span class="seleccionar" style="margin-bottom: 42%;" ng-click="inicio.preAvanzar(logo)"> <p>EDITAR</p> <i class="material-icons">edit</i></span>
-                    <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);"> <p>VER</p> <i class="material-icons">remove_red_eye</i></span>
+                    <span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);"> <p>VER</p> <i class="material-icons">crop_original</i></span>
                 </div>
 
             </div>
