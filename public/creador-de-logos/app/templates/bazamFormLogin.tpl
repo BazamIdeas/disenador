@@ -78,7 +78,7 @@
                                         <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
                                     </div>
                                 </div>
-                                <div class="input-field col s12">
+                                <!--<div class="input-field col s12">
                                     <input id="telefono" type="text" name="telefono" ng-model="bazamLogin.datosRegistro.telefono" required>
                                     <label for="telefono">Telefóno</label>
 
@@ -93,7 +93,7 @@
                                             <md-option ng-repeat="(llave, valor) in bazamLogin.paises track by $index" ng-value="llave" ng-selected="llave == bazamLogin.paisDefecto">{{::valor}}</md-option>
                                         </md-select>
                                     </md-input-container>
-                                </div>
+                                </div>-->
                                 <div class="text-center">
                                     <button class="boton-verde">ENVIAR</button>
                                 </div>
