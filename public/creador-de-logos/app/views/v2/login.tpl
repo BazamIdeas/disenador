@@ -1,19 +1,3 @@
-<section class="sub-header">
-    <div class="row margin-bottom-0">
-
-        <div class="col s2 logo">
-            <h5 class="secundario" ui-sref="inicio">
-                <i class="material-icons md-48 aling-top">fingerprint</i>
-                <span>DISEÑADOR</span>
-            </h5>
-        </div>
-        <div class="col s10 texto text-login">
-            <h5 class="principal">INGRESO</h5>
-        </div>
-
-    </div>
-</section>
-
 <section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
     <div class="row margin-bottom-0" style="overflow: hidden;">
 
