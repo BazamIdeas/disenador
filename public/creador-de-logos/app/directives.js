@@ -2475,6 +2475,11 @@ angular.module("disenador-de-logos")
 				estado: "=",
 				dataId: "=",
 				guardarLogo: "<"
+			},
+			link: function (scope, element) {
+				angular.element('body').animate({
+					scrollTop: 0
+				}, 50);
 			}
 		}
 	}])

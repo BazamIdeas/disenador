@@ -130,8 +130,11 @@ header {
     padding: 16px;
     text-align: center;
     color: var(--secundario);
+    width: 200px;
 }
-
+.logo img{
+    width: 70%;
+}
 header button,
 .logo {
     font-size: 20px !important;
