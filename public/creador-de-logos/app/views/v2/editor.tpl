@@ -297,6 +297,10 @@
 
 			</div>
 
+			<hr style="margin: 10px 8px;
+			background-color: var(--principal);
+			height: 1px;">
+
 			<div class="col s6" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']"
 			data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
 				<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fondo</md-tooltip>
@@ -322,7 +326,7 @@
 		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
 			style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
 			
-			<span class="seleccionar" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)" style="margin-bottom: 67%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+			<span class="seleccionar" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)" style="margin-bottom: 67%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
 			
 			<span class="seleccionar" ng-click="::editor.buscarPlanes()" style="margin-bottom: 60%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
 
@@ -341,7 +345,7 @@
 				</div>
 				<div class="row padding-bottom-0 margin-bottom-0">
 					<div class="col l12" style="position: relative; padding:0 !important; border-bottom: 1px solid var(--principal);cursor:pointer; overflow-y: scroll;
-					max-height: 80vh;">
+					max-height: 91vh;">
 						<!-- <div class="fuente" ng-repeat="fuente in editor.fuentes">
                             <p class="text-center">{{}}</p>
 						</div>-->

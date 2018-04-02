@@ -1983,7 +1983,7 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/bazamFormLogin.tpl",
-			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", function ($scope, clientesService, $mdToast, paisesValue) {
+			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", function ($scope, clientesService, $mdToast, paisesValue, $rootScope) {
 
 				var bz = this;
 
@@ -2016,21 +2016,12 @@ angular.module("disenador-de-logos")
 										clase: "success"
 									}
 								}));
-								$scope.callback();
-								bz.mostrarModalLogin = false;
-								/*
-								switch ($scope.tipoLogo) {
+								$rootScope.mostrarModalLogin = false;
 
-								case "nuevo":
-									$scope.callback[0]($scope.logo);
-									break;
-
-								case "predisenado":
-									$scope.callback[1]($scope.logoPredisenado);
-									break;
-
+								if($rootScope.callbackLogin){
+									$rootScope.callbackLogin();
 								}
-								*/
+								
 							}
 
 						}).catch(function () {
@@ -2074,8 +2065,12 @@ angular.module("disenador-de-logos")
 									}
 								}));
 
-								bz.mostrarModalLogin = false;
-								$scope.callback();
+								$rootScope.mostrarModalLogin = false;
+
+								if($rootScope.callbackLogin){
+									$rootScope.callbackLogin();
+								}
+								
 
 							}
 
@@ -2172,14 +2167,7 @@ angular.module("disenador-de-logos")
 				};
 
 			}],
-			controllerAs: "bazamLogin",
-			scope: {
-				callback: "<",
-				mostrar: "=",
-				/*tipoLogo: "<",
-				logo: "<",
-				logoPredisenado:"<"*/
-			}
+			controllerAs: "bazamLogin"
 		};
 
 
@@ -2487,7 +2475,7 @@ angular.module("disenador-de-logos")
 	.directive("bazamColorPicker", [function () {
 		return {
 			template: "<div style='position:relative;'>\
-							<div class='selector-fondo' ng-style='jsonColor(color)' ng-click='mostrarPicker = !mostrarPicker'>\
+							<div class='selector-fondo' style='border: 1px solid var(--fondo)' ng-style='jsonColor(color)' ng-click='mostrarPicker = !mostrarPicker'>\
 							</div>\
 							<div class='color-picker-bazam' id='color-picker-fondo' ng-show='mostrarPicker' style='position: absolute; width: 200px; height: 200px; background-color: white; z-index: 2; padding: 10px;'>\
 									<div class='titulo'>\

@@ -90,7 +90,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 					}
 				},
 				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					/*currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
 						if (!clientesService.autorizado()) {
 
@@ -98,7 +98,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 						}
 
-					}],
+					}],*/
 					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
 
 						var defered = $q.defer();
