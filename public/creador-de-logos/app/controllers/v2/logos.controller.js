@@ -211,7 +211,6 @@ angular.module("disenador-de-logos")
 		bz.mostrarPlanes = function(index) {
 			var datos = angular.copy(bz.guardados[index]);
 			datos.atributos = arrayToJsonMetasFactory(datos.atributos);
-		
 
 			bz.datosComprar = {
 				idLogo: datos.idLogo,
@@ -225,11 +224,17 @@ angular.module("disenador-de-logos")
 				colores: {
 					icono: datos.atributos["color-icono"],
 					nombre: datos.atributos["color-nombre"],
-					eslogan: datos.atributos["color-eslogan"]
+					
 				},
 				planes: bz.planes,
 				moneda: bz.moneda
 			};
+
+			if(datos.atributos["color-eslogan"]){
+				bz.datosComprar.colores.eslogan = datos.atributos["color-eslogan"]
+			}
+
+			console.log(bz.datosComprar)
 			/*
 			if (bz.idLogoPadre) {
 				bz.datosComprar.idPadre = bz.idLogoPadre;

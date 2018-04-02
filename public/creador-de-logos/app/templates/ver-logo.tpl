@@ -2,7 +2,7 @@
     <div ng-click="estado = false" class="cerrar-prev">
         <md-icon>close</md-icon>
     </div>
-    <div class="contenedor-ver-logo" style="background-color:{{datos.fondo}}">
+    <div class="contenedor-ver-logo" style="background-color:{{datos.colores.fondo}}">
         <div class="logo">
             <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
         </div>
@@ -90,7 +90,6 @@
         transition: height 1s;
         width: 100vw;
         height: 0;
-        background: rgb(246, 246, 246);
     }
 
     .ver-logo-enorme.activo {
@@ -137,6 +136,7 @@
 
     .contenedor-ver-previsualizar {
         display: flex;
+        background: rgb(246, 246, 246);
     }
 
     .contenedor-ver-previsualizar.uno {
@@ -163,7 +163,7 @@
     /* PLANES */
 
     .ver-logo-planes {
-        background-color: rgb(246, 246, 246);
+        background-color:white;
         padding: 4% 7%;
     }
 </style>

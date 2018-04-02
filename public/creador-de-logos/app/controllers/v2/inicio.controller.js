@@ -273,10 +273,10 @@ angular.module("disenador-de-logos")
 					principal: logo.fuente.idElemento
 				},
 				colores: {
+					fondo: colores[0],
 					icono: colores[1],
-					nombre: colores[2],
+					nombre: colores[2]
 				},
-				fondo: colores[0],
 				planes: bz.planes,
 				moneda: bz.moneda
 			};

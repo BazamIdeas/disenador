@@ -59,6 +59,17 @@
 
 /* END Black */
 
+/* BEGIN Boogaloo */
+
+@font-face {
+    font-family: 'Boogaloo';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/Boogaloo-Regular.ttf') format("truetype");;
+}
+
+/* END Boogaloo */
+
 /* BEGIN Bold */
 
 @font-face {

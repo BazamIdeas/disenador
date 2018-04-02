@@ -48,16 +48,23 @@
 </div>
 
 <style>
-    .verlogo .plan>div {
+
+    .plan>div{
         min-height: 90vh !important;
+    }
+
+     .plan>div {
         border-radius: 0.8em;
         padding: 0 40px;
         padding-top: 16px;
+        padding-top: 5%;
     }
 
 
-    .plan-body {
-        text-align: center;
+     .plan-body {
+        text-align:center;
+        font-size: 12px;
+        border-radius: 0 0 5px 5px;
         line-height: 25px;
     }
 
@@ -69,11 +76,11 @@
     }
 
     .plan-precio {
-        font-size: 25px;
+        font-size: 36px;
         text-align: center;
-        font-family: maven-regular;
+        font-family: Boogaloo;
     }
-
+    
     .boton-planes{
         background-color: white;
         border: none;
@@ -125,11 +132,11 @@
     }
 
     .plan.plan-primario .plan-header,  .plan.plan-primario .plan-body, .plan.plan-primario .plan-precio {
-        color:{{datos.fondo}} !important;
+        color:{{datos.colores.icono}} !important;
     }
 
-        .plan.plan-primario .boton-planes{
-        background-color:{{datos.fondo}} !important;
+    .plan.plan-primario .boton-planes{
+        background-color:{{datos.colores.icono}} !important;
         color:{{datos.colores.nombre}};
     }
 
@@ -155,23 +162,15 @@
         border-radius: 5px 5px 0 0;
     }
 
-    div.contenedor-planes .plan .plan-body {
-        padding: 20px 30px;
-        text-align: justify;
-        color: gray;
-        font-size: 12px;
-        border-radius: 0 0 5px 5px;
-    }
-
     .subtitulo-plan {
         font-size: 13px;
         font-family: maven-regular !important;
         margin-top: 0;
     }
 
-ul.plan-lista {
-    font-family: maven-regular;
-    font-size: 13px;
-}
+    ul.plan-lista {
+        font-family: maven-regular;
+        font-size: 13px;
+    }
 
 </style>
