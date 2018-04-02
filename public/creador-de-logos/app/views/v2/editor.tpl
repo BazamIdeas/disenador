@@ -297,6 +297,10 @@
 
 			</div>
 
+			<hr style="margin: 10px 8px;
+			background-color: var(--principal);
+			height: 1px;">
+
 			<div class="col s6" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']"
 			data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
 				<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fondo</md-tooltip>
@@ -341,7 +345,7 @@
 				</div>
 				<div class="row padding-bottom-0 margin-bottom-0">
 					<div class="col l12" style="position: relative; padding:0 !important; border-bottom: 1px solid var(--principal);cursor:pointer; overflow-y: scroll;
-					max-height: 80vh;">
+					max-height: 91vh;">
 						<!-- <div class="fuente" ng-repeat="fuente in editor.fuentes">
                             <p class="text-center">{{}}</p>
 						</div>-->

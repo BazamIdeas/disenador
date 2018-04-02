@@ -3180,10 +3180,13 @@ div.combinacion {
     cursor: pointer;
     padding: 0 !important;
     border-radius: 6px;
+    opacity: 0.4;
+    transition: border 0.3s, opacity 0.3s;
 }
 
 div.combinacion:hover {
     border: 3px solid rgba(0,0,0,0.2);
+    opacity: 1;
 }
 
 @-webkit-keyframes topToMiddle {

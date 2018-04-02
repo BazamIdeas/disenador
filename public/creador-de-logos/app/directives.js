@@ -2475,7 +2475,7 @@ angular.module("disenador-de-logos")
 	.directive("bazamColorPicker", [function () {
 		return {
 			template: "<div style='position:relative;'>\
-							<div class='selector-fondo' ng-style='jsonColor(color)' ng-click='mostrarPicker = !mostrarPicker'>\
+							<div class='selector-fondo' style='border: 1px solid var(--fondo)' ng-style='jsonColor(color)' ng-click='mostrarPicker = !mostrarPicker'>\
 							</div>\
 							<div class='color-picker-bazam' id='color-picker-fondo' ng-show='mostrarPicker' style='position: absolute; width: 200px; height: 200px; background-color: white; z-index: 2; padding: 10px;'>\
 									<div class='titulo'>\
