@@ -1,4 +1,4 @@
-<div class="overlay" ng-class="{'show': mostrar, 'hide': !mostrar}">
+<div class="overlay" ng-class="{'show': $root.mostrarModalLogin, 'hide': !$root.mostrarModalLogin}">
     <div class="row margin-bottom-0">
         <div class="col s6 offset-s3">
 
@@ -6,7 +6,7 @@
                 <div ng-switch="bazamLogin.formPasos">
                     <div class="cubo-form row" ng-switch-default>
 
-                        <i class="material-icons cerrar" ng-click="mostrar = false">clear</i>
+                        <i class="material-icons cerrar" ng-click="$root.mostrarModalLogin = false">clear</i>
 
                         <div class="login-form col s6">
                             <p class="text-center tercero">INGRESA</p>

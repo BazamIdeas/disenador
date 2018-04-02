@@ -93,6 +93,18 @@ angular.module("disenador-de-logos")
 
 		});
 
+		bz.preGuardarLogo = function(logo, tipoLogo, idElemento, regresar){
+			
+			if (!clientesService.autorizado()) {
+				console.log("hola")
+				$rootScope.mostrarModalLogin = true;
+				$rootScope.callback = false;
+				return;
+			}
+
+			bz.guardarLogo(logo, tipoLogo, idElemento, regresar);
+		};
+
 		bz.completadoGuardar = true;
 
 		bz.guardarLogo = function (logo, tipoLogo, idElemento, regresar) {
@@ -513,13 +525,13 @@ angular.module("disenador-de-logos")
 
 		};
 
-
+		/*
 		$scope.$on("sesionExpiro", function () {
 
 			$state.go("inicio");
 
 		});
-
+		*/
 
 		/* PLANES */
 

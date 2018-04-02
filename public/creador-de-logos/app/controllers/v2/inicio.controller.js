@@ -165,19 +165,13 @@ angular.module("disenador-de-logos")
 		bz.preAvanzar = function (logo) {
 
 			bz.logoSeleccionado = bz.logos.indexOf(logo);
-
 			/*
-			if(color){
-				bz.colorIcono = color;		
-			}
-			*/
-
 			if (!clientesService.autorizado()) {
 				bz.mostrarModalLogin = true;
 				bz.callback = bz.avanzar;
-			} else {
+			} else {*/
 				bz.avanzar();
-			}
+			/*}*/
 
 		};
 
