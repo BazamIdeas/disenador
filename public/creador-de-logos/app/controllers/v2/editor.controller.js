@@ -95,8 +95,8 @@ angular.module("disenador-de-logos")
 
 		bz.preGuardarLogo = function(logo, tipoLogo, idElemento, regresar){
 			
+			// Verificar si el usuario que esta logueado
 			if (!clientesService.autorizado()) {
-				console.log("hola")
 				$rootScope.mostrarModalLogin = true;
 				$rootScope.callback = false;
 				return;

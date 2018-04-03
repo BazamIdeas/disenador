@@ -151,63 +151,6 @@ angular.module("disenador-de-logos")
 		};
 
 
-		/* PLANES */
-
-		bz.monedas = {};
-		bz.moneda = {};
-		bz.monedaDefault = {};
-		bz.planes = [];
-		bz.impuesto = 0;
-
-		pedidosService.listarPlanes().then(function (res) {
-
-			bz.monedaDefault = {
-				simbolo: res.monedaDefault.codigo,
-				idMoneda: res.monedaDefault.idMoneda
-			};
-
-			bz.impuesto = res.impuesto;
-
-			bz.planes = res.planes;
-
-			angular.forEach(res.planes, function (plan) {
-
-				angular.forEach(plan.precios, function (precio) {
-
-					if (!bz.monedas[precio.moneda]) {
-
-						bz.monedas[precio.moneda] = {
-							simbolo: precio.moneda,
-							idMoneda: precio.idMoneda
-						};
-
-					}
-
-				});
-
-			});
-
-			bz.moneda = bz.monedaDefault;
-
-		});
-
-		bz.precioSeleccionado = function (precios) {
-
-			var precioFinal = "";
-
-			angular.forEach(precios, function (valor) {
-
-				if (valor.moneda == bz.moneda.simbolo) {
-
-					precioFinal = valor.moneda + " " + valor.precio;
-				}
-
-			});
-
-			return precioFinal;
-
-		};
-
 		bz.mostrarPlanes = function(index) {
 			var datos = angular.copy(bz.guardados[index]);
 			datos.atributos = arrayToJsonMetasFactory(datos.atributos);
@@ -233,8 +176,6 @@ angular.module("disenador-de-logos")
 			if(datos.atributos["color-eslogan"]){
 				bz.datosComprar.colores.eslogan = datos.atributos["color-eslogan"]
 			}
-
-			console.log(bz.datosComprar)
 			/*
 			if (bz.idLogoPadre) {
 				bz.datosComprar.idPadre = bz.idLogoPadre;

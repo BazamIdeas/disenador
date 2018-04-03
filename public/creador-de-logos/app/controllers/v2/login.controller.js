@@ -14,7 +14,7 @@ angular.module("disenador-de-logos")
 
 		});
 
-
+		bz.ingresar = true;
 		bz.datosRegistro = {};
 		bz.datosLogin = {};
 

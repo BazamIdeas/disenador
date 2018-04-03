@@ -9,11 +9,11 @@
     </div>
     <div class="contenedor-ver-previsualizar uno">
         <div class="contenedor-logoprev" style="width: 102%;
-        height: 100.4vh;
+        height: 100vh;
         background-image: url(assets/images/shirt.png), url(assets/images/shirt_overlay.png), url(assets/images/shirt_multiply.png);
         background-size: 100%;
         background-blend-mode: normal, overlay, multiply;
-        background-color: {{datos.fondo}};
+        background-color: {{datos.colores.fondo}};
         background-repeat: no-repeat;
             ">
             <div style="    left: 43%;

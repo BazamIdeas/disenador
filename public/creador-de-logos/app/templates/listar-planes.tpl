@@ -8,10 +8,10 @@
             <div class="plan-body">
                 <div class="plan-header">Plan Gratis</div>
                 <p class="subtitulo-plan">Ten una prueba gratis de tu logo</p>
-                <div style="padding:10px; 0">
+                <div style="padding:10px;">
                     <div class="plan-precio">GRATIS</div>
                     <div class="text-center">
-                        <button style="background:silver !important; color:white !important;" ng-disabled="listarPlanes.peticion" ng-class="{'loading-white': listarPlanes.peticion}" class="boton-planes" ng-click="listarPlanes.avanzarCheckout(true)">DESCARGAR</button>
+                        <button style="background:silver !important; color:white !important;" ng-disabled="listarPlanes.peticion" ng-class="{'loading-white': listarPlanes.peticion}" class="boton-planes" ng-click="listarPlanes.verificarLogin(true)">DESCARGAR</button>
                     </div>
                 </div>
                 <ul class="plan-lista">
@@ -34,7 +34,7 @@
                     <div class="plan-precio">{{::listarPlanes.precioSeleccionado(plan.precios, listarPlanes.moneda)}}</div>
 
                     <div class="text-center">
-                        <button ng-disabled="listarPlanes.peticion" ng-class="{'loading-white':listarPlanes.peticion}" class="boton-planes" ng-click="listarPlanes.avanzarCheckout(plan, listarPlanes.moneda, true)">SELECCIONAR</button>
+                        <button ng-disabled="listarPlanes.peticion" ng-class="{'loading-white':listarPlanes.peticion}" class="boton-planes" ng-click="listarPlanes.verificarLogin(plan)">SELECCIONAR</button>
                     </div>
                 </div>
 

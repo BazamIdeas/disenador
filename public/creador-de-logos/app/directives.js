@@ -485,40 +485,40 @@ angular.module("disenador-de-logos")
 
 								switch (id) {
 
-								case "color-picker-icono":
-									posicionPicker = {
-										"position": "fixed",
-										"left": coordenadasCon.right + 10,
-										"top": coordenadasCon.top - 10,
-										"width": coordenadasCon.width / 2,
-										"height": coordenadasCon.height / 2,
-										"background-color": "white",
-										"z-index": "2"
-									};
-									break;
+									case "color-picker-icono":
+										posicionPicker = {
+											"position": "fixed",
+											"left": coordenadasCon.right + 10,
+											"top": coordenadasCon.top - 10,
+											"width": coordenadasCon.width / 2,
+											"height": coordenadasCon.height / 2,
+											"background-color": "white",
+											"z-index": "2"
+										};
+										break;
 
-								case "color-picker-texto":
-									posicionPicker = {
-										"position": "fixed",
-										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-										"top": coordenadasCon.top - 10,
-										"width": coordenadasCon.width / 2,
-										"height": coordenadasCon.height / 2,
-										"background-color": "white",
-										"z-index": "2"
-									};
-									break;
+									case "color-picker-texto":
+										posicionPicker = {
+											"position": "fixed",
+											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+											"top": coordenadasCon.top - 10,
+											"width": coordenadasCon.width / 2,
+											"height": coordenadasCon.height / 2,
+											"background-color": "white",
+											"z-index": "2"
+										};
+										break;
 
-								case "color-picker-eslogan":
-									posicionPicker = {
-										"position": "fixed",
-										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-										"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
-										"width": coordenadasCon.width / 2,
-										"height": coordenadasCon.height / 2,
-										"background-color": "white",
-										"z-index": "2"
-									};
+									case "color-picker-eslogan":
+										posicionPicker = {
+											"position": "fixed",
+											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+											"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
+											"width": coordenadasCon.width / 2,
+											"height": coordenadasCon.height / 2,
+											"background-color": "white",
+											"z-index": "2"
+										};
 								}
 
 								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
@@ -601,19 +601,19 @@ angular.module("disenador-de-logos")
 
 							switch (colorPicker.attr("id")) {
 
-							case "color-picker-icono":
+								case "color-picker-icono":
 
-								var indice = scope.elementosIndices.indexOf(true);
-								//cambiamos el color al correcto
-								element.find("[data-indice=" + indice + "]").css("fill", color);
-								break;
+									var indice = scope.elementosIndices.indexOf(true);
+									//cambiamos el color al correcto
+									element.find("[data-indice=" + indice + "]").css("fill", color);
+									break;
 
-							case "color-picker-texto":
-								element.find("text.textoPrincipal").css("fill", color);
-								break;
+								case "color-picker-texto":
+									element.find("text.textoPrincipal").css("fill", color);
+									break;
 
-							case "color-picker-eslogan":
-								element.find("text.eslogan").css("fill", color);
+								case "color-picker-eslogan":
+									element.find("text.eslogan").css("fill", color);
 
 							}
 
@@ -1676,10 +1676,10 @@ angular.module("disenador-de-logos")
 				bz.base64 = $base64;
 
 				bz.actual = 0;
-				if($scope.logos.length){
+				if ($scope.logos.length) {
 					$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 				}
-				
+
 
 				if ($scope.logos.length > 1) {
 					bz.actual = 1;
@@ -1800,25 +1800,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-						case "bottom":
-							orientacionFinal.top = coordenadas.bottom;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "bottom":
+								orientacionFinal.top = coordenadas.bottom;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
-						case "right":
-							orientacionFinal.top = coordenadas.top + (element.height() / 2);
-							orientacionFinal.left = coordenadas.right;
-							break;
+							case "right":
+								orientacionFinal.top = coordenadas.top + (element.height() / 2);
+								orientacionFinal.left = coordenadas.right;
+								break;
 
-						case "left":
-							orientacionFinal.top = coordenadas.top + (element.height() / 2);
-							orientacionFinal.left = coordenadas.left - popCreado.width();
-							break;
+							case "left":
+								orientacionFinal.top = coordenadas.top + (element.height() / 2);
+								orientacionFinal.left = coordenadas.left - popCreado.width();
+								break;
 
-						case "top":
-							orientacionFinal.top = coordenadas.top;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "top":
+								orientacionFinal.top = coordenadas.top;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
 						}
 
@@ -1880,25 +1880,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-						case "bottom":
-							orientacionFinal.top = coordenadas.bottom - 40;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "bottom":
+								orientacionFinal.top = coordenadas.bottom - 40;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
-						case "right":
-							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-							orientacionFinal.left = coordenadas.right - 35;
-							break;
+							case "right":
+								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+								orientacionFinal.left = coordenadas.right - 35;
+								break;
 
-						case "left":
-							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-							orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
-							break;
+							case "left":
+								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+								orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
+								break;
 
-						case "top":
-							orientacionFinal.top = coordenadas.top + 40;
-							orientacionFinal.left = coordenadas.left + (element.width() / 2);
-							break;
+							case "top":
+								orientacionFinal.top = coordenadas.top + 40;
+								orientacionFinal.left = coordenadas.left + (element.width() / 2);
+								break;
 
 						}
 
@@ -2018,10 +2018,10 @@ angular.module("disenador-de-logos")
 								}));
 								$rootScope.mostrarModalLogin = false;
 
-								if($rootScope.callbackLogin){
+								if ($rootScope.callbackLogin) {
 									$rootScope.callbackLogin();
 								}
-								
+
 							}
 
 						}).catch(function () {
@@ -2067,10 +2067,10 @@ angular.module("disenador-de-logos")
 
 								$rootScope.mostrarModalLogin = false;
 
-								if($rootScope.callbackLogin){
+								if ($rootScope.callbackLogin) {
 									$rootScope.callbackLogin();
 								}
-								
+
 
 							}
 
@@ -2184,7 +2184,7 @@ angular.module("disenador-de-logos")
 				verlogo: "<",
 				promocion: "="
 			},
-			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q) {
+			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", "clientesService", "$rootScope", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q, clientesService, $rootScope) {
 
 				var bz = this;
 
@@ -2268,6 +2268,18 @@ angular.module("disenador-de-logos")
 
 				};
 
+				bz.verificarLogin = function(plan){
+					// Verificar si el usuario que esta logueado
+					if (!clientesService.autorizado()) {
+						$rootScope.mostrarModalLogin = true;
+						$rootScope.callback = bz.avanzarCheckout(plan);
+						return;
+					}
+
+					bz.avanzarCheckout(plan);
+				}
+
+
 				bz.avanzarCheckout = function (plan) {
 
 					bz.logo = $scope.datos.logo; //SVG del logo
@@ -2306,7 +2318,7 @@ angular.module("disenador-de-logos")
 									bz.peticion = false;
 								});
 							} else {
-								$scope.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.idElemento, true).then(function (res) {
+								$scope.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.idElemento, $scope.datos.fuentes.principal, true).then(function (res) {
 
 									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 										var url = "";

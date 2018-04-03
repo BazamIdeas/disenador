@@ -163,4 +163,4 @@
     </div>
 </div>
 
-<bazam-planes estado="logos.abrirPlanes" id='logos.logo.idLogo' datos="logos.datosComprar" guardar-logo="logos.guardarLogo"></bazam-planes>
+<bazam-planes estado="logos.abrirPlanes" datos="logos.datosComprar" guardar-logo="logos.guardarLogo"></bazam-planes>

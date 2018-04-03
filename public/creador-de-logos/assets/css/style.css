@@ -1123,19 +1123,6 @@ div.contenedor-principal {
     display: none
 }
 
-div.login-form-flex {
-    height: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-
 div.cubo-form {
     background-color: var(--blanco);
     border: 2px solid var(--principal);
@@ -1159,19 +1146,6 @@ div.cubo-form i.cerrar {
     cursor: pointer;
 }
 
-.login-form,
-.registro-form {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-flow: column;
-    flex-flow: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
 
 /*END LOGIN MODAL*/
 
@@ -1277,11 +1251,6 @@ button.boton-oborder {
 button.boton-oborder i {
     font-size: 23px;
     margin-top: 0px;
-}
-
-button:focus {
-    outline: none;
-    background-color: inherit !important;
 }
 
 button:not(.loading-purple).boton-oborder:hover {
