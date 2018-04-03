@@ -174,6 +174,11 @@ router.get("/logos/:id/vendidos", controllers.logos.listaLogosVendidosPorCliente
 router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobadosDestacados);
 router.post("/logos/guardados", middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post("/logos/descargables", middleware.validarCliente, controllers.logos.listaLogosDescargables);
+
+
+router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
+
+
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);
 router.post("/logo/plan/caracteristicas", middleware.validarCliente, controllers.caracteristicas.PlanConCaracteristicas);
@@ -189,8 +194,6 @@ router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.at
 router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
 router.post("/logo/descargar", controllers.logos.descargar);
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
-router.post("/logo/zip", middleware.validarCliente, controllers.logos.zip);
-
 
 //RECUPERAR CONTRASEÑA
 router.post("/recuperar-password", controllers.password.enviarToken); //enviar campo tipo 

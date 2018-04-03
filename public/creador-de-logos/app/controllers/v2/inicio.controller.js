@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService",  "$rootScope", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService, $rootScope) {
 
 		var bz = this;
 
@@ -136,9 +136,9 @@ angular.module("disenador-de-logos")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
-						promesaIconos,
-						promesaFuentes
-					])
+					promesaIconos,
+					promesaFuentes
+				])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {
@@ -163,16 +163,8 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.preAvanzar = function (logo) {
-
-			bz.logoSeleccionado = bz.logos.indexOf(logo);
-			/*
-			if (!clientesService.autorizado()) {
-				bz.mostrarModalLogin = true;
-				bz.callback = bz.avanzar;
-			} else {*/
-				bz.avanzar();
-			/*}*/
-
+			bz.logoSeleccionado = bz.logos.indexOf(logo);	
+			bz.avanzar();
 		};
 
 		bz.avanzar = function () {
@@ -191,76 +183,13 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.cambio = false;
-
-
-		//////////////////
-		//////PLANES//////
-		//////////////////
-
-		bz.monedas = {};
-		bz.moneda = {};
-		bz.monedaDefault = {};
-		bz.planes = [];
-		bz.impuesto = 0;
-
-		pedidosService.listarPlanes().then(function (res) {
-
-			bz.monedaDefault = {
-				simbolo: res.monedaDefault.codigo,
-				idMoneda: res.monedaDefault.idMoneda
-			};
-
-			bz.impuesto = res.impuesto;
-
-			bz.planes = res.planes;
-
-			angular.forEach(res.planes, function (plan) {
-
-				angular.forEach(plan.precios, function (precio) {
-
-					if (!bz.monedas[precio.moneda]) {
-
-						bz.monedas[precio.moneda] = {
-							simbolo: precio.moneda,
-							idMoneda: precio.idMoneda
-						};
-
-					}
-
-				});
-
-			});
-
-			bz.moneda = bz.monedaDefault;
-
-		});
-
-		bz.precioSeleccionado = function (precios) {
-
-			var precioFinal = "";
-
-			angular.forEach(precios, function (valor) {
-
-				if (valor.moneda == bz.moneda.simbolo) {
-
-					precioFinal = valor.moneda + " " + valor.precio;
-				}
-
-			});
-
-			return precioFinal;
-
-		};
-
-
-		bz.comprarLogo = function (svg, colores, logo, v) {
+		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
 
 			bz.seleccionarLogo(svg, colores, logo);
 
 			bz.datosComprar = {
 				logo: svg,
-				idLogo: null,
+				idLogo: idLogo,
 				idElemento: logo.icono.idElemento,
 				tipo: "Logo y nombre",
 				fuentes: {
@@ -283,9 +212,33 @@ angular.module("disenador-de-logos")
 
 		/* guardar logo */
 
+		
+		bz.preGuardarLogo = function(logo){
+	
+			if (!clientesService.autorizado()) {
+		
+				$rootScope.mostrarModalLogin = true;
+				$rootScope.callback = false;
+				return;
+			}
+			bz.seleccionarLogo(logo.icono.svg, logo.colores, logo);
+
+			bz.guardarLogo(logo.icono.svg, "Logo y nombre", logo.icono.idElemento )
+
+				.then(function(res){
+					var indiceLogo = bz.logos.indexOf(logo);
+
+					bz.logos[indiceLogo].idLogo = res;
+				})
+				.catch(function(){
+
+				});
+
+		};
+
 		bz.completadoGuardar = true;
 
-		bz.guardarLogo = function (logo, tipoLogo, idElemento) {
+		bz.guardarLogo = function (logo, tipoLogo, idElemento, idFuentePrincipal) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
@@ -294,15 +247,9 @@ angular.module("disenador-de-logos")
 
 				bz.completadoGuardar = false;
 
-				var fuentesId = {
-					principal: bz.logoElegido.logoCompleto.fuente.idElemento
-				};
-
-				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre)
+				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento,  idFuentePrincipal)
 
 					.then(function (res) {
-
-						bz.idLogo = res;
 
 						defered.resolve(res);
 
