@@ -1388,9 +1388,12 @@ angular.module("disenador-de-logos")
 				tipo: tipo
 			};
 
-			$http.post("/app/logo/zip/", datos).then(function (res) {
+			$http.get("/app/logo/zip/", {
+				params:datos,
+				responseType: "arraybuffer"
+			}).then(function (res) {
 
-				defered.resolve(res.data);
+				defered.resolve({data:res.data, headers: res.headers()});
 
 			}).catch(function (res) {
 

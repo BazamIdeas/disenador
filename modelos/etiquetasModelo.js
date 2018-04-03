@@ -4,7 +4,8 @@ const objectId = Mongo.objectId;
 
 let etiqueta = {}
 
-etiqueta.ObtenerTodos = callback => {
+etiqueta.ObtenerTodos = callback => 
+{
     Connection(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
@@ -35,8 +36,8 @@ etiqueta.ObtenerTodos = callback => {
     })
 }
 
-etiqueta.ObtenerPorIcono = (id, callback) => {
-    console.log(id)
+etiqueta.ObtenerPorIcono = (id, callback) => 
+{
     Connection(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
@@ -54,13 +55,13 @@ etiqueta.ObtenerPorIcono = (id, callback) => {
             $unwind: '$idioma'
         }]).toArray((err, docs) => {
             if (err) throw err;
-            console.log(docs)
             callback(null, docs);
         });
     })
 }
 
-etiqueta.Guardar = (etiquetaData, callback) => {
+etiqueta.Guardar = (etiquetaData, callback) => 
+{
     etiquetaData.traducciones.forEach((traduccion, key) => {
         etiquetaData.traducciones[key].idioma = objectId(traduccion.idioma);
     })
@@ -76,8 +77,8 @@ etiqueta.Guardar = (etiquetaData, callback) => {
     })
 }
 
-etiqueta.Actualizar = (_id, etiquetaData, callback) => {
-
+etiqueta.Actualizar = (_id, etiquetaData, callback) => 
+{
     delete etiquetaData._id;
 
     etiquetaData.traducciones.forEach((el, key) => {
@@ -104,7 +105,8 @@ etiqueta.Actualizar = (_id, etiquetaData, callback) => {
     })
 }
 
-etiqueta.AsignarIconos = (_id, iconos, callback) => {
+etiqueta.AsignarIconos = (_id, iconos, callback) => 
+{
     Connection(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndUpdate({
@@ -124,7 +126,8 @@ etiqueta.AsignarIconos = (_id, iconos, callback) => {
     })
 }
 
-etiqueta.DesasignarIcono = (_id, icono, callback) => {
+etiqueta.DesasignarIcono = (_id, icono, callback) => 
+{
     Connection(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndUpdate({
@@ -144,7 +147,8 @@ etiqueta.DesasignarIcono = (_id, icono, callback) => {
     })
 }
 
-etiqueta.Borrar = (_id, callback) => {
+etiqueta.Borrar = (_id, callback) => 
+{
     Connection(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndDelete({
@@ -158,7 +162,8 @@ etiqueta.Borrar = (_id, callback) => {
     })
 }
 
-etiqueta.Analizar = (tags, callback) => {
+etiqueta.Analizar = (tags, callback) => 
+{
     let iconos = [];
 
     Connection(db => {

@@ -41,8 +41,8 @@
         </div>
 
         <div class="logo-wrapper" ng-if="!logos.length">
-            <div class="logo-container-m logo-active-m" style="height:300px; border: none;box-shadow:none;">
-                <span class="seleccionar" style="opacity: 1; font-size: 20px; border: none; width:100%;">
+            <div class="logo-container-m logo-active-m" style="height:40px; border: none;box-shadow:none;top:100px;">
+                <span class="seleccionar" style="opacity: 1; font-size: 15px; border: none; width:100%;justify-content: center;background:white;">
                     AUN NO TIENE LOGOS {{::carouselMisLogos.callback[0].toUpperCase()}}
                 </span>
             </div>

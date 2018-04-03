@@ -694,41 +694,34 @@ exports.modificarLogo =  function(req,res)
 //DESCARGA UN LOGO COMPRADO
 exports.zip = function(req,res)
 {
-	var idLogo = req.body.idLogo;
-	var ancho = req.body.ancho;
-	var tipo = req.body.tipo;
-	var descarga = req.body.descarga;
-	var fuentes = {};
-	var par = [req.idCliente, idLogo];
+	const idLogo = req.query.idLogo;
+	const ancho = req.query.ancho;
+	const tipo = req.query.tipo;
+	const descarga = req.query.descarga;
+	let fuentes = {};
+	const par = [req.idCliente, idLogo];
 
-	logo.getLogo(par,function(error, data)
-	{
-		
-		if (typeof data !== "undefined" && data.length > 0)
-		{
-			var nombre = "Logo"+"-" +descarga +"-" + moment().format("DD-MM-YYYY")+".svg";
+	logo.getLogo(par, (error, data) => {
+		if (typeof data !== "undefined" && data.length > 0) {
+			let nombre = "Logo"+"-" +descarga +"-" + moment().format("DD-MM-YYYY")+".svg";
 
-			var path = "public/tmp/";
+			const path = "public/tmp/";
 
-			atributo.ObtenerPorLogo(data[0].idLogo, function(err, dataAttrs){
-				//console.log(dataAttrs)
-				if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0)
-				{
+			atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
+				if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
 
 					async.forEachOf(dataAttrs, (row, key, callback) => {
 
-						if(row.clave == "principal" || row.clave == "eslogan"){
+						if (row.clave == "principal" || row.clave == "eslogan") {
 
-							elemento.datosElemento(row.valor, function(err, fuente){
+							elemento.datosElemento(row.valor, (err, fuente) => {
 
 								if (err) return callback(err);
 								
 								try {
 									
-									if (typeof fuente !== "undefined" && fuente.length > 0)
-									{
-										fuentes[row.clave] = {nombre:fuente[0].nombre,url:fuente[0].url};
-										console.log(fuentes)
+									if (typeof fuente !== "undefined" && fuente.length > 0) {
+										fuentes[row.clave] = { nombre:fuente[0].nombre, url:fuente[0].url };
 									}
 		
 								} catch (e) {
@@ -736,72 +729,61 @@ exports.zip = function(req,res)
 								}
 
 								callback();	
-		
 							});
-
 						}else{
 							callback();
 						}
-
-						
-						
-	
 					}, (err) => {
 						if (err) res.status(402).json({});
-						//console.log({"fuentes-callback": fuentes})
+						
 						var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
-						fs.open(path + nombre, "w", function(err, fd) {
-							if (err) {
-								throw "error al crear svg " + err;
-							}
+						
+						fs.open(path + nombre, "w", (err, fd) => {
+							if (err) throw "error al crear svg " + err;
 
-							fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+							fs.write(fd, buffer, 0, buffer.length, null, err => {
 								if (err) throw "error al escribir " + err;
-								else{
 										
-									var svg = path + nombre;
+								let svg = path + nombre;
 
-									if(tipo == "editable"){
+								if (tipo == "editable") {
 
-										var output = fs.createWriteStream(svg.replace("svg", "zip"));
-										var archive = archiver("zip", { zlib: { level: 9 } });
+									var output = fs.createWriteStream(svg.replace("svg", "zip"));
+									var archive = archiver("zip", { zlib: { level: 9 } });
 
-										archive.pipe(output);
+									archive.pipe(output);
 
-										archive.append(fs.createReadStream(svg), { name: "logo.svg" });
+									archive.append(fs.createReadStream(svg), { name: "logo.svg" });
 
-										archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre+'.ttf' });
+									archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre+'.ttf' });
 
-										if(fuentes.eslogan){
-											archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.eslogan.url), { name: fuentes.eslogan.nombre+'.ttf' });
-										}
-
-										archive.finalize();
-
-										setTimeout(function () {
-											res.json({zip:svg.replace("svg", "zip")});
-									
-										}, 5000); 				        		
-
-									}else{
-
-										var pngout = svg.replace("svg", "png");
-										fs.readFile(svg, (err, svgbuffer) => {
-											if (err) throw err;
-											svg2png(svgbuffer, { width: ancho})
-												.then(buffer => {fs.writeFile(pngout, buffer);
-													res.json({png:pngout});
-												})
-												.catch(e => console.log(e));
-										});
-
+									if (fuentes.eslogan) {
+										archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.eslogan.url), { name: fuentes.eslogan.nombre+'.ttf' });
 									}
-								
-									setTimeout(function () {
-									//fs.unlink(salida)
-									
-									}, 10000); 
+
+									output.on('close', () => {
+										console.log('end')
+										res.download(__dirname+"/../"+svg.replace("svg", "zip"));
+										
+									})	
+
+									archive.finalize();		        		
+
+								} else {
+
+									var pngout = svg.replace("svg", "png");
+									fs.readFile(svg, (err, svgbuffer) => {
+										if (err) throw err;
+										svg2png(svgbuffer, { width: ancho})
+											.then(buffer => {
+												fs.writeFile(pngout, buffer);
+												res.download(__dirname+"/../"+pngout);
+											})
+											.catch(e => console.log('error'));
+									});
+
 								}
+								
 								fs.close(fd);
 							});
 						});
@@ -811,10 +793,7 @@ exports.zip = function(req,res)
 				}
 
 			});
-		}
-		//no existe
-		else
-		{
+		} else {
 			res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"});
 		}
 	});	
