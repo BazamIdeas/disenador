@@ -135,13 +135,13 @@
                         color-texto="logo.colores[2]" color-icono="logo.colores[1]" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo, true)" ></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
-                    <span class="seleccionar" style="margin-bottom: 83%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+                    <span class="seleccionar" style="margin-bottom: 83%;" ng-click="inicio.preGuardarLogo(logo)"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
 
                     <span class="seleccionar" style="margin-bottom: 66%;" ng-click="inicio.preAvanzar(logo)"> <p>EDITAR</p><img src="assets/images/edit_white.svg" alt=""></span>
 
                     <span class="seleccionar" style="margin-bottom: 49%;"> <p>COMPARTIR</p><img src="assets/images/share.svg" alt=""></span>
 
-                    <span ng-show="logo.cargado" class="comprar" style="margin-bottom: 4%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span >
+                    <span ng-show="logo.cargado" class="comprar" style="margin-bottom: 4%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span >
 
                     <!--<span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);"> <p>VER</p><img src="assets/images/" alt=""></span>-->
                 </div>

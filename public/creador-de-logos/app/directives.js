@@ -2287,8 +2287,8 @@ angular.module("disenador-de-logos")
 
 							angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-							if ($scope.dataId) {
-								logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
+							if ($scope.datos.idLogo) {
+								logosService.descargarLogo($scope.datos.idLogo, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 									var url = "";
 									if (res.zip) {
 

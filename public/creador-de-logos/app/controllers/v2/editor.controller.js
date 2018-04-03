@@ -93,10 +93,10 @@ angular.module("disenador-de-logos")
 
 		});
 
-		bz.preGuardarLogo = function(logo, tipoLogo, idElemento, regresar){
+		bz.preGuardarLogo = function(logo, tipoLogo, idElemento, idFuentePrincipal, regresar){
 			
 			if (!clientesService.autorizado()) {
-				console.log("hola")
+		
 				$rootScope.mostrarModalLogin = true;
 				$rootScope.callback = false;
 				return;
@@ -107,7 +107,7 @@ angular.module("disenador-de-logos")
 
 		bz.completadoGuardar = true;
 
-		bz.guardarLogo = function (logo, tipoLogo, idElemento, regresar) {
+		bz.guardarLogo = function (logo, tipoLogo, idElemento, idFuentePrincipal, regresar) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;

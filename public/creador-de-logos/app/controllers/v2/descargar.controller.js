@@ -296,7 +296,7 @@ angular.module("disenador-de-logos")
 
 		$scope.$on("sesionExpiro", function () {
 
-			$state.go("principal.comenzar");
+			$state.go("inicio");
 
 		});
 

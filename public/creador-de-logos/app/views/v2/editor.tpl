@@ -326,7 +326,7 @@
 		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
 			style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
 			
-			<span class="seleccionar" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)" style="margin-bottom: 67%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+			<span class="seleccionar" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento, editor.logo.fuente.idElemento)" style="margin-bottom: 67%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
 			
 			<span class="seleccionar" ng-click="::editor.buscarPlanes()" style="margin-bottom: 60%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
 
