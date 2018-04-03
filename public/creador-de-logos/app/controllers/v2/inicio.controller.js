@@ -183,68 +183,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-
-
-		//////////////////
-		//////PLANES//////
-		//////////////////
-
-		bz.monedas = {};
-		bz.moneda = {};
-		bz.monedaDefault = {};
-		bz.planes = [];
-		bz.impuesto = 0;
-
-		pedidosService.listarPlanes().then(function (res) {
-
-			bz.monedaDefault = {
-				simbolo: res.monedaDefault.codigo,
-				idMoneda: res.monedaDefault.idMoneda
-			};
-
-			bz.impuesto = res.impuesto;
-
-			bz.planes = res.planes;
-
-			angular.forEach(res.planes, function (plan) {
-
-				angular.forEach(plan.precios, function (precio) {
-
-					if (!bz.monedas[precio.moneda]) {
-
-						bz.monedas[precio.moneda] = {
-							simbolo: precio.moneda,
-							idMoneda: precio.idMoneda
-						};
-
-					}
-
-				});
-
-			});
-
-			bz.moneda = bz.monedaDefault;
-
-		});
-
-		bz.precioSeleccionado = function (precios) {
-
-			var precioFinal = "";
-
-			angular.forEach(precios, function (valor) {
-
-				if (valor.moneda == bz.moneda.simbolo) {
-
-					precioFinal = valor.moneda + " " + valor.precio;
-				}
-
-			});
-
-			return precioFinal;
-
-		};
-
-
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
 
 			bz.seleccionarLogo(svg, colores, logo);
