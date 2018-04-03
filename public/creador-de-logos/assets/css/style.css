@@ -2224,6 +2224,113 @@ div[ng-message] {
     font-size: 12px;
 }
 
+/* LOGIN */
+
+.registro-form,
+.login-form,
+.olvido-contrasena {
+    padding-top: 3% !important;
+}
+
+.login-form>div,
+.olvido-contrasena>div {
+    background-color: var(--blanco);
+    border-radius: 18px;
+    padding: 18px !important;
+}
+
+.registro-form p.tercero,
+.login-form p.tercero,
+.olvido-contrasena p.tercero {
+    font-size: 24px;
+    margin: 0;
+    padding-bottom: 8px;
+    padding-top: 3%;
+}
+
+.subtitle>b {
+    text-align: center;
+    display: block;
+}
+
+.ingreso-redes-sociales {
+    display: flex;
+    padding-top: 7%;
+}
+
+.ingreso-redes-sociales>div {
+    width: calc(33% - 16px);
+    margin: 10px 8px;
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 4px;
+    transition: all .3s ease;
+    text-align: center;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1);
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+}
+
+.ingreso-redes-sociales>div:hover {
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03);
+}
+
+.ingreso-redes-sociales .ingreso__twitter {
+    background-color: #1da1f2;
+}
+
+.ingreso-redes-sociales .ingreso__facebook {
+    background-color: #3a5998;
+}
+
+.ingreso-redes-sociales .ingreso__google {
+    background-color: #dd4b39;
+}
+
+.social__or {
+    display: flex;
+    padding: 8% 0 3% 0;
+}
+
+.social__or hr {
+    width: 45%;
+}
+
+.ventajas-loguear md-icon {
+    padding-right: 30px;
+    font-size: 35px;
+    width: 60px;
+    height: auto;
+    color: white;
+    margin: 0;
+}
+
+.ventajas-loguear>div {
+    display: flex;
+    align-items: center;
+}
+
+.ventajas-loguear {
+
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 5% !important;
+    background: linear-gradient(-134deg, var(--principal), var(--tercero));
+    color: white;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+.boton-verde.__block {
+    width: 100%;
+    padding: 6px 0;
+    font-size: 18px;
+}
+
 div.cubo-form.login {
     border: none;
     border-radius: 5px;

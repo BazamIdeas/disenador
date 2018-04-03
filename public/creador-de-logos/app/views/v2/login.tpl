@@ -1,111 +1,3 @@
-<style>
-    .registro-form,
-    .login-form,
-    .olvido-contrasena {
-        padding-top: 3% !important;
-    }
-
-    .login-form>div,
-    .olvido-contrasena>div {
-        background-color: var(--blanco);
-        border-radius: 18px;
-        padding: 18px !important;
-    }
-
-    .registro-form p.tercero,
-    .login-form p.tercero,
-    .olvido-contrasena p.tercero {
-        font-size: 24px;
-        margin: 0;
-        padding-bottom: 8px;
-        padding-top: 3%;
-    }
-
-    .subtitle>b {
-        text-align: center;
-        display: block;
-    }
-
-    .ingreso-redes-sociales {
-        display: flex;
-        padding-top: 7%;
-    }
-
-    .ingreso-redes-sociales>div {
-        width: calc(33% - 16px);
-        margin: 10px 8px;
-        padding: 10px;
-        margin: 0 10px;
-        border-radius: 4px;
-        transition: all .3s ease;
-        text-align: center;
-        box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1);
-        cursor: pointer;
-        color: white;
-        font-size: 16px;
-    }
-
-    .ingreso-redes-sociales>div:hover {
-        -webkit-transform: scale(1.03);
-        transform: scale(1.03);
-    }
-
-    .ingreso-redes-sociales .ingreso__twitter {
-        background-color: #1da1f2;
-    }
-
-    .ingreso-redes-sociales .ingreso__facebook {
-        background-color: #3a5998;
-    }
-
-    .ingreso-redes-sociales .ingreso__google {
-        background-color: #dd4b39;
-    }
-
-    .social__or {
-        display: flex;
-        padding: 8% 0 3% 0;
-    }
-
-    .social__or hr {
-        width: 45%;
-    }
-
-    .ventajas-loguear md-icon {
-        padding-right: 30px;
-        font-size: 35px;
-        width: 60px;
-        height: auto;
-        color: white;
-        margin: 0;
-    }
-
-    .ventajas-loguear>div {
-        display: flex;
-        align-items: center;
-    }
-
-    .ventajas-loguear {
-
-        height: 80%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        padding-left: 5% !important;
-        background: linear-gradient(-134deg, var(--principal), var(--tercero));
-        color: white;
-        border-top-right-radius: 18px;
-        border-bottom-right-radius: 18px;
-    }
-
-    .boton-verde.__block {
-        width: 100%;
-        padding: 6px 0;
-        font-size: 18px;
-    }
-</style>
-
-
 <section style="height:100%; background-color: var(--fondo);overflow: hidden;">
     <div class="row " style="overflow: hidden;">
 
@@ -312,14 +204,14 @@
                                 <br>
                                 <div ng-switch-default>
                                     <form name="olvido" ng-submit="login.forgotPass(login.olvido, olvido.$valid)" novalidate class="formulario-ingreso">
-                                        <md-input-container class="md-block">
+                                        <div class="input-field col s12">
                                             <label>Correo</label>
                                             <input style="margin-bottom:0;" type="email" ng-model="login.olvido.correo" name="correo" required ng-minlength="5">
-                                            
-                                        </md-input-container>
-                                        <div ng-messages="olvido.correo.$error" style="color:maroon" role="alert" ng-show="olvido.$submitted">
+                                            <div ng-messages="olvido.correo.$error" style="color:maroon" role="alert" ng-show="olvido.$submitted">
                                                 <div ng-message="required">Este campo es requerido.</div>
                                             </div>
+                                        </div>
+
                                         <div layout layout-align="space-between">
                                             <button class="boton-verde" ng-click="login.formPasos='default'" ng-disabled="login.peticion">Regresar</button>
                                             <button ng-disabled="login.peticion" class="boton-verde" type="submit">Enviar</button>
@@ -327,10 +219,13 @@
                                     </form>
                                 </div>
                                 <div ng-switch-when="2">
-                                    <md-input-container class="md-block">
+                                    <div class="input-field col s12">
                                         <label>Codigo de coonfirmación:</label>
-                                        <input style="margin-bottom:0;" type="password" ng-model="login.olvido.token">
-                                    </md-input-container>
+                                        <input style="margin-bottom:0;" type="password" ng-model="login.olvido.token" required name="token">
+                                        <div ng-messages="formRecuperar.token.$error" style="color:maroon" role="alert" ng-show="formRecuperar.$submitted">
+                                            <div ng-message="required">Este campo es requerido.</div>
+                                        </div>
+                                    </div>
                                     <div layout layout-align="space-between">
                                         <button class="boton-verde" ng-click="login.rc=1">Regresar</button>
                                         <button ng-disabled="login.peticion" class="boton-verde" ng-click="login.confirmarToken(false)">Enviar</button>
@@ -338,14 +233,15 @@
                                 </div>
                                 <div ng-switch-when="3">
                                     <form name="formRecuperar" ng-submit="login.confirmarToken(true,formRecuperar.$valid)" novalidate>
-                                        <md-input-container class="md-block">
+                                        <div class="input-field col s12">
                                             <label>Nueva Contraseña:</label>
                                             <input type="password" style="margin-bottom:0;" ng-model="login.olvido.pass" name="pass" required ng-minlength="6">
-                                        </md-input-container>
-                                        <div ng-messages="formRecuperar.pass.$error" style="color:maroon" role="alert" ng-show="formRecuperar.$submitted">
-                                            <div ng-message="required">Este campo es requerido.</div>
-                                            <div ng-message="minlength">Debe contener minimo 6 caracteres</div>
+                                            <div ng-messages="formRecuperar.pass.$error" style="color:maroon" role="alert" ng-show="formRecuperar.$submitted">
+                                                <div ng-message="required">Este campo es requerido.</div>
+                                                <div ng-message="minlength">Debe contener minimo 6 caracteres</div>
+                                            </div>
                                         </div>
+
                                         <div layout layout-align="space-between">
                                             <button ng-disabled="login.peticion" class="boton-verde" ng-click="login.mostrarForm=1">Regresar</button>
                                             <button ng-disabled="login.peticion" class="boton-verde" type="submit">Cambiar</button>
