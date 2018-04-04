@@ -65,7 +65,8 @@
     font-family: 'Boogaloo';
     font-style: normal;
     font-weight: 400;
-    src: url('../fonts/Boogaloo-Regular.ttf') format("truetype");;
+    src: url('../fonts/Boogaloo-Regular.ttf') format("truetype");
+    ;
 }
 
 /* END Boogaloo */
@@ -648,7 +649,7 @@ div.acceder span {
 .tooltip-header {
     font-family: 'futura-heavy' !important;
     font-size: 14px !important;
-    color:var(--principal) !important;
+    color: var(--principal) !important;
     background-color: white !important;
 }
 
@@ -1145,7 +1146,6 @@ div.cubo-form i.cerrar {
     right: 7px;
     cursor: pointer;
 }
-
 
 /*END LOGIN MODAL*/
 
@@ -1677,6 +1677,162 @@ div.logo-final {
     -webkit-box-shadow: 0px 1px 2px 1px #dedede;
     box-shadow: 0px 1px 2px 1px #dedede;
     border-radius: 5px;
+}
+
+.plan>div {
+    min-height: 90vh !important;
+}
+
+.plan>div {
+    border-radius: 0.8em;
+    padding: 10px 40px;
+    padding-top: 16px;
+    padding-top: 5%;
+}
+
+.plan-body {
+    text-align: center;
+    font-size: 12px;
+    border-radius: 0 0 5px 5px;
+    line-height: 25px;
+}
+
+.plan-header {
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 5%;
+    font-family: maven-regular;
+}
+
+.plan-precio {
+    font-size: 36px;
+    text-align: center;
+    font-family: Boogaloo;
+}
+
+.boton-planes {
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 10px 10px 10px;
+    line-height: 13px;
+    margin-top: 11px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    font-family: 'futura-heavy' !important;
+}
+
+.plan button:focus {
+    background-color: none;
+}
+
+/* GRATIS */
+
+.plan-gratis>div {
+    background: rgb(246, 246, 246);
+}
+
+.plan.col.s4.plan-gratis>div * {
+    fill: #777777 !important;
+    color: #777777 !important;
+}
+
+div.contenedor-planes .plan .plan-header,
+div.contenedor-planes .plan .plan-body {
+    border-radius: 0;
+    font-family: 'futura-heavy' !important;
+}
+
+.logo-plan {
+    width: 50%;
+    margin: auto;
+    background: white;
+    border-radius: 50%;
+    padding: 12px;
+}
+
+div.contenedor-planes .plan .plan-header {
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px 5px 0 0;
+}
+
+.subtitulo-plan {
+    font-size: 13px;
+    font-family: maven-regular !important;
+    margin-top: 0;
+}
+
+ul.plan-lista {
+    font-family: maven-regular;
+    font-size: 13px;
+}
+
+.plan-header,
+.plan-body,
+.plan-precio {
+    color: var(--blanco);
+}
+
+.plan .boton-planes {
+    background-color: var(--principal) !important;
+    color: var(--blanco);
+}
+
+/* Aumentar plan */
+
+.aumentar-plan {
+    position: absolute;
+    top: 0%;
+    margin-top: 0px !important;
+    width: 100%;
+    opacity: 0.3;
+}
+
+.aumentar-plan:hover {
+    opacity: 1;
+}
+
+planes-superiores {
+    background: white;
+    width: 100%;
+    height: 0;
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    transition: all 0.5s;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+planes-superiores.activo {
+    height: 100vh;
+}
+
+.necesita-aumentar {
+    opacity: 0.4;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+.candado-bloqueado {
+    position: absolute;
+    top: calc(50% - 12px);
+    left: calc(50% - 12px);
+    z-index: 2;
+}
+
+cerrar-pop {
+    position: absolute;
+    right: 1%;
+    top: 5%;
+}
+
+.back-principal,
+.back-principal:focus {
+    background: var(--tercero) !important;
 }
 
 /*END planes*/
@@ -2226,17 +2382,12 @@ div[ng-message] {
 
 /* LOGIN */
 
-.registro-form,
-.login-form,
-.olvido-contrasena {
-    padding-top: 3% !important;
-}
-
 .login-form>div,
 .olvido-contrasena>div {
     background-color: var(--blanco);
     border-radius: 18px;
     padding: 18px !important;
+    margin-bottom:30px;
 }
 
 .registro-form p.tercero,
@@ -2313,7 +2464,6 @@ div[ng-message] {
 }
 
 .ventajas-loguear {
-
     height: 80%;
     display: flex;
     flex-direction: column;
@@ -2923,7 +3073,9 @@ textarea {
 }
 
 .logo-container-m span.seleccionar,
-.combinacion span.seleccionar, .contenedor-principal.editor span.seleccionar, .comprar {
+.combinacion span.seleccionar,
+.contenedor-principal.editor span.seleccionar,
+.comprar {
     width: 40px;
     position: absolute;
     background-color: transparent;
@@ -2943,27 +3095,29 @@ textarea {
     flex-flow: row;
     align-items: center;
     justify-content: flex-end;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .logo-container-m span.seleccionar p,
-.combinacion span.seleccionar p , .contenedor-principal.editor span.seleccionar p{
+.combinacion span.seleccionar p,
+.contenedor-principal.editor span.seleccionar p {
     opacity: 0;
     margin: 0 0 0 0px;
     width: 0;
 }
 
 .logo-container-m span.seleccionar:hover,
-.combinacion span.seleccionar:hover, .combinacion .comprar {
-    background: rgba(0,0,0,0.4);
+.combinacion span.seleccionar:hover,
+.combinacion .comprar {
+    background: rgba(0, 0, 0, 0.4);
     color: white;
-    width:50%;
+    width: 50%;
 }
 
-.contenedor-principal.editor span.seleccionar:hover{
-    background: rgba(0,0,0,0.4);
+.contenedor-principal.editor span.seleccionar:hover {
+    background: rgba(0, 0, 0, 0.4);
     color: white;
-    width:20%;
+    width: 20%;
 }
 
 .combinacion .comprar {
@@ -2971,7 +3125,9 @@ textarea {
     right: calc(100% - 75%);
 }
 
-.logo-container-m span.seleccionar img, .combinacion span.seleccionar img, .contenedor-principal.editor span.seleccionar img {
+.logo-container-m span.seleccionar img,
+.combinacion span.seleccionar img,
+.contenedor-principal.editor span.seleccionar img {
     width: 20px;
     display: flex;
     justify-content: center;
@@ -2980,7 +3136,8 @@ textarea {
 }
 
 .logo-container-m span.seleccionar:hover p,
-.combinacion span.seleccionar:hover p, .contenedor-principal.editor:hover span.seleccionar:hover p {
+.combinacion span.seleccionar:hover p,
+.contenedor-principal.editor:hover span.seleccionar:hover p {
     display: block;
     opacity: 1;
     margin: 0 0 0 12px;
@@ -2991,12 +3148,15 @@ textarea {
 .logo-container-m span.seleccionar:hover img,
 .combinacion span.seleccionar:hover img {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
     transition: -webkit-transform 0.6s;
 }
 
 .logo-container-m.logo-active-m:hover span.seleccionar,
-.combinacion:hover span.seleccionar, .contenedor-principal.editor span.seleccionar, .contenedor-principal.editor span.comprar, .combinacion:hover span.comprar {
+.combinacion:hover span.seleccionar,
+.contenedor-principal.editor span.seleccionar,
+.contenedor-principal.editor span.comprar,
+.combinacion:hover span.comprar {
     opacity: 1;
 }
 
@@ -3272,7 +3432,7 @@ div.combinacion {
 }
 
 div.combinacion:hover {
-    border: 3px solid rgba(0,0,0,0.2);
+    border: 3px solid rgba(0, 0, 0, 0.2);
     opacity: 1;
 }
 
@@ -3928,19 +4088,17 @@ g.contenedor-icono {
     pointer-events: bounding-box;
 }
 
-
 /*  logo */
 
-
-
 .logo-container-logo {
-    padding:3% 16px;
+    padding: 3% 16px;
     text-align: center;
     color: var(--secundario);
     width: 200px;
     margin: auto;
     display: block;
 }
-.logo-container-logo img{
+
+.logo-container-logo img {
     width: 100%;
 }
