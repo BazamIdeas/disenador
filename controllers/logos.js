@@ -693,7 +693,7 @@ exports.modificarLogo =  function(req,res)
 
 //DESCARGA UN LOGO COMPRADO
 exports.zip = function(req,res)
-{
+{	
 	const idLogo = req.query.idLogo;
 	const ancho = req.query.ancho;
 	const tipo = req.query.tipo;

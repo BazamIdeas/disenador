@@ -20,7 +20,7 @@ angular.module("disenador-de-logos")
 					.catch(function () {})
 					.finally(function () {
 						{
-
+						
 							var tamanoBase = 100;
 							/*
 							////////////////////////////////////////////////////////////
@@ -229,7 +229,7 @@ angular.module("disenador-de-logos")
 
 
 							//agregamos el Style Tag al svg
-							element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>");
+							element.children().prepend("<style> @font-face { font-family: '" + scope.fuente + "'; src: url('" + scope.url + "')}  </style>");
 
 							$timeout(function () {
 								scope.callback = element[0].innerHTML;
@@ -2277,7 +2277,7 @@ angular.module("disenador-de-logos")
 					}
 
 					bz.avanzarCheckout(plan);
-				}
+				};
 
 
 				bz.avanzarCheckout = function (plan) {
