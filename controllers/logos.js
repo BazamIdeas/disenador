@@ -701,13 +701,17 @@ exports.zip = function(req,res)
 	let fuentes = {};
 	const par = [req.idCliente, idLogo];
 
+	//console.log(req)
+
 	logo.getLogo(par, (error, data) => {
+		//console.log(data)
 		if (typeof data !== "undefined" && data.length > 0) {
 			let nombre = "Logo"+"-" +descarga +"-" + moment().format("DD-MM-YYYY")+".svg";
 
 			const path = "public/tmp/";
 
 			atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
+				//console.log(dataAttrs)
 				if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
 
 					async.forEachOf(dataAttrs, (row, key, callback) => {
@@ -772,15 +776,21 @@ exports.zip = function(req,res)
 								} else {
 
 									var pngout = svg.replace("svg", "png");
+
 									fs.readFile(svg, (err, svgbuffer) => {
 										if (err) throw err;
 										svg2png(svgbuffer, { width: ancho})
 											.then(buffer => {
-												fs.writeFile(pngout, buffer);
-												res.download(__dirname+"/../"+pngout);
+												fs.writeFile(pngout, buffer, (err) => {
+													setTimeout(() => {
+														res.download(__dirname+"/../"+pngout);
+													}, 1000)
+												});
 											})
 											.catch(e => console.log('error'));
 									});
+
+									
 
 								}
 								

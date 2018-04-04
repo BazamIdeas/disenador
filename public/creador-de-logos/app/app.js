@@ -298,7 +298,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			.state({
 				name: "descargar",
-				url: "/cliente/logos/{id:int}/descargar/",
+				url: "/cliente/logos/descargar/{id:int}/",
 				templateUrl: "app/views/v2/descargar.tpl",
 				controller: "descargarController as descargar",
 				params: {

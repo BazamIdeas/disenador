@@ -654,15 +654,15 @@ exports.manualCliente = function (req, res, next) {
                                 }
                             }
 
-                            var nombreEmpresa = 'LL';
+                            var nombreManual = './public/tmp/manual-marcas-' + req.params.id + '.pdf';
 
-                            pdf.create(template, configuracion).toFile('./public/tmp/manual-marcas-' + nombreEmpresa + '.pdf', function (err, data) {
+                            pdf.create(template, configuracion).toFile(nombreManual, function (err, data) {
 
                                 if (err) throw err;
 
                                 data = {
-                                    nombreArchivo: 'Manual de marca ' + nombreEmpresa + '.pdf',
-                                    url: '/tmp/manual-marcas-' + nombreEmpresa + '.pdf'
+                                    nombreArchivo: 'Manual de marca ' + req.params.id + '.pdf',
+                                    url: '/tmp/manual-marcas-' + req.params.id + '.pdf'
                                 };
 
                                 res.status(200).json(data)

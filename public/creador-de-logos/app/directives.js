@@ -2180,7 +2180,7 @@ angular.module("disenador-de-logos")
 				verlogo: "<",
 				promocion: "="
 			},
-			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", "clientesService", "$rootScope", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q, clientesService, $rootScope) {
+			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", "clientesService", "$rootScope", "$document", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q, clientesService, $rootScope, $document) {
 
 				var bz = this;
 
@@ -2292,8 +2292,8 @@ angular.module("disenador-de-logos")
 
 					if (plan === true) {
 						bz.peticion = true;
-						var nombre = "editable";
-						var ancho = 50;
+						var nombre = "gratis";
+						var ancho = 80;
 
 						bz.compatirFacebook().then(function (res) {
 
@@ -2301,40 +2301,88 @@ angular.module("disenador-de-logos")
 
 							if ($scope.datos.idLogo) {
 								logosService.descargarLogo($scope.datos.idLogo, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
-									var url = "";
-									if (res.zip) {
 
-										url = res.zip.replace("public", "");
-
-									} else if (res.png) {
-
-										url = res.png.replace("public", "");
-
+									//get the headers' content disposition
+									var cd = res.headers["content-disposition"];
+								
+									//get the file name with regex
+									var regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+									var match = regex.exec(cd);
+								
+									//is there a fiel name?
+									var fileName = match[1] || "myDefaultFileName.zip";
+								
+									//replace leading and trailing slashes that C# added to your file name
+									fileName = fileName.replace(/\"/g, "");
+									//determine the content type from the header or default to octect stream
+									var contentType = res.headers["content-type"];
+								
+									//finally, download it
+									var blob = new Blob([res.data], {type: contentType});
+							
+									//downloading the file depends on the browser
+									//IE handles it differently than chrome/webkit
+									if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
+										$window.navigator.msSaveOrOpenBlob(blob, fileName);
+									} else {
+										var a = $document[0].createElement("a");
+										$document[0].body.appendChild(a);
+										a.style = "display:none";
+										var url = $window.URL.createObjectURL(blob);
+										a.href = url;
+										a.download = fileName;
+										a.target = "_blank";
+										a.click();
+										$window.URL.revokeObjectURL(url);
+										a.remove();
 									}
 
-									logosService.dispararDescarga(url, nombre, ancho);
 									bz.desabilitado = true;
 									bz.promocion = true;
 									bz.peticion = false;
 
-									return;
 								});
 							} else {
 								$scope.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.idElemento, $scope.datos.fuentes.principal, true).then(function (res) {
 
 									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
-										var url = "";
-										if (res.zip) {
 
-											url = res.zip.replace("public", "");
+										console.log(res)
 
-										} else if (res.png) {
-
-											url = res.png.replace("public", "");
-
+										//get the headers' content disposition
+										var cd = res.headers["content-disposition"];
+									
+										//get the file name with regex
+										var regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+										var match = regex.exec(cd);
+									
+										//is there a fiel name?
+										var fileName = match[1] || "myDefaultFileName.zip";
+									
+										//replace leading and trailing slashes that C# added to your file name
+										fileName = fileName.replace(/\"/g, "");
+										//determine the content type from the header or default to octect stream
+										var contentType = res.headers["content-type"];
+									
+										//finally, download it
+										var blob = new Blob([res.data], {type: contentType});
+								
+										//downloading the file depends on the browser
+										//IE handles it differently than chrome/webkit
+										if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
+											$window.navigator.msSaveOrOpenBlob(blob, fileName);
+										} else {
+											var a = $document[0].createElement("a");
+											$document[0].body.appendChild(a);
+											a.style = "display:none";
+											var url = $window.URL.createObjectURL(blob);
+											a.href = url;
+											a.download = fileName;
+											a.target = "_blank";
+											a.click();
+											$window.URL.revokeObjectURL(url);
+											a.remove();
 										}
-
-										logosService.dispararDescarga(url, nombre, ancho);
 
 									}).catch(function () {
 										//console.log(res)

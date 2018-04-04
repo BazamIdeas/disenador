@@ -209,26 +209,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-
-
-
-		bz.dispararDescarga = function (imgURI, nombre, ancho) {
-
-			var evento = new MouseEvent("click", {
-				view: window,
-				bubbles: false,
-				cancelable: true
-
-			});
-
-			var a = document.createElement("a");
-			a.setAttribute("download", nombre + "@" + ancho + "x" + ancho);
-			a.setAttribute("href", imgURI);
-			a.setAttribute("target", "_blank");
-			a.dispatchEvent(evento);
-
-		};
-
 		bz.completado = true;
 		bz.descargar = function (nombre, ancho) {
 
