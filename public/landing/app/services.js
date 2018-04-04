@@ -266,6 +266,32 @@ angular.module("landing")
 	}])
 
 	.value("estaticosLandingValue", {
+		colores:[
+			["#CDFFEC", "#80FFCF", "#407F67"],
+			["#DBFFCD", "#A5FF80", "#547F43 "],
+			["#FBFFD3", "#F4FF86", "#7A7F46 "],
+			["#FFE7A4", "#FFD458", "#7F6A2F"],
+	
+			["#FFDAB8", "#FFB26C", "#7F4917"],
+			["#FFD6C6", "#FF9F7A", "#7F3A1E "],
+			["#FFCDC9", "#FF857C", "#7F2620"],
+			["#FFC4D7", "#FF78A3", "#7F1D3D"],
+	
+			["#FFC1E9", "#FF75CE", "#7F1C5C"],
+			["#FFBDFA", "#FF71F5", "#7F1A78 "],
+			["#F0BBFF", "#DF6FFF", "#69197F"],
+			["#D9C3FF", "#A977FF", "#411D7F"],
+	
+			["#CFCAFF", "#897EFF", "#29207F"],
+			["#D3D8FF", "#8794FF", "#252F7F"],
+			["#D8E3FF", "#8BACFF", "#17357F"],
+			["#C9E0FF", "#7CB4FF", "#103F7F"],
+	
+			["#D1F3FF", "#84DFFF", "#13637F"],
+			["#DCEEFC", "#263470", "#B21921"],
+			["#CFFFF8", "#83FFEC", "#137F6F"],
+			["#D0FFE0", "#83FFAF", "#137F3A"]
+		],
 		caracteristicas: [{
 			titulo: "Titulo",
 			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
@@ -621,7 +647,7 @@ angular.module("landing")
 			return promise;
 		}
 
-		this.loadEtiquetas = function (arr, v) {
+		this.loadEtiquetas = function (arr) {
 
 			var etiquetas = [];
 

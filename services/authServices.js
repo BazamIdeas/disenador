@@ -3,7 +3,7 @@ var jwt = require('jwt-simple');
 var moment = require('moment');
 var configuracion = require('../configuracion.js');
 
-exports.crearToken = function(id,tipo){
+exports.crearToken = function(id,tipo) {
 	const datos	= {
 		id : id,
 		ini: moment().unix(),
@@ -14,7 +14,7 @@ exports.crearToken = function(id,tipo){
 	return jwt.encode(datos, configuracion.secret)
 }
 
-exports.decodificar = function(token){
+exports.decodificar = function(token) {
 	
 	return jwt.decode(token, configuracion.secret)
 }

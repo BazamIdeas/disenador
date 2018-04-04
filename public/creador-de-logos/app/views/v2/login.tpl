@@ -1,12 +1,12 @@
 <section style="height:100%; background-color: var(--fondo);overflow: hidden;">
-    <div class="row " style="overflow: hidden;">
+    <div class="row " style="overflow: hidden; padding-top: 2% !important;">
 
         <div class="col s8 offset-s2">
             <div class="login-form-flex">
                 <div ng-switch="login.formPasos">
                     <div class="login" ng-switch-default>
-                        <div class="login-form col s5 offset-s3" ng-hide="login.ingresar">
-                            <div>
+                        <div class="login-form col s6 offset-s3" ng-hide="login.ingresar">
+                            <div class="md-whiteframe-13dp">
                                 <p class="text-center tercero">Ingresa a tu Cuenta</p>
                                 <small class="subtitle">
                                     <B>Mira tus creaciones en cualquier momento</B>
@@ -34,8 +34,8 @@
                                 <form name="login.loginForm" novalidate ng-submit="login.login(login.datosLogin, login.loginForm.$valid)">
 
                                     <div class="input-field col s12">
-                                        <input id="correo" name="correo" type="email" ng-model="login.datosLogin.correo" required>
-                                        <label for="correo">Correo</label>
+                                        <input id="correologin" name="correo" type="email" ng-model="login.datosLogin.correo" required>
+                                        <label for="correologin">Correo</label>
 
                                         <div ng-messages="login.loginForm.correo.$error" ng-if="login.loginForm.$submitted || login.loginForm.correo.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
@@ -44,8 +44,8 @@
 
                                     </div>
                                     <div class="input-field col s12">
-                                        <input id="pass" name="pass" type="password" ng-model="login.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
-                                        <label for="pass">Contraseña</label>
+                                        <input id="passlogin" name="pass" type="password" ng-model="login.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
+                                        <label for="passlogin">Contraseña</label>
 
                                         <div ng-messages="login.loginForm.pass.$error" ng-if="login.loginForm.$submitted || login.loginForm.pass.$dirty">
                                             <div ng-message="required">Este campo es requerido.</div>
@@ -74,7 +74,7 @@
 
                         <div class="registro-form" ng-hide="!login.ingresar">
                             <div class="row">
-                                <div class="col s5 offset-s1" style="    padding: 18px; display: flex;flex-direction: column; justify-content: space-between; height: 80%;    background-color: var(--blanco);border-top-left-radius: 18px;
+                                <div class="col s5 offset-s1 md-whiteframe-13dp" style="    padding: 18px; display: flex;flex-direction: column; justify-content: space-between; height: 80%;    background-color: var(--blanco);border-top-left-radius: 18px;
                                 border-bottom-left-radius: 18px;">
                                     <div>
                                         <p class="text-center tercero">Crea una Cuenta</p>
@@ -103,8 +103,8 @@
                                         </div>
                                         <form name="login.registroForm" novalidate ng-submit="login.registrar(login.datosRegistro, login.registroForm.$valid)">
                                             <div class="input-field col s12">
-                                                <input id="nombre" type="text" name="nombreCliente" ng-model="login.datosRegistro.nombreCliente" required>
-                                                <label for="nombre">Nombre</label>
+                                                <input id="nombrelogin" type="text" name="nombreCliente" ng-model="login.datosRegistro.nombreCliente" required>
+                                                <label for="nombrelogin">Nombre</label>
 
                                                 <div ng-messages="login.registroForm.nombreCliente.$error" ng-if="login.registroForm.$submitted || login.registroForm.nombreCliente.$dirty">
                                                     <div ng-message="required">Este campo es requerido.</div>
@@ -112,8 +112,8 @@
 
                                             </div>
                                             <div class="input-field col s12">
-                                                <input id="correo2" type="email" name="correo" ng-model="login.datosRegistro.correo" bazam-mail required>
-                                                <label for="correo2">Correo</label>
+                                                <input id="correologin2" type="email" name="correo" ng-model="login.datosRegistro.correo" bazam-mail required>
+                                                <label for="correologin2">Correo</label>
 
                                                 <div ng-messages="login.registroForm.correo.$error" ng-if="login.registroForm.$submitted || login.registroForm.correo.$dirty">
                                                     <div ng-message="required">Este campo es requerido.</div>
@@ -125,8 +125,8 @@
                                                 </div>
                                             </div>
                                             <div class="input-field col s12">
-                                                <input id="pass2" type="password" name="pass" ng-model="login.datosRegistro.pass" ng-minlength="6" ng-maxlength="20" required>
-                                                <label for="pass2">Contraseña</label>
+                                                <input id="passlogin2" type="password" name="pass" ng-model="login.datosRegistro.pass" ng-minlength="6" ng-maxlength="20" required>
+                                                <label for="passlogin2">Contraseña</label>
 
                                                 <div ng-messages="login.registroForm.pass.$error" ng-if="login.registroForm.$submitted || login.registroForm.pass.$dirty">
                                                     <div ng-message="required">Este campo es requerido.</div>
@@ -162,7 +162,7 @@
                                     </small>
                                 </div>
 
-                                <div class="ventajas-loguear col s5">
+                                <div class="ventajas-loguear col s5 md-whiteframe-13dp">
                                     <div>
                                         <md-icon>remove_red_eye</md-icon>
                                         <span>
@@ -195,7 +195,7 @@
                     </div>
 
                     <div class="login row olvido-contrasena" ng-switch-when="1">
-                        <div class="col s4 offset-s4">
+                        <div class="col s4 offset-s4 md-whiteframe-13dp">
                             <div ng-switch="login.rc">
                                 <p class="text-center tercero">Olvido de Contraseña</p>
                                 <small class="subtitle">
@@ -203,16 +203,16 @@
                                 </small>
                                 <br>
                                 <div ng-switch-default>
-                                    <form name="olvido" ng-submit="login.forgotPass(login.olvido, olvido.$valid)" novalidate class="formulario-ingreso">
+                                    <form name="olvido2" ng-submit="login.forgotPass(login.olvido, olvido2.$valid)" novalidate class="formulario-ingreso">
                                         <div class="input-field col s12">
                                             <label>Correo</label>
                                             <input style="margin-bottom:0;" type="email" ng-model="login.olvido.correo" name="correo" required ng-minlength="5">
-                                            <div ng-messages="olvido.correo.$error" style="color:maroon" role="alert" ng-show="olvido.$submitted">
+                                            <div ng-messages="olvido2.correo.$error" style="color:maroon" role="alert" ng-show="olvido2.$submitted">
                                                 <div ng-message="required">Este campo es requerido.</div>
                                             </div>
                                         </div>
-
-                                        <div layout layout-align="space-between">
+                                    
+                                        <div layout layout-align="space-between" style="padding-top:3%;" class="col s12">
                                             <button class="boton-verde" ng-click="login.formPasos='default'" ng-disabled="login.peticion">Regresar</button>
                                             <button ng-disabled="login.peticion" class="boton-verde" type="submit">Enviar</button>
                                         </div>
@@ -222,27 +222,24 @@
                                     <div class="input-field col s12">
                                         <label>Codigo de coonfirmación:</label>
                                         <input style="margin-bottom:0;" type="password" ng-model="login.olvido.token" required name="token">
-                                        <div ng-messages="formRecuperar.token.$error" style="color:maroon" role="alert" ng-show="formRecuperar.$submitted">
-                                            <div ng-message="required">Este campo es requerido.</div>
-                                        </div>
                                     </div>
-                                    <div layout layout-align="space-between">
+                                    <div layout layout-align="space-between" style="padding-top:3%;" class="col s12">
                                         <button class="boton-verde" ng-click="login.rc=1">Regresar</button>
                                         <button ng-disabled="login.peticion" class="boton-verde" ng-click="login.confirmarToken(false)">Enviar</button>
                                     </div>
                                 </div>
                                 <div ng-switch-when="3">
-                                    <form name="formRecuperar" ng-submit="login.confirmarToken(true,formRecuperar.$valid)" novalidate>
+                                    <form name="formRecuperar2" ng-submit="login.confirmarToken('cambiar',formRecuperar2.$valid)" novalidate>
                                         <div class="input-field col s12">
                                             <label>Nueva Contraseña:</label>
                                             <input type="password" style="margin-bottom:0;" ng-model="login.olvido.pass" name="pass" required ng-minlength="6">
-                                            <div ng-messages="formRecuperar.pass.$error" style="color:maroon" role="alert" ng-show="formRecuperar.$submitted">
+                                            <div ng-messages="formRecuperar2.pass.$error" style="color:maroon" role="alert" ng-show="formRecuperar2.$submitted">
                                                 <div ng-message="required">Este campo es requerido.</div>
                                                 <div ng-message="minlength">Debe contener minimo 6 caracteres</div>
                                             </div>
                                         </div>
 
-                                        <div layout layout-align="space-between">
+                                        <div layout layout-align="space-between" style="padding-top:3%;" class="col s12">
                                             <button ng-disabled="login.peticion" class="boton-verde" ng-click="login.mostrarForm=1">Regresar</button>
                                             <button ng-disabled="login.peticion" class="boton-verde" type="submit">Cambiar</button>
                                         </div>

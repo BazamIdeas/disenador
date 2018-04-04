@@ -42,7 +42,7 @@
 		.contenedor-principal-planes {
 			position: absolute;
 			bottom: 0;
-			z-index: 13;
+			z-index: 10;
 			height:100%; 
 			background-color: white; 
 			overflow-y: scroll;
@@ -94,7 +94,8 @@
 
 		.principal-x {
 			font-family: futura-heavy;
-			margin-top: %;
+			margin-top: 2%;
+    		color: var(--tercero);
 		}
 
 		/* PROMOCION*/

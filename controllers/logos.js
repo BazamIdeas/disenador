@@ -762,9 +762,9 @@ exports.zip = function(req,res)
 									}
 
 									output.on('close', () => {
-										console.log('end')
-										res.download(__dirname+"/../"+svg.replace("svg", "zip"));
-										
+										setTimeout(() => {
+											res.download(__dirname+"/../"+svg.replace("svg", "zip"));
+										}, 1000)
 									})	
 
 									archive.finalize();		        		
@@ -800,57 +800,132 @@ exports.zip = function(req,res)
 };
 
 //DEPRECATED
-exports.descargar = function(req, res) {
-	var idLogo = req.body.idLogo;
-	var ancho = req.body.ancho;
-	var par = [req.idCliente, req.body.idLogo];
+exports.descargar = (req, res) => 
+{
+	const idLogo = req.query.idLogo;
+	const descargas = req.query.descargas || {
+			facebook: 250,
+			youtube: 400,
+			editable: 400
+	};
+	let fuentes = {};
+	const par = [req.idCliente, idLogo];
 
-	logo.getLogo(par,function(error, data)
-	{
-	//si el logo existe 
-		if (typeof data !== "undefined" && data.length > 0)
-		{
-			var nombre = idLogo +"-" + moment().format("YYYY-MM-DD")+"-"+ancho+".svg";
-			var path = "public/tmp/";
-			var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
-			//console.log(base64.decode(data[0].logo));
+	logo.getLogo(par, (error, data) => {
+		if (typeof data !== "undefined" && data.length > 0) {
+			let nombre = "Logo"+"-todos-los-FORMATOS-" + moment().format("DD-MM-YYYY")+".svg";
 
+			const path = "public/tmp/";
 
-			fs.open(path+nombre, "w", function(err, fd) {
-				if (err) {
-					throw "error al crear svg " + err;
+			atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
+				if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+
+					async.forEachOf(dataAttrs, (row, key, callback) => {
+
+						if (row.clave == "principal" || row.clave == "eslogan") {
+
+							elemento.datosElemento(row.valor, (err, fuente) => {
+
+								if (err) return callback(err);
+								
+								try {
+									
+									if (typeof fuente !== "undefined" && fuente.length > 0) {
+										fuentes[row.clave] = { nombre:fuente[0].nombre, url:fuente[0].url };
+									}
+		
+								} catch (e) {
+									return callback(e);
+								}
+
+								callback();	
+							});
+						}else{
+							callback();
+						}
+					}, (err) => {
+						if (err) res.status(402).json({});
+						
+						var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
+						
+						fs.open(path + nombre, "w", (err, fd) => {
+							if (err) throw "error al crear svg " + err;
+
+							fs.write(fd, buffer, 0, buffer.length, null, err => {
+								if (err) throw "error al escribir " + err;
+										
+								let svg = path + nombre;
+
+								var output_a = fs.createWriteStream(svg.replace("svg", "zip"));
+								var archive_a = archiver("zip", { zlib: { level: 9 } });
+								archive_a.pipe(output_a);
+
+								async.forEachOf(descargas, (ancho, key, callback) => {
+
+									if (key == 'editable') {
+		
+										var output_b = fs.createWriteStream('logo_editable.zip');
+										var archive_b = archiver("zip", { zlib: { level: 9 } });
+										archive_b.pipe(output_b);
+
+										archive_b.append(fs.createReadStream(svg), { name: "logo.svg" });
+		
+										archive_b.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre+'.ttf' });
+		
+										if (fuentes.eslogan) {
+											archive_b.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.eslogan.url), { name: fuentes.eslogan.nombre+'.ttf' });
+										}
+
+										output_b.on('close', () => {
+											setTimeout(() => {
+												archive_a.append(fs.createReadStream(__dirname+"/../logo_editable.zip"), { name: "logo_editable.zip" });
+												callback();
+											}, 1000)
+										})	
+		
+										archive_b.finalize();
+											
+									} else {
+
+										fs.readFile(svg, (err, svgbuffer) => {
+											if (err) throw err;
+											svg2png(svgbuffer, { width: ancho})
+												.then(buffer => {
+													archive_a.append(buffer, { name: "logo_"+key+".png" });
+													callback();
+												})
+												.catch(e => {
+													return callback(e)
+												});
+										});
+
+									}
+
+								}, (err) => {
+								
+									output_a.on('close', () => {
+										setTimeout(() => {
+											res.download(__dirname+"/../"+svg.replace("svg", "zip"));
+										}, 1000)
+									})	
+	
+									archive_a.finalize();		        		
+									
+									fs.close(fd);
+								});
+
+							});
+						});
+					
+					});
+
 				}
 
-				fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-					if (err) throw "error al escribir " + err;
-					else{
-						var img =  path + nombre;
-						var salida =  path + nombre.replace("svg", "png");
-						fs.readFile(img, (err, svg) => {
-							if (err) throw err;
-							//console.log()
-							svg2png(svg, { width: ancho})
-								.then(buffer => {fs.writeFile(salida, buffer);
-									res.json({svg:salida.replace("png","svg"),png:salida});
-								})
-								.catch(e => console.error(e));
-						});
-						
-						setTimeout(function () {
-						//fs.unlink(salida)
-						
-						}, 10000); 
-					}
-					fs.close(fd);
-				});
 			});
+		} else {
+			res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"});
 		}
-		//no existe
-		else
-		{
-			res.status(404).json({"msg":"No existe"});
-		}
-	});
+	});	
 };
 
 //BORRA UN LOGO

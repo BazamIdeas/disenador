@@ -1991,6 +1991,8 @@ angular.module("disenador-de-logos")
 
 				bz.paisDefecto = null;
 
+				bz.ingresar = true;
+
 				clientesService.pais()
 					.then(function (res) {
 						bz.paisDefecto = res.iso;
@@ -2019,6 +2021,7 @@ angular.module("disenador-de-logos")
 								$rootScope.mostrarModalLogin = false;
 
 								if ($rootScope.callbackLogin) {
+
 									$rootScope.callbackLogin();
 								}
 
@@ -2123,14 +2126,7 @@ angular.module("disenador-de-logos")
 					bz.peticion = true;
 					if (opcion == true) {
 						if (val) {
-							clientesService.cambiarContrasena(bz.olvido).then(function (res) {
-
-								$mdToast.show($mdToast.base({
-									args: {
-										mensaje: "Contraseña cambiada.",
-										clase: "success"
-									}
-								}));
+							clientesService.cambiarContrasena(bz.olvido).then(function () {
 
 								bz.completadoLogin = true;
 
@@ -2269,18 +2265,22 @@ angular.module("disenador-de-logos")
 				};
 
 				bz.verificarLogin = function(plan){
+
+					bz.planElegido = plan;
 					// Verificar si el usuario que esta logueado
 					if (!clientesService.autorizado()) {
 						$rootScope.mostrarModalLogin = true;
-						$rootScope.callback = bz.avanzarCheckout(plan);
+						$rootScope.callbackLogin = bz.avanzarCheckout;
 						return;
 					}
 
-					bz.avanzarCheckout(plan);
+					bz.avanzarCheckout();
 				};
 
 
-				bz.avanzarCheckout = function (plan) {
+				bz.avanzarCheckout = function () {
+
+					var plan = bz.planElegido;
 
 					bz.logo = $scope.datos.logo; //SVG del logo
 					bz.idElemento = $scope.datos.idElemento;
@@ -2316,6 +2316,8 @@ angular.module("disenador-de-logos")
 									bz.desabilitado = true;
 									bz.promocion = true;
 									bz.peticion = false;
+
+									return;
 								});
 							} else {
 								$scope.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.idElemento, $scope.datos.fuentes.principal, true).then(function (res) {
@@ -2374,6 +2376,8 @@ angular.module("disenador-de-logos")
 							bz.peticion = false;
 						});
 
+
+						return;
 					}
 
 					angular.forEach(plan.precios, function (precio) {
@@ -2475,11 +2479,6 @@ angular.module("disenador-de-logos")
 				estado: "=",
 				dataId: "=",
 				guardarLogo: "<"
-			},
-			link: function (scope, element) {
-				angular.element('body').animate({
-					scrollTop: 0
-				}, 50);
 			}
 		}
 	}])
