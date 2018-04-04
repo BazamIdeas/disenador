@@ -5,6 +5,7 @@ var multipart = require("connect-multiparty");
 var multipartMiddleware = multipart();
 var middleware = require("./middleware");
 
+var passport = require('passport');
 //MODULO CLIENTES
 //no espera parametros
 router.get("/clientes", middleware.validarAdministrador, controllers.clientes.listaClientes);
@@ -34,6 +35,8 @@ router.post("/cliente/modificar", middleware.validarCliente, controllers.cliente
 router.post("/cliente/cambiar-contrasena", middleware.validarCliente, controllers.clientes.cambiarContrasena);
 //correo, contraseña => email, pass
 router.post("/cliente/login", controllers.clientes.login);
+
+router.get('/login/facebook', passport.authenticate('facebook'));
 
 router.get("/cliente/pedidos", middleware.validarCliente, controllers.pedidos.PedidosCliente); //muestra la lista de pedidos de un cliente
 router.get("/cliente/:id", controllers.clientes.datosCliente);

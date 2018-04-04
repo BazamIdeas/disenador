@@ -1,15 +1,16 @@
-var logo=require("../modelos/logosModelo.js");
-var atributo = require("../modelos/atributosModelo.js");
-var elemento = require("../modelos/elementosModelo.js");
-var cliente=require("../modelos/clientesModelo.js");
-var services=require("../services");
-var fs = require("pn/fs");
-var moment = require("moment");
-var base64 = require("base-64");
+var logo      = require("../modelos/logosModelo.js");
+var atributo  = require("../modelos/atributosModelo.js");
+var elemento  = require("../modelos/elementosModelo.js");
+var cliente   = require("../modelos/clientesModelo.js");
+var services  = require("../services");
+var Email     = require("../services/emailServices.js");
+var fs        = require("pn/fs");
+var moment    = require("moment");
+var base64    = require("base-64");
 const svg2png = require("svg2png");
-var archiver = require("archiver");
-var pathM = require("path");
-var async    = require("async");
+var archiver  = require("archiver");
+var pathM     = require("path");
+var async     = require("async");
 
 //GUARDAR UN LOGO
 exports.guardar =  function(req,res)
@@ -69,7 +70,18 @@ exports.guardar =  function(req,res)
 			cliente.getCliente(req.idCliente, function(error, dataCliente){
 
 				//console.log(data);
-				services.emailServices.enviar("logoGuardado.html", {}, "Logo guardado", dataCliente.correo);
+				const emailOptions = {
+					from: from, // remitente
+					to: dataCliente.correo, // receptor o receptores
+					subject: "Logo guardado", // Asunto del correo
+				}
+
+				let email = new Email(emailOptions,{});
+				email.setHtml("logoGuardado.html").send((err,res) => {
+					if(err) console.log(err);
+					console.log(res);
+				});
+
 				res.status(200).json(data);
 			});
 			
@@ -914,6 +926,86 @@ exports.descargar = (req, res) =>
 									fs.close(fd);
 								});
 
+							});
+						});
+					
+					});
+
+				}
+
+			});
+		} else {
+			res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"});
+		}
+	});	
+};
+
+
+exports.enviarPorEmail = function(req,res)
+{
+	const idLogo = req.query.idLogo;
+	const ancho = 200;
+	let fuentes = {};
+	const par = [req.idCliente, idLogo];
+
+	logo.getLogo(par, (error, data) => {
+		if (typeof data !== "undefined" && data.length > 0) {
+			let nombre = "Logo-" + idLogo + "-" + moment().format("DD-MM-YYYY") + ".svg";
+
+			const path = "public/tmp/";
+
+			atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
+				if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+
+					async.forEachOf(dataAttrs, (row, key, callback) => {
+
+						if (row.clave == "principal" || row.clave == "eslogan") {
+
+							elemento.datosElemento(row.valor, (err, fuente) => {
+
+								if (err) return callback(err);
+								
+								try {
+									
+									if (typeof fuente !== "undefined" && fuente.length > 0) {
+										fuentes[row.clave] = { nombre:fuente[0].nombre, url:fuente[0].url };
+									}
+		
+								} catch (e) {
+									return callback(e);
+								}
+
+								callback();	
+							});
+						}else{
+							callback();
+						}
+					}, (err) => {
+						if (err) res.status(402).json({});
+						
+						var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
+						
+						fs.open(path + nombre, "w", (err, fd) => {
+							if (err) throw "error al crear svg " + err;
+
+							fs.write(fd, buffer, 0, buffer.length, null, err => {
+								if (err) throw "error al escribir " + err;
+										
+								let svg = path + nombre;
+
+								var pngout = svg.replace("svg", "png");
+								fs.readFile(svg, (err, svgbuffer) => {
+									if (err) throw err;
+									svg2png(svgbuffer, { width: ancho})
+										.then(buffer => {
+											fs.writeFile(pngout, buffer);
+											services.emailServices.enviar("logoCompartido.html", {}, "Te han compartido un logo", data.correo);
+											res.download(__dirname+"/../"+pngout);
+										})
+										.catch(e => console.log('error'));
+								});
+								
+								fs.close(fd);
 							});
 						});
 					
