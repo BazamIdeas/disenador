@@ -132,7 +132,7 @@
                     ng-style="{'background-color': logo.colores[0]}">
                     <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)'
                         url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado"
-                        color-texto="logo.colores[2]" color-icono="logo.colores[1]" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo, true)" ></bazam-svg-text>
+                        color-texto="logo.colores[2]" color-icono="logo.colores[1]" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo, true)" ></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
                     <span class="seleccionar" style="margin-bottom: 83%;" ng-click="inicio.preGuardarLogo(logo)"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>

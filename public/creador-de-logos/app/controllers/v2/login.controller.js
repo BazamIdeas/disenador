@@ -13,8 +13,7 @@ angular.module("disenador-de-logos")
 			bz.paisDefecto = res.iso;
 
 		});
-
-		bz.ingresar = true;
+		
 		bz.datosRegistro = {};
 		bz.datosLogin = {};
 
@@ -111,6 +110,78 @@ angular.module("disenador-de-logos")
 			}
 
 		};
+
+		bz.olvido = {
+            tipo: 'cliente'
+        };
+
+		bz.forgotPass = function (datos, v) {
+
+			datos.tipo = 'cliente';
+			if (!v) return $mdToast.show($mdToast.base({
+				args: {
+					mensaje: "Verifica los campos del formulario.",
+					clase: "danger"
+				}
+			}));
+
+			bz.peticion = true;
+			bz.loaderCargando2 = true;
+
+			clientesService.forgotPass(datos).then(function () {
+				bz.rc = 2;
+				bz.loaderCargando2 = false;
+				$mdToast.show($mdToast.base({
+					args: {
+						mensaje: "Codigo Enviado al correo.",
+						clase: "success"
+					}
+				}));
+			}).catch(function () {
+				bz.loaderCargando = false;
+			}).finally(function () {
+				bz.peticion = false;
+			})
+
+		}
+
+		bz.confirmarToken = function (opcion, val) {
+
+			if (opcion == 'cambiar') {
+				if (!val) return;
+				bz.peticion = true;
+				clientesService.cambiarContrasena(bz.olvido).then(function () {
+					var datos = {
+						correo: bz.olvido.correo,
+						pass: bz.olvido.pass
+					};
+					bz.login(datos, true);
+
+				}).catch(function () {
+				}).finally(function () {
+					bz.peticion = false;
+				})
+
+			} else {
+				bz.peticion = true;
+				clientesService.confirmarToken(bz.olvido.token).then(function (res) {
+					if (res) {
+						bz.rc = 3;
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Codigo confirmado.",
+								clase: "success"
+							}
+						}));
+					}
+				}).catch(function () {
+					bz.loaderCargando = false;
+				}).finally(function () {
+					bz.peticion = false;
+				})
+
+			}
+		}
 
 
 	}]);
