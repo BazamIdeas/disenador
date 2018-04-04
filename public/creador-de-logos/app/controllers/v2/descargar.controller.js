@@ -271,6 +271,7 @@ angular.module("disenador-de-logos")
 							var url = $window.URL.createObjectURL(blob);
 							a.href = url;
 							a.download = fileName;
+							a.target = "_blank";
 							a.click();
 							$window.URL.revokeObjectURL(url);
 							a.remove();
@@ -295,26 +296,23 @@ angular.module("disenador-de-logos")
 			angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
 			logosService.manualMarca(id).then(function (res) {
-				var pdf = document.createElement('a');
-				pdf.setAttribute('href', res.url);
-				pdf.setAttribute('download', res.nombreArchivo);
-				simulateClick(pdf);
+
+				var a = $document[0].createElement("a");
+				$document[0].body.appendChild(a);
+				a.style = "display:none";
+				var url = res.url;
+				a.href = url;
+				a.download = res.nombreArchivo;
+				a.target = "_blank";
+				a.click();
+				a.remove();
+
 			}).finally(function () {
 				bz.esperaManual = false;
 				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
 			});
 
 		};
-
-		function simulateClick(control) {
-			if (document.all) {
-				control.click();
-			} else {
-				var evObj = document.createEvent("MouseEvents");
-				evObj.initMouseEvent("click", true, true, window, 1, 12, 345, 7, 220, false, false, true, false, 0, null);
-				control.dispatchEvent(evObj);
-			}
-		}
 
 		$scope.$on("sesionExpiro", function () {
 

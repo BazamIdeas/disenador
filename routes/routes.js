@@ -178,6 +178,7 @@ router.post("/logos/descargables", middleware.validarCliente, controllers.logos.
 
 router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
 
+router.get("/logo/descargar", middleware.validarCliente, controllers.logos.descargar);
 
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);
@@ -192,7 +193,6 @@ router.post("/logo/calificar-admin", middleware.validarAdministrador, controller
 router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.atributos.CalificarCliente);
 
 router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
-router.post("/logo/descargar", controllers.logos.descargar);
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
 
 //RECUPERAR CONTRASEÑA
