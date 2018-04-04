@@ -9,7 +9,7 @@ var configuracion = {
     	"url": "http://front.liderlogo.info",
         "base": "/creador-de-logos/",
     	"dashboard": "cliente/logos",
-        "pago" : "pago/completo/",
+        "pago" : "cliente/logos/descargar/",
         "nopago" : "pago/incompleto/",
         "paypal" : {
             "host" : "api.sandbox.paypal.com",        
@@ -54,7 +54,7 @@ var configuracion = {
     	"url": "http://localhost:8080",
         "base": "/creador-de-logos/",
     	"dashboard": "cliente/logos/",
-        "pago" : "pago/completo/",
+        "pago" : "cliente/logos/descargar/",
         "nopago" : "pago/incompleto/",
     	"paypal" : {
             "host" : "api.sandbox.paypal.com",           

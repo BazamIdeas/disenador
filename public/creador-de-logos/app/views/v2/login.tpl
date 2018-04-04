@@ -13,15 +13,14 @@
                                 </small>
                                 <div>
                                     <div class="ingreso-redes-sociales">
-                                        <div class="ingreso__twitter">
-                                            <i class="fab fa-facebook"></i>
-
-                                        </div>
-                                        <div class="ingreso__facebook">
+                                        <div class="ingreso__twitter" ng-click="login.social('tw')">
                                             <i class="fab fa-twitter-square"></i>
-
                                         </div>
-                                        <div class="ingreso__google">
+                                        <div class="ingreso__facebook" ng-click="login.social('fb')">
+
+                                            <i class="fab fa-facebook"></i>
+                                        </div>
+                                        <div class="ingreso__google" ng-click="login.social('gg')">
                                             <i class="fab fa-google-plus-g"></i>
 
                                         </div>
@@ -83,15 +82,14 @@
                                         </small>
                                         <div>
                                             <div class="ingreso-redes-sociales">
-                                                <div class="ingreso__twitter">
-                                                    <i class="fab fa-facebook"></i>
-
-                                                </div>
-                                                <div class="ingreso__facebook">
+                                                <div class="ingreso__twitter" ng-click="login.social('tw')">
                                                     <i class="fab fa-twitter-square"></i>
-
                                                 </div>
-                                                <div class="ingreso__google">
+                                                <div class="ingreso__facebook" ng-click="login.social('fb')">
+
+                                                    <i class="fab fa-facebook"></i>
+                                                </div>
+                                                <div class="ingreso__google" ng-click="login.social('gg')">
                                                     <i class="fab fa-google-plus-g"></i>
 
                                                 </div>
@@ -125,7 +123,8 @@
                                                 </div>
                                             </div>
                                             <div class="input-field col s12">
-                                                <input id="passlogin2" type="password" name="pass" ng-model="login.datosRegistro.pass" ng-minlength="6" ng-maxlength="20" required>
+                                                <input id="passlogin2" type="password" name="pass" ng-model="login.datosRegistro.pass" ng-minlength="6" ng-maxlength="20"
+                                                    required>
                                                 <label for="passlogin2">Contraseña</label>
 
                                                 <div ng-messages="login.registroForm.pass.$error" ng-if="login.registroForm.$submitted || login.registroForm.pass.$dirty">
@@ -211,7 +210,7 @@
                                                 <div ng-message="required">Este campo es requerido.</div>
                                             </div>
                                         </div>
-                                    
+
                                         <div layout layout-align="space-between" style="padding-top:3%;" class="col s12">
                                             <button class="boton-verde" ng-click="login.formPasos='default'" ng-disabled="login.peticion">Regresar</button>
                                             <button ng-disabled="login.peticion" class="boton-verde" type="submit">Enviar</button>

@@ -22,17 +22,6 @@ angular.module("disenador-de-logos")
 			etiquetasSeleccionadas: []
 		};
 
-		bz.seleccionarLogo = function (svg, colores, logo) {
-
-			bz.logoElegido = {
-				svg: svg,
-				colores: colores,
-				logoCompleto: logo
-			};
-
-		};
-
-
 		/* Etiquetas */
 
 		bz.selectedItem = null;
@@ -185,8 +174,6 @@ angular.module("disenador-de-logos")
 
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
 
-			bz.seleccionarLogo(svg, colores, logo);
-
 			bz.datosComprar = {
 				logo: svg,
 				idLogo: idLogo,
@@ -218,20 +205,33 @@ angular.module("disenador-de-logos")
 			if (!clientesService.autorizado()) {
 		
 				$rootScope.mostrarModalLogin = true;
-				$rootScope.callback = false;
+				$rootScope.callbackLogin = false;
 				return;
 			}
-			bz.seleccionarLogo(logo.icono.svg, logo.colores, logo);
+		
 
-			bz.guardarLogo(logo.icono.svg, "Logo y nombre", logo.icono.idElemento )
+			bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento )
 
 				.then(function(res){
+
 					var indiceLogo = bz.logos.indexOf(logo);
 
 					bz.logos[indiceLogo].idLogo = res;
+
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Su logo ha sido guardado con exito!",
+							clase: "success"
+						}
+					}));
 				})
 				.catch(function(){
-
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Un error ha ocurrido",
+							clase: "danger"
+						}
+					}));
 				});
 
 		};
@@ -250,17 +250,13 @@ angular.module("disenador-de-logos")
 				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento,  idFuentePrincipal)
 
 					.then(function (res) {
-
 						defered.resolve(res);
-
-					}).catch(function (res) {
-
+					})
+					.catch(function (res) {
 						defered.reject(res);
-
-					}).finally(function () {
-
+					})
+					.finally(function () {
 						bz.completadoGuardar = true;
-
 					});
 
 			}
