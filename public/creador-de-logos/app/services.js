@@ -741,52 +741,6 @@ angular.module("disenador-de-logos")
 	}])
 
 	/*********************/
-	/**** SOCIAL LOGIN****/
-	/*********************/
-
-	.service("socialAutentication", ["$http", "$q", function ($http, $q) {
-
-		this.facebook = function () {
-
-			var defered = $q.defer();
-			var promise = defered.promise;
-
-
-			FB.getLoginStatus(function (response) {
-				if (response.status === "connected") {
-					defered.resolve(response);
-				} else {
-					FB.login(function (response) {
-						defered.resolve(response)
-					});
-				}
-			});
-
-
-			return promise;
-
-		};
-
-		this.twitter = function () {
-
-			var defered = $q.defer();
-			var promise = defered.promise;
-
-			return promise;
-		};
-
-		this.goggle = function () {
-
-			var defered = $q.defer();
-			var promise = defered.promise;
-
-			return promise;
-		};
-
-	}])
-
-
-	/*********************/
 	/***** facebook ******/
 	/*********************/
 
