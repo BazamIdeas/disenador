@@ -219,12 +219,15 @@ exports.nuevoPedido = function (req, res) {
 													}
 													//console.log(req.body);
 													services.pagoServices.stripe(datosPago, function (error, data) {
-
-														if (data.paid) 
+														console.log(data)
+														if (error)
+															res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
+														
+														else if (data && data.paid) 
 															res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
 
 														else 
-															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago", "idLogo" : idLogo});
+															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
 													});
 
 												}

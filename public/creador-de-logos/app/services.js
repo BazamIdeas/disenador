@@ -698,7 +698,7 @@ angular.module("disenador-de-logos")
 					tipoLogo: tipoLogo,
 					idPasarela: idPasarela,
 					atributos: atributos,
-					tokenStripe: tokenStripe
+					stripeToken: tokenStripe
 				};
 
 				$http.post("/app/pedido", datos)
