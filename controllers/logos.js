@@ -71,9 +71,8 @@ exports.guardar =  function(req,res)
 
 			cliente.getCliente(req.idCliente, function(error, dataCliente){
 
-				//console.log(data);
 				const emailOptions = {
-					to: dataCliente.correo, // receptor o receptores
+					to: dataCliente[0].correo, // receptor o receptores
 					subject: "Logo guardado", // Asunto del correo
 				}
 
@@ -1144,9 +1143,9 @@ exports.enviarPorEmail = function(req,res)
 														cid: "logo-compartido"
 												}]).send((err,res) => {
 													if(err) return res.status(500).json({msg:err})
-													
-													res.status(200).json({msg:"Enviado"})
 												});
+												
+												return res.status(200).json({msg:"Enviado"})
 										})
 									}).catch(e => console.log('error'));
 								});
