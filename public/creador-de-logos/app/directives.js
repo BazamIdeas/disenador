@@ -2571,7 +2571,7 @@ angular.module("disenador-de-logos")
 
 		return {
 			templateUrl: "app/templates/stripePaymentsForm.tpl",
-			controller: ["$scope", "pedidosService", "$q", function($scope, pedidosService, $q){
+			controller: ["$scope", "pedidosService", "$q", "$state", function($scope, pedidosService, $q, $state){
 				var defered = $q.defer();
 
 				var disenadorPromise = defered.promise;
@@ -2596,8 +2596,8 @@ angular.module("disenador-de-logos")
 							} else {
 
 								pedidosService.pagar.stripe()
-									.then(function(){
-
+									.then(function(res){
+										$state.go("descargar", {idLogo: res.idLogo});
 									})
 									.catch(function(){
 										$scope.mensajeError("El pago no ha podido ser procesado");
