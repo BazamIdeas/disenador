@@ -219,8 +219,12 @@ exports.nuevoPedido = function (req, res) {
 													}
 													//console.log(req.body);
 													services.pagoServices.stripe(datosPago, function (error, data) {
-														//res.json(data.link);
-														console.log(data)
+
+														if (data.paid) 
+															res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
+
+														else 
+															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago", "idLogo" : idLogo});
 													});
 
 												}
@@ -351,10 +355,14 @@ exports.nuevoPedidoGuardado = function (req, res) {
 													datosPago.padre = req.body.atributos.padre;
 												}
 												//console.log(req.body);
-												services.pagoServices.stripe(datosPago, function (error, data) {
-													//res.json(data.link);
-													console.log(data)
-												});
+													services.pagoServices.stripe(datosPago, function (error, data) {
+
+														if (data.paid) 
+															res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo": idLogo}); 
+
+														else 
+															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago", "idLogo" : idLogo});
+													});
 											}
 										else {
 											//falta Bloquear elemento

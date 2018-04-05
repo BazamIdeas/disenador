@@ -76,10 +76,10 @@ exports.stripe = function(datos,callback)
     source: datos.stripeToken,
   }, function(err, charge) {
     if (!err) {
-      return callback(null,{"res" : true, "pedido":charge})
+      return callback(charge)
 
     } else {
-      callback(err,{"res" : err, "msg":"Error de medio de pago"})
+      return callback(err)
     }
   });
 }
