@@ -126,9 +126,9 @@
                 <img src="assets/images/redes/{{::formato.nombre}}.jpg" style="max-width:100%; height: 323px">
             </div>
             <div ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'">
-                <button class="boton-verde" style="background-color: var(--principal); width:49.5%; margin-top: 5px; margin-right: 0.5%;" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}})
+                <button class="boton-verde" style="background-color: var(--principal); width:49.5%; margin-top: 5px; margin-right: 0.5%;" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}}px)
                 </button><!--
-                --><button class="boton-verde" style="background-color: var(--secundario); width:width:49.5%; margin-top: 5px; margin-left: 0.5%;" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR TODO
+                --><button class="boton-verde" style="background-color: var(--secundario); width:49.5%; margin-top: 5px; margin-left: 0.5%;" ng-click="descargar.descargarTodo()">DESCARGAR TODO
                 </button>
             </div>
 

@@ -230,7 +230,7 @@ angular.module("disenador-de-logos")
 						var match = regex.exec(cd);
 					
 						//is there a fiel name?
-						var fileName = match[1] || "myDefaultFileName.zip";
+						var fileName = match[1] || "LogoPro.zip";
 					
 						//replace leading and trailing slashes that C# added to your file name
 						fileName = fileName.replace(/\"/g, "");
@@ -270,6 +270,74 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.descargarTodo = function () {
+
+			if (bz.completado) {
+
+				bz.completado = false;
+
+				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+
+				var formatos = {};
+				var formatosCopia = angular.copy(bz.formatos);
+				
+				formatosCopia.push(bz.formatosNoSociales[1]);
+
+				angular.forEach(formatosCopia, function (formato, indice){
+					formatos[formato.nombre] = formato.ancho;
+				});
+				
+				logosService.descargarTodo(bz.logo.id, formatos)
+
+					.then(function (res) {
+
+						//get the headers' content disposition
+						var cd = res.headers["content-disposition"];
+					
+						//get the file name with regex
+						var regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+						var match = regex.exec(cd);
+					
+						//is there a fiel name?
+						var fileName = match[1] || "LogoPro.zip";
+					
+						//replace leading and trailing slashes that C# added to your file name
+						fileName = fileName.replace(/\"/g, "");
+						//determine the content type from the header or default to octect stream
+						var contentType = res.headers["content-type"];
+					
+						//finally, download it
+						var blob = new Blob([res.data], {type: contentType});
+				
+						//downloading the file depends on the browser
+						//IE handles it differently than chrome/webkit
+						if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
+							$window.navigator.msSaveOrOpenBlob(blob, fileName);
+						} else {
+							var a = $document[0].createElement("a");
+							$document[0].body.appendChild(a);
+							a.style = "display:none";
+							var url = $window.URL.createObjectURL(blob);
+							a.href = url;
+							a.download = fileName;
+							a.target = "_blank";
+							a.click();
+							$window.URL.revokeObjectURL(url);
+							a.remove();
+						}
+
+					})
+
+					.finally(function () {
+
+						bz.completado = true;
+						angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+
+					});
+
+			}
+
+		};
 
 		bz.manualMarca = function (id) {
 			bz.esperaManual = true;

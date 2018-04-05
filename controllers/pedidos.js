@@ -398,7 +398,7 @@ exports.cambioEstadoPagado = function (req, res)
 						cliente.getCliente(id, function (error, data) {
 
 							//console.log(data);
-							services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+							//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
 
 						});
 						res.redirect(configuracion.base + configuracion.pago + req.params.idLogo);
