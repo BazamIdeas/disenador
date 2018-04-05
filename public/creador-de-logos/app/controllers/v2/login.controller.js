@@ -202,7 +202,7 @@ angular.module("disenador-de-logos")
 
 							$mdToast.show($mdToast.base({
 								args: {
-									mensaje: "¡Bienvenido! " + res.msg,
+									mensaje: "¡Bienvenido! " + res.data.msg,
 									clase: "success"
 								}
 							}));
@@ -222,11 +222,12 @@ angular.module("disenador-de-logos")
 				case 'gg':
 
 					socialAuth.google().then(function (res) {
+
 						if (clientesService.autorizado(true)) {
 
 							$mdToast.show($mdToast.base({
 								args: {
-									mensaje: "¡Bienvenido! " + res.msg,
+									mensaje: "¡Bienvenido! " + res.data.msg,
 									clase: "success"
 								}
 							}));

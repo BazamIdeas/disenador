@@ -208,7 +208,7 @@ angular.module("landing")
 
 									$mdToast.show($mdToast.base({
 										args: {
-											mensaje: "¡Bienvenido! " + res.msg,
+											mensaje: "¡Bienvenido! " + res.data.msg,
 											clase: "success"
 										}
 									}));
@@ -235,7 +235,7 @@ angular.module("landing")
 
 									$mdToast.show($mdToast.base({
 										args: {
-											mensaje: "¡Bienvenido! " + res.msg,
+											mensaje: "¡Bienvenido! " + res.data.msg,
 											clase: "success"
 										}
 									}));

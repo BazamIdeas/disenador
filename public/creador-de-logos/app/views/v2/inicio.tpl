@@ -121,7 +121,7 @@
 
             <div class="row" style="margin-bottom:0;overflow-y: scroll; height: 100% ;width: 100%; display: flex; justify-content: center; align-items: center;"
                 ng-if="!inicio.logos.length">
-                <div style="width: 60%; height: 60%;">
+                <div style="width: 60%; height: 90%;">
                     <img style="width: 100%;" src="assets/images/logo-design.gif">
                 </div>
             </div>
