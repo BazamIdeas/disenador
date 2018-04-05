@@ -197,7 +197,20 @@ angular.module("disenador-de-logos")
 				case 'fb':
 
 					socialAuth.facebook().then(function (res) {
-						console.log(res)
+						
+						if (clientesService.autorizado(true)) {
+
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "¡Bienvenido! " + res.msg,
+									clase: "success"
+								}
+							}));
+
+							$state.go("logos");
+
+						}
+
 					}).catch(function (res) {
 						console.log(res)
 					}).finally(function () {
@@ -208,8 +221,19 @@ angular.module("disenador-de-logos")
 
 				case 'gg':
 
-					socialAuth.google().then(function () {
-						console.log(res)
+					socialAuth.google().then(function (res) {
+						if (clientesService.autorizado(true)) {
+
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "¡Bienvenido! " + res.msg,
+									clase: "success"
+								}
+							}));
+
+							$state.go("logos");
+
+						}
 					}).catch(function (res) {
 						console.log(res)
 					}).finally(function () {

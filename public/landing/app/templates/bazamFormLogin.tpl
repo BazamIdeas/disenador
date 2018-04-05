@@ -57,13 +57,12 @@
                                             <hr> o
                                             <hr>
                                         </div>
-                                        <div class="ingreso-redes-sociales" style="    padding-top: 1%;
-                                        padding-bottom: 6%;">
-                                            <div class="ingreso__facebook" ng-click="login.social('fb')">
+                                        <div class="ingreso-redes-sociales">
+                                            <div class="ingreso__facebook" ng-click="bazamLogin.social('fb')">
 
                                                 <i class="fab fa-facebook"></i>
                                             </div>
-                                            <div class="ingreso__google" ng-click="login.social('gg')">
+                                            <div class="ingreso__google" ng-click="bazamLogin.social('gg')">
                                                 <i class="fab fa-google-plus-g"></i>
                                             </div>
                                         </div>
@@ -104,11 +103,11 @@
                                         </small>
                                         <div>
                                             <div class="ingreso-redes-sociales">
-                                                <div class="ingreso__facebook" ng-click="login.social('fb')">
+                                                <div class="ingreso__facebook" ng-click="bazamLogin.social('fb')">
 
                                                     <i class="fab fa-facebook"></i>
                                                 </div>
-                                                <div class="ingreso__google" ng-click="login.social('gg')">
+                                                <div class="ingreso__google" ng-click="bazamLogin.social('gg')">
                                                     <i class="fab fa-google-plus-g"></i>
                                                 </div>
                                             </div>

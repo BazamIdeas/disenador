@@ -1983,7 +1983,7 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/bazamFormLogin.tpl",
-			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", function ($scope, clientesService, $mdToast, paisesValue, $rootScope) {
+			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", "socialAuth", function ($scope, clientesService, $mdToast, paisesValue, $rootScope, socialAuth) {
 
 				var bz = this;
 
@@ -2161,6 +2161,83 @@ angular.module("disenador-de-logos")
 
 					}
 				};
+
+
+				/* REDES SOCIALES */
+
+				bz.social = function (op) {
+
+					switch (op) {
+						case 'fb':
+
+							socialAuth.facebook().then(function (res) {
+
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.msg,
+											clase: "success"
+										}
+									}));
+
+	
+									$rootScope.mostrarModalLogin = false;
+	
+									if ($rootScope.callbackLogin) {
+										$rootScope.callbackLogin();
+									}
+	
+								}
+								
+
+							}).catch(function (res) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							}).finally(function () {
+
+							});
+
+							break;
+
+						case 'gg':
+
+							socialAuth.google().then(function (res) {
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.msg,
+											clase: "success"
+										}
+									}));
+
+	
+									$rootScope.mostrarModalLogin = false;
+	
+									if ($rootScope.callbackLogin) {
+										$rootScope.callbackLogin();
+									}
+	
+								}
+							}).catch(function (res) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							}).finally(function () {
+
+							});
+
+							break;
+					}
+				}
 
 			}],
 			controllerAs: "bazamLogin"
@@ -2571,11 +2648,17 @@ angular.module("disenador-de-logos")
 
 		return {
 			templateUrl: "app/templates/stripePaymentsForm.tpl",
+			scope:{
+				icono: "<",
+				atributos: "<",
+				svg: "<",
+				precio: "<",
+				pasarela: "<"
+			},
 			controller: ["$scope", "pedidosService", "$q", "$state", function($scope, pedidosService, $q, $state){
 				var defered = $q.defer();
 
 				var disenadorPromise = defered.promise;
-
 
 				$scope.completadoPagar = true;
 
@@ -2588,16 +2671,15 @@ angular.module("disenador-de-logos")
 					var stripePromise = $scope.stripe.createToken($scope.card);
 
 					stripePromise
-						.then(function(result) {
-							if (result.error) {
-							// Inform the user if there was an error.
-								$scope.mensajeError(result.error.message);
+						.then(function(res) {
+							if (res.error) {
+							
+								$scope.mensajeError(res.error.message);
 								defered.reject();
 							} else {
-
-								pedidosService.pagar.stripe()
+								pedidosService.pagar.stripe($scope.icono, $scope.atributos, $scope.svg, $scope.precio, "Logo y nombre", $scope.pasarela, res.token.id)
 									.then(function(res){
-										$state.go("descargar", {idLogo: res.idLogo});
+										$state.go("descargar", {id: res.idLogo});
 									})
 									.catch(function(){
 										$scope.mensajeError("El pago no ha podido ser procesado");

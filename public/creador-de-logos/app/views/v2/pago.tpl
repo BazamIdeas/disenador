@@ -95,7 +95,7 @@
 									<div ng-click="pasarela.mostrar = false" class="cerrar-prev" role="button">
 										<md-icon class="material-icons" role="img" aria-label="close">close</md-icon>
 									</div>
-									<stripe-payment-form></stripe-payment-form>
+									<stripe-payment-form data-pasarela="pasarela.idPasarela" data-icono="pago.pedido.idElemento" data-atributos="pago.pedido.atributos" data-svg="pago.base64.encode(pago.pedido.logo)" data-precio="pago.pedido.precio.idPrecio"></stripe-payment-form>
 								</div>
 								
 							</div>
