@@ -59,13 +59,11 @@
                                         </div>
                                         <div class="ingreso-redes-sociales" style="    padding-top: 1%;
                                         padding-bottom: 6%;">
-                                            <div class="ingreso__twitter">
+                                            <div class="ingreso__facebook" ng-click="login.social('fb')">
+
                                                 <i class="fab fa-facebook"></i>
                                             </div>
-                                            <div class="ingreso__facebook">
-                                                <i class="fab fa-twitter-square"></i>
-                                            </div>
-                                            <div class="ingreso__google">
+                                            <div class="ingreso__google" ng-click="login.social('gg')">
                                                 <i class="fab fa-google-plus-g"></i>
                                             </div>
                                         </div>
@@ -106,17 +104,12 @@
                                         </small>
                                         <div>
                                             <div class="ingreso-redes-sociales">
-                                                <div class="ingreso__twitter">
+                                                <div class="ingreso__facebook" ng-click="login.social('fb')">
+
                                                     <i class="fab fa-facebook"></i>
-
                                                 </div>
-                                                <div class="ingreso__facebook">
-                                                    <i class="fab fa-twitter-square"></i>
-
-                                                </div>
-                                                <div class="ingreso__google">
+                                                <div class="ingreso__google" ng-click="login.social('gg')">
                                                     <i class="fab fa-google-plus-g"></i>
-
                                                 </div>
                                             </div>
                                             <div class="social__or">
@@ -305,6 +298,7 @@
     .ingreso-redes-sociales {
         display: flex;
         padding-top: 7%;
+        justify-content: center;
     }
 
     .ingreso-redes-sociales>div {

@@ -2407,6 +2407,7 @@ div[ng-message] {
 .ingreso-redes-sociales {
     display: flex;
     padding-top: 7%;
+    justify-content: center;
 }
 
 .ingreso-redes-sociales>div {
