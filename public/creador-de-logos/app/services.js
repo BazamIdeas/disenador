@@ -659,7 +659,6 @@ angular.module("disenador-de-logos")
 		this.pagar = {
 			paypal: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela) {
 
-
 				var defered = $q.defer();
 
 				var promise = defered.promise;
@@ -683,6 +682,33 @@ angular.module("disenador-de-logos")
 
 				});
 
+
+				return promise;
+
+			},
+
+			stripe: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela, tokenStripe) {
+
+				var defered = $q.defer();
+				var promise = defered.promise;
+
+				var datos = {
+					idElemento: idElemento,
+					logo: logo,
+					idPrecio: idPrecio,
+					tipoLogo: tipoLogo,
+					idPasarela: idPasarela,
+					atributos: atributos,
+					tokenStripe: tokenStripe
+				};
+
+				$http.post("/app/pedido", datos)
+					.then(function (res) {
+						defered.resolve(res.data);
+					})
+					.catch(function (res) {
+						defered.reject(res);
+					});
 
 				return promise;
 

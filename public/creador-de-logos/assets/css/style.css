@@ -4103,3 +4103,15 @@ g.contenedor-icono {
 .logo-container-logo img {
     width: 100%;
 }
+
+.metodo .cerrar-prev{
+    position: fixed;
+    right: 3%;
+    top: 3%;
+    padding: 9px;
+    border-radius: 50%;
+    background: #ffffffa3;
+    z-index: 15;
+    transition: all 0.3s;
+    border: 1px solid white;
+}

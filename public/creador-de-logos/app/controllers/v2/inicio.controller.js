@@ -201,6 +201,10 @@ angular.module("disenador-de-logos")
 
 		
 		bz.preGuardarLogo = function(logo){
+
+			if(logo.idLogo){
+				return;
+			}
 	
 			if (!clientesService.autorizado()) {
 		
