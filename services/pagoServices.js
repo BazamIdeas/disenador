@@ -1,5 +1,6 @@
 var paypal = require('paypal-rest-sdk');
 var configuracion = require('../configuracion.js');
+var stripe = require("stripe")(configuracion.stripe.privateKey);
 
 exports.paypal = function(datos,callback)
 { 
@@ -59,4 +60,26 @@ exports.paypal = function(datos,callback)
         }
 
       });
+}
+
+exports.stripe = function(datos,callback)
+{ 
+  var impuesto = datos.precio * (datos.impuesto/100)
+  var total = datos.precio * 100
+
+  // Charge the user's card:
+  stripe.charges.create({
+    amount: parseInt(total),
+    currency: datos.moneda,
+    description: datos.descripcion,
+    metadata: {Pedido: datos.idPedido},
+    source: datos.stripeToken,
+  }, function(err, charge) {
+    if (!err) {
+      return callback(null,{"res" : true, "pedido":charge})
+
+    } else {
+      callback(err,{"res" : err, "msg":"Error de medio de pago"})
+    }
+  });
 }

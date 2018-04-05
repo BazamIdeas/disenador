@@ -179,7 +179,7 @@ exports.nuevoPedido = function (req, res) {
 											if (typeof data !== "undefined" && data.length > 0) {
 
 												/////ENVIAR PAGO a paypal
-												if (idPasarela == 1) {
+												if (data[0].pasarela == "Paypal") {
 
 													var datosPago = {
 														precio: plan[0].precio,
@@ -202,7 +202,29 @@ exports.nuevoPedido = function (req, res) {
 														//console.log(data.link)
 													});
 
-												} else {
+												} 
+												else if (data[0].pasarela == "Stripe") {
+
+													var datosPago = {
+														precio: plan[0].precio,
+														moneda: plan[0].moneda,
+														descripcion: "Diseño de Logo- " + plan[0].plan,
+														impuesto: impuesto,
+														stripeToken: req.body.stripeToken,
+														idPedido: idPedido
+													};
+
+													if (req.body.atributos.padre) {
+														datosPago.padre = req.body.atributos.padre;
+													}
+													//console.log(req.body);
+													services.pagoServices.stripe(datosPago, function (error, data) {
+														//res.json(data.link);
+														console.log(data)
+													});
+
+												}
+												else {
 													//falta Bloquear elemento
 													res.status(200).json({
 														"msg": true
@@ -314,7 +336,27 @@ exports.nuevoPedidoGuardado = function (req, res) {
 												//console.log(data.link)
 											});
 
-										} else {
+										} 
+											else if (data[0].pasarela == "Stripe") {
+												var datosPago = {
+													precio: plan[0].precio,
+													moneda: plan[0].moneda,
+													descripcion: "Diseño de Logo- " + plan[0].plan,
+													impuesto: impuesto,
+													stripeToken: req.body.stripeToken,
+													idPedido: idPedido
+												};
+
+												if (req.body.atributos.padre) {
+													datosPago.padre = req.body.atributos.padre;
+												}
+												//console.log(req.body);
+												services.pagoServices.stripe(datosPago, function (error, data) {
+													//res.json(data.link);
+													console.log(data)
+												});
+											}
+										else {
 											//falta Bloquear elemento
 											res.status(200).json({
 												"msg": true

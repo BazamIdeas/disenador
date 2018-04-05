@@ -204,7 +204,7 @@ router.get("/recuperar-password/:tk", controllers.password.confirmarToken);
 router.post("/cambiar-password", controllers.password.cambiar);
 
 //PARA PRUEBAS
-router.get("/prueba", middleware.decodificar);
+router.post("/prueba", middleware.pruebas);
 
 
 module.exports = router;
