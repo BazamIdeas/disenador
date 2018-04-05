@@ -1,6 +1,7 @@
 var cliente = require('../modelos/clientesModelo.js');
 var facturacion = require('../modelos/facturacionesModelo.js');
 var services = require('../services');
+var Email     = require("../services/emailServices.js");
 var fs = require('fs');
 var crypto = require('crypto');
 var pago = require('../modelos/pagosModelo.js');
@@ -11,6 +12,8 @@ var config = require('../configuracion.js');
 var async = require('async');
 var pdf = require('html-pdf');
 var base64 = require("base-64");
+var FB = require('fb').Facebook;
+const https = require("https");
 
 
 exports.login = function (req, res, next) {
@@ -514,6 +517,130 @@ exports.cambiarContrasena = function (req, res, next) {
     });
 
 }
+
+exports.nuevoClienteRed = async function (req, res) 
+{
+    const token = req.body.token;
+    const origen = req.body.origen;
+    let e = "";
+    let dataCliente = {};
+
+    var iso = services.geoipServices.iso(req.ip);
+
+    switch (origen) {
+        case "facebook":
+
+            var fb = new FB({
+                accessToken: token,
+                appId: "152803392097078",
+                appSecret: "ce44f8c52ea64637a1fb084066af58ac",
+            });
+        
+            await new Promise(resolve => { 
+                fb.api('me', { fields: 'id,email,cover,name,first_name,last_name,age_range,link,gender,locale,picture.type(large),timezone,updated_time,verified' }, function(response) {
+                    
+                    
+
+                    if(response.error) {
+
+                        e = "Token invalido o expiro";
+                        resolve('error');
+                        return
+                    }
+
+                    dataCliente.nombreCliente = response.name;
+                    dataCliente.correo = response.email;
+                    if (response.picture.data.url) {
+                        dataCliente.foto = response.picture.data.url;
+                    }
+                    resolve('ok');
+
+                })
+            });
+
+            break;
+        case "google" :
+
+            await new Promise(resolve => { 
+                https.get("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token="+token, response => {
+                    response.setEncoding("utf8");
+                    response.on("data", r => {
+
+                        r = JSON.parse(r);
+                        
+                        if(r.error_description) {
+                            e = "Token invalido o expiro";
+                            resolve('error');
+                            return
+                        }
+
+                        dataCliente.nombreCliente = r.name;
+                        dataCliente.correo = r.email;
+                        if (r.picture) {
+                            dataCliente.foto = r.picture;
+                        }
+                        resolve('ok');
+                    })
+                })
+            });
+
+            break;
+
+        default:
+            return res.status(500).json({msg: "El origen no es valido"});
+    }
+
+    if(Object.keys(dataCliente).length && !e.length) {
+
+        dataCliente.pais = iso;
+        dataCliente.origen = origen;
+        dataCliente.pass = crypto.randomBytes(Math.ceil(16 / 2)).toString('hex').slice(0, 16).toUpperCase();
+
+        cliente.getClienteByEmail(dataCliente.correo, function (error, row) {
+            if (typeof row !== 'undefined' && row.length > 0) {
+    
+                var c = row[0];
+    
+                res.status(200).json({
+                    'nombre': c.nombreCliente,
+                    'token': services.authServices.crearToken(c.idCliente, "cliente")
+                })
+    
+            } else {
+                cliente.insertCliente(dataCliente, function (error, data) {
+                    //si el cliente se ha insertado correctamente mostramos su info
+                    if (data && data.insertId) {
+
+                        const emailOptions = {
+                            to: dataCliente.correo, // receptor o receptores
+                            subject: 'Bienvenido a LogoPro (Registro por "'+origen+'")', // Asunto del correo
+                        }
+
+                        let email = new Email(emailOptions,{pass: dataCliente.pass});
+                        email.setHtml("clienteRegistradoPorRedes.html")
+                            .send((err,res) => {
+                                if(err) console.log(err);
+                                console.log(res);
+                            });
+
+                        res.status(200).json({
+                            'nombre': dataCliente.nombreCliente,
+                            'token': services.authServices.crearToken(data.insertId, "cliente")
+                        })
+                    } else {
+                        res.status(500).json(data)
+                    }
+                });  
+            }
+        });
+
+         
+    } else {
+        res.status(500).json({msg: e});            
+    }
+
+}
+
 
 exports.manualCliente = function (req, res, next) {
 

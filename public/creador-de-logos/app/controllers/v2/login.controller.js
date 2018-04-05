@@ -202,7 +202,7 @@ angular.module("disenador-de-logos")
 						} else {
 							FB.login(function (response) {
 								console.log(response);
-							});
+							},{scope: 'email,user_friends,user_location'});
 						}
 					});
 

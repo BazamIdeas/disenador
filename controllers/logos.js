@@ -12,6 +12,8 @@ var archiver  = require("archiver");
 var pathM     = require("path");
 var async     = require("async");
 
+var watermark = require('dynamic-watermark');
+
 //GUARDAR UN LOGO
 exports.guardar =  function(req,res)
 {
@@ -71,7 +73,6 @@ exports.guardar =  function(req,res)
 
 				//console.log(data);
 				const emailOptions = {
-					from: from, // remitente
 					to: dataCliente.correo, // receptor o receptores
 					subject: "Logo guardado", // Asunto del correo
 				}
@@ -950,11 +951,128 @@ exports.descargar = (req, res) =>
 	});	
 };
 
+exports.zip = function(req,res)
+{	
+	const idLogo = req.query.idLogo;
+	const ancho = req.query.ancho;
+	const tipo = req.query.tipo;
+	const descarga = req.query.descarga;
+	let fuentes = {};
+	const par = [req.idCliente, idLogo];
+
+	//console.log(req)
+
+	logo.getLogo(par, (error, data) => {
+		//console.log(data)
+		if (typeof data !== "undefined" && data.length > 0) {
+			let nombre = "Logo"+"-" +descarga +"-" + moment().format("DD-MM-YYYY")+".svg";
+
+			const path = "public/tmp/";
+
+			atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
+				//console.log(dataAttrs)
+				if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+
+					async.forEachOf(dataAttrs, (row, key, callback) => {
+
+						if (row.clave == "principal" || row.clave == "eslogan") {
+
+							elemento.datosElemento(row.valor, (err, fuente) => {
+
+								if (err) return callback(err);
+								
+								try {
+									
+									if (typeof fuente !== "undefined" && fuente.length > 0) {
+										fuentes[row.clave] = { nombre:fuente[0].nombre, url:fuente[0].url };
+									}
+		
+								} catch (e) {
+									return callback(e);
+								}
+
+								callback();	
+							});
+						}else{
+							callback();
+						}
+					}, (err) => {
+						if (err) res.status(402).json({});
+						
+						var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
+						
+						fs.open(path + nombre, "w", (err, fd) => {
+							if (err) throw "error al crear svg " + err;
+
+							fs.write(fd, buffer, 0, buffer.length, null, err => {
+								if (err) throw "error al escribir " + err;
+										
+								let svg = path + nombre;
+
+								if (tipo == "editable") {
+
+									var output = fs.createWriteStream(svg.replace("svg", "zip"));
+									var archive = archiver("zip", { zlib: { level: 9 } });
+
+									archive.pipe(output);
+
+									archive.append(fs.createReadStream(svg), { name: "logo.svg" });
+
+									archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre+'.ttf' });
+
+									if (fuentes.eslogan) {
+										archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.eslogan.url), { name: fuentes.eslogan.nombre+'.ttf' });
+									}
+
+									output.on('close', () => {
+										setTimeout(() => {
+											res.download(__dirname+"/../"+svg.replace("svg", "zip"));
+										}, 1000)
+									})	
+
+									archive.finalize();		        		
+
+								} else {
+
+									var pngout = svg.replace("svg", "png");
+
+									fs.readFile(svg, (err, svgbuffer) => {
+										if (err) throw err;
+										svg2png(svgbuffer, { width: ancho})
+											.then(buffer => {
+												fs.writeFile(pngout, buffer, (err) => {
+													setTimeout(() => {
+														res.download(__dirname+"/../"+pngout);
+													}, 1000)
+												});
+											})
+											.catch(e => console.log('error'));
+									});
+
+									
+
+								}
+								
+								fs.close(fd);
+							});
+						});
+					
+					});
+
+				}
+
+			});
+		} else {
+			res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"});
+		}
+	});	
+};
 
 exports.enviarPorEmail = function(req,res)
 {
 	const idLogo = req.query.idLogo;
-	const ancho = 200;
+	const ancho = 150;
+	const to = req.query.email;
 	let fuentes = {};
 	const par = [req.idCliente, idLogo];
 
@@ -1006,13 +1124,27 @@ exports.enviarPorEmail = function(req,res)
 								var pngout = svg.replace("svg", "png");
 								fs.readFile(svg, (err, svgbuffer) => {
 									if (err) throw err;
-									svg2png(svgbuffer, { width: ancho})
-										.then(buffer => {
-											fs.writeFile(pngout, buffer);
-											services.emailServices.enviar("logoCompartido.html", {}, "Te han compartido un logo", data.correo);
-											res.download(__dirname+"/../"+pngout);
+									svg2png(svgbuffer, { width: ancho}).then(buffer => {
+										fs.writeFile(pngout, buffer, function(err) {
+											if(err) console.log(err);
+
+											const emailOptions = {
+												to: to, // receptor o receptores
+												subject: "Logo compatido", // Asunto del correo
+											}
+							
+											let email = new Email(emailOptions,{msg:"te han compartido este logo (prueba de envio de logo por email)"});
+											email.setHtml("logoCompartido.html")
+												.setAttachs([{   // stream as an attachment
+														filename: 'logo.png',
+														content: fs.createReadStream(__dirname+"/../"+pngout),
+														cid: "logo-compartido"
+												}]).send((err,res) => {
+													if(err) console.log(err);
+													console.log(res);
+												});
 										})
-										.catch(e => console.log('error'));
+									}).catch(e => console.log('error'));
 								});
 								
 								fs.close(fd);

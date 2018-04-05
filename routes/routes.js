@@ -30,13 +30,14 @@ router.get("/cliente/facturacion/:idFacturacion/borrar", middleware.validarClien
 //'valor'	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
 router.post("/cliente", multipartMiddleware, controllers.clientes.nuevoCliente);
+
+router.post("/cliente/social", controllers.clientes.nuevoClienteRed);
+
 //los mismos datos que la ruta /cliente
 router.post("/cliente/modificar", middleware.validarCliente, controllers.clientes.modificarCliente);
 router.post("/cliente/cambiar-contrasena", middleware.validarCliente, controllers.clientes.cambiarContrasena);
 //correo, contraseña => email, pass
 router.post("/cliente/login", controllers.clientes.login);
-
-router.get('/login/facebook', passport.authenticate('facebook'));
 
 router.get("/cliente/pedidos", middleware.validarCliente, controllers.pedidos.PedidosCliente); //muestra la lista de pedidos de un cliente
 router.get("/cliente/:id", controllers.clientes.datosCliente);
@@ -180,8 +181,8 @@ router.post("/logos/descargables", middleware.validarCliente, controllers.logos.
 
 
 router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
-
 router.get("/logo/descargar", middleware.validarCliente, controllers.logos.descargar);
+router.get("/logo/compartir-email", middleware.validarCliente, controllers.logos.enviarPorEmail);
 
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);
@@ -205,6 +206,8 @@ router.post("/cambiar-password", controllers.password.cambiar);
 
 //PARA PRUEBAS
 router.get("/prueba", middleware.decodificar);
+
+
 
 
 module.exports = router;

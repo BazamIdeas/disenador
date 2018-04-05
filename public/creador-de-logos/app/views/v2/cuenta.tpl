@@ -153,6 +153,7 @@
                                 <td>{{::pedido.moneda}} {{pedido.impuesto ? pedido.precio + (pedido.precio * (pedido.impuesto/100))
                                     : pedido.precio}}</td>
                             </tr>
+                            <tr ng-if="!cuenta.pedidos.length"> <td colspan="6">NO HA REALIZADO NINGUNA COMPRA</td></tr>
                         </tbody>
                     </table>
                 </div>
