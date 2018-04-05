@@ -603,7 +603,8 @@ exports.nuevoClienteRed = async function (req, res)
     
                 res.status(200).json({
                     'nombre': c.nombreCliente,
-                    'token': services.authServices.crearToken(c.idCliente, "cliente")
+                    'token': services.authServices.crearToken(c.idCliente, "cliente"),
+                    'msg' : ""
                 })
     
             } else {
@@ -625,7 +626,8 @@ exports.nuevoClienteRed = async function (req, res)
 
                         res.status(200).json({
                             'nombre': dataCliente.nombreCliente,
-                            'token': services.authServices.crearToken(data.insertId, "cliente")
+                            'token': services.authServices.crearToken(data.insertId, "cliente"),
+                            'msg': "se ha enviado un correo con una contraseña provisional"
                         })
                     } else {
                         res.status(500).json(data)

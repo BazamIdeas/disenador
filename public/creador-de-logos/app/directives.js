@@ -1983,7 +1983,7 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/bazamFormLogin.tpl",
-			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", function ($scope, clientesService, $mdToast, paisesValue, $rootScope) {
+			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", "socialAuth", function ($scope, clientesService, $mdToast, paisesValue, $rootScope, socialAuth) {
 
 				var bz = this;
 
@@ -2161,6 +2161,83 @@ angular.module("disenador-de-logos")
 
 					}
 				};
+
+
+				/* REDES SOCIALES */
+
+				bz.social = function (op) {
+
+					switch (op) {
+						case 'fb':
+
+							socialAuth.facebook().then(function (res) {
+
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.msg,
+											clase: "success"
+										}
+									}));
+
+	
+									$rootScope.mostrarModalLogin = false;
+	
+									if ($rootScope.callbackLogin) {
+										$rootScope.callbackLogin();
+									}
+	
+								}
+								
+
+							}).catch(function (res) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							}).finally(function () {
+
+							});
+
+							break;
+
+						case 'gg':
+
+							socialAuth.google().then(function (res) {
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.msg,
+											clase: "success"
+										}
+									}));
+
+	
+									$rootScope.mostrarModalLogin = false;
+	
+									if ($rootScope.callbackLogin) {
+										$rootScope.callbackLogin();
+									}
+	
+								}
+							}).catch(function (res) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							}).finally(function () {
+
+							});
+
+							break;
+					}
+				}
 
 			}],
 			controllerAs: "bazamLogin"

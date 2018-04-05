@@ -979,4 +979,111 @@ angular.module("landing")
 			return promise;
 		};
 
+	}])
+
+	/*********************/
+	/*** SOCIAL LOGIN ****/
+	/*********************/
+
+	.service("socialAuth", ["$http", "$q", "$window", "clienteDatosFactory", function ($http, $q, $window, clienteDatosFactory) {
+
+		this.facebook = function () {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			FB.getLoginStatus(function (response) {
+
+				var datosUsuario = response.authResponse;
+
+				if (response.status != "connected") {
+					FB.login(function (response) {
+						
+						$http.post("/app/cliente/social", {
+							origen: 'facebook', token: response.authResponse.accessToken
+						}).then(function (res) {
+		
+							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+							clienteDatosFactory.definir(res.data);
+							defered.resolve(res);
+		
+						})
+						.catch(function (res) {
+							$window.localStorage.removeItem("bzToken");
+							defered.reject(res);
+						});
+					},{scope: 'email,user_friends,user_location'});
+
+					return promise;
+				}
+
+				$http.post("/app/cliente/social", {
+					origen: 'facebook', token: datosUsuario.accessToken
+				}).then(function (res) {
+
+					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+					clienteDatosFactory.definir(res.data);
+					defered.resolve(res);
+
+				})
+				.catch(function (res) {
+					$window.localStorage.removeItem("bzToken");
+					defered.reject(res);
+				});
+			});
+
+			return promise;
+		};
+
+
+		this.google = function () {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			var GoogleAuth = gapi.auth2.getAuthInstance();
+
+
+				if (!GoogleAuth.isSignedIn.get()) {
+					GoogleAuth.signIn().then(function (res) {
+						
+						$http.post("/app/cliente/social", {
+							origen:'google', token: res.Zi.id_token 
+						}).then(function (res) {
+							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+							clienteDatosFactory.definir(res.data);
+							defered.resolve(res);
+		
+						})
+						.catch(function (res) {
+							$window.localStorage.removeItem("bzToken");
+							defered.reject(res);
+						});
+					}).catch(function (res) {
+						defered.reject(res)
+					});
+
+					return promise;
+				}
+
+				var datosUsuario = GoogleAuth.currentUser.get();
+
+				$http.post("/app/cliente/social", {
+					origen:'google', token: datosUsuario.Zi.id_token 
+				}).then(function (res) {
+
+					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+					clienteDatosFactory.definir(res.data);
+					defered.resolve(res);
+
+				})
+				.catch(function (res) {
+					$window.localStorage.removeItem("bzToken");
+					defered.reject(res);
+				});
+
+			return promise;
+				
+		};
+
 	}]);
