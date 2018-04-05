@@ -302,11 +302,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				templateUrl: "app/views/v2/descargar.tpl",
 				controller: "descargarController as descargar",
 				params: {
-
-					datos: {
-						logo: null,
-						id: null
-					}
+					id: null
+					
 				},
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
