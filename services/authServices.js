@@ -10,11 +10,9 @@ exports.crearToken = function(id,tipo) {
 		final: moment().add(7, "days").unix(),
 		tipo : tipo
 	}
-
 	return jwt.encode(datos, configuracion.secret)
 }
 
 exports.decodificar = function(token) {
-	
 	return jwt.decode(token, configuracion.secret)
 }
