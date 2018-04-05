@@ -793,10 +793,10 @@ angular.module("disenador-de-logos")
 							defered.resolve(res);
 		
 						})
-						.catch(function (res) {
-							$window.localStorage.removeItem("bzToken");
-							defered.reject(res);
-						});
+							.catch(function (res) {
+								$window.localStorage.removeItem("bzToken");
+								defered.reject(res);
+							});
 					},{scope: 'email,user_friends,user_location'});
 
 					return promise;
@@ -829,55 +829,37 @@ angular.module("disenador-de-logos")
 			var GoogleAuth = gapi.auth2.getAuthInstance();
 
 
-<<<<<<< HEAD
 			if (!GoogleAuth.isSignedIn.get()) {
 				GoogleAuth.signIn().then(function (res) {
-					datosUsuario = res;
-				}).catch(function (res) {
-					defered.reject(res)
-				});
-			}
-
-			$http.post("/app/cliente/social", {
-				origen:'google', token: datosUsuario.tokenId 
-			}).then(function (res) {
-
-				$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-				clienteDatosFactory.definir(res.data);
-				defered.resolve();
-=======
-				if (!GoogleAuth.isSignedIn.get()) {
-					GoogleAuth.signIn().then(function (res) {
 						
-						$http.post("/app/cliente/social", {
-							origen:'google', token: res.Zi.id_token 
-						}).then(function (res) {
-							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-							clienteDatosFactory.definir(res.data);
-							defered.resolve(res);
+					$http.post("/app/cliente/social", {
+						origen:'google', token: res.Zi.id_token 
+					}).then(function (res) {
+						$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+						clienteDatosFactory.definir(res.data);
+						defered.resolve(res);
 		
-						})
+					})
 						.catch(function (res) {
 							$window.localStorage.removeItem("bzToken");
 							defered.reject(res);
 						});
-					}).catch(function (res) {
-						defered.reject(res)
-					});
+				}).catch(function (res) {
+					defered.reject(res)
+				});
 
-					return promise;
-				}
+				return promise;
+			}
 
-				var datosUsuario = GoogleAuth.currentUser.get();
+			var datosUsuario = GoogleAuth.currentUser.get();
 
-				$http.post("/app/cliente/social", {
-					origen:'google', token: datosUsuario.Zi.id_token 
-				}).then(function (res) {
+			$http.post("/app/cliente/social", {
+				origen:'google', token: datosUsuario.Zi.id_token 
+			}).then(function (res) {
 
-					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-					clienteDatosFactory.definir(res.data);
-					defered.resolve(res);
->>>>>>> 3c5f165fdc6344dc4ad57122d70e0c1275bc9e47
+				$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+				clienteDatosFactory.definir(res.data);
+				defered.resolve(res);
 
 			})
 				.catch(function (res) {
