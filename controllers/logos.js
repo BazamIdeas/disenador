@@ -79,8 +79,8 @@ exports.guardar =  function(req,res)
 
 				let email = new Email(emailOptions,{});
 				email.setHtml("logoGuardado.html").send((err,res) => {
-					if(err) console.log(err);
-					console.log(res);
+					if(err) return console.log(err);
+					//console.log(res);
 				});
 
 				res.status(200).json(data);
@@ -1076,6 +1076,8 @@ exports.enviarPorEmail = function(req,res)
 	let fuentes = {};
 	const par = [req.idCliente, idLogo];
 
+	//console.log(to)
+
 	logo.getLogo(par, (error, data) => {
 		if (typeof data !== "undefined" && data.length > 0) {
 			let nombre = "Logo-" + idLogo + "-" + moment().format("DD-MM-YYYY") + ".svg";
@@ -1126,13 +1128,14 @@ exports.enviarPorEmail = function(req,res)
 									if (err) throw err;
 									svg2png(svgbuffer, { width: ancho}).then(buffer => {
 										fs.writeFile(pngout, buffer, function(err) {
-											if(err) console.log(err);
+											if(err) {//console.log(err);
+											}
 
 											const emailOptions = {
 												to: to, // receptor o receptores
 												subject: "Logo compatido", // Asunto del correo
 											}
-							
+											console.log("coño")
 											let email = new Email(emailOptions,{msg:"te han compartido este logo (prueba de envio de logo por email)"});
 											email.setHtml("logoCompartido.html")
 												.setAttachs([{   // stream as an attachment
@@ -1140,8 +1143,9 @@ exports.enviarPorEmail = function(req,res)
 														content: fs.createReadStream(__dirname+"/../"+pngout),
 														cid: "logo-compartido"
 												}]).send((err,res) => {
-													if(err) console.log(err);
-													console.log(res);
+													if(err) return res.status(500).json({msg:err})
+													
+													res.status(200).json({msg:"Enviado"})
 												});
 										})
 									}).catch(e => console.log('error'));

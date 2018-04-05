@@ -129,7 +129,13 @@
             <div class="row" style="margin-bottom:0; padding: 2px;overflow-y: scroll;overflow-x: hidden;;height: 100%;" ng-if="inicio.logos.length">
 
                 <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)"
-                    ng-style="{'background-color': logo.colores[0]}">
+                    ng-style="{'background-color': logo.colores[0]}" ng-mouseleave="logo.mostrarCompartir = false;">
+
+                    <div class="compartir-email-inicio" ng-show="logo.mostrarCompartir" ng-form="inicio.compartirEmailForm">
+                        <input name="email" type="email" ng-model="logo.email" placeholder="Email"/>
+                        <button class="boton-verde" ng-click="inicio.compartirPorEmail(logo.email, logo.idLogo, inicio.compartirEmailForm.$valid)" ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
+                    </div>
+
                     <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)'
                         url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado"
                         color-texto="logo.colores[2]" color-icono="logo.colores[1]" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo,true)" ></bazam-svg-text>
@@ -139,7 +145,7 @@
 
                     <span class="seleccionar" style="margin-bottom: 66%;" ng-click="inicio.preAvanzar(logo)"> <p>EDITAR</p><img src="assets/images/edit_white.svg" alt=""></span>
 
-                    <span class="seleccionar" style="margin-bottom: 49%;"> <p>COMPARTIR</p><img src="assets/images/share.svg" alt=""></span>
+                    <span class="seleccionar" style="margin-bottom: 49%;"  ng-click="logo.mostrarCompartir = true;"> <p>COMPARTIR</p><img src="assets/images/share.svg" alt=""></span>
 
                     <span ng-show="logo.cargado" class="comprar" style="margin-bottom: 4%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span >
 

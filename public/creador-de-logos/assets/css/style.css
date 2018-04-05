@@ -4124,3 +4124,18 @@ b, strong {
     transition: all 0.3s;
     border: 1px solid white;
 }
+
+
+.compartir-email-inicio{
+    position: absolute;
+    width: 80%;
+    height: 130px;
+    background: #e4e7e8;
+    padding: 20px;
+    top: calc(50% - 65px);
+    left: calc(50% - 40%);
+    z-index: 2;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 1px #d4d4d4;
+}

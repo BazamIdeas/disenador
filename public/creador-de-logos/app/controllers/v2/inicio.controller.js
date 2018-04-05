@@ -269,5 +269,35 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.completadoCompartir = true;
+		bz.compartirPorEmail = function(email, idLogo, valido){
+
+			if(valido && bz.completadoCompartir && idLogo){
+				bz.completadoCompartir = false;
+				logosService.enviarPorEmail(idLogo, email)
+					.then(function(){
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Su logo ha sido enviado!",
+								clase: "success"
+							}
+						}));
+	
+					})
+					.catch(function(){
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "Un error ha ocurrido",
+								clase: "danger"
+							}
+						}));
+					})
+					.finally(function(){
+						bz.completadoCompartir = true;
+					});
+
+			}
+		};
+
 
 	}]);
