@@ -6,17 +6,6 @@ var bodyParser = require('body-parser');
 var configuracion = require('./configuracion.js');
 var compression = require('compression');
 
-var passport = require('passport');
-var Strategy = require('passport-facebook').Strategy;
-
-
-passport.use(new Strategy({
-  clientID: '152803392097078',
-  clientSecret: 'ce44f8c52ea64637a1fb084066af58ac',
-  callbackURL: 'http://localhost:8080/facebook/return'
-}, function(accessToken, refreshToken, profile, cb) {
-  return cb(null, profile);
-}));
 
 //var index = require('./public/');
 
@@ -51,9 +40,6 @@ app.use('/ng-file-upload', express.static(__dirname + '/node_modules/ng-file-upl
 app.use('/angular-sweetalert', express.static(__dirname + '/node_modules/angular-sweetalert'))
 app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'))
 app.use('/angular-ui-carousel', express.static(__dirname + '/node_modules/angular-ui-carousel/dist'))
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/app',rutas);
  

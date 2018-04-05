@@ -13,7 +13,7 @@ class emailService {
             }               
         });
         this.message = options;
-        this.message.from = "'Liderlogo' <contacto@liderlogo.com>";
+        this.message.from = "'LogoPro' <contacto@logopro.com>";
         this.data = data;
     }
 
@@ -21,9 +21,8 @@ class emailService {
         this.template = fs.readFileSync('./emailtemplates/'+template ,'utf8', (err) => {
             if (err) throw err;
         });
-        // var dummy = {uno : "Hola", dos: "Hola de nuevo"};
         for(var key in this.data){
-            this.message.html = this.template.replace('{#'+key+'#}', datos[key]);
+            this.message.html = this.template.replace('{#'+key+'#}', this.data[key]);
         }
         return this;
     } 
