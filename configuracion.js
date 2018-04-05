@@ -16,6 +16,10 @@ var configuracion = {
             "client_id" : "AVpLm3Mj781_AAa4M5gArCwllQ2LIv5WT6qccHJOjdbOMFOz_6fQmItQQbCWvXeeG3TS1qBA6a8_8NoV",  // your paypal application client id
             "client_secret" : "EO-vJ68bnGFvig7xhITyMgtSYH24fb6tJqYL7VPFEdJ38B6cz0R6m-Bo3GMhYyVtCBkh6KLzW4k1KDlD" // your paypal application secret id
         },
+        "stripe" : {
+            "publicKey":"pk_test_ODlU80cwnJ5Xr2an9L1XZByL",
+            "privateKey":"sk_test_AWXWsWaLekEXZ8LpZUG0w8gd"
+        },
         "db" : {
             connectionLimit : 10,
             host: '79.137.72.204',
@@ -60,6 +64,10 @@ var configuracion = {
             "host" : "api.sandbox.paypal.com",           
             "client_id" : "AVpLm3Mj781_AAa4M5gArCwllQ2LIv5WT6qccHJOjdbOMFOz_6fQmItQQbCWvXeeG3TS1qBA6a8_8NoV",  // your paypal application client id
             "client_secret" : "EO-vJ68bnGFvig7xhITyMgtSYH24fb6tJqYL7VPFEdJ38B6cz0R6m-Bo3GMhYyVtCBkh6KLzW4k1KDlD" // your paypal application secret id
+        },
+        "stripe" : {
+            "publicKey":"pk_test_ODlU80cwnJ5Xr2an9L1XZByL",
+            "privateKey":"sk_test_AWXWsWaLekEXZ8LpZUG0w8gd"
         },
         "db" : {
             connectionLimit : 10,

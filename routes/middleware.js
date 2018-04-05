@@ -90,3 +90,26 @@ exports.decodificar = function(req,res,next){
 	  							"token":req.headers});
 	}
 }
+
+exports.pruebas = function(req,res,next){
+    try {
+    	var datosPago = {
+			precio: req.body.precio,
+			moneda: req.body.moneda,
+			descripcion: "Diseño de Logo- " + req.body.plan,
+			impuesto: req.body.impuesto,
+			stripeToken: req.body.stripeToken,
+			idPedido: req.body.idPedido
+		};
+
+		services.pagoServices.stripe(datosPago, function (error, data) {
+			res.json(data);
+			//console.log(data)
+			});
+	}
+
+	catch (e) {
+	      res.status(400).json({"Mensaje":"Prueba fallida",
+	  							"error":e});
+	}
+}
