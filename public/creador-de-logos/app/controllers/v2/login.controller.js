@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("loginController", ["clientesService", "$state", "$mdToast", "$timeout", "paisesValue", function (clientesService, $state, $mdToast, $timeout, paisesValue) {
+	.controller("loginController", ["clientesService", "$state", "$mdToast", "$timeout", "paisesValue","socialAuth", function (clientesService, $state, $mdToast, $timeout, paisesValue, socialAuth) {
 
 		var bz = this;
 
@@ -196,31 +196,27 @@ angular.module("disenador-de-logos")
 			switch (op) {
 				case 'fb':
 
-					FB.getLoginStatus(function (response) {
-						if (response.status === "connected") {
-							console.log(response);
-						} else {
-							FB.login(function (response) {
-								console.log(response);
-							});
-						}
+					socialAuth.facebook().then(function (res) {
+						console.log(res)
+					}).catch(function (res) {
+						console.log(res)
+					}).finally(function () {
+
 					});
 
 					break;
 
 				case 'gg':
 
-					var GoogleAuth = gapi.auth2.getAuthInstance();
+					socialAuth.google().then(function () {
+						console.log(res)
+					}).catch(function (res) {
+						console.log(res)
+					}).finally(function () {
 
-					if (!GoogleAuth.isSignedIn.get()) {
-						GoogleAuth.signIn().then(function (res) {
-							console.log(res)
-						}).catch(function (res) {
-							console.log(res)
-						});
-					} else {
-						console.log(GoogleAuth.currentUser.get());
-					}
+					});
+
+					break;
 			}
 		}
 	}]);
