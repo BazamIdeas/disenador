@@ -210,7 +210,7 @@ angular.module("disenador-de-logos")
 			}
 		
 
-			bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento )
+			bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento )
 
 				.then(function(res){
 
