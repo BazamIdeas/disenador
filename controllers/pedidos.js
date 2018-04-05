@@ -179,7 +179,7 @@ exports.nuevoPedido = function (req, res) {
 											if (typeof data !== "undefined" && data.length > 0) {
 
 												/////ENVIAR PAGO a paypal
-												if (idPasarela == 1) {
+												if (data[0].pasarela == "Paypal") {
 
 													var datosPago = {
 														precio: plan[0].precio,
@@ -202,7 +202,33 @@ exports.nuevoPedido = function (req, res) {
 														//console.log(data.link)
 													});
 
-												} else {
+												} 
+												else if (data[0].pasarela == "Stripe") {
+
+													var datosPago = {
+														precio: plan[0].precio,
+														moneda: plan[0].moneda,
+														descripcion: "Diseño de Logo- " + plan[0].plan,
+														impuesto: impuesto,
+														stripeToken: req.body.stripeToken,
+														idPedido: idPedido
+													};
+
+													if (req.body.atributos.padre) {
+														datosPago.padre = req.body.atributos.padre;
+													}
+													//console.log(req.body);
+													services.pagoServices.stripe(datosPago, function (error, data) {
+
+														if (data.paid) 
+															res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
+
+														else 
+															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago", "idLogo" : idLogo});
+													});
+
+												}
+												else {
 													//falta Bloquear elemento
 													res.status(200).json({
 														"msg": true
@@ -314,7 +340,31 @@ exports.nuevoPedidoGuardado = function (req, res) {
 												//console.log(data.link)
 											});
 
-										} else {
+										} 
+											else if (data[0].pasarela == "Stripe") {
+												var datosPago = {
+													precio: plan[0].precio,
+													moneda: plan[0].moneda,
+													descripcion: "Diseño de Logo- " + plan[0].plan,
+													impuesto: impuesto,
+													stripeToken: req.body.stripeToken,
+													idPedido: idPedido
+												};
+
+												if (req.body.atributos.padre) {
+													datosPago.padre = req.body.atributos.padre;
+												}
+												//console.log(req.body);
+													services.pagoServices.stripe(datosPago, function (error, data) {
+
+														if (data.paid) 
+															res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo": idLogo}); 
+
+														else 
+															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago", "idLogo" : idLogo});
+													});
+											}
+										else {
 											//falta Bloquear elemento
 											res.status(200).json({
 												"msg": true
@@ -398,7 +448,7 @@ exports.cambioEstadoPagado = function (req, res)
 						cliente.getCliente(id, function (error, data) {
 
 							//console.log(data);
-							services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+							//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
 
 						});
 						res.redirect(configuracion.base + configuracion.pago + req.params.idLogo);

@@ -658,7 +658,6 @@ angular.module("disenador-de-logos")
 		this.pagar = {
 			paypal: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela) {
 
-
 				var defered = $q.defer();
 
 				var promise = defered.promise;
@@ -682,6 +681,33 @@ angular.module("disenador-de-logos")
 
 				});
 
+
+				return promise;
+
+			},
+
+			stripe: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela, tokenStripe) {
+
+				var defered = $q.defer();
+				var promise = defered.promise;
+
+				var datos = {
+					idElemento: idElemento,
+					logo: logo,
+					idPrecio: idPrecio,
+					tipoLogo: tipoLogo,
+					idPasarela: idPasarela,
+					atributos: atributos,
+					tokenStripe: tokenStripe
+				};
+
+				$http.post("/app/pedido", datos)
+					.then(function (res) {
+						defered.resolve(res.data);
+					})
+					.catch(function (res) {
+						defered.reject(res);
+					});
 
 				return promise;
 
@@ -1268,7 +1294,7 @@ angular.module("disenador-de-logos")
 	/***** Logos *********/
 	/*********************/
 
-	.service("logosService", ["$http", "$q", function ($http, $q) {
+	.service("logosService", ["$http", "$q", "$httpParamSerializer",function ($http, $q, $httpParamSerializer) {
 
 		this.calificar = function (idLogo, calificacion, comentario) {
 
@@ -1486,20 +1512,31 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.dispararDescarga = function (imgURI, nombre, ancho) {
+		this.descargarTodo = function (idLogo, formatosPNG) {
 
-			var evento = new MouseEvent("click", {
-				view: window,
-				bubbles: false,
-				cancelable: true
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+			
+			var datos = {
+				idLogo: idLogo,
+				formatos: formatosPNG
+			};
+
+			$http.get("/app/logo/descargar/", {
+				params:datos,
+				responseType: "arraybuffer"
+			}).then(function (res) {
+
+				defered.resolve({data:res.data, headers: res.headers()});
+
+			}).catch(function (res) {
+
+				defered.reject(res);
 
 			});
 
-			var a = document.createElement("a");
-			a.setAttribute("download", nombre + "@" + ancho + "x" + ancho);
-			a.setAttribute("href", imgURI);
-			a.setAttribute("target", "_blank");
-			a.dispatchEvent(evento);
+			return promise;
 
 		};
 
@@ -1832,7 +1869,10 @@ angular.module("disenador-de-logos")
 			var fontService = this;
 
 			angular.forEach(fuentes, function (fuente) {
-				fontService.preparar(fuente.nombre, fuente.url);
+				fontService.preparar(fuente.nombre, fuente.url)
+					.catch(function(res){
+						console.log(res);
+					});
 			});
 
 		};

@@ -61,7 +61,11 @@
 				</div>
 
 			</div>
+<div class="row">
 
+	
+
+</div>
 			<div class="row" ng-if="pago.terminos">
 
 				<div class="col s12" style="padding: 0">
@@ -73,28 +77,31 @@
 						<div class="col s12" style="padding: 0; margin-bottom: 30px;" ng-repeat="pasarela in pago.pasarelas track by $index">
 
 							<!--Paypal-->
-							<div class="metodo" ng-if="pasarela.idPasarela == 1">
-								<div class="icono-metodo" ng-click="::pago.mostrarMetodo(pasarela.idPasarela)">
+							<div class="metodo" ng-if="pasarela.pasarela == 'Paypal'">
+								<div class="icono-metodo" ng-click="pago.mostrarMetodo(pasarela.idPasarela)">
 									<img width="100%" height="100%" src="https://img.purch.com/r/520x520/aHR0cDovL3d3dy50b3B0ZW5yZXZpZXdzLmNvbS9pL3Jldi9wcm9kL2xhcmdlLzY3NjMwLXBheXBhbC1ib3guanBn">
 								</div>
 								<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
-									Esto explica porque Paypal no sirve como pasarela
+									Paypal
 									<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
 								</div>
 							</div>
-							<!--Strype-->
-							<div class="metodo" ng-if="pasarela.idPasarela == 2">
-								<div class="icono-metodo" ng-click="::pago.mostrarMetodo(pasarela.idPasarela)">
+							<!--Stripe-->
+							<div class="metodo" ng-if="pasarela.pasarela == 'Stripe'">
+								<div class="icono-metodo" ng-click="pago.mostrarMetodo(pasarela.idPasarela)">
 									<img width="100%" height="100%" src="https://stripe.com/img/v3/home/twitter.png">
 								</div>
-								<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">
-									Stripe es torito
-									<button class="boton-verde pagar" ng-class="{'deshabilitado': !pago.terminos, ' loading-white': !pago.completado}" ng-click="pago.pagar(pasarela.idPasarela, pago.terminos)">PAGAR</button>
+								<div ng-show="pasarela.mostrar" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index :10; background-color:#1a1a1a9e">
+									<div ng-click="pasarela.mostrar = false" class="cerrar-prev" role="button">
+										<md-icon class="material-icons" role="img" aria-label="close">close</md-icon>
+									</div>
+									<stripe-payment-form></stripe-payment-form>
 								</div>
+								
 							</div>
 							<!--PayU-->
 							<div class="metodo" ng-if="pasarela.idPasarela == 3">
-								<div class="icono-metodo" ng-click="::pago.mostrarMetodo(pasarela.idPasarela)">
+								<div class="icono-metodo" ng-click="pago.mostrarMetodo(pasarela.idPasarela)">
 									<img width="100%" height="100%" src="https://www.versionone.com/wp-content/uploads/2015/08/logo-payu.jpg">
 								</div>
 								<div class="texto-metodo" ng-class="{'seleccionado': pasarela.mostrar}">

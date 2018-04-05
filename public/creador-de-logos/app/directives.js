@@ -485,40 +485,40 @@ angular.module("disenador-de-logos")
 
 								switch (id) {
 
-									case "color-picker-icono":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.right + 10,
-											"top": coordenadasCon.top - 10,
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
-										break;
+								case "color-picker-icono":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.right + 10,
+										"top": coordenadasCon.top - 10,
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
+									break;
 
-									case "color-picker-texto":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-											"top": coordenadasCon.top - 10,
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
-										break;
+								case "color-picker-texto":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+										"top": coordenadasCon.top - 10,
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
+									break;
 
-									case "color-picker-eslogan":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-											"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
+								case "color-picker-eslogan":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+										"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
 								}
 
 								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
@@ -601,19 +601,19 @@ angular.module("disenador-de-logos")
 
 							switch (colorPicker.attr("id")) {
 
-								case "color-picker-icono":
+							case "color-picker-icono":
 
-									var indice = scope.elementosIndices.indexOf(true);
-									//cambiamos el color al correcto
-									element.find("[data-indice=" + indice + "]").css("fill", color);
-									break;
+								var indice = scope.elementosIndices.indexOf(true);
+								//cambiamos el color al correcto
+								element.find("[data-indice=" + indice + "]").css("fill", color);
+								break;
 
-								case "color-picker-texto":
-									element.find("text.textoPrincipal").css("fill", color);
-									break;
+							case "color-picker-texto":
+								element.find("text.textoPrincipal").css("fill", color);
+								break;
 
-								case "color-picker-eslogan":
-									element.find("text.eslogan").css("fill", color);
+							case "color-picker-eslogan":
+								element.find("text.eslogan").css("fill", color);
 
 							}
 
@@ -1703,7 +1703,7 @@ angular.module("disenador-de-logos")
 				bz.borrarSlider = function (idLogo) {
 					bz.callback[3](idLogo);
 
-					if (bz.actual == $scope.logos.length - 1) {
+					if ($scope.logos.length && bz.actual == $scope.logos.length - 1) {
 						bz.actual = bz.actual - 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 					}
@@ -1800,25 +1800,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-							case "bottom":
-								orientacionFinal.top = coordenadas.bottom;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "bottom":
+							orientacionFinal.top = coordenadas.bottom;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
-							case "right":
-								orientacionFinal.top = coordenadas.top + (element.height() / 2);
-								orientacionFinal.left = coordenadas.right;
-								break;
+						case "right":
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.right;
+							break;
 
-							case "left":
-								orientacionFinal.top = coordenadas.top + (element.height() / 2);
-								orientacionFinal.left = coordenadas.left - popCreado.width();
-								break;
+						case "left":
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.left - popCreado.width();
+							break;
 
-							case "top":
-								orientacionFinal.top = coordenadas.top;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "top":
+							orientacionFinal.top = coordenadas.top;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
 						}
 
@@ -1880,25 +1880,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-							case "bottom":
-								orientacionFinal.top = coordenadas.bottom - 40;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "bottom":
+							orientacionFinal.top = coordenadas.bottom - 40;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
-							case "right":
-								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-								orientacionFinal.left = coordenadas.right - 35;
-								break;
+						case "right":
+							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+							orientacionFinal.left = coordenadas.right - 35;
+							break;
 
-							case "left":
-								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-								orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
-								break;
+						case "left":
+							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+							orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
+							break;
 
-							case "top":
-								orientacionFinal.top = coordenadas.top + 40;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "top":
+							orientacionFinal.top = coordenadas.top + 40;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
 						}
 
@@ -2347,8 +2347,6 @@ angular.module("disenador-de-logos")
 
 									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 
-										console.log(res)
-
 										//get the headers' content disposition
 										var cd = res.headers["content-disposition"];
 									
@@ -2528,7 +2526,7 @@ angular.module("disenador-de-logos")
 				dataId: "=",
 				guardarLogo: "<"
 			}
-		}
+		};
 	}])
 
 	.directive("bazamColorPicker", [function () {
@@ -2567,4 +2565,104 @@ angular.module("disenador-de-logos")
 				});
 			}]
 		};
+	}])
+
+	.directive("stripePaymentForm", ["$document", function($document){
+
+		return {
+			templateUrl: "app/templates/stripePaymentsForm.tpl",
+			controller: ["$scope", "pedidosService", "$q", "$state", function($scope, pedidosService, $q, $state){
+				var defered = $q.defer();
+
+				var disenadorPromise = defered.promise;
+
+
+				$scope.completadoPagar = true;
+
+				$scope.pagar = function(){
+					if(!$scope.completadoPagar){
+						return;
+					}
+					$scope.completadoPagar = false;
+
+					var stripePromise = $scope.stripe.createToken($scope.card);
+
+					stripePromise
+						.then(function(result) {
+							if (result.error) {
+							// Inform the user if there was an error.
+								$scope.mensajeError(result.error.message);
+								defered.reject();
+							} else {
+
+								pedidosService.pagar.stripe()
+									.then(function(res){
+										$state.go("descargar", {idLogo: res.idLogo});
+									})
+									.catch(function(){
+										$scope.mensajeError("El pago no ha podido ser procesado");
+									})
+									.finally(function(){
+										defered.resolve();
+									});
+							}
+						});
+
+
+					$q.all({stripe: stripePromise, disenador: disenadorPromise})
+						.finally(function(){
+							$scope.completadoPagar = true;
+						});
+				};			
+
+			}],
+			link: function(scope, el){
+			
+			// Create a Stripe client.
+				scope.stripe = Stripe("pk_test_ODlU80cwnJ5Xr2an9L1XZByL");
+
+				// Create an instance of Elements.
+				var elements = scope.stripe.elements();
+
+				var style = {
+					base: {
+						color: "#32325d",
+						lineHeight: "18px",
+						fontFamily: "\"Helvetica Neue\", Helvetica, sans-serif",
+						fontSmoothing: "antialiased",
+						fontSize: "16px",
+						"::placeholder": {
+							color: "#aab7c4"
+						}
+					},
+					invalid: {
+						color: "#fa755a",
+						iconColor: "#fa755a"
+					}
+				};
+
+				// Create an instance of the card Element.
+				scope.card = elements.create("card", {style: style});
+
+				// Add an instance of the card Element into the `card-element` <div>.
+				scope.card.mount("#card-element");
+
+				// Handle real-time validation errors from the card Element.
+				scope.card.addEventListener("change", function(event) {
+					var displayError = $document[0].getElementById("card-errors");
+					if (event.error) {
+						displayError.textContent = event.error.message;
+					} else {
+						displayError.textContent = "";
+					}
+				});
+
+				scope.mensajeError = function(mensaje){
+					el.find("#card-errors").text(mensaje);
+				};
+				
+				
+			}
+		};
+
 	}]);

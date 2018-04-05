@@ -71,7 +71,6 @@ exports.guardar =  function(req,res)
 
 				//console.log(data);
 				const emailOptions = {
-					from: from, // remitente
 					to: dataCliente.correo, // receptor o receptores
 					subject: "Logo guardado", // Asunto del correo
 				}
