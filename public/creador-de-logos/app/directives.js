@@ -2176,7 +2176,7 @@ angular.module("disenador-de-logos")
 
 									$mdToast.show($mdToast.base({
 										args: {
-											mensaje: "¡Bienvenido! " + res.msg,
+											mensaje: "¡Bienvenido! " + res.data.msg,
 											clase: "success"
 										}
 									}));
@@ -2211,7 +2211,7 @@ angular.module("disenador-de-logos")
 
 									$mdToast.show($mdToast.base({
 										args: {
-											mensaje: "¡Bienvenido! " + res.msg,
+											mensaje: "¡Bienvenido! " + res.data.msg,
 											clase: "success"
 										}
 									}));

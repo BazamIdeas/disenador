@@ -271,11 +271,23 @@ angular.module("disenador-de-logos")
 
 		bz.completadoCompartir = true;
 		bz.compartirPorEmail = function(email, logo, valido){
-			console.log(logo)
+			
+			if (!clientesService.autorizado()) {
+		
+				$rootScope.mostrarModalLogin = true;
+				$rootScope.callbackLogin = false;
+				return;
+			}
+
 			if(valido && bz.completadoCompartir){
+				
 				bz.completadoCompartir = false;
+				
+				var defered = $q.defer();
+				var emailPromise = defered.promise;
 
 				if(!logo.idLogo){
+
 					bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
 						.then(function(res){
 							logo.idLogo = res;
@@ -298,7 +310,7 @@ angular.module("disenador-de-logos")
 									}));
 								})
 								.finally(function(){
-									//bz.completadoCompartir = true;
+									defered.resolve(); 
 								});
 							
 						})
@@ -309,33 +321,44 @@ angular.module("disenador-de-logos")
 									clase: "danger"
 								}
 							}));
+							defered.resolve();
 						});
 
-					return;
+				} else {
+					
+					logosService.enviarPorEmail(logo.idLogo, email)
+						.then(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Su logo ha sido enviado!",
+									clase: "success"
+								}
+							}));
+
+						})
+						.catch(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
+						})
+						.finally(function(){
+							defered.resolve();
+						});
+
+
 				}
 
+
+				emailPromise.finally(function(){
+					bz.completadoCompartir = true;
+				});
+
 				
-				logosService.enviarPorEmail(logo.idLogo, email)
-					.then(function(){
-						$mdToast.show($mdToast.base({
-							args: {
-								mensaje: "Su logo ha sido enviado!",
-								clase: "success"
-							}
-						}));
-	
-					})
-					.catch(function(){
-						$mdToast.show($mdToast.base({
-							args: {
-								mensaje: "Un error ha ocurrido",
-								clase: "danger"
-							}
-						}));
-					})
-					.finally(function(){
-						//bz.completadoCompartir = true;
-					});
+
+
 
 			}
 		};

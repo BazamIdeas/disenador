@@ -131,10 +131,17 @@
                 <div class="col l3 combinacion" style="position: relative" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)"
                     ng-style="{'background-color': logo.colores[0]}" ng-mouseleave="logo.mostrarCompartir = false;">
 
-                    <div class="compartir-email-inicio" ng-show="logo.mostrarCompartir" ng-form="inicio.compartirEmailForm">
+                    <div class="compartir-email-inicio" ng-if="logo.mostrarCompartir" ng-form="inicio.compartirEmailForm">
                         <md-icon class="material-icons cerrar-compartir-email" role="img" aria-label="close" ng-click="logo.mostrarCompartir = false;">close</md-icon>
-                        <input name="email" type="email" ng-model="logo.email" placeholder="Email"/>
-                        <button class="boton-verde" ng-click="inicio.compartirPorEmail(logo.email, logo, inicio.compartirEmailForm.$valid)" ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
+                        <input name="correo" type="email" ng-model="logo.email" placeholder="Email" required/>
+
+                        <!-- VALIDACION -->
+                        <div ng-messages="inicio.compartirEmailForm.correo.$error" style="color:maroon; padding-bottom:20px;" role="alert" ng-if="inicio.compartirEmailForm.correo.$dirty || inicio.compartirEmailForm.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                                <div ng-message="email">Debe ser un email válido.</div>
+                        </div>
+
+                        <button class="boton-verde" ng-click="inicio.compartirPorEmail(logo.email, logo, inicio.compartirEmailForm.$valid); inicio.compartirEmailForm.$setSubmitted()" ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
                     </div>
 
                     <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)'

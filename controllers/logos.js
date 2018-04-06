@@ -1133,7 +1133,7 @@ exports.enviarPorEmail = function(req,res)
 												to: to, // receptor o receptores
 												subject: "Logo compatido", // Asunto del correo
 											}
-											console.log("coño")
+											
 											let email = new Email(emailOptions,{msg:"te han compartido este logo (prueba de envio de logo por email)"});
 											email.setHtml("logoCompartido.html")
 												.setAttachs([{   // stream as an attachment
