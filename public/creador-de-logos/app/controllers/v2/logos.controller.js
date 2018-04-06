@@ -79,7 +79,8 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.urlCompartir = $window.location.protocol + "//" + $window.location.hostname + angular.element(document.querySelector("base")).attr("href");
+		bz.urlCompartir = $window.location.port != 80 ? $window.location.protocol + "//" + $window.location.hostname + ":" + "8080" :  $window.location.protocol + "//" + $window.location.hostname;
+
 		bz.mostrarModalSocial = false;
 		bz.idLogoCompartir = null;
 
