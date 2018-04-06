@@ -13,7 +13,7 @@
         background-image: url(assets/images/shirt.png), url(assets/images/shirt_overlay.png), url(assets/images/shirt_multiply.png);
         background-size: 100%;
         background-blend-mode: normal, overlay, multiply;
-        background-color: {{datos.colores.fondo}};
+        background-color: {{datos.colores.fondo ? datos.colores.fondo : '#fcfcfc'}};
         background-repeat: no-repeat;
             ">
             <div style="    left: 43%;
@@ -29,7 +29,7 @@
                 left: 21%;">
                     <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
                 </div>
-                <img src="assets/images/card.png" width="100%">
+                <img src="assets/images/card.png" width="100%"  style=" height: calc(50vh - 5px); ">
             </div>
             <div class="contenedor-logoprev">
                 <div style="    transform: rotate(55deg);
@@ -37,7 +37,7 @@
                 left: 58%;">
                     <bazam-actualizar data-svg="datos.logo"></bazam-actualizar>
                 </div>
-                <img src="assets/images/leica.jpg" width="100%">
+                <img src="assets/images/leica.jpg" width="100%" style=" height:50vh; ">
             </div>
 
         </div>
@@ -81,89 +81,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .ver-logo-enorme {
-        position: absolute;
-        bottom: 0;
-        z-index: 13;
-        transition: height 1s;
-        width: 100vw;
-        height: 0;
-    }
-
-    .ver-logo-enorme.activo {
-        height: 100%;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
-
-    .ver-logo-enorme .contenedor-ver-logo {
-        height: 60vh;
-    }
-
-    /**************/
-
-    .contenedor-ver-logo .logo {
-        width: 25%;
-    }
-
-    .contenedor-ver-logo {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .cerrar-prev:hover {
-        transform: scale(1.1);
-        border: 1px solid black;
-        background: white;
-    }
-
-    .ver-logo-enorme.activo .cerrar-prev {
-        position: fixed;
-        right: 3%;
-        top: 3%;
-        padding: 9px;
-        border-radius: 50%;
-        background: #ffffffa3;
-        z-index: 15;
-        transition: all 0.3s;
-        border: 1px solid white;
-    }
-
-    /***************/
-
-    .contenedor-ver-previsualizar {
-        display: flex;
-        background: rgb(246, 246, 246);
-    }
-
-    .contenedor-ver-previsualizar.uno {
-        padding: 5px 0 0 0;
-    }
-
-    .contenedor-ver-previsualizar>div {
-        width: 50%;
-    }
-
-    .contenedor-logoprev {
-        position: relative;
-    }
-
-    .contenedor-logoprev>div {
-        position: absolute;
-        width: 25%;
-        left: 10%;
-        top: 15%;
-    }
-
-    /*************/
-
-    /* PLANES */
-
-    .ver-logo-planes {
-        background-color:white;
-        padding: 4% 7%;
-    }
-</style>

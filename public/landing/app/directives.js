@@ -54,9 +54,8 @@ angular.module("landing")
 									}
 								}));
 
+								$scope.mostrar = false;
 								$scope.callback();
-
-								bz.mostrarModalLogin = false;
 
 							}
 
@@ -99,9 +98,8 @@ angular.module("landing")
 									}
 								}));
 
+								$scope.mostrar = false;
 								$scope.callback();
-
-								bz.mostrarModalLogin = false;
 
 							}
 
@@ -186,7 +184,7 @@ angular.module("landing")
 								}))
 							}
 						}).catch(function (res) {
-							console.log(res)
+							//console.log(res)
 						}).finally(function () {
 							bz.peticion = false;
 						})
@@ -212,6 +210,8 @@ angular.module("landing")
 											clase: "success"
 										}
 									}));
+
+									$scope.mostrar = false;
 
 								}
 
@@ -240,7 +240,7 @@ angular.module("landing")
 										}
 									}));
 
-
+									$scope.mostrar = false;
 								}
 							}).catch(function () {
 								$mdToast.show($mdToast.base({
