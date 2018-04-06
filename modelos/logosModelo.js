@@ -280,7 +280,6 @@ logo.getLogo = function(par,callback)
 	  	});
 	});
 }
-
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = logo;

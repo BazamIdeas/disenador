@@ -11,6 +11,8 @@ const svg2png = require("svg2png");
 var archiver  = require("archiver");
 var pathM     = require("path");
 var async     = require("async");
+var config    = require("../configuracion.js");
+
 
 var watermark = require('dynamic-watermark');
 
@@ -952,7 +954,7 @@ exports.descargar = (req, res) =>
 exports.obtenerBinario = function(req,res)
 {	
 	const idLogo = req.params.id;
-	const ancho = 150;
+	const ancho = 200;
 	let fuentes = {};
 
 	logo.getLogoPorId(idLogo, (error, data) => {
@@ -1149,3 +1151,59 @@ exports.Borrar = (req, res) =>
 		}
 	});
 };
+
+
+exports.htmlShare = (req, res) => 
+{
+	const idLogo = req.params.id;
+
+	console.log(req.headers['user-agent'])
+	
+	if (req.headers['user-agent'] === 'facebookexternalhit/' || req.headers['user-agent'] === 'Facebot') {
+
+		var html = `<!DOCTYPE html>
+			<html>
+				<head>
+					<meta property="og:title" content="LOGOPRO" />
+					<meta property="og:type" content="article"/>
+					<meta property="og:url" content="${config.url}"/>
+					<meta property="og:image" content="${config.url}/app/logo/compartido/${idLogo}" />
+					<meta property="og:description" content="Descripcion" />
+					<meta property="og:site_name" content="LOGOPRO" />
+					<meta property="fb:admins" content="ID de Facebook" />
+				</head>
+				<body>
+					Url para compartir
+				</body>
+			</html>`;
+
+			res.status(200).type('html').send(html)
+
+	} else if(req.headers['user-agent'] === 'Twitterbot') {
+
+		var html = `<!DOCTYPE html>
+		<html>
+			<head>
+				<!-- Twitter Card data -->
+				<meta name="twitter:card" content="summary">
+				<meta name="twitter:site" content="@publisher_handle">
+				<meta name="twitter:title" content="LOGOPRO">
+				<meta name="twitter:description" content="Descripcion de la pagina sin superar los 200 caracteres">
+				<meta name="twitter:creator" content="@author_handle">
+		
+				<!-- Twitter Summary card images. Igual o superar los 200x200px -->
+				<meta name="twitter:image" content="<a href='${config.url}'>${config.url}/app/logo/compartido/${idLogo}</a>">
+			</head>
+			<body>
+				Url para compartir
+			</body>
+		</html>`;
+
+		res.status(200).type('html').send(html)
+
+	} else {
+		res.status(301).redirect('/')
+	}
+
+
+}
