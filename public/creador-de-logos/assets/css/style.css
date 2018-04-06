@@ -1,5 +1,5 @@
 :root {
-    --principal: #612787;
+    --principal: #3F51B5;
     --secundario: #b92d00;
     --tercero: #009688;
     --fondo: #ECEFF0;
@@ -2459,6 +2459,20 @@ div[ng-message] {
     border-width: 2px 0px 0px 0px;
 }
 
+
+.ventajas-loguear {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 5% !important;
+    background: linear-gradient(-134deg, var(--tercero), var(--principal));
+    color: white;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+
 .ventajas-loguear md-icon {
     padding-right: 30px;
     font-size: 35px;
@@ -2471,18 +2485,6 @@ div[ng-message] {
 .ventajas-loguear>div {
     display: flex;
     align-items: center;
-}
-
-.ventajas-loguear {
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding-left: 5% !important;
-    background: linear-gradient(-134deg, var(--principal), var(--tercero));
-    color: white;
-    border-top-right-radius: 18px;
-    border-bottom-right-radius: 18px;
 }
 
 .boton-verde.__block {
