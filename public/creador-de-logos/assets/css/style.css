@@ -4137,7 +4137,20 @@ b, strong {
     z-index: 2;
     text-align: center;
     border-radius: 5px;
-    box-shadow: 0px 0px 2px 1px #d4d4d4;
+    
+}
+
+.compartir-email-inicio div[ng-message]{
+    position: static !important;
+}
+
+.compartir-email-inicio input[name=correo]{
+    margin-bottom: 5px !important;
+}
+
+
+.compartir-email-inicio .boton-verde {
+    margin-top: 0px !important;
 }
 
 .cerrar-compartir-email{
