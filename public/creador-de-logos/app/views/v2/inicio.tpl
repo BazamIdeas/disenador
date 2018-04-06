@@ -30,7 +30,7 @@
 
 <section style="max-height: calc(100vh - 60px) !important; background-color: var(--fondo);">
     <div class="row margin-bottom-0">
-        <form class="margin-bottom-0" name="inicio.datosForm">
+        <form class="margin-bottom-0" name="inicio.datosForm" novalidate>
 
             <div class="col l2 sidebar-1" style="position: static !important">
                 <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo"
