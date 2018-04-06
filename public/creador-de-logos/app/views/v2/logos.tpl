@@ -126,7 +126,6 @@
 
 
 </section>
-<a href="#previsualizar" class="link-scroll">prueba</a>
 <div class="ver-logo-enorme estatico" id="previsualizar" ng-if="logos.terminados.guardados">
     <div class="contenedor-ver-previsualizar uno">
         <div class="contenedor-logoprev" style="width: 102%;
