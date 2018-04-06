@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var configuracion = require('./configuracion.js');
 var compression = require('compression');
 
+
 //var index = require('./public/');
 
 var rutas = require('./routes/routes.js');

@@ -79,7 +79,8 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.urlCompartir = $window.location.protocol + "//" + $window.location.hostname + angular.element(document.querySelector("base")).attr("href");
+		bz.urlCompartir = $window.location.port != 80 ? $window.location.protocol + "//" + $window.location.hostname + ":" + "8080" :  $window.location.protocol + "//" + $window.location.hostname;
+
 		bz.mostrarModalSocial = false;
 		bz.idLogoCompartir = null;
 
@@ -151,67 +152,9 @@ angular.module("disenador-de-logos")
 		};
 
 
-		/* PLANES */
-
-		bz.monedas = {};
-		bz.moneda = {};
-		bz.monedaDefault = {};
-		bz.planes = [];
-		bz.impuesto = 0;
-
-		pedidosService.listarPlanes().then(function (res) {
-
-			bz.monedaDefault = {
-				simbolo: res.monedaDefault.codigo,
-				idMoneda: res.monedaDefault.idMoneda
-			};
-
-			bz.impuesto = res.impuesto;
-
-			bz.planes = res.planes;
-
-			angular.forEach(res.planes, function (plan) {
-
-				angular.forEach(plan.precios, function (precio) {
-
-					if (!bz.monedas[precio.moneda]) {
-
-						bz.monedas[precio.moneda] = {
-							simbolo: precio.moneda,
-							idMoneda: precio.idMoneda
-						};
-
-					}
-
-				});
-
-			});
-
-			bz.moneda = bz.monedaDefault;
-
-		});
-
-		bz.precioSeleccionado = function (precios) {
-
-			var precioFinal = "";
-
-			angular.forEach(precios, function (valor) {
-
-				if (valor.moneda == bz.moneda.simbolo) {
-
-					precioFinal = valor.moneda + " " + valor.precio;
-				}
-
-			});
-
-			return precioFinal;
-
-		};
-
 		bz.mostrarPlanes = function(index) {
 			var datos = angular.copy(bz.guardados[index]);
 			datos.atributos = arrayToJsonMetasFactory(datos.atributos);
-		
 
 			bz.datosComprar = {
 				idLogo: datos.idLogo,
@@ -225,11 +168,15 @@ angular.module("disenador-de-logos")
 				colores: {
 					icono: datos.atributos["color-icono"],
 					nombre: datos.atributos["color-nombre"],
-					eslogan: datos.atributos["color-eslogan"]
+					
 				},
 				planes: bz.planes,
 				moneda: bz.moneda
 			};
+
+			if(datos.atributos["color-eslogan"]){
+				bz.datosComprar.colores.eslogan = datos.atributos["color-eslogan"]
+			}
 			/*
 			if (bz.idLogoPadre) {
 				bz.datosComprar.idPadre = bz.idLogoPadre;

@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "pedidosService", "$window", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, pedidosService, $window) {
+	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "pedidosService", "$window", "$document", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, pedidosService, $window, $document) {
 
 		var bz = this;
 
@@ -209,26 +209,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-
-
-
-		bz.dispararDescarga = function (imgURI, nombre, ancho) {
-
-			var evento = new MouseEvent("click", {
-				view: window,
-				bubbles: false,
-				cancelable: true
-
-			});
-
-			var a = document.createElement("a");
-			a.setAttribute("download", nombre + "@" + ancho + "x" + ancho);
-			a.setAttribute("href", imgURI);
-			a.setAttribute("target", "_blank");
-			a.dispatchEvent(evento);
-
-		};
-
 		bz.completado = true;
 		bz.descargar = function (nombre, ancho) {
 
@@ -241,18 +221,41 @@ angular.module("disenador-de-logos")
 				logosService.descargarLogo(bz.logo.id, ancho, $filter("uppercase")(nombre), nombre)
 
 					.then(function (res) {
-						var url = "";
-						if (res.zip) {
 
-							url = res.zip.replace("public", "");
-
-						} else if (res.png) {
-
-							url = res.png.replace("public", "");
-
+						//get the headers' content disposition
+						var cd = res.headers["content-disposition"];
+					
+						//get the file name with regex
+						var regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+						var match = regex.exec(cd);
+					
+						//is there a fiel name?
+						var fileName = match[1] || "LogoPro.zip";
+					
+						//replace leading and trailing slashes that C# added to your file name
+						fileName = fileName.replace(/\"/g, "");
+						//determine the content type from the header or default to octect stream
+						var contentType = res.headers["content-type"];
+					
+						//finally, download it
+						var blob = new Blob([res.data], {type: contentType});
+				
+						//downloading the file depends on the browser
+						//IE handles it differently than chrome/webkit
+						if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
+							$window.navigator.msSaveOrOpenBlob(blob, fileName);
+						} else {
+							var a = $document[0].createElement("a");
+							$document[0].body.appendChild(a);
+							a.style = "display:none";
+							var url = $window.URL.createObjectURL(blob);
+							a.href = url;
+							a.download = fileName;
+							a.target = "_blank";
+							a.click();
+							$window.URL.revokeObjectURL(url);
+							a.remove();
 						}
-
-						bz.dispararDescarga(url, nombre, ancho);
 
 					})
 
@@ -267,16 +270,91 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.descargarTodo = function () {
+
+			if (bz.completado) {
+
+				bz.completado = false;
+
+				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+
+				var formatos = {};
+				var formatosCopia = angular.copy(bz.formatos);
+				
+				formatosCopia.push(bz.formatosNoSociales[1]);
+
+				angular.forEach(formatosCopia, function (formato, indice){
+					formatos[formato.nombre] = formato.ancho;
+				});
+				
+				logosService.descargarTodo(bz.logo.id, formatos)
+
+					.then(function (res) {
+
+						//get the headers' content disposition
+						var cd = res.headers["content-disposition"];
+					
+						//get the file name with regex
+						var regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+						var match = regex.exec(cd);
+					
+						//is there a fiel name?
+						var fileName = match[1] || "LogoPro.zip";
+					
+						//replace leading and trailing slashes that C# added to your file name
+						fileName = fileName.replace(/\"/g, "");
+						//determine the content type from the header or default to octect stream
+						var contentType = res.headers["content-type"];
+					
+						//finally, download it
+						var blob = new Blob([res.data], {type: contentType});
+				
+						//downloading the file depends on the browser
+						//IE handles it differently than chrome/webkit
+						if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
+							$window.navigator.msSaveOrOpenBlob(blob, fileName);
+						} else {
+							var a = $document[0].createElement("a");
+							$document[0].body.appendChild(a);
+							a.style = "display:none";
+							var url = $window.URL.createObjectURL(blob);
+							a.href = url;
+							a.download = fileName;
+							a.target = "_blank";
+							a.click();
+							$window.URL.revokeObjectURL(url);
+							a.remove();
+						}
+
+					})
+
+					.finally(function () {
+
+						bz.completado = true;
+						angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+
+					});
+
+			}
+
+		};
 
 		bz.manualMarca = function (id) {
 			bz.esperaManual = true;
 			angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
 			logosService.manualMarca(id).then(function (res) {
-				var pdf = document.createElement('a');
-				pdf.setAttribute('href', res.url);
-				pdf.setAttribute('download', res.nombreArchivo);
-				simulateClick(pdf);
+
+				var a = $document[0].createElement("a");
+				$document[0].body.appendChild(a);
+				a.style = "display:none";
+				var url = res.url;
+				a.href = url;
+				a.download = res.nombreArchivo;
+				a.target = "_blank";
+				a.click();
+				a.remove();
+
 			}).finally(function () {
 				bz.esperaManual = false;
 				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
@@ -284,19 +362,9 @@ angular.module("disenador-de-logos")
 
 		};
 
-		function simulateClick(control) {
-			if (document.all) {
-				control.click();
-			} else {
-				var evObj = document.createEvent("MouseEvents");
-				evObj.initMouseEvent("click", true, true, window, 1, 12, 345, 7, 220, false, false, true, false, 0, null);
-				control.dispatchEvent(evObj);
-			}
-		}
-
 		$scope.$on("sesionExpiro", function () {
 
-			$state.go("principal.comenzar");
+			$state.go("inicio");
 
 		});
 

@@ -1,15 +1,4 @@
-<section class="sub-header">
-    <div class="row margin-bottom-0">
 
-        <div class="col s2 logo">
-            <h5 class="secundario" ui-sref="inicio"> <i class="material-icons md-48 aling-top">fingerprint</i> <span>DISEÑADOR</span> </h5>
-        </div>
-        <div class="col s8 texto">
-            <h5 class="logosGaleria">¡Elige entre miles de diseños!</h5>
-        </div>
-
-    </div>
-</section>
 <section style="height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: scroll;">
     <div class="row margin-bottom-0">
         <div class="col s12">

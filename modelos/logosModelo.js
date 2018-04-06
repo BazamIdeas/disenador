@@ -23,6 +23,26 @@ logo.getLogos = function(callback)
 	});
 }
 
+logo.getLogoPorId = function(id, callback)
+{
+	var q = 'SELECT * FROM logos WHERE idLogo = ?' 
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , [id], function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	
+		  });
+		  
+		  
+	});
+}
+
 logo.getLogosPorAprobar = function(par,callback)
 {
 	var q = 'SELECT * FROM logos WHERE estado = "Por Aprobar" ORDER BY idLogo'  
@@ -112,7 +132,7 @@ logo.getLogosAprobadosDestacados = function(callback)
 //obtenemos los logos guardados o comprados por un cliente
 logo.getLogosTipo = function(par,callback)
 {
-	var q = 'SELECT * FROM logos WHERE estado = ? and clientes_idCliente = ? ORDER BY idLogo'  
+	var q = 'SELECT * FROM logos WHERE estado = ? and clientes_idCliente = ? ORDER BY idLogo DESC'  
 
 	DB.getConnection(function(err, connection)
 	{
@@ -260,7 +280,6 @@ logo.getLogo = function(par,callback)
 	  	});
 	});
 }
-
  
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = logo;

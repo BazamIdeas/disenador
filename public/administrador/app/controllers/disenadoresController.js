@@ -68,11 +68,7 @@ angular.module("administrador")
 				// Si no 
 				bz.listaL = !bz.listaL;
 				bz.logos.splice(i, 1);
-				angular.forEach(bz.logosDisenador, function (valor, llave) {
-					if (valor.idLogo == id) {
-						return bz.logosDisenador.splice(llave, 1);
-					}
-				});
+				bz.logosDisenador.splice(i, 1);
 
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
@@ -147,7 +143,7 @@ angular.module("administrador")
 
 			bz.listaD = !bz.listaD;
 			designerService.listarDisenadores().then(function (res) {
-				bz.disenadores = res;
+				if (res != undefined) return bz.disenadores = res;
 			}).finally(function () {
 				bz.peticion = false;
 			})
@@ -156,13 +152,15 @@ angular.module("administrador")
 		bz.bloquearDisenador = function (id) {
 			bz.peticion = true;
 
-			angular.forEach(bz.disenadores, function (valor) {
-				if (valor.idCliente == id) {
-					valor.bloqueado = 1;
-				}
-			});
 			designerService.bloquearDisenador(id).then(function () {
 				notificacionService.mensaje("Usuario Bloqueado!");
+
+				angular.forEach(bz.disenadores, function (valor) {
+					if (valor.idCliente == id) {
+						valor.bloqueado = 1;
+					}
+				});
+
 			}).catch(function (res) {
 				notificacionService.mensaje(res);
 			}).finally(function () {
@@ -236,9 +234,8 @@ angular.module("administrador")
 			} else if (opcion == "historial") {
 				bz.peticion = true;
 				designerService.historialDisenador(id).then(function (res) {
-					if (res == undefined) {
-						return notificacionService.mensaje('No hay registro de pagos en la base de datos.');
-					}
+					if (res == undefined) return notificacionService.mensaje('No hay registro de pagos en la base de datos.');
+
 					bz.vista = 2;
 					bz.historialPagos = res.data;
 				}).catch(function (res) {
@@ -247,22 +244,10 @@ angular.module("administrador")
 					bz.peticion = false;
 				});
 
-			} else if (opcion == "calificacion-aprobados") {
-				bz.cal2 = !bz.cal2;
-				bz.modfire = index;
-			} else if (opcion == "o") {
-				bz.mod = !bz.mod;
-				bz.modfire2 = index;
 			}
 		};
 
 		/* UTILIDADES */
-
-		bz.modFun = function (id) {
-			bz.modfire = id;
-			bz.modInit = !bz.modInit;
-
-		};
 
 		bz.base64 = function (icono) {
 
@@ -280,11 +265,6 @@ angular.module("administrador")
 			if (day.length < 2) day = "0" + day;
 
 			return [year, month, day].join("-");
-		}
-
-		bz.calDisenador = function (d) {
-			bz.metodoPagoi = true;
-			bz.datosPagar = d;
 		}
 
 	}]);

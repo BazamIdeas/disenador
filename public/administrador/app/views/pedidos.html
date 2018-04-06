@@ -80,12 +80,15 @@
 
     <!-- DETALLES PEDIDOS -->
     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-show="pedidos.mostrarD">
-        <div class="paneles listar">
-            <div layout-padding class="titulo-modulo">
+        <div class="paneles principal md-whiteframe-2dp listar">
+            <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
                 <texto>DETALLES</texto>
+                <md-button ng-click="pedidos.mostrarD = false" style="margin:0;">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
             </div>
             <div class="w3-responsive content-scroll">
-                <table class="w3-table-all w3-striped w3-hoverable" ng-if="pedidos.elementos.length > 0">
+                <table class="w3-table-all" ng-if="pedidos.elementos.length > 0">
                     <tr>
                         <td>
                             <b>Fecha:</b>
@@ -141,19 +144,9 @@
                         <td colspan="2">
                             <md-input-container class="md-block" flex="100">
                                 <label>CAMBIAR ESTADO</label>
-                                <md-select ng-change="pedidos.cambiarEstado(pedidos.pedidoDetalle.idPedido, pedidos.pedidoDetalle.estado)" ng-model="pedidos.pedidoDetalle.estado"
-                                    aria-label="estado">
-                                    <md-option value="COMPLETADO">
-                                        COMPLETADO
-                                    </md-option>
-                                    <md-option value="EN ESPERA">
-                                        EN ESPERA
-                                    </md-option>
-                                    <md-option value="CANCELADO">
-                                        CANCELADO
-                                    </md-option>
-                                    <md-option value="EN PROCESO">
-                                        EN PROCESO
+                                <md-select ng-disabled="pedidos.peticion" ng-model="pedidos.pedidoDetalle.estado" aria-label="estado" ng-change="pedidos.cambiarEstado(pedidos.pedidoDetalle.idPedido, pedidos.pedidoDetalle.estado)">
+                                    <md-option ng-repeat="(key, value) in pedidos.estadoPedidos">
+                                        {{value}}
                                     </md-option>
                                 </md-select>
                             </md-input-container>
@@ -170,7 +163,7 @@
                             <div ng-if="pedidos.pedidoDetalle.logo.length > 0 && pedidos.pedidoDetalle.ver">
                                 <br>
                                 <div class="pedido-logo elemento inside" md-whiteframe>
-                                    <bazam-visualizar data-svg="pedidos.base64(pedidos.pedidoDetalle.logo)"></bazam-visualizar>
+                                    <bazam-visualizar data-svg="pedidos.base64.decode(pedidos.pedidoDetalle.logo)"></bazam-visualizar>
                                 </div>
                                 <br>
                             </div>

@@ -13,7 +13,7 @@
 	}
 </style>
 
-<section class="sub-header-principal">
+<!--<section class="sub-header-principal">
 	<div class="row margin-bottom-0">
 
 		<div class="col s2 logo">
@@ -29,6 +29,9 @@
 					<div color-picker color-picker-model="editor.colorFondo" ng-model="editor.colorFondo" color-picker-position="bottom" ng-click="editor.cuadricula = false"
 					    class="selector-fondo" ng-style="{'background-color': editor.colorFondo}" style="font-size: 0px;"></div>
 					<span class="principal">Fondo</span>
+				
+					<bazam-color-picker data-color="editor.colorFondo"></bazam-color-picker>
+					<span class="principal">Fondo</span>
 				</div>
 				<div class="col l3 xl2" bazam-ayuda data-titulo="Cuadricula" data-texto="Utiice la cuadricula para orientar los elementos de su logo "
 				    data-clases="['corner-lt']" data-identificador="ayuda-cuadricula" data-orientacion="right" data-paso="11" bazam-pasos-ayuda>
@@ -42,11 +45,11 @@
 					    data-titulo="Borradores" data-texto="Guarde versiones de su logo para compararlos y restaurar la mejor opción" data-clases="['corner-lt']"
 					    data-identificador="ayuda-borradores" data-orientacion="right" data-paso="12" bazam-pasos-ayuda>
 						<i class="material-icons">queue</i> BORRADORES</button>
-
-					<!--<button class="boton-oborder" ng-class="{'active': editor.preview}" ng-click="editor.mostrarPreviews()" bazam-ayuda data-titulo="Previews"
+					
+					<button class="boton-oborder" ng-class="{'active': editor.preview}" ng-click="editor.mostrarPreviews()" bazam-ayuda data-titulo="Previews"
 					    data-texto="Previsualice su logo en diferentes elementos publicitarios y de papelería" data-clases="['corner-lt']" data-identificador="ayuda-preview"
 					    data-orientacion="right" data-paso="13" bazam-pasos-ayuda>
-						<i class="material-icons">remove_red_eye</i> PREVIEW</button>-->
+						<i class="material-icons">remove_red_eye</i> PREVIEW</button>
 
 					<button class="boton-oborder" ng-class="{'loading-purple': !editor.completadoGuardar}" ng-click="editor.guardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento)"
 					    bazam-ayuda data-titulo="Guardar" data-texto="Guarde su logo para su posterior edicion" data-clases="['corner-lt']"
@@ -60,9 +63,9 @@
 		</div>
 
 	</div>
-</section>
+</section>-->
 
-<section style="height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
+<section style="height: calc(100vh - 60px) !important; background-color: var(--fondo);overflow: hidden;">
 	<div class="row margin-bottom-0" style="overflow: hidden;">
 		<div class="col s2 editor-p sidebar-1" ng-form="editor.datosForm" style="padding: 10px 0px 0px 0px !important;text-align: center;"
 		    ng-init="editor.menuSwitch = 1">
@@ -160,7 +163,7 @@
 							<!--<p class="text-center principal titulo" style="margin-top: 40px;">ESLOGAN</p>-->
 							<div class="input-field col s12" style="padding: 0 !important">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
-								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-model-options="{allowInvalid: true}"
+								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-click="editor.quitarEsloganDefault(editor.logo.eslogan)" ng-model-options="{allowInvalid: true}"
 								    ng-change="editor.cambioTexto(editor.logo.eslogan, true)" ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
 							</div>
 
@@ -293,17 +296,40 @@
 				</div>
 
 			</div>
-			<ver-mas-opciones ui-sref="inicio">
-				<md-button>
-					<md-icon>arrow_back</md-icon> Volver
+
+			<hr style="margin: 10px 8px;
+			background-color: var(--principal);
+			height: 1px;">
+
+			<div class="col s6" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']"
+			data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
+				<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fondo</md-tooltip>
+				<bazam-color-picker data-color="editor.colorFondo"></bazam-color-picker>
+			</div>
+			<div class="col s6" bazam-ayuda data-titulo="Cuadricula" data-texto="Utiice la cuadricula para orientar los elementos de su logo "
+				data-clases="['corner-lt']" data-identificador="ayuda-cuadricula" data-orientacion="right" data-paso="11" 		bazam-pasos-ayuda>
+				<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cuadricula</md-tooltip>
+				<div class="selector-cuadricula" ng-class="{'active': editor.cuadricula }" ng-click="::editor.activarCuadricula()">
+					<i class="material-icons">apps</i>
+				</div>
+			</div>
+
+			<div class=" col s12">
+				<md-button style="margin:30px 0 0 0; font-weight:bold; font-family: futura-heavy;width:100%; border-radius:4px; background-color: var(--principal); color:white;" ui-sref="inicio">
+					Volver
 				</md-button>
-			</ver-mas-opciones>
+			</div>
 
 
 		</div>
 
 		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
-		    style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
+			style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
+			
+			<span class="seleccionar" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento, editor.logo.fuente.idElemento)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+			
+			<span class="seleccionar" ng-click="::editor.buscarPlanes()" style="  top: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
+
 			<div class="contenedor-svg" style="position:relative">
 				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
 				    data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan"
@@ -319,7 +345,7 @@
 				</div>
 				<div class="row padding-bottom-0 margin-bottom-0">
 					<div class="col l12" style="position: relative; padding:0 !important; border-bottom: 1px solid var(--principal);cursor:pointer; overflow-y: scroll;
-					max-height: 80vh;">
+					max-height: 91vh;">
 						<!-- <div class="fuente" ng-repeat="fuente in editor.fuentes">
                             <p class="text-center">{{}}</p>
 						</div>-->
@@ -460,7 +486,7 @@
 						<div style="width: 25%;position: absolute;left: calc(40% - 23%);top: 32%;transform: rotate(-48deg);">
 							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
 						</div>
-						<div style="width: 25%;position: absolute;left: calc(93% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(100%) invert(80%) contrast(100%);">
+						<div style="width: 25%;position: absolute;left: calc(93% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(0) invert(1);">
 							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
 						</div>
 						<img src="assets/images/mockups/tarjeta.png" width="100%">
@@ -549,4 +575,4 @@
 	</div>
 </section>
 
-<bazam-planes estado="editor.abrirPlanes" id='editor.logo.idLogo' datos="editor.datosComprar" guardar-logo="editor.guardarLogo"></bazam-planes>
+<bazam-planes estado="editor.abrirPlanes" datos="editor.datosComprar" guardar-logo="editor.guardarLogo"></bazam-planes>

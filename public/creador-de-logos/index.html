@@ -6,30 +6,12 @@
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
 
-        <!-- Twitter Card data -->
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:site" content="@publisher_handle">
-        <meta name="twitter:title" content="Titulo de la pagina">
-        <meta name="twitter:description" content="Descripcion de la pagina sin superar los 200 caracteres">
-        <meta name="twitter:creator" content="@author_handle">
-
-        <!-- Twitter Summary card images. Igual o superar los 200x200px -->
-        <meta name="twitter:image" content="<a href='http://www.example.com/image.jpg'>http://www.example.com/image.jpg</a>">
-
-        <!-- Open Graph data -->
-        <meta property="og:title" content="Titulo" />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content=" http://www.example.com/" />
-        <meta property="og:image" content=" http://example.com/image.jpg" />
-        <meta property="og:description" content="Descripcion" />
-        <meta property="og:site_name" content="Nombre de la web, i.e. Moz" />
-        <meta property="fb:admins" content="ID de Facebook" />
-
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 
         <link href="/angular-material/angular-material.min.css" rel="stylesheet">
         <link href="/angular-colorpicker-directive/css/color-picker.css" rel="stylesheet">
+
+        <!--Stripe-->
+        <script src="https://js.stripe.com/v3/"></script>
 
         <!---jQuery -->
         <script src="/jquery/jquery.min.js"></script>
@@ -71,13 +53,8 @@
         <script src="app/controllers/header.js"></script>
 
         <!--Controladores V2 -->
-        <!--<script src="app/controllers/v2/principal.controller.js"></script>
-    <script src="app/controllers/v2/principal.comenzar.controller.js"></script>
-    <script src="app/controllers/v2/principal.opciones.controller.js"></script>
-    <script src="app/controllers/v2/principal.combinaciones.controller.js"></script>-->
         <script src="app/controllers/v2/inicio.controller.js"></script>
         <script src="app/controllers/v2/editor.controller.js"></script>
-        <script src="app/controllers/v2/planes.controller.js"></script>
         <script src="app/controllers/v2/pago.controller.js"></script>
         <script src="app/controllers/v2/pagoCompleto.controller.js"></script>
         <script src="app/controllers/v2/logos.controller.js"></script>
@@ -89,15 +66,20 @@
 
     <body>
 
-        <header ng-controller="headerController as header">
+        <header class="row" style="margin:0;padding:0;" ng-controller="headerController as header">
 
-            <div class="col s6 m9" show-gt-sm>
+            <div class="col s2 logo">
+                <div class="logo-container-logo" ui-sref="inicio">
+                    <img src="assets/logo.pro.svg">
+                </div>
+
+            </div>
+            <div class="col s10 m10 menu" show-gt-sm>
 
                 <div ng-switch="header.autorizado" class="login" ng-cloak>
 
                     <div ng-switch-when="false" ui-sref="inicio" class="acceder" style="cursor: pointer; padding-right:20px">
-                        <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
-                        <i class="material-icons">add_circle_outline</i>
+                        <i class="material-icons">add_circle_outline</i> &nbsp; Crear logo
                     </div>
 
                     <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer">
@@ -108,34 +90,34 @@
                     <div ng-switch-default class="acceder" style="cursor: pointer">
 
                         <span ui-sref="inicio">
-                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
-                            <i class="material-icons">add_circle_outline</i>
+                            <i class="material-icons">add_circle_outline</i> &nbsp; Crear logo
                         </span>
 
                         <span ui-sref="logos">
-                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mis logos</md-tooltip>
-                            <i class="material-icons">favorite</i>
+                            <i class="material-icons">favorite</i> &nbsp; Mis logos
                         </span>
 
                         <span ui-sref="cuenta">
-                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
                             <i class="material-icons">account_circle</i> &nbsp; {{header.autorizado.nombre}}
                         </span>
 
                         <span ng-click="header.salir()">
-                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar sesion</md-tooltip>
-                            <i class="material-icons">exit_to_app</i>
+                            <i class="material-icons">power_settings_new</i> &nbsp; Cerrar sesion
                         </span>
 
-                        <span style="margin: 0 10px; font-family: 'arial'"></span>
+                        <!-- <span style="margin: 0 10px; font-family: 'arial'"></span> -->
 
                     </div>
 
+                    <!--
+                    <div class="acceder">
 
-                    <span ng-click="::header.mostrarPasoPopAyuda()">
-                        <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
-                    </span>
+                        <span ng-click="::header.mostrarPasoPopAyuda()">
+                            <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
+                        </span>
 
+                    </div>
+-->
                 </div>
 
             </div>
@@ -143,9 +125,13 @@
         </header>
 
         <!-- contenedor principal -->
-        <div ui-view style="min-height: calc(100% - 360px); min-height: -webkit-calc(100% - 360px); background-color: white">
+        <div ui-view style="min-height: calc(100% - 60px); min-height: -webkit-calc(100% - 60px); background-color: white">
 
         </div>
+
+
+
+        <bazam-form-login></bazam-form-login>
 
         <div class="full-overlay">
             <div class="gif"></div>
@@ -190,6 +176,38 @@
         }(document, "script", "facebook-jssdk"));
     </script>
 
+    <!-- GOOGLE -->
 
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
+    <script>
+        function init() {
+            gapi.load('auth2', function () {
+                gapi.auth2.init({
+                    client_id: '40002776981-qd6lf3af4k69c64ibrelnurtsms2clon.apps.googleusercontent.com'
+                })
+            });
+        }
+    </script>
+
+    <!--TWITTER -->
+    <script>
+        window.twttr = (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function (f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));
+    </script>
 
 </html>

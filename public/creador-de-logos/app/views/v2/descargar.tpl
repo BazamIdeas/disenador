@@ -1,71 +1,3 @@
-<section class="sub-header">
-    <div class="row margin-bottom-0">
-
-        <div class="col s2 logo">
-            <h5 class="secundario" ui-sref="cuenta">
-                <i class="material-icons md-48 aling-top">fingerprint</i>
-                <span>DISEÑADOR</span>
-            </h5>
-        </div>
-        <div class="col s10 texto">
-            <h5 class="principal">DESCARGUE SU LOGO EN EL TAMAÑO PERFECTO</h5>
-        </div>
-
-    </div>
-</section>
-<style>
-    .aumentar-plan {
-        position: absolute;
-        top: 0%;
-        margin-top: 0px !important;
-        width: 100%;
-        opacity: 0.3;
-    }
-
-    .aumentar-plan:hover {
-        opacity: 1;
-    }
-
-    planes-superiores {
-        background: white;
-        width: 100%;
-        height: 0;
-        position: absolute;
-        bottom: 0;
-        z-index: 2;
-        transition: all 0.5s;
-    }
-
-    planes-superiores.activo {
-        height: 100vh;
-    }
-
-    .necesita-aumentar {
-
-        opacity: 0.4;
-        filter: grayscale(100%);
-        cursor: not-allowed;
-    }
-
-    .candado-bloqueado {
-        position: absolute;
-        top: calc(50% - 12px);
-        left: calc(50% - 12px);
-        z-index: 2;
-    }
-
-    cerrar-pop {
-        position: absolute;
-        right: 1%;
-        top: 1%;
-    }
-
-    .back-principal,
-    .back-principal:focus {
-        background: var(--tercero) !important;
-    }
-</style>
-
 <section style="height: calc(100vh - 135px) !important;overflow: hidden;">
     <div class="row margin-bottom-0" style="overflow: hidden;">
 
@@ -126,7 +58,7 @@
             </div>
 
             <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.formatoSeleccionado.nombre == formato.nombre"
-                style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede;width: 660.5px;">
+                style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede;">
 
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="width: 11.5%;position: absolute;left: calc(33% - 18%);top: 8%;background: #fff;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
@@ -194,7 +126,9 @@
                 <img src="assets/images/redes/{{::formato.nombre}}.jpg" style="max-width:100%; height: 323px">
             </div>
             <div ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'">
-                <button class="boton-verde" style="background-color: var(--principal); width:100%; margin-top: 5px" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}})
+                <button class="boton-verde" style="background-color: var(--principal); width:49.5%; margin-top: 5px; margin-right: 0.5%;" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}}px)
+                </button><!--
+                --><button class="boton-verde" style="background-color: var(--secundario); width:49.5%; margin-top: 5px; margin-left: 0.5%;" ng-click="descargar.descargarTodo()">DESCARGAR TODO
                 </button>
             </div>
 
@@ -257,57 +191,56 @@
 </section>
 
 <planes-superiores ng-class="{'activo': descargar.mostrarPlanesSuperiores}">
-    <div>
+    <div style="padding: 2%;">
         <cerrar-pop>
             <md-button ng-click="descargar.mostrarPlanesSuperiores = false" class="back-principal md-primary md-fab md-mini">
                 <md-icon>close</md-icon>
             </md-button>
         </cerrar-pop>
-        <h4 class="principal titulo-planes" style="text-align:center;">ESCOJA EL MEJOR PLAN PARA USTED</h4>
+        <h4 class="principal titulo-planes" style="text-align:center;">AUMENTE SU PLAN Y OBTENGA MEJORES BENEFICIOS</h4>
     </div>
     <div class="row margin-bottom-0">
         <!--
-        <div class="col s3" style="padding: 0 40px;">
-            <p class="principal text-center">Cambiar moneda de pago:</p>
-            <md-input-container style="width:100%; padding: 10px;">
-                <md-select ng-model="descargar.moneda" ng-change="descargar.mps = true" placeholder="Moneda">
-                    <md-option ng-value="moneda" ng-repeat="moneda in descargar.monedas">{{moneda.simbolo}}
+            <div class="col s3" style="padding: 0 40px;">
+                <p class="principal text-center">Cambiar moneda de pago:</p>
+                <md-input-container style="width:100%; padding: 10px;">
+                    <md-select ng-model="descargar.moneda" ng-change="descargar.mps = true" placeholder="Moneda">
+                        <md-option ng-value="moneda" ng-repeat="moneda in descargar.monedas">{{moneda.simbolo}}
 
-                    </md-option>
-                </md-select>
-            </md-input-container>
-        </div>
-    -->
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        -->
         <div class="col s12" style="padding: 0 40px;">
-
-            <p class="tercero text-center"></p>
-
             <div class="contenedor-planes" ng-if="descargar.mps">
-
                 <div class="row">
+                    <div class="plan col s4 " ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
+                        <div style="background: var(--tercero);">
+                            <div class="logo-plan">
+                                <bazam-actualizar data-svg="::descargar.base64.decode(descargar.logo.logo)"></bazam-actualizar>
+                            </div>
 
-                    <div class="plan col s3 " ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
-                        <div>
-                            <div class="plan-header">{{::plan.plan}}</div>
                             <div class="plan-body">
-                                <p>{{::plan.info}}</p>
+                                <div class="plan-header">{{::plan.plan}}</div>
+                                <p class="subtitulo-plan">{{::plan.info}}</p>
+                                <div style="padding:10px; ">
+                                    <div class="plan-precio">{{::descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
+
+                                    <div class="text-center">
+                                        <button class="boton-planes" ng-class="{'loading-white': descargar.peticion}" ng-click="descargar.aumentarPlan(plan, descargar.moneda)">SELECCIONAR</button>
+                                    </div>
+                                </div>
 
                                 <ul class="plan-lista">
                                     <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{::carac.descripcion}}</li>
                                 </ul>
 
-                                <div class="plan-precio">{{descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
-
-                                <div class="text-center">
-                                    <button class="boton-verde" ng-class="{'loading-white': descargar.peticion}" ng-click="descargar.aumentarPlan(plan, descargar.moneda)">SELECCIONAR</button>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </planes-superiores>

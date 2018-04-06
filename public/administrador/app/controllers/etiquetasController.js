@@ -84,7 +84,7 @@ angular.module("administrador")
 				etiquetas: datos
 			}).then(function (res) {
 
-				if (res == undefined) return;
+				if (res == undefined) return notificacionService.mensaje('No se ha podido guardar las etiquetas.');
 
 				for (let i = 0; i < res.data.length; i++) {
 					traducciones = [];
@@ -127,19 +127,21 @@ angular.module("administrador")
 
 			datos.iconos = bz.iconos;
 
-			datos._ids = datos.etiquetas.map(function (et) {
-				et = et._id;
-				return et;
-			});
+			datos._ids = [];
+
+			angular.forEach(datos.etiquetas, function (et) {
+				datos._ids.push(et._id)
+			})
 
 			bz.iconos = [];
+
 			bz.searchText = null;
 
 			etiquetasService.guardarEtiquetaIconos(datos).then(function (res) {
 
-				if (res == undefined) return;
+				if (res == undefined) return notificacionService.mensaje('No se ha podido vincular las etiquetas.');
 				bz.guardarEtiquetaIconos = [];
-				return notificacionService.mensaje('Logos Vinculados')
+				return notificacionService.mensaje('Logos Vinculados');
 
 			}).finally(function () {
 				bz.peticion = false;
@@ -154,9 +156,10 @@ angular.module("administrador")
 
 			etiquetasService.borrarEtiqueta(id).then(function (res) {
 
-				if (res == undefined) return;
-				return bz.etiquetas.splice(index, 1)
-				return notificacionService.mensaje('Etiqueta Borrada')
+				if (res == undefined) return notificacionService.mensaje('No se ha podido borrar la etiqueta.');
+				bz.etiquetas.splice(index, 1);
+				return notificacionService.mensaje('Etiqueta Borrada');
+
 			}).finally(function () {
 				bz.peticion = false;
 			})
@@ -165,7 +168,7 @@ angular.module("administrador")
 		/* ACTUALIZAR */
 
 		bz.actualizarEtiqueta = function (params, v) {
-			if (!v) return notificacionService.mensaje('Rellene todos los campos por favor')
+			if (!v) return notificacionService.mensaje('Rellene todos los campos por favor');
 
 			etiquetasService.actualizarEtiqueta({
 				_id: params._id,
@@ -173,6 +176,7 @@ angular.module("administrador")
 			}).then(function (res) {
 
 				if (res == undefined) return;
+				notificacionService.mensaje('Etiqueta Actualizada!');
 
 			}).finally(function () {
 				bz.peticion = false;
@@ -218,9 +222,6 @@ angular.module("administrador")
 					}
 				})
 
-			} else if (params.op == 'crear-etiqueta') {
-				bz.incrementarEtiquetas();
-				bz.acciones = 1;
 			} else if (params.op == 'asignar-etiqueta') {
 				if (params.ce) {
 					bz.asignarEtiqueta = false;

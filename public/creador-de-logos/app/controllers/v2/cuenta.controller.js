@@ -130,7 +130,7 @@ angular.module("disenador-de-logos")
 				}
 			}));
 			clientesService.verificarCambiaContrasena(datos).then(function (res) {
-				console.log(res)
+				
 				bz.formulario = 1;
 				$mdToast.show($mdToast.base({
 					args: {
@@ -154,7 +154,7 @@ angular.module("disenador-de-logos")
 
 		$scope.$on("sesionExpiro", function () {
 
-			$state.go("principal.comenzar");
+			$state.go("inicio");
 
 		});
 

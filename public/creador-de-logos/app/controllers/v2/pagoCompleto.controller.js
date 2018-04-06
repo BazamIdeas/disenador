@@ -1,92 +1,92 @@
 angular.module("disenador-de-logos")
 
-    .controller('pagoCompletoController', ["arrayToJsonMetasFactory", "$scope", "$state", "logosService", "$stateParams", "$base64", function (arrayToJsonMetasFactory, $scope, $state, logosService, $stateParams, $base64) {
+	.controller("pagoCompletoController", ["arrayToJsonMetasFactory", "$scope", "$state", "logosService", "$stateParams", "$base64", function (arrayToJsonMetasFactory, $scope, $state, logosService, $stateParams, $base64) {
 
-        var bz = this;
+		var bz = this;
 
-        bz.base64 = $base64;
+		bz.base64 = $base64;
 
-        bz.logo = false;
+		bz.logo = false;
 
-        bz.calificacionTentativa = 5;
+		bz.calificacionTentativa = 5;
 
-        bz.atributos = {
-            padre: null,
-            calificacion: null
-        };
+		bz.atributos = {
+			padre: null,
+			calificacion: null
+		};
 
-        bz.padre = null;
+		bz.padre = null;
 
-        /*MOVER A RESOLVE*/
+		/*MOVER A RESOLVE*/
 
-        logosService.obtenerPorId($stateParams.id).then(function (res) {
+		logosService.obtenerPorId($stateParams.id).then(function (res) {
 
-            bz.logo = res;
+			bz.logo = res;
 
-            var atributos = arrayToJsonMetasFactory(bz.logo.atributos);
+			var atributos = arrayToJsonMetasFactory(bz.logo.atributos);
 
-            if (atributos.padre) {
+			if (atributos.padre) {
 
-                bz.atributos.padre = true;
-                bz.padre = parseInt(atributos.padre);
+				bz.atributos.padre = true;
+				bz.padre = parseInt(atributos.padre);
 
-                logosService.obtenerPorId(bz.padre).then(function (res) {
+				logosService.obtenerPorId(bz.padre).then(function (res) {
 
-                        var atributosPadre = arrayToJsonMetasFactory(res.atributos);
+					var atributosPadre = arrayToJsonMetasFactory(res.atributos);
 
-                        if (atributosPadre["calificacion-cliente"]) {
+					if (atributosPadre["calificacion-cliente"]) {
 
-                            bz.atributos.calificacion = true;
+						bz.atributos.calificacion = true;
 
-                        } else {
+					} else {
 
-                            bz.atributos.calificacion = false;
+						bz.atributos.calificacion = false;
 
-                        }
+					}
 
-                    }).catch(function (res) {
+				}).catch(function (res) {
 
 
-                    }).finally(function () {
+				}).finally(function () {
 
                     
-                    })
+				});
 
-            }
+			}
 
-        }).catch(function (res) {
-
-
-        }).finally(function () {
+		}).catch(function (res) {
 
 
-        })
-
-        /*MOVER A RESOLVE*/
-
-        bz.completado = true;
-        bz.calificar = function (calificacion, comentario, valido) {
-
-            if (valido && bz.completado) {
-                bz.completado = false;
-
-                // promesa de calificacion
-                logosService.calificar(bz.padre, calificacion, comentario).finally(function () {
-
-                    bz.completado = true;
-                    bz.atributos.calificacion = true;
-
-                })
-
-            }
-        }
+		}).finally(function () {
 
 
-        $scope.$on('sesionExpiro', function (event, data) {
+		});
 
-            $state.go('principal.comenzar');
+		/*MOVER A RESOLVE*/
 
-        });
+		bz.completado = true;
+		bz.calificar = function (calificacion, comentario, valido) {
+
+			if (valido && bz.completado) {
+				bz.completado = false;
+
+				// promesa de calificacion
+				logosService.calificar(bz.padre, calificacion, comentario).finally(function () {
+
+					bz.completado = true;
+					bz.atributos.calificacion = true;
+
+				});
+
+			}
+		};
 
 
-    }])
+		$scope.$on("sesionExpiro", function (event, data) {
+
+			$state.go("inicio");
+
+		});
+
+
+	}]);

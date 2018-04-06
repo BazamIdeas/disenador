@@ -12,24 +12,24 @@
             <div class="logo-container-m" ng-class="{'logo-left-1-m': $index == (carouselMisLogos.actual - 2),'logo-left-m': $index == (carouselMisLogos.actual - 1),'logo-active-m': $index == carouselMisLogos.actual, 'logo-right-m': $index == (carouselMisLogos.actual + 1), 'logo-right-1-m': $index == (carouselMisLogos.actual + 2)}" >
 
 
-                <span style="margin-bottom: 20%" class="seleccionar"  ng-click="carouselMisLogos.callback[4]($index)" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'guardados'">
-                    COMPRAR <i class="material-icons">edit</i>
-                </span>
-
-                <span style="margin-bottom: 65%" class="seleccionar"  ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: logo.elementos_idElemento, svg:  logo.logo}}, idLogoGuardado: logo.idLogo, fuentes: {principal: carouselMisLogos.callback[1](logo.atributos, 'principal'), eslogan: carouselMisLogos.callback[1](logo.atributos,'eslogan')}}})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'guardados'">
-                    EDITAR <i class="material-icons">edit</i>
+                <span style="margin-bottom: 86%" class="seleccionar"  ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: logo.elementos_idElemento, svg:  logo.logo}}, idLogoGuardado: logo.idLogo, fuentes: {principal: carouselMisLogos.callback[1](logo.atributos, 'principal'), eslogan: carouselMisLogos.callback[1](logo.atributos,'eslogan')}}})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'guardados'">
+                    <p>EDITAR</p> <img src="assets/images/edit_white.svg" alt="">
                 </span>
                 
-                <span style="margin-bottom: 65%" class="seleccionar"  ui-sref="descargar({id: logo.idLogo})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'adquiridos'">
-                    DESCARGAR <i class="material-icons">file_download</i>
+                <span style="margin-bottom: 86%" class="seleccionar"  ui-sref="descargar({id: logo.idLogo})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'adquiridos'">
+                    <p>DESCARGAR</p> <img src="assets/images/file_download.svg" alt="">
                 </span>
 
-                <span style="margin-bottom: 50%" class="seleccionar"  ng-click="carouselMisLogos.callback[2](logo.idLogo)" ng-if="carouselMisLogos.actual == $index && (carouselMisLogos.callback[0] == 'adquiridos' || carouselMisLogos.callback[0] == 'guardados')">
-                    COMPARTIR <i class="material-icons">share</i>
+                <span style="margin-bottom: 72%" class="seleccionar"  ng-click="carouselMisLogos.callback[2](logo.idLogo)" ng-if="carouselMisLogos.actual == $index && (carouselMisLogos.callback[0] == 'adquiridos' || carouselMisLogos.callback[0] == 'guardados')">
+                    <p>COMPARTIR</p> <img src="assets/images/share.svg" alt="">
                 </span>
 
-                <span style="margin-bottom: 35%" class="seleccionar" ng-click="carouselMisLogos.borrarSlider(logo.idLogo)"  ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'guardados'">
-                    BORRAR <i class="material-icons">delete</i>
+                <span style="margin-bottom: 58%" class="seleccionar"  ng-click="carouselMisLogos.callback[4]($index)" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'guardados'">
+                    <p>COMPRAR</p> <img src="assets/images/shop.svg" alt="">
+                </span>
+
+                <span style="margin-bottom: 44%" class="seleccionar" ng-click="carouselMisLogos.borrarSlider(logo.idLogo)"  ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[0] == 'guardados'">
+                    <p>BORRAR</p> <img src="assets/images/delete.svg" alt="">
                 </span>
                 
                 <bazam-visualizar style="width:100%" data-svg="carouselMisLogos.base64.decode(logo.logo)"></bazam-visualizar>
@@ -41,8 +41,8 @@
         </div>
 
         <div class="logo-wrapper" ng-if="!logos.length">
-            <div class="logo-container-m logo-active-m" style="height:300px; border: none;box-shadow:none;">
-                <span class="seleccionar" style="opacity: 1; font-size: 20px; border: none; width:100%;">
+            <div class="logo-container-m logo-active-m" style="height:40px; border: none;box-shadow:none;top:100px;">
+                <span class="seleccionar" style="opacity: 1; font-size: 15px; border: none; width:100%;justify-content: center;background:white;">
                     AUN NO TIENE LOGOS {{::carouselMisLogos.callback[0].toUpperCase()}}
                 </span>
             </div>

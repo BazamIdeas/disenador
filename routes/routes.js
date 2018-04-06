@@ -5,6 +5,7 @@ var multipart = require("connect-multiparty");
 var multipartMiddleware = multipart();
 var middleware = require("./middleware");
 
+var passport = require('passport');
 //MODULO CLIENTES
 //no espera parametros
 router.get("/clientes", middleware.validarAdministrador, controllers.clientes.listaClientes);
@@ -29,6 +30,9 @@ router.get("/cliente/facturacion/:idFacturacion/borrar", middleware.validarClien
 //'valor'	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
 router.post("/cliente", multipartMiddleware, controllers.clientes.nuevoCliente);
+
+router.post("/cliente/social", controllers.clientes.nuevoClienteRed);
+
 //los mismos datos que la ruta /cliente
 router.post("/cliente/modificar", middleware.validarCliente, controllers.clientes.modificarCliente);
 router.post("/cliente/cambiar-contrasena", middleware.validarCliente, controllers.clientes.cambiarContrasena);
@@ -174,6 +178,13 @@ router.get("/logos/:id/vendidos", controllers.logos.listaLogosVendidosPorCliente
 router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobadosDestacados);
 router.post("/logos/guardados", middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post("/logos/descargables", middleware.validarCliente, controllers.logos.listaLogosDescargables);
+
+
+router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
+router.get("/logo/descargar", middleware.validarCliente, controllers.logos.descargar);
+router.get("/logo/compartir-email", middleware.validarCliente, controllers.logos.enviarPorEmail);
+router.get("/logo/compartido/:id", controllers.logos.obtenerBinario);
+router.get("/logo/compartir/:id", controllers.logos.htmlShare);
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);
 router.post("/logo/plan/caracteristicas", middleware.validarCliente, controllers.caracteristicas.PlanConCaracteristicas);
@@ -187,10 +198,7 @@ router.post("/logo/calificar-admin", middleware.validarAdministrador, controller
 router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.atributos.CalificarCliente);
 
 router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
-router.post("/logo/descargar", controllers.logos.descargar);
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
-router.post("/logo/zip", middleware.validarCliente, controllers.logos.zip);
-
 
 //RECUPERAR CONTRASEÑA
 router.post("/recuperar-password", controllers.password.enviarToken); //enviar campo tipo 
@@ -198,7 +206,9 @@ router.get("/recuperar-password/:tk", controllers.password.confirmarToken);
 router.post("/cambiar-password", controllers.password.cambiar);
 
 //PARA PRUEBAS
-router.get("/prueba", middleware.decodificar);
+router.post("/prueba", middleware.pruebas);
+
+
 
 
 module.exports = router;

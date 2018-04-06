@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService",  "$rootScope", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService, $rootScope) {
 
 		var bz = this;
 
@@ -21,15 +21,6 @@ angular.module("disenador-de-logos")
 			colores: [],
 			etiquetasSeleccionadas: []
 		};
-
-		bz.seleccionarLogo = function (svg, colores, logo) {
-			bz.logoElegido = {
-				svg: svg,
-				colores: colores,
-				logoCompleto: logo
-			}
-		}
-
 
 		/* Etiquetas */
 
@@ -134,9 +125,9 @@ angular.module("disenador-de-logos")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
-						promesaIconos,
-						promesaFuentes
-					])
+					promesaIconos,
+					promesaFuentes
+				])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {
@@ -161,23 +152,8 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.preAvanzar = function (logo) {
-
-
-			bz.logoSeleccionado = bz.logos.indexOf(logo);
-
-			/*
-			if(color){
-				bz.colorIcono = color;		
-			}
-			*/
-
-			if (!clientesService.autorizado()) {
-				bz.mostrarModalLogin = true;
-				bz.callback = bz.avanzar;
-			} else {
-				bz.avanzar();
-			}
-
+			bz.logoSeleccionado = bz.logos.indexOf(logo);	
+			bz.avanzar();
 		};
 
 		bz.avanzar = function () {
@@ -192,101 +168,81 @@ angular.module("disenador-de-logos")
 				}
 			};
 
-
 			$state.go("editor", datos);
 
 		};
 
-		bz.cambio = false;
-
-
-		//////////////////
-		//////PLANES//////
-		//////////////////
-
-		bz.monedas = {};
-		bz.moneda = {};
-		bz.monedaDefault = {};
-		bz.planes = [];
-		bz.impuesto = 0;
-
-		pedidosService.listarPlanes().then(function (res) {
-
-			bz.monedaDefault = {
-				simbolo: res.monedaDefault.codigo,
-				idMoneda: res.monedaDefault.idMoneda
-			};
-
-			bz.impuesto = res.impuesto;
-
-			bz.planes = res.planes;
-
-			angular.forEach(res.planes, function (plan) {
-
-				angular.forEach(plan.precios, function (precio) {
-
-					if (!bz.monedas[precio.moneda]) {
-
-						bz.monedas[precio.moneda] = {
-							simbolo: precio.moneda,
-							idMoneda: precio.idMoneda
-						};
-
-					}
-
-				});
-
-			});
-
-			bz.moneda = bz.monedaDefault;
-
-		});
-
-		bz.precioSeleccionado = function (precios) {
-
-			var precioFinal = "";
-
-			angular.forEach(precios, function (valor) {
-
-				if (valor.moneda == bz.moneda.simbolo) {
-
-					precioFinal = valor.moneda + " " + valor.precio;
-				}
-
-			});
-
-			return precioFinal;
-
-		};
-
-
-		bz.comprarLogo = function () {
-
+		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
 
 			bz.datosComprar = {
-				logo: bz.logoElegido.svg,
-				idLogo: null,
-				idElemento: bz.logoElegido.logoCompleto.icono.idElemento,
+				logo: svg,
+				idLogo: idLogo,
+				idElemento: logo.icono.idElemento,
 				tipo: "Logo y nombre",
 				fuentes: {
-					principal: bz.logoElegido.logoCompleto.fuente.idElemento
+					principal: logo.fuente.idElemento
 				},
 				colores: {
-					icono: bz.logoElegido.colores[1],
-					nombre: bz.logoElegido.colores[2]
+					fondo: colores[0],
+					icono: colores[1],
+					nombre: colores[2]
 				},
 				planes: bz.planes,
 				moneda: bz.moneda
 			};
 
+			if (v) {
+				return bz.verPrevisualizar = true;
+			}
 			bz.abrirPlanes = true;
 		};
 
 		/* guardar logo */
 
+		
+		bz.preGuardarLogo = function(logo){
+
+			if(logo.idLogo){
+				return;
+			}
+	
+			if (!clientesService.autorizado()) {
+		
+				$rootScope.mostrarModalLogin = true;
+				$rootScope.callbackLogin = false;
+				return;
+			}
+		
+
+			bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento )
+
+				.then(function(res){
+
+					var indiceLogo = bz.logos.indexOf(logo);
+
+					bz.logos[indiceLogo].idLogo = res;
+
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Su logo ha sido guardado con exito!",
+							clase: "success"
+						}
+					}));
+				})
+				.catch(function(){
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Un error ha ocurrido",
+							clase: "danger"
+						}
+					}));
+				});
+
+		};
+
 		bz.completadoGuardar = true;
 
-		bz.guardarLogo = function (logo, tipoLogo, idElemento) {
+		bz.guardarLogo = function (logo, tipoLogo, idElemento, idFuentePrincipal) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
@@ -295,32 +251,116 @@ angular.module("disenador-de-logos")
 
 				bz.completadoGuardar = false;
 
-				var fuentesId = {
-					principal: bz.logoElegido.logoCompleto.fuente.idElemento
-				};
-
-				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre)
+				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento,  idFuentePrincipal)
 
 					.then(function (res) {
-
-						bz.idLogo = res;
-
 						defered.resolve(res);
-
-					}).catch(function (res) {
-
+					})
+					.catch(function (res) {
 						defered.reject(res);
-
-					}).finally(function () {
-
+					})
+					.finally(function () {
 						bz.completadoGuardar = true;
-
 					});
 
 			}
 
 			return promise;
 
+		};
+
+		bz.completadoCompartir = true;
+		bz.compartirPorEmail = function(email, logo, valido){
+			
+			if (!clientesService.autorizado()) {
+		
+				$rootScope.mostrarModalLogin = true;
+				$rootScope.callbackLogin = false;
+				return;
+			}
+
+			if(valido && bz.completadoCompartir){
+				
+				bz.completadoCompartir = false;
+				
+				var defered = $q.defer();
+				var emailPromise = defered.promise;
+
+				if(!logo.idLogo){
+
+					bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
+						.then(function(res){
+							logo.idLogo = res;
+							logosService.enviarPorEmail(logo.idLogo, email)
+								.then(function(){
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "Su logo ha sido enviado!",
+											clase: "success"
+										}
+									}));
+	
+								})
+								.catch(function(){
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "Un error ha ocurrido",
+											clase: "danger"
+										}
+									}));
+								})
+								.finally(function(){
+									defered.resolve(); 
+								});
+							
+						})
+						.catch(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
+							defered.resolve();
+						});
+
+				} else {
+					
+					logosService.enviarPorEmail(logo.idLogo, email)
+						.then(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Su logo ha sido enviado!",
+									clase: "success"
+								}
+							}));
+
+						})
+						.catch(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
+						})
+						.finally(function(){
+							defered.resolve();
+						});
+
+
+				}
+
+
+				emailPromise.finally(function(){
+					bz.completadoCompartir = true;
+				});
+
+				
+
+
+
+			}
 		};
 
 

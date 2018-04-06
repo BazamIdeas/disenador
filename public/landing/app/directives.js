@@ -27,7 +27,7 @@ angular.module("landing")
 		return {
 			restrict: "E",
 			templateUrl: "landing/app/templates/bazamFormLogin.tpl",
-			controller: ["$scope", "clientesService", "$mdToast", function ($scope, clientesService, $mdToast) {
+			controller: ["$scope", "clientesService", "$mdToast", "socialAuth", function ($scope, clientesService, $mdToast, socialAuth) {
 
 				var bz = this;
 
@@ -54,9 +54,8 @@ angular.module("landing")
 									}
 								}));
 
+								$scope.mostrar = false;
 								$scope.callback();
-
-								bz.mostrarModalLogin = false;
 
 							}
 
@@ -99,9 +98,8 @@ angular.module("landing")
 									}
 								}));
 
+								$scope.mostrar = false;
 								$scope.callback();
-
-								bz.mostrarModalLogin = false;
 
 							}
 
@@ -186,11 +184,76 @@ angular.module("landing")
 								}))
 							}
 						}).catch(function (res) {
-							console.log(res)
+							//console.log(res)
 						}).finally(function () {
 							bz.peticion = false;
 						})
 
+					}
+				}
+
+
+				/* REDES SOCIALES */
+
+				bz.social = function (op) {
+
+					switch (op) {
+						case 'fb':
+
+							socialAuth.facebook().then(function (res) {
+								
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.data.msg,
+											clase: "success"
+										}
+									}));
+
+									$scope.mostrar = false;
+
+								}
+
+							}).catch(function () {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							}).finally(function () {
+
+							});
+
+							break;
+
+						case 'gg':
+
+							socialAuth.google().then(function (res) {
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.data.msg,
+											clase: "success"
+										}
+									}));
+
+									$scope.mostrar = false;
+								}
+							}).catch(function () {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							}).finally(function () {
+
+							});
+
+							break;
 					}
 				}
 

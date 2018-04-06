@@ -20,7 +20,7 @@ angular.module("disenador-de-logos")
 					.catch(function () {})
 					.finally(function () {
 						{
-
+						
 							var tamanoBase = 100;
 							/*
 							////////////////////////////////////////////////////////////
@@ -229,7 +229,7 @@ angular.module("disenador-de-logos")
 
 
 							//agregamos el Style Tag al svg
-							element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>");
+							element.children().prepend("<style> @font-face { font-family: '" + scope.fuente + "'; src: url('" + scope.url + "')}  </style>");
 
 							$timeout(function () {
 								scope.callback = element[0].innerHTML;
@@ -247,7 +247,7 @@ angular.module("disenador-de-logos")
 	//////EDICION DEL SVG/////////
 	//////////////////////////////
 
-	.directive("bazamSvg", ["$rootScope", "fontService", "$timeout", "$q", function ($rootScope, fontService, $timeout, $q) {
+	.directive("bazamSvg", ["$rootScope", "fontService", "$timeout", "$q", "coloresPaletaValue", function ($rootScope, fontService, $timeout, $q, coloresPaletaValue) {
 		return {
 			restrict: "AE",
 			scope: {
@@ -463,15 +463,7 @@ angular.module("disenador-de-logos")
 							eslogan: null
 						};
 
-						var paletaColores = ['#FFFFFF', '#D7CCC8', '#FFF59D', '#FFFF8D', '#DCEDC8', '#B2DFDB', '#BBDEFB', '#E1BEE7', '#FCE4EC', '#EF9A9A',
-							'#EEEEEE', '#BCAAA4', '#FFEE58', '#FFF176', '#C5E1A5', '#80CBC4', '#4FC3F7', '#CE93D8', '#F8BBD0', '#E57373',
-							'#E0E0E0', '#A1887F', '#FFEB3B', '#FFEB3B', '#AED581', '#4DB6AC', '#64B5F6', '#BA68C8', '#F06292', '#EF5350',
-							'#BDBDBD', '#8D6E63', '#FBC02D', '#FFFF00', '#9CCC65', '#26A69A', '#2196F3', '#AB47BC', '#EC407A', '#F44336',
-							'#9E9E9E', '#795548', '#FFA726', '#FFEA00', '#8BC34A', '#009688', '#1976D2', '#9C27B0', '#E91E63', '#E53935',
-							'#757575', '#6D4C41', '#FB8C00', '#FFD600', '#4CAF50', '#00796B', '#01579B', '#8E24AA', '#D81B60', '#D32F2F',
-							'#424242', '#4E342E', '#F57C00', '#FFC400', '#388E3C', '#00695C', '#0D47A1', '#6A1B9A', '#C2185B', '#B71C1C',
-							'#000000', '#3E2723', '#E65100', '#FFAB00', '#1B5E20', '#004D40', '#1A237E', '#4A148C', '#AD1457', '#D50000'
-						];
+						var paletaColores = coloresPaletaValue;
 
 						//evento para los hijos directos de seccion-icono
 						angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
@@ -493,43 +485,43 @@ angular.module("disenador-de-logos")
 
 								switch (id) {
 
-									case "color-picker-icono":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.right + 10,
-											"top": coordenadasCon.top - 10,
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
-										break;
+								case "color-picker-icono":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.right + 10,
+										"top": coordenadasCon.top - 10,
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
+									break;
 
-									case "color-picker-texto":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-											"top": coordenadasCon.top - 10,
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
-										break;
+								case "color-picker-texto":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+										"top": coordenadasCon.top - 10,
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
+									break;
 
-									case "color-picker-eslogan":
-										posicionPicker = {
-											"position": "fixed",
-											"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-											"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
-											"width": coordenadasCon.width / 2,
-											"height": coordenadasCon.height / 2,
-											"background-color": "white",
-											"z-index": "2"
-										};
+								case "color-picker-eslogan":
+									posicionPicker = {
+										"position": "fixed",
+										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
+										"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
+										"width": coordenadasCon.width / 2,
+										"height": coordenadasCon.height / 2,
+										"background-color": "white",
+										"z-index": "2"
+									};
 								}
 
-								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo' text-align: center'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
+								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
 
 								colorPicker.attr("id", id);
 
@@ -609,19 +601,19 @@ angular.module("disenador-de-logos")
 
 							switch (colorPicker.attr("id")) {
 
-								case "color-picker-icono":
+							case "color-picker-icono":
 
-									var indice = scope.elementosIndices.indexOf(true);
-									//cambiamos el color al correcto
-									element.find("[data-indice=" + indice + "]").css("fill", color);
-									break;
+								var indice = scope.elementosIndices.indexOf(true);
+								//cambiamos el color al correcto
+								element.find("[data-indice=" + indice + "]").css("fill", color);
+								break;
 
-								case "color-picker-texto":
-									element.find("text.textoPrincipal").css("fill", color);
-									break;
+							case "color-picker-texto":
+								element.find("text.textoPrincipal").css("fill", color);
+								break;
 
-								case "color-picker-eslogan":
-									element.find("text.eslogan").css("fill", color);
+							case "color-picker-eslogan":
+								element.find("text.eslogan").css("fill", color);
 
 							}
 
@@ -644,7 +636,7 @@ angular.module("disenador-de-logos")
 
 						scope.$on("editor:cerrarColorPickers", function () {
 
-							angular.element(".color-picker-bazam").remove();
+							angular.element(".color-picker-bazam:not(#color-picker-fondo)").remove();
 							angular.element(".seleccionado").removeClass("seleccionado");
 
 						});
@@ -989,7 +981,7 @@ angular.module("disenador-de-logos")
 
 									*/
 
-									svgTexto.setAttribute("y", (alturaSVG / 2) + ((svgTexto.getClientRects()[0].height / relacion) / 4) * 0.5)
+									svgTexto.setAttribute("y", (alturaSVG / 2) + ((svgTexto.getClientRects()[0].height / relacion) / 4) * 0.5);
 
 
 
@@ -1251,6 +1243,138 @@ angular.module("disenador-de-logos")
 
 							if (!element.find(".eslogan").length) {
 
+
+								var tamanoBase = 100;
+								var svgIcono;
+								var svgTexto;
+								var eslogan;
+
+								var relacion = element[0].children[0].getClientRects()[0].height / tamanoBase;
+
+								////////////////////////////////////////////////////////////
+								//////Insertamos el SVG del icono dentro del SVG padre//////
+								////////////////////////////////////////////////////////////
+
+								svgIcono = element.find("g.contenedor-icono > svg")[0];
+
+								svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
+								svgIcono.removeAttribute("width");
+								svgIcono.removeAttribute("x");
+								svgIcono.parentElement.setAttribute("transform", "");
+
+								/////////////////////////////////////////
+								////////creamos el elemento Text/////////
+								/////////////////////////////////////////
+
+								svgTexto = element.find("text.textoPrincipal")[0];
+
+								svgTexto.style.fontSize = (tamanoBase / 2) + "px";
+								svgTexto.setAttribute("text-anchor", "middle");
+
+								svgTexto.setAttribute("transform", "");
+								svgTexto.setAttribute("x", tamanoBase / 2);
+
+								//////////////////////////////////////////////////////////////////////
+								////ajustamos el tamaño del texto en relacion al tamaño del icono/////
+								//////////////////////////////////////////////////////////////////////
+
+								while (svgTexto.getComputedTextLength() > (1.6 * svgIcono.height.baseVal.value)) {
+
+									svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) - 1) + "px";
+
+								}
+
+								///////////////////////////////////
+								/////centramos los elementos///////
+								///////////////////////////////////
+
+								var paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
+
+								svgIcono.setAttribute("y", paddingTopIcono);
+
+								var paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
+
+								svgTexto.setAttribute("y", paddingTopText);
+
+								if (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+									while (((svgTexto.getClientRects()[0].height / relacion) + svgIcono.height.baseVal.value) >= tamanoBase) {
+
+										svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
+
+										svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+
+									}
+
+									paddingTopIcono = ((tamanoBase - (svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion))) / 2);
+
+
+									svgIcono.setAttribute("y", paddingTopIcono);
+
+									paddingTopText = (paddingTopIcono + parseFloat(svgIcono.getAttribute("height")) + ((svgTexto.getClientRects()[0].height / relacion) / 1.3)) + "px";
+
+									svgTexto.setAttribute("y", paddingTopText);
+
+								}
+
+								var textoEslogan = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+								textoEslogan.setAttributeNS(null, "x", tamanoBase / 2);
+								textoEslogan.setAttributeNS(null, "y", tamanoBase * 0.9);
+
+								var textoNodeEslogan = document.createTextNode(datos.eslogan);
+
+								textoEslogan.appendChild(textoNodeEslogan);
+
+								element.children()[0].appendChild(textoEslogan);
+
+								var eslogan = element.children()[0].children[3];
+
+								eslogan.setAttribute("text-anchor", "middle");
+								eslogan.setAttribute("font-family", datos.fuente.nombre);
+								eslogan.setAttribute("class", "eslogan");
+
+								eslogan.setAttribute("transform", "");
+								eslogan.setAttribute("text-anchor", "middle");
+
+								eslogan.style.fontSize = svgTexto.style.fontSize;
+
+								eslogan.setAttribute("x", (tamanoBase / 2));
+
+								while (((eslogan.getClientRects()[0].height / relacion) * 2.5) >= (svgTexto.getClientRects()[0].height / relacion)) {
+									eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+								}
+
+
+								//verificamos que los elementos no superen el alto del lienzo
+
+								while ((svgIcono.height.baseVal.value + (svgTexto.getClientRects()[0].height / relacion) + (eslogan.getClientRects()[0].height / relacion) * 1.3 >= tamanoBase)) {
+
+									svgIcono.setAttribute("height", (parseFloat(svgIcono.getAttribute("height")) * 0.95) + "px");
+
+									svgTexto.style.fontSize = (parseFloat(svgTexto.style.fontSize) * 0.95) + "px";
+
+									eslogan.style.fontSize = (parseFloat(eslogan.style.fontSize) * 0.95) + "px";
+
+								}
+
+								var espacioSobrante = tamanoBase - ((svgIcono.getClientRects()[0].height + svgTexto.getClientRects()[0].height + eslogan.getClientRects()[0].height) / relacion);
+
+
+								//AJUSTAR AQUI EL ESLOGAN
+								svgIcono.setAttribute("y", (espacioSobrante / 2) + "px");
+
+								svgTexto.setAttribute("y", (espacioSobrante / 2) + ((svgIcono.getClientRects()[0].height + svgTexto.getClientRects()[0].height) / relacion) + "px");
+
+								eslogan.setAttribute("y", ((espacioSobrante / 2) + ((svgIcono.getClientRects()[0].height + svgTexto.getClientRects()[0].height + eslogan.getClientRects()[0].height) / relacion)) + "px");
+
+
+
+
+
+
+
+								/*
 								var tamanoBase = 100;
 
 								var textoEslogan = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -1272,7 +1396,7 @@ angular.module("disenador-de-logos")
 								svgEslogan.setAttribute("text-anchor", "middle");
 								svgEslogan.setAttribute("font-family", datos.fuente.nombre);
 								svgEslogan.setAttribute("class", "eslogan");
-
+								*/
 							}
 
 							obtenerSVGFinal();
@@ -1407,29 +1531,21 @@ angular.module("disenador-de-logos")
 			restrict: "AE",
 			link: function () {
 
-
-
 				if ($window.innerWidth < 1024) {
-
 					$window.location = "/m" + $location.url();
 				}
 
-
-
 				angular.element(window).resize(function () {
-
 					if ($window.innerWidth < 1024) {
-
 						$window.location = "/m" + $location.url();
 					}
-
 				});
 
 			}
 		};
 
 	})
-
+	/*
 	.directive("fondoContraste", ["coloresFactory", function (coloresFactory) {
 		return {
 			restrict: "AE",
@@ -1445,7 +1561,7 @@ angular.module("disenador-de-logos")
 		};
 	}])
 
-
+	*/
 	/*
 
 	/////////////////////////////////////////////
@@ -1560,7 +1676,10 @@ angular.module("disenador-de-logos")
 				bz.base64 = $base64;
 
 				bz.actual = 0;
-				$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
+				if ($scope.logos.length) {
+					$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
+				}
+
 
 				if ($scope.logos.length > 1) {
 					bz.actual = 1;
@@ -1572,23 +1691,23 @@ angular.module("disenador-de-logos")
 				bz.mover = function (accion) {
 
 					if (accion) {
-						bz.actual = bz.actual == (bz.logos.length - 1) ? 0 : bz.actual + 1
+						bz.actual = bz.actual == (bz.logos.length - 1) ? 0 : bz.actual + 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 					} else {
-						bz.actual = bz.actual == 0 ? bz.logos.length - 1 : bz.actual - 1
+						bz.actual = bz.actual == 0 ? bz.logos.length - 1 : bz.actual - 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 					}
 
-				}
+				};
 
 				bz.borrarSlider = function (idLogo) {
 					bz.callback[3](idLogo);
 
-					if (bz.actual == $scope.logos.length - 1) {
+					if ($scope.logos.length && bz.actual == $scope.logos.length - 1) {
 						bz.actual = bz.actual - 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 					}
-				}
+				};
 
 			}],
 			controllerAs: "carouselMisLogos",
@@ -1681,25 +1800,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-							case "bottom":
-								orientacionFinal.top = coordenadas.bottom;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "bottom":
+							orientacionFinal.top = coordenadas.bottom;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
-							case "right":
-								orientacionFinal.top = coordenadas.top + (element.height() / 2);
-								orientacionFinal.left = coordenadas.right;
-								break;
+						case "right":
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.right;
+							break;
 
-							case "left":
-								orientacionFinal.top = coordenadas.top + (element.height() / 2);
-								orientacionFinal.left = coordenadas.left - popCreado.width();
-								break;
+						case "left":
+							orientacionFinal.top = coordenadas.top + (element.height() / 2);
+							orientacionFinal.left = coordenadas.left - popCreado.width();
+							break;
 
-							case "top":
-								orientacionFinal.top = coordenadas.top;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "top":
+							orientacionFinal.top = coordenadas.top;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
 						}
 
@@ -1761,25 +1880,25 @@ angular.module("disenador-de-logos")
 						});
 
 						switch (orientacion) {
-							case "bottom":
-								orientacionFinal.top = coordenadas.bottom - 40;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "bottom":
+							orientacionFinal.top = coordenadas.bottom - 40;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
-							case "right":
-								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-								orientacionFinal.left = coordenadas.right - 35;
-								break;
+						case "right":
+							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+							orientacionFinal.left = coordenadas.right - 35;
+							break;
 
-							case "left":
-								orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
-								orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
-								break;
+						case "left":
+							orientacionFinal.top = (coordenadas.top + (element.height() / 2)) - 10;
+							orientacionFinal.left = (coordenadas.left - popPasoCreado.width()) + 25;
+							break;
 
-							case "top":
-								orientacionFinal.top = coordenadas.top + 40;
-								orientacionFinal.left = coordenadas.left + (element.width() / 2);
-								break;
+						case "top":
+							orientacionFinal.top = coordenadas.top + 40;
+							orientacionFinal.left = coordenadas.left + (element.width() / 2);
+							break;
 
 						}
 
@@ -1864,13 +1983,15 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/bazamFormLogin.tpl",
-			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", function ($scope, clientesService, $mdToast, paisesValue) {
+			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", "socialAuth", function ($scope, clientesService, $mdToast, paisesValue, $rootScope, socialAuth) {
 
 				var bz = this;
 
 				bz.paises = paisesValue;
 
 				bz.paisDefecto = null;
+
+				bz.ingresar = true;
 
 				clientesService.pais()
 					.then(function (res) {
@@ -1897,21 +2018,13 @@ angular.module("disenador-de-logos")
 										clase: "success"
 									}
 								}));
-								$scope.callback();
-								bz.mostrarModalLogin = false;
-								/*
-								switch ($scope.tipoLogo) {
+								$rootScope.mostrarModalLogin = false;
 
-								case "nuevo":
-									$scope.callback[0]($scope.logo);
-									break;
+								if ($rootScope.callbackLogin) {
 
-								case "predisenado":
-									$scope.callback[1]($scope.logoPredisenado);
-									break;
-
+									$rootScope.callbackLogin();
 								}
-								*/
+
 							}
 
 						}).catch(function () {
@@ -1955,21 +2068,11 @@ angular.module("disenador-de-logos")
 									}
 								}));
 
-								bz.mostrarModalLogin = false;
-								$scope.callback();
-								/*
-								switch ($scope.tipoLogo) {
+								$rootScope.mostrarModalLogin = false;
 
-								case "nuevo":
-									$scope.callback[0]($scope.logo);
-									break;
-
-								case "predisenado":
-									$scope.callback[1]($scope.logoPredisenado);
-									break;
-
+								if ($rootScope.callbackLogin) {
+									$rootScope.callbackLogin();
 								}
-								*/
 
 
 							}
@@ -2023,14 +2126,7 @@ angular.module("disenador-de-logos")
 					bz.peticion = true;
 					if (opcion == true) {
 						if (val) {
-							clientesService.cambiarContrasena(bz.olvido).then(function (res) {
-
-								$mdToast.show($mdToast.base({
-									args: {
-										mensaje: "Contraseña cambiada.",
-										clase: "success"
-									}
-								}));
+							clientesService.cambiarContrasena(bz.olvido).then(function () {
 
 								bz.completadoLogin = true;
 
@@ -2066,37 +2162,110 @@ angular.module("disenador-de-logos")
 					}
 				};
 
+
+				/* REDES SOCIALES */
+
+				bz.social = function (op) {
+
+					switch (op) {
+						case 'fb':
+
+							socialAuth.facebook().then(function (res) {
+
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.data.msg,
+											clase: "success"
+										}
+									}));
+
+	
+									$rootScope.mostrarModalLogin = false;
+	
+									if ($rootScope.callbackLogin) {
+										$rootScope.callbackLogin();
+									}
+	
+								}
+								
+
+							}).catch(function (res) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							}).finally(function () {
+
+							});
+
+							break;
+
+						case 'gg':
+
+							socialAuth.google().then(function (res) {
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.data.msg,
+											clase: "success"
+										}
+									}));
+
+	
+									$rootScope.mostrarModalLogin = false;
+	
+									if ($rootScope.callbackLogin) {
+										$rootScope.callbackLogin();
+									}
+	
+								}
+							}).catch(function (res) {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							}).finally(function () {
+
+							});
+
+							break;
+					}
+				}
+
 			}],
-			controllerAs: "bazamLogin",
-			scope: {
-				callback: "<",
-				mostrar: "=",
-				/*tipoLogo: "<",
-				logo: "<",
-				logoPredisenado:"<"*/
-			}
+			controllerAs: "bazamLogin"
 		};
 
 
 	}])
 
-	.directive("bazamPlanes", [function () {
+	.directive("bazamListarPlanes", [function () {
 		return {
-			templateUrl: "app/templates/planes.tpl",
-			controllerAs: "planes",
+			templateUrl: "app/templates/listar-planes.tpl",
+			controllerAs: "listarPlanes",
 			scope: {
 				datos: "=",
-				estado: "=",
-				id: "=",
-				guardarLogo: "<"
+				dataId: "=",
+				guardarLogo: "<",
+				verlogo: "<",
+				promocion: "="
 			},
-			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q) {
+			controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", "clientesService", "$rootScope", "$document", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q, clientesService, $rootScope, $document) {
 
 				var bz = this;
 
 				bz.base64 = $base64;
 
 				bz.estado = $scope.estado;
+
+				bz.promocion = $scope.promocion;
 
 				/* PLANES */
 
@@ -2172,7 +2341,23 @@ angular.module("disenador-de-logos")
 
 				};
 
-				bz.avanzarCheckout = function (plan) {
+				bz.verificarLogin = function(plan){
+
+					bz.planElegido = plan;
+					// Verificar si el usuario que esta logueado
+					if (!clientesService.autorizado()) {
+						$rootScope.mostrarModalLogin = true;
+						$rootScope.callbackLogin = bz.avanzarCheckout;
+						return;
+					}
+
+					bz.avanzarCheckout();
+				};
+
+
+				bz.avanzarCheckout = function () {
+
+					var plan = bz.planElegido;
 
 					bz.logo = $scope.datos.logo; //SVG del logo
 					bz.idElemento = $scope.datos.idElemento;
@@ -2184,47 +2369,95 @@ angular.module("disenador-de-logos")
 
 					if (plan === true) {
 						bz.peticion = true;
-						var nombre = "editable";
-						var ancho = 50;
+						var nombre = "gratis";
+						var ancho = 80;
 
-						bz.compatirFacebook().then(function (res) {
+						bz.compatirFacebook({url: ''}).then(function (res) {
 
 							angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-							if ($scope.id) {
-								logosService.descargarLogo($scope.id, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
-									var url = "";
-									if (res.zip) {
+							if ($scope.datos.idLogo) {
+								logosService.descargarLogo($scope.datos.idLogo, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 
-										url = res.zip.replace("public", "");
-
-									} else if (res.png) {
-
-										url = res.png.replace("public", "");
-
+									//get the headers' content disposition
+									var cd = res.headers["content-disposition"];
+								
+									//get the file name with regex
+									var regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+									var match = regex.exec(cd);
+								
+									//is there a fiel name?
+									var fileName = match[1] || "myDefaultFileName.zip";
+								
+									//replace leading and trailing slashes that C# added to your file name
+									fileName = fileName.replace(/\"/g, "");
+									//determine the content type from the header or default to octect stream
+									var contentType = res.headers["content-type"];
+								
+									//finally, download it
+									var blob = new Blob([res.data], {type: contentType});
+							
+									//downloading the file depends on the browser
+									//IE handles it differently than chrome/webkit
+									if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
+										$window.navigator.msSaveOrOpenBlob(blob, fileName);
+									} else {
+										var a = $document[0].createElement("a");
+										$document[0].body.appendChild(a);
+										a.style = "display:none";
+										var url = $window.URL.createObjectURL(blob);
+										a.href = url;
+										a.download = fileName;
+										a.target = "_blank";
+										a.click();
+										$window.URL.revokeObjectURL(url);
+										a.remove();
 									}
 
-									logosService.dispararDescarga(url, nombre, ancho);
 									bz.desabilitado = true;
 									bz.promocion = true;
 									bz.peticion = false;
+
 								});
 							} else {
-								$scope.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.idElemento, true).then(function (res) {
+								$scope.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.idElemento, $scope.datos.fuentes.principal, true).then(function (res) {
 
 									logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
-										var url = "";
-										if (res.zip) {
 
-											url = res.zip.replace("public", "");
-
-										} else if (res.png) {
-
-											url = res.png.replace("public", "");
-
+										//get the headers' content disposition
+										var cd = res.headers["content-disposition"];
+									
+										//get the file name with regex
+										var regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+										var match = regex.exec(cd);
+									
+										//is there a fiel name?
+										var fileName = match[1] || "myDefaultFileName.zip";
+									
+										//replace leading and trailing slashes that C# added to your file name
+										fileName = fileName.replace(/\"/g, "");
+										//determine the content type from the header or default to octect stream
+										var contentType = res.headers["content-type"];
+									
+										//finally, download it
+										var blob = new Blob([res.data], {type: contentType});
+								
+										//downloading the file depends on the browser
+										//IE handles it differently than chrome/webkit
+										if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
+											$window.navigator.msSaveOrOpenBlob(blob, fileName);
+										} else {
+											var a = $document[0].createElement("a");
+											$document[0].body.appendChild(a);
+											a.style = "display:none";
+											var url = $window.URL.createObjectURL(blob);
+											a.href = url;
+											a.download = fileName;
+											a.target = "_blank";
+											a.click();
+											$window.URL.revokeObjectURL(url);
+											a.remove();
 										}
-
-										logosService.dispararDescarga(url, nombre, ancho);
 
 									}).catch(function () {
 										//console.log(res)
@@ -2241,7 +2474,7 @@ angular.module("disenador-de-logos")
 
 						}).catch(function (res) {
 
-							if (res === 'exceso') {
+							if (res === "exceso") {
 								$mdToast.show($mdToast.base({
 									args: {
 										mensaje: "Tiempo excedido, Debes compartir en facebook para obtener tu logo gratis.",
@@ -2266,6 +2499,8 @@ angular.module("disenador-de-logos")
 							bz.peticion = false;
 						});
 
+
+						return;
 					}
 
 					angular.forEach(plan.precios, function (precio) {
@@ -2327,11 +2562,11 @@ angular.module("disenador-de-logos")
 
 					var promesas = [$timeout(function () {
 						return "exceso";
-					}, 60000), facebookService.compartir()]
+					}, 60000), facebookService.compartir()];
 
 					$q.race(promesas).then(function (res) {
 						if (res === "exceso") {
-							defered.reject('exceso');
+							defered.reject("exceso");
 						} else {
 							defered.resolve(res);
 						}
@@ -2340,8 +2575,197 @@ angular.module("disenador-de-logos")
 					});
 					return promise;
 
-				}
+				};
 			}]
+		};
+	}])
+
+	.directive("bazamPlanes", [function () {
+		return {
+			templateUrl: "app/templates/planes.tpl",
+			controllerAs: "planes",
+			scope: {
+				datos: "=",
+				estado: "=",
+				dataId: "=",
+				guardarLogo: "<"
+			}
 		};
 
 	}])
+
+	.directive("bazamPrevisualizarDos", [function () {
+		return {
+			templateUrl: "app/templates/ver-logo.tpl",
+			scope: {
+				datos: "=",
+				estado: "=",
+				dataId: "=",
+				guardarLogo: "<"
+			}
+		};
+	}])
+
+	.directive("bazamColorPicker", [function () {
+		return {
+			template: "<div style='position:relative;'>\
+							<div class='selector-fondo' style='border: 1px solid var(--fondo)' ng-style='jsonColor(color)' ng-click='mostrarPicker = !mostrarPicker'>\
+							</div>\
+							<div class='color-picker-bazam' id='color-picker-fondo' ng-show='mostrarPicker' style='position: absolute; width: 200px; height: 200px; background-color: white; z-index: 2; padding: 10px;'>\
+									<div class='titulo'>\
+										FONDO\
+										<span class='cerrar-color-picker' ng-click='mostrarPicker = !mostrarPicker'>\
+											<i class='material-icons cerrar'>clear</i>\
+										</span>\
+									</div>\
+									<div ng-repeat='paletaColor in paletaColores track by $index' class='color' ng-style='jsonColor(paletaColor)' style='width: 9%; height: 10%; display: inline-block;' ng-click='$parent.color=paletaColor'></div>\
+								</div>\
+						</div>",
+			scope: {
+				color: "="
+			},
+			controller: ["$scope", "coloresPaletaValue", function ($scope, coloresPaletaValue) {
+				$scope.paletaColores = coloresPaletaValue;
+
+				$scope.jsonColor = function (color) {
+					return {
+						"background-color": color
+					};
+				};
+
+				$scope.mostrarPicker = false;
+
+				$scope.$on("editor:cerrarColorPickers", function () {
+
+					$scope.mostrarPicker = false;
+
+				});
+			}]
+		};
+	}])
+
+	.directive("stripePaymentForm", ["$document", function($document){
+
+		return {
+			templateUrl: "app/templates/stripePaymentsForm.tpl",
+			scope:{
+				icono: "<",
+				atributos: "<",
+				svg: "<",
+				precio: "<",
+				pasarela: "<"
+			},
+			controller: ["$scope", "pedidosService", "$q", "$state", function($scope, pedidosService, $q, $state){
+				var defered = $q.defer();
+
+				var disenadorPromise = defered.promise;
+
+				$scope.completadoPagar = true;
+
+				$scope.pagar = function(){
+					if(!$scope.completadoPagar){
+						return;
+					}
+					$scope.completadoPagar = false;
+
+					var stripePromise = $scope.stripe.createToken($scope.card);
+
+					stripePromise
+						.then(function(res) {
+							if (res.error) {
+							
+								$scope.mensajeError(res.error.message);
+								defered.reject();
+							} else {
+								pedidosService.pagar.stripe($scope.icono, $scope.atributos, $scope.svg, $scope.precio, "Logo y nombre", $scope.pasarela, res.token.id)
+									.then(function(res){
+										$state.go("descargar", {id: res.idLogo});
+									})
+									.catch(function(){
+										$scope.mensajeError("El pago no ha podido ser procesado");
+									})
+									.finally(function(){
+										defered.resolve();
+									});
+							}
+						});
+
+
+					$q.all({stripe: stripePromise, disenador: disenadorPromise})
+						.finally(function(){
+							$scope.completadoPagar = true;
+						});
+				};			
+
+			}],
+			link: function(scope, el){
+			
+			// Create a Stripe client.
+				scope.stripe = Stripe("pk_test_ODlU80cwnJ5Xr2an9L1XZByL");
+
+				// Create an instance of Elements.
+				var elements = scope.stripe.elements();
+
+				var style = {
+					base: {
+						color: "#32325d",
+						lineHeight: "18px",
+						fontFamily: "\"Helvetica Neue\", Helvetica, sans-serif",
+						fontSmoothing: "antialiased",
+						fontSize: "16px",
+						"::placeholder": {
+							color: "#aab7c4"
+						}
+					},
+					invalid: {
+						color: "#fa755a",
+						iconColor: "#fa755a"
+					}
+				};
+
+				// Create an instance of the card Element.
+				scope.card = elements.create("card", {style: style});
+
+				// Add an instance of the card Element into the `card-element` <div>.
+				scope.card.mount("#card-element");
+
+				// Handle real-time validation errors from the card Element.
+				scope.card.addEventListener("change", function(event) {
+					var displayError = $document[0].getElementById("card-errors");
+					if (event.error) {
+						displayError.textContent = event.error.message;
+					} else {
+						displayError.textContent = "";
+					}
+				});
+
+				scope.mensajeError = function(mensaje){
+					el.find("#card-errors").text(mensaje);
+				};
+				
+				
+			}
+		};
+
+	}])
+
+	.directive("bazamScroll", [function () {
+		return {
+			restrict: "AE",
+			link: function (scope, element) {
+
+				element.find('a.link-scroll').click(function (e) {
+						
+					var irA = element.find(e.target.attributes.href.value);
+
+					angular.element('body').animate({
+						scrollTop: irA[0].offsetTop
+					}, 1000);
+
+					return false;
+				});
+
+			}
+		};
+
+	}]);
