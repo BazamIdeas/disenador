@@ -80,8 +80,7 @@
                 <div ng-switch="header.autorizado" class="login" ng-cloak>
 
                     <div ng-switch-when="false" ui-sref="inicio" class="acceder" style="cursor: pointer; padding-right:20px">
-                        <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
-                        <i class="material-icons">add_circle_outline</i>
+                        <i class="material-icons">add_circle_outline</i> &nbsp; Crear logo
                     </div>
 
                     <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer">
@@ -92,29 +91,26 @@
                     <div ng-switch-default class="acceder" style="cursor: pointer">
 
                         <span ui-sref="inicio">
-                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
-                            <i class="material-icons">add_circle_outline</i>
+                            <i class="material-icons">add_circle_outline</i> &nbsp; Crear logo
                         </span>
 
                         <span ui-sref="logos">
-                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mis logos</md-tooltip>
-                            <i class="material-icons">favorite</i>
+                            <i class="material-icons">favorite</i> &nbsp; Mis logos
                         </span>
 
                         <span ui-sref="cuenta">
-                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
                             <i class="material-icons">account_circle</i> &nbsp; {{header.autorizado.nombre}}
                         </span>
 
                         <span ng-click="header.salir()">
-                            <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar sesion</md-tooltip>
-                            <i class="material-icons">power_settings_new</i>
+                            <i class="material-icons">power_settings_new</i> &nbsp; Cerrar sesion
                         </span>
 
-                        <span style="margin: 0 10px; font-family: 'arial'"></span>
+                        <!-- <span style="margin: 0 10px; font-family: 'arial'"></span> -->
 
                     </div>
 
+                    <!--
                     <div class="acceder">
 
                         <span ng-click="::header.mostrarPasoPopAyuda()">
@@ -122,7 +118,7 @@
                         </span>
 
                     </div>
-
+-->
                 </div>
 
             </div>

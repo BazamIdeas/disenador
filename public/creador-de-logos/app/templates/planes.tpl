@@ -95,7 +95,8 @@
 		.principal-x {
 			font-family: futura-heavy;
 			margin-top: 2%;
-    		color: var(--tercero);
+			color: var(--tercero);
+			  font-size: 2.3rem;
 		}
 
 		/* PROMOCION*/

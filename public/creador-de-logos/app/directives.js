@@ -2372,7 +2372,7 @@ angular.module("disenador-de-logos")
 						var nombre = "gratis";
 						var ancho = 80;
 
-						bz.compatirFacebook().then(function (res) {
+						bz.compatirFacebook({url: ''}).then(function (res) {
 
 							angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
