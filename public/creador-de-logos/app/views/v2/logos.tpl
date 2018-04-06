@@ -200,9 +200,9 @@
 
 <div class="overlay" ng-class="{'show': logos.mostrarModalSocial, 'hide': !logos.mostrarModalSocial}">
     <div class="row margin-bottom-0">
-        <div class="col s6 offset-s3">
+        <div class="col s4 offset-s4">
 
-            <div class="login-form-flex">
+            <div class="login-form-flex" style="position: fixed; width: 500px; left: calc(50% - 250px); top: calc(50% - 70px); height: 140px; ">
 
                 <div class="cubo-form row">
 
