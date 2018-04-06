@@ -270,31 +270,95 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.completadoCompartir = true;
-		bz.compartirPorEmail = function(email, idLogo, valido){
+		bz.compartirPorEmail = function(email, logo, valido){
+			
+			if (!clientesService.autorizado()) {
+		
+				$rootScope.mostrarModalLogin = true;
+				$rootScope.callbackLogin = false;
+				return;
+			}
 
-			if(valido && bz.completadoCompartir && idLogo){
+			if(valido && bz.completadoCompartir){
+				
 				bz.completadoCompartir = false;
-				logosService.enviarPorEmail(idLogo, email)
-					.then(function(){
-						$mdToast.show($mdToast.base({
-							args: {
-								mensaje: "Su logo ha sido enviado!",
-								clase: "success"
-							}
-						}));
+				
+				var defered = $q.defer();
+				var emailPromise = defered.promise;
+
+				if(!logo.idLogo){
+
+					bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
+						.then(function(res){
+							logo.idLogo = res;
+							logosService.enviarPorEmail(logo.idLogo, email)
+								.then(function(){
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "Su logo ha sido enviado!",
+											clase: "success"
+										}
+									}));
 	
-					})
-					.catch(function(){
-						$mdToast.show($mdToast.base({
-							args: {
-								mensaje: "Un error ha ocurrido",
-								clase: "danger"
-							}
-						}));
-					})
-					.finally(function(){
-						bz.completadoCompartir = true;
-					});
+								})
+								.catch(function(){
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "Un error ha ocurrido",
+											clase: "danger"
+										}
+									}));
+								})
+								.finally(function(){
+									defered.resolve(); 
+								});
+							
+						})
+						.catch(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
+							defered.resolve();
+						});
+
+				} else {
+					
+					logosService.enviarPorEmail(logo.idLogo, email)
+						.then(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Su logo ha sido enviado!",
+									clase: "success"
+								}
+							}));
+
+						})
+						.catch(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
+						})
+						.finally(function(){
+							defered.resolve();
+						});
+
+
+				}
+
+
+				emailPromise.finally(function(){
+					bz.completadoCompartir = true;
+				});
+
+				
+
+
 
 			}
 		};
