@@ -71,16 +71,14 @@ exports.guardar =  function(req,res)
 
 			cliente.getCliente(req.idCliente, function(error, dataCliente){
 
-				//console.log(data);
 				const emailOptions = {
-					to: dataCliente.correo, // receptor o receptores
+					to: dataCliente[0].correo, // receptor o receptores
 					subject: "Logo guardado", // Asunto del correo
 				}
 
 				let email = new Email(emailOptions,{});
-				email.setHtml("logoGuardado.html").send((err,res) => {
+				email.setHtml("logoGuardado.html").send((err,data) => {
 					if(err) return console.log(err);
-					//console.log(res);
 				});
 
 				res.status(200).json(data);
@@ -1142,11 +1140,12 @@ exports.enviarPorEmail = function(req,res)
 														filename: 'logo.png',
 														content: fs.createReadStream(__dirname+"/../"+pngout),
 														cid: "logo-compartido"
-												}]).send((err,res) => {
+												}]).send((err,data) => {
 													if(err) return res.status(500).json({msg:err})
-													
-													res.status(200).json({msg:"Enviado"})
+
+													return res.status(200).json({msg:"Enviado"})
 												});
+												
 										})
 									}).catch(e => console.log('error'));
 								});
