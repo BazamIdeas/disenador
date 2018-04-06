@@ -486,7 +486,7 @@
 						<div style="width: 25%;position: absolute;left: calc(40% - 23%);top: 32%;transform: rotate(-48deg);">
 							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
 						</div>
-						<div style="width: 25%;position: absolute;left: calc(93% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(100%) invert(80%) contrast(100%);">
+						<div style="width: 25%;position: absolute;left: calc(93% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(0) invert(1);">
 							<bazam-actualizar data-svg="editor.svgFinal"></bazam-actualizar>
 						</div>
 						<img src="assets/images/mockups/tarjeta.png" width="100%">

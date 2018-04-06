@@ -52,9 +52,9 @@
                     </div>
                     <div ng-switch-when="2">
                         <form name="cuenta.datosForm" novalidate ng-submit="cuenta.guardar(cuenta.datosEspejo, cuenta.datosForm.$valid)">
-                            <div class="col s12 input-field">
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
 
-                                <label for="nombre" class="active">Nombre</label>
+                                <label for="nombre" style="left:0.8rem" class="active">Nombre</label>
                                 <input id="nombre" type="text" name="nombreCliente" ng-model="cuenta.datosEspejo.nombreCliente" required>
 
 
@@ -62,17 +62,17 @@
                                     <div ng-message="required">Este campo es requerido.</div>
                                 </div>
                             </div>
-                            <div class="col s12 input-field">
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
 
 
                                 <input id="telefono" type="text" ng-model="cuenta.datosEspejo.telefono" name="telefono" required>
-                                <label for="telefono" class="active">Teléfono</label>
+                                <label for="telefono" style="left:0.8rem" class="active">Teléfono</label>
 
                                 <div ng-messages="cuenta.datosForm.telefono.$error" ng-if="cuenta.datosForm.$submitted || cuenta.datosForm.telefono.$dirty">
                                     <div ng-message="required">Este campo es requerido.</div>
                                 </div>
                             </div>
-                            <div class="col s12 input-field">
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
 
 
                                 <md-input-container style="width: 100%;padding: 0 0rem;margin-top: 0;">
@@ -95,8 +95,8 @@
 
                     <div ng-switch-when="3">
                         <form name="cambioContra" novalidate ng-submit="cuenta.cambiarContrasena(cuenta.datosOlvido, cambioContra.$valid, true)">
-                            <div class="col s12 input-field">
-                                <label for="contrasena" class="active">Contraseña Antigua</label>
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
+                                <label for="contrasena" style="left:0.8rem" class="active">Contraseña Antigua</label>
                                 <input id="contrasena" type="text" name="contrasenaCliente" ng-model="cuenta.datosOlvido.passVieja" required ng-minlength="8">
                                 <div ng-messages="cambioContra.contrasenaCliente.$error" ng-if="cambioContra.$submitted || cambioContra.contrasenaCliente.$dirty">
                                     <div ng-message="required">Este campo es requerido.</div>
@@ -104,8 +104,8 @@
                                 </div>
                             </div>
 
-                            <div class="col s12 input-field">
-                                <label for="contrasena-nueva" class="active">Contraseña Nueva</label>
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
+                                <label for="contrasena-nueva" style="left:0.8rem" class="active">Contraseña Nueva</label>
                                 <input id="contrasena-nueva" type="text" name="contrasenaNueva" ng-model="cuenta.datosOlvido.pass" required ng-minlength="8">
                                 <div ng-messages="cambioContra.contrasenaNueva.$error" ng-if="cambioContra.$submitted || cambioContra.contrasenaNueva.$dirty">
                                     <div ng-message="required">Este campo es requerido.</div>

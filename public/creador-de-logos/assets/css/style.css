@@ -267,6 +267,9 @@ text {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+g path {
     cursor: pointer;
 }
 
@@ -542,7 +545,7 @@ button.boton-verde {
     padding: 8px 8px;
     margin-top: 11px;
     -webkit-transition: all 0.3s;
-    transition: all 0.3s;
+    transition: background-color 0.3s;
     font-family: 'futura-heavy' !important;
 }
 
@@ -616,6 +619,7 @@ header div.logo {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 div.acceder {
@@ -2271,7 +2275,7 @@ path.seleccionado {
     right: 23px;
 }
 
-.section-cliente {
+.section-cliente, .section-pago {
     height: calc(100vh - 60px) !important;
     background-color: var(--blanco);
     overflow: hidden;
@@ -4092,6 +4096,7 @@ md-radio-button.opcion-fuente[aria-checked="true"] {
 
 g.contenedor-icono {
     pointer-events: bounding-box;
+    cursor: move !important;
 }
 
 /*  logo */
@@ -4102,11 +4107,11 @@ g.contenedor-icono {
     color: var(--secundario);
     width: 200px;
     margin: auto;
-    display: block;
+    display: flex;
 }
 
 .logo-container-logo img {
-    width: 100%;
+    width: 80%;
 }
 
 b, strong {
