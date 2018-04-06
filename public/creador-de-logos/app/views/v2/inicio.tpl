@@ -39,31 +39,31 @@
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
                     <label for="nombre" class="active">Nombre</label>
                 </div>
-
                 <div>
                     <md-input-container style="width:100%" bazam-ayuda data-titulo="Categoria" data-texto="Seleccione la categoria o actividad de su empresa u ocupación"
                         data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                         bazam-pasos-ayuda>
+                        <label>Categorias</label>
                         <md-select style="width:100%" ng-model="inicio.datos.categoria.icono" placeholder="Categoria" md-no-asterisk required>
                             <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
                         </md-select>
                     </md-input-container>
                 </div>
+                <br>
                 <div>
                     <md-input-container class="md-block " style="width:100%; box-sizing: content-box;">
+                        <label>Colores</label>
                         <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores"
                             aria-label="filtro" name="color" placeholder="Colores" required>
                             <md-optgroup label="Colores">
                                 <md-option ng-value="color" class="estilo-de-color" ng-repeat="color in inicio.colores track by $index" ng-selected="inicio.coloresIguales(color) || $index == 0">
-                                    <span ng-style="{'background-color': color[0]}" style="color:transparent;" class="color-p">{{::color[0]}}</span>
-                                    <span ng-style="{'background-color': color[1]}">{{::color[1]}}</span>
-                                    <span ng-style="{'background-color': color[2]}">{{::color[2]}}</span>
+                                    <span style="color:transparent;" ng-style="{'background-color': color[1]}">{{::color[1]}}</span>
                                 </md-option>
                             </md-optgroup>
                         </md-select>
                     </md-input-container>
                 </div>
-
+                <br>
                 <div class="input-tipografia">
                     <div class="label-form ">
                         ESTILO DE TIPOGRAFÍA
@@ -96,19 +96,22 @@
 
                 -->
                 <div>
-                    <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-                        md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
+                    <md-input-container>
                         <label>Etiquetas</label>
-                        <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
-                            md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
-                            <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
-                        </md-autocomplete>
-                        <md-chip-template>
-                            <span>
-                                <strong>{{$chip.traduccion.valor}}</strong>
-                            </span>
-                        </md-chip-template>
-                    </md-chips>
+                        <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                            md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
+                            <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
+                                md-item-text="item.traduccion.valor" placeholder="Agrega una etiqueta">
+                                <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <span>
+                                    <strong>{{$chip.traduccion.valor}}</strong>
+                                </span>
+                            </md-chip-template>
+                        </md-chips>
+                    </md-input-container>
+
                     <br/>
                 </div>
                 <div style="text-align: center;">
@@ -137,25 +140,38 @@
 
                         <!-- VALIDACION -->
                         <div ng-messages="inicio.compartirEmailForm.correo.$error" style="color:maroon; padding-bottom:20px;" role="alert" ng-if="inicio.compartirEmailForm.correo.$dirty || inicio.compartirEmailForm.$submitted">
-                                <div ng-message="required">Este campo es requerido.</div>
-                                <div ng-message="email">Debe ser un email válido.</div>
+                            <div ng-message="required">Este campo es requerido.</div>
+                            <div ng-message="email">Debe ser un email válido.</div>
                         </div>
 
-                        <button class="boton-verde" ng-click="inicio.compartirPorEmail(logo.email, logo, inicio.compartirEmailForm.$valid); inicio.compartirEmailForm.$setSubmitted()" ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
+                        <button class="boton-verde" ng-click="inicio.compartirPorEmail(logo.email, logo, inicio.compartirEmailForm.$valid); inicio.compartirEmailForm.$setSubmitted()"
+                            ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
                     </div>
 
-                    <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)'
-                        url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado"
-                        color-texto="logo.colores[2]" color-icono="logo.colores[1]" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo,true)" ></bazam-svg-text>
+                    <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
+                        callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo,true)"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
-                    <span class="seleccionar" style="margin-bottom: 83%;" ng-click="inicio.preGuardarLogo(logo)"> <p>GUARDAR</p><img ng-src="{{logo.idLogo ?'assets/images/save_active.svg' : 'assets/images/save.svg'}}" alt=""></span>
+                    <span class="seleccionar" style="margin-bottom: 83%;" ng-click="inicio.preGuardarLogo(logo)">
+                        <p>GUARDAR</p>
+                        <img ng-src="{{logo.idLogo ?'assets/images/save_active.svg' : 'assets/images/save.svg'}}"
+                            alt="">
+                    </span>
 
-                    <span class="seleccionar" style="margin-bottom: 66%;" ng-click="inicio.preAvanzar(logo)"> <p>EDITAR</p><img src="assets/images/edit_white.svg" alt=""></span>
+                    <span class="seleccionar" style="margin-bottom: 66%;" ng-click="inicio.preAvanzar(logo)">
+                        <p>EDITAR</p>
+                        <img src="assets/images/edit_white.svg" alt="">
+                    </span>
 
-                    <span class="seleccionar" style="margin-bottom: 49%;"  ng-click="logo.mostrarCompartir = true;"> <p>COMPARTIR</p><img src="assets/images/share.svg" alt=""></span>
+                    <span class="seleccionar" style="margin-bottom: 49%;" ng-click="logo.mostrarCompartir = true;">
+                        <p>COMPARTIR</p>
+                        <img src="assets/images/share.svg" alt="">
+                    </span>
 
-                    <span ng-show="logo.cargado" class="comprar" style="margin-bottom: 4%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span >
+                    <span ng-show="logo.cargado" class="comprar" style="margin-bottom: 4%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
+                        <p>COMPRAR</p>
+                        <img src="assets/images/shop.svg" alt="">
+                    </span>
 
                     <!--<span class="seleccionar" style="margin-bottom: 70%;" ng-click="inicio.seleccionarLogo(logo.cargado,logo.colores, logo);"> <p>VER</p><img src="assets/images/" alt=""></span>-->
                 </div>

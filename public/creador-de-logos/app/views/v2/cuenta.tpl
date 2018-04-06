@@ -1,9 +1,8 @@
-<section style="height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: scroll;">
+<section style="height: calc(100vh - 60px) !important; background-color: var(--blanco);">
     <div class="row margin-bottom-0">
-
-        <div class="col s3 offset-s1">
-            <div class="caja datos row">
-                <div class="col s12 imagen-perfil" style="margin-top: 10px;">
+        <div class="col s3 no-padding" style="padding-right: 15px !important;   ">
+            <div class="caja datos row md-whiteframe-2dp" style="  background: linear-gradient(-134deg, var(--blanco), var(--fondo));">
+                <div class="col s12 imagen-perfil" style="padding-top: 10px; padding-bottom: 20px;">
                     <div ng-if="cuenta.datos.foto && cuenta.verificarBase64(cuenta.datos.foto)">
                         <img ng-src="{{'data:image/svg+xml;base64,' + cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'"
                             ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
@@ -52,9 +51,9 @@
                     </div>
                     <div ng-switch-when="2">
                         <form name="cuenta.datosForm" novalidate ng-submit="cuenta.guardar(cuenta.datosEspejo, cuenta.datosForm.$valid)">
-                            <div class="col s12 input-field">
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
 
-                                <label for="nombre" class="active">Nombre</label>
+                                <label for="nombre" style="left:0.8rem" class="active">Nombre</label>
                                 <input id="nombre" type="text" name="nombreCliente" ng-model="cuenta.datosEspejo.nombreCliente" required>
 
 
@@ -62,17 +61,17 @@
                                     <div ng-message="required">Este campo es requerido.</div>
                                 </div>
                             </div>
-                            <div class="col s12 input-field">
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
 
 
                                 <input id="telefono" type="text" ng-model="cuenta.datosEspejo.telefono" name="telefono" required>
-                                <label for="telefono" class="active">Teléfono</label>
+                                <label for="telefono" style="left:0.8rem" class="active">Teléfono</label>
 
                                 <div ng-messages="cuenta.datosForm.telefono.$error" ng-if="cuenta.datosForm.$submitted || cuenta.datosForm.telefono.$dirty">
                                     <div ng-message="required">Este campo es requerido.</div>
                                 </div>
                             </div>
-                            <div class="col s12 input-field">
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
 
 
                                 <md-input-container style="width: 100%;padding: 0 0rem;margin-top: 0;">
@@ -95,8 +94,8 @@
 
                     <div ng-switch-when="3">
                         <form name="cambioContra" novalidate ng-submit="cuenta.cambiarContrasena(cuenta.datosOlvido, cambioContra.$valid, true)">
-                            <div class="col s12 input-field">
-                                <label for="contrasena" class="active">Contraseña Antigua</label>
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
+                                <label for="contrasena" style="left:0.8rem" class="active">Contraseña Antigua</label>
                                 <input id="contrasena" type="text" name="contrasenaCliente" ng-model="cuenta.datosOlvido.passVieja" required ng-minlength="8">
                                 <div ng-messages="cambioContra.contrasenaCliente.$error" ng-if="cambioContra.$submitted || cambioContra.contrasenaCliente.$dirty">
                                     <div ng-message="required">Este campo es requerido.</div>
@@ -104,8 +103,8 @@
                                 </div>
                             </div>
 
-                            <div class="col s12 input-field">
-                                <label for="contrasena-nueva" class="active">Contraseña Nueva</label>
+                            <div class="col s12 input-field" style="padding: 0 .75rem !important">
+                                <label for="contrasena-nueva" style="left:0.8rem" class="active">Contraseña Nueva</label>
                                 <input id="contrasena-nueva" type="text" name="contrasenaNueva" ng-model="cuenta.datosOlvido.pass" required ng-minlength="8">
                                 <div ng-messages="cambioContra.contrasenaNueva.$error" ng-if="cambioContra.$submitted || cambioContra.contrasenaNueva.$dirty">
                                     <div ng-message="required">Este campo es requerido.</div>
@@ -128,10 +127,9 @@
                 </div>
             </div>
         </div>
-
-        <div class="col s7">
+        <div class="col s9 no-padding" style="padding-right: 15px !important; padding-top: 15px !important;">
             <div class="caja pedidos" style="padding: 0">
-                <div>
+                <div class="md-whiteframe-2dp" style="  max-height: 80vh; overflow-y: scroll;">
                     <table>
                         <thead>
                             <tr>
@@ -149,17 +147,18 @@
                                 <td>{{::pedido.estado}}</td>
                                 <td>{{::pedido.plan}}</td>
                                 <td>{{::pedido.moneda + ' ' + pedido.precio}}</td>
-                                <td>{{::pedido.moneda}} {{pedido.impuesto ? (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)</td>
+                                <td>{{::pedido.moneda}} {{pedido.impuesto ? (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)
+                                </td>
                                 <td>{{::pedido.moneda}} {{pedido.impuesto ? pedido.precio + (pedido.precio * (pedido.impuesto/100))
                                     : pedido.precio}}</td>
                             </tr>
-                            <tr ng-if="!cuenta.pedidos.length"> <td colspan="6">NO HA REALIZADO NINGUNA COMPRA</td></tr>
+                            <tr ng-if="!cuenta.pedidos.length">
+                                <td colspan="6">NO HA REALIZADO NINGUNA COMPRA</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
-
     </div>
 </section>

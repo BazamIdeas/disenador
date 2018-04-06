@@ -11,6 +11,8 @@ const svg2png = require("svg2png");
 var archiver  = require("archiver");
 var pathM     = require("path");
 var async     = require("async");
+var config    = require("../configuracion.js");
+
 
 var watermark = require('dynamic-watermark');
 
@@ -949,26 +951,21 @@ exports.descargar = (req, res) =>
 	});	
 };
 
-exports.zip = function(req,res)
+exports.obtenerBinario = function(req,res)
 {	
-	const idLogo = req.query.idLogo;
-	const ancho = req.query.ancho;
-	const tipo = req.query.tipo;
-	const descarga = req.query.descarga;
+	const idLogo = req.params.id;
+	const ancho = 200;
 	let fuentes = {};
-	const par = [req.idCliente, idLogo];
 
-	//console.log(req)
+	logo.getLogoPorId(idLogo, (error, data) => {
 
-	logo.getLogo(par, (error, data) => {
-		//console.log(data)
 		if (typeof data !== "undefined" && data.length > 0) {
-			let nombre = "Logo"+"-" +descarga +"-" + moment().format("DD-MM-YYYY")+".svg";
+			let nombre = idLogo+".svg";
 
-			const path = "public/tmp/";
+			const path = "public/tmp/shared/";
 
 			atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
-				//console.log(dataAttrs)
+
 				if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
 
 					async.forEachOf(dataAttrs, (row, key, callback) => {
@@ -1007,49 +1004,21 @@ exports.zip = function(req,res)
 										
 								let svg = path + nombre;
 
-								if (tipo == "editable") {
 
-									var output = fs.createWriteStream(svg.replace("svg", "zip"));
-									var archive = archiver("zip", { zlib: { level: 9 } });
+								var pngout = svg.replace("svg", "jpg");
 
-									archive.pipe(output);
-
-									archive.append(fs.createReadStream(svg), { name: "logo.svg" });
-
-									archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre+'.ttf' });
-
-									if (fuentes.eslogan) {
-										archive.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.eslogan.url), { name: fuentes.eslogan.nombre+'.ttf' });
-									}
-
-									output.on('close', () => {
-										setTimeout(() => {
-											res.download(__dirname+"/../"+svg.replace("svg", "zip"));
-										}, 1000)
-									})	
-
-									archive.finalize();		        		
-
-								} else {
-
-									var pngout = svg.replace("svg", "png");
-
-									fs.readFile(svg, (err, svgbuffer) => {
-										if (err) throw err;
-										svg2png(svgbuffer, { width: ancho})
-											.then(buffer => {
-												fs.writeFile(pngout, buffer, (err) => {
-													setTimeout(() => {
-														res.download(__dirname+"/../"+pngout);
-													}, 1000)
-												});
-											})
-											.catch(e => console.log('error'));
-									});
-
-									
-
-								}
+								fs.readFile(svg, (err, svgbuffer) => {
+									if (err) throw err;
+									svg2png(svgbuffer, { width: ancho})
+										.then(buffer => {
+											fs.writeFile(pngout, buffer, (err) => {
+												setTimeout(() => {
+													res.sendFile(nombre.replace("svg", "jpg"), { root: __dirname+"/../"+path});
+												}, 1000)
+											});
+										})
+										.catch(e => console.log('error'));
+								});
 								
 								fs.close(fd);
 							});
@@ -1182,3 +1151,59 @@ exports.Borrar = (req, res) =>
 		}
 	});
 };
+
+
+exports.htmlShare = (req, res) => 
+{
+	const idLogo = req.params.id;
+
+	console.log(req.headers['user-agent'])
+	
+	if (req.headers['user-agent'] === 'facebookexternalhit/' || req.headers['user-agent'] === 'Facebot') {
+
+		var html = `<!DOCTYPE html>
+			<html>
+				<head>
+					<meta property="og:title" content="LOGOPRO" />
+					<meta property="og:type" content="article"/>
+					<meta property="og:url" content="${config.url}"/>
+					<meta property="og:image" content="${config.url}/app/logo/compartido/${idLogo}" />
+					<meta property="og:description" content="Descripcion" />
+					<meta property="og:site_name" content="LOGOPRO" />
+					<meta property="fb:admins" content="ID de Facebook" />
+				</head>
+				<body>
+					Url para compartir
+				</body>
+			</html>`;
+
+			res.status(200).type('html').send(html)
+
+	} else if(req.headers['user-agent'] === 'Twitterbot') {
+
+		var html = `<!DOCTYPE html>
+		<html>
+			<head>
+				<!-- Twitter Card data -->
+				<meta name="twitter:card" content="summary">
+				<meta name="twitter:site" content="@publisher_handle">
+				<meta name="twitter:title" content="LOGOPRO">
+				<meta name="twitter:description" content="Descripcion de la pagina sin superar los 200 caracteres">
+				<meta name="twitter:creator" content="@author_handle">
+		
+				<!-- Twitter Summary card images. Igual o superar los 200x200px -->
+				<meta name="twitter:image" content="<a href='${config.url}'>${config.url}/app/logo/compartido/${idLogo}</a>">
+			</head>
+			<body>
+				Url para compartir
+			</body>
+		</html>`;
+
+		res.status(200).type('html').send(html)
+
+	} else {
+		res.status(301).redirect('/')
+	}
+
+
+}

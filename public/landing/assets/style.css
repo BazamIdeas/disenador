@@ -142,6 +142,47 @@ header button,
     font-family: 'futura-heavy' !important;
 }
 
+
+div.acceder {
+    color: var(--principal);
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    vertical-align: middle;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-family: "futura-heavy" !important;
+}
+
+div.acceder span {
+    margin: 0 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.tooltip-header {
+    font-family: 'futura-heavy' !important;
+    font-size: 14px !important;
+    color: var(--principal) !important;
+    background-color: white !important;
+}
+
+div.acceder span i {
+    vertical-align: top;
+    font-size: 28px;
+}
+
 * {
     outline: none
 }
@@ -284,6 +325,32 @@ md-select-menu md-content md-option {
 
 md-select label,
 md-input-container:NOT(.md-input-has-value) md-select-value,
+.seccion.uno form input::-webkit-input-placeholder,
+.seccion.uno form label,
+.seccion.uno form md-select-value,
+md-input-container.md-default-theme.md-input-invalid .md-input,
+md-input-container.md-input-invalid .md-input,
+md-select.md-default-theme.ng-invalid.ng-touched .md-select-value,
+md-select.ng-invalid.ng-touched .md-select-value {
+    color: var(--secundario) !important;
+    border-bottom-color: var(--secundario) !important;
+}
+
+md-select label,
+md-input-container:NOT(.md-input-has-value) md-select-value,
+.seccion.uno form input:-ms-input-placeholder,
+.seccion.uno form label,
+.seccion.uno form md-select-value,
+md-input-container.md-default-theme.md-input-invalid .md-input,
+md-input-container.md-input-invalid .md-input,
+md-select.md-default-theme.ng-invalid.ng-touched .md-select-value,
+md-select.ng-invalid.ng-touched .md-select-value {
+    color: var(--secundario) !important;
+    border-bottom-color: var(--secundario) !important;
+}
+
+md-select label,
+md-input-container:NOT(.md-input-has-value) md-select-value,
 .seccion.uno form input::placeholder,
 .seccion.uno form label,
 .seccion.uno form md-select-value,
@@ -300,7 +367,8 @@ md-select.ng-invalid.ng-touched .md-select-value {
 }
 
 md-chips-wrap input {
-    box-shadow: 0 0 0 0 #26a69a !important;
+    -webkit-box-shadow: 0 0 0 0 #26a69a !important;
+            box-shadow: 0 0 0 0 #26a69a !important;
     margin-bottom: 8px !important;
     border-bottom: none !important;
 }
@@ -339,13 +407,20 @@ span.estilo {
     border: 2px solid var(--secundario);
     color: var(--secundario);
     font-size: 28px;
+    -webkit-transition: all 0.2s;
     transition: all 0.2s;
     border-radius: 5px;
     width: 50px;
     height: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 span.estilo.seleccionado {
@@ -362,12 +437,17 @@ span.estilo.seleccionado {
 /* selector de colores */
 
 .md-select-value>span:not(.md-select-icon) .md-text {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     width: 100%;
 }
 
 .estilo-de-color .md-text {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
 }
@@ -389,6 +469,8 @@ md-select-value .md-text>:first-child {
 }
 
 md-select[multiple] md-select-value>span {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
@@ -576,11 +658,15 @@ bazam-visualizar {
 }
 
 .plan {
+    -webkit-transition: -webkit-transform 0.2s;
+    transition: -webkit-transform 0.2s;
     transition: transform 0.2s;
+    transition: transform 0.2s, -webkit-transform 0.2s;
 }
 
 .plan:hover {
-    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
 }
 
 a:active,
@@ -613,9 +699,16 @@ div.contenedor-planes .plan .plan-body {
     font-size: 12px;
     border-radius: 0 0 5px 5px;
     background: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 
 div.contenedor-planes .plan .plan-body .plan-lista {
@@ -665,7 +758,8 @@ a.boton-verde {
 .pregunta {
     border: 1px solid silver;
     height: auto;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
     margin-bottom: 10px;
 }
 
@@ -752,14 +846,17 @@ md-chip-template strong {
         margin: auto;
     }
     .seccion.uno form>div {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
     }
     .seccion.uno form>div>div {
         max-width: 100%;
         height: auto;
         -webkit-box-flex: unset;
-        -webkit-flex: unset;
-        flex: auto;
+        -ms-flex: auto;
+            flex: auto;
     }
     .seccion.dos {
         padding: 4% 2%;
@@ -773,7 +870,8 @@ md-chip-template strong {
         margin-top: 0;
     }
     .contenedor-planes {
-        flex-wrap: wrap-reverse;
+        -ms-flex-wrap: wrap-reverse;
+            flex-wrap: wrap-reverse;
     }
     .plan.flex-25 {
         max-width: 45%;

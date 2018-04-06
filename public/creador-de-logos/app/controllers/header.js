@@ -14,13 +14,6 @@ angular.module("disenador-de-logos")
         
 		bz.mostrarPasoPopAyuda = mostrarPasoPopAyudaFactory
 		
-		bz.menuMostrar = function () {
-			if (bz.hmenuMostrar) {
-				bz.hmenuMostrar = false;
-			} else {
-				bz.hmenuMostrar = true;
-			}
-		};
 
 		$scope.$on("sesionExpiro", function () {
 
