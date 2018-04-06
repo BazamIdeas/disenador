@@ -301,7 +301,7 @@
     }
 
     .ingreso-redes-sociales>div {
-        width: calc(33% - 16px);
+        width: calc(53% - 16px);
         margin: 10px 8px;
         padding: 10px;
         margin: 0 10px;

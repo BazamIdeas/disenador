@@ -1,9 +1,8 @@
-<section style="height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: scroll;">
+<section style="height: calc(100vh - 60px) !important; background-color: var(--blanco);">
     <div class="row margin-bottom-0">
-
-        <div class="col s3 offset-s1">
-            <div class="caja datos row">
-                <div class="col s12 imagen-perfil" style="margin-top: 10px;">
+        <div class="col s3 no-padding" style="padding-right: 15px !important;   ">
+            <div class="caja datos row md-whiteframe-2dp" style="  background: linear-gradient(-134deg, var(--blanco), var(--fondo));">
+                <div class="col s12 imagen-perfil" style="padding-top: 10px; padding-bottom: 20px;">
                     <div ng-if="cuenta.datos.foto && cuenta.verificarBase64(cuenta.datos.foto)">
                         <img ng-src="{{'data:image/svg+xml;base64,' + cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'"
                             ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
@@ -128,10 +127,9 @@
                 </div>
             </div>
         </div>
-
-        <div class="col s7">
+        <div class="col s9 no-padding" style="padding-right: 15px !important; padding-top: 15px !important;">
             <div class="caja pedidos" style="padding: 0">
-                <div>
+                <div class="md-whiteframe-2dp" style="  max-height: 80vh; overflow-y: scroll;">
                     <table>
                         <thead>
                             <tr>
@@ -149,17 +147,18 @@
                                 <td>{{::pedido.estado}}</td>
                                 <td>{{::pedido.plan}}</td>
                                 <td>{{::pedido.moneda + ' ' + pedido.precio}}</td>
-                                <td>{{::pedido.moneda}} {{pedido.impuesto ? (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)</td>
+                                <td>{{::pedido.moneda}} {{pedido.impuesto ? (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)
+                                </td>
                                 <td>{{::pedido.moneda}} {{pedido.impuesto ? pedido.precio + (pedido.precio * (pedido.impuesto/100))
                                     : pedido.precio}}</td>
                             </tr>
-                            <tr ng-if="!cuenta.pedidos.length"> <td colspan="6">NO HA REALIZADO NINGUNA COMPRA</td></tr>
+                            <tr ng-if="!cuenta.pedidos.length">
+                                <td colspan="6">NO HA REALIZADO NINGUNA COMPRA</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
-
     </div>
 </section>

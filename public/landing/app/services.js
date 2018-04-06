@@ -3,10 +3,9 @@ angular.module("landing")
 		cliente: {
 			base: "creador-de-logos/",
 			estado: {
-				login: "login/",
 				editor: "editor/",
-				galeria: "logos-galeria/",
-				opciones: "comenzar/opciones/"
+				logos: "cliente/logos/",
+				cuenta: "cliente/cuenta/"
 			}
 		},
 		freelance: {

@@ -55,9 +55,7 @@
                             aria-label="filtro" name="color" placeholder="Colores" required>
                             <md-optgroup label="Colores">
                                 <md-option ng-value="color" class="estilo-de-color" ng-repeat="color in inicio.colores track by $index" ng-selected="inicio.coloresIguales(color) || $index == 0">
-                                    <span ng-style="{'background-color': color[0]}" style="color:transparent;" class="color-p">{{::color[0]}}</span>
-                                    <span ng-style="{'background-color': color[1]}">{{::color[1]}}</span>
-                                    <span ng-style="{'background-color': color[2]}">{{::color[2]}}</span>
+                                    <span style="color:transparent;" ng-style="{'background-color': color[1]}">{{::color[1]}}</span>
                                 </md-option>
                             </md-optgroup>
                         </md-select>
