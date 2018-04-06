@@ -132,8 +132,9 @@
                     ng-style="{'background-color': logo.colores[0]}" ng-mouseleave="logo.mostrarCompartir = false;">
 
                     <div class="compartir-email-inicio" ng-show="logo.mostrarCompartir" ng-form="inicio.compartirEmailForm">
+                        <md-icon class="material-icons cerrar-compartir-email" role="img" aria-label="close" ng-click="logo.mostrarCompartir = false;">close</md-icon>
                         <input name="email" type="email" ng-model="logo.email" placeholder="Email"/>
-                        <button class="boton-verde" ng-click="inicio.compartirPorEmail(logo.email, logo.idLogo, inicio.compartirEmailForm.$valid)" ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
+                        <button class="boton-verde" ng-click="inicio.compartirPorEmail(logo.email, logo, inicio.compartirEmailForm.$valid)" ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
                     </div>
 
                     <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)'

@@ -270,11 +270,52 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.completadoCompartir = true;
-		bz.compartirPorEmail = function(email, idLogo, valido){
-
-			if(valido && bz.completadoCompartir && idLogo){
+		bz.compartirPorEmail = function(email, logo, valido){
+			console.log(logo)
+			if(valido && bz.completadoCompartir){
 				bz.completadoCompartir = false;
-				logosService.enviarPorEmail(idLogo, email)
+
+				if(!logo.idLogo){
+					bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
+						.then(function(res){
+							logo.idLogo = res;
+							logosService.enviarPorEmail(logo.idLogo, email)
+								.then(function(){
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "Su logo ha sido enviado!",
+											clase: "success"
+										}
+									}));
+	
+								})
+								.catch(function(){
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "Un error ha ocurrido",
+											clase: "danger"
+										}
+									}));
+								})
+								.finally(function(){
+									//bz.completadoCompartir = true;
+								});
+							
+						})
+						.catch(function(){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
+						});
+
+					return;
+				}
+
+				
+				logosService.enviarPorEmail(logo.idLogo, email)
 					.then(function(){
 						$mdToast.show($mdToast.base({
 							args: {
@@ -293,7 +334,7 @@ angular.module("disenador-de-logos")
 						}));
 					})
 					.finally(function(){
-						bz.completadoCompartir = true;
+						//bz.completadoCompartir = true;
 					});
 
 			}
