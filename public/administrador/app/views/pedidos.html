@@ -1,0 +1,183 @@
+<div class="row start-xs">
+
+    <!-- LISTAR PEDIDOS -->
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="paneles listar">
+            <div layout-padding ng-click="pedidos.listaP()" ng-disabled="pedidos.peticion" class="titulo-modulo">
+                <texto layout-padding>LISTADO DE PEDIDOS</texto>
+            </div>
+            <div ng-show="pedidos.mostrarP">
+                <div class="elemento preferencias-oculto w3-bordered" ng-click="pedidos.mp1 = !pedidos.mp1">
+                    <span>VER FILTROS</span>
+                    <md-icon style="color:black; margin:0; padding:0;" class="material-icon">keyboard_arrow_down</md-icon>
+                </div>
+                <div ng-if="pedidos.mp1">
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="pedidos.filtrosActivos.fecha" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div layout class="elemento">
+                        <md-input-container flex>
+                            <label>Estado:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.estado" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="estado.nombre" ng-repeat="estado in pedidos.filtros.estados | unique">{{estado.nombre}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Pais:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.pais" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="pais" ng-repeat="pais in pedidos.filtros.paises | unique:'pais'">{{pais}}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Moneda:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.moneda" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="moneda" ng-repeat="moneda in pedidos.filtros.monedas | unique">{{moneda}}</md-option>
+                            </md-select>
+                        </md-input-container>
+
+                        <md-input-container flex>
+                            <label>Plan:</label>
+                            <md-select ng-model="pedidos.filtrosActivos.plan" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="plan" ng-repeat="plan in pedidos.filtros.planes | unique">{{plan}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="w3-responsive content-scroll">
+                    <table class="w3-table w3-bordered">
+                        <tr>
+                            <th>Fecha:</th>
+                            <th>Cliente:</th>
+                            <th>Estado:</th>
+                            <th>Pais:</th>
+                            <th>Acciones:</th>
+                        </tr>
+                        <tr ng-repeat="elemento in pedidos.elementos | filter:pedidos.filtrosActivos | orderBy:'idPedido'" ng-click="pedidos.pedidoDetalles(elemento.idPedido, $index)"
+                            ng-class="{ 'completado': (elemento.estado == 'COMPLETADO'), 'enproceso': (elemento.estado == 'EN PROCESO'), 'cancelado': (elemento.estado == 'CANCELADO'), 'enespera': (elemento.estado == 'EN ESPERA'), 'activo': (pedidos.ac == elemento.idPedido),  }"
+                            class="pedido">
+                            <td>{{elemento.fecha | date : 'yy/M/d'}}</td>
+                            <td>{{elemento.nombreCliente}}</td>
+                            <td>{{elemento.estado}}</td>
+                            <td>{{elemento.pais}}</td>
+                            <td>
+                                <md-button class="md-fab md-mini md-warn" ng-disabled="pedidos.peticion" ng-click="pedidos.pedidoDetalles(elemento.idPedido, $index)">
+                                    <md-icon class="material-icon">keyboard_arrow_right</md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETALLES PEDIDOS -->
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-show="pedidos.mostrarD">
+        <div class="paneles listar">
+            <div layout-padding class="titulo-modulo">
+                <texto>DETALLES</texto>
+            </div>
+            <div class="w3-responsive content-scroll">
+                <table class="w3-table-all w3-striped w3-hoverable" ng-if="pedidos.elementos.length > 0">
+                    <tr>
+                        <td>
+                            <b>Fecha:</b>
+                            <span>{{pedidos.pedidoDetalle.fecha | date : 'yy/M/d'}}</span>
+                        </td>
+                        <td>
+                            <b>Cliente:</b>
+                            <span>{{pedidos.pedidoDetalle.nombreCliente}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Correo:</b>
+                            <span>{{pedidos.pedidoDetalle.correo}}</span>
+                        </td>
+                        <td>Telefono:</b>
+                            <span>{{pedidos.pedidoDetalle.telefono}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Plan:</b>
+                            <span>{{pedidos.pedidoDetalle.plan}}</span>
+                        </td>
+                        <td>
+                            <b>Precio:</b>
+                            <span>{{pedidos.pedidoDetalle.precio}} {{pedidoDetalle.moneda}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Pais:</b>
+                            <span>{{pedidos.pedidoDetalle.pais}}</span>
+                        </td>
+                        <td>
+                            <b>Categoria:</b>
+                            <span>{{pedidos.pedidoDetalle.nombreCategoria}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Estado:</b>
+                            <span>{{pedidos.pedidoDetalle.estado}}</span>
+                        </td>
+                        <td>
+                            <md-button class="md-fab md-mini md-warn" ng-click="pedidos.modInit = !pedidos.modInit">
+                                <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Estado</md-tooltip>
+                                <md-icon class="material-icon">edit</md-icon>
+
+                            </md-button>
+                        </td>
+                    </tr>
+                    <tr ng-if="pedidos.modInit == true">
+                        <td colspan="2">
+                            <md-input-container class="md-block" flex="100">
+                                <label>CAMBIAR ESTADO</label>
+                                <md-select ng-change="pedidos.cambiarEstado(pedidos.pedidoDetalle.idPedido, pedidos.pedidoDetalle.estado)" ng-model="pedidos.pedidoDetalle.estado"
+                                    aria-label="estado">
+                                    <md-option value="COMPLETADO">
+                                        COMPLETADO
+                                    </md-option>
+                                    <md-option value="EN ESPERA">
+                                        EN ESPERA
+                                    </md-option>
+                                    <md-option value="CANCELADO">
+                                        CANCELADO
+                                    </md-option>
+                                    <md-option value="EN PROCESO">
+                                        EN PROCESO
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div layout layout-align="center">
+                                <h5 class="text-center margen-superior" style="font-family: 'futura-heavy' !important;   margin: 0; padding: 0;" layout-padding
+                                    ng-click="pedidos.pedidoDetalle.ver = !pedidos.pedidoDetalle.ver">VER LOGO VINCULADO </h5>
+                                <md-icon style="margin-left:8px; color:black; margin:0; padding:0;" class="material-icon">keyboard_arrow_down</md-icon>
+                            </div>
+
+                            <div ng-if="pedidos.pedidoDetalle.logo.length > 0 && pedidos.pedidoDetalle.ver">
+                                <br>
+                                <div class="pedido-logo elemento inside" md-whiteframe>
+                                    <bazam-visualizar data-svg="pedidos.base64(pedidos.pedidoDetalle.logo)"></bazam-visualizar>
+                                </div>
+                                <br>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

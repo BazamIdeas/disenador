@@ -1,0 +1,338 @@
+<div class="row start-xs">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="paneles principal md-whiteframe-2dp listar margen_inferior">
+            <div layout layout-align="none center" layout-padding class="titulo-modulo">
+                <texto ng-click="ctrl.l = !ctrl.l">LISTAR ELEMENTOS</texto>
+                <md-button class="md-primary md-fab md-mini" ng-click="ctrl.mn = !ctrl.mn" style="margin:0;">
+                    <md-icon>add</md-icon>
+                </md-button>
+            </div>
+
+            <div ng-if="ctrl.l">
+
+                <div class="elemento" ng-hide="true">
+                    <div class="preferencias-oculto" ng-click="ctrl.mp1 = !ctrl.mp1">
+                        <span>PREFERENCIAS</span>
+                    </div>
+                    <div ng-if="ctrl.mp1" layout ng-repeat="preferencia in ctrl.listar.preferencias">
+                        <div flex layout layout-align="center center">
+                            <span class="md-body-1">{{preferencia.nombre1}}</span>
+                        </div>
+                        <md-slider flex="50" md-discrete ng-model="ctrl.listar.preferencias[$index].valor" min="1" max="3" aria-label="rating">
+                        </md-slider>
+                        <div flex layout layout-align="center center">
+                            <span class="md-body-1">{{preferencia.nombre2}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div layout class="elemento">
+                    <div layout>
+                        <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" ng-click="ctrl.listarCategorias('ICONO')">ICONO</md-button>
+                        <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" ng-click="ctrl.listarCategorias('FUENTE')">FUENTE</md-button>
+                    </div>
+                    <div layout ng-if="ctrl.categorias.length > 0" flex>
+                        <md-input-container flex style="margin: 5PX;" class="md-block">
+                            <md-select ng-disabled="ctrl.peticion" ng-model="ctrl.listar.categoria" ng-change="ctrl.listado(ctrl.tipoListado)" class="md-block"
+                                aria-label="filtro">
+                                <md-option ng-value="TODOS" selected ng-if="ctrl.categorias.length > 0"> Selecciona</md-option>
+                                <md-option ng-value="TODOS" selected ng-if="ctrl.categorias.length == 0">No hay categorias</md-option>
+                                <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categorias">{{categoria.nombreCategoria}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                </div>
+
+                <div style="height: 30%;" ng-if="ctrl.elementos.length == 0" class="mensaje-resultado">
+                    <h3>NO SE ENCONTRARON ELEMENTOS</h3>
+                </div>
+
+                <div ng-if="ctrl.elementos.length > 0">
+                    <div class="w3-responsive content-scroll">
+                        <table class="w3-table w3-bordered">
+                            <tr>
+                                <th ng-if="ctrl.listar.tipo == 'FUENTE'">Fuente:</th>
+                                <th ng-if="ctrl.listar.tipo == 'ICONO'">Icono:</th>
+                                <th colspan="2">Accion:</th>
+                            </tr>
+                            <tr ng-repeat="elemento in ctrl.elementos | filter:ctrl.$ | orderBy:'idElemento'">
+                                <style ng-if="elemento.tipo == 'FUENTE'">
+                                    @font-face {
+                                        font-family: '{{elemento.nombre}}';
+                                        src: url('{{elemento.url}}');
+                                    }
+                                </style>
+                                <td ng-if="elemento.tipo == 'FUENTE'">
+                                    <span class="fuente-admin" style="font-family:'{{elemento.nombre}}' !important;">PRUEBA</span>
+                                </td>
+                                <td ng-if="elemento.tipo == 'ICONO'" class="pedido-logo tabla">
+                                    <bazam-visualizar data-svg="ctrl.base64.decode(elemento.svg)"></bazam-visualizar>
+                                </td>
+                                <td colspan="2">
+                                    <md-button class="md-fab md-mini md-warn" ng-click="ctrl.accionesMostrar('modElemento', $index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
+                                        <md-icon class="material-icon">edit</md-icon>
+                                    </md-button>
+
+                                    <md-button ng-if="ctrl.listar.tipo == 'ICONO'" class="md-fab md-mini md-warn" ng-click="ctrl.accionesMostrar('modEtiquetas', $index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Etiquetas</md-tooltip>
+                                        <md-icon class="material-icon">style</md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior" ng-switch="ctrl.acciones">
+        <!-- REGISTRO FUENTE -->
+        <div class="paneles principal md-whiteframe-2dp listar margen_inferior" ng-switch-when="1">
+            <div layout layout-align="none center" layout-padding class="titulo-modulo">
+                <texto>REGISTRO FUENTE</texto>
+                <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
+            </div>
+            <div layout-padding class="formularios-login pasos">
+                <form id="formularioRegistro" name="formRegistro" ng-submit="ctrl.nuevaFuente(ctrl.registroFuente, formRegistro.$valid)"
+                    novalidate>
+                    <div layout="column" layout-align="space-between">
+                        <div>
+                            <md-input-container class="md-block">
+                                <label>NOMBRE</label>
+                                <input type="text" ng-model="ctrl.registroFuente.nombre" name="nombre" required>
+                            </md-input-container>
+
+                            <!--Validacion-->
+                            <div ng-messages="formRegistro.nombre.$error" ng-if="formRegistro.$submitted || formRegistro.nombre.$dirty">
+                                <div ng-message="required">El nombre es requerido.</div>
+                            </div>
+                            <br>
+                            <!---->
+
+
+                            <div class="button inputArchivo" ng-if="!ctrl.regFmArchivos">
+                                <div>{{ctrl.registroFuente.mifuente.name || "SELECCIONA UNA FUENTE"}} </div>
+                                <span ng-if="ctrl.registroFuente.mifuente" ng-click="ctrl.registroFuente.mifuente=null">X</span>
+                                <md-icon ng-if="!ctrl.registroFuente.mifuente" ngf-select ng-model="ctrl.registroFuente.mifuente" name="mifuente" ngf-max-size="3MB"
+                                    ngf-pattern="'.otf,.ttf,.woff'" ngf-accept="'.otf, .ttf, .woff'" required>attach_file</md-icon>
+                            </div>
+
+                            <div class="button inputArchivo" ng-if="ctrl.regFmArchivos">
+                                <div>{{ctrl.registroFuente.archivos.length || "SELECCIONA MULTIPLES FUENTES"}}
+                                    <span ng-if="ctrl.registroFuente.archivos.length > 0">FUENTES SELECCIONADAS</span>
+                                </div>
+                                <span ng-if="ctrl.registroFuente.archivos.length > 0" ng-click="ctrl.registroFuente.archivos=null">X</span>
+                                <md-icon ng-if="!ctrl.registroFuente.archivos" ngf-multiple="true" ngf-select ng-model="ctrl.registroFuente.archivos" name="mifuente"
+                                    ngf-max-size="70MB" ngf-pattern="'.otf,.ttf,.woff'" ngf-accept="'.otf, .ttf, .woff'" required
+                                    ng-disabled="ctrl.valMulFonts">attach_file</md-icon>
+                            </div>
+                            <!--Validacion-->
+                            <br>
+                            <div ng-messages="formRegistro.mifuente.$error" ng-if="formRegistro.$submitted || formRegistro.mifuente.$dirty">
+                                <div ng-message="required">La fuente es requerida.</div>
+                            </div>
+                            <br>
+                            <md-button ng-click="ctrl.regFmArchivos = !ctrl.regFmArchivos" class="md-raised md-primary">Multiples Fuentes</md-button>
+                            <!---->
+                            <md-input-container class="md-block">
+                                <label>CATEGORIA</label>
+                                <md-select ng-model="ctrl.registroFuente.categoria" name="categoria" required>
+                                    <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categorias">{{categoria.nombreCategoria}}</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <!--Validacion-->
+                            <div ng-messages="formRegistro.categoria.$error" ng-if="formRegistro.$submitted || formRegistro.categoria.$dirty">
+                                <div ng-message="required">La categoria es requerida.</div>
+                            </div>
+                            <br>
+                            <!---->
+
+                            <div>
+                                <div class="button inputArchivo" ng-click="ctrl.mp2 = !ctrl.mp2">
+                                    <div>PREFERENCIAS</div>
+                                    <md-icon>expand_more</md-icon>
+                                </div>
+                                <br>
+                                <div ng-if="ctrl.mp2" layout ng-repeat="preferencia in ctrl.registroFuente.datoPrefe">
+                                    <div flex layout layout-align="center center">
+                                        <span class="md-body-1">{{preferencia.nombre1}}</span>
+                                    </div>
+                                    <md-slider flex="50" md-discrete ng-model="ctrl.registroFuente.datoPrefe[$index].valor" min="1" max="3" aria-label="rating">
+                                    </md-slider>
+                                    <div flex layout layout-align="center center">
+                                        <span class="md-body-1">{{preferencia.nombre2}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div layout>
+                            <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit" ng-disabled="ctrl.valMulFonts">REGISTRAR</md-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- REGISTRO ICONOS -->
+        <div class="paneles principal md-whiteframe-2dp listar" ng-switch-when="2">
+            <div layout layout-align="none center" layout-padding ng-click="ctrl.mostrar('ICONO')" class="titulo-modulo">
+                <texto>REGISTRO ICONO</texto>
+                <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
+            </div>
+            <div layout-padding class="formularios-login pasos">
+                <form id="formularioRegistro" name="formRegistro" ng-submit="ctrl.nuevoIcono(ctrl.registroIcono, formRegistro.$valid)" novalidate>
+                    <div layout="column" layout-align="space-between">
+                        <div>
+                            <md-input-container class="md-block">
+                                <label>NOMBRE</label>
+                                <input type="text" ng-model="ctrl.registroIcono.nombre" name="nombre" required>
+                            </md-input-container>
+
+                            <!--Validacion-->
+                            <div ng-messages="formRegistro.nombre.$error" ng-if="formRegistro.$submitted || formRegistro.nombre.$dirty">
+                                <div ng-message="required">El nombre es requerido.</div>
+                            </div>
+                            <!---->
+                            <br>
+
+
+                            <div class="button inputArchivo" ng-if="!ctrl.regImArchivos">
+                                <div>{{ctrl.registroIcono.misvg.name || "SELECCIONA UN SVG"}} </div>
+                                <span ng-if="ctrl.registroIcono.misvg" ng-click="ctrl.registroIcono.misvg=null">X</span>
+                                <md-icon ng-if="!ctrl.registroIcono.misvg" ngf-select ng-model="ctrl.registroIcono.misvg" name="misvg" ngf-max-size="5MB"
+                                    ngf-pattern="'image/svg+xml'" ngf-accept="'image/svg+xml'" required>attach_file</md-icon>
+                            </div>
+                            <div class="button inputArchivo" ng-if="ctrl.regImArchivos">
+                                <div>{{ctrl.registroIcono.archivos.length || "SELECCIONA MULTIPLES ICONOS"}}
+                                    <span ng-if="ctrl.registroIcono.archivos.length > 0">ICONOS SELECCIONADOS</span>
+                                </div>
+                                <span ng-if="ctrl.registroIcono.archivos.length > 0" ng-click="ctrl.registroIcono.archivos=null">X</span>
+                                <md-icon ng-if="!ctrl.registroIcono.archivos" ngf-multiple="true" ngf-select ng-model="ctrl.registroIcono.archivos" name="misvg"
+                                    name="misvg" ngf-max-size="5MB" ngf-pattern="'image/svg+xml'" ngf-accept="'image/svg+xml'"
+                                    required ng-disabled="ctrl.valMulIcons">attach_file</md-icon>
+                            </div>
+                            <br>
+                            <div class="padding" ng-click="ctrl.regImArchivos = !ctrl.regImArchivos">Multiple</div>
+
+
+                            <!--Validacion-->
+                            <div ng-messages="formRegistro.misvg.$error" ng-if="formRegistro.$submitted || formRegistro.misvg.$dirty">
+                                <div ng-message="maxSize">La imagen no puede superar los 5MB.</div>
+                                <div ng-message="required">La imagen es requerida.</div>
+                            </div>
+                            <!---->
+                            <br>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>CATEGORIA</label>
+                                    <md-select ng-model="ctrl.registroIcono.categoria" name="categoria" required>
+                                        <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categorias">{{categoria.nombreCategoria}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+
+                                <!--Validacion-->
+                                <div ng-messages="formRegistro.categoria.$error" ng-if="formRegistro.$submitted || formRegistro.categoria.$dirty">
+                                    <div ng-message="required">La categoria es requerida.</div>
+                                </div>
+                                <br>
+                            </div>
+                            <div>
+                                <div class="button inputArchivo" ng-click="ctrl.mp3 = !ctrl.mp3">
+                                    <div>PREFERENCIAS</div>
+                                    <md-icon>expand_more</md-icon>
+                                </div>
+                                <br>
+                                <div ng-if="ctrl.mp3" layout ng-repeat="preferencia in ctrl.registroIcono.datoPrefe">
+                                    <div flex layout layout-align="center center">
+                                        <span class="md-body-1">{{preferencia.nombre1}}</span>
+                                    </div>
+                                    <md-slider flex="50" md-discrete ng-model="ctrl.registroIcono.datoPrefe[$index].valor" min="1" max="3" aria-label="rating">
+                                    </md-slider>
+                                    <div flex layout layout-align="center center">
+                                        <span class="md-body-1">{{preferencia.nombre2}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div layout>
+                            <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit" ng-disabled="ctrl.valMulIcons">REGISTRAR</md-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODIFICAR ELEMENTO-->
+        <div ng-switch-when="3" class="paneles principal md-whiteframe-2dp listar margen_inferior">
+            <div layout layout-align="none center" layout-padding class="titulo-modulo">
+                <texto>MODIFICAR ELEMENTO</texto>
+                <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
+                    <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
+            </div>
+            <div layout-padding class="formularios-login pasos">
+                <form ng-submit="ctrl.modificarElemento(ctrl.modificar)" novalidate>
+                    <div layout="column" layout-align="space-between">
+                        <h3 class="text-center">Preferencias</h3>
+                        <br>
+                        <div layout ng-repeat="pref in ctrl.modificar.preferencias">
+                            <div flex layout layout-align="center center">
+                                <span class="md-body-1">{{pref.nombre1}}</span>
+                            </div>
+                            <md-slider flex="50" md-discrete ng-model="ctrl.modificar.preferencias[$index].valor" min="1" max="3" aria-label="rating">
+                            </md-slider>
+                            <div flex layout layout-align="center center">
+                                <span class="md-body-1">{{pref.nombre2}}</span>
+                            </div>
+                        </div>
+                        <div layout>
+                            <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">MODIFICAR</md-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ADMINISTRAR ETIQUETAS -->
+
+        <div ng-switch-when="4" class="paneles principal md-whiteframe-2dp listar margen_inferior">
+            <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                <texto>ETIQUETAS</texto>
+                <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
+                    <md-icon>close</md-icon>
+                </md-button>
+            </div>
+            <div ng-if="ctrl.etiquetasIcono.length > 0">
+                <div class="w3-responsive content-scroll">
+                    <table class="w3-table w3-bordered">
+                        <tr>
+                            <th>Etiqueta:</th>
+                            <th>Accion:</th>
+                        </tr>
+                        <tr ng-repeat="item in ctrl.etiquetasIcono | unique">
+                            <td>
+                                {{item.traducciones[0].valor}}
+                            </td>
+                            <td>
+                                <md-button class="md-fab md-mini md-warn" ng-click="ctrl.desvincularEtiqueta(item, $index)">
+                                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Desvincular</md-tooltip>
+                                    <md-icon class="material-icon">close</md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="height: 30%;" ng-if="ctrl.etiquetasIcono.length == 0" class="mensaje-resultado">
+                <h3>NO EXISTEN ETIQUETAS</h3>
+            </div>
+        </div>
+    </div>
+</div>

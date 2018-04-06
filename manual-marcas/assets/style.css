@@ -1,0 +1,424 @@
+@font-face {
+    font-family: 'futura-heavy';
+    src: url("FuturaStd-Heavy.ttf?v=2.025") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Kurale';
+    src: url("Kurale-Regular.ttf?v=2.025") format("truetype");
+    font-weight: 500;
+    font-style:normal
+}
+
+h1,h2,h3,h4,h5,h6, p:not(.introduccion), .footer, .header, li{
+    font-family: 'futura-heavy';
+    font-style: normal;
+}
+
+.introduccion {
+    font-family: 'Kurale' !important;
+}
+
+.fuente {
+    font-family: initial;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+.footer {
+    position: absolute;
+    bottom: 1in;
+    left: 1in;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 12px !important;
+    color: #aca6a6;
+}
+
+.header {
+    position: absolute;
+    right: 1in;
+    background: #4087af;
+    font-size: 30px;
+    color: white;
+    top: 0;
+    height: 1.5in;
+    width: 1.5in;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 36px;
+    padding-top: 8px;
+    width: 72%;
+    margin-bottom: 0.5in;
+}
+
+.title:not(.text-white) {
+    border-top: 1px solid;
+}
+
+.title.center {
+    text-align: center;
+}
+
+.page.inicio {
+    padding: 0px;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.logo {
+    margin-left: 5px;
+}
+
+.page {
+    height: 10.543307in;
+    margin: 0px;
+    position: relative;
+    display: block;
+    padding-top: 0.5in;
+    padding-left: 1in;
+    padding-right: 1in;
+    position: relative;
+}
+
+.page:not(.no) {
+    margin-top: -4px;
+}
+
+.cont-logo {
+    height: 2in;
+    margin: auto;
+    margin-top: 40px;
+    TEXT-ALIGN: CENTER;
+}
+
+.fondo {
+    height: 2in;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 8.5in;
+    color: transparent;
+}
+
+li{
+    color:#666666;
+}
+
+p {
+    font-size: 18px;
+    color:#666666;
+}
+
+h4.sub-title {
+    font-size: 24px;
+}
+
+p.text-justify {
+    text-align: justify;
+}
+
+.logo-regilla {
+    background: url(imagen1.png);
+    background-repeat: no-repeat;
+    width: 3in;
+    height: 3in;
+    margin: auto;
+    background-size: cover;
+}
+
+.logo-regilla.seguridad {
+    width: 5in;
+    margin-left: 0.5in;
+    background: url(imagen2.png);
+    background-size: 100% 100%;
+    position: relative;
+}
+
+.logo-regilla.seguridad .logo-auto {
+    width: 41%;
+}
+
+.amarillo .logo-auto svg *:not(text) {
+    fill: black !important;
+    stroke: black !important;
+}
+
+
+.amarillo .logo-auto svg text {
+    fill: #555252 !important;
+}
+
+.colores .color> :last-child {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-left: 15px;
+}
+
+.colores .color .muestra {
+    width: 150px;
+    height: 60px;
+    color: transparent;
+}
+
+.color p {
+    margin: 0;
+}
+
+.colores .color> :last-child>div p {
+    display: inline-block;
+    padding-left: 8px;
+}
+
+.paisaje .logo-auto svg *:not(text),
+.similares .logo-auto svg *:not(text),
+.aplicaciones .negro svg *:not(text) {
+    fill: white !important;
+      stroke: white !important;
+}
+
+.negro svg text,
+.paisaje .logo-auto svg text,
+.similares .logo-auto svg text {
+    fill: #dedcdc !important;
+}
+
+
+
+.deformacion .logo-auto {
+    -webkit-transform: scaley(1.3);
+            transform: scaley(1.3);
+}
+
+.color {
+    padding: 5px 0;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.aplicaciones {
+    background: url(imagen3.png);
+    height: 5in;
+    width: 6in;
+    background-size: 100% 111%;
+    margin: auto;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+
+.aplicaciones .blanco,
+.aplicaciones .negro {
+    width: 2in;
+    height: 1.5in;
+    position: absolute;
+}
+
+.aplicaciones .blanco {
+    top: 1in;
+    left: 0.8in;
+}
+
+.aplicaciones .negro {
+    top: 2.1in;
+    right: 0.6in;
+}
+
+.aplicaciones.sin-fondo {
+    background: transparent;
+}
+
+.paisaje {
+    background: url(paisaje1.jpg);
+    margin-right: 2cm;
+}
+
+.amarillo {
+    background: #FEC306;
+    background-position-y: 23px;
+}
+
+.paisaje,
+.amarillo {
+    width: 3in;
+    height: 2in;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.paisaje>div,
+.amarillo>div {
+    width: 70%;
+    margin: 3% auto;
+}
+
+.aplicaciones.incorrectas.sin-fondo {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.aplicaciones.incorrectas.sin-fondo>div {
+    width: 3in;
+}
+
+.aplicaciones.incorrectas.sin-fondo>div>div {
+    background-size: 100% 100%;
+}
+
+.aplicaciones.incorrectas.dos>div>div {
+    height: 3in;
+}
+
+.aplicaciones.incorrectas.uno>div>div {
+    height: 2in;
+}
+
+.deformacion>div {
+    background: url(imagen4.jpg);
+}
+
+.deformacion .logo-centrado {
+    padding-left: 39%;
+    padding-top: 8.4%;
+    width: 45%;
+    height: 74%;
+}
+
+.aplicaciones.incorrectas.sin-fondo.uno>div p {
+    margin: 0;
+    margin-bottom: 1%;
+}
+
+.similares>div {
+    background: url(imagen5.jpg);
+    background-size: 100% 110% !important;
+}
+
+.similares .logo-centrado {
+    height: 100%;
+    width: 60%;
+    margin: auto;
+}
+
+.margen>div {
+    background: url(envase.jpg);
+}
+
+.rotacion>div {
+    background: url(camiseta.jpg);
+}
+
+.rotacion .logo-auto {
+    -webkit-transform: ROTATE(49DEG);
+    transform: ROTATE(49DEG);
+}
+
+.aplicaciones.incorrectas.sin-fondo.uno {
+    height: 2.3in;
+}
+
+.aplicaciones.incorrectas.sin-fondo.dos {
+    height: 4in;
+}
+
+.margen .logo-centrado {
+    width: 45%;
+    height: 36%;
+    margin: auto;
+    padding-right: 2%;
+    padding-top: 17%;
+}
+
+.rotacion .logo-centrado {
+    width: 40%;
+    height: 40%;
+    margin: auto;
+    padding-top: 28%;
+}
+
+.blanco .logo-auto,
+.negro .logo-auto {
+    width: 74%;
+}
+
+.blanco .logo-centrado,
+.negro .logo-centrado {
+    width: 100%;
+    height: 99%;
+}
+
+/* LOGOS */
+
+.logo-auto {
+    width: 80%;
+    margin: auto;
+}
+
+.logo-centrado {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.logo-centrado.seguridad {
+    width: 69%;
+    padding-left: 25%;
+    height: 76%;
+    margin: 0;
+}
+
+.deformacion,
+.margen {
+    margin-right: 1cm;
+}
+

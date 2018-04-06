@@ -1,131 +1,574 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "mp.colorPicker", "firebase"])
-    .config(function ($stateProvider, $mdThemingProvider) {
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar", "720kb.socialshare", "ngFileUpload"])
 
-        /*------------------Material Angular --------------*/
+	.config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
 
-        $mdThemingProvider.theme('default')
-            .warnPalette('orange')
+		$locationProvider.html5Mode(true);
 
+		/* INTERCEPTADOR */
+		$httpProvider.interceptors.push("AuthInterceptor");
 
-        /*------------------------ Ui router states ----------------------*/
+		$mdToastProvider.addPreset("base", {
+			options: function () {
+				return {
+					templateUrl: "toast-base.html",
+					hideDelay: 0,
+					position: "top right",
+					controller: ["$scope", "$mdToast", "$timeout", "args", function ($scope, $mdToast, $timeout, args) {
 
-        $stateProvider.state({
-                name: 'comenzar',
-                url: '/comenzar',
-                templateUrl: 'app/views/comenzar.tpl',
-                controller: 'comenzarController as comenzar'
-            })
-            .state({
-                name: 'analisis',
-                url: '/analisis',
-                templateUrl: 'app/views/analisis.tpl',
-                controller: 'analisisController as analisis',
-                params: {
-                    datos: null
-                }
-            })
-            .state({
-                name: 'opciones',
-                url: '/opciones',
-                templateUrl: 'app/views/opciones.tpl',
-                controller: 'opcionesController as opciones',
-                params: {
-                    datos: null
-                }
-            })
-            .state({
-                name: 'proceso',
-                url: '/proceso',
-                templateUrl: 'app/views/proceso.tpl',
-                controller: 'procesoController as proceso',
-                params: {
-                    datos: null
-                }
-            })
-            .state({
-                name: 'editor',
-                url: '/editor',
-                templateUrl: 'app/views/editor.tpl',
-                controller: 'editorController as editor',
-                params: {
-                    logo: null,
-                    posicion: null,
-                    texto: null
-                }
-            })
-            .state({
-                name: 'login',
-                url: '/login',
-                templateUrl: 'app/views/login.tpl',
-                controller: 'loginController as login'
-            })
+						if (args) {
 
-        .state({
-                name: 'dashboard',
-                url: '/area-del-cliente',
-                templateUrl: 'app/views/dashboard.tpl',
-                controller: 'clienteController as cliente',
-                resolve: {
-                    "currentAuth": ["Auth", function (Auth) {
-                        // $requireSignIn returns a promise so the resolve waits for it to complete
-                        // If the promise is rejected, it will throw a $stateChangeError (see above)
-                        return Auth.$requireSignIn();
-                    }]
-                }
-            })
-            .state({
-                name: 'paquetes',
-                url: '/paquetes',
-                templateUrl: 'app/views/paquetes.tpl',
-                controller: 'paquetesController as paquetes',
-                resolve: {
-                    "currentAuth": ["Auth", function (Auth) {
-                        // $requireSignIn returns a promise so the resolve waits for it to complete
-                        // If the promise is rejected, it will throw a $stateChangeError (see above)
-                        return Auth.$requireSignIn();
-                    }]
-                }
-            })
-            .state({
-                name: 'metodo',
-                url: '/metodo-de-pago',
-                templateUrl: 'app/views/metodo-de-pago.tpl',
-                controller: 'metodosController as metodos',
-                resolve: {
-                    "currentAuth": ["Auth", function (Auth) {
-                        // $requireSignIn returns a promise so the resolve waits for it to complete
-                        // If the promise is rejected, it will throw a $stateChangeError (see above)
-                        return Auth.$requireSignIn();
-                    }]
-                }
-            })
-        
-        
-        
-        
+							$scope.mensaje = args.mensaje;
 
-     
-    })
+							$scope.clase = args.clase;
+						}
+
+						var temporizador = $timeout(function () {
+							$mdToast.hide();
+						}, 2000);
+
+						$scope.closeToast = function () {
+							$timeout.cancel(temporizador);
+							$mdToast.hide();
+
+						};
+					}],
+					clickOutsideToClose: true
+				};
+			}
+		});
 
 
-.run(function ($rootScope, $state) {
-
-    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
-        $rootScope.anterior = fromState;
-      
+		/*------------------------ Ui router states ----------------------*/
 
 
-    });
+		$stateProvider
+
+			.state({
+				name: "inicio",
+				url: "/",
+				templateUrl: "app/views/v2/inicio.tpl",
+				controller: "inicioController as inicio",
+				resolve: {
+					landingResolve: ["LS", function (LS) {
+
+						var datosLanding = LS.obtener("comenzar");
+
+						if (datosLanding) {
+
+							return {
+								datos: {
+									nombre: datosLanding.nombre,
+									categoria: {
+										icono: datosLanding.idCategoria,
+										fuente: datosLanding.idFuente
+									},
+									tags: datosLanding.etiquetasParaBusqueda,
+									colores: datosLanding.colores,
+									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
+								},
+								iconos: datosLanding.iconos,
+								fuentes: datosLanding.fuentes
+							};
+						}
+
+						return false;
+					}]
+				}
+			})
+			.state({
+				name: "editor",
+				url: "/editor/",
+				templateUrl: "app/views/v2/editor.tpl",
+				controller: "editorController as editor",
+				params: {
+					status: null,
+					datos: {
+						logo: null,
+						texto: null,
+						fuentes: null,
+						idLogoGuardado: null
+					}
+				},
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+						if (!clientesService.autorizado()) {
+
+							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
+
+						var defered = $q.defer();
+
+						var promise = defered.promise;
+
+						if ($stateParams.status) {
+
+							LS.definir("editor", $stateParams.datos);
+
+							defered.resolve($stateParams.datos);
+
+						} else if (LS.obtener("editor")) {
+
+							defered.resolve(LS.obtener("editor"));
+
+						} else {
+
+							defered.reject({
+								error: "FALLO_HISTORICO"
+							});
+						}
+
+						return promise;
+
+					}]
+
+				}
+			})
+
+			/* 
+			.state({
+				name: "planes",
+				url: "/planes/",
+				templateUrl: "app/views/v2/planes.tpl",
+				controller: "planesController as planes",
+				params: {
+					status: null,
+					datos: {
+						logo: null,
+						idElemento: null,
+						tipo: null,
+						fuentes: null
+					}
+				},
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+						if (!clientesService.autorizado()) {
+
+							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
+
+						var defered = $q.defer();
+
+						var promise = defered.promise;
+
+						if ($stateParams.status) {
+
+							LS.definir("planes", $stateParams.datos);
+
+							defered.resolve($stateParams.datos);
+
+						} else if (LS.obtener("planes")) {
+
+							defered.resolve(LS.obtener("planes"));
+
+						} else {
+
+							defered.reject({
+								error: "FALLO_HISTORICO"
+							});
+						}
+
+						return promise;
+
+					}]
+				}
+			})
+*/
+			.state({
+				name: "pago",
+				url: "/pago/",
+				templateUrl: "app/views/v2/pago.tpl",
+				controller: "pagoController as pago",
+				params: {
+					status: null,
+					datos: {
+
+						logo: null,
+						idElemento: null,
+						tipo: null,
+						plan: {
+							nombre: null,
+							idPlan: null
+						},
+						precio: {
+							moneda: {
+								simbolo: null,
+								idMoneda: null
+							},
+							monto: null,
+							idPrecio: null
+						}
+
+					}
+				},
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+						if (!clientesService.autorizado()) {
+
+							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					historicoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
+
+						var defered = $q.defer();
+
+						var promise = defered.promise;
+
+						if ($stateParams.status) {
+
+							defered.resolve($stateParams.datos);
+						} else {
+
+							defered.reject({
+								error: "FALLO_HISTORICO"
+							});
+						}
+
+						return promise;
+
+					}]
+				}
+			})
+
+			.state({
+				name: "pagoCompleto",
+				url: "/pago/completo/:id/",
+				templateUrl: "app/views/v2/pagoCompleto.tpl",
+				controller: "pagoCompletoController as pagoCompleto",
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+						if (!clientesService.autorizado()) {
+
+							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}]
+				}
+			})
+
+			.state({
+				name: "cuenta",
+				url: "/cliente/cuenta/",
+				templateUrl: "app/views/v2/cuenta.tpl",
+				controller: "cuentaController as cuenta",
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+						if (!clientesService.autorizado()) {
+
+							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}]
+				}
+			})
+
+			.state({
+				name: "logos",
+				url: "/cliente/logos/",
+				templateUrl: "app/views/v2/logos.tpl",
+				controller: "logosController as logos",
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+						if (!clientesService.autorizado()) {
+
+							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}]
+				}
+			})
+
+			.state({
+				name: "descargar",
+				url: "/cliente/logos/{id:int}/descargar/",
+				templateUrl: "app/views/v2/descargar.tpl",
+				controller: "descargarController as descargar",
+				params: {
+
+					datos: {
+						logo: null,
+						id: null
+					}
+				},
+				resolve: {
+					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+
+						if (!clientesService.autorizado()) {
+
+							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					logoResolve: ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
+
+						if ($stateParams.id) {
+							var defered = $q.defer();
+							var promise = defered.promise;
+
+							logosService.obtenerPorId($stateParams.id).then(function (res) {
+								if (res.estado == "Descargable") {
+									defered.resolve({
+										logo: res.logo,
+										id: $stateParams.id,
+										idElemento: res.elementos_idElemento,
+										tipo: res.tipoLogo
+									});
+								} else {
+									defered.reject("INVALID_LOGO");
+								}
+
+							}).catch(function () {
+
+								// $state.go("logos");
+								defered.reject("INVALID_LOGO");
+							});
+
+							return promise;
+						} else {
+							return $q.reject("INVALID_LOGO");
+						}
 
 
-    $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
-        // We can catch the error thrown when the $requireSignIn promise is rejected
-        // and redirect the user back to the home page
-        if (error === "AUTH_REQUIRED") {
+
+					}]
+				}
+			})
+
+			.state({
+				name: "login",
+				url: "/ingreso/",
+				templateUrl: "app/views/v2/login.tpl",
+				controller: "loginController as login",
+				resolve: {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+						if (clientesService.autorizado()) {
+
+							return $q.reject("LOGOUT_REQUIRED");
+
+						}
+
+					}]
+				}
+			})
+
+			.state({
+				name: "logosGaleria",
+				url: "/logos-galeria/",
+				templateUrl: "app/views/v2/logosGaleria.tpl",
+				controller: "logosGaleriaController as logosGaleria"
+			});
+
+		/*
+
+		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
             
-            
-            $state.go("login");
-        }
-    });
-})
+			return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
+		}]);
+		*/
+		$urlRouterProvider.rule(function ($injector, $location) {
+			var path = $location.url();
+
+			if ("/" === path[path.length - 1] || path.indexOf("/?") > -1) {
+				return;
+			}
+
+			if (path.indexOf("?") > -1) {
+				return path.replace("?", "/?");
+			}
+
+			return path + "/";
+		});
+
+		$urlRouterProvider.otherwise("/404/");
+
+	})
+
+
+	.run(function ($rootScope, $state, $timeout) {
+
+		$rootScope.$on("$viewContentLoaded", function (event) {
+
+			$timeout(function () {
+
+				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+			}, 500);
+
+
+		});
+
+		$rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
+
+			//Servicio para cerrar ayudas
+
+		});
+
+		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+
+			if (error == "STEPS") {
+
+				$state.go("principal.comenzar");
+
+			} else if (error === "AUTH_REQUIRED") {
+
+
+				switch (toState.name) {
+
+					case "editor":
+
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							case "principal.combinaciones":
+								break;
+
+							case "logosGaleria":
+								break;
+
+
+							default:
+								$state.go("login");
+						}
+
+						break;
+
+					case "planes":
+
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+
+								$state.go("login");
+						}
+
+						break;
+
+					case "pago":
+
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
+						break;
+
+
+					case "pagoCompleto":
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
+						break;
+
+					case "cuenta":
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
+						break;
+
+					case "logos":
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
+						break;
+
+					case "descargar":
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
+						break;
+
+
+				}
+
+
+			} else if (error === "LOGOUT_REQUIRED") {
+
+				$state.go("cuenta");
+
+			} else if (error.error === "FALLO_HISTORICO") {
+
+
+				switch (toState.name) {
+
+					case "editor":
+
+						$state.go("principal.comenzar");
+						break;
+
+					case "planes":
+
+						$state.go("editor");
+						break;
+
+					case "pago":
+
+						$state.go("planes");
+						break;
+
+
+				}
+
+			}
+			console.log(error);
+
+		});
+	});

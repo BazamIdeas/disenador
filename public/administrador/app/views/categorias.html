@@ -1,0 +1,256 @@
+<div class="row start-xs">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="listar">
+            <!-- LISTAR CATEGORIAS -->
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex ng-click="categorias.mostrarCat()">LISTADO DE CATEGORIAS</texto>
+                    <md-button class="md-primary md-fab md-mini" ng-click="categorias.opcionesCategorias = 3" style="margin:0;">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </div>
+                <div>
+                    <div ng-show="categorias.mostrarC" class="elemento text-center" style="padding: 0 0 0 0; border-bottom: 1px solid silver;">
+                        <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" ng-click="categorias.listarCategorias('ICONO')">ICONO</md-button >
+                        <span>O </span>
+                        <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" ng-click="categorias.listarCategorias('FUENTE')">FUENTE</md-button>
+                    </div>
+                    <div ng-if="categorias.cats.length > 0 && categorias.f">
+                        <div layout class="elemento">
+                            <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                                <input type="text" ng-model="categorias.buscarC" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                            </md-input-container>
+                        </div>
+                        <div class="w3-responsive content-scroll">
+                            <table class="w3-table w3-bordered">
+                                <tr>
+                                    <th>Nombre:</th>
+                                    <th>Acciones:</th>
+                                </tr>
+                                <tr ng-repeat="elemento in categorias.cats| filter:categorias.buscarC track by $index">
+                                    <td>{{elemento.nombreCategoria}}</td>
+                                    <td>
+                                        <md-button ng-disabled="categorias.peticion" class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idCategoria, 'categoria', $index, elemento.nombreCategoria)">
+                                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Categoria</md-tooltip>
+                                            <md-icon class="material-icon">edit</md-icon>
+                                        </md-button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LISTAR PREFERENCIAS -->
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex  ng-click="categorias.mostrarPre = !categorias.mostrarPre">LISTADO DE PREFERENCIAS</texto>
+                    <md-button class="md-primary md-fab md-mini" ng-click="categorias.opcionesCategorias = 4" style="margin:0;">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </div>
+                <div ng-if="categorias.mostrarPre && categorias.prefs.length > 0">
+                    <div layout class="elemento">
+                        <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                            <input type="text" ng-model="categorias.buscarP" class="md-block" aria-label="filtro" placeholder="Buscar:">
+                        </md-input-container>
+                    </div>
+                    <div class="w3-responsive content-scroll">
+                        <table class="w3-table w3-bordered">
+                            <tr>
+                                <th>Nombre 1:</th>
+                                <th>Nombre 2:</th>
+                                <th>Acciones:</th>
+                            </tr>
+                            <tr ng-repeat="elemento in categorias.prefs | filter:categorias.buscarP track by $index">
+                                <td>{{elemento.nombre1}}</td>
+                                <td>{{elemento.nombre2}}</td>
+                                <td>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="categorias.modificarEm(elemento.idPreferencia, 'preferencia', $index, elemento.nombre1, elemento.nombre2)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Preferencia</md-tooltip>
+                                        <md-icon class="material-icon">edit</md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-switch="categorias.opcionesCategorias">
+        <div class="paneles md-whiteframe-2dp listar">
+            <!-- MODIFICAR CATEGORIA -->
+            <div ng-switch-when="1">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>Modificar Categoria</texto>
+                    <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.modificarElemento(categorias.datos.modCategoria, 'categoria', formModificarCat.$valid)" novalidate name="formModificarCat">
+                        <div layout="column" layout-align="space-between">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre</label>
+                                    <input type="text" ng-model="categorias.datos.modCategoria.nombreCategoria" name="cat"  required ng-minlength="4">
+                                </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formModificarCat.cat.$error" style="color:maroon" role="alert" ng-show="formModificarCat.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Minimo de caracteres 4.</div>
+                                </div>
+                            </div>
+                            <div layout>
+                                <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">MODIFICAR</md-button>
+                            </div>
+                            <div layout layout-align="center" ng-show="categorias.loaderCargando" class="margen_superior">
+                                <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- MODIFICAR PREFERENCIA -->
+            <div ng-switch-when="2">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto>Modificar Preferencia</texto>
+                    <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.modificarElemento(categorias.datos.modPreferencia, 'preferencia', formModificarPre.$valid)" novalidate name="formModificarPre">
+                        <div layout="column" layout-align="space-between">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre 1</label>
+                                    <input type="text" ng-model="categorias.datos.modPreferencia.nombre1" name="nombre" required ng-minlength="4">
+                                </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formModificarPre.nombre.$error" style="color:maroon" role="alert" ng-show="formModificarPre.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Minimo de caracteres 4.</div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre 2</label>
+                                    <input type="text" ng-model="categorias.datos.modPreferencia.nombre2" name="nombre2" required ng-minlength="4">
+                                </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formModificarPre.nombre2.$error" style="color:maroon" role="alert" ng-show="formModificarPre.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Minimo de caracteres 4.</div>
+                                </div>
+                            </div>
+                            <div layout>
+                                <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- CREAR CATEGORIA -->
+
+            <div ng-switch-when="3">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>Nueva Categoria</texto>
+                    <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.crear(categorias.datos.nuevaCategoria, 'categoria', formRegistroCat.$valid)" novalidate name="formRegistroCat">
+                        <div layout="column" layout-align="space-between">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre</label>
+                                    <input type="text" ng-model="categorias.datos.nuevaCategoria.nombreCategoria" name="nombre" required ng-minlength="4">
+                                </md-input-container>
+                                <br>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formRegistroCat.nombre.$error" style="color:maroon" role="alert" ng-show="formRegistroCat.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Minimo de caracteres 4.</div>
+                                </div>
+                            </div>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>TIPO</label>
+                                    <md-select ng-model="categorias.datos.nuevaCategoria.tipo" aria-label="estado" name="tipo" required>
+                                        <md-option value="ICONO">
+                                            ICONO
+                                        </md-option>
+                                        <md-option value="FUENTE">
+                                            FUENTE
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <!-- VALIDACION -->
+                                <div ng-messages="formRegistroCat.tipo.$error" style="color:maroon" role="alert" ng-show="formRegistroCat.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                </div>
+                                <br>
+                            </div>
+                            <div layout>
+                                <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- CREAR PREFERENCIA -->
+
+            <div ng-switch-when="4">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>Nueva Preferencia</texto>
+                    <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="formularios-login pasos">
+                    <form ng-submit="categorias.crear(categorias.datos.nuevaPreferencia, 'preferencia', formRegistroPre.$valid)" novalidate name="formRegistroPre">
+                        <div layout="column" layout-align="space-between">
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre 1</label>
+                                    <input type="text" ng-model="categorias.datos.nuevaPreferencia.nombre1" name="nombre" required ng-minlength="4">
+                                </md-input-container>
+                            </div>
+                            
+                            <!-- VALIDACION -->
+                            <div ng-messages="formRegistroPre.nombre.$error" style="color:maroon" role="alert" ng-show="formRegistroPre.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                                <div ng-message="minlength">Minimo de caracteres 4.</div>
+                            </div>
+
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Nombre 2</label>
+                                    <input type="text" ng-model="categorias.datos.nuevaPreferencia.nombre2" name="nombre2" required ng-minlength="4">
+                                </md-input-container>
+                            </div>
+                            
+                            <!-- VALIDACION -->
+                            <div ng-messages="formRegistroPre.nombre2.$error" style="color:maroon" role="alert" ng-show="formRegistroPre.$submitted">
+                                <div ng-message="required">Este campo es requerido.</div>
+                                <div ng-message="minlength">Minimo de caracteres 4.</div>
+                            </div>
+
+                            <div layout>
+                                <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

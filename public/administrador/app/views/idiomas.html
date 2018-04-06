@@ -1,0 +1,123 @@
+<div class="row start-xs" id="toast">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+    <div class="listar">
+
+      <!-- LISTAR IDIOMAS -->
+
+      <div class="paneles individual md-whiteframe-2dp">
+        <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+          <texto flex ng-click="ctrl.listarMonedas()" ng-disabled="ctrl.peticion">LISTADO DE IDIOMAS</texto>
+          <md-button class="md-primary md-fab md-mini" ng-click="ctrl.acciones = 1" style="margin:0;">
+            <md-icon>add</md-icon>
+          </md-button>
+        </div>
+        <div ng-show="ctrl.listaM">
+          <div layout class="elemento">
+            <md-input-container flex style="margin-bottom: 0;height: 35px;">
+              <input type="text" ng-model="ctrl.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
+            </md-input-container>
+          </div>
+
+          <div class="w3-responsive content-scroll">
+            <table class="w3-table w3-bordered">
+              <tr>
+                <th>Nombre:</th>
+                <th>Acciones:</th>
+              </tr>
+              <tr ng-repeat="elemento in ctrl.idiomas | filter:ctrl.$">
+                <td>{{elemento.nombre}} - {{elemento.codigo}}</td>
+                <td>
+                  <md-button class="md-fab md-mini md-warn" ng-click="ctrl.mostrar({op: 'editar', item : elemento})">
+                    <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
+                    <md-icon class="material-icon">edit</md-icon>
+                  </md-button>
+                  <md-button class="md-fab md-mini md-warn" ng-click="ctrl.borrarIdioma(elemento._id, $index)">
+                    <md-tooltip md-direction="left" md-visible="tooltipVisible">Borrar</md-tooltip>
+                    <md-icon class="material-icon">close</md-icon>
+                  </md-button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCIONES VISTA -->
+  <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+    <div class="paneles md-whiteframe-2dp listar" ng-switch="ctrl.acciones">
+      <!-- CREAR MONEDA -->
+      <div ng-switch-when="1">
+        <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+          <texto>NUEVO IDIOMA</texto>
+          <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-button>
+        </div>
+        <div layout-padding class="formularios-login pasos">
+          <form ng-submit="ctrl.guardarIdioma(ctrl.nuevoIdioma, form.$valid)" novalidate name="form">
+            <md-input-container class="md-block">
+              <label>Nombre</label>
+              <input type="text" ng-model="ctrl.nuevoIdioma.nombre" name="nombre" required>
+            </md-input-container>
+            <!-- VALIDACION -->
+            <div ng-messages="form.nombre.$error" style="color:maroon" role="alert" ng-show="form.$submitted">
+              <div ng-message="required">Este campo es requerido.</div>
+            </div>
+
+            <md-input-container class="md-block">
+              <label>Codigo</label>
+              <input type="text" ng-model="ctrl.nuevoIdioma.codigo" name="codigo" required>
+            </md-input-container>
+
+            <!-- VALIDACION -->
+            <div ng-messages="form.codigo.$error" style="color:maroon" role="alert" ng-show="form.$submitted">
+              <div ng-message="required">Este campo es requerido.</div>
+            </div>
+
+            <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">REGISTRO</md-button>
+          </form>
+        </div>
+      </div>
+
+      <!-- MODIFICAR NOMBRE MONEDA-->
+      <div ng-switch-when="2">
+        <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+          <texto>MODIFICAR MONEDA</texto>
+          <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-button>
+        </div>
+        <div layout-padding class="formularios-login pasos">
+          <form ng-submit="ctrl.modificarIdioma(ctrl.editarIdioma, form2.$valid)" novalidate name="form2">
+            <div layout="column" layout-align="space-between">
+              <md-input-container class="md-block">
+                <label>Nombre</label>
+                <input type="text" ng-model="ctrl.editarIdioma.nombre" name="nombre" required>
+              </md-input-container>
+              <div ng-messages="form2.nombre.$error" style="color:maroon" role="alert" ng-show="form2.$submitted">
+                <div ng-message="required">Este campo es requerido.</div>
+                <div ng-message="maxlength">Maximo 3 caracteres.</div>
+              </div>
+
+              <md-input-container class="md-block">
+                <label>Codigo</label>
+                <input type="text" ng-model="ctrl.editarIdioma.codigo" name="codigo" required>
+              </md-input-container>
+
+              <!-- VALIDACION -->
+              <div ng-messages="form2.codigo.$error" style="color:maroon" role="alert" ng-show="form2.$submitted">
+                <div ng-message="required">Este campo es requerido.</div>
+                <div ng-message="maxlength">Maximo 3 caracteres.</div>
+              </div>
+
+              <div layout>
+                <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">Enviar</md-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

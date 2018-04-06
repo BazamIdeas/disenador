@@ -1,0 +1,61 @@
+<html lang="es" ng-app="administrador">
+
+    <head>
+        <base href="/administrador/">
+        <link rel="shortcut icon" href="/administrador/assets/img/user.png">
+        <link href="/angular-material/angular-material.min.css" rel="stylesheet">
+        <link href="assets/style.css" rel="stylesheet">
+        <link href="assets/animation.css" rel="stylesheet">
+        <link href="assets/fuentes.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/sweetalert/sweet-alert.css">
+        <link rel="stylesheet" href="assets/flexboxgrid.css" type="text/css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <title ng-cloak ng-controller="headerController as h">Administrador</title>
+
+        <script src="/jquery/jquery.min.js"></script>
+
+        <!--Librerias core de angualarJS -->
+        <script src="/angular/angular.min.js"></script>
+        <script src="/angular-messages/angular-messages.min.js"></script>
+        <script src="/angular-animate/angular-animate.min.js"></script>
+        <script src="/angular-aria/angular-aria.min.js"></script>
+
+        <!--Librerias 3r party angularJS -->
+        <script src="/angular-ui-router/angular-ui-router.min.js"></script>
+        <script src="/angular-material/angular-material.min.js"></script>
+        <script src="/angular-base64/angular-base64.min.js"></script>
+        <script src="/angular-social/angular-socialshare.js"></script>
+        <script src="/angular-sweetalert/SweetAlert.min.js"></script>
+        <script src="/sweetalert/sweet-alert.min.js"></script>
+        <script src="/ng-file-upload/ng-file-upload-shim.min.js"></script>
+        <script src="/ng-file-upload/ng-file-upload.min.js"></script>
+
+        <!--Archivos App diseñador -->
+        <script src="app/app.js"></script>
+        <script src="app/services.js"></script>
+        <script src="app/directives.js"></script>
+
+        <!-- Controladores -->
+        <script src="app/controllers/categoriasController.js"></script>
+        <script src="app/controllers/clienteController.js"></script>
+        <script src="app/controllers/elementosController.js"></script>
+        <script src="app/controllers/headerController.js"></script>
+        <script src="app/controllers/monedasController.js"></script>
+        <script src="app/controllers/paisesController.js"></script>
+        <script src="app/controllers/planesController.js"></script>
+        <script src="app/controllers/loginController.js"></script>
+        <script src="app/controllers/pedidosController.js"></script>
+        <script src="app/controllers/sidenavController.js"></script>
+        <script src="app/controllers/usuarioController.js"></script>
+        <script src="app/controllers/disenadoresController.js"></script>
+        <script src="app/controllers/etiquetasController.js"></script>
+        <script src="app/controllers/idiomasController.js"></script>
+    </head>
+
+    <body ng-cloak>
+        <md-content flex ui-view ng-cloak style="overflow:hidden; height: 100%; max-height: 100%;"></md-content>
+    </body>
+
+
+
+</html>

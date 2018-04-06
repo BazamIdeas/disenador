@@ -1,0 +1,191 @@
+<div class="row start-xs" id="toast">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior" ng-if="!ctrl.asignarEtiqueta">
+        <div class="listar">
+
+            <!-- LISTAR ETIQUETAS-->
+
+            <div class="paneles individual md-whiteframe-2dp">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                    <texto flex ng-click="etiqm = !etiqm">LISTADO DE ETIQUETAS</texto>
+                    <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.mostrar({op:'crear-etiqueta'})" style="margin:0;">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                    <md-button ng-disabled="ctrl.peticion" style="right: 11%; top: 4%;" class="md-primary md-fab md-mini" ng-click="ctrl.mostrar({op:'asignar-etiqueta'})"
+                        style="margin:0;">
+                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Vincular etiquetas</md-tooltip>
+                        <md-icon>style</md-icon>
+                    </md-button>
+                </div>
+                <div>
+                    <div class="w3-responsive content-scroll" ng-if="ctrl.etiquetas.length > 0">
+                        <table class="w3-table w3-bordered">
+                            <tr>
+                                <th>Etiqueta:</th>
+                                <th>Traducciones:</th>
+                                <th>Acciones:</th>
+                            </tr>
+                            <tr ng-repeat="etiqueta in ctrl.etiquetas">
+                                <td>
+                                    <div ng-repeat="traduccion in etiqueta.traducciones">
+                                        <span ng-if="traduccion.idioma.codigo == 'ESP'">
+                                            {{traduccion.valor}}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>{{etiqueta.traducciones.length - 1}}</td>
+                                <td>
+                                    <md-button class="md-fab md-mini md-warn" ng-click="ctrl.mostrar({op:'traducciones', index: $index, datosEtiqueta:etiqueta})">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Traducciones</md-tooltip>
+                                        <md-icon>language</md-icon>
+                                    </md-button>
+
+                                    <md-button class="md-fab md-mini md-warn" ng-click="ctrl.borrarEtiqueta(etiqueta._id, $index)">
+                                        <md-tooltip md-direction="top" md-visible="tooltipVisible">Borrar</md-tooltip>
+                                        <md-icon>close</md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="height: 30%;" ng-if="ctrl.etiquetas.length == 0" class="mensaje-resultado">
+                        <h3>NO EXISTEN ETIQUETAS</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior" ng-if="ctrl.asignarEtiqueta">
+        <div class=" listar ">
+
+            <!-- LISTAR ICONOS -->
+
+            <div class="paneles individual md-whiteframe-2dp ">
+                <div layout layout-align="space-around center " layout-padding class="titulo-modulo ">
+                    <texto flex>LISTADO DE ICONOS</texto>
+                    <md-button ng-click="ctrl.mostrar({op: 'asignar-etiqueta', ce: true}) " style="margin:0; ">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+                <div class="elemento ">
+                    <div layout layout-align="space-between center ">
+                        <md-input-container flex>
+                            <label>Categoria:</label>
+                            <md-select ng-model="ctrl.idCategoria " ng-change="ctrl.listarIconos(ctrl.idCategoria)" class="md-block " aria-label="filtro ">
+                                <md-option ng-value="cat.idCategoria " ng-repeat="cat in ctrl.cats ">{{cat.nombreCategoria}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <div ng-show="ctrl.listaL " class="content-scroll elemento ">
+                        <div ng-if="ctrl.logos.length> 0" layout layout-wrap layout-align="space-around">
+                            <span ng-repeat="logo in ctrl.logos" flex="30" ng-click="logo.on = !logo.on" ng-class="{'md-whiteframe-2dp': logo.on}">
+                                <div>
+                                    <bazam-visualizar data-svg="ctrl.base64.decode(logo.svg)"></bazam-visualizar>
+                                </div>
+                            </span>
+                        </div>
+                        <div style="height: 30%;" ng-if="ctrl.logos.length == 0" class="mensaje-resultado">
+                            <h3>NO HAY LOGOS EN LA CATEGORIA SELECCIONADA</h3>
+                        </div>
+                    </div>
+                    <div class="text-center" layout-padding>
+                        <b>Debes seleccionar al menos un icono</b>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACCIONES VISTA -->
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-switch="ctrl.acciones">
+        <div class="paneles md-whiteframe-2dp listar">
+
+            <!-- CREAR ETIQUETAS -->
+            <div ng-switch-when="1">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>CREAR ETIQUETAS</texto>
+                    <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+                <div class="elemento">
+                    <form name="form" ng-submit="ctrl.guardarEtiqueta(ctrl.guardarEtiquetas, form.$valid)" novalidate>
+                        <div class="content-scroll">
+                            <div ng-repeat="item in ctrl.guardarEtiquetas" layout-padding>
+                                <b>Etiqueta {{$index + 1}}</b>
+                                <div layout layout-wrap>
+                                    <span ng-repeat="itemChild in item.traducciones" flex="33">
+                                        <md-input-container class="md-block">
+                                            <label> {{itemChild.idioma}}:</label>
+                                            <input type="text" ng-model="itemChild.valor" name="itemChild{{$index}}" required ng-minlength="3">
+                                        </md-input-container>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div layout layout-align="space-between">
+                            <div>
+                                <md-button class="md-raised md-primary" ng-click="ctrl.incrementarEtiquetas()">Agregar</md-button>
+                                <md-button class="md-raised md-primary" ng-click="ctrl.incrementarEtiquetas(true)">Eliminar</md-button>
+                            </div>
+                            <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">Guardar</md-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- TRADUCCIONES -->
+            <div ng-switch-when="2">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>TRADUCCIONES</texto>
+                    <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+                <div layout-padding class="elemento">
+                    <form name="form2" ng-submit="ctrl.actualizarEtiqueta(ctrl.actualizarEtiquetaDatos, form2.$valid)" novalidate>
+                        <div ng-repeat="item in ctrl.actualizarEtiquetaDatos.traducciones">
+                            <md-input-container class="md-block">
+                                <label>
+                                    Traduccion {{item.idioma.codigo}}:</label>
+                                <input type="text" ng-model="item.valor" name="item{{$index}}" required>
+                            </md-input-container>
+                        </div>
+                        <md-button ng-disabled="ctrl.peticion || !form2.$valid" class="md-raised md-primary" type="submit">Guardar</md-button>
+                    </form>
+                </div>
+            </div>
+            <!-- ICONOS ETIQUETAS -->
+            <div ng-switch-when="3">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                    <texto>ASIGNAR ETIQUETAS</texto>
+                    <md-button ng-click="ctrl.mostrar({op:'asignar-etiqueta', ce: true})" style="margin:0;">
+                        <md-icon>close</md-icon>
+                    </md-button>
+                </div>
+                <div class="elemento">
+                    <form name="form3" ng-submit="ctrl.guardarEtiquetaIconos(ctrl.guardarEtiquetasIconos, form.$valid)" novalidate>
+                        <div class="content-scroll">
+                            <md-chips required ng-model="ctrl.guardarEtiquetasIconos.etiquetas" md-autocomplete-snap md-transform-chip="ctrl.transformChip($chip)"
+                                md-require-match="true">
+                                <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText, ctrl.etiquetasParaVincular)"
+                                    md-item-text="item.traduccion.valor" placeholder="Etiquetas">
+                                    <span md-highlight-text="ctrl.searchText">{{item.traduccion.valor}}</span>
+                                </md-autocomplete>
+                                <md-chip-template>
+                                    <span>
+                                        <strong>{{$chip.traduccion.valor}}</strong>
+                                    </span>
+                                </md-chip-template>
+                            </md-chips>
+                            <br/>
+                        </div>
+                        <div layout layout-align="space-between">
+                            <md-button ng-disabled="ctrl.peticion || ctrl.guardarEtiquetasIconos.etiquetas.length == 0" class="md-raised md-primary"
+                                type="submit">Guardar</md-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

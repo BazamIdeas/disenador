@@ -1,19 +1,13 @@
 var mysql   = require("mysql");
+var configuracion = require("../configuracion.js");
+
 
 var pool = mysql.createPool({
-    connectionLimit : 10,
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'disenadorlogodb'
+    connectionLimit : configuracion.db.connectionLimit,
+    host: configuracion.db.host,
+    user: configuracion.db.user,
+    password: configuracion.db.password,
+    database: configuracion.db.database
 });
- /*
-var pool = mysql.createPool({
-    connectionLimit : 10,
-    host: 'localhost',
-    user: 'disena',
-    password: 'Esbz89%9',
-    database: 'disenadorlogodb'
-});
-*/
+
 module.exports = pool;

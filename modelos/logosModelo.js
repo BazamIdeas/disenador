@@ -1,4 +1,4 @@
-var DB=require('./DB.js');
+var DB=require('./db.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var logo = {};
@@ -7,61 +7,126 @@ var logo = {};
 //obtenemos todos los logos
 logo.getLogos = function(callback)
 {
-	var q = 'SELECT idLogo, tipoLogo, logo, clientes_idCliente FROM logos ORDER BY idLogo' 
+	var q = 'SELECT * FROM logos ORDER BY idLogo' 
 
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+	  	
+	 	 });
 	});
 }
 
-//obtenemos los logos guardados o comprados por un cliente
-logo.getLogosTipo = function(par,callback)
+logo.getLogosPorAprobar = function(par,callback)
 {
-	var q = 'SELECT idLogo, tipoLogo, logo FROM logos WHERE tipoLogo = ? and clientes_idCliente = ? ORDER BY idLogo'  
+	var q = 'SELECT * FROM logos WHERE estado = "Por Aprobar" ORDER BY idLogo'  
 
 	DB.getConnection(function(err, connection)
 	{
 		connection.query( q , par, function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+	  	});
 	});
 }
 
-//obtenemos un logo por su id
-logo.getLogo = function(id,callback)
-{ 
-	var q = 'SELECT tipoLogo, logo, clientes_idCliente, elementos_idElemento FROM logos WHERE idLogo = ? ' 
-	var par = [id] //parametros
+logo.getLogosAprobados = function(id, idCategoria, callback)
+{
+	var q = 'SELECT logos.* FROM logos INNER JOIN elementos ON logos.elementos_idElemento = elementos.idElemento INNER JOIN categorias ON elementos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.destacado = 0 AND logos.idLogo > ? AND categorias.idCategoria > ? ORDER BY logos.idLogo LIMIT 12';  
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query(q, [id, idCategoria], function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+	  	});
 	});
 }
- 
+
+logo.getLogosAprobadosPorCliente = function(id,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" AND clientes_idCliente = ? ORDER BY idLogo';  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query(q, [id], function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+logo.getLogosVendidosPorCliente = function(id,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Vendido" AND clientes_idCliente = ? ORDER BY idLogo';  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query(q, [id], function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+logo.getLogosAprobadosDestacados = function(callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" and destacado = 1 ORDER BY RAND() LIMIT 12';  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
+
+//obtenemos los logos guardados o comprados por un cliente
+logo.getLogosTipo = function(par,callback)
+{
+	var q = 'SELECT * FROM logos WHERE estado = ? and clientes_idCliente = ? ORDER BY idLogo'  
+
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par, function(err, rows){
+	  	
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
+
+		  	connection.release();
+	  	});
+	});
+}
+
 
 //añadir un nuevo logo
 logo.insertLogo = function(logoData,callback)
@@ -73,14 +138,13 @@ logo.insertLogo = function(logoData,callback)
 	{
 		connection.query( q , par , function(err, result){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
-	  	
-	  });
-
-	  connection.release();
+		  	//devolvemos la última id insertada
+		  	else callback(null,{"insertId" : result.insertId}); 
+	  		
+	  		connection.release();
+	 	 });
 	});
 }
 
@@ -92,40 +156,61 @@ logo.updateLogo = function(logoData, callback)
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
-	  	
-	  });
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	
+		  	connection.release();
+		});
 
-	  connection.release();
+	  
 	});
 }
 
 //comprar un logo Guardado
-logo.cambiarTipo = function(logoData, callback)
+logo.cambiarEstado = function(logoData, callback)
 {
-	var q = 'UPDATE logos SET tipoLogo = ? WHERE idLogo = ?';
+	var q = 'UPDATE logos SET estado = ? WHERE idLogo = ?';
 	var par = logoData //parametros
-
+	
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
-	  	
-	  });
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	
+		  	connection.release();
+		});
 
-	  connection.release();
+	  
 	});
 }
- 
-//eliminar un logo pasando la id a eliminar
-logo.deleteLogo = function(id, callback)
+
+logo.Destacar = function(logoData, callback)
+{
+	var q = 'UPDATE logos SET destacado = ? WHERE idLogo = ?';
+	var par = logoData 
+	
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err){
+	  	
+		  	if(err)	throw err;
+
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	
+		  	connection.release();
+		});
+
+	  
+	});
+}
+
+logo.Borrar = (id, callback) => 
 {
 	var q = 'SELECT * FROM logos WHERE idLogo = ?';
 	var par = [id] //parametros
@@ -145,18 +230,34 @@ logo.deleteLogo = function(id, callback)
 				  	
 				  		if(err)	throw err;
 
-					  	else callback(null,{"msg" : "eliminado"}); 
-				  	
-				 	 });
-
-				  	connection.release();
+					  	else callback(null,{"affectedRows" : row.affectedRows }); 
+				  		
+				  		connection.release();
+				 	});
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe el logo"});
-	  	});
 
-	  connection.release();
+		  	connection.release();
+	  	});
+ 
+	});
+}
+
+logo.getLogo = function(par,callback)
+{ 
+	var q = 'SELECT * FROM logos WHERE clientes_idCliente = ? AND idLogo = ?';
+	DB.getConnection(function(err, connection)
+	{
+		connection.query( q , par , function(err, row){
+	  	    //console.log(row)
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
+
+		  	connection.release();
+	  	});
 	});
 }
 

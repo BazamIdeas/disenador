@@ -1,4 +1,4 @@
-var DB=require('./DB.js');
+var DB=require('./db.js');
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var preferencia = {};
@@ -13,13 +13,13 @@ preferencia.getPreferencias = function(callback)
 	{
 		connection.query( q ,  function(err, rows){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, rows);
 
-	  connection.release();
+		  	connection.release();
+	  	
+		});
 	});
 
 }
@@ -32,13 +32,13 @@ preferencia.getPreferencia = function(id,callback)
 	{
 		connection.query( q , par , function(err, row){
 	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
+		  	if(err)	throw err;
+		  	
+		  	else callback(null, row);
 
-	  connection.release();
+		  	connection.release();
+	  	
+		});
 	});
 }
  
@@ -52,14 +52,14 @@ preferencia.insertPreferencia = function(preferenciaData,callback)
 	{
 		connection.query( q , par , function(err, result){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
+		  	//devolvemos la última id insertada
+		  	else callback(null,{"insertId" : result.insertId}); 
+
+		  	connection.release();
 	  	
-	  });
-
-	  connection.release();
+	  	});
 	});
 }
 
@@ -72,15 +72,15 @@ preferencia.updatePreferencia = function(preferenciaData, callback)
 
 	DB.getConnection(function(err, connection)
 	{
-		connection.query( q , par , function(err, row){
+		connection.query( q , par , function(err){
 	  	
-	  	if(err)	throw err;
+		  	if(err)	throw err;
 
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
+		  	else callback(null,{"msg" : "modificacion exitosa"}); 
+
+		  	connection.release();
 	  	
-	  });
-
-	  connection.release();
+		});
 	});
 }
 
@@ -102,28 +102,25 @@ preferencia.deletePreferencia = function(id, callback)
 		  		var qq = 'DELETE FROM preferencias WHERE idPreferencia = ?';
 		  		DB.getConnection(function(err, connection)
 		  		{
-					connection.query( qq , par , function(err, row)
+					connection.query( qq , par , function(err)
 					{
 				  	
 				  		if(err)	throw err;
 
 					  	//devolvemos el última id insertada
 					  	else callback(null,{"msg" : 'eliminado'}); 
-				  	
-				 	 });
 
-				  	connection.release();
+					  	connection.release();
+				  	
+				 	});
 				});
 
 		  	}
 		  	else callback(null,{"msg":"no existe esta Preferencia"});
-	  	});
 
-	  connection.release();
+		  	connection.release();
+	  	});	  
 	});
 }
-
-
-
 
 module.exports = preferencia;

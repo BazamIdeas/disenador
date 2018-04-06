@@ -1,129 +1,201 @@
-var DB=require('./DB.js');
- 
-//creamos un objeto para ir almacenando todo lo que necesitemos
-var etiqueta = {};
- 
+const Mongo = require('./mongo.js');
+const Connection = Mongo.connection;
+const objectId = Mongo.objectId;
 
-//obtenemos todos las Etiquetas
-etiqueta.getEtiquetas = function(callback)
-{
-	var q = 'SELECT idEtiqueta, nombreEtiqueta FROM etiquetas ORDER BY idEtiqueta';
+let etiqueta = {}
 
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q ,  function(err, rows){
-	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, rows);
-	  	
-	  });
-
-	  connection.release();
-	});
-
-}
-etiqueta.getEtiqueta = function(id,callback)
-{ 
-	var q = 'SELECT nombreEtiqueta idEtiqueta FROM etiquetas WHERE idEtiqueta= ? ' 
-	var par = [id] //parametros
-
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, row){
-	  	
-	  	if(err)	throw err;
-	  	
-	  	else callback(null, row);
-	  	
-	  });
-
-	  connection.release();
-	});
-}
- 
-
-etiqueta.insertEtiqueta = function(etiquetaData,callback)
-{
-	var q = 'INSERT INTO etiquetas SET ? ' 
-	var par = etiquetaData //parametros
-
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, result){
-	  	
-	  	if(err)	throw err;
-
-	  	//devolvemos la última id insertada
-	  	else callback(null,{"insertId" : result.insertId}); 
-	  	
-	  });
-
-	  connection.release();
-	});
+etiqueta.ObtenerTodos = callback => {
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        }, {
+            $unwind: '$idioma'
+        }, {
+            $group: {
+                _id: '$_id',
+                traducciones: {
+                    $push: {
+                        idioma: '$idioma',
+                        valor: '$traducciones.valor'
+                    }
+                }
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+            callback(null, docs);
+        });
+    })
 }
 
-
-
-etiqueta.updateEtiqueta = function(etiquetaData, callback)
-{
-	var q = 'UPDATE etiquetas SET nombreEtiqueta = ? WHERE idEtiqueta = ?';
-	var par = etiquetaData //parametros
-
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, row){
-	  	
-	  	if(err)	throw err;
-
-	  	else callback(null,{"msg" : "modificacion exitosa"}); 
-	  	
-	  });
-
-	  connection.release();
-	});
+etiqueta.ObtenerPorIcono = (id, callback) => {
+    console.log(id)
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $match: {
+                'iconos': +id
+            }
+        }, {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        }, {
+            $unwind: '$idioma'
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+            console.log(docs)
+            callback(null, docs);
+        });
+    })
 }
 
+etiqueta.Guardar = (etiquetaData, callback) => {
+    etiquetaData.traducciones.forEach((traduccion, key) => {
+        etiquetaData.traducciones[key].idioma = objectId(traduccion.idioma);
+    })
 
-
-
-etiqueta.deleteEtiqueta = function(id, callback)
-{
-	var q = 'SELECT * FROM etiquetas WHERE idEtiqueta = ?';
-	var par = [id] //parametros
-
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, row)
-		{
-	  	 	//si existe la id del cliente a eliminar
-		  	if (typeof row !== 'undefined' && row.length > 0)
-		  	{
-		  		var qq = 'DELETE FROM etiquetas WHERE idEtiqueta = ?';
-		  		DB.getConnection(function(err, connection)
-		  		{
-					connection.query( qq , par , function(err, row)
-					{
-				  	
-				  		if(err)	throw err;
-
-					  	//devolvemos el última id insertada
-					  	else callback(null,{"msg" : 'eliminado'}); 
-				  	
-				 	 });
-
-				  	connection.release();
-				});
-
-		  	}
-		  	else callback(null,{"msg":"no existe esta Etiqueta"});
-	  	});
-
-	  connection.release();
-	});
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.insertOne(etiquetaData, (err, doc) => {
+            if (err) throw err;
+            callback(null, {
+                'insertId': doc.insertedId
+            });
+        });
+    })
 }
 
+etiqueta.Actualizar = (_id, etiquetaData, callback) => {
 
+    delete etiquetaData._id;
 
+    etiquetaData.traducciones.forEach((el, key) => {
+        delete etiquetaData.traducciones[key].codigo;
+        delete etiquetaData.traducciones[key].nombre;
+
+        etiquetaData.traducciones[key]._id = objectId(etiquetaData.traducciones[key]._id);
+    })
+
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.findOneAndUpdate({
+            '_id': objectId(_id)
+        }, {
+            $set: {
+                traducciones: etiquetaData.traducciones
+            }
+        }, (err, doc) => {
+            if (err) throw err;
+            callback(null, {
+                'affectedRow': doc.value
+            });
+        });
+    })
+}
+
+etiqueta.AsignarIconos = (_id, iconos, callback) => {
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.findOneAndUpdate({
+            '_id': objectId(_id)
+        }, {
+            $addToSet: {
+                'iconos': {
+                    $each: iconos
+                }
+            }
+        }, (err, doc) => {
+            if (err) throw err;
+            callback(null, {
+                'affectedRow': doc.value
+            });
+        });
+    })
+}
+
+etiqueta.DesasignarIcono = (_id, icono, callback) => {
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.findOneAndUpdate({
+            '_id': objectId(_id)
+        }, {
+            $pull: {
+                'iconos': icono
+            }
+        }, {
+            multi: true,
+        }, (err, doc) => {
+            if (err) throw err;
+            callback(null, {
+                'affectedRow': doc.value
+            });
+        });
+    })
+}
+
+etiqueta.Borrar = (_id, callback) => {
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.findOneAndDelete({
+            '_id': objectId(_id)
+        }, (err, doc) => {
+            if (err) throw err;
+            callback(null, {
+                'affectedRow': doc.value
+            });
+        });
+    })
+}
+
+etiqueta.Analizar = (tags, callback) => {
+    let iconos = [];
+
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
+            $match: {
+                'traducciones.valor': {
+                    '$in': tags
+                }
+            }
+        }, {
+            $addFields: {
+                valor: '$traducciones.valor'
+            }
+        }, {
+            $project: {
+                traducciones: false
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+
+            else {
+
+                docs.forEach(doc => doc.iconos.forEach(i => iconos.push(i)))
+
+                Array.prototype.unique = function (a) {
+                    return function () {
+                        return this.filter(a)
+                    }
+                }((a, b, c) => c.indexOf(a, b + 1) < 0)
+
+                callback(null, iconos.unique());
+            }
+        })
+    })
+}
 
 module.exports = etiqueta;
