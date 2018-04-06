@@ -11,7 +11,7 @@ angular.module("disenador-de-logos")
 		bz.guardados = [];
 		bz.comprados = [];
 
-		bz.elegido = null
+		bz.elegido = null;
 
 		bz.salto = {
 			comprados: 0,
@@ -78,8 +78,8 @@ angular.module("disenador-de-logos")
 
 		};
 
-
-		bz.urlCompartir = $window.location.port != 80 ? $window.location.protocol + "//" + $window.location.hostname + ":" + "8080" :  $window.location.protocol + "//" + $window.location.hostname;
+		
+		bz.urlCompartir = $window.location.port !== "80" ? $window.location.protocol + "//" + $window.location.hostname + ":" + $window.location.port :  $window.location.protocol + "//" + $window.location.hostname;
 
 		bz.mostrarModalSocial = false;
 		bz.idLogoCompartir = null;

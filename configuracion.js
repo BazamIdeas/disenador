@@ -56,7 +56,7 @@ var configuracion = {
     	"seguridad" :true,
     	"puerto" : "8080",
     	"url": "http://localhost:8080",
-        "base": "/creador-de-logos/",
+        "base": "/creador-de-logos/", 
     	"dashboard": "cliente/logos/",
         "pago" : "cliente/logos/descargar/",
         "nopago" : "pago/incompleto/",
