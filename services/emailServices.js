@@ -18,7 +18,7 @@ class emailService {
     }
 
     setHtml(template) {
-        this.template = fs.readFileSync('./emailtemplates/'+template ,'utf8', (err) => {
+        this.template = fs.readFileSync('./email-templates/'+template ,'utf8', (err) => {
             if (err) throw err;
         });
         for(var key in this.data){

@@ -887,7 +887,7 @@ exports.descargar = (req, res) =>
 
 									if (key == 'editable') {
 		
-										var output_b = fs.createWriteStream('logo_editable.zip');
+										var output_b = fs.createWriteStream(path + 'logo_editable.zip');
 										var archive_b = archiver("zip", { zlib: { level: 9 } });
 										archive_b.pipe(output_b);
 
@@ -901,7 +901,7 @@ exports.descargar = (req, res) =>
 
 										output_b.on('close', () => {
 											setTimeout(() => {
-												archive_a.append(fs.createReadStream(__dirname+"/../logo_editable.zip"), { name: "logo_editable.zip" });
+												archive_a.append(fs.createReadStream(__dirname+"/../"+ path + "logo_editable.zip"), { name: "logo_editable.zip" });
 												callback();
 											}, 1000)
 										})	
