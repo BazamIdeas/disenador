@@ -1,11 +1,12 @@
-<div class="overlay" ng-class="{'show': $root.mostrarModalLogin, 'hide': !$root.mostrarModalLogin}">
-    <div class="row margin-bottom-0">
+<div class="overlay" ng-class="{'show': $root.mostrarModalLogin, 'hide': !$root.mostrarModalLogin}" style="display: flex;
+align-items: center;">
+    <div class="row margin-bottom-0" style="width:100%;">
         <div class="col s8 offset-s2 ">
 
             <div class="login-form-flex">
                 <div ng-switch="bazamLogin.formPasos">
 
-                    <div class="login row" style="    padding-top: 8% !important;" ng-switch-default>
+                    <div class="login row" style="margin:0; " ng-switch-default>
 
                         <div class="login-form col s6  offset-s3" style="position:relative;" ng-hide="bazamLogin.ingresar">
                             <i style="background: #009688e0;
