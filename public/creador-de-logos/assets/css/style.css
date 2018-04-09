@@ -1,7 +1,7 @@
 :root {
-    --principal: #3F51B5;
-    --secundario: #b92d00;
-    --tercero: #009688;
+    --principal: #2f4f4f ;
+    --secundario: #00bfff;
+    --tercero: #00d08c;
     --fondo: #ECEFF0;
     --blanco: #FCFCFC;
 }
@@ -4367,4 +4367,8 @@ strong {
 .ver-logo-planes {
     background-color: white;
     padding: 4% 7%;
+}
+
+.contenedor-planes {
+    padding: 2% 7%;
 }

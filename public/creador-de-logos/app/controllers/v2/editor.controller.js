@@ -259,7 +259,8 @@ angular.module("disenador-de-logos")
 				},
 				colores: datos.colores,
 				planes: bz.planes,
-				moneda: bz.moneda
+				moneda: bz.moneda,
+				editor: true
 			};
 
 			if (bz.idLogoPadre) {
