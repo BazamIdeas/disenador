@@ -1,7 +1,7 @@
 :root {
-    --principal: #3F51B5;
-    --secundario: #b92d00;
-    --tercero: #009688;
+    --principal: #2f4f4f ;
+    --secundario: #00bfff;
+    --tercero: #00d08c;
     --fondo: #ECEFF0;
     --blanco: #FCFCFC;
 }
@@ -2301,7 +2301,7 @@ path.seleccionado {
 }
 
 .section-cliente {
-    height: calc(88vh - 60px) !important;
+    height: calc(90vh - 60px) !important;
     background-color: var(--blanco);
     overflow: hidden;
 }
@@ -2703,7 +2703,7 @@ textarea {
     width: 100%;
     height: 0;
     padding: 32% 0 0 0;
-    margin: 2em 0 1em 0;
+    margin: 1em 0 1em 0;
     position: relative;
     overflow: visible;
     -webkit-transition: margin-top 0.5s;
@@ -4344,9 +4344,20 @@ b, strong {
 
     /*************/
 
+<<<<<<< HEAD
     /* PLANES */
 
     .ver-logo-planes {
         background-color: white;
         padding: 4% 7%;
     }
+=======
+.ver-logo-planes {
+    background-color: white;
+    padding: 4% 7%;
+}
+
+.contenedor-planes {
+    padding: 2% 7%;
+}
+>>>>>>> 666d0009bd461c2ebad89891767a5e7aa14a5c85

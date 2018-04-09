@@ -88,9 +88,6 @@
 		.boton-planes-unico.activo:hover md-icon.material-icons {
 			color: white;
 		}
-		.contenedor-planes {
-			padding: 2% 7%;
-		}
 
 		.principal-x {
 			font-family: futura-heavy;

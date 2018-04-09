@@ -11,7 +11,7 @@ angular.module("disenador-de-logos")
 		bz.guardados = [];
 		bz.comprados = [];
 
-		bz.elegido = null
+		bz.elegido = null;
 
 		bz.salto = {
 			comprados: 0,
@@ -32,17 +32,30 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.actual = 0;
+
+		$scope.$watch("logos.actual", function (newValue, oldValue) {
+
+			if (newValue === oldValue) {
+				return;
+			}
+
+			bz.mostrarPlanes(newValue, true);
+		});
+
 		logosService.mostrarGuardados()
 			.then(function (res) {
 
 				bz.guardados = res;
 				bz.cantidad.guardados = bz.guardados.length;
 
+				bz.mostrarPlanes(bz.actual, true);
+
 			})
 			.catch(function () {
-				
+
 			})
-			.finally(function(){
+			.finally(function () {
 				bz.terminados.guardados = true;
 			});
 
@@ -55,10 +68,10 @@ angular.module("disenador-de-logos")
 
 			})
 			.catch(function () {
-			
+
 			})
-			.finally(function(){
-				bz.terminados.comprados = true;            
+			.finally(function () {
+				bz.terminados.comprados = true;
 			});
 
 
@@ -79,7 +92,7 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.urlCompartir = $window.location.port != 80 ? $window.location.protocol + "//" + $window.location.hostname + ":" + "8080" :  $window.location.protocol + "//" + $window.location.hostname;
+		bz.urlCompartir = $window.location.port !== "80" ? $window.location.protocol + "//" + $window.location.hostname + ":" + $window.location.port : $window.location.protocol + "//" + $window.location.hostname;
 
 		bz.mostrarModalSocial = false;
 		bz.idLogoCompartir = null;
@@ -152,7 +165,8 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.mostrarPlanes = function(index) {
+		bz.mostrarPlanes = function (index, previsualizar) {
+
 			var datos = angular.copy(bz.guardados[index]);
 			datos.atributos = arrayToJsonMetasFactory(datos.atributos);
 
@@ -168,19 +182,23 @@ angular.module("disenador-de-logos")
 				colores: {
 					icono: datos.atributos["color-icono"],
 					nombre: datos.atributos["color-nombre"],
-					
+
 				},
 				planes: bz.planes,
 				moneda: bz.moneda
 			};
 
-			if(datos.atributos["color-eslogan"]){
+			if (datos.atributos["color-eslogan"]) {
 				bz.datosComprar.colores.eslogan = datos.atributos["color-eslogan"]
 			}
 			/*
 			if (bz.idLogoPadre) {
 				bz.datosComprar.idPadre = bz.idLogoPadre;
 			}*/
+
+			if (previsualizar) {
+				return;
+			}
 
 			bz.abrirPlanes = true; // modelo para abrir la directiva
 

@@ -32,7 +32,7 @@
     <div class="row margin-bottom-0">
         <form class="margin-bottom-0" name="inicio.datosForm" novalidate>
 
-            <div class="col l2 sidebar-1" style="position: static !important">
+            <div class="col l2 sidebar-1" style="position: static !important; overflow-y: scroll; overflow-x: hidden;">
                 <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo"
                     data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1"
                     bazam-pasos-ayuda>

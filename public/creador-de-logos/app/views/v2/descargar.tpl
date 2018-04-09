@@ -1,4 +1,4 @@
-<section style="height: calc(100vh - 135px) !important;overflow: hidden;">
+<section style="height: calc(100vh - 60px) !important;overflow: hidden; display: flex; justify-content: center; align-items: center;">
     <div class="row margin-bottom-0" style="overflow: hidden;">
 
         <div class="col s4 offset-s1">
@@ -39,7 +39,7 @@
 
         </div>
         <!-- ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'"-->
-        <div class="col s6 text-center" style="background-color: white;padding:0 .75rem; max-height: 323px">
+        <div class="col s6 text-center no-padding">
 
             <div ng-repeat="formato in descargar.formatosNoSociales | filter: {'nombre': descargar.formatoSeleccionado.nombre} track by formato.nombre"
                 style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede; height: 323px;width: 660.5px;">

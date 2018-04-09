@@ -14,7 +14,7 @@
                 <!--PENDIENTES DE APROBACION-->
                 <div class="col s12" ng-switch-when="guardados">
                     <carousel-mis-logos ng-if="logos.terminados.guardados" logos="logos.guardados" callback="['guardados', logos.buscarAtributo, logos.abrirModal, logos.borrarLogo, logos.mostrarPlanes]"
-                        elegido="logos.elegido"></carousel-mis-logos>
+                        elegido="logos.elegido" actual="logos.actual"></carousel-mis-logos>
                 </div>
                 <!--APROBADOS-->
                 <div class="col s12" ng-switch-when="adquiridos">
@@ -126,7 +126,7 @@
 
 
 </section>
-<div class="ver-logo-enorme estatico" id="previsualizar" ng-if="logos.terminados.guardados">
+<div class="ver-logo-enorme estatico" id="previsualizar" ng-if="logos.elegido">
     <div class="contenedor-ver-previsualizar uno">
         <div class="contenedor-logoprev" style="width: 102%;
         height: 100vh;
@@ -164,6 +164,14 @@
 
         </div>
     </div>
+    <div class="row" ng-if="logos.opcionMostrar == 'guardados'">
+        <div class="col s12">
+            <div class="contenedor-planes">
+                <bazam-listar-planes datos="logos.datosComprar"></bazam-listar-planes>
+            </div>
+        </div>
+    </div>
+    
     <div class="contenedor-ver-previsualizar dos" style="padding-bottom:5px;">
         <div class="contenedor-logoprev" style="padding-right:5px;">
             <div style="    transform: skewY(16deg) skewX(-4deg);
@@ -200,9 +208,9 @@
 
 <div class="overlay" ng-class="{'show': logos.mostrarModalSocial, 'hide': !logos.mostrarModalSocial}">
     <div class="row margin-bottom-0">
-        <div class="col s6 offset-s3">
+        <div class="col s4 offset-s4">
 
-            <div class="login-form-flex">
+            <div class="login-form-flex" style="position: fixed; width: 500px; left: calc(50% - 250px); top: calc(50% - 70px); height: 140px; ">
 
                 <div class="cubo-form row">
 
