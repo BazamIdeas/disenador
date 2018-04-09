@@ -246,12 +246,12 @@
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
 								<md-select flex ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
 								    md-no-asterisk required>
-									<md-option ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
+									<md-option class="iconos" ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
 								</md-select>
 							</md-input-container>
 							<span class="refresh-icon" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-class="{ 'loading-white': !editor.completadoBuscar}"
 							    ng-disabled="!editor.completadoBuscar">
-								<i class="material-icons">refresh</i>
+								<i class="material-icons">search</i>
 							</span>
 						</div>
 
@@ -419,7 +419,7 @@
 			</div>
 
 			<div class="contenedor-iconos" ng-class="{'abierto': editor.contenedores.busquedaIconos}">
-				<div class="cerrar-contenedor-bi" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
+				<div class="cerrar-contenedor-bi" ng-click="::editor.cerrarContenedores();">
 					<i class="material-icons cerrar">clear</i>
 				</div>
 				<div class="row padding-bottom-0 margin-bottom-0">
@@ -440,12 +440,7 @@
 
 
 						<div class="col l3 xl2 contenedor-opcion-icono" ng-repeat="icono in editor.iconos track by icono.idElemento">
-							<div class="opcion-icono">
-								<div class="overlay-opcion"></div>
-								<span class="seleccionar">
-									<md-tooltip md-delay="2" md-direction="top">Usar</md-tooltip>
-									<i class="material-icons" ng-click="::editor.cerrarContenedores();editor.reemplazarIcono(icono); ">check</i>
-								</span>
+							<div class="opcion-icono" ng-click="::editor.cerrarContenedores();editor.reemplazarIcono(icono);">
 								<bazam-visualizar data-svg="::editor.base64.decode(icono.svg)">
 								</bazam-visualizar>
 							</div>
@@ -455,11 +450,11 @@
 							<div class="opcion-icono" ng-class="{ 'loading-purple': !editor.completadoBuscar}">
 								<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
 									<img style="width:100%" src="assets/images/a.png" alt="">
-									<div style="position:absolute;display: flex;
+									<div ng-class="{'color-trans': !editor.completadoBuscar}" style="position:absolute;display: flex;
 									flex-flow: column;top: 0;height: 100%;
-									justify-content: center; text-align:center; width:100%;">
-										<i class="material-icons">add</i>
-										<span>BUSCAR MAS</span>
+									justify-content: center; text-align:center; width:100%;color: var(--principal)">
+										<i class="material-icons">search</i>
+										<span>CARGAR</span><span> MÁS</span>
 									</div>
 								</div>
 							</div>

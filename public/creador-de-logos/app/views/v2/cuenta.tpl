@@ -7,13 +7,17 @@
                         <img ng-src="{{'data:image/svg+xml;base64,' + cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'"
                             ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
                             ngf-fix-orientation="true">
-                        <i class="material-icons">file_upload</i>
+                        <i ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'"
+                        ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
+                        ngf-fix-orientation="true" class="material-icons">edit</i>
                     </div>
                     <div ng-if="cuenta.datos.foto && !cuenta.verificarBase64(cuenta.datos.foto)">
                         <img ng-src="{{cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'" ngf-accept="'image/*'"
                             ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
                             ngf-fix-orientation="true">
-                        <i class="material-icons">file_upload</i>
+                        <i ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'" ngf-accept="'image/*'"
+                        ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
+                        ngf-fix-orientation="true" class="material-icons">edit</i>
                     </div>
                 </div>
                 <div class="col s12">
@@ -53,7 +57,7 @@
                         <form name="cuenta.datosForm" novalidate ng-submit="cuenta.guardar(cuenta.datosEspejo, cuenta.datosForm.$valid)">
                             <div class="col s12 input-field" style="padding: 0 .75rem !important">
 
-                                <label for="nombre" style="left:0.8rem" class="active">Nombre</label>
+                                <label for="nombre" class="active">Nombre</label>
                                 <input id="nombre" type="text" name="nombreCliente" ng-model="cuenta.datosEspejo.nombreCliente" required>
 
 
@@ -65,7 +69,7 @@
 
 
                                 <input id="telefono" type="text" ng-model="cuenta.datosEspejo.telefono" name="telefono" required>
-                                <label for="telefono" style="left:0.8rem" class="active">Teléfono</label>
+                                <label for="telefono" class="active">Teléfono</label>
 
                                 <div ng-messages="cuenta.datosForm.telefono.$error" ng-if="cuenta.datosForm.$submitted || cuenta.datosForm.telefono.$dirty">
                                     <div ng-message="required">Este campo es requerido.</div>
@@ -95,7 +99,7 @@
                     <div ng-switch-when="3">
                         <form name="cambioContra" novalidate ng-submit="cuenta.cambiarContrasena(cuenta.datosOlvido, cambioContra.$valid, true)">
                             <div class="col s12 input-field" style="padding: 0 .75rem !important">
-                                <label for="contrasena" style="left:0.8rem" class="active">Contraseña Antigua</label>
+                                <label for="contrasena" class="active">Contraseña Antigua</label>
                                 <input id="contrasena" type="text" name="contrasenaCliente" ng-model="cuenta.datosOlvido.passVieja" required ng-minlength="8">
                                 <div ng-messages="cambioContra.contrasenaCliente.$error" ng-if="cambioContra.$submitted || cambioContra.contrasenaCliente.$dirty">
                                     <div ng-message="required">Este campo es requerido.</div>
@@ -104,7 +108,7 @@
                             </div>
 
                             <div class="col s12 input-field" style="padding: 0 .75rem !important">
-                                <label for="contrasena-nueva" style="left:0.8rem" class="active">Contraseña Nueva</label>
+                                <label for="contrasena-nueva" class="active">Contraseña Nueva</label>
                                 <input id="contrasena-nueva" type="text" name="contrasenaNueva" ng-model="cuenta.datosOlvido.pass" required ng-minlength="8">
                                 <div ng-messages="cambioContra.contrasenaNueva.$error" ng-if="cambioContra.$submitted || cambioContra.contrasenaNueva.$dirty">
                                     <div ng-message="required">Este campo es requerido.</div>
@@ -129,7 +133,7 @@
         </div>
         <div class="col s9 no-padding" style="padding-right: 15px !important; padding-top: 15px !important;">
             <div class="caja pedidos" style="padding: 0">
-                <div class="md-whiteframe-2dp" style="  max-height: 80vh; overflow-y: scroll;">
+                <div style="max-height: 80vh; overflow-y: scroll;">
                     <table>
                         <thead>
                             <tr>
