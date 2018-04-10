@@ -4036,13 +4036,12 @@ div.color-picker-bazam {
     -webkit-box-shadow: 0px 0px 3px 1px #b7b7b7b0;
     box-shadow: 0px 0px 3px 1px #b7b7b7b0;
     border-radius: 5px;
-    padding: .5% 0.5% 1.5% .5%;
+    padding: .5% 0.5% .5% .5%;
 }
 
 div.color-picker-bazam div.color {
     -webkit-box-shadow: 0px 0px 1px 0px #585858d4;
     box-shadow: 0px 0px 1px 0px #585858d4;
-    border-radius: 15%;
     margin: .5%;
     cursor: pointer;
 }
