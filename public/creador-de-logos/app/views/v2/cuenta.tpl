@@ -133,7 +133,7 @@
         </div>
         <div class="col s9 no-padding" style="padding-right: 15px !important; padding-top: 15px !important;">
             <div class="caja pedidos" style="padding: 0">
-                <div style="max-height: 80vh; overflow-y: scroll;">
+                <div class="md-whiteframe-2dp" style="max-height: 80vh; overflow-y: auto;">
                     <table>
                         <thead>
                             <tr>
