@@ -1690,6 +1690,19 @@ div.logo-final {
     border-radius: 5px;
 }
 
+.ver-logo-planes {
+    background-color: white;
+    padding: 4% 7%;
+}
+
+.contenedor-planes {
+    padding: 2% 7%;
+}
+
+.plan {
+    padding-top: 5% !important;
+}
+
 .plan.plan-secundario>div {
     background: deepskyblue;
 }
@@ -1714,6 +1727,7 @@ div.logo-final {
     padding-top: 16px;
     padding-top: 5%;
     min-height: 90vh !important;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
 }
 
 .plan-body {
@@ -1775,6 +1789,9 @@ div.contenedor-planes .plan .plan-body {
     background: white;
     border-radius: 50%;
     padding: 12px;
+    box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+    margin-bottom:20px;
+    margin-top:-30%;
 }
 
 div.contenedor-planes .plan .plan-header {
@@ -3748,6 +3765,11 @@ div.combinacion.seleccionada {
 }
 */
 
+.combinacion bazam-svg-text {
+    display: block;
+    height: 49.5%;
+}
+
 .overlay-combinacion {
     z-index: -1;
     position: absolute;
@@ -3847,6 +3869,11 @@ div.combinacion.seleccionada {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+}
+
+.md-select-value>span:not(.md-select-icon) .md-text span {
+    width: 20px;
+    margin-bottom: 2px;
 }
 
 .estilo-de-color .md-text {
@@ -4344,20 +4371,3 @@ b, strong {
 
     /*************/
 
-<<<<<<< HEAD
-    /* PLANES */
-
-    .ver-logo-planes {
-        background-color: white;
-        padding: 4% 7%;
-    }
-=======
-.ver-logo-planes {
-    background-color: white;
-    padding: 4% 7%;
-}
-
-.contenedor-planes {
-    padding: 2% 7%;
-}
->>>>>>> 666d0009bd461c2ebad89891767a5e7aa14a5c85
