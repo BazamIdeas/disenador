@@ -56,6 +56,8 @@ angular.module("disenador-de-logos")
 
                     bz.moneda = bz.monedaDefault;
 
+                }).catch(function (res) {
+                    //console.log(res)
                 });
 
                 bz.precioSeleccionado = function (precios) {
