@@ -20,5 +20,4 @@ public/tmp/*
 # exception to the rule
 !public/temp/.gitkeep 
 !public/temp/shared/.gitkeep 
-./configuracion.js
 configuracion.js
