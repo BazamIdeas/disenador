@@ -137,6 +137,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>N° DE PEDIDO</th>
                                 <th>FECHA</th>
                                 <th>ESTADO</th>
                                 <th>LOGO</th>
@@ -148,18 +149,19 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="pedido in cuenta.pedidos track by pedido.idPedido">
+                                <td>{{::pedido.idPedido}}</td>
                                 <td>{{::pedido.fecha | date: 'dd-MM-yyyy'}}</td>
                                 <td>{{::pedido.estado}}</td>
                                 <td><a ui-sref="descargar({id: pedido.idLogo})">{{::pedido.idLogo}}</a></td>
                                 <td>{{::pedido.plan}}</td>
-                                <td>{{::pedido.moneda + ' ' + pedido.precio}}</td>
-                                <td>{{::pedido.moneda}} {{pedido.impuesto ? (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)
+                                <td style="color: var(--tercero)">{{::pedido.moneda + ' ' + pedido.precio}}</td>
+                                <td style="color: var(--tercero)">{{::pedido.moneda}} {{pedido.impuesto ? (pedido.precio * (pedido.impuesto/100)) : 0}} ({{pedido.impuesto}}%)
                                 </td>
-                                <td>{{::pedido.moneda}} {{pedido.impuesto ? pedido.precio + (pedido.precio * (pedido.impuesto/100))
+                                <td style="color: var(--tercero)">{{::pedido.moneda}} {{pedido.impuesto ? pedido.precio + (pedido.precio * (pedido.impuesto/100))
                                     : pedido.precio}}</td>
                             </tr>
                             <tr ng-if="!cuenta.pedidos.length">
-                                <td colspan="6">NO HA REALIZADO NINGUNA COMPRA</td>
+                                <td colspan="8">NO HA REALIZADO NINGUNA COMPRA</td>
                             </tr>
                         </tbody>
                     </table>

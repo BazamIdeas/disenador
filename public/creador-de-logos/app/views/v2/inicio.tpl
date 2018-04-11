@@ -31,7 +31,6 @@
 <section style="max-height: calc(100vh - 60px) !important; background-color: var(--fondo);">
     <div class="row margin-bottom-0">
         <form class="margin-bottom-0" name="inicio.datosForm" novalidate>
-
             <div class="col l2 sidebar-1" style="position: static !important; overflow-y: scroll; overflow-x: hidden;">
                 <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo"
                     data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1"
@@ -157,23 +156,23 @@
                         callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo,true)"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
-                    <span class="seleccionar" style="margin-bottom: 83%;" ng-click="inicio.preGuardarLogo(logo)">
+                    <span class="seleccionar" style="bottom: 82%;" ng-click="inicio.preGuardarLogo(logo)">
                         <p>GUARDAR</p>
                         <img ng-src="{{logo.idLogo ?'assets/images/save_active.svg' : 'assets/images/save.svg'}}"
                             alt="">
                     </span>
 
-                    <span class="seleccionar" style="margin-bottom: 66%;" ng-click="inicio.preAvanzar(logo)">
+                    <span class="seleccionar" style="bottom: 65%;" ng-click="inicio.preAvanzar(logo)">
                         <p>EDITAR</p>
                         <img src="assets/images/edit_white.svg" alt="">
                     </span>
 
-                    <span class="seleccionar" style="margin-bottom: 49%;" ng-click="logo.mostrarCompartir = true;">
+                    <span class="seleccionar" style="bottom: 48%;" ng-click="logo.mostrarCompartir = true;">
                         <p>ENVIAR</p>
                         <img src="assets/images/mail.svg" alt="">
                     </span>
 
-                    <span ng-show="logo.cargado" class="comprar" style="margin-bottom: 4%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
+                    <span ng-show="logo.cargado" class="comprar" style="bottom: 3%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
                         <p>COMPRAR</p>
                         <img src="assets/images/shop.svg" alt="">
                     </span>
