@@ -4379,6 +4379,7 @@ b, strong {
 
     /*************/
 
+
 md-input-container {
     padding: 0px !important;
 }
@@ -4387,4 +4388,19 @@ md-input-container label {
     color: rgba(0,0,0,0.54) !important;
     font-family: "futura-heavy" !important;
     font-size: 1.1rem !important;
+}
+
+ /******* Palette Picker Circular *******/
+
+ bazam-palette-picker path[data-index] {
+    opacity: 0.7;
+    stroke: none !important;
+    transition: all 0.15s ease-in;
+    cursor: pointer;
+}
+
+bazam-palette-picker path[data-index].color-checked {
+    stroke: rgb(71, 71, 71) !important;
+    stroke-width: 1.5px !important;
+    opacity: 1;
 }

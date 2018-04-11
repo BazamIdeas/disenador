@@ -63,6 +63,11 @@
                         </md-select>
                     </md-input-container>
                 </div>
+                <div>
+
+                <bazam-palette-picker></bazam-palette-picker>
+
+                </div>
                 <br>
                 <div class="input-tipografia col s12" style="padding:0 !important">
                     <div class="label-form ">
@@ -114,8 +119,8 @@
 
                     <br/>
                 </div>
-                <div class="col s12" style="text-align: center; padding:0 !important">
-                    <button class="boton-verde" style="width: 100%;" ng-class="{'loading-white': !inicio.completado}" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "Cargar Más" : "Buscar"}}</button>
+                <div style="text-align: center;">
+                    <button type="submit" class="boton-verde" style="width: 100%;" ng-class="{'loading-white': !inicio.completado}" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "CARGAR MÁS" : "BUSCAR"}}</button>
                 </div>
             </div>
         </form>

@@ -71,10 +71,58 @@ var configuracion = {
         },
         "db" : {
             connectionLimit : 10,
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'disenadorlogodb'
+            host: '45.32.148.99',
+            user: 'logoPro',
+            password: '&rJ-fZ:1uZ24',
+            database: 'testdisenadorlogodb'
+        },
+        "mongo": {
+            url: "mongodb+srv://cis:unaclavemuysegura5000@bazam-cgzwr.mongodb.net/admin",
+            database: 'disenador'
+        },
+        freelancer: {
+            moderador: {
+                1: 2,
+                2: 3,
+                3: 4,
+                4: 5,
+                5: 6,
+            },
+            cliente: {
+                1: 2,
+                2: 3,
+                3: 4,
+                4: 5,
+                5: 6,	
+            },
+            minimo: 300
+        }
+    },
+     "test" : {
+        "servidor" : "Test",
+        "secret":"unaclavemuysegura",
+    	"seguridad" :true,
+    	"puerto" : "4001",
+    	"url": "test.logo.pro",
+        "base": "/creador-de-logos/", 
+    	"dashboard": "cliente/logos/",
+        "pago" : "cliente/logos/descargar/",
+        "nopago" : "pago/incompleto/",
+    	"paypal" : {
+            "host" : "api.sandbox.paypal.com",           
+            "client_id" : "AVpLm3Mj781_AAa4M5gArCwllQ2LIv5WT6qccHJOjdbOMFOz_6fQmItQQbCWvXeeG3TS1qBA6a8_8NoV",  // your paypal application client id
+            "client_secret" : "EO-vJ68bnGFvig7xhITyMgtSYH24fb6tJqYL7VPFEdJ38B6cz0R6m-Bo3GMhYyVtCBkh6KLzW4k1KDlD" // your paypal application secret id
+        },
+        "stripe" : {
+            "publicKey":"pk_test_ODlU80cwnJ5Xr2an9L1XZByL",
+            "privateKey":"sk_test_AWXWsWaLekEXZ8LpZUG0w8gd"
+        },
+        "db" : {
+            connectionLimit : 10,
+            host: '45.32.148.99',
+            user: 'logoPro',
+            password: '&rJ-fZ:1uZ24',
+            database: 'testdisenadorlogodb'
         },
         "mongo": {
             url: "mongodb+srv://cis:unaclavemuysegura5000@bazam-cgzwr.mongodb.net/admin",

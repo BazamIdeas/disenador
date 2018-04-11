@@ -17,7 +17,6 @@ angular.module("disenador-de-logos")
 				icono: "",
 				fuente: ""
 			},
-			tags: [],
 			colores: [],
 			etiquetasSeleccionadas: []
 		};
@@ -121,7 +120,13 @@ angular.module("disenador-de-logos")
 
 				bz.completado = false;
 
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(bz.datos.tags, bz.datos.categoria.icono, bz.iconos, 4);
+				var tags = [];
+
+				angular.forEach(bz.datos.etiquetasSeleccionadas, function(tag){
+					tags.push(tag.traduccion.valor);
+				})
+
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags, bz.datos.categoria.icono, bz.iconos, 4);
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
