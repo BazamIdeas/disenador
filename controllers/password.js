@@ -3,6 +3,7 @@ var usuario  = require("../modelos/usuarioModelo.js");
 var services = require("../services");
 var Email = require("../services/emailServices.js");
 var moment   = require("moment");
+var passwordHash = require('password-hash');
 
 exports.enviarToken =  function(req,res)
 {
@@ -79,7 +80,7 @@ exports.cambiar = function(req,res)
 	var token = services.authServices.decodificar(req.body.token);
 
 	var datos = [
-		req.body.pass,
+		passwordHash.generate(req.body.pass),
 		token.id
 	];
 
