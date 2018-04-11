@@ -142,7 +142,7 @@ exports.nuevoPedido = function (req, res) {
 			}
 
 			var idLogo = data.insertId;
-			var iso = services.geoipServices.iso(req.ip);
+			var iso = services.geoipServices.iso(req.headers["x-forwarded-for"]);
 			var idPrecio = req.body.idPrecio;
 			var idPasarela = req.body.idPasarela;
 
@@ -282,7 +282,7 @@ exports.nuevoPedido = function (req, res) {
 
 exports.nuevoPedidoGuardado = function (req, res) {
 	var idLogo = req.body.idLogo;
-	var iso = services.geoipServices.iso(req.ip);
+	var iso = services.geoipServices.iso(req.headers["x-forwarded-for"]);
 	var idPrecio = req.body.idPrecio;
 	var idPasarela = req.body.pasarelas_idPasarela;
 
@@ -550,7 +550,7 @@ exports.aumentarPlan = function (req, res) {
 	var idLogo = req.body.idLogo;
 	var idPrecioNuevo = req.body.idPrecio;
 	var idPasarela = req.body.idPasarela;
-	var iso = services.geoipServices.iso(req.ip);
+	var iso = services.geoipServices.iso(req.headers["x-forwarded-for"]);
 
 	// Buscar impuesto
 	pais.ObtenerImpuesto(iso, function (error, impuesto) {
