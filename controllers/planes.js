@@ -8,7 +8,7 @@ var async    = require("async");
 exports.ListarFront = (req, res) =>
 {
 
-	var iso = services.geoipServices.iso(req.headers["x-forwarded-for"]);
+	var iso = services.geoipServices.iso(req.headers["x-forwarder-for"]);
 
 	pais.ObtenerPorIso(iso, (err, pais) => {
 
@@ -227,7 +227,7 @@ exports.Modificar = (req, res) =>
 exports.PlanesSuperiores = (req, res) =>
 {
 
-	var iso = services.geoipServices.iso(req.headers["x-forwarded-for"]);
+	var iso = services.geoipServices.iso(req.headers["x-forwarder-for"]);
 	var idPlan = req.body.idPlan;
 
 	pais.ObtenerPorIso(iso, (err, pais) => {
