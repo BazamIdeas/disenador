@@ -41,11 +41,11 @@ angular.module("disenador-de-logos")
 						indiceArrays = 2;
 					}
 
-					var indicePalettes = parseInt(pathSVG.dataset.index) - 1;
+					var indicePalettes = parseInt(angular.element(pathSVG).data("index")) - 1;
                     
 					var valor = $scope.palettesCopy[indiceArrays][indicePalettes];
                     
-					$scope.palettesCopy[indiceArrays][parseInt(pathSVG.dataset.index) - 1] = !valor;
+					$scope.palettesCopy[indiceArrays][indicePalettes] = !valor;
 
 					!valor ? pathSVG.classList.add("color-checked") : pathSVG.classList.remove("color-checked");
 
@@ -88,7 +88,7 @@ angular.module("disenador-de-logos")
 						indiceArrays = 2;
 					}
 
-					var indicePalettes = parseInt(el.dataset.index) - 1;
+					var indicePalettes = parseInt(angular.element(el).data("index")) - 1;
                     
 					el.style.fill = scope.palettes[indiceArrays][indicePalettes][0];
 
