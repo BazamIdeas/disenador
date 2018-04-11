@@ -44,6 +44,7 @@ app.use('/angular-ui-carousel', express.static(__dirname + '/node_modules/angula
 app.use('/app',rutas);
  
 app.use(configuracion.base+'*', function(req, res, next) {
+  console.log(req.headers["x-forwarded-for"])
     // Just send the index.html for other files to support HTML5Mode
     res.sendFile('/public/'+configuracion.base+'/index.html', { root: __dirname });
 });
@@ -95,6 +96,6 @@ app.use(function(err, req, res, next) {
 
 app.listen(configuracion.puerto, function () {
   console.log('Servidor corriendo en : '+configuracion.servidor);
-  console.log(req.headers["x-forwarded-for"])
+
 });
 module.exports = app;
