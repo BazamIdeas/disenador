@@ -21,3 +21,4 @@ public/tmp/*
 !public/temp/.gitkeep 
 !public/temp/shared/.gitkeep 
 configuracion.js
+./configuracion.js
