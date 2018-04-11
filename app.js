@@ -95,5 +95,6 @@ app.use(function(err, req, res, next) {
 
 app.listen(configuracion.puerto, function () {
   console.log('Servidor corriendo en : '+configuracion.servidor);
+  console.log(req.headers["x-forwarded-for"])
 });
 module.exports = app;
