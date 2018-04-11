@@ -155,7 +155,8 @@
 				<div class="tab-editor" ng-show="editor.menuSwitch == 2">
 					<div class="row">
 						<div class=" col s12" style="padding: 0">
-							<button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="::editor.agregarEslogan()" style="margin-top: 40px;">
+							<button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="::editor.agregarEslogan()" style="margin-top: 8px;
+							width: 100%;">
 								Agregar Eslogan
 							</button>
 						</div>

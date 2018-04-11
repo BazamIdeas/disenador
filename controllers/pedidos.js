@@ -568,19 +568,18 @@ exports.aumentarPlan = function (req, res) {
 		pedido.insertPedido(pedidoData, function (error, data) {
 			//si el pedido se ha insertado correctamente mostramos su info
 			if (data && data.insertId) {
-				/// PAGO AQUI
-				//////////////////////
+				// PAGO AQUI
 				var idPedido = data.insertId;
 				pedido.ObtenerPrecioViejoPorIDdeLogo(idLogo, idPedido, function (error, data) {
 					if (typeof data !== "undefined" && data.length > 0) {
-						//var precio2 = data;
-						//console.log(precio2)
+
+						var precioViejo = data;
+
 						precio.datos(idPrecioNuevo, function (error, data) {
 							if (typeof data !== "undefined" && data.length > 0) {
+								
 								var precioNuevo = data;
-
 								var diferencia = precioNuevo[0].precio;
-
 
 								elemento.datosElementoPorLogo(idLogo, function (error, data) {
 
@@ -606,14 +605,13 @@ exports.aumentarPlan = function (req, res) {
 														tipoElemento: tipoE,
 														token: req.headers.auth,
 														idPedido: idPedido,
+														idPedidoViejo: precioViejo[0].idPedido,
 														aumento: 1,
 													};
 
-													console.log(datosPago)
-
 													services.pagoServices.paypal(datosPago, function (error, data) {
+														console.log(data.link)
 														res.json(data.link);
-														console.log(data)
 													});
 
 												} else {
@@ -664,23 +662,77 @@ exports.aumentarPlan = function (req, res) {
 
 };
 
-exports.cambioEstadoPagadoAumentoPlan = function (req, res) {
-
+exports.cambioEstadoPagadoAumentoPlan = function (req, res) 
+{
 	var pedidoData = ["COMPLETADO", req.params.idPedido];
+	var peditoViejoData = ["AUMENTADO", req.params.idPedidoViejo];
 
 	pedido.cambiarEstado(pedidoData, function (error, data) {
 
 		if (data) {
-			var id = services.authServices.decodificar(req.params.tk).id;
+			
+			pedido.cambiarEstado(peditoViejoData, function (error, data) {
 
-			cliente.getCliente(id, function (error, data) {
-				services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+				if (data) {
+
+					var logoData = ["Descargable", req.params.idLogo];
+
+					logo.cambiarEstado(logoData, function (error) {
+
+						if (!error) {
+
+							if (req.params.padre) {
+
+								var logoPadre = ["Vendido", req.params.padre];
+
+								logo.cambiarEstado(logoPadre, function (error_p) {
+
+									if (!error_p) {
+
+										var id = services.authServices.decodificar(req.params.tk).id;
+
+										cliente.getCliente(id, function (error, data) {
+
+											//console.log(data);
+											services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+
+										});
+										res.redirect(configuracion.base + configuracion.pago + req.params.idLogo);
+
+									}
+
+								});
+
+							} else {
+
+								var id = services.authServices.decodificar(req.params.tk).id;
+
+								cliente.getCliente(id, function (error, data) {
+
+									//console.log(data);
+									//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+
+								});
+								res.redirect(configuracion.base + configuracion.pago + req.params.idLogo);
+
+							}
+
+						} else {
+							res.redirect(configuracion.base + configuracion.dashboard);
+						}
+					});
+
+				} else {
+					res.status(404).json({
+						"msg": "Algo ocurrio en cambio de icono"
+					});
+				}
 			});
-
-			res.redirect(configuracion.base + configuracion.pago + req.params.idLogo);
 		} else {
-			res.redirect(configuracion.base + configuracion.dashboard);
+			res.status(404).json({
+				"msg": "Algo ocurrio en cambio de icono"
+			});
 		}
-
 	});
+
 };

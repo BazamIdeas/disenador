@@ -286,7 +286,8 @@ md-slider .md-thumb {
 }
 
 md-input-container {
-    margin: 11px 0;
+    margin: 0px 0 20px 0;
+    margin-top: 1rem;
 }
 
 md-toast.success .md-toast-content {
@@ -362,8 +363,12 @@ md-option {
 
 .input-field label {
     top: 0.2rem;
-    color: var(--principal);
+    color: rgba(0,0,0,0.54);
     font-family: "futura-heavy" !important;
+}
+
+input:not([type]):focus:not([readonly])+label, input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label, input[type=email]:focus:not([readonly])+label, input[type=url]:focus:not([readonly])+label, input[type=time]:focus:not([readonly])+label, input[type=date]:focus:not([readonly])+label, input[type=datetime]:focus:not([readonly])+label, input[type=datetime-local]:focus:not([readonly])+label, input[type=tel]:focus:not([readonly])+label, input[type=number]:focus:not([readonly])+label, input[type=search]:focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label{
+    color: rgba(0,0,0,0.54);
 }
 
 button,
@@ -571,12 +576,12 @@ button.boton-verde:hover {
 
 ::-webkit-scrollbar-thumb {
     border-radius: 0;
-    background: rgba(97, 39, 135, 1);
+    background: var(--ptincipal);
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(97, 39, 135, 0.4);
+    background: var(--ptincipal);
 }
 
 /*Begin header*/
@@ -671,7 +676,7 @@ div.acceder span i {
 
 .input-field,
 .input-field label {
-    padding: 0 .75rem;
+    padding: 0rem;
 }
 
 /*End header*/
@@ -2505,7 +2510,7 @@ div[ng-message] {
 }
 
 .social__or hr {
-    width: 45%;
+    width: 47%;
     border-width: 2px 0px 0px 0px;
 }
 
@@ -3506,11 +3511,15 @@ div.opcion-icono bazam-visualizar svg {
     overflow: visible;
 }
 
+.input-field.col {
+    padding: 0 !important;
+}
+
 .refresh-icon {
     background-color: var(--principal);
     color: white;
-    border-radius: 3px;
-    padding: 2;
+    border-radius: 0px;
+    padding: 1px;
     cursor: pointer;
 }
 
@@ -3767,7 +3776,7 @@ div.combinacion.seleccionada {
 
 .combinacion bazam-svg-text {
     display: block;
-    height: 49.5%;
+    height: 46.3%;
 }
 
 .overlay-combinacion {
@@ -4241,8 +4250,8 @@ b, strong {
 .compartir-email-inicio{
     position: absolute;
     width: 80%;
-    height: 130px;
-    background: #e4e7e8;
+    height: auto;
+    background: white;
     padding: 20px;
     top: calc(50% - 65px);
     left: calc(50% - 40%);
@@ -4370,3 +4379,12 @@ b, strong {
 
     /*************/
 
+md-input-container {
+    padding: 0px !important;
+}
+
+md-input-container label {
+    color: rgba(0,0,0,0.54) !important;
+    font-family: "futura-heavy" !important;
+    font-size: 1.1rem !important;
+}

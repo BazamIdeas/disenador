@@ -33,7 +33,7 @@ align-items: center;">
                                 </div>
                                 <form name="login.loginForm" novalidate ng-submit="login.login(login.datosLogin, login.loginForm.$valid)">
 
-                                    <div class="input-field col s12">
+                                    <div class="input-field col s12" style="padding: 0 !important">
                                         <input id="correologin" name="correo" type="email" ng-model="login.datosLogin.correo" required>
                                         <label for="correologin">Correo</label>
 
@@ -43,7 +43,7 @@ align-items: center;">
                                         </div>
 
                                     </div>
-                                    <div class="input-field col s12">
+                                    <div class="input-field col s12" style="padding: 0 !important">
                                         <input id="passlogin" name="pass" type="password" ng-model="login.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
                                         <label for="passlogin">Contraseña</label>
 
@@ -97,7 +97,7 @@ align-items: center;">
                                             </div>
                                         </div>
                                         <form name="login.registroForm" novalidate ng-submit="login.registrar(login.datosRegistro, login.registroForm.$valid)">
-                                            <div class="input-field col s12">
+                                            <div class="input-field col s12" style="padding: 0 !important">
                                                 <input id="nombrelogin" type="text" name="nombreCliente" ng-model="login.datosRegistro.nombreCliente" required>
                                                 <label for="nombrelogin">Nombre</label>
 
@@ -106,7 +106,7 @@ align-items: center;">
                                                 </div>
 
                                             </div>
-                                            <div class="input-field col s12">
+                                            <div class="input-field col s12" style="padding: 0 !important">
                                                 <input id="correologin2" type="email" name="correo" ng-model="login.datosRegistro.correo" bazam-mail required>
                                                 <label for="correologin2">Correo</label>
 
@@ -119,7 +119,7 @@ align-items: center;">
                                                     <div ng-message="disponible">Verificando la disponibilidad del email.</div>
                                                 </div>
                                             </div>
-                                            <div class="input-field col s12">
+                                            <div class="input-field col s12" style="padding: 0 !important">
                                                 <input id="passlogin2" type="password" name="pass" ng-model="login.datosRegistro.pass" ng-minlength="6" ng-maxlength="20"
                                                     required>
                                                 <label for="passlogin2">Contraseña</label>
@@ -200,7 +200,7 @@ align-items: center;">
                                 <br>
                                 <div ng-switch-default>
                                     <form name="olvido2" ng-submit="login.forgotPass(login.olvido, olvido2.$valid)" novalidate class="formulario-ingreso">
-                                        <div class="input-field col s12">
+                                        <div class="input-field col s12" style="padding: 0 !important">
                                             <label>Correo</label>
                                             <input style="margin-bottom:0;" type="email" ng-model="login.olvido.correo" name="correo" required ng-minlength="5">
                                             <div ng-messages="olvido2.correo.$error" style="color:maroon" role="alert" ng-show="olvido2.$submitted">
@@ -208,25 +208,25 @@ align-items: center;">
                                             </div>
                                         </div>
 
-                                        <div layout layout-align="space-between" style="padding-top:3%;" class="col s12">
+                                        <div layout layout-align="space-between" style="padding:3% 0 0 0 !important" class="col s12">
                                             <button class="boton-verde" ng-click="login.formPasos='default'" ng-disabled="login.peticion">Regresar</button>
                                             <button ng-disabled="login.peticion" class="boton-verde" type="submit">Enviar</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div ng-switch-when="2">
-                                    <div class="input-field col s12">
+                                    <div class="input-field col s12" style="padding: 0 !important">
                                         <label>Codigo de coonfirmación:</label>
                                         <input style="margin-bottom:0;" type="password" ng-model="login.olvido.token" required name="token">
                                     </div>
-                                    <div layout layout-align="space-between" style="padding-top:3%;" class="col s12">
+                                    <div layout layout-align="space-between" style="padding:3% 0 0 0 !important" class="col s12">
                                         <button class="boton-verde" ng-click="login.rc=1">Regresar</button>
                                         <button ng-disabled="login.peticion" class="boton-verde" ng-click="login.confirmarToken(false)">Enviar</button>
                                     </div>
                                 </div>
                                 <div ng-switch-when="3">
                                     <form name="formRecuperar2" ng-submit="login.confirmarToken('cambiar',formRecuperar2.$valid)" novalidate>
-                                        <div class="input-field col s12">
+                                        <div class="input-field col s12" style="padding: 0 !important">
                                             <label>Nueva Contraseña:</label>
                                             <input type="password" style="margin-bottom:0;" ng-model="login.olvido.pass" name="pass" required ng-minlength="6">
                                             <div ng-messages="formRecuperar2.pass.$error" style="color:maroon" role="alert" ng-show="formRecuperar2.$submitted">
@@ -235,7 +235,7 @@ align-items: center;">
                                             </div>
                                         </div>
 
-                                        <div layout layout-align="space-between" style="padding-top:3%;" class="col s12">
+                                        <div layout layout-align="space-between" style="padding:3% 0 0 0 !important" class="col s12">
                                             <button ng-disabled="login.peticion" class="boton-verde" ng-click="login.mostrarForm=1">Regresar</button>
                                             <button ng-disabled="login.peticion" class="boton-verde" type="submit">Cambiar</button>
                                         </div>
