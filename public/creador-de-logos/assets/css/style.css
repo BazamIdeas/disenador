@@ -1,7 +1,7 @@
 :root {
-    --principal: #3F51B5;
-    --secundario: #b92d00;
-    --tercero: #009688;
+    --principal: #2f4f4f ;
+    --secundario: #00bfff;
+    --tercero: #00d08c;
     --fondo: #ECEFF0;
     --blanco: #FCFCFC;
 }
@@ -199,11 +199,6 @@ textarea {
     font-weight: 800;
 }
 
-label {
-    font-size: 1.2rem;
-    color: var(--principal) !important;
-}
-
 body {
     background: var(--fondo);
     height: 100%;
@@ -291,7 +286,8 @@ md-slider .md-thumb {
 }
 
 md-input-container {
-    margin: 11px 0;
+    margin: 0px 0 20px 0;
+    margin-top: 1rem;
 }
 
 md-toast.success .md-toast-content {
@@ -367,8 +363,12 @@ md-option {
 
 .input-field label {
     top: 0.2rem;
-    color: var(--principal);
+    color: rgba(0,0,0,0.54);
     font-family: "futura-heavy" !important;
+}
+
+input:not([type]):focus:not([readonly])+label, input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label, input[type=email]:focus:not([readonly])+label, input[type=url]:focus:not([readonly])+label, input[type=time]:focus:not([readonly])+label, input[type=date]:focus:not([readonly])+label, input[type=datetime]:focus:not([readonly])+label, input[type=datetime-local]:focus:not([readonly])+label, input[type=tel]:focus:not([readonly])+label, input[type=number]:focus:not([readonly])+label, input[type=search]:focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label{
+    color: rgba(0,0,0,0.54);
 }
 
 button,
@@ -576,12 +576,12 @@ button.boton-verde:hover {
 
 ::-webkit-scrollbar-thumb {
     border-radius: 0;
-    background: rgba(97, 39, 135, 1);
+    background: var(--ptincipal);
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(97, 39, 135, 0.4);
+    background: var(--ptincipal);
 }
 
 /*Begin header*/
@@ -676,7 +676,7 @@ div.acceder span i {
 
 .input-field,
 .input-field label {
-    padding: 0 .75rem;
+    padding: 0rem;
 }
 
 /*End header*/
@@ -1443,11 +1443,11 @@ p.titulo {
 /* BEGIN CONtenedor svg*/
 
 .contenedor-svg {
-    width: 400px;
-    height: 400px;
+    width: 65vh;
+    height: 65vh;
     margin: auto;
     border-radius: 5px;
-    border: 2px dotted #d4d4d4;
+    border: 2px dotted #6b6b6bb3;
 }
 
 /**/
@@ -1695,13 +1695,23 @@ div.logo-final {
     border-radius: 5px;
 }
 
+.ver-logo-planes {
+    background-color: white;
+    padding: 4% 7%;
+}
+
+.contenedor-planes {
+    padding: 2% 7%;
+}
+
 .plan {
-    padding-top: 6% !important;
+    padding-top: 5% !important;
 }
 
 .plan.plan-secundario>div {
     background: deepskyblue;
 }
+
 
 .plan.plan-primario>div {
     background: darkslategray;
@@ -1719,10 +1729,10 @@ div.logo-final {
 .plan>div {
     border-radius: 0.8em;
     padding: 10px 40px;
+    padding-top: 16px;
     padding-top: 5%;
-    min-height: 85vh !important;
-    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+    min-height: 90vh !important;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
 }
 
 .plan-body {
@@ -1730,7 +1740,6 @@ div.logo-final {
     font-size: 12px;
     border-radius: 0 0 5px 5px;
     line-height: 25px;
-    padding-top: 20px;
 }
 
 .plan-header {
@@ -1780,14 +1789,14 @@ div.contenedor-planes .plan .plan-body {
 }
 
 .logo-plan {
-    width: 52%;
+    width: 50%;
     margin: auto;
-    background: #ffffff;
+    background: white;
     border-radius: 50%;
     padding: 12px;
-    margin-top: -32%;
-    -webkit-box-shadow: 0 5px 6px -3px rgba(0, 0, 0, .2), 0 9px 12px 1px rgba(0, 0, 0, .14), 0 3px 16px 2px rgba(0, 0, 0, .12);
-    box-shadow: 0 5px 6px -3px rgba(0, 0, 0, .2), 0 9px 12px 1px rgba(0, 0, 0, .14), 0 3px 16px 2px rgba(0, 0, 0, .12);
+    box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+    margin-bottom:20px;
+    margin-top:-30%;
 }
 
 div.contenedor-planes .plan .plan-header {
@@ -1806,8 +1815,7 @@ div.contenedor-planes .plan .plan-header {
 
 ul.plan-lista {
     font-family: maven-regular;
-    font-size: 14px;
-    font-weight: bolder;
+    font-size: 13px;
 }
 
 .plan-header,
@@ -1817,7 +1825,7 @@ ul.plan-lista {
 }
 
 .plan .boton-planes {
-    background-color: var(--principal);
+    background-color: var(--principal) ;
     color: var(--blanco);
 }
 
@@ -1855,7 +1863,7 @@ planes-superiores.activo {
 .necesita-aumentar {
     opacity: 0.4;
     -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
+            filter: grayscale(100%);
     cursor: not-allowed;
 }
 
@@ -1969,7 +1977,7 @@ cerrar-pop {
 /*END PAGO*/
 
 .caja {
-    padding: 20px 20px 0px 20px;
+      padding: 20px 20px 0px 20px;
     position: relative;
     height: 100%;
 }
@@ -2233,6 +2241,10 @@ path.seleccionado {
     cursor: pointer;
 }
 
+.color-trans{
+    color: transparent !important;
+}
+
 .loading-white {
     background-image: url(/assets/images/spinner-white.gif);
     color: transparent !important;
@@ -2311,7 +2323,7 @@ path.seleccionado {
 }
 
 .section-cliente {
-    height: calc(88vh - 60px) !important;
+    height: calc(90vh - 60px) !important;
     background-color: var(--blanco);
     overflow: hidden;
 }
@@ -2426,7 +2438,7 @@ div[ng-message] {
     background-color: var(--blanco);
     border-radius: 18px;
     padding: 18px !important;
-    margin-bottom: 30px;
+    margin-bottom:30px;
 }
 
 .registro-form p.tercero,
@@ -2449,8 +2461,8 @@ div[ng-message] {
     display: flex;
     padding-top: 7%;
     -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .ingreso-redes-sociales>div {
@@ -2463,7 +2475,7 @@ div[ng-message] {
     transition: all .3s ease;
     text-align: center;
     -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1);
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1);
+            box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1);
     cursor: pointer;
     color: white;
     font-size: 16px;
@@ -2498,7 +2510,7 @@ div[ng-message] {
 }
 
 .social__or hr {
-    width: 45%;
+    width: 47%;
     border-width: 2px 0px 0px 0px;
 }
 
@@ -2530,12 +2542,10 @@ div[ng-message] {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
-<<<<<<< HEAD
-=======
 .ventajas-loguear {
     height: 80%;
     display: -webkit-box;
@@ -2543,11 +2553,11 @@ div[ng-message] {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
     -webkit-box-pack: space-evenly;
-    -ms-flex-pack: space-evenly;
-    justify-content: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
     padding-left: 5% !important;
     background: linear-gradient(-134deg, var(--principal), var(--tercero));
     color: white;
@@ -2555,7 +2565,6 @@ div[ng-message] {
     border-bottom-right-radius: 18px;
 }
 
->>>>>>> a2484f3e2c58bb2e5d543421ef4d14b509a4890a
 .boton-verde.__block {
     width: 100%;
     padding: 6px 0;
@@ -2716,7 +2725,7 @@ textarea {
     width: 100%;
     height: 0;
     padding: 32% 0 0 0;
-    margin: 2em 0 1em 0;
+    margin: 1em 0 1em 0;
     position: relative;
     overflow: visible;
     -webkit-transition: margin-top 0.5s;
@@ -3178,14 +3187,14 @@ textarea {
     display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-    -ms-flex-flow: row;
-    flex-flow: row;
+        -ms-flex-flow: row;
+            flex-flow: row;
     -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
     -webkit-box-pack: end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -3213,8 +3222,8 @@ textarea {
 
 .combinacion .comprar {
     -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     right: calc(100% - 75%);
 }
 
@@ -3226,11 +3235,11 @@ textarea {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin: 10px;
 }
 
@@ -3502,11 +3511,15 @@ div.opcion-icono bazam-visualizar svg {
     overflow: visible;
 }
 
+.input-field.col {
+    padding: 0 !important;
+}
+
 .refresh-icon {
     background-color: var(--principal);
     color: white;
-    border-radius: 3px;
-    padding: 2;
+    border-radius: 0px;
+    padding: 1px;
     cursor: pointer;
 }
 
@@ -3515,16 +3528,10 @@ div.opcion-icono bazam-visualizar svg {
     width: 100%;
     display: block !important;
     padding-top: 100%;
-    z-index: 20;
-    background-color: #ffffffc7;
+    z-index: 2;
+    background-color: white;
     top: 0px;
     left: 0px;
-}
-
-div.combinacion bazam-svg-text {
-    display: block;
-    height: 48%;
-    width: 100%;
 }
 
 div.combinacion {
@@ -3532,7 +3539,7 @@ div.combinacion {
     cursor: pointer;
     padding: 0 !important;
     border-radius: 6px;
-    opacity: 0.7;
+    opacity: 0.4;
     -webkit-transition: border 0.3s, opacity 0.3s;
     transition: border 0.3s, opacity 0.3s;
 }
@@ -3767,6 +3774,11 @@ div.combinacion.seleccionada {
 }
 */
 
+.combinacion bazam-svg-text {
+    display: block;
+    height: 46.3%;
+}
+
 .overlay-combinacion {
     z-index: -1;
     position: absolute;
@@ -3866,8 +3878,11 @@ div.combinacion.seleccionada {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    width: 33%;
-    margin-bottom: 4px;
+}
+
+.md-select-value>span:not(.md-select-icon) .md-text span {
+    width: 20px;
+    margin-bottom: 2px;
 }
 
 .estilo-de-color .md-text {
@@ -3961,7 +3976,7 @@ md-chip-template strong {
     justify-content: space-between;
     padding: 15px 0 0px 0;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 
 .estilos-fuentes md-radio-button .md-label {
@@ -4030,13 +4045,12 @@ div.color-picker-bazam {
     -webkit-box-shadow: 0px 0px 3px 1px #b7b7b7b0;
     box-shadow: 0px 0px 3px 1px #b7b7b7b0;
     border-radius: 5px;
-    padding: .5% 0.5% 1.5% .5%;
+    padding: .5% 0.5% .5% .5%;
 }
 
 div.color-picker-bazam div.color {
     -webkit-box-shadow: 0px 0px 1px 0px #585858d4;
     box-shadow: 0px 0px 1px 0px #585858d4;
-    border-radius: 15%;
     margin: .5%;
     cursor: pointer;
 }
@@ -4215,13 +4229,11 @@ g.contenedor-icono {
     width: 80%;
 }
 
-b,
-strong {
+b, strong {
     font-weight: bold;
     font-family: maven-regular;
 }
-
-.metodo .cerrar-prev {
+.metodo .cerrar-prev{
     position: fixed;
     right: 3%;
     top: 3%;
@@ -4234,137 +4246,161 @@ strong {
     border: 1px solid white;
 }
 
-.compartir-email-inicio {
+
+.compartir-email-inicio{
     position: absolute;
     width: 80%;
-    height: 130px;
-    background: #e4e7e8;
+    height: auto;
+    background: white;
     padding: 20px;
     top: calc(50% - 65px);
     left: calc(50% - 40%);
     z-index: 2;
     text-align: center;
     border-radius: 5px;
+    
 }
 
-.compartir-email-inicio div[ng-message] {
+.compartir-email-inicio div[ng-message]{
     position: static !important;
 }
 
-.compartir-email-inicio input[name=correo] {
+.compartir-email-inicio input[name=correo]{
     margin-bottom: 5px !important;
 }
+
 
 .compartir-email-inicio .boton-verde {
     margin-top: 0px !important;
 }
 
-.cerrar-compartir-email {
+.cerrar-compartir-email{
+
     position: absolute;
     right: 5%;
     font-size: 18px;
     top: 5%;
 }
 
-.ver-logo-enorme {
-    position: absolute;
-    bottom: 0;
-    z-index: 13;
-    -webkit-transition: height 1s;
-    transition: height 1s;
-    width: 100vw;
-    height: 0;
+
+    .ver-logo-enorme {
+        position: absolute;
+        bottom: 0;
+        z-index: 13;
+        -webkit-transition: height 1s;
+        transition: height 1s;
+        width: 100vw;
+        height: 0;
+    }
+
+    .ver-logo-enorme.estatico {
+        position:relative;
+        bottom: 0;
+        z-index: 10;
+        width: 100vw;
+        height: 100%;
+    }
+
+    .ver-logo-enorme.activo {
+        height: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .ver-logo-enorme .contenedor-ver-logo {
+        height: 60vh;
+    }
+
+    /**************/
+
+    .contenedor-ver-logo .logo {
+        width: 25%;
+    }
+
+    .contenedor-ver-logo {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+    }
+
+    .cerrar-prev:hover {
+        -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+        border: 1px solid black;
+        background: white;
+    }
+
+    .ver-logo-enorme.activo .cerrar-prev {
+        position: fixed;
+        right: 3%;
+        top: 3%;
+        padding: 9px;
+        border-radius: 50%;
+        background: #ffffffa3;
+        z-index: 15;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        border: 1px solid white;
+    }
+
+    /***************/
+
+    .contenedor-ver-previsualizar {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        background: rgb(246, 246, 246);
+    }
+
+    .contenedor-ver-previsualizar.uno {
+        padding: 5px 0 5px 0;
+    }
+
+    .contenedor-ver-previsualizar>div {
+        width: 50%;
+    }
+
+    .contenedor-logoprev {
+        position: relative;
+    }
+
+    .contenedor-logoprev>div {
+        position: absolute;
+        width: 25%;
+        left: 10%;
+        top: 15%;
+    }
+
+    /*************/
+
+
+md-input-container {
+    padding: 0px !important;
 }
 
-.ver-logo-enorme.estatico {
-    position: relative;
-    bottom: 0;
-    z-index: 10;
-    width: 100vw;
-    height: 100%;
+md-input-container label {
+    color: rgba(0,0,0,0.54) !important;
+    font-family: "futura-heavy" !important;
+    font-size: 1.1rem !important;
 }
 
-.ver-logo-enorme.activo {
-    height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+ /******* Palette Picker Circular *******/
+
+ bazam-palette-picker path[data-index] {
+    opacity: 0.7;
+    stroke: none !important;
+    transition: all 0.15s ease-in;
+    cursor: pointer;
 }
 
-.ver-logo-enorme .contenedor-ver-logo {
-    height: 60vh;
-}
-
-/**************/
-
-.contenedor-ver-logo .logo {
-    width: 25%;
-}
-
-.contenedor-ver-logo {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-
-.cerrar-prev:hover {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-    border: 1px solid black;
-    background: white;
-}
-
-.ver-logo-enorme.activo .cerrar-prev {
-    position: fixed;
-    right: 3%;
-    top: 3%;
-    padding: 9px;
-    border-radius: 50%;
-    background: #ffffffa3;
-    z-index: 15;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-    border: 1px solid white;
-}
-
-/***************/
-
-.contenedor-ver-previsualizar {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    background: rgb(246, 246, 246);
-}
-
-.contenedor-ver-previsualizar.uno {
-    padding: 5px 0 5px 0;
-}
-
-.contenedor-ver-previsualizar>div {
-    width: 50%;
-}
-
-.contenedor-logoprev {
-    position: relative;
-}
-
-.contenedor-logoprev>div {
-    position: absolute;
-    width: 25%;
-    left: 10%;
-    top: 15%;
-}
-
-/*************/
-
-/* PLANES */
-
-.ver-logo-planes {
-    background-color: white;
-    padding: 4% 7%;
+bazam-palette-picker path[data-index].color-checked {
+    stroke: rgb(71, 71, 71) !important;
+    stroke-width: 1.5px !important;
+    opacity: 1;
 }

@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<style>
+<style ng-if="!datos.editor">
 
     /* SECUNDARIO */
 

@@ -14,7 +14,7 @@
                 <!--PENDIENTES DE APROBACION-->
                 <div class="col s12" ng-switch-when="guardados">
                     <carousel-mis-logos ng-if="logos.terminados.guardados" logos="logos.guardados" callback="['guardados', logos.buscarAtributo, logos.abrirModal, logos.borrarLogo, logos.mostrarPlanes]"
-                        elegido="logos.elegido"></carousel-mis-logos>
+                        elegido="logos.elegido" actual="logos.actual"></carousel-mis-logos>
                 </div>
                 <!--APROBADOS-->
                 <div class="col s12" ng-switch-when="adquiridos">
@@ -126,7 +126,7 @@
 
 
 </section>
-<div class="ver-logo-enorme estatico" id="previsualizar" ng-if="logos.terminados.guardados">
+<div class="ver-logo-enorme estatico" id="previsualizar" ng-if="logos.elegido">
     <div class="contenedor-ver-previsualizar uno">
         <div class="contenedor-logoprev" style="width: 102%;
         height: 100vh;
@@ -164,6 +164,14 @@
 
         </div>
     </div>
+    <div class="row" ng-if="logos.opcionMostrar == 'guardados'">
+        <div class="col s12">
+            <div class="contenedor-planes">
+                <bazam-listar-planes datos="logos.datosComprar"></bazam-listar-planes>
+            </div>
+        </div>
+    </div>
+    
     <div class="contenedor-ver-previsualizar dos" style="padding-bottom:5px;">
         <div class="contenedor-logoprev" style="padding-right:5px;">
             <div style="    transform: skewY(16deg) skewX(-4deg);
