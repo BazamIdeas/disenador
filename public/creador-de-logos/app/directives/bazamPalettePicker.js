@@ -1,69 +1,14 @@
 angular.module("disenador-de-logos")
-	.directive("bazamPalettePicker", ["$compile",function($compile){
+	.directive("bazamPalettePicker", [function(){
 		return {
 			restrict: "AE",
 			scope: true,
 			templateUrl: "app/templates/bazamPalettePicker.tpl",
-			controller: ["$scope", function($scope){
+			controller: ["$scope", "coloresPaletteValue", function($scope, coloresPaletteValue){
 
-				$scope.palettes = [
-					[
-						["#ff7530", "#ad4f20", "#683014"],
-						["#ed2d2d", "#a31f1f", "#561010"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#a4f230", "#6fa322", "#446315"],
-						["#2a91e0", "#1e68a0", "#124063"],
-						["#ff7530", "#ad4f20", "#683014"],
-						["#ed2d2d", "#a31f1f", "#561010"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#a4f230", "#6fa322", "#446315"],
-						["#2a91e0", "#1e68a0", "#124063"],
-						["#ff7530", "#ad4f20", "#683014"],
-						["#ed2d2d", "#a31f1f", "#561010"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#a4f230", "#6fa322", "#446315"],
-						["#2a91e0", "#1e68a0", "#124063"],
-						["#ff7530", "#ad4f20", "#683014"],
 
-					],
-					[
-						["#efec2b", "#c6c425", "#99971e"],
-						["#a4f230", "#6fa322", "#446315"],
-						["#2a91e0", "#1e68a0", "#124063"],
-						["#ff7530", "#ad4f20", "#683014"],
-						["#ed2d2d", "#a31f1f", "#561010"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#a4f230", "#6fa322", "#446315"],
-						["#2a91e0", "#1e68a0", "#124063"],
-						["#ff7530", "#ad4f20", "#683014"],
-						["#ed2d2d", "#a31f1f", "#561010"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#a4f230", "#6fa322", "#446315"],
-						["#2a91e0", "#1e68a0", "#124063"],
-					],
-					[
-						["#2a91e0", "#1e68a0", "#124063"],
-						["#ff7530", "#ad4f20", "#683014"],
-						["#ed2d2d", "#a31f1f", "#561010"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#a4f230", "#6fa322", "#446315"],
-						["#2a91e0", "#1e68a0", "#124063"],
-						["#ff7530", "#ad4f20", "#683014"],
-						["#ed2d2d", "#a31f1f", "#561010"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#a4f230", "#6fa322", "#446315"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#efec2b", "#c6c425", "#99971e"],
-						["#a4f230", "#6fa322", "#446315"],
-						["#2a91e0", "#1e68a0", "#124063"],
-						["#ff7530", "#ad4f20", "#683014"]
-					]
-				];
+
+				$scope.palettes = coloresPaletteValue;
                 
 
 				$scope.palettesCopy = []; 
