@@ -1438,8 +1438,8 @@ p.titulo {
 /* BEGIN CONtenedor svg*/
 
 .contenedor-svg {
-    width: 400px;
-    height: 400px;
+    width: 65vh;
+    height: 65vh;
     margin: auto;
     border-radius: 5px;
     border: 2px dotted #6b6b6bb3;
