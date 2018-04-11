@@ -539,7 +539,7 @@ exports.nuevoClienteRed = async function (req, res)
     let e = "";
     let dataCliente = {};
 
-    var iso = services.geoipServices.iso(req.ip);
+    var iso = services.geoipServices.iso(req.headers["x-forwarder-for"]);
 
     switch (origen) {
         case "facebook":
