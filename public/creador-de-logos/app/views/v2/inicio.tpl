@@ -157,23 +157,23 @@
                         callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo,true)"></bazam-svg-text>
                     <div class='overlay-logo loading-purple' ng-hide="logo.cargado"></div>
 
-                    <span class="seleccionar" style="margin-bottom: 83%;" ng-click="inicio.preGuardarLogo(logo)">
+                    <span class="seleccionar" style="bottom: 82%;" ng-click="inicio.preGuardarLogo(logo)">
                         <p>GUARDAR</p>
                         <img ng-src="{{logo.idLogo ?'assets/images/save_active.svg' : 'assets/images/save.svg'}}"
                             alt="">
                     </span>
 
-                    <span class="seleccionar" style="margin-bottom: 66%;" ng-click="inicio.preAvanzar(logo)">
+                    <span class="seleccionar" style="bottom: 65%;" ng-click="inicio.preAvanzar(logo)">
                         <p>EDITAR</p>
                         <img src="assets/images/edit_white.svg" alt="">
                     </span>
 
-                    <span class="seleccionar" style="margin-bottom: 49%;" ng-click="logo.mostrarCompartir = true;">
+                    <span class="seleccionar" style="bottom: 48%;" ng-click="logo.mostrarCompartir = true;">
                         <p>ENVIAR</p>
                         <img src="assets/images/mail.svg" alt="">
                     </span>
 
-                    <span ng-show="logo.cargado" class="comprar" style="margin-bottom: 4%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
+                    <span ng-show="logo.cargado" class="comprar" style="bottom: 3%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
                         <p>COMPRAR</p>
                         <img src="assets/images/shop.svg" alt="">
                     </span>

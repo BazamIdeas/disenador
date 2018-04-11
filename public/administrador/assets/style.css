@@ -762,3 +762,15 @@ menu.centrado md-icon {
 .md-button.md-warn.md-raised:not([disabled]):hover {
     background-color: #B2DFDB;
 }
+
+
+
+
+@media (min-device-width:1024px) and (max-device-width:1180px), (min-width:1024px) and (max-width:1180px) {
+    
+    .contenedor-planes {
+        padding: 2% 0%;
+    }
+
+}
+

@@ -113,7 +113,14 @@
                         </span>
 
                         <span ui-sref="cuenta">
-                            <i class="material-icons">account_circle</i> &nbsp; {{header.autorizado.nombre}}
+                            <i ng-if="!header.autorizado.foto" class="material-icons">account_circle</i>
+                            <span ng-if="header.autorizado.foto && header.verificarBase64(header.autorizado.foto)">
+                                <img style="width: 30px;border-radius: 50%;" ng-src="{{'data:image/svg+xml;base64,' + header.autorizado.foto}}">
+                            </span>
+                            <span ng-if="header.autorizado.foto && !header.verificarBase64(header.autorizado.foto)">
+                                    <img style="width: 30px;border-radius: 50%;" ng-src="{{header.autorizado.foto}}">
+                                </span>
+                             {{header.autorizado.nombre}}
                         </span>
 
                         <span ng-click="header.salir()">

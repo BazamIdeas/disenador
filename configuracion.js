@@ -101,9 +101,9 @@ var configuracion = {
      "test" : {
         "servidor" : "Test",
         "secret":"unaclavemuysegura",
-        "seguridad" :true,
-        "puerto" : "4001",
-        "url": "test.logo.pro",
+    	"seguridad" :true,
+    	"puerto" : "4001",
+    	"url": "http://test.logo.pro",
         "base": "/creador-de-logos/", 
         "dashboard": "cliente/logos/",
         "pago" : "cliente/logos/descargar/",
