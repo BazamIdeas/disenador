@@ -202,13 +202,15 @@ pedido.ObtenerPlanPorIDdeLogo = function (idLogo, callback) {
 				INNER JOIN pedidos ON logos.idLogo = pedidos.logos_idLogo
 				INNER JOIN precios ON pedidos.precios_idPrecio = precios.idPrecio
 				INNER JOIN planes ON precios.Planes_idPlan = planes.idPlan
-				WHERE logos.idLogo = ? AND logos.estado = 'Descargable'`;
+				WHERE logos.idLogo = ? AND logos.estado = 'Descargable' 
+				AND pedidos.estado = 'COMPLETADO'`;
 
 	var par = [idLogo];
 
 	DB.getConnection(function (err, connection) {
 		connection.query(q, par, function (err, row) {
 			if (row !== 'undefined' && row.length > 0) {
+
 
 				callback(null, row)
 
@@ -227,7 +229,7 @@ pedido.ObtenerPlanPorIDdeLogo = function (idLogo, callback) {
 
 pedido.ObtenerPrecioViejoPorIDdeLogo = function (idLogo, idPedido, callback) {
 
-	var q = `SELECT precios.* 
+	var q = `SELECT precios.*, pedidos.idPedido
 				FROM precios 
 				INNER JOIN pedidos ON precios.idPrecio = pedidos.precios_idPrecio
 				WHERE pedidos.idPedido NOT IN (?) AND pedidos.logos_idLogo = ? AND pedidos.estado = 'COMPLETADO'`;
@@ -236,7 +238,6 @@ pedido.ObtenerPrecioViejoPorIDdeLogo = function (idLogo, idPedido, callback) {
 
 	DB.getConnection(function (err, connection) {
 		connection.query(q, par, function (err, row) {
-			console.log(row)
 			if (row !== undefined && row.length > 0) {
 
 				callback(null, row)

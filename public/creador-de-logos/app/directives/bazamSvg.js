@@ -248,7 +248,7 @@ angular.module("disenador-de-logos")
 										"position": "fixed",
 										"left": coordenadasCon.right + 10,
 										"top": coordenadasCon.top - 10,
-										"width": coordenadasCon.width / 2,
+										"width": coordenadasCon.width / 1.6,
 										"height": coordenadasCon.height / 2,
 										"background-color": "white",
 										"z-index": "2"
@@ -259,8 +259,8 @@ angular.module("disenador-de-logos")
 									posicionPicker = {
 										"position": "fixed",
 										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
-										"top": coordenadasCon.top - 10,
-										"width": coordenadasCon.width / 2,
+										"top": coordenadasCon.top - 40,
+										"width": coordenadasCon.width / 1.6,
 										"height": coordenadasCon.height / 2,
 										"background-color": "white",
 										"z-index": "2"
@@ -272,7 +272,7 @@ angular.module("disenador-de-logos")
 										"position": "fixed",
 										"left": coordenadasCon.left - (coordenadasCon.width / 2) - 10,
 										"top": coordenadasCon.top + 10 + (coordenadasCon.height / 2),
-										"width": coordenadasCon.width / 2,
+										"width": coordenadasCon.width / 1.6,
 										"height": coordenadasCon.height / 2,
 										"background-color": "white",
 										"z-index": "2"
@@ -295,8 +295,8 @@ angular.module("disenador-de-logos")
 
 									colorIndividual.css({
 										"background-color": color,
-										"width": "9%",
-										"height": "10%",
+										"width": "4.2%",
+										"height": "6.7%",
 										"display": "inline-block"
 									});
 

@@ -5,7 +5,6 @@ var multipart = require("connect-multiparty");
 var multipartMiddleware = multipart();
 var middleware = require("./middleware");
 
-var passport = require('passport');
 //MODULO CLIENTES
 //no espera parametros
 router.get("/clientes", middleware.validarAdministrador, controllers.clientes.listaClientes);
@@ -73,9 +72,9 @@ router.post("/pedido/guardado", middleware.validarCliente, controllers.pedidos.n
 router.post("/pedido/modificar", middleware.validarCliente, controllers.pedidos.modificarPedido); // modifica los datos de un pedido
 router.post("/pedido/cambiar", middleware.validarCliente, controllers.pedidos.cambiarEstado); // cambia de estado al pedido
 router.get("/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:padre?", controllers.pedidos.cambioEstadoPagado);
+router.get("/pedido/aumento/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:idPedidoViejo", controllers.pedidos.cambioEstadoPagadoAumentoPlan);
 
 //RUTAS INTERNAS
-router.get("/pedido/aumento/:idPedido/:idLogo", controllers.pedidos.cambioEstadoPagadoAumentoPlan); //RUTAS INTERNAS
 router.get("/pedido/no/pago/:tk", controllers.pedidos.noPago); // RUTAS INTERNAS
 
 //MODULO CATEGORIAS

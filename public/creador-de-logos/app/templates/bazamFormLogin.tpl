@@ -54,7 +54,7 @@ align-items: center;">
                                             <b>Olvidaste tu contraseña?</b>
                                         </small>
                                     </div>
-                                    <div class=" col s12">
+                                    <div class=" col s12" style="padding: 0;">
                                         <div class="social__or" style="    padding: 4% 0 3% 0;">
                                             <hr> o
                                             <hr>

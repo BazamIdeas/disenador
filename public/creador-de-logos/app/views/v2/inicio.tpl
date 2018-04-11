@@ -37,9 +37,9 @@
                     data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1"
                     bazam-pasos-ayuda>
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
-                    <label for="nombre" class="active">Nombre</label>
+                    <label style="padding:0 !important" for="nombre" class="active">Nombre</label>
                 </div>
-                <div>
+                <div class="col s12" style="padding:0 !important">
                     <md-input-container style="width:100%" bazam-ayuda data-titulo="Categoria" data-texto="Seleccione la categoria o actividad de su empresa u ocupación"
                         data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                         bazam-pasos-ayuda>
@@ -50,7 +50,7 @@
                     </md-input-container>
                 </div>
                 <br>
-                <div>
+                <div class="col s12" style="padding:0 !important">
                     <md-input-container class="md-block " style="width:100%; box-sizing: content-box;">
                         <label>Colores</label>
                         <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores"
@@ -69,7 +69,7 @@
 
                 </div>
                 <br>
-                <div class="input-tipografia">
+                <div class="input-tipografia col s12" style="padding:0 !important">
                     <div class="label-form ">
                         ESTILO DE TIPOGRAFÍA
                     </div>
@@ -100,8 +100,8 @@
                 </div>
 
                 -->
-                <div>
-                    <md-input-container>
+                <div class="col s12" style="padding:0 !important">
+                    <md-input-container style="width: 100%;">
                         <label>Etiquetas</label>
                         <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                             md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
@@ -169,8 +169,8 @@
                     </span>
 
                     <span class="seleccionar" style="margin-bottom: 49%;" ng-click="logo.mostrarCompartir = true;">
-                        <p>COMPARTIR</p>
-                        <img src="assets/images/share.svg" alt="">
+                        <p>ENVIAR</p>
+                        <img src="assets/images/mail.svg" alt="">
                     </span>
 
                     <span ng-show="logo.cargado" class="comprar" style="margin-bottom: 4%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
