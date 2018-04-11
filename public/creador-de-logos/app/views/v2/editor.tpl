@@ -67,7 +67,7 @@
 
 <section style="height: calc(100vh - 60px) !important; background-color: var(--fondo);overflow: hidden;">
 	<div class="row margin-bottom-0" style="overflow: hidden;">
-		<div class="col s2 editor-p sidebar-1" ng-form="editor.datosForm" style="padding: 10px 0px 0px 0px !important;text-align: center;"
+		<div class="col s2 editor-p sidebar-1" ng-form="editor.datosForm" style="     overflow: visible; padding: 10px 0px 0px 0px !important;text-align: center;"
 		    ng-init="editor.menuSwitch = 1">
 
 			<div class="col s4" style="padding: 0">
