@@ -12,7 +12,7 @@ avatares/*
 .ttf
 .eslintrc.js
 .eslintrc.json
-.configuracion.js
+/configuracion.js
 
 # exclude everything
 public/tmp/*
