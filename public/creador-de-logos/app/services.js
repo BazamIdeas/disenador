@@ -1,15 +1,15 @@
 angular.module("disenador-de-logos")
 
 	.value("coloresValue", [
-		["#CDFFEC", "#80FFCF", "#407F67"],
-		["#DBFFCD", "#A5FF80", "#547F43 "],
-		["#FBFFD3", "#F4FF86", "#7A7F46 "],
+
+		["#FFF9D6", "#FFED7E", "#7F721C "],
+		["#FBFFD3", "#F3FF7B", "#767F1B "],
 		["#FFE7A4", "#FFD458", "#7F6A2F"],
 
 		["#FFDAB8", "#FFB26C", "#7F4917"],
 		["#FFD6C6", "#FF9F7A", "#7F3A1E "],
 		["#FFCDC9", "#FF857C", "#7F2620"],
-		["#FFC4D7", "#FF78A3", "#7F1D3D"],
+		["#FF9193", "#FF393D", "#7F0A0C"],
 
 		["#FFC1E9", "#FF75CE", "#7F1C5C"],
 		["#FFBDFA", "#FF71F5", "#7F1A78 "],
@@ -22,9 +22,8 @@ angular.module("disenador-de-logos")
 		["#C9E0FF", "#7CB4FF", "#103F7F"],
 
 		["#D1F3FF", "#84DFFF", "#13637F"],
-		["#DCEEFC", "#263470", "#B21921"],
-		["#CFFFF8", "#83FFEC", "#137F6F"],
-		["#D0FFE0", "#83FFAF", "#137F3A"]
+		["#CDFFEC", "#80FFCF", "#407F67"],
+		["#DBFFCD", "#A5FF80", "#547F43 "],
 	])
 
 	.factory("coloresFactory", [function () {
