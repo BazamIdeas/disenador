@@ -6,13 +6,10 @@ angular.module("disenador-de-logos")
 			templateUrl: "app/templates/bazamPalettePicker.tpl",
 			controller: ["$scope", "coloresPaletteValue", function($scope, coloresPaletteValue){
 
-
-
-				$scope.palettes = coloresPaletteValue;
-                
+				$scope.$parent.palettes = coloresPaletteValue;
 
 				$scope.palettesCopy = []; 
-				angular.forEach($scope.palettes, function(palette, index){
+				angular.forEach($scope.$parent.palettes, function(palette, index){
 
 					$scope.palettesCopy.push([]);
 					var i;
@@ -92,14 +89,7 @@ angular.module("disenador-de-logos")
                     
 					el.style.fill = scope.palettes[indiceArrays][indicePalettes][0];
 
-					//el.setAttribute("ng-class", "{'color-checked': palettesCopy["+indiceArrays+"]["+indicePalettes+"]}");
-
-
-					
 				});
-
-				//element.html($compile(element.html)(scope));
-
 			}
 		};
 	}]);
