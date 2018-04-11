@@ -49,7 +49,7 @@
                     </md-input-container>
                 </div>
                 <br>
-                <div class="col s12" style="padding:0 !important">
+                <!--<div class="col s12" style="padding:0 !important">
                     <md-input-container class="md-block " style="width:100%; box-sizing: content-box;">
                         <label>Colores</label>
                         <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores"
@@ -61,7 +61,7 @@
                             </md-optgroup>
                         </md-select>
                     </md-input-container>
-                </div>
+                </div>-->
                 <div>
 
                 <bazam-palette-picker></bazam-palette-picker>
