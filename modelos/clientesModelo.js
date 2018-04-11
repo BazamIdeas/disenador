@@ -5,36 +5,18 @@ var cliente = {};
  
 cliente.verificarCliente = function(clienteData,callback)
 {
-	var q = "SELECT correo FROM clientes WHERE correo = ?" ;
+	var q = "SELECT idCliente, nombreCliente, correo, pass, foto FROM clientes WHERE correo = ?" ;
 	
 	var correo = clienteData[0];
-
 	
 	DB.getConnection(function(err, connection)
 	{			
 		
 		connection.query( q ,correo, function(err, row){
 			if (typeof row !== "undefined" && row.length > 0)
-
 			{ 
-
-				var q2 = "SELECT * FROM clientes WHERE correo = ? AND pass = ?" ;
-
-				connection.query( q2 ,clienteData, function(err, row2){
-
-					if(err){
-						throw err;
-
-					}else if(row2.length > 0){ 
 							
-						callback(null,row2);
-							
-					}else{
-
-						callback(null,{"msg":"La contraseña no coincide con este correo"});
-					}
-								
-				});
+				callback(null,row);
 					
 			}else{
 							
