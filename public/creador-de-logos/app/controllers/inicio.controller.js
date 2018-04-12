@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresValue", "etiquetasService", "pedidosService",  "$rootScope", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresValue, etiquetasService, pedidosService, $rootScope) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "pedidosService",  "$rootScope", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService, pedidosService, $rootScope) {
 
 		var bz = this;
 
@@ -8,7 +8,7 @@ angular.module("disenador-de-logos")
 
 		bz.obtenerColores = coloresFactory;
 
-		bz.colores = coloresValue;
+		//bz.colores = coloresPaletteValue;
 
 		bz.datos = landingResolve ? landingResolve.datos : {
 			nombre: "Mi logo",
@@ -92,6 +92,22 @@ angular.module("disenador-de-logos")
 
 
 		bz.combinar = function (iconos, fuentes) {
+
+			bz.datos.colores = [];
+			
+			angular.forEach(bz.palettesCopy, function(palettes, indicePalettes){
+				angular.forEach(palettes, function(palette, indicePalette){
+
+					if(palette){
+						bz.datos.colores.push(bz.palettes[indicePalettes][indicePalette]) ;
+					}
+					
+				});		
+
+			});
+
+			
+
 
 			var logos = crearLogoFactory(iconos, fuentes);
 

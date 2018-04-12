@@ -1,7 +1,7 @@
 'use strict';
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var configuracion = require('../configuracion.js');
+var configuracion = require('../configuracion/configuracion.js');
 
 exports.crearToken = function(id,tipo) {
 	const datos	= {

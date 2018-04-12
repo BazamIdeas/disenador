@@ -1,7 +1,7 @@
 
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var configuracion = require('../configuracion.js');
+var configuracion = require('../configuracion/configuracion.js');
 var services=require('../services');
 
 exports.validarCliente = function(req,res,next){

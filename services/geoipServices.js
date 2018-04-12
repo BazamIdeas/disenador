@@ -1,7 +1,7 @@
 'use strict';
 
 var MMDBReader = require('mmdb-reader');
-var configuracion = require('../configuracion.js');
+var configuracion = require('../configuracion/configuracion.js');
 
 exports.iso = function(ip){
  if (configuracion.servidor == "Desarrollo"){

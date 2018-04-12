@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 
-const cfg = require("../configuracion.js");
+const cfg = require("../configuracion/configuracion.js");
 
 // Connection URL
 const datos = cfg.mongo;
