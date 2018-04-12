@@ -305,6 +305,11 @@ angular.module("disenador-de-logos")
 								});
 
 								angular.element(".contenedor-principal.editor").append(colorPicker);
+
+								colorPicker.draggable({
+									revert:false
+								  });
+
 							};
 
 

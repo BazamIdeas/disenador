@@ -1,7 +1,7 @@
 var pago = require("../modelos/pagosModelo.js");
 var logo = require("../modelos/logosModelo.js");
 var atributo = require("../modelos/atributosModelo.js");
-var config = require("../configuracion.js");
+var config = require("../configuracion/configuracion.js");
 var async    = require("async");
 
 exports.ObtenerPorCliente = function(req, res)

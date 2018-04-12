@@ -264,33 +264,64 @@ angular.module("landing")
 
 	}])
 
+	.value("coloresPaletteValue", [
+	[ 
+			["#C9CBCC","#660000","#660000"],
+			["#E9EBAD","#662400","#662400"],
+			["#C9CBCC","#664B00","#664B00"],
+			["#F2EFD0","#5C6600","#5C6600"],
+			["#EFEA9D","#4D6600","#4D6600"],
+			["#B6CED4","#0D6600","#0D6600"], 
+			["#C2D1AE","#006618","#006618"],
+			["#50A273","#00663F","#00663F"],
+			["#AFA3CD","#006666","#006666"],
+			["#A399C7","#004266","#004266"],
+			["#A2CFE5","#001B66","#001B66"],
+			["#595D96","#0A0066","#0A0066"],
+			["#63569C","#320066","#320066"],
+			["#79A33E","#590066","#590066"],
+			["#AFA3CD","#66004E","#66004E"],
+			["#EEEEF6","#660027","#660027"],
+	],
+	[ 
+			["#FFFFFF","#CC2929","#CC2929"],
+			["#1C1E32","#CC6329","#CC6329"],
+			["#4072A3","#CCA129","#CCA129"],
+			["#8A3343","#BDCC29","#BDCC29"],
+			["#302418","#A1CC29","#A1CC29"],
+			["#572868","#3ECC29","#3ECC29"],
+			["#2A1E3F","#29CC4F","#29CC4F"],
+			["#273759","#29CC8E","#29CC8E"],
+			["#A76B42","#29CCCC","#29CCCC"],
+			["#415968","#2992CC","#2992CC"],
+			["#252B49","#2954CC","#2954CC"],
+			["#BCBA5C","#3829CC","#3829CC"],
+			["#CAC546","#7829CC","#7829CC"],
+			["#273759","#B729CC","#B729CC"],
+			["#245D34","#CC29A6","#CC29A6"],
+			["#232B45","#CC2967","#CC2967"],
+	],
+	[ 
+			["#552D1C","#CC7A7A","#CC7A7A"],
+			["#2D3C54","#CC977A","#CC977A"],
+			["#233C3B","#CCB67A","#CCB67A"],
+			["#2D3C54","#C4CC7A","#C4CC7A"],
+			["#34522C","#A4CC7A","#A4CC7A"],
+			["#2B332A","#85CC7A","#85CC7A"], 
+			["#1C251C","#7ACC92","#7ACC92"],
+			["#1D2235","#7ACCAD","#7ACCAD"],
+			["#2D4A3F","#7ACCCC","#7ACCCC"],
+			["#2E142C","#7AAFCC","#7AAFCC"],
+			["#2C1520","#7A90CC","#7A90CC"],
+			["#2C1520","#827ACC","#827ACC"],
+			["#371E43","#A27ACC","#A27ACC"],
+			["#1D2235","#C27ACC","#C27ACC"],
+			["#2D4A3F","#CC7AB9","#CC7AB9"],
+			["#2E142C","#CC7A9A","#CC7A9A"],
+	]
+	])
+
 	.value("estaticosLandingValue", {
-		colores:[
-			["#CDFFEC", "#80FFCF", "#407F67"],
-			["#DBFFCD", "#A5FF80", "#547F43 "],
-			["#FBFFD3", "#F4FF86", "#7A7F46 "],
-			["#FFE7A4", "#FFD458", "#7F6A2F"],
-	
-			["#FFDAB8", "#FFB26C", "#7F4917"],
-			["#FFD6C6", "#FF9F7A", "#7F3A1E "],
-			["#FFCDC9", "#FF857C", "#7F2620"],
-			["#FFC4D7", "#FF78A3", "#7F1D3D"],
-	
-			["#FFC1E9", "#FF75CE", "#7F1C5C"],
-			["#FFBDFA", "#FF71F5", "#7F1A78 "],
-			["#F0BBFF", "#DF6FFF", "#69197F"],
-			["#D9C3FF", "#A977FF", "#411D7F"],
-	
-			["#CFCAFF", "#897EFF", "#29207F"],
-			["#D3D8FF", "#8794FF", "#252F7F"],
-			["#D8E3FF", "#8BACFF", "#17357F"],
-			["#C9E0FF", "#7CB4FF", "#103F7F"],
-	
-			["#D1F3FF", "#84DFFF", "#13637F"],
-			["#DCEEFC", "#263470", "#B21921"],
-			["#CFFFF8", "#83FFEC", "#137F6F"],
-			["#D0FFE0", "#83FFAF", "#137F3A"]
-		],
 		caracteristicas: [{
 			titulo: "Titulo",
 			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",

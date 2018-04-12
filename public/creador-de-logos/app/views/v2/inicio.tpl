@@ -31,7 +31,6 @@
 <section style="max-height: calc(100vh - 60px) !important; background-color: var(--fondo);">
     <div class="row margin-bottom-0">
         <form class="margin-bottom-0" name="inicio.datosForm" novalidate>
-
             <div class="col l2 sidebar-1" style="position: static !important; overflow-y: scroll; overflow-x: hidden;">
                 <div style="padding:0 !important;" class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo"
                     data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1"
@@ -50,7 +49,7 @@
                     </md-input-container>
                 </div>
                 <br>
-                <div class="col s12" style="padding:0 !important">
+                <!--<div class="col s12" style="padding:0 !important">
                     <md-input-container class="md-block " style="width:100%; box-sizing: content-box;">
                         <label>Colores</label>
                         <md-select style="width:100%" md-no-asterisk ng-model="inicio.datos.colores" multiple class="md-block selector-de-colores"
@@ -62,7 +61,7 @@
                             </md-optgroup>
                         </md-select>
                     </md-input-container>
-                </div>
+                </div>-->
                 <div>
 
                 <bazam-palette-picker></bazam-palette-picker>

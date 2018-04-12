@@ -3,7 +3,7 @@ var logo = require("../modelos/logosModelo.js");
 var cliente = require("../modelos/clientesModelo.js");
 var services = require("../services");
 var elemento = require("../modelos/elementosModelo.js");
-var configuracion = require("../configuracion.js");
+var configuracion = require("../configuracion/configuracion.js");
 var moment = require("moment");
 var pais = require("../modelos/paisesModelo.js");
 var precio = require("../modelos/preciosModelo.js");
@@ -142,7 +142,7 @@ exports.nuevoPedido = function (req, res) {
 			}
 
 			var idLogo = data.insertId;
-			var iso = services.geoipServices.iso(req.ip);
+			var iso = services.geoipServices.iso(req.headers["x-forwarder-for"]);
 			var idPrecio = req.body.idPrecio;
 			var idPasarela = req.body.idPasarela;
 
@@ -282,7 +282,7 @@ exports.nuevoPedido = function (req, res) {
 
 exports.nuevoPedidoGuardado = function (req, res) {
 	var idLogo = req.body.idLogo;
-	var iso = services.geoipServices.iso(req.ip);
+	var iso = services.geoipServices.iso(req.headers["x-forwarder-for"]);
 	var idPrecio = req.body.idPrecio;
 	var idPasarela = req.body.pasarelas_idPasarela;
 
@@ -550,7 +550,7 @@ exports.aumentarPlan = function (req, res) {
 	var idLogo = req.body.idLogo;
 	var idPrecioNuevo = req.body.idPrecio;
 	var idPasarela = req.body.idPasarela;
-	var iso = services.geoipServices.iso(req.ip);
+	var iso = services.geoipServices.iso(req.headers["x-forwarder-for"]);
 
 	// Buscar impuesto
 	pais.ObtenerImpuesto(iso, function (error, impuesto) {

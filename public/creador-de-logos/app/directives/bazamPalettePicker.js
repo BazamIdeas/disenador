@@ -6,18 +6,16 @@ angular.module("disenador-de-logos")
 			templateUrl: "app/templates/bazamPalettePicker.tpl",
 			controller: ["$scope", "coloresPaletteValue", function($scope, coloresPaletteValue){
 
+				$scope.$parent.inicio.palettes = coloresPaletteValue;
 
+				$scope.$parent.inicio.palettesCopy = []; 
+				
+				angular.forEach($scope.$parent.inicio.palettes, function(palette, index){
 
-				$scope.palettes = coloresPaletteValue;
-                
-
-				$scope.palettesCopy = []; 
-				angular.forEach($scope.palettes, function(palette, index){
-
-					$scope.palettesCopy.push([]);
+					$scope.$parent.inicio.palettesCopy.push([]);
 					var i;
 					for (i = 0; i < palette.length; i++) { 
-						$scope.palettesCopy[index].push(false);
+						$scope.$parent.inicio.palettesCopy[index].push(false);
 					}         
 					
 				});
@@ -41,11 +39,11 @@ angular.module("disenador-de-logos")
 						indiceArrays = 2;
 					}
 
-					var indicePalettes = parseInt(pathSVG.dataset.index) - 1;
+					var indicePalettes = parseInt(angular.element(pathSVG).data("index")) - 1;
                     
-					var valor = $scope.palettesCopy[indiceArrays][indicePalettes];
+					var valor = $scope.$parent.inicio.palettesCopy[indiceArrays][indicePalettes];
                     
-					$scope.palettesCopy[indiceArrays][parseInt(pathSVG.dataset.index) - 1] = !valor;
+					$scope.$parent.inicio.palettesCopy[indiceArrays][indicePalettes] = !valor;
 
 					!valor ? pathSVG.classList.add("color-checked") : pathSVG.classList.remove("color-checked");
 
@@ -55,7 +53,7 @@ angular.module("disenador-de-logos")
 				$scope.checkRequired = function(){
 
 					var requerir = true;
-					angular.forEach($scope.palettesCopy, function(palettes){
+					angular.forEach($scope.$parent.inicio.palettesCopy, function(palettes){
 						angular.forEach(palettes, function(palette){
 							if(palette){
 								requerir = false;
@@ -88,18 +86,11 @@ angular.module("disenador-de-logos")
 						indiceArrays = 2;
 					}
 
-					var indicePalettes = parseInt(el.dataset.index) - 1;
+					var indicePalettes = parseInt(angular.element(el).data("index")) - 1;
                     
-					el.style.fill = scope.palettes[indiceArrays][indicePalettes][0];
+					el.style.fill = scope.$parent.inicio.palettes[indiceArrays][indicePalettes][1];
 
-					//el.setAttribute("ng-class", "{'color-checked': palettesCopy["+indiceArrays+"]["+indicePalettes+"]}");
-
-
-					
 				});
-
-				//element.html($compile(element.html)(scope));
-
 			}
 		};
 	}]);

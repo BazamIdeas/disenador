@@ -3,7 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var configuracion = require('./configuracion.js');
+var configuracion = require('./configuracion/configuracion.js');
 var compression = require('compression');
 
 
@@ -95,5 +95,6 @@ app.use(function(err, req, res, next) {
 
 app.listen(configuracion.puerto, function () {
   console.log('Servidor corriendo en : '+configuracion.servidor);
+
 });
 module.exports = app;

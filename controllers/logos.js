@@ -13,7 +13,7 @@ const svg2png = require("svg2png");
 var archiver  = require("archiver");
 var pathM     = require("path");
 var async     = require("async");
-var config    = require("../configuracion.js");
+var config    = require("../configuracion/configuracion.js");
 
 
 //GUARDAR UN LOGO

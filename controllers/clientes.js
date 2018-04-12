@@ -8,7 +8,7 @@ var pago = require('../modelos/pagosModelo.js');
 var logos = require('../modelos/logosModelo.js');
 var atributo = require('../modelos/atributosModelo.js');
 var elemento = require("../modelos/elementosModelo.js");
-var config = require('../configuracion.js');
+var config = require('../configuracion/configuracion.js');
 var async = require('async');
 var pdf = require('html-pdf');
 var base64 = require("base-64");
@@ -540,7 +540,7 @@ exports.nuevoClienteRed = async function (req, res)
     let e = "";
     let dataCliente = {};
 
-    var iso = services.geoipServices.iso(req.ip);
+    var iso = services.geoipServices.iso(req.headers["x-forwarder-for"]);
 
     switch (origen) {
         case "facebook":

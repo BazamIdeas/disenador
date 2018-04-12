@@ -1,5 +1,5 @@
 var paypal = require('paypal-rest-sdk');
-var configuracion = require('../configuracion.js');
+var configuracion = require('../configuracion/configuracion.js');
 var stripe = require("stripe")(configuracion.stripe.privateKey);
 
 exports.paypal = function(datos,callback)

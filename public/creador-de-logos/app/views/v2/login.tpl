@@ -74,7 +74,7 @@ align-items: center;">
 
                         <div class="registro-form" ng-hide="!login.ingresar">
                             <div class="row">
-                                <div class="col s5 offset-s1 md-whiteframe-13dp" style="     padding: 7px 18px; display: flex;flex-direction: column; justify-content: space-between; height: 80%;    background-color: var(--blanco);border-top-left-radius: 18px;
+                                <div class="col s5 offset-s1 md-whiteframe-13dp" style="     padding: 7px 18px; display: flex;flex-direction: column; justify-content: space-between;     height: 75vh;    background-color: var(--blanco);border-top-left-radius: 18px;
                                 border-bottom-left-radius: 18px;">
                                     <div>
                                         <p class="text-center tercero">Crea una Cuenta</p>
