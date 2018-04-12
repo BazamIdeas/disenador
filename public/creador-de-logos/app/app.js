@@ -63,9 +63,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 										fuente: datosLanding.idFuente
 									},
 									tags: datosLanding.etiquetasParaBusqueda,
-									colores: datosLanding.colores,
-									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
+									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas				
 								},
+								palettesCopy: datosLanding.palettesCopy,
 								iconos: datosLanding.iconos,
 								fuentes: datosLanding.fuentes
 							};

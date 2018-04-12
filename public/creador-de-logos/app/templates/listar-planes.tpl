@@ -52,31 +52,31 @@
     /* SECUNDARIO */
 
     .plan.plan-secundario>div {
-        background-color:{{datos.colores.icono}} !important;
+        background-color:{{datos.colores.fondo}} !important;
     }
 
     .plan.plan-secundario .plan-header, .plan.plan-secundario .plan-body, .plan.plan-secundario .plan-precio {
-        color:{{datos.colores.nombre}} !important;
+        color:{{datos.colores.icono}} !important;
     }
 
     .plan.plan-secundario .boton-planes{
-        background-color:{{datos.colores.nombre}} !important;
-        color:{{datos.colores.icono}};
+        background-color:{{datos.colores.icono}} !important;
+        color:{{datos.colores.fondo}};
     }
 
     /* PRIMARIO */
 
     .plan.plan-primario>div {
-        background-color:{{datos.colores.nombre}} !important;
+        background-color:{{datos.colores.icono}} !important;
     }
 
     .plan.plan-primario .plan-header,  .plan.plan-primario .plan-body, .plan.plan-primario .plan-precio {
-        color:{{datos.colores.icono}} !important;
+        color:{{datos.colores.fondo}} !important;
     }
 
     .plan.plan-primario .boton-planes{
-        background-color:{{datos.colores.icono}} !important;
-        color:{{datos.colores.nombre}};
+        background-color:{{datos.colores.fondo}} !important;
+        color:{{datos.colores.icono}};
     }
 
 </style>

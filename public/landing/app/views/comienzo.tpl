@@ -13,16 +13,24 @@
                     <div flex="40">
                         <md-input-container class=" md-block " style=" margin-bottom: 0; ">
                             <label>Nombre de su logo</label>
-                            <input type="text" md-no-asterisk style="margin-bottom: 0;" ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required>
+                            <input style="margin-bottom: 0;" type="text" md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required>
+                            <!-- VALIDACION -->
+                            <div ng-messages="form.nombre.$error " style="color:maroon " role="alert " ng-show="form.nombre.$touched
+                        && form.nombre.$invalid || form.nombre.$invalid">
+                                <div ng-message="required">Escriba el nombre de su logo.</div>
+                            </div>
                         </md-input-container>
-                        <!-- VALIDACION -->
-                        <div ng-messages="form.nombre.$error " style="color:maroon " role="alert " ng-show="form.nombre.$touched
-                            && form.nombre.$invalid || form.$submitted">
-                            <div ng-message="required">No dejes en blanco el nombre de tu logo.</div>
-                            </br>
+                        <br>
+                        <div>
+                            <div class="label-form ">
+                                Estilo de colores
+                            </div>
+                            <br>
+                            <bazam-palette-picker></bazam-palette-picker>
+
                         </div>
 
-                        <md-input-container class="md-block ">
+                        <!-- <md-input-container class="md-block ">
                             <label>Colores</label>
                             <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.colores" multiple class="md-block selector-de-colores" aria-label="filtro"
                                 name="color" required>
@@ -33,17 +41,51 @@
                                 </md-optgroup>
                             </md-select>
                         </md-input-container>
-                        <!-- VALIDACION -->
-                        <div ng-messages="form.color.$error " style="color:maroon " role="alert " ng-show="form.color.$touched
+                        <!-- VALIDACION  -->
+                        <!-- <div ng-messages="form.color.$error " style="color:maroon " role="alert " ng-show="form.color.$touched
                             && form.color.$invalid || form.$submitted">
                             <div ng-message="required">Selecciona algun color.</div>
                             </br>
-                        </div>
+                        </div> -->
 
+                    </div>
+                    <div flex="40">
+
+                        <md-input-container class="md-block" style="margin-bottom: 0;">
+                            <label>Actividad</label>
+                            <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro
+                            " name="cat" required>
+                                <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
+                            </md-select>
+                            <!-- VALIDACION -->
+                            <div ng-messages="form.cat.$error " style="color:maroon " role="alert " ng-show="form.cat.$touched
+                                && form.cat.$invalid || form.$submitted">
+                                <div ng-message="required">Selecciona la actividad que te agrade.</div>
+                                </br>
+                            </div>
+                        </md-input-container>
                         <br>
+                        <br>
+                        <md-input-container class="md-block">
+                            <label style="    font-size: 18px !important;">¿Que buscas?</label>
+                            <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                                md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
+                                <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
+                                    md-item-text="item.traduccion.valor" placeholder="Ejemplo: Caballo">
+                                    <span md-highlight-text="ctrl.searchText">{{item.traduccion.valor}}</span>
+                                </md-autocomplete>
+                                <md-chip-template>
+                                    <span>
+                                        <strong>{{$chip.traduccion.valor}}</strong>
+                                    </span>
+                                </md-chip-template>
+                            </md-chips>
+                            <br/>
+                        </md-input-container>
+
                         <div class="input-tipografia" ng-show="ctrl.categoriasPosibles.fuentes.length > 0">
                             <div class="label-form ">
-                                ESTILO DE TIPOGRAFÍA
+                                Estilo de Tipografía
                             </div>
                             <div class="estilos-fuentes ">
                                 <md-radio-group name="font" required ng-model="ctrl.datosCombinaciones.idFuente" class="md-primary ">
@@ -62,38 +104,7 @@
                                 </br>
                             </div>
                         </div>
-                    </div>
-                    <div flex="40">
 
-                        <md-input-container class="md-block">
-                            <label>Actividad</label>
-                            <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro
-                            " name="cat" required>
-                                <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
-                            </md-select>
-                        </md-input-container>
-                        <!-- VALIDACION -->
-                        <div ng-messages="form.cat.$error " style="color:maroon " role="alert " ng-show="form.cat.$touched
-                            && form.cat.$invalid || form.$submitted">
-                            <div ng-message="required">Selecciona la actividad que te agrade.</div>
-                            </br>
-                        </div>
-
-                        <div>
-                            <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-                                md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
-                                <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
-                                    md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
-                                    <span md-highlight-text="ctrl.searchText">{{item.traduccion.valor}}</span>
-                                </md-autocomplete>
-                                <md-chip-template>
-                                    <span>
-                                        <strong>{{$chip.traduccion.valor}}</strong>
-                                    </span>
-                                </md-chip-template>
-                            </md-chips>
-                            <br/>
-                        </div>
                         <br>
                         <div layout-padding>
                             <md-button ng-class="{'loading-white': ctrl.peticion}" type="submit " style="margin: 5% auto; display: block; color:white;    margin-top: 5%; background-color: var(--principal) !important; "
