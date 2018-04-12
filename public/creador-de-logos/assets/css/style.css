@@ -2516,11 +2516,7 @@ div[ng-message] {
 
 
 .ventajas-loguear {
-<<<<<<< HEAD
-    height: 80vh;
-=======
     height: 75vh;
->>>>>>> ed6f1079572668fbe231246f31b17ab397f80dd1
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
