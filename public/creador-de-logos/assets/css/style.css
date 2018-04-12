@@ -3527,7 +3527,7 @@ div.opcion-icono bazam-visualizar svg {
     position: absolute;
     width: 100%;
     display: block !important;
-    padding-top: 100%;
+    height: 100%;
     z-index: 2;
     background-color: white;
     top: 0px;
@@ -3539,14 +3539,18 @@ div.combinacion {
     cursor: pointer;
     padding: 0 !important;
     border-radius: 6px;
-    opacity: 0.4;
-    -webkit-transition: border 0.3s, opacity 0.3s;
-    transition: border 0.3s, opacity 0.3s;
+    opacity: 0.5;
+    -webkit-transition: box-shadow 0.3s, opacity 0.3s;
+    transition: box-shadow  0.3s, opacity 0.3s;
+    height: 50%;
 }
 
 div.combinacion:hover {
-    border: 3px solid rgba(0, 0, 0, 0.2);
+    /*border: 3px solid rgba(0, 0, 0, 0.2);*/
     opacity: 1;
+    -webkit-box-shadow: inset 5px 1px 75px -19px rgba(0,0,0,1);
+    -moz-box-shadow: inset 5px 1px 75px -19px rgba(0,0,0,1);
+    box-shadow: inset 5px 1px 75px -19px rgba(0,0,0,1);
 }
 
 @-webkit-keyframes topToMiddle {
@@ -3776,7 +3780,7 @@ div.combinacion.seleccionada {
 
 .combinacion bazam-svg-text {
     display: block;
-    height: 46.3%;
+    height: 100%;
 }
 
 .overlay-combinacion {

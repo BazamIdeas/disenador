@@ -1,21 +1,20 @@
-angular.module("disenador-de-logos")
+angular.module("landing")
 	.directive("bazamPalettePicker", [function(){
 		return {
 			restrict: "AE",
 			scope: true,
-			templateUrl: "app/templates/bazamPalettePicker.tpl",
+			templateUrl: "/landing/app/templates/bazamPalettePicker.tpl",
 			controller: ["$scope", "coloresPaletteValue", function($scope, coloresPaletteValue){
 
-				$scope.$parent.inicio.palettes = coloresPaletteValue;
+				$scope.$parent.ctrl.palettes = coloresPaletteValue;
 
-				$scope.$parent.inicio.palettesCopy = []; 
-				
-				angular.forEach($scope.$parent.inicio.palettes, function(palette, index){
+				$scope.$parent.ctrl.palettesCopy = []; 
+				angular.forEach($scope.$parent.ctrl.palettes, function(palette, index){
 
-					$scope.$parent.inicio.palettesCopy.push([]);
+					$scope.$parent.ctrl.palettesCopy.push([]);
 					var i;
 					for (i = 0; i < palette.length; i++) { 
-						$scope.$parent.inicio.palettesCopy[index].push(false);
+						$scope.$parent.ctrl.palettesCopy[index].push(false);
 					}         
 					
 				});
@@ -41,9 +40,9 @@ angular.module("disenador-de-logos")
 
 					var indicePalettes = parseInt(angular.element(pathSVG).data("index")) - 1;
                     
-					var valor = $scope.$parent.inicio.palettesCopy[indiceArrays][indicePalettes];
+					var valor = $scope.$parent.ctrl.palettesCopy[indiceArrays][indicePalettes];
                     
-					$scope.$parent.inicio.palettesCopy[indiceArrays][indicePalettes] = !valor;
+					$scope.$parent.ctrl.palettesCopy[indiceArrays][indicePalettes] = !valor;
 
 					!valor ? pathSVG.classList.add("color-checked") : pathSVG.classList.remove("color-checked");
 
@@ -53,7 +52,7 @@ angular.module("disenador-de-logos")
 				$scope.checkRequired = function(){
 
 					var requerir = true;
-					angular.forEach($scope.$parent.inicio.palettesCopy, function(palettes){
+					angular.forEach($scope.$parent.ctrl.palettesCopy, function(palettes){
 						angular.forEach(palettes, function(palette){
 							if(palette){
 								requerir = false;
@@ -88,7 +87,7 @@ angular.module("disenador-de-logos")
 
 					var indicePalettes = parseInt(angular.element(el).data("index")) - 1;
                     
-					el.style.fill = scope.$parent.inicio.palettes[indiceArrays][indicePalettes][1];
+					el.style.fill = scope.$parent.ctrl.palettes[indiceArrays][indicePalettes][1];
 
 				});
 			}

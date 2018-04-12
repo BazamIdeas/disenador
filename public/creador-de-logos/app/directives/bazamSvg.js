@@ -177,8 +177,6 @@ angular.module("disenador-de-logos")
 								//agregamos el Style Tag al svg
 								element.children().prepend("<style> @font-face { font-family: '" + scope.fuente.nombre + "'; src: url('" + scope.fuente.url + "')}  </style>");
 
-								element.resizable();
-
 								scope.svgPreparado.resolve();
 
 							});
@@ -311,6 +309,7 @@ angular.module("disenador-de-logos")
 								colorPicker.draggable({
 									revert:false
 								  });
+
 							};
 
 

@@ -325,13 +325,13 @@
 		</div>
 
 		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
-			style="display: flex;" ng-style="{'background-color': editor.colorFondo}">
+			style="display: flex;">
 			
 			<span class="seleccionar" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento, editor.logo.fuente.idElemento)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
 			
 			<span class="seleccionar" ng-click="::editor.buscarPlanes()" style="  top: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
 
-			<div class="contenedor-svg" style="position:relative">
+			<div class="contenedor-svg" style="position:relative" ng-style="{'background-color': editor.colorFondo}">
 				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
 				    data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan"
 				    data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto"></bazam-svg>
