@@ -8,19 +8,21 @@ angular.module("disenador-de-logos")
 
 				$scope.$parent.inicio.palettes = coloresPaletteValue;
 
-				$scope.$parent.inicio.palettesCopy = []; 
+				if(!$scope.$parent.inicio.palettesCopy){
+
+					$scope.$parent.inicio.palettes = [];
+					angular.forEach($scope.$parent.inicio.palettes, function(palette, index){
+
+						$scope.$parent.inicio.palettesCopy.push([]);
+						var i;
+						for (i = 0; i < palette.length; i++) { 
+							$scope.$parent.inicio.palettesCopy[index].push(false);
+						}         
+						
+					});
+
+				}
 				
-				angular.forEach($scope.$parent.inicio.palettes, function(palette, index){
-
-					$scope.$parent.inicio.palettesCopy.push([]);
-					var i;
-					for (i = 0; i < palette.length; i++) { 
-						$scope.$parent.inicio.palettesCopy[index].push(false);
-					}         
-					
-				});
-
-
 				$scope.seleccionarColor= function($event){
 
 					var indiceArrays;
@@ -64,10 +66,6 @@ angular.module("disenador-de-logos")
 					return requerir;
 				};
 
-			
-              
-
-
 			}],
 			link: function (scope, element) {
 
@@ -87,7 +85,7 @@ angular.module("disenador-de-logos")
 					}
 
 					var indicePalettes = parseInt(angular.element(el).data("index")) - 1;
-                    
+
 					el.style.fill = scope.$parent.inicio.palettes[indiceArrays][indicePalettes][1];
 
 				});

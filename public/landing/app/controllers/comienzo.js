@@ -18,6 +18,7 @@ angular.module("landing")
 			iconos: []
 		};
 		bz.datosCombinaciones = {
+			preferencias: [],
 			etiquetasSeleccionadas: [],
 			colores: []
 		}
@@ -61,7 +62,8 @@ angular.module("landing")
 			if (v) {
 				bz.peticion = true;
 				datos.etiquetasParaBusqueda = [];
-
+				datos.palettesCopy = bz.palettesCopy;
+				
 				angular.forEach(bz.palettesCopy, function(palettes, indicePalettes){
 					angular.forEach(palettes, function(palette, indicePalette){
 	
