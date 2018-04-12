@@ -87,7 +87,7 @@ angular.module("disenador-de-logos")
 
 					var indicePalettes = parseInt(angular.element(el).data("index")) - 1;
                     
-					el.style.fill = scope.$parent.inicio.palettes[indiceArrays][indicePalettes][0];
+					el.style.fill = scope.$parent.inicio.palettes[indiceArrays][indicePalettes][1];
 
 				});
 			}
