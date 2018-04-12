@@ -394,6 +394,7 @@ exports.nuevoCliente = function (req, res, next) {
         if (data && data.insertId) {
             res.status(200).json({
                 'nombre': req.body.nombreCliente,
+                'foto': req.body.foto,
                 'token': services.authServices.crearToken(data.insertId, "cliente")
             })
         } else {
