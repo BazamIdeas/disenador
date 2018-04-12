@@ -8,9 +8,10 @@ angular.module("disenador-de-logos")
 
 				$scope.$parent.inicio.palettes = coloresPaletteValue;
 
-				if(!$scope.$parent.inicio.palettesCopy){
+				if($scope.$parent.inicio.palettesCopy == undefined){
 
-					$scope.$parent.inicio.palettes = [];
+					$scope.$parent.inicio.palettesCopy = [];
+
 					angular.forEach($scope.$parent.inicio.palettes, function(palette, index){
 
 						$scope.$parent.inicio.palettesCopy.push([]);
@@ -85,6 +86,10 @@ angular.module("disenador-de-logos")
 					}
 
 					var indicePalettes = parseInt(angular.element(el).data("index")) - 1;
+
+					var valor = scope.$parent.inicio.palettesCopy[indiceArrays][indicePalettes];
+
+					valor ? el.classList.add("color-checked") : el.classList.remove("color-checked");
 
 					el.style.fill = scope.$parent.inicio.palettes[indiceArrays][indicePalettes][1];
 

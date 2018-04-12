@@ -21,7 +21,7 @@ angular.module("disenador-de-logos")
 		bz.palettes = coloresPaletteValue;
 		
 		if(landingResolve.palettesCopy){
-			bz.palletesCopy = landingResolve.palettesCopy;
+			bz.palettesCopy = landingResolve.palettesCopy;
 		}
 		
 
