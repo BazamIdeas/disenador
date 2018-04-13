@@ -3529,7 +3529,7 @@ div.opcion-icono bazam-visualizar svg {
     display: block !important;
     height: 100%;
     z-index: 2;
-    background-color: white;
+    background-color: #ffffffd4;
     top: 0px;
     left: 0px;
 }
@@ -3539,7 +3539,7 @@ div.combinacion {
     cursor: pointer;
     padding: 0 !important;
     border-radius: 6px;
-    opacity: 0.5;
+    opacity: 0.7;
     -webkit-transition: box-shadow 0.3s, opacity 0.3s;
     transition: box-shadow  0.3s, opacity 0.3s;
     height: 50%;

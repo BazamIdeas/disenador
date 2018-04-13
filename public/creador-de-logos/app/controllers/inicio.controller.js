@@ -8,8 +8,6 @@ angular.module("disenador-de-logos")
 
 		bz.obtenerColores = coloresFactory;
 
-		//bz.colores = coloresPaletteValue;
-
 		bz.datos = landingResolve ? landingResolve.datos : {
 			nombre: "Mi logo",
 			preferencias: [],
@@ -17,9 +15,15 @@ angular.module("disenador-de-logos")
 				icono: "",
 				fuente: ""
 			},
-			colores: [],
 			etiquetasSeleccionadas: []
 		};
+
+		bz.palettes = coloresPaletteValue;
+		
+		if(landingResolve.palettesCopy){
+			bz.palettesCopy = landingResolve.palettesCopy;
+		}
+		
 
 		/* Etiquetas */
 
@@ -90,6 +94,7 @@ angular.module("disenador-de-logos")
 			.catch(function () {});
 
 
+		
 
 		bz.combinar = function (iconos, fuentes) {
 
@@ -105,9 +110,6 @@ angular.module("disenador-de-logos")
 				});		
 
 			});
-
-			
-
 
 			var logos = crearLogoFactory(iconos, fuentes);
 
