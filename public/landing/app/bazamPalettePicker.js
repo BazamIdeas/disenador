@@ -6,6 +6,7 @@ angular.module("landing")
 			templateUrl: "/landing/app/templates/bazamPalettePicker.tpl",
 			controller: ["$scope", "coloresPaletteValue", function($scope, coloresPaletteValue){
 
+				console.log($scope)
 				$scope.$parent.ctrl.palettes = coloresPaletteValue;
 
 				$scope.$parent.ctrl.palettesCopy = []; 
@@ -62,10 +63,6 @@ angular.module("landing")
                     
 					return requerir;
 				};
-
-			
-              
-
 
 			}],
 			link: function (scope, element) {

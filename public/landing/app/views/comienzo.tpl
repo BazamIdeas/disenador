@@ -13,13 +13,12 @@
                         <md-input-container class=" md-block " style=" margin-bottom: 0; ">
                             <label>Nombre de su logo</label>
                             <input style="margin-bottom: 0;" type="text" md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required>
-
+                            <!-- VALIDACION -->
+                            <div ng-messages="form.nombre.$error " style="color: #E91E63 !important;  " role="alert " ng-show="form.nombre.$touched
+                                && form.nombre.$invalid || form.$submitted && form.nombre.$invalid">
+                                <div ng-message="required">Escriba el nombre de su logo.</div>
+                            </div>
                         </md-input-container>
-                        <!-- VALIDACION -->
-                        <div ng-messages="form.nombre.$error " style="color:maroon " role="alert " ng-show="form.nombre.$touched
-                        && form.nombre.$invalid || form.nombre.$submitted && form.nombre.$invalid">
-                            <div ng-message="required">Escriba el nombre de su logo.</div>
-                        </div>
                         <br>
                         <div>
                             <div class="label-form ">
@@ -50,23 +49,21 @@
 
                     </div>
                     <div flex="40">
-
-                        <md-input-container class="md-block" style="margin-bottom: 0;">
-                            <label>Actividad</label>
-                            <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro
+                        <div>
+                            <md-input-container class="md-block">
+                                <label>Actividad</label>
+                                <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro
                             " name="cat" required>
-                                <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
-                            </md-select>
-                            <!-- VALIDACION -->
-                            <div ng-messages="form.cat.$error " style="color:maroon " role="alert " ng-show="form.cat.$touched
-                                && form.cat.$invalid || form.$submitted && form.cat.$invalid">
-                                <div ng-message="required">Selecciona la actividad que te agrade.</div>
-                                </br>
-                            </div>
-                        </md-input-container>
-                        <br>
-                        <br>
-                        <md-input-container class="md-block">
+                                    <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
+                                </md-select>
+                                <!-- VALIDACION -->
+                                <div ng-messages="form.cat.$error " style="color: #E91E63 !important; " role="alert ">
+                                    <div ng-message="required" ng-show="form.cat.$touched && form.cat.$invalid || form.$submitted && form.cat.$invalid">Selecciona una actividad que le agrade.</div>
+                                    </br>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <md-input-container class="md-block" style="  margin-top: 40px;">
                             <label style="    font-size: 18px !important;">¿Que buscas?</label>
                             <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                                 md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
@@ -95,13 +92,11 @@
                                         <span class="estilo " ng-class="{'amatic':estilo.nombreCategoria == 'Clásicas', 'niconne':estilo.nombreCategoria == 'Moderna', 'julee':estilo.nombreCategoria == 'Llamativas', 'cabin':estilo.nombreCategoria == 'Minimalista'}">A</span>
                                     </md-radio-button>
                                 </md-radio-group>
-                            </div>
-
-                            <!-- VALIDACION -->
-                            <div ng-messages="form.font.$error " style="color:maroon " role="alert " ng-show="form.font.$touched
-                                && form.font.$invalid || form.$submitted">
-                                <div ng-message="required">Selecciona un estilo de tipografía.</div>
-                                </br>
+                                <div ng-messages="form.font.$error " style="color: #E91E63 !important; " role="alert " ng-show="form.font.$touched
+                                                                && form.font.$invalid || form.$submitted">
+                                    <div ng-message="required">Selecciona un estilo de tipografía.</div>
+                                    </br>
+                                </div>
                             </div>
                         </div>
 

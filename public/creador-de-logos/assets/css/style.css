@@ -236,6 +236,10 @@ md-input-container:not([md-no-float]) .md-select-placeholder span:first-child {
     font-family: 'futura-heavy' !important;
 }
 
+div[ng-messages] {
+    font-family: 'futura-heavy' !important;
+}
+
 [type="checkbox"].filled-in:checked+label:after {
     border: 2px solid var(--tercero);
     background-color: var(--tercero);
@@ -1732,7 +1736,8 @@ div.logo-final {
     padding-top: 16px;
     padding-top: 5%;
     min-height: 90vh !important;
-    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
+    -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
+            box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
 }
 
 .plan-body {
@@ -1794,7 +1799,8 @@ div.contenedor-planes .plan .plan-body {
     background: white;
     border-radius: 50%;
     padding: 12px;
-    box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+    -webkit-box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+            box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
     margin-bottom:20px;
     margin-top:-30%;
 }
@@ -2517,9 +2523,16 @@ div[ng-message] {
 
 .ventajas-loguear {
     height: 75vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
     padding-left: 5% !important;
     background: linear-gradient(-134deg, var(--tercero), var(--principal));
     color: white;
@@ -3541,7 +3554,10 @@ div.combinacion {
     border-radius: 6px;
     opacity: 0.7;
     -webkit-transition: box-shadow 0.3s, opacity 0.3s;
+    -webkit-transition: opacity 0.3s, -webkit-box-shadow  0.3s;
+    transition: opacity 0.3s, -webkit-box-shadow  0.3s;
     transition: box-shadow  0.3s, opacity 0.3s;
+    transition: box-shadow  0.3s, opacity 0.3s, -webkit-box-shadow  0.3s;
     height: 50%;
 }
 
@@ -3549,7 +3565,6 @@ div.combinacion:hover {
     /*border: 3px solid rgba(0, 0, 0, 0.2);*/
     opacity: 1;
     -webkit-box-shadow: inset 5px 1px 75px -19px rgba(0,0,0,1);
-    -moz-box-shadow: inset 5px 1px 75px -19px rgba(0,0,0,1);
     box-shadow: inset 5px 1px 75px -19px rgba(0,0,0,1);
 }
 
@@ -4399,6 +4414,7 @@ md-input-container label {
  bazam-palette-picker path[data-index] {
     opacity: 0.7;
     stroke: none !important;
+    -webkit-transition: all 0.15s ease-in;
     transition: all 0.15s ease-in;
     cursor: pointer;
 }
