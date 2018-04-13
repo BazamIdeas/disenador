@@ -56,7 +56,7 @@ display: block;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 162.63 162.63" 
 </div>
 
 <div ng-form="paletteForm">
-    <div ng-repeat="palette in palettesCopy track by $index">
+    <div ng-repeat="palette in $parent.ctrl.palettesCopy track by $index">
             <input type="checkbox" ng-model="aux" ng-checked="check" ng-repeat="check in palette track by $index" ng-required="checkRequired()">
     </div>
 </div>
