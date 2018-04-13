@@ -166,7 +166,7 @@
     </div>
     <div class="row" ng-if="logos.opcionMostrar == 'guardados'">
         <div class="col s12">
-            <div class="contenedor-planes">
+            <div class="contenedor-planes" style="padding-top: 5%;">
                 <bazam-listar-planes datos="logos.datosComprar"></bazam-listar-planes>
             </div>
         </div>

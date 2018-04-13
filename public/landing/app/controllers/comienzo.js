@@ -39,14 +39,16 @@ angular.module("landing")
 		]
 
 		$q.all(bz.promesas).then(function (res) {
-			bz.etiquetas = etiquetasService.loadEtiquetas(res[0].data);
+			
 			bz.categoriasPosibles.iconos = res[1];
 			bz.categoriasPosibles.fuentes = res[2];
-
 			angular.forEach(res[3], function (valor) {
 				valor.valor = 2;
 				bz.datosCombinaciones.preferencias.push(valor);
 			});
+			bz.etiquetas = etiquetasService.loadEtiquetas(res[0].data);
+
+
 		}).catch(function (res) {
 			console.log(res)
 		}).finally(function () {
@@ -57,7 +59,7 @@ angular.module("landing")
 
 		bz.enviarComenzar = function (datos, v) {
 
-			inicial = false
+			var inicial = false
 
 			if (v) {
 				bz.peticion = true;

@@ -9,17 +9,17 @@
             <br>
             <form name="form" ng-submit="ctrl.enviarComenzar(ctrl.datosCombinaciones, form.$valid)" novalidate>
                 <div layout layout-align="space-between">
-
                     <div flex="40">
                         <md-input-container class=" md-block " style=" margin-bottom: 0; ">
                             <label>Nombre de su logo</label>
                             <input style="margin-bottom: 0;" type="text" md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required>
-                            <!-- VALIDACION -->
-                            <div ng-messages="form.nombre.$error " style="color:maroon " role="alert " ng-show="form.nombre.$touched
-                        && form.nombre.$invalid || form.nombre.$invalid">
-                                <div ng-message="required">Escriba el nombre de su logo.</div>
-                            </div>
+
                         </md-input-container>
+                        <!-- VALIDACION -->
+                        <div ng-messages="form.nombre.$error " style="color:maroon " role="alert " ng-show="form.nombre.$touched
+                        && form.nombre.$invalid || form.nombre.$submitted && form.nombre.$invalid">
+                            <div ng-message="required">Escriba el nombre de su logo.</div>
+                        </div>
                         <br>
                         <div>
                             <div class="label-form ">
@@ -59,7 +59,7 @@
                             </md-select>
                             <!-- VALIDACION -->
                             <div ng-messages="form.cat.$error " style="color:maroon " role="alert " ng-show="form.cat.$touched
-                                && form.cat.$invalid || form.$submitted">
+                                && form.cat.$invalid || form.$submitted && form.cat.$invalid">
                                 <div ng-message="required">Selecciona la actividad que te agrade.</div>
                                 </br>
                             </div>
@@ -99,7 +99,7 @@
 
                             <!-- VALIDACION -->
                             <div ng-messages="form.font.$error " style="color:maroon " role="alert " ng-show="form.font.$touched
-                        && form.font.$invalid || form.$submitted">
+                                && form.font.$invalid || form.$submitted">
                                 <div ng-message="required">Selecciona un estilo de tipografía.</div>
                                 </br>
                             </div>
