@@ -228,7 +228,7 @@
 					<div class="row">
 						<div class="col s12 no-padding">
 							<md-chips style="padding:0;" md-add-on-blur="true" ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-							    md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
+							    md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" >
 								<label>Etiquetas</label>
 								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
 								    md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
@@ -266,48 +266,54 @@
 								+
 							</div>
 						</div>
-						<div class=" col s12 estilo-texto" style="padding:0;">
-							<p class="text-center principal" style="margin-top: 20px; margin-bottom:0px;">Orientación</p>
-						</div>
 
-						<div class=" col s6" style="padding:0;">
-							<div class="cubo-logo-orientacion vertical" ng-click="::editor.cambiarOrientacion('vertical')">
-								<div>
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo arriba</md-tooltip>
-									<span>
-										<i class="material-icons">thumb_up</i>
-									</span>
-									<span>TU LOGO</span>
-								</div>
-							</div>
-
-						</div>
-						<div class=" col s6" style="padding:0;">
-							<div class="cubo-logo-orientacion horizontal" ng-click="::editor.cambiarOrientacion('horizontal')">
-								<div>
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo a la izquierda</md-tooltip>
-									<span style="margin-right: 5px;">
-										<i class="material-icons">thumb_up</i>
-									</span>
-									<span>TU LOGO</span>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 
 			</div>
 
+			<hr style="margin: 5px 8px;
+			background-color: var(--principal);
+			height: 0px;">
+
+			<div class=" col s12 estilo-texto" style="padding:0;">
+				<p class="text-center principal" style="margin-top: 0px; margin-bottom:0px;">Orientación</p>
+			</div>
+
+			<div class=" col s6" style="padding:0; margin-bottom:10px;">
+				<div class="cubo-logo-orientacion vertical" ng-click="::editor.cambiarOrientacion('vertical')">
+					<div>
+						<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo arriba</md-tooltip>
+						<span>
+							<i class="material-icons">thumb_up</i>
+						</span>
+						<span>TU LOGO</span>
+					</div>
+				</div>
+
+			</div>
+			<div class=" col s6" style="padding:0; margin-bottom:10px;">
+				<div class="cubo-logo-orientacion horizontal" ng-click="::editor.cambiarOrientacion('horizontal')">
+					<div>
+						<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo a la izquierda</md-tooltip>
+						<span style="margin-right: 5px;">
+							<i class="material-icons">thumb_up</i>
+						</span>
+						<span>TU LOGO</span>
+					</div>
+				</div>
+			</div>
+
 			<hr style="margin: 10px 8px;
 			background-color: var(--principal);
-			height: 1px;">
+			height: 0px;">
 
-			<div class="col s6" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']"
+			<div class="col s6" style="margin-bottom:10px;" bazam-ayuda data-titulo="Fondo" data-texto="Visualice su logo en un color de fondo diferente." data-clases="['corner-lt']"
 			data-identificador="ayuda-fondo" data-orientacion="right" data-paso="10" bazam-pasos-ayuda>
 				<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fondo</md-tooltip>
 				<bazam-color-picker data-color="editor.colorFondo"></bazam-color-picker>
 			</div>
-			<div class="col s6" bazam-ayuda data-titulo="Cuadricula" data-texto="Utiice la cuadricula para orientar los elementos de su logo "
+			<div class="col s6" style="margin-bottom:10px;" bazam-ayuda data-titulo="Cuadricula" data-texto="Utiice la cuadricula para orientar los elementos de su logo "
 				data-clases="['corner-lt']" data-identificador="ayuda-cuadricula" data-orientacion="right" data-paso="11" 		bazam-pasos-ayuda>
 				<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cuadricula</md-tooltip>
 				<div class="selector-cuadricula" ng-class="{'active': editor.cuadricula }" ng-click="::editor.activarCuadricula()">
@@ -315,8 +321,12 @@
 				</div>
 			</div>
 
+			<hr style="margin: 10px 8px;
+			background-color: var(--principal);
+			height: 0px;">
+
 			<div class=" col s12">
-				<md-button style="margin:30px 0 0 0; font-weight:bold; font-family: futura-heavy;width:100%; border-radius:4px; background-color: var(--principal); color:white;" ui-sref="inicio">
+				<md-button style="margin:5px 0 0 0; font-weight:bold; font-family: futura-heavy;width:100%; border-radius:4px; background-color: var(--principal); color:white;" ui-sref="inicio">
 					Volver
 				</md-button>
 			</div>
@@ -329,12 +339,12 @@
 			
 			<span class="seleccionar" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento, editor.logo.fuente.idElemento)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
 			
-			<span class="seleccionar" ng-click="::editor.buscarPlanes()" style="  top: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores, logo)"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
+			<span class="seleccionar" ng-click="::editor.buscarPlanes()" style="  top: 15%;"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
 
 			<div class="contenedor-svg" style="position:relative" ng-style="{'background-color': editor.colorFondo}">
 				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
 				    data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan"
-				    data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto"></bazam-svg>
+				    data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto" ></bazam-svg>
 				<div class='overlay-logo loading-purple' ng-hide="editor.svgFinal"></div>
 			</div>
 			<div class="overlay-svg" ng-class="{'abierto': (editor.contenedores.borradores || editor.contenedores.busquedaIconos) }"></div>

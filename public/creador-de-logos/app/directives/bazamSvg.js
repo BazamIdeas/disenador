@@ -18,7 +18,7 @@ angular.module("disenador-de-logos")
 				idPadre: "=idPadre",
 				eslogan: "=eslogan",
 				colorIcono: "=colorIcono",
-				colorTexto: "=colorTexto",
+				colorTexto: "=colorTexto"
 
 
 			},
@@ -232,6 +232,7 @@ angular.module("disenador-de-logos")
 							var titulo = "";
 							var id = "";
 
+							
 
 							var crearPicker = function (id) {
 
@@ -317,13 +318,16 @@ angular.module("disenador-de-logos")
 							var clicked = angular.element(e.target);
 
 							if (clicked.hasClass("textoPrincipal")) {
+
 								titulo = "NOMBRE";
 								id = "color-picker-texto";
 
 							} else if (clicked.hasClass("eslogan")) {
+
 								titulo = "ESLOGAN";
 								id = "color-picker-eslogan";
 							} else {
+
 								titulo = "ICONO";
 								id = "color-picker-icono";
 							}
