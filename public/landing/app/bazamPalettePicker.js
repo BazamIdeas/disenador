@@ -63,10 +63,6 @@ angular.module("landing")
 					return requerir;
 				};
 
-			
-              
-
-
 			}],
 			link: function (scope, element) {
 

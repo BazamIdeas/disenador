@@ -45,11 +45,19 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			.state({
 				name: "inicio",
-				url: "/",
+				url: "/:datos?",
 				templateUrl: "app/views/v2/inicio.tpl",
 				controller: "inicioController as inicio",
 				resolve: {
-					landingResolve: ["LS", function (LS) {
+					landingResolve: ["LS", "$stateParams", function (LS, $stateParams) {
+
+						/* Si es un logo compartido por url */
+
+						if ($stateParams && $stateParams.datos != '' && $stateParams.datos != undefined) {
+							return JSON.parse(decodeURI($stateParams.datos));
+						}
+
+						/* Si el cliente viene de la landing */
 
 						var datosLanding = LS.obtener("comenzar");
 
@@ -63,7 +71,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 										fuente: datosLanding.idFuente
 									},
 									tags: datosLanding.etiquetasParaBusqueda,
-									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas				
+									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas,
+									preferencias: datosLanding.preferencias
 								},
 								palettesCopy: datosLanding.palettesCopy,
 								iconos: datosLanding.iconos,

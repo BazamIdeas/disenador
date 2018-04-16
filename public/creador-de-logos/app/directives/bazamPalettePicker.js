@@ -4,26 +4,26 @@ angular.module("disenador-de-logos")
 			restrict: "AE",
 			scope: true,
 			templateUrl: "app/templates/bazamPalettePicker.tpl",
-			controller: ["$scope", "coloresPaletteValue", function($scope, coloresPaletteValue){
+			controller: ["$scope", "coloresPaletteValue", function ($scope, coloresPaletteValue){
 
 				$scope.$parent.inicio.palettes = coloresPaletteValue;
 
-				if($scope.$parent.inicio.palettesCopy == undefined){
+				if ($scope.$parent.inicio.palettesCopy == undefined) {
 
 					$scope.$parent.inicio.palettesCopy = [];
 
-					angular.forEach($scope.$parent.inicio.palettes, function(palette, index){
+					angular.forEach($scope.$parent.inicio.palettes, function (palette, index) {
 
 						$scope.$parent.inicio.palettesCopy.push([]);
 						var i;
-						for (i = 0; i < palette.length; i++) { 
+						for (i = 0; i < palette.length; i++) {
 							$scope.$parent.inicio.palettesCopy[index].push(false);
-						}         
-						
+						}
+
 					});
 
 				}
-				
+			
 				$scope.seleccionarColor= function($event){
 
 					var indiceArrays;

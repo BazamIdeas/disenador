@@ -108,7 +108,8 @@ input,
 button,
 label,
 md-select-value,
-select {
+select,
+div[ng-messages] {
     font-family: 'futura-heavy' !important;
 }
 
