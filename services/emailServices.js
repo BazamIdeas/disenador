@@ -21,9 +21,13 @@ class emailService {
         this.template = fs.readFileSync('./email-templates/'+template ,'utf8', (err) => {
             if (err) throw err;
         });
+
+        this.message.html = this.template;
+
         for(var key in this.data){
-            this.message.html = this.template.replace('{#'+key+'#}', this.data[key]);
+            this.message.html = this.message.html.replace('{#'+key+'#}', this.data[key]);
         }
+
         return this;
     } 
 

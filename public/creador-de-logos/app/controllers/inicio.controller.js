@@ -26,8 +26,19 @@ angular.module("disenador-de-logos")
 
 		bz.compartirPorEmailUrl = function () {
 
+			var datosFormat = angular.copy(bz.datos);
+
+			angular.forEach(datosFormat.etiquetasSeleccionadas, function(valor){
+				if(valor.$$hashKey){
+					delete valor.$$hashKey;
+				}
+			});
+
+			delete datosFormat.fuentes;
+			delete datosFormat.colores;
+
 			var datos = {
-				datos: bz.datos,
+				datos: datosFormat,
 				palettesCopy: bz.palettesCopy,
 				logoCompartido: true
 			};
@@ -174,7 +185,6 @@ angular.module("disenador-de-logos")
 			bz.solicitarElementos();
 		}
 
-
 		bz.preAvanzar = function (logo) {
 			bz.logoSeleccionado = bz.logos.indexOf(logo);
 			bz.avanzar();
@@ -315,7 +325,9 @@ angular.module("disenador-de-logos")
 					bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
 						.then(function (res) {
 							logo.idLogo = res;
-							logosService.enviarPorEmail(logo.idLogo, email, bz.compartirPorEmailUrl())
+							var url = bz.compartirPorEmailUrl();
+
+							logosService.enviarPorEmail(logo.idLogo, email, url)
 								.then(function () {
 									$mdToast.show($mdToast.base({
 										args: {
@@ -349,8 +361,8 @@ angular.module("disenador-de-logos")
 						});
 
 				} else {
-
-					logosService.enviarPorEmail(logo.idLogo, email, bz.compartirPorEmailUrl())
+					var url = bz.compartirPorEmailUrl();
+					logosService.enviarPorEmail(logo.idLogo, email, url)
 						.then(function () {
 							$mdToast.show($mdToast.base({
 								args: {
