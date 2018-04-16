@@ -164,7 +164,7 @@ etiqueta.Borrar = (_id, callback) =>
 
 etiqueta.Analizar = (tags, callback) => 
 {
-    let iconos = [];
+    let iconos = [1,2,4,8,2,1,7,4,4,5,5,5,3,3];
 
     Connection(db => {
         const collection = db.collection('etiquetas');
@@ -191,13 +191,29 @@ etiqueta.Analizar = (tags, callback) =>
 
                 docs.forEach(doc => doc.iconos.forEach(i => iconos.push(i)))
 
-                Array.prototype.unique = function (a) {
+                Array.prototype.sortByFrequency = function() {
+                    return function () {
+                        var frequency = {};
+                    
+                        this.forEach(function(value) { frequency[value] = 0; });
+                    
+                        var uniques = this.filter(function(value) {
+                            return ++frequency[value] == 1;
+                        });
+                    
+                        return uniques.sort(function(a, b) {
+                            return frequency[b] - frequency[a];
+                        });
+                    }
+                }();
+
+                /*Array.prototype.unique = function (a) {
                     return function () {
                         return this.filter(a)
                     }
-                }((a, b, c) => c.indexOf(a, b + 1) < 0)
+                }((a, b, c) => c.indexOf(a, b + 1) < 0)*/
 
-                callback(null, iconos.unique());
+                callback(null, iconos.sortByFrequency());
             }
         })
     })

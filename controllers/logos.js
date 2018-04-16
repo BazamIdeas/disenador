@@ -1220,6 +1220,8 @@ exports.htmlShare = (req, res) =>
 					<meta property="og:type" content="article"/>
 					<meta property="og:url" content="${config.url}"/>
 					<meta property="og:image" content="${config.url}/app/logo/compartido/${idLogo}" />
+					<meta property="og:image:secure_url" content="${config.url}/app/logo/compartido/${idLogo}"/>
+					<link rel="image_src" href="${config.url}/app/logo/compartido/${idLogo}"/>
 					<meta property="og:description" content="Descripcion" />
 					<meta property="og:site_name" content="LOGOPRO" />
 					<meta property="fb:admins" content="ID de Facebook" />
