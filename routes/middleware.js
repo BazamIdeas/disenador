@@ -3,6 +3,7 @@ var jwt = require('jwt-simple');
 var moment = require('moment');
 var configuracion = require('../configuracion/configuracion.js');
 var services=require('../services');
+var fs = require('fs');
 
 exports.validarCliente = function(req,res,next){
 
@@ -111,5 +112,42 @@ exports.pruebas = function(req,res,next){
 	catch (e) {
 	      res.status(400).json({"Mensaje":"Prueba fallida",
 	  							"error":e});
+	}
+}
+
+
+exports.userAgent = function(req,res,next) {
+
+	if(req.query.idLogo && 
+		(req.headers['user-agent'] === 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)' || 
+		req.headers['user-agent'] === 'Facebot' )
+	) {
+
+		let template = fs.readFileSync('../public/share_facebook.html' ,'utf8', (err) => {
+            if (err) throw err;
+        });
+
+        for(var key in this.data){
+        	template = template.replace('{#'+key+'#}', {idLogo: idLogo, url: configuracion.url});
+        }
+
+		res.status(200).type('html').send(template)
+
+	} else if (req.query.idLogo && req.headers['user-agent'] === 'Twitterbot') {
+
+		let template = fs.readFileSync('../public/share_twitter.html' ,'utf8', (err) => {
+            if (err) throw err;
+        });
+
+        for(var key in this.data){
+        	template = template.replace('{#'+key+'#}', {idLogo: idLogo, url: configuracion.url});
+        }
+
+		res.status(200).type('html').send(template)
+
+	} else {
+
+		next()
+		
 	}
 }

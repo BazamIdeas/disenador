@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var configuracion = require('./configuracion/configuracion.js');
 var compression = require('compression');
+var middleware = require("./routes/middleware.js");
 
 
 //var index = require('./public/');
@@ -64,7 +65,7 @@ app.use('/administrador/*', function (req, res, next) {
   res.sendFile('/public/administrador/index.html', { root: __dirname });
 });
 
-app.use('', function (req, res, next) {
+app.use('', middleware.userAgent,function (req, res, next) {
   // Just send the index.html for other files to support HTML5Mode
   res.sendFile('/public/index.html', { root: __dirname });
 });

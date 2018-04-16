@@ -183,7 +183,7 @@ router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
 router.get("/logo/descargar", middleware.validarCliente, controllers.logos.descargar);
 router.post("/logo/compartir-email", middleware.validarCliente, controllers.logos.enviarPorEmail);
 router.get("/logo/compartido/:id", controllers.logos.obtenerBinario);
-router.get("/logo/compartir/:id", controllers.logos.htmlShare);
+//router.get("/logo/compartir/:id", controllers.logos.htmlShare);
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);
 router.post("/logo/plan/caracteristicas", middleware.validarCliente, controllers.caracteristicas.PlanConCaracteristicas);

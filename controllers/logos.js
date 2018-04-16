@@ -1206,7 +1206,7 @@ exports.Borrar = (req, res) =>
 	});
 };
 
-exports.htmlShare = (req, res) => 
+/*exports.htmlShare = (req, res) => 
 {
 	const idLogo = req.params.id;
 
@@ -1261,4 +1261,4 @@ exports.htmlShare = (req, res) =>
 	}
 
 
-}
+}*/
