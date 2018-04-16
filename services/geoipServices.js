@@ -9,8 +9,6 @@ exports.iso = function(ip){
  }
  
  var reader = new MMDBReader('./GeoIP2-Country.mmdb')
-console.log(ip)
-console.log(reader.lookup(ip))
  return reader.lookup(ip).country.iso_code; // { city: { ... }, continent: { ... } }
 
 }

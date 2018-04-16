@@ -64,7 +64,8 @@
     "save-svg-as-png": "^1.2.0",
     "serve-favicon": "^2.3.2",
     "stripe": "^5.8.0",
-    "svg2png": "^4.1.1"
+    "svg2png": "^4.1.1",
+    "tunnel-ssh": "^4.1.4"
   },
   "devDependencies": {
     "@angular/cli": "^1.6.6"

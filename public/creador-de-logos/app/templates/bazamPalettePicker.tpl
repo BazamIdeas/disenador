@@ -60,7 +60,7 @@
 </div>
 
 <div ng-form="paletteForm">
-    <div ng-repeat="palette in palettesCopy track by $index">
+    <div ng-repeat="palette in $parent.inicio.palettesCopy track by $index">
             <input type="checkbox" ng-model="aux" ng-checked="check" ng-repeat="check in palette track by $index" ng-required="checkRequired()">
     </div>
 </div>

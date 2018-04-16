@@ -1,5 +1,6 @@
 var elemento = require("../modelos/elementosModelo.js");
 var etiqueta = require("../modelos/etiquetasModelo.js");
+var helpers = require("../services/Helpers.js");
 var async = require("async");
 var base64 = require("base-64");
 var fs = require("fs");
@@ -60,7 +61,6 @@ exports.listaSegunPref = function (req, res) {
 				if (coincidencias.length < limit) {
 					async.each(datoIncat, function (dato, callback) {
 							elemento.getElementosIncat(dato, function (error, data) {
-								console.log(data)
 								if (typeof data !== "undefined" && data.length > 0) {
 									for (var i = data.length - 1; i >= 0; i--) { // recorremos la data 
 										var res = data[i].idElemento; // almacenamos el id del elemento
@@ -114,30 +114,9 @@ exports.listaSegunTagCat = function (req, res) {
 	const limit = req.body.limit ? req.body.limit : 4;
 	const ids = req.body.ids ? req.body.ids : [0];
 
-	let normalize = (() => {
-		const from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
-			to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
-			mapping = {};
-
-		for (let i = 0, j = from.length; i < j; i++)
-			mapping[from.charAt(i)] = to.charAt(i);
-
-		return (str) => {
-			let ret = [];
-			for (var i = 0, j = str.length; i < j; i++) {
-				let c = str.charAt(i);
-				if (mapping.hasOwnProperty(str.charAt(i)))
-					ret.push(mapping[c]);
-				else
-					ret.push(c);
-			}
-			return ret.join('');
-		}
-	})();
-
 	let tagsNormalize = [];
 
-	tags.forEach(el => tagsNormalize.push(normalize(el.toLowerCase())));
+	tags.forEach(el => tagsNormalize.push(helpers.normalize(el.toLowerCase())));
 
 	etiqueta.Analizar(tagsNormalize, (err, arr) => {
 
@@ -155,24 +134,29 @@ exports.listaSegunTagCat = function (req, res) {
 		elemento.getElementsByTags(arr, limit, (err, data) => {
 			let elementos = [];
 
-			for (let i = data.length - 1; i >= 0; i--) {
-				let id = data[i].idElemento;
-				let into = 0;
-				for (let j = elementos.length - 1; j >= 0; j--) {
-					let id2 = elementos[j].idElemento;
-					if (id == id2) {
-						into = 1;
+			if (typeof data !== "undefined" && data.length > 0) {
+
+				for (let i = data.length - 1; i >= 0; i--) {
+					let id = data[i].idElemento;
+					let into = 0;
+					for (let j = elementos.length - 1; j >= 0; j--) {
+						let id2 = elementos[j].idElemento;
+						if (id == id2) {
+							into = 1;
+						}
+					}
+
+					if (into == 0) {
+						elementos = elementos.concat(data[i]);
 					}
 				}
 
-				if (into == 0) {
-					elementos = elementos.concat(data[i]);
-				}
 			}
 
 			if (elementos.length < limit) {
 
 				elemento.getElementosIncat([categoria, 'ICONO', limit], (error, data) => {
+					
 					if (typeof data !== "undefined" && data.length > 0) {
 
 						for (let i = data.length - 1; i >= 0; i--) {
@@ -190,16 +174,16 @@ exports.listaSegunTagCat = function (req, res) {
 							}
 						}
 
-						res.status(200).json(elementos);
-					} else {
-						res.status(404).json({
-							"msg": "No Encontrado2"
-						});
 					}
+
+					res.status(200).json(elementos);
+
 				});
 
 			} else {
+
 				res.status(200).json(elementos);
+			
 			}
 
 		})

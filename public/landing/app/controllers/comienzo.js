@@ -32,21 +32,30 @@ angular.module("landing")
 		bz.peticion = true;
 
 		bz.promesas = [
-			etiquetasService.listarEtiquetas(),
 			categoriasService.listaCategorias("ICONO"),
 			categoriasService.listaCategorias("FUENTE"),
 			preferenciasService.listaPreferencias()
 		]
 
 		$q.all(bz.promesas).then(function (res) {
-			bz.etiquetas = etiquetasService.loadEtiquetas(res[0].data);
-			bz.categoriasPosibles.iconos = res[1];
-			bz.categoriasPosibles.fuentes = res[2];
-
-			angular.forEach(res[3], function (valor) {
+			
+			bz.categoriasPosibles.iconos = res[0];
+			bz.categoriasPosibles.fuentes = res[1];
+			angular.forEach(res[2], function (valor) {
 				valor.valor = 2;
 				bz.datosCombinaciones.preferencias.push(valor);
 			});
+	
+		}).catch(function (res) {
+			console.log(res)
+		}).finally(function () {
+			bz.peticion = false;
+		})
+
+		etiquetasService.listarEtiquetas().then(function (res) {
+			if (res != undefined) {
+				bz.etiquetas = etiquetasService.loadEtiquetas(res[0].data);
+			}
 		}).catch(function (res) {
 			console.log(res)
 		}).finally(function () {
@@ -57,7 +66,7 @@ angular.module("landing")
 
 		bz.enviarComenzar = function (datos, v) {
 
-			inicial = false
+			var inicial = false
 
 			if (v) {
 				bz.peticion = true;
@@ -111,9 +120,7 @@ angular.module("landing")
 
 						if (!v) return;
 
-						navegarFactory.cliente(false, {
-							n: datos.nombre
-						});
+						navegarFactory.cliente(false);
 
 
 					}).finally(function (res) {

@@ -101,11 +101,11 @@
                 -->
                 <div class="col s12" style="padding:0 !important">
                     <md-input-container style="width: 100%;">
-                        <label>Etiquetas</label>
+                        <label>¿Que buscas?</label>
                         <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                             md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
                             <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
-                                md-item-text="item.traduccion.valor" placeholder="Agrega una etiqueta">
+                                md-item-text="item.traduccion.valor" placeholder="Ejemplo: Perro">
                                 <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
                             </md-autocomplete>
                             <md-chip-template>
