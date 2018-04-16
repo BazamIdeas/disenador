@@ -4086,6 +4086,7 @@ div.color-picker-bazam div.titulo {
     text-align: center;
     font-family: 'futura-heavy' !important;
     color: var(--principal);
+    cursor: move;
 }
 
 div.color-picker-bazam div.titulo span {
