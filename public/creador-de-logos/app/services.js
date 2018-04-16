@@ -387,12 +387,9 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.get("/app/etiquetas").then(function (res) {
-				if (res == undefined) {
-					return defered.reject(res);
-				}
 				defered.resolve(res);
 			}).catch(function (res) {
-				defered.reject(res);
+				defered.reject(res.data.msg);
 			});
 
 			return promise;
@@ -1668,7 +1665,7 @@ angular.module("disenador-de-logos")
 		};
 
 
-		this.enviarPorEmail = function (idLogo, email) {
+		this.enviarPorEmail = function (idLogo, email, url) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
@@ -1676,7 +1673,8 @@ angular.module("disenador-de-logos")
 			$http.get("/app/logo/compartir-email", {
 				params: {
 					idLogo: idLogo,
-					email: email
+					email: email,
+					url: url
 				}
 			})
 				.then(function (res) {

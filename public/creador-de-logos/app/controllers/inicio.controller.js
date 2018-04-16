@@ -1,12 +1,18 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "pedidosService",  "$rootScope", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService, pedidosService, $rootScope) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "pedidosService", "$rootScope", "$httpParamSerializer", "$window", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService, pedidosService, $rootScope, $httpParamSerializer, $window) {
 
 		var bz = this;
 
 		bz.base64 = $base64;
 
 		bz.obtenerColores = coloresFactory;
+
+		bz.palettes = coloresPaletteValue;
+
+		if (landingResolve) {
+			bz.palettesCopy = landingResolve.palettesCopy;
+		}
 
 		bz.datos = landingResolve ? landingResolve.datos : {
 			nombre: "Mi logo",
@@ -18,24 +24,20 @@ angular.module("disenador-de-logos")
 			etiquetasSeleccionadas: []
 		};
 
-		bz.palettes = coloresPaletteValue;
-		
-		if(landingResolve.palettesCopy){
-			bz.palettesCopy = landingResolve.palettesCopy;
+		bz.compartirPorEmailUrl = function () {
+
+			var datos = {
+				datos: bz.datos,
+				palettesCopy: bz.palettesCopy,
+				logoCompartido: true
+			};
+
+			bz.urlCompartir = $window.location.port !== "80" ? $window.location.protocol + "//" + $window.location.hostname + ":" + $window.location.port : $window.location.protocol + "//" + $window.location.hostname;
+
+			var url = $window.location + encodeURI(JSON.stringify(datos));
+
+			return url;
 		}
-		
-
-		/* Etiquetas */
-
-		bz.selectedItem = null;
-		bz.searchText = null;
-		bz.etiquetasFunciones = etiquetasService;
-
-		etiquetasService.listarEtiquetas()
-			.then(function (res) {
-				bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-			})
-			.catch(function () {});
 
 		categoriasService.listaCategorias("FUENTE")
 			.then(function (res) {
@@ -81,34 +83,24 @@ angular.module("disenador-de-logos")
 
 		bz.preferencias = [];
 
-		categoriasService.listaCategorias("ICONO")
-			.then(function (res) {
-				bz.categoriasPosibles.iconos = res;
-			})
-			.catch(function () {});
+		categoriasService.listaCategorias("ICONO").then(function (res) {
+			bz.categoriasPosibles.iconos = res;
+		}).catch(function () {});
 
-		categoriasService.listaCategorias("FUENTE")
-			.then(function (res) {
-				bz.categoriasPosibles.fuentes = res;
-			})
-			.catch(function () {});
-
-
-		
+		categoriasService.listaCategorias("FUENTE").then(function (res) {
+			bz.categoriasPosibles.fuentes = res;
+		}).catch(function () {});
 
 		bz.combinar = function (iconos, fuentes) {
 
 			bz.datos.colores = [];
-			
-			angular.forEach(bz.palettesCopy, function(palettes, indicePalettes){
-				angular.forEach(palettes, function(palette, indicePalette){
 
-					if(palette){
-						bz.datos.colores.push(bz.palettes[indicePalettes][indicePalette]) ;
+			angular.forEach(bz.palettesCopy, function (palettes, indicePalettes) {
+				angular.forEach(palettes, function (palette, indicePalette) {
+					if (palette) {
+						bz.datos.colores.push(bz.palettes[indicePalettes][indicePalette]);
 					}
-					
-				});		
-
+				});
 			});
 
 			var logos = crearLogoFactory(iconos, fuentes);
@@ -125,22 +117,25 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.completado = true;
 
-		if (landingResolve) {
+		// Si no es un logo compartido
+
+		if (landingResolve && !landingResolve.logoCompartido) {
 			bz.combinar(landingResolve.iconos, landingResolve.fuentes);
 		}
 
-		bz.completado = true;
-
 		bz.solicitarElementos = function (inicial) {
 
-			if (bz.datosForm.$valid && bz.completado) {
+			if (bz.completado) {
+
+				if (bz.datosForm && !bz.datosForm.$valid && !landingResolve.logoCompartido) return;
 
 				bz.completado = false;
 
 				var tags = [];
 
-				angular.forEach(bz.datos.etiquetasSeleccionadas, function(tag){
+				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 					tags.push(tag.traduccion.valor);
 				})
 
@@ -148,9 +143,9 @@ angular.module("disenador-de-logos")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
 
 				$q.all([
-					promesaIconos,
-					promesaFuentes
-				])
+						promesaIconos,
+						promesaFuentes
+					])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {
@@ -161,8 +156,8 @@ angular.module("disenador-de-logos")
 
 
 					})
-					.catch(function () {
-
+					.catch(function (res) {
+						console.log(res)
 					})
 					.finally(function () {
 
@@ -174,8 +169,14 @@ angular.module("disenador-de-logos")
 
 		};
 
+		// Si es un logo compartido 
+		if (landingResolve && landingResolve.logoCompartido) {
+			bz.solicitarElementos();
+		}
+
+
 		bz.preAvanzar = function (logo) {
-			bz.logoSeleccionado = bz.logos.indexOf(logo);	
+			bz.logoSeleccionado = bz.logos.indexOf(logo);
 			bz.avanzar();
 		};
 
@@ -222,24 +223,24 @@ angular.module("disenador-de-logos")
 
 		/* guardar logo */
 
-		
-		bz.preGuardarLogo = function(logo){
 
-			if(logo.idLogo){
+		bz.preGuardarLogo = function (logo) {
+
+			if (logo.idLogo) {
 				return;
 			}
-	
+
 			if (!clientesService.autorizado()) {
-		
+
 				$rootScope.mostrarModalLogin = true;
 				$rootScope.callbackLogin = false;
 				return;
 			}
-		
 
-			bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento )
 
-				.then(function(res){
+			bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
+
+				.then(function (res) {
 
 					var indiceLogo = bz.logos.indexOf(logo);
 
@@ -252,7 +253,7 @@ angular.module("disenador-de-logos")
 						}
 					}));
 				})
-				.catch(function(){
+				.catch(function () {
 					$mdToast.show($mdToast.base({
 						args: {
 							mensaje: "Un error ha ocurrido",
@@ -274,7 +275,7 @@ angular.module("disenador-de-logos")
 
 				bz.completadoGuardar = false;
 
-				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento,  idFuentePrincipal)
+				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, idFuentePrincipal)
 
 					.then(function (res) {
 						defered.resolve(res);
@@ -293,38 +294,38 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.completadoCompartir = true;
-		bz.compartirPorEmail = function(email, logo, valido){
-			
+		bz.compartirPorEmail = function (email, logo, valido) {
+
 			if (!clientesService.autorizado()) {
-		
+
 				$rootScope.mostrarModalLogin = true;
 				$rootScope.callbackLogin = false;
 				return;
 			}
 
-			if(valido && bz.completadoCompartir){
-				
+			if (valido && bz.completadoCompartir) {
+
 				bz.completadoCompartir = false;
-				
+
 				var defered = $q.defer();
 				var emailPromise = defered.promise;
 
-				if(!logo.idLogo){
+				if (!logo.idLogo) {
 
 					bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
-						.then(function(res){
+						.then(function (res) {
 							logo.idLogo = res;
-							logosService.enviarPorEmail(logo.idLogo, email)
-								.then(function(){
+							logosService.enviarPorEmail(logo.idLogo, email, bz.compartirPorEmailUrl())
+								.then(function () {
 									$mdToast.show($mdToast.base({
 										args: {
 											mensaje: "Su logo ha sido enviado!",
 											clase: "success"
 										}
 									}));
-	
+
 								})
-								.catch(function(){
+								.catch(function () {
 									$mdToast.show($mdToast.base({
 										args: {
 											mensaje: "Un error ha ocurrido",
@@ -332,12 +333,12 @@ angular.module("disenador-de-logos")
 										}
 									}));
 								})
-								.finally(function(){
-									defered.resolve(); 
+								.finally(function () {
+									defered.resolve();
 								});
-							
+
 						})
-						.catch(function(){
+						.catch(function () {
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "Un error ha ocurrido",
@@ -348,9 +349,9 @@ angular.module("disenador-de-logos")
 						});
 
 				} else {
-					
-					logosService.enviarPorEmail(logo.idLogo, email)
-						.then(function(){
+
+					logosService.enviarPorEmail(logo.idLogo, email, bz.compartirPorEmailUrl())
+						.then(function () {
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "Su logo ha sido enviado!",
@@ -359,7 +360,7 @@ angular.module("disenador-de-logos")
 							}));
 
 						})
-						.catch(function(){
+						.catch(function () {
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "Un error ha ocurrido",
@@ -367,7 +368,7 @@ angular.module("disenador-de-logos")
 								}
 							}));
 						})
-						.finally(function(){
+						.finally(function () {
 							defered.resolve();
 						});
 
@@ -375,16 +376,24 @@ angular.module("disenador-de-logos")
 				}
 
 
-				emailPromise.finally(function(){
+				emailPromise.finally(function () {
 					bz.completadoCompartir = true;
 				});
-
-				
-
 
 
 			}
 		};
 
+		/* Etiquetas */
+
+		bz.selectedItem = null;
+		bz.searchText = null;
+		bz.etiquetasFunciones = etiquetasService;
+
+		etiquetasService.listarEtiquetas().then(function (res) {
+			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
+		}).catch(function () {
+			//console.log(res)
+		});
 
 	}]);
