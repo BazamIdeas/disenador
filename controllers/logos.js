@@ -1090,9 +1090,10 @@ exports.obtenerBinario = function(req,res)
 
 exports.enviarPorEmail = function(req,res)
 {
-	const idLogo = req.query.idLogo;
+	const idLogo = req.body.idLogo;
+	const urlImagen = req.body.url;
 	const ancho = 150;
-	const to = req.query.email;
+	const to = req.body.email;
 	let fuentes = {};
 	const par = [req.idCliente, idLogo];
 
@@ -1156,7 +1157,7 @@ exports.enviarPorEmail = function(req,res)
 												subject: "Logo compatido", // Asunto del correo
 											}
 											
-											let email = new Email(emailOptions,{msg:"te han compartido este logo (prueba de envio de logo por email)"});
+											let email = new Email(emailOptions,{urlImagen:urlImagen, msg:"te han compartido este logo (prueba de envio de logo por email)"});
 											email.setHtml("logoCompartido.html")
 												.setAttachs([{   // stream as an attachment
 														filename: 'logo.png',
