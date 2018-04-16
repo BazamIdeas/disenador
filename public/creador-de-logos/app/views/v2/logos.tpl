@@ -217,10 +217,10 @@
                     <i class="material-icons cerrar" ng-click="logos.mostrarModalSocial = false">clear</i>
 
                     <div class="compartir-iconos col s12">
-                        <span socialshare socialshare-provider="facebook" socialshare-url="{{logos.urlCompartir+'/app/logo/compartir/'+logos.idLogoCompartir}}">
+                        <span socialshare socialshare-provider="facebook" socialshare-url="{{logos.urlCompartir+'/?idLogo='+logos.idLogoCompartir}}">
                             <i class="fab fa-facebook-f"></i>
                         </span>
-                        <span socialshare socialshare socialshare-provider="twitter" socialshare-text="XXXXX" socialshare-url="{{logos.urlCompartir+'/app/logo/compartir/'+logos.idLogoCompartir}}"
+                        <span socialshare socialshare socialshare-provider="twitter" socialshare-text="XXXXX" socialshare-url="{{logos.urlCompartir+'/?idLogo='+logos.idLogoCompartir}}"
                             socialshare-hashtags="liderlogo">
                             <i class="fab fa-twitter"></i>
                         </span>
