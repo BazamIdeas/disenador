@@ -1,4 +1,4 @@
-<section style="height: calc(100vh - 60px) !important;overflow: hidden; display: flex; justify-content: center; align-items: center;">
+<section style="height: calc(100vh - 60px) !important;overflow: hidden; ">
     <div class="row margin-bottom-0" style="overflow: hidden;">
 
         <div class="col s4 offset-s1">
@@ -40,14 +40,14 @@
         </div>
         <!-- ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'"-->
         <div class="col s6 text-center no-padding">
-
+            <div style="overflow:hidden; height: 55vh;">
             <div ng-repeat="formato in descargar.formatosNoSociales | filter: {'nombre': descargar.formatoSeleccionado.nombre} track by formato.nombre"
-                style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede; height: 323px;width: 660.5px;">
-
+                style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;  height: 51vh; -webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede;">
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'editable'" style="width: 48%;position: absolute;left: calc(49% - 23%);top: 0%;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" style="width: 12%;position: absolute;left: calc(57% - 23%);top: 32%;transform: rotate(-48deg);">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
@@ -56,75 +56,77 @@
                 </div>
                 <img ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" src="assets/images/mockups/tarjeta.png" style="max-width:100%; height: 323px">
             </div>
-
+            
             <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.formatoSeleccionado.nombre == formato.nombre"
-                style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede;">
-
+                style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede;">
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="width: 11.5%;position: absolute;left: calc(33% - 18%);top: 8%;background: #fff;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="width: 21.5%;position: absolute;left: calc(64% - 18%);top: 6.8%;background: #fff;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
-
+            
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'whatsapp'" style="width: 24.5%;position: absolute;border-radius: 50%;left: calc(55.6% - 18%);top: 25.5%;background: transparent;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
-
+            
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'instagram'" style="width: 4.6%;position: absolute;border-radius: 50%;left: calc(44.34% - 18%);top: 21%;background: #fff;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'instagram'" style="width: 32.5%;position: absolute;left: calc(52.3% - 18%);top: 33.8%;background: #fff0;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
-
+            
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'google-plus'" style="width: 3.45%;position: absolute;left: calc(68.3% - 18%);top: 38.3%;background: #fff;border-radius: 50%;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'google-plus'" style="width: 13.5%;position: absolute;left: calc(73.3% - 18%);top: 9.8%;background: #fff0;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'youtube'" style="width: 7.5%;position: absolute;left: calc(61% - 18%);top: 7.3%;background: #fff;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'youtube'" style="width: 14.5%;position: absolute;left: calc(70.3% - 18%);top: 5.8%;background: #fff0;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
-
+            
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'twitter'" style="width: 7.4%;position: absolute;left: calc(46.1% - 18%);top: 34.2%;background: #fff;border-radius: 50%;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'twitter'" style="width: 17.6%;position: absolute;left: calc(60.3% - 18%);top: 5.8%;background: #fff0;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
-
+            
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'linkedin'" style="width: 5%;position: absolute;left: calc(47.8% - 18%);top: 6.6%;background: #fff;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
-
+            
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'pinterest'" style="width: 6.3%;position: absolute;left: calc(50.3% - 18%);top: 18.2%;background: #fff;border-radius: 50%;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
-
+            
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'telegram'" style="width: 5.1%;position: absolute;left: calc(69.8% - 18%);top: 11.3%;background: #fff;border-radius: 50%;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
-
+            
+            
                 <div ng-if="descargar.formatoSeleccionado.nombre == 'vimeo'" style="width: 19.8%;position: absolute;left: calc(46.3% - 18%);top: 23%;background: #fff;">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
-
+            
                 <img src="assets/images/redes/{{::formato.nombre}}.jpg" style="max-width:100%; height: 323px">
             </div>
+            </div>
+
             <div ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'">
                 <button class="boton-verde" style="background-color: var(--principal); width:49.5%; margin-top: 5px; margin-right: 0.5%;" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}}px)
                 </button><!--
@@ -139,9 +141,6 @@
                 </button>
                 <i class="material-icons candado-bloqueado">lock</i>
             </div>
-
-
-
         </div>
 
 
