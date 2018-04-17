@@ -45,11 +45,19 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			.state({
 				name: "inicio",
-				url: "/",
-				templateUrl: "app/views/v2/inicio.tpl",
+				url: "/:datos?",
+				templateUrl: "app/views/inicio.tpl",
 				controller: "inicioController as inicio",
 				resolve: {
-					landingResolve: ["LS", function (LS) {
+					landingResolve: ["LS", "$stateParams", function (LS, $stateParams) {
+
+						/* Si es un logo compartido por url */
+
+						if ($stateParams && $stateParams.datos != '' && $stateParams.datos != undefined) {
+							return JSON.parse(decodeURI($stateParams.datos));
+						}
+
+						/* Si el cliente viene de la landing */
 
 						var datosLanding = LS.obtener("comenzar");
 
@@ -63,9 +71,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 										fuente: datosLanding.idFuente
 									},
 									tags: datosLanding.etiquetasParaBusqueda,
-									colores: datosLanding.colores,
-									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
+									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas,
+									preferencias: datosLanding.preferencias
 								},
+								palettesCopy: datosLanding.palettesCopy,
 								iconos: datosLanding.iconos,
 								fuentes: datosLanding.fuentes
 							};
@@ -78,7 +87,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "editor",
 				url: "/editor/",
-				templateUrl: "app/views/v2/editor.tpl",
+				templateUrl: "app/views/editor.tpl",
 				controller: "editorController as editor",
 				params: {
 					status: null,
@@ -90,7 +99,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 					}
 				},
 				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					/*currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
 						if (!clientesService.autorizado()) {
 
@@ -98,7 +107,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 						}
 
-					}],
+					}],*/
 					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
 
 						var defered = $q.defer();
@@ -133,7 +142,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "planes",
 				url: "/planes/",
-				templateUrl: "app/views/v2/planes.tpl",
+				templateUrl: "app/views/planes.tpl",
 				controller: "planesController as planes",
 				params: {
 					status: null,
@@ -186,7 +195,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "pago",
 				url: "/pago/",
-				templateUrl: "app/views/v2/pago.tpl",
+				templateUrl: "app/views/pago.tpl",
 				controller: "pagoController as pago",
 				params: {
 					status: null,
@@ -245,7 +254,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "pagoCompleto",
 				url: "/pago/completo/:id/",
-				templateUrl: "app/views/v2/pagoCompleto.tpl",
+				templateUrl: "app/views/pagoCompleto.tpl",
 				controller: "pagoCompletoController as pagoCompleto",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
@@ -263,7 +272,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "cuenta",
 				url: "/cliente/cuenta/",
-				templateUrl: "app/views/v2/cuenta.tpl",
+				templateUrl: "app/views/cuenta.tpl",
 				controller: "cuentaController as cuenta",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
@@ -281,7 +290,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "logos",
 				url: "/cliente/logos/",
-				templateUrl: "app/views/v2/logos.tpl",
+				templateUrl: "app/views/logos.tpl",
 				controller: "logosController as logos",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
@@ -298,15 +307,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			.state({
 				name: "descargar",
-				url: "/cliente/logos/{id:int}/descargar/",
-				templateUrl: "app/views/v2/descargar.tpl",
+				url: "/cliente/logos/descargar/{id:int}/",
+				templateUrl: "app/views/descargar.tpl",
 				controller: "descargarController as descargar",
 				params: {
-
-					datos: {
-						logo: null,
-						id: null
-					}
+					id: null
+					
 				},
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
@@ -325,11 +331,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 							var promise = defered.promise;
 
 							logosService.obtenerPorId($stateParams.id).then(function (res) {
-
 								if (res.estado == "Descargable") {
 									defered.resolve({
 										logo: res.logo,
-										id: $stateParams.id
+										id: $stateParams.id,
+										idElemento: res.elementos_idElemento,
+										tipo: res.tipoLogo
 									});
 								} else {
 									defered.reject("INVALID_LOGO");
@@ -354,8 +361,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			.state({
 				name: "login",
-				url: "/login/",
-				templateUrl: "app/views/v2/login.tpl",
+				url: "/ingreso/",
+				templateUrl: "app/views/login.tpl",
 				controller: "loginController as login",
 				resolve: {
 					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -373,7 +380,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "logosGaleria",
 				url: "/logos-galeria/",
-				templateUrl: "app/views/v2/logosGaleria.tpl",
+				templateUrl: "app/views/logosGaleria.tpl",
 				controller: "logosGaleriaController as logosGaleria"
 			});
 
@@ -423,12 +430,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
-			if (error == "STEPS") {
-
-				$state.go("principal.comenzar");
-
-			} else if (error === "AUTH_REQUIRED") {
-
+			if (error === "AUTH_REQUIRED") {
 
 				switch (toState.name) {
 
@@ -436,33 +438,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 					switch (fromState.name) {
 
-					case "":
-						$state.go("login");
-						break;
-
-					case "principal.combinaciones":
-						break;
-
-					case "logosGaleria":
-						break;
-
-
 					default:
-						$state.go("login");
-					}
-
-					break;
-
-				case "planes":
-
-					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
-						break;
-
-					default:
-
 						$state.go("login");
 					}
 
@@ -471,10 +447,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				case "pago":
 
 					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
-						break;
 
 					default:
 						$state.go("login");
@@ -534,6 +506,9 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 					}
 
 					break;
+				
+				default:
+					$state.go("inicio");
 
 
 				}
@@ -550,21 +525,21 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				case "editor":
 
-					$state.go("principal.comenzar");
-					break;
-
-				case "planes":
-
-					$state.go("editor");
+					$state.go("inicio");
 					break;
 
 				case "pago":
 
-					$state.go("planes");
+					$state.go("inicio");
 					break;
 
+				default: 
+					$state.go("inicio")
 
 				}
+
+				
+
 
 			}
 			console.log(error);

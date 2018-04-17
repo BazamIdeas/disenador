@@ -13,8 +13,12 @@ avatares/*
 .eslintrc.js
 .eslintrc.json
 
+
 # exclude everything
 public/tmp/*
 
 # exception to the rule
 !public/temp/.gitkeep 
+!public/temp/shared/.gitkeep 
+configuracion/
+avatares/*

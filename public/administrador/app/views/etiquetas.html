@@ -7,7 +7,8 @@
             <div class="paneles individual md-whiteframe-2dp">
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="etiqm = !etiqm">LISTADO DE ETIQUETAS</texto>
-                    <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.mostrar({op:'crear-etiqueta'})" style="margin:0;">
+                    <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.incrementarEtiquetas();
+                    ctrl.acciones = 1;" style="margin:0;">
                         <md-icon>add</md-icon>
                     </md-button>
                     <md-button ng-disabled="ctrl.peticion" style="right: 11%; top: 4%;" class="md-primary md-fab md-mini" ng-click="ctrl.mostrar({op:'asignar-etiqueta'})"
@@ -47,8 +48,8 @@
                             </tr>
                         </table>
                     </div>
-                    <div style="height: 30%;" ng-if="ctrl.ctrl.length == 0" class="mensaje-resultado">
-                        <h3>NO EXISTEN ETIQUETAS</h3>
+                    <div style="height: 30%;" ng-if="!ctrl.etiquetas" class="mensaje-resultado">
+                        <h3>CARGANDO ETIQUETAS</h3>
                     </div>
                 </div>
             </div>
@@ -72,7 +73,7 @@
                         <md-input-container flex>
                             <label>Categoria:</label>
                             <md-select ng-model="ctrl.idCategoria " ng-change="ctrl.listarIconos(ctrl.idCategoria)" class="md-block " aria-label="filtro ">
-                                <md-option ng-value="cat.idCategoria " ng-repeat="cat in ctrl.cats ">{{cat.nombreCategoria}}</md-option>
+                                <md-option ng-value="cat.idCategoria " ng-repeat="cat in ctrl.cats ">{{::cat.nombreCategoria}}</md-option>
                             </md-select>
                         </md-input-container>
                     </div>
@@ -117,7 +118,7 @@
                                 <div layout layout-wrap>
                                     <span ng-repeat="itemChild in item.traducciones" flex="33">
                                         <md-input-container class="md-block">
-                                            <label> {{itemChild.idioma}}:</label>
+                                            <label> {{::itemChild.idioma}}:</label>
                                             <input type="text" ng-model="itemChild.valor" name="itemChild{{$index}}" required ng-minlength="3">
                                         </md-input-container>
                                     </span>
@@ -147,7 +148,7 @@
                         <div ng-repeat="item in ctrl.actualizarEtiquetaDatos.traducciones">
                             <md-input-container class="md-block">
                                 <label>
-                                    Traduccion {{item.idioma.codigo}}:</label>
+                                    Traduccion {{::item.idioma.codigo}}:</label>
                                 <input type="text" ng-model="item.valor" name="item{{$index}}" required>
                             </md-input-container>
                         </div>

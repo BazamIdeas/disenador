@@ -1,7 +1,9 @@
 var cliente  = require("../modelos/clientesModelo.js");
 var usuario  = require("../modelos/usuarioModelo.js");
 var services = require("../services");
+var Email = require("../services/emailServices.js");
 var moment   = require("moment");
+var passwordHash = require('password-hash');
 
 exports.enviarToken =  function(req,res)
 {
@@ -13,18 +15,18 @@ exports.enviarToken =  function(req,res)
 			if (typeof data !== "undefined" && data.length > 0)
 			{	
 				var token = services.authServices.crearToken(data[0].idCliente, req.body.tipo);
+				
+				const emailOptions = {
+					to: req.body.correo, // receptor o receptores
+					subject: 'LOGOPRO - Cambiar contraseña', // Asunto del correo
+				}
 
-				var datos = {"token": token, "correo": req.body.correo};
-				
-				services.emailServices.enviar(req.body.tipo+"CambiarContrasena.html", datos, "Cambiar contraseña", data[0].correo).then( () => {
-				
-					res.status(200).json({"msg":"Enviado"});
-				
-				}).catch( () => {
-				
-					res.status(500).json({"msg":"Algo ocurrio"});
-				
-				});
+				let email = new Email(emailOptions,{"token": token});
+				email.setHtml(req.body.tipo+"CambiarContrasena.html")
+					.send((err,data) => {
+						if(err) res.status(500).json({msg:err});
+						res.status(200).json(data);
+					});
 
 			}else{
 				res.status(404).json(data);
@@ -39,16 +41,17 @@ exports.enviarToken =  function(req,res)
 			{	
 				var token = services.authServices.crearToken(data[0].idUsuario, req.body.tipo);
 
-				var datos = {"token": token, "correo": req.body.correo};
-				services.emailServices.enviar(req.body.tipo+"CambiarContrasena.html", datos, "Cambiar contraseña", data[0].correo).then( () => {
-				
-					res.status(200).json({"msg":"Enviado"});
-				
-				}).catch( () => {
-				
-					res.status(500).json({"msg":"Algo ocurrio"});
-				
-				});
+				const emailOptions = {
+					to: req.body.correo, // receptor o receptores
+					subject: 'LOGOPRO - Cambiar contraseña', // Asunto del correo
+				}
+
+				let email = new Email(emailOptions,{"token": token});
+				email.setHtml(req.body.tipo+"CambiarContrasena.html")
+					.send((err,data) => {
+						if(err) res.status(500).json({msg:err});
+						res.status(200).json(data);
+					});
 		
 			}else{
 				res.status(404).json(data);
@@ -77,7 +80,7 @@ exports.cambiar = function(req,res)
 	var token = services.authServices.decodificar(req.body.token);
 
 	var datos = [
-		req.body.pass,
+		passwordHash.generate(req.body.pass),
 		token.id
 	];
 

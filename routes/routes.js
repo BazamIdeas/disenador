@@ -29,8 +29,12 @@ router.get("/cliente/facturacion/:idFacturacion/borrar", middleware.validarClien
 //'valor'	
 //nombreCliente : valor,correo : valor,pass : valor,telefono : valor	,pais : valor
 router.post("/cliente", multipartMiddleware, controllers.clientes.nuevoCliente);
+
+router.post("/cliente/social", controllers.clientes.nuevoClienteRed);
+
 //los mismos datos que la ruta /cliente
 router.post("/cliente/modificar", middleware.validarCliente, controllers.clientes.modificarCliente);
+router.post("/cliente/cambiar-contrasena", middleware.validarCliente, controllers.clientes.cambiarContrasena);
 //correo, contraseña => email, pass
 router.post("/cliente/login", controllers.clientes.login);
 
@@ -63,13 +67,14 @@ router.get("/pedido/:id", middleware.validarAdministrador, controllers.pedidos.d
 router.get("/pedidos/cliente/:id", middleware.validarAdministrador, controllers.pedidos.datosPedidosCliente); //muestra la lista de pedidos de un cliente
 router.get("/pedido/borrar/:id", middleware.validarAdministrador, controllers.pedidos.borrarPedido); //borra un pedido
 router.post("/pedido", middleware.validarCliente, controllers.pedidos.nuevoPedido); //crea un pedido primero guardando el logo 
+router.post("/pedido/aumentar", middleware.validarCliente, controllers.pedidos.aumentarPlan);
 router.post("/pedido/guardado", middleware.validarCliente, controllers.pedidos.nuevoPedidoGuardado); //crea un pedido de un logo ya guardado
 router.post("/pedido/modificar", middleware.validarCliente, controllers.pedidos.modificarPedido); // modifica los datos de un pedido
 router.post("/pedido/cambiar", middleware.validarCliente, controllers.pedidos.cambiarEstado); // cambia de estado al pedido
 router.get("/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:padre?", controllers.pedidos.cambioEstadoPagado);
+router.get("/pedido/aumento/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:idPedidoViejo", controllers.pedidos.cambioEstadoPagadoAumentoPlan);
 
 //RUTAS INTERNAS
-router.get("/pedido/aumento/:idPedido/:idLogo", controllers.pedidos.cambioEstadoPagadoAumentoPlan); //RUTAS INTERNAS
 router.get("/pedido/no/pago/:tk", controllers.pedidos.noPago); // RUTAS INTERNAS
 
 //MODULO CATEGORIAS
@@ -93,6 +98,7 @@ router.post("/etiquetas/modificar", controllers.etiquetas.Actualizar);
 router.post("/etiquetas/iconos", controllers.etiquetas.AsignarIconos);
 router.post("/etiquetas/:_id/iconos/desasignar", controllers.etiquetas.DesasignarIcono);
 router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
+router.get("/iconos/:id/etiquetas", controllers.etiquetas.ObtenerPorIcono);
 
 //MODULO IDIOMAS
 router.get("/idiomas", controllers.idiomas.ObtenerTodos);
@@ -171,6 +177,13 @@ router.get("/logos/:id/vendidos", controllers.logos.listaLogosVendidosPorCliente
 router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobadosDestacados);
 router.post("/logos/guardados", middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post("/logos/descargables", middleware.validarCliente, controllers.logos.listaLogosDescargables);
+
+
+router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
+router.get("/logo/descargar", middleware.validarCliente, controllers.logos.descargar);
+router.post("/logo/compartir-email", middleware.validarCliente, controllers.logos.enviarPorEmail);
+router.get("/logo/compartido/:id", controllers.logos.obtenerBinario);
+//router.get("/logo/compartir/:id", controllers.logos.htmlShare);
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);
 router.post("/logo/plan/caracteristicas", middleware.validarCliente, controllers.caracteristicas.PlanConCaracteristicas);
@@ -184,10 +197,7 @@ router.post("/logo/calificar-admin", middleware.validarAdministrador, controller
 router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.atributos.CalificarCliente);
 
 router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
-router.post("/logo/descargar", controllers.logos.descargar);
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
-router.post("/logo/zip", middleware.validarCliente, controllers.logos.zip);
-
 
 //RECUPERAR CONTRASEÑA
 router.post("/recuperar-password", controllers.password.enviarToken); //enviar campo tipo 
@@ -195,7 +205,9 @@ router.get("/recuperar-password/:tk", controllers.password.confirmarToken);
 router.post("/cambiar-password", controllers.password.cambiar);
 
 //PARA PRUEBAS
-router.get("/prueba", middleware.decodificar);
+router.post("/prueba", middleware.pruebas);
+
+
 
 
 module.exports = router;

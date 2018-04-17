@@ -3,8 +3,10 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var configuracion = require('./configuracion.js');
+var configuracion = require('./configuracion/configuracion.js');
 var compression = require('compression');
+var middleware = require("./routes/middleware.js");
+
 
 //var index = require('./public/');
 
@@ -16,7 +18,8 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('', middleware.userAgent, express.static(path.join(__dirname, 'public')));
 app.use(compression());
 app.enable('trust proxy');
 app.use(configuracion.base+'/fuentes', express.static(__dirname + '/fuentes'))
@@ -63,10 +66,7 @@ app.use('/administrador/*', function (req, res, next) {
   res.sendFile('/public/administrador/index.html', { root: __dirname });
 });
 
-app.use('', function (req, res, next) {
-  // Just send the index.html for other files to support HTML5Mode
-  res.sendFile('/public/index.html', { root: __dirname });
-});
+
 
 
 // catch 404 and forward to error handler
@@ -94,5 +94,6 @@ app.use(function(err, req, res, next) {
 
 app.listen(configuracion.puerto, function () {
   console.log('Servidor corriendo en : '+configuracion.servidor);
+
 });
 module.exports = app;

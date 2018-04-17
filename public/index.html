@@ -2,18 +2,27 @@
 
     <head>
         <base href="/">
-        <title>Logo en Minuntos | Logo</title>
+        <title>Logopro | Logo en Minuntos</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="/angular-material/angular-material.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
         <link href="/landing/assets/style.css" rel="stylesheet">
         <link href="/landing/assets/animation.css" rel="stylesheet">
         <link rel="stylesheet" href="/landing/assets/flexboxgrid.css" type="text/css">
         <link rel="stylesheet" href="/landing/assets/font-awesome/css/font-awesome.min.css" type="text/css">
         <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
         <link rel="stylesheet" href="/landing/assets/materialize.min.css">
+        <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
+
+        <meta property="og:title" content="LOGOPRO | Tu logo en 3 minutos"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content="/landing/assets/img/logo.pro.svg"/>
+        <meta property="og:image:url" content="/landing/assets/img/logo.pro.svg"/>
+        <meta property="og:description" content="Diseña tu logo"/>
+        <meta property="og:site_name" content="logopro"/>
+        <meta property="fb:app_id" content="152803392097078"/>
 
         <!--Librerias core de angualarJS -->
+        <script src="/jquery/jquery.min.js"></script>
         <script src="/angular/angular.min.js"></script>
         <script src="/angular-messages/angular-messages.min.js"></script>
         <script src="/angular-animate/angular-animate.min.js"></script>
@@ -24,14 +33,13 @@
         <script src="/angular-ui-router/angular-ui-router.min.js"></script>
         <script src="/angular-material/angular-material.min.js"></script>
         <script src="/angular-ui-carousel/ui-carousel.min.js"></script>
-        <script src="/jquery/jquery.min.js"></script>
         <script src="assets/js/materialize.min.js"></script>
 
         <!--Archivos App diseñador -->
         <script src="/landing/app/app.js"></script>
         <script src="/landing/app/directives.js"></script>
+        <script src="/landing/app/bazamPalettePicker.js"></script>
         <script src="/landing/app/services.js"></script>
-
 
         <!-- Controladores -->
         <script src="/landing/app/controllers/comienzo.js"></script>
@@ -42,15 +50,43 @@
         <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     </head>
 
-    <body class="back-landing">
+    <body ng-cloak>
         <!-- header -->
         <div ng-controller="headerController as h">
             <bazam-form-login data-mostrar="h.mostrarLogin" data-callback="h.callback"></bazam-form-login>
             <header class="header" id="comienzo" layout-padding>
                 <div layout layout-align="space-between">
-                    <div class="logo" ui-sref="comienzo">Logo Pro</div>
+                    <div class="logo" ui-sref="comienzo">
+                        <img src="/landing/assets/img/logo.pro.svg">
+                    </div>
                     <div layout flex layout-align="end center">
-                        <md-button style="COLOR: #867e7e;" ng-click="h.mostrarLogin = true">INGRESO</md-button>
+                        <div ng-switch="h.autorizado" class="login" ng-cloak>
+                            <div ng-switch-when="false" ng-click="h.mostrarLogin = true" class="acceder" style="cursor: pointer">
+                                <i class="material-icons md-48">account_circle</i>
+                                <span>Acceder / Registro</span>
+                            </div>
+                            <div ng-switch-default class="acceder" style="cursor: pointer">
+
+                                <span ng-click="h.navegar.cliente('')">
+                                    <i class="material-icons">add_circle_outline</i>&nbsp; Crear logo
+                                </span>
+
+                                <span ng-click="h.navegar.cliente('logos')">
+                                    <i class="material-icons">favorite</i> &nbsp; Mis logos
+                                </span>
+
+                                <span ng-click="h.navegar.cliente('cuenta')">
+                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
+                                    <i class="material-icons">account_circle</i> &nbsp; {{h.autorizado.nombre}}
+                                </span>
+
+                                <span ng-click="h.salir()">
+                                    <i class="material-icons">power_settings_new</i>
+                                    &nbsp; Cerrar sesion
+                                </span>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -86,5 +122,66 @@
             </md-button>
         </md-toast>
     </script>
+
+    <script>
+        /* FACEBOOK */
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: "152803392097078",
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: "v2.12"
+            });
+        };
+
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, "script", "facebook-jssdk"));
+    </script>
+
+    <!-- GOOGLE -->
+
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
+    <script>
+        function init() {
+            gapi.load('auth2', function () {
+                gapi.auth2.init({
+                    client_id: '40002776981-qd6lf3af4k69c64ibrelnurtsms2clon.apps.googleusercontent.com'
+                })
+            });
+        }
+    </script>
+
+    <!--TWITTER -->
+    <script>
+        window.twttr = (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function (f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));
+    </script>
+
+
 
 </html>

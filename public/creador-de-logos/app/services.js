@@ -1,77 +1,32 @@
 angular.module("disenador-de-logos")
 
 	.value("coloresValue", [
-		["#DDA8BC", "#8D4B97", "#007688"],
-		["#EEE3F2", "#9D4E98", "#9A3089 "],
-		["#B785BA", "#363F4C", "#0F2F30 "],
-		["#BFC1BF", "#65246F", "#A01874"],
 
-		["#FFE5BE", "#63380E", "#06672F"],
-		["#EEF2CA", "#49AF57", "#E8452F "],
-		["#FFFDF6", "#B01919", "#911913"],
-		["#F6EF99", "#A71916", "#D92B15"],
+		["#FFF9D6", "#FFED7E", "#7F721C"],
+		["#FBFFD3", "#F3FF7B", "#767F1B"],
+		["#FFE7A4", "#FFD458", "#7F6A2F"],
 
-		["#FACDC6", "#B9163A", "#E40921"],
-		["#E9F5F4", "#0B5126", "#004C46 "],
-		["#D6EADD", "#002F2F", "#097533"],
-		["#D0D3EC", "#7D388D", "#A31569"],
+		["#FFDAB8", "#FFB26C", "#7F4917"],
+		["#FFD6C6", "#FF9F7A", "#7F3A1E"],
+		["#FFCDC9", "#FF857C", "#7F2620"],
+		["#FF9193", "#FF393D", "#7F0A0C"],
 
-		["#FCD6B5", "#443D17", "#846816"],
-		["#ADD8C5", "#0E0D08", "#293377"],
-		["#C2E6FB", "#028374", "#5F2160"],
-		["#FDF083", "#0078B3", "#212C56"],
+		["#FFC1E9", "#FF75CE", "#7F1C5C"],
+		["#FFBDFA", "#FF71F5", "#7F1A78"],
+		["#F0BBFF", "#DF6FFF", "#69197F"],
+		["#D9C3FF", "#A977FF", "#411D7F"],
 
-		["#CDE9F5", "#0078B3", "#007259"],
-		["#DCEEFC", "#263470", "#B21921"],
-		["#E1AED1", "#E40921", "#A51916"],
-		["#E6F2EA", "#2FA836", "#4756A2"]
+		["#CFCAFF", "#897EFF", "#29207F"],
+		["#D3D8FF", "#8794FF", "#252F7F"],
+		["#D8E3FF", "#8BACFF", "#17357F"],
+		["#C9E0FF", "#7CB4FF", "#103F7F"],
+
+		["#D1F3FF", "#84DFFF", "#13637F"],
+		["#CDFFEC", "#80FFCF", "#407F67"],
+		["#DBFFCD", "#A5FF80", "#547F43 "],
 	])
 
-	.factory("coloresFactory", ["coloresValue", function (coloresValue) {
-
-		/*var obtenerArrayRandom = function (indice) {
-
-			var coloresCopia = angular.copy(coloresValue[indice]);
-			var colores = [];
-
-			angular.forEach(coloresCopia, function (color) {
-
-				var limite = 3;
-				var base = 0;
-				var i;
-
-				var continuar = true;
-
-				while (continuar) {
-
-					i = Math.floor(Math.random() * limite) + base;
-
-					if (!colores[i]) {
-						colores[i] = color;
-						return;
-					}
-
-				}
-
-			});
-
-			return colores;
-
-		};*/
-		var indiceColores = function (coloresBuscados) {
-
-			var indiceBuscado;
-
-			angular.forEach(coloresValue, function (color, indice) {
-				if (angular.equals(coloresBuscados, color)) {
-					indiceBuscado = indice;
-				}
-			});
-
-			return indiceBuscado;
-		};
-
-
+	.factory("coloresFactory", [function () {
 		return function (coloresArrays) {
 			var i = Math.floor(Math.random() * coloresArrays.length) + 0;
 			return coloresArrays[i];
@@ -79,6 +34,7 @@ angular.module("disenador-de-logos")
 
 	}])
 
+	.value("coloresPaletaValue", ["#f44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722", "#795548", "#9E9E9E", "#607D8B", "#ffcdd2", "#F8BBD0", "#E1BEE7", "#D1C4E9", "#C5CAE9", "#BBDEFB", "#B3E5FC", "#B2EBF2", "#B2DFDB", "#C8E6C9", "#DCEDC8", "#F0F4C3", "#FFF9C4", "#FFECB3", "#FFE0B2", "#FFCCBC", "#D7CCC8", "#FFFFFF", "#CFD8DC", "#ef9a9a", "#F48FB1", "#CE93D8", "#B39DDB", "#9FA8DA", "#90CAF9", "#81D4FA", "#80DEEA", "#80CBC4", "#A5D6A7", "#C5E1A5", "#E6EE9C", "#FFF59D", "#FFE082", "#FFCC80", "#FFAB91", "#BCAAA4", "#EEEEEE", "#B0BEC5", "#e57373", "#F06292", "#BA68C8", "#9575CD", "#7986CB", "#64B5F6", "#4FC3F7", "#4DD0E1", "#4DB6AC", "#81C784", "#AED581", "#DCE775", "#FFF176", "#FFD54F", "#FFB74D", "#FF8A65", "#A1887F", "#E0E0E0", "#90A4AE", "#ef5350", "#EC407A", "#AB47BC", "#7E57C2", "#5C6BC0", "#42A5F5", "#29B6F6", "#26C6DA", "#26A69A", "#66BB6A", "#9CCC65", "#D4E157", "#FFEE58", "#FFCA28", "#FFA726", "#FF7043", "#8D6E63", "#BDBDBD", "#78909C", "#f44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722", "#795548", "#9E9E9E", "#607D8B", "#e53935", "#D81B60", "#8E24AA", "#5E35B1", "#3949AB", "#1E88E5", "#039BE5", "#00ACC1", "#00897B", "#43A047", "#7CB342", "#C0CA33", "#FDD835", "#FFB300", "#FB8C00", "#F4511E", "#6D4C41", "#757575", "#546E7A", "#d32f2f", "#C2185B", "#7B1FA2", "#512DA8", "#303F9F", "#1976D2", "#0288D1", "#0097A7", "#00796B", "#388E3C", "#689F38", "#AFB42B", "#FBC02D", "#FFA000", "#F57C00", "#E64A19", "#5D4037", "#616161", "#455A64", "#c62828", "#AD1457", "#6A1B9A", "#4527A0", "#283593", "#1565C0", "#0277BD", "#00838F", "#00695C", "#2E7D32", "#558B2F", "#9E9D24", "#F9A825", "#FF8F00", "#EF6C00", "#D84315", "#4E342E", "#424242", "#37474F", "#b71c1c", "#880E4F", "#4A148C", "#311B92", "#1A237E", "#0D47A1", "#01579B", "#006064", "#004D40", "#1B5E20", "#33691E", "#827717", "#F57F17", "#FF6F00", "#E65100", "#BF360C", "#3E2723", "#212121", "#263238"])
 
 	.value("paisesValue", {
 		"BD": "Bangladesh",
@@ -333,6 +289,63 @@ angular.module("disenador-de-logos")
 		"MZ": "Mozambique"
 	})
 
+	.value("coloresPaletteValue", [
+		[
+			["#C9CBCC", "#660000", "#660000"],
+			["#E9EBAD", "#662400", "#662400"],
+			["#C9CBCC", "#664B00", "#664B00"],
+			["#F2EFD0", "#5C6600", "#5C6600"],
+			["#EFEA9D", "#4D6600", "#4D6600"],
+			["#B6CED4", "#0D6600", "#0D6600"],
+			["#C2D1AE", "#006618", "#006618"],
+			["#50A273", "#00663F", "#00663F"],
+			["#AFA3CD", "#006666", "#006666"],
+			["#A399C7", "#004266", "#004266"],
+			["#A2CFE5", "#001B66", "#001B66"],
+			["#595D96", "#0A0066", "#0A0066"],
+			["#63569C", "#320066", "#320066"],
+			["#79A33E", "#590066", "#590066"],
+			["#AFA3CD", "#66004E", "#66004E"],
+			["#EEEEF6", "#660027", "#660027"],
+		],
+		[
+			["#FFFFFF", "#CC2929", "#CC2929"],
+			["#1C1E32", "#CC6329", "#CC6329"],
+			["#4072A3", "#CCA129", "#CCA129"],
+			["#8A3343", "#BDCC29", "#BDCC29"],
+			["#302418", "#A1CC29", "#A1CC29"],
+			["#572868", "#3ECC29", "#3ECC29"],
+			["#2A1E3F", "#29CC4F", "#29CC4F"],
+			["#273759", "#29CC8E", "#29CC8E"],
+			["#A76B42", "#29CCCC", "#29CCCC"],
+			["#415968", "#2992CC", "#2992CC"],
+			["#252B49", "#2954CC", "#2954CC"],
+			["#BCBA5C", "#3829CC", "#3829CC"],
+			["#CAC546", "#7829CC", "#7829CC"],
+			["#273759", "#B729CC", "#B729CC"],
+			["#245D34", "#CC29A6", "#CC29A6"],
+			["#232B45", "#CC2967", "#CC2967"],
+		],
+		[
+			["#552D1C", "#CC7A7A", "#CC7A7A"],
+			["#2D3C54", "#CC977A", "#CC977A"],
+			["#233C3B", "#CCB67A", "#CCB67A"],
+			["#2D3C54", "#C4CC7A", "#C4CC7A"],
+			["#34522C", "#A4CC7A", "#A4CC7A"],
+			["#2B332A", "#85CC7A", "#85CC7A"],
+			["#1C251C", "#7ACC92", "#7ACC92"],
+			["#1D2235", "#7ACCAD", "#7ACCAD"],
+			["#2D4A3F", "#7ACCCC", "#7ACCCC"],
+			["#2E142C", "#7AAFCC", "#7AAFCC"],
+			["#2C1520", "#7A90CC", "#7A90CC"],
+			["#2C1520", "#827ACC", "#827ACC"],
+			["#371E43", "#A27ACC", "#A27ACC"],
+			["#1D2235", "#C27ACC", "#C27ACC"],
+			["#2D4A3F", "#CC7AB9", "#CC7AB9"],
+			["#2E142C", "#CC7A9A", "#CC7A9A"],
+		]
+	])
+
 
 	/*-------------------------- Services --------------------------*/
 
@@ -342,7 +355,7 @@ angular.module("disenador-de-logos")
 
 	/* SERVICIO PARA ETIQUETAS */
 
-	.service('etiquetasService', ['$http', '$q', function ($http, $q) {
+	.service("etiquetasService", ["$http", "$q", function ($http, $q) {
 
 		/***************************/
 		/**********LOGOS***********/
@@ -353,17 +366,17 @@ angular.module("disenador-de-logos")
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.post('/app/elementos/categoria', datos).then(function (res) {
+			$http.post("/app/elementos/categoria", datos).then(function (res) {
 				if (res == undefined) {
 					return defered.reject(res);
 				}
 				defered.resolve(res);
 			}).catch(function (res) {
 				defered.reject(res);
-			})
+			});
 
 			return promise;
-		}
+		};
 
 		/* ETIQUETAS*/
 
@@ -373,34 +386,31 @@ angular.module("disenador-de-logos")
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.get('/app/etiquetas').then(function (res) {
-				if (res == undefined) {
-					return defered.reject(res);
-				}
+			$http.get("/app/etiquetas").then(function (res) {
 				defered.resolve(res);
 			}).catch(function (res) {
-				defered.reject(res);
-			})
+				defered.reject(res.data.msg);
+			});
 
 			return promise;
-		}
+		};
 
-		this.loadEtiquetas = function (arr, v) {
+		this.loadEtiquetas = function (arr) {
 
 			var etiquetas = [];
 
-			angular.forEach(arr, (valor) => {
+			angular.forEach(arr, function (valor) {
 				etiquetas.push({
 					_id: valor._id,
 					traduccion: valor.traducciones[0]
 				});
-			})
+			});
 
 			return etiquetas.map(function (et) {
 				et.traduccion._lowername = et.traduccion.valor.toLowerCase();
 				return et;
 			});
-		}
+		};
 
 		this.transformChip = function (chip) {
 
@@ -414,14 +424,14 @@ angular.module("disenador-de-logos")
 				traduccion: {
 					valor: chip
 				}
-			}
+			};
 
-		}
+		};
 
 		this.querySearch = function (query, etiquetas) {
 			var results = query ? etiquetas.filter(createFilterFor(query)) : [];
 			return results;
-		}
+		};
 
 		function createFilterFor(query) {
 			var lowercaseQuery = angular.lowercase(query);
@@ -671,7 +681,6 @@ angular.module("disenador-de-logos")
 		this.pagar = {
 			paypal: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela) {
 
-
 				var defered = $q.defer();
 
 				var promise = defered.promise;
@@ -695,6 +704,33 @@ angular.module("disenador-de-logos")
 
 				});
 
+
+				return promise;
+
+			},
+
+			stripe: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela, tokenStripe) {
+
+				var defered = $q.defer();
+				var promise = defered.promise;
+
+				var datos = {
+					idElemento: idElemento,
+					logo: logo,
+					idPrecio: idPrecio,
+					tipoLogo: tipoLogo,
+					idPasarela: idPasarela,
+					atributos: atributos,
+					stripeToken: tokenStripe
+				};
+
+				$http.post("/app/pedido", datos)
+					.then(function (res) {
+						defered.resolve(res.data);
+					})
+					.catch(function (res) {
+						defered.reject(res);
+					});
 
 				return promise;
 
@@ -754,26 +790,142 @@ angular.module("disenador-de-logos")
 
 
 	/*********************/
-	/***** facebook ******/
+	/*** SOCIAL LOGIN ****/
 	/*********************/
 
-	.service("facebookService", ["$http", "$q", function ($http, $q) {
+	.service("socialAuth", ["$http", "$q", "$window", "clienteDatosFactory", function ($http, $q, $window, clienteDatosFactory) {
 
-		this.compartir = function (datos) {
+		this.facebook = function () {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
 
 			FB.getLoginStatus(function (response) {
-				if (response.status === 'connected') {
+
+				var datosUsuario = response.authResponse;
+
+				if (response.status != "connected") {
+					FB.login(function (response) {
+
+						$http.post("/app/cliente/social", {
+							origen: "facebook",
+							token: response.authResponse.accessToken
+						}).then(function (res) {
+
+							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+							clienteDatosFactory.definir(res.data);
+							defered.resolve(res);
+
+						}).catch(function (res) {
+							$window.localStorage.removeItem("bzToken");
+							defered.reject(res);
+						});
+
+					}, {
+						scope: "email,user_friends,user_location,user_likes"
+					});
+
+					return promise;
+				}
+
+				$http.post("/app/cliente/social", {
+						origen: "facebook",
+						token: datosUsuario.accessToken
+					}).then(function (res) {
+
+						$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+						clienteDatosFactory.definir(res.data);
+						defered.resolve(res);
+
+					})
+					.catch(function (res) {
+						$window.localStorage.removeItem("bzToken");
+						defered.reject(res);
+					});
+			});
+
+			return promise;
+		};
+
+
+		this.google = function () {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			var GoogleAuth = gapi.auth2.getAuthInstance();
+
+
+			if (!GoogleAuth.isSignedIn.get()) {
+				GoogleAuth.signIn().then(function (res) {
+
+					$http.post("/app/cliente/social", {
+							origen: "google",
+							token: res.Zi.id_token
+						}).then(function (res) {
+							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+							clienteDatosFactory.definir(res.data);
+							defered.resolve(res);
+
+						})
+						.catch(function (res) {
+							$window.localStorage.removeItem("bzToken");
+							defered.reject(res);
+						});
+				}).catch(function (res) {
+					defered.reject(res);
+				});
+
+				return promise;
+			}
+
+			var datosUsuario = GoogleAuth.currentUser.get();
+
+			$http.post("/app/cliente/social", {
+					origen: "google",
+					token: datosUsuario.Zi.id_token
+				}).then(function (res) {
+
+					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+					clienteDatosFactory.definir(res.data);
+					defered.resolve(res);
+
+				})
+				.catch(function (res) {
+					$window.localStorage.removeItem("bzToken");
+					defered.reject(res);
+				});
+
+			return promise;
+
+		};
+
+	}])
+
+
+
+	/*********************/
+	/***** facebook ******/
+	/*********************/
+
+	.service("facebookService", ["$http", "$q", function ($http, $q) {
+
+		this.compartir = function () {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			FB.getLoginStatus(function (response) {
+				if (response.status === "connected") {
 					FB.ui({
-							method: 'share',
-							href: 'https://developers.facebook.com/docs/'
+							method: "share",
+							href: "http://test.logo.pro/",
+							source: "http://test.logo.pro/logo.pro.svg"
 						},
 						function (response) {
 							if (response && !response.error_code) {
-								if (typeof response != 'undefined') {
-									defered.resolve(response);
+								if (typeof response != "undefined") {
+									defered.resolve();
 								}
 							} else {
 								defered.reject(response);
@@ -782,13 +934,13 @@ angular.module("disenador-de-logos")
 				} else {
 					FB.login(function (response) {
 						FB.ui({
-								method: 'share',
-								href: 'https://developers.facebook.com/docs/'
+								method: "share",
+								href: "http://test.logo.pro/",
+							source: "http://test.logo.pro/"
 							},
 							function (response) {
-								return console.log(response)
 								if (response && !response.error_code) {
-									if (typeof response != 'undefined') {
+									if (typeof response != "undefined") {
 										defered.resolve(response);
 									}
 								} else {
@@ -853,6 +1005,78 @@ angular.module("disenador-de-logos")
 				.catch(function () {
 					$window.localStorage.removeItem("bzToken");
 					defered.reject();
+				});
+
+			return promise;
+
+		};
+
+		this.forgotPass = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/recuperar-password", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+
+		};
+
+		this.confirmarToken = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/recuperar-password/" + datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+
+		};
+
+		this.cambiarContrasena = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/cambiar-password", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+
+		};
+
+		this.verificarCambiaContrasena = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/cliente/cambiar-contrasena", datos)
+				.then(function (res) {
+					defered.resolve(res);
+				})
+				.catch(function (res) {
+					defered.reject(res);
 				});
 
 			return promise;
@@ -1131,7 +1355,7 @@ angular.module("disenador-de-logos")
 	/***** Logos *********/
 	/*********************/
 
-	.service("logosService", ["$http", "$q", function ($http, $q) {
+	.service("logosService", ["$http", "$q", "$httpParamSerializer", function ($http, $q, $httpParamSerializer) {
 
 		this.calificar = function (idLogo, calificacion, comentario) {
 
@@ -1329,9 +1553,15 @@ angular.module("disenador-de-logos")
 				tipo: tipo
 			};
 
-			$http.post("/app/logo/zip/", datos).then(function (res) {
+			$http.get("/app/logo/zip/", {
+				params: datos,
+				responseType: "arraybuffer"
+			}).then(function (res) {
 
-				defered.resolve(res.data);
+				defered.resolve({
+					data: res.data,
+					headers: res.headers()
+				});
 
 			}).catch(function (res) {
 
@@ -1343,20 +1573,34 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.dispararDescarga = function (imgURI, nombre, ancho) {
+		this.descargarTodo = function (idLogo, formatosPNG) {
 
-			var evento = new MouseEvent("click", {
-				view: window,
-				bubbles: false,
-				cancelable: true
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			var datos = {
+				idLogo: idLogo,
+				formatos: formatosPNG
+			};
+
+			$http.get("/app/logo/descargar/", {
+				params: datos,
+				responseType: "arraybuffer"
+			}).then(function (res) {
+
+				defered.resolve({
+					data: res.data,
+					headers: res.headers()
+				});
+
+			}).catch(function (res) {
+
+				defered.reject(res);
 
 			});
 
-			var a = document.createElement("a");
-			a.setAttribute("download", nombre + "@" + ancho + "x" + ancho);
-			a.setAttribute("href", imgURI);
-			a.setAttribute("target", "_blank");
-			a.dispatchEvent(evento);
+			return promise;
 
 		};
 
@@ -1422,6 +1666,27 @@ angular.module("disenador-de-logos")
 
 		};
 
+
+		this.enviarPorEmail = function (idLogo, email, url) {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.post("/app/logo/compartir-email", {
+					idLogo: idLogo,
+					email: email,
+					url: url
+				})
+				.then(function (res) {
+					defered.resolve(res.data);
+				}).catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+
+		};
+
 	}])
 
 	/*********************/
@@ -1471,6 +1736,27 @@ angular.module("disenador-de-logos")
 			$http.post("/app/planes/aumentar", {
 					idPlan: idPlan
 				})
+				.then(function (res) {
+
+					defered.resolve(res.data);
+
+				}).catch(function (res) {
+
+					defered.reject(res);
+
+				});
+
+			return promise;
+
+		};
+
+		this.aumentarPedidoPlan = function (datos) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/pedido/aumentar", datos)
 				.then(function (res) {
 
 					defered.resolve(res.data);
@@ -1597,21 +1883,35 @@ angular.module("disenador-de-logos")
 
 		return {
 			check: function (fuente) {
+
+				if (!$document[0].fonts) {
+					return false;
+				}
+
 				return $document[0].fonts.check("200px " + fuente);
 			},
 			load: function (fuente, url) {
-				var newFuente = new FontFace(fuente, 'url(' + url + ')');
+
+				if (!$document[0].fonts) {
+					var nombreFuente = fuente.replace(/\s/g, "-");
+					if (!angular.element("." + nombreFuente).length) {
+						angular.element("html head").append("<style class='" + nombreFuente + "'>@font-face {font-family: " + fuente + ";src: url('" + url + "');}</style>");
+					}
+					return false;
+				}
+
+				var newFuente = new FontFace(fuente, "url(" + url + ")");
 
 				$document[0].fonts.add(newFuente);
 
-				return newFuente.load()
+				return newFuente.load();
 
 			}
-		}
+		};
 
 	}])
 
-	.service("fontService", ["$q", "$document", "fontFactory", function ($q, $document, fontFactory) {
+	.service("fontService", ["$q", "$document", "fontFactory", "$timeout", function ($q, $document, fontFactory, $timeout) {
 
 		this.preparar = function (fuente, url) {
 
@@ -1623,24 +1923,43 @@ angular.module("disenador-de-logos")
 				defered.resolve({
 					fuente: fuente,
 					url: url
-				})
+				});
 
 			} else {
 
-				fontFactory.load(fuente, url)
-					.then(function () {
-						defered.resolve({
-							fuente: fuente,
-							url: url
-						});
+				$q.race([$timeout(function () {
+						return "exceso";
+					}, 10000), fontFactory.load(fuente, url)])
+					.then(function (res) {
+						if (res === "exceso") {
+							defered.reject();
+						} else {
+							defered.resolve({
+								fuente: fuente,
+								url: url
+							});
+						}
 					})
 					.catch(function () {
 						defered.reject();
-					})
+					});
 
 			}
 
 			return promise;
+		};
+
+		this.agregarGeneral = function (fuentes) {
+
+			var fontService = this;
+
+			angular.forEach(fuentes, function (fuente) {
+				fontService.preparar(fuente.nombre, fuente.url)
+					.catch(function () {
+						//console.log(res);
+					});
+			});
+
 		};
 
 	}]);

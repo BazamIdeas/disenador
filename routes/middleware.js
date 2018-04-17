@@ -1,8 +1,8 @@
-
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var configuracion = require('../configuracion.js');
+var configuracion = require('../configuracion/configuracion.js');
 var services=require('../services');
+var fs = require('fs');
 
 exports.validarCliente = function(req,res,next){
 
@@ -36,8 +36,8 @@ exports.validarCliente = function(req,res,next){
 	}
 
 	else{
-		req.idUsuario = 1
-		req.idCliente = 1
+		req.idUsuario = 1;
+		req.idCliente = 1;
 		next()
 	}
 }
@@ -88,5 +88,89 @@ exports.decodificar = function(req,res,next){
 	catch (e) {
 	      res.status(400).json({"Mensaje":"Token invalido",
 	  							"token":req.headers});
+	}
+}
+
+exports.pruebas = function(req,res,next){
+    try {
+    	var datosPago = {
+			precio: req.body.precio,
+			moneda: req.body.moneda,
+			descripcion: "DiseÃ±o de Logo- " + req.body.plan,
+			impuesto: req.body.impuesto,
+			stripeToken: req.body.stripeToken,
+			idPedido: req.body.idPedido
+		};
+
+		services.pagoServices.stripe(datosPago, function (error, data) {
+			res.json(data);
+			//console.log(data)
+			});
+	}
+
+	catch (e) {
+	      res.status(400).json({"Mensaje":"Prueba fallida",
+	  							"error":e});
+	}
+}
+
+
+exports.userAgent = function(req,res,next) {
+
+	let data = {idLogo: req.query.idLogo, url: configuracion.url} 
+
+	if(req.headers['user-agent'] === 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)' || 
+		req.headers['user-agent'] === 'Facebot') {
+
+		if (req.query.idLogo) {
+
+			let template = fs.readFileSync('./public/share_facebook.html' ,'utf8', (err) => {
+				if (err) throw err;
+			});
+      
+      		var keys = Object.keys(data);
+
+			for(var key in keys){
+				while(template.indexOf("${"+keys[key]+"}") != -1){
+						template = template.replace("${"+keys[key]+"}", data[keys[key]]);
+				}
+			}
+
+			res.status(200).type('html').send(template)
+
+		} else { 
+			
+			next()
+
+		}
+
+	} else if (req.headers['user-agent'] === 'Twitterbot' || req.headers['user-agent'] === 'Twitterbot/1.0') {
+
+		if(req.query.idLogo){
+
+			let template = fs.readFileSync('./public/share_twitter.html' ,'utf8', (err) => {
+				if (err) throw err;
+			});
+
+      		var keys = Object.keys(data);
+
+			for(var key in keys){
+				while(template.indexOf("${"+keys[key]+"}") != -1){
+						template = template.replace("${"+keys[key]+"}", data[keys[key]]);
+				}
+			}
+
+			res.status(200).type('html').send(template)
+
+		} else { 
+			
+			next()
+
+		}
+
+	} else {
+
+		next()
+
 	}
 }

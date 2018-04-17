@@ -11,7 +11,7 @@ angular.module("administrador")
             $rootScope.$broadcast("sesionExpiro");
             $state.go('login');
         }
-        
+
 
         /* VERIFICA SI EL USUARIO ESTA AUTORIZADO Y LO VIGILA */
 
@@ -19,13 +19,13 @@ angular.module("administrador")
 
         bz.autorizado = clientesService.autorizado();
 
-        $scope.$on('sesionExpiro', function (event, data) {
+        $scope.$on('sesionExpiro', function () {
 
             bz.autorizado = clientesService.autorizado();
 
         });
 
-        $scope.$on('sesionInicio', function (event, data) {
+        $scope.$on('sesionInicio', function () {
 
             bz.autorizado = clientesService.autorizado();
 

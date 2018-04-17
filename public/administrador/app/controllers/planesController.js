@@ -6,7 +6,6 @@ angular.module("administrador")
 
         /* DATOS */
         bz.impuestos = [];
-        bz.planes = [];
         bz.nuevoPlan = {
             caracteristicas: caracteristicasValue
         };
@@ -34,27 +33,23 @@ angular.module("administrador")
         /**********PLANES***********/
         /***************************/
 
-        bz.listarPlanes = function () {
-            bz.peticion = true;
-            administrarService.listarPlanes().then(function (res) {
-                bz.listaP = !bz.listaP;
-                bz.planes = res;
-                angular.forEach(bz.planes, function (valor) {
-                    if (valor.status) {
-                        valor.status = 1;
-                    } else {
-                        valor.status = 0;
-                    }
-                })
-            }).catch(function (res) {
-                notificacionService.mensaje(res.data.msg);
-            }).finally(function () {
-                bz.peticion = false;
+        bz.peticion = true;
+
+        administrarService.listarPlanes().then(function (res) {
+            bz.listaP = !bz.listaP;
+            bz.planes = res;
+            angular.forEach(bz.planes, function (valor) {
+                if (valor.status) {
+                    valor.status = 1;
+                } else {
+                    valor.status = 0;
+                }
             })
-
-        }
-
-        bz.listarPlanes();
+        }).catch(function (res) {
+            notificacionService.mensaje(res.data.msg);
+        }).finally(function () {
+            bz.peticion = false;
+        })
 
         bz.agregarPlan = function (datos, validacion) {
             angular.forEach(bz.planes, function (valor) {
@@ -64,23 +59,22 @@ angular.module("administrador")
                 }
             });
 
-            if (validacion) {
-                bz.peticion = true;
-                administrarService.agregarPlan(datos).then(function (res) {
+            if (!validacion) return;
+            bz.peticion = true;
+            administrarService.agregarPlan(datos).then(function (res) {
 
-                    datos.status = 1;
-                    datos.estado = true;
-                    bz.planes.push(res);
-                    bz.nuevoPlan = {};
-                    notificacionService.mensaje('Peticion Realizada!');
-                    bz.localidadVal = '';
+                datos.status = 1;
+                datos.estado = true;
+                bz.planes.push(res);
+                bz.nuevoPlan = {};
+                notificacionService.mensaje('Peticion Realizada!');
+                bz.localidadVal = '';
 
-                }).catch(function (res) {
-                    notificacionService.mensaje(res);
-                }).finally(function () {
-                    bz.peticion = false;
-                })
-            }
+            }).catch(function (res) {
+                notificacionService.mensaje(res);
+            }).finally(function () {
+                bz.peticion = false;
+            })
         }
 
         bz.agregarPrecioPlan = function (datos, validacion) {
@@ -118,12 +112,10 @@ angular.module("administrador")
         }
 
         bz.modificarNombreP = function (datos, v) {
-            if (!v) {
-                return notificacionService.mensaje('Rellene los campos de forma correcta!');
-            }
+            if (!v) return notificacionService.mensaje('Rellene los campos de forma correcta!');
 
             bz.peticion = true;
-            administrarService.modificarNombrePlan(datos).then(function (res) {
+            administrarService.modificarNombrePlan(datos).then(function () {
                 bz.planes[bz.index] = datos;
                 notificacionService.mensaje('Peticion Realizada.');
             }).catch(function (res) {
@@ -139,7 +131,7 @@ angular.module("administrador")
             datos.idPlan = datos.planes_idPlan;
             datos.idMoneda = datos.monedas_idMoneda;
 
-            administrarService.modificarPrecioPlan(datos).then(function (res) {
+            administrarService.modificarPrecioPlan(datos).then(function () {
                 notificacionService.mensaje('Peticion Realizada.');
             }).catch(function (res) {
                 notificacionService.mensaje(res);
@@ -162,7 +154,7 @@ angular.module("administrador")
                 }
             })
 
-            administrarService.bloquearPlan(bz.bloquearPlanDatos).then(function (res) {
+            administrarService.bloquearPlan(bz.bloquearPlanDatos).then(function () {
                 bz.bloquearPlanDatos = {};
             }).catch(function (res) {
                 notificacionService.mensaje(res);
@@ -178,13 +170,13 @@ angular.module("administrador")
             if (opcion == 'nombrePlan') {
                 bz.vista = 5;
                 bz.index = index;
-                
+
                 angular.forEach(bz.planes, function (valor) {
                     if (valor.idPlan == datos) {
                         bz.modificarNombrePlan = valor;
                     }
                 });
-                
+
             } else if (opcion == 'nuevoPrecioPlan') {
                 bz.monedasDisponibles = {};
                 bz.nuevoPrecioPlan.idPlan = datos;

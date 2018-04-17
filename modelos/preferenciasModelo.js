@@ -15,8 +15,8 @@ preferencia.getPreferencias = function(callback)
 	  	
 		  	if(err)	throw err;
 		  	
-		  	else callback(null, rows);
-
+			else callback(null, rows);
+			  
 		  	connection.release();
 	  	
 		});

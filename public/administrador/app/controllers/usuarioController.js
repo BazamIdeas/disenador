@@ -27,32 +27,28 @@ angular.module("administrador")
 
         /* objeto datos vacios */
         bz.datos = {
-
             registrar: {},
             modificar: {}
-
         };
 
         /* REGISTRAR ADMINISTRADOR */
 
         bz.registrarU = function (datos, validado) {
-            if (validado) {
-                bz.peticion = true;
-                bz.loaderCargando = true;
-                clientesService.registrar(datos).then(function (res) {
-                        bz.loaderCargando = false;
-                        SweetAlert.swal("Genial", "Registro Exitoso!", "success");
-                        bz.datos.registrar = {};
-                        datos.idUsuario = res.data.insertId
-                        bz.usuarios.push(datos)
-                    })
-                    .catch(function (res) {
-                        bz.loaderCargando = false;
-                        console.log(res)
-                    }).finally(function () {
-                        bz.peticion = false;
-                    })
-            }
+            if (!validado) return;
+            bz.peticion = true;
+            bz.loaderCargando = true;
+            clientesService.registrar(datos).then(function (res) {
+                bz.loaderCargando = false;
+                SweetAlert.swal("Genial", "Registro Exitoso!", "success");
+                bz.datos.registrar = {};
+                datos.idUsuario = res.data.insertId
+                bz.usuarios.push(datos)
+            }).catch(function () {
+                bz.loaderCargando = false;
+            }).finally(function () {
+                bz.peticion = false;
+            })
+
         };
 
         /* MODIFICAR UN USUARIO */
@@ -62,29 +58,27 @@ angular.module("administrador")
             bz.mostrarMo = !bz.mostrarMo;
             bz.uMod = nombre;
             bz.idUsuario = id;
-
             bz.datos.modificar.idUsuario = id;
-
             bz.index = index;
 
         };
 
         bz.modificarU = function (datos, v) {
-            if (v) {
-                bz.peticion = true;
-                clientesService.modificarU(datos).then(function (res) {
-                    bz.loaderCargando = false;
-                    bz.usuarios[bz.index].nombreUser = datos.nombreUser;
-                    bz.uMod = datos.nombreUser;
-                    notificacionService.mensaje('Modificacion Exitosa!');
-                    document.getElementById("formularioModificar").reset();
-                }).catch(function (res) {
-                    notificacionService.mensaje(res);
-                    bz.loaderCargando = false;
-                }).finally(function () {
-                    bz.peticion = false;
-                });
-            }
+            if (!v) return;
+            bz.peticion = true;
+            clientesService.modificarU(datos).then(function (res) {
+                bz.loaderCargando = false;
+                bz.usuarios[bz.index].nombreUser = datos.nombreUser;
+                bz.uMod = datos.nombreUser;
+                notificacionService.mensaje('Modificacion Exitosa!');
+                document.getElementById("formularioModificar").reset();
+            }).catch(function (res) {
+                notificacionService.mensaje(res);
+                bz.loaderCargando = false;
+            }).finally(function () {
+                bz.peticion = false;
+            });
+
         };
 
         bz.eliminarU = function (id, index) {

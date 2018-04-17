@@ -2,7 +2,8 @@ const Etiqueta = require('../modelos/etiquetasModelo.js');
 const Idioma = require('../modelos/idiomasModelo.js');
 const async = require('async');
 
-exports.ObtenerTodos = (req, res) => {
+exports.ObtenerTodos = (req, res) => 
+{
 	Etiqueta.ObtenerTodos((err, data) => {
 		if (data.length > 0) {
 			res.status(200).json(data);
@@ -14,7 +15,8 @@ exports.ObtenerTodos = (req, res) => {
 	});
 }
 
-exports.GuardarEtiquetas = (req, res) => {
+exports.GuardarEtiquetas = (req, res) => 
+{
 	const etiquetas = req.body.etiquetas;
 
 	let insertIds = [];
@@ -26,23 +28,23 @@ exports.GuardarEtiquetas = (req, res) => {
 		async.forEachOf(etiqueta.traducciones, (traduccion, keyTraduccion, callback) => {
 
 			let normalize = (() => {
-				const from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç", 
-					to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
+				const from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
+					to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
 					mapping = {};
-			   
-				for(let i = 0, j = from.length; i < j; i++ )
-					mapping[ from.charAt( i ) ] = to.charAt( i );
-			   
-				return ( str ) => {
+
+				for (let i = 0, j = from.length; i < j; i++)
+					mapping[from.charAt(i)] = to.charAt(i);
+
+				return (str) => {
 					let ret = [];
-					for( var i = 0, j = str.length; i < j; i++ ) {
-						let c = str.charAt( i );
-						if( mapping.hasOwnProperty( str.charAt( i ) ) )
-							ret.push( mapping[ c ] );
+					for (var i = 0, j = str.length; i < j; i++) {
+						let c = str.charAt(i);
+						if (mapping.hasOwnProperty(str.charAt(i)))
+							ret.push(mapping[c]);
 						else
-							ret.push( c );
-					}      
-					return ret.join( '' );
+							ret.push(c);
+					}
+					return ret.join('');
 				}
 			})();
 
@@ -91,7 +93,24 @@ exports.GuardarEtiquetas = (req, res) => {
 
 }
 
-exports.Actualizar = (req, res) => {
+
+exports.ObtenerPorIcono = (req, res) => 
+{
+	const id = req.params.id;
+
+	Etiqueta.ObtenerPorIcono(id, (err, data) => {
+		if (data.length > 0) {
+			res.status(200).json(data);
+		} else {
+			res.status(404).json({
+				'msg': 'No hay etiquetas en la base de datos'
+			});
+		}
+	})
+}
+
+exports.Actualizar = (req, res) => 
+{
 	const _id = req.body._id;
 	const etiquetaData = req.body.etiqueta;
 
@@ -106,7 +125,8 @@ exports.Actualizar = (req, res) => {
 	})
 }
 
-exports.AsignarIconos = (req, res) => {
+exports.AsignarIconos = (req, res) => 
+{
 	const _ids = req.body._ids;
 	const idsIconos = req.body.iconos;
 
@@ -132,7 +152,8 @@ exports.AsignarIconos = (req, res) => {
 	})
 }
 
-exports.DesasignarIcono = (req, res) => {
+exports.DesasignarIcono = (req, res) => 
+{
 	const _id = req.params._id;
 	const idIcono = req.body.idIcono;
 
@@ -147,7 +168,8 @@ exports.DesasignarIcono = (req, res) => {
 	})
 }
 
-exports.Borrar = (req, res) => {
+exports.Borrar = (req, res) => 
+{
 	const _id = req.params._id;
 
 	Etiqueta.Borrar(_id, (err, data) => {

@@ -57,12 +57,6 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
 				name: "legales",
 				url: "/avisos-legales/",
 				templateUrl: "/landing/app/views/legales.tpl"
-			})
-			.state({
-				name: "blog",
-				url: "/blog/",
-				templateUrl: "/landing/app/views/blog.tpl",
-				controller: "blogController as ctrl"
 			});
 
 
