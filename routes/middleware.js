@@ -128,12 +128,12 @@ exports.userAgent = function(req,res,next) {
 				if (err) throw err;
 			});
       
-      var keys = Object.keys(data);
+      		var keys = Object.keys(data);
 
 			for(var key in keys){
-            while(template.indexOf("${"+keys[key]+"}") != -1){
-				      template = template.replace("${"+keys[key]+"}", data[keys[key]]);
-            }
+				while(template.indexOf("${"+keys[key]+"}") != -1){
+						template = template.replace("${"+keys[key]+"}", data[keys[key]]);
+				}
 			}
 
 			res.status(200).type('html').send(template)
@@ -152,12 +152,12 @@ exports.userAgent = function(req,res,next) {
 				if (err) throw err;
 			});
 
-      var keys = Object.keys(data);
+      		var keys = Object.keys(data);
 
 			for(var key in keys){
-            while(template.indexOf("${"+keys[key]+"}") != -1){
-				      template = template.replace("${"+keys[key]+"}", data[keys[key]]);
-            }
+				while(template.indexOf("${"+keys[key]+"}") != -1){
+						template = template.replace("${"+keys[key]+"}", data[keys[key]]);
+				}
 			}
 
 			res.status(200).type('html').send(template)
