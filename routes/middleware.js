@@ -144,7 +144,7 @@ exports.userAgent = function(req,res,next) {
 
 		}
 
-	} else if (req.headers['user-agent'] === 'Twitterbot') {
+	} else if (req.headers['user-agent'] === 'Twitterbot' || req.headers['user-agent'] === 'Twitterbot/1.0') {
 
 		if(req.query.idLogo){
 
