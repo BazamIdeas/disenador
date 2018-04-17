@@ -118,36 +118,50 @@ exports.pruebas = function(req,res,next){
 
 exports.userAgent = function(req,res,next) {
 
-	if(req.query.idLogo && 
-		(req.headers['user-agent'] === 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)' || 
-		req.headers['user-agent'] === 'Facebot' )
-	) {
+	if(req.headers['user-agent'] === 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)' || 
+		req.headers['user-agent'] === 'Facebot') {
 
-		let template = fs.readFileSync('../public/share_facebook.html' ,'utf8', (err) => {
-            if (err) throw err;
-        });
+		if (req.query.idLogo) {
 
-        for(var key in this.data){
-        	template = template.replace('{#'+key+'#}', {idLogo: idLogo, url: configuracion.url});
-        }
+			let template = fs.readFileSync('../public/share_facebook.html' ,'utf8', (err) => {
+				if (err) throw err;
+			});
 
-		res.status(200).type('html').send(template)
+			for(var key in this.data){
+				template = template.replace('{#'+key+'#}', {idLogo: idLogo, url: configuracion.url});
+			}
 
-	} else if (req.query.idLogo && req.headers['user-agent'] === 'Twitterbot') {
+			res.status(200).type('html').send(template)
 
-		let template = fs.readFileSync('../public/share_twitter.html' ,'utf8', (err) => {
-            if (err) throw err;
-        });
+		} else {
+			
+			next()
 
-        for(var key in this.data){
-        	template = template.replace('{#'+key+'#}', {idLogo: idLogo, url: configuracion.url});
-        }
+		}
 
-		res.status(200).type('html').send(template)
+	} else if (req.headers['user-agent'] === 'Twitterbot') {
+
+		if(req.query.idLogo){
+
+			let template = fs.readFileSync('../public/share_twitter.html' ,'utf8', (err) => {
+				if (err) throw err;
+			});
+
+			for(var key in this.data){
+				template = template.replace('{#'+key+'#}', {idLogo: idLogo, url: configuracion.url});
+			}
+
+			res.status(200).type('html').send(template)
+
+		} else {
+
+			next()
+
+		}
 
 	} else {
 
 		next()
-		
+
 	}
 }
