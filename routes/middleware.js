@@ -37,8 +37,8 @@ exports.validarCliente = function(req,res,next){
 	}
 
 	else{
-		req.idUsuario = 1
-		req.idCliente = 1
+		req.idUsuario = 1;
+		req.idCliente = 1;
 		next()
 	}
 }
@@ -118,17 +118,20 @@ exports.pruebas = function(req,res,next){
 
 exports.userAgent = function(req,res,next) {
 
+	let data = {idLogo: req.query.idLogo, url: configuracion.url} 
+
 	if(req.headers['user-agent'] === 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)' || 
 		req.headers['user-agent'] === 'Facebot') {
 
 		if (req.query.idLogo) {
 
-			let template = fs.readFileSync('../public/share_facebook.html' ,'utf8', (err) => {
+			let template = fs.readFileSync('./public/share_facebook.html' ,'utf8', (err) => {
 				if (err) throw err;
 			});
 
-			for(var key in this.data){
-				template = template.replace('{#'+key+'#}', {idLogo: idLogo, url: configuracion.url});
+			for(var key in data){
+        		var re = new RegExp('${'+key+'}', 'g');
+				template = template.replace(re, data[key]);
 			}
 
 			res.status(200).type('html').send(template)
@@ -143,12 +146,13 @@ exports.userAgent = function(req,res,next) {
 
 		if(req.query.idLogo){
 
-			let template = fs.readFileSync('../public/share_twitter.html' ,'utf8', (err) => {
+			let template = fs.readFileSync('./public/share_twitter.html' ,'utf8', (err) => {
 				if (err) throw err;
 			});
 
-			for(var key in this.data){
-				template = template.replace('{#'+key+'#}', {idLogo: idLogo, url: configuracion.url});
+			for(var key in data){
+        		var re = new RegExp('${'+key+'}', 'g');
+				template = template.replace(re, data[key]);
 			}
 
 			res.status(200).type('html').send(template)

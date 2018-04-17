@@ -18,7 +18,8 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('', middleware.userAgent, express.static(path.join(__dirname, 'public')));
 app.use(compression());
 app.enable('trust proxy');
 app.use(configuracion.base+'/fuentes', express.static(__dirname + '/fuentes'))
@@ -65,10 +66,7 @@ app.use('/administrador/*', function (req, res, next) {
   res.sendFile('/public/administrador/index.html', { root: __dirname });
 });
 
-app.use('', middleware.userAgent,function (req, res, next) {
-  // Just send the index.html for other files to support HTML5Mode
-  res.sendFile('/public/index.html', { root: __dirname });
-});
+
 
 
 // catch 404 and forward to error handler
