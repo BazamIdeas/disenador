@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory) {
+	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", "$location", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory, $location) {
 
 		var bz = this;
 

@@ -4227,7 +4227,7 @@ md-radio-button.opcion-fuente[aria-checked="true"] {
     transform: scale(1);
 }
 
-g.contenedor-icono {
+.contenedor-principal g.contenedor-icono {
     pointer-events: bounding-box;
     cursor: move !important;
 }
@@ -4423,4 +4423,9 @@ bazam-palette-picker path[data-index].color-checked {
     stroke: rgb(0, 0, 0) !important;
     stroke-width: 1.5px !important;
     opacity: 1;
+}
+
+.contenedor-principal bazam-svg text,
+.contenedor-principal .contenedor-icono {
+    cursor: move;
 }
