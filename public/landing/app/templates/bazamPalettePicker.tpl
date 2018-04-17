@@ -163,14 +163,13 @@ display: block;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 162.63 162.63">
     }
 
     bazam-palette-picker path[data-index] {
-        opacity: 0.7;
         stroke: none !important;
         transition: all 0.15s ease-in;
         cursor: pointer;
     }
 
     bazam-palette-picker path[data-index].color-checked {
-        stroke: rgb(71, 71, 71) !important;
+        stroke:rgb(0, 0, 0) !important;
         stroke-width: 1.5px !important;
         opacity: 1;
         -webkit-box-shadow: inset 5px 1px 75px -19px rgba(0, 0, 0, 1);

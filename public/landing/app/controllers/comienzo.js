@@ -34,7 +34,8 @@ angular.module("landing")
 		bz.promesas = [
 			categoriasService.listaCategorias("ICONO"),
 			categoriasService.listaCategorias("FUENTE"),
-			preferenciasService.listaPreferencias()
+			preferenciasService.listaPreferencias(),
+			etiquetasService.listarEtiquetas()
 		]
 
 		$q.all(bz.promesas).then(function (res) {
@@ -45,17 +46,11 @@ angular.module("landing")
 				valor.valor = 2;
 				bz.datosCombinaciones.preferencias.push(valor);
 			});
-	
-		}).catch(function (res) {
-			console.log(res)
-		}).finally(function () {
-			bz.peticion = false;
-		})
 
-		etiquetasService.listarEtiquetas().then(function (res) {
 			if (res != undefined) {
-				bz.etiquetas = etiquetasService.loadEtiquetas(res[0].data);
+				bz.etiquetas = etiquetasService.loadEtiquetas(res[3].data);
 			}
+	
 		}).catch(function (res) {
 			console.log(res)
 		}).finally(function () {
