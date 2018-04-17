@@ -808,19 +808,19 @@ angular.module("disenador-de-logos")
 					FB.login(function (response) {
 
 						$http.post("/app/cliente/social", {
-								origen: "facebook",
-								token: response.authResponse.accessToken
-							}).then(function (res) {
+							origen: "facebook",
+							token: response.authResponse.accessToken
+						}).then(function (res) {
 
-								$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-								clienteDatosFactory.definir(res.data);
-								defered.resolve(res);
+							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+							clienteDatosFactory.definir(res.data);
+							defered.resolve(res);
 
-							})
-							.catch(function (res) {
-								$window.localStorage.removeItem("bzToken");
-								defered.reject(res);
-							});
+						}).catch(function (res) {
+							$window.localStorage.removeItem("bzToken");
+							defered.reject(res);
+						});
+
 					}, {
 						scope: "email,user_friends,user_location,user_likes"
 					});
@@ -919,7 +919,8 @@ angular.module("disenador-de-logos")
 				if (response.status === "connected") {
 					FB.ui({
 							method: "share",
-							href: "https://developers.facebook.com/docs/"
+							href: "http://test.logo.pro/",
+							source: "http://test.logo.pro/logo.pro.svg"
 						},
 						function (response) {
 							if (response && !response.error_code) {
@@ -934,7 +935,8 @@ angular.module("disenador-de-logos")
 					FB.login(function (response) {
 						FB.ui({
 								method: "share",
-								href: "https://developers.facebook.com/docs/"
+								href: "http://test.logo.pro/",
+							source: "http://test.logo.pro/"
 							},
 							function (response) {
 								if (response && !response.error_code) {
