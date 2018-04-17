@@ -92,7 +92,7 @@ angular.module("disenador-de-logos")
 		};
 
 
-		bz.urlCompartir = $window.location.port !== "80" ? $window.location.protocol + "//" + $window.location.hostname + ":" + $window.location.port : $window.location.protocol + "//" + $window.location.hostname;
+		bz.urlCompartir = $location.port() !== "80" ? $location.protocol() + "//" + $location.host() + ":" + $location.port() : $location.protocol() + "//" + $location.host();
 
 		bz.mostrarModalSocial = false;
 		bz.idLogoCompartir = null;
