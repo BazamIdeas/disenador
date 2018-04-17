@@ -46,7 +46,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "inicio",
 				url: "/:datos?",
-				templateUrl: "app/views/v2/inicio.tpl",
+				templateUrl: "app/views/inicio.tpl",
 				controller: "inicioController as inicio",
 				resolve: {
 					landingResolve: ["LS", "$stateParams", function (LS, $stateParams) {
@@ -87,7 +87,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "editor",
 				url: "/editor/",
-				templateUrl: "app/views/v2/editor.tpl",
+				templateUrl: "app/views/editor.tpl",
 				controller: "editorController as editor",
 				params: {
 					status: null,
@@ -142,7 +142,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "planes",
 				url: "/planes/",
-				templateUrl: "app/views/v2/planes.tpl",
+				templateUrl: "app/views/planes.tpl",
 				controller: "planesController as planes",
 				params: {
 					status: null,
@@ -195,7 +195,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "pago",
 				url: "/pago/",
-				templateUrl: "app/views/v2/pago.tpl",
+				templateUrl: "app/views/pago.tpl",
 				controller: "pagoController as pago",
 				params: {
 					status: null,
@@ -254,7 +254,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "pagoCompleto",
 				url: "/pago/completo/:id/",
-				templateUrl: "app/views/v2/pagoCompleto.tpl",
+				templateUrl: "app/views/pagoCompleto.tpl",
 				controller: "pagoCompletoController as pagoCompleto",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
@@ -272,7 +272,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "cuenta",
 				url: "/cliente/cuenta/",
-				templateUrl: "app/views/v2/cuenta.tpl",
+				templateUrl: "app/views/cuenta.tpl",
 				controller: "cuentaController as cuenta",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
@@ -290,7 +290,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "logos",
 				url: "/cliente/logos/",
-				templateUrl: "app/views/v2/logos.tpl",
+				templateUrl: "app/views/logos.tpl",
 				controller: "logosController as logos",
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
@@ -308,7 +308,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "descargar",
 				url: "/cliente/logos/descargar/{id:int}/",
-				templateUrl: "app/views/v2/descargar.tpl",
+				templateUrl: "app/views/descargar.tpl",
 				controller: "descargarController as descargar",
 				params: {
 					id: null
@@ -362,7 +362,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "login",
 				url: "/ingreso/",
-				templateUrl: "app/views/v2/login.tpl",
+				templateUrl: "app/views/login.tpl",
 				controller: "loginController as login",
 				resolve: {
 					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
@@ -380,7 +380,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 			.state({
 				name: "logosGaleria",
 				url: "/logos-galeria/",
-				templateUrl: "app/views/v2/logosGaleria.tpl",
+				templateUrl: "app/views/logosGaleria.tpl",
 				controller: "logosGaleriaController as logosGaleria"
 			});
 
