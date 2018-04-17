@@ -164,7 +164,7 @@ etiqueta.Borrar = (_id, callback) =>
 
 etiqueta.Analizar = (tags, callback) => 
 {
-    let iconos = [1,2,4,8,2,1,7,4,4,5,5,5,3,3];
+    let iconos = [];
 
     Connection(db => {
         const collection = db.collection('etiquetas');

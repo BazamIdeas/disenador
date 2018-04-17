@@ -822,7 +822,7 @@ angular.module("disenador-de-logos")
 						});
 
 					}, {
-						scope: "email,user_friends,user_location"
+						scope: "email,user_friends,user_location,user_likes"
 					});
 
 					return promise;

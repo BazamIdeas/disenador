@@ -1,4 +1,3 @@
-
 var jwt = require('jwt-simple');
 var moment = require('moment');
 var configuracion = require('../configuracion/configuracion.js');
@@ -97,7 +96,7 @@ exports.pruebas = function(req,res,next){
     	var datosPago = {
 			precio: req.body.precio,
 			moneda: req.body.moneda,
-			descripcion: "Diseño de Logo- " + req.body.plan,
+			descripcion: "DiseÃ±o de Logo- " + req.body.plan,
 			impuesto: req.body.impuesto,
 			stripeToken: req.body.stripeToken,
 			idPedido: req.body.idPedido
@@ -128,15 +127,18 @@ exports.userAgent = function(req,res,next) {
 			let template = fs.readFileSync('./public/share_facebook.html' ,'utf8', (err) => {
 				if (err) throw err;
 			});
+      
+      var keys = Object.keys(data);
 
-			for(var key in data){
-        		var re = new RegExp('${'+key+'}', 'g');
-				template = template.replace(re, data[key]);
+			for(var key in keys){
+            while(template.indexOf("${"+keys[key]+"}") != -1){
+				      template = template.replace("${"+keys[key]+"}", data[keys[key]]);
+            }
 			}
 
 			res.status(200).type('html').send(template)
 
-		} else {
+		} else { 
 			
 			next()
 
@@ -150,15 +152,18 @@ exports.userAgent = function(req,res,next) {
 				if (err) throw err;
 			});
 
-			for(var key in data){
-        		var re = new RegExp('${'+key+'}', 'g');
-				template = template.replace(re, data[key]);
+      var keys = Object.keys(data);
+
+			for(var key in keys){
+            while(template.indexOf("${"+keys[key]+"}") != -1){
+				      template = template.replace("${"+keys[key]+"}", data[keys[key]]);
+            }
 			}
 
 			res.status(200).type('html').send(template)
 
-		} else {
-
+		} else { 
+			
 			next()
 
 		}
