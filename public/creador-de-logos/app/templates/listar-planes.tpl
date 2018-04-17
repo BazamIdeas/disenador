@@ -11,7 +11,9 @@
                 <div style="padding:10px;">
                     <div class="plan-precio">GRATIS</div>
                     <div class="text-center">
-                        <button style="background:silver !important; color:white !important;" ng-disabled="listarPlanes.peticion" ng-class="{'loading-white': listarPlanes.peticion}" class="boton-planes" ng-click="listarPlanes.verificarLogin(true)">DESCARGAR</button>
+                        <button style="background:silver !important; color:white !important;" ng-disabled="listarPlanes.peticion" ng-class="{'loading-white': listarPlanes.peticion}" class="boton-planes" ng-click="listarPlanes.verificarLogin(true)">Compartir</button>
+                        <!-- <div ng-click="listarPlanes.verificarLike()" class="fb-like" data-href="https://www.facebook.com/Creador-de-logos-Community-113972752767189/" data-layout="button" data-action="like"
+                            data-size="small" data-show-faces="true" data-share="false"></div> -->
                     </div>
                 </div>
                 <ul class="plan-lista">

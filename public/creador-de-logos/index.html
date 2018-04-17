@@ -1,145 +1,145 @@
 <html lang="es" ng-app="disenador-de-logos">
 
-    <head>
-        <title>Logopro | Creador de Logos</title>
-        <base href="/creador-de-logos/" />
-        <meta name="viewport" content="width=device-width, user-scalable=no">
-        <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
-        <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+<head>
+    <title>Logopro | Creador de Logos</title>
+    <base href="/creador-de-logos/" />
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
 
-        <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 
-        <link href="/angular-material/angular-material.min.css" rel="stylesheet">
-        <link href="/angular-colorpicker-directive/css/color-picker.css" rel="stylesheet">
+    <link href="/angular-material/angular-material.min.css" rel="stylesheet">
+    <link href="/angular-colorpicker-directive/css/color-picker.css" rel="stylesheet">
 
-        <!--Stripe-->
-        <script src="https://js.stripe.com/v3/"></script>
+    <!--Stripe-->
+    <script src="https://js.stripe.com/v3/"></script>
 
-        <!---jQuery -->
-        <script src="/jquery/jquery.min.js"></script>
+    <!---jQuery -->
+    <script src="/jquery/jquery.min.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css">
-        <!--<link rel="stylesheet" type="text/css" href="assets/css/ghpages-materialize.min.css">-->
-        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/jquery.scrollbar.css">
-        <script src="assets/js/materialize.min.js"></script>
-
-
+    <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="assets/css/ghpages-materialize.min.css">-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.scrollbar.css">
+    <script src="assets/js/materialize.min.js"></script>
 
 
-        <!--Librerias core de angualarJS -->
-        <script src="/angular/angular.min.js"></script>
-        <script src="/angular-messages/angular-messages.min.js"></script>
-        <script src="/angular-animate/angular-animate.min.js"></script>
-        <script src="/angular-aria/angular-aria.min.js"></script>
-
-        <!--Librerias 3r party angularJS -->
-        <script src="/angular-ui-router/angular-ui-router.min.js"></script>
-        <script src="/angular-material/angular-material.min.js"></script>
-        <!--<script src="/angular-color-picker/angular-color-picker.js"></script>-->
-        <script src="/angular-colorpicker-directive/js/color-picker.js"></script>
-        <script src="/ng-file-upload/ng-file-upload-shim.min.js"></script>
-        <script src="/ng-file-upload/ng-file-upload.min.js"></script>
-
-        <script src="/assets/js/scrollbars.js"></script>
-        <script src="/assets/js/jquery.scrollbar.js"></script>
-        <script src="/angular-base64/angular-base64.min.js"></script>
-        <script src="/angular-social/angular-socialshare.js"></script>
-
-        <!-- jqueryui -->
-
-        <link href="/assets/jquery-ui/jquery-ui.css" rel="stylesheet"  type="text/css" />
-        <script src="/assets/jquery-ui/jquery-ui.min.js"></script>
 
 
-        <!--Archivos App diseñador -->
-        <script src="app/app.js"></script>
-        <script src="app/services.js"></script>
+    <!--Librerias core de angualarJS -->
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular-messages/angular-messages.min.js"></script>
+    <script src="/angular-animate/angular-animate.min.js"></script>
+    <script src="/angular-aria/angular-aria.min.js"></script>
 
-        <!-- Controladores -->
-        <script src="app/controllers/header.js"></script>
-        <script src="app/controllers/inicio.controller.js"></script>
-        <script src="app/controllers/editor.controller.js"></script>
-        <script src="app/controllers/pago.controller.js"></script>
-        <script src="app/controllers/pagoCompleto.controller.js"></script>
-        <script src="app/controllers/logos.controller.js"></script>
-        <script src="app/controllers/login.controller.js"></script>
-        <script src="app/controllers/descargar.controller.js"></script>
-        <script src="app/controllers/cuenta.controller.js"></script>
-        <script src="app/controllers/logosGaleria.controller.js"></script>
+    <!--Librerias 3r party angularJS -->
+    <script src="/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="/angular-material/angular-material.min.js"></script>
+    <!--<script src="/angular-color-picker/angular-color-picker.js"></script>-->
+    <script src="/angular-colorpicker-directive/js/color-picker.js"></script>
+    <script src="/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="/ng-file-upload/ng-file-upload.min.js"></script>
 
-        <!-- Directivas -->
-        <script src="app/directives/bazamAyuda.js"></script>
-        <script src="app/directives/bazamCarouseles.js"></script>
-        <script src="app/directives/bazamColorPicker.js"></script>
-        <script src="app/directives/bazamFormLogin.js"></script>
-        <script src="app/directives/bazamMail.js"></script>
-        <script src="app/directives/bazamRedireccionar.js"></script>
-        <script src="app/directives/bazamScroll.js"></script>
-        <script src="app/directives/bazamSvg.js"></script>
-        <script src="app/directives/bazamSvgText.js"></script>
-        <script src="app/directives/bazamVisualizar.js"></script>
-        <script src="app/directives/bazamPalettePicker.js"></script>
-        <script src="app/directives/stripePaymentForm.js"></script>
-        <script src="app/directives/planes.js"></script>
-        <script src="app/directives/jquery-ui.js"></script>
+    <script src="/assets/js/scrollbars.js"></script>
+    <script src="/assets/js/jquery.scrollbar.js"></script>
+    <script src="/angular-base64/angular-base64.min.js"></script>
+    <script src="/angular-social/angular-socialshare.js"></script>
 
-    </head>
+    <!-- jqueryui -->
 
-    <body>
+    <link href="/assets/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script src="/assets/jquery-ui/jquery-ui.min.js"></script>
 
-        <header class="row" style="margin:0;padding:0;" ng-controller="headerController as header">
 
-            <div class="col s2 logo">
-                <div class="logo-container-logo" ui-sref="inicio">
-                    <img src="assets/logo.pro.svg">
+    <!--Archivos App diseñador -->
+    <script src="app/app.js"></script>
+    <script src="app/services.js"></script>
+
+    <!-- Controladores -->
+    <script src="app/controllers/header.js"></script>
+    <script src="app/controllers/inicio.controller.js"></script>
+    <script src="app/controllers/editor.controller.js"></script>
+    <script src="app/controllers/pago.controller.js"></script>
+    <script src="app/controllers/pagoCompleto.controller.js"></script>
+    <script src="app/controllers/logos.controller.js"></script>
+    <script src="app/controllers/login.controller.js"></script>
+    <script src="app/controllers/descargar.controller.js"></script>
+    <script src="app/controllers/cuenta.controller.js"></script>
+    <script src="app/controllers/logosGaleria.controller.js"></script>
+
+    <!-- Directivas -->
+    <script src="app/directives/bazamAyuda.js"></script>
+    <script src="app/directives/bazamCarouseles.js"></script>
+    <script src="app/directives/bazamColorPicker.js"></script>
+    <script src="app/directives/bazamFormLogin.js"></script>
+    <script src="app/directives/bazamMail.js"></script>
+    <script src="app/directives/bazamRedireccionar.js"></script>
+    <script src="app/directives/bazamScroll.js"></script>
+    <script src="app/directives/bazamSvg.js"></script>
+    <script src="app/directives/bazamSvgText.js"></script>
+    <script src="app/directives/bazamVisualizar.js"></script>
+    <script src="app/directives/bazamPalettePicker.js"></script>
+    <script src="app/directives/stripePaymentForm.js"></script>
+    <script src="app/directives/planes.js"></script>
+    <script src="app/directives/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <header class="row" style="margin:0;padding:0;" ng-controller="headerController as header">
+
+        <div class="col s2 logo">
+            <div class="logo-container-logo" ui-sref="inicio">
+                <img src="assets/logo.pro.svg">
+            </div>
+
+        </div>
+        <div class="col s10 m10 menu" show-gt-sm>
+
+            <div ng-switch="header.autorizado" class="login" ng-cloak>
+
+                <div ng-switch-when="false" ui-sref="inicio" class="acceder" style="cursor: pointer; padding-right:20px">
+                    <i class="material-icons">add_circle_outline</i> &nbsp; Crear logo
                 </div>
 
-            </div>
-            <div class="col s10 m10 menu" show-gt-sm>
+                <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer">
+                    <i class="material-icons md-48">account_circle</i>
+                    <span>Acceder / Registro</span>
+                </div>
 
-                <div ng-switch="header.autorizado" class="login" ng-cloak>
+                <div ng-switch-default class="acceder" style="cursor: pointer">
 
-                    <div ng-switch-when="false" ui-sref="inicio" class="acceder" style="cursor: pointer; padding-right:20px">
+                    <span ui-sref="inicio">
                         <i class="material-icons">add_circle_outline</i> &nbsp; Crear logo
-                    </div>
+                    </span>
 
-                    <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer">
-                        <i class="material-icons md-48">account_circle</i>
-                        <span>Acceder / Registro</span>
-                    </div>
+                    <span ui-sref="logos">
+                        <i class="material-icons">favorite</i> &nbsp; Mis logos
+                    </span>
 
-                    <div ng-switch-default class="acceder" style="cursor: pointer">
-
-                        <span ui-sref="inicio">
-                            <i class="material-icons">add_circle_outline</i> &nbsp; Crear logo
+                    <span ui-sref="cuenta">
+                        <i ng-if="!header.autorizado.foto" class="material-icons">account_circle</i>
+                        <span ng-if="header.autorizado.foto && header.verificarBase64(header.autorizado.foto)">
+                            <img style="width: 30px;border-radius: 50%;" ng-src="{{'data:image/svg+xml;base64,' + header.autorizado.foto}}">
                         </span>
-
-                        <span ui-sref="logos">
-                            <i class="material-icons">favorite</i> &nbsp; Mis logos
+                        <span ng-if="header.autorizado.foto && !header.verificarBase64(header.autorizado.foto)">
+                            <img style="width: 30px;border-radius: 50%;" ng-src="{{header.autorizado.foto}}">
                         </span>
+                        {{header.autorizado.nombre}}
+                    </span>
 
-                        <span ui-sref="cuenta">
-                            <i ng-if="!header.autorizado.foto" class="material-icons">account_circle</i>
-                            <span ng-if="header.autorizado.foto && header.verificarBase64(header.autorizado.foto)">
-                                <img style="width: 30px;border-radius: 50%;" ng-src="{{'data:image/svg+xml;base64,' + header.autorizado.foto}}">
-                            </span>
-                            <span ng-if="header.autorizado.foto && !header.verificarBase64(header.autorizado.foto)">
-                                    <img style="width: 30px;border-radius: 50%;" ng-src="{{header.autorizado.foto}}">
-                                </span>
-                             {{header.autorizado.nombre}}
-                        </span>
+                    <span ng-click="header.salir()">
+                        <i class="material-icons">power_settings_new</i> &nbsp; Cerrar sesion
+                    </span>
 
-                        <span ng-click="header.salir()">
-                            <i class="material-icons">power_settings_new</i> &nbsp; Cerrar sesion
-                        </span>
+                    <!-- <span style="margin: 0 10px; font-family: 'arial'"></span> -->
 
-                        <!-- <span style="margin: 0 10px; font-family: 'arial'"></span> -->
+                </div>
 
-                    </div>
-
-                    <!--
+                <!--
                     <div class="acceder">
 
                         <span ng-click="::header.mostrarPasoPopAyuda()">
@@ -148,95 +148,97 @@
 
                     </div>
 -->
-                </div>
-
             </div>
 
-        </header>
-
-        <!-- contenedor principal -->
-        <div ui-view style="min-height: calc(100% - 60px); min-height: -webkit-calc(100% - 60px); background-color: white">
         </div>
 
+    </header>
+
+    <!-- contenedor principal -->
+    <div ui-view style="min-height: calc(100% - 60px); min-height: -webkit-calc(100% - 60px); background-color: white">
+    </div>
 
 
-        <bazam-form-login></bazam-form-login>
 
-        <div class="full-overlay">
-            <div class="gif"></div>
-            <div>Cargando...</div>
-        </div>
+    <bazam-form-login></bazam-form-login>
 
-        <bazam-redireccionar></bazam-redireccionar>
+    <div class="full-overlay">
+        <div class="gif"></div>
+        <div>Cargando...</div>
+    </div>
+
+    <bazam-redireccionar></bazam-redireccionar>
 
 
-        <script type="text/ng-template" id="toast-base.html">
-            <md-toast class="{{clase}}">
-                <span class="md-toast-text" flex>{{::mensaje}}</span>
-                <md-button ng-click="closeToast()">
-                    <i class="material-icons">close</i>
-                </md-button>
-            </md-toast>
-        </script>
+    <script type="text/ng-template" id="toast-base.html">
+        <md-toast class="{{clase}}">
+            <span class="md-toast-text" flex>{{::mensaje}}</span>
+            <md-button ng-click="closeToast()">
+                <i class="material-icons">close</i>
+            </md-button>
+        </md-toast>
+    </script>
 
-    </body>
-    <script>
-        /* FACEBOOK */
+</body>
+<script>
+    /* FACEBOOK */
 
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: "152803392097078",
-                autoLogAppEvents: true,
-                xfbml: true,
-                version: "v2.12"
-            });
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "152803392097078",
+            autoLogAppEvents: true,
+            xfbml: true,
+            status: true,
+            cookie: true,
+            version: "v2.12"
+        });
+    };
+
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/es_LA/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, "script", "facebook-jssdk"));
+</script>
+
+<!-- GOOGLE -->
+
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
+<script>
+    function init() {
+        gapi.load('auth2', function () {
+            gapi.auth2.init({
+                client_id: '40002776981-qd6lf3af4k69c64ibrelnurtsms2clon.apps.googleusercontent.com'
+            })
+        });
+    }
+</script>
+
+<!--TWITTER -->
+<script>
+    window.twttr = (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function (f) {
+            t._e.push(f);
         };
 
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, "script", "facebook-jssdk"));
-    </script>
-
-    <!-- GOOGLE -->
-
-    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-
-    <script>
-        function init() {
-            gapi.load('auth2', function () {
-                gapi.auth2.init({
-                    client_id: '40002776981-qd6lf3af4k69c64ibrelnurtsms2clon.apps.googleusercontent.com'
-                })
-            });
-        }
-    </script>
-
-    <!--TWITTER -->
-    <script>
-        window.twttr = (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-                t = window.twttr || {};
-            if (d.getElementById(id)) return t;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
-
-            t._e = [];
-            t.ready = function (f) {
-                t._e.push(f);
-            };
-
-            return t;
-        }(document, "script", "twitter-wjs"));
-    </script>
+        return t;
+    }(document, "script", "twitter-wjs"));
+</script>
 
 </html>
