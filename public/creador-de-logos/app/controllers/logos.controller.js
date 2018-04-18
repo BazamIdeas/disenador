@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", "$location", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory, $location) {
+	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", "$location", "Socialshare", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory, $location, Socialshare) {
 
 		var bz = this;
 
@@ -209,5 +209,30 @@ angular.module("disenador-de-logos")
 			$state.go("inicio");
 
 		});
+
+
+		bz.compartir = function(provider, idLogo) {
+
+			var unix = Date.now();
+
+			var attrs = {
+				socialshareUrl : bz.urlCompartir+'?idLogo='+idLogo+'&unix='+unix
+			}
+
+			switch (provider) {
+				case 'twitter':
+					attrs.socialshareHashtags = 'Liderlogo';
+					break;
+				
+				case 'pinterest':
+					attrs.socialshareMedia = bz.urlCompartir+'/app/logo/compartido/'+idLogo; attrs.socialshareText = "Pinterest";
+					break;
+			}
+
+			Socialshare.share({
+				'provider': provider,
+				'attrs': attrs
+			});
+		}
 
 	}]);

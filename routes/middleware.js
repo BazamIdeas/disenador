@@ -216,7 +216,7 @@ exports.userAgent = function(req,res,next) {
 
 		}
 
-	} else if (req.headers['user-agent'] === 'Google (+https://developers.google.com/+/web/snippet/)' || req.headers['user-agent'] === 'Googlebot' || req.headers['user-agent'] === 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' || req.headers['user-agent'] === 'Googlebot/2.1 (+http://www.google.com/bot.html)') { 
+	} else if (req.headers['user-agent'] === 'Google (+https://developers.google.com/+/web/snippet/)' || req.headers['user-agent'] === 'Googlebot' || req.headers['user-agent'] === 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' || req.headers['user-agent'] === 'Googlebot/2.1 (+http://www.google.com/bot.html)' || req.headers['user-agent'] === 'Mozilla/5.0 (compatible; Google-Structured-Data-Testing-Tool +https://search.google.com/structured-data/testing-tool)' || req.headers['user-agent'] === 'Googlebot/2.1 (+http://www.googlebot.com/bot.html)' || req.headers['user-agent'].indexOf("Google (+https://developers.google.com/+/web/snippet/)") != -1) { 
 
 		if(req.query.idLogo){
 
