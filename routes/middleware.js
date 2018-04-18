@@ -216,6 +216,30 @@ exports.userAgent = function(req,res,next) {
 
 		}
 
+	} else if (req.headers['user-agent'] === 'Google (+https://developers.google.com/+/web/snippet/)' || req.headers['user-agent'] === 'Googlebot' || req.headers['user-agent'] === 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' || req.headers['user-agent'] === 'Googlebot/2.1 (+http://www.google.com/bot.html)') { 
+
+		if(req.query.idLogo){
+
+			let template = fs.readFileSync('./public/share_google.html' ,'utf8', (err) => {
+				if (err) throw err;
+			});
+
+      		var keys = Object.keys(data);
+
+			for(var key in keys){
+				while(template.indexOf("${"+keys[key]+"}") != -1){
+						template = template.replace("${"+keys[key]+"}", data[keys[key]]);
+				}
+			}
+
+			res.status(200).type('html').send(template)
+
+		} else { 
+			
+			next()
+
+		}
+
 	} else {
 
 		next()
