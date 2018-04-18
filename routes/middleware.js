@@ -192,7 +192,7 @@ exports.userAgent = function(req,res,next) {
 
 		}
 
-	} else if (req.headers['user-agent'] === 'Pinterest/0.2 (+https://www.pinterest.com/bot.html)' || req.headers['user-agent'] === 'Pinterest' ) { 
+	} else if (req.headers['user-agent'] === 'Pinterest/0.2 (+https://www.pinterest.com/bot.html)' || req.headers['user-agent'] === 'Pinterest' || req.headers['user-agent'] === 'Mozilla/5.0 (compatible; Pinterestbot/1.0; +https://www.pinterest.com/bot.html)' || req.headers['user-agent'] === 'Mozilla/5.0 (compatible; Pinterestbot/1.0; +http://www.pinterest.com/bot.html)') { 
 
 		if(req.query.idLogo){
 
