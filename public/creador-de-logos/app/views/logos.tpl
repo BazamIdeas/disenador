@@ -220,7 +220,7 @@
                         <span socialshare socialshare-provider="facebook" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}">
                             <i class="fab fa-facebook-f"></i>
                         </span>
-                        <span socialshare socialshare-provider="twitter" socialshare-text="Twitter" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}" socialshare-hashtags="liderlogo">
+                        <span socialshare socialshare-provider="twitter" socialshare-text="Twitter" socialshare-hashtags="liderlogo" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}">
                             <i class="fab fa-twitter"></i>
                         </span>
                         <span socialshare socialshare-provider="google" socialshare-url="{{logos.urlCompartir}}">
