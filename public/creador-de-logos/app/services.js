@@ -1308,7 +1308,7 @@ angular.module("disenador-de-logos")
 		return function (iconos, fuentes) {
 
 			var logos = [];
-
+			/*
 			angular.forEach(fuentes, function (fuente) {
 
 				angular.forEach(iconos, function (icono) {
@@ -1326,7 +1326,18 @@ angular.module("disenador-de-logos")
 
 			});
 
-			//localStorage.setItem("combinaciones",angular.toJson({nombre: "prueba",logos:logos}));
+			*/
+
+			angular.forEach(iconos, function(icono, indice){
+
+				var logo = {
+					icono: iconos[indice],
+					fuente: fuentes[indice]
+				};
+
+				logos.push(logo);
+
+			});
 
 			return logos;
 
