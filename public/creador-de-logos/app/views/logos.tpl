@@ -220,17 +220,16 @@
                         <span socialshare socialshare-provider="facebook" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}">
                             <i class="fab fa-facebook-f"></i>
                         </span>
-                        <span socialshare socialshare socialshare-provider="twitter" socialshare-text="XXXXX" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}"
-                            socialshare-hashtags="liderlogo">
+                        <span socialshare socialshare-provider="twitter" socialshare-text="Twitter" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}" socialshare-hashtags="liderlogo">
                             <i class="fab fa-twitter"></i>
                         </span>
                         <span socialshare socialshare-provider="google" socialshare-url="{{logos.urlCompartir}}">
                             <i class="fab fa-google-plus-g"></i>
                         </span>
-                        <span socialshare socialshare-provider="linkedin" socialshare-text="XXXX" socialshare-url="{{logos.urlCompartir}}">
+                        <span socialshare socialshare-provider="linkedin" socialshare-text="Linkedin" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}">
                             <i class="fab fa-linkedin"></i>
                         </span>
-                        <span socialshare socialshare-provider="pinterest" socialshare-text="XXXXX" socialshare-media="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}" socialshare-url="{{logos.urlCompartir}}">
+                        <span socialshare socialshare-provider="pinterest" socialshare-text="Pinterest" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}">
                             <i class="fab fa-pinterest"></i>
                         </span>
                     </div>

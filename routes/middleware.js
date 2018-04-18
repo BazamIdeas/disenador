@@ -168,6 +168,54 @@ exports.userAgent = function(req,res,next) {
 
 		}
 
+	} else if (req.headers['user-agent'] === 'LinkedInBot/1.0 (compatible; Mozilla/5.0; Jakarta Commons-HttpClient/3.1 +http://www.linkedin.com)' ) { 
+
+		if(req.query.idLogo){
+
+			let template = fs.readFileSync('./public/share_linkedin.html' ,'utf8', (err) => {
+				if (err) throw err;
+			});
+
+      		var keys = Object.keys(data);
+
+			for(var key in keys){
+				while(template.indexOf("${"+keys[key]+"}") != -1){
+						template = template.replace("${"+keys[key]+"}", data[keys[key]]);
+				}
+			}
+
+			res.status(200).type('html').send(template)
+
+		} else { 
+			
+			next()
+
+		}
+
+	} else if (req.headers['user-agent'] === 'Pinterest/0.2 (+https://www.pinterest.com/bot.html)' || req.headers['user-agent'] === 'Pinterest' ) { 
+
+		if(req.query.idLogo){
+
+			let template = fs.readFileSync('./public/share_pinterest.html' ,'utf8', (err) => {
+				if (err) throw err;
+			});
+
+      		var keys = Object.keys(data);
+
+			for(var key in keys){
+				while(template.indexOf("${"+keys[key]+"}") != -1){
+						template = template.replace("${"+keys[key]+"}", data[keys[key]]);
+				}
+			}
+
+			res.status(200).type('html').send(template)
+
+		} else { 
+			
+			next()
+
+		}
+
 	} else {
 
 		next()
