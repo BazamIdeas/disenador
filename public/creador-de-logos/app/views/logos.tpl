@@ -229,7 +229,7 @@
                         <span socialshare socialshare-provider="linkedin" socialshare-text="Linkedin" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}">
                             <i class="fab fa-linkedin"></i>
                         </span>
-                        <span socialshare socialshare-provider="pinterest" socialshare-mediaa="{{logos.urlCompartir+'/app/logo/compartido/'+logos.idLogoCompartir}}" socialshare-text="Pinterest" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}">
+                        <span socialshare socialshare-provider="pinterest" socialshare-media="{{logos.urlCompartir+'/app/logo/compartido/'+logos.idLogoCompartir}}" socialshare-text="Pinterest" socialshare-url="{{logos.urlCompartir+'?idLogo='+logos.idLogoCompartir}}">
                             <i class="fab fa-pinterest"></i>
                         </span>
                     </div>
