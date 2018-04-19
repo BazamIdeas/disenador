@@ -4,29 +4,20 @@
             <div class="login-form-flex">
                 <div ng-switch="bazamLogin.formPasos">
 
-                    <div class="login row" ng-switch-default>
+                    <div class="login row" style="    margin-bottom: 0;" ng-switch-default>
 
-                        <div class="login-form col s6  offset-s3" style="position:relative;" ng-show="bazamLogin.ingresar">
-                            <i style="background: #009688e0;
-                                border: none;
-                                width: 40px;
-                                height: 40px;
-                                border-radius: 50%;
-                                position: absolute;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                color: white;
+                        <div class="login-form col s6  offset-s3" style="position:relative;" ng-show="!bazamLogin.ingresar">
+                            <i style="
                                 right: 23px;
-                                top: 5%;
-                                cursor: pointer;" class="material-icons cerrar" ng-click="$parent.mostrar = false">clear</i>
-                            <div class="md-whiteframe-12dp">
+                                top: 5%;" class="material-icons cerrar-pop" ng-click="$parent.mostrar = false">clear</i>
+                            <div>
+                                <img class="key-image" src="/landing/assets/img/iconos_login/keys.svg">
                                 <p class="text-center tercero">Ingresa a tu Cuenta</p>
                                 <small class="subtitle">
                                     <B>Mira tus creaciones en cualquier momento</B>
                                 </small>
                                 <form name="bazamLogin.loginForm" novalidate ng-submit="bazamLogin.login(bazamLogin.datosLogin, bazamLogin.loginForm.$valid)">
-                                    <div class="input-field col s12">
+                                    <div class="input-field col s12" style="margin-top: 2rem;">
                                         <input id="correo" name="correo" type="email" ng-model="bazamLogin.datosLogin.correo" required>
                                         <label for="correo">Correo</label>
 
@@ -46,17 +37,12 @@
                                         </div>
                                     </div>
 
-
                                     <div class="input-field col s12">
                                         <small ng-click="bazamLogin.formPasos = 1">
-                                            <b>Olvidaste tu contraseña?</b>
+                                            <b class="olvido-small-tag">Olvidaste tu contraseña?</b>
                                         </small>
                                     </div>
                                     <div class=" col s12">
-                                        <div class="social__or" style="    padding: 4% 0 3% 0;">
-                                            <hr> o
-                                            <hr>
-                                        </div>
                                         <div class="ingreso-redes-sociales">
                                             <div class="ingreso__facebook" ng-click="bazamLogin.social('fb')">
 
@@ -67,7 +53,6 @@
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div class="text-center">
                                         <button class="boton-verde __block" ng-class="{'loading-white': !bazamLogin.completadoLogin}">ENVIAR</button>
@@ -80,23 +65,14 @@
                             </div>
                         </div>
 
-                        <div class="registro-form" style="position:relative;" ng-show="!bazamLogin.ingresar">
-                            <i style="background: white;
-                                border: none;
-                                width: 40px;
-                                height: 40px;
-                                border-radius: 50%;
-                                position: absolute;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                color: black;
+                        <div class="registro-form" style="position:relative;" ng-show="bazamLogin.ingresar">
+                            <i style="
                                 right: 30px;
-                                top: 5%;
-                                cursor: pointer;" class="material-icons cerrar" ng-click="$parent.mostrar = false">clear</i>
-                            <div class="row">
-                                <div class="col s5 offset-s1 md-whiteframe-12dp" style="    padding: 18px; display: flex;flex-direction: column; justify-content: space-between; height: 80%;    background-color: white;border-top-left-radius: 18px; border-bottom-left-radius: 18px;">
+                                top: 5%;" class="material-icons cerrar-pop" ng-click="$parent.mostrar = false">clear</i>
+                            <div class="row" style="margin-bottom: 0;">
+                                <div class="col s5 offset-s1 parte-izquierda-form">
                                     <div>
+                                        <img class="key-image" src="/landing/assets/img/iconos_login/keys.svg">
                                         <p class="text-center tercero">Crea una Cuenta</p>
                                         <small class="subtitle">
                                             <B>Busca los mejores diseños y guardalos solo para ti.</B>
@@ -111,13 +87,9 @@
                                                     <i class="fab fa-google-plus-g"></i>
                                                 </div>
                                             </div>
-                                            <div class="social__or">
-                                                <hr> o
-                                                <hr>
-                                            </div>
                                         </div>
                                         <form name="bazamLogin.registroForm" novalidate ng-submit="bazamLogin.registrar(bazamLogin.datosRegistro, bazamLogin.registroForm.$valid)">
-                                            <div class="input-field col s12">
+                                            <div class="input-field col s12" style="    margin-top: 0;">
                                                 <input id="nombre2" type="text" name="nombreCliente" ng-model="bazamLogin.datosRegistro.nombreCliente" required>
                                                 <label for="nombre2">Nombre</label>
 
@@ -177,9 +149,9 @@
                                     </small>
                                 </div>
 
-                                <div class="ventajas-loguear col s6 md-whiteframe-12dp">
+                                <div class="ventajas-loguear col s6">
                                     <div>
-                                        <md-icon>remove_red_eye</md-icon>
+                                        <img class="eye-image" src="/landing/assets/img/iconos_login/eye.svg">
                                         <span>
                                             <b>Ver tus logotipos</b>
                                             <br>
@@ -188,7 +160,7 @@
                                     </div>
 
                                     <div>
-                                        <md-icon>stars</md-icon>
+                                        <img class="star-image" src="/landing/assets/img/iconos_login/start.svg">
                                         <span>
                                             <b>Guarde sus favoritos</b>
                                             <br>
@@ -197,7 +169,7 @@
                                     </div>
 
                                     <div>
-                                        <md-icon>settings_applications</md-icon>
+                                        <img class="gear-image" src="/landing/assets/img/iconos_login/gear.svg">
                                         <span>
                                             <b>Personaliza tu logo</b>
                                             <br>
@@ -207,11 +179,11 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="login olvido-contrasena" style="position:relative;" ng-switch-when="1">
-                        <div class="md-whiteframe-12dp">
+                        <div>
                             <div ng-switch="bazamLogin.rc">
+                                <img class="key-image" src="/landing/assets/img/iconos_login/keys.svg">
                                 <p class="text-center tercero">Olvido de Contraseña</p>
                                 <small class="subtitle">
                                     <B>Segui los pasos y listo</B>
@@ -273,10 +245,23 @@
 <style>
     /* LOGIN */
 
+    .cerrar-pop {
+        background: white;
+        border: 1px solid black;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        cursor: pointer;
+    }
+
     .login-form>div,
     .olvido-contrasena>div {
         background-color: white;
-        border-radius: 18px;
         padding: 18px !important;
     }
 
@@ -296,22 +281,25 @@
 
     .ingreso-redes-sociales {
         display: flex;
-        padding-top: 7%;
+        padding-top: 5%;
         justify-content: center;
     }
 
     .ingreso-redes-sociales>div {
-        width: calc(53% - 16px);
-        margin: 10px 8px;
-        padding: 10px;
+        width: 45px;
+        height: 45px;
         margin: 0 10px;
-        border-radius: 4px;
+        display: flex;
+        border-radius: 50%;
         transition: all .3s ease;
         text-align: center;
         box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .1);
         cursor: pointer;
-        color: white;
+        color: black;
         font-size: 16px;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
     }
 
     .ingreso-redes-sociales>div:hover {
@@ -319,16 +307,16 @@
         transform: scale(1.03);
     }
 
-    .ingreso-redes-sociales .ingreso__twitter {
-        background-color: #1da1f2;
-    }
-
-    .ingreso-redes-sociales .ingreso__facebook {
+    .ingreso-redes-sociales .ingreso__facebook:hover {
         background-color: #3a5998;
+        color: white;
+        border-color: white;
     }
 
-    .ingreso-redes-sociales .ingreso__google {
+    .ingreso-redes-sociales .ingreso__google:hover {
         background-color: #dd4b39;
+        color: white;
+        border-color: white;
     }
 
     .social__or {
@@ -340,12 +328,21 @@
         width: 45%;
     }
 
+    .parte-izquierda-form {
+        padding: 18px !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 92%;
+        background-color: white;
+    }
+
     .ventajas-loguear md-icon {
         padding-right: 30px;
         font-size: 35px;
         width: 60px;
         height: auto;
-        color: white;
+        color: black;
         margin: 0;
     }
 
@@ -355,24 +352,40 @@
     }
 
     .ventajas-loguear {
-
-        height: 80%;
+        height: 92%;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
         padding-left: 5% !important;
-        background: linear-gradient(-134deg, var(--principal), var(--tercero));
-        color: white;
-        border-top-right-radius: 18px;
-        border-bottom-right-radius: 18px;
+        background: white;
+        color: black;
+        padding-right: 5% !important;
+            border-left: 1px solid silver;
+    }
+
+    .ventajas-loguear b {
+        font-size: 16pt;
+    }
+
+    .ventajas-loguear small {
+        font-size: 10pt;
     }
 
     .boton-verde.__block {
         width: 100%;
         padding: 6px 0;
         font-size: 18px;
+        background: var(--principal);
+        opacity: 0.9;
+        font-family: sans-serif !important;
     }
 
+    button.boton-verde.__block:hover,
+    button.boton-verde:hover {
+        background: var(--principal);
+        cursor: pointer;
+        opacity: 1;
+    }
 
     .overlay.show {
         position: absolute;
@@ -418,8 +431,13 @@
         align-items: center;
     }
 
+    .login.olvido-contrasena {
+        min-width: 25vw;
+        position: relative;
+    }
+
     button.boton-verde {
-        background-color: var(--tercero);
+        background-color: var(--principal);
         border: none;
         border-radius: 4px;
         color: #fff;
@@ -427,16 +445,120 @@
         margin-top: 11px;
         -webkit-transition: 0.3 all;
         transition: 0.3 all;
-        font-family: 'futura-heavy' !important;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+        opacity: 0.9;
+        width: 40%;
+        font-size: 15pt;
     }
 
     button.boton-verde:hover {
-        background-color: #4aaf57;
+        background-color: var(--principal);
+        opacity: 1;
     }
 
     .input-field input {
-        margin-bottom: 0;
+        margin-bottom: 10px;
+        padding: 8px 0;
     }
 
+    .input-field.col label {
+        padding-left: 0;
+    }
+
+    .key-image {
+        width: 10%;
+        margin: auto;
+        display: block;
+    }
+
+    .eye-image,
+    .star-image,
+    .gear-image {
+        width: 20%;
+        display: block;
+        margin-right: 20px;
+    }
+
+.input-field{
+    width: 100%;
+}
+
+    @media (min-device-width:360px) and (max-device-width:639px),
+    (min-width:360px) and (max-width:639px) {
+        .ventajas-loguear {
+            display: none;
+        }
+
+        .parte-izquierda-form, .login-form, .login.olvido-contrasena {
+            width: 100% !important;
+            margin-left: auto !important;
+            left: auto;
+            right: auto;
+            height: auto;
+        }
+
+        .login.olvido-contrasena{
+        width: 80vw !important;
+        }
+
+        .key-image {
+            display: none;
+        }
+
+        .registro-form p.tercero, .login-form p.tercero, .olvido-contrasena p.tercero {
+        font-size: 32pt;}
+        
+
+        .subtitle>b {
+            font-size: 18pt;
+        }
+
+        .ingreso-redes-sociales>div {
+            width: 100px;
+            height: 100px;
+            font-size: 28pt;
+        }
+
+        .input-field.col label {
+            font-size: 25pt;
+            color: black;
+        }
+
+        .boton-verde.__block {
+            padding: 17px 0;
+            font-size: 27pt;
+        }
+
+        .overlay.show > div > :first-child {
+            width: 80%;
+            margin: auto;
+        }
+
+        .olvido-small-tag, .login.olvido-contrasena label{
+                font-size: 21pt;
+                color:black;
+        }
+
+        button.boton-verde{
+            font-size: 30pt;
+        }
+
+        .registro-form {
+            width: 85vw !important;
+            margin-left: auto !important;
+            left: auto;
+            right: auto;
+            height: auto;
+        }
+
+         .login-form, .login.olvido-contrasena {
+            width: 50vw !important;
+            margin-left: auto !important;
+            left: auto;
+            right: auto;
+            height: auto;
+        }
+
+    }
     /*END LOGIN MODAL*/
 </style>

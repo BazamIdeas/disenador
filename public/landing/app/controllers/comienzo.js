@@ -23,11 +23,12 @@ angular.module("landing")
 			colores: []
 		}
 
-		angular.element('.link-scroll').click(function () {
+		bz.scrollTop = function () {
+			var top = angular.element('.titulo-inicio').offset().top;
 			angular.element('body').animate({
-				scrollTop: 0
+				scrollTop: top
 			}, 1000);
-		});
+		}
 
 		/* Etiquetas */
 
@@ -45,7 +46,7 @@ angular.module("landing")
 		]
 
 		$q.all(bz.promesas).then(function (res) {
-			
+
 			bz.categoriasPosibles.iconos = res[0];
 			bz.categoriasPosibles.fuentes = res[1];
 			angular.forEach(res[2], function (valor) {
@@ -56,7 +57,7 @@ angular.module("landing")
 			if (res != undefined) {
 				bz.etiquetas = etiquetasService.loadEtiquetas(res[3].data);
 			}
-	
+
 		}).catch(function (res) {
 			console.log(res)
 		}).finally(function () {
@@ -73,16 +74,16 @@ angular.module("landing")
 				bz.peticion = true;
 				datos.etiquetasParaBusqueda = [];
 				datos.palettesCopy = bz.palettesCopy;
-				
-				angular.forEach(bz.palettesCopy, function(palettes, indicePalettes){
-					angular.forEach(palettes, function(palette, indicePalette){
-	
-						if(palette){
-							datos.colores.push(bz.palettes[indicePalettes][indicePalette]) ;
+
+				angular.forEach(bz.palettesCopy, function (palettes, indicePalettes) {
+					angular.forEach(palettes, function (palette, indicePalette) {
+
+						if (palette) {
+							datos.colores.push(bz.palettes[indicePalettes][indicePalette]);
 						}
-						
-					});		
-	
+
+					});
+
 				});
 
 				angular.forEach(datos.etiquetasSeleccionadas, function (valor) {
