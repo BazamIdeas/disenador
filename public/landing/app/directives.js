@@ -31,6 +31,8 @@ angular.module("landing")
 
 				var bz = this;
 
+				bz.ingresar = $scope.opcion;
+
 				bz.olvido = {
 					tipo: 'cliente'
 				};
@@ -262,7 +264,8 @@ angular.module("landing")
 			controllerAs: "bazamLogin",
 			scope: {
 				callback: "<",
-				mostrar: "="
+				mostrar: "=",
+				opcion: "="
 			}
 		};
 
@@ -303,84 +306,3 @@ angular.module("landing")
 
 
 	}])
-
-	.directive("bazamCarousel", [function () {
-		return {
-			templateUrl: "landing/app/templates/bazam-carousel.tpl",
-			controller: ["$scope", function ($scope) {
-
-				var bz = this;
-
-				bz.indice = 0;
-				bz.items = $scope.items;
-				bz.opciones = $scope.opciones;
-
-				bz.changeRight = function (v) {
-					if (bz.items[bz.indice + 1] != undefined) {
-						bz.indice++;
-					} else {
-						bz.indice = 0;
-					}
-				}
-
-				bz.changeLeft = function (v) {
-					if (bz.items[bz.indice - 1] != undefined) {
-						bz.indice--;
-					} else {
-						bz.indice = bz.items.length - 1;
-					}
-				}
-
-			}],
-			controllerAs: "ctrl",
-			scope: {
-				items: "<",
-				opciones: "<"
-			}
-		};
-
-
-	}])
-
-	.directive("bazamScroll", [function () {
-		return {
-			restrict: "AE",
-			link: function (scope, element, atribute) {
-
-				element.find('.link-scroll').click(function () {
-					angular.element('body').animate({
-						scrollTop: 0
-					}, 1000);
-					return false;
-				});
-
-			}
-		};
-
-
-	}])
-
-	.directive("bazamPosts", [function () {
-		return {
-			restrict: "E",
-			templateUrl: "landing/app/templates/posts.tpl",
-			controller: ["$scope", function ($scope) {
-
-				var bz = this;
-
-				bz.actual = 0;
-				bz.indice = 3;
-
-				bz.posts = $scope.posts;
-
-
-
-			}],
-			controllerAs: "ctrl",
-			scope: {
-				posts: "<"
-			}
-		};
-
-
-	}]);

@@ -1,16 +1,21 @@
-<div bazam-scroll>
+<div>
     <div class="row seccion uno">
-        <div class="col s12">
-            <div>
-                <h1 class="titulo-principal">Cree en segundos un logo que amará</h1>
-                <h4 class="text-center" style="color: #7d7d7d;">Nuestro generador de logos utiliza aprendizaje automático para
-                    <br> diseñar conceptos llamativos y únicos</h4>
+        <div class="col s12 no-padding">
+            <div class="titulo-inicio">
+                <div>
+                    <h1 class="titulo-principal">Cree en segundos
+                        <br> un logo que amará</h1>
+                </div>
+                <div>
+                    <h4 class="subtitle">Nuestro generador de logos utiliza
+                        <br/> aprendizaje automático para diseñar
+                        <br> conceptos llamativos y únicos</h4>
+                </div>
             </div>
-            <br>
             <form name="form" ng-submit="ctrl.enviarComenzar(ctrl.datosCombinaciones, form.$valid)" novalidate>
-                <div layout layout-align="space-between">
+                <div layout layout-align="space-between" class="padding-top-4">
                     <div flex="40">
-                        <md-input-container class=" md-block " style=" margin-bottom: 0; ">
+                        <md-input-container class="md-block">
                             <label>Nombre de su logo</label>
                             <input style="margin-bottom: 0;" type="text" md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required>
                             <!-- VALIDACION -->
@@ -19,52 +24,20 @@
                                 <div ng-message="required">Escriba el nombre de su logo.</div>
                             </div>
                         </md-input-container>
-                        <br>
-                        <div>
-                            <div class="label-form ">
-                                Estilo de colores
-                            </div>
-                            <br>
-                            <bazam-palette-picker></bazam-palette-picker>
-
-                        </div>
-
-                        <!-- <md-input-container class="md-block ">
-                            <label>Colores</label>
-                            <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.colores" multiple class="md-block selector-de-colores" aria-label="filtro"
-                                name="color" required>
-                                <md-optgroup label="Colores">
-                                    <md-option ng-value="item" class="estilo-de-color" ng-repeat="item in ctrl.categoriasPosibles.colores">
-                                        <span style="background:{{item[1]}}; color:transparent;">{{item[1]}}</span>
-                                    </md-option>
-                                </md-optgroup>
+                        <md-input-container class="md-block">
+                            <label>Actividad</label>
+                            <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro
+                                                                            " name="cat" required>
+                                <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
                             </md-select>
+                            <!-- VALIDACION -->
+                            <div ng-messages="form.cat.$error " style="color: #E91E63 !important; " role="alert ">
+                                <div ng-message="required" ng-show="form.cat.$touched && form.cat.$invalid || form.$submitted && form.cat.$invalid">Selecciona una actividad que le agrade.</div>
+                                </br>
+                            </div>
                         </md-input-container>
-                        <!-- VALIDACION  -->
-                        <!-- <div ng-messages="form.color.$error " style="color:maroon " role="alert " ng-show="form.color.$touched
-                            && form.color.$invalid || form.$submitted">
-                            <div ng-message="required">Selecciona algun color.</div>
-                            </br>
-                        </div> -->
-
-                    </div>
-                    <div flex="40">
-                        <div>
-                            <md-input-container class="md-block">
-                                <label>Actividad</label>
-                                <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro
-                            " name="cat" required>
-                                    <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
-                                </md-select>
-                                <!-- VALIDACION -->
-                                <div ng-messages="form.cat.$error " style="color: #E91E63 !important; " role="alert ">
-                                    <div ng-message="required" ng-show="form.cat.$touched && form.cat.$invalid || form.$submitted && form.cat.$invalid">Selecciona una actividad que le agrade.</div>
-                                    </br>
-                                </div>
-                            </md-input-container>
-                        </div>
-                        <md-input-container class="md-block" style="  margin-top: 40px;">
-                            <label style="    font-size: 18px !important;">¿Que buscas?</label>
+                        <md-input-container class="md-block" style="    margin-top: 50px;">
+                            <label style="font-size: 19pt !important;">¿Que buscas?</label>
                             <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                                 md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
                                 <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
@@ -79,152 +52,156 @@
                             </md-chips>
                             <br/>
                         </md-input-container>
-
+                    </div>
+                    <div flex="30" class="padding-top-2">
+                        <div>
+                            <div class="label-form text-center" style="    padding-left: 10%;">
+                                Color
+                            </div>
+                            <br>
+                            <bazam-palette-picker></bazam-palette-picker>
+                        </div>
+                    </div>
+                    <div flex="30" class="padding-top-2">
                         <div class="input-tipografia" ng-show="ctrl.categoriasPosibles.fuentes.length > 0">
                             <div class="label-form ">
                                 Estilo de Tipografía
                             </div>
-                            <div class="estilos-fuentes ">
+                            <div class="estilos-fuentes">
                                 <md-radio-group name="font" required ng-model="ctrl.datosCombinaciones.idFuente" class="md-primary ">
-                                    <md-radio-button ng-repeat="estilo in ctrl.categoriasPosibles.fuentes " ng-value="estilo.idCategoria
-                                        " ng-disabled=" d.isDisabled ">
+                                    <md-radio-button ng-repeat="estilo in ctrl.categoriasPosibles.fuentes " ng-value="estilo.idCategoria" ng-disabled=" d.isDisabled ">
                                         <md-tooltip md-direction="top">{{estilo.nombreCategoria}}</md-tooltip>
-                                        <span class="estilo " ng-class="{'amatic':estilo.nombreCategoria == 'Clásicas', 'niconne':estilo.nombreCategoria == 'Moderna', 'julee':estilo.nombreCategoria == 'Llamativas', 'cabin':estilo.nombreCategoria == 'Minimalista'}">A</span>
+                                        <span class="estilo " ng-class="{'estilo-3':estilo.nombreCategoria == 'Clásicas', 'estilo-4':estilo.nombreCategoria == 'Moderna', 'estilo-1':estilo.nombreCategoria == 'Llamativas', 'estilo-2':estilo.nombreCategoria == 'Minimalista', 'negro': ctrl.datosCombinaciones.idFuente == estilo.idCategoria}">.</span>
                                     </md-radio-button>
                                 </md-radio-group>
-                                <div ng-messages="form.font.$error " style="color: #E91E63 !important; " role="alert " ng-show="form.font.$touched
-                                                                && form.font.$invalid || form.$submitted">
+                                <div ng-messages="form.font.$error " style="color: #E91E63 !important; " role="alert " ng-show="form.font.$touched && form.font.$invalid || form.$submitted">
                                     <div ng-message="required">Selecciona un estilo de tipografía.</div>
                                     </br>
                                 </div>
                             </div>
                         </div>
-
-                        <br>
                         <div layout-padding>
-                            <md-button ng-class="{'loading-white': ctrl.peticion}" type="submit " style="margin: 5% auto; display: block; color:white;    margin-top: 5%; background-color: var(--principal) !important; "
-                                ng-disabled="ctrl.peticion" class="md-raised md-primary">
-                                Generar su logo ahora
+                            <md-button ng-class="{'loading-purple': ctrl.peticion}" type="submit " ng-disabled="ctrl.peticion" class="md-raised md-primary boton-formulario-generar">
+                                GENERAR LOGO
                             </md-button>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <h6 class="ver-video">Ver video
-                        <md-icon>keyboard_arrow_right</md-icon>
-                    </h6>
-                </div>
             </form>
         </div>
+    </div>
+    <div class="row s12 seccion tres">
+        <ui-carousel class="testimonios" slides="ctrl.estaticos.testimonios" slides-to-show="3" slides-to-scroll="1" initial-slide="1"
+            autoplay="true" autoplay-speed="2000" dots="true">
+            <carousel-item>
+                <div class="testimonios__carousel-item">
+                    <div class="informacion">
+                        <div class="descripcion">
+                            <div class="bg-comilla"></div>
+                            <div>
+                                <h3>{{ item.descripcion }}</h3>
+                            </div>
+                            <div class="bg-comilla_derecha"></div>
+                        </div>
+                        <div class="cliente">
+                            <div>
+                                <span class="bg-icono-testimonio"></span>
+                                <div>
+                                    <h4 style="color:{{item.color}};">{{item.client.name}}</h4>
+                                    <h5>{{item.client.ocupation}}</h5>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="logo-empresa">
+                        <img src="{{item.logo}}">
+                    </div>
+                </div>
+            </carousel-item>
+        </ui-carousel>
     </div>
 
     <div class="row seccion dos ">
         <div class="col s12 ">
-            <h2 class="titulo text-green">TITULO SECUNDARIO</h2>
-            <div class="caracteristicas ">
-                <div class="caracteristicas__item " ng-repeat="caracteristica in ctrl.estaticos.caracteristicas">
-                    <div style="border-color:{{caracteristica.color}} ">
+            <div class="caracteristicas">
+                <div class="caracteristicas__item {{caracteristica.icono[1]}}" ng-repeat="caracteristica in ctrl.estaticos.caracteristicas">
+                    <div class="{{caracteristica.icono[0]}}"></div>
+                    <div>
                         <h4>{{caracteristica.titulo}}</h4>
                         <p>{{caracteristica.descripcion}}</p>
                     </div>
-                    <img ng-src="{{caracteristica.img}} ">
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row s12 seccion tres ">
-        <div class="titulo-destacado">EJEMPLOS Y TESTIMONIOS</div>
-        <bazam-carousel items="ctrl.estaticos.testimonios" opciones="ctrl.opcionesCarousel">
-        </bazam-carousel>
-
-        <div layout layout-align="center " flex>
-            <a href="#comienzo" class="button-verde ">CREAR MI LOGO AHORA</a>
         </div>
     </div>
 
     <div class="row s12 seccion seis">
-        <div class="titulo-destacado">PLANES</div>
-        <div class="contenedor-planes" layout layout-align="space-around">
-            <div class="plan" flex="25">
+        <div class="titulo-destacado">Escoja el mejor plan para usted</div>
+        <div class="contenedor-planes">
+            <div class="plan">
                 <div>
-                    <div class="plan-header">Plan gratis</div>
+                    <div class="plan-header">
+                        <div class="plan-nombre">PLAN GRATUITO</div>
+                        <div class="plan-precio">GRATIS</div>
+                    </div>
                     <div class="plan-body">
                         <div>
-                            <p class="subtitulo-plan">descripcion</p>
-
                             <ul class="plan-lista">
-                                <li>Poderosamente gratis</li>
+                                <li>Versión pequeña de su logo</li>
                             </ul>
                         </div>
-                        <div class="text-center">
-                            <div class="plan-precio">$0</div>
-                            <a class="boton-verde" href="#comienzo">SELECCIONAR</a>
-                        </div>
+
+                    </div>
+                    <div class="text-center">
+                        <md-button ng-disabled="ctrl.peticion" class="link-scroll md-raised md-primary boton-plan">
+                            SELECCIONAR
+                        </md-button>
                     </div>
                 </div>
             </div>
-            <div flex="25" class="plan" ng-repeat="plan in ctrl.planes | filter: ctrl.comprobarMonedas">
+            <div class="plan" ng-repeat="plan in ctrl.planes | filter: ctrl.comprobarMonedas">
                 <div>
-                    <div class="plan-header">{{plan.plan}}</div>
+                    <div class="plan-header">
+                        <div class="plan-nombre">{{plan.plan}}</div>
+                        <div class="plan-precio">{{ctrl.precioSeleccionado(plan.precios, ctrl.moneda)}}</div>
+                    </div>
                     <div class="plan-body">
                         <div>
-                            <p class="subtitulo-plan">{{plan.info}}</p>
-
                             <ul class="plan-lista">
                                 <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{carac.descripcion}}</li>
                             </ul>
                         </div>
-
-                        <div class="text-center">
-                            <div class="plan-precio">{{ctrl.precioSeleccionado(plan.precios, ctrl.moneda)}}</div>
-                            <a class="boton-verde" href="#comienzo">SELECCIONAR</a>
-                        </div>
+                    </div>
+                    <div class="text-center">
+                        <md-button ng-disabled="ctrl.peticion" class="link-scroll md-raised md-primary boton-crear-logo">
+                            SELECCIONAR
+                        </md-button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
+    <div class="text-center">
+        <md-button ng-disabled="ctrl.peticion" class="link-scroll md-raised md-primary boton-crear-logo">
+            CREAR LOGO AHORA
+        </md-button>
+    </div>
     <div class="row seccion cinco ">
-        <div class="col s12 ">
-            <div class="titulo-destacado text-green">PREGUNTAS FRECUENTES</div>
+        <div class="titulo-destacado text-green">
+            <p style="margin: 20px;">Preguntas frecuentes</p>
+            <span>.</span>
+        </div>
+        <div class="preguntas-contenedor">
             <div class="preguntas">
-                <div class="pregunta" ng-repeat="item in ctrl.estaticos.preguntas">
-                    <h6 ng-click="ctrl.preAct = $index">{{item.pregunta}}</h6>
-                    <p ng-show="ctrl.preAct == $index">
-                        {{item.respuesta}}
-                    </p>
+                <div ng-repeat="item in ctrl.estaticos.preguntas" ng-click="ctrl.preAct = $index">
+                    <h6>{{item.pregunta}}</h6>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!--
-    CREACIONES EXITOSAS
-
-<div class="row seccion cuatro ">
-    <div class="col s12 ">
-        <div class="text-center ">
-            <h4>ELIJA ENTRE LAS MEJORES CREACIONES</h4>
-        </div>
-        <div layout layout-align="space-around center " layout-wrap style="text-align: justify; ">
-            <div class="margen_inferior l-destacado-landing " md-whiteframe="2dp " layout-padding ng-repeat="destacado
-                    in ctrl.destacados | limitTo : 8 " ng-click="ctrl.editar(destacado) ">
-                <bazam-visualizar data-svg="ctrl.base64.decode(destacado.logo) " ng-click="ctrl.irEditor(destacado) "></bazam-visualizar>
+            <div class="respuestas">
+                <div ng-repeat="resp in ctrl.estaticos.preguntas" ng-class="{'activo': ctrl.preAct == $index}"> {{resp.respuesta}}</div>
             </div>
-        </div>
-
-        <div layout layout-align="center " class="margen_inferior ">
-            <md-button class="md-raised " ng-click="ctrl.navegar.cliente( 'galeria') ">VER MAS</md-button>
-        </div>
-    </div>
-</div>
--->
-
-    <div class="row s12 " style=" background: #00968859; padding: 1%; margin: 0; ">
-        <div layout layout-align="center " flex>
-            <a href="#comienzo" class="button-verde link-scroll">CREAR MI LOGO AHORA</a>
         </div>
     </div>
 </div>

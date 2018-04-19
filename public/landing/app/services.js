@@ -265,125 +265,138 @@ angular.module("landing")
 	}])
 
 	.value("coloresPaletteValue", [
-	[ 
-			["#C9CBCC","#660000","#660000"],
-			["#E9EBAD","#662400","#662400"],
-			["#C9CBCC","#664B00","#664B00"],
-			["#F2EFD0","#5C6600","#5C6600"],
-			["#EFEA9D","#4D6600","#4D6600"],
-			["#B6CED4","#0D6600","#0D6600"], 
-			["#C2D1AE","#006618","#006618"],
-			["#50A273","#00663F","#00663F"],
-			["#AFA3CD","#006666","#006666"],
-			["#A399C7","#004266","#004266"],
-			["#A2CFE5","#001B66","#001B66"],
-			["#595D96","#0A0066","#0A0066"],
-			["#63569C","#320066","#320066"],
-			["#79A33E","#590066","#590066"],
-			["#AFA3CD","#66004E","#66004E"],
-			["#EEEEF6","#660027","#660027"],
-	],
-	[ 
-			["#FFFFFF","#CC2929","#CC2929"],
-			["#1C1E32","#CC6329","#CC6329"],
-			["#4072A3","#CCA129","#CCA129"],
-			["#8A3343","#BDCC29","#BDCC29"],
-			["#302418","#A1CC29","#A1CC29"],
-			["#572868","#3ECC29","#3ECC29"],
-			["#2A1E3F","#29CC4F","#29CC4F"],
-			["#273759","#29CC8E","#29CC8E"],
-			["#A76B42","#29CCCC","#29CCCC"],
-			["#415968","#2992CC","#2992CC"],
-			["#252B49","#2954CC","#2954CC"],
-			["#BCBA5C","#3829CC","#3829CC"],
-			["#CAC546","#7829CC","#7829CC"],
-			["#273759","#B729CC","#B729CC"],
-			["#245D34","#CC29A6","#CC29A6"],
-			["#232B45","#CC2967","#CC2967"],
-	],
-	[ 
-			["#552D1C","#CC7A7A","#CC7A7A"],
-			["#2D3C54","#CC977A","#CC977A"],
-			["#233C3B","#CCB67A","#CCB67A"],
-			["#2D3C54","#C4CC7A","#C4CC7A"],
-			["#34522C","#A4CC7A","#A4CC7A"],
-			["#2B332A","#85CC7A","#85CC7A"], 
-			["#1C251C","#7ACC92","#7ACC92"],
-			["#1D2235","#7ACCAD","#7ACCAD"],
-			["#2D4A3F","#7ACCCC","#7ACCCC"],
-			["#2E142C","#7AAFCC","#7AAFCC"],
-			["#2C1520","#7A90CC","#7A90CC"],
-			["#2C1520","#827ACC","#827ACC"],
-			["#371E43","#A27ACC","#A27ACC"],
-			["#1D2235","#C27ACC","#C27ACC"],
-			["#2D4A3F","#CC7AB9","#CC7AB9"],
-			["#2E142C","#CC7A9A","#CC7A9A"],
-	]
+		[
+			["#C9CBCC", "#660000", "#660000"],
+			["#E9EBAD", "#662400", "#662400"],
+			["#C9CBCC", "#664B00", "#664B00"],
+			["#F2EFD0", "#5C6600", "#5C6600"],
+			["#EFEA9D", "#4D6600", "#4D6600"],
+			["#B6CED4", "#0D6600", "#0D6600"],
+			["#C2D1AE", "#006618", "#006618"],
+			["#50A273", "#00663F", "#00663F"],
+			["#AFA3CD", "#006666", "#006666"],
+			["#A399C7", "#004266", "#004266"],
+			["#A2CFE5", "#001B66", "#001B66"],
+			["#595D96", "#0A0066", "#0A0066"],
+			["#63569C", "#320066", "#320066"],
+			["#79A33E", "#590066", "#590066"],
+			["#AFA3CD", "#66004E", "#66004E"],
+			["#EEEEF6", "#660027", "#660027"],
+		],
+		[
+			["#FFFFFF", "#CC2929", "#CC2929"],
+			["#1C1E32", "#CC6329", "#CC6329"],
+			["#4072A3", "#CCA129", "#CCA129"],
+			["#8A3343", "#BDCC29", "#BDCC29"],
+			["#302418", "#A1CC29", "#A1CC29"],
+			["#572868", "#3ECC29", "#3ECC29"],
+			["#2A1E3F", "#29CC4F", "#29CC4F"],
+			["#273759", "#29CC8E", "#29CC8E"],
+			["#A76B42", "#29CCCC", "#29CCCC"],
+			["#415968", "#2992CC", "#2992CC"],
+			["#252B49", "#2954CC", "#2954CC"],
+			["#BCBA5C", "#3829CC", "#3829CC"],
+			["#CAC546", "#7829CC", "#7829CC"],
+			["#273759", "#B729CC", "#B729CC"],
+			["#245D34", "#CC29A6", "#CC29A6"],
+			["#232B45", "#CC2967", "#CC2967"],
+		],
+		[
+			["#552D1C", "#CC7A7A", "#CC7A7A"],
+			["#2D3C54", "#CC977A", "#CC977A"],
+			["#233C3B", "#CCB67A", "#CCB67A"],
+			["#2D3C54", "#C4CC7A", "#C4CC7A"],
+			["#34522C", "#A4CC7A", "#A4CC7A"],
+			["#2B332A", "#85CC7A", "#85CC7A"],
+			["#1C251C", "#7ACC92", "#7ACC92"],
+			["#1D2235", "#7ACCAD", "#7ACCAD"],
+			["#2D4A3F", "#7ACCCC", "#7ACCCC"],
+			["#2E142C", "#7AAFCC", "#7AAFCC"],
+			["#2C1520", "#7A90CC", "#7A90CC"],
+			["#2C1520", "#827ACC", "#827ACC"],
+			["#371E43", "#A27ACC", "#A27ACC"],
+			["#1D2235", "#C27ACC", "#C27ACC"],
+			["#2D4A3F", "#CC7AB9", "#CC7AB9"],
+			["#2E142C", "#CC7A9A", "#CC7A9A"],
+		]
 	])
 
 	.value("estaticosLandingValue", {
 		caracteristicas: [{
-			titulo: "Titulo",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			img: "/landing/assets/img/c1.png",
-			color: '#70c041'
+			titulo: "De inmediato",
+			descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
+			icono: ["bg-carac-1", "right-bottom"]
 		}, {
-			titulo: "Titulo",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			img: "/landing/assets/img/c2.png",
-			color: '#f38f19'
+			titulo: "Más de 1 millon de logos",
+			descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
+			icono: ["bg-carac-2", "b-bottom"]
 		}, {
-			titulo: "Titulo",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			img: "/landing/assets/img/c3.png",
-			color: '#b36ae2'
+			titulo: "Archivos en alta resolución",
+			descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
+			icono: ["bg-carac-3", "right-bottom"]
 		}, {
-			titulo: "Titulo",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			img: "/landing/assets/img/c4.png",
-			color: '#51a7f9'
+			titulo: "Inteligencia artificial",
+			descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
+			icono: ["bg-carac-4", "b-bottom"]
 		}, {
-			titulo: "Titulo",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			img: "/landing/assets/img/c3.png",
-			color: '#b36ae2'
+			titulo: "Gratis",
+			descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
+			icono: ["bg-carac-5", "b-right"]
 		}, {
-			titulo: "Titulo",
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			img: "/landing/assets/img/c4.png",
-			color: '#51a7f9'
+			titulo: "Múltiples aplicaciones",
+			descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
+			icono: ["bg-carac-6", ""]
 		}],
 		testimonios: [{
-			descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-			logo: "/landing/assets/img/c4.png",
-			color: '#51a7f9',
-			client: {
-				img: "/landing/assets/img/bg_.jpg",
-				name: 'Harry Potter',
-				activity: 'Empresario magico'
+				descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+				logo: "/landing/assets/img/c4.png",
+				color: '#51a7f9',
+				client: {
+					name: 'Harry Potter',
+					ocupation: 'Empresario magico'
+				}
+			}, {
+				descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+				logo: "/landing/assets/img/c4.png",
+				color: '#51a7f9',
+				client: {
+					name: 'Harry Potter',
+					ocupation: 'Empresario magico'
+				}
 			},
-			isTestimonio: true
-		}, {
-			url: "/landing/assets/img/ejemplos.jpg",
-			isTestimonio: false
-		}],
+			{
+				descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+				logo: "/landing/assets/img/c4.png",
+				color: '#51a7f9',
+				client: {
+					name: 'Harry Potter',
+					ocupation: 'Empresario magico'
+				}
+			},
+			{
+				descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
+				logo: "/landing/assets/img/c4.png",
+				color: '#51a7f9',
+				client: {
+					name: 'Harry Potter',
+					ocupation: 'Empresario magico'
+				}
+			}
+		],
 		preguntas: [{
-			pregunta: "CUANTO CUESTA EL SERVICIO?",
+			pregunta: "¿Cuanto cuesta el servicio?",
 			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
 		}, {
-			pregunta: "Lorem ipsum dolor?",
+			pregunta: "¿Cómo puedo pagarlo?",
+			respuesta: "2."
+		}, {
+			pregunta: "¿Puedo cambiar el diseño después de comprar?",
+			respuesta: "3."
+		}, {
+			pregunta: "¿Dónde lo puedo descargar?",
 			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
 		}, {
-			pregunta: "CUANTO CUESTA EL SERVICIO?",
-			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
-		}, {
-			pregunta: "Lorem ipsum dolor?",
-			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
-		}, {
-			pregunta: "CUANTO CUESTA EL SERVICIO?",
-			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
-		}, {
-			pregunta: "Lorem ipsum dolor?",
+			pregunta: "¿En que formato puedo descargar el logo?",
 			respuesta: "Lorem ipsum dolor sit amet consectetur adipisicing elit.Architecto nobis molestias consectetur numquam ducimus dolorum inventore.Modi at quisquam fugit quae aut est ea dolorum dolor, ipsum doloremque minus praesentium."
 		}],
 		consejos: [{
@@ -1028,38 +1041,42 @@ angular.module("landing")
 
 				if (response.status != "connected") {
 					FB.login(function (response) {
-						
+
 						$http.post("/app/cliente/social", {
-							origen: 'facebook', token: response.authResponse.accessToken
-						}).then(function (res) {
-		
-							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-							clienteDatosFactory.definir(res.data);
-							defered.resolve(res);
-		
-						})
-						.catch(function (res) {
-							$window.localStorage.removeItem("bzToken");
-							defered.reject(res);
-						});
-					},{scope: 'email,user_friends,user_location'});
+								origen: 'facebook',
+								token: response.authResponse.accessToken
+							}).then(function (res) {
+
+								$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+								clienteDatosFactory.definir(res.data);
+								defered.resolve(res);
+
+							})
+							.catch(function (res) {
+								$window.localStorage.removeItem("bzToken");
+								defered.reject(res);
+							});
+					}, {
+						scope: 'email,user_friends,user_location'
+					});
 
 					return promise;
 				}
 
 				$http.post("/app/cliente/social", {
-					origen: 'facebook', token: datosUsuario.accessToken
-				}).then(function (res) {
+						origen: 'facebook',
+						token: datosUsuario.accessToken
+					}).then(function (res) {
 
-					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-					clienteDatosFactory.definir(res.data);
-					defered.resolve(res);
+						$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+						clienteDatosFactory.definir(res.data);
+						defered.resolve(res);
 
-				})
-				.catch(function (res) {
-					$window.localStorage.removeItem("bzToken");
-					defered.reject(res);
-				});
+					})
+					.catch(function (res) {
+						$window.localStorage.removeItem("bzToken");
+						defered.reject(res);
+					});
 			});
 
 			return promise;
@@ -1074,32 +1091,34 @@ angular.module("landing")
 			var GoogleAuth = gapi.auth2.getAuthInstance();
 
 
-				if (!GoogleAuth.isSignedIn.get()) {
-					GoogleAuth.signIn().then(function (res) {
-						
-						$http.post("/app/cliente/social", {
-							origen:'google', token: res.Zi.id_token 
+			if (!GoogleAuth.isSignedIn.get()) {
+				GoogleAuth.signIn().then(function (res) {
+
+					$http.post("/app/cliente/social", {
+							origen: 'google',
+							token: res.Zi.id_token
 						}).then(function (res) {
 							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
 							clienteDatosFactory.definir(res.data);
 							defered.resolve(res);
-		
+
 						})
 						.catch(function (res) {
 							$window.localStorage.removeItem("bzToken");
 							defered.reject(res);
 						});
-					}).catch(function (res) {
-						defered.reject(res)
-					});
+				}).catch(function (res) {
+					defered.reject(res)
+				});
 
-					return promise;
-				}
+				return promise;
+			}
 
-				var datosUsuario = GoogleAuth.currentUser.get();
+			var datosUsuario = GoogleAuth.currentUser.get();
 
-				$http.post("/app/cliente/social", {
-					origen:'google', token: datosUsuario.Zi.id_token 
+			$http.post("/app/cliente/social", {
+					origen: 'google',
+					token: datosUsuario.Zi.id_token
 				}).then(function (res) {
 
 					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
@@ -1113,7 +1132,7 @@ angular.module("landing")
 				});
 
 			return promise;
-				
+
 		};
 
 	}]);

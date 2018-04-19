@@ -2328,12 +2328,6 @@ path.seleccionado {
     right: 23px;
 }
 
-.section-cliente {
-    height: calc(90vh - 60px) !important;
-    background-color: var(--blanco);
-    overflow: hidden;
-}
-
 span.back-page,
 span.next-page {
     display: -webkit-box;
@@ -4429,3 +4423,18 @@ bazam-palette-picker path[data-index].color-checked {
 .contenedor-principal .contenedor-icono {
     cursor: move;
 }
+
+/* Estilos en linea */
+
+section.section-container{
+    height: calc(100vh - 60px) !important;
+    background-color: var(--blanco);
+    overflow: hidden;
+}
+
+.white-gradient{
+    background: linear-gradient(-134deg, var(--blanco), var(--fondo));
+}
+
+
+

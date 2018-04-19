@@ -28,7 +28,7 @@
      */
 </style>-->
 
-<section style="max-height: calc(100vh - 60px) !important; background-color: var(--fondo);">
+<section class="section-container">
     <div class="row margin-bottom-0">
         <form class="margin-bottom-0" name="inicio.datosForm" novalidate>
             <div class="col l2 sidebar-1" style="position: static !important; overflow-y: scroll; overflow-x: hidden;">

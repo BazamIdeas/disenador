@@ -23,6 +23,12 @@ angular.module("landing")
 			colores: []
 		}
 
+		angular.element('.link-scroll').click(function () {
+			angular.element('body').animate({
+				scrollTop: 0
+			}, 1000);
+		});
+
 		/* Etiquetas */
 
 		bz.selectedItem = null;

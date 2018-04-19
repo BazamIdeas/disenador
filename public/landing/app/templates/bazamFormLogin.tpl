@@ -6,7 +6,7 @@
 
                     <div class="login row" ng-switch-default>
 
-                        <div class="login-form col s6  offset-s3" style="position:relative;" ng-hide="bazamLogin.ingresar">
+                        <div class="login-form col s6  offset-s3" style="position:relative;" ng-show="bazamLogin.ingresar">
                             <i style="background: #009688e0;
                                 border: none;
                                 width: 40px;
@@ -80,7 +80,7 @@
                             </div>
                         </div>
 
-                        <div class="registro-form" style="position:relative;" ng-hide="!bazamLogin.ingresar">
+                        <div class="registro-form" style="position:relative;" ng-show="!bazamLogin.ingresar">
                             <i style="background: white;
                                 border: none;
                                 width: 40px;

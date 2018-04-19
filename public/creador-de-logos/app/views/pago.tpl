@@ -119,7 +119,7 @@
 
 </section>-->
 
-<section style="height:100%; background-color: var(--fondo);overflow: hidden;">
+<section class="section-container">
 
 		<div class="row padding-bottom-0" style="overflow: hidden; padding-top: 6% !important;">
 	

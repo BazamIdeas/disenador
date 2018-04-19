@@ -1,5 +1,5 @@
 <bazam-scroll style="display:block; height: calc(100% - 60px); overflow-y: scroll;   overflow-x: hidden;">
-<section class="section-cliente">
+<section class="section-container">
 
     <div class="row margin-bottom-0">
 
