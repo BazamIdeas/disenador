@@ -446,7 +446,7 @@ exports.Avatar = function (req, res, next) {
 
     var nombre = crypto.randomBytes(Math.ceil(16 / 2)).toString('hex').slice(0, 16).toUpperCase();
     var tmp_path = req.files.avatar.path;
-    var target_path = '/avatares/' + nombre + '.' + req.files.avatar.type.split('/')[1];
+    var target_path = __dirname+'/../avatares/' + nombre + '.' + req.files.avatar.type.split('/')[1];
 
     if (req.files.avatar.type.indexOf('image') == -1) {
 
