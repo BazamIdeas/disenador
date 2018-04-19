@@ -1379,8 +1379,8 @@ md-chip-template strong {
 }
 
 
-@media (min-device-width:640px) and (max-device-width:980px),
-(min-width:640px) and (max-width:980px) {
+@media (min-device-width:640px) and (max-device-width:1080px),
+(min-width:640px) and (max-width:1080px) {
     .seccion.uno .titulo-inicio .titulo-principal {
         text-align: center;
         font-size: 32pt;
