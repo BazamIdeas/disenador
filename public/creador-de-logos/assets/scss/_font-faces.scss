@@ -1,18 +1,19 @@
-@mixin font-options($weight, $style) {
-    font-weight: $weight;
-    font-style: $style;
-}
+/*-----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+------FONT-FACES SCSS----------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------*/
 
 /* BEGIN Black */
 @font-face {
     font-family: 'Maven Black';
     src: url("../fonts/maven/MavenPro-Black.ttf?v=2.003") format("truetype");
-    @include font-options(800, normal);
+    @include fontOptions(800, normal);
 }
 @font-face {
     font-family: 'Futura Black';
     src: url("../fonts/futura/FuturaStd-Heavy.ttf?v=2.025") format("truetype");
-    @include font-options(800, normal);
+    @include fontOptions(800, normal);
 }
 /* END Black */
 
@@ -20,86 +21,58 @@
 @font-face {
     font-family: 'Maven Bold';
     src: url("../fonts/maven/MavenPro-Bold.ttf?v=2.003") format("truetype");
-    @include font-options(800, normal);
+    @include fontOptions(800, normal);
 }
 @font-face {
     font-family: 'Futura Bold';
     src: url("../fonts/futura/FuturaStd-Bold.ttf?v=2.025") format("truetype");
-    @include font-options(800, normal);
+    @include fontOptions(800, normal);
 }
 /* END Bold  */
 
 /* BEGIN Medium */
 
 @font-face {
-    font-family: 'maven-medium';
+    font-family: 'Maven Medium';
     src: url("../fonts/maven/MavenPro-Medium.ttf?v=2.003") format("truetype");
-    font-weight: 500;
-    font-style: normal;
+    @include fontOptions(500, normal);
 }
-
 /* END Medium */
 
 /* BEGIN Regular */
-
 @font-face {
-    font-family: 'maven-regular';
+    font-family: 'Maven Regular';
     src: url("../fonts/maven/MavenPro-Regular.ttf?v=2.003") format("truetype");
-    font-weight: 400;
-    font-style: normal;
+    @include fontOptions(400, normal);
 }
-
 /* END Regular */
 
 @font-face {
     font-family: 'Amatic';
     src: url("../fonts/para-mostrar/AmaticSC-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-style: normal;
-}
-
-.amatic {
-    font-family: 'Amatic' !important;
+    @include fontOptions(400, normal);
 }
 
 @font-face {
     font-family: 'Niconne';
     src: url("../fonts/para-mostrar/Niconne-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-style: normal;
-}
-
-.niconne {
-    font-family: 'Niconne' !important;
+    @include fontOptions(400, normal);
 }
 
 @font-face {
     font-family: 'Julee';
     src: url("../fonts/para-mostrar/Julee-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-style: normal;
-}
-
-.julee {
-    font-family: 'Julee' !important;
+    @include fontOptions(400, normal);
 }
 
 @font-face {
     font-family: 'Cabin';
     src: url("../fonts/para-mostrar/Cabin-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-style: normal;
+    @include fontOptions(400, normal);
 }
-
-.cabin {
-    font-family: 'Cabin' !important;
-}
-
-/* fallback */
 
 @font-face {
     font-family: 'Material Icons';
-    font-style: normal;
-    font-weight: 400;
     src: url('../fonts/material/material.woff2') format('woff2');
+    @include fontOptions(400, normal);
 }
