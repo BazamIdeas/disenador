@@ -1,0 +1,13 @@
+@import 'mixins';
+@import 'variables';
+@import 'font-faces';
+
+@import 'common';
+
+@import 'header';
+@import 'sub-header';
+
+@import 'content';
+
+/*PAGES*/
+@import 'pages/inicio';
