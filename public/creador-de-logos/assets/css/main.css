@@ -1,0 +1,397 @@
+/*-----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+------FONT-FACES SCSS----------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------*/
+/* BEGIN Black */
+@font-face {
+  font-family: 'Maven Black';
+  src: url("../fonts/maven/MavenPro-Black.ttf?v=2.003") format("truetype");
+  font-weight: 800;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Futura Black';
+  src: url("../fonts/futura/FuturaStd-Heavy.ttf?v=2.025") format("truetype");
+  font-weight: 800;
+  font-style: normal; }
+
+/* END Black */
+/* BEGIN Bold */
+@font-face {
+  font-family: 'Maven Bold';
+  src: url("../fonts/maven/MavenPro-Bold.ttf?v=2.003") format("truetype");
+  font-weight: 800;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Futura Bold';
+  src: url("../fonts/futura/FuturaStd-Bold.ttf?v=2.025") format("truetype");
+  font-weight: 800;
+  font-style: normal; }
+
+/* END Bold  */
+/* BEGIN Medium */
+@font-face {
+  font-family: 'Maven Medium';
+  src: url("../fonts/maven/MavenPro-Medium.ttf?v=2.003") format("truetype");
+  font-weight: 500;
+  font-style: normal; }
+
+/* END Medium */
+/* BEGIN Regular */
+@font-face {
+  font-family: 'Maven Regular';
+  src: url("../fonts/maven/MavenPro-Regular.ttf?v=2.003") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
+/* END Regular */
+@font-face {
+  font-family: 'Amatic';
+  src: url("../fonts/para-mostrar/AmaticSC-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Niconne';
+  src: url("../fonts/para-mostrar/Niconne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Julee';
+  src: url("../fonts/para-mostrar/Julee-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Cabin';
+  src: url("../fonts/para-mostrar/Cabin-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Material Icons';
+  src: url("../fonts/material/material.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal; }
+
+/*-----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+------COMMON SCSS--------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------*/
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+*:not(i, text),
+button,
+html,
+input,
+select,
+textarea,
+.campo-formulario,
+::-webkit-input-placeholder {
+  font-family: 'Future Bold' !important; }
+
+.amatic {
+  font-family: 'Amatic' !important; }
+
+.niconne {
+  font-family: 'Niconne' !important; }
+
+.julee {
+  font-family: 'Julee' !important; }
+
+.cabin {
+  font-family: 'Cabin' !important; }
+
+label,
+span,
+p,
+h1,
+h2,
+button,
+input,
+select,
+textarea {
+  font-family: 'Futura Black' !important;
+  font-weight: 800; }
+
+body {
+  background: #ECEFF0;
+  height: 100%;
+  position: relative;
+  overflow: hidden; }
+
+:focus {
+  outline: none; }
+
+input::-webkit-input-placeholder {
+  color: var(--principal) !important;
+  font-family: 'Futura Black' !important; }
+
+input::-moz-input-placeholder {
+  color: #612787 !important;
+  font-family: 'Futura Black' !important; }
+
+md-input-container {
+  margin: 11px 0; }
+
+md-input-container:not([md-no-float]) .md-select-placeholder span:first-child {
+  font-family: 'Futura Black' !important; }
+
+[type="checkbox"].filled-in:checked + label:after {
+  border: 2px solid #009688;
+  background-color: #009688; }
+
+input:not([type]),
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=time],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=tel],
+input[type=number],
+input[type=search],
+textarea.materialize-textarea {
+  height: auto;
+  padding: 3px 0;
+  color: #612787;
+  border-bottom: 2px solid #612787;
+  font-family: 'Futura Black' !important; }
+
+g,
+text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer; }
+
+md-toast.success .md-toast-content {
+  background-color: #4CAF50;
+  color: #fafafa; }
+
+md-toast.danger .md-toast-content {
+  background-color: #d9534f;
+  color: #fafafa; }
+
+md-select.md-default-theme .md-select-value,
+md-select .md-select-value {
+  border-bottom-color: #612787;
+  border-width: 2px;
+  color: #612787;
+  font-family: inherit; }
+
+md-option {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+.md-text {
+  font-family: 'Futura Black' !important; }
+
+.input-field {
+  padding: 0 !important; }
+  .input-field label {
+    left: 0rem !important;
+    top: 0.2rem;
+    color: #612787;
+    font-family: 'Futura Black' !important; }
+
+button,
+html,
+input,
+select,
+textarea {
+  -webkit-appearance: none; }
+
+::-webkit-scrollbar {
+  width: 4px; }
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px transparent;
+  box-shadow: inset 0 0 6px transparent;
+  border-radius: 0; }
+
+::-webkit-scrollbar:window-inactive {
+  width: 1px; }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: #612787;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(97, 39, 135, 0.4); }
+
+.row {
+  margin-bottom: 0; }
+
+form {
+  margin: 0; }
+
+/*-----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+------HEADER SCSS--------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------*/
+/*BEGIN Header*/
+.header {
+  background-color: #612787;
+  height: 45px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  text-align: right;
+  font-size: 14px;
+  padding: 0 10px;
+  color: #FFFFFF; }
+  .header div.items {
+    color: #FFFFFF;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    vertical-align: middle;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-family: 'Futura Black' !important; }
+    .header div.items span {
+      margin: 0 10px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center; }
+      .header div.items span i {
+        vertical-align: top; }
+  .header span.help i {
+    vertical-align: top; }
+
+.tooltip-header {
+  font-family: 'Futura Black' !important;
+  font-size: 14px !important;
+  color: #FFFFFF !important;
+  background-color: #612787 !important; }
+
+/*END header*/
+/*-----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+------SUB-HEADER SCSS----------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------*/
+/*BEGIN Sub-header*/
+.sub-header {
+  -webkit-box-shadow: 0px 0px 1px 0px #d6d6d6;
+  box-shadow: 0px 0px 1px 0px #d6d6d6;
+  position: relative;
+  z-index: 2; }
+  .sub-header .col {
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 70px; }
+    .sub-header .col h5 {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      font-family: 'Futura Black' !important;
+      text-align: center;
+      color: #612787; }
+      .sub-header .col h5 i {
+        font-size: 36px; }
+    .sub-header .col.logo {
+      color: #b92d00; }
+    .sub-header .col.text-login {
+      -webkit-box-pack: start;
+      -ms-flex-pack: start;
+      justify-content: start; }
+      .sub-header .col.text-login h5 {
+        padding-left: 35.5%;
+        color: #612787; }
+
+/*END Sub-header*/
+/*-----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+------CONTENT SCSS-------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------*/
+div.sidebar {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  max-height: calc(100vh - 115px);
+  overflow-y: auto;
+  position: relative;
+  height: 100%;
+  margin: 0 0;
+  z-index: 2;
+  border-right: 1px solid #d6d6d696; }
+
+section.body {
+  max-height: calc(100vh - 115px) !important;
+  background-color: var(--fondo);
+  overflow: hidden; }
+  section.body div.principal-container {
+    padding: 0 !important; }
+
+/*PAGES*/
+/*-----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+------INICIO SCSS--------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------*/
+div.gif {
+  margin-bottom: 0;
+  overflow-y: scroll;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+div.content {
+  margin-bottom: 0;
+  overflow-y: scroll;
+  height: 100%; }
