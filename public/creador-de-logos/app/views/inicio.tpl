@@ -49,6 +49,26 @@
                     </md-input-container>
                 </div>
                 <br>
+                <div class="col s12" style="padding:0 !important">
+                    <md-input-container style="width: 100%;">
+                        <label>¿Que buscas?</label>
+                        <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                            md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
+                            <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
+                                md-item-text="item.traduccion.valor" placeholder="Ejemplo: Perro">
+                                <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <span>
+                                    <strong>{{$chip.traduccion.valor}}</strong>
+                                </span>
+                            </md-chip-template>
+                        </md-chips>
+                    </md-input-container>
+
+                    
+                </div>
+                <br>
                 <!--<div class="col s12" style="padding:0 !important">
                     <md-input-container class="md-block " style="width:100%; box-sizing: content-box;">
                         <label>Colores</label>
@@ -62,12 +82,7 @@
                         </md-select>
                     </md-input-container>
                 </div>-->
-                <div>
-
-                <bazam-palette-picker></bazam-palette-picker>
-
-                </div>
-                <br>
+               
                 <div class="input-tipografia col s12" style="padding:0 !important">
                     <div class="label-form ">
                         ESTILO DE TIPOGRAFÍA
@@ -99,25 +114,15 @@
                 </div>
 
                 -->
-                <div class="col s12" style="padding:0 !important">
-                    <md-input-container style="width: 100%;">
-                        <label>¿Que buscas?</label>
-                        <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-                            md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" style="width:100%; padding: 0 0.75rem">
-                            <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
-                                md-item-text="item.traduccion.valor" placeholder="Ejemplo: Perro">
-                                <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
-                            </md-autocomplete>
-                            <md-chip-template>
-                                <span>
-                                    <strong>{{$chip.traduccion.valor}}</strong>
-                                </span>
-                            </md-chip-template>
-                        </md-chips>
-                    </md-input-container>
+                
+                <br/>
 
-                    <br/>
+                <div>
+
+                    <bazam-palette-picker></bazam-palette-picker>
+    
                 </div>
+                <br>
                 <div style="text-align: center;">
                     <button type="submit" class="boton-verde" style="width: 100%;" ng-class="{'loading-white': !inicio.completado}" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "CARGAR MÁS" : "BUSCAR"}}</button>
                 </div>

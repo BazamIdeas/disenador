@@ -337,7 +337,7 @@
 		<div class="contenedor-principal editor col s7" ng-class="{'cuadricula': editor.cuadricula,'preview-abierto': editor.preview}"
 			style="display: flex;">
 			
-			<span class="seleccionar" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento, editor.logo.fuente.idElemento)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+			<span class="seleccionar" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento, editor.logo.fuente.idElemento)" style="top: 5%;"> <p>GUARDAR</p><img  ng-src="{{editor.logo.idLogo ?'assets/images/save_active.svg' : 'assets/images/save.svg'}}" alt=""></span>
 			
 			<span class="seleccionar" ng-click="::editor.buscarPlanes()" style="  top: 15%;"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
 

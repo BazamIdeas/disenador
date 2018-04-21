@@ -273,10 +273,6 @@ text {
     user-select: none;
 }
 
-g path {
-    cursor: pointer;
-}
-
 md-slider {
     height: 40px;
 }
@@ -3258,6 +3254,7 @@ textarea {
     margin: 0 0 0 12px;
     width: 65%;
     -webkit-transition: opacity 1s, width 0.5s;
+    transition: opacity 1s, width 0.5s;
 }
 
 .logo-container-m span.seleccionar:hover img,
@@ -4223,7 +4220,7 @@ md-radio-button.opcion-fuente[aria-checked="true"] {
 
 .contenedor-principal g.contenedor-icono {
     pointer-events: bounding-box;
-    cursor: move !important;
+    /*cursor: move !important;*/
 }
 
 /*  logo */
@@ -4419,8 +4416,8 @@ bazam-palette-picker path[data-index].color-checked {
     opacity: 1;
 }
 
-.contenedor-principal bazam-svg text,
-.contenedor-principal .contenedor-icono {
+.contenedor-principal bazam-svg .eslogan,
+.contenedor-principal bazam-svg .textoPrincipal, .contenedor-principal bazam-svg .contenedor-icono {
     cursor: move;
 }
 

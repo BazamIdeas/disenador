@@ -126,6 +126,10 @@ angular.module("disenador-de-logos")
 				cantidadLogos--;
 			}
 
+			angular.element(".contenedor-principal > div").animate({
+				scrollTop: 0
+			}, 1000);
+
 		};
 
 		bz.completado = true;
@@ -150,8 +154,8 @@ angular.module("disenador-de-logos")
 					tags.push(tag.traduccion.valor);
 				})
 
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags, bz.datos.categoria.icono, bz.iconos, 4);
-				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 4);
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags, bz.datos.categoria.icono, bz.iconos, 12);
+				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
 				$q.all([
 						promesaIconos,
