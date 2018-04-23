@@ -95,14 +95,14 @@ angular.module("landing")
 					categoria: datos.idCategoria,
 					preferencias: datos.preferencias,
 					tipo: "ICONO",
-					limit: 4
+					limit: 12
 				};
 
 				bz.datosFuentes = {
 					categoria: datos.idFuente,
 					preferencias: datos.preferencias,
 					tipo: "FUENTE",
-					limit: 4
+					limit: 12
 				};
 
 				var promesaIconos = inicial ? elementosService.listarIniciales(inicial, bz.datosIconos) : elementosService.listarIconosSegunTags(bz.datosIconos);
