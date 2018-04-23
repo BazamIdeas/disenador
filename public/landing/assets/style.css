@@ -193,7 +193,7 @@ md-input-container.md-input-invalid label {
     background: url('../assets/img/iconos.png') -152px -10px;
 }
 
-.estilo-1.negro {
+md-radio-button[aria-checked="true"] .estilo-1 {
     width: 51px;
     height: 51px;
     background: url('../assets/img/iconos.png') -223px -10px;
@@ -205,7 +205,7 @@ md-input-container.md-input-invalid label {
     background: url('../assets/img/iconos.png') -81px -97px;
 }
 
-.estilo-2.negro {
+md-radio-button[aria-checked="true"] .estilo-2 {
     width: 51px;
     height: 51px;
     background: url('../assets/img/iconos.png') -152px -97px;
@@ -217,13 +217,13 @@ md-input-container.md-input-invalid label {
     background: url('../assets/img/iconos.png') -10px -10px;
 }
 
-.estilo-3.negro {
+md-radio-button[aria-checked="true"] .estilo-3 {
     width: 51px;
     height: 51px;
     background: url('../assets/img/iconos.png') -81px -10px;
 }
 
-.estilo-4.negro {
+md-radio-button[aria-checked="true"] .estilo-4 {
     width: 51px;
     height: 51px;
     background: url('../assets/img/iconos.png') -10px -97px;
@@ -491,8 +491,7 @@ md-input-container:not(.md-input-has-value) input:not(:focus) {
     font-size: 20pt;
 }
 
-button.md-button.md-primary.md-raised.boton-formulario-generar,
-button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
+button.md-button.md-primary.md-raised.boton-formulario-generar {
     margin: 5% auto;
     display: block;
     color: black;
@@ -502,6 +501,12 @@ button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
     border-radius: 30px;
     padding: 5px 20px;
     font-size: 17pt;
+}
+
+button.md-button.md-primary.md-raised.boton-formulario-generar:hover{
+    background-color: var(--principal);
+    color:white;
+    border-color: white;
 }
 
 .seccion.uno form {
@@ -1352,12 +1357,16 @@ md-chip-template strong {
          font-family: sans-serif !important;
      }
 
-     button.md-button.md-primary.md-raised.boton-formulario-generar,
-     button.md-button.md-primary.md-raised.boton-formulario-generar:hover{
+     button.md-button.md-primary.md-raised.boton-formulario-generar{
          padding: 20px 25px;
          font-size: 25pt;
      }
 
+     button.md-button.md-primary.md-raised.boton-formulario-generar:hover{
+         background-color: var(--principal);
+             color:white;
+             border-color: white;
+     }
 
     .seccion.tres{display: none;}
 

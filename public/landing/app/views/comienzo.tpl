@@ -68,10 +68,10 @@
                                 Estilo de Tipografía
                             </div>
                             <div class="estilos-fuentes">
-                                <md-radio-group name="font" required ng-model="ctrl.datosCombinaciones.idFuente" class="md-primary ">
-                                    <md-radio-button ng-repeat="estilo in ctrl.categoriasPosibles.fuentes | orderBy: $index" ng-value="estilo.idCategoria" ng-disabled=" d.isDisabled ">
+                                <md-radio-group name="font" required ng-model="ctrl.datosCombinaciones.idFuente" class="md-primary">
+                                    <md-radio-button ng-repeat="estilo in ctrl.categoriasPosibles.fuentes | orderBy: $index" ng-value="estilo.idCategoria" >
                                         <md-tooltip md-direction="top">{{estilo.nombreCategoria}}</md-tooltip>
-                                        <span class="estilo " ng-class="{'estilo-2':estilo.nombreCategoria == 'Clásicas', 'estilo-4':estilo.nombreCategoria == 'Moderna', 'estilo-3':estilo.nombreCategoria == 'Llamativas', 'estilo-1':estilo.nombreCategoria == 'Minimalista', 'negro': ctrl.datosCombinaciones.idFuente == estilo.idCategoria}">.</span>
+                                        <span class="estilo" ng-class="{'estilo-2':estilo.nombreCategoria == 'Clásicas', 'estilo-4':estilo.nombreCategoria == 'Moderna', 'estilo-3':estilo.nombreCategoria == 'Llamativas', 'estilo-1':estilo.nombreCategoria == 'Minimalista'}">.</span>
                                     </md-radio-button>
                                 </md-radio-group>
                                 <div ng-messages="form.font.$error " style="color: #E91E63 !important; " role="alert " ng-show="form.font.$touched && form.font.$invalid || form.$submitted">
@@ -184,7 +184,7 @@
 
     </div>
     <div class="text-center" ng-click="ctrl.scrollTop()">
-        <md-button ng-disabled="ctrl.peticion"  class="md-raised md-primary boton-crear-logo">
+        <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary boton-crear-logo">
             CREAR LOGO AHORA
         </md-button>
     </div>
