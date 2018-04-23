@@ -1,15 +1,41 @@
 <bazam-scroll style="display:block; height: calc(100% - 60px); overflow-y: scroll;   overflow-x: hidden;">
-        <section class="section-cliente">
-        
-            <div class="row margin-bottom-0">
-        
-                <div class="col s12">
-        
-                    <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
-        
-                        <div class="tab-freelance col s12">
-                            <button ng-click="::logos.opcionMostrar='guardados'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='guardados'}">GUARDADOS</button>
-                            <button ng-click="::logos.opcionMostrar='adquiridos'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='adquiridos'}">COMPRADOS</button>
+<section class="section-container">
+
+    <div class="row margin-bottom-0">
+
+        <div class="col s12">
+
+            <div class="row margin-bottom-0" ng-switch="logos.opcionMostrar">
+
+                <div class="tab-freelance col s12">
+                    <button ng-click="::logos.opcionMostrar='guardados'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='guardados'}">GUARDADOS</button>
+                    <button ng-click="::logos.opcionMostrar='adquiridos'" ng-class="{'tab-freelance-activo': logos.opcionMostrar=='adquiridos'}">COMPRADOS</button>
+                </div>
+                <!--PENDIENTES DE APROBACION-->
+                <div class="col s12" ng-switch-when="guardados">
+                    <carousel-mis-logos ng-if="logos.terminados.guardados" logos="logos.guardados" callback="['guardados', logos.buscarAtributo, logos.abrirModal, logos.borrarLogo, logos.mostrarPlanes]"
+                        elegido="logos.elegido" actual="logos.actual"></carousel-mis-logos>
+                </div>
+                <!--APROBADOS-->
+                <div class="col s12" ng-switch-when="adquiridos">
+                    <carousel-mis-logos ng-if="logos.terminados.comprados" logos="logos.comprados" callback="['adquiridos', logos.buscarAtributo, logos.abrirModal]"
+                        elegido="logos.elegido"></carousel-mis-logos>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--<div class="contenedor-previews col s3" style="position:static; padding:0; overflow-y: auto">
+            <div class="cerrar-contenedor-p" ng-click="editor.borradores = false; editor.busquedaIconos = false; editor.preview = false">
+                <i class="material-icons cerrar">clear</i>
+            </div>
+            <div class="row padding-bottom-0 margin-bottom-0">
+                <div class="col s12" style="padding:0">
+
+                    <div style="position: relative;">
+                        <div style="width: 25%;position: absolute;left: calc(40% - 23%);top: 32%;transform: rotate(-48deg);">
+                            <bazam-actualizar data-svg="logos.elegido"></bazam-actualizar>
                         </div>
                         <!--PENDIENTES DE APROBACION-->
                         <div class="col s12" ng-switch-when="guardados">

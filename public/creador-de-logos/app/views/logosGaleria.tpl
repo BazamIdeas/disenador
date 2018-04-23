@@ -1,5 +1,5 @@
 
-<section style="height: calc(100vh - 135px) !important; background-color: var(--blanco);overflow: scroll;">
+<section class="section-container" style="overflow: scroll;">
     <div class="row margin-bottom-0">
         <div class="col s12">
             <div class="row">

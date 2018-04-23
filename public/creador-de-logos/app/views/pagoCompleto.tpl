@@ -1,4 +1,4 @@
-<section style="padding:0 30px;height: calc(100vh - 135px) !important; background-color: var(--fondo);overflow: hidden;">
+<section class="section-container">
     <div class="row margin-bottom-0" style="overflow: hidden;" ng-if="::pagoCompleto.logo.logo">
 
         <div class="col l4 offset-l4 xl4 offset-xl4" style="padding: 50px 40px 0 40px; text-align: center;">

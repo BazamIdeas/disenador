@@ -1,4 +1,4 @@
-<section style="height: calc(100vh - 60px) !important;overflow: hidden; ">
+<section class="section-container">
     <div class="row margin-bottom-0" style="overflow: hidden;">
 
         <div class="col s4 offset-s1">

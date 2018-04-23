@@ -1,14 +1,11 @@
 <html lang="es" ng-app="landing">
-
     <head>
         <base href="/">
-        <title>Logopro | Logo en Minuntos</title>
+        <title>Logopro | Tu logo en 3 minutos</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="/angular-material/angular-material.min.css" rel="stylesheet">
         <link href="/landing/assets/style.css" rel="stylesheet">
         <link href="/landing/assets/animation.css" rel="stylesheet">
-        <link rel="stylesheet" href="/landing/assets/flexboxgrid.css" type="text/css">
-        <link rel="stylesheet" href="/landing/assets/font-awesome/css/font-awesome.min.css" type="text/css">
         <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
         <link rel="stylesheet" href="/landing/assets/materialize.min.css">
         <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
@@ -43,48 +40,45 @@
 
         <!-- Controladores -->
         <script src="/landing/app/controllers/comienzo.js"></script>
-        <script src="/landing/app/controllers/disenadores.js"></script>
-        <script src="/landing/app/controllers/disenador.js"></script>
         <script src="/landing/app/controllers/header.js"></script>
 
-        <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+            crossorigin="anonymous">
+
     </head>
 
     <body ng-cloak>
         <!-- header -->
         <div ng-controller="headerController as h">
-            <bazam-form-login data-mostrar="h.mostrarLogin" data-callback="h.callback"></bazam-form-login>
+            <bazam-form-login mostrar="h.mostrarLogin" callback="h.callback" opcion="h.opcionMostrarLogin"></bazam-form-login>
             <header class="header" id="comienzo" layout-padding>
                 <div layout layout-align="space-between">
-                    <div class="logo" ui-sref="comienzo">
+                    <div class="logo grande" ui-sref="comienzo">
                         <img src="/landing/assets/img/logo.pro.svg">
                     </div>
                     <div layout flex layout-align="end center">
                         <div ng-switch="h.autorizado" class="login" ng-cloak>
-                            <div ng-switch-when="false" ng-click="h.mostrarLogin = true" class="acceder" style="cursor: pointer">
-                                <i class="material-icons md-48">account_circle</i>
-                                <span>Acceder / Registro</span>
+                            <div ng-switch-when="false" class="acceder" style="cursor: pointer">
+                                <span ng-click="h.opcionMostrarLogin = false; h.mostrarLogin = true">Acceder</span>
+                                <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">Registro</span>
                             </div>
                             <div ng-switch-default class="acceder" style="cursor: pointer">
-
                                 <span ng-click="h.navegar.cliente('')">
-                                    <i class="material-icons">add_circle_outline</i>&nbsp; Crear logo
+                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
+                                    <i class="material-icons">add_circle_outline</i>
                                 </span>
-
                                 <span ng-click="h.navegar.cliente('logos')">
-                                    <i class="material-icons">favorite</i> &nbsp; Mis logos
+                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Tus logos</md-tooltip>
+                                    <i class="material-icons">favorite</i>
                                 </span>
-
                                 <span ng-click="h.navegar.cliente('cuenta')">
                                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
-                                    <i class="material-icons">account_circle</i> &nbsp; {{h.autorizado.nombre}}
+                                    <i class="material-icons">account_circle</i>
                                 </span>
-
                                 <span ng-click="h.salir()">
+                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar Sesion</md-tooltip>
                                     <i class="material-icons">power_settings_new</i>
-                                    &nbsp; Cerrar sesion
                                 </span>
-
                             </div>
                         </div>
                     </div>
@@ -100,15 +94,18 @@
         <!-- Footer -->
         <footer>
             <div layout="row" layout-align="space-between center">
+                <div class="logo pequeno" ui-sref="comienzo">
+                    <img src="/landing/assets/img/logo.pro.svg">
+                </div>
                 <div layout class="links-footer">
-                    <a ui-sref="terminos">TÉRMINOS Y CONDICIONES</a>
-                    <a ui-sref="legales">AVISOS LEGALES</a>
-                    <a href="blog">BLOG</a>
+                    <a ui-sref="terminos">Términos y condiciones</a>
+                    <a ui-sref="legales">Avisos Legales</a>
+                    <a href="blog">Blog</a>
                 </div>
                 <div class="iconos-sociales">
-                    <i class="fab fa-facebook"></i>
-                    <i class="fab fa-twitter"></i>
                     <i class="fab fa-instagram"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-facebook"></i>
                 </div>
             </div>
         </footer>
@@ -161,27 +158,5 @@
             });
         }
     </script>
-
-    <!--TWITTER -->
-    <script>
-        window.twttr = (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-                t = window.twttr || {};
-            if (d.getElementById(id)) return t;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
-
-            t._e = [];
-            t.ready = function (f) {
-                t._e.push(f);
-            };
-
-            return t;
-        }(document, "script", "twitter-wjs"));
-    </script>
-
-
 
 </html>

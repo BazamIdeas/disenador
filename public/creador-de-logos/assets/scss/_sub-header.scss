@@ -1,0 +1,58 @@
+
+/*-----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+------SUB-HEADER SCSS----------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------*/
+
+/*BEGIN Sub-header*/
+.sub-header {
+    @include boxShadow(0,0,1,0,#d6d6d6);
+    position: relative;
+    z-index: 2;
+
+    .col {
+        text-align: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+        align-items: center;
+        height: 70px;
+
+        h5 {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            font-family: 'Futura Black' !important;
+            text-align: center;
+            color: $PRINCIPAL;
+
+            i {
+                font-size: 36px;
+            }
+        }
+
+        @at-root #{&}.logo{
+            color: $SECONDARY;
+        } 
+
+        @at-root #{&}.text-login {
+            -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: start;
+            h5 {
+                padding-left: 35.5%;
+                color: $PRINCIPAL;
+            }
+        }
+    }
+}
+/*END Sub-header*/

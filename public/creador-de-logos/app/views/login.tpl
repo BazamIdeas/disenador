@@ -1,9 +1,4 @@
-<section style="    height: calc(100% - 60px);
-background-color: var(--fondo);
-overflow: hidden;
-display: flex;
-justify-content: center;
-align-items: center;">
+<section class="section-container">
     <div class="row " style="width: 100%;">
 
         <div class="col s8 offset-s2">

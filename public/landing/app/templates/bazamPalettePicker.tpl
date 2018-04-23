@@ -1,5 +1,7 @@
-<svg style="    width: 60%; margin: auto;
-display: block;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 162.63 162.63">
+<svg style="width: 74%;
+    margin-left: auto;
+    margin-right: 8%;
+    display: block;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 162.63 162.63">
     <path d="M126.25,37.33,139.78,25a81.33,81.33,0,0,0-25.7-18l-7.66,16.6A62.39,62.39,0,0,1,126.25,37.33Z" style="fill:#fff;stroke:#474747;stroke-miterlimit:10;stroke-width:0.25px"
         class="linea-1" data-index="2" ng-click="seleccionarColor($event)" />
     <path d="M81.65,18.5a62.06,62.06,0,0,1,24.78,5.14L114.08,7A80.87,80.87,0,0,0,81.31.13V18.51Z" style="fill:#fff;stroke:#474747;stroke-miterlimit:10;stroke-width:0.25px"
