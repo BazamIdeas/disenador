@@ -416,7 +416,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			$timeout(function () {
 
-				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+				angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 			}, 500);
 
 

@@ -19,8 +19,9 @@
     <script src="/jquery/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css">
-    <!--<link rel="stylesheet" type="text/css" href="assets/css/ghpages-materialize.min.css">-->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--<link rel="stylesheet" type="text/css" href="assets/css/ghpages-materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">-->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.scrollbar.css">
     <script src="assets/js/materialize.min.js"></script>
@@ -89,65 +90,54 @@
 
 <body>
 
-    <header class="row" style="margin:0;padding:0;" ng-controller="headerController as header">
+    <header class="header row" ng-controller="headerController as header">
 
         <div class="col s2 logo">
-            <div class="logo-container-logo" ui-sref="inicio">
+            <div ui-sref="inicio">
                 <img src="assets/logo.pro.svg">
             </div>
-
         </div>
         <div class="col s10 m10 menu" show-gt-sm>
 
-            <div ng-switch="header.autorizado" class="login" ng-cloak>
+            <div ng-switch="header.autorizado" ng-cloak>
 
-                <div ng-switch-when="false" ui-sref="inicio" class="acceder" style="cursor: pointer; padding-right:20px">
-                    <i class="material-icons">add_circle_outline</i> &nbsp; Crear logo
-                </div>
-
-                <div ng-switch-when="false" ui-sref="login" class="acceder" style="cursor: pointer">
-                    <i class="material-icons md-48">account_circle</i>
-                    <span>Acceder / Registro</span>
-                </div>
-
-                <div ng-switch-default class="acceder" style="cursor: pointer">
-
+                <div ng-switch-when="false" class="items">
+                    <span class="login mr-50" ui-sref="login">
+                        <i class="material-icons md-48">account_circle</i> &nbsp; Acceder | Registro
+                    </span>
+                    
                     <span ui-sref="inicio">
-                        <i class="material-icons">add_circle_outline</i> &nbsp; Crear logo
+                        <i class="material-icons">add_circle_outline</i>
                     </span>
+                </div>
 
-                    <span ui-sref="logos">
-                        <i class="material-icons">favorite</i> &nbsp; Mis logos
-                    </span>
+                <div ng-switch-default class="items">
 
-                    <span ui-sref="cuenta">
+                    <span class="mr-50" ui-sref="cuenta">
                         <i ng-if="!header.autorizado.foto" class="material-icons">account_circle</i>
                         <span ng-if="header.autorizado.foto && header.verificarBase64(header.autorizado.foto)">
-                            <img style="width: 30px;border-radius: 50%;" ng-src="{{'data:image/svg+xml;base64,' + header.autorizado.foto}}">
+                            <img class="user-avatar" ng-src="{{'data:image/png;base64,' + header.autorizado.foto}}">
                         </span>
                         <span ng-if="header.autorizado.foto && !header.verificarBase64(header.autorizado.foto)">
-                            <img style="width: 30px;border-radius: 50%;" ng-src="{{header.autorizado.foto}}">
+                            <img class="user-avatar" ng-src="{{header.autorizado.foto}}">
                         </span>
                         {{header.autorizado.nombre}}
                     </span>
 
-                    <span ng-click="header.salir()">
-                        <i class="material-icons">power_settings_new</i> &nbsp; Cerrar sesion
+                    <span ui-sref="inicio">
+                        <i class="material-icons">add_circle_outline</i>
                     </span>
 
-                    <!-- <span style="margin: 0 10px; font-family: 'arial'"></span> -->
+                    <span class="logos" ui-sref="logos">
+                        <i class="material-icons">favorite</i>
+                    </span>
+
+                    <span ng-click="header.salir()">
+                        <i class="material-icons">power_settings_new</i>
+                    </span>
 
                 </div>
 
-                <!--
-                    <div class="acceder">
-
-                        <span ng-click="::header.mostrarPasoPopAyuda()">
-                            <i class="material-icons aling-top" style="margin-left: 10px; cursor: pointer;">help_outline</i>
-                        </span>
-
-                    </div>
--->
             </div>
 
         </div>
@@ -162,8 +152,8 @@
 
     <bazam-form-login></bazam-form-login>
 
-    <div class="full-overlay">
-        <div class="gif"></div>
+    <div class="overlay full">
+        <div class="loading-purple" style="width: 30%;height: 30%;"></div>
         <div>Cargando...</div>
     </div>
 

@@ -8,7 +8,7 @@
 
 * {
     -webkit-user-select: none;
-    /* Safari 3.1+ */
+    /* Safari 3.1+ */ 
     -moz-user-select: none;
     /* Firefox 2+ */
     -ms-user-select: none;
@@ -4241,6 +4241,7 @@ md-radio-button.opcion-fuente[aria-checked="true"] {
 
 .logo-container-logo img {
     width: 80%;
+    height: 60px;
 }
 
 b, strong {

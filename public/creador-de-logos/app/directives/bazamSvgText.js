@@ -14,12 +14,16 @@ angular.module("disenador-de-logos")
 			},
 			link: function (scope, element) {
 
+				element.append('<svg class="background-svg" viewbox="0 0 400 400"></svg>');
+
 				fontService.preparar(scope.fuente, scope.url)
 
 					.then(function () {})
 					.catch(function () {})
 					.finally(function () {
 						{
+
+							element.find('.background-svg').remove();
 						
 							var tamanoBase = 100;
 							/*

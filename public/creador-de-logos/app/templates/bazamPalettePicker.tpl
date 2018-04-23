@@ -1,6 +1,6 @@
 
 <div style="text-align: center; margin-bottom: 10px;" ng-click="mostrarPalettePicker = !mostrarPalettePicker">
-    <button type="button" class="boton-verde" style="width: 100%; display:flex; align-items:center; justify-content: center;">Seleccionar colores <i class="material-icons">arrow_drop_down</i></button>
+    <button type="button" class="bazam-pallette-button" style="width: 100%; display:flex; align-items:center; justify-content: center;">Seleccionar colores <i class="material-icons">arrow_drop_down</i></button>
 </div>
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 162.63 162.63" ng-show="mostrarPalettePicker">
