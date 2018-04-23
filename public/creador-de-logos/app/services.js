@@ -1926,6 +1926,10 @@ angular.module("disenador-de-logos")
 
 		this.preparar = function (fuente, url) {
 
+			if(!url){
+				url = "/fuentes/"+fuente+".ttf";
+			}
+
 			var defered = $q.defer();
 			var promise = defered.promise;
 
@@ -1971,6 +1975,34 @@ angular.module("disenador-de-logos")
 					});
 			});
 
+		};
+
+	}])
+
+	.service("papeleriaService", ["$q", "$http",  function($q, $http){
+
+		this.listarTipos = function(){
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			var prueba = [
+				{
+					_id: "unavainaahitodoloca",
+					nombre: "unnombrearrecho",
+					meta: [
+						"nombre",
+						"cargo",
+						"direccion",
+						"web",
+						"telefono"
+					]
+				
+				}
+			];
+
+			defered.resolve();
+			
+			return promise;
 		};
 
 	}]);
