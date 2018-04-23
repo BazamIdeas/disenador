@@ -1,5 +1,4 @@
 <html lang="es" ng-app="landing">
-
     <head>
         <base href="/">
         <title>Logopro | Tu logo en 3 minutos</title>
@@ -7,8 +6,6 @@
         <link href="/angular-material/angular-material.min.css" rel="stylesheet">
         <link href="/landing/assets/style.css" rel="stylesheet">
         <link href="/landing/assets/animation.css" rel="stylesheet">
-        <link rel="stylesheet" href="/landing/assets/flexboxgrid.css" type="text/css">
-        <link rel="stylesheet" href="/landing/assets/font-awesome/css/font-awesome.min.css" type="text/css">
         <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
         <link rel="stylesheet" href="/landing/assets/materialize.min.css">
         <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
@@ -43,11 +40,11 @@
 
         <!-- Controladores -->
         <script src="/landing/app/controllers/comienzo.js"></script>
-        <script src="/landing/app/controllers/disenadores.js"></script>
-        <script src="/landing/app/controllers/disenador.js"></script>
         <script src="/landing/app/controllers/header.js"></script>
 
-        <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+            crossorigin="anonymous">
+
     </head>
 
     <body ng-cloak>
@@ -161,27 +158,5 @@
             });
         }
     </script>
-
-    <!--TWITTER -->
-    <script>
-        window.twttr = (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-                t = window.twttr || {};
-            if (d.getElementById(id)) return t;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
-
-            t._e = [];
-            t.ready = function (f) {
-                t._e.push(f);
-            };
-
-            return t;
-        }(document, "script", "twitter-wjs"));
-    </script>
-
-
 
 </html>

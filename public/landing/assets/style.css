@@ -231,7 +231,6 @@ body,
 md-content.md-default-theme,
 md-content {
     background: var(--fondo);
-    overflow-x: hidden;
 }
 
 body h3 {
@@ -244,10 +243,6 @@ body h2 {
 
 .text-center {
     text-align: center;
-}
-
-.text-green {
-    color: var(--principal);
 }
 
 .seccion {
@@ -458,7 +453,7 @@ md-input-container:not(.md-input-has-value) input:not(:focus) {
 
 .seccion.uno .titulo-inicio {
     border-left: 2rem solid var(--principal);
-    width: 100vw;
+    width: 98vw;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -696,7 +691,12 @@ md-chips-wrap#_md-chips-wrapper-7 {
 
 .testimonios {
     width: 100%;
-    height: 70vh;
+    height: 50vh;
+}
+
+.carousel-item {
+    display: block;
+    width: 100%;
 }
 
 .testimonios__carousel-item {
@@ -1396,6 +1396,11 @@ md-chip-template strong {
     
     .contenedor-planes {
         width: 100%;
+    }
+
+    .plan {
+        height: 50vh;
+        width: 33%;
     }
 
 }
