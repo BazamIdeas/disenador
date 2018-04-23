@@ -213,28 +213,24 @@
         -->
         <div class="col s12" style="padding: 0 40px;">
             <div class="contenedor-planes" ng-if="descargar.mps">
-                <div class="row">
-                    <div class="plan col s4 " ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
-                        <div style="background: var(--tercero);">
-                            <div class="logo-plan">
-                                <bazam-actualizar data-svg="::descargar.base64.decode(descargar.logo.logo)"></bazam-actualizar>
+                    <div class="plan" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
+                        <div>
+                            <div class="plan-header">
+                                <div class="plan-nombre">{{plan.plan}}</div>
+                                <div class="plan-precio">{{::descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
                             </div>
-
                             <div class="plan-body">
-                                <div class="plan-header">{{::plan.plan}}</div>
-                                <p class="subtitulo-plan">{{::plan.info}}</p>
-                                <div style="padding:10px; ">
-                                    <div class="plan-precio">{{::descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
-
-                                    <div class="text-center">
-                                        <button class="boton-planes" ng-class="{'loading-white': descargar.peticion}" ng-click="descargar.aumentarPlan(plan, descargar.moneda)">SELECCIONAR</button>
-                                    </div>
+                                <div>
+                                    <ul class="plan-lista">
+                                        <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{::carac.descripcion}}</li>
+                                    </ul>
                                 </div>
-
-                                <ul class="plan-lista">
-                                    <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{::carac.descripcion}}</li>
-                                </ul>
-
+                            </div>
+                            <div class="text-center">
+                                <md-button ng-disabled="descargar.peticion" ng-class="{'loading-purple':descargar.peticion}" nng-click="descargar.aumentarPlan(plan, descargar.moneda)"
+                                    class="md-raised md-primary boton-crear-logo">
+                                    SELECCIONAR
+                                </md-button>
                             </div>
                         </div>
                     </div>
