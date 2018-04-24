@@ -22,7 +22,11 @@ angular.module("disenador-de-logos")
 		bz.terminos = true;
 
 
-		bz.mostrarMetodo = function (indice) {
+		bz.mostrarMetodo = function (indice, terminos) {
+
+			if(!terminos){
+				return;
+			}
 
 			angular.forEach(bz.pasarelas, function (pasarela, llave) {
 
@@ -49,7 +53,7 @@ angular.module("disenador-de-logos")
 
 				bz.completado = false;
 				
-				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+				angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
 
 				switch (idPasarela) {
 

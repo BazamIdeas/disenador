@@ -213,7 +213,7 @@
         -->
         <div class="col s12" style="padding: 0 40px;">
             <div class="contenedor-planes" ng-if="descargar.mps">
-                    <div class="plan" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
+                    <div class="plan" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas track by $index" ng-init="plan.indice = $index">
                         <div style="    border-right: 1px solid silver;
                         border-left: 1px solid silver;">
                             <div class="plan-header">
@@ -228,14 +228,53 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <md-button ng-disabled="descargar.peticion" ng-class="{'loading-purple':descargar.peticion}" nng-click="descargar.aumentarPlan(plan, descargar.moneda)"
-                                    class="md-raised md-primary boton-crear-logo">
+                                <!--<md-button ng-disabled="descargar.peticion" ng-class="{'loading-purple':descargar.peticion}" class="md-raised md-primary boton-crear-logo">
+                                    <!--ng-click="descargar.aumentarPlan(plan, descargar.moneda)"
                                     SELECCIONAR
-                                </md-button>
+                                </md-button>-->
+
+                                <div style="display: flex;justify-content: space-evenly;">
+
+                                        <div class="metodos">
+            
+                                            <div ng-repeat="pasarela in descargar.pasarelas track by $index">
+                                                <input type="radio" id="{{pasarela.pasarela}}{{plan.indice}}" ng-model="plan.pasarelaElegida" ng-value="pasarela"/>
+                                                <label style="display: flex;" for="{{pasarela.pasarela}}{{plan.indice}}">
+                                                    
+                                                    <img  ng-if="pasarela.pasarela == 'Paypal'"  width="50" height="auto"  src="assets/images/svg-icons/paypal_color.svg">
+            
+                                                    <img  ng-if="pasarela.pasarela == 'Stripe'"  width="25" height="auto" src="assets/images/svg-icons/credit_black.svg">
+            
+                                                </label>
+
+                                                
+                                            </div>
+            
+                                        </div>
+            
+                                        <div style="display: flex; align-items: center;">
+                                            <button ng-if="plan.pasarelaElegida.pasarela == 'Paypal'" type="submit" ng-class="{'loading-white': !descargar.completado}" ng-click="descargar.paypal(plan.pasarelaElegida.idPasarela, plan)">COMPRAR</button>
+            
+                                            <button ng-if="plan.pasarelaElegida.pasarela == 'Stripe'" type="submit" ng-class="{'loading-white': !descargar.completado}" ng-click="descargar.mostrarStripe(plan.pasarelaElegida.idPasarela, plan)">COMPRAR</button>
+                                        </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+                <!---STRIPE-->
+                
+                <div class="credit" ng-if="descargar.datosStripe" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index :10; background-color:#1a1a1a9e">
+                    <div ng-click="descargar.datosStripe = null" class="close-prev">
+                        <md-icon>close</md-icon>
+                    </div>
+                    
+                    <stripe-payment-form data-pasarela="pasarela.idPasarela" data-icono="pago.pedido.idElemento" data-atributos="pago.pedido.atributos" data-svg="pago.base64.encode(pago.pedido.logo)" data-precio="pago.pedido.precio.idPrecio"></stripe-payment-form>
+                </div>
+                
+
             </div>
         </div>
     </div>

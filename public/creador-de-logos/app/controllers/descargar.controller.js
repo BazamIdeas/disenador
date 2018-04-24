@@ -68,18 +68,25 @@ angular.module("disenador-de-logos")
 		bz.moneda = {};
 
 		bz.mostrarAumento = false;
-
+		
 		planesService.porLogo(bz.logo.id)
 			.then(function (res) {
 				bz.plan = res.caracteristicas;
 
 				bz.idPlan = res.idPlan;
-
-				bz.monedaDefault = res.monedaDefault;
+				
+			
 
 				planesService.aumentarPlan(bz.idPlan)
 					.then(function (res) {
+
 						if (res.planes.superiores.length) {
+
+							bz.moneda = {
+								simbolo: res.monedaDefault.codigo,
+								idMoneda: res.monedaDefault.idMoneda
+							};
+
 							bz.mostrarAumento = true;
 							bz.planes = res.planes.superiores;
 
@@ -95,17 +102,15 @@ angular.module("disenador-de-logos")
 										};
 
 									}
-
-									if (precio.moneda == "USD") {
-										bz.moneda = {
-											idMoneda: precio.idMoneda,
-											simbolo: precio.moneda
-										};
-										bz.mps = true;
-									}
-
+							
 								});
 
+							});
+							bz.mps = true; //mostrar Planes superiores = mps
+							
+							
+							pedidosService.listarPasarelas(bz.moneda.idMoneda).then(function (res) {
+								bz.pasarelas = res;
 							});
 
 						}
@@ -169,17 +174,23 @@ angular.module("disenador-de-logos")
 
 		};
 
+		
 
 
-		bz.aumentarPlan = function (plan) {
 
-			bz.peticion = true;
+		bz.paypal = function (idPaypal, plan) {
+
+			if(bz.peticion){
+				return;
+			}
 
 			var datos = {
 				idLogo: bz.logo.id,
 				idPrecio: null,
-				idPasarela: null
+				idPasarela: idPaypal
 			};
+
+			bz.peticion = true;
 
 			angular.forEach(plan.precios, function (valor) {
 				if (valor.moneda == bz.moneda.simbolo) {
@@ -187,26 +198,33 @@ angular.module("disenador-de-logos")
 				}
 			});
 
-			pedidosService.listarPasarelas(bz.moneda.idMoneda).then(function (res) {
+			//pedidosService.listarPasarelas(bz.moneda.idMoneda).then(function (res) {
 
-				angular.forEach(res, function (valor) {
-					if (valor.pasarela == "Paypal") {
-						datos.idPasarela = valor.idPasarela;
-					}
-				});
+			/*
+			angular.forEach(bz.pasarelas, function (valor) {
+				if (valor.pasarela == pasarela) {
+					datos.idPasarela = valor.idPasarela;
+				}
+			});*/
 
-				planesService.aumentarPedidoPlan(datos).then(function (res) {
-					$window.location = res;
-				}).catch(function () {
-					//console.log(res)
-				}).finally(function () {
-					bz.peticion = false;
-				});
-
-
+			planesService.aumentarPedidoPlan(datos).then(function (res) {
+				$window.location = res;
+			}).catch(function () {
+				//console.log(res)
+			}).finally(function () {
+				bz.peticion = false;
 			});
 
+			
 
+		};
+
+		bz.mostrarStripe = function(idStripe, plan){
+
+			bz.datosStripe = {
+				idStripe: idStripe, 
+				plan: plan
+			};
 		};
 
 		bz.completado = true;
@@ -262,7 +280,7 @@ angular.module("disenador-de-logos")
 					.finally(function () {
 
 						bz.completado = true;
-						angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+						angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 
 					});
 
