@@ -707,6 +707,10 @@ exports.zip = function(req,res)
 	let fuentes = {};
 	const par = [req.idCliente, idLogo];
 
+
+	let nombre = "Logo"+"-" +descarga +"-" + moment().format("DD-MM-YYYY")+".svg";
+
+	const path = "public/tmp/";
 	//console.log(req)
 
 	logo.getLogo(par, (error, data) => {
@@ -732,10 +736,6 @@ exports.zip = function(req,res)
 							}
 		
 						}
-
-						let nombre = "Logo"+"-" +descarga +"-" + moment().format("DD-MM-YYYY")+".svg";
-
-						const path = "public/tmp/";
 
 						atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
 							//console.log(dataAttrs)
@@ -832,7 +832,77 @@ exports.zip = function(req,res)
 					})
 
 				} else {
-					res.status(404).json({"msg":"No se encuentra el plan"});
+
+					if (ancho < 100) {
+
+						console.log('aqui')
+
+						atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
+							//console.log(dataAttrs)
+							if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+
+								async.forEachOf(dataAttrs, (row, key, callback) => {
+
+									if (row.clave == "principal" || row.clave == "eslogan") {
+
+										elemento.datosElemento(row.valor, (err, fuente) => {
+
+											if (err) return callback(err);
+											
+											try {
+												
+												if (typeof fuente !== "undefined" && fuente.length > 0) {
+													fuentes[row.clave] = { nombre:fuente[0].nombre, url:fuente[0].url };
+												}
+					
+											} catch (e) {
+												return callback(e);
+											}
+
+											callback();	
+										});
+									}else{
+										callback();
+									}
+								}, (err) => {
+									if (err) res.status(402).json({});
+									
+									var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
+									
+									fs.open(path + nombre, "w", (err, fd) => {
+										if (err) throw "error al crear svg " + err;
+
+										fs.write(fd, buffer, 0, buffer.length, null, err => {
+											if (err) throw "error al escribir " + err;
+													
+											let svg = path + nombre;
+
+											var pngout = svg.replace("svg", "png");
+
+											fs.readFile(svg, (err, svgbuffer) => {
+												if (err) throw err;
+												svg2png(svgbuffer, { width: ancho})
+													.then(buffer => {
+														fs.writeFile(pngout, buffer, (err) => {
+															setTimeout(() => {
+																res.download(__dirname+"/../"+pngout);
+															}, 1000)
+														});
+													})
+													.catch(e => console.log('error'));
+											});												
+											
+											fs.close(fd);
+										});
+									});
+								
+								});
+
+							}
+
+						});
+
+					}
 				}
 
 			});

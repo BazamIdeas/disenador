@@ -8,6 +8,23 @@
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
                     <label style="padding:0 !important" for="nombre" class="active">Nombre</label>
                 </div>
+
+                <md-input-container class="col s12">
+                    <label>¿Que buscas?</label>
+                    <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                        md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)">
+                        <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
+                            md-item-text="item.traduccion.valor" placeholder="Ejemplo: Perro">
+                            <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                <strong>{{$chip.traduccion.valor}}</strong>
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
+                </md-input-container>
+
                 <md-input-container class="col s12" bazam-ayuda data-titulo="Categoria" data-texto="Seleccione la categoria o actividad de su empresa u ocupación"
                     data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                     bazam-pasos-ayuda>
@@ -40,24 +57,7 @@
                         </div>
                     </div>
 
-
                 </div>
-
-                <md-input-container class="col s12">
-                    <label>¿Que buscas?</label>
-                    <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-                        md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)">
-                        <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
-                            md-item-text="item.traduccion.valor" placeholder="Ejemplo: Perro">
-                            <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
-                        </md-autocomplete>
-                        <md-chip-template>
-                            <span>
-                                <strong>{{$chip.traduccion.valor}}</strong>
-                            </span>
-                        </md-chip-template>
-                    </md-chips>
-                </md-input-container>
                 <div class="input col s12">
                     <button type="submit" class="boton-verde" style="width: 100%;" ng-class="{'loading-white': !inicio.completado}" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "CARGAR MÁS" : "BUSCAR"}}</button>
                 </div>

@@ -1,5 +1,5 @@
-<section class="section-container">
-    <div class="row margin-bottom-0" style="overflow: hidden;">
+<section class="body">
+    <div class="row">
 
         <div class="col s4 offset-s1">
 

@@ -1,0 +1,98 @@
+.body.cuenta {
+    background-color: $WHITE;
+}
+
+.avatar > div {
+    text-align: center;
+    width: 40%;
+    margin-left: 30%;
+    position: relative;
+    margin-top: 10px;
+    border-radius: 50%;
+
+    img {
+        width: 100%;
+        border-radius: 50%;
+    }
+
+    i {
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        opacity: 1;
+        width: 30%;
+        height: 30%;
+        border-radius: 50%;
+        background-color: $PRINCIPAL;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 25px;
+        transition: opacity 0.3s;
+    }
+}
+
+.info {
+    padding: 0 !important;
+
+    & > span {
+        font-size: 13px !important;
+        position: relative;
+        top: -2px;
+        color: #808080;
+    }
+
+    & > .value {
+        color: #808080;
+        border-bottom: 2px solid #808080;
+        margin-bottom: 20px;
+        height: 28px;
+
+        span {
+            line-height: 28px;
+        }
+    }
+}
+
+.orders {
+    padding: 10px 10px 0px 10px !important;
+
+    .table {
+        max-height: calc(100% - 20px);
+        overflow-y: auto;
+
+        table {
+            font-family: 'nunito-sans-bold' !important;
+
+            thead {
+                border: none;
+                background-color: $PRINCIPAL;
+                color: $WHITE;
+            }
+
+            td, th {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+                border-radius: 0px;
+            }
+
+            th {
+                padding: 10px 5px;
+            }
+
+            td{
+                padding: 10px 5px;
+            }
+
+            tr.even{
+                background-color: $BACKGROUND;
+                &.odd {
+                    background-color: $WHITE;
+                }
+            }
+        }
+    }
+}
