@@ -1,0 +1,196 @@
+.body.logos {
+    overflow-y: scroll;
+
+    div.logos {
+        height: 400px;
+        position: relative;
+    }
+}
+
+.tabs-logos {
+    display: flex;
+
+    span {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        cursor: pointer;
+
+        &.tab-active {
+            color: $PRINCIPAL;
+        }
+    }
+}
+
+.carousel-mis-logos {
+    height: 0;
+
+    .left-arrow, .right-arrow {
+        position: absolute;
+        top: 50% - 4%;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        margin-top: -30px;
+        line-height: 65px;
+        text-align: center;
+        padding: 0;
+        z-index: 10;
+        background-color: $WHITE;
+        border: 1px solid $BLACK;
+        color: $BLACK;
+        font-size: 20px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        cursor: pointer;
+        -webkit-transition: background-color 0.35s;
+        transition: background-color 0.35s;
+    }
+
+    .left-arrow {
+        left: 5%;
+    }
+
+    .right-arrow {
+        right: 5%;
+    }
+
+    .left-arrow:hover,
+    .right-arrow:hover {
+        background-color: $PRINCIPAL;
+        border: 1px solid $PRINCIPAL;
+        color: $WHITE;
+    }
+
+    .left-arrow i,
+    .right-arrow i {
+        font-size: 30px !important;
+    }
+}
+
+.logo-container-m {
+    width: 24%;
+    border-radius: 3px;
+    overflow: hidden;
+    display: none;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    top: 18%;
+    left: 55%;
+    box-shadow: 0px 0px 3px 0px #c7c7c7;
+    -webkit-transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out;
+    transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out,width 0.35s ease-in-out;
+
+    &.logo-active-m {
+        opacity: 1;
+        margin-left: -17%;
+        z-index: 9;
+
+        &:hover .accion {
+            opacity: 1;
+        }
+
+        & .accion.share {
+            background-color: transparent;
+            transition: opacity 0.5s;
+            right: 2.5%;
+
+            span{
+                opacity: 0;
+                background-color: rgba(0, 0, 0, 1);
+                transition: opacity 0.5s;
+                border-radius: 50%;
+                margin-right: 5px;
+
+                svg{
+                    width: 40px;
+                    height: 40px;
+                    padding: 9px;
+                    color: white;
+                }
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+                padding: 7px;
+                margin-right: 3%;
+                border-radius: 50%;
+                background-color: rgba(0, 0, 0, 0.2);                
+            }
+        }
+
+        & .accion.share:hover{
+            width: 100% !important;
+            right: 0;
+
+            img {
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
+            span {
+                opacity: 1
+            }
+        }
+    }
+
+    &.logo-right-m {
+        margin-left: 11%;
+    }
+    
+    &.logo-left-m {
+        margin-left: -43%;
+    }
+
+    &.logo-left-m, &.logo-right-m {
+        opacity: 0.5;
+        width: 22%;
+        margin-top: 1%;
+    }
+
+    &.logo-active-m, &.logo-left-m, &.logo-right-m, &.logo-left-1-m, &.logo-right-1-m {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+}
+
+.left-div-action {
+    cursor: pointer;
+    margin-left: -43%;
+    margin-top: 1%;
+    width: 22%;
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    top: 18%;
+    left: 55%;
+    padding-top: 24%;
+}
+
+.right-div-action {
+    cursor: pointer;
+    margin-left: 11%;
+    margin-top: 1%;
+    width: 22%;
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    top: 18%;
+    left: 55%;
+    padding-top: 24%;
+}

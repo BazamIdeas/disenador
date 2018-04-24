@@ -1,0 +1,97 @@
+.bazam-color-picker {
+    position:relative;
+    display: flex;
+    justify-content: center;
+
+    div.background-color-picker, div.element-color-picker {
+        position: fixed;  
+        width: 253.496px; 
+        height: 202.797px; 
+        background-color: white; 
+        z-index: 5; 
+        padding: 10px;
+
+        .title {
+            padding: 3%;
+            text-align: center;
+            font-family: 'Futura Black' !important;
+            color: $BLACK;
+            cursor: move;
+
+            span.close-color-picker {
+                float: right;
+                color: white;
+                background: $PRINCIPAL;
+                border-radius: 50%;
+                cursor: pointer;
+
+                i {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .color {
+            width: 4.2%; 
+            height: 6.7%; 
+            display: inline-block;
+            -webkit-box-shadow: 0px 0px 1px 0px rgba(88, 88, 88, 0.8313725490196079);
+            box-shadow: 0px 0px 1px 0px rgba(88, 88, 88, 0.8313725490196079);
+            margin: .5%;
+            cursor: pointer;
+
+            &:active {
+                -webkit-transform: scale(1.4);
+                transform: scale(1.4);
+                -webkit-transition: .1s all;
+                transition: .1s all;
+            }
+        }
+    }
+}
+
+div.element-color-picker {
+    position: fixed;  
+    width: 253.496px; 
+    height: 202.797px; 
+    background-color: white; 
+    z-index: 5; 
+    padding: 10px;
+
+    .title {
+        padding: 3%;
+        text-align: center;
+        font-family: 'Futura Black' !important;
+        color: $BLACK;
+        cursor: move;
+
+        span.close-color-picker {
+            float: right;
+            color: white;
+            background: $PRINCIPAL;
+            border-radius: 50%;
+            cursor: pointer;
+
+            i {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .color {
+        width: 4.2%; 
+        height: 6.7%; 
+        display: inline-block;
+        -webkit-box-shadow: 0px 0px 1px 0px rgba(88, 88, 88, 0.8313725490196079);
+        box-shadow: 0px 0px 1px 0px rgba(88, 88, 88, 0.8313725490196079);
+        margin: .5%;
+        cursor: pointer;
+
+        &:active {
+            -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+            -webkit-transition: .1s all;
+            transition: .1s all;
+        }
+    }
+}

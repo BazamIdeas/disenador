@@ -1,0 +1,58 @@
+section.body.pay {
+    display: flex;
+    align-items: center;
+
+    div.row {
+        flex: 1;
+
+        div.card.pay {
+            padding: 0 !important;
+            box-shadow: none !important;
+            
+            div {
+
+                div:not(.close-prev) {
+                    padding: 0 !important; 
+                }
+
+                div.logo {
+                    display: flex;
+                    flex-direction: column; 
+                    justify-content: space-between;
+                    height: 60%;
+                    
+                    & > div {
+                        width: 100%;
+                        height: 100%;
+                        padding: 0;
+
+                        bazam-vizualizar > svg {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                }
+
+                div.checkout {
+                    background-color: $WHITE;
+
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        display: block;
+                        width: 1px;
+                        height: 92%;
+                        background-color: #cacaca;
+                        top: 4%;
+                    }
+
+                    p {
+                        color: $BLACK;
+                        text-align: center;
+                    }
+                    
+                }
+            }
+        }
+    }
+}

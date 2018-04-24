@@ -146,7 +146,7 @@
 
 <!-- VALIDACION -->
 <div ng-messages="paletteForm.$error" style="  color: #E91E63; padding-bottom: 20px; position: relative; text-align: center; padding-top: 20px;" role="alert" ng-show="paletteForm.$touched && paletteForm.$invalid || $parent.form.$submitted && paletteForm.$invalid">
-    <div ng-message="required" style="top:0px;">Debes elegir al menos un color.</div>
+    <div ng-message="required" style="top:0px;     padding-left: 10%;">Debes elegir al menos un color.</div>
 </div>
 
 <div ng-form="paletteForm">
@@ -174,8 +174,5 @@
         stroke:rgb(0, 0, 0) !important;
         stroke-width: 1.5px !important;
         opacity: 1;
-        -webkit-box-shadow: inset 5px 1px 75px -19px rgba(0, 0, 0, 1);
-        -moz-box-shadow: inset 5px 1px 75px -19px rgba(0, 0, 0, 1);
-        box-shadow: inset 5px 1px 75px -19px rgba(0, 0, 0, 1);
     }
 </style>

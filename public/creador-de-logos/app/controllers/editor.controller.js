@@ -12,6 +12,7 @@ angular.module("disenador-de-logos")
 			fuentes: false
 		};
 		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[0] : "rgb(243, 243, 243)";
+		bz.colorFondoAnterior = bz.colorFondo;
 		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[2] : "#000";
 		bz.colorEslogan = "#000";
 		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[1] : "#000";
@@ -219,6 +220,13 @@ angular.module("disenador-de-logos")
 		bz.activarCuadricula = function () {
 
 			bz.cuadricula = !bz.cuadricula;
+
+			if(bz.cuadricula){
+				bz.colorFondoAnterior = bz.colorFondo;
+				bz.colorFondo = 'transparent';
+			} else {
+				bz.colorFondo = bz.colorFondoAnterior;
+			}
 
 		};
 

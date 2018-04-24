@@ -227,7 +227,7 @@ angular.module("disenador-de-logos")
 						angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
 
 							/* COLOPICKER */
-							var coordenadasCon = angular.element(".contenedor-svg")[0].getBoundingClientRect();
+							var coordenadasCon = angular.element(".svg-container")[0].getBoundingClientRect();
 
 							var titulo = "";
 							var id = "";
@@ -280,7 +280,7 @@ angular.module("disenador-de-logos")
 									};
 								}
 
-								var colorPicker = angular.element("<div class='color-picker-bazam'><div class='titulo'>" + titulo + " <span class='cerrar-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
+								var colorPicker = angular.element("<div class='element-color-picker'><div class='title'>" + titulo + " <span class='close-color-picker'><i class='material-icons cerrar'>clear</i></span></div></div>");
 
 								colorPicker.attr("id", id);
 
@@ -305,7 +305,7 @@ angular.module("disenador-de-logos")
 
 								});
 
-								angular.element(".contenedor-principal.editor").append(colorPicker);
+								angular.element(".principal-container.editor").append(colorPicker);
 
 								colorPicker.draggable({
 									revert:false
@@ -358,7 +358,7 @@ angular.module("disenador-de-logos")
 
 						});
 
-						angular.element(".contenedor-principal.editor").on("click", "#color-picker-icono, #color-picker-texto, #color-picker-eslogan", function (e) {
+						angular.element(".principal-container.editor").on("click", "#color-picker-icono, #color-picker-texto, #color-picker-eslogan", function (e) {
 
 							var contenedorColor = angular.element(e.target);
 
@@ -387,9 +387,9 @@ angular.module("disenador-de-logos")
 						});
 
 
-						angular.element(".contenedor-principal.editor").on("click", ".cerrar-color-picker", function () {
+						angular.element(".principal-container.editor").on("click", ".close-color-picker", function () {
 
-							var colorPicker = angular.element(this).parents(".color-picker-bazam");
+							var colorPicker = angular.element(this).parents(".element-color-picker");
 
 							if (colorPicker.attr("id") == "color-picker-icono") {
 								angular.element(".seleccionado").removeClass("seleccionado");
