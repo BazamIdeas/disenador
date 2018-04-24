@@ -22,11 +22,4 @@ public/tmp/*
 !public/temp/shared/.gitkeep 
 configuracion/
 avatares/*
-<<<<<<< HEAD
-.vs/ProjectSettings.json
-.vs/VSWorkspaceState.json
-.vs/slnx.sqlite
-.vs/config/applicationhost.config
-=======
 .vs/*
->>>>>>> 5389190af9a9791a1d77ef714016f199dd969e24
