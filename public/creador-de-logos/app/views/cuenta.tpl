@@ -1,14 +1,14 @@
-<section class="body">
+<section class="body cuenta">
     <div class="row">
-        <div class="col s4">
-            <div class="col s12 avatar" layout-padding>
+        <div class="col s4 sidebar-avatar">
+            <div class="col s12 avatar">
                 <div ng-if="cuenta.datos.foto && cuenta.verificarBase64(cuenta.datos.foto)">
                     <img ng-src="{{'data:image/png;base64,' + cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'"
                         ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
                         ngf-fix-orientation="true">
                     <i ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'"
                     ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
-                    ngf-fix-orientation="true" class="material-icons">edit</i>
+                    ngf-fix-orientation="true" class="material-icons" ng-class="{'loading-white': cuenta.cargandoFoto}">edit</i>
                 </div>
                 <div ng-if="cuenta.datos.foto && !cuenta.verificarBase64(cuenta.datos.foto)">
                     <img ng-src="{{cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'" ngf-accept="'image/*'"
@@ -16,40 +16,43 @@
                         ngf-fix-orientation="true">
                     <i ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'" ngf-accept="'image/*'"
                     ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
-                    ngf-fix-orientation="true" class="material-icons">edit</i>
+                    ngf-fix-orientation="true" class="material-icons" ng-class="{'loading-white': cuenta.cargandoFoto}">edit</i>
                 </div>
             </div>
-            <div class="col s12 no-padding">
+            <div class="col s12 hr no-padding">
+                <hr style="margin: 5px 0px; height: 0;">
+            </div>
+            <div class="col s12 info">
                 <span class="label">Correo</span>
-                <div class="info">
+                <div class="value">
                     <span>{{::cuenta.datos.correo}}</span>
                 </div>
             </div>
             <div ng-switch="cuenta.formulario">
                 <div ng-switch-when="1">
-                    <div class="col s12 no-padding">
+                    <div class="col s12 info">
                         <span class="label">Nombre</span>
-                        <div class="info">
+                        <div class="value">
                             <span>{{::cuenta.datos.nombreCliente}}</span>
                         </div>
                     </div>
-                    <div class="col s12 no-padding">
+                    <div class="col s12 info">
                         <span class="label">Telefono</span>
-                        <div class="info">
+                        <div class="value">
                             <span>{{::cuenta.datos.telefono}}</span>
                         </div>
                     </div>
-                    <div class="col s12 no-padding">
+                    <div class="col s12 info">
                         <span class="label">País</span>
-                        <div class="info">
+                        <div class="value">
                             <span>{{::cuenta.paises[cuenta.datos.pais]}}</span>
                         </div>
                     </div>
-                    <div class="col s12 no-padding">
-                        <div layout layout-align="space-between">
-                            <button class="boton-verde" ng-click="cuenta.editar(cuenta.datos)">Editar Datos</button>
-                            <button class="boton-verde" ng-click="cuenta.formulario = 3;">Cambiar Contraseña</button>
-                        </div>
+                    <div class="col s12 info">
+                        <button style="width: 100%; margin: 10px 0 !important;" ng-click="cuenta.editar(cuenta.datos)">Editar Datos</button>
+                    </div>
+                    <div class="col s12 info">   
+                        <button style="width: 100%;" ng-click="cuenta.formulario = 3;">Cambiar Contraseña</button>
                     </div>
                 </div>
                 <div ng-switch-when="2">
@@ -76,11 +79,11 @@
                                 </md-select>
                             </md-input-container>
                         </div>
-                        <div class="col s12 no-padding" >
-                            <div layout layout-align="space-between">
-                                <button class="boton-verde" ng-click="cuenta.formulario = 1;">Cancelar</button>
-                                <button class="boton-verde" type="submit">Guardar</button>
-                            </div>
+                        <div class="col s12 no-padding">
+                            <button style="width: 100%; margin: 10px 0 !important;" ng-click="cuenta.formulario = 1;">Cancelar</button>
+                        </div>
+                        <div class="col s12 no-padding">
+                            <button style="width: 100%;" type="submit">Guardar</button>
                         </div>
 
                     </form>
@@ -108,10 +111,10 @@
                         </div>
 
                         <div class="col s12 no-padding">
-                            <div layout layout-align="space-between">
-                                <button ng-disabled="cuenta.peticion" class="boton-verde" ng-click="cuenta.formulario = 1;">Cancelar</button>
-                                <button class="boton-verde" ng-class="{'loading-white': cuenta.peticion}" ng-disabled="cuenta.peticion" type="submit">Cambiar</button>
-                            </div>
+                            <button style="width: 100%; margin: 10px 0 !important;" ng-disabled="cuenta.peticion" ng-click="cuenta.formulario = 1;">Cancelar</button>
+                        </div>
+                        <div class="col s12 no-padding">
+                            <button style="width: 100%;" ng-class="{'loading-white': cuenta.peticion}" ng-disabled="cuenta.peticion" type="submit">Cambiar</button>
                         </div>
 
                     </form>
@@ -120,26 +123,26 @@
 
             </div>
         </div>
-        <div class="col s8">
-            <div class="" style="max-height: 80vh; overflow-y: auto;">
+        <div class="col s8 orders">
+            <div class="table">
                 <table>
                     <thead>
                         <tr>
-                            <th>N° DE PEDIDO</th>
-                            <th>FECHA</th>
-                            <th>ESTADO</th>
-                            <th>LOGO</th>
-                            <th>PLAN</th>
-                            <th>PRECIO</th>
-                            <th>IMPUESTO</th>
+                            <th>N° de pedido</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Logo</th>
+                            <th>Plan</th>
+                            <th>Precio</th>
+                            <th>Impuesto</th>
                             <th>TOTAL</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="pedido in cuenta.pedidos track by pedido.idPedido">
+                        <tr ng-repeat="pedido in cuenta.pedidos track by pedido.idPedido" ng-class="{'odd' : $index % 2 != 0, 'even' : $index % 2 == 0}" >
                             <td>{{::pedido.idPedido}}</td>
-                            <td>{{::pedido.fecha | date: 'dd-MM-yyyy'}}</td>
-                            <td>{{::pedido.estado}}</td>
+                            <td>{{::pedido.fecha | date: 'dd/MM/yyyy'}}</td>
+                            <td style="text-transform: capitalize;">{{::pedido.estado | lowercase}}</td>
                             <td><a ui-sref="descargar({id: pedido.idLogo})">{{::pedido.idLogo}}</a></td>
                             <td>{{::pedido.plan}}</td>
                             <td style="color: var(--tercero)">{{::pedido.moneda + ' ' + pedido.precio}}</td>

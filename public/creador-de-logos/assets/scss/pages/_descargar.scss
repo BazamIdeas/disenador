@@ -1,0 +1,15 @@
+.body.descargar {
+    div.row {
+        height: 100%;
+    }
+}
+
+.formats, .previews {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.previews {
+    flex-flow: column;
+}

@@ -45,11 +45,10 @@
 
 						<div class="estilos col s12" style="padding: 0 !important;position: relative">
 							<md-radio-group name="fuente" required ng-model="editor.categoriaTextoSeleccionada" ng-change="editor.categoriaEsloganSeleccionada = false"
-							    class="md-primary">
+								class="md-primary">
 								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria" ng-click="::editor.abrirContenedor('fuentes', true)">
-									<!--ng-disabled=" d.isDisabled "-->
-									<md-tooltip md-direction="top">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-									<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
+									<md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
+									<span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
 								</md-radio-button>
 							</md-radio-group>
 
@@ -112,9 +111,8 @@
 								<md-radio-group name="fuente" required ng-model="editor.categoriaEsloganSeleccionada" ng-change="editor.categoriaTextoSeleccionada = false"
 								    class="md-primary">
 									<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria" ng-click="::editor.abrirContenedor('fuentes', true)">
-										<!--ng-disabled=" d.isDisabled "-->
-										<md-tooltip md-direction="top">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-										<span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
+										<md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
+										<span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
 									</md-radio-button>
 								</md-radio-group>
 

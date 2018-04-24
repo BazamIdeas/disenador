@@ -93,10 +93,8 @@
     <header class="header row" ng-controller="headerController as header">
 
         <div class="col s2 logo">
-            <div>
-                <a href="/">
-                    <img src="assets/logo.pro.svg">
-                </a>
+            <div ng-click="header.navegar.landing()">
+                <img src="assets/logo.pro.svg">
             </div>
         </div>
         <div class="col s10 m10 menu" show-gt-sm>

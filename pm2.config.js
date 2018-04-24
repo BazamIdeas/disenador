@@ -4,7 +4,7 @@ module.exports = {
         name: "disenador",
         script: "./app.js",
         watch: true,
-        ignore_watch : ["node_modules", "public/tmp", "fuentes"],
+        ignore_watch : ["node_modules", "public/tmp", "fuentes","avatares"],
         env: {
           "NODE_ENV": "produccion",
         },

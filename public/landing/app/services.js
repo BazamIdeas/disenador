@@ -17,21 +17,6 @@ angular.module("landing")
 		}
 	})
 
-	.factory("LS", ["$window", function ($window) {
-		return {
-			definir: function (llave, valor) {
-
-				$window.localStorage.setItem(llave, angular.toJson(valor));
-
-			},
-			obtener: function (llave) {
-
-				return angular.fromJson($window.localStorage.getItem(llave));
-			}
-		};
-
-	}])
-
 	.factory("navegarFactory", ["rutasValue", "$window", "$httpParamSerializer", function (rutasValue, $window, $httpParamSerializer) {
 
 		var paramsFunction = function (params) {
@@ -66,6 +51,21 @@ angular.module("landing")
 						return;
 					}
 				}
+			}
+		};
+
+	}])
+
+	.factory("LS", ["$window", function ($window) {
+		return {
+			definir: function (llave, valor) {
+
+				$window.localStorage.setItem(llave, angular.toJson(valor));
+
+			},
+			obtener: function (llave) {
+
+				return angular.fromJson($window.localStorage.getItem(llave));
 			}
 		};
 

@@ -95,7 +95,7 @@ angular.module("disenador-de-logos")
                 };
 
                 bz.verificarLogin = function (plan) {
-
+                    angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
                     bz.planElegido = plan;
                     // Verificar si el usuario que esta logueado
                     if (!clientesService.autorizado()) {
@@ -109,7 +109,7 @@ angular.module("disenador-de-logos")
 
 
                 bz.avanzarCheckout = function () {
-
+                    angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
                     var plan = bz.planElegido;
 
                     bz.logo = $scope.datos.logo; //SVG del logo
@@ -128,8 +128,6 @@ angular.module("disenador-de-logos")
                         bz.compatirFacebook({
                             url: ''
                         }).then(function (res) {
-
-                            angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
                             if ($scope.datos.idLogo) {
                                 logosService.descargarLogo($scope.datos.idLogo, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
@@ -206,6 +204,7 @@ angular.module("disenador-de-logos")
                                         if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
                                             $window.navigator.msSaveOrOpenBlob(blob, fileName);
                                         } else {
+                                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
                                             var a = $document[0].createElement("a");
                                             $document[0].body.appendChild(a);
                                             a.style = "display:none";
@@ -220,8 +219,9 @@ angular.module("disenador-de-logos")
 
                                     }).catch(function () {
                                         //console.log(res)
+                                        angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
                                     }).finally(function () {
-                                        angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+                                        
 
                                         bz.desabilitado = true;
                                         bz.promocion = true;
@@ -232,6 +232,8 @@ angular.module("disenador-de-logos")
 
 
                         }).catch(function (res) {
+                            
+                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 
                             if (res === "exceso") {
                                 $mdToast.show($mdToast.base({

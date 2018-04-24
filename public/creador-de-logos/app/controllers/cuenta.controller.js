@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("cuentaController", ["$scope", "$state", "pedidosService", "clientesService", "$mdToast", "paisesValue", "verificarBase64Factory", function ($scope, $state, pedidosService, clientesService, $mdToast, paisesValue, verificarBase64Factory) {
+	.controller("cuentaController", ["$scope", "$state", "pedidosService", "clientesService", "$mdToast", "paisesValue", "verificarBase64Factory", "clienteDatosFactory", "$window", function ($scope, $state, pedidosService, clientesService, $mdToast, paisesValue, verificarBase64Factory, clienteDatosFactory, $window) {
 
 		var bz = this;
 
@@ -84,23 +84,34 @@ angular.module("disenador-de-logos")
 
 		};
 		bz.fotoCargaCompletada = true;
+		bz.cargandoFoto = false;
 		bz.cargarFoto = function (imagen) {
+
 			console.log(imagen)
+
 			if (imagen) {
 				if (bz.fotoCargaCompletada) {
-					bz.fotoCargaCompletada = false;
+					bz.cargandoFoto = true;
 
 					clientesService.avatar(imagen)
 						.then(function (res) {
+							bz.cargandoFoto = false;
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "¡Foto de Perfil Cargada!",
 									clase: "success"
 								}
 							}));
+
+							var user = clienteDatosFactory.obtener()
+							user.foto = res;
+							$window.localStorage.setItem("bzToken", angular.toJson(user));
+							clienteDatosFactory.definir(user);
+
 							bz.datos.foto = res;
 						})
 						.catch(function () {
+							bz.cargandoFoto = false;
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "Error al cargar la foto",
@@ -123,12 +134,15 @@ angular.module("disenador-de-logos")
 
 		bz.cambiarContrasena = function (datos, v) {
 			bz.peticion = true;
-			if (!v) return $mdToast.show($mdToast.base({
-				args: {
-					mensaje: "LLene los campos correctamente.",
-					clase: "danger"
-				}
-			}));
+			if (!v){
+				bz.peticion = false;
+				return $mdToast.show($mdToast.base({
+					args: {
+						mensaje: "LLene los campos correctamente.",
+						clase: "danger"
+					}
+				}));
+			}
 			clientesService.verificarCambiaContrasena(datos).then(function (res) {
 				
 				bz.formulario = 1;
@@ -143,6 +157,7 @@ angular.module("disenador-de-logos")
 					tipo: 'cliente',
 				};
 			}).catch(function () {
+				bz.peticion = false;
 				//console.log(res)
 			}).finally(function () {
 				bz.peticion = false;

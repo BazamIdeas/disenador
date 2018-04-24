@@ -623,6 +623,7 @@ exports.nuevoClienteRed = async function (req, res)
     
                 res.status(200).json({
                     'nombre': c.nombreCliente,
+                    'foto': c.foto,
                     'token': services.authServices.crearToken(c.idCliente, "cliente"),
                     'msg' : ""
                 })

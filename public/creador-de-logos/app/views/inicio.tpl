@@ -8,6 +8,23 @@
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
                     <label style="padding:0 !important" for="nombre" class="active">Nombre</label>
                 </div>
+
+                <md-input-container class="col s12">
+                    <label>¿Que buscas?</label>
+                    <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                        md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)">
+                        <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
+                            md-item-text="item.traduccion.valor" placeholder="Ejemplo: Perro">
+                            <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                <strong>{{$chip.traduccion.valor}}</strong>
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
+                </md-input-container>
+
                 <md-input-container class="col s12" bazam-ayuda data-titulo="Categoria" data-texto="Seleccione la categoria o actividad de su empresa u ocupación"
                     data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                     bazam-pasos-ayuda>
@@ -28,9 +45,8 @@
                     <div class="estilos" style="position: relative">
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
                             <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria">
-                                <!--ng-disabled=" d.isDisabled "-->
-                                <md-tooltip md-direction="top">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-                                <span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
+                                <md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
+                                <span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
                             </md-radio-button>
                         </md-radio-group>
 
@@ -40,24 +56,7 @@
                         </div>
                     </div>
 
-
                 </div>
-
-                <md-input-container class="col s12">
-                    <label>¿Que buscas?</label>
-                    <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-                        md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)">
-                        <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
-                            md-item-text="item.traduccion.valor" placeholder="Ejemplo: Perro">
-                            <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
-                        </md-autocomplete>
-                        <md-chip-template>
-                            <span>
-                                <strong>{{$chip.traduccion.valor}}</strong>
-                            </span>
-                        </md-chip-template>
-                    </md-chips>
-                </md-input-container>
                 <div class="input col s12">
                     <button type="submit" class="boton-verde" style="width: 100%;" ng-class="{'loading-white': !inicio.completado}" ng-click="inicio.solicitarElementos()">{{inicio.logos.length ? "CARGAR MÁS" : "BUSCAR"}}</button>
                 </div>
@@ -110,7 +109,7 @@
                             <img src="assets/images/edit_white.svg" alt="">
                         </span>
 
-                        <span style="bottom: 70%" class="accion share">
+                        <span style="bottom: 45%" class="accion share">
                     
                     
                             <span ng-click="inicio.compartir('google', logo.idLogo)">
