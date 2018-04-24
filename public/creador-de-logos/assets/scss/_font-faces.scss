@@ -48,30 +48,6 @@
 /* END Regular */
 
 @font-face {
-    font-family: 'Amatic';
-    src: url("../fonts/para-mostrar/AmaticSC-Regular.ttf") format("truetype");
-    @include fontOptions(400, normal);
-}
-
-@font-face {
-    font-family: 'Niconne';
-    src: url("../fonts/para-mostrar/Niconne-Regular.ttf") format("truetype");
-    @include fontOptions(400, normal);
-}
-
-@font-face {
-    font-family: 'Julee';
-    src: url("../fonts/para-mostrar/Julee-Regular.ttf") format("truetype");
-    @include fontOptions(400, normal);
-}
-
-@font-face {
-    font-family: 'Cabin';
-    src: url("../fonts/para-mostrar/Cabin-Regular.ttf") format("truetype");
-    @include fontOptions(400, normal);
-}
-
-@font-face {
     font-family: 'Material Icons';
     src: url('../fonts/material/material.woff2') format('woff2');
     @include fontOptions(400, normal);
@@ -83,3 +59,39 @@
     font-weight: 400;
     src: url('material.woff2') format('woff2');
 }
+
+@font-face {
+    font-family: 'linotte-bold';
+    src: url("../fonts/Linotte-Bold.otf");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'nunito-sans-black';
+    src: url("../fonts/NunitoSans-Black.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'nunito-sans-bold';
+    src: url("../fonts/NunitoSans-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'nunito-sans-bolder';
+    src: url("../fonts/NunitoSans-ExtraBold.ttf") format("truetype");
+    font-weight: bolder;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'nunito-sans-semi';
+    src: url("../fonts/NunitoSans-SemiBold.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+

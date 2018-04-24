@@ -214,7 +214,8 @@
         <div class="col s12" style="padding: 0 40px;">
             <div class="contenedor-planes" ng-if="descargar.mps">
                     <div class="plan" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
-                        <div>
+                        <div style="    border-right: 1px solid silver;
+                        border-left: 1px solid silver;">
                             <div class="plan-header">
                                 <div class="plan-nombre">{{plan.plan}}</div>
                                 <div class="plan-precio">{{::descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>

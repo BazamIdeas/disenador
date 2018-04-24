@@ -1,4 +1,3 @@
-<div class="overlay" ng-class="{'show': $root.mostrarModalLogin, 'hide': !$root.mostrarModalLogin}" style="display: flex;
-align-items: center;">
+<div class="overlay-login" ng-class="{'show': $root.mostrarModalLogin, 'hide': !$root.mostrarModalLogin}">
     <bazam-form-login></bazam-form-login>
 </div>

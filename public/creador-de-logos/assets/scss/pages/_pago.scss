@@ -36,6 +36,16 @@ section.body.pay {
                 div.checkout {
                     background-color: $WHITE;
 
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        display: block;
+                        width: 1px;
+                        height: 92%;
+                        background-color: #cacaca;
+                        top: 4%;
+                    }
+
                     p {
                         color: $BLACK;
                         text-align: center;

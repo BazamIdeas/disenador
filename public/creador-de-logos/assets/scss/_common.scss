@@ -20,22 +20,6 @@ textarea,
     font-family: 'Future Bold' !important;
 }
 
-.amatic {
-    font-family: 'Amatic' !important;
-}
-
-.niconne {
-    font-family: 'Niconne' !important;
-}
-
-.julee {
-    font-family: 'Julee' !important;
-}
-
-.cabin {
-    font-family: 'Cabin' !important;
-}
-
 label,
 span,
 p,
@@ -49,6 +33,35 @@ textarea {
         family: 'Futura Black' !important;
         weight: 800;
     }
+}
+
+
+.plan-precio,
+button.md-button.md-primary.md-raised.boton-plan {
+    font-family: 'nunito-sans-bolder' !important;
+}
+
+.plan-nombre,
+.tooltip-header, .principal-x, .contenedor-principal-planes.activo .boton-planes-unico.activo  {
+    font-family: 'nunito-sans-bold' !important;
+}
+
+input,
+button,
+label,
+md-select-value,
+select,
+div[ng-messages],
+form label,
+ul.plan-lista li,
+.respuestas>div.activo,
+md-select-menu md-content md-option,
+.label-form {
+    font-family: 'nunito-sans-semi' !important;
+}
+
+button.md-button.md-primary.md-raised.boton-crear-logo {
+    font-family: 'linotte-bold' !important;
 }
 
 body {
@@ -550,7 +563,7 @@ span {
 
 div[ng-messages] {
     position: relative;
-    top: -15px;
+    top: -7px;
     padding-bottom: 5px;
 
     div[ng-message] {
@@ -559,6 +572,12 @@ div[ng-messages] {
         top: 28px;
         font-size: 12px;
     }
+}
+
+md-input-container .md-errors-spacer {
+    float: right;
+    min-height: 0px;
+    min-width: 1px;
 }
 
 .close-prev{
@@ -612,3 +631,12 @@ div[ng-messages] {
     background-color: $PRINCIPAL;
     border: 2px solid $PRINCIPAL;
 }
+
+.text-center {
+    text-align: center;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
