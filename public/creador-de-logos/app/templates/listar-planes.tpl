@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <md-button ng-disabled="listarPlanes.peticion" ng-class="{'loading-purple': listarPlanes.peticion}" ng-click="listarPlanes.verificarLogin(true)" class="md-raised md-primary boton-plan">
+                <md-button ng-disabled="listarPlanes.peticion" ng-click="listarPlanes.verificarLogin(true)" class="md-raised md-primary boton-plan">
                     SELECCIONAR
                 </md-button>
             </div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <md-button ng-disabled="listarPlanes.peticion"  ng-class="{'loading-purple':listarPlanes.peticion}" ng-click="listarPlanes.verificarLogin(plan)" class="md-raised md-primary boton-crear-logo">
+                <md-button ng-disabled="listarPlanes.peticion" ng-click="listarPlanes.verificarLogin(plan)" class="md-raised md-primary boton-crear-logo">
                     SELECCIONAR
                 </md-button>
             </div>

@@ -48,18 +48,12 @@ angular.module("landing")
 
 					if (valido) {
 
+						bz.loginForm.falloLogin = false;
 						bz.completadoLogin = false;
 
 						clientesService.login(datos).then(function () {
 
 							if (clientesService.autorizado(true)) {
-
-								$mdToast.show($mdToast.base({
-									args: {
-										mensaje: "¡Bienvenido!",
-										clase: "success"
-									}
-								}));
 
 								$scope.mostrar = false;
 								$scope.callback();
@@ -68,12 +62,7 @@ angular.module("landing")
 
 						}).catch(function () {
 
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Verifica tu Usuario y Contraseña",
-									clase: "danger"
-								}
-							}));
+							bz.loginForm.falloLogin = true;
 
 						}).finally(function () {
 
@@ -111,14 +100,6 @@ angular.module("landing")
 							}
 
 						}).catch(function () {
-
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Un error ha ocurrido",
-									clase: "danger"
-								}
-							}));
-
 
 						}).finally(function () {
 

@@ -5,6 +5,7 @@ angular.module("disenador-de-logos")
 			$rootScope.mostrarModalLogin = true;
 			$rootScope.mostrarCerrarPop = true;
 			$rootScope.callbackLogin = function(){
+				$rootScope.mostrarCerrarPop = false;
 				$state.go('logos');
 			};
 

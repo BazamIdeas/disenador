@@ -6,7 +6,8 @@
                 <div class="login row" style="margin:0; " ng-switch-default>
 
                     <div class="login-form col s6  offset-s3" style="position:relative;" ng-hide="bazamLogin.ingresar">
-                        <i ng-if="!$root.mostrarCerrarPop" style=" right: 23px; top: 5%;" class="material-icons cerrar-pop" ng-click="$root.mostrarModalLogin = false">clear</i>
+                        <i ng-if="bazamLogin.vistaActual != 'login'" style=" right: 23px; top: 5%;" class="material-icons cerrar-pop" ng-click="$root.mostrarModalLogin = false">clear</i>
+                        <i ng-if="bazamLogin.vistaActual == 'login'" style=" right: 23px; top: 5%;" class="material-icons cerrar-pop" ng-click="bazamLogin.noLoguear()">clear</i>
                         <div>
                             <img class="key-image" src="/assets/images/iconos_login/keys.svg">
                             <p class="text-center tercero">Ingresa a tu Cuenta</p>
@@ -52,21 +53,28 @@
                                         <b class="olvido-small-tag">Olvidaste tu contraseña?</b>
                                     </small>
                                 </div>
+                                <div ng-if="bazamLogin.loginForm.falloLogin" class="col s12 no-padding">
+                                    <div style="    font-weight: bold; font-size: 9pt;
+    padding: 16px 0;     color: rgb(181, 70, 43);
+">Hubo un error al ingresar por favor verifique los datos y vuelva a intentarlo.</div>
+                                </div>
 
                                 <div class="text-center col s12 no-padding">
                                     <button class="boton-verde __block" ng-class="{'loading-white': !bazamLogin.completadoLogin}">ENVIAR</button>
                                 </div>
+
                             </form>
-                            <small class="subtitle" style="cursor:pointer; padding-top: 5%;
-                                    display: block;" ng-click="bazamLogin.ingresar = true">
-                                <b>Aun no posees una cuenta? Registrate.</b>
-                            </small>
+                            <div style="text-align: center">
+                                <small ng-click="bazamLogin.ingresar = true">
+                                    <b>Aun no posees una cuenta? Registrate.</b>
+                                </small>
+                            </div>
                         </div>
                     </div>
 
                     <div class="registro-form" style="position:relative;" ng-hide="!bazamLogin.ingresar">
-                        <i ng-if="!$root.mostrarCerrarPop" style=" right: 30px; top: 5%;" class="material-icons cerrar-pop" ng-click="$root.mostrarModalLogin = false">clear</i>
-
+                        <i ng-if="bazamLogin.vistaActual != 'login'" style=" right: 30px; top: 5%;" class="material-icons cerrar-pop" ng-click="$root.mostrarModalLogin = false">clear</i>
+                        <i ng-if="bazamLogin.vistaActual == 'login'" style=" right: 30px; top: 5%;" class="material-icons cerrar-pop" ng-click="bazamLogin.noLoguear()">clear</i>
                         <div class="row" style="margin-bottom: 0;">
                             <div class="col s5 offset-s1 parte-izquierda-form">
                                 <div>
@@ -121,6 +129,11 @@
                                                 <div ng-message="maxlength">Debe tener menos de 20 carácteres.</div>
                                             </div>
                                         </div>
+
+                                        <div ng-messages="bazamLogin.registroForm." ng-if=" bazamLogin.registroForm.falleRegistro">
+                                            <div ng-message="error">Hubo un error al registrarlo por favor verifique los datos y vuelva a intentarlo.</div>
+                                        </div>
+
                                         <div class="text-center col s12 no-padding">
                                             <button class="boton-verde __block">ENVIAR</button>
                                         </div>
@@ -137,16 +150,17 @@
                                     <span>
                                         <b>Ver tus logotipos</b>
                                         <br>
-                                        <small> y sigue generando más diseños</small>
+                                        <small>editarlos y crear nuevos diseños</small>
                                     </span>
                                 </div>
 
                                 <div>
-                                    <img class="star-image" src="/assets/images/iconos_login/start.svg">
+                                    <md-icon style="display: block; margin-right: 38px; font-size: 50pt;">favorite</md-icon>
                                     <span>
-                                        <b>Guarde sus favoritos</b>
+                                        <b>Guarda tus logos favoritos</b>
                                         <br>
-                                        <small>y ve cómo se ven en camisetas, tarjetas de visita y otros productos</small>
+                                        <small>y ve su diseño en tarjetas de visita, indumentaria, perfiles de redes sociales y
+                                            mucho mas!</small>
                                     </span>
                                 </div>
 
@@ -174,7 +188,7 @@
                             <div ng-switch-default>
                                 <form name="olvido" ng-submit="bazamLogin.forgotPass(bazamLogin.olvido, olvido.$valid)" novalidate class="formulario-ingreso">
                                     <div class="input-field col s12">
-                                        
+
                                         <input type="email" ng-model="bazamLogin.olvido.correo" name="correo" required ng-minlength="5">
                                         <label for="correo">Correo</label>
                                     </div>
@@ -188,37 +202,36 @@
                                             <button class="boton-verde __block" ng-click="bazamLogin.formPasos='default'" ng-disabled="bazamLogin.peticion">REGRESAR</button>
                                         </div>
                                         <div class="text-center col s12 no-padding"></div>
-                                            <button ng-disabled="bazamLogin.peticion" class="boton-verde __block" type="submit">ENVIAR</button>
-                                        </div>
+                                        <button ng-disabled="bazamLogin.peticion" class="boton-verde __block" type="submit">ENVIAR</button>
                                     </div>
-                                </form>
                             </div>
-                            <div ng-switch-when="2">
+                            </form>
+                        </div>
+                        <div ng-switch-when="2">
+                            <md-input-container class="md-block">
+                                <label>Codigo de coonfirmación:</label>
+                                <input style="margin-bottom:0;" type="password" ng-model="bazamLogin.olvido.token">
+                            </md-input-container>
+                            <div layout layout-align="space-between">
+                                <button class="boton-verde" ng-click="bazamLogin.rc=1">Regresar</button>
+                                <button ng-disabled="bazamLogin.peticion" class="boton-verde" ng-click="::bazamLogin.confirmarToken(false)">Enviar</button>
+                            </div>
+                        </div>
+                        <div ng-switch-when="3">
+                            <form name="formRecuperar" ng-submit="bazamLogin.confirmarToken(true,formRecuperar.$valid)" novalidate>
                                 <md-input-container class="md-block">
-                                    <label>Codigo de coonfirmación:</label>
-                                    <input style="margin-bottom:0;" type="password" ng-model="bazamLogin.olvido.token">
+                                    <label>Nueva Contraseña:</label>
+                                    <input type="password" style="margin-bottom:0;" ng-model="bazamLogin.olvido.pass" name="pass" required ng-minlength="6">
                                 </md-input-container>
-                                <div layout layout-align="space-between">
-                                    <button class="boton-verde" ng-click="bazamLogin.rc=1">Regresar</button>
-                                    <button ng-disabled="bazamLogin.peticion" class="boton-verde" ng-click="::bazamLogin.confirmarToken(false)">Enviar</button>
+                                <div ng-messages="formRecuperar.pass.$error" style="color:maroon" role="alert" ng-show="formRecuperar.$submitted">
+                                    <div ng-message="required">Este campo es requerido.</div>
+                                    <div ng-message="minlength">Debe contener minimo 6 caracteres</div>
                                 </div>
-                            </div>
-                            <div ng-switch-when="3">
-                                <form name="formRecuperar" ng-submit="bazamLogin.confirmarToken(true,formRecuperar.$valid)" novalidate>
-                                    <md-input-container class="md-block">
-                                        <label>Nueva Contraseña:</label>
-                                        <input type="password" style="margin-bottom:0;" ng-model="bazamLogin.olvido.pass" name="pass" required ng-minlength="6">
-                                    </md-input-container>
-                                    <div ng-messages="formRecuperar.pass.$error" style="color:maroon" role="alert" ng-show="formRecuperar.$submitted">
-                                        <div ng-message="required">Este campo es requerido.</div>
-                                        <div ng-message="minlength">Debe contener minimo 6 caracteres</div>
-                                    </div>
-                                    <div layout layout-align="space-between">
-                                        <button ng-disabled="bazamLogin.peticion" class="boton-verde" ng-click="bazamLogin.mostrarForm=1">Regresar</button>
-                                        <button ng-disabled="bazamLogin.peticion" class="boton-verde" type="submit">Cambiar</button>
-                                    </div>
-                                </form>
-                            </div>
+                                <div layout layout-align="space-between">
+                                    <button ng-disabled="bazamLogin.peticion" class="boton-verde" ng-click="bazamLogin.mostrarForm=1">Regresar</button>
+                                    <button ng-disabled="bazamLogin.peticion" class="boton-verde" type="submit">Cambiar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

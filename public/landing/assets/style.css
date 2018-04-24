@@ -188,51 +188,35 @@ md-input-container.md-input-invalid label {
 
 /* ESTILO DE TIPOGRAFIA */
 .estilo-1 {
-    width: 51px;
-    height: 51px;
-    background: url('../assets/img/iconos.png') -152px -10px;
+    background: url('../assets/img/estilo-tipografia/tipo1.svg');
 }
 
 md-radio-button[aria-checked="true"] .estilo-1 {
-    width: 51px;
-    height: 51px;
-    background: url('../assets/img/iconos.png') -223px -10px;
+    background: url('../assets/img/estilo-tipografia/tipo1_active.svg');
 }
 
 .estilo-2 {
-    width: 51px;
-    height: 51px;
-    background: url('../assets/img/iconos.png') -81px -97px;
+    background: url('../assets/img/estilo-tipografia/tipo2.svg');
 }
 
 md-radio-button[aria-checked="true"] .estilo-2 {
-    width: 51px;
-    height: 51px;
-    background: url('../assets/img/iconos.png') -152px -97px;
+    background: url('../assets/img/estilo-tipografia/tipo2_active.svg');
 }
 
 .estilo-3 {
-    width: 51px;
-    height: 51px;
-    background: url('../assets/img/iconos.png') -10px -10px;
+    background: url('../assets/img/estilo-tipografia/tipo3.svg');
 }
 
 md-radio-button[aria-checked="true"] .estilo-3 {
-    width: 51px;
-    height: 51px;
-    background: url('../assets/img/iconos.png') -81px -10px;
-}
-
-md-radio-button[aria-checked="true"] .estilo-4 {
-    width: 51px;
-    height: 51px;
-    background: url('../assets/img/iconos.png') -10px -97px;
+    background: url('../assets/img/estilo-tipografia/tipo3_active.svg');
 }
 
 .estilo-4 {
-    width: 51px;
-    height: 51px;
-    background: url('../assets/img/iconos.png') -223px -81px;
+    background: url('../assets/img/estilo-tipografia/tipo4.svg');
+}
+
+md-radio-button[aria-checked="true"] .estilo-4 {
+    background: url('../assets/img/estilo-tipografia/tipo4_active.svg');
 }
 
 /*********************/
@@ -643,6 +627,7 @@ span.estilo {
     width: 51px;
     height: 51px;
     border-radius: 50%;
+    background-repeat: no-repeat !important;
 }
 
 span.estilo.seleccionado {
@@ -1125,6 +1110,11 @@ h3 {
     background-repeat: no-repeat !important;
     background-position: center !important;
 }
+
+small {
+    cursor: pointer;
+}
+
 
 /* MD-CHIPS AHOI*/
 
