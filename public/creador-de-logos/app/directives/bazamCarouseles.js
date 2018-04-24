@@ -103,7 +103,7 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/carousel-mis-logos.tpl",
-			controller: ["$scope", "$base64", "arrayToJsonMetasFactory", function ($scope, $base64, arrayToJsonMetasFactory) {
+			controller: ["$scope", "$base64", "arrayToJsonMetasFactory", "logosService", "$mdToast", "$location", function ($scope, $base64, arrayToJsonMetasFactory, logosService, $mdToast, $location) {
 
 				var bz = this;
 
@@ -120,7 +120,6 @@ angular.module("disenador-de-logos")
 				}
 
 				if ($scope.logos.length > 1) {
-					$scope.actual = 1;
 					bz.actual = 1;
 					$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 				}
@@ -132,11 +131,9 @@ angular.module("disenador-de-logos")
 					if (accion) {
 						bz.actual = bz.actual == (bz.logos.length - 1) ? 0 : bz.actual + 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
-						$scope.actual = bz.actual;
 					} else {
 						bz.actual = bz.actual == 0 ? bz.logos.length - 1 : bz.actual - 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
-						$scope.actual = bz.actual;
 					}
 
 				};
@@ -151,13 +148,49 @@ angular.module("disenador-de-logos")
 					}
 				};
 
+
+
+				
+				var dominio = $location.port() != "80" ? $location.protocol() + "://" + $location.host() + ":" + $location.port() : $location.protocol() + "://" + $location.host();
+
+				bz.completadoCompartir = true;
+				bz.compartirPorEmail = function (email, logo, valido) {
+
+					if (valido && bz.completadoCompartir) {
+
+						bz.completadoCompartir = false;
+		
+						logosService.enviarPorEmail(logo.idLogo, email, dominio)
+							.then(function () {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Su logo ha sido enviado!",
+										clase: "success"
+									}
+								}));
+
+							})
+							.catch(function () {
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
+									}
+								}));
+							})
+							.finally(function () {
+								bz.completadoCompartir = true;
+							});
+
+					}
+				};
+
 			}],
 			controllerAs: "carouselMisLogos",
 			scope: {
 				callback: "<",
 				logos: "<",
-				elegido: "=",
-				actual: "="
+				elegido: "="
 			}
 		};
 

@@ -45,9 +45,8 @@
                     <div class="estilos" style="position: relative">
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
                             <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria">
-                                <!--ng-disabled=" d.isDisabled "-->
-                                <md-tooltip md-direction="top">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-                                <span class="estilo" ng-class="{'amatic':fuenteCategoria.nombreCategoria == 'Clásicas', 'niconne':fuenteCategoria.nombreCategoria == 'Moderna', 'julee':fuenteCategoria.nombreCategoria == 'Llamativas', 'cabin':fuenteCategoria.nombreCategoria == 'Minimalista'}">A</span>
+                                <md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
+                                <span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
                             </md-radio-button>
                         </md-radio-group>
 
@@ -110,9 +109,28 @@
                             <img src="assets/images/edit_white.svg" alt="">
                         </span>
 
-                        <span class="accion" style="bottom: 45%;" ng-click="logo.mostrarCompartir = true;">
-                            <p>ENVIAR</p>
-                            <img src="assets/images/mail.svg" alt="">
+                        <span style="bottom: 70%" class="accion share">
+                    
+                    
+                            <span ng-click="inicio.compartir('google', logo.idLogo)">
+                                <i class="fab fa-google-plus-g"></i>
+                            </span>
+                            <span ng-click="inicio.compartir('facebook',logo.idLogo)">
+                                <i class="fab fa-facebook-f"></i>
+                            </span>
+                            <span ng-click="inicio.compartir('twitter', logo.idLogo)">
+                                <i class="fab fa-twitter"></i>
+                            </span>
+                            <span ng-click="inicio.compartir('pinterest', logo.idLogo)">
+                                <i class="fab fa-pinterest"></i>
+                            </span>
+                            <span ng-click="logo.mostrarCompartir = true"> 
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            
+                            
+                            
+                            <img src="assets/images/share.svg" alt="">
                         </span>
 
                         <span ng-show="logo.cargado" class="comprar" style="bottom: 3%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">

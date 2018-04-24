@@ -344,37 +344,52 @@ form {
 .estilos md-radio-button .md-container {
   display: none; }
 
-md-radio-button[aria-checked="true"] {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1); }
-  md-radio-button[aria-checked="true"] span.estilo {
-    background: #000000;
-    color: white; }
-
 span.estilo {
-  background: #FFFFFF;
-  border: 2px solid #000000;
-  color: #000000;
-  font-size: 25px;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
+  -webkit-transition: transform 0.2s;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+  color: transparent;
+  display: block;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  padding: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center; }
+  background-repeat: no-repeat !important; }
   span.estilo.seleccionado {
     -webkit-transform: scale(1.1);
     transform: scale(1.1); }
 
+md-radio-button[aria-checked="true"] span.estilo {
+  -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12); }
+
+.estilo-1 {
+  background: url("../images/estilo-tipografia/tipo1.svg"); }
+
+.estilo-2 {
+  background: url("../images/estilo-tipografia/tipo2.svg"); }
+
+.estilo-3 {
+  background: url("../images/estilo-tipografia/tipo3.svg"); }
+
+.estilo-4 {
+  background: url("../images/estilo-tipografia/tipo4.svg"); }
+
+md-radio-button[aria-checked="true"] .estilo-1 {
+  background: url("../images/estilo-tipografia/tipo1_active.svg"); }
+
+md-radio-button[aria-checked="true"] .estilo-2 {
+  background: url("../images/estilo-tipografia/tipo2_active.svg"); }
+
+md-radio-button[aria-checked="true"] .estilo-3 {
+  background: url("../images/estilo-tipografia/tipo3_active.svg"); }
+
+md-radio-button[aria-checked="true"] .estilo-4 {
+  background: url("../images/estilo-tipografia/tipo4_active.svg"); }
+
+/* ETIQUETAS */
 .md-chips md-chip {
   cursor: default;
   border-radius: 30px;
@@ -399,14 +414,17 @@ md-chips.md-default-theme .md-chips, md-chips .md-chips {
   box-shadow: 0 2px #5980B7; }
 
 .md-chips.md-focused {
+  -webkit-box-shadow: 0 2px #5980B7 !important;
   box-shadow: 0 2px #5980B7 !important; }
 
 input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 0px solid #26a69a;
+  -webkit-box-shadow: 0 0px 0 0 #26a69a;
   box-shadow: 0 0px 0 0 #26a69a; }
 
 input[type=text]:focus:not([readonly]) {
   border-bottom: 1px solid #5980B7;
+  -webkit-box-shadow: 0 1px 0 0 #5980B7;
   box-shadow: 0 1px 0 0 #5980B7; }
 
 @-webkit-keyframes enter {
@@ -523,8 +541,15 @@ span.comprar {
   top: 0px;
   left: 0px; }
   .overlay.full {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column;
     flex-flow: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     text-align: -webkit-center; }
     .overlay.full div {
@@ -634,6 +659,9 @@ md-input-container .md-errors-spacer {
   background-color: #5980B7;
   height: 2px;
   border: none; }
+
+small {
+  cursor: pointer; }
 
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
@@ -1502,7 +1530,8 @@ div.element-color-picker {
   -ms-flex-align: center;
   align-items: center;
   color: black;
-  cursor: pointer; }
+  cursor: pointer;
+  z-index: 10; }
 
 bazam-form-login {
   display: block;
@@ -1646,7 +1675,11 @@ bazam-form-login {
   opacity: 1; }
 
 .overlay-login {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center; }
   .overlay-login.show {
     position: absolute;
