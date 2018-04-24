@@ -10,7 +10,22 @@
             </div>
 
             <div class="logo-container-m" ng-class="{'logo-left-1-m': $index == (carouselMisLogos.actual - 2),'logo-left-m': $index == (carouselMisLogos.actual - 1),'logo-active-m': $index == carouselMisLogos.actual, 'logo-right-m': $index == (carouselMisLogos.actual + 1), 'logo-right-1-m': $index == (carouselMisLogos.actual + 2)}" >
+                <div class="share-email" ng-if="logo.mostrarCompartir" ng-form="carouselMisLogos.compartirEmailForm">
+                    <md-icon class="material-icons cerrar-compartir-email" role="img" aria-label="close" ng-click="logo.mostrarCompartir = false;">close</md-icon>
+                    
+                    <div class="input-field">
+                        <input name="correo" type="email" ng-model="logo.email" placeholder="Email" required/>
 
+                        <!-- VALIDACION -->
+                        <div ng-messages="carouselMisLogos.compartirEmailForm.correo.$error" role="alert" ng-if="carouselMisLogos.compartirEmailForm.correo.$dirty || carouselMisLogos.compartirEmailForm.$submitted">
+                            <div ng-message="required">Este campo es requerido.</div>
+                            <div ng-message="email">Debe ser un email válido.</div>
+                        </div>
+                    </div>
+
+                    <button ng-click="carouselMisLogos.compartirPorEmail(logo.email, logo, carouselMisLogos.compartirEmailForm.$valid); carouselMisLogos.compartirEmailForm.$setSubmitted()"
+                        ng-class="{'loading-white':!carouselMisLogos.completadoCompartir }">ENVIAR</button>
+                </div>
 
                 <span style="bottom: 85%" class="accion"  ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: logo.elementos_idElemento, svg:  logo.logo}}, idLogoGuardado: logo.idLogo, fuentes: {principal: carouselMisLogos.callback[2](logo.atributos, 'principal'), eslogan: carouselMisLogos.callback[2](logo.atributos,'eslogan')}}})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'guardados'">
                     <p>EDITAR</p> <img src="assets/images/edit_white.svg" alt="">
@@ -22,21 +37,23 @@
 
                 <span style="bottom: 70%" class="accion share"  ng-click="carouselMisLogos.callback[2](logo.idLogo)" ng-if="carouselMisLogos.actual == $index && (carouselMisLogos.callback[1] == 'adquiridos' || carouselMisLogos.callback[1] == 'guardados')">
                     
+                    
+                    <span ng-click="carouselMisLogos.callback[0]('google', logo.idLogo)">
+                        <i class="fab fa-google-plus-g"></i>
+                    </span>
                     <span ng-click="carouselMisLogos.callback[0]('facebook',logo.idLogo)">
                         <i class="fab fa-facebook-f"></i>
                     </span>
                     <span ng-click="carouselMisLogos.callback[0]('twitter', logo.idLogo)">
                         <i class="fab fa-twitter"></i>
                     </span>
-                    <span ng-click="carouselMisLogos.callback[0]('google', logo.idLogo)">
-                        <i class="fab fa-google-plus-g"></i>
-                    </span>
-                    <span ng-click="carouselMisLogos.callback[0]('linkedin', logo.idLogo)"> 
-                        <i class="fab fa-linkedin"></i>
-                    </span>
                     <span ng-click="carouselMisLogos.callback[0]('pinterest', logo.idLogo)">
                         <i class="fab fa-pinterest"></i>
                     </span>
+                    <span ng-click="logo.mostrarCompartir = true"> 
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    
                     
                     
                     <img src="assets/images/share.svg" alt="">
