@@ -1,3 +1,1 @@
-<section class="section-container login-page">
-.
-</section>
+<section class="section-container login-page"></section>

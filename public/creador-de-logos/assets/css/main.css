@@ -1385,6 +1385,17 @@ section.body.pay {
         .orders .table table tr.even.odd {
           background-color: #FFFFFF; }
 
+.body.descargar div.row {
+  height: 100%; }
+
+.formats, .previews {
+  height: 100%;
+  display: flex;
+  justify-content: center; }
+
+.previews {
+  flex-flow: column; }
+
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
