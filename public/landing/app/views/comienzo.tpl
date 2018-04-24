@@ -70,7 +70,7 @@
                             <div class="estilos-fuentes">
                                 <md-radio-group name="font" required ng-model="ctrl.datosCombinaciones.idFuente" class="md-primary">
                                     <md-radio-button ng-repeat="estilo in ctrl.categoriasPosibles.fuentes | orderBy: $index" ng-value="estilo.idCategoria" >
-                                        <md-tooltip md-direction="top">{{estilo.nombreCategoria}}</md-tooltip>
+                                        <md-tooltip md-direction="bottom">{{estilo.nombreCategoria}}</md-tooltip>
                                         <span class="estilo" ng-class="{'estilo-2':estilo.nombreCategoria == 'Clásicas', 'estilo-4':estilo.nombreCategoria == 'Moderna', 'estilo-3':estilo.nombreCategoria == 'Llamativas', 'estilo-1':estilo.nombreCategoria == 'Minimalista'}">.</span>
                                     </md-radio-button>
                                 </md-radio-group>

@@ -62,8 +62,12 @@ angular.module("landing")
 
 						}).catch(function () {
 
-							bz.loginForm.falloLogin = true;
-
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Su usuario o contraseña son erroneos por favor verifique los mismos y vuelva a ingresar",
+									clase: "danger"
+								}
+							}));
 						}).finally(function () {
 
 							bz.completadoLogin = true;
