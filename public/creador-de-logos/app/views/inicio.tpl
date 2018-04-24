@@ -109,7 +109,7 @@
                             <img src="assets/images/edit_white.svg" alt="">
                         </span>
 
-                        <span style="bottom: 70%" class="accion share">
+                        <span style="bottom: 45%" class="accion share">
                     
                     
                             <span ng-click="inicio.compartir('google', logo.idLogo)">
