@@ -7,55 +7,55 @@ angular.module("disenador-de-logos")
 		bz.base64 = $base64;
 
 		bz.formatosNoSociales = [{
-				nombre: "editable",
-				ancho: 400
-			},
-			{
-				nombre: "papeleria",
-				ancho: 300
-			}
+			nombre: "editable",
+			ancho: 400
+		},
+		{
+			nombre: "papeleria",
+			ancho: 300
+		}
 		];
 
 		bz.formatos = [{
-				nombre: "facebook",
-				ancho: 180
-			},
-			{
-				nombre: "whatsapp",
-				ancho: 300
-			},
-			{
-				nombre: "instagram",
-				ancho: 110
-			},
-			{
-				nombre: "google-plus",
-				ancho: 250
-			},
-			{
-				nombre: "youtube",
-				ancho: 200
-			},
-			{
-				nombre: "twitter",
-				ancho: 400
-			},
-			{
-				nombre: "linkedin",
-				ancho: 400
-			},
-			{
-				nombre: "pinterest",
-				ancho: 60
-			},
-			{
-				nombre: "telegram",
-				ancho: 300
-			},
-			{
-				nombre: "vimeo",
-				ancho: 300
-			},
+			nombre: "facebook",
+			ancho: 180
+		},
+		{
+			nombre: "whatsapp",
+			ancho: 300
+		},
+		{
+			nombre: "instagram",
+			ancho: 110
+		},
+		{
+			nombre: "google-plus",
+			ancho: 250
+		},
+		{
+			nombre: "youtube",
+			ancho: 200
+		},
+		{
+			nombre: "twitter",
+			ancho: 400
+		},
+		{
+			nombre: "linkedin",
+			ancho: 400
+		},
+		{
+			nombre: "pinterest",
+			ancho: 60
+		},
+		{
+			nombre: "telegram",
+			ancho: 300
+		},
+		{
+			nombre: "vimeo",
+			ancho: 300
+		},
 		];
 
 		//bz.formatoSeleccionado = bz.formatos[0];
@@ -96,11 +96,11 @@ angular.module("disenador-de-logos")
 
 									}
 
-									if (precio.moneda == 'USD') {
+									if (precio.moneda == "USD") {
 										bz.moneda = {
 											idMoneda: precio.idMoneda,
 											simbolo: precio.moneda
-										}
+										};
 										bz.mps = true;
 									}
 
@@ -185,15 +185,15 @@ angular.module("disenador-de-logos")
 				if (valor.moneda == bz.moneda.simbolo) {
 					datos.idPrecio = valor.idPrecio;
 				}
-			})
+			});
 
 			pedidosService.listarPasarelas(bz.moneda.idMoneda).then(function (res) {
 
 				angular.forEach(res, function (valor) {
-					if (valor.pasarela == 'Paypal') {
+					if (valor.pasarela == "Paypal") {
 						datos.idPasarela = valor.idPasarela;
 					}
-				})
+				});
 
 				planesService.aumentarPedidoPlan(datos).then(function (res) {
 					$window.location = res;
@@ -283,7 +283,7 @@ angular.module("disenador-de-logos")
 				
 				formatosCopia.push(bz.formatosNoSociales[1]);
 
-				angular.forEach(formatosCopia, function (formato, indice){
+				angular.forEach(formatosCopia, function (formato){
 					formatos[formato.nombre] = formato.ancho;
 				});
 				

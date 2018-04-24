@@ -33,7 +33,7 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.actual = 0;
-
+		/*
 		$scope.$watch("logos.actual", function (newValue, oldValue) {
 
 			if (newValue === oldValue) {
@@ -41,7 +41,7 @@ angular.module("disenador-de-logos")
 			}
 
 			bz.mostrarPlanes(newValue, true);
-		});
+		});*/
 
 		logosService.mostrarGuardados()
 			.then(function (res) {
@@ -189,7 +189,7 @@ angular.module("disenador-de-logos")
 			};
 
 			if (datos.atributos["color-eslogan"]) {
-				bz.datosComprar.colores.eslogan = datos.atributos["color-eslogan"]
+				bz.datosComprar.colores.eslogan = datos.atributos["color-eslogan"];
 			}
 			/*
 			if (bz.idLogoPadre) {
@@ -216,23 +216,23 @@ angular.module("disenador-de-logos")
 			var unix = Date.now();
 
 			var attrs = {
-				socialshareUrl : bz.urlCompartir+'?idLogo='+idLogo+'&unix='+unix
-			}
+				socialshareUrl : bz.urlCompartir+"?idLogo="+idLogo+"&unix="+unix
+			};
 
 			switch (provider) {
-				case 'twitter':
-					attrs.socialshareHashtags = 'Liderlogo';
-					break;
+			case "twitter":
+				attrs.socialshareHashtags = "Liderlogo";
+				break;
 				
-				case 'pinterest':
-					attrs.socialshareMedia = bz.urlCompartir+'/app/logo/compartido/'+idLogo; attrs.socialshareText = "Pinterest";
-					break;
+			case "pinterest":
+				attrs.socialshareMedia = bz.urlCompartir+"/app/logo/compartido/"+idLogo; attrs.socialshareText = "Pinterest";
+				break;
 			}
 
 			Socialshare.share({
-				'provider': provider,
-				'attrs': attrs
+				"provider": provider,
+				"attrs": attrs
 			});
-		}
+		};
 
 	}]);
