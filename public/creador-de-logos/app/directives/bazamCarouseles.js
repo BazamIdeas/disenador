@@ -120,7 +120,6 @@ angular.module("disenador-de-logos")
 				}
 
 				if ($scope.logos.length > 1) {
-					$scope.actual = 1;
 					bz.actual = 1;
 					$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
 				}
@@ -132,11 +131,9 @@ angular.module("disenador-de-logos")
 					if (accion) {
 						bz.actual = bz.actual == (bz.logos.length - 1) ? 0 : bz.actual + 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
-						$scope.actual = bz.actual;
 					} else {
 						bz.actual = bz.actual == 0 ? bz.logos.length - 1 : bz.actual - 1;
 						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
-						$scope.actual = bz.actual;
 					}
 
 				};
@@ -193,8 +190,7 @@ angular.module("disenador-de-logos")
 			scope: {
 				callback: "<",
 				logos: "<",
-				elegido: "=",
-				actual: "="
+				elegido: "="
 			}
 		};
 

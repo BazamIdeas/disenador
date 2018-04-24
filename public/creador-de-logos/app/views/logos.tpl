@@ -13,7 +13,7 @@
                 <!--PENDIENTES DE APROBACION-->
                 <div class="col s12" ng-switch-when="guardados">
                     <carousel-mis-logos ng-if="logos.terminados.guardados" logos="logos.guardados" callback="[logos.compartir, 'guardados', logos.buscarAtributo, logos.abrirModal, logos.borrarLogo, logos.mostrarPlanes]"
-                        elegido="logos.elegido" actual="logos.actual"></carousel-mis-logos>
+                        elegido="logos.elegido"></carousel-mis-logos>
                 </div>
                 <!--APROBADOS-->
                 <div class="col s12" ng-switch-when="adquiridos">

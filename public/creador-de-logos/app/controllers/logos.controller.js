@@ -33,7 +33,7 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.actual = 0;
-
+		/*
 		$scope.$watch("logos.actual", function (newValue, oldValue) {
 
 			if (newValue === oldValue) {
@@ -41,7 +41,7 @@ angular.module("disenador-de-logos")
 			}
 
 			bz.mostrarPlanes(newValue, true);
-		});
+		});*/
 
 		logosService.mostrarGuardados()
 			.then(function (res) {
