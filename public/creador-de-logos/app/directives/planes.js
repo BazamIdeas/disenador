@@ -109,9 +109,7 @@ angular.module("disenador-de-logos")
 
 
                 bz.avanzarCheckout = function () {
-
                     angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
-
                     var plan = bz.planElegido;
 
                     bz.logo = $scope.datos.logo; //SVG del logo
@@ -206,6 +204,7 @@ angular.module("disenador-de-logos")
                                         if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
                                             $window.navigator.msSaveOrOpenBlob(blob, fileName);
                                         } else {
+                                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
                                             var a = $document[0].createElement("a");
                                             $document[0].body.appendChild(a);
                                             a.style = "display:none";
@@ -220,8 +219,9 @@ angular.module("disenador-de-logos")
 
                                     }).catch(function () {
                                         //console.log(res)
-                                    }).finally(function () {
                                         angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
+                                    }).finally(function () {
+                                        
 
                                         bz.desabilitado = true;
                                         bz.promocion = true;
