@@ -3,16 +3,9 @@
 			<md-icon>arrow_drop_down</md-icon>Planes
 		</div>
 		<h5 class="principal-x titulo-planes" style="text-align:center;">ESCOJA EL MEJOR PLAN PARA USTED</h5>
-		<div class="row margin-bottom-0" style="overflow: hidden;">
 
-			<div class="col s12" style="padding: 0 40px;">
+		<bazam-listar-planes datos="datos" guardar-logo="guardarLogo" data-id="id" promocion="planes.promocion"></bazam-listar-planes>
 
-				<div class="contenedor-planes">
-					<bazam-listar-planes datos="datos" guardar-logo="guardarLogo" data-id="id" promocion="planes.promocion"></bazam-listar-planes>
-				</div>
-
-			</div>
-		</div>
 		<!-- ng-if="planes.promocion" -->
 		<div style="position: relative;">
 			<promocion class="md-whiteframe-6dp" ng-if="planes.promocion">
@@ -90,10 +83,10 @@
 		}
 
 		.principal-x {
-			font-family: futura-heavy;
-			margin-top: 2%;
-			color: var(--tercero);
-			  font-size: 2.3rem;
+    font-family: futura-heavy;
+    margin-top: 2%;
+    color: var(--principal);
+    font-size: 30pt;
 		}
 
 		/* PROMOCION*/

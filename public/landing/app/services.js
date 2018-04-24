@@ -355,7 +355,7 @@ angular.module("landing")
 					name: 'Harry Potter',
 					ocupation: 'Empresario magico'
 				}
-			}, {
+			}/* , {
 				descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
 				logo: "/landing/assets/img/c4.png",
 				color: '#51a7f9',
@@ -381,7 +381,7 @@ angular.module("landing")
 					name: 'Harry Potter',
 					ocupation: 'Empresario magico'
 				}
-			}
+			} */
 		],
 		preguntas: [{
 			pregunta: "¿Cuanto cuesta el servicio?",

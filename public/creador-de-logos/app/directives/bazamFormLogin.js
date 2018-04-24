@@ -69,8 +69,6 @@ angular.module("disenador-de-logos")
 
 				};
 
-
-
 				bz.completadoRegistro = true;
 
 				bz.registrar = function (datos, valido) {
@@ -184,7 +182,6 @@ angular.module("disenador-de-logos")
 					}
 				};
 
-
 				/* REDES SOCIALES */
 
 				bz.social = function (op) {
@@ -266,4 +263,12 @@ angular.module("disenador-de-logos")
 		};
 
 
-	}]);
+	}])
+
+	.directive("bazamModalLogin", [function () {
+	return {
+		restrict: "E",
+		templateUrl: "app/templates/bazamModalLogin.tpl"
+	};
+
+}]);

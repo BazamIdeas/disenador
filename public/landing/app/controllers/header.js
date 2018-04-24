@@ -10,6 +10,8 @@ angular.module("landing")
             clientesService.salir(true, true);
         };
 
+        bz.opcionMostrarLogin = true;
+        
         bz.autorizado = clientesService.autorizado();
 
         $scope.$on("sesionExpiro", function () {

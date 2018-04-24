@@ -26,7 +26,12 @@ angular.module("landing")
 
 		return {
 			restrict: "E",
-			templateUrl: "landing/app/templates/bazamFormLogin.tpl",
+			templateUrl: "landing/app/templates/bazamFormLogin.tpl", 
+			scope: {
+				callback: "<",
+				mostrar: "=",
+				opcion: "="
+			},
 			controller: ["$scope", "clientesService", "$mdToast", "socialAuth", function ($scope, clientesService, $mdToast, socialAuth) {
 
 				var bz = this;
@@ -261,12 +266,7 @@ angular.module("landing")
 
 
 			}],
-			controllerAs: "bazamLogin",
-			scope: {
-				callback: "<",
-				mostrar: "=",
-				opcion: "="
-			}
+			controllerAs: "bazamLogin"
 		};
 
 
