@@ -22,3 +22,4 @@ public/tmp/*
 !public/temp/shared/.gitkeep 
 configuracion/
 avatares/*
+.vs/*

@@ -43,7 +43,7 @@
 
     #payment-form .boton-verde{
         position: absolute;
-        top: 62%;
+        top: 72%;
         width: 100px;
         left: 77%
     }

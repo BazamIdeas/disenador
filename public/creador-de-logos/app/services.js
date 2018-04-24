@@ -1973,4 +1973,58 @@ angular.module("disenador-de-logos")
 
 		};
 
+	}])
+	.value("rutasValue", {
+		landing: {
+			base: "/",
+			estado: {
+				terminos: "terminos-y-condiciones/",
+			}
+		},
+		freelance: {
+			base: "freelance/",
+			estado: {
+				login: "login/",
+				editor: "editor/"
+			}
+		}
+	})
+
+	.factory("navegarFactory", ["rutasValue", "$window", "$httpParamSerializer", function (rutasValue, $window, $httpParamSerializer) {
+
+		var paramsFunction = function (params) {
+
+			return params ? "?" + $httpParamSerializer(params) : "";
+		};
+
+		return {
+			landing: function (estado, params) {
+
+				if (!estado) {
+					$window.location = rutasValue.landing.base + paramsFunction(params);
+					return;
+				} else {
+
+					if (rutasValue.landing.estado[estado]) {
+						$window.location = rutasValue.landing.base + rutasValue.landing.estado[estado] + paramsFunction(params);
+					} else {
+						return;
+					}
+				}
+			},
+			freelance: function (estado, params) {
+				if (!estado) {
+					$window.location = rutasValue.freelance.base + paramsFunction(params);
+					return;
+				} else {
+
+					if (rutasValue.freelance.estado[estado]) {
+						$window.location = rutasValue.freelance.base + rutasValue.freelance.estado[estado] + paramsFunction(params);
+					} else {
+						return;
+					}
+				}
+			}
+		};
+
 	}]);

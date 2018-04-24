@@ -17,6 +17,17 @@
                                     <B>Mira tus creaciones en cualquier momento</B>
                                 </small>
                                 <form name="bazamLogin.loginForm" novalidate ng-submit="bazamLogin.login(bazamLogin.datosLogin, bazamLogin.loginForm.$valid)">
+                                    <div class=" col s12">
+                                        <div class="ingreso-redes-sociales">
+                                            <div class="ingreso__facebook" ng-click="bazamLogin.social('fb')">
+                                    
+                                                <i class="fab fa-facebook"></i>
+                                            </div>
+                                            <div class="ingreso__google" ng-click="bazamLogin.social('gg')">
+                                                <i class="fab fa-google-plus-g"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="input-field col s12" style="margin-top: 2rem;">
                                         <input id="correo" name="correo" type="email" ng-model="bazamLogin.datosLogin.correo" required>
                                         <label for="correo">Correo</label>
@@ -25,6 +36,7 @@
                                             <div ng-message="required">Este campo es requerido.</div>
                                             <div ng-message="email">Debe ser un email válido.</div>
                                         </div>
+                                        
                                     </div>
                                     <div class="input-field col s12">
                                         <input id="pass" name="pass" type="password" ng-model="bazamLogin.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
@@ -42,18 +54,9 @@
                                             <b class="olvido-small-tag">Olvidaste tu contraseña?</b>
                                         </small>
                                     </div>
-                                    <div class=" col s12">
-                                        <div class="ingreso-redes-sociales">
-                                            <div class="ingreso__facebook" ng-click="bazamLogin.social('fb')">
-
-                                                <i class="fab fa-facebook"></i>
-                                            </div>
-                                            <div class="ingreso__google" ng-click="bazamLogin.social('gg')">
-                                                <i class="fab fa-google-plus-g"></i>
-                                            </div>
-                                        </div>
+                                    <div ng-if="bazamLogin.loginForm.falloLogin" class="col s12 no-padding">
+                                        <div style="    font-weight: bold; font-size: 9pt;  padding: 16px 0;     color: rgb(181, 70, 43); ">Hubo un error al ingresar por favor verifique los datos y vuelva a intentarlo.</div>
                                     </div>
-
                                     <div class="text-center">
                                         <button class="boton-verde __block" ng-class="{'loading-white': !bazamLogin.completadoLogin}">ENVIAR</button>
                                     </div>
@@ -109,9 +112,6 @@
                                                 <div ng-messages="bazamLogin.registroForm.correo.$pending">
                                                     <div ng-message="disponible">Verificando la disponibilidad del email.</div>
                                                 </div>
-
-
-
                                             </div>
                                             <div class="input-field col s12">
                                                 <input id="pass2" type="password" ng-model="bazamLogin.datosRegistro.pass" ng-minlength="6" ng-maxlength="20" required>
@@ -148,26 +148,25 @@
                                         <b>Ya tienes una cuenta? Ingresa.</b>
                                     </small>
                                 </div>
-
                                 <div class="ventajas-loguear col s6">
                                     <div>
                                         <img class="eye-image" src="/landing/assets/img/iconos_login/eye.svg">
                                         <span>
                                             <b>Ver tus logotipos</b>
                                             <br>
-                                            <small> y sigue generando más diseños</small>
+                                            <small>editarlos y crear nuevos diseños</small>
                                         </span>
                                     </div>
-
+                                
                                     <div>
-                                        <img class="star-image" src="/landing/assets/img/iconos_login/start.svg">
+                                        <md-icon style="display: block; margin-right: 38px; font-size: 50pt;">favorite</md-icon>
                                         <span>
-                                            <b>Guarde sus favoritos</b>
+                                            <b>Guarda tus logos favoritos</b>
                                             <br>
-                                            <small>y ve cómo se ven en camisetas, tarjetas de visita y otros productos</small>
+                                            <small>y ve su diseño en tarjetas de visita, indumentaria, perfiles de redes sociales y mucho mas!</small>
                                         </span>
                                     </div>
-
+                                
                                     <div>
                                         <img class="gear-image" src="/landing/assets/img/iconos_login/gear.svg">
                                         <span>
@@ -237,7 +236,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

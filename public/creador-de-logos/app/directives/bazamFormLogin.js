@@ -5,11 +5,11 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/bazamFormLogin.tpl",
-			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", "socialAuth", function ($scope, clientesService, $mdToast, paisesValue, $rootScope, socialAuth) {
+			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", "socialAuth", "$state", function ($scope, clientesService, $mdToast, paisesValue, $rootScope, socialAuth, $state) {
 
 				var bz = this;
 
-				bz.paises = paisesValue;
+				bz.vistaActual = $state.current.name;
 
 				bz.paisDefecto = null;
 
@@ -28,6 +28,7 @@ angular.module("disenador-de-logos")
 
 					if (valido && bz.completadoLogin) {
 
+						bz.loginForm.falloLogin = false;
 						bz.completadoLogin = false;
 
 						clientesService.login(datos).then(function () {
@@ -53,7 +54,7 @@ angular.module("disenador-de-logos")
 
 							$mdToast.show($mdToast.base({
 								args: {
-									mensaje: "Verifica tu Usuario y Contraseña",
+									mensaje: "Su usuario o contraseña son erroneos por favor verifique los mismos y vuelva a ingresar",
 									clase: "danger"
 								}
 							}));
@@ -69,14 +70,13 @@ angular.module("disenador-de-logos")
 
 				};
 
-
-
 				bz.completadoRegistro = true;
 
 				bz.registrar = function (datos, valido) {
 
 					if (valido && bz.completadoRegistro) {
 
+						bz.registroForm.falloRegistro = false;
 						bz.completadoRegistro = false;
 
 						clientesService.registrar(datos.nombreCliente, datos.correo, datos.pass, datos.telefono, datos.pais).then(function () {
@@ -101,18 +101,11 @@ angular.module("disenador-de-logos")
 
 						}).catch(function () {
 
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Un error ha ocurrido",
-									clase: "danger"
-								}
-							}));
-
+							bz.registroForm.falloRegistro = true;
 
 						}).finally(function () {
 
 							bz.completadoRegistro = true;
-
 						});
 
 					}
@@ -127,7 +120,7 @@ angular.module("disenador-de-logos")
 					if (v) {
 						bz.peticion = true;
 						bz.loaderCargando2 = true;
-						clientesService.forgotPass(datos).then(function (res) {
+						clientesService.forgotPass(datos).then(function () {
 							bz.rc = 2;
 							bz.loaderCargando2 = false;
 							$mdToast.show($mdToast.base({
@@ -184,86 +177,98 @@ angular.module("disenador-de-logos")
 					}
 				};
 
-
 				/* REDES SOCIALES */
 
 				bz.social = function (op) {
 
 					switch (op) {
-						case 'fb':
+					case "fb":
 
-							socialAuth.facebook().then(function (res) {
+						socialAuth.facebook().then(function (res) {
 
-								if (clientesService.autorizado(true)) {
+							if (clientesService.autorizado(true)) {
 
-									$mdToast.show($mdToast.base({
-										args: {
-											mensaje: "¡Bienvenido! " + res.data.msg,
-											clase: "success"
-										}
-									}));
-
-	
-									$rootScope.mostrarModalLogin = false;
-	
-									if ($rootScope.callbackLogin) {
-										$rootScope.callbackLogin();
+								$mdToast.show($mdToast.base({
+									args: {
+										mensaje: "¡Bienvenido! " + res.data.msg,
+										clase: "success"
 									}
+								}));
+
 	
+								$rootScope.mostrarModalLogin = false;
+	
+								if ($rootScope.callbackLogin) {
+									$rootScope.callbackLogin();
 								}
+	
+							}
 								
 
-							}).catch(function (res) {
-								$mdToast.show($mdToast.base({
-									args: {
-										mensaje: "Un error ha ocurrido",
-										clase: "danger"
-									}
-								}));
-							}).finally(function () {
-
-							});
-
-							break;
-
-						case 'gg':
-
-							socialAuth.google().then(function (res) {
-								if (clientesService.autorizado(true)) {
-
-									$mdToast.show($mdToast.base({
-										args: {
-											mensaje: "¡Bienvenido! " + res.data.msg,
-											clase: "success"
-										}
-									}));
-
-	
-									$rootScope.mostrarModalLogin = false;
-	
-									if ($rootScope.callbackLogin) {
-										$rootScope.callbackLogin();
-									}
-	
+						}).catch(function () {
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
 								}
-							}).catch(function (res) {
+							}));
+						}).finally(function () {
+
+						});
+
+						break;
+
+					case "gg":
+
+						socialAuth.google().then(function (res) {
+							if (clientesService.autorizado(true)) {
+
 								$mdToast.show($mdToast.base({
 									args: {
-										mensaje: "Un error ha ocurrido",
-										clase: "danger"
+										mensaje: "¡Bienvenido! " + res.data.msg,
+										clase: "success"
 									}
 								}));
-							}).finally(function () {
 
-							});
+	
+								$rootScope.mostrarModalLogin = false;
+	
+								if ($rootScope.callbackLogin) {
+									$rootScope.callbackLogin();
+								}
+	
+							}
+						}).catch(function () {
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
+						}).finally(function () {
 
-							break;
+						});
+
+						break;
 					}
+				};
+
+				bz.noLoguear = function(){
+					$rootScope.mostrarModalLogin = false;
+					$state.go('inicio');
 				}
 
 			}],
 			controllerAs: "bazamLogin"
 		};
 
+
+	}])
+
+	.directive("bazamModalLogin", [function () {
+		return {
+			restrict: "E",
+			templateUrl: "app/templates/bazamModalLogin.tpl"
+		};
 
 	}]);

@@ -7,56 +7,104 @@
 
 /*BEGIN Header*/
 .header {
-    background-color: $PRINCIPAL;
-    height: 45px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
-    text-align: right;
+    background-color: $WHITE;
+    height: 60px;
     font-size: 14px;
-    padding: 0 10px;
+    padding: 0 10px !important;
     color: $WHITE;
 
-    div.items {
-        color: $WHITE;
+    div.logo {
+        color: var(--principal);
+        height: 100%;
+        padding: 0 !important;
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;
         display: inline-flex;
         vertical-align: middle;
-        -webkit-box-align: center;
-            -ms-flex-align: center;
-                align-items: center;
         -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
-        font-family: 'Futura Black' !important;
+        -ms-flex-pack: center;
+        justify-content: center;
+        cursor: pointer;
 
-        span {
-            margin: 0 10px;
+        div {
+            padding: 5px 16px;
+            text-align: center;
+            color: var(--secundario);
+            width: 100%;
+            margin: auto;
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
-            -webkit-box-pack: center;
-                -ms-flex-pack: center;
-                    justify-content: center;
-            -webkit-box-align: center;
-                -ms-flex-align: center;
-                    align-items: center;
 
-            i {
-                vertical-align: top;
+            img {
+                width: 80%;
+                height: 50px;
             }
         }
     }
 
-    span.help i {
-        vertical-align: top;
+    div.menu {
+
+        padding: 0 !important;
+        
+        div {
+
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: end;
+                -ms-flex-pack: end;
+                    justify-content: flex-end;
+            
+            div.items {
+                height: 60px;
+                color: $BLACK;
+                display: -webkit-inline-box;
+                display: -ms-inline-flexbox;
+                display: inline-flex;
+                vertical-align: middle;
+                -webkit-box-align: center;
+                    -ms-flex-align: center;
+                        align-items: center;
+                -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                        justify-content: center;
+                font-family: 'Futura Black' !important;
+
+                span {
+                    margin: 0 10px;
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-pack: center;
+                        -ms-flex-pack: center;
+                            justify-content: center;
+                    -webkit-box-align: center;
+                        -ms-flex-align: center;
+                            align-items: center;
+                    cursor: pointer;
+
+                    i {
+                        vertical-align: top;
+                    }
+                }
+
+                span:hover {
+                    color: $PRINCIPAL;
+                }
+
+                span.logos {
+                    color: $PRINCIPAL;
+                }
+
+                span.login {
+                    padding: 5px 10px;
+                    background: $PRINCIPAL;
+                    color: $WHITE;
+                    border-radius: 2px;
+                }
+            }
+        }
     }
 }
 
@@ -65,5 +113,10 @@
     font-size: 14px !important;
     color: $WHITE !important;
     background-color: $PRINCIPAL !important;
+}
+
+.user-avatar {
+    width: 40px;
+    border-radius: 50%;
 }
 /*END header*/

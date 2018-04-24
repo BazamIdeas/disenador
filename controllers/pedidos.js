@@ -670,7 +670,81 @@ exports.aumentarPlan = function (req, res) {
 														res.json(data.link);
 													});
 
-												} else {
+												} 
+
+												else if (data[0].pasarela == "Stripe") {
+
+													var datosPago = {
+														precio: diferencia,
+														moneda: precioNuevo[0].moneda,
+														descripcion: "Diseño de Logo- " + precioNuevo[0].plan,
+														impuesto: impuesto,
+														stripeToken: req.body.stripeToken,
+														idPedido: idPedido
+													};
+
+													if (req.body.atributos.padre) {
+														datosPago.padre = req.body.atributos.padre;
+													}
+														services.pagoServices.stripe(datosPago, function (error, data) {
+														//console.log(data)
+														if (error)
+															res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
+														
+														else if (data && data.paid) {
+
+															var pedidoData = ["COMPLETADO", idPedido];
+
+															pedido.cambiarEstado(pedidoData, function (error, data) {
+																
+																if (data) {
+
+																	var pedidoDataV = ["AUMENTADO", idPedido];
+
+																	pedido.cambiarEstado(pedidoDataV, function (error, data) {
+
+																		if (data) {
+																			//////cambiar estado al logo a descargable
+																			var logoData = ["Descargable", idLogo];
+
+																			logo.cambiarEstado(logoData, function (error) {
+
+																				if (!error) {
+
+																					var id = services.authServices.decodificar(req.headers.auth).id;
+
+																					cliente.getCliente(id, function (error, data) {
+
+																						//console.log(data);
+																						//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+
+																					});
+																					res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
+																				} 
+
+																				else {
+																					res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});	
+																				}																			
+																			});
+																		}	
+																		else {
+																			res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido viejo"});
+																		}
+																	});	
+																}
+																else {
+																	res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+																}
+															});
+																
+														}
+
+														else 
+															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
+													});
+
+												}
+												else {
 													//falta Bloquear elemento
 													res.status(200).json({
 														"msg": true

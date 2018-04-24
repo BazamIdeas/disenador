@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "pedidosService", "$rootScope", "$httpParamSerializer", "$window", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService, pedidosService, $rootScope, $httpParamSerializer, $window) {
+	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "pedidosService", "$rootScope", "$location", "Socialshare", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService, pedidosService, $rootScope, $location, Socialshare) {
 
 		var bz = this;
 
@@ -24,6 +24,36 @@ angular.module("disenador-de-logos")
 			etiquetasSeleccionadas: []
 		};
 
+
+		
+
+		bz.urlCompartir = $location.port() != "80" ? $location.protocol() + "://" + $location.host() + ":" + $location.port() : $location.protocol() + "://" + $location.host();
+
+		bz.compartir = function(provider, idLogo) {
+
+			var unix = Date.now();
+
+			var attrs = {
+				socialshareUrl : bz.urlCompartir+"?idLogo="+idLogo+"&unix="+unix
+			};
+
+			switch (provider) {
+			case "twitter":
+				attrs.socialshareHashtags = "Liderlogo";
+				break;
+				
+			case "pinterest":
+				attrs.socialshareMedia = bz.urlCompartir+"/app/logo/compartido/"+idLogo; attrs.socialshareText = "Pinterest";
+				break;
+			}
+
+			Socialshare.share({
+				"provider": provider,
+				"attrs": attrs
+			});
+		};
+
+
 		bz.compartirPorEmailUrl = function () {
 
 			var datosFormat = angular.copy(bz.datos);
@@ -43,12 +73,11 @@ angular.module("disenador-de-logos")
 				logoCompartido: true
 			};
 
-			bz.urlCompartir = $window.location.port !== "80" ? $window.location.protocol + "//" + $window.location.hostname + ":" + $window.location.port : $window.location.protocol + "//" + $window.location.hostname;
 
-			var url = $window.location + encodeURI(JSON.stringify(datos));
+			var url = bz.urlCompartir + encodeURI(JSON.stringify(datos));
 
 			return url;
-		}
+		};
 
 		categoriasService.listaCategorias("FUENTE")
 			.then(function (res) {
@@ -116,19 +145,21 @@ angular.module("disenador-de-logos")
 
 			var logos = crearLogoFactory(iconos, fuentes);
 
+			bz.logos = logos;
+			/*
 			var cantidadLogos = logos.length;
-
+			
 			while (cantidadLogos) {
 
 				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0;
 				bz.logos.push(logos[indiceRandom]);
 				logos.splice(indiceRandom, 1);
 				cantidadLogos--;
-			}
-
+			}*/
+			/*
 			angular.element(".contenedor-principal > div").animate({
 				scrollTop: 0
-			}, 1000);
+			}, 1000);*/
 
 		};
 

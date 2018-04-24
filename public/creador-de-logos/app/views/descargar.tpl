@@ -1,7 +1,7 @@
-<section class="section-container">
-    <div class="row margin-bottom-0" style="overflow: hidden;">
+<section class="body descargar">
+    <div class="row">
 
-        <div class="col s4 offset-s1">
+        <!--<div class="col s4 offset-s1">
 
             <div class="col l9 logo-final" style="padding: 0;margin-top: 20px; position: relative">
                 <bazam-visualizar data-svg="descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
@@ -13,7 +13,7 @@
             </div>
 
             <div class="col l9" style="padding: 0;margin-top: 5px; text-align:center;">
-                <!--BLOQUEADO -->
+
                 <div ng-if="!(descargar.plan.manual.valor == '1')" style="position: relative;">
 
                     <button style="margin:auto; display:block;width: 100%;" class="boton-verde manual necesita-aumentar">
@@ -22,7 +22,7 @@
                     <i class="material-icons candado-bloqueado">lock</i>
                 </div>
 
-                <!--DESBLOQUEADO -->
+                
                 <button ng-disabled="descargar.esperaManual" style="margin:auto; display:block;width: 100%" class="boton-verde manual" style="background-color: var(--principal)"
                     ng-class="{'en-espera': descargar.esperaManual}" ng-click="descargar.manualMarca(descargar.logo.id)" ng-if="descargar.plan.manual.valor == '1'">
                     <span ng-if="!descargar.esperaManual">MANUAL DE IDENTIDAD</span>
@@ -31,15 +31,15 @@
 
 
 
-            </div>
+            </div>-->
             <!--<div class="col l9" style="padding: 0;margin-top: 5px" ng-if="!(descargar.plan.manual.valor == '1')" >
                 <button style="margin:auto; visibility: hidden; width: 100%; " class="boton-verde manual">X</button>
             </div>
-        -->
+        
 
-        </div>
+        </div>-->
         <!-- ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'"-->
-        <div class="col s6 text-center no-padding">
+        <div class="col s7 offset-s1 previews">
             <div style="overflow:hidden; height: 55vh;">
             <div ng-repeat="formato in descargar.formatosNoSociales | filter: {'nombre': descargar.formatoSeleccionado.nombre} track by formato.nombre"
                 style="position: relative;margin-top: 20px;background: #fff; border-radius: 5px;  height: 51vh; -webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede;">
@@ -143,11 +143,9 @@
             </div>
         </div>
 
+        <div class="col s3 formats">
 
-
-        <div class="col s10 offset-s1" style="display:flex; padding: 20px 0;">
-
-            <div ng-repeat="formato in descargar.formatosNoSociales track by formato.nombre">
+            <div class="col s4" ng-repeat="formato in descargar.formatosNoSociales track by formato.nombre">
                 <!--DESBLOQUEADO-->
                 <div class="formato" style="margin-bottom: 20px;padding-top:0%;" ng-click="descargar.seleccionar(formato)" ng-if="(formato.nombre == 'editable' && descargar.plan.editable.valor == '1') || (formato.nombre == 'papeleria' && descargar.plan.png.valor == '1') || (formato.nombre != 'editable' && formato.nombre != 'papeleria')">
                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
@@ -163,7 +161,7 @@
             </div>
 
             <!--BLOQUEADOS-->
-            <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.plan.png.valor == '0'">
+            <div class="col 4" ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.plan.png.valor == '0'">
 
 
                 <div class="formato" style=" margin-bottom: 20px; text-align: center; position: relative;">
@@ -173,7 +171,7 @@
             </div>
 
             <!--DESBLOQUEADOS-->
-            <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.plan.png.valor == '1'">
+            <div class="col s4" ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.plan.png.valor == '1'">
                 <div class="formato" style=" margin-bottom: 20px; text-align: center;" ng-click="descargar.seleccionar(formato)">
                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{formato.nombre | uppercase}}</md-tooltip>
                     <img ng-class="{'img-filter': descargar.formatoSeleccionado.nombre !== formato.nombre}" style="width:80%; max-width: 96px;"
@@ -213,32 +211,68 @@
         -->
         <div class="col s12" style="padding: 0 40px;">
             <div class="contenedor-planes" ng-if="descargar.mps">
-                <div class="row">
-                    <div class="plan col s4 " ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas">
-                        <div style="background: var(--tercero);">
-                            <div class="logo-plan">
-                                <bazam-actualizar data-svg="::descargar.base64.decode(descargar.logo.logo)"></bazam-actualizar>
+                    <div class="plan" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas track by $index" ng-init="plan.indice = $index">
+                        <div style="    border-right: 1px solid silver;
+                        border-left: 1px solid silver;">
+                            <div class="plan-header">
+                                <div class="plan-nombre">{{plan.plan}}</div>
+                                <div class="plan-precio">{{::descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
                             </div>
-
                             <div class="plan-body">
-                                <div class="plan-header">{{::plan.plan}}</div>
-                                <p class="subtitulo-plan">{{::plan.info}}</p>
-                                <div style="padding:10px; ">
-                                    <div class="plan-precio">{{::descargar.precioSeleccionado(plan.precios, descargar.moneda)}}</div>
-
-                                    <div class="text-center">
-                                        <button class="boton-planes" ng-class="{'loading-white': descargar.peticion}" ng-click="descargar.aumentarPlan(plan, descargar.moneda)">SELECCIONAR</button>
-                                    </div>
+                                <div>
+                                    <ul class="plan-lista">
+                                        <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{::carac.descripcion}}</li>
+                                    </ul>
                                 </div>
+                            </div>
+                            <div class="text-center">
+                                <!--<md-button ng-disabled="descargar.peticion" ng-class="{'loading-purple':descargar.peticion}" class="md-raised md-primary boton-crear-logo">
+                                    <!--ng-click="descargar.aumentarPlan(plan, descargar.moneda)"
+                                    SELECCIONAR
+                                </md-button>-->
 
-                                <ul class="plan-lista">
-                                    <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{::carac.descripcion}}</li>
-                                </ul>
+                                <div style="display: flex;justify-content: space-evenly;">
+
+                                        <div class="metodos">
+            
+                                            <div ng-repeat="pasarela in descargar.pasarelas track by $index">
+                                                <input type="radio" id="{{pasarela.pasarela}}{{plan.indice}}" ng-model="plan.pasarelaElegida" ng-value="pasarela"/>
+                                                <label style="display: flex;" for="{{pasarela.pasarela}}{{plan.indice}}">
+                                                    
+                                                    <img  ng-if="pasarela.pasarela == 'Paypal'"  width="50" height="auto"  src="assets/images/svg-icons/paypal_color.svg">
+            
+                                                    <img  ng-if="pasarela.pasarela == 'Stripe'"  width="25" height="auto" src="assets/images/svg-icons/credit_black.svg">
+            
+                                                </label>
+
+                                                
+                                            </div>
+            
+                                        </div>
+            
+                                        <div style="display: flex; align-items: center;">
+                                            <button ng-if="plan.pasarelaElegida.pasarela == 'Paypal'" type="submit" ng-class="{'loading-white': !descargar.completado}" ng-click="descargar.paypal(plan.pasarelaElegida.idPasarela, plan)">COMPRAR</button>
+            
+                                            <button ng-if="plan.pasarelaElegida.pasarela == 'Stripe'" type="submit" ng-class="{'loading-white': !descargar.completado}" ng-click="descargar.mostrarStripe(plan.pasarelaElegida.idPasarela, plan)">COMPRAR</button>
+                                        </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+                <!---STRIPE-->
+                
+                <div class="credit" ng-if="descargar.datosStripe" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index :10; background-color:#1a1a1a9e">
+                    <div ng-click="descargar.datosStripe = null" class="close-prev">
+                        <md-icon>close</md-icon>
+                    </div>
+                    
+                    <stripe-payment-form data-pasarela="pasarela.idPasarela" data-icono="pago.pedido.idElemento" data-atributos="pago.pedido.atributos" data-svg="pago.base64.encode(pago.pedido.logo)" data-precio="pago.pedido.precio.idPrecio"></stripe-payment-form>
+                </div>
+                
+
             </div>
         </div>
     </div>

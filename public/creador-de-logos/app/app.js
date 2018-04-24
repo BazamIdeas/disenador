@@ -24,7 +24,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 						var temporizador = $timeout(function () {
 							$mdToast.hide();
-						}, 2000);
+						}, 3000);
 
 						$scope.closeToast = function () {
 							$timeout.cancel(temporizador);
@@ -384,6 +384,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				controller: "logosGaleriaController as logosGaleria"
 			});
 
+			
+
 		/*
 
 		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
@@ -415,8 +417,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 		$rootScope.$on("$viewContentLoaded", function (event) {
 
 			$timeout(function () {
-
-				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+				angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 			}, 500);
 
 

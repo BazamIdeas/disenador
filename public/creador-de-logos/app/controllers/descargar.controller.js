@@ -7,55 +7,55 @@ angular.module("disenador-de-logos")
 		bz.base64 = $base64;
 
 		bz.formatosNoSociales = [{
-				nombre: "editable",
-				ancho: 400
-			},
-			{
-				nombre: "papeleria",
-				ancho: 300
-			}
+			nombre: "editable",
+			ancho: 400
+		},
+		{
+			nombre: "papeleria",
+			ancho: 300
+		}
 		];
 
 		bz.formatos = [{
-				nombre: "facebook",
-				ancho: 180
-			},
-			{
-				nombre: "whatsapp",
-				ancho: 300
-			},
-			{
-				nombre: "instagram",
-				ancho: 110
-			},
-			{
-				nombre: "google-plus",
-				ancho: 250
-			},
-			{
-				nombre: "youtube",
-				ancho: 200
-			},
-			{
-				nombre: "twitter",
-				ancho: 400
-			},
-			{
-				nombre: "linkedin",
-				ancho: 400
-			},
-			{
-				nombre: "pinterest",
-				ancho: 60
-			},
-			{
-				nombre: "telegram",
-				ancho: 300
-			},
-			{
-				nombre: "vimeo",
-				ancho: 300
-			},
+			nombre: "facebook",
+			ancho: 180
+		},
+		{
+			nombre: "whatsapp",
+			ancho: 300
+		},
+		{
+			nombre: "instagram",
+			ancho: 110
+		},
+		{
+			nombre: "google-plus",
+			ancho: 250
+		},
+		{
+			nombre: "youtube",
+			ancho: 200
+		},
+		{
+			nombre: "twitter",
+			ancho: 400
+		},
+		{
+			nombre: "linkedin",
+			ancho: 400
+		},
+		{
+			nombre: "pinterest",
+			ancho: 60
+		},
+		{
+			nombre: "telegram",
+			ancho: 300
+		},
+		{
+			nombre: "vimeo",
+			ancho: 300
+		},
 		];
 
 		//bz.formatoSeleccionado = bz.formatos[0];
@@ -68,18 +68,25 @@ angular.module("disenador-de-logos")
 		bz.moneda = {};
 
 		bz.mostrarAumento = false;
-
+		
 		planesService.porLogo(bz.logo.id)
 			.then(function (res) {
 				bz.plan = res.caracteristicas;
 
 				bz.idPlan = res.idPlan;
-
-				bz.monedaDefault = res.monedaDefault;
+				
+			
 
 				planesService.aumentarPlan(bz.idPlan)
 					.then(function (res) {
+
 						if (res.planes.superiores.length) {
+
+							bz.moneda = {
+								simbolo: res.monedaDefault.codigo,
+								idMoneda: res.monedaDefault.idMoneda
+							};
+
 							bz.mostrarAumento = true;
 							bz.planes = res.planes.superiores;
 
@@ -95,17 +102,15 @@ angular.module("disenador-de-logos")
 										};
 
 									}
-
-									if (precio.moneda == 'USD') {
-										bz.moneda = {
-											idMoneda: precio.idMoneda,
-											simbolo: precio.moneda
-										}
-										bz.mps = true;
-									}
-
+							
 								});
 
+							});
+							bz.mps = true; //mostrar Planes superiores = mps
+							
+							
+							pedidosService.listarPasarelas(bz.moneda.idMoneda).then(function (res) {
+								bz.pasarelas = res;
 							});
 
 						}
@@ -169,44 +174,57 @@ angular.module("disenador-de-logos")
 
 		};
 
+		
 
 
-		bz.aumentarPlan = function (plan) {
 
-			bz.peticion = true;
+		bz.paypal = function (idPaypal, plan) {
+
+			if(bz.peticion){
+				return;
+			}
 
 			var datos = {
 				idLogo: bz.logo.id,
 				idPrecio: null,
-				idPasarela: null
+				idPasarela: idPaypal
 			};
+
+			bz.peticion = true;
 
 			angular.forEach(plan.precios, function (valor) {
 				if (valor.moneda == bz.moneda.simbolo) {
 					datos.idPrecio = valor.idPrecio;
 				}
-			})
-
-			pedidosService.listarPasarelas(bz.moneda.idMoneda).then(function (res) {
-
-				angular.forEach(res, function (valor) {
-					if (valor.pasarela == 'Paypal') {
-						datos.idPasarela = valor.idPasarela;
-					}
-				})
-
-				planesService.aumentarPedidoPlan(datos).then(function (res) {
-					$window.location = res;
-				}).catch(function () {
-					//console.log(res)
-				}).finally(function () {
-					bz.peticion = false;
-				});
-
-
 			});
 
+			//pedidosService.listarPasarelas(bz.moneda.idMoneda).then(function (res) {
 
+			/*
+			angular.forEach(bz.pasarelas, function (valor) {
+				if (valor.pasarela == pasarela) {
+					datos.idPasarela = valor.idPasarela;
+				}
+			});*/
+
+			planesService.aumentarPedidoPlan(datos).then(function (res) {
+				$window.location = res;
+			}).catch(function () {
+				//console.log(res)
+			}).finally(function () {
+				bz.peticion = false;
+			});
+
+			
+
+		};
+
+		bz.mostrarStripe = function(idStripe, plan){
+
+			bz.datosStripe = {
+				idStripe: idStripe, 
+				plan: plan
+			};
 		};
 
 		bz.completado = true;
@@ -262,7 +280,7 @@ angular.module("disenador-de-logos")
 					.finally(function () {
 
 						bz.completado = true;
-						angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+						angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 
 					});
 
@@ -283,7 +301,7 @@ angular.module("disenador-de-logos")
 				
 				formatosCopia.push(bz.formatosNoSociales[1]);
 
-				angular.forEach(formatosCopia, function (formato, indice){
+				angular.forEach(formatosCopia, function (formato){
 					formatos[formato.nombre] = formato.ancho;
 				});
 				

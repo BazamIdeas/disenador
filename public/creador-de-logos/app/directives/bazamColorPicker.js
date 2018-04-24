@@ -3,17 +3,17 @@ angular.module("disenador-de-logos")
 
 	.directive("bazamColorPicker", [function () {
 		return {
-			template: "<div style='position:relative;'>\
-							<div class='selector-fondo' style='border: 1px solid var(--fondo)' ng-style='jsonColor(color)' ng-click='mostrarPicker = !mostrarPicker'>\
+			template: "<div class='bazam-color-picker'>\
+							<div class='background-selector' ng-style='jsonColor(color)' ng-click='mostrarPicker = !mostrarPicker'>\
 							</div>\
-							<div class='color-picker-bazam' id='color-picker-fondo' ng-show='mostrarPicker' style='position: absolute; width: 253.496px; height: 202.797px; background-color: white; z-index: 5; padding: 10px;'>\
-									<div class='titulo'>\
+							<div class='background-color-picker' id='background-color-picker' ng-show='mostrarPicker'>\
+									<div class='title'>\
 										FONDO\
-										<span class='cerrar-color-picker' ng-click='mostrarPicker = !mostrarPicker'>\
+										<span class='close-color-picker' ng-click='mostrarPicker = !mostrarPicker'>\
 											<i class='material-icons cerrar'>clear</i>\
 										</span>\
 									</div>\
-									<div ng-repeat='paletaColor in paletaColores track by $index' class='color' ng-style='jsonColor(paletaColor)' style='width: 4.2%; height: 6.7%; display: inline-block;' ng-click='$parent.color=paletaColor'></div>\
+									<div ng-repeat='paletaColor in paletaColores track by $index' class='color' ng-style='jsonColor(paletaColor)' ng-click='$parent.color=paletaColor'></div>\
 								</div>\
 						</div>",
 			scope: {
@@ -36,7 +36,7 @@ angular.module("disenador-de-logos")
 
 				});
 
-				angular.element("#color-picker-fondo").draggable({
+				angular.element("#background-color-picker").draggable({
 					revert:false
 				});
 				
