@@ -145,19 +145,21 @@ angular.module("disenador-de-logos")
 
 			var logos = crearLogoFactory(iconos, fuentes);
 
+			bz.logos = logos;
+			/*
 			var cantidadLogos = logos.length;
-
+			
 			while (cantidadLogos) {
 
 				var indiceRandom = Math.floor(Math.random() * (cantidadLogos - 1)) + 0;
 				bz.logos.push(logos[indiceRandom]);
 				logos.splice(indiceRandom, 1);
 				cantidadLogos--;
-			}
-
+			}*/
+			/*
 			angular.element(".contenedor-principal > div").animate({
 				scrollTop: 0
-			}, 1000);
+			}, 1000);*/
 
 		};
 
