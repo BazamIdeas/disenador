@@ -25,18 +25,25 @@ angular.module("administrador")
 
 		bz.promesas = [idiomasService.listarIdiomas(), categoriasService.listarCategorias({
 			tipo: 'ICONO'
-		}), etiquetasService.listarEtiquetas()]
+		})]
 
 		bz.peticion = true;
 
 		$q.all(bz.promesas).then(function (res) {
 			bz.idiomas = res[0];
 			bz.cats = res[1].data;
-			bz.etiquetas = res[2].data;
-			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res[2].data);
-
 		}).catch(function (res) {
 			//console.log(res)
+		}).finally(function () {
+			bz.peticion = false;
+		})
+
+		etiquetasService.listarEtiquetas().then(function (res) {
+			bz.etiquetas = res[2].data;
+			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res.data);
+
+		}).catch(function (res) {
+			console.log(res)
 		}).finally(function () {
 			bz.peticion = false;
 		})
