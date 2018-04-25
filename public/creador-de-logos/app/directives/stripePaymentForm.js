@@ -9,9 +9,10 @@ angular.module("disenador-de-logos")
 				atributos: "<",
 				svg: "<",
 				precio: "<",
-				pasarela: "<"
+				pasarela: "<",
+				logo: "<?"
 			},
-			controller: ["$scope", "pedidosService", "$q", "$state", function ($scope, pedidosService, $q, $state) {
+			controller: ["$scope", "pedidosService", "$q", "$state", "$window", "planesService", function ($scope, pedidosService, $q, $state, $window, planesService) {
 				var defered = $q.defer();
 
 				var disenadorPromise = defered.promise;
@@ -33,26 +34,52 @@ angular.module("disenador-de-logos")
 								$scope.mensajeError(res.error.message);
 								defered.reject();
 							} else {
-								pedidosService.pagar.stripe($scope.icono, $scope.atributos, $scope.svg, $scope.precio, "Logo y nombre", $scope.pasarela, res.token.id)
-									.then(function (res) {
-										$state.go("descargar", {
-											id: res.idLogo
+								
+								if($scope.logo){//
+
+									planesService.aumentarPedidoPlan({
+										idPasarela: $scope.pasarela, 
+										idPrecio: $scope.precio,
+										idLogo: $scope.logo,
+										stripeToken: res.token.id
+									})
+										.then(function () {
+											$window.location.reload();
+										})
+										.catch(function () {
+										//console.log(res)
+										})
+										.finally(function () {
+											defered.resolve();
 										});
-									})
-									.catch(function () {
-										$scope.mensajeError("El pago no ha podido ser procesado");
-									})
-									.finally(function () {
-										defered.resolve();
-									});
+									
+								} else {
+
+									pedidosService.pagar.stripe($scope.icono, $scope.atributos, $scope.svg, $scope.precio, "Logo y nombre", $scope.pasarela, res.token.id)
+										.then(function (res) {
+											$state.go("descargar", {
+												id: res.idLogo
+											});
+										})
+										.catch(function () {
+											$scope.mensajeError("El pago no ha podido ser procesado");
+										})
+										.finally(function () {
+											defered.resolve();
+										});
+
+								}
+								
+
+								
 							}
 						});
 
 
 					$q.all({
-							stripe: stripePromise,
-							disenador: disenadorPromise
-						})
+						stripe: stripePromise,
+						disenador: disenadorPromise
+					})
 						.finally(function () {
 							$scope.completadoPagar = true;
 						});

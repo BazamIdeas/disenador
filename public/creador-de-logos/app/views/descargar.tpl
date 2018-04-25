@@ -32,6 +32,8 @@
 
 
             </div>-->
+
+
             <!--<div class="col l9" style="padding: 0;margin-top: 5px" ng-if="!(descargar.plan.manual.valor == '1')" >
                 <button style="margin:auto; visibility: hidden; width: 100%; " class="boton-verde manual">X</button>
             </div>
@@ -269,7 +271,7 @@
                         <md-icon>close</md-icon>
                     </div>
                     
-                    <stripe-payment-form data-pasarela="pasarela.idPasarela" data-icono="pago.pedido.idElemento" data-atributos="pago.pedido.atributos" data-svg="pago.base64.encode(pago.pedido.logo)" data-precio="pago.pedido.precio.idPrecio"></stripe-payment-form>
+                    <stripe-payment-form data-pasarela="descargar.datosStripe.idStripe" data-logo="descargar.datosStripe.idLogo" data-precio="descargar.datosStripe.idPrecio"></stripe-payment-form>
                 </div>
                 
 
