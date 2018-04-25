@@ -221,10 +221,21 @@ angular.module("disenador-de-logos")
 
 		bz.mostrarStripe = function(idStripe, plan){
 
+			var idPrecio;
+			
+			angular.forEach(plan.precios, function (valor) {
+				if (valor.moneda == bz.moneda.simbolo) {
+					idPrecio = valor.idPrecio;
+				}
+			});
+
 			bz.datosStripe = {
 				idStripe: idStripe, 
-				plan: plan
+				idPrecio: idPrecio,
+				idLogo: bz.logo.id
 			};
+
+
 		};
 
 		bz.completado = true;
