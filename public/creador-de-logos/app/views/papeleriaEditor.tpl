@@ -1,8 +1,17 @@
-
+<div style="display: flex;">
     <bazam-menu-papeleria></bazam-menu-papeleria>
+    <bazam-papeleria></bazam-papeleria>
 </div>
-<div style="width: 500px; margin:auto;">
 
-   <bazam-papeleria></bazam-papeleria>
+<style>
+    bazam-papeleria {
+        width: 55%;
+        padding: 20px;
+        display: block;
+        margin: auto;
+    }
 
-</div>
+    bazam-papeleria svg {
+        margin-bottom: 10px;
+    }
+</style>
