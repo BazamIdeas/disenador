@@ -7,6 +7,10 @@ angular.module("disenador-de-logos")
             controller: ["$scope", "$mdToast", "$rootScope", function ($scope, $mdToast, $rootScope) {
                 var bz = this;
 
+                bz.cambiarCara = function(index){
+                    $rootScope.$broadcast('papeleria:cambioCara', {indice: index});
+                }
+
                 $scope.agregarElementoHook = function(elementoAgregado){
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[elementoAgregado.indiceCara].hooks[elementoAgregado.indiceHook];
 
@@ -19,16 +23,17 @@ angular.module("disenador-de-logos")
                         }
                     }));
 
-                    var items = angular.toJson(hook.items);
-
-                    if (items.includes(item.nombre)) return $mdToast.show($mdToast.base({
-                        args: {
-                            mensaje: "El contenedor ya contiene un elemento " +item.nombre+ ", Elija otro elemento.",
-                            clase: "danger"
-                        }
-                    }));
+                    for (var i = 0; i < hook.items.length; i++) {
+                        if (hook.items[i].nombre == item.nombre) return $mdToast.show($mdToast.base({
+                            args: {
+                                mensaje: "El contenedor ya contiene un elemento " + item.nombre + ", Elija otro elemento.",
+                                clase: "danger"
+                            }
+                        }));
+                    }
 
                     hook.items.push(item);
+                    $rootScope.$broadcast('papeleria:elementoAgregadoHook', elementoAgregado);
         
                 }
 
@@ -36,7 +41,7 @@ angular.module("disenador-de-logos")
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
                     hook.items.splice( indiceItem, 1);
-                    $rootScope.$broadcast('papeleria:elementoEliminadoHook', [indiceCara, indiceHook, indiceItem]);
+                    $rootScope.$broadcast('papeleria:elementoEliminadoHook', { indiceCara: indiceCara, indiceHook:indiceHook, elemento :indiceItem});
                 }
 
             }],
@@ -55,11 +60,10 @@ angular.module("disenador-de-logos")
                         var elementoAgregado = {
                             indiceCara: scope.$parent.$index,
                             indiceHook: scope.$index,
-                            elemento: angular.element(document).find('#' + event.originalEvent.target.id).attr('indice')
+                            elemento:parseInt(angular.element(document).find('#' + event.originalEvent.target.id).attr('indice'))
                         }
                         
                         scope.agregarElementoHook(elementoAgregado); 
-                        $rootScope.$broadcast('papeleria:elementoAgregadoHook', elementoAgregado);
 
                     }
                 })

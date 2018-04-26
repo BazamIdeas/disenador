@@ -1,5 +1,5 @@
 angular.module("disenador-de-logos")
-	.controller("papeleriaEditorController", ["papeleriaResolve", "logoResolve", "$base64", function (papeleriaResolve, logoResolve, $base64) {
+	.controller("papeleriaEditorController", ["papeleriaResolve", "logoResolve", "$base64", "$scope", function (papeleriaResolve, logoResolve, $base64, $scope) {
 
 		var bz = this;
 
@@ -150,4 +150,18 @@ angular.module("disenador-de-logos")
 				}]
 			}
 		}
+
+
+		$scope.$on('papeleria:cambioCara', function (events, args) {
+			console.log(args);
+		})
+
+		$scope.$on('papeleria:elementoAgregadoHook', function (events, args) {
+			console.log(args);
+		})
+
+		$scope.$on('papeleria:elementoEliminadoHook', function (events, args) {
+			console.log(args);
+		})
+
 	}]);

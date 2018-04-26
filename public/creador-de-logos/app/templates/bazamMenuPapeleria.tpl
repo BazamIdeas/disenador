@@ -1,7 +1,7 @@
 <div class="menuPapeleria {{papeleriaEditor.papeleria.tipo}}">
     <div class="tabs-p">
 
-        <span ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras" class="tab tab-{{$index}}" ng-click="menuPapeleria.menuActivo = tabMenu.nombre"
+        <span ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras" class="tab tab-{{$index}}" ng-click="menuPapeleria.menuActivo = tabMenu.nombre; menuPapeleria.cambiarCara($index)"
             ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}">
             {{tabMenu.nombre}}
         </span>
