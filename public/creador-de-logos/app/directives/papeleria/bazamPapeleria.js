@@ -84,6 +84,16 @@ angular.module("disenador-de-logos")
 								itemSvg.attr(llave,caracteristica);
 							});
 
+
+						
+							switch(hook.orientacion){
+								case "right":
+									itemSvg.attr("x", "100%");
+									itemSvg.attr("text-anchor", "end")
+							};
+						
+
+
 							hookSvg.children().append(itemSvg);
 
 							var coordenadasItem = itemSvg[0].getBBox();
@@ -97,8 +107,8 @@ angular.module("disenador-de-logos")
 								itemSvgAnterior = hookSvg.children().find(":nth-child("+(indice)+")");
 
 								var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
-
-								itemSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.height);
+								
+								itemSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
 
 
 							}

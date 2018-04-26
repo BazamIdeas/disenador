@@ -101,10 +101,7 @@ angular.module("disenador-de-logos")
 									<rect x="152.14" y="75.04" width="72.67" height="20.25" style="fill:#fff"/>
 									<rect x="152.47" y="95.9" width="72.67" height="20.25" style="fill:#fafafa"/>
 									<rect x="152.47" y="95.9" width="72.67" height="20.25" style="fill:#fff"/>
-									<path id="_Path_" data-name="&lt;Path&gt;" d="M210.44,114.59h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.44,114.59Z" class="color-primario"/>
-									<path id="_Path_2" data-name="&lt;Path&gt;" d="M210.1,74.42h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,74.42Z" style="fill:#003a76" class="color-primario"/>
-									<path id="_Path_3" data-name="&lt;Path&gt;" d="M210.1,93.92h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,93.92Z" style="fill:#0075ad" class="color-secundario"/>
-									<path id="_Path_4" data-name="&lt;Path&gt;" d="M210.1,54.92h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,54.92Z" style="fill:#009fe3" class="color-secundario"/>
+								
 									<g id="_Group_" data-name="&lt;Group&gt;">
 										<path id="_Compound_Path_" data-name="&lt;Compound Path&gt;" d="M214.91,87.57a1.19,1.19,0,0,1-.15.58l-3-3.4,3-2.63a1.19,1.19,0,0,1,.19.64Zm-4.81-2.2,4.18-3.66a1.18,1.18,0,0,0-.57-.15H206.5a1.18,1.18,0,0,0-.57.15Zm1.17-.22-1,.85a.3.3,0,0,1-.4,0l-1-.85-3.08,3.44a1.19,1.19,0,0,0,.63.18h7.21a1.19,1.19,0,0,0,.63-.18Zm-5.79-3a1.19,1.19,0,0,0-.19.64v4.81a1.19,1.19,0,0,0,.15.58l3-3.4Zm0,0" style="fill:#fff"/>
 									</g>
@@ -126,56 +123,123 @@ angular.module("disenador-de-logos")
 										<path d="M34.87.5a66.3,66.3,0,0,0-1.68,12.73c-.09,2.81,0,5.61.14,8.39A103.94,103.94,0,0,1,46.27.5Z" />
 									</g>
 									
-									
-									<text transform="translate(190 48.97)" class="telefono" text-anchor="end" style="font-size:9px;fill:#1d1d1b;font-family:HelveticaNeueMedium, HelveticaNeue">123456789</text>
-									<text transform="translate(190 68.97)" class="web" text-anchor="end" style="font-size:9px;fill:#1d1d1b;font-family:HelveticaNeueMedium, HelveticaNeue">web</text>
-									<text transform="translate(190 87.44)"  class="correo" text-anchor="end" style="font-size:9px;fill:#1d1d1b;font-family:HelveticaNeueMedium, HelveticaNeue">correo</text>
-									<text transform="translate(190 108.41)" class="direccion"  text-anchor="end" style="font-size:9px;fill:#1d1d1b;font-family:HelveticaNeueMedium, HelveticaNeue">direccion</text>
 								</g>
 							</g>
 						</svg>`,
 						// Contenedores que puede tener
-						hooks: [{
-							id: "A",
-							caracteristicas: {
-								"x": "50",
-								"y": "10",
-								"width": "80",
-								"height": "50"
+						hooks: [
+							{
+								id: "A",
+								caracteristicas: {
+									"x": "50",
+									"y": "10",
+									"width": "80",
+									"height": "30"
+								},
+								items: [{
+									tipo: "text",
+									tag: "text", //"text", "g", etc.
+									valor: "Nombre",
+									nombre: "nombre",
+									icono: null,
+									caracteristicas: {
+										"font-size": "14px",
+										"fill": "#1d1d1b"
+									}
+								}, 
+								{
+									tipo: "text",
+									tag: "text", //"text", "g", etc.
+									valor: "Cargo",
+									nombre: "cargo",
+									icono: null
+										/*{
+										svg: "<svg></svg>",
+										direccion: "right"
+									}*/
+										,
+									caracteristicas: {
+										"font-size": "10px",
+										"fill": "#1d1d1b"
+									}
+								}], //items
+								limite: 5 //limite de items
 							},
-							items: [{
-								tipo: "text",
-								tag: "text", //"text", "g", etc.
-								valor: "Nombre",
-								nombre: "nombre",
-								icono: null
-									/*{
-									svg: "<svg></svg>",
-									direccion: "right"
-								}*/
-									,
+							{
+								id: "B",
 								caracteristicas: {
-									"font-size": "14px",
-									"fill": "#1d1d1b"
-								}
-							}, {
-								tipo: "text",
-								tag: "text", //"text", "g", etc.
-								valor: "Cargo",
-								nombre: "cargo",
-								icono: null
-									/*{
-									svg: "<svg></svg>",
-									direccion: "right"
-								}*/
-									,
-								caracteristicas: {
-									"font-size": "10px",
-									"fill": "#1d1d1b"
-								}
-							}], //items
-							limite: 5 //limite de items
-						}, ],
+									"x": "140",
+									"y": "30",
+									"width": "80",
+									"height": "80"
+								},
+								items: [
+									{
+										tipo: "text",
+										tag: "text", //"text", "g", etc.
+										valor: "+549336451810",
+										nombre: "telefono",
+										icono: {
+											orientacion: "right", 
+											svg: `<path d="M210.1,54.92h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,54.92Z"></path>`,
+											clases: ["color-secundario"]
+										},
+										caracteristicas: {
+											"font-size": "6px",
+											"fill": "#1d1d1b"
+										}
+									}, 
+									{
+										tipo: "text",
+										tag: "text", //"text", "g", etc.
+										valor: "www.logo.pro",
+										nombre: "web",
+										icono: {
+											orientacion: "right", 
+											svg: `<path d="M210.1,74.42h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,74.42Z"></path>`,
+											clases: ["color-primario"]
+										},
+										caracteristicas: {
+											"font-size": "6px",
+											"fill": "#1d1d1b"
+										}
+									},
+									{
+										tipo: "text",
+										tag: "text", //"text", "g", etc.
+										valor: "xarias13@gmail.com",
+										nombre: "email",
+										icono: {
+											orientacion: "right", 
+											svg: `<path d="M210.1,54.92h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,54.92Z"></path>`,
+											clases: ["color-secundario"]
+										},
+										caracteristicas: {
+											"font-size": "6px",
+											"fill": "#1d1d1b"
+										}
+									},
+									{
+										tipo: "text",
+										tag: "text", //"text", "g", etc.
+										valor: "Av alguna, Estado \n\nBuenos Aires",
+										nombre: "direccion",
+										icono: {
+											orientacion: "right", 
+											svg: `<path d="M210.1,54.92h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,54.92Z"></path>`,
+											clases: ["color-primario"]
+										},
+										caracteristicas: {
+											"font-size": "6px",
+											"fill": "#1d1d1b"
+										}
+									}
+									
+								], //items
+								limite: 5, //limite de items
+								orientacion: "right"
+							}
+						],
 						logos: [{
 							clases: ["total-blanco"],
 							caracteristicas: {
