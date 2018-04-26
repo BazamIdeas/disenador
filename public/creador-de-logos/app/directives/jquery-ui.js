@@ -6,7 +6,7 @@ angular.module("disenador-de-logos")
     //The link function is responsible for registering DOM listeners as well as updating the DOM.
     link: function(scope, element, attrs) {
       element.draggable({
-        revert:false
+        revert:true
       });
     }
   };
