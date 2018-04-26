@@ -5,10 +5,14 @@
 
 <style>
     bazam-papeleria {
-        width: 55%;
-        padding: 20px;
+        width: 54%;
+        height: 90%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding-right: 8px;
         display: block;
-        margin: auto;
+        margin: 30px auto;
+        padding-bottom: 40px;
     }
 
     bazam-papeleria svg {
