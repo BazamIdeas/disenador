@@ -4,7 +4,7 @@ angular.module("disenador-de-logos")
         return {
             restrict: "AE",
             scope: false,
-            controller: ["$scope", "$mdToast", "$rootScope", function ($scope, $mdToast, $rootScope) {
+            controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
                 var bz = this;
 
                 angular.forEach($scope.papeleriaEditor.papeleria.modelo.caras, function(cara){
@@ -13,15 +13,10 @@ angular.module("disenador-de-logos")
                     }
                 })
                 
+                $scope.agregarElementoHook = function(indiceCara, indiceHook, indiceElemento){
+                    var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
-                bz.cambiarCara = function(index){
-                    $rootScope.$broadcast('papeleria:cambioCara', {indice: index});
-                }
-
-                $scope.agregarElementoHook = function(elementoAgregado){
-                    var hook = $scope.papeleriaEditor.papeleria.modelo.caras[elementoAgregado.indiceCara].hooks[elementoAgregado.indiceHook];
-
-                    var item = $scope.papeleriaEditor.papeleria.items[elementoAgregado.elemento];
+                    var item = $scope.papeleriaEditor.papeleria.items[indiceElemento];
                     
                     if (hook.items.length == hook.limite) return $mdToast.show($mdToast.base({
                         args: {
@@ -39,9 +34,9 @@ angular.module("disenador-de-logos")
                         }));
                     }
 
-                    $scope.papeleriaEditor.papeleria.modelo.caras[elementoAgregado.indiceCara].hooks[elementoAgregado.indiceHook].items.push(item);
+                    $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items.push(item);
                     $scope.$apply();
-                    return $rootScope.$broadcast('papeleria:elementoAgregadoHook', elementoAgregado);
+                    $scope.papeleriaEditor.agregarElemento(indiceCara, indiceHook, indiceElemento)
         
                 }
 
@@ -49,7 +44,7 @@ angular.module("disenador-de-logos")
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
                     hook.items.splice( indiceItem, 1);
-                    return $rootScope.$broadcast('papeleria:elementoEliminadoHook', { indiceCara: indiceCara, indiceHook:indiceHook, elemento :indiceItem});
+                    $scope.papeleriaEditor.eliminarElemento(indiceCara, indiceHook, indiceItem);
                 }
 
             }],
@@ -64,15 +59,7 @@ angular.module("disenador-de-logos")
             link: function (scope, element) {
                 element.droppable({
                     drop: function (event) {
-
-                        var elementoAgregado = {
-                            indiceCara: scope.$parent.$index,
-                            indiceHook: scope.$index,
-                            elemento: parseInt(event.originalEvent.target.getAttribute('indice'))
-                        }
-                        
-                        scope.agregarElementoHook(elementoAgregado); 
-
+                        scope.agregarElementoHook(scope.$parent.$index, scope.$index, parseInt(event.originalEvent.target.getAttribute('indice')));
                     }
                 })
             }

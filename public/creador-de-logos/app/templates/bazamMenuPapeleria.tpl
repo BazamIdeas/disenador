@@ -1,7 +1,7 @@
 <div class="menuPapeleria {{papeleriaEditor.papeleria.tipo}}">
     <div class="tabs-p">
         <span ng-if="tabMenu.hooks.length > 0" ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" class="tab"
-            ng-click="menuPapeleria.menuActivo = tabMenu.nombre; menuPapeleria.cambiarCara($index)" ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}">
+            ng-click="menuPapeleria.menuActivo = tabMenu.nombre; papeleriaEditor.cambiarCara($index)" ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}">
             {{::tabMenu.nombre}}
         </span>
     </div>
@@ -29,7 +29,7 @@
                     <span class="item colocado" ng-repeat="item_hook in hook.items track by $index">
                         <span>
                             <input class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor" name="{{item_hook.nombre}}"
-                                type="{{item_hook.tipo}}">
+                                type="{{item_hook.tipo}}" ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)">
                         </span>
                         <span ng-click="menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
                             <md-tooltip md-direction="top">Eliminar</md-tooltip>

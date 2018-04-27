@@ -149,18 +149,22 @@ angular.module("disenador-de-logos")
 				}
 
 				bz.agregarElemento = function(indiceCara, indiceHook, indiceElemento){
+					console.log(indiceCara, indiceHook, indiceElemento)
 					console.log("agregar")
 				}
 
 				bz.cambiarTexto = function(indiceCara, indiceHook, indiceElemento, texto){
+					console.log(indiceCara,indiceHook,indiceElemento, texto)
 					console.log("cambio texto")
 				}
 
 				bz.eliminarElemento = function(indiceCara, indiceHook, indiceElemento){
+					console.log(indiceCara, indiceHook, indiceElemento)
 					console.log("eliminar")
 				}
 
 				bz.cambiarCara = function(indiceCara){
+					console.log(indiceCara)
 					console.log("cara")
 				}
 

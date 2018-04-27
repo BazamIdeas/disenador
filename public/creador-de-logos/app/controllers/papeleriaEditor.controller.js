@@ -253,17 +253,4 @@ angular.module("disenador-de-logos")
 			}
 		}
 
-
-		$scope.$on('papeleria:cambioCara', function (events, args) {
-			console.log(args);
-		})
-
-		$scope.$on('papeleria:elementoAgregadoHook', function (events, args) {
-			console.log(args);
-		})
-
-		$scope.$on('papeleria:elementoEliminadoHook', function (events, args) {
-			console.log(args);
-		})
-
 	}]);
