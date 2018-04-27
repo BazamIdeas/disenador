@@ -47,6 +47,22 @@ angular.module("disenador-de-logos")
                     $scope.papeleriaEditor.eliminarElemento(indiceCara, indiceHook, indiceItem);
                 }
 
+                bz.move = function(accion, indiceCara, indiceHook, indiceElemento){
+
+                    var nuevoIndice = indiceElemento + accion;
+
+                    var elementos = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items;
+
+                    if (nuevoIndice < 0 || nuevoIndice == elementos.length) return;
+
+                    var indexes = [indiceElemento, nuevoIndice].sort();
+
+                    elementos.splice(indexes[0], 2, elementos[indexes[1]], elementos[indexes[0]]);
+
+                    $scope.papeleriaEditor.eliminarElemento(accion, indiceCara, indiceHook, indiceElemento);
+
+                }
+
             }],
             controllerAs:"menuPapeleria",
             templateUrl: 'app/templates/bazamMenuPapeleria.tpl'

@@ -188,6 +188,11 @@ angular.module("disenador-de-logos")
 					console.log("cara")
 				}
 
+				bz.eliminarElemento = function(accion, indiceCara, indiceHook, indiceElemento){
+					console.log('mover')
+					console.log(accion, indiceCara, indiceHook, indiceElemento)
+				}
+
 			}
 		};
 	}]);
