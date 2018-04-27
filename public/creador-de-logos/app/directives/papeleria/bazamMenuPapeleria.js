@@ -59,7 +59,7 @@ angular.module("disenador-de-logos")
 
                     elementos.splice(indexes[0], 2, elementos[indexes[1]], elementos[indexes[0]]);
 
-                    $scope.papeleriaEditor.eliminarElemento(accion, indiceCara, indiceHook, indiceElemento);
+                    $scope.papeleriaEditor.reordenar(indiceCara, indiceHook);
 
                 }
 
