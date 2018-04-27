@@ -1,7 +1,7 @@
 <div class="menuPapeleria {{papeleriaEditor.papeleria.tipo}}">
     <div class="tabs-p">
-        <span ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" class="tab" ng-click="menuPapeleria.menuActivo = tabMenu.nombre; menuPapeleria.cambiarCara($index)"
-            ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}">
+        <span ng-if="tabMenu.hooks.length > 0" ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" class="tab"
+            ng-click="menuPapeleria.menuActivo = tabMenu.nombre; menuPapeleria.cambiarCara($index)" ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}">
             {{::tabMenu.nombre}}
         </span>
     </div>
@@ -19,12 +19,12 @@
                 {{::item.nombre}}
             </span>
         </div>
-        <div ng-show="menuPapeleria.menuActivo == contenedor.nombre" ng-repeat="contenedor in papeleriaEditor.papeleria.modelo.caras">
+        <div ng-show="menuPapeleria.menuActivo == contenedor.nombre && contenedor .hooks.length > 0" ng-repeat="contenedor in papeleriaEditor.papeleria.modelo.caras">
             <div class="contenedor-items" ng-repeat="hook in contenedor.hooks track by $index" droppable-hook-papeleria>
                 <div class="nombre-contenedor">
                     <b>{{::hook.id}}</b>
-                    <span>Disp {{hook.limite - hook.items.length }}</span>
                 </div>
+
                 <div>
                     <span class="item colocado" ng-repeat="item_hook in hook.items track by $index">
                         <span>
@@ -37,6 +37,10 @@
                         </span>
                     </span>
                 </div>
+                <div class="mensaje-items" ng-if="hook.items.length == 0">
+                    Agrega Elementos
+                </div>
+                <span class="espacios-disponibles">Espacios disponibles {{hook.limite - hook.items.length }}</span>
             </div>
         </div>
     </div>
@@ -44,6 +48,7 @@
 <style>
     bazam-menu-papeleria {
         width: 30%;
+            box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
     }
 
     .menuPapeleria {
@@ -79,6 +84,21 @@
         color: white;
     }
 
+    .espacios-disponibles {
+        text-align: center;
+        display: block;
+        font-size: 10pt;
+        margin-top: 8px;
+    }
+
+    .mensaje-items {
+        padding: 16px;
+        font-size: 18pt;
+        text-align: center;
+        font-family: 'futura-heavy' !important;
+        letter-spacing: 2px;
+    }
+
     .contenedor-items {
         width: 90%;
         margin: 10px auto;
@@ -87,10 +107,11 @@
         padding: 15px;
         border: 1px solid black;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+        padding-bottom: 5px;
     }
 
     .contenedor-items.ui-droppable-active {
-        border: 2px dashed #5981bc;
+        border: 2px dashed var(--principal);
     }
 
     .item {
@@ -142,8 +163,6 @@
         font-size: 15pt;
         margin-bottom: 10px;
         border-bottom: 1px solid;
-        display: flex;
-        justify-content: space-between;
     }
 
     .item.colocado> :last-child md-icon {

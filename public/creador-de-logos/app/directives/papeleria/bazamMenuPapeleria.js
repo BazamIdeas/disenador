@@ -7,7 +7,12 @@ angular.module("disenador-de-logos")
             controller: ["$scope", "$mdToast", "$rootScope", function ($scope, $mdToast, $rootScope) {
                 var bz = this;
 
-                bz.menuActivo = $scope.papeleriaEditor.papeleria.modelo.caras[0].nombre;
+                angular.forEach($scope.papeleriaEditor.papeleria.modelo.caras, function(cara){
+                    if(cara.hooks.length > 0){
+                        return bz.menuActivo = cara.nombre;
+                    }
+                })
+                
 
                 bz.cambiarCara = function(index){
                     $rootScope.$broadcast('papeleria:cambioCara', {indice: index});
