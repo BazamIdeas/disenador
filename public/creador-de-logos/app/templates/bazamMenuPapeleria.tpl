@@ -27,7 +27,13 @@
 
                 <div>
                     <span class="item colocado" ng-repeat="item_hook in hook.items track by $index">
-                        <span>
+                        <span class="controles-movimiento">
+                            <span ng-hide="$first" ng-click="menuPapeleria.move(-1, $parent.$parent.$index, $parent.$index, $index)">
+                                <md-icon>keyboard_arrow_up</md-icon>
+                            </span>
+                            <span ng-hide="$last" ng-click="menuPapeleria.move(1, $parent.$parent.$index, $parent.$index, $index)"><md-icon>keyboard_arrow_down</md-icon></span>
+                        </span>
+                        <span style="flex: 1;">
                             <input class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor" name="{{item_hook.nombre}}"
                                 type="{{item_hook.tipo}}" ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)">
                         </span>
@@ -48,7 +54,7 @@
 <style>
     bazam-menu-papeleria {
         width: 30%;
-            box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
     }
 
     .menuPapeleria {
@@ -140,14 +146,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
-    }
-
-    .item.colocado>span {
-        display: inline-block;
-    }
-
-    .item.colocado> :first-child {
-        flex: 1;
+            align-items: center;
     }
 
     .item input.input-papeleria {
@@ -171,6 +170,9 @@
 
     .item.colocado> :last-child {
         background: silver;
+        width: 35px;
+        height: 35px;
+        text-align: center;
         border-radius: 50%;
         padding: 3px;
         color: black;
@@ -183,5 +185,19 @@
         border: 1px solid red;
         cursor: pointer;
         color: red;
+    }
+
+    span.controles-movimiento {
+        width: 35px;
+        margin-right: 8px;
+        display: flex;
+        flex-direction: column;
+            align-items: center;
+    justify-content: center;
+    }
+
+    span.controles-movimiento > span md-icon:hover{
+        cursor: pointer;
+        color: black;
     }
 </style>
