@@ -87,7 +87,8 @@ angular.module("disenador-de-logos")
 							}
 						}]
 					},
-					{	nombre:"frontal",
+					{
+						nombre: "frontal",
 						svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 241.94 156.91">
 							<title>Asset 3</title>
 							<g id="Layer_2" data-name="Layer 2">
@@ -143,7 +144,6 @@ angular.module("disenador-de-logos")
 									nombre: "nombre",
 									icono: null,
 									caracteristicas: {
-										"font-size": "14px",
 										"fill": "#1d1d1b"
 									}
 								}, 
@@ -159,19 +159,19 @@ angular.module("disenador-de-logos")
 									}*/
 										,
 									caracteristicas: {
-										"font-size": "10px",
 										"fill": "#1d1d1b"
 									}
 								}], //items
-								limite: 5 //limite de items
+								limite: 5, //limite de items
+								tamanoTexto: "10px"
 							},
 							{
 								id: "B",
 								caracteristicas: {
-									"x": "140",
-									"y": "30",
-									"width": "80",
-									"height": "80"
+									"x": "105",
+									"y": "40",
+									"width": "120",
+									"height": "70"
 								},
 								items: [
 									{
@@ -185,7 +185,6 @@ angular.module("disenador-de-logos")
 											clases: ["color-secundario"]
 										},
 										caracteristicas: {
-											"font-size": "6px",
 											"fill": "#1d1d1b"
 										}
 									}, 
@@ -200,7 +199,6 @@ angular.module("disenador-de-logos")
 											clases: ["color-primario"]
 										},
 										caracteristicas: {
-											"font-size": "6px",
 											"fill": "#1d1d1b"
 										}
 									},
@@ -215,14 +213,13 @@ angular.module("disenador-de-logos")
 											clases: ["color-secundario"]
 										},
 										caracteristicas: {
-											"font-size": "6px",
 											"fill": "#1d1d1b"
 										}
 									},
 									{
 										tipo: "text",
 										tag: "text", //"text", "g", etc.
-										valor: "Av alguna, Estado \n\nBuenos Aires",
+										valor: "Av alguna,\nSan Nicolas de los arroyos,\nBuenos Aires",
 										nombre: "direccion",
 										icono: {
 											orientacion: "right", 
@@ -230,14 +227,14 @@ angular.module("disenador-de-logos")
 											clases: ["color-primario"]
 										},
 										caracteristicas: {
-											"font-size": "6px",
 											"fill": "#1d1d1b"
 										}
 									}
 									
 								], //items
 								limite: 5, //limite de items
-								orientacion: "right"
+								orientacion: "right",
+								tamanoTexto: "7px"
 							}
 						],
 						logos: [{
@@ -249,10 +246,10 @@ angular.module("disenador-de-logos")
 								height: "28.35"
 							}
 						}]
-					}, 
+					},
 				]
-					
-				
+
+
 			}
 		}
 

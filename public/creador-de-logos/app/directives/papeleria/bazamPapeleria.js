@@ -46,7 +46,6 @@ angular.module("disenador-de-logos")
 					});
 					
 					angular.forEach(cara.hooks, function(hook){
-						
 
 						var hookSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
 
@@ -54,42 +53,53 @@ angular.module("disenador-de-logos")
 
 						hookSvg.append("<svg style='width:100%; height: 100%;'></svg>");
 
-						//var hookSvg = angular.element("<foreignObject id='"+hook.id+"'><svg style='width:100%; height: 100%;'></svg></foreignObject>");
-
 						caraSvg.append(hookSvg);
 
 						angular.forEach(hook.caracteristicas, function(caracteristica, llave){
 							hookSvg.attr(llave, caracteristica);
 						});
-						
-						/*
-						angular.forEach(logo.clases, function(clase){
-							logoSvg.addClass(clase);
-						});
-						*/
-						//element.html(element.html());
-
+				
 						angular.forEach(hook.items, function(item, indice){
 						
 							//console.log(angular.element("#A svg")[0].getBoundingClientRect())
 							
+							var itemSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "g"));
 
-							var itemSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', item.tag));
+							itemSvg.append(angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', item.tag)));
 
-							//var itemSvg = angular.element("<"+item.tag+"></"+item.tag+">");
+							if(item.valor.indexOf("\n") != -1){
+								
+								/*
 
-							itemSvg.text(item.valor)
+								var trozosText = item.valor.split("\n");
+								angular.forEach(trozosText, function(trozoText){
+									
+									trozoTextSvg = angular.element("<tspan>"+trozoText+"</span>");
+									trozoTextSvg.attr("dx", "100%");
+									trozoTextSvg.attr("y", "0");
+									
+									//trozoTextSvg.attr("dy", "1.2em");
+									itemSvg.children().append(trozoTextSvg);
+
+								})
+								*/
+
+							} else {
+
+								itemSvg.children().text(item.valor);
+
+							}
 
 							angular.forEach(item.caracteristicas, function(caracteristica, llave){
-								itemSvg.attr(llave,caracteristica);
+								itemSvg.children().attr(llave,caracteristica);
 							});
 
-
-						
+							itemSvg.css({"font-size": hook.tamanoTexto})
+							
 							switch(hook.orientacion){
 								case "right":
-									itemSvg.attr("x", "100%");
-									itemSvg.attr("text-anchor", "end")
+									itemSvg.children().attr("x", "100%");
+									itemSvg.children().attr("text-anchor", "end")
 							};
 						
 
@@ -100,7 +110,7 @@ angular.module("disenador-de-logos")
 
 							if(indice === 0){//si es el primer item de este contenedor
 								
-								itemSvg.attr("y", coordenadasItem.height);
+								itemSvg.children().attr("y", coordenadasItem.height);
 
 							} else {//cualquier item despues del primero
 								
@@ -108,19 +118,12 @@ angular.module("disenador-de-logos")
 
 								var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
 								
-								itemSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
-
+								itemSvg.children().attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
 
 							}
-
-							
-							
+	
 						});
 						
-						
-						
-						
-						//element.html(element.html());
 				
 
 					});
@@ -145,99 +148,21 @@ angular.module("disenador-de-logos")
 
 				}
 
-
-
-				//element
-
-				/*
-				//agregamos la cara principal de la tarjeta
-				var primeraCara = angular.element(bz.papeleria.modelo.svg[0]);
-				primeraCara.addClass("primera-cara");
-				element.append(primeraCara);
-
-
-				//si existe agregamos la cara trasera
-				if(bz.papeleria.modelo.svg[1]){
-					
-					var segundaCara = angular.element(bz.papeleria.modelo.svg[1]);
-					segundaCara.addClass("segunda-cara");
-					element.append(segundaCara);
-
+				bz.agregarElemento = function(indiceCara, indiceHook, indiceElemento){
+					console.log("agregar")
 				}
 
-				//encontramos el logo default de la tarjeta
-				var logosReemplazar = element.find(".logo");
-
-		
-
-				logosReemplazar.each(function(index, el){
-					
-					var logoReemplazar = angular.element(el);
-					//guardamos su tamaño y coordenada
-					var datosLogo = {};
-					datosLogo.height = logoReemplazar.attr("height");
-					datosLogo.width = logoReemplazar.attr("width");
-					datosLogo.x = logoReemplazar.attr("x");
-					datosLogo.y = logoReemplazar.attr("y");
-					datosLogo.clases = logoReemplazar[0].classList;
-					
-					//encontramos el padre del logo default
-					var logoContenedor = logoReemplazar.parent();
-					angular.element(logoReemplazar).remove();
-
-					//creamos el logo final con las coordenadas del logo default
-					var logo = angular.element(bz.base64.decode(bz.logo.logo));
-					logo.attr("height", datosLogo.height);
-					logo.attr("width", datosLogo.width);
-					logo.attr("x", datosLogo.x);
-					logo.attr("y", datosLogo.y);
-
-
-					var gLogo = angular.element("<g></g>");
-					angular.forEach(datosLogo.clases, function(clase){
-						gLogo.addClass(clase);
-					});
-					
-					gLogo.append(logo);
-					
-					//lo insertamos en el padre
-					logoContenedor.append(gLogo);
-					
-
-				});
-				element.html(element.html());
-				//agregamos el color primario
-				element.find(".color-primario").css({"fill": bz.logo.atributos["color-icono"]});
-
-				//si el icono y el texto tienen el mismo color, se agrega como color secundario ele mismo con 0.5 opacity
-				if(bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]){
-					
-					element.find(".color-secundario").css("fill", element.find(".color-primario").css("fill").replace(")", ", 0.5)"));
-
-				} else {
-
-					element.find(".color-secundario").css("fill",bz.logo.atributos["color-nombre"]);
-
+				bz.cambiarTexto = function(indiceCara, indiceHook, indiceElemento, texto){
+					console.log("cambio texto")
 				}
 
-				fontService.preparar(bz.papeleria.modelo.fuentes[0])
+				bz.eliminarElemento = function(indiceCara, indiceHook, indiceElemento){
+					console.log("eliminar")
+				}
 
-				var textos = element.find("text");
-
-				textos.each(function(index, text){
-
-					angular.forEach(bz.papeleria.pieza, function(pieza, llave){
-						var textActual = angular.element(text);
-						if(textActual.hasClass(llave)){
-							textActual.text(pieza);
-							textActual.css({"font-family": bz.papeleria.modelo.fuentes[0]});
-						}
-						
-					});
-					
-				});
-
-				*/
+				bz.cambiarCara = function(indiceCara){
+					console.log("cara")
+				}
 
 			}
 		};

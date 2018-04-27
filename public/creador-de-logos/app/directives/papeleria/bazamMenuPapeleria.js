@@ -7,6 +7,8 @@ angular.module("disenador-de-logos")
             controller: ["$scope", "$mdToast", "$rootScope", function ($scope, $mdToast, $rootScope) {
                 var bz = this;
 
+                bz.menuActivo = $scope.papeleriaEditor.papeleria.modelo.caras[0].nombre;
+
                 bz.cambiarCara = function(index){
                     $rootScope.$broadcast('papeleria:cambioCara', {indice: index});
                 }
@@ -32,8 +34,9 @@ angular.module("disenador-de-logos")
                         }));
                     }
 
-                    hook.items.push(item);
-                    $rootScope.$broadcast('papeleria:elementoAgregadoHook', elementoAgregado);
+                    $scope.papeleriaEditor.papeleria.modelo.caras[elementoAgregado.indiceCara].hooks[elementoAgregado.indiceHook].items.push(item);
+                    $scope.$apply();
+                    return $rootScope.$broadcast('papeleria:elementoAgregadoHook', elementoAgregado);
         
                 }
 
@@ -41,7 +44,7 @@ angular.module("disenador-de-logos")
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
                     hook.items.splice( indiceItem, 1);
-                    $rootScope.$broadcast('papeleria:elementoEliminadoHook', { indiceCara: indiceCara, indiceHook:indiceHook, elemento :indiceItem});
+                    return $rootScope.$broadcast('papeleria:elementoEliminadoHook', { indiceCara: indiceCara, indiceHook:indiceHook, elemento :indiceItem});
                 }
 
             }],
@@ -50,7 +53,7 @@ angular.module("disenador-de-logos")
         }
     }])
 
-    .directive('droppableHookPapeleria', function ($rootScope) {
+    .directive('droppableHookPapeleria', function () {
         return {
             restrict: 'A',
             link: function (scope, element) {
@@ -60,7 +63,7 @@ angular.module("disenador-de-logos")
                         var elementoAgregado = {
                             indiceCara: scope.$parent.$index,
                             indiceHook: scope.$index,
-                            elemento:parseInt(angular.element(document).find('#' + event.originalEvent.target.id).attr('indice'))
+                            elemento: parseInt(event.originalEvent.target.getAttribute('indice'))
                         }
                         
                         scope.agregarElementoHook(elementoAgregado); 
