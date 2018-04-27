@@ -65,12 +65,32 @@ angular.module("disenador-de-logos")
 							
 							var itemSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "g"));
 
-							itemSvg.append(angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', item.tag)));
+						
+							var textSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', item.tag))
 
-							if(item.valor.indexOf("\n") != -1){
+							itemSvg.append(textSvg);
+
+							if(item.icono){
+
+								var iconoTexto = angular.element(item.icono.svg);
+								
+								angular.forEach(item.clases, function(clase){
+									iconoTexto.addClass(clase)
+								})
+								
+								if(item.icono.orientacion == 'right'){
+									itemSvg.append(iconoTexto);
+								} else if(item.icono.orientacion == 'left'){
+									itemSvg.prepend(iconoTexto);
+								}
+								
+							}
+
+							
+
+							if(item.valor.indexOf("\n") != -1){ //con saltos de linea
 								
 								/*
-
 								var trozosText = item.valor.split("\n");
 								angular.forEach(trozosText, function(trozoText){
 									
@@ -84,22 +104,22 @@ angular.module("disenador-de-logos")
 								})
 								*/
 
-							} else {
+							} else { //una sola linea de texto
 
-								itemSvg.children().text(item.valor);
+								textSvg.text(item.valor);
 
 							}
 
 							angular.forEach(item.caracteristicas, function(caracteristica, llave){
-								itemSvg.children().attr(llave,caracteristica);
+								textSvg.attr(llave,caracteristica);
 							});
 
 							itemSvg.css({"font-size": hook.tamanoTexto})
 							
 							switch(hook.orientacion){
 								case "right":
-									itemSvg.children().attr("x", "100%");
-									itemSvg.children().attr("text-anchor", "end")
+									textSvg.attr("x", "100%");
+									textSvg.attr("text-anchor", "end")
 							};
 						
 
@@ -110,15 +130,15 @@ angular.module("disenador-de-logos")
 
 							if(indice === 0){//si es el primer item de este contenedor
 								
-								itemSvg.children().attr("y", coordenadasItem.height);
+								textSvg.attr("y", coordenadasItem.height);
 
 							} else {//cualquier item despues del primero
 								
 								itemSvgAnterior = hookSvg.children().find(":nth-child("+(indice)+")");
-
+								console.log(itemSvgAnterior)
 								var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
 								
-								itemSvg.children().attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+								textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
 
 							}
 	
