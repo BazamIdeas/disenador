@@ -37,8 +37,10 @@
                                 </span>
                             </span>
                             <span style="flex: 1;">
-                                <input class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor" name="{{item_hook.nombre}}"
+                                <input ng-if="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor" name="{{item_hook.nombre}}"
                                     type="{{item_hook.tipo}}" ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)" required>
+
+                                    <textarea ng-if="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}"  ng-model="item_hook.valor" name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false"  ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)"></textarea>
                             </span>
                             <span ng-click="menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
                                 <md-tooltip md-direction="top">Eliminar</md-tooltip>
@@ -158,12 +160,18 @@
         align-items: center;
     }
 
-    .item input.input-papeleria {
+    .item input.input-papeleria, .item textarea {
         margin-bottom: 0;
+        
     }
 
     .item input.input-papeleria::placeholder {
         text-transform: capitalize;
+    }
+
+    .item textarea::placeholder{
+        
+        color: var(--principal);
     }
 
     .nombre-contenedor {

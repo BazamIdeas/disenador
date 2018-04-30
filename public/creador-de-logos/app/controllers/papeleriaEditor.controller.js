@@ -26,7 +26,7 @@ angular.module("disenador-de-logos")
 				},
 				{
 					nombre: "direccion",
-					tipo: "text",
+					tipo: "textarea",
 					tag: "text",
 					icono: ""
 				},
@@ -217,9 +217,9 @@ angular.module("disenador-de-logos")
 										}
 									},
 									{
-										tipo: "text",
-										tag: "text", //"text", "g", etc.
-										valor: "Av alguna,\nSan Nicolas de los arroyos,\nBuenos Aires",
+										tipo: "textarea",
+										tag: "textarea", //"text", "g", etc.
+										valor: ["Av alguna,\nSan Nicolas de los arroyos,\nBuenos Aires"],
 										nombre: "direccion",
 										icono: {
 											orientacion: "right", 
