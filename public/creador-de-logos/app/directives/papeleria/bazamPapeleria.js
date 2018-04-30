@@ -5,14 +5,14 @@ angular.module("disenador-de-logos")
 			restrict: "AE",
 			scope: true,
 			controller: ["$scope", function ($scope) {
-                
+
 			}],
 			link: function (scope, element) {
-				
+
 				//obtenemos el controlador padre
 				var bz = scope.$parent.papeleriaEditor;
 
-				angular.forEach(bz.papeleria.modelo.caras, function(cara, index){
+				angular.forEach(bz.papeleria.modelo.caras, function (cara, index) {
 
 					var caraSvg = angular.element(cara.svg);
 
@@ -28,24 +28,24 @@ angular.module("disenador-de-logos")
 					caraSvg.prepend(estilos);
 
 					element.append(caraSvg);
-					
-					angular.forEach(cara.logos, function(logo){
 
-						var logoSvg = angular.element("<g class='contenedor-logo'>"+bz.base64.decode(bz.logo.logo)+"</g>");
+					angular.forEach(cara.logos, function (logo) {
 
-						angular.forEach(logo.caracteristicas, function(caracteristica, llave){
+						var logoSvg = angular.element("<g class='contenedor-logo'>" + bz.base64.decode(bz.logo.logo) + "</g>");
+
+						angular.forEach(logo.caracteristicas, function (caracteristica, llave) {
 							logoSvg.children().attr(llave, caracteristica);
 						});
 
-						angular.forEach(logo.clases, function(clase){
+						angular.forEach(logo.clases, function (clase) {
 							logoSvg.addClass(clase);
 						});
 
 						caraSvg.append(logoSvg);
 
 					});
-					
-					angular.forEach(cara.hooks, function(hook){
+
+					angular.forEach(cara.hooks, function (hook) {
 
 						var hookSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
 
@@ -55,54 +55,73 @@ angular.module("disenador-de-logos")
 
 						caraSvg.append(hookSvg);
 
-						angular.forEach(hook.caracteristicas, function(caracteristica, llave){
+						angular.forEach(hook.caracteristicas, function (caracteristica, llave) {
 							hookSvg.attr(llave, caracteristica);
 						});
-				
-						angular.forEach(hook.items, function(item, indice){
-						
+
+						angular.forEach(hook.items, function (item, indice) {
+
 							//console.log(angular.element("#A svg")[0].getBoundingClientRect())
-							
+
 							var itemSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "g"));
 
-						
 							var textSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', item.tag))
 
 							itemSvg.append(textSvg);
 
-							if(item.icono){
+							//REVISAR
+							hookSvg.children().append(itemSvg);
 
-								var iconoTexto = angular.element(item.icono.svg);
-								
-								angular.forEach(item.clases, function(clase){
-									iconoTexto.addClass(clase)
+
+							var iconoTexto;
+							var contenedorIconoSvg;
+							var iconoSvg;
+
+							if (item.icono) {
+
+								var contenedorIconoSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
+
+								iconoSvg = angular.element(item.icono.svg);
+
+								contenedorIconoSvg.append(iconoSvg);
+
+								angular.forEach(item.icono.clases, function (clase) {
+									iconoSvg.addClass(clase);
 								})
-								
-								if(item.icono.orientacion == 'right'){
-									itemSvg.append(iconoTexto);
-								} else if(item.icono.orientacion == 'left'){
-									itemSvg.prepend(iconoTexto);
+
+								if (item.icono.orientacion == 'right') {
+
+									itemSvg.append(contenedorIconoSvg);
+
+								} else if (item.icono.orientacion == 'left') {
+
+									itemSvg.prepend(contenedorIconoSvg);
+
 								}
-								
+
 							}
 
-							
 
-							if(item.valor.indexOf("\n") != -1){ //con saltos de linea
-								
-								/*
-								var trozosText = item.valor.split("\n");
-								angular.forEach(trozosText, function(trozoText){
-									
-									trozoTextSvg = angular.element("<tspan>"+trozoText+"</span>");
-									trozoTextSvg.attr("dx", "100%");
-									trozoTextSvg.attr("y", "0");
-									
+							var multilineas = 0;
+							var tamanoLineas = 0;
+
+							if (Array.isArray(item.valor)) { //con saltos de linea
+
+								angular.forEach(item.valor, function (trozoText) {
+
+									trozoTextSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "tspan"));
+									trozoTextSvg.text(trozoText);
+									//trozoTextSvg.attr("x", "80%");
+									//trozoTextSvg.attr("dy", "10");
+
 									//trozoTextSvg.attr("dy", "1.2em");
-									itemSvg.children().append(trozoTextSvg);
+									textSvg.append(trozoTextSvg);
+
+									tamanoLineas += trozoTextSvg[0].getBBox().height;
+									multilineas++;
 
 								})
-								*/
+
 
 							} else { //una sola linea de texto
 
@@ -110,91 +129,659 @@ angular.module("disenador-de-logos")
 
 							}
 
-							angular.forEach(item.caracteristicas, function(caracteristica, llave){
-								textSvg.attr(llave,caracteristica);
+							angular.forEach(item.caracteristicas, function (caracteristica, llave) {
+
+								textSvg.attr(llave, caracteristica);
+
 							});
 
-							itemSvg.css({"font-size": hook.tamanoTexto})
-							
-							switch(hook.orientacion){
-								case "right":
-									textSvg.attr("x", "100%");
-									textSvg.attr("text-anchor", "end")
-							};
-						
+							if (multilineas) {
+
+								if (multilineas == 2) {
+
+								} else if (multilineas > 2) {
+									var tamanoTexto = (parseInt(hook.tamanoTexto) / multilineas) * 2;
+								}
 
 
-							hookSvg.children().append(itemSvg);
 
-							var coordenadasItem = itemSvg[0].getBBox();
+								itemSvg.css({
+									"font-size": tamanoTexto
+								});
 
-							if(indice === 0){//si es el primer item de este contenedor
-								
-								textSvg.attr("y", coordenadasItem.height);
+							} else {
 
-							} else {//cualquier item despues del primero
-								
-								itemSvgAnterior = hookSvg.children().find(":nth-child("+(indice)+")");
-								console.log(itemSvgAnterior)
-								var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
-								
-								textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+								itemSvg.css({
+									"font-size": hook.tamanoTexto
+								});
 
 							}
+
+
+							var coordenadasItem = itemSvg[0].getBBox();
+							var tamanoIcono = parseInt(hook.tamanoTexto) * 2;
+							var coordenadasHook = hookSvg[0].getBBox();
+							var coordenadasTexto = textSvg[0].getBBox();
+							var coordenadasContenedor;
+
+
+							switch (hook.orientacion) {
+
+								case "right":
+
+									textSvg.attr("text-anchor", "end");
+
+									if (item.icono) { //si tiene icono
+
+										contenedorIconoSvg.attr("height", tamanoIcono);
+										contenedorIconoSvg.attr("width", tamanoIcono);
+
+										iconoSvg.attr("height", "100%")
+										iconoSvg.attr("width", "100%")
+
+										coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+
+										if (item.icono.orientacion == 'right') {
+
+											contenedorIconoSvg.attr("x", coordenadasHook.width - coordenadasContenedor.width)
+
+											coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+
+											if (multilineas) {
+												textSvg.children().attr("x", (coordenadasContenedor.x * 0.95))
+											} else {
+												textSvg.attr("x", (coordenadasContenedor.x * 0.95));
+											}
+
+
+										} else if (item.icono.orientacion == 'left') {
+
+											if (multilineas) {
+												textSvg.children().attr("x", "100%")
+											} else {
+												textSvg.attr("x", "100%");
+											}
+
+											coordenadasTexto = textSvg[0].getBBox();
+
+											contenedorIconoSvg.attr("x", coordenadasHook.width - coordenadasTexto.width - coordenadasContenedor.width)
+
+										}
+
+
+										if (multilineas) { //si es multilinea
+
+											coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+											
+											if(coordenadasContenedor.height > tamanoLineas){ //si el icono es mas grande que las lineas
+
+												contenedorIconoSvg.attr("y", "0");
+
+												//TODO: posicion del text guiado por el icono
+												/*
+												if (indice === 0) { //si es el primer item de este contenedor
+
+													contenedorIconoSvg.attr("y", "0");
 	
+												} else { //cualquier item despues del primero
+	
+													var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+	
+													var alturaAnterior;
+	
+													if (hook.items[indice - 1].icono) { //SI HAY UN ICONO ANTERIOR
+	
+														var contenedorIconoSvgAnterior = itemAnterior.find("foreignObject");
+	
+														var coordenadasContenedorIconoSvgAnterior = contenedorIconoSvgAnterior[0].getBBox();
+	
+														alturaAnterior = coordenadasContenedorIconoSvgAnterior.height + coordenadasContenedorIconoSvgAnterior.y;
+	
+													} else { //SI NO HAY ICONO ANTEIOR
+	
+														alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+	
+													}
+	
+													//SE POSICIONA EL ICONO ACTUAL
+													contenedorIconoSvg.attr("y", alturaAnterior);
+	
+	
+													itemSvgAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+	
+													var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+	
+												}
+	
+												coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+	
+	
+												textSvg.attr("y", (coordenadasContenedor.y + (coordenadasContenedor.height / 2) + (coordenadasTexto.height / 4)));
+												*/
+												
+											} else if(coordenadasContenedor.height <= tamanoLineas){ //si las lineas son mas grandes que el icono
+
+
+												if (indice === 0) { //si es el primer item de este contenedor
+
+													coordenadasTexto = textSvg[0].getBBox();
+
+													textSvg.attr("y", coordenadasTexto.height)
+													
+													textSvg.children().each(function(indiceTrozo){
+														
+														var trozoTextSvg = angular.element(this);
+
+														if(indiceTrozo === 0){	// primera linea de texto
+															trozoTextSvg.attr("dy", "0");
+														} else {
+															//var coordenadasTrozoTextAnterior = trozoTextSvg.prev()[0].getBBox();
+															var coordenadasTrozo = trozoTextSvg[0].getBBox();
+
+															trozoTextSvg.attr("dy", coordenadasTrozo.height);
+														}
+														
+
+													})
+	
+												} else { //cualquier item despues del primero
+													
+													var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+	
+													var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+
+													textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+													var alturaLinea = 0;
+													textSvg.children().each(function(indiceTrozo){
+														
+														var trozoTextSvg = angular.element(this);
+
+														if(indiceTrozo === 0){	// primera linea de texto
+															trozoTextSvg.attr("dy", "0");
+															alturaLinea = trozoTextSvg[0].getBBox().height;
+														
+														} else {
+															
+															trozoTextSvg.attr("dy", alturaLinea);
+														}
+														
+
+													})
+
+												}
+	
+												coordenadasTexto = textSvg[0].getBBox();
+	
+	
+												contenedorIconoSvg.attr("y", (coordenadasTexto.y + (coordenadasTexto.height / 2) - (coordenadasContenedor.height / 2)));
+
+
+											}
+
+										} else { //si es un texto de linea unica
+
+
+											if (indice === 0) { //si es el primer item de este contenedor
+
+												contenedorIconoSvg.attr("y", "0");
+
+											} else { //cualquier item despues del primero
+
+												var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+
+												var alturaAnterior;
+
+												if (hook.items[indice - 1].icono) { //SI HAY UN ICONO ANTERIOR
+
+													var contenedorIconoSvgAnterior = itemAnterior.find("foreignObject");
+
+													var coordenadasContenedorIconoSvgAnterior = contenedorIconoSvgAnterior[0].getBBox();
+
+													alturaAnterior = coordenadasContenedorIconoSvgAnterior.height + coordenadasContenedorIconoSvgAnterior.y;
+
+												} else { //SI NO HAY ICONO ANTEIOR
+
+													alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+
+												}
+
+												//SE POSICIONA EL ICONO ACTUAL
+												contenedorIconoSvg.attr("y", alturaAnterior);
+
+
+												itemSvgAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+
+												var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+
+											}
+
+											coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+
+
+											textSvg.attr("y", (coordenadasContenedor.y + (coordenadasContenedor.height / 2) + (coordenadasTexto.height / 4)));
+										}
+
+									} else {
+
+										
+										//textSvg.attr("text-anchor", "end");
+
+										if(multilineas){//si es multilinea
+
+											textSvg.children().attr("x", "100%")
+										
+											if (indice === 0) { //si es el primer item de este contenedor
+
+												coordenadasTexto = textSvg[0].getBBox();
+
+												textSvg.attr("y", coordenadasTexto.height)
+												
+												textSvg.children().each(function(indiceTrozo){
+													
+													var trozoTextSvg = angular.element(this);
+
+													if(indiceTrozo === 0){	// primera linea de texto
+														trozoTextSvg.attr("dy", "0");
+													} else {
+														//var coordenadasTrozoTextAnterior = trozoTextSvg.prev()[0].getBBox();
+														var coordenadasTrozo = trozoTextSvg[0].getBBox();
+
+														trozoTextSvg.attr("dy", coordenadasTrozo.height);
+													}
+													
+
+												})
+
+											} else { //cualquier item despues del primero
+												
+												var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+	
+												var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+
+												textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+												var alturaLinea = 0;
+												textSvg.children().each(function(indiceTrozo){
+													
+													var trozoTextSvg = angular.element(this);
+
+													if(indiceTrozo === 0){	// primera linea de texto
+														trozoTextSvg.attr("dy", "0");
+														alturaLinea = trozoTextSvg[0].getBBox().height;
+													
+													} else {
+														
+														trozoTextSvg.attr("dy", alturaLinea);
+													}
+													
+
+												})
+											}
+											
+
+										} else {// si no es multilinea
+
+											textSvg.attr("x", "100%");
+
+											if (indice === 0) { //si es el primer item de este contenedor
+
+												textSvg.attr("y", coordenadasItem.height);
+
+											} else { //cualquier item despues del primero
+
+												itemSvgAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+
+												var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+
+												textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+
+											}
+
+										}
+
+									}
+									break;
+
+								case "left":
+
+									textSvg.attr("text-anchor", "start");
+
+									if (item.icono) { //si tiene icono
+
+										contenedorIconoSvg.attr("height", tamanoIcono);
+										contenedorIconoSvg.attr("width", tamanoIcono);
+
+										iconoSvg.attr("height", "100%")
+										iconoSvg.attr("width", "100%")
+
+										coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+
+										if (item.icono.orientacion == 'right') {
+
+											//contenedorIconoSvg.attr("x", coordenadasHook.width - coordenadasContenedor.width)
+
+											if (multilineas) {
+												textSvg.children().attr("x", "0")
+											} else { 
+												textSvg.attr("x", "0");
+											}											
+
+											coordenadasTexto = textSvg[0].getBBox();
+
+											contenedorIconoSvg.attr("x", coordenadasTexto.width);
+
+											//coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+
+										} else if (item.icono.orientacion == 'left') {
+
+											contenedorIconoSvg.attr("x", "0");
+
+											coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+
+											if (multilineas) {
+												textSvg.children().attr("x", (coordenadasContenedor.width * 1.05))
+											} else {
+												textSvg.attr("x", (coordenadasContenedor.width * 1.05));
+											}
+											
+
+										}
+
+										if(multilineas){//si es multilinea
+
+
+											coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+											
+											if(coordenadasContenedor.height > tamanoLineas){ //si el icono es mas grande que las lineas
+
+												//contenedorIconoSvg.attr("y", "0");
+
+												
+											} else if(coordenadasContenedor.height <= tamanoLineas){ //si las lineas son mas grandes que el icono
+												if (indice === 0) { //si es el primer item de este contenedor
+
+													coordenadasTexto = textSvg[0].getBBox();
+
+													textSvg.attr("y", coordenadasTexto.height)
+													
+													textSvg.children().each(function(indiceTrozo){
+														
+														var trozoTextSvg = angular.element(this);
+
+														if(indiceTrozo === 0){	// primera linea de texto
+															trozoTextSvg.attr("dy", "0");
+														} else {
+															//var coordenadasTrozoTextAnterior = trozoTextSvg.prev()[0].getBBox();
+															var coordenadasTrozo = trozoTextSvg[0].getBBox();
+
+															trozoTextSvg.attr("dy", coordenadasTrozo.height);
+														}
+														
+
+													})
+	
+												} else { //cualquier item despues del primero
+													
+													var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+	
+													var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+
+													textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+													var alturaLinea = 0;
+													textSvg.children().each(function(indiceTrozo){
+														
+														var trozoTextSvg = angular.element(this);
+
+														if(indiceTrozo === 0){	// primera linea de texto
+															trozoTextSvg.attr("dy", "0");
+															alturaLinea = trozoTextSvg[0].getBBox().height;
+														
+														} else {
+															
+															trozoTextSvg.attr("dy", alturaLinea);
+														}
+														
+
+													})
+
+												}
+	
+												coordenadasTexto = textSvg[0].getBBox();
+	
+												contenedorIconoSvg.attr("y", (coordenadasTexto.y + (coordenadasTexto.height / 2) - (coordenadasContenedor.height / 2)));
+											}
+
+
+												//si es el primer item de este contenedor
+
+										} else{//si es un texto de una sola linea
+
+											if (indice === 0) { //si es el primer item de este contenedor
+
+												contenedorIconoSvg.attr("y", "0");
+	
+											} else { //cualquier item despues del primero
+	
+												var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+	
+												var alturaAnterior;
+												
+												if (hook.items[indice - 1].icono) { //SI HAY UN ICONO ANTERIOR
+	
+													var contenedorIconoSvgAnterior = itemAnterior.find("foreignObject");
+	
+													var coordenadasContenedorIconoSvgAnterior = contenedorIconoSvgAnterior[0].getBBox();
+	
+													alturaAnterior = coordenadasContenedorIconoSvgAnterior.height + coordenadasContenedorIconoSvgAnterior.y;
+	
+												} else { //SI NO HAY ICONO ANTEIOR
+	
+													alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+	
+												}
+	
+												//SE POSICIONA EL ICONO ACTUAL
+												contenedorIconoSvg.attr("y", alturaAnterior);
+	
+												itemSvgAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+	
+												var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+	
+											}
+	
+											coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+	
+											textSvg.attr("y", (coordenadasContenedor.y + (coordenadasContenedor.height / 2) + (coordenadasTexto.height / 4)));
+
+										}
+										
+
+									} else { //si no tiene icono
+
+										
+
+
+										if(multilineas){//si es multilinea
+
+											textSvg.children().attr("x", "0")
+										
+											if (indice === 0) { //si es el primer item de este contenedor
+
+												coordenadasTexto = textSvg[0].getBBox();
+
+												textSvg.attr("y", coordenadasTexto.height)
+												
+												textSvg.children().each(function(indiceTrozo){
+													
+													var trozoTextSvg = angular.element(this);
+
+													if(indiceTrozo === 0){	// primera linea de texto
+														trozoTextSvg.attr("dy", "0");
+													} else {
+														//var coordenadasTrozoTextAnterior = trozoTextSvg.prev()[0].getBBox();
+														var coordenadasTrozo = trozoTextSvg[0].getBBox();
+
+														trozoTextSvg.attr("dy", coordenadasTrozo.height);
+													}
+													
+
+												})
+
+											} else { //cualquier item despues del primero
+												
+												var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+	
+												var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+
+												textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+												var alturaLinea = 0;
+												textSvg.children().each(function(indiceTrozo){
+													
+													var trozoTextSvg = angular.element(this);
+
+													if(indiceTrozo === 0){	// primera linea de texto
+														trozoTextSvg.attr("dy", "0");
+														alturaLinea = trozoTextSvg[0].getBBox().height;
+													
+													} else {
+														
+														trozoTextSvg.attr("dy", alturaLinea);
+													}
+													
+
+												})
+											}
+
+										} else {
+											textSvg.attr("x", "0%")
+											
+											if (indice === 0) { //si es el primer item de este contenedor
+
+												textSvg.attr("y", coordenadasItem.height);
+
+											} else { //cualquier item despues del primero
+
+												itemSvgAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+
+												var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+
+												textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+
+											}
+
+										}
+
+									}
+
+									/*if(iconoSvg){//si tiene icono
+											
+										contenedorIconoSvg.attr("height", tamanoIcono);
+										contenedorIconoSvg.attr("width", tamanoIcono);
+										
+										iconoSvg.attr("height", "100%")
+										iconoSvg.attr("width", "100%")
+
+										coordenadasContenedor = contenedorIconoSvg[0].getBBox();										
+										contenedorIconoSvg.attr("x", coordenadasHook.width - coordenadasContenedor.width)
+
+										coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+
+										textSvg.attr("x", (coordenadasContenedor.x * 0.95));
+										textSvg.attr("text-anchor", "end");
+
+										if(indice === 0){//si es el primer item de este contenedor
+								
+											textSvg.attr("y", coordenadasItem.height);
+			
+										} else {//cualquier item despues del primero
+											
+											itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
+											
+											var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+											
+											textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+			
+										}
+										
+
+									} else {
+
+										//textSvg.attr("x", "100%");
+										//textSvg.attr("text-anchor", "end");
+
+										if(indice === 0){//si es el primer item de este contenedor
+								
+											textSvg.attr("y", coordenadasItem.height);
+			
+										} else {//cualquier item despues del primero
+											
+											itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
+											
+											var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+											
+											textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+			
+										}
+									}*/
+
+
+							};
+
+
+
+
+
 						});
-						
-				
+
+
 
 					});
 
-					
+
 
 				});
 
 				element.html(element.html());
 
 
-				element.find(".color-primario").css({"fill": bz.logo.atributos["color-icono"]});
+				element.find(".color-primario").css({
+					"fill": bz.logo.atributos["color-icono"]
+				});
 
 				//si el icono y el texto tienen el mismo color, se agrega como color secundario ele mismo con 0.5 opacity
-				if(bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]){
-					
+				if (bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]) {
+
 					element.find(".color-secundario").css("fill", element.find(".color-primario").css("fill").replace(")", ", 0.5)"));
 
 				} else {
 
-					element.find(".color-secundario").css("fill",bz.logo.atributos["color-nombre"]);
+					element.find(".color-secundario").css("fill", bz.logo.atributos["color-nombre"]);
 
 				}
 
-				bz.agregarElemento = function(indiceCara, indiceHook, indiceElemento){
+				bz.agregarElemento = function (indiceCara, indiceHook, indiceElemento) {
 					console.log(indiceCara, indiceHook, indiceElemento)
 					console.log("agregar")
 				}
 
-				bz.cambiarTexto = function(indiceCara, indiceHook, indiceElemento, texto){
-					console.log(indiceCara,indiceHook,indiceElemento, texto)
+				bz.cambiarTexto = function (indiceCara, indiceHook, indiceElemento, texto) {
+					console.log(indiceCara, indiceHook, indiceElemento, texto)
 					console.log("cambio texto")
 				}
 
-				bz.eliminarElemento = function(indiceCara, indiceHook, indiceElemento){
+				bz.eliminarElemento = function (indiceCara, indiceHook, indiceElemento) {
 					console.log(indiceCara, indiceHook, indiceElemento)
 					console.log("eliminar")
 				}
 
-				bz.cambiarCara = function(indiceCara){
+				bz.cambiarCara = function (indiceCara) {
 					console.log(indiceCara)
 					console.log("cara")
 				}
 
-				bz.eliminarElemento = function(accion, indiceCara, indiceHook, indiceElemento){
+				bz.reordenar = function (indiceCara, indiceHook) {
 					console.log('mover')
-					console.log(accion, indiceCara, indiceHook, indiceElemento)
 				}
 
 			}
 		};
 	}]);
-
-

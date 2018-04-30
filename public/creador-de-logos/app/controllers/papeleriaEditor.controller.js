@@ -163,7 +163,8 @@ angular.module("disenador-de-logos")
 									}
 								}], //items
 								limite: 5, //limite de items
-								tamanoTexto: "10px"
+								tamanoTexto: "10px",
+								orientacion: "left",
 							},
 							{
 								id: "B",
@@ -181,7 +182,7 @@ angular.module("disenador-de-logos")
 										nombre: "telefono",
 										icono: {
 											orientacion: "right", 
-											svg: `<path d="M210.1,54.92h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,54.92Z"></path>`,
+											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 											clases: ["color-secundario"]
 										},
 										caracteristicas: {
@@ -195,7 +196,7 @@ angular.module("disenador-de-logos")
 										nombre: "web",
 										icono: {
 											orientacion: "right", 
-											svg: `<path d="M210.1,74.42h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,74.42Z"></path>`,
+											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 											clases: ["color-primario"]
 										},
 										caracteristicas: {
@@ -207,11 +208,11 @@ angular.module("disenador-de-logos")
 										tag: "text", //"text", "g", etc.
 										valor: "xarias13@gmail.com",
 										nombre: "email",
-										icono: {
-											orientacion: "right", 
-											svg: `<path d="M210.1,54.92h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,54.92Z"></path>`,
-											clases: ["color-secundario"]
-										},
+										icono: null,
+											/*orientacion: "left", 
+											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+											clases: ["color-primario"]*/
+
 										caracteristicas: {
 											"fill": "#1d1d1b"
 										}
@@ -219,13 +220,13 @@ angular.module("disenador-de-logos")
 									{
 										tipo: "text",
 										tag: "text", //"text", "g", etc.
-										valor: "Av alguna,\nSan Nicolas de los arroyos,\nBuenos Aires",
+										valor: ["Av alguna,", "San Nicolas de los arroyos,", "Buenos Aires"],
 										nombre: "direccion",
-										icono: {
-											orientacion: "right", 
-											svg: `<path d="M210.1,54.92h0a8.76,8.76,0,0,1-8.76-8.76h0a8.76,8.76,0,0,1,8.76-8.76h0a8.76,8.76,0,0,1,8.76,8.76h0A8.76,8.76,0,0,1,210.1,54.92Z"></path>`,
+										icono: null /*{
+											orientacion: "left", 
+											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 											clases: ["color-primario"]
-										},
+										}*/,
 										caracteristicas: {
 											"fill": "#1d1d1b"
 										}
@@ -233,7 +234,7 @@ angular.module("disenador-de-logos")
 									
 								], //items
 								limite: 5, //limite de items
-								orientacion: "right",
+								orientacion: "left",
 								tamanoTexto: "7px"
 							}
 						],
