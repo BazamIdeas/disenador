@@ -1,9 +1,9 @@
 <div class="row" style="width:100%;">
     <div class="col s8 offset-s2 ">
         <div class="login-form-flex">
-            <div ng-switch="bazamLogin.formPasos">
+            <div ng-switch="bazamLogin.formPasos" style="height: 92%;">
 
-                <div class="login row" style="margin:0; " ng-switch-default>
+                <div class="login row" style="margin:0;height: 92%;" ng-switch-default>
 
                     <div class="login-form col s6  offset-s3" style="position:relative;" ng-hide="bazamLogin.ingresar">
                         <i ng-if="bazamLogin.vistaActual != 'login'" style=" right: 23px; top: 5%;" class="material-icons cerrar-pop" ng-click="$root.mostrarModalLogin = false">clear</i>
@@ -19,7 +19,7 @@
                                 <div class="ingreso-redes-sociales">
                                     <div class="ingreso__facebook" ng-click="bazamLogin.social('fb')">
 
-                                        <i class="fab fa-facebook"></i>
+                                        <i class="fab fa-facebook-f"></i>
                                     </div>
                                     <div class="ingreso__google" ng-click="bazamLogin.social('gg')">
                                         <i class="fab fa-google-plus-g"></i>
@@ -87,7 +87,7 @@
                                         <div class="ingreso-redes-sociales">
                                             <div class="ingreso__facebook" ng-click="bazamLogin.social('fb')">
 
-                                                <i class="fab fa-facebook"></i>
+                                                <i class="fab fa-facebook-f"></i>
                                             </div>
                                             <div class="ingreso__google" ng-click="bazamLogin.social('gg')">
                                                 <i class="fab fa-google-plus-g"></i>

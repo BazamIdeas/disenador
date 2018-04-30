@@ -67,6 +67,11 @@ app.use('/administrador/*', function (req, res, next) {
 });
 
 
+app.use('/email/*', function (req, res, next) {
+  // Just send the index.html for other files to support HTML5Mode
+
+      res.sendFile('/email-templates/clienteRegistradoPorRedes.html', { root: __dirname });
+});
 
 
 // catch 404 and forward to error handler

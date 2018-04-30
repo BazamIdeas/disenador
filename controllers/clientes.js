@@ -647,6 +647,7 @@ exports.nuevoClienteRed = async function (req, res)
 
                         res.status(200).json({
                             'nombre': dataCliente.nombreCliente,
+                            'foto': dataCliente.foto,
                             'token': services.authServices.crearToken(data.insertId, "cliente"),
                             'msg': "se ha enviado un correo con una contraseña provisional"
                         })
