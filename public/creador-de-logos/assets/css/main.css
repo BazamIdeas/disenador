@@ -336,11 +336,7 @@ a.md-button {
   font-family: 'nunito-sans-bold' !important;
   margin: 0 !important; }
 
-.bazam-pallette-button:focus,
-button:focus,
-button:hover,
-a.md-button:hover,
-.md-button:not([disabled]):hover {
+.bazam-pallette-button:focus, button:focus, button:hover, a.md-button:hover, .md-button:not([disabled]):hover {
   background-color: rgba(158, 158, 158, 0.2);
   outline: none;
   background-color: #5980B7;
