@@ -1,4 +1,4 @@
-<div>
+
     <div class="row seccion uno">
         <div class="col s12 no-padding">
             <div class="titulo-inicio">
@@ -204,4 +204,3 @@
             </div>
         </div>
     </div>
-</div>

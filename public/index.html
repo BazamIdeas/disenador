@@ -1,162 +1,163 @@
-<html lang="es" ng-app="landing"  ng-cloak>
-    <head>
-        <base href="/">
-        <title>Logopro | Tu logo en 3 minutos</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="/angular-material/angular-material.min.css" rel="stylesheet">
-        <link href="/landing/assets/style.css" rel="stylesheet">
-        <link href="/landing/assets/animation.css" rel="stylesheet">
-        <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
-        <link rel="stylesheet" href="/landing/assets/materialize.min.css">
-        <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
+<html lang="es" ng-app="landing" ng-cloak>
 
-        <meta property="og:title" content="LOGOPRO | Tu logo en 3 minutos"/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:image" content="/landing/assets/img/logo.pro.svg"/>
-        <meta property="og:image:url" content="/landing/assets/img/logo.pro.svg"/>
-        <meta property="og:description" content="Diseña tu logo"/>
-        <meta property="og:site_name" content="logopro"/>
-        <meta property="fb:app_id" content="152803392097078"/>
+<head>
+    <base href="/">
+    <title>Logopro | Tu logo en 3 minutos</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/angular-material/angular-material.min.css" rel="stylesheet">
+    <link href="/landing/assets/css/main.css" rel="stylesheet">
+    <!-- <link href="/landing/assets/animation.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
+    <link rel="stylesheet" href="/landing/assets/css/materialize.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
 
-        <!--Librerias core de angualarJS -->
-        <script src="/jquery/jquery.min.js"></script>
-        <script src="/angular/angular.min.js"></script>
-        <script src="/angular-messages/angular-messages.min.js"></script>
-        <script src="/angular-animate/angular-animate.min.js"></script>
-        <script src="/angular-aria/angular-aria.min.js"></script>
-        <script src="/angular-base64/angular-base64.min.js"></script>
+    <meta property="og:title" content="LOGOPRO | Tu logo en 3 minutos" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/landing/assets/img/logo.pro.svg" />
+    <meta property="og:image:url" content="/landing/assets/img/logo.pro.svg" />
+    <meta property="og:description" content="Diseña tu logo" />
+    <meta property="og:site_name" content="logopro" />
+    <meta property="fb:app_id" content="152803392097078" />
 
-        <!--Librerias 3r party angularJS -->
-        <script src="/angular-ui-router/angular-ui-router.min.js"></script>
-        <script src="/angular-material/angular-material.min.js"></script>
-        <script src="/angular-ui-carousel/ui-carousel.min.js"></script>
-        <script src="assets/js/materialize.min.js"></script>
+    <!--Librerias core de angualarJS -->
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular-messages/angular-messages.min.js"></script>
+    <script src="/angular-animate/angular-animate.min.js"></script>
+    <script src="/angular-aria/angular-aria.min.js"></script>
+    <script src="/angular-base64/angular-base64.min.js"></script>
+    <script src="/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="/angular-material/angular-material.min.js"></script>
 
-        <!--Archivos App diseñador -->
-        <script src="/landing/app/app.js"></script>
-        <script src="/landing/app/directives.js"></script>
-        <script src="/landing/app/bazamPalettePicker.js"></script>
-        <script src="/landing/app/services.js"></script>
+    <!--Librerias 3r party angularJS -->
+    <script src="/angular-ui-carousel/ui-carousel.min.js"></script>
+    <script src="assets/js/materialize.min.js"></script>
 
-        <!-- Controladores -->
-        <script src="/landing/app/controllers/comienzo.js"></script>
-        <script src="/landing/app/controllers/header.js"></script>
+    <!--Archivos App diseñador -->
+    <script src="/landing/app/app.js"></script>
+    <script src="/landing/app/directives.js"></script>
+    <script src="/landing/app/bazamPalettePicker.js"></script>
+    <script src="/landing/app/services.js"></script>
 
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
-            crossorigin="anonymous">
+    <!-- Controladores -->
+    <script src="/landing/app/controllers/comienzo.js"></script>
+    <script src="/landing/app/controllers/header.js"></script>
 
-    </head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+        crossorigin="anonymous">
 
-    <body>
-        <!-- header -->
-        <div ng-controller="headerController as h">
-            <bazam-form-login mostrar="h.mostrarLogin" callback="h.callback" opcion="h.opcionMostrarLogin"></bazam-form-login>
-            <header class="header" id="comienzo" layout-padding>
-                <div layout layout-align="space-between">
-                    <div class="logo grande" ui-sref="comienzo">
-                        <img src="/landing/assets/img/logo.pro.svg">
-                    </div>
-                    <div layout flex layout-align="end center">
-                        <div ng-switch="h.autorizado" class="login" ng-cloak>
-                            <div ng-switch-when="false" class="acceder not-ing" style="cursor: pointer">
-                                <span ng-click="h.opcionMostrarLogin = false; h.mostrarLogin = true">Acceder</span>
-                                <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">Registro</span>
-                            </div>
-                            <div ng-switch-default class="acceder" style="cursor: pointer">
-                                <span ng-click="h.navegar.cliente('')">
-                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
-                                    <i class="material-icons">add_circle_outline</i>
-                                </span>
-                                <span ng-click="h.navegar.cliente('logos')">
-                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Tus logos</md-tooltip>
-                                    <i class="material-icons">favorite</i>
-                                </span>
-                                <span ng-click="h.navegar.cliente('cuenta')">
-                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
-                                    <i class="material-icons">account_circle</i>
-                                </span>
-                                <span ng-click="h.salir()">
-                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar Sesion</md-tooltip>
-                                    <i class="material-icons">power_settings_new</i>
-                                </span>
-                            </div>
+</head>
+
+<body>
+    <!-- header -->
+    <div ng-controller="headerController as h" style="background: white;">
+        <bazam-form-login mostrar="h.mostrarLogin" callback="h.callback" opcion="h.opcionMostrarLogin"></bazam-form-login>
+        <header class="header" id="comienzo" layout-padding>
+            <div layout layout-align="space-between">
+                <div class="logo grande" ui-sref="comienzo">
+                    <img src="/landing/assets/img/logo.pro.svg">
+                </div>
+                <div layout flex layout-align="end center">
+                    <div ng-switch="h.autorizado" class="login" ng-cloak>
+                        <div ng-switch-when="false" class="acceder not-ing" style="cursor: pointer">
+                            <span ng-click="h.opcionMostrarLogin = false; h.mostrarLogin = true">Acceder</span>
+                            <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">Registro</span>
+                        </div>
+                        <div ng-switch-default class="acceder" style="cursor: pointer">
+                            <span ng-click="h.navegar.cliente('')">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
+                                <i class="material-icons">add_circle_outline</i>
+                            </span>
+                            <span ng-click="h.navegar.cliente('logos')">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Tus logos</md-tooltip>
+                                <i class="material-icons">favorite</i>
+                            </span>
+                            <span ng-click="h.navegar.cliente('cuenta')">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
+                                <i class="material-icons">account_circle</i>
+                            </span>
+                            <span ng-click="h.salir()">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar Sesion</md-tooltip>
+                                <i class="material-icons">power_settings_new</i>
+                            </span>
                         </div>
                     </div>
                 </div>
-            </header>
-        </div>
-
-        <!-- contenedor principal -->
-        <md-content ui-view>
-
-        </md-content>
-
-        <!-- Footer -->
-        <footer>
-            <div layout="row" layout-align="space-between center">
-                <div class="logo pequeno" ui-sref="comienzo">
-                    <img src="/landing/assets/img/logo.pro.svg">
-                </div>
-                <div layout class="links-footer">
-                    <a ui-sref="terminos">Términos y condiciones</a>
-                    <a ui-sref="legales">Avisos Legales</a>
-                    <a href="blog">Blog</a>
-                </div>
-                <div class="iconos-sociales">
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-facebook"></i>
-                </div>
             </div>
-        </footer>
-    </body>
+        </header>
+    </div>
 
-    <script type="text/ng-template" id="toast-base.html">
-        <md-toast class="{{clase}}">
-            <span class="md-toast-text" flex>{{mensaje}}</span>
-            <md-button ng-click="closeToast()">
-                <i class="material-icons">close</i>
-            </md-button>
-        </md-toast>
-    </script>
+    <!-- contenedor principal -->
+    <md-content ui-view>
 
-    <script>
-        /* FACEBOOK */
+    </md-content>
 
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: "152803392097078",
-                autoLogAppEvents: true,
-                xfbml: true,
-                version: "v2.12"
-            });
-        };
+    <!-- Footer -->
+    <footer>
+        <div layout="row" layout-align="space-between center">
+            <div class="logo pequeno" ui-sref="comienzo">
+                <img src="/landing/assets/img/logo.pro.svg">
+            </div>
+            <div layout class="links-footer">
+                <a ui-sref="terminos">Términos y condiciones</a>
+                <a ui-sref="legales">Avisos Legales</a>
+                <a href="blog">Blog</a>
+            </div>
+            <div class="iconos-sociales">
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-facebook"></i>
+            </div>
+        </div>
+    </footer>
+</body>
+
+<script type="text/ng-template" id="toast-base.html">
+    <md-toast class="{{clase}}">
+        <span class="md-toast-text" flex>{{mensaje}}</span>
+        <md-button ng-click="closeToast()">
+            <i class="material-icons">close</i>
+        </md-button>
+    </md-toast>
+</script>
+
+<script>
+    /* FACEBOOK */
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "152803392097078",
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: "v2.12"
+        });
+    };
 
 
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, "script", "facebook-jssdk"));
-    </script>
-
-    <!-- GOOGLE -->
-
-    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-
-    <script>
-        function init() {
-            gapi.load('auth2', function () {
-                gapi.auth2.init({
-                    client_id: '40002776981-qd6lf3af4k69c64ibrelnurtsms2clon.apps.googleusercontent.com'
-                })
-            });
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
         }
-    </script>
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, "script", "facebook-jssdk"));
+</script>
+
+<!-- GOOGLE -->
+
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
+<script>
+    function init() {
+        gapi.load('auth2', function () {
+            gapi.auth2.init({
+                client_id: '40002776981-qd6lf3af4k69c64ibrelnurtsms2clon.apps.googleusercontent.com'
+            })
+        });
+    }
+</script>
 
 </html>

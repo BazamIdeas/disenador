@@ -1,0 +1,76 @@
+/* Header-Footer */
+
+header {
+    cursor: default;
+    background: #FFFFFF;
+    width: 90%;
+    margin: auto;
+    z-index: 999;
+}
+
+.logo {
+    padding: 16px;
+    text-align: center;
+    color: #5980B7;
+    width: 200px;
+    &.grande {
+        width: 250px;
+    }
+    & img {
+        width: 100%;
+    }
+}
+
+div.acceder {
+    span {
+        padding: 7px 14px;
+        margin: 0 8px;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        font-size: 16pt;
+        display: inline-block;
+
+        &:hover {
+            background: #5980B7;
+            color: white;
+            -webkit-box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
+            box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
+            cursor: pointer;
+        }
+
+        i {
+            vertical-align: top;
+            font-size: 28px;
+        }
+        
+    }
+
+    &:not(.not-ing) span {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    >:last-child {
+        background: #5980B7;
+        color: white;
+        -webkit-box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
+        box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
+    }
+
+    .tooltip-header {
+        font-size: 14px !important;
+        color: #5980B7 !important;
+        background-color: white !important;
+    }
+
+}
