@@ -1,4 +1,4 @@
-<html lang="es" ng-app="landing">
+<html lang="es" ng-app="landing"  ng-cloak>
     <head>
         <base href="/">
         <title>Logopro | Tu logo en 3 minutos</title>
@@ -47,7 +47,7 @@
 
     </head>
 
-    <body ng-cloak>
+    <body>
         <!-- header -->
         <div ng-controller="headerController as h">
             <bazam-form-login mostrar="h.mostrarLogin" callback="h.callback" opcion="h.opcionMostrarLogin"></bazam-form-login>
@@ -58,7 +58,7 @@
                     </div>
                     <div layout flex layout-align="end center">
                         <div ng-switch="h.autorizado" class="login" ng-cloak>
-                            <div ng-switch-when="false" class="acceder" style="cursor: pointer">
+                            <div ng-switch-when="false" class="acceder not-ing" style="cursor: pointer">
                                 <span ng-click="h.opcionMostrarLogin = false; h.mostrarLogin = true">Acceder</span>
                                 <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">Registro</span>
                             </div>

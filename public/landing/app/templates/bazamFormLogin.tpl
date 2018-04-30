@@ -353,7 +353,7 @@
         height: 92%;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: space-around;
         padding-left: 5% !important;
         background: white;
         color: black;
@@ -373,14 +373,14 @@
         width: 100%;
         padding: 6px 0;
         font-size: 18px;
-        background: var(--principal);
+        background: #5980B7;
         opacity: 0.9;
         font-family: sans-serif !important;
     }
 
     button.boton-verde.__block:hover,
     button.boton-verde:hover {
-        background: var(--principal);
+        background: #5980B7;
         cursor: pointer;
         opacity: 1;
     }
@@ -392,7 +392,7 @@
         width: 100%;
         height: 100%;
         z-index: 10;
-        background: #808080d9;
+        background: rgba(128, 128, 128, 0.8509803921568627);
         /*dim the background*/
     }
 
@@ -435,7 +435,7 @@
     }
 
     button.boton-verde {
-        background-color: var(--principal);
+        background-color: #5980B7;
         border: none;
         border-radius: 4px;
         color: #fff;
@@ -450,7 +450,7 @@
     }
 
     button.boton-verde:hover {
-        background-color: var(--principal);
+        background-color: #5980B7;
         opacity: 1;
     }
 
@@ -464,7 +464,7 @@
     }
 
     .key-image {
-        width: 17%;
+        width: 15%;
         margin: auto;
         display: block;
     }
