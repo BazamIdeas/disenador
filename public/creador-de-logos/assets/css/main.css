@@ -127,7 +127,9 @@ button.md-button.md-primary.md-raised.boton-plan {
   font-family: 'nunito-sans-bolder' !important; }
 
 .plan-nombre,
-.tooltip-header, .principal-x, .contenedor-principal-planes.activo .boton-planes-unico.activo {
+.tooltip-header,
+.principal-x,
+.contenedor-principal-planes.activo .boton-planes-unico.activo {
   font-family: 'nunito-sans-bold' !important; }
 
 md-tooltip {
@@ -323,7 +325,9 @@ form {
 .mr-50 {
   margin-right: 50px !important; }
 
-.bazam-pallette-button, button, a.md-button {
+.bazam-pallette-button,
+button,
+a.md-button {
   background-color: #FFFFFF;
   border: 2px solid #000000;
   border-radius: 30px;
@@ -332,7 +336,11 @@ form {
   font-family: 'nunito-sans-bold' !important;
   margin: 0 !important; }
 
-.bazam-pallette-button:focus, button:focus, button:hover, a.md-button:hover, .md-button:not([disabled]):hover {
+.bazam-pallette-button:focus,
+button:focus,
+button:hover,
+a.md-button:hover,
+.md-button:not([disabled]):hover {
   background-color: rgba(158, 158, 158, 0.2);
   outline: none;
   background-color: #5980B7;
@@ -364,7 +372,7 @@ span.estilo {
   transition: -webkit-transform 0.2s;
   transition: transform 0.2s;
   transition: transform 0.2s, -webkit-transform 0.2s;
-  transition: transform 0.2s, -webkit-transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
   color: transparent;
   display: block;
   width: 40px;
@@ -438,7 +446,8 @@ md-chips.md-default-theme .md-chips, md-chips .md-chips {
   -webkit-box-shadow: 0 2px #5980B7 !important;
   box-shadow: 0 2px #5980B7 !important; }
 
-input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+input[type=search]:focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 0px solid #26a69a;
   -webkit-box-shadow: 0 0px 0 0 #26a69a;
   box-shadow: 0 0px 0 0 #26a69a; }
@@ -650,7 +659,9 @@ md-input-container .md-errors-spacer {
   transition: all 0.3s;
   border: 1px solid white;
   cursor: pointer; }
-  .method .close-prev, .bazam-previzualizar.active .close-prev, .credit .close-prev {
+  .method .close-prev,
+  .bazam-previzualizar.active .close-prev,
+  .credit .close-prev {
     display: block; }
   .close-prev:hover {
     -webkit-transform: scale(1.1);
@@ -676,7 +687,9 @@ md-input-container .md-errors-spacer {
 [type="checkbox"].filled-in:checked + label:after {
   top: 4px; }
 
-[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+[type="radio"]:checked + label:after,
+[type="radio"].with-gap:checked + label:before,
+[type="radio"].with-gap:checked + label:after {
   background-color: #5980B7;
   border: 2px solid #5980B7; }
 
@@ -1997,7 +2010,7 @@ div.login-form-flex button.boton-verde:hover {
   opacity: 1; }
 
 .key-image {
-  width: 10%;
+  width: 17%;
   margin: auto;
   display: block; }
 

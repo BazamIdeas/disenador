@@ -73,7 +73,7 @@
 							<div style="display: flex; align-items: center;">
 								<button ng-if="pago.pasarelaElegida.pasarela == 'Paypal'" type="submit" ng-class="{'loading-white': !pago.completado}" ng-click="pago.pagar(pago.pasarelaElegida.idPasarela, pago.terminos)">COMPRAR</button>
 
-								<button ng-if="pago.pasarelaElegida.pasarela == 'Stripe'" type="submit" ng-class="{'loading-white': !pago.completado}" ng-click="pago.mostrarMetodo(pago.pasarelaElegida.idPasarela)">COMPRAR</button>
+								<button ng-if="pago.pasarelaElegida.pasarela == 'Stripe'" type="submit" ng-class="{'loading-white': !pago.completado}" ng-click="pago.mostrarMetodo(pago.pasarelaElegida.idPasarela, pago.terminos)">COMPRAR</button>
 							</div>
 
 						</div>

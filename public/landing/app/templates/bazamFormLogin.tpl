@@ -159,7 +159,7 @@
                                     </div>
                                 
                                     <div>
-                                        <md-icon style="display: block; margin-right: 38px; font-size: 50pt;">favorite</md-icon>
+                                        <md-icon style="display: block; margin-right: 38px; font-size: 50pt;">favorite_border</md-icon>
                                         <span>
                                             <b>Guarda tus logos favoritos</b>
                                             <br>
@@ -464,7 +464,7 @@
     }
 
     .key-image {
-        width: 10%;
+        width: 17%;
         margin: auto;
         display: block;
     }

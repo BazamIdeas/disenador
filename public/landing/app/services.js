@@ -348,40 +348,14 @@ angular.module("landing")
 			icono: ["bg-carac-6", ""]
 		}],
 		testimonios: [{
-				descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-				logo: "/landing/assets/img/c4.png",
+			descripcion: "Es la segunda vez que me hago un logo y estoy super contenta",
+			logo: "https://www.liderlogo.com/wp-content/uploads/2017/07/Bichitos-Kids.png",
 				color: '#51a7f9',
 				client: {
-					name: 'Harry Potter',
-					ocupation: 'Empresario magico'
+					name: 'Bichitos Kids',
+					ocupation: ''
 				}
-			}/* , {
-				descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-				logo: "/landing/assets/img/c4.png",
-				color: '#51a7f9',
-				client: {
-					name: 'Harry Potter',
-					ocupation: 'Empresario magico'
-				}
-			},
-			{
-				descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-				logo: "/landing/assets/img/c4.png",
-				color: '#51a7f9',
-				client: {
-					name: 'Harry Potter',
-					ocupation: 'Empresario magico'
-				}
-			},
-			{
-				descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eius odio magnam maiores blanditiis? Odit enim corrupti magnam, deserunt earum optio nemo distinctio ipsam incidunt, vel ratione assumenda delectus debitis?",
-				logo: "/landing/assets/img/c4.png",
-				color: '#51a7f9',
-				client: {
-					name: 'Harry Potter',
-					ocupation: 'Empresario magico'
-				}
-			} */
+			}
 		],
 		preguntas: [{
 			pregunta: "¿Cuanto cuesta el servicio?",

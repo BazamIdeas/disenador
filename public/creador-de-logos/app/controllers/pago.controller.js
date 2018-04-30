@@ -22,7 +22,11 @@ angular.module("disenador-de-logos")
 		bz.terminos = true;
 
 
-		bz.mostrarMetodo = function (indice) {
+		bz.mostrarMetodo = function (indice, terminos) {
+
+			if(!terminos){
+				return;
+			}
 
 			angular.forEach(bz.pasarelas, function (pasarela, llave) {
 
