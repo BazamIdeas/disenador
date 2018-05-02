@@ -15,6 +15,7 @@ var base64 = require("base-64");
 var FB = require('fb').Facebook;
 const https = require("https");
 var passwordHash = require('password-hash');
+const os = require('os');
 
 
 
@@ -647,6 +648,7 @@ exports.nuevoClienteRed = async function (req, res)
 
                         res.status(200).json({
                             'nombre': dataCliente.nombreCliente,
+                            'foto': dataCliente.foto,
                             'token': services.authServices.crearToken(data.insertId, "cliente"),
                             'msg': "se ha enviado un correo con una contraseña provisional"
                         })
@@ -786,7 +788,9 @@ exports.manualCliente = function (req, res, next) {
 
                             url = 'file:///' + url + "manual-marcas/assets";
 
-                            if (config.servidor == "Produccion") {
+                            var plataforma = os.platform();
+
+                            if (plataforma != 'win32') {
                                 var configuracion = {
                                     "height": "14.66in",
                                     "width": "11.305in",

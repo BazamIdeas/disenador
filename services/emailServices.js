@@ -5,6 +5,7 @@ var fs = require('fs');
 class emailService {
 
     constructor(options, data = {}){
+
         this.transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -22,10 +23,16 @@ class emailService {
             if (err) throw err;
         });
 
+        this.data.baseurl = "http://test.logo.pro";
+
         this.message.html = this.template;
 
-        for(var key in this.data){
-            this.message.html = this.message.html.replace('{#'+key+'#}', this.data[key]);
+        var keys = Object.keys(this.data);
+
+        for(var key in keys){
+            while(this.message.html.indexOf("${"+keys[key]+"}") != -1){
+                this.message.html = this.message.html.replace("${"+keys[key]+"}", this.data[keys[key]]);
+            }
         }
 
         return this;

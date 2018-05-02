@@ -67,20 +67,20 @@
 						<div class="col s12 text-styles" style="padding:0;" bazam-ayuda data-titulo="Negrita, Cursiva, Tamaño" data-texto="Cambia a Negrita (N), Cursiva (C), Aumente (+) o disminuya (-) el tamaño del texto"
 						    data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
 							<div class="bold" ng-click="::editor.cambioPropiedad('bold')">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Negrita</md-tooltip>
 								N
 							</div>
 							<div class="curve" ng-click="::editor.cambioPropiedad('cursive')">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cursiva</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cursiva</md-tooltip>
 								C
 							</div>
 
 							<div class="less" ng-click="::editor.cambioTamano('texto', false)">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Disminuir tamaño</md-tooltip>
 								-
 							</div>
 							<div class="more" ng-click="::editor.cambioTamano('texto', true)">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Aumentar tamaño</md-tooltip>
 								+
 							</div>
 						</div>
@@ -130,19 +130,19 @@
 
 							<div class=" col s12 text-styles">
 								<div class="bold" ng-click="::editor.cambioPropiedad('bold', true)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Negrita</md-tooltip>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Negrita</md-tooltip>
 									N
 								</div>
 								<div class="curve" ng-click="::editor.cambioPropiedad('cursive', true)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cursiva</md-tooltip>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cursiva</md-tooltip>
 									C
 								</div>
 								<div class="less" ng-click="::editor.cambioTamano('eslogan', false)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Disminuir tamaño</md-tooltip>
 									-
 								</div>
 								<div class="more" ng-click="::editor.cambioTamano('eslogan', true)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Aumentar tamaño</md-tooltip>
 									+
 								</div>
 							</div>
@@ -188,11 +188,11 @@
 
 						<div class=" col s6 text-styles" style="padding:0;">
 							<div class="less" ng-click="::editor.cambioTamano('icono', false)">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Disminuir tamaño</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Disminuir tamaño</md-tooltip>
 								-
 							</div>
 							<div class="more" ng-click="::editor.cambioTamano('icono', true)">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Aumentar tamaño</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Aumentar tamaño</md-tooltip>
 								+
 							</div>
 						</div>

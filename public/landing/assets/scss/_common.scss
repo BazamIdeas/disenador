@@ -1,0 +1,207 @@
+/* Generales */
+
+* {
+    cursor: default;
+    outline: none;
+}
+
+md-input-container {
+    &.md-default-theme.md-input-invalid .md-char-counter,
+    &.md-input-invalid .md-char-counter,
+    &.md-default-theme.md-input-invalid .md-input-message-animation,
+    &.md-input-invalid .md-input-message-animation,
+    &.md-default-theme.md-input-invalid label,
+    &.md-input-invalid label {
+        color: $DANGER !important;
+    }
+    &:not(.md-input-has-value) input:not(:focus) {
+        color: black;
+    }
+}
+
+md-select label,
+md-input-container:NOT(.md-input-has-value) md-select-value,
+.seccion.uno form input::-webkit-input-placeholder,
+.seccion.uno form label,
+.seccion.uno form md-select-value,
+md-input-container.md-default-theme.md-input-invalid .md-input,
+md-input-container.md-input-invalid .md-input,
+md-select.md-default-theme.ng-invalid.ng-touched .md-select-value,
+md-select.ng-invalid.ng-touched .md-select-value {
+    color: $BLACK;
+    border-bottom-color: silver;
+}
+
+
+md-content {
+      background:$BACKGROUND;
+    &.md-default-theme {
+        background: $BACKGROUND;
+    }
+}
+
+h2 {
+    font-size: 2.56rem;
+}
+
+h3 {
+    font-size: 1.92rem;
+    line-height: 110%;
+    margin: 1.46rem 0 1.168rem 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.md-button.md-fab {
+    z-index: initial !important;
+}
+
+input {
+    &:not([type]),
+    &[type=text],
+    &[type=password],
+    &[type=email],
+    &[type=url],
+    &[type=time],
+    &[type=date],
+    &[type=datetime],
+    &[type=datetime-local],
+    &[type=tel],
+    &[type=number],
+    &[type=search] {
+        height: 2rem !important;
+    }
+}
+
+textarea.materialize-textarea {
+    height: 2rem !important;
+}
+
+md-icon:focus {
+    outline-color: transparent;
+}
+
+.material-icon {
+    width: auto;
+    height: auto;
+    font-size: 27px;
+}
+
+bazam-visualizar {
+    display: block;
+}
+
+.loading-white {
+    background-image: url(../img/spinner-white.gif);
+    color: transparent !important;
+    background-size: auto 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.loading-purple {
+    background-image: url(../img/spinner-purple.gif) !important;
+    color: transparent !important;
+    background-size: auto 60% !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+small,
+small b {
+    cursor: pointer !important;
+}
+
+a:active,
+a:hover,
+button:hover {
+    cursor: pointer;
+}
+
+.ui-view-container {
+    -webkit-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+
+[ui-view] {
+    &.ng-enter,
+    &.ng-leave {
+        -webkit-transition: all 1s ease-in-out;
+        transition: all 1s ease-in-out;
+    }
+    &.ng-enter {
+        opacity: 0;
+    }
+    &.ng-enter-active {
+        opacity: 1;
+    }
+    &.ng-leave {
+        opacity: 1;
+    }
+    &.ng-leave-active {
+        opacity: 0;
+    }
+}
+
+/* Aplicacion de fuentes */
+
+.plan-precio,
+button.md-button.md-primary.md-raised.boton-plan,
+.preguntas>div {
+    font-family: 'nunito-sans-bolder' !important;
+}
+
+.titulo-destacado,
+.plan-nombre,
+div.acceder span,
+.tooltip-header {
+    font-family: 'nunito-sans-bold' !important;
+}
+
+.seccion.uno .titulo-inicio h4.subtitle,
+.seccion.dos h2.titulo,
+.titulo-destacado,
+.seccion.cinco h4,
+input,
+button,
+label,
+md-select-value,
+select,
+div[ng-messages],
+.seccion.uno form label,
+.testimonios__carousel-item .descripcion h3,
+.cliente> :first-child h5,
+.caracteristicas .caracteristicas__item> :last-child p,
+ul.plan-lista li,
+.respuestas>div.activo,
+.links-footer a,
+md-select-menu md-content md-option,
+.label-form {
+    font-family: 'nunito-sans-semi' !important;
+}
+
+button.md-button.md-primary.md-raised.boton-formulario-generar,
+.seccion.uno .titulo-inicio .titulo-principal {
+    font-family: 'nunito-sans-black' !important;
+}
+
+.cliente> :first-child h4,
+.caracteristicas .caracteristicas__item> :last-child h4,
+button.md-button.md-primary.md-raised.boton-crear-logo {
+    font-family: 'linotte-bold' !important;
+}
+
+.seccion {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+button:focus {
+    background: inherit;
+}
+
+/**********************/

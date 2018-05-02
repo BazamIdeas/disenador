@@ -224,38 +224,38 @@ exports.nuevoPedido = function (req, res) {
 														
 														else if (data && data.paid) {
 
-																var pedidoData = ["COMPLETADO", idPedido];
+															var pedidoData = ["COMPLETADO", idPedido];
 
-																pedido.cambiarEstado(pedidoData, function (error, data) {
+															pedido.cambiarEstado(pedidoData, function (error, data) {
 
-																	if (data) {
-																		//////cambiar estado al logo a descargable
-																		var logoData = ["Descargable", idLogo];
+																if (data) {
+																	//////cambiar estado al logo a descargable
+																	var logoData = ["Descargable", idLogo];
 
-																		logo.cambiarEstado(logoData, function (error) {
+																	logo.cambiarEstado(logoData, function (error) {
 
-																			if (!error) {
+																		if (!error) {
 
-																				var id = services.authServices.decodificar(req.headers.auth).id;
+																			var id = services.authServices.decodificar(req.headers.auth).id;
 
-																				cliente.getCliente(id, function (error, data) {
+																			cliente.getCliente(id, function (error, data) {
 
-																					//console.log(data);
-																					//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+																				//console.log(data);
+																				//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
 
-																				});
-																				res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
-																			} 
+																			});
+																			res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
+																		} 
 
-																			else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
-																		});
-																	}
-																	else {
-																		res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
-																	}
-																});
+																		else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
+																	});
+																}
+																else {
+																	res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+																}
+															});
 
-															}
+														}
 
 														else 
 															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
@@ -375,46 +375,46 @@ exports.nuevoPedidoGuardado = function (req, res) {
 											if (req.body.atributos.padre) {
 												datosPago.padre = req.body.atributos.padre;
 											}
-												services.pagoServices.stripe(datosPago, function (error, data) {
+											services.pagoServices.stripe(datosPago, function (error, data) {
 												//console.log(data)
 												if (error)
 													res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
 												
 												else if (data && data.paid) {
 
-														var pedidoData = ["COMPLETADO", idPedido];
+													var pedidoData = ["COMPLETADO", idPedido];
 
-														pedido.cambiarEstado(pedidoData, function (error, data) {
+													pedido.cambiarEstado(pedidoData, function (error, data) {
 
-															if (data) {
-																//////cambiar estado al logo a descargable
-																var logoData = ["Descargable", idLogo];
+														if (data) {
+															//////cambiar estado al logo a descargable
+															var logoData = ["Descargable", idLogo];
 
-																logo.cambiarEstado(logoData, function (error) {
+															logo.cambiarEstado(logoData, function (error) {
 
-																	if (!error) {
+																if (!error) {
 
-																		var id = services.authServices.decodificar(req.headers.auth).id;
+																	var id = services.authServices.decodificar(req.headers.auth).id;
 
-																		cliente.getCliente(id, function (error, data) {
+																	cliente.getCliente(id, function (error) {
 
-																			//console.log(data);
-																			//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+																		//console.log(data);
+																		//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
 
-																		});
-																		res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
-																	} 
+																	});
+																	res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
+																} 
 
-																	else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
-																});
-															}
+																else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
+															});
+														}
 
-															else {
-																res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
-															}
-														});
+														else {
+															res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+														}
+													});
 														
-													}
+												}
 
 												else 
 													res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
@@ -504,7 +504,7 @@ exports.cambioEstadoPagado = function (req, res)
 
 						var id = services.authServices.decodificar(req.params.tk).id;
 
-						cliente.getCliente(id, function (error, data) {
+						cliente.getCliente(id, function () {
 
 							//console.log(data);
 							//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
@@ -666,7 +666,7 @@ exports.aumentarPlan = function (req, res) {
 													};
 
 													services.pagoServices.paypal(datosPago, function (error, data) {
-														console.log(data.link)
+														
 														res.json(data.link);
 													});
 
@@ -683,10 +683,8 @@ exports.aumentarPlan = function (req, res) {
 														idPedido: idPedido
 													};
 
-													if (req.body.atributos.padre) {
-														datosPago.padre = req.body.atributos.padre;
-													}
-														services.pagoServices.stripe(datosPago, function (error, data) {
+													
+													services.pagoServices.stripe(datosPago, function (error, data) {
 														//console.log(data)
 														if (error)
 															res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
@@ -699,7 +697,7 @@ exports.aumentarPlan = function (req, res) {
 																
 																if (data) {
 
-																	var pedidoDataV = ["AUMENTADO", idPedido];
+																	var pedidoDataV = ["AUMENTADO", precioViejo[0].idPedido];
 
 																	pedido.cambiarEstado(pedidoDataV, function (error, data) {
 

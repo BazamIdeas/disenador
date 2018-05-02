@@ -1,0 +1,14 @@
+@import 'mixins';
+@import 'variables';
+@import 'font-faces';
+
+@import 'common';
+
+@import 'header';
+@import 'footer';
+
+/*PAGES*/
+@import 'pages/inicio';
+
+/*DIRECTIVES*/
+@import 'directives/directives';

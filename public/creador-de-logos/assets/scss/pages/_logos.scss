@@ -8,13 +8,23 @@
 }
 
 .tabs-logos {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 
     span {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex: 1;
-        justify-content: center;
-        align-items: center;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
         height: 35px;
         cursor: pointer;
 
@@ -88,8 +98,10 @@
     background-color: white;
     top: 18%;
     left: 55%;
-    box-shadow: 0px 0px 3px 0px #c7c7c7;
+    -webkit-box-shadow: 0px 0px 3px 0px #c7c7c7;
+            box-shadow: 0px 0px 3px 0px #c7c7c7;
     -webkit-transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out, width 0.35s ease-in-out;
+    -webkit-transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out,width 0.35s ease-in-out;
     transition: margin-left 0.35s ease-in-out, margin-top 0.35s ease-in-out, top 0.35s ease-in-out, opacity 0.35s ease-in-out,width 0.35s ease-in-out;
 
     &.logo-active-m {
@@ -103,12 +115,14 @@
 
         & .accion.share {
             background-color: transparent;
+            -webkit-transition: opacity 0.5s;
             transition: opacity 0.5s;
             right: 2.5%;
 
             span{
                 opacity: 0;
                 background-color: rgba(0, 0, 0, 1);
+                -webkit-transition: opacity 0.5s;
                 transition: opacity 0.5s;
                 border-radius: 50%;
                 margin-right: 5px;

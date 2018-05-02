@@ -95,7 +95,6 @@ angular.module("disenador-de-logos")
                 };
 
                 bz.verificarLogin = function (plan) {
-                    angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
                     bz.planElegido = plan;
                     // Verificar si el usuario que esta logueado
                     if (!clientesService.autorizado()) {
@@ -109,7 +108,7 @@ angular.module("disenador-de-logos")
 
 
                 bz.avanzarCheckout = function () {
-                    angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
+                   
                     var plan = bz.planElegido;
 
                     bz.logo = $scope.datos.logo; //SVG del logo
@@ -121,6 +120,7 @@ angular.module("disenador-de-logos")
                     bz.colores = $scope.datos.colores;
 
                     if (plan === true) {
+                        angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
                         bz.peticion = true;
                         var nombre = "gratis";
                         var ancho = 80;
@@ -217,8 +217,8 @@ angular.module("disenador-de-logos")
                                             a.remove();
                                         }
 
-                                    }).catch(function () {
-                                        //console.log(res)
+                                    }).catch(function (res) {
+                                        console.log(res)
                                         angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
                                     }).finally(function () {
                                         

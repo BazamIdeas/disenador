@@ -1,13 +1,20 @@
 section.body.pay {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 
     div.row {
-        flex: 1;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
 
         div.card.pay {
             padding: 0 !important;
-            box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+                    box-shadow: none !important;
             
             div {
 
@@ -16,9 +23,16 @@ section.body.pay {
                 }
 
                 div.logo {
+                    display: -webkit-box;
+                    display: -ms-flexbox;
                     display: flex;
-                    flex-direction: column; 
-                    justify-content: space-between;
+                    -webkit-box-orient: vertical;
+                    -webkit-box-direction: normal;
+                        -ms-flex-direction: column;
+                            flex-direction: column; 
+                    -webkit-box-pack: justify; 
+                        -ms-flex-pack: justify; 
+                            justify-content: space-between;
                     height: 60%;
                     
                     & > div {

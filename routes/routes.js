@@ -179,6 +179,10 @@ router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobados
 router.post("/logos/guardados", middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post("/logos/descargables", middleware.validarCliente, controllers.logos.listaLogosDescargables);
 
+//MODULO PAPELERIA
+
+router.get("/tipos", controllers.tipos.ObtenerTodos);
+router.get("/tipos/:id/modelos", controllers.modelos.ObtenerPorTipo);
 
 router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
 router.get("/logo/descargar", middleware.validarCliente, controllers.logos.descargar);

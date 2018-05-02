@@ -1,6 +1,6 @@
 <section class="body cuenta">
     <div class="row">
-        <div class="col s4 sidebar-avatar">
+        <div class="col s3 sidebar-avatar">
             <div class="col s12 avatar">
                 <div ng-if="cuenta.datos.foto && cuenta.verificarBase64(cuenta.datos.foto)">
                     <img ng-src="{{'data:image/png;base64,' + cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'"
@@ -8,7 +8,7 @@
                         ngf-fix-orientation="true">
                     <i ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'"
                     ngf-accept="'image/*'" ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
-                    ngf-fix-orientation="true" class="material-icons" ng-class="{'loading-white': cuenta.cargandoFoto}">edit</i>
+                    ngf-fix-orientation="true" class="material-icons" ng-class="{'loading-white-100': cuenta.cargandoFoto}">edit</i>
                 </div>
                 <div ng-if="cuenta.datos.foto && !cuenta.verificarBase64(cuenta.datos.foto)">
                     <img ng-src="{{cuenta.datos.foto}}" ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'" ngf-accept="'image/*'"
@@ -16,7 +16,7 @@
                         ngf-fix-orientation="true">
                     <i ngf-select="cuenta.cargarFoto($file)" ngf-pattern="'image/*'" ngf-accept="'image/*'"
                     ngf-max-size="5MB" ngf-min-height="300" ngf-min-width="300" ngf-resize="{width: 200, height: 200, type: 'image/jpeg',quality: 0.5, ratio: '1:1', centerCrop: true, restoreExif: false}"
-                    ngf-fix-orientation="true" class="material-icons" ng-class="{'loading-white': cuenta.cargandoFoto}">edit</i>
+                    ngf-fix-orientation="true" class="material-icons" ng-class="{'loading-white-100': cuenta.cargandoFoto}">edit</i>
                 </div>
             </div>
             <div class="col s12 hr no-padding">
@@ -58,8 +58,9 @@
                 <div ng-switch-when="2">
                     <form name="cuenta.datosForm" novalidate ng-submit="cuenta.guardar(cuenta.datosEspejo, cuenta.datosForm.$valid)">
                         <div class="col s12 input-field no-padding" >
-                            <label for="nombre" class="active">Nombre</label>
                             <input id="nombre" type="text" name="nombreCliente" ng-model="cuenta.datosEspejo.nombreCliente" required>
+                            <label for="nombre" class="active">Nombre</label>
+                            
                             <div ng-messages="cuenta.datosForm.nombreCliente.$error" ng-if="cuenta.datosForm.$submitted || cuenta.datosForm.nombreCliente.$dirty">
                                 <div ng-message="required">Este campo es requerido.</div>
                             </div>
@@ -80,10 +81,10 @@
                             </md-input-container>
                         </div>
                         <div class="col s12 no-padding">
-                            <button style="width: 100%; margin: 10px 0 !important;" ng-click="cuenta.formulario = 1;">Cancelar</button>
+                            <button style="width: 100%;" type="submit">Guardar</button>
                         </div>
                         <div class="col s12 no-padding">
-                            <button style="width: 100%;" type="submit">Guardar</button>
+                            <button style="width: 100%; margin: 10px 0 !important;" ng-click="cuenta.formulario = 1;">Cancelar</button>
                         </div>
 
                     </form>
@@ -110,11 +111,12 @@
                             </div>
                         </div>
 
-                        <div class="col s12 no-padding">
-                            <button style="width: 100%; margin: 10px 0 !important;" ng-disabled="cuenta.peticion" ng-click="cuenta.formulario = 1;">Cancelar</button>
-                        </div>
+                        
                         <div class="col s12 no-padding">
                             <button style="width: 100%;" ng-class="{'loading-white': cuenta.peticion}" ng-disabled="cuenta.peticion" type="submit">Cambiar</button>
+                        </div>
+                        <div class="col s12 no-padding">
+                            <button style="width: 100%; margin: 10px 0 !important;" ng-disabled="cuenta.peticion" ng-click="cuenta.formulario = 1;">Cancelar</button>
                         </div>
 
                     </form>
@@ -123,7 +125,7 @@
 
             </div>
         </div>
-        <div class="col s8 orders">
+        <div class="col s9 orders">
             <div class="table">
                 <table>
                     <thead>

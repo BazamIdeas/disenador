@@ -114,13 +114,13 @@ p.tercero {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    height: 92%;
+    height: 100%;
     background-color: white;
 }
 
 .ventajas-loguear {
     position: relative;
-    height: 92%;
+    height: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -232,6 +232,24 @@ div.login-form-flex {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+
+    & > div {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+
+        & > div {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+        }
+    }
 }
 
 .login-form,
@@ -272,7 +290,7 @@ div.login-form-flex button.boton-verde:hover {
 }
 
 .key-image {
-    width: 10%;
+    width: 17%;
     margin: auto;
     display: block;
 }
