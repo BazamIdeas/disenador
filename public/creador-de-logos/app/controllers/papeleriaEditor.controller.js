@@ -26,7 +26,7 @@ angular.module("disenador-de-logos")
 				},
 				{
 					nombre: "direccion",
-					tipo: "text",
+					tipo: "textarea",
 					tag: "text",
 					icono: ""
 				},
@@ -208,25 +208,25 @@ angular.module("disenador-de-logos")
 										tag: "text", //"text", "g", etc.
 										valor: "xarias13@gmail.com",
 										nombre: "email",
-										icono: null,
-											/*orientacion: "left", 
+										icono: {
+											orientacion: "right", 
 											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
-											clases: ["color-primario"]*/
-
+											clases: ["color-primario"]
+										},
 										caracteristicas: {
 											"fill": "#1d1d1b"
 										}
 									},
 									{
-										tipo: "text",
+										tipo: "textarea",
 										tag: "text", //"text", "g", etc.
 										valor: ["Av alguna,", "San Nicolas de los arroyos,", "Buenos Aires"],
 										nombre: "direccion",
-										icono: null /*{
-											orientacion: "left", 
+										icono: {
+											orientacion: "right", 
 											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 											clases: ["color-primario"]
-										}*/,
+										},
 										caracteristicas: {
 											"fill": "#1d1d1b"
 										}
@@ -234,7 +234,7 @@ angular.module("disenador-de-logos")
 									
 								], //items
 								limite: 5, //limite de items
-								orientacion: "left",
+								orientacion: "right",
 								tamanoTexto: "7px"
 							}
 						],
@@ -248,9 +248,53 @@ angular.module("disenador-de-logos")
 							}
 						}]
 					},
-				]
-
-
+				],
+				itemsDefaults: {
+					nombre: {
+						valor: "Nombre Def",
+						icono: null
+					},
+					web: {
+						valor: "www.algo.com",
+						icono: {
+							orientacion: "right", 
+							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+							clases: ["color-primario"]
+						}
+					},
+					email:  {
+						valor: "algo@gmail.com",
+						icono:  {
+							orientacion: "right", 
+							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+							clases: ["color-primario"]
+						}
+					},
+					cargo: {
+						valor: "cargo",
+						icono:  {
+							orientacion: "right", 
+							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+							clases: ["color-primario"]
+						}
+					},
+					direccion:{
+						valor: ["av algo", "calle algo", "aaalgo"],
+						icono:  {
+							orientacion: "right", 
+							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+							clases: ["color-primario"]
+						}
+					},
+					telefono: {
+						valor: "32454356",
+						icono:  {
+							orientacion: "right", 
+							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+							clases: ["color-primario"]
+						}
+					}
+				}
 			}
 		}
 
