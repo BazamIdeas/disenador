@@ -4,8 +4,10 @@ angular.module("disenador-de-logos")
         return {
             restrict: "AE",
             scope: false,
-            controller: ["$scope", "$mdToast", function ($scope, $mdToast) {
+            controller: ["$scope", "$mdToast", "$sce", function ($scope, $mdToast, $sce) {
                 var bz = this;
+
+                bz.sce = $sce;
 
                 angular.forEach($scope.papeleriaEditor.papeleria.modelo.caras, function(cara){
                     if(cara.hooks.length > 0){
@@ -17,6 +19,12 @@ angular.module("disenador-de-logos")
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
                     var item = $scope.papeleriaEditor.papeleria.items[indiceElemento];
+
+                    var itemAgregar = $scope.papeleriaEditor.papeleria.modelo.itemsDefaults[item.nombre];
+
+                    itemAgregar.tag = item.tag;
+                    itemAgregar.tipo = item.tipo;
+                    itemAgregar.nombre = item.nombre;
                     
                     if (hook.items.length == hook.limite) return $mdToast.show($mdToast.base({
                         args: {
@@ -34,9 +42,9 @@ angular.module("disenador-de-logos")
                         }));
                     }
 
-                    $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items.push(item);
+                    $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items.push(itemAgregar);
                     $scope.$apply();
-                    $scope.papeleriaEditor.agregarElemento(indiceCara, indiceHook, indiceElemento)
+                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook)
         
                 }
 
@@ -44,7 +52,7 @@ angular.module("disenador-de-logos")
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
                     hook.items.splice( indiceItem, 1);
-                    $scope.papeleriaEditor.eliminarElemento(indiceCara, indiceHook, indiceItem);
+                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 
                 bz.move = function(accion, indiceCara, indiceHook, indiceElemento){
@@ -59,8 +67,18 @@ angular.module("disenador-de-logos")
 
                     elementos.splice(indexes[0], 2, elementos[indexes[1]], elementos[indexes[0]]);
 
-                    $scope.papeleriaEditor.reordenar(indiceCara, indiceHook);
+                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
 
+                }
+
+                bz.cambiarDireccionIcono = function(icono, indiceCara, indiceHook){
+                    if (icono.orientacion == 'right'){
+                        icono.orientacion = 'left';
+                    }else{
+                        icono.orientacion = 'right';
+                    }
+
+                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 
             }],

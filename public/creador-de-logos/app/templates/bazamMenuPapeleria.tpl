@@ -36,11 +36,17 @@
                                     <md-icon>keyboard_arrow_down</md-icon>
                                 </span>
                             </span>
-                            <span style="flex: 1;">
-                                <input ng-if="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor" name="{{item_hook.nombre}}"
-                                    type="{{item_hook.tipo}}" ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)" required>
+                            <span class="input-container-papeleria">
+                                <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null" ng-click="menuPapeleria.cambiarDireccionIcono(item_hook.icono)">
+                                    <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg, $parent.$parent.$index, $parent.$index)"></span>
+                                    <md-tooltip md-direction="top">Cambiar Dirección</md-tooltip>
+                                </span>
+                                <input ng-if="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
+                                    name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)"
+                                    required>
 
-                                    <textarea ng-if="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}"  ng-model="item_hook.valor" name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false"  ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)"></textarea>
+                                <textarea ng-if="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
+                                    name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)"></textarea>
                             </span>
                             <span ng-click="menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
                                 <md-tooltip md-direction="top">Eliminar</md-tooltip>
@@ -99,13 +105,14 @@
         color: white;
     }
 
-    .espacios-disponibles, .validacion-papeleria {
+    .espacios-disponibles,
+    .validacion-papeleria {
         text-align: center;
         display: block;
         font-size: 10pt;
         margin-top: 8px;
-            font-family: 'futura-heavy' !important;
-    font-weight: 800;
+        font-family: 'futura-heavy' !important;
+        font-weight: 800;
     }
 
     .mensaje-items {
@@ -160,17 +167,18 @@
         align-items: center;
     }
 
-    .item input.input-papeleria, .item textarea {
+    .item input.input-papeleria,
+    .item textarea {
         margin-bottom: 0;
-        
+
     }
 
     .item input.input-papeleria::placeholder {
         text-transform: capitalize;
     }
 
-    .item textarea::placeholder{
-        
+    .item textarea::placeholder {
+
         color: var(--principal);
     }
 
@@ -194,9 +202,9 @@
         color: black;
         border: 1px solid black;
         margin-left: 10px;
-            display: flex;
-    justify-content: center;
-    align-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .item.colocado> :last-child:hover {
@@ -204,6 +212,25 @@
         border: 1px solid red;
         cursor: pointer;
         color: red;
+    }
+
+    span.input-container-papeleria {
+        flex: 1;
+        display: flex;
+    }
+
+    span.icono {
+        width: 40px;
+    }
+
+    span.icono.icono-right {
+        align-self: center;
+        order: 1;
+        margin-left: 10px;
+    }
+
+    span.icono.icono-left{
+        margin-right: 10px;
     }
 
     span.controles-movimiento {

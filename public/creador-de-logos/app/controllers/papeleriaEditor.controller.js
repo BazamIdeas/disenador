@@ -252,7 +252,11 @@ angular.module("disenador-de-logos")
 				itemsDefaults: {
 					nombre: {
 						valor: "Nombre Def",
-						icono: null
+						icono: null, caracteristicas: {
+							"fill": "#1d1d1b"
+						}, caracteristicas: {
+							"fill": "#1d1d1b"
+						}
 					},
 					web: {
 						valor: "www.algo.com",
@@ -260,6 +264,8 @@ angular.module("disenador-de-logos")
 							orientacion: "right", 
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
+						}, caracteristicas: {
+							"fill": "#1d1d1b"
 						}
 					},
 					email:  {
@@ -268,6 +274,8 @@ angular.module("disenador-de-logos")
 							orientacion: "right", 
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
+						}, caracteristicas: {
+							"fill": "#1d1d1b"
 						}
 					},
 					cargo: {
@@ -276,6 +284,8 @@ angular.module("disenador-de-logos")
 							orientacion: "right", 
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
+						}, caracteristicas: {
+							"fill": "#1d1d1b"
 						}
 					},
 					direccion:{
@@ -284,6 +294,8 @@ angular.module("disenador-de-logos")
 							orientacion: "right", 
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
+						}, caracteristicas: {
+							"fill": "#1d1d1b"
 						}
 					},
 					telefono: {
@@ -292,6 +304,8 @@ angular.module("disenador-de-logos")
 							orientacion: "right", 
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
+						}, caracteristicas: {
+							"fill": "#1d1d1b"
 						}
 					}
 				}
