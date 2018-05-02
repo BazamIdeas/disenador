@@ -348,11 +348,11 @@ angular.module("landing")
 			icono: ["bg-carac-6", ""]
 		}],
 		testimonios: [{
-			descripcion: "Es la segunda vez que me hago un logo y estoy super contenta",
-			logo: "https://www.liderlogo.com/wp-content/uploads/2017/07/Bichitos-Kids.png",
+			descripcion: "Es la segunda vez que me hago un logo y estoy super contento",
+			logo: "/landing/assets/img/c4.png",
 				color: '#51a7f9',
 				client: {
-					name: 'Bichitos Kids',
+					name: 'Logo Pro',
 					ocupation: ''
 				}
 			}
@@ -388,11 +388,6 @@ angular.module("landing")
 		}, {
 			nombre: "Colores a elegir",
 			descripcion: "Ten en cuenta el primer consejo Quédate con un esquema de colores que refleje una identidad de marca profesional y cohesiva. Aunque haya miles de colores para elegir, sé listo/a."
-		}],
-		posts: [{
-			title: 'Prueba Post',
-			description: 'Descripcion',
-			img: '/landing/assets/img/c4.png'
 		}]
 	})
 

@@ -200,6 +200,26 @@ button.md-button.md-primary.md-raised.boton-crear-logo {
 button:focus {
   background: inherit; }
 
+::-webkit-scrollbar {
+  width: 8px; }
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 0px transparent;
+  box-shadow: inset 0 0 0px transparent;
+  border-radius: 0; }
+
+::-webkit-scrollbar:window-inactive {
+  width: 0px; }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: #5980B7;
+  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.5); }
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(97, 39, 135, 0.4); }
+
 /**********************/
 /* Header-Footer */
 header {

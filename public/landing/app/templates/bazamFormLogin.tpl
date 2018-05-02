@@ -21,10 +21,10 @@
                                         <div class="ingreso-redes-sociales">
                                             <div class="ingreso__facebook" ng-click="bazamLogin.social('fb')">
                                     
-                                                <i class="fab fa-facebook"></i>
+                                                <i class="fab fa-facebook-f"></i>
                                             </div>
                                             <div class="ingreso__google" ng-click="bazamLogin.social('gg')">
-                                                <i class="fab fa-google-plus-g"></i>
+                                                <i class="fab fa-google"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -83,11 +83,11 @@
                                         <div>
                                             <div class="ingreso-redes-sociales">
                                                 <div class="ingreso__facebook" ng-click="bazamLogin.social('fb')">
-
-                                                    <i class="fab fa-facebook"></i>
+                                            
+                                                    <i class="fab fa-facebook-f"></i>
                                                 </div>
                                                 <div class="ingreso__google" ng-click="bazamLogin.social('gg')">
-                                                    <i class="fab fa-google-plus-g"></i>
+                                                    <i class="fab fa-google"></i>
                                                 </div>
                                             </div>
                                         </div>
