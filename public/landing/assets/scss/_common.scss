@@ -109,8 +109,9 @@ bazam-visualizar {
     background-position: center !important;
 }
 
-small {
-    cursor: pointer;
+small,
+small b {
+    cursor: pointer !important;
 }
 
 a:active,

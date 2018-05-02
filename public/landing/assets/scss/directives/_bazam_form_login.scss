@@ -185,7 +185,7 @@ button.boton-verde:hover {
 }
 
 .overlay{
-    .show {
+    &.show {
         position: absolute;
         top: 0;
         left: 0;
@@ -196,7 +196,7 @@ button.boton-verde:hover {
         /*dim the background*/
     }
 
-    .hide {
+    &.hide {
         height: 0%;
         z-index: 0;
         display: none
