@@ -10,6 +10,27 @@ angular.module("disenador-de-logos")
 			link: function (scope, element) {
 
 
+				function pintarLienzo(lienzo) {
+
+
+
+					lienzo.find(".color-primario").css({
+						"fill": bz.logo.atributos["color-icono"]
+					});
+
+					//si el icono y el texto tienen el mismo color, se agrega como color secundario ele mismo con 0.5 opacity
+					if (bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]) {
+
+						lienzo.find(".color-secundario").css("fill", lienzo.find(".color-primario").css("fill").replace(")", ", 0.5)"));
+
+					} else {
+
+						lienzo.find(".color-secundario").css("fill", bz.logo.atributos["color-nombre"]);
+
+					}
+				}
+
+
 				function agregarHook(hook, caraSvg) {
 
 					var hookSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
@@ -735,55 +756,28 @@ angular.module("disenador-de-logos")
 
 				element.html(element.html());
 
-				element.find(".color-primario").css({
-					"fill": bz.logo.atributos["color-icono"]
-				});
+				pintarLienzo(element);
 
-				//si el icono y el texto tienen el mismo color, se agrega como color secundario ele mismo con 0.5 opacity
-				if (bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]) {
-
-					element.find(".color-secundario").css("fill", element.find(".color-primario").css("fill").replace(")", ", 0.5)"));
-
-				} else {
-
-					element.find(".color-secundario").css("fill", bz.logo.atributos["color-nombre"]);
-
-				}
-
-				bz.agregarElemento = function (indiceCara, indiceHook, indiceElemento) {
-					
+				bz.modificarHook = function (indiceCara, indiceHook) {
 
 					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
-					
-					console.log(hook)
-					var caraSvg = angular.element("bazam-papeleria svg:nth-child("+(indiceCara+1)+")");
 
-					var hookSvg = caraSvg.find("foreignObject#"+hook.id);
+					var caraSvg = angular.element("bazam-papeleria svg:nth-child(" + (indiceCara + 1) + ")");
+
+					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 					hookSvg.remove();
 
 
-					agregarHook(hook, caraSvg)
+					agregarHook(hook, caraSvg);
+
+					pintarLienzo(element);
 					//agregarItem(item, indice, hook, hookSvg)
 
-				}
-
-				bz.cambiarTexto = function (indiceCara, indiceHook, indiceElemento, texto) {
-					console.log(indiceCara, indiceHook, indiceElemento, texto)
-					console.log("cambio texto")
-				}
-
-				bz.eliminarElemento = function (indiceCara, indiceHook, indiceElemento) {
-					console.log(indiceCara, indiceHook, indiceElemento)
-					console.log("eliminar")
 				}
 
 				bz.cambiarCara = function (indiceCara) {
 					console.log(indiceCara)
 					console.log("cara")
-				}
-
-				bz.reordenar = function (indiceCara, indiceHook) {
-					console.log('mover')
 				}
 
 			}

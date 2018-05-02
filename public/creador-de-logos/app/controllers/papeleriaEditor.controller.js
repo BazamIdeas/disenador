@@ -252,9 +252,8 @@ angular.module("disenador-de-logos")
 				itemsDefaults: {
 					nombre: {
 						valor: "Nombre Def",
-						icono: null, caracteristicas: {
-							"fill": "#1d1d1b"
-						}, caracteristicas: {
+						icono: null, 
+						caracteristicas: {
 							"fill": "#1d1d1b"
 						}
 					},

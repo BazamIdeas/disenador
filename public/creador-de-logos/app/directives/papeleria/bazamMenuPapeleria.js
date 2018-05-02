@@ -9,13 +9,13 @@ angular.module("disenador-de-logos")
 
                 bz.sce = $sce;
 
-                angular.forEach($scope.papeleriaEditor.papeleria.modelo.caras, function(cara){
-                    if(cara.hooks.length > 0){
+                angular.forEach($scope.papeleriaEditor.papeleria.modelo.caras, function (cara) {
+                    if (cara.hooks.length > 0) {
                         return bz.menuActivo = cara.nombre;
                     }
                 })
-                
-                $scope.agregarElementoHook = function(indiceCara, indiceHook, indiceElemento){
+
+                $scope.agregarElementoHook = function (indiceCara, indiceHook, indiceElemento) {
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
                     var item = $scope.papeleriaEditor.papeleria.items[indiceElemento];
@@ -25,7 +25,7 @@ angular.module("disenador-de-logos")
                     itemAgregar.tag = item.tag;
                     itemAgregar.tipo = item.tipo;
                     itemAgregar.nombre = item.nombre;
-                    
+
                     if (hook.items.length == hook.limite) return $mdToast.show($mdToast.base({
                         args: {
                             mensaje: "El contenedor ha llegado al limite de elementos. Elimine alguno o elija otro contenedor.",
@@ -45,17 +45,17 @@ angular.module("disenador-de-logos")
                     $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items.push(itemAgregar);
                     $scope.$apply();
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook)
-        
+
                 }
 
-                bz.eliminarItemHook = function(indiceCara, indiceHook, indiceItem){
+                bz.eliminarItemHook = function (indiceCara, indiceHook, indiceItem) {
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
-                    hook.items.splice( indiceItem, 1);
+                    hook.items.splice(indiceItem, 1);
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 
-                bz.move = function(accion, indiceCara, indiceHook, indiceElemento){
+                bz.move = function (accion, indiceCara, indiceHook, indiceElemento) {
 
                     var nuevoIndice = indiceElemento + accion;
 
@@ -71,18 +71,36 @@ angular.module("disenador-de-logos")
 
                 }
 
-                bz.cambiarDireccionIcono = function(icono, indiceCara, indiceHook){
-                    if (icono.orientacion == 'right'){
-                        icono.orientacion = 'left';
-                    }else{
-                        icono.orientacion = 'right';
+                bz.cambiarDireccionElemento = function (elemento, indiceCara, indiceHook) {
+
+                    var cambio = function (direccion) {
+                        if (elemento.items.length > 0) {
+                            angular.forEach(elemento.items, function (item) {
+                                if (item.icono != null) {
+                                    item.icono.orientacion = direccion;
+                                }
+                            })
+                        }
+                    }
+
+                    if (elemento.orientacion == 'right') {
+                        elemento.orientacion = 'left';
+                        if (elemento.id) {
+                            cambio('left');
+                        }
+                    } else {
+                        elemento.orientacion = 'right';
+                        if (elemento.id) {
+                            cambio('right');
+
+                        }
                     }
 
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 
             }],
-            controllerAs:"menuPapeleria",
+            controllerAs: "menuPapeleria",
             templateUrl: 'app/templates/bazamMenuPapeleria.tpl'
         }
     }])

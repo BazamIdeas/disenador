@@ -24,6 +24,7 @@
                 <div class="contenedor-items" ng-repeat="hook in contenedor.hooks track by $index" droppable-hook-papeleria>
                     <div class="nombre-contenedor">
                         <b>{{::hook.id}}</b>
+                        <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento(hook, $parent.$index, $index)"><md-icon>swap_horiz</md-icon></span>
                     </div>
 
                     <div>
@@ -37,16 +38,16 @@
                                 </span>
                             </span>
                             <span class="input-container-papeleria">
-                                <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null" ng-click="menuPapeleria.cambiarDireccionIcono(item_hook.icono)">
-                                    <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg, $parent.$parent.$index, $parent.$index)"></span>
+                                <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null" ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono,  $parent.$parent.$index, $parent.$index)">
+                                    <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg)"></span>
                                     <md-tooltip md-direction="top">Cambiar Dirección</md-tooltip>
                                 </span>
                                 <input ng-if="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                    name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)"
+                                    name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)" 
                                     required>
 
                                 <textarea ng-if="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                    name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.cambiarTexto($parent.$parent.$index, $parent.$index, $index, item_hook.valor)"></textarea>
+                                    name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"  required></textarea>
                             </span>
                             <span ng-click="menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
                                 <md-tooltip md-direction="top">Eliminar</md-tooltip>
@@ -187,13 +188,15 @@
         font-size: 15pt;
         margin-bottom: 10px;
         border-bottom: 1px solid;
+            justify-content: space-between;
+    display: flex;
     }
 
-    .item.colocado> :last-child md-icon {
+    .item.colocado> :last-child md-icon, .nombre-contenedor > :last-child md-icon {
         color: inherit;
     }
 
-    .item.colocado> :last-child {
+    .item.colocado> :last-child, .nombre-contenedor .icono-nombre-hook  {
         background: silver;
         width: 35px;
         height: 35px;
@@ -205,13 +208,20 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-bottom: 3px;
+        cursor: pointer;
     }
 
     .item.colocado> :last-child:hover {
         box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
         border: 1px solid red;
-        cursor: pointer;
         color: red;
+    }
+
+    .nombre-contenedor .icono-nombre-hook{
+            border: 1px solid white;
+            color: white;
+            background: green;
     }
 
     span.input-container-papeleria {
