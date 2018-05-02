@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "node-sass --include-path public public/creador-de-logos/assets/scss -o public/creador-de-logos/assets/css",
-    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    "build-css-landing": "node-sass --include-path public public/landing/assets/scss -o public/landing/assets/css",
+    "watch-css-landing": "nodemon -e scss -x \"npm run build-css-landing\""
   },
   "repository": {
     "type": "git",

@@ -193,7 +193,7 @@ md-input-container.md-input-invalid label {
 }
 
 md-radio-button[aria-checked="true"] .estilo-1 {
-    background: url('../assets/img/estilo-tipografia/tipo1_active.svg');
+    background: url('../assets/img/estilo-tipografia/tipo1_active.svg') !important;
 }
 
 .estilo-2 {
@@ -201,7 +201,7 @@ md-radio-button[aria-checked="true"] .estilo-1 {
 }
 
 md-radio-button[aria-checked="true"] .estilo-2 {
-    background: url('../assets/img/estilo-tipografia/tipo2_active.svg');
+    background: url('../assets/img/estilo-tipografia/tipo2_active.svg') !important;
 }
 
 .estilo-3 {
@@ -209,7 +209,7 @@ md-radio-button[aria-checked="true"] .estilo-2 {
 }
 
 md-radio-button[aria-checked="true"] .estilo-3 {
-    background: url('../assets/img/estilo-tipografia/tipo3_active.svg');
+    background: url('../assets/img/estilo-tipografia/tipo3_active.svg') !important;
 }
 
 .estilo-4 {
@@ -217,7 +217,7 @@ md-radio-button[aria-checked="true"] .estilo-3 {
 }
 
 md-radio-button[aria-checked="true"] .estilo-4 {
-    background: url('../assets/img/estilo-tipografia/tipo4_active.svg');
+    background: url('../assets/img/estilo-tipografia/tipo4_active.svg') !important;
 }
 
 /*********************/
@@ -225,7 +225,7 @@ md-radio-button[aria-checked="true"] .estilo-4 {
 body,
 md-content.md-default-theme,
 md-content {
-    background: var(--fondo);
+    background: #FFFFFF;
 }
 
 body h3 {
@@ -248,7 +248,7 @@ body h2 {
 
 header {
     cursor: default;
-    background: var(--fondo);
+    background: #FFFFFF;
     width: 90%;
     margin: auto;
     z-index: 999;
@@ -257,7 +257,7 @@ header {
 .logo {
     padding: 16px;
     text-align: center;
-    color: var(--secundario);
+    color: #5980B7;
     width: 200px;
 }
 
@@ -270,23 +270,38 @@ header {
 }
 
 div.acceder span {
-    display: inline-block;
     padding: 7px 14px;
     margin: 0 8px;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
     font-size: 16pt;
+    display: inline-block;
+}
+
+div.acceder:not(.not-ing) span{
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 div.acceder>:last-child {
-    background: var(--principal);
+    background: #5980B7;
     color: white;
     -webkit-box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
 }
 
 div.acceder span:hover {
-    background: var(--principal);
+    background: #5980B7;
     color: white;
     -webkit-box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
@@ -295,7 +310,7 @@ div.acceder span:hover {
 
 .tooltip-header {
     font-size: 14px !important;
-    color: var(--principal) !important;
+    color: #5980B7 !important;
     background-color: white !important;
 }
 
@@ -348,7 +363,7 @@ footer {
 
 .iconos-sociales i {
     padding: 8px;
-    color: var(--principal);
+    color: #5980B7;
     font-size: 26px;
     border-radius: 5px;
     -webkit-transition: all 0.5s;
@@ -358,7 +373,7 @@ footer {
 }
 
 .iconos-sociales i:hover {
-    background: var(--principal);
+    background: #5980B7;
     color: white;
 }
 
@@ -409,7 +424,7 @@ md-radio-group:focus {
 
 .terminos-condiciones,
 .legales {
-    background: var(--fondo);
+    background: #FFFFFF;
     text-align: justify;
     padding: 5% 6%;
 }
@@ -441,20 +456,20 @@ md-input-container:not(.md-input-has-value) input:not(:focus) {
 }
 
 .seccion.uno {
-    background: var(--fondo);
+    background: #FFFFFF;
     background-size: 100% 100%;
     margin-bottom: 0;
 }
 
 .seccion.uno .titulo-inicio {
-    border-left: 2rem solid var(--principal);
+    border-left: 2rem solid #5980B7;
     width: 98vw;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: space-evenly;
-    -ms-flex-pack: space-evenly;
-    justify-content: space-evenly;
+    -webkit-box-pack: space-around;
+    -ms-flex-pack: space-around;
+    justify-content: space-around;
 }
 
 .seccion.uno .titulo-inicio>div {
@@ -489,7 +504,7 @@ button.md-button.md-primary.md-raised.boton-formulario-generar {
 }
 
 button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
-    background-color: var(--principal);
+    background-color: #5980B7;
     color: white;
     border-color: white;
 }
@@ -500,7 +515,7 @@ button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
 }
 
 .label-form {
-    color: var(--secundario);
+    color: black;
 }
 
 md-select label,
@@ -514,61 +529,6 @@ md-select.md-default-theme.ng-invalid.ng-touched .md-select-value,
 md-select.ng-invalid.ng-touched .md-select-value {
     color: black;
     border-bottom-color: silver;
-}
-
-md-select label,
-md-input-container:NOT(.md-input-has-value) md-select-value,
-.seccion.uno form input:-ms-input-placeholder,
-.seccion.uno form label,
-.seccion.uno form md-select-value,
-md-input-container.md-default-theme.md-input-invalid .md-input,
-md-input-container.md-input-invalid .md-input,
-md-select.md-default-theme.ng-invalid.ng-touched .md-select-value,
-md-select.ng-invalid.ng-touched .md-select-value {
-    color: var(--secundario) !important;
-    border-bottom-color: var(--secundario) !important;
-}
-
-md-select label,
-md-input-container:NOT(.md-input-has-value) md-select-value,
-.seccion.uno form input::-webkit-input-placeholder,
-.seccion.uno form label,
-.seccion.uno form md-select-value,
-md-input-container.md-default-theme.md-input-invalid .md-input,
-md-input-container.md-input-invalid .md-input,
-md-select.md-default-theme.ng-invalid.ng-touched .md-select-value,
-md-select.ng-invalid.ng-touched .md-select-value,
-.input-field input {
-    color: var(--secundario) !important;
-    border-bottom-color: var(--secundario) !important;
-}
-
-md-select label,
-md-input-container:NOT(.md-input-has-value) md-select-value,
-.seccion.uno form input:-ms-input-placeholder,
-.seccion.uno form label,
-.seccion.uno form md-select-value,
-md-input-container.md-default-theme.md-input-invalid .md-input,
-md-input-container.md-input-invalid .md-input,
-md-select.md-default-theme.ng-invalid.ng-touched .md-select-value,
-md-select.ng-invalid.ng-touched .md-select-value,
-.input-field input {
-    color: var(--secundario) !important;
-    border-bottom-color: var(--secundario) !important;
-}
-
-md-select label,
-md-input-container:NOT(.md-input-has-value) md-select-value,
-.seccion.uno form input::placeholder,
-.seccion.uno form label,
-.seccion.uno form md-select-value,
-md-input-container.md-default-theme.md-input-invalid .md-input,
-md-input-container.md-input-invalid .md-input,
-md-select.md-default-theme.ng-invalid.ng-touched .md-select-value,
-md-select.ng-invalid.ng-touched .md-select-value,
-.input-field input {
-    color: var(--secundario) !important;
-    border-bottom-color: var(--secundario) !important;
 }
 
 .seccion.dos {
@@ -625,10 +585,11 @@ span.estilo {
     transition: transform 0.2s, -webkit-transform 0.2s;
     color: transparent;
     display: block;
-    width: 51px;
-    height: 51px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background-repeat: no-repeat !important;
+    background-size: 100% 100%;
 }
 
 span.estilo.seleccionado {
@@ -707,9 +668,9 @@ md-chips-wrap#_md-chips-wrapper-7 {
     display: -ms-flexbox;
     display: flex;
     position: relative;
-    -webkit-box-pack: space-evenly;
-    -ms-flex-pack: space-evenly;
-    justify-content: space-evenly;
+    -webkit-box-pack: space-around;
+    -ms-flex-pack: space-around;
+    justify-content: space-around;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -733,9 +694,9 @@ md-chips-wrap#_md-chips-wrapper-7 {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: space-evenly;
-    -ms-flex-pack: space-evenly;
-    justify-content: space-evenly;
+    -webkit-box-pack: space-around;
+    -ms-flex-pack: space-around;
+    justify-content: space-around;
 }
 
 .testimonios__carousel-item .descripcion> :nth-child(2) {
@@ -850,14 +811,14 @@ md-chips-wrap#_md-chips-wrapper-7 {
     width: 100%;
     padding: 0 0 30px 0 !important;
     text-align: center;
-    color: var(--secundario);
+    color: black;
     font-size: 40pt;
 }
 
 .titulo-destacado span {
     color: transparent;
     width: 10%;
-    background: var(--principal);
+    background: #5980B7;
     height: 10px;
     margin: auto;
     display: block;
@@ -868,7 +829,7 @@ md-chips-wrap#_md-chips-wrapper-7 {
 button.button-left,
 button.button-right {
     background: transparent;
-    border: 1px solid var(--principal);
+    border: 1px solid #5980B7;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -891,7 +852,7 @@ button:focus {
 }
 
 .button-verde {
-    background: var(--principal) !important;
+    background: #5980B7 !important;
     color: white;
     font-size: 22px;
     padding: 8px 30px !important;
@@ -901,11 +862,11 @@ button:focus {
 
 .seccion.cuatro {
     padding: 4%;
-    background: var(--fondo);
+    background: #FFFFFF;
 }
 
 .seccion.cuatro h4 {
-    COLOR: var(--secundario);
+    COLOR: #5980B7;
     MARGIN-BOTTOM: 4%;
 }
 
@@ -1002,7 +963,7 @@ button:hover {
 }
 
 .plan-precio {
-    color: var(--principal);
+    color: #5980B7;
     font-size: 40pt;
 }
 
@@ -1022,9 +983,9 @@ button.md-button.md-primary.md-raised.boton-crear-logo {
 
 button.md-button.md-primary.md-raised.boton-plan:hover,
 button.md-button.md-primary.md-raised.boton-crear-logo:hover {
-    background-color: var(--principal);
+    background-color: #5980B7;
     color: white !important;
-    border: 2px solid var(--principal);
+    border: 2px solid #5980B7;
 }
 
 /*END planes*/
@@ -1337,7 +1298,7 @@ md-chip-template strong {
         font-size: 25pt;
     }
     button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
-        background-color: var(--principal);
+        background-color: #5980B7;
         color: white;
         border-color: white;
     }
