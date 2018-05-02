@@ -49,6 +49,19 @@ angular.module("disenador-de-logos")
 					icono: ""
 				}
 			],
+			iconos: [{
+				orientacion: "right",
+				svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+				clases: ["color-secundario"]
+			}, {
+				orientacion: "right",
+				svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+				clases: ["color-secundario"]
+			}, {
+				orientacion: "right",
+				svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+				clases: ["color-secundario"]
+			}],
 			modelo: {
 				nombre: "modelo #1",
 				caras: [{
@@ -128,8 +141,7 @@ angular.module("disenador-de-logos")
 							</g>
 						</svg>`,
 						// Contenedores que puede tener
-						hooks: [
-							{
+						hooks: [{
 								id: "A",
 								caracteristicas: {
 									"x": "50",
@@ -138,30 +150,31 @@ angular.module("disenador-de-logos")
 									"height": "30"
 								},
 								items: [{
-									tipo: "text",
-									tag: "text", //"text", "g", etc.
-									valor: "Nombre",
-									nombre: "nombre",
-									icono: null,
-									caracteristicas: {
-										"fill": "#1d1d1b"
-									}
-								}, 
-								{
-									tipo: "text",
-									tag: "text", //"text", "g", etc.
-									valor: "Cargo",
-									nombre: "cargo",
-									icono: null
-										/*{
+										tipo: "text",
+										tag: "text", //"text", "g", etc.
+										valor: "Nombre",
+										nombre: "nombre",
+										icono: null,
+										caracteristicas: {
+											"fill": "#1d1d1b"
+										}
+									},
+									{
+										tipo: "text",
+										tag: "text", //"text", "g", etc.
+										valor: "Cargo",
+										nombre: "cargo",
+										icono: null
+											/*{
 										svg: "<svg></svg>",
 										direccion: "right"
 									}*/
-										,
-									caracteristicas: {
-										"fill": "#1d1d1b"
+											,
+										caracteristicas: {
+											"fill": "#1d1d1b"
+										}
 									}
-								}], //items
+								], //items
 								limite: 5, //limite de items
 								tamanoTexto: "10px",
 								orientacion: "left",
@@ -174,28 +187,27 @@ angular.module("disenador-de-logos")
 									"width": "120",
 									"height": "70"
 								},
-								items: [
-									{
+								items: [{
 										tipo: "text",
 										tag: "text", //"text", "g", etc.
 										valor: "+549336451810",
 										nombre: "telefono",
 										icono: {
-											orientacion: "right", 
+											orientacion: "right",
 											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 											clases: ["color-secundario"]
 										},
 										caracteristicas: {
 											"fill": "#1d1d1b"
 										}
-									}, 
+									},
 									{
 										tipo: "text",
 										tag: "text", //"text", "g", etc.
 										valor: "www.logo.pro",
 										nombre: "web",
 										icono: {
-											orientacion: "right", 
+											orientacion: "right",
 											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 											clases: ["color-primario"]
 										},
@@ -209,7 +221,7 @@ angular.module("disenador-de-logos")
 										valor: "xarias13@gmail.com",
 										nombre: "email",
 										icono: {
-											orientacion: "right", 
+											orientacion: "right",
 											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 											clases: ["color-primario"]
 										},
@@ -223,7 +235,7 @@ angular.module("disenador-de-logos")
 										valor: ["Av alguna,", "San Nicolas de los arroyos,", "Buenos Aires"],
 										nombre: "direccion",
 										icono: {
-											orientacion: "right", 
+											orientacion: "right",
 											svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 											clases: ["color-primario"]
 										},
@@ -231,7 +243,7 @@ angular.module("disenador-de-logos")
 											"fill": "#1d1d1b"
 										}
 									}
-									
+
 								], //items
 								limite: 5, //limite de items
 								orientacion: "right",
@@ -252,7 +264,7 @@ angular.module("disenador-de-logos")
 				itemsDefaults: {
 					nombre: {
 						valor: "Nombre Def",
-						icono: null, 
+						icono: null,
 						caracteristicas: {
 							"fill": "#1d1d1b"
 						}
@@ -260,50 +272,55 @@ angular.module("disenador-de-logos")
 					web: {
 						valor: "www.algo.com",
 						icono: {
-							orientacion: "right", 
+							orientacion: "right",
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
-						}, caracteristicas: {
+						},
+						caracteristicas: {
 							"fill": "#1d1d1b"
 						}
 					},
-					email:  {
+					email: {
 						valor: "algo@gmail.com",
-						icono:  {
-							orientacion: "right", 
+						icono: {
+							orientacion: "right",
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
-						}, caracteristicas: {
+						},
+						caracteristicas: {
 							"fill": "#1d1d1b"
 						}
 					},
 					cargo: {
 						valor: "cargo",
-						icono:  {
-							orientacion: "right", 
+						icono: {
+							orientacion: "right",
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
-						}, caracteristicas: {
+						},
+						caracteristicas: {
 							"fill": "#1d1d1b"
 						}
 					},
-					direccion:{
+					direccion: {
 						valor: ["av algo", "calle algo", "aaalgo"],
-						icono:  {
-							orientacion: "right", 
+						icono: {
+							orientacion: "right",
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
-						}, caracteristicas: {
+						},
+						caracteristicas: {
 							"fill": "#1d1d1b"
 						}
 					},
 					telefono: {
 						valor: "32454356",
-						icono:  {
-							orientacion: "right", 
+						icono: {
+							orientacion: "right",
 							svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
 							clases: ["color-primario"]
-						}, caracteristicas: {
+						},
+						caracteristicas: {
 							"fill": "#1d1d1b"
 						}
 					}

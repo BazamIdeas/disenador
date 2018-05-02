@@ -24,7 +24,9 @@
                 <div class="contenedor-items" ng-repeat="hook in contenedor.hooks track by $index" droppable-hook-papeleria>
                     <div class="nombre-contenedor">
                         <b>{{::hook.id}}</b>
-                        <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento(hook, $parent.$index, $index)"><md-icon>swap_horiz</md-icon></span>
+                        <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento(hook, $parent.$index, $index)">
+                            <md-icon>swap_horiz</md-icon>
+                        </span>
                     </div>
 
                     <div>
@@ -39,20 +41,34 @@
                             </span>
                             <span class="input-container-papeleria">
                                 <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null" ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono,  $parent.$parent.$index, $parent.$index)">
-                                    <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg)"></span>
-                                    <md-tooltip md-direction="top">Cambiar Dirección</md-tooltip>
+                                    <span>
+                                        <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg)"></span>
+                                        <md-tooltip md-direction="bottom">Cambiar Dirección</md-tooltip>
+                                    </span>
+                                    <span class="suprimirIcono" ng-click="item_hook.icono = null; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)">
+                                        <Supr>Eliminar</Supr>
+                                        <md-tooltip md-direction="bottom">Eliminar Icono</md-tooltip>
+                                    </span>
+                                </span>
+                                <span class="icono agregar-icono" ng-show="item_hook.icono == null" ng-click="menuPapeleria.mostrarIconosDisponibles.accion = true; menuPapeleria.mostrarIconosDisponibles.idHook = hook.id; menuPapeleria.elementoAgregarIcono = item_hook">
+                                    <md-icon style="color: inherit;">add</md-icon>
+                                    <md-tooltip md-direction="bottom">Agregar Icono</md-tooltip>
                                 </span>
                                 <input ng-if="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                    name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)" 
+                                    name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"
                                     required>
 
                                 <textarea ng-if="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                    name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"  required></textarea>
+                                    name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"
+                                    required></textarea>
                             </span>
                             <span ng-click="menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
-                                <md-tooltip md-direction="top">Eliminar</md-tooltip>
+                                <md-tooltip md-direction="bottom">Eliminar</md-tooltip>
                                 <md-icon>close</md-icon>
                             </span>
+                        </span>
+                        <span class="iconos-disponibles" ng-show="menuPapeleria.mostrarIconosDisponibles.accion && menuPapeleria.mostrarIconosDisponibles.idHook == hook.id">
+                            <span ng-repeat="icono in papeleriaEditor.papeleria.iconos" ng-bind-html="menuPapeleria.sce.trustAsHtml(icono.svg) " ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
                         </span>
                     </div>
                     <div class="mensaje-items" ng-if="hook.items.length == 0">
@@ -188,15 +204,17 @@
         font-size: 15pt;
         margin-bottom: 10px;
         border-bottom: 1px solid;
-            justify-content: space-between;
-    display: flex;
+        justify-content: space-between;
+        display: flex;
     }
 
-    .item.colocado> :last-child md-icon, .nombre-contenedor > :last-child md-icon {
+    .item.colocado> :last-child md-icon,
+    .nombre-contenedor> :last-child md-icon {
         color: inherit;
     }
 
-    .item.colocado> :last-child, .nombre-contenedor .icono-nombre-hook  {
+    .item.colocado> :last-child,
+    .nombre-contenedor .icono-nombre-hook {
         background: silver;
         width: 35px;
         height: 35px;
@@ -218,15 +236,23 @@
         color: red;
     }
 
-    .nombre-contenedor .icono-nombre-hook{
-            border: 1px solid white;
-            color: white;
-            background: green;
+    .nombre-contenedor .icono-nombre-hook {
+        border: 1px solid white;
+        color: white;
+        background: green;
     }
 
     span.input-container-papeleria {
         flex: 1;
         display: flex;
+    }
+
+    span.icono.agregar-icono {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+        color: black;
     }
 
     span.icono {
@@ -239,7 +265,7 @@
         margin-left: 10px;
     }
 
-    span.icono.icono-left{
+    span.icono.icono-left {
         margin-right: 10px;
     }
 
@@ -255,5 +281,23 @@
     span.controles-movimiento>span md-icon:hover {
         cursor: pointer;
         color: black;
+    }
+
+    span.iconos-disponibles {
+        display: flex;
+        justify-content: center;
+    }
+
+    span.iconos-disponibles>span {
+        width: 50px;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .suprimirIcono {
+        display: block;
+        font-size: 8pt;
+        padding-top: 1px;
+        cursor: pointer;
     }
 </style>
