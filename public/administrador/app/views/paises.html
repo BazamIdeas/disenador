@@ -156,7 +156,7 @@
                         <md-icon>keyboard_arrow_left</md-icon>
                     </md-button>
                 </div>
-                <div ng-if="paises.paisMonedas.length > 0">
+                <div ng-hide="paises.paisMonedas.length == 0">
                     <div layout class="elemento">
                         <md-input-container flex style="margin-bottom: 0;height: 35px;">
                             <input type="text" ng-model="paises.lpm" class="md-block" aria-label="filtro" placeholder="Buscar:">
@@ -184,8 +184,8 @@
                         </table>
                     </div>
                 </div>
-                <div ng-if="!paises.paisMonedas" class="mensaje-resultado pequeno" style="max-height:20%;">
-                    <h3>NO TIENE MONEDAS</h3>
+                <div ng-hide="paises.paisMonedas.length > 0" class="mensaje-resultado pequeno" style="max-height:20%;">
+                    <h3>LISTANDO PAISES</h3>
                 </div>
             </div>
         </div>

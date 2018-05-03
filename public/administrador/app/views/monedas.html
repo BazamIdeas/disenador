@@ -18,7 +18,7 @@
             </md-input-container>
           </div>
 
-          <div class="w3-responsive content-scroll">
+          <div ng-hide="moneda.monedas.length == 0" class="w3-responsive content-scroll">
             <table class="w3-table w3-bordered">
               <tr>
                 <th>Id Moneda:</th>
@@ -37,6 +37,10 @@
                 </md-button>
               </tr> -->
             </table>
+          </div>
+
+          <div ng-hide="moneda.monedas.length > 0" class="mensaje-resultado pequeno" style="max-height:20%;">
+            <h3>CARGANDO MONEDAS</h3>
           </div>
         </div>
       </div>
@@ -57,7 +61,7 @@
             </md-input-container>
           </div>
 
-          <div class="w3-responsive content-scroll">
+          <div ng-hide="moneda.pasarelas.length == 0" class="w3-responsive content-scroll">
             <table class="w3-table w3-bordered">
               <tr>
                 <th>Id Pasarela:</th>
@@ -85,6 +89,9 @@
                 </td>
               </tr>
             </table>
+          </div>
+          <div ng-hide="moneda.pasarelas.length > 0" class="mensaje-resultado pequeno" style="max-height:20%;">
+            <h3>CARGANDO PASARELAS</h3>
           </div>
         </div>
       </div>
