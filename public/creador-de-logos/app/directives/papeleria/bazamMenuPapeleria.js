@@ -9,11 +9,17 @@ angular.module("disenador-de-logos")
 
                 bz.sce = $sce;
 
+                /* Colocamos predefinida la primera cara del modelo que posea contenedores */
+                /*
                 angular.forEach($scope.papeleriaEditor.papeleria.modelo.caras, function (cara) {
                     if (cara.hooks.length > 0) {
                         return bz.menuActivo = cara.nombre;
                     }
-                })
+                })  */
+
+                bz.menuActivo = $scope.papeleriaEditor.papeleria.modelo.caras[0].nombre;
+                
+                /* Funcion para agregar un elemento al contenedor */
 
                 $scope.agregarElementoHook = function (indiceCara, indiceHook, indiceElemento) {
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
@@ -26,12 +32,16 @@ angular.module("disenador-de-logos")
                     itemAgregar.tipo = item.tipo;
                     itemAgregar.nombre = item.nombre;
 
+                    /* Si el contenedor esta al limite de su capacidad de elemento detenemos la funcion */
+
                     if (hook.items.length == hook.limite) return $mdToast.show($mdToast.base({
                         args: {
                             mensaje: "El contenedor ha llegado al limite de elementos. Elimine alguno o elija otro contenedor.",
                             clase: "danger"
                         }
                     }));
+                    
+                    /* Si el contenedor ya posee un elemento igual detenemos la funcion */
 
                     for (var i = 0; i < hook.items.length; i++) {
                         if (hook.items[i].nombre == item.nombre) return $mdToast.show($mdToast.base({
@@ -41,6 +51,8 @@ angular.module("disenador-de-logos")
                             }
                         }));
                     }
+
+                    /* Agregamos el elemento y actualizamos el scope */
 
                     $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items.push(itemAgregar);
                     $scope.$apply();
@@ -70,6 +82,9 @@ angular.module("disenador-de-logos")
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
 
                 }
+
+
+                /* Funcion para cambiar la direccion de un elemento en el contenedor o del contenedor propio */
 
                 bz.cambiarDireccionElemento = function (elemento, indiceCara, indiceHook) {
 

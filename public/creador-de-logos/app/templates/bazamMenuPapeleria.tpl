@@ -1,83 +1,85 @@
 <div class="menuPapeleria {{papeleriaEditor.papeleria.tipo}}">
     <div class="tabs-p">
-        <span ng-if="tabMenu.hooks.length > 0" ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" class="tab"
-            ng-click="menuPapeleria.menuActivo = tabMenu.nombre; papeleriaEditor.cambiarCara($index)" ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}">
+        <span ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" class="tab" ng-click="menuPapeleria.menuActivo = tabMenu.nombre; papeleriaEditor.cambiarCara($index)"
+            ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}">
             {{::tabMenu.nombre}}
         </span>
     </div>
     <div class="contenedor-principal-menu">
-        <div class="contenedor-items">
-            <div class="nombre-contenedor">
-                <b>Items Disponibles</b>
-            </div>
-            <span ng-if="!papeleriaEditor.papeleria.modelo.caras[0].hooks" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index"
-                indice="{{$index}}">
-                {{::item.nombre}}
-            </span>
-            <span ng-if="papeleriaEditor.papeleria.modelo.caras[0].hooks" draggable="true" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index"
-                indice="{{$index}}">
-                {{::item.nombre}}
-            </span>
-        </div>
         <form name="formularioPapeleria" novalidate>
-            <div ng-show="menuPapeleria.menuActivo == contenedor.nombre && contenedor .hooks.length > 0" ng-repeat="contenedor in papeleriaEditor.papeleria.modelo.caras">
-                <div class="contenedor-items" ng-repeat="hook in contenedor.hooks track by $index" droppable-hook-papeleria>
-                    <div class="nombre-contenedor">
-                        <b>{{::hook.id}}</b>
-                        <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento(hook, $parent.$index, $index)">
-                            <md-icon>swap_horiz</md-icon>
+            <div ng-show="menuPapeleria.menuActivo == contenedor.nombre" ng-repeat="contenedor in papeleriaEditor.papeleria.modelo.caras">
+                <div class="mensaje-cara" ng-show="contenedor.hooks.length == 0">
+                    Esta cara de la papeleria no posee elementos
+                </div>
+                <div ng-show="contenedor.hooks.length > 0">
+                    <div class="contenedor-items">
+                        <div class="nombre-contenedor">
+                            <b>Items Disponibles</b>
+                        </div>
+                        <span draggable="true" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index"
+                            indice="{{$index}}">
+                            {{::item.nombre}}
                         </span>
                     </div>
 
-                    <div>
-                        <span class="item colocado" ng-repeat="item_hook in hook.items track by $index">
-                            <span class="controles-movimiento" ng-show="hook.items.length > 1">
-                                <span ng-hide="$first" ng-click="menuPapeleria.move(-1, $parent.$parent.$index, $parent.$index, $index)">
-                                    <md-icon>keyboard_arrow_up</md-icon>
-                                </span>
-                                <span ng-hide="$last" ng-click="menuPapeleria.move(1, $parent.$parent.$index, $parent.$index, $index)">
-                                    <md-icon>keyboard_arrow_down</md-icon>
-                                </span>
+                    <div class="contenedor-items" ng-repeat="hook in contenedor.hooks track by $index" droppable-hook-papeleria>
+                        <div class="nombre-contenedor">
+                            <b>{{::hook.id}}</b>
+                            <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento(hook, $parent.$index, $index)">
+                                <md-icon>swap_horiz</md-icon>
                             </span>
-                            <span class="input-container-papeleria">
-                                <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null" ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono,  $parent.$parent.$index, $parent.$index)">
-                                    <span>
-                                        <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg)"></span>
-                                        <md-tooltip md-direction="bottom">Cambiar Dirección</md-tooltip>
-                                    </span>
-                                    <span class="suprimirIcono" ng-click="item_hook.icono = null; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)">
-                                        <Supr>Eliminar</Supr>
-                                        <md-tooltip md-direction="bottom">Eliminar Icono</md-tooltip>
-                                    </span>
-                                </span>
-                                <span class="icono agregar-icono" ng-show="item_hook.icono == null" ng-click="menuPapeleria.mostrarIconosDisponibles.accion = true; menuPapeleria.mostrarIconosDisponibles.idHook = hook.id; menuPapeleria.elementoAgregarIcono = item_hook">
-                                    <md-icon style="color: inherit;">add</md-icon>
-                                    <md-tooltip md-direction="bottom">Agregar Icono</md-tooltip>
-                                </span>
-                                <input ng-if="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                    name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"
-                                    required>
+                        </div>
 
-                                <textarea ng-if="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                    name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"
-                                    required></textarea>
+                        <div>
+                            <span class="item colocado" ng-repeat="item_hook in hook.items track by $index">
+                                <span class="controles-movimiento" ng-show="hook.items.length > 1">
+                                    <span ng-hide="$first" ng-click="menuPapeleria.move(-1, $parent.$parent.$index, $parent.$index, $index)">
+                                        <md-icon>keyboard_arrow_up</md-icon>
+                                    </span>
+                                    <span ng-hide="$last" ng-click="menuPapeleria.move(1, $parent.$parent.$index, $parent.$index, $index)">
+                                        <md-icon>keyboard_arrow_down</md-icon>
+                                    </span>
+                                </span>
+                                <span class="input-container-papeleria">
+                                    <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null && item_hook.icono != ''" ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono,  $parent.$parent.$index, $parent.$index)">
+                                        <span>
+                                            <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg)"></span>
+                                            <md-tooltip md-direction="bottom">Cambiar Dirección</md-tooltip>
+                                        </span>
+                                        <span class="suprimirIcono" ng-click="item_hook.icono = null; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)">
+                                            <Supr>Eliminar</Supr>
+                                            <md-tooltip md-direction="bottom">Eliminar Icono</md-tooltip>
+                                        </span>
+                                    </span>
+                                    <span class="icono agregar-icono" ng-show="item_hook.icono == null || item_hook.icono == ''" ng-click="menuPapeleria.mostrarIconosDisponibles.accion = true; menuPapeleria.mostrarIconosDisponibles.idHook = hook.id; menuPapeleria.elementoAgregarIcono = item_hook">
+                                        <md-icon style="color: inherit;">add</md-icon>
+                                        <md-tooltip md-direction="bottom">Agregar Icono</md-tooltip>
+                                    </span>
+                                    <input ng-if="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
+                                        name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"
+                                        required>
+
+                                    <textarea ng-if="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
+                                        name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"
+                                        required></textarea>
+                                </span>
+                                <span ng-click="menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
+                                    <md-tooltip md-direction="bottom">Eliminar</md-tooltip>
+                                    <md-icon>close</md-icon>
+                                </span>
                             </span>
-                            <span ng-click="menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
-                                <md-tooltip md-direction="bottom">Eliminar</md-tooltip>
-                                <md-icon>close</md-icon>
+                            <span class="iconos-disponibles" ng-show="menuPapeleria.mostrarIconosDisponibles.accion && menuPapeleria.mostrarIconosDisponibles.idHook == hook.id">
+                                <span ng-repeat="icono in papeleriaEditor.papeleria.iconos" ng-bind-html="menuPapeleria.sce.trustAsHtml(icono.svg) " ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
                             </span>
-                        </span>
-                        <span class="iconos-disponibles" ng-show="menuPapeleria.mostrarIconosDisponibles.accion && menuPapeleria.mostrarIconosDisponibles.idHook == hook.id">
-                            <span ng-repeat="icono in papeleriaEditor.papeleria.iconos" ng-bind-html="menuPapeleria.sce.trustAsHtml(icono.svg) " ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
-                        </span>
+                        </div>
+                        <div class="mensaje-items" ng-if="hook.items.length == 0">
+                            Agrega Elementos
+                        </div>
+                        <div class="validacion-papeleria" ng-show="!formularioPapeleria.$valid && hook.items.length > 0">
+                            Completa los campos correctamente
+                        </div>
+                        <span class="espacios-disponibles">Espacios disponibles {{hook.limite - hook.items.length }}</span>
                     </div>
-                    <div class="mensaje-items" ng-if="hook.items.length == 0">
-                        Agrega Elementos
-                    </div>
-                    <div class="validacion-papeleria" ng-show="!formularioPapeleria.$valid && hook.items.length > 0">
-                        Completa los campos correctamente
-                    </div>
-                    <span class="espacios-disponibles">Espacios disponibles {{hook.limite - hook.items.length }}</span>
                 </div>
             </div>
         </form>
@@ -91,7 +93,6 @@
 
     .menuPapeleria {
         width: 100%;
-        background: silver;
         height: 100%;
         user-select: none;
     }
@@ -99,7 +100,7 @@
     .contenedor-principal-menu {
         overflow-x: hidden;
         overflow-y: scroll;
-        height: 82%;
+        height: 84%;
     }
 
     .tabs-p {
@@ -118,7 +119,7 @@
     }
 
     .tabs-p .tab.active {
-        background: var(--principal);
+        background:#5981bc;
         color: white;
     }
 
@@ -300,4 +301,7 @@
         padding-top: 1px;
         cursor: pointer;
     }
+
+.mensaje-cara { font-size: 18pt; height: 100%; display: flex; align-items: center; justify-content: center; color: black;
+text-align: center; }
 </style>
