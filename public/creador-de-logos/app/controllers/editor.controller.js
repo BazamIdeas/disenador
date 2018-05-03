@@ -11,12 +11,14 @@ angular.module("disenador-de-logos")
 			borradores: false,
 			fuentes: false
 		};
-		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[0] : "rgb(243, 243, 243)";
+		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[1] : "rgb(243, 243, 243)";
 		bz.colorFondoAnterior = bz.colorFondo;
-		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[2] : "#000";
+		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[0] : "#000";
 		bz.colorEslogan = "#000";
-		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[1] : "#000";
+		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[0] : "#000";
 		bz.svgFinal = "";
+
+		console.log(historicoResolve.colores)
 
 		bz.jqueryScrollbarOptions = {};
 

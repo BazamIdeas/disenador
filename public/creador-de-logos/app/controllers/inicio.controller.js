@@ -6,7 +6,15 @@ angular.module("disenador-de-logos")
 
 		bz.base64 = $base64;
 
-		bz.obtenerColores = coloresFactory;
+		bz.obtenerColores = function(coloresArray){
+			return coloresFactory(angular.copy(coloresArray));
+		};
+
+		bz.colorRandom =  function (largoArray) {
+
+			var i = Math.floor(Math.random() * largoArray) + 0;
+			return i;
+		};
 
 		bz.palettes = coloresPaletteValue;
 
@@ -233,7 +241,7 @@ angular.module("disenador-de-logos")
 					logo: bz.logos[bz.logoSeleccionado],
 					texto: bz.datos.nombre,
 					categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria,
-					colores: bz.logos[bz.logoSeleccionado].colores
+					colores: [bz.logos[bz.logoSeleccionado].colores[0], bz.logos[bz.logoSeleccionado].colores[bz.logos[bz.logoSeleccionado].random]]
 				}
 			};
 
@@ -242,7 +250,6 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
-
 			bz.datosComprar = {
 				logo: svg,
 				idLogo: idLogo,
@@ -252,9 +259,9 @@ angular.module("disenador-de-logos")
 					principal: logo.fuente.idElemento
 				},
 				colores: {
-					fondo: colores[0],
-					icono: colores[1],
-					nombre: colores[2]
+					fondo: colores[1],
+					icono: colores[0],
+					nombre: colores[0]
 				},
 				planes: bz.planes,
 				moneda: bz.moneda

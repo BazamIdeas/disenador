@@ -74,7 +74,7 @@
 
             <div class="combinaciones row" ng-if="inicio.logos.length">
 
-                <div class="col l3 combinacion" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores)">
+                <div class="col l3 combinacion" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores); logo.random = (1 + inicio.colorRandom(4))">
 
                     <div class="share-email" ng-if="logo.mostrarCompartir" ng-form="inicio.compartirEmailForm">
                         <md-icon class="material-icons cerrar-compartir-email" role="img" aria-label="close" ng-click="logo.mostrarCompartir = false;">close</md-icon>
@@ -93,10 +93,10 @@
                             ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
                     </div>
 
-                    <div class="combinacion-box" ng-style="{'background-color': logo.colores[0]}">
+                    <div class="combinacion-box" ng-style="{'background-color': logo.colores[logo.random]}">
 
                         <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
-                            callback="logo.cargado" color-texto="logo.colores[2]" color-icono="logo.colores[1]" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo,true)"></bazam-svg-text>
+                            callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo,true)"></bazam-svg-text>
                         <div class='overlay b-gif' ng-hide="logo.cargado"></div>
 
                         <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">
