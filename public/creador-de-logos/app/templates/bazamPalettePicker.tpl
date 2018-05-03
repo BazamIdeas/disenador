@@ -5,7 +5,6 @@
 </div>
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 393 393" ng-show="mostrarPalettePicker">
-    <title>circulo</title>
     <g id="Layer_2" data-name="Layer 2">
         <g id="Layer_1-2" data-name="Layer 1">
 

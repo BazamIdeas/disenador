@@ -6,43 +6,46 @@ angular.module("landing")
 			templateUrl: "/landing/app/templates/bazamPalettePicker.tpl",
 			controller: ["$scope", "coloresPaletteValue", function($scope, coloresPaletteValue){
 
-				$scope.$parent.ctrl.palettes = coloresPaletteValue;
 
-				$scope.$parent.ctrl.palettesCopy = []; 
-				angular.forEach($scope.$parent.ctrl.palettes, function(palette, index){
+				var bz = $scope.$parent.ctrl;
 
-					$scope.$parent.ctrl.palettesCopy.push([]);
+				bz.palettes = coloresPaletteValue;
+
+				bz.palettesCopy = []; 
+				angular.forEach(bz.palettes, function(palette, index){
+
+					bz.palettesCopy.push([]);
 					var i;
 					for (i = 0; i < palette.length; i++) { 
-						$scope.$parent.ctrl.palettesCopy[index].push(false);
+						bz.palettesCopy[index].push(false);
 					}         
 					
 				});
 
 
-				$scope.seleccionarColor= function($event){
+				$scope.seleccionarColor = function ($event) {
 
 					var indiceArrays;
-                    
+
 					var pathSVG = $event.target;
 
-					
-					if(pathSVG.classList.contains("linea-1")){
+
+					if (pathSVG.classList.contains("linea-1")) {
 						indiceArrays = 0;
-						
-					}
-					else if(pathSVG.classList.contains("linea-2")){
+					} else if (pathSVG.classList.contains("linea-2")) {
 						indiceArrays = 1;
-					}
-					else if(pathSVG.classList.contains("linea-3")){
+					} else if (pathSVG.classList.contains("linea-3")) {
 						indiceArrays = 2;
+					} else if (pathSVG.classList.contains("linea-4")) {
+						indiceArrays = 3;
 					}
 
+
 					var indicePalettes = parseInt(angular.element(pathSVG).data("index")) - 1;
-                    
-					var valor = $scope.$parent.ctrl.palettesCopy[indiceArrays][indicePalettes];
-                    
-					$scope.$parent.ctrl.palettesCopy[indiceArrays][indicePalettes] = !valor;
+
+					var valor = bz.palettesCopy[indiceArrays][indicePalettes];
+
+					bz.palettesCopy[indiceArrays][indicePalettes] = !valor;
 
 					!valor ? pathSVG.classList.add("color-checked") : pathSVG.classList.remove("color-checked");
 
@@ -52,7 +55,7 @@ angular.module("landing")
 				$scope.checkRequired = function(){
 
 					var requerir = true;
-					angular.forEach($scope.$parent.ctrl.palettesCopy, function(palettes){
+					angular.forEach(bz.palettesCopy, function(palettes){
 						angular.forEach(palettes, function(palette){
 							if(palette){
 								requerir = false;
@@ -66,24 +69,35 @@ angular.module("landing")
 			}],
 			link: function (scope, element) {
 
+				var bz = scope.$parent.ctrl;
+
 				element.find("[data-index]").each(function(index, el){
 
 					var indiceArrays;
 
-					switch (el.className.baseVal){
-					case "linea-1":
-						indiceArrays = 0;
-						break;
-					case "linea-2":
-						indiceArrays = 1;
-						break;
-					case "linea-3":
-						indiceArrays = 2;
+					switch (el.className.baseVal) {
+						case "linea-1":
+							indiceArrays = 0;
+							break;
+						case "linea-2":
+							indiceArrays = 1;
+							break;
+						case "linea-3":
+							indiceArrays = 2;
+							break;
+						case "linea-4":
+							indiceArrays = 3;
 					}
 
+
+
 					var indicePalettes = parseInt(angular.element(el).data("index")) - 1;
+
+					var valor = bz.palettesCopy[indiceArrays][indicePalettes];
+
+					valor ? el.classList.add("color-checked") : el.classList.remove("color-checked");
                     
-					el.style.fill = scope.$parent.ctrl.palettes[indiceArrays][indicePalettes][1];
+					el.style.fill = bz.palettes[indiceArrays][indicePalettes][0];
 
 				});
 			}
