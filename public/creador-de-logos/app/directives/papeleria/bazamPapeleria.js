@@ -225,7 +225,6 @@ angular.module("disenador-de-logos")
 
 									} else if (coordenadasContenedor.height <= tamanoLineas) { //si las lineas son mas grandes que el icono
 
-
 										if (indice === 0) { //si es el primer item de este contenedor
 
 											coordenadasTexto = textSvg[0].getBBox();
@@ -246,7 +245,6 @@ angular.module("disenador-de-logos")
 													var coordenadasTrozo = trozoTextSvg[0].getBBox();
 													trozoTextSvg.attr("dy", alturaLinea);
 												}
-
 
 											})
 
@@ -293,7 +291,7 @@ angular.module("disenador-de-logos")
 										var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
 
 										var alturaAnterior;
-
+										/*
 										if (hook.items[indice - 1].icono) { //SI HAY UN ICONO ANTERIOR
 
 											var contenedorIconoSvgAnterior = itemAnterior.find("foreignObject");
@@ -302,11 +300,11 @@ angular.module("disenador-de-logos")
 
 											alturaAnterior = coordenadasContenedorIconoSvgAnterior.height + coordenadasContenedorIconoSvgAnterior.y;
 
-										} else { //SI NO HAY ICONO ANTEIOR
-
+										} else { //SI NO HAY ICONO ANTERIOR
+											*/
 											alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
-										}
+										//}
 
 										//SE POSICIONA EL ICONO ACTUAL
 										contenedorIconoSvg.attr("y", alturaAnterior);
@@ -523,7 +521,7 @@ angular.module("disenador-de-logos")
 
 										var alturaAnterior;
 
-										if (hook.items[indice - 1].icono) { //SI HAY UN ICONO ANTERIOR
+										/*if (hook.items[indice - 1].icono) { //SI HAY UN ICONO ANTERIOR
 
 											var contenedorIconoSvgAnterior = itemAnterior.find("foreignObject");
 
@@ -531,11 +529,11 @@ angular.module("disenador-de-logos")
 
 											alturaAnterior = coordenadasContenedorIconoSvgAnterior.height + coordenadasContenedorIconoSvgAnterior.y;
 
-										} else { //SI NO HAY ICONO ANTEIOR
+										} else { //SI NO HAY ICONO ANTEIOR */
 
 											alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
-										}
+										//}
 
 										//SE POSICIONA EL ICONO ACTUAL
 										contenedorIconoSvg.attr("y", alturaAnterior);
