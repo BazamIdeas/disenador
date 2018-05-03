@@ -55,8 +55,8 @@
                                     </span>
                                 </span>
                                 <span class="input-container-papeleria">
-                                    <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null && item_hook.icono != ''" ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono,  $parent.$parent.$index, $parent.$index)">
-                                        <span>
+                                    <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null && item_hook.icono != ''">
+                                        <span  ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono, $parent.$parent.$index, $parent.$index)">
                                             <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg)"></span>
                                             <md-tooltip md-direction="bottom">Cambiar Dirección</md-tooltip>
                                         </span>
