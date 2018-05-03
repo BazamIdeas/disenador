@@ -8,7 +8,7 @@ angular.module("disenador-de-logos")
 		//bz.papeleria = papeleriaResolve;
 		bz.logo = logoResolve;
 
-		elementosService.listarFuentes().then(function(res){
+		elementosService.listarFuentes().then(function (res) {
 			bz.fuentes = res;
 		})
 

@@ -16,8 +16,7 @@
                         <div class="nombre-contenedor">
                             <b>Items Disponibles</b>
                         </div>
-                        <span draggable="true" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index"
-                            indice="{{$index}}">
+                        <span draggable="true" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index" indice="{{$index}}">
                             {{::item.nombre}}
                         </span>
                     </div>
@@ -31,7 +30,8 @@
                         </div>
 
                         <div class="opciones-hook">
-                            <span><input type="color" ng-model="hook.color">
+                            <span>
+                                <input type="color" ng-model="hook.color" ng-change="papeleriaEditor.modificarHook($parent.$index, $index)">
                             </span>
                             <span>
                                 <md-input-container>
@@ -83,7 +83,8 @@
                                 </span>
                             </span>
                             <span class="iconos-disponibles" ng-show="menuPapeleria.mostrarIconosDisponibles.accion && menuPapeleria.mostrarIconosDisponibles.idHook == hook.id">
-                                <span ng-repeat="icono in hook.iconos" ng-bind-html="menuPapeleria.sce.trustAsHtml(icono.svg) " ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
+                                <span ng-repeat="icono in papeleriaEditor.papeleria.modelo.iconos" ng-bind-html="menuPapeleria.sce.trustAsHtml(icono.svg) "
+                                    ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
                             </span>
                         </div>
                         <div class="mensaje-items" ng-if="hook.items.length == 0">
@@ -133,7 +134,7 @@
     }
 
     .tabs-p .tab.active {
-        background:#5981bc;
+        background: #5981bc;
         color: white;
     }
 
@@ -316,6 +317,31 @@
         cursor: pointer;
     }
 
-.mensaje-cara { font-size: 18pt; height: 100%; display: flex; align-items: center; justify-content: center; color: black;
-text-align: center; }
+    .mensaje-cara {
+        font-size: 18pt;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        text-align: center;
+    }
+
+    .opciones-hook span {
+        flex: 1;
+    }
+
+    .opciones-hook {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .opciones-hook span {
+        flex: 1;
+    }
+
+    .opciones-hook input[type="color"] {
+        width: 90%;
+    }
 </style>

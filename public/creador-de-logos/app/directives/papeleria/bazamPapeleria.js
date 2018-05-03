@@ -771,6 +771,7 @@ angular.module("disenador-de-logos")
 					agregarHook(hook, caraSvg);
 
 					pintarLienzo(element);
+					console.log('funciona')
 					//agregarItem(item, indice, hook, hookSvg)
 
 				}
