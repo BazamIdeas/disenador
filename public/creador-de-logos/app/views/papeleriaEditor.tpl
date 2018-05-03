@@ -5,18 +5,28 @@
 
 <style>
     bazam-papeleria {
-        width: 54%;
-        height: 90%;
+        width: 14cm;
+        height: auto;
         overflow-x: hidden;
         overflow-y: scroll;
         padding-right: 8px;
         display: block;
         margin: 30px auto;
-        max-height: 82vh;
         padding-bottom: 40px;
+        position: relative;
     }
 
-    bazam-papeleria svg {
+    .bazam-loader-papeleria {
+        background-color: white;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+         
+    }
+  
+    bazam-papeleria > svg {
         margin-bottom: 10px;
+        position: absolute;
     }
 </style>

@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.directive("bazamPapeleria", ["fontService", "$document", function (fontService, $document) {
+	.directive("bazamPapeleria", ["fontService", "$document", "$q",function (fontService, $document, $q) {
 		return {
 			restrict: "AE",
 			scope: true,
@@ -10,9 +10,11 @@ angular.module("disenador-de-logos")
 			link: function (scope, element) {
 
 
+				////////////////////////////
+				//////COLOREAR LOS SVG//////
+				////////////////////////////
+
 				function pintarLienzo(lienzo) {
-
-
 
 					lienzo.find(".color-primario").css({
 						"fill": bz.logo.atributos["color-icono"]
@@ -31,30 +33,48 @@ angular.module("disenador-de-logos")
 				}
 
 
+				/////////////////////////////////////////
+				//////AGREGAR LOS HOOKS A LAS CARAS//////
+				/////////////////////////////////////////
+
 				function agregarHook(hook, caraSvg) {
 
-					var hookSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
+					var defered = $q.defer();
+					var promise = defered.promise;
+			
+					fontService.preparar(hook.fuente.nombre, hook.fuente.url)
+						.finally(function(){
+							
+							var hookSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
 
-					hookSvg.attr("id", hook.id);
+							hookSvg.attr("id", hook.id);
 
-					hookSvg.append("<svg style='width:100%; height: 100%;'></svg>");
+							hookSvg.css({"font-family": hook.fuente.nombre, "fill": hook.fuente.fill})
 
-					caraSvg.append(hookSvg);
+							hookSvg.append("<svg style='width:100%; height: 100%;'></svg>");
 
-					angular.forEach(hook.caracteristicas, function (caracteristica, llave) {
-						hookSvg.attr(llave, caracteristica);
-					});
+							caraSvg.append(hookSvg);
 
-					angular.forEach(hook.items, function (item, indice) {
-						agregarItem(item, indice, hook, hookSvg)
+							angular.forEach(hook.caracteristicas, function (caracteristica, llave) {
+								hookSvg.attr(llave, caracteristica);
+							});
 
-					});
+							angular.forEach(hook.items, function (item, indice) {
+								agregarItem(item, indice, hook, hookSvg);
+							});
+							
+							defered.resolve();
+						})
+
+					return promise;
 
 				};
 
-
+				/////////////////////////////////////////
+				//////AGREGAR LOS ITEMS A LOS HOOKS//////
+				/////////////////////////////////////////
 				function agregarItem(item, indice, hook, hookSvg) {
-
+				
 					var itemSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "g"));
 
 					var textSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', item.tag))
@@ -123,8 +143,8 @@ angular.module("disenador-de-logos")
 
 					if (multilineas) {
 
-						if (multilineas == 2) {
-
+						if (multilineas <= 2) {
+							var tamanoTexto = hook.tamanoTexto;
 						} else if (multilineas > 2) {
 							var tamanoTexto = (parseInt(hook.tamanoTexto) / multilineas) * 2;
 						}
@@ -159,8 +179,8 @@ angular.module("disenador-de-logos")
 								contenedorIconoSvg.attr("height", tamanoIcono);
 								contenedorIconoSvg.attr("width", tamanoIcono);
 
-								iconoSvg.attr("height", "100%")
-								iconoSvg.attr("width", "100%")
+								iconoSvg.attr("height", "100%");
+								iconoSvg.attr("width", "100%");
 
 								coordenadasContenedor = contenedorIconoSvg[0].getBBox();
 
@@ -201,46 +221,7 @@ angular.module("disenador-de-logos")
 										contenedorIconoSvg.attr("y", "0");
 
 										//TODO: posicion del text guiado por el icono
-										/*
-												if (indice === 0) { //si es el primer item de este contenedor
-
-													contenedorIconoSvg.attr("y", "0");
-	
-												} else { //cualquier item despues del primero
-	
-													var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
-	
-													var alturaAnterior;
-	
-													if (hook.items[indice - 1].icono) { //SI HAY UN ICONO ANTERIOR
-	
-														var contenedorIconoSvgAnterior = itemAnterior.find("foreignObject");
-	
-														var coordenadasContenedorIconoSvgAnterior = contenedorIconoSvgAnterior[0].getBBox();
-	
-														alturaAnterior = coordenadasContenedorIconoSvgAnterior.height + coordenadasContenedorIconoSvgAnterior.y;
-	
-													} else { //SI NO HAY ICONO ANTEIOR
-	
-														alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
-	
-													}
-	
-													//SE POSICIONA EL ICONO ACTUAL
-													contenedorIconoSvg.attr("y", alturaAnterior);
-	
-	
-													itemSvgAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
-	
-													var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
-	
-												}
-	
-												coordenadasContenedor = contenedorIconoSvg[0].getBBox();
-	
-	
-												textSvg.attr("y", (coordenadasContenedor.y + (coordenadasContenedor.height / 2) + (coordenadasTexto.height / 4)));
-												*/
+										
 
 									} else if (coordenadasContenedor.height <= tamanoLineas) { //si las lineas son mas grandes que el icono
 
@@ -251,17 +232,19 @@ angular.module("disenador-de-logos")
 
 											textSvg.attr("y", coordenadasTexto.height)
 
+											var alturaLinea = 0;
+
 											textSvg.children().each(function (indiceTrozo) {
 
 												var trozoTextSvg = angular.element(this);
 
 												if (indiceTrozo === 0) { // primera linea de texto
 													trozoTextSvg.attr("dy", "0");
+													alturaLinea = trozoTextSvg[0].getBBox().height;
 												} else {
-													//var coordenadasTrozoTextAnterior = trozoTextSvg.prev()[0].getBBox();
+											
 													var coordenadasTrozo = trozoTextSvg[0].getBBox();
-
-													trozoTextSvg.attr("dy", coordenadasTrozo.height);
+													trozoTextSvg.attr("dy", alturaLinea);
 												}
 
 
@@ -295,14 +278,11 @@ angular.module("disenador-de-logos")
 
 										coordenadasTexto = textSvg[0].getBBox();
 
-
 										contenedorIconoSvg.attr("y", (coordenadasTexto.y + (coordenadasTexto.height / 2) - (coordenadasContenedor.height / 2)));
-
 
 									}
 
 								} else { //si es un texto de linea unica
-
 
 									if (indice === 0) { //si es el primer item de este contenedor
 
@@ -331,7 +311,6 @@ angular.module("disenador-de-logos")
 										//SE POSICIONA EL ICONO ACTUAL
 										contenedorIconoSvg.attr("y", alturaAnterior);
 
-
 										itemSvgAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
 
 										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
@@ -340,14 +319,10 @@ angular.module("disenador-de-logos")
 
 									coordenadasContenedor = contenedorIconoSvg[0].getBBox();
 
-
 									textSvg.attr("y", (coordenadasContenedor.y + (coordenadasContenedor.height / 2) + (coordenadasTexto.height / 4)));
 								}
 
 							} else {
-
-
-								//textSvg.attr("text-anchor", "end");
 
 								if (multilineas) { //si es multilinea
 
@@ -358,20 +333,19 @@ angular.module("disenador-de-logos")
 										coordenadasTexto = textSvg[0].getBBox();
 
 										textSvg.attr("y", coordenadasTexto.height)
-
+										var alturaLinea = 0;
 										textSvg.children().each(function (indiceTrozo) {
 
 											var trozoTextSvg = angular.element(this);
 
 											if (indiceTrozo === 0) { // primera linea de texto
 												trozoTextSvg.attr("dy", "0");
+												alturaLinea = trozoTextSvg[0].getBBox().height;
 											} else {
-												//var coordenadasTrozoTextAnterior = trozoTextSvg.prev()[0].getBBox();
+	
 												var coordenadasTrozo = trozoTextSvg[0].getBBox();
-
-												trozoTextSvg.attr("dy", coordenadasTrozo.height);
+												trozoTextSvg.attr("dy", alturaLinea);
 											}
-
 
 										})
 
@@ -476,8 +450,7 @@ angular.module("disenador-de-logos")
 
 									if (coordenadasContenedor.height > tamanoLineas) { //si el icono es mas grande que las lineas
 
-										//contenedorIconoSvg.attr("y", "0");
-
+										//TODO:
 
 									} else if (coordenadasContenedor.height <= tamanoLineas) { //si las lineas son mas grandes que el icono
 										if (indice === 0) { //si es el primer item de este contenedor
@@ -485,20 +458,23 @@ angular.module("disenador-de-logos")
 											coordenadasTexto = textSvg[0].getBBox();
 
 											textSvg.attr("y", coordenadasTexto.height)
-
+											var alturaLinea = 0;
 											textSvg.children().each(function (indiceTrozo) {
 
 												var trozoTextSvg = angular.element(this);
+												
 
 												if (indiceTrozo === 0) { // primera linea de texto
+
 													trozoTextSvg.attr("dy", "0");
+													alturaLinea = trozoTextSvg[0].getBBox().height;
+
 												} else {
 													//var coordenadasTrozoTextAnterior = trozoTextSvg.prev()[0].getBBox();
-													var coordenadasTrozo = trozoTextSvg[0].getBBox();
+													//var coordenadasTrozo = trozoTextSvg[0].getBBox();
 
-													trozoTextSvg.attr("dy", coordenadasTrozo.height);
+													trozoTextSvg.attr("dy", alturaLinea);
 												}
-
 
 											})
 
@@ -586,20 +562,19 @@ angular.module("disenador-de-logos")
 									if (indice === 0) { //si es el primer item de este contenedor
 
 										coordenadasTexto = textSvg[0].getBBox();
-
 										textSvg.attr("y", coordenadasTexto.height)
+										var alturaLinea = 0;
 
 										textSvg.children().each(function (indiceTrozo) {
 
 											var trozoTextSvg = angular.element(this);
-
 											if (indiceTrozo === 0) { // primera linea de texto
 												trozoTextSvg.attr("dy", "0");
+												alturaLinea = trozoTextSvg[0].getBBox().height;
 											} else {
-												//var coordenadasTrozoTextAnterior = trozoTextSvg.prev()[0].getBBox();
+	
 												var coordenadasTrozo = trozoTextSvg[0].getBBox();
-
-												trozoTextSvg.attr("dy", coordenadasTrozo.height);
+												trozoTextSvg.attr("dy", alturaLinea);
 											}
 
 
@@ -709,19 +684,33 @@ angular.module("disenador-de-logos")
 
 
 
-
-
-
+				/////////////////////////
+				/////////COMIENZO////////
+				/////////////////////////
 
 				//obtenemos el controlador padre
 				var bz = scope.$parent.papeleriaEditor;
 
+				var promesasHooks = [];
+
+				var loader = angular.element("<div></div>");
+				loader.addClass("bazam-loader-papeleria");
+				element.append(loader);
+				
+				
+
 				angular.forEach(bz.papeleria.modelo.caras, function (cara, index) {
 
 					var caraSvg = angular.element(cara.svg);
+					caraSvg.addClass("cara");
+					caraSvg.attr("data-index", index);
+
+					if(index){
+						caraSvg.css({"visibiliy": "hidden", "z-index": "-1"})	
+					}
 
 					var estilos = angular.element("<style></style>");
-
+					estilos.addClass("estilos-cara");
 					estilos.text(
 						`.total-blanco, .total-blanco * {
 							stroke: white !important;
@@ -749,15 +738,21 @@ angular.module("disenador-de-logos")
 
 					});
 					angular.forEach(cara.hooks, function (hook) {
-						agregarHook(hook, caraSvg);
+						promesasHooks.push(agregarHook(hook, caraSvg));
 					});
 
 				});
 
-				element.html(element.html());
+				$q.all(promesasHooks)
+					.finally(function(){
+						element.html(element.html());
+						pintarLienzo(element);
+				
+						element.find(".bazam-loader-papeleria").remove();
+					
+					})
 
-				pintarLienzo(element);
-
+				
 				bz.modificarHook = function (indiceCara, indiceHook) {
 
 					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
@@ -767,17 +762,19 @@ angular.module("disenador-de-logos")
 					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 					hookSvg.remove();
 
+					agregarHook(hook, caraSvg).finally(function(){
+						pintarLienzo(element);
+					})
 
-					agregarHook(hook, caraSvg);
-
-					pintarLienzo(element);
-					//agregarItem(item, indice, hook, hookSvg)
+					
 
 				}
 
 				bz.cambiarCara = function (indiceCara) {
-					console.log(indiceCara)
-					console.log("cara")
+
+					element.find(".cara[data-index]").css("z-index", "-1");
+
+					element.find("[data-index="+indiceCara+"]").css("z-index", "1");
 				}
 
 			}
