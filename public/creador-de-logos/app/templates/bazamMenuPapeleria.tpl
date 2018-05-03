@@ -31,14 +31,14 @@
 
                         <div class="opciones-hook">
                             <span>
-                                <input type="color" ng-model="hook.color" ng-change="papeleriaEditor.modificarHook($parent.$index, $index)">
+                                <input type="color" ng-init="hook.fuente.fill" ng-model="hook.fuente.fill" ng-change="papeleriaEditor.modificarHook($parent.$index, $index)">
                             </span>
                             <span>
-                                <md-input-container>
+                                <md-input-container style="width: 100%;">
                                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fuentes</md-tooltip>
-                                    <md-select flex ng-model="hook.fuente" placeholder="Seleccione una fuente" ng-change="papeleriaEditor.modificarHook($parent.$index, $index)"
+                                    <md-select flex ng-model="hook.fuenteNueva" placeholder="Seleccione una fuente" ng-change="menuPapeleria.cambiarFuente(hook.fuenteNueva, $parent.$index, $index)"
                                         md-no-asterisk required>
-                                        <md-option ng-repeat="fuente in papeleriaEditor.fuentes track by $index" ng-value="fuente.idElemento">{{fuente.nombre}}</md-option>
+                                        <md-option ng-repeat="fuente in papeleriaEditor.fuentes track by $index" ng-value="fuente">{{fuente.nombre}}</md-option>
                                     </md-select>
                                 </md-input-container>
                             </span>
@@ -60,6 +60,7 @@
                                             <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg)"></span>
                                             <md-tooltip md-direction="bottom">Cambiar Dirección</md-tooltip>
                                         </span>
+
                                         <span class="suprimirIcono" ng-click="item_hook.icono = null; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)">
                                             <Supr>Eliminar</Supr>
                                             <md-tooltip md-direction="bottom">Eliminar Icono</md-tooltip>
@@ -200,6 +201,9 @@
         align-items: center;
     }
 
+.item input.input-papeleria{
+        height:30px !important;
+}
     .item input.input-papeleria,
     .item textarea {
         margin-bottom: 0;
@@ -261,6 +265,7 @@
     span.input-container-papeleria {
         flex: 1;
         display: flex;
+            align-items: center;
     }
 
     span.icono.agregar-icono {
@@ -310,12 +315,12 @@
         margin-right: 5px;
     }
 
-    .suprimirIcono {
-        display: block;
-        font-size: 8pt;
-        padding-top: 1px;
-        cursor: pointer;
-    }
+.suprimirIcono {
+    display: block;
+    font-size: 8pt;
+    padding-top: 8px;
+    cursor: pointer;
+}
 
     .mensaje-cara {
         font-size: 18pt;
@@ -342,6 +347,12 @@
     }
 
     .opciones-hook input[type="color"] {
-        width: 90%;
+        padding: 0px;
+        background: transparent;
+        border: none;
+        height: 34px;
+        width: 60%;
+        margin: auto;
+        display: block;
     }
 </style>

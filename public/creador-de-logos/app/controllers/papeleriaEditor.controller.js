@@ -147,7 +147,7 @@ angular.module("disenador-de-logos")
 								fuente: {
 									nombre: "BalooPaaji",
 									url: "/fuentes/BalooPaaji-Regular.ttf",
-									fill: "white"
+									fill: "#0080c0"
 								}
 							},
 							{
