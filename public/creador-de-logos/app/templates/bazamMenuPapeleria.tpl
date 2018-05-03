@@ -30,6 +30,20 @@
                             </span>
                         </div>
 
+                        <div class="opciones-hook">
+                            <span><input type="color" ng-model="hook.color">
+                            </span>
+                            <span>
+                                <md-input-container>
+                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fuentes</md-tooltip>
+                                    <md-select flex ng-model="hook.fuente" placeholder="Seleccione una fuente" ng-change="papeleriaEditor.modificarHook($parent.$index, $index)"
+                                        md-no-asterisk required>
+                                        <md-option ng-repeat="fuente in papeleriaEditor.fuentes track by $index" ng-value="fuente.idElemento">{{fuente.nombre}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </span>
+                        </div>
+
                         <div>
                             <span class="item colocado" ng-repeat="item_hook in hook.items track by $index">
                                 <span class="controles-movimiento" ng-show="hook.items.length > 1">
@@ -69,7 +83,7 @@
                                 </span>
                             </span>
                             <span class="iconos-disponibles" ng-show="menuPapeleria.mostrarIconosDisponibles.accion && menuPapeleria.mostrarIconosDisponibles.idHook == hook.id">
-                                <span ng-repeat="icono in papeleriaEditor.papeleria.iconos" ng-bind-html="menuPapeleria.sce.trustAsHtml(icono.svg) " ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
+                                <span ng-repeat="icono in hook.iconos" ng-bind-html="menuPapeleria.sce.trustAsHtml(icono.svg) " ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
                             </span>
                         </div>
                         <div class="mensaje-items" ng-if="hook.items.length == 0">

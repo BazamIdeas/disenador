@@ -1,5 +1,5 @@
 angular.module("disenador-de-logos")
-	.controller("papeleriaEditorController", ["papeleriaResolve", "logoResolve", "$base64", "$scope", function (papeleriaResolve, logoResolve, $base64, $scope) {
+	.controller("papeleriaEditorController", ["papeleriaResolve", "logoResolve", "$base64", "$scope", "elementosService", function (papeleriaResolve, logoResolve, $base64, $scope, elementosService) {
 
 		var bz = this;
 
@@ -7,6 +7,10 @@ angular.module("disenador-de-logos")
 
 		//bz.papeleria = papeleriaResolve;
 		bz.logo = logoResolve;
+
+		elementosService.listarFuentes().then(function(res){
+			bz.fuentes = res;
+		})
 
 		bz.papeleria = {
 			tipo: "tarjeta", //tarjeta, carta, sobre
@@ -49,21 +53,21 @@ angular.module("disenador-de-logos")
 					icono: ""
 				}
 			],
-			iconos: [{
-				orientacion: "right",
-				svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
-				clases: ["color-secundario"]
-			}, {
-				orientacion: "right",
-				svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
-				clases: ["color-secundario"]
-			}, {
-				orientacion: "right",
-				svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
-				clases: ["color-secundario"]
-			}],
 			modelo: {
 				nombre: "modelo #1",
+				iconos: [{
+					orientacion: "right",
+					svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+					clases: ["color-secundario"]
+				}, {
+					orientacion: "right",
+					svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+					clases: ["color-secundario"]
+				}, {
+					orientacion: "right",
+					svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"></circle></svg>`,
+					clases: ["color-secundario"]
+				}],
 				caras: [{
 						nombre: 'delantera',
 						svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 241.94 156.91">
