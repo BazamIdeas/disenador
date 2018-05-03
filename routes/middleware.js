@@ -31,7 +31,7 @@ exports.validarCliente = function(req,res,next){
 			//console.log(datos)
 			next()
 	    } catch (e) {
-	      res.status(400).json({"Mensaje":"Token invalido"});
+	      	res.status(400).json({"Mensaje":"Token invalido"});
 	    }
 	}
 

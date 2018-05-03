@@ -651,11 +651,9 @@ exports.modificarLogo =  function(req,res)
 
 					atributo.BorrarPorLogo(req.body.idLogo, objetivos, function() {
 
-
 						var atributos = req.body.atributos;
 
-
-						for(var key in atributos){
+						async.forEachOf(data, (logo, key, callback) => {
 							
 							if(objetivos.indexOf(key) != -1){
 								var atributosData = {
@@ -669,19 +667,27 @@ exports.modificarLogo =  function(req,res)
 									if(!data && !data.insertId)
 									{
 
-										res.status(500).json({"msg":"Algo ocurrio"});
+										callback({"msg":"Algo ocurrio"});
 									
+									}else{
+										callback()
 									}
 
 								});
 							}
 
-						}
+						}, (err) => {
+				
+							if (err) res.status(402).json({});
+
+							res.status(200).json(data);
+						
+						});
 
 					});						
 
 
-					res.status(200).json(data);
+					
 				}
 				else
 				{

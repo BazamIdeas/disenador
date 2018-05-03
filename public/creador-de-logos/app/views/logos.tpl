@@ -1,4 +1,4 @@
-<section class="body logos">
+<section class="body logos" style="background-color: white">
 
     <div class="row">
 
