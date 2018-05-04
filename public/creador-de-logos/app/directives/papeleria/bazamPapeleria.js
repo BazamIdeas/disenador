@@ -550,7 +550,6 @@ angular.module("disenador-de-logos")
 
 								}
 
-
 							} else { //si no tiene icono
 
 								if (multilineas) { //si es multilinea
@@ -775,6 +774,31 @@ angular.module("disenador-de-logos")
 					element.find("[data-index="+indiceCara+"]").css("z-index", "1");
 				}
 
+				
+				bz.guardar = function(){
+					var caras = angular.copy(bz.papeleria.modelo.caras);
+					
+					var datos = {
+						caras: [],
+						modelo: 0
+					}; 
+
+					angular.forEach(caras, function(cara, indice){
+
+						var svgCara = angular.element(".cara[data-index="+indice+"]")[0].outerHTML;
+					
+						var nuevaCara = {
+							hooks: cara.hooks,
+							nombre: cara.nombre,
+							svg: svgCara
+						}
+						datos.caras.push(nuevaCara)
+					})
+
+
+					console.log(datos)
+				}
+			
 			}
 		};
 	}]);

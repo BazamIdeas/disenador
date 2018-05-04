@@ -1,3 +1,5 @@
+<div><button ng-click="papeleriaEditor.guardar()">guardar</button></div>
+
 <div style="display: flex;">
     <bazam-menu-papeleria></bazam-menu-papeleria>
     <bazam-papeleria></bazam-papeleria>
