@@ -774,7 +774,8 @@ angular.module("disenador-de-logos")
 
 				bz.datos = {
 					caras: [],
-					modelo: 0,
+					tipo: "",
+					modelo: "",
 					nombre: ""
 				}
 				
@@ -791,7 +792,7 @@ angular.module("disenador-de-logos")
 							svg: svgCara
 						}
 						bz.datos.caras.push(nuevaCara)
-					})
+					});
 
 					////////TODO:
 
