@@ -172,6 +172,7 @@ angular.module("disenador-de-logos")
                                     bz.desabilitado = true;
                                     bz.promocion = true;
                                     bz.peticion = false;
+                                    angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 
                                 });
                             } else {
@@ -203,8 +204,9 @@ angular.module("disenador-de-logos")
                                         //IE handles it differently than chrome/webkit
                                         if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
                                             $window.navigator.msSaveOrOpenBlob(blob, fileName);
+                                            
                                         } else {
-                                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
+                                            
                                             var a = $document[0].createElement("a");
                                             $document[0].body.appendChild(a);
                                             a.style = "display:none";
@@ -217,11 +219,12 @@ angular.module("disenador-de-logos")
                                             a.remove();
                                         }
 
+                                        
+
                                     }).catch(function (res) {
                                         console.log(res)
-                                        angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
                                     }).finally(function () {
-                                        
+                                        angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 
                                         bz.desabilitado = true;
                                         bz.promocion = true;
@@ -232,9 +235,6 @@ angular.module("disenador-de-logos")
 
 
                         }).catch(function (res) {
-                            
-                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
-
                             if (res === "exceso") {
                                 $mdToast.show($mdToast.base({
                                     args: {
@@ -258,6 +258,7 @@ angular.module("disenador-de-logos")
 
                         }).finally(function () {
                             bz.peticion = false;
+                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
                         });
 
 

@@ -42,7 +42,7 @@ angular.module("disenador-de-logos")
 			var unix = Date.now();
 
 			var attrs = {
-				socialshareUrl : bz.urlCompartir+"?idLogo="+idLogo+"&unix="+unix
+				socialshareUrl: bz.urlCompartir + $location.path() + "?idLogo=" + idLogo + "&unix=" + unix
 			};
 
 			switch (provider) {
@@ -82,8 +82,9 @@ angular.module("disenador-de-logos")
 			};
 
 
-			var url = bz.urlCompartir + encodeURI(JSON.stringify(datos));
+			var url = bz.urlCompartir + $location.path() + '?datos='+ encodeURI(angular.toJson(datos));
 
+			console.log(url)
 			return url;
 		};
 
