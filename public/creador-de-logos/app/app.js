@@ -388,7 +388,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				name: "papeleria",
 				url: "/cliente/logos/papeleria/:id",
 				templateUrl: "app/views/papeleria.tpl",
-				controller: "papeleriaController as papeleria"
+				controller: "papeleriaController as papeleriaCtrl"
 			})
 
 			.state({
