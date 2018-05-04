@@ -1,15 +1,19 @@
-<div class="categorias-papeleria">
-    <div ng-repeat="categoria in papeleria.categoriasModelos">{{categoria.nombre}}</div>
+<!-- <div class="categorias-papeleria">
+    <div ng-click="papeleriaCtrl.crearPapeleria = true">Crear Papeleria</div>
+    <div ng-repeat="papeleria in papeleriaCtrl.papelerias" ng-click="papeleriaCtrl.papeleriaActiva = papeleria.tipo">{{papeleria.tipo}}</div>
 </div>
-<div class="papeleria-ejemplos">
+<div ng-repeat="papeleria in papeleriaCtrl.papelerias" ng-show="papeleriaCtrl.papeleriaActiva == papeleria.tipo" class="papeleria-ejemplos">
     <div ng-repeat="modelo in papeleria.modelos">
-        <img ng-src="{{modelo.img}}">
         <div>
+            <span ng-bind-html="papeleriaCtrl.sce.trustAsHtml(modelo.svg)"></span>
             <h4>{{modelo.nombre}}</h4>
         </div>
-        <div class="boton-ejemplo-papeleria" ui-sref="papeleriaEditor({id: papeleria.idLogo})">CREAR</div>
     </div>
-</div>
+</div> -->
+
+<button ng-click="papeleriaCtrl.crearPapeleria = true">Abrir</button>
+
+<bazam-crear-papeleria estado ="papeleriaCtrl.crearPapeleria"></bazam-crear-papeleria>
 
 <style>
     .categorias-papeleria>div {
@@ -33,11 +37,12 @@
         height: 75%;
         overflow-y: scroll;
         overflow-x: hidden;
+        justify-content: space-around;
     }
 
     .papeleria-ejemplos>div {
-        width: 33.3%;
-        text-align: center;
+        width: 25vw;
+        height: 25vw;
         border: 5px solid #d3e6ec;
         margin: 0;
         padding: 0;

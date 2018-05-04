@@ -13,6 +13,8 @@ angular.module("disenador-de-logos")
 			bz.fuentes = res;			
 		})
 
+
+
 		bz.papeleria = {
 			tipo: "tarjeta", //tarjeta, carta, sobre
 			items: [
