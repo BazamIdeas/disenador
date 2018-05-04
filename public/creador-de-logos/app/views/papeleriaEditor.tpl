@@ -5,15 +5,13 @@
 
 <style>
     bazam-papeleria {
-        width: 14cm;
-        height: auto;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        padding-right: 8px;
-        display: block;
-        margin: 30px auto;
-        padding-bottom: 40px;
-        position: relative;
+    width: 14cm;
+    margin: 0 auto;
+max-height: calc(100% - 60px);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     }
 
     .bazam-loader-papeleria {

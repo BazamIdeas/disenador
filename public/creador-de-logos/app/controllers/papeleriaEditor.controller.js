@@ -222,7 +222,7 @@ angular.module("disenador-de-logos")
 								fuente: {
 									url: "/fuentes/Chewy-Regular.ttf",
 									nombre: "Chevy",
-									fill: "white"
+									fill: "#0080c0"
 								}
 							}
 						],
@@ -303,5 +303,7 @@ angular.module("disenador-de-logos")
 				}
 			}
 		}
+
+		
 
 	}]);

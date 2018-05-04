@@ -22,11 +22,11 @@ angular.module("disenador-de-logos")
 
 					//si el icono y el texto tienen el mismo color, se agrega como color secundario ele mismo con 0.5 opacity
 					if (bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]) {
-
-						lienzo.find(".color-secundario").css("fill", lienzo.find(".color-primario").css("fill").replace(")", ", 0.5)"));
+						
+						lienzo.find(".color-secundario").css("fill", lienzo.find(".color-primario").css("fill").replace("rgb", "rgba").replace(")", ", 0.5)"));
 
 					} else {
-
+						
 						lienzo.find(".color-secundario").css("fill", bz.logo.atributos["color-nombre"]);
 
 					}
