@@ -114,6 +114,15 @@ angular.module("disenador-de-logos")
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 
+                bz.cambiarFuente = function(fuente, indiceCara, indiceHook){
+                    var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
+
+                    hook.fuente.nombre = fuente.nombre;
+                    hook.fuente.url = fuente.url;
+                    
+                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
+                }
+
             }],
             controllerAs: "menuPapeleria",
             templateUrl: 'app/templates/bazamMenuPapeleria.tpl'

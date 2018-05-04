@@ -16,8 +16,7 @@
                         <div class="nombre-contenedor">
                             <b>Items Disponibles</b>
                         </div>
-                        <span draggable="true" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index"
-                            indice="{{$index}}">
+                        <span draggable="true" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index" indice="{{$index}}">
                             {{::item.nombre}}
                         </span>
                     </div>
@@ -31,14 +30,15 @@
                         </div>
 
                         <div class="opciones-hook">
-                            <span><input type="color" ng-model="hook.color">
+                            <span>
+                                <input type="color" ng-init="hook.fuente.fill" ng-model="hook.fuente.fill" ng-change="papeleriaEditor.modificarHook($parent.$index, $index)">
                             </span>
                             <span>
-                                <md-input-container>
+                                <md-input-container style="width: 100%;">
                                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fuentes</md-tooltip>
-                                    <md-select flex ng-model="hook.fuente" placeholder="Seleccione una fuente" ng-change="papeleriaEditor.modificarHook($parent.$index, $index)"
+                                    <md-select flex ng-model="hook.fuenteNueva" placeholder="Seleccione una fuente" ng-change="menuPapeleria.cambiarFuente(hook.fuenteNueva, $parent.$index, $index)"
                                         md-no-asterisk required>
-                                        <md-option ng-repeat="fuente in papeleriaEditor.fuentes track by $index" ng-value="fuente.idElemento">{{fuente.nombre}}</md-option>
+                                        <md-option ng-repeat="fuente in papeleriaEditor.fuentes track by $index" ng-value="fuente">{{fuente.nombre}}</md-option>
                                     </md-select>
                                 </md-input-container>
                             </span>
@@ -55,11 +55,12 @@
                                     </span>
                                 </span>
                                 <span class="input-container-papeleria">
-                                    <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null && item_hook.icono != ''" ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono,  $parent.$parent.$index, $parent.$index)">
-                                        <span>
+                                    <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null && item_hook.icono != ''">
+                                        <span  ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono, $parent.$parent.$index, $parent.$index)">
                                             <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg)"></span>
                                             <md-tooltip md-direction="bottom">Cambiar Dirección</md-tooltip>
                                         </span>
+
                                         <span class="suprimirIcono" ng-click="item_hook.icono = null; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)">
                                             <Supr>Eliminar</Supr>
                                             <md-tooltip md-direction="bottom">Eliminar Icono</md-tooltip>
@@ -83,7 +84,8 @@
                                 </span>
                             </span>
                             <span class="iconos-disponibles" ng-show="menuPapeleria.mostrarIconosDisponibles.accion && menuPapeleria.mostrarIconosDisponibles.idHook == hook.id">
-                                <span ng-repeat="icono in hook.iconos" ng-bind-html="menuPapeleria.sce.trustAsHtml(icono.svg) " ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
+                                <span ng-repeat="icono in papeleriaEditor.papeleria.modelo.iconos" ng-bind-html="menuPapeleria.sce.trustAsHtml(icono.svg) "
+                                    ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
                             </span>
                         </div>
                         <div class="mensaje-items" ng-if="hook.items.length == 0">
@@ -133,7 +135,7 @@
     }
 
     .tabs-p .tab.active {
-        background:#5981bc;
+        background: #5981bc;
         color: white;
     }
 
@@ -199,6 +201,9 @@
         align-items: center;
     }
 
+.item input.input-papeleria{
+        height:30px !important;
+}
     .item input.input-papeleria,
     .item textarea {
         margin-bottom: 0;
@@ -260,6 +265,7 @@
     span.input-container-papeleria {
         flex: 1;
         display: flex;
+            align-items: center;
     }
 
     span.icono.agregar-icono {
@@ -309,13 +315,44 @@
         margin-right: 5px;
     }
 
-    .suprimirIcono {
-        display: block;
-        font-size: 8pt;
-        padding-top: 1px;
-        cursor: pointer;
+.suprimirIcono {
+    display: block;
+    font-size: 8pt;
+    padding-top: 8px;
+    cursor: pointer;
+}
+
+    .mensaje-cara {
+        font-size: 18pt;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        text-align: center;
     }
 
-.mensaje-cara { font-size: 18pt; height: 100%; display: flex; align-items: center; justify-content: center; color: black;
-text-align: center; }
+    .opciones-hook span {
+        flex: 1;
+    }
+
+    .opciones-hook {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .opciones-hook span {
+        flex: 1;
+    }
+
+    .opciones-hook input[type="color"] {
+        padding: 0px;
+        background: transparent;
+        border: none;
+        height: 34px;
+        width: 60%;
+        margin: auto;
+        display: block;
+    }
 </style>

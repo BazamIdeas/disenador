@@ -763,8 +763,6 @@ angular.module("disenador-de-logos")
 						pintarLienzo(element);
 					})
 
-					
-
 				}
 
 				bz.cambiarCara = function (indiceCara) {
