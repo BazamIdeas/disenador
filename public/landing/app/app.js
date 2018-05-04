@@ -47,16 +47,6 @@ angular.module("landing", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ng
 				name: "no-encontrado",
 				url: "/404/",
 				templateUrl: "/landing/app/views/404.tpl"
-			})
-			.state({
-				name: "terminos",
-				url: "/terminos-y-condiciones/",
-				templateUrl: "/landing/app/views/terminos.tpl"
-			})
-			.state({
-				name: "legales",
-				url: "/avisos-legales/",
-				templateUrl: "/landing/app/views/legales.tpl"
 			});
 
 

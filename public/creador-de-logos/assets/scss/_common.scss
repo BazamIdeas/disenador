@@ -165,7 +165,7 @@ md-toast {
 }
 
 md-select.md-default-theme .md-select-value,
-md-select .md-select-value {
+md-select .md-select-value, md-select:not([disabled]):focus .md-select-value {
     border: {
         bottom-color: $PRINCIPAL;
         width: 2px;
@@ -340,10 +340,12 @@ span.estilo {
     height: 40px;
     border-radius: 50%;
     background-repeat: no-repeat !important;
+    border: 2px solid black;
     @at-root #{&}.seleccionado {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
     }
+
 }
 
 /*md-radio-button[aria-checked="true"] span.estilo {
@@ -374,15 +376,19 @@ md-input-container:not(.md-input-has-value) input:not(:focus) {
 md-radio-button[aria-checked="true"] {
     & .estilo-1 {
         background: url('../images/estilo-tipografia/tipo1_active.svg');
+        background-color: black;
     }
     & .estilo-2 {
         background: url('../images/estilo-tipografia/tipo2_active.svg');
+        background-color: black;
     }
     & .estilo-3 {
         background: url('../images/estilo-tipografia/tipo3_active.svg');
+        background-color: black;
     }
     & .estilo-4 {
         background: url('../images/estilo-tipografia/tipo4_active.svg');
+        background-color: black;
     }
 }
 
@@ -585,7 +591,9 @@ span {
         justify-content: center;
         text-align: -webkit-center;
         text-align: center;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
 
 
         div {
@@ -631,7 +639,7 @@ span {
 .d-gif {
     background-image: url(/assets/images/gifs/d.gif);
     color: transparent !important;
-    background-size: auto 60%;
+    background-size: auto 40%;
     background-repeat: no-repeat;
     background-position: center;
     background-color: WHITE;

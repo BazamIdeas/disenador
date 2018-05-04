@@ -39,7 +39,7 @@ angular.module("administrador")
 		})
 
 		etiquetasService.listarEtiquetas().then(function (res) {
-			bz.etiquetas = res[2].data;
+			bz.etiquetas = res.data;
 			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res.data);
 
 		}).catch(function (res) {

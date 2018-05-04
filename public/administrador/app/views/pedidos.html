@@ -50,7 +50,10 @@
                         </md-input-container>
                     </div>
                 </div>
-                <div class="w3-responsive content-scroll">
+                <div ng-hide="pedidos.elementos.length > 0" class="mensaje-resultado pequeno" style="max-height:20%;">
+                    <h3>CARGANDO PEDIDOS</h3>
+                </div>
+                <div ng-hide="pedidos.elementos.length == 0" class="w3-responsive content-scroll">
                     <table class="w3-table w3-bordered">
                         <tr>
                             <th>Fecha:</th>
