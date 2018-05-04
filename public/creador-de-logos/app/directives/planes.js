@@ -172,6 +172,7 @@ angular.module("disenador-de-logos")
                                     bz.desabilitado = true;
                                     bz.promocion = true;
                                     bz.peticion = false;
+                                    angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 
                                 });
                             } else {
@@ -234,9 +235,6 @@ angular.module("disenador-de-logos")
 
 
                         }).catch(function (res) {
-                            
-                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
-
                             if (res === "exceso") {
                                 $mdToast.show($mdToast.base({
                                     args: {
@@ -260,6 +258,7 @@ angular.module("disenador-de-logos")
 
                         }).finally(function () {
                             bz.peticion = false;
+                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
                         });
 
 

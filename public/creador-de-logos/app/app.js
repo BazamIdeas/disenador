@@ -45,16 +45,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			.state({
 				name: "inicio",
-				url: "/:datos?",
+				url: "/?datos",
 				templateUrl: "app/views/inicio.tpl",
 				controller: "inicioController as inicio",
 				resolve: {
 					landingResolve: ["LS", "$stateParams", function (LS, $stateParams) {
 
 						/* Si es un logo compartido por url */
-
-						if ($stateParams && $stateParams.datos != '' && $stateParams.datos != undefined) {
-							return JSON.parse(decodeURI($stateParams.datos));
+						
+						if ($stateParams.datos) {
+							return angular.fromJson(decodeURI($stateParams.datos));
 						}
 
 						/* Si el cliente viene de la landing */
