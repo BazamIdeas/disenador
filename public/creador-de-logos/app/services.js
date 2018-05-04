@@ -290,57 +290,56 @@ angular.module("disenador-de-logos")
 	})
 
 	.value("coloresPaletteValue", [
-
-		
 		[
-			["#009aa6", "#e6e6e6", "#000000", "#ffed00", "#aafc00" ],
-			["#008b00", "#e6e6e6", "#000000", "#ffed00", "#aafc00" ],
-			["#74cb00", "#ffffff", "#000000", "#ffed00", "#8400s6" ],
-			["#ffc700", "#ffffff", "#000000", "#0071bc", "#c20000" ],
-			["#ff4200", "#ffffff", "#e6e6e6", "#000000", "#0071bc"], 
+			["#009aa6", "#e6e6e6", "#000000", "#ffed00", "#aafc00"],
+			["#008b00", "#e6e6e6", "#000000", "#ffed00", "#aafc00"],
+			["#74cb00", "#ffffff", "#000000", "#ffed00", "#8400s6"],
+			["#ffc700", "#ffffff", "#000000", "#0071bc", "#c20000"],
+			["#ff4200", "#ffffff", "#e6e6e6", "#000000", "#0071bc"],
 			["#740000", "#ffffff", "#e6e6e6", "#00e0cd", "#ffde00"],
 			["#890054", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00"],
-			["#8400a5", "#ffffff", "#e6e6e6", "#ffed00", "#aafc00" ],
-			["#4500d4", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00" ],
-			["#0042ff","#ffffff", "#e6e6e6", "#00dbff", "#aafc00" ],
+			["#8400a5", "#ffffff", "#e6e6e6", "#ffed00", "#aafc00"],
+			["#4500d4", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00"],
+			["#0042ff", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00"],
 		],
 		[
-			["#00bfc2", "#ffffff", "#000000", "#ffed00", "#8400s6" ],
-			["#00cc51", "#ffffff", "#000000", "#ffed00", "#8400s6" ],
-			["#83de00", "#ffffff", "#000000", "#ffed00", "#8400s6" ],
-			["#ffde00", "#ffffff", "#000000", "#0071bc", "#c20000" ],
+			["#00bfc2", "#ffffff", "#000000", "#ffed00", "#8400s6"],
+			["#00cc51", "#ffffff", "#000000", "#ffed00", "#8400s6"],
+			["#83de00", "#ffffff", "#000000", "#ffed00", "#8400s6"],
+			["#ffde00", "#ffffff", "#000000", "#0071bc", "#c20000"],
 			["#ff5000", "#ffffff", "#e6e6e6", "#000000", "#0071bc"],
 			["#9f0000", "#ffffff", "#e6e6e6", "#00e0cd", "#ffde00"],
 			["#b80060", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00"],
-			["#a700b8", "#ffffff", "#e6e6e6", "#ffed00", "#aafc00" ],
-			["#6129ff", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00" ],
+			["#a700b8", "#ffffff", "#e6e6e6", "#ffed00", "#aafc00"],
+			["#6129ff", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00"],
 			["#0072ff", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00"],
 		],
 		[
-			["#00d6c2", "#ffffff", "#000000", "#666666", "#8400s6" ],
-			["#00db75", "#ffffff", "#000000", "#666666", "#8400s6" ],
-			["#8bf300", "#ffffff", "#000000", "#666666", "#8400s6" ],
+			["#00d6c2", "#ffffff", "#000000", "#666666", "#8400s6"],
+			["#00db75", "#ffffff", "#000000", "#666666", "#8400s6"],
+			["#8bf300", "#ffffff", "#000000", "#666666", "#8400s6"],
 			["#ffed00", "#000000", "#666666", "#0071bc", "#7a00000"],
-			["#ff7b00", "#ffffff", "#000000", "#ffed00", "#00d6c2" ],
-			["#c20000", "#ffffff", "#cccccc", "#00e0cd", "#ffde00" ],
-			["#db006b", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00" ],
-			["#e700db", "#ffffff", "#000000", "#00dbff", "#ffde00" ],
-			["#9256ff", "#ffffff", "#000000", "#e6e6e6", "#aafc00" ],
-			["#009fff", "#ffffff", "#e6e6e6", "#aafc00", "#ffed00" ],
+			["#ff7b00", "#ffffff", "#000000", "#ffed00", "#00d6c2"],
+			["#c20000", "#ffffff", "#cccccc", "#00e0cd", "#ffde00"],
+			["#db006b", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00"],
+			["#e700db", "#ffffff", "#000000", "#00dbff", "#ffde00"],
+			["#9256ff", "#ffffff", "#000000", "#e6e6e6", "#aafc00"],
+			["#009fff", "#ffffff", "#e6e6e6", "#aafc00", "#ffed00"],
 		],
 		[
-			["#00f4de", "#ffffff", "#000000", "#666666", "#8400s6" ],
-			["#00ec93", "#ffffff", "#000000", "#666666", "#8400s6" ],
-			["#b3fc00", "#ffffff", "#000000", "#666666", "#8400s6" ],
+			["#00f4de", "#ffffff", "#000000", "#666666", "#8400s6"],
+			["#00ec93", "#ffffff", "#000000", "#666666", "#8400s6"],
+			["#b3fc00", "#ffffff", "#000000", "#666666", "#8400s6"],
 			["#e5ff00", "#000000", "#666666", "#0071bc", "#7a00000"],
-			["#ff9700", "#ffffff", "#000000", "#ffed00", "#00d6c2" ],
-			["#e00000", "#ffffff", "#cccccc", "#00e0cd", "#ffde00" ],
-			["#fd0081", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00" ],
-			["#ff00ea", "#ffffff", "#000000", "#00dbff", "#ffde00" ],
-			["#ae77ff", "#ffffff", "#000000", "#e6e6e6", "#b3fc00" ],
-			["#00dbff", "#ffffff", "#000000", "#666666", "#4500d4" ], 
+			["#ff9700", "#ffffff", "#000000", "#ffed00", "#00d6c2"],
+			["#e00000", "#ffffff", "#cccccc", "#00e0cd", "#ffde00"],
+			["#fd0081", "#ffffff", "#e6e6e6", "#00dbff", "#aafc00"],
+			["#ff00ea", "#ffffff", "#000000", "#00dbff", "#ffde00"],
+			["#ae77ff", "#ffffff", "#000000", "#e6e6e6", "#b3fc00"],
+			["#00dbff", "#ffffff", "#000000", "#666666", "#4500d4"],
 		]
 	])
+
 
 
 	/*-------------------------- Services --------------------------*/
@@ -1973,60 +1972,6 @@ angular.module("disenador-de-logos")
 		};
 
 	}])
-	.value("rutasValue", {
-		landing: {
-			base: "/",
-			estado: {
-				terminos: "terminos-y-condiciones/",
-			}
-		},
-		freelance: {
-			base: "freelance/",
-			estado: {
-				login: "login/",
-				editor: "editor/"
-			}
-		}
-	})
-
-	.factory("navegarFactory", ["rutasValue", "$window", "$httpParamSerializer", function (rutasValue, $window, $httpParamSerializer) {
-
-		var paramsFunction = function (params) {
-
-			return params ? "?" + $httpParamSerializer(params) : "";
-		};
-
-		return {
-			landing: function (estado, params) {
-
-				if (!estado) {
-					$window.location = rutasValue.landing.base + paramsFunction(params);
-					return;
-				} else {
-
-					if (rutasValue.landing.estado[estado]) {
-						$window.location = rutasValue.landing.base + rutasValue.landing.estado[estado] + paramsFunction(params);
-					} else {
-						return;
-					}
-				}
-			},
-			freelance: function (estado, params) {
-				if (!estado) {
-					$window.location = rutasValue.freelance.base + paramsFunction(params);
-					return;
-				} else {
-
-					if (rutasValue.freelance.estado[estado]) {
-						$window.location = rutasValue.freelance.base + rutasValue.freelance.estado[estado] + paramsFunction(params);
-					} else {
-						return;
-					}
-				}
-			}
-		};
-
-
 	.service("papeleriaService", ["$q", "$http",  function($q, $http){
 
 		this.tipos = {

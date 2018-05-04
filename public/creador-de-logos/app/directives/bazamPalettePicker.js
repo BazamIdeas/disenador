@@ -77,6 +77,8 @@ angular.module("disenador-de-logos")
 
 					var indiceArrays;
 
+					console.log(el.className.baseVal)
+
 					switch (el.className.baseVal){
 					case "linea-1":
 						indiceArrays = 0;
@@ -92,6 +94,8 @@ angular.module("disenador-de-logos")
 					}
 
 					var indicePalettes = parseInt(angular.element(el).data("index")) - 1;
+
+					console.log(bz.palettesCopy)
 
 					var valor = bz.palettesCopy[indiceArrays][indicePalettes];
 

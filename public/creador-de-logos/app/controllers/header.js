@@ -2,11 +2,9 @@ angular.module("disenador-de-logos")
 
 /* header */
 
-	.controller("headerController", ["$state", "clientesService", "$rootScope", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", "navegarFactory", function ($state, clientesService, $rootScope, $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory, navegarFactory) {
+	.controller("headerController", ["$state", "clientesService", "$rootScope", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", function ($state, clientesService, $rootScope, $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory) {
 
 		var bz = this;
-
-		bz.navegar = navegarFactory;
 
 		bz.salir = function () {
 			clientesService.salir(true, true);
