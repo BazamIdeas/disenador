@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", "$location", "Socialshare", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory, $location, Socialshare) {
+	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", "$location", "Socialshare","$q", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory, $location, Socialshare, $q) {
 
 		var bz = this;
 
@@ -106,7 +106,12 @@ angular.module("disenador-de-logos")
 		bz.borradoCompleto = true;
 
 		bz.borrarLogo = function (idLogo) {
+			
 			if (bz.borradoCompleto) {
+
+				var defered = $q.defer();
+
+				var promise = defered.promise;
 
 				bz.borradoCompleto = false;
 
@@ -120,6 +125,8 @@ angular.module("disenador-de-logos")
 							}
 						});
 
+						defered.resolve(true);
+
 						$mdToast.show($mdToast.base({
 							args: {
 								mensaje: "El logo fue borrado exitosamente!",
@@ -129,6 +136,8 @@ angular.module("disenador-de-logos")
 
 					})
 					.catch(function () {
+
+						defered.reject();
 
 						$mdToast.show($mdToast.base({
 							args: {
@@ -143,6 +152,9 @@ angular.module("disenador-de-logos")
 						bz.borradoCompleto = true;
 
 					});
+
+				return promise;
+
 			}
 		};
 
