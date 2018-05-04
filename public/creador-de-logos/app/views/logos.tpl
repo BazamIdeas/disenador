@@ -63,7 +63,7 @@
             </div>
         
             <div class="ver-logo-planes">
-                <bazam-listar-planes datos="datos" guardar-logo="guardarLogo" data-id="id" verlogo="true"></bazam-listar-planes>
+                <bazam-listar-planes datos="datos" guardar-logo="guardarLogo" verlogo="true"></bazam-listar-planes>
             </div>
         
         
