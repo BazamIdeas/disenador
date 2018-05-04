@@ -1971,7 +1971,6 @@ angular.module("disenador-de-logos")
 			angular.forEach(fuentes, function (fuente) {
 				fontService.preparar(fuente.nombre, fuente.url)
 					.catch(function () {
-						//console.log(res);
 					});
 			});
 
