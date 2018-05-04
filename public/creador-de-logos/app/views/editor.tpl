@@ -177,7 +177,7 @@
 								</md-select>
 							</md-input-container>
 							<span class="refresh-icon" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-class="{ 'loading-white': !editor.completadoBuscar}"
-							    ng-disabled="!editor.completadoBuscar">
+							    ng-disabled="!editor.completadoBuscar" style="margin-bottom: 8px;">
 								<i class="material-icons">search</i>
 							</span>
 						</div>
