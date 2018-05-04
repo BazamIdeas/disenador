@@ -286,8 +286,18 @@
         padding: 5px 0 !important;
     }
 
+    .close {
+        right: 1%;
+        top: -10%;
+    }
+
     &.open {
         bottom: 0;
+        
+        .close {
+            display: block;
+        }
+    
     }
 
     .icon-option {

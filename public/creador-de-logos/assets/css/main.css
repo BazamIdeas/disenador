@@ -1307,8 +1307,13 @@ div.combinaciones {
   z-index: 1; }
   .icons-container > div > div {
     padding: 5px 0 !important; }
+  .icons-container .close {
+    right: 1%;
+    top: -10%; }
   .icons-container.open {
     bottom: 0; }
+    .icons-container.open .close {
+      display: block; }
   .icons-container .icon-option {
     padding: 5px !important; }
     .icons-container .icon-option .icon, .icons-container .icon-option .add {
