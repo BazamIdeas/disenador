@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.directive("bazamPapeleria", ["fontService", "$document", "$q",function (fontService, $document, $q) {
+	.directive("bazamPapeleria", ["fontService", "$document", "$q", "papeleriaService", "$mdToast", function (fontService, $document, $q, papeleriaService,$mdToast) {
 		return {
 			restrict: "AE",
 			scope: true,
@@ -772,15 +772,15 @@ angular.module("disenador-de-logos")
 					element.find("[data-index="+indiceCara+"]").css("z-index", "1");
 				}
 
+				bz.datos = {
+					caras: [],
+					modelo: 0,
+					nombre: ""
+				}
 				
 				bz.guardar = function(){
 					var caras = angular.copy(bz.papeleria.modelo.caras);
 					
-					var datos = {
-						caras: [],
-						modelo: 0
-					}; 
-
 					angular.forEach(caras, function(cara, indice){
 
 						var svgCara = angular.element(".cara[data-index="+indice+"]")[0].outerHTML;
@@ -790,13 +790,46 @@ angular.module("disenador-de-logos")
 							nombre: cara.nombre,
 							svg: svgCara
 						}
-						datos.caras.push(nuevaCara)
+						bz.datos.caras.push(nuevaCara)
 					})
 
+					////////TODO:
 
-					console.log(datos)
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "¡Ha guardado su pieza!",
+							clase: "success"
+						}
+					}));
+
+					return;
+
+
+					////////TODO:
+
+					papeleriaService.piezas.guardar(bz.datos.caras, bz.datos.modelo, bz.datos.nombre)
+						.then(function(res){
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "¡Ha guardado su pieza!",
+									clase: "success"
+								}
+							}));
+						})
+						.catch(function(){
+
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
+
+						})
+						.finally(function(){
+
+						})
 				}
-			
 			}
 		};
 	}]);

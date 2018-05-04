@@ -4,7 +4,7 @@ angular.module("disenador-de-logos")
 		var bz = this;
 
 		bz.base64 = $base64;
-		
+
 		bz.logo = logoResolve;
 
 		elementosService.listarFuentes().then(function(res){
