@@ -1980,28 +1980,81 @@ angular.module("disenador-de-logos")
 
 	.service("papeleriaService", ["$q", "$http",  function($q, $http){
 
-		this.listarTipos = function(){
-			var defered = $q.defer();
-			var promise = defered.promise;
-
-			var prueba = [
-				{
-					_id: "unavainaahitodoloca",
-					nombre: "unnombrearrecho",
-					meta: [
-						"nombre",
-						"cargo",
-						"direccion",
-						"web",
-						"telefono"
-					]
+		this.tipos = {
+			listar: function(){
+				var defered = $q.defer();
+				var promise = defered.promise;
 				
-				}
-			];
+				$http.get("ruta")
+					.then(function(res){
+						defered.resolve(res.data);
+					})
+					.catch(function(){
+						defered.reject();
+					})
+					.finally(function(){
 
-			defered.resolve();
-			
-			return promise;
+					});
+				
+				return promise;
+			}			
+
+
 		};
+
+		this.piezas = {
+			listar: function (){
+				var defered = $q.defer();
+				var promise = defered.promise;
+				
+				$http.get("ruta")
+					.then(function(res){
+						defered.resolve(res.data);
+					})
+					.catch(function(){
+						defered.reject();
+					})
+					.finally(function(){
+
+					});
+				
+				return promise;
+			},
+			guardar: function(){
+				var defered = $q.defer();
+				var promise = defered.promise;
+				
+				$http.post("ruta")
+					.then(function(res){
+						defered.resolve(res.data);
+					})
+					.catch(function(){
+						defered.reject();
+					})
+					.finally(function(){
+
+					});
+				
+				return promise;
+			},
+			eliminar: function(){
+				var defered = $q.defer();
+				var promise = defered.promise;
+				
+				$http.post("ruta")
+					.then(function(res){
+						defered.resolve(res.data);
+					})
+					.catch(function(){
+						defered.reject();
+					})
+					.finally(function(){
+
+					});
+				
+				return promise;
+			}
+		};
+
 
 	}]);
