@@ -1,32 +1,31 @@
-<!-- <div class="categorias-papeleria">
-    <div ng-click="papeleriaCtrl.crearPapeleria = true">Crear Papeleria</div>
-    <div ng-repeat="papeleria in papeleriaCtrl.papelerias" ng-click="papeleriaCtrl.papeleriaActiva = papeleria.tipo">{{papeleria.tipo}}</div>
+<div class="categorias-papeleria">
+    <md-button ng-click="papeleriaCtrl.crearPapeleria = !papeleriaCtrl.crearPapeleria" class="md-primary md-raised" style="position: absolute;">Crear Papeleria</md-button>
+    <div>Creaciones Guardadas</div>
 </div>
-<div ng-repeat="papeleria in papeleriaCtrl.papelerias" ng-show="papeleriaCtrl.papeleriaActiva == papeleria.tipo" class="papeleria-ejemplos">
+<div ng-repeat="papeleria in papeleriaCtrl.papelerias" class="papeleria-ejemplos">
+
     <div ng-repeat="modelo in papeleria.modelos">
-        <div>
-            <span ng-bind-html="papeleriaCtrl.sce.trustAsHtml(modelo.svg)"></span>
-            <h4>{{modelo.nombre}}</h4>
+        <div ng-repeat="piezaUsuario in modelo.piezas">
+            <span class="modelo-papeleria" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[0].svg)"></span>
+            <div class="boton-ejemplo-papeleria" ng-click="papeleriaCtrl.enviarEditor($parent.$parent.$index,$parent.$index,$index)">MODIFICAR PIEZA</div>
         </div>
+
     </div>
-</div> -->
+</div>
 
-<button ng-click="papeleriaCtrl.crearPapeleria = true">Abrir</button>
-
-<bazam-crear-papeleria estado ="papeleriaCtrl.crearPapeleria"></bazam-crear-papeleria>
+<bazam-crear-papeleria id-logo="papeleriaCtrl.idLogo" estado="papeleriaCtrl.crearPapeleria"></bazam-crear-papeleria>
 
 <style>
     .categorias-papeleria>div {
         padding: 10px;
         font-size: 25pt;
         text-transform: capitalize;
-        margin-right: 20px;
-        cursor: pointer;
+        flex: 1;
+        text-align: center;
     }
 
     .categorias-papeleria {
         display: flex;
-        justify-content: center;
         padding: 20px 0px;
         height: 15%;
     }
@@ -41,12 +40,17 @@
     }
 
     .papeleria-ejemplos>div {
-        width: 25vw;
-        height: 25vw;
-        border: 5px solid #d3e6ec;
+        width: 32vw;
+        height: 21vw;
         margin: 0;
         padding: 0;
     }
+
+    /* .papeleria-ejemplos>div span.modelo-papeleria {
+        width: 50%;
+        display: block;
+        margin: auto;
+    } */
 
     .papeleria-ejemplos>div img {
         width: 60%;
@@ -58,8 +62,11 @@
         padding: 8px;
         border: 1px solid black;
         border-radius: 30px;
-        width: 30%;
+        width: 55%;
+        text-align: center;
         font-size: 14pt;
         margin: 9px auto;
+        cursor: pointer;
+        box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
     }
 </style>

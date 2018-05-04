@@ -39,6 +39,8 @@
 		</div>
 
 	<style>
+
+
 		.contenedor-principal-planes {
 			position: absolute;
 			bottom: 0;
