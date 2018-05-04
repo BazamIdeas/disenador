@@ -399,6 +399,10 @@ md-input-container:not(.md-input-has-value) input:not(:focus) {
 .estilo-4 {
   background: url("../images/estilo-tipografia/tipo4.svg"); }
 
+.contenedor-principal g.contenedor-icono {
+  pointer-events: bounding-box;
+  /*cursor: move !important;*/ }
+
 md-radio-button[aria-checked="true"] .estilo-1 {
   background: url("../images/estilo-tipografia/tipo1_active.svg");
   background-color: black; }
@@ -584,6 +588,8 @@ span.comprar {
     justify-content: center;
     text-align: -webkit-center;
     text-align: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center; }
     .overlay.full div {
       font-family: 'nunito-sans-bold' !important; }
