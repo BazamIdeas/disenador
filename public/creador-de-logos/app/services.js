@@ -454,8 +454,8 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/categorias", {
-					tipo: tipo
-				})
+				tipo: tipo
+			})
 				.then(function (res) {
 					defered.resolve(res.data);
 				})
@@ -476,9 +476,9 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/elementos/categorias", {
-					idCategoria: idCategoria,
-					tipo: tipo
-				})
+				idCategoria: idCategoria,
+				tipo: tipo
+			})
 				.then(function (res) {
 					defered.resolve(res.data);
 				})
@@ -540,11 +540,11 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/elementos/busqueda/fuentes", {
-					categoria: idCategoria,
-					preferencias: preferencias,
-					tipo: "FUENTE",
-					limit: limit
-				})
+				categoria: idCategoria,
+				preferencias: preferencias,
+				tipo: "FUENTE",
+				limit: limit
+			})
 				.then(function (res) {
 					defered.resolve(res.data);
 				})
@@ -561,11 +561,11 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/elementos/busqueda/iconos", {
-					tags: tags,
-					categoria: idCategoria,
-					ids: ids,
-					limit: limit
-				})
+				tags: tags,
+				categoria: idCategoria,
+				ids: ids,
+				limit: limit
+			})
 				.then(function (res) {
 					defered.resolve(res.data);
 				})
@@ -825,15 +825,15 @@ angular.module("disenador-de-logos")
 				}
 
 				$http.post("/app/cliente/social", {
-						origen: "facebook",
-						token: datosUsuario.accessToken
-					}).then(function (res) {
+					origen: "facebook",
+					token: datosUsuario.accessToken
+				}).then(function (res) {
 
-						$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-						clienteDatosFactory.definir(res.data);
-						defered.resolve(res);
+					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+					clienteDatosFactory.definir(res.data);
+					defered.resolve(res);
 
-					})
+				})
 					.catch(function (res) {
 						$window.localStorage.removeItem("bzToken");
 						defered.reject(res);
@@ -856,14 +856,14 @@ angular.module("disenador-de-logos")
 				GoogleAuth.signIn().then(function (res) {
 
 					$http.post("/app/cliente/social", {
-							origen: "google",
-							token: res.Zi.id_token
-						}).then(function (res) {
-							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-							clienteDatosFactory.definir(res.data);
-							defered.resolve(res);
+						origen: "google",
+						token: res.Zi.id_token
+					}).then(function (res) {
+						$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+						clienteDatosFactory.definir(res.data);
+						defered.resolve(res);
 
-						})
+					})
 						.catch(function (res) {
 							$window.localStorage.removeItem("bzToken");
 							defered.reject(res);
@@ -878,15 +878,15 @@ angular.module("disenador-de-logos")
 			var datosUsuario = GoogleAuth.currentUser.get();
 
 			$http.post("/app/cliente/social", {
-					origen: "google",
-					token: datosUsuario.Zi.id_token
-				}).then(function (res) {
+				origen: "google",
+				token: datosUsuario.Zi.id_token
+			}).then(function (res) {
 
-					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-					clienteDatosFactory.definir(res.data);
-					defered.resolve(res);
+				$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+				clienteDatosFactory.definir(res.data);
+				defered.resolve(res);
 
-				})
+			})
 				.catch(function (res) {
 					$window.localStorage.removeItem("bzToken");
 					defered.reject(res);
@@ -914,35 +914,35 @@ angular.module("disenador-de-logos")
 			FB.getLoginStatus(function (response) {
 				if (response.status === "connected") {
 					FB.ui({
+						method: "share",
+						href: "http://test.logo.pro/",
+						source: "http://test.logo.pro/logo.pro.svg"
+					},
+					function (response) {
+						if (response && !response.error_code) {
+							if (typeof response != "undefined") {
+								defered.resolve();
+							}
+						} else {
+							defered.reject(response);
+						}
+					});
+				} else {
+					FB.login(function (response) {
+						FB.ui({
 							method: "share",
 							href: "http://test.logo.pro/",
-							source: "http://test.logo.pro/logo.pro.svg"
+							source: "http://test.logo.pro/"
 						},
 						function (response) {
 							if (response && !response.error_code) {
 								if (typeof response != "undefined") {
-									defered.resolve();
+									defered.resolve(response);
 								}
 							} else {
 								defered.reject(response);
 							}
 						});
-				} else {
-					FB.login(function (response) {
-						FB.ui({
-								method: "share",
-								href: "http://test.logo.pro/",
-							source: "http://test.logo.pro/"
-							},
-							function (response) {
-								if (response && !response.error_code) {
-									if (typeof response != "undefined") {
-										defered.resolve(response);
-									}
-								} else {
-									defered.reject(response);
-								}
-							});
 					});
 				}
 			});
@@ -961,18 +961,18 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente", {
-					nombreCliente: nombreCliente,
-					correo: correo,
-					pass: pass,
-					telefono: telefono,
-					pais: pais
-				}).then(function (res) {
+				nombreCliente: nombreCliente,
+				correo: correo,
+				pass: pass,
+				telefono: telefono,
+				pais: pais
+			}).then(function (res) {
 
-					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-					clienteDatosFactory.definir(res.data);
-					defered.resolve();
+				$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+				clienteDatosFactory.definir(res.data);
+				defered.resolve();
 
-				})
+			})
 				.catch(function (res) {
 
 					$window.localStorage.removeItem("bzToken");
@@ -1179,10 +1179,10 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente/modificar", {
-					telefono: telefono,
-					nombreCliente: nombreCliente,
-					pais: pais
-				})
+				telefono: telefono,
+				nombreCliente: nombreCliente,
+				pais: pais
+			})
 
 				.then(function (res) {
 
@@ -1222,8 +1222,8 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente/email", {
-					email: correo
-				})
+				email: correo
+			})
 
 				.then(function () {
 					defered.reject();
@@ -1680,10 +1680,10 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/logo/compartir-email", {
-					idLogo: idLogo,
-					email: email,
-					url: url
-				})
+				idLogo: idLogo,
+				email: email,
+				url: url
+			})
 				.then(function (res) {
 					defered.resolve(res.data);
 				}).catch(function (res) {
@@ -1721,8 +1721,8 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/logo/plan/caracteristicas", {
-					idLogo: idLogo
-				})
+				idLogo: idLogo
+			})
 				.then(function (res) {
 					defered.resolve(res.data);
 				}).catch(function (res) {
@@ -1741,8 +1741,8 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			$http.post("/app/planes/aumentar", {
-					idPlan: idPlan
-				})
+				idPlan: idPlan
+			})
 				.then(function (res) {
 
 					defered.resolve(res.data);
@@ -1922,6 +1922,10 @@ angular.module("disenador-de-logos")
 
 		this.preparar = function (fuente, url) {
 
+			if(!url){
+				url = "/fuentes/"+fuente+".ttf";
+			}
+
 			var defered = $q.defer();
 			var promise = defered.promise;
 
@@ -1935,8 +1939,8 @@ angular.module("disenador-de-logos")
 			} else {
 
 				$q.race([$timeout(function () {
-						return "exceso";
-					}, 10000), fontFactory.load(fuente, url)])
+					return "exceso";
+				}, 10000), fontFactory.load(fuente, url)])
 					.then(function (res) {
 						if (res === "exceso") {
 							defered.reject();
@@ -1963,7 +1967,6 @@ angular.module("disenador-de-logos")
 			angular.forEach(fuentes, function (fuente) {
 				fontService.preparar(fuente.nombre, fuente.url)
 					.catch(function () {
-						//console.log(res);
 					});
 			});
 
@@ -2022,5 +2025,85 @@ angular.module("disenador-de-logos")
 				}
 			}
 		};
+
+
+	.service("papeleriaService", ["$q", "$http",  function($q, $http){
+
+		this.tipos = {
+			listar: function(){
+				var defered = $q.defer();
+				var promise = defered.promise;
+				
+				$http.get("ruta")
+					.then(function(res){
+						defered.resolve(res.data);
+					})
+					.catch(function(){
+						defered.reject();
+					})
+					.finally(function(){
+
+					});
+				
+				return promise;
+			}			
+
+
+		};
+
+		this.piezas = {
+			listar: function (){
+				var defered = $q.defer();
+				var promise = defered.promise;
+				
+				$http.get("ruta")
+					.then(function(res){
+						defered.resolve(res.data);
+					})
+					.catch(function(){
+						defered.reject();
+					})
+					.finally(function(){
+
+					});
+				
+				return promise;
+			},
+			guardar: function(){
+				var defered = $q.defer();
+				var promise = defered.promise;
+				
+				$http.post("ruta")
+					.then(function(res){
+						defered.resolve(res.data);
+					})
+					.catch(function(){
+						defered.reject();
+					})
+					.finally(function(){
+
+					});
+				
+				return promise;
+			},
+			eliminar: function(){
+				var defered = $q.defer();
+				var promise = defered.promise;
+				
+				$http.post("ruta")
+					.then(function(res){
+						defered.resolve(res.data);
+					})
+					.catch(function(){
+						defered.reject();
+					})
+					.finally(function(){
+
+					});
+				
+				return promise;
+			}
+		};
+
 
 	}]);
