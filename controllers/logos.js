@@ -653,14 +653,18 @@ exports.modificarLogo =  function(req,res)
 
 						var atributos = req.body.atributos;
 
-						async.forEachOf(data, (logo, key, callback) => {
+						async.forEachOf(atributos, (logo, key, callback) => {
 							
+							
+
 							if(objetivos.indexOf(key) != -1){
 								var atributosData = {
 									clave : key,
 									valor : atributos[key],
 									logos_idLogo: req.body.idLogo  
 								};
+
+								console.log(atributosData)
 
 								atributo.Guardar(atributosData, function(error, data) {
 
@@ -674,6 +678,8 @@ exports.modificarLogo =  function(req,res)
 									}
 
 								});
+							} else {
+								callback()
 							}
 
 						}, (err) => {

@@ -139,13 +139,22 @@ angular.module("disenador-de-logos")
 				};
 
 				bz.borrarSlider = function (idLogo) {
-					bz.callback[3](idLogo);
+					bz.callback[4](idLogo).then(function(){
+						
+						bz.logos = $scope.logos;
+					
+						if (bz.logos.length && bz.actual == bz.logos.length) {
+							bz.actual = bz.logos.length - 1;
+							$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
+							$scope.actual = bz.actual;
+						}
 
-					if ($scope.logos.length && bz.actual == $scope.logos.length - 1) {
-						bz.actual = bz.actual - 1;
-						$scope.elegido = bz.base64.decode(bz.logos[bz.actual].logo);
-						$scope.actual = bz.actual;
-					}
+					}).catch(function(){
+					
+					
+					});
+
+					
 				};
 
 
