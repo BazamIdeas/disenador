@@ -14,7 +14,7 @@ exports.ObtenerTodos = (req, res) =>
 	});
 }
 
-exports.ObtenerPorUsuario = (req, res) =>
+exports.ObtenerTodoPorUsuario = (req, res) =>
 {
 	Tipo.ObtenerTodos((err, tipos) => { 
 		if (tipos.length) {
@@ -64,6 +64,20 @@ exports.ObtenerPorUsuario = (req, res) =>
 	})
 }
 
+
+exports.ObtenerPiezaPorUsuario = (req, res) =>
+{
+    const _id = req.params._id
+
+    Pieza.ObtenerPorIDyUsuario(_id, req.idCliente, (err, piezas) => {
+        if (piezas.length) {
+            res.status(200).json(piezas[0]);
+        } else {
+            res.status(404).json({'msg':'No hay piezas en la base de datos'});
+        }
+    })
+}
+
 exports.Guardar = (req, res) => 
 {
 	const tipo = req.body.tipo;
@@ -80,7 +94,7 @@ exports.Guardar = (req, res) =>
 
             Pieza.Guardar(pieza, (err, data) => {
                 if (typeof data !== 'undefined' && data.insertId) {
-					res.status(404).json({
+					res.status(200).json({
                         insertId: data.insertId
                     });
 				} else {

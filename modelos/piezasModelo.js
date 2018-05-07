@@ -22,6 +22,35 @@ pieza.ObtenerTodos = callback =>
     })
 }
 
+pieza.ObtenerPorIDyUsuario = (_id, cliente, callback) => 
+{
+    Connection(db => {
+        const collection = db.collection('piezas');
+        collection.aggregate([{
+            $match: {
+                '_id': objectId(_id),
+                'cliente': cliente
+            }
+        }, {
+            $lookup: {
+                from: 'modelos',
+                localField: 'modelo',
+                foreignField: '_id',
+                as: 'modelo'
+            }
+        }, {
+            $lookup: {
+                from: 'tipos',
+                localField: 'tipo',
+                foreignField: '_id',
+                as: 'tipo'
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+            callback(null, docs);
+        });
+    })
+}
 
 pieza.ObtenerPorModeloyUsuario = (modelo, cliente, callback) => 
 {
