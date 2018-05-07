@@ -81,10 +81,8 @@ angular.module("disenador-de-logos")
 				logoCompartido: true
 			};
 
+			var url = bz.urlCompartir + $location.path() + "?datos="+ encodeURI(angular.toJson(datos));
 
-			var url = bz.urlCompartir + $location.path() + '?datos='+ encodeURI(angular.toJson(datos));
-
-			console.log(url)
 			return url;
 		};
 
@@ -192,15 +190,15 @@ angular.module("disenador-de-logos")
 
 				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 					tags.push(tag.traduccion.valor);
-				})
+				});
 
 				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags, bz.datos.categoria.icono, bz.iconos, 12);
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
 				$q.all([
-						promesaIconos,
-						promesaFuentes
-					])
+					promesaIconos,
+					promesaFuentes
+				])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {
@@ -211,8 +209,8 @@ angular.module("disenador-de-logos")
 
 
 					})
-					.catch(function (res) {
-						console.log(res)
+					.catch(function () {
+						//console.log(res)
 					})
 					.finally(function () {
 
