@@ -1,17 +1,22 @@
-<div>
-    <button ng-click="papeleriaEditor.guardar()">guardar</button>
-</div>
-
 <div style="display: flex;">
     <bazam-menu-papeleria></bazam-menu-papeleria>
-    <bazam-papeleria></bazam-papeleria>
+<div style="    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;">
+        <bazam-papeleria></bazam-papeleria>
+        <div>
+            <button ng-click="papeleriaEditor.guardar()">guardar</button>
+        </div>
+    </div>
 </div>
 
 <style>
     bazam-papeleria {
         width: 14cm;
         margin: 0 auto;
-        max-height: calc(100% - 60px);
+        height: calc(80% - 60px);
         position: relative;
         display: flex;
         justify-content: center;
@@ -37,7 +42,7 @@
         animation-name: parpadeo;
         animation-duration: 1s;
         animation-timing-function: linear;
-        animation-iteration-count:initial;
+        animation-iteration-count: initial;
         animation-fill-mode: both;
         -webkit-animation-name: parpadeo;
         -webkit-animation-duration: 1s;
