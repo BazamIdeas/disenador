@@ -8,7 +8,7 @@ tipo.ObtenerTodos = callback =>
 {
     Connection(db => {
         const collection = db.collection('tipos');
-        collection.find({}).toArray((err, docs) => {
+        collection.find().toArray((err, docs) => {
             if (err) throw err;
             callback(null, docs);
         });

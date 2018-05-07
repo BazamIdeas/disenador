@@ -7,7 +7,7 @@ let modelo = {}
 modelo.ObtenerTodos = callback => 
 {
     Connection(db => {
-        const collection = db.collection('etiquetas');
+        const collection = db.collection('modelos');
         collection.aggregate([{
             $lookup: {
                 from: 'tipos',
@@ -22,13 +22,13 @@ modelo.ObtenerTodos = callback =>
     })
 }
 
-modelo.ObtenerPorTipo = (_id, callback) => 
+modelo.ObtenerPorNombreyTipo = (nombre, tipo, callback) => 
 {
     Connection(db => {
         const collection = db.collection('modelos');
         collection.aggregate([{
             $match: {
-                'tipo': objectId(_id)
+                'nombre': nombre
             }
         }, {
             $lookup: {
@@ -37,6 +37,30 @@ modelo.ObtenerPorTipo = (_id, callback) =>
                 foreignField: '_id',
                 as: 'tipo'
             }
+        }, {
+            $match: {
+                'tipo.tipo': tipo
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+            callback(null, docs);
+        });
+    })
+}
+
+
+modelo.ObtenerPorTipo = (_id, callback) => 
+{
+    Connection(db => {
+        const collection = db.collection('modelos');
+        collection.aggregate([{
+            $match: {
+                'tipo': objectId(_id)
+            }
+        }, { 
+            $project : { 
+                tipo : 0 
+            } 
         }]).toArray((err, docs) => {
             if (err) throw err;
             callback(null, docs);
