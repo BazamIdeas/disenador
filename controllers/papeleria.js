@@ -91,28 +91,33 @@ exports.Guardar = (req, res) => {
     const pieza = req.body.pieza;
     pieza.cliente = req.idCliente;
 
-    if (data.length) {
+    Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
+        
+        if (data.length) {
 
-        pieza.modelo = data[0]._id
-        pieza.tipo = data[0].tipo[0]._id
+            pieza.modelo = data[0]._id
+            pieza.tipo = data[0].tipo[0]._id
 
-        Pieza.Guardar(pieza, (err, data) => {
-            if (typeof data !== 'undefined' && data.insertId) {
-                res.status(200).json({
-                    insertId: data.insertId
-                });
-            } else {
-                res.status(500).json({
-                    'msg': 'Hubo un error'
-                });
-            }
-        })
+            Pieza.Guardar(pieza, (err, data) => {
+                if (typeof data !== 'undefined' && data.insertId) {
+                    res.status(200).json({
+                        insertId: data.insertId
+                    });
+                } else {
+                    res.status(500).json({
+                        'msg': 'Hubo un error'
+                    });
+                }
+            })
 
-    } else {
-        res.status(404).json({
-            'msg': 'No hay modelos en la base de datos'
-        });
-    }
+        } else {
+            res.status(404).json({
+                'msg': 'No hay modelos en la base de datos'
+            });
+        }
+
+    })
+
 }
 
 exports.descargarPapeleria = function (req, res, next) {

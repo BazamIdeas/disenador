@@ -1974,51 +1974,34 @@ angular.module("disenador-de-logos")
 	}])
 	.service("papeleriaService", ["$q", "$http",  function($q, $http){
 
-		this.tipos = {
-			listar: function(){
-				var defered = $q.defer();
-				var promise = defered.promise;
+		this.listarPorCliente =  function(){
+			var defered = $q.defer();
+			var promise = defered.promise;
 				
-				$http.get("/app/papeleria/tipos")
-					.then(function(res){
-						defered.resolve(res.data);
-					})
-					.catch(function(){
-						defered.reject();
-					})
-					.finally(function(){
+			$http.get("/app/papeleria/tipos")
+				.then(function(res){
+					defered.resolve(res.data);
+				})
+				.catch(function(){
+					defered.reject();
+				})
+				.finally(function(){
 
-					});
+				});
 				
-				return promise;
-			}			
-
-
+			return promise;
 		};
 
 		this.piezas = {
-			listar: function (){
+			guardar: function(tipo, modelo, pieza){
 				var defered = $q.defer();
 				var promise = defered.promise;
 				
-				$http.get("/app/cliente/papeleria/piezas")
-					.then(function(res){
-						defered.resolve(res.data);
-					})
-					.catch(function(){
-						defered.reject();
-					})
-					.finally(function(){
-
-					});
-				
-				return promise;
-			},
-			guardar: function(){
-				var defered = $q.defer();
-				var promise = defered.promise;
-				
-				$http.post("ruta")
+				$http.post("/app/papeleria/pieza", {
+					tipo: tipo,
+					modelo: modelo,
+					pieza: pieza
+				})
 					.then(function(res){
 						defered.resolve(res.data);
 					})
