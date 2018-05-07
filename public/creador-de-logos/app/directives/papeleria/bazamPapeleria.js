@@ -795,17 +795,20 @@ angular.module("disenador-de-logos")
 
 
 				bz.datos = {
-					
 					tipo: "",
 					modelo: "",
 					pieza: {
 						caras: [],
-						nombre: ""
+						nombre: "",
+						id: null
 					}
-					
 				}
 				
 				bz.guardar = function(){
+
+					bz.datos.tipo = bz.papeleria.tipo;
+					bz.datos.modelo = bz.papeleria.modelo.nombre;
+
 					var caras = angular.copy(bz.papeleria.modelo.caras);
 					
 					angular.forEach(caras, function(cara, indice){
@@ -819,23 +822,8 @@ angular.module("disenador-de-logos")
 						}
 						bz.datos.pieza.caras.push(nuevaCara)
 					});
-
-					////////TODO:
-
-					$mdToast.show($mdToast.base({
-						args: {
-							mensaje: "¡Ha guardado su pieza!",
-							clase: "success"
-						}
-					}));
-					console.log(angular.toJson(bz.papeleria));
-
-					return;
-
-
-					////////TODO:
-
-					papeleriaService.piezas.guardar(bz.datos.caras, bz.datos.modelo, bz.datos.nombre)
+					
+					papeleriaService.piezas.guardar(bz.datos.tipo, bz.datos.modelo, bz.datos.pieza)
 						.then(function(res){
 							$mdToast.show($mdToast.base({
 								args: {
@@ -843,6 +831,8 @@ angular.module("disenador-de-logos")
 									clase: "success"
 								}
 							}));
+
+							bz.datos.pieza.id = res.insertId;
 						})
 						.catch(function(){
 
