@@ -12,8 +12,6 @@ angular.module("disenador-de-logos")
 
 				bz.vistaActual = $state.current.name;
 
-				console.log(bz.vistaActual)
-
 				$rootScope.$on('$stateChangeSuccess', function () {
 
 					bz.vistaActual = $state.current.name;
