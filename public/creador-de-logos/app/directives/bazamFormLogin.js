@@ -9,7 +9,16 @@ angular.module("disenador-de-logos")
 
 				var bz = this;
 
+
 				bz.vistaActual = $state.current.name;
+
+				console.log(bz.vistaActual)
+
+				$rootScope.$on('$stateChangeSuccess', function () {
+
+					bz.vistaActual = $state.current.name;
+
+				});
 
 				bz.paisDefecto = null;
 
@@ -182,78 +191,78 @@ angular.module("disenador-de-logos")
 				bz.social = function (op) {
 
 					switch (op) {
-					case "fb":
+						case "fb":
 
-						socialAuth.facebook().then(function (res) {
+							socialAuth.facebook().then(function (res) {
 
-							if (clientesService.autorizado(true)) {
+								if (clientesService.autorizado(true)) {
 
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.data.msg,
+											clase: "success"
+										}
+									}));
+
+
+									$rootScope.mostrarModalLogin = false;
+
+									if ($rootScope.callbackLogin) {
+										$rootScope.callbackLogin();
+									}
+
+								}
+
+
+							}).catch(function () {
 								$mdToast.show($mdToast.base({
 									args: {
-										mensaje: "¡Bienvenido! " + res.data.msg,
-										clase: "success"
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
 									}
 								}));
+							}).finally(function () {
 
-	
-								$rootScope.mostrarModalLogin = false;
-	
-								if ($rootScope.callbackLogin) {
-									$rootScope.callbackLogin();
+							});
+
+							break;
+
+						case "gg":
+
+							socialAuth.google().then(function (res) {
+								if (clientesService.autorizado(true)) {
+
+									$mdToast.show($mdToast.base({
+										args: {
+											mensaje: "¡Bienvenido! " + res.data.msg,
+											clase: "success"
+										}
+									}));
+
+
+									$rootScope.mostrarModalLogin = false;
+
+									if ($rootScope.callbackLogin) {
+										$rootScope.callbackLogin();
+									}
+
 								}
-	
-							}
-								
-
-						}).catch(function () {
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Un error ha ocurrido",
-									clase: "danger"
-								}
-							}));
-						}).finally(function () {
-
-						});
-
-						break;
-
-					case "gg":
-
-						socialAuth.google().then(function (res) {
-							if (clientesService.autorizado(true)) {
-
+							}).catch(function () {
 								$mdToast.show($mdToast.base({
 									args: {
-										mensaje: "¡Bienvenido! " + res.data.msg,
-										clase: "success"
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
 									}
 								}));
+							}).finally(function () {
 
-	
-								$rootScope.mostrarModalLogin = false;
-	
-								if ($rootScope.callbackLogin) {
-									$rootScope.callbackLogin();
-								}
-	
-							}
-						}).catch(function () {
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "Un error ha ocurrido",
-									clase: "danger"
-								}
-							}));
-						}).finally(function () {
+							});
 
-						});
-
-						break;
+							break;
 					}
 				};
 
-				bz.noLoguear = function(){
+				bz.noLoguear = function () {
 					$rootScope.mostrarModalLogin = false;
 					$state.go('inicio');
 				}

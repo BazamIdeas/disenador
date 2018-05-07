@@ -1,13 +1,12 @@
 <div class="row" style="width:100%;">
     <div class="col s8 offset-s2 ">
-        <div class="login-form-flex">
+<div class="login-form-flex" ng-class="{'fullheigth': (bazamLogin.vistaActual != 'login)}">
             <div ng-switch="bazamLogin.formPasos" style="height: 92%;">
 
                 <div class="login row" style="margin:0;height: 92%;" ng-switch-default>
 
                     <div class="login-form col s6  offset-s3" style="position:relative;" ng-hide="bazamLogin.ingresar">
                         <i ng-if="bazamLogin.vistaActual != 'login'" style=" right: 23px; top: 5%;" class="material-icons cerrar-pop" ng-click="$root.mostrarModalLogin = false">clear</i>
-                        <i ng-if="bazamLogin.vistaActual == 'login'" style=" right: 23px; top: 5%;" class="material-icons cerrar-pop" ng-click="bazamLogin.noLoguear()">clear</i>
                         <div>
                             <img class="key-image" src="/assets/images/iconos_login/keys.svg">
                             <p class="text-center tercero">Ingresa a tu Cuenta</p>
@@ -29,7 +28,7 @@
 
                             <form name="bazamLogin.loginForm" novalidate ng-submit="bazamLogin.login(bazamLogin.datosLogin, bazamLogin.loginForm.$valid)">
                                 <div class="input-field col s12">
-                                    <input id="correo" name="correo" type="email" ng-model="bazamLogin.datosLogin.correo" required>
+                                    <input name="correo" type="email" ng-model="bazamLogin.datosLogin.correo" required>
                                     <label for="correo">Correo</label>
 
                                     <div ng-messages="bazamLogin.loginForm.correo.$error" ng-if="bazamLogin.loginForm.$submitted || bazamLogin.loginForm.correo.$dirty">
@@ -38,7 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input id="pass" name="pass" type="password" ng-model="bazamLogin.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
+                                    <input name="pass" type="password" ng-model="bazamLogin.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
                                     <label for="pass">Contraseña</label>
 
                                     <div ng-messages="bazamLogin.loginForm.pass.$error" ng-if="bazamLogin.loginForm.$submitted || bazamLogin.loginForm.pass.$dirty">
@@ -73,8 +72,7 @@
                     </div>
 
                     <div class="registro-form" style="position:relative;" ng-hide="!bazamLogin.ingresar">
-                        <i ng-if="bazamLogin.vistaActual != 'login'" style=" right: 30px; top: 5%;" class="material-icons cerrar-pop" ng-click="$root.mostrarModalLogin = false">clear</i>
-                        <i ng-if="bazamLogin.vistaActual == 'login'" style=" right: 30px; top: 5%;" class="material-icons cerrar-pop" ng-click="bazamLogin.noLoguear()">clear</i>
+                        <i ng-show="bazamLogin.vistaActual != 'login'" style=" right: 30px; top: 5%;" class="material-icons cerrar-pop" ng-click="$root.mostrarModalLogin = false">clear</i>
                         <div class="row" style="margin-bottom: 0;">
                             <div class="col s5 offset-s1 parte-izquierda-form">
                                 <div>
@@ -96,7 +94,7 @@
                                     </div>
                                     <form name="bazamLogin.registroForm" novalidate ng-submit="bazamLogin.registrar(bazamLogin.datosRegistro, bazamLogin.registroForm.$valid)">
                                         <div class="input-field col s12">
-                                            <input id="nombre2" type="text" name="nombreCliente" ng-model="bazamLogin.datosRegistro.nombreCliente" required>
+                                            <input type="text" name="nombreCliente" ng-model="bazamLogin.datosRegistro.nombreCliente" required>
                                             <label for="nombre2">Nombre</label>
 
                                             <div ng-messages="bazamLogin.registroForm.nombreCliente.$error" ng-if="bazamLogin.registroForm.$submitted || bazamLogin.registroForm.nombreCliente.$dirty">
@@ -104,7 +102,7 @@
                                             </div>
                                         </div>
                                         <div class="input-field col s12">
-                                            <input id="correo2" type="email" name="correo" ng-model="bazamLogin.datosRegistro.correo" bazam-mail required>
+                                            <input type="email" name="correo" ng-model="bazamLogin.datosRegistro.correo" bazam-mail required>
                                             <label for="correo2">Correo</label>
 
                                             <div ng-messages="bazamLogin.registroForm.correo.$error" ng-if="bazamLogin.registroForm.$submitted || bazamLogin.registroForm.correo.$dirty">
@@ -120,7 +118,7 @@
 
                                         </div>
                                         <div class="input-field col s12">
-                                            <input id="pass2" type="password" ng-model="bazamLogin.datosRegistro.pass" ng-minlength="6" ng-maxlength="20" required>
+                                            <input type="password" ng-model="bazamLogin.datosRegistro.pass" ng-minlength="6" ng-maxlength="20" required>
                                             <label for="pass2">Contraseña</label>
 
                                             <div ng-messages="bazamLogin.registroForm.pass.$error" ng-if="bazamLogin.registroForm.$submitted || bazamLogin.registroForm.pass.$dirty">

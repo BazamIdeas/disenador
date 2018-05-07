@@ -15,9 +15,12 @@ angular.module("disenador-de-logos")
 
 			var modelo = angular.copy(bz.papelerias[indicePapeleria].modelos[indiceModelo]);
 
+			var pieza = angular.copy(bz.papelerias[indicePapeleria].modelos[indiceModelo].piezas[indicePieza]);
+
 			bz.datos = {
 				papeleria: papeleria,
-				modelo: modelo
+				modelo: modelo,
+				pieza: pieza
 			}
 
 			$state.go('papeleriaEditor', {

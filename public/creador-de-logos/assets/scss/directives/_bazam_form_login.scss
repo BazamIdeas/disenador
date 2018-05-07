@@ -16,7 +16,7 @@
     align-items: center;
     color: black;
     cursor: pointer;
-    z-index: 10;
+    z-index: 2;
 }
 
 
@@ -222,7 +222,6 @@ p.tercero {
 }
 
 div.login-form-flex {
-    height: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
