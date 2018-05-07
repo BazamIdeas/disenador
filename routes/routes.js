@@ -179,6 +179,7 @@ router.post("/logos/guardados", middleware.validarCliente, controllers.logos.lis
 router.post("/logos/descargables", middleware.validarCliente, controllers.logos.listaLogosDescargables);
 
 //MODULO PAPELERIA
+router.post("/papeleria/descargar", /* middleware.validarCliente, */ controllers.papeleria.descargarPapeleria);
 
 router.get("/tipos", controllers.tipos.ObtenerTodos);
 router.get("/tipos/:id/modelos", controllers.modelos.ObtenerPorTipo);
