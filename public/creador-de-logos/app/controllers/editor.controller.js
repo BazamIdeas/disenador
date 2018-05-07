@@ -18,8 +18,6 @@ angular.module("disenador-de-logos")
 		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[0] : "#000";
 		bz.svgFinal = "";
 
-		console.log(historicoResolve.colores)
-
 		bz.jqueryScrollbarOptions = {};
 
 		bz.logo = historicoResolve.logo;

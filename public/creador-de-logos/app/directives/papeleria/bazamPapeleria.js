@@ -781,7 +781,6 @@ angular.module("disenador-de-logos")
 
 					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 
-
 					if(accion){ //si hace hover
 						
 						angular.element(".hook-seleccionado").removeClass("hook-seleccionado");
@@ -796,10 +795,14 @@ angular.module("disenador-de-logos")
 
 
 				bz.datos = {
-					caras: [],
+					
 					tipo: "",
 					modelo: "",
-					nombre: ""
+					pieza: {
+						caras: [],
+						nombre: ""
+					}
+					
 				}
 				
 				bz.guardar = function(){
@@ -814,7 +817,7 @@ angular.module("disenador-de-logos")
 							nombre: cara.nombre,
 							svg: svgCara
 						}
-						bz.datos.caras.push(nuevaCara)
+						bz.datos.pieza.caras.push(nuevaCara)
 					});
 
 					////////TODO:
@@ -825,6 +828,7 @@ angular.module("disenador-de-logos")
 							clase: "success"
 						}
 					}));
+					console.log(angular.toJson(bz.papeleria));
 
 					return;
 

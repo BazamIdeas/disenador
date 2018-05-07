@@ -529,7 +529,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 	.run(function ($rootScope, $state, $timeout) {
 
-		$rootScope.$on("$viewContentLoaded", function (event) {
+		$rootScope.$on("$viewContentLoaded", function () {
 
 			$timeout(function () {
 				angular.element(document.querySelector(".overlay.full")).fadeOut(500);
@@ -642,7 +642,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				switch (toState.name) {
 					default:
-						$state.go("logos")
+						$state.go("logos");
 
 				}
 
