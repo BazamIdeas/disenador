@@ -177,12 +177,6 @@ router.get("/logos/:id/vendidos", controllers.logos.listaLogosVendidosPorCliente
 router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobadosDestacados);
 router.post("/logos/guardados", middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post("/logos/descargables", middleware.validarCliente, controllers.logos.listaLogosDescargables);
-
-//MODULO PAPELERIA
-
-router.get("/tipos", controllers.tipos.ObtenerTodos);
-router.get("/tipos/:id/modelos", controllers.modelos.ObtenerPorTipo);
-
 router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
 router.get("/logo/descargar", middleware.validarCliente, controllers.logos.descargar);
 router.post("/logo/compartir-email", middleware.validarCliente, controllers.logos.enviarPorEmail);
@@ -203,6 +197,17 @@ router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.at
 router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
 
+
+
+//MODULO PAPELERIA
+router.get("/papeleria/usuario", middleware.validarCliente, controllers.papeleria.ObtenerTodoPorUsuario);
+router.get("/papeleria/pieza/:_id", middleware.validarCliente, controllers.papeleria.ObtenerPiezaPorUsuario);
+//router.post("/papeleria/descargar", /* middleware.validarCliente, */ controllers.papeleria.descargarPapeleria);
+router.get("/papeleria/tipos", controllers.tipos.ObtenerTodos);
+router.get("/papeleria/tipos/:id/modelos", controllers.modelos.ObtenerPorTipo);
+
+router.post("/papeleria/pieza", middleware.validarCliente ,controllers.papeleria.Guardar);
+
 //RECUPERAR CONTRASEÑA
 router.post("/recuperar-password", controllers.password.enviarToken); //enviar campo tipo 
 router.get("/recuperar-password/:tk", controllers.password.confirmarToken);
@@ -210,8 +215,6 @@ router.post("/cambiar-password", controllers.password.cambiar);
 
 //PARA PRUEBAS
 router.post("/prueba", middleware.pruebas);
-
-
 
 
 module.exports = router;

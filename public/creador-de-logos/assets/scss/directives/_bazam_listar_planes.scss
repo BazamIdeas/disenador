@@ -104,11 +104,10 @@ button.md-button.md-primary.md-raised.boton-crear-logo:hover:not(.loading-purple
 /* Aumentar plan */
 
 .aumentar-plan {
-    position: absolute;
     top: 0%;
+    padding: 5px 15px;
     margin-top: 0px !important;
-    width: 100%;
-    opacity: 0.3;
+    width: auto;
 }
 
 .aumentar-plan:hover {

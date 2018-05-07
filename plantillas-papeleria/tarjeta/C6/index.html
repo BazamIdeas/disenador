@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Manual de Marcas</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <style>
+        html {
+            zoom:'${zoom}';
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        .page {
+            margin: 0px;
+            position: relative;
+            display: block;
+            position: relative;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        .fila-elementos,
+        .fila-elementos>div {
+            margin: 0;
+            padding: 0;
+        }
+
+        .fila-elementos>div {
+            width: 90mm;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1 -->
+    <div class="page">
+        <div class="fila-elementos">
+            <div class="${tipo}">${svg-frontal}</div>
+            <div class="${tipo}">${svg-frontal}</div>
+            <div class="${tipo}">${svg-frontal}</div>
+        </div>
+
+        <div class="fila-elementos">
+            <div class="${tipo}">${svg-frontal}</div>
+            <div class="${tipo}">${svg-frontal}</div>
+            <div class="${tipo}">${svg-frontal}</div>
+        </div>
+
+        <div class="fila-elementos">
+            <div class="${tipo}">${svg-delantera}</div>
+            <div class="${tipo}">${svg-delantera}</div>
+            <div class="${tipo}">${svg-delantera}</div>
+        </div>
+
+        <div class="fila-elementos">
+            <div class="${tipo}">${svg-delantera}</div>
+            <div class="${tipo}">${svg-delantera}</div>
+            <div class="${tipo}">${svg-delantera}</div>
+        </div>
+    </div>
+</body>
+
+</html>
