@@ -7,8 +7,7 @@ var elemento = require("../modelos/elementosModelo.js");
 var config = require('../configuracion/configuracion.js');
 var async = require('async');
 var pdf = require('html-pdf');
-var base64 = require("base-64");
-const os = require('os');
+var os = require('os');
 
 exports.descargarPapeleria = function (req, res, next) {
 
@@ -32,18 +31,18 @@ exports.descargarPapeleria = function (req, res, next) {
 
     var ubicacionPlantilla = './plantillas-papeleria/' + papeleria.tipo + '/' + papeleria.subtipo;
 
-    var template = fs.readFileSync(ubicacionPlantilla+'index.html', 'utf8', (err, data) => {
+    var template = fs.readFileSync(ubicacionPlantilla + 'index.html', 'utf8', (err, data) => {
         if (err) throw err;
     });
 
-    /* Remplazando datos */
+    /* Colocamos los datos en la plantilla de papeleria */
 
     var datos = {};
 
     var keys = Object.keys(datos);
 
     for (var key in keys) {
-        while (this.message.html.indexOf("${" + keys[key] + "}") != -1) {
+        while (template.indexOf("${" + keys[key] + "}") != -1) {
             template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
         }
     }
@@ -52,39 +51,38 @@ exports.descargarPapeleria = function (req, res, next) {
 
     url = __dirname.replace('controllers', '')
 
-    url = 'file:///' + url + ubicacionPlantilla+'/assets/style.css';
+    url = 'file:///' + url + ubicacionPlantilla + '/assets/style.css';
 
     var plataforma = os.platform();
 
     var tamanosPapeleria = {
-        papeleria: {
-            "height": "11cm",
-            "width": "11.305in",
-            "base": url,
-            "type": "pdf",
-            "renderDelay": 3000
-        },
+        papeleria: [{
+            AC: {
+                windows: {
+                    "height": "11cm",
+                    "width": "11.305in",
+                    "base": url,
+                    "type": "pdf",
+                    "renderDelay": 3000
+                },
+                linux: {
+                    "height": "11in",
+                    "width": "8.5in",
+                    "base": url,
+                    "type": "pdf",
+                    "renderDelay": 2000
+                }
+            }
+        }],
     };
 
     if (plataforma != 'win32') {
-        var configuracion = {
-            "height": "14.66in",
-            "width": "11.305in",
-            "base": url,
-            "type": "pdf",
-            "renderDelay": 3000
-        }
+        var configuracion = tamanosPapeleria[papeleria.tipo][papeleria.subtipo].windows;
     } else {
-        var configuracion = {
-            "height": "11in",
-            "width": "8.5in",
-            "base": url,
-            "type": "pdf",
-            "renderDelay": 2000
-        }
+        var configuracion = tamanosPapeleria[papeleria.tipo + papeleria.subtipo].linux;
     }
 
-    var nombre = './public/tmp/papeleria-' + req.params.id + '.pdf';
+    var nombre = './public/tmp/papeleria-' + papeleria.tipo+'-'+papeleria.subtipo + '.pdf';
 
     pdf.create(template, configuracion).toFile(nombre, function (err, data) {
 
@@ -97,21 +95,4 @@ exports.descargarPapeleria = function (req, res, next) {
 
         res.status(200).json(data)
     });
-
-
-
-    /* UTILITARIOS */
-
-    function toHexa(rgb) {
-        rgb = rgb.slice(4, -1);
-        args = rgb.split(', ');
-
-        var integer = ((Math.round(args[0]) & 0xFF) << 16) +
-            ((Math.round(args[1]) & 0xFF) << 8) +
-            (Math.round(args[2]) & 0xFF);
-
-        var string = integer.toString(16).toUpperCase();
-        return '#' + '000000'.substring(string.length) + string;
-    }
-
 }
