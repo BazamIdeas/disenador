@@ -7,26 +7,26 @@ var os = require('os');
 var base64 = require("base-64");
 var fs = require('fs');
 
-exports.ObtenerTodos = (req, res) =>
-{
-	Modelo.ObtenerTodos((err, data) => { 
-		if (data.length > 0) {
-			res.status(200).json(data);
-		} else {
-			res.status(404).json({'msg':'No hay modelos en la base de datos'});
-		}
-	});
+exports.ObtenerTodos = (req, res) => {
+    Modelo.ObtenerTodos((err, data) => {
+        if (data.length > 0) {
+            res.status(200).json(data);
+        } else {
+            res.status(404).json({
+                'msg': 'No hay modelos en la base de datos'
+            });
+        }
+    });
 }
 
-exports.ObtenerPorUsuario = (req, res) =>
-{
-	Tipo.ObtenerTodos((err, tipos) => { 
-		if (tipos.length) {
-            
+exports.ObtenerPorUsuario = (req, res) => {
+    Tipo.ObtenerTodos((err, tipos) => {
+        if (tipos.length) {
+
             async.forEachOf(tipos, (tipo, keyTipo, callback) => {
 
                 Modelo.ObtenerPorTipo(tipo._id, (err, modelos) => {
-                    
+
                     if (modelos.length) {
 
                         async.forEachOf(modelos, (modelo, keyModelo, callback) => {
@@ -62,44 +62,45 @@ exports.ObtenerPorUsuario = (req, res) =>
 
             })
 
-		} else {
-			res.status(404).json({'msg':'No hay modelos en la base de datos'});
-		}
-	})
+        } else {
+            res.status(404).json({
+                'msg': 'No hay modelos en la base de datos'
+            });
+        }
+    })
 }
 
-exports.Guardar = (req, res) => 
-{
-	const tipo = req.body.tipo;
-	const modelo = req.body.modelo;
-	const pieza = req.body.pieza;
-	pieza.cliente = req.idCliente;
+exports.Guardar = (req, res) => {
+    const tipo = req.body.tipo;
+    const modelo = req.body.modelo;
+    const pieza = req.body.pieza;
+    pieza.cliente = req.idCliente;
 
-	Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
+    Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
 
-		if (data.length) {
-            
+        if (data.length) {
+
             pieza.modelo = data[0]._id
             pieza.tipo = data[0].tipo[0]._id
 
             Pieza.Guardar(pieza, (err, data) => {
                 if (typeof data !== 'undefined' && data.insertId) {
-					res.status(404).json({
+                    res.status(404).json({
                         insertId: data.insertId
                     });
-				} else {
-					res.status(500).json({
+                } else {
+                    res.status(500).json({
                         'msg': 'Hubo un error'
                     });
-				}
+                }
             })
 
-		} else {
-			res.status(404).json({
-				'msg': 'No hay modelos en la base de datos'
-			});
-		}
-	})
+        } else {
+            res.status(404).json({
+                'msg': 'No hay modelos en la base de datos'
+            });
+        }
+    })
 }
 
 exports.descargarPapeleria = function (req, res, next) {
@@ -134,12 +135,17 @@ exports.descargarPapeleria = function (req, res, next) {
         var datos = papeleria.pieza.caras[i];
         var keys = Object.keys(papeleria.pieza.caras[i]);
         for (var key in keys) {
+            if (keys[key] == 'svg') {
+                while (template.indexOf("${" + keys[key] + '-' + datos[keys[0]] + "}") != -1) {
+                    template = template.replace("${" + keys[key] + '-' + datos[keys[0]] + "}", datos[keys[key]]);
+                }
+            }
+
             while (template.indexOf("${" + keys[key] + "}") != -1) {
                 template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
             }
         }
     }
-
 
     /* ********************************* */
 
