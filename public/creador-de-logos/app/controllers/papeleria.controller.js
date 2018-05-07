@@ -381,17 +381,6 @@ angular.module("disenador-de-logos")
 									},
 									"caracteristicas": {}
 								}, {
-									"tipo": "text",
-									"tag": "text",
-									"valor": "xarias13@gmail.com",
-									"nombre": "email",
-									"icono": {
-										"orientacion": "right",
-										"svg": "<svg viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\"></circle></svg>",
-										"clases": ["color-primario"]
-									},
-									"caracteristicas": {}
-								}, {
 									"tipo": "textarea",
 									"tag": "text",
 									"valor": ["Av alguna,", "San Nicolas de los arroyos,", "Buenos Aires"],

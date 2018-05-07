@@ -484,6 +484,16 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 							papeleria = $stateParams.papeleria.papeleria;
 							papeleria.modelo = $stateParams.papeleria.modelo;
 
+							if($stateParams.papeleria.pieza){
+
+								angular.forEach($stateParams.papeleria.pieza.caras, function(cara, indiceCara){
+
+									papeleria.modelo.caras[indiceCara].hooks = cara.hooks;
+
+								});
+
+							}
+
 							return $q.resolve(papeleria);
 
 						} else {
@@ -497,15 +507,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				}
 			});
 
-			
-
-		/*
-
-		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
-            
-			return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
-		}]);
-		*/
+	
 		$urlRouterProvider.rule(function ($injector, $location) {
 			var path = $location.url();
 
