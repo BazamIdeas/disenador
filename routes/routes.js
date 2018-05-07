@@ -201,7 +201,7 @@ router.get("/logo/borrar/:id", controllers.logos.Borrar);
 
 //MODULO PAPELERIA
 router.get("/papeleria/usuario", middleware.validarCliente, controllers.papeleria.ObtenerPorUsuario)
-
+router.post("/papeleria/descargar", /* middleware.validarCliente, */ controllers.papeleria.descargarPapeleria);
 router.get("/papeleria/tipos", controllers.tipos.ObtenerTodos);
 router.get("/papeleria/tipos/:id/modelos", controllers.modelos.ObtenerPorTipo);
 
