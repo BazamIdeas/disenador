@@ -19,10 +19,11 @@ exports.ObtenerTodos = (req, res) => {
     });
 }
 
-exports.ObtenerPorUsuario = (req, res) => {
-    Tipo.ObtenerTodos((err, tipos) => {
-        if (tipos.length) {
-
+exports.ObtenerTodoPorUsuario = (req, res) =>
+{
+	Tipo.ObtenerTodos((err, tipos) => { 
+		if (tipos.length) {
+            
             async.forEachOf(tipos, (tipo, keyTipo, callback) => {
 
                 Modelo.ObtenerPorTipo(tipo._id, (err, modelos) => {
@@ -70,13 +71,26 @@ exports.ObtenerPorUsuario = (req, res) => {
     })
 }
 
-exports.Guardar = (req, res) => {
-    const tipo = req.body.tipo;
-    const modelo = req.body.modelo;
-    const pieza = req.body.pieza;
-    pieza.cliente = req.idCliente;
 
-    Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
+exports.ObtenerPiezaPorUsuario = (req, res) =>
+{
+    const _id = req.params._id
+
+    Pieza.ObtenerPorIDyUsuario(_id, req.idCliente, (err, piezas) => {
+        if (piezas.length) {
+            res.status(200).json(piezas[0]);
+        } else {
+            res.status(404).json({'msg':'No hay piezas en la base de datos'});
+        }
+    })
+}
+
+exports.Guardar = (req, res) => 
+{
+	const tipo = req.body.tipo;
+	const modelo = req.body.modelo;
+	const pieza = req.body.pieza;
+	pieza.cliente = req.idCliente;
 
         if (data.length) {
 
@@ -85,7 +99,7 @@ exports.Guardar = (req, res) => {
 
             Pieza.Guardar(pieza, (err, data) => {
                 if (typeof data !== 'undefined' && data.insertId) {
-                    res.status(404).json({
+					res.status(200).json({
                         insertId: data.insertId
                     });
                 } else {
@@ -135,6 +149,7 @@ exports.descargarPapeleria = function (req, res, next) {
         var datos = papeleria.pieza.caras[i];
         var keys = Object.keys(papeleria.pieza.caras[i]);
         for (var key in keys) {
+            /* Si la llave es de tipo svg cara */
             if (keys[key] == 'svg') {
                 while (template.indexOf("${" + keys[key] + '-' + datos[keys[0]] + "}") != -1) {
                     template = template.replace("${" + keys[key] + '-' + datos[keys[0]] + "}", datos[keys[key]]);
