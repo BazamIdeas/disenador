@@ -1660,7 +1660,7 @@ section.body.pay {
 .bazam-previzualizar {
   position: absolute;
   bottom: 0;
-  z-index: 13;
+  z-index: 8;
   -webkit-transition: height 1s;
   transition: height 1s;
   width: 100vw;
@@ -1801,7 +1801,7 @@ div.element-color-picker {
   align-items: center;
   color: black;
   cursor: pointer;
-  z-index: 10; }
+  z-index: 2; }
 
 bazam-form-login {
   display: block;
@@ -1812,7 +1812,8 @@ bazam-form-login {
 .login-form > div,
 .olvido-contrasena > div {
   background-color: white;
-  padding: 18px !important; }
+  padding: 18px !important;
+  width: 100%; }
 
 .registro-form p.tercero,
 .login-form p.tercero,
@@ -1965,7 +1966,6 @@ bazam-form-login {
     display: none; }
 
 div.login-form-flex {
-  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1975,6 +1975,8 @@ div.login-form-flex {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center; }
+  div.login-form-flex.full-height {
+    height: 100%; }
   div.login-form-flex > div {
     display: -webkit-box;
     display: -ms-flexbox;

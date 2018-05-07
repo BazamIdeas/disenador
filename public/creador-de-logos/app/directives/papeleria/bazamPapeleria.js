@@ -772,6 +772,29 @@ angular.module("disenador-de-logos")
 					element.find("[data-index="+indiceCara+"]").css("z-index", "1");
 				}
 
+
+				bz.elementoFocus = function(indiceCara, indiceHook, accion){
+
+					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
+
+					var caraSvg = angular.element("bazam-papeleria svg:nth-child(" + (indiceCara + 1) + ")");
+
+					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
+
+
+					if(accion){ //si hace hover
+						
+						angular.element(".hook-seleccionado").removeClass("hook-seleccionado");
+						hookSvg.addClass("hook-seleccionado");
+
+					} else { //si deja de hacer hover
+
+						hookSvg.removeClass("hook-seleccionado");
+					}
+
+				}
+
+
 				bz.datos = {
 					caras: [],
 					tipo: "",

@@ -21,7 +21,8 @@
                         </span>
                     </div>
 
-                    <div class="contenedor-items" ng-repeat="hook in contenedor.hooks track by $index" droppable-hook-papeleria>
+                    <div class="contenedor-items" ng-repeat="hook in contenedor.hooks track by $index" droppable-hook-papeleria ng-mouseenter="papeleriaEditor.elementoFocus($parent.$index, $index, true)"
+                        ng-mouseleave="papeleriaEditor.elementoFocus($parent.$index, $index, false)">
                         <div class="nombre-contenedor">
                             <b>{{::hook.id}}</b>
                             <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento(hook, $parent.$index, $index)">
@@ -56,7 +57,7 @@
                                 </span>
                                 <span class="input-container-papeleria">
                                     <span class="icono icono-{{item_hook.icono.orientacion}}" ng-show="item_hook.icono != null && item_hook.icono != ''">
-                                        <span  ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono, $parent.$parent.$index, $parent.$index)">
+                                        <span ng-click="menuPapeleria.cambiarDireccionElemento(item_hook.icono, $parent.$parent.$index, $parent.$index)">
                                             <span ng-bind-html="menuPapeleria.sce.trustAsHtml(item_hook.icono.svg)"></span>
                                             <md-tooltip md-direction="bottom">Cambiar Dirección</md-tooltip>
                                         </span>
@@ -145,7 +146,7 @@
         display: block;
         font-size: 10pt;
         margin-top: 8px;
-        font-family: 'futura-heavy' !important;
+        font-family: 'nunito-sans-bold' !important;
         font-weight: 800;
     }
 
@@ -153,7 +154,7 @@
         padding: 16px;
         font-size: 18pt;
         text-align: center;
-        font-family: 'futura-heavy' !important;
+        font-family: 'nunito-sans-bold' !important;
         letter-spacing: 2px;
     }
 
@@ -173,6 +174,7 @@
     }
 
     .item {
+        font-size: 10pt;
         border-radius: 5px;
         padding: 8px;
         border: 1px solid;
@@ -201,9 +203,10 @@
         align-items: center;
     }
 
-.item input.input-papeleria{
-        height:30px !important;
-}
+    .item input.input-papeleria {
+        height: 30px !important;
+    }
+
     .item input.input-papeleria,
     .item textarea {
         margin-bottom: 0;
@@ -265,7 +268,7 @@
     span.input-container-papeleria {
         flex: 1;
         display: flex;
-            align-items: center;
+        align-items: center;
     }
 
     span.icono.agregar-icono {
@@ -315,12 +318,12 @@
         margin-right: 5px;
     }
 
-.suprimirIcono {
-    display: block;
-    font-size: 8pt;
-    padding-top: 8px;
-    cursor: pointer;
-}
+    .suprimirIcono {
+        display: block;
+        font-size: 8pt;
+        padding-top: 8px;
+        cursor: pointer;
+    }
 
     .mensaje-cara {
         font-size: 18pt;

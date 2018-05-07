@@ -15,10 +15,13 @@ angular.module("disenador-de-logos")
 
 			var modelo = angular.copy(bz.papelerias[indicePapeleria].modelos[indiceModelo]);
 
+			var pieza = angular.copy(bz.papelerias[indicePapeleria].modelos[indiceModelo].piezas[indicePieza]);
+
 			bz.datos = {
 				papeleria: papeleria,
-				modelo: modelo
-			}
+				modelo: modelo,
+				pieza: pieza
+			};
 
 			$state.go('papeleriaEditor', {
 				id: bz.idLogo,
@@ -371,17 +374,6 @@ angular.module("disenador-de-logos")
 									"tag": "text",
 									"valor": "www.logo.pro",
 									"nombre": "web",
-									"icono": {
-										"orientacion": "right",
-										"svg": "<svg viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\"></circle></svg>",
-										"clases": ["color-primario"]
-									},
-									"caracteristicas": {}
-								}, {
-									"tipo": "text",
-									"tag": "text",
-									"valor": "xarias13@gmail.com",
-									"nombre": "email",
 									"icono": {
 										"orientacion": "right",
 										"svg": "<svg viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"45\"></circle></svg>",
