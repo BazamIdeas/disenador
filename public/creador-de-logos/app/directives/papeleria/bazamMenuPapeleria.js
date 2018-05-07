@@ -10,12 +10,6 @@ angular.module("disenador-de-logos")
                 bz.sce = $sce;
 
                 /* Colocamos predefinida la primera cara del modelo que posea contenedores */
-                /*
-                angular.forEach($scope.papeleriaEditor.papeleria.modelo.caras, function (cara) {
-                    if (cara.hooks.length > 0) {
-                        return bz.menuActivo = cara.nombre;
-                    }
-                })  */
 
                 bz.menuActivo = $scope.papeleriaEditor.papeleria.modelo.caras[0].nombre;
                 
