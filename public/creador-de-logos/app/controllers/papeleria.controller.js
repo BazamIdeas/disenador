@@ -21,7 +21,7 @@ angular.module("disenador-de-logos")
 				papeleria: papeleria,
 				modelo: modelo,
 				pieza: pieza
-			}
+			};
 
 			$state.go('papeleriaEditor', {
 				id: bz.idLogo,

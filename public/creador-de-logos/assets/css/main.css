@@ -1658,7 +1658,7 @@ section.body.pay {
 .bazam-previzualizar {
   position: absolute;
   bottom: 0;
-  z-index: 13;
+  z-index: 8;
   -webkit-transition: height 1s;
   transition: height 1s;
   width: 100vw;
@@ -1810,7 +1810,8 @@ bazam-form-login {
 .login-form > div,
 .olvido-contrasena > div {
   background-color: white;
-  padding: 18px !important; }
+  padding: 18px !important;
+  width: 100%; }
 
 .registro-form p.tercero,
 .login-form p.tercero,
@@ -1972,6 +1973,8 @@ div.login-form-flex {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center; }
+  div.login-form-flex.full-height {
+    height: 100%; }
   div.login-form-flex > div {
     display: -webkit-box;
     display: -ms-flexbox;

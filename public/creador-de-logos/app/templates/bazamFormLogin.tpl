@@ -1,6 +1,6 @@
 <div class="row" style="width:100%;">
     <div class="col s8 offset-s2 ">
-<div class="login-form-flex" ng-class="{'fullheigth': (bazamLogin.vistaActual != 'login)}">
+<div class="login-form-flex" ng-class="{'full-height': bazamLogin.vistaActual != 'login'}">
             <div ng-switch="bazamLogin.formPasos" style="height: 92%;">
 
                 <div class="login row" style="margin:0;height: 92%;" ng-switch-default>

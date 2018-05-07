@@ -31,6 +31,7 @@ bazam-form-login {
 .olvido-contrasena > div {
     background-color: white;
     padding: 18px !important;
+    width: 100%;
 }
 
 p.tercero {
@@ -231,6 +232,10 @@ div.login-form-flex {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+
+    &.full-height{
+        height: 100%;
+    }
 
     & > div {
         display: -webkit-box;
