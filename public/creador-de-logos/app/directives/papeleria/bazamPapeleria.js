@@ -781,7 +781,6 @@ angular.module("disenador-de-logos")
 
 					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 
-
 					if(accion){ //si hace hover
 						
 						angular.element(".hook-seleccionado").removeClass("hook-seleccionado");

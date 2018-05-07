@@ -236,13 +236,21 @@ angular.module("disenador-de-logos")
 
 		bz.avanzar = function () {
 
+
+			var logoSeleccionado = angular.copy(bz.logos[bz.logoSeleccionado]);
+
+			if(logoSeleccionado.idLogo){
+				logoSeleccionado.icono.svg = bz.base64.encode(logoSeleccionado.cargado); 
+
+			}
+
 			var datos = {
 				status: true,
 				datos: {
-					logo: bz.logos[bz.logoSeleccionado],
+					logo: logoSeleccionado,
 					texto: bz.datos.nombre,
-					categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria,
-					colores: [bz.logos[bz.logoSeleccionado].colores[0], bz.logos[bz.logoSeleccionado].colores[bz.logos[bz.logoSeleccionado].random]]
+					categoria: logoSeleccionado.icono.categorias_idCategoria,
+					colores: [logoSeleccionado.colores[0], logoSeleccionado.colores[logoSeleccionado.random]]
 				}
 			};
 
