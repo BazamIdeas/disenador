@@ -12,6 +12,21 @@ angular.module("disenador-de-logos")
 			bz.fuentes = res;			
 		});
 		
-		bz.papeleria = papeleriaResolve;		
+		bz.papeleria = papeleriaResolve;	
+		
+		
+		bz.datos = {
+			tipo: "",
+			modelo: "",
+			pieza: {
+				caras: [],
+				nombre: "",
+				id: null
+			}
+		}
 
+		if(bz.papeleria.idPieza){
+			bz.datos.pieza.id = bz.papeleria.idPieza;
+		}
+	
 	}]);

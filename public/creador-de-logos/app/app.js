@@ -492,7 +492,11 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 								});
 
-							}
+								if($stateParams.papeleria.pieza._id){
+									papeleria.idPieza = $stateParams.papeleria.pieza._id;
+								}
+
+							}							
 
 							return $q.resolve(papeleria);
 

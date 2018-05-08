@@ -793,17 +793,7 @@ angular.module("disenador-de-logos")
 
 				}
 
-
-				bz.datos = {
-					tipo: "",
-					modelo: "",
-					pieza: {
-						caras: [],
-						nombre: "",
-						id: null
-					}
-				}
-				
+			
 				bz.guardar = function(){
 
 					bz.datos.tipo = bz.papeleria.tipo;
