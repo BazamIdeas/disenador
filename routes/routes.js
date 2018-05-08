@@ -206,7 +206,7 @@ router.get("/papeleria/pieza/:_id", middleware.validarCliente, controllers.papel
 router.post("/papeleria/descargar",  middleware.validarCliente, controllers.papeleria.descargarPapeleria);
 router.get("/papeleria/tipos", controllers.tipos.ObtenerTodos);
 router.get("/papeleria/tipos/:id/modelos", controllers.modelos.ObtenerPorTipo);
-
+router.get("/papeleria/pieza/:_id/eliminar", controllers.papeleria.EliminarPieza);
 router.post("/papeleria/pieza", middleware.validarCliente ,controllers.papeleria.Guardar);
 
 //RECUPERAR CONTRASEÑA

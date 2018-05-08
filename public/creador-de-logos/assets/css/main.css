@@ -753,7 +753,9 @@ small {
     -webkit-transition: opacity 0.5s;
     transition: opacity 0.5s;
     border-radius: 50%;
-    margin-right: 5px; }
+    margin-right: 5px;
+    position: relative;
+    z-index: -1; }
     .accion.share span svg {
       width: 40px;
       height: 40px;
@@ -773,7 +775,8 @@ small {
   .accion.share:hover img {
     background-color: rgba(0, 0, 0, 0.4); }
   .accion.share:hover span {
-    opacity: 1; }
+    opacity: 1;
+    z-index: 1; }
 
 path.seleccionado, switch.seleccionado, rect.seleccionado {
   animation-name: parpadeo;
@@ -1205,6 +1208,9 @@ div.combinaciones {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex; }
+  .background-grid div bazam-color-picker div.bazam-color-picker div.background-color-picker {
+    top: 50%;
+    left: 8%; }
 
 .background-selector {
   border: 1px solid #ECEFF0;
