@@ -112,16 +112,16 @@
                         <span style="bottom: 45%" class="accion share">
                     
                     
-                            <span ng-click="inicio.compartir('google', logo.idLogo)">
+                            <span ng-click="inicio.compartir('google', logo)">
                                 <i class="fab fa-google-plus-g"></i>
                             </span>
-                            <span ng-click="inicio.compartir('facebook',logo.idLogo)">
+                            <span ng-click="inicio.compartir('facebook',logo)">
                                 <i class="fab fa-facebook-f"></i>
                             </span>
-                            <span ng-click="inicio.compartir('twitter', logo.idLogo)">
+                            <span ng-click="inicio.compartir('twitter', logo)">
                                 <i class="fab fa-twitter"></i>
                             </span>
-                            <span ng-click="inicio.compartir('pinterest', logo.idLogo)">
+                            <span ng-click="inicio.compartir('pinterest', logo)">
                                 <i class="fab fa-pinterest"></i>
                             </span>
                             <span ng-click="logo.mostrarCompartir = true"> 
