@@ -153,6 +153,11 @@
     display:-webkit-box;
     display:-ms-flexbox;
     display:flex;
+
+    div bazam-color-picker div.bazam-color-picker div.background-color-picker {
+        top: 50%;
+        left: 8%;
+    }
 }
 
 .background-selector {
