@@ -40,13 +40,22 @@ elemento.ListarFuentes = function (callback) {
 };
 
 
-elemento.getElementsByTags = function (tags, limit, callback) {
+elemento.getElementsByTags = function (tags, idCat, limit, callback) {
 
-	var q = "SELECT * FROM elementos WHERE elementos.idElemento IN (?) ORDER BY elementos.idElemento LIMIT ?";
+	var q = "SELECT * FROM elementos WHERE elementos.idElemento IN (?) "; 
+	
+	var par = [tags, limit]
+
+	if (idCat > 0) {
+		par.splice(1, 0, idCat);
+		q = q + "AND elementos.categorias_idCategoria = ? ";
+	}
+
+	q = q + "ORDER BY elementos.idElemento LIMIT ?";
 
 	DB.getConnection(function (err, connection) {
 
-		connection.query(q, [tags, limit], function (err, rows) {
+		connection.query(q, par, function (err, rows) {
 
 			if (err) throw err;
 
@@ -79,7 +88,17 @@ elemento.getElementos = function (datos, callback) {
 };
 
 elemento.getElementosIncat = function (datos, callback) {
-	var q = "SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT ?";
+
+
+	var q = "SELECT * FROM elementos  WHERE ";
+	
+	if (datos[0] > 0) {
+		q = q + "elementos.categorias_idCategoria = ? ";
+	} else {
+		q = q + "elementos.categorias_idCategoria != ? ";
+	}
+	
+	q = q + "AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT ?";
 
 	DB.getConnection(function (err, connection) { //cmienzo del for
 

@@ -110,7 +110,7 @@ exports.listaSegunPref = function (req, res) {
 exports.listaSegunTagCat = function (req, res) {
 
 	const tags = req.body.tags ? req.body.tags : [];
-	const categoria = req.body.categoria;
+	const categoria = req.body.categoria ? req.body.categoria : 0;
 	const limit = req.body.limit ? req.body.limit : 4;
 	const ids = req.body.ids ? req.body.ids : [0];
 
@@ -131,7 +131,7 @@ exports.listaSegunTagCat = function (req, res) {
 			arr = [0];
 		}
 
-		elemento.getElementsByTags(arr, limit, (err, data) => {
+		elemento.getElementsByTags(arr, categoria, limit, (err, data) => {
 			let elementos = [];
 
 			if (typeof data !== "undefined" && data.length > 0) {

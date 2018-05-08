@@ -81,6 +81,8 @@ pieza.Guardar = (piezaData, callback) =>
 
     Connection(db => {
 
+        const collection = db.collection('piezas');
+
         collection.count({
             '_id': objectId(piezaData._id),
             'cliente': cliente
@@ -106,8 +108,7 @@ pieza.Guardar = (piezaData, callback) =>
             } else {
 
                 delete piezaData._id;
-                
-                const collection = db.collection('piezas');
+            
                 collection.insertOne(piezaData, (err, doc) => {
                     if (err) callback(err);
                     callback(null, {

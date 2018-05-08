@@ -207,12 +207,6 @@ etiqueta.Analizar = (tags, callback) =>
                     }
                 }();
 
-                /*Array.prototype.unique = function (a) {
-                    return function () {
-                        return this.filter(a)
-                    }
-                }((a, b, c) => c.indexOf(a, b + 1) < 0)*/
-
                 callback(null, iconos.sortByFrequency());
             }
         })
