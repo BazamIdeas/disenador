@@ -18,7 +18,7 @@
                 <div>
                     <span class="modelo-papeleria" ng-bind-html="crearPapeleria.sce.trustAsHtml(papeleria.ejemplo)"></span>
                 </div>
-                <div class="boton-ejemplo-papeleria" ng-click="crearPapeleria.enviarEditor(papeleria, modelo)">CREAR</div>
+                <div class="boton-ejemplo-papeleria" ng-click="crearPapeleria.enviarEditor($parent.$index, $index)">CREAR</div>
             </div>
         </div>
     </form>
