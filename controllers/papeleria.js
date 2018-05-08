@@ -85,6 +85,20 @@ exports.ObtenerPiezaPorUsuario = (req, res) => {
     })
 }
 
+exports.EliminarPieza = (req, res) => {
+    const _id = req.params._id
+
+    Pieza.Eliminar(_id, req.idCliente, (err, data) => {
+		if (data !== null && data.affectedRow) {
+			res.status(200).json(data);
+		} else {
+			res.status(500).json({
+				'msg': 'Algo ocurrio',
+			});
+		}
+	})
+}
+
 exports.Guardar = (req, res) => {
     const tipo = req.body.tipo;
     const modelo = req.body.modelo;
@@ -99,10 +113,8 @@ exports.Guardar = (req, res) => {
             pieza.tipo = data[0].tipo[0]._id
 
             Pieza.Guardar(pieza, (err, data) => {
-                if (typeof data !== 'undefined' && data.insertId) {
-                    res.status(200).json({
-                        insertId: data.insertId
-                    });
+                if (typeof data !== 'undefined' && data.insertId ||  typeof data !== 'undefined' && data.affectedRow) {
+                    res.status(200).json(data);
                 } else {
                     res.status(500).json({
                         'msg': 'Hubo un error'
