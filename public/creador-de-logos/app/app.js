@@ -487,6 +487,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 							papeleria = $stateParams.papeleria.papeleria;
 							papeleria.modelo = $stateParams.papeleria.modelo;
+							console.log($stateParams.papeleria.modelo)
+							console.log($stateParams.papeleria.pieza)
 
 							if($stateParams.papeleria.pieza){
 

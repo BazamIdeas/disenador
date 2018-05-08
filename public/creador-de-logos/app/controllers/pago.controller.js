@@ -15,7 +15,7 @@ angular.module("disenador-de-logos")
 
 			bz.pasarelas = res;
 
-			bz.pasarelaElegida = bz.pasarelas[0];
+			bz.pasarelaElegida = bz.pasarelas[1];
 
 		});
 
