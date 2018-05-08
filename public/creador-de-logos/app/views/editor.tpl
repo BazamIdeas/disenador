@@ -34,7 +34,7 @@
 					<div class="row">
 						<div class="input-field col s12" style="padding: 0 !important">
 							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Nombre del logo</md-tooltip>
-							<input id="nombre" type="text" name="fuente" maxlength="20" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}"
+							<input id="nombre" type="text" name="fuente" maxlength="40" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}"
 								ng-change="editor.cambioTexto(editor.logo.texto)">
 							<label style="padding:0 !important" for="nombre" class="active">Nombre</label>
 						</div>
@@ -98,7 +98,7 @@
 						<div ng-if="editor.esloganActivo">
 							<div class="input-field col s12" style="padding: 0 !important">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
-								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="20" ng-model="editor.logo.eslogan" ng-click="editor.quitarEsloganDefault(editor.logo.eslogan)" ng-model-options="{allowInvalid: true}"
+								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="100" ng-model="editor.logo.eslogan" ng-click="editor.quitarEsloganDefault(editor.logo.eslogan)" ng-model-options="{allowInvalid: true}"
 									ng-change="editor.cambioTexto(editor.logo.eslogan, true)" ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
 								<label style="padding:0 !important" for="nombre" class="active">Eslogan</label>
 							</div>

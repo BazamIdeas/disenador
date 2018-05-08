@@ -108,7 +108,7 @@ angular.module("disenador-de-logos")
 
 
                 bz.avanzarCheckout = function () {
-                   
+
                     var plan = bz.planElegido;
 
                     bz.logo = $scope.datos.logo; //SVG del logo
@@ -204,9 +204,9 @@ angular.module("disenador-de-logos")
                                         //IE handles it differently than chrome/webkit
                                         if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
                                             $window.navigator.msSaveOrOpenBlob(blob, fileName);
-                                            
+
                                         } else {
-                                            
+
                                             var a = $document[0].createElement("a");
                                             $document[0].body.appendChild(a);
                                             a.style = "display:none";
@@ -219,12 +219,13 @@ angular.module("disenador-de-logos")
                                             a.remove();
                                         }
 
-                                        
+                                        angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 
                                     }).catch(function (res) {
                                         console.log(res)
-                                    }).finally(function () {
                                         angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
+                                    }).finally(function () {
+
 
                                         bz.desabilitado = true;
                                         bz.promocion = true;
@@ -243,6 +244,8 @@ angular.module("disenador-de-logos")
                                     }
                                 }));
 
+                                angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
+
                                 return;
 
                             }
@@ -255,10 +258,11 @@ angular.module("disenador-de-logos")
                             }));
 
                             bz.peticion = false;
+                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
+
 
                         }).finally(function () {
                             bz.peticion = false;
-                            angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
                         });
 
 

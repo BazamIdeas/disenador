@@ -312,7 +312,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				controller: "descargarController as descargar",
 				params: {
 					id: null
-					
+
 				},
 				resolve: {
 					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
@@ -382,17 +382,139 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				url: "/logos-galeria/",
 				templateUrl: "app/views/logosGaleria.tpl",
 				controller: "logosGaleriaController as logosGaleria"
+			})
+
+			.state({
+				name: "papeleria",
+				url: "/cliente/logos/papeleria/:id/",
+				templateUrl: "app/views/papeleria.tpl",
+				controller: "papeleriaController as papeleriaCtrl",
+				resolve: {
+					"logoResolve": ["$q", "$stateParams", "logosService", "arrayToJsonMetasFactory", function ($q, $stateParams, logosService, arrayToJsonMetasFactory) {
+
+						
+						if ($stateParams.id) {
+							var defered = $q.defer();
+							var promise = defered.promise;
+
+							logosService.obtenerPorId($stateParams.id).then(function (res) {
+								if (res.estado == "Descargable") {
+									defered.resolve({
+										logo: res.logo,
+										id: $stateParams.id,
+										idElemento: res.elementos_idElemento,
+										tipo: res.tipoLogo,
+										atributos: arrayToJsonMetasFactory(res.atributos)
+									});
+								} else {
+									defered.reject("INVALID_LOGO");
+								}
+
+							}).catch(function () {
+								defered.reject("INVALID_LOGO");
+							});
+
+							
+							return promise;
+						} else {
+							return $q.reject("INVALID_LOGO");
+						}
+
+
+
+					}]
+				}
+			})
+
+			.state({
+				name: "papeleriaEditor",
+				url: "/cliente/logos/papeleria/:id/crear",
+				templateUrl: "app/views/papeleriaEditor.tpl",
+				controller: "papeleriaEditorController as papeleriaEditor",
+				params: {
+					papeleria: null
+				},
+				resolve: {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
+
+						if (!clientesService.autorizado()) {
+
+							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					"logoResolve": ["$q", "$stateParams", "logosService", "arrayToJsonMetasFactory", function ($q, $stateParams, logosService, arrayToJsonMetasFactory) {
+						
+						if ($stateParams.id) {
+							var defered = $q.defer();
+							var promise = defered.promise;
+
+							logosService.obtenerPorId($stateParams.id).then(function (res) {
+								if (res.estado == "Descargable") {
+									defered.resolve({
+										logo: res.logo,
+										id: $stateParams.id,
+										idElemento: res.elementos_idElemento,
+										tipo: res.tipoLogo,
+										atributos: arrayToJsonMetasFactory(res.atributos)
+									});
+								} else {
+									defered.reject("INVALID_LOGO");
+								}
+
+							}).catch(function () {
+								defered.reject("INVALID_LOGO");
+							});
+
+							return promise;
+						} else {
+							return $q.reject("INVALID_LOGO");
+						}
+
+
+
+					}],
+					"papeleriaResolve": ["$q", "$stateParams", function ($q, $stateParams) {
+
+						/* VALIDACION DE PAPELERIA*/
+
+						var papeleria = {};
+					
+						if ($stateParams.papeleria && $stateParams.papeleria.papeleria && $stateParams.papeleria.modelo) {
+
+							papeleria = $stateParams.papeleria.papeleria;
+							papeleria.modelo = $stateParams.papeleria.modelo;
+						
+
+							if($stateParams.papeleria.pieza){
+
+								angular.forEach($stateParams.papeleria.pieza.caras, function(cara, indiceCara){
+
+									papeleria.modelo.caras[indiceCara].hooks = cara.hooks;
+
+								});
+
+								if($stateParams.papeleria.pieza._id){
+									papeleria.idPieza = $stateParams.papeleria.pieza._id;
+								}
+								
+							}							
+
+							return papeleria;
+
+						} else {
+
+							return $q.reject("PAPELERIA_INVALID");
+
+						}
+
+					}],
+					
+				}
 			});
 
-			
-
-		/*
-
-		$urlRouterProvider.when("/", ["$location", "$httpParamSerializer", function($location, $httpParamSerializer) {
-            
-			return $httpParamSerializer($location.search()) ?  "/comenzar/?" + $httpParamSerializer($location.search()) : "/comenzar/";
-		}]);
-		*/
+	
 		$urlRouterProvider.rule(function ($injector, $location) {
 			var path = $location.url();
 
@@ -414,7 +536,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 	.run(function ($rootScope, $state, $timeout) {
 
-		$rootScope.$on("$viewContentLoaded", function (event) {
+		$rootScope.$on("$viewContentLoaded", function () {
 
 			$timeout(function () {
 				angular.element(document.querySelector(".overlay.full")).fadeOut(500);
@@ -431,85 +553,85 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
+			
+
 			if (error === "AUTH_REQUIRED") {
 
 				switch (toState.name) {
 
-				case "editor":
+					case "editor":
 
-					switch (fromState.name) {
+						switch (fromState.name) {
 
-					default:
-						$state.go("login");
-					}
+							default: $state.go("login");
+						}
 
-					break;
+						break;
 
-				case "pago":
+					case "pago":
 
-					switch (fromState.name) {
+						switch (fromState.name) {
 
-					default:
-						$state.go("login");
-					}
+							default: $state.go("login");
+						}
 
-					break;
+						break;
 
 
-				case "pagoCompleto":
-					switch (fromState.name) {
+					case "pagoCompleto":
+						switch (fromState.name) {
 
-					case "":
-						$state.go("login");
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
+						break;
+
+					case "cuenta":
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
+						break;
+
+					case "logos":
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
+						break;
+
+					case "descargar":
+						switch (fromState.name) {
+
+							case "":
+								$state.go("login");
+								break;
+
+							default:
+								$state.go("login");
+						}
+
 						break;
 
 					default:
-						$state.go("login");
-					}
-
-					break;
-
-				case "cuenta":
-					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
-						break;
-
-					default:
-						$state.go("login");
-					}
-
-					break;
-
-				case "logos":
-					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
-						break;
-
-					default:
-						$state.go("login");
-					}
-
-					break;
-
-				case "descargar":
-					switch (fromState.name) {
-
-					case "":
-						$state.go("login");
-						break;
-
-					default:
-						$state.go("login");
-					}
-
-					break;
-				
-				default:
-					$state.go("inicio");
+						$state.go("inicio");
 
 
 				}
@@ -519,28 +641,39 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 				$state.go("cuenta");
 
-			} else if (error.error === "FALLO_HISTORICO") {
+			} else if (error === "PAPELERIA_INVALID") {
 
+				console.log(toParams)
+				$state.go("papeleria", {
+					id: toParams.id
+				});
+
+			} else if (error === "INVALID_LOGO") {
 
 				switch (toState.name) {
-
-				case "editor":
-
-					$state.go("inicio");
-					break;
-
-				case "pago":
-
-					$state.go("inicio");
-					break;
-
-				default: 
-					$state.go("inicio")
+					default:
+						$state.go("logos");
 
 				}
 
-				
+			} else if (error.error === "FALLO_HISTORICO") {
 
+				switch (toState.name) {
+
+					case "editor":
+
+						$state.go("inicio");
+						break;
+
+					case "pago":
+
+						$state.go("inicio");
+						break;
+
+					default:
+						$state.go("inicio")
+
+				}
 
 			}
 			console.log(error);

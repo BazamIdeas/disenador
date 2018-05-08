@@ -81,10 +81,8 @@ angular.module("disenador-de-logos")
 				logoCompartido: true
 			};
 
+			var url = bz.urlCompartir + $location.path() + "?datos="+ encodeURI(angular.toJson(datos));
 
-			var url = bz.urlCompartir + $location.path() + '?datos='+ encodeURI(angular.toJson(datos));
-
-			console.log(url)
 			return url;
 		};
 
@@ -192,15 +190,15 @@ angular.module("disenador-de-logos")
 
 				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 					tags.push(tag.traduccion.valor);
-				})
+				});
 
 				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags, bz.datos.categoria.icono, bz.iconos, 12);
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
 				$q.all([
-						promesaIconos,
-						promesaFuentes
-					])
+					promesaIconos,
+					promesaFuentes
+				])
 					.then(function (res) {
 
 						angular.forEach(res[0], function (icono) {
@@ -211,8 +209,8 @@ angular.module("disenador-de-logos")
 
 
 					})
-					.catch(function (res) {
-						console.log(res)
+					.catch(function () {
+						//console.log(res)
 					})
 					.finally(function () {
 
@@ -236,13 +234,21 @@ angular.module("disenador-de-logos")
 
 		bz.avanzar = function () {
 
+
+			var logoSeleccionado = angular.copy(bz.logos[bz.logoSeleccionado]);
+
+			if(logoSeleccionado.idLogo){
+				logoSeleccionado.icono.svg = bz.base64.encode(logoSeleccionado.cargado); 
+
+			}
+
 			var datos = {
 				status: true,
 				datos: {
-					logo: bz.logos[bz.logoSeleccionado],
+					logo: logoSeleccionado,
 					texto: bz.datos.nombre,
-					categoria: bz.logos[bz.logoSeleccionado].icono.categorias_idCategoria,
-					colores: [bz.logos[bz.logoSeleccionado].colores[0], bz.logos[bz.logoSeleccionado].colores[bz.logos[bz.logoSeleccionado].random]]
+					categoria: logoSeleccionado.icono.categorias_idCategoria,
+					colores: [logoSeleccionado.colores[0], logoSeleccionado.colores[logoSeleccionado.random]]
 				}
 			};
 

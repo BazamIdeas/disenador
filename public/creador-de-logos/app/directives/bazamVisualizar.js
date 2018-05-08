@@ -16,8 +16,6 @@ angular.module("disenador-de-logos")
 			link: function (scope, element) {
 				element.html(scope.svg);
 				element.html(element.html());
-
-
 			}
 		};
 

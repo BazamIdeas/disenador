@@ -284,8 +284,8 @@ textarea {
   width: 8px; }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 0px transparent;
-  box-shadow: inset 0 0 0px transparent;
+  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+  box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
   border-radius: 0; }
 
 ::-webkit-scrollbar:window-inactive {
@@ -399,7 +399,7 @@ md-input-container:not(.md-input-has-value) input:not(:focus) {
 .estilo-4 {
   background: url("../images/estilo-tipografia/tipo4.svg"); }
 
-.contenedor-principal g.contenedor-icono {
+bazam-svg g.contenedor-icono {
   pointer-events: bounding-box;
   /*cursor: move !important;*/ }
 
@@ -1631,23 +1631,25 @@ section.body.pay {
         .orders .table table tr.even.odd {
           background-color: #FFFFFF; }
 
-.body.descargar div.row {
-  height: 100%; }
+.body.descargar div.row div .logo {
+  padding: 0;
+  margin-top: 40px;
+  position: relative;
+  background-color: #FFFFFF; }
 
-.formats, .previews {
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center; }
+.formato {
+  cursor: pointer; }
 
 .previews {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-flow: column;
-  flex-flow: column; }
+  margin-top: 40px; }
+
+.aumentar-plan {
+  top: 0%;
+  margin-top: 0px !important;
+  width: 100%; }
+
+.aumentar-plan:hover {
+  opacity: 1; }
 
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------
@@ -1658,7 +1660,7 @@ section.body.pay {
 .bazam-previzualizar {
   position: absolute;
   bottom: 0;
-  z-index: 13;
+  z-index: 8;
   -webkit-transition: height 1s;
   transition: height 1s;
   width: 100vw;
@@ -1799,7 +1801,7 @@ div.element-color-picker {
   align-items: center;
   color: black;
   cursor: pointer;
-  z-index: 10; }
+  z-index: 2; }
 
 bazam-form-login {
   display: block;
@@ -1810,7 +1812,8 @@ bazam-form-login {
 .login-form > div,
 .olvido-contrasena > div {
   background-color: white;
-  padding: 18px !important; }
+  padding: 18px !important;
+  width: 100%; }
 
 .registro-form p.tercero,
 .login-form p.tercero,
@@ -1963,7 +1966,6 @@ bazam-form-login {
     display: none; }
 
 div.login-form-flex {
-  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1973,6 +1975,8 @@ div.login-form-flex {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center; }
+  div.login-form-flex.full-height {
+    height: 100%; }
   div.login-form-flex > div {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2178,11 +2182,10 @@ button.md-button.md-primary.md-raised.boton-crear-logo:hover:not(.loading-purple
 
 /* Aumentar plan */
 .aumentar-plan {
-  position: absolute;
   top: 0%;
+  padding: 5px 15px;
   margin-top: 0px !important;
-  width: 100%;
-  opacity: 0.3; }
+  width: auto; }
 
 .aumentar-plan:hover {
   opacity: 1; }

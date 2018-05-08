@@ -23,3 +23,7 @@ public/tmp/*
 configuracion/
 avatares/*
 .vs/*
+.vs/VSWorkspaceState.json
+.vs/slnx.sqlite
+.vs/config/applicationhost.config
+.vs/ProjectSettings.json

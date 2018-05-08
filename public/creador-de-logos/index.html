@@ -69,6 +69,8 @@
     <script src="app/controllers/descargar.controller.js"></script>
     <script src="app/controllers/cuenta.controller.js"></script>
     <script src="app/controllers/logosGaleria.controller.js"></script>
+    <script src="app/controllers/papeleria.controller.js"></script>
+    <script src="app/controllers/papeleriaEditor.controller.js"></script>
 
     <!-- Directivas -->
     <script src="app/directives/bazamAyuda.js"></script>
@@ -82,8 +84,13 @@
     <script src="app/directives/bazamSvgText.js"></script>
     <script src="app/directives/bazamVisualizar.js"></script>
     <script src="app/directives/bazamPalettePicker.js"></script>
+    <script src="app/directives/papeleria/bazamPapeleria.js"></script>
     <script src="app/directives/stripePaymentForm.js"></script>
     <script src="app/directives/planes.js"></script>
+    <script src="app/directives/papeleria/bazamMenuPapeleria.js"></script>
+    <script src="app/directives/papeleria/bazamCrearPapeleria.js"></script>
+
+
     <script src="app/directives/jquery-ui.js"></script>
 
 </head>
@@ -93,8 +100,10 @@
     <header class="header row" ng-controller="headerController as header">
 
         <div class="col s2 logo">
-            <div ng-click="header.navegar.landing()">
-                <img src="assets/logo.pro.svg">
+            <div>
+                <a href="/">
+                    <img src="assets/logo.pro.svg">
+                </a>
             </div>
         </div>
         <div class="col s10 m10 menu" show-gt-sm>
@@ -105,7 +114,7 @@
                     <span class="login mr-50" ui-sref="login">
                         <i class="material-icons md-48">account_circle</i> &nbsp; Acceder | Registro
                     </span>
-                    
+
                     <span ui-sref="inicio">
                         <i class="material-icons">add_circle_outline</i>
                     </span>
@@ -144,7 +153,7 @@
 
     </header>
 
-    
+
 
     <!-- contenedor principal -->
     <div ui-view style="min-height: calc(100% - 60px); min-height: -webkit-calc(100% - 60px); background-color: white">
