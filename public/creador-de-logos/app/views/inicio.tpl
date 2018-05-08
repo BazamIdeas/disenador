@@ -5,7 +5,7 @@
                 <div class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo"
                     data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1"
                     bazam-pasos-ayuda>
-                    <input id="nombre" type="text" ng-model="inicio.datos.nombre" required>
+                    <input id="nombre" type="text" ng-model="inicio.datos.nombre" maxlength="40"equired>
                     <label style="padding:0 !important" for="nombre" class="active">Nombre</label>
                 </div>
 

@@ -8,17 +8,17 @@
     <form>
         <div class="radio-selector">
             <md-radio-group name="tipoPapeleria" required ng-model="crearPapeleria.datos.papeleria" class="md-primary ">
-                <md-radio-button ng-repeat="papeleria in crearPapeleria.papelerias" ng-value="papeleria" ng-class="{'active': crearPapeleria.datos.papeleria.tipo == papeleria.tipo}">
+                <md-radio-button ng-repeat="papeleria in papelerias" ng-value="papeleria" ng-class="{'active': crearPapeleria.datos.papeleria.tipo == papeleria.tipo}">
                     {{papeleria.tipo}}
                 </md-radio-button>
             </md-radio-group>
         </div>
-        <div ng-repeat="papeleria in crearPapeleria.papelerias" ng-show="crearPapeleria.datos.papeleria.tipo == papeleria.tipo" class="papeleria-ejemplos">
+        <div ng-repeat="papeleria in papelerias" ng-show="crearPapeleria.datos.papeleria.tipo == papeleria.tipo" class="papeleria-ejemplos">
             <div ng-repeat="modelo in papeleria.modelos">
                 <div>
-                    <span class="modelo-papeleria" ng-bind-html="crearPapeleria.sce.trustAsHtml(modelo.caras[0].svg)"></span>
+                    <span class="modelo-papeleria" ng-bind-html="crearPapeleria.sce.trustAsHtml(papeleria.ejemplo)"></span>
                 </div>
-                <div class="boton-ejemplo-papeleria" ng-click="crearPapeleria.enviarEditor(modelo)">CREAR</div>
+                <div class="boton-ejemplo-papeleria" ng-click="crearPapeleria.enviarEditor(papeleria, modelo)">CREAR</div>
             </div>
         </div>
     </form>
