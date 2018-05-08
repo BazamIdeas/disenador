@@ -80,11 +80,59 @@ pieza.Guardar = (piezaData, callback) =>
     piezaData.tipo = objectId(piezaData.tipo);
 
     Connection(db => {
+
+        collection.count({
+            '_id': objectId(piezaData._id),
+            'cliente': cliente
+        }, (err, count) => {
+            if (count) {
+
+                collection.findOneAndUpdate({
+                    '_id': objectId(piezaData._id)
+                }, {
+                    $set: {
+                        caras: piezaData.caras,
+                        nombre: piezaData.nombre,
+                        modelo: piezaData.modelo,
+                        tipo: piezaData.tipo
+                    }
+                }, (err, doc) => {
+                    if (err) throw err;
+                    callback(null, {
+                        'affectedRow': doc.value
+                    });
+                });
+
+            } else {
+
+                delete piezaData._id;
+                
+                const collection = db.collection('piezas');
+                collection.insertOne(piezaData, (err, doc) => {
+                    if (err) callback(err);
+                    callback(null, {
+                        'insertId': doc.insertedId
+                    });
+                });
+
+            } 
+        })
+        
+    })
+}
+
+
+pieza.Borrar = (_id, cliente, callback) => 
+{
+    Connection(db => {
         const collection = db.collection('piezas');
-        collection.insertOne(piezaData, (err, doc) => {
-            if (err) callback(err);
+        collection.findOneAndDelete({
+            '_id': objectId(_id),
+            'cliente': cliente
+        }, (err, doc) => {
+            if (err) throw err;
             callback(null, {
-                'insertId': doc.insertedId
+                'affectedRow': doc.value
             });
         });
     })

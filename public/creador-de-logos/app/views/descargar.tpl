@@ -54,7 +54,8 @@
                         <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                     </foreignObject>
                 </svg>
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="width: 21.5%;position: absolute;left: calc(64% - 18%);top: 6.8%;background: #fff;">
+                <svg ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="position: absolute; height:100%;" height="250" viewBox="0 0 400 250" preserveAspectRatio="xMinYMin meet">
+                    <foreignObject x="20" y="20" width="62" height="62">
                     <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
                 </div>
             

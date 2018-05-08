@@ -85,6 +85,20 @@ exports.ObtenerPiezaPorUsuario = (req, res) => {
     })
 }
 
+exports.EliminarPieza = (req, res) => {
+    const _id = req.params._id
+
+    Pieza.Eliminar(_id, req.idCliente, (err, data) => {
+		if (data !== null && data.affectedRow) {
+			res.status(200).json(data);
+		} else {
+			res.status(500).json({
+				'msg': 'Algo ocurrio',
+			});
+		}
+	})
+}
+
 exports.Guardar = (req, res) => {
     const tipo = req.body.tipo;
     const modelo = req.body.modelo;
@@ -92,17 +106,15 @@ exports.Guardar = (req, res) => {
     pieza.cliente = req.idCliente;
 
     Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
-        
+
         if (data.length) {
 
             pieza.modelo = data[0]._id
             pieza.tipo = data[0].tipo[0]._id
 
             Pieza.Guardar(pieza, (err, data) => {
-                if (typeof data !== 'undefined' && data.insertId) {
-                    res.status(200).json({
-                        insertId: data.insertId
-                    });
+                if (typeof data !== 'undefined' && data.insertId ||  typeof data !== 'undefined' && data.affectedRow) {
+                    res.status(200).json(data);
                 } else {
                     res.status(500).json({
                         'msg': 'Hubo un error'
@@ -122,87 +134,99 @@ exports.Guardar = (req, res) => {
 
 exports.descargarPapeleria = function (req, res, next) {
 
-     const _id = req.params._id;
+    const _id = req.body._id;
 
-     var piezaUsuario;
+    var piezaUsuario;
 
-     Pieza.ObtenerPorIDyUsuario(_id, req.idCliente, (err, piezas) => {
-         if (piezas.length) {
-             piezaUsuario = piezas;
-         } else {
-             res.status(404).json({
-                 'msg': 'No hay piezas en la base de datos'
-             });
-         }
-     })
+    Pieza.ObtenerPorIDyUsuario(_id, req.idCliente, (err, piezas) => {
+        if (piezas.length) {
 
-     return console.log(piezaUsuario)
+            piezaUsuario = piezas;
 
-    /* Buscamos la plantilla a utilizar */
+            var papeleria ={
+                pieza: {caras:piezaUsuario[0].caras},
+                tipo: piezaUsuario[0].tipo[0].tipo,
+                modelo: piezaUsuario[0].modelo[0].nombre
+            }
 
-    var ubicacionPlantilla = './plantillas-papeleria/' + papeleria.tipo + '/' + papeleria.modelo + '/';
+            papeleria.modelo = papeleria.modelo.replace(' ', '_');
+            
+            /* Buscamos la plantilla a utilizar */
 
-    var template = fs.readFileSync(ubicacionPlantilla + 'index.html', 'utf8', (err, data) => {
-        if (err) throw err;
-    });
+            var ubicacionPlantilla = './plantillas-papeleria/' + papeleria.tipo + '/' + papeleria.modelo + '/';
 
-    /* Colocamos los datos en la plantilla de papeleria */
+            var template = fs.readFileSync(ubicacionPlantilla + 'index.html', 'utf8', (err, data) => {
+                if (err) throw err;
+            });
 
-    for (let i = 0; i < papeleria.pieza.caras.length; i++) {
-        var datos = papeleria.pieza.caras[i];
-        var keys = Object.keys(papeleria.pieza.caras[i]);
-        for (var key in keys) {
-            if (keys[key] == 'svg') {
-                while (template.indexOf("${" + keys[key] + '-' + datos[keys[0]] + "}") != -1) {
-                    template = template.replace("${" + keys[key] + '-' + datos[keys[0]] + "}", datos[keys[key]]);
+            /* Colocamos los datos en la plantilla de papeleria */
+
+            for (let i = 0; i < papeleria.pieza.caras.length; i++) {
+                /* Si queremos saber el nombre de la cara */
+                //console.log(papeleria.pieza.caras[i].nombre)
+
+                var datos = papeleria.pieza.caras[i];
+
+                var keys = Object.keys(papeleria.pieza.caras[i]);
+                for (var key in keys) {
+                    if (keys[key] == 'svg') {
+                        console.log(keys[key] + '-' + datos[keys[1]])
+                        while (template.indexOf("${" + keys[key] + '-' + datos[keys[0]] + "}") != -1) {
+                            template = template.replace("${" + keys[key] + '-' + datos[keys[0]] + "}", datos[keys[key]]);
+                        }
+                    }
+
+                    while (template.indexOf("${" + keys[key] + "}") != -1) {
+                        template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
+                    }
                 }
             }
 
-            while (template.indexOf("${" + keys[key] + "}") != -1) {
-                template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
+            /* ********************************* */
+
+            url = __dirname.replace('controllers', '')
+
+            url = 'file:///' + url + ubicacionPlantilla + '/assets/style.css';
+
+            var plataforma = os.platform();
+
+            var tamanosPapeleria = {
+                tarjeta: {
+                    "modelo_#1": {
+                        windows: {
+                            "height": "220mm",
+                            "width": "280mm",
+                            "base": url,
+                            "type": "pdf",
+                            "renderDelay": 3000
+                        }
+                    }
+                },
+            };
+
+            if (plataforma != 'win32') {
+                template = template.replace('${zoom}', '0.75');
+            } else {
+                var configuracion = tamanosPapeleria[papeleria.tipo][papeleria.modelo].windows;
             }
+
+            var nombre = './public/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf';
+
+            pdf.create(template, configuracion).toFile(nombre, function (err, data) {
+
+                if (err) throw err;
+
+                data = {
+                    nombreArchivo: 'papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf',
+                    url: '/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf'
+                };
+
+                res.status(200).json(data)
+            });
+        } else {
+            res.status(404).json({
+                'msg': 'No hay piezas en la base de datos'
+            });
         }
-    }
-
-    /* ********************************* */
-
-    url = __dirname.replace('controllers', '')
-
-    url = 'file:///' + url + ubicacionPlantilla + '/assets/style.css';
-
-    var plataforma = os.platform();
-
-    var tamanosPapeleria = {
-        tarjeta: {
-            C6: {
-                windows: {
-                    "height": "220mm",
-                    "width": "280mm",
-                    "base": url,
-                    "type": "pdf",
-                    "renderDelay": 3000
-                }
-            }
-        },
-    };
-
-    if (plataforma != 'win32') {
-        template = template.replace('${zoom}', '0.75');
-    } else {
-        var configuracion = tamanosPapeleria[papeleria.tipo][papeleria.modelo].windows;
-    }
-
-    var nombre = './public/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf';
-
-    pdf.create(template, configuracion).toFile(nombre, function (err, data) {
-
-        if (err) throw err;
-
-        data = {
-            nombreArchivo: 'papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf',
-            url: '/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf'
-        };
-
-        res.status(200).json(data)
-    });
+    })
 }

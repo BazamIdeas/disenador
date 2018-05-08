@@ -2030,6 +2030,25 @@ angular.module("disenador-de-logos")
 					});
 				
 				return promise;
+			},
+			descargar: function(id){
+				var defered = $q.defer();
+				var promise = defered.promise;
+
+				let datos = {_id : id};
+				
+				$http.post("/app/papeleria/descargar", datos)
+					.then(function(res){
+						defered.resolve(res.data);
+					})
+					.catch(function(){
+						defered.reject();
+					})
+					.finally(function(){
+
+					});
+				
+				return promise;
 			}
 		};
 
