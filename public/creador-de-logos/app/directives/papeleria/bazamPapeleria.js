@@ -822,7 +822,7 @@ angular.module("disenador-de-logos")
 								}
 							}));
 
-							bz.datos.pieza.id = res.insertId;
+							bz.datos.pieza._id = res.insertId;
 						})
 						.catch(function(){
 
