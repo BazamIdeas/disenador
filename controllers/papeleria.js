@@ -89,14 +89,14 @@ exports.EliminarPieza = (req, res) => {
     const _id = req.params._id
 
     Pieza.Eliminar(_id, req.idCliente, (err, data) => {
-		if (data !== null && data.affectedRow) {
-			res.status(200).json(data);
-		} else {
-			res.status(500).json({
-				'msg': 'Algo ocurrio',
-			});
-		}
-	})
+        if (data !== null && data.affectedRow) {
+            res.status(200).json(data);
+        } else {
+            res.status(500).json({
+                'msg': 'Algo ocurrio',
+            });
+        }
+    })
 }
 
 exports.Guardar = (req, res) => {
@@ -113,7 +113,7 @@ exports.Guardar = (req, res) => {
             pieza.tipo = data[0].tipo[0]._id
 
             Pieza.Guardar(pieza, (err, data) => {
-                if (typeof data !== 'undefined' && data.insertId ||  typeof data !== 'undefined' && data.affectedRow) {
+                if (typeof data !== 'undefined' && data.insertId || typeof data !== 'undefined' && data.affectedRow) {
                     res.status(200).json(data);
                 } else {
                     res.status(500).json({
@@ -143,17 +143,19 @@ exports.descargarPapeleria = function (req, res, next) {
 
             piezaUsuario = piezas;
 
-            var papeleria ={
-                pieza: {caras:piezaUsuario[0].caras},
+            var papeleria = {
+                pieza: {
+                    caras: piezaUsuario[0].caras
+                },
                 tipo: piezaUsuario[0].tipo[0].tipo,
                 modelo: piezaUsuario[0].modelo[0].nombre
             }
 
             papeleria.modelo = papeleria.modelo.replace(' ', '_');
-            
+
             /* Buscamos la plantilla a utilizar */
 
-            var ubicacionPlantilla = './plantillas-papeleria/' + papeleria.tipo + '/' + papeleria.modelo + '/';
+            var ubicacionPlantilla = './plantillas-papeleria/' + papeleria.tipo + '/';
 
             var template = fs.readFileSync(ubicacionPlantilla + 'index.html', 'utf8', (err, data) => {
                 if (err) throw err;
@@ -165,14 +167,14 @@ exports.descargarPapeleria = function (req, res, next) {
                 /* Si queremos saber el nombre de la cara */
                 //console.log(papeleria.pieza.caras[i].nombre)
 
+                papeleria.pieza.caras[i].tipo = papeleria.tipo;
                 var datos = papeleria.pieza.caras[i];
 
-                var keys = Object.keys(papeleria.pieza.caras[i]);
+                var keys = Object.keys(datos);
                 for (var key in keys) {
                     if (keys[key] == 'svg') {
-                        console.log(keys[key] + '-' + datos[keys[1]])
-                        while (template.indexOf("${" + keys[key] + '-' + datos[keys[0]] + "}") != -1) {
-                            template = template.replace("${" + keys[key] + '-' + datos[keys[0]] + "}", datos[keys[key]]);
+                        while (template.indexOf("${" + keys[key] + '-' + datos[keys[1]] + "}") != -1) {
+                            template = template.replace("${" + keys[key] + '-' + datos[keys[1]] + "}", datos[keys[key]]);
                         }
                     }
 
@@ -191,25 +193,26 @@ exports.descargarPapeleria = function (req, res, next) {
             var plataforma = os.platform();
 
             var tamanosPapeleria = {
-                tarjeta: {
-                    "modelo_#1": {
-                        windows: {
-                            "height": "220mm",
-                            "width": "280mm",
-                            "base": url,
-                            "type": "pdf",
-                            "renderDelay": 3000
-                        }
+                "tarjeta": {
+                    windows: {
+                        "height": "55mm",
+                        "width": "85mm",
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
                     }
-                },
+                }
             };
 
             if (plataforma != 'win32') {
                 template = template.replace('${zoom}', '0.75');
             } else {
-                var configuracion = tamanosPapeleria[papeleria.tipo][papeleria.modelo].windows;
+                var configuracion = tamanosPapeleria[papeleria.tipo].windows;
             }
 
+            papeleria.modelo = papeleria.modelo.replace(/[^a-zA-Z0-9-_]/g, '');
+            
             var nombre = './public/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf';
 
             pdf.create(template, configuracion).toFile(nombre, function (err, data) {

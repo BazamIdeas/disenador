@@ -26,6 +26,7 @@ angular.module("disenador-de-logos")
                     }
 
                     let datos = {papeleria: papeleria, modelo: modelo};
+
                     $state.go('papeleriaEditor', { id: bz.idLogo, papeleria: datos});
                 }
 

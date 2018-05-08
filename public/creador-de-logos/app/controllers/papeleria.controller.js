@@ -15,7 +15,7 @@ angular.module("disenador-de-logos")
 
 		bz.enviarEditor = function (indicePapeleria, indiceModelo, indicePieza) {
 
-			let papeleria = angular.copy(bz.papelerias[indicePapeleria]);
+			var papeleria = angular.copy(bz.papelerias[indicePapeleria]);
 			delete papeleria.modelos;
 			var modelo = angular.copy(bz.papelerias[indicePapeleria].modelos[indiceModelo]);
 			delete modelo.piezas;

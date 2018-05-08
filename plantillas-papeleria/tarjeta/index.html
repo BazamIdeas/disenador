@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Papeleria</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <style>
+        html {
+            zoom:'${zoom}';
+        }
+
+        body,
+        html,
+        .page {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border:0 !important;
+            background: transparent;
+        }
+
+        .page {
+            position: relative;
+            display: block;
+            height: 55mm;
+            width: 100%;
+        }
+
+        .cara,
+        cara svg {
+            display: block;
+            height:100%;
+            width:100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1 -->
+    <div class="page">
+            ${svg-delantera}
+    </div>
+    <!-- 2 -->
+    <div class="page">
+            ${svg-frontal}
+    </div>
+</body>
+
+</html>
