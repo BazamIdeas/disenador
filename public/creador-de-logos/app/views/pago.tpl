@@ -36,26 +36,21 @@
 
 						<br>
 
-						<div style="text-align: center">
-							<input type="checkbox" class="filled-in" id="terminos" ng-model="pago.terminos" />
-							<label for="terminos" style="color:black;font-size:12px;">Acepto los
-								<a href="#">Términos de Condiciones y Uso</a>
-							</label>
-						</div>
-
-						<br><br>
+						
 
 						<div style="display: flex;justify-content: space-evenly;">
 
 							<div class="metodos">
 
-								<div ng-repeat="pasarela in pago.pasarelas track by $index">
+								<div ng-repeat="pasarela in pago.pasarelas | orderBy: $index : true track by $index">
 									<input type="radio" id="{{pasarela.pasarela}}" ng-model="pago.pasarelaElegida" ng-value="pasarela"/>
 									<label style="display: flex;" for="{{pasarela.pasarela}}">
 										
-										<img  ng-if="pasarela.pasarela == 'Paypal'"  width="50" height="auto"  src="assets/images/svg-icons/paypal_color.svg">
+										
 
 										<img  ng-if="pasarela.pasarela == 'Stripe'"  width="25" height="auto" src="assets/images/svg-icons/credit_black.svg">
+
+										<img  ng-if="pasarela.pasarela == 'Paypal'"  width="50" height="auto"  src="assets/images/svg-icons/paypal_color.svg">
 
 									</label>
 
@@ -71,12 +66,22 @@
 							</div>
 
 							<div style="display: flex; align-items: center;">
-								<button ng-if="pago.pasarelaElegida.pasarela == 'Paypal'" type="submit" ng-class="{'loading-white': !pago.completado}" ng-click="pago.pagar(pago.pasarelaElegida.idPasarela, pago.terminos)">COMPRAR</button>
+								<button ng-if="pago.pasarelaElegida.pasarela == 'Paypal'" type="submit" ng-class="{'loading-white': !pago.completado}" ng-click="pago.pagar(pago.pasarelaElegida.idPasarela, pago.terminos)">PAGAR</button>
 
-								<button ng-if="pago.pasarelaElegida.pasarela == 'Stripe'" type="submit" ng-class="{'loading-white': !pago.completado}" ng-click="pago.mostrarMetodo(pago.pasarelaElegida.idPasarela, pago.terminos)">COMPRAR</button>
+								<button ng-if="pago.pasarelaElegida.pasarela == 'Stripe'" type="submit" ng-class="{'loading-white': !pago.completado}" ng-click="pago.mostrarMetodo(pago.pasarelaElegida.idPasarela, pago.terminos)">PAGAR</button>
 							</div>
 
 						</div>
+						<br>
+						<br>
+						<div style="text-align: center">
+							<input type="checkbox" class="filled-in" id="terminos" ng-model="pago.terminos" />
+							<label for="terminos" style="color:black;font-size:10px;">Acepto los
+								<a href="#">Términos de Condiciones y Uso</a>
+							</label>
+						</div>
+
+						
 
 						<br><br>
 
