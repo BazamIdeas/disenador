@@ -151,6 +151,8 @@ exports.descargarPapeleria = function (req, res, next) {
                 modelo: piezaUsuario[0].modelo[0].nombre
             }
 
+            console.log(piezaUsuario[0].modelo); 
+
             papeleria.modelo = papeleria.modelo.replace(' ', '_');
 
             /* Buscamos la plantilla a utilizar */
