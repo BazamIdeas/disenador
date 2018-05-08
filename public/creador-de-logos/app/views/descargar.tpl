@@ -31,92 +31,91 @@
         <!-- ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'"-->
         <div class="col s7 previews">
             <div style="overflow:hidden; height: 308px;">
-            <div ng-repeat="formato in descargar.formatosNoSociales | filter: {'nombre': descargar.formatoSeleccionado.nombre} track by formato.nombre" style="position: relative;margin-top: 20px;background: #fff; -webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede; text-align:center">
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'editable'" style="width: 48%;position: absolute;left: calc(49% - 23%);top: 0%;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" style="width: 12%;position: absolute;left: calc(57% - 23%);top: 32%;transform: rotate(-48deg);">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" style="width: 12%;position: absolute;left: calc(89% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(100%) invert(80%) contrast(100%);">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-                <img ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" src="assets/images/mockups/tarjeta.png" style="max-width:100%; height: 323px">
-            </div>
-            
-            <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.formatoSeleccionado.nombre == formato.nombre"
-                style="position: relative;background: #fff;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede; text-align:center">
-            
-                <svg ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="position: absolute; height:100%;" height="250" viewBox="0 0 400 250" preserveAspectRatio="xMinYMin meet">
-                    <foreignObject x="20" y="20" width="62" height="62">
+                <div ng-repeat="formato in descargar.formatosNoSociales | filter: {'nombre': descargar.formatoSeleccionado.nombre} track by formato.nombre" style="position: relative;margin-top: 20px;background: #fff; -webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede; text-align:center">
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'editable'" style="width: 48%;position: absolute;left: calc(49% - 23%);top: 0%;">
                         <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                    </foreignObject>
-                </svg>
-                <svg ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="position: absolute; height:100%;" height="250" viewBox="0 0 400 250" preserveAspectRatio="xMinYMin meet">
-                    <foreignObject x="20" y="20" width="62" height="62">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" style="width: 12%;position: absolute;left: calc(57% - 23%);top: 32%;transform: rotate(-48deg);">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" style="width: 12%;position: absolute;left: calc(89% - 34%);top: 44%;transform: rotate(-48deg);filter: brightness(100%) invert(80%) contrast(100%);">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                    <img ng-if="descargar.formatoSeleccionado.nombre == 'papeleria'" src="assets/images/mockups/tarjeta.png" style="max-width:100%; height: 308px">
                 </div>
-            
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'whatsapp'" style="width: 24.5%;position: absolute;border-radius: 50%;left: calc(55.6% - 18%);top: 25.5%;background: transparent;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                
+                <div ng-repeat="formato in descargar.formatos track by formato.nombre" ng-if="descargar.formatoSeleccionado.nombre == formato.nombre" style="position: relative;background: #fff;-webkit-box-shadow: 0px 1px 2px 1px #dedede;box-shadow: 0px 1px 2px 1px #dedede; text-align:center">
+                
+                    <svg ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="position: absolute; height:100%;" height="250" viewBox="0 0 400 250" preserveAspectRatio="xMinYMin meet">
+                        <foreignObject x="20" y="20" width="62" height="62">
+                            <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                        </foreignObject>
+                    </svg>
+                    <svg ng-if="descargar.formatoSeleccionado.nombre == 'facebook'" style="position: absolute; height:100%;" height="250" viewBox="0 0 400 250" preserveAspectRatio="xMinYMin meet">
+                        <foreignObject x="20" y="20" width="62" height="62">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </svg>
+                
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'whatsapp'" style="width: 24.5%;position: absolute;border-radius: 50%;left: calc(55.6% - 18%);top: 25.5%;background: transparent;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'instagram'" style="width: 4.6%;position: absolute;border-radius: 50%;left: calc(44.34% - 18%);top: 21%;background: #fff;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'instagram'" style="width: 32.5%;position: absolute;left: calc(52.3% - 18%);top: 33.8%;background: #fff0;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'google-plus'" style="width: 3.45%;position: absolute;left: calc(68.3% - 18%);top: 38.3%;background: #fff;border-radius: 50%;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'google-plus'" style="width: 13.5%;position: absolute;left: calc(73.3% - 18%);top: 9.8%;background: #fff0;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'youtube'" style="width: 7.5%;position: absolute;left: calc(61% - 18%);top: 7.3%;background: #fff;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'youtube'" style="width: 14.5%;position: absolute;left: calc(70.3% - 18%);top: 5.8%;background: #fff0;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'twitter'" style="width: 7.4%;position: absolute;left: calc(46.1% - 18%);top: 34.2%;background: #fff;border-radius: 50%;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'twitter'" style="width: 17.6%;position: absolute;left: calc(60.3% - 18%);top: 5.8%;background: #fff0;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'linkedin'" style="width: 5%;position: absolute;left: calc(47.8% - 18%);top: 6.6%;background: #fff;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'pinterest'" style="width: 6.3%;position: absolute;left: calc(50.3% - 18%);top: 18.2%;background: #fff;border-radius: 50%;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'telegram'" style="width: 5.1%;position: absolute;left: calc(69.8% - 18%);top: 11.3%;background: #fff;border-radius: 50%;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                
+                    <div ng-if="descargar.formatoSeleccionado.nombre == 'vimeo'" style="width: 19.8%;position: absolute;left: calc(46.3% - 18%);top: 23%;background: #fff;">
+                        <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
+                    </div>
+                
+                    <img src="assets/images/redes/{{::formato.nombre}}.jpg" style="max-width:100%; height: 308px">
                 </div>
-            
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'instagram'" style="width: 4.6%;position: absolute;border-radius: 50%;left: calc(44.34% - 18%);top: 21%;background: #fff;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'instagram'" style="width: 32.5%;position: absolute;left: calc(52.3% - 18%);top: 33.8%;background: #fff0;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-            
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'google-plus'" style="width: 3.45%;position: absolute;left: calc(68.3% - 18%);top: 38.3%;background: #fff;border-radius: 50%;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'google-plus'" style="width: 13.5%;position: absolute;left: calc(73.3% - 18%);top: 9.8%;background: #fff0;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'youtube'" style="width: 7.5%;position: absolute;left: calc(61% - 18%);top: 7.3%;background: #fff;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'youtube'" style="width: 14.5%;position: absolute;left: calc(70.3% - 18%);top: 5.8%;background: #fff0;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-            
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'twitter'" style="width: 7.4%;position: absolute;left: calc(46.1% - 18%);top: 34.2%;background: #fff;border-radius: 50%;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'twitter'" style="width: 17.6%;position: absolute;left: calc(60.3% - 18%);top: 5.8%;background: #fff0;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-            
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'linkedin'" style="width: 5%;position: absolute;left: calc(47.8% - 18%);top: 6.6%;background: #fff;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-            
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'pinterest'" style="width: 6.3%;position: absolute;left: calc(50.3% - 18%);top: 18.2%;background: #fff;border-radius: 50%;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-            
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'telegram'" style="width: 5.1%;position: absolute;left: calc(69.8% - 18%);top: 11.3%;background: #fff;border-radius: 50%;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-            
-            
-                <div ng-if="descargar.formatoSeleccionado.nombre == 'vimeo'" style="width: 19.8%;position: absolute;left: calc(46.3% - 18%);top: 23%;background: #fff;">
-                    <bazam-visualizar data-svg="::descargar.base64.decode(descargar.logo.logo)" ng-if="descargar.logo.logo"></bazam-visualizar>
-                </div>
-            
-                <img src="assets/images/redes/{{::formato.nombre}}.jpg" style="max-width:100%; height: 308px">
-            </div>
             </div>
 
             <div ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'" style="margin-top: 10px;">
