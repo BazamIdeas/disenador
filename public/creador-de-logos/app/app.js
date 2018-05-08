@@ -392,6 +392,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 				resolve: {
 					"logoResolve": ["$q", "$stateParams", "logosService", "arrayToJsonMetasFactory", function ($q, $stateParams, logosService, arrayToJsonMetasFactory) {
 
+						
 						if ($stateParams.id) {
 							var defered = $q.defer();
 							var promise = defered.promise;
@@ -413,6 +414,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 								defered.reject("INVALID_LOGO");
 							});
 
+							
 							return promise;
 						} else {
 							return $q.reject("INVALID_LOGO");
@@ -426,7 +428,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			.state({
 				name: "papeleriaEditor",
-				url: "/cliente/logos/papeleria/:id/crear/",
+				url: "/cliente/logos/papeleria/:id/crear",
 				templateUrl: "app/views/papeleriaEditor.tpl",
 				controller: "papeleriaEditorController as papeleriaEditor",
 				params: {
@@ -443,7 +445,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 					}],
 					"logoResolve": ["$q", "$stateParams", "logosService", "arrayToJsonMetasFactory", function ($q, $stateParams, logosService, arrayToJsonMetasFactory) {
-
+						
 						if ($stateParams.id) {
 							var defered = $q.defer();
 							var promise = defered.promise;
@@ -479,6 +481,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 						var papeleria = {};
 
+						console.log($stateParams)
+
 						if ($stateParams.papeleria && $stateParams.papeleria.papeleria && $stateParams.papeleria.modelo) {
 
 							papeleria = $stateParams.papeleria.papeleria;
@@ -497,10 +501,10 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 								if($stateParams.papeleria.pieza._id){
 									papeleria.idPieza = $stateParams.papeleria.pieza._id;
 								}
-
+								
 							}							
 
-							return $q.resolve(papeleria);
+							return papeleria;
 
 						} else {
 
@@ -551,6 +555,8 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 		});
 
 		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+
+			
 
 			if (error === "AUTH_REQUIRED") {
 
@@ -640,6 +646,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			} else if (error === "PAPELERIA_INVALID") {
 
+				console.log(toParams)
 				$state.go("papeleria", {
 					id: toParams.id
 				});
