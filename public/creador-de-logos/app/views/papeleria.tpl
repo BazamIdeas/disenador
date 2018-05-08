@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<bazam-crear-papeleria id-logo="papeleriaCtrl.idLogo" estado="papeleriaCtrl.crearPapeleria"></bazam-crear-papeleria>
+<bazam-crear-papeleria id-logo="papeleriaCtrl.idLogo" estado="papeleriaCtrl.crearPapeleria" papelerias="papeleriaCtrl.papelerias"></bazam-crear-papeleria>
 
 <style>
     .categorias-papeleria>div {

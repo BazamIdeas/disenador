@@ -1978,7 +1978,7 @@ angular.module("disenador-de-logos")
 			var defered = $q.defer();
 			var promise = defered.promise;
 				
-			$http.get("/app/papeleria/tipos")
+			$http.get("/app/papeleria/usuario")
 				.then(function(res){
 					defered.resolve(res.data);
 				})
