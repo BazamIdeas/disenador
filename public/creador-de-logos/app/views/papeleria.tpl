@@ -3,16 +3,13 @@
     <div>Creaciones Guardadas</div>
 </div>
 <div ng-repeat="papeleria in papeleriaCtrl.papelerias" class="papeleria-ejemplos">
-
     <div ng-repeat="modelo in papeleria.modelos">
         <div ng-repeat="piezaUsuario in modelo.piezas">
             <span class="modelo-papeleria" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[0].svg)"></span>
             <div class="boton-ejemplo-papeleria" ng-click="papeleriaCtrl.enviarEditor($parent.$parent.$index,$parent.$index,$index)">MODIFICAR PIEZA</div>
+            <div class="boton-ejemplo-papeleria" ng-click="papeleriaCtrl.descargarPieza($parent.$parent.$index,$parent.$index,$index)">DESCARGAR PIEZA</div>
         </div>
-        <div ng-repeat="piezaUsuario in modelo.piezas">
-            <span class="modelo-papeleria" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[0].svg)"></span>
-            <div class="boton-ejemplo-papeleria" ng-click="papeleriaCtrl.enviarEditor($parent.$parent.$index,$parent.$index,$index)">MODIFICAR PIEZA</div>
-        </div>
+        <div ng-show="!modelo.piezas">No posee papeleria guardada</div>
     </div>
 </div>
 
