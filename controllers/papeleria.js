@@ -1,6 +1,7 @@
 const Pieza = require('../modelos/piezasModelo.js');
 const Modelo = require('../modelos/modelosModelo.js');
 const Tipo = require('../modelos/tiposModelo.js');
+const Logo = require('../modelos/logosModelo.js');
 const async = require("async");
 var pdf = require('html-pdf');
 var os = require('os');
@@ -105,30 +106,40 @@ exports.Guardar = (req, res) => {
     const pieza = req.body.pieza;
     pieza.cliente = req.idCliente;
 
-    Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
+    Logo.getLogo([pieza.logo, pieza.cliente], (error, data) => {
+		if (typeof data !== "undefined" && data.length > 0) {
 
-        if (data.length) {
+            Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
 
-            pieza.modelo = data[0]._id
-            pieza.tipo = data[0].tipo[0]._id
+                if (data.length) {
 
-            Pieza.Guardar(pieza, (err, data) => {
-                if (typeof data !== 'undefined' && data.insertId || typeof data !== 'undefined' && data.affectedRow) {
-                    res.status(200).json(data);
+                    pieza.modelo = data[0]._id
+                    pieza.tipo = data[0].tipo[0]._id
+
+                    Pieza.Guardar(pieza, (err, data) => {
+                        if (typeof data !== 'undefined' && data.insertId || typeof data !== 'undefined' && data.affectedRow) {
+                            res.status(200).json(data);
+                        } else {
+                            res.status(500).json({
+                                'msg': 'Hubo un error'
+                            });
+                        }
+                    })
+
                 } else {
-                    res.status(500).json({
-                        'msg': 'Hubo un error'
+                    res.status(404).json({
+                        'msg': 'No hay modelos en la base de datos'
                     });
                 }
+
             })
 
         } else {
-            res.status(404).json({
-                'msg': 'No hay modelos en la base de datos'
-            });
-        }
 
-    })
+            res.status(404).json({msg: "El logo no existe"});
+
+        }
+    });
 
 }
 
