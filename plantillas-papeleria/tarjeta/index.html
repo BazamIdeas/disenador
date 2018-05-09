@@ -37,10 +37,18 @@
         }
 
         @font-face {
-            font-family: '{#tipografia_nombre#}';
-            src: url("../../{#tipografia_url#}") format("truetype");
-            font-weight: 800;
-            font-style: normal;
+            font-family: '${url-0}';
+            src: url("${url-0-link}");
+        }
+
+        @font-face {
+            font-family: '${url-1}';
+            src: url("${url-1-link}");
+        }
+
+        @font-face {
+            font-family: '${url-2}';
+            src: url("${url-2-link}");
         }
 
     </style>
@@ -49,6 +57,8 @@
 <body>
     <!-- 1 -->
     <div class="page">
+            <H1 style="font-family:${url-0};">prueba</H1>
+
             ${svg-delantera}
     </div>
     <!-- 2 -->

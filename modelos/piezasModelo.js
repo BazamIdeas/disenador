@@ -83,41 +83,43 @@ pieza.Guardar = (piezaData, callback) =>
 
         const collection = db.collection('piezas');
 
-        collection.count({
-            '_id': objectId(piezaData._id),
-            'cliente': cliente
-        }, (err, count) => {
-            if (count) {
+        if (piezaData._id) {
 
-                collection.findOneAndUpdate({
-                    '_id': objectId(piezaData._id)
-                }, {
-                    $set: {
-                        caras: piezaData.caras,
-                        nombre: piezaData.nombre,
-                        modelo: piezaData.modelo,
-                        tipo: piezaData.tipo
-                    }
-                }, (err, doc) => {
-                    if (err) throw err;
-                    callback(null, {
-                        'affectedRow': doc.value
-                    });
+            collection.findOneAndUpdate({
+                '_id': objectId(piezaData._id),
+                'cliente': piezaData.cliente
+            }, {
+                $set: {
+                    caras: piezaData.caras,
+                    nombre: piezaData.nombre,
+                    modelo: piezaData.modelo,
+                    tipo: piezaData.tipo
+                }
+            }, (err, doc) => {
+                if (err) throw err;
+                callback(null, {
+                    'affectedRow': doc.value
                 });
+            });
 
-            } else {
+        } else {
 
-                delete piezaData._id;
-            
-                collection.insertOne(piezaData, (err, doc) => {
-                    if (err) callback(err);
-                    callback(null, {
-                        'insertId': doc.insertedId
-                    });
+            piezaData = {
+                caras: piezaData.caras,
+                nombre: piezaData.nombre,
+                modelo: piezaData.modelo,
+                cliente: piezaData.cliente,
+                tipo: piezaData.tipo
+            };
+
+            collection.insertOne(piezaData, (err, doc) => {
+                if (err) callback(err);
+                callback(null, {
+                    'insertId': doc.insertedId
                 });
+            });
 
-            } 
-        })
+        }
         
     })
 }
