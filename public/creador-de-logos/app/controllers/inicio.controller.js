@@ -37,28 +37,98 @@ angular.module("disenador-de-logos")
 
 		bz.urlCompartir = $location.port() != "80" ? $location.protocol() + "://" + $location.host() + ":" + $location.port() : $location.protocol() + "://" + $location.host();
 
-		bz.compartir = function(provider, idLogo) {
 
-			var unix = Date.now();
+		bz.completadoCompartirSocial = true;
+		bz.compartir = function(provider, logo) {
 
-			var attrs = {
-				socialshareUrl: bz.urlCompartir + $location.path() + "?idLogo=" + idLogo + "&unix=" + unix
-			};
 
-			switch (provider) {
-			case "twitter":
-				attrs.socialshareHashtags = "Liderlogo";
-				break;
-				
-			case "pinterest":
-				attrs.socialshareMedia = bz.urlCompartir+"/app/logo/compartido/"+idLogo; attrs.socialshareText = "Pinterest";
-				break;
+			if (!clientesService.autorizado()) {
+
+				$rootScope.mostrarModalLogin = true;
+				$rootScope.callbackLogin = false;
+				return;
 			}
 
-			Socialshare.share({
-				"provider": provider,
-				"attrs": attrs
-			});
+			if(bz.completadoCompartirSocial){
+				
+				bz.completadoCompartirSocial = false;
+
+				var defered = $q.defer();
+				var compartirPromise = defered.promise;
+
+				if (!logo.idLogo) {
+
+					bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
+						.then(function (res) {
+							logo.idLogo = res;
+
+							var unix = Date.now();
+
+							var attrs = {
+								socialshareUrl: bz.urlCompartir + $location.path() + "?idLogo=" + logo.idLogo + "&unix=" + unix
+							};
+
+							switch (provider) {
+							case "twitter":
+								attrs.socialshareHashtags = "Liderlogo";
+								break;
+					
+							case "pinterest":
+								attrs.socialshareMedia = bz.urlCompartir+"/app/logo/compartido/"+logo.idLogo; attrs.socialshareText = "Pinterest";
+								break;
+							}
+
+							Socialshare.share({
+								"provider": provider,
+								"attrs": attrs
+							});
+
+						})
+						.catch(function () {
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "Un error ha ocurrido",
+									clase: "danger"
+								}
+							}));
+						})
+						.finally(function () {
+							defered.resolve();
+						});
+
+				} else{
+					
+					var unix = Date.now();
+
+					var attrs = {
+						socialshareUrl: bz.urlCompartir + $location.path() + "?idLogo=" + logo.idLogo + "&unix=" + unix
+					};
+
+					switch (provider) {
+					case "twitter":
+						attrs.socialshareHashtags = "Liderlogo";
+						break;
+					
+					case "pinterest":
+						attrs.socialshareMedia = bz.urlCompartir+"/app/logo/compartido/"+logo.idLogo; attrs.socialshareText = "Pinterest";
+						break;
+					}
+
+					Socialshare.share({
+						"provider": provider,
+						"attrs": attrs
+					});
+
+					defered.resolve();
+				}
+
+				compartirPromise.finally(function(){
+					bz.completadoCompartirSocial = true;
+				});
+
+			}
+			
+
 		};
 
 

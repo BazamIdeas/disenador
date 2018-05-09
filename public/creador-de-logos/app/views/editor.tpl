@@ -153,7 +153,7 @@
 				<div class="tab" ng-show="editor.menuSwitch == 3">
 					<div class="row">
 						<div class="col s12 no-padding">
-							<md-chips style="padding:0;" md-add-on-blur="true" ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+							<md-chips style="padding:0;" md-add-on-blur="true" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
 							    md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" >
 								<label>Etiquetas</label>
 								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
@@ -172,7 +172,7 @@
 							<md-input-container style="width:87%; padding: 0 0.75rem 0 0">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
 								<md-select flex ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-								    md-no-asterisk required>
+								    md-no-asterisk>
 									<md-option class="iconos" ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
 								</md-select>
 							</md-input-container>

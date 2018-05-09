@@ -2014,11 +2014,11 @@ angular.module("disenador-de-logos")
 				
 				return promise;
 			},
-			eliminar: function(){
+			eliminar: function(idPieza){
 				var defered = $q.defer();
 				var promise = defered.promise;
 				
-				$http.post("ruta")
+				$http.get("/app/papeleria/pieza/"+idPieza+"/eliminar")
 					.then(function(res){
 						defered.resolve(res.data);
 					})
