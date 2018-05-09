@@ -163,12 +163,36 @@ exports.descargarPapeleria = function (req, res, next) {
 
             /* Colocamos los datos en la plantilla de papeleria */
 
-            for (let i = 0; i < papeleria.pieza.caras.length; i++) {
+            var caras =  papeleria.pieza.caras;
+
+            for (let i = 0; i < caras.length; i++) {
                 /* Si queremos saber el nombre de la cara */
                 //console.log(papeleria.pieza.caras[i].nombre)
 
-                papeleria.pieza.caras[i].tipo = papeleria.tipo;
-                var datos = papeleria.pieza.caras[i];
+                /* Colocamos las fuentes */
+
+                if(caras[i].hooks.length > 0){
+                    for (let e = 0; e < caras[i].hooks.length; e++) {
+                        var fuente = caras[i].hooks[e].fuente;
+                        var keyfonts = Object.keys(fuente);
+                        for (var key in keyfonts) {
+                            if(keyfonts[key] === 'url'){
+                                while (template.indexOf("${" + keyfonts[key] +'-'+ key + "-link}") != -1) {
+                                    template = template.replace("${" + keyfonts[key] +'-'+ key + "-link}", fuente[keyfonts[key]]);
+                                }
+                            }
+                            console.log("${" + keyfonts[key] +'-'+ key + "}")
+                            while (template.indexOf("${" + keyfonts[key] +'-'+ key + "}") != -1) {
+                                template = template.replace("${" + keyfonts[key] +'-'+ key + "}", fuente[keyfonts[key]]);
+                            }
+                        }
+                    }
+                }
+
+                /* Colocamos los svg */
+
+                caras[i].tipo = papeleria.tipo;
+                var datos = caras[i];
 
                 var keys = Object.keys(datos);
                 for (var key in keys) {
@@ -183,6 +207,8 @@ exports.descargarPapeleria = function (req, res, next) {
                     }
                 }
             }
+
+            console.log(template)
 
             /* ********************************* */
 
