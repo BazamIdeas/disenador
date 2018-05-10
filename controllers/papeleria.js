@@ -178,12 +178,24 @@ exports.descargarPapeleria = function (req, res, next) {
                         for (var key in keyfonts) {
                             if(keyfonts[key] === 'url'){
                                 while (template.indexOf("${" + keyfonts[key] +'-'+ key + "-link}") != -1) {
+
+                                    var tipo = fuente[keyfonts[key]].substr(-3);
+                                    switch (tipo) {
+                                        case 'ttf':
+                                            fuente[keyfonts[key]] = fuente[keyfonts[key]].replace('/fuentes/', '');
+                                            fuente[keyfonts[key]] = "url('"+fuente[keyfonts[key]] + "') format('truetype')";
+                                            break;
+                                    
+                                        default:
+                                            break;
+                                    }
+
                                     template = template.replace("${" + keyfonts[key] +'-'+ key + "-link}", fuente[keyfonts[key]]);
                                 }
-                            }
-                            console.log("${" + keyfonts[key] +'-'+ key + "}")
-                            while (template.indexOf("${" + keyfonts[key] +'-'+ key + "}") != -1) {
-                                template = template.replace("${" + keyfonts[key] +'-'+ key + "}", fuente[keyfonts[key]]);
+
+                                while (template.indexOf("${" + keyfonts[key] +'-'+ key + "}") != -1) {
+                                    template = template.replace("${"+ keyfonts[key] +'-'+ key +"}", fuente['nombre']);
+                                }
                             }
                         }
                     }
@@ -208,13 +220,13 @@ exports.descargarPapeleria = function (req, res, next) {
                 }
             }
 
-            console.log(template)
+           console.log(template)
 
             /* ********************************* */
 
             url = __dirname.replace('controllers', '')
 
-            url = 'file:///' + url + ubicacionPlantilla + '/assets/style.css';
+            url = 'file:///' + url + ubicacionPlantilla + '../../fuentes/';
 
             var plataforma = os.platform();
 
