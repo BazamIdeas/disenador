@@ -21,9 +21,12 @@ angular.module("disenador-de-logos")
 			pieza: {
 				caras: [],
 				nombre: "",
-				_id: null
+				_id: "", //id de la pieza si esta existia
+				logo: 0 //id del logo
 			}
-		}
+		};
+
+		bz.datos.pieza.logo = bz.papeleria.logo.id;
 
 		if(bz.papeleria.idPieza){
 			bz.datos.pieza._id = bz.papeleria.idPieza;

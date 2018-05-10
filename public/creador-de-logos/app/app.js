@@ -643,7 +643,6 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 			} else if (error === "PAPELERIA_INVALID") {
 
-				console.log(toParams)
 				$state.go("papeleria", {
 					id: toParams.id
 				});
