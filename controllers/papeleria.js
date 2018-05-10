@@ -105,8 +105,8 @@ exports.Guardar = (req, res) => {
     const modelo = req.body.modelo;
     const pieza = req.body.pieza;
     pieza.cliente = req.idCliente;
-
-    Logo.getLogo([pieza.logo, pieza.cliente], (error, data) => {
+    
+    Logo.getLogo([pieza.cliente, pieza.logo], (error, data) => {
 		if (typeof data !== "undefined" && data.length > 0) {
 
             Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
