@@ -2,6 +2,8 @@ const Pieza = require('../modelos/piezasModelo.js');
 const Modelo = require('../modelos/modelosModelo.js');
 const Tipo = require('../modelos/tiposModelo.js');
 const Logo = require('../modelos/logosModelo.js');
+const atributo = require('../modelos/atributosModelo.js');
+var elemento = require("../modelos/elementosModelo.js");
 const async = require("async");
 var pdf = require('html-pdf');
 var os = require('os');
@@ -105,9 +107,9 @@ exports.Guardar = (req, res) => {
     const modelo = req.body.modelo;
     const pieza = req.body.pieza;
     pieza.cliente = req.idCliente;
-
-    Logo.getLogo([pieza.logo, pieza.cliente], (error, data) => {
-        if (typeof data !== "undefined" && data.length > 0) {
+    
+    Logo.getLogo([pieza.cliente, pieza.logo], (error, data) => {
+		if (typeof data !== "undefined" && data.length > 0) {
 
             Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
 
@@ -151,24 +153,24 @@ exports.descargarPapeleria = function (req, res, next) {
 
     var fuentesLogo = [];
 
-    logos.getLogo(par, function (error, data) {
+    Logo.getLogo(par, function (error, data) {
         //si el pedido existe 
 
         if (typeof data !== "undefined" && data.length > 0) {
-            var logo = data[0];
+            var datosLogo = data[0];
 
             atributo.ObtenerPorLogo(req.body.idLogo, function (error, data) {
                 //console.log(data)
                 if (typeof data !== "undefined" && data.length > 0) {
-                    logo["atributos"] = data;
+                    datosLogo["atributos"] = data;
                     elemento.ListarFuentes(function (error, data) {
                         if (typeof data !== "undefined" && data.length > 0) {
                             data.forEach(fuente => {
-                                logo['atributos'].forEach(attrLogo => {
+                                datosLogo['atributos'].forEach(attrLogo => {
                                     if (fuente.idElemento == attrLogo.valor) {
                                         fuentesLogo.push({
-                                            nombre: element.nombre,
-                                            url: element.url
+                                            nombre: fuente.nombre,
+                                            url: fuente.url
                                         });
                                     }
                                 });
@@ -222,10 +224,8 @@ exports.descargarPapeleria = function (req, res, next) {
 
                 /* Colocamos las fuentes del logo */
 
-                console.log(fuentesLogo)
-
                 for (let e = 0; e < fuentesLogo.length; e++) {
-                    var fuente = fuentesLogo[i];
+                    var fuente = fuentesLogo[e];
                     var keyfonts = Object.keys(fuente);
 
                     for (var key in keyfonts) {
@@ -343,15 +343,15 @@ exports.descargarPapeleria = function (req, res, next) {
 
                 papeleria.modelo = papeleria.modelo.replace(/[^a-zA-Z0-9-_]/g, '');
 
-                var nombre = './public/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf';
+                var nombre = './public/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '-'+req.body.idLogo+'.pdf';
 
                 pdf.create(template, configuracion).toFile(nombre, function (err, data) {
 
                     if (err) throw err;
 
                     data = {
-                        nombreArchivo: 'papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf',
-                        url: '/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf'
+                        nombreArchivo: 'papeleria-' + papeleria.tipo + '-' + papeleria.modelo +'-'+req.body.idLogo+'.pdf',
+                        url: '/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '-'+req.body.idLogo+'.pdf'
                     };
 
                     res.status(200).json(data)

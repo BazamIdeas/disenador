@@ -15,6 +15,8 @@ angular.module("disenador-de-logos")
 
                 bz.idLogo = $scope.idLogo;
 
+                $scope.papeleriaActiva = $scope.papelerias[0].tipo;
+
                 bz.enviarEditor = function(indicePapeleria, indiceModelo){
 
                     var papeleria = angular.copy($scope.papelerias[indicePapeleria]);

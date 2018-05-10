@@ -26,7 +26,7 @@ angular.module("disenador-de-logos")
 			}
 		};
 
-		bz.datos.pieza.logo = bz.papeleria.logo.id;
+		bz.datos.pieza.logo = bz.logo.id;
 
 		if(bz.papeleria.idPieza){
 			bz.datos.pieza._id = bz.papeleria.idPieza;

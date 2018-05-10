@@ -1,9 +1,9 @@
-<div class="categorias-papeleria">
-    <md-button ng-click="papeleriaCtrl.crearPapeleria = !papeleriaCtrl.crearPapeleria" class="md-primary md-raised" style="position: absolute;">Crear Papeleria</md-button>
-    <div>Creaciones Guardadas</div>
+<div class="categorias-papeleria" ng-show="papeleriaCtrl.papelerias">
+    <span class="tab-papeleria" ng-click="papeleriaCtrl.papeleriaActiva = papeleria.tipo" ng-class="{'seleccionada':papeleria.tipo == papeleriaCtrl.papeleriaActiva, 'hidden': !papeleria.tienePiezas}"
+        ng-repeat="papeleria in papeleriaCtrl.papelerias">{{papeleria.tipo}}</span>
 </div>
-<div class="contenedor-papelerias">
-    <div ng-repeat="papeleria in papeleriaCtrl.papelerias" class="papeleria-ejemplos">
+<div class="contenedor-papelerias" ng-show="papeleriaCtrl.papelerias">
+    <div ng-repeat="papeleria in papeleriaCtrl.papelerias" class="papeleria-ejemplos" ng-show="papeleria.tipo == papeleriaCtrl.papeleriaActiva">
         <div ng-repeat="modelo in papeleria.modelos" ng-class="{'hidden': modelo.piezas == undefined}">
             <div ng-repeat="piezaUsuario in modelo.piezas" style="position: relative;">
                 <span class="modelo-papeleria" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[0].svg)"></span>
@@ -21,51 +21,76 @@
         </div>
     </div>
 </div>
-<div ng-if="!papeleriaCtrl.papelerias">
-    <img style="width: 50%;" style="display: block; margin: auto;" src="assets/logo.pro.svg">
+<md-button ng-show="papeleriaCtrl.papelerias" ng-click="papeleriaCtrl.crearPapeleria = !papeleriaCtrl.crearPapeleria" class="md-primary md-raised boton-crear-papeleria">Crear Papeleria</md-button>
+
+<div ng-show="!papeleriaCtrl.papelerias" style="    height: calc(100% - 60px);
+display: flex;
+justify-content: center;
+align-items: center;">
+    <img style="width: 20%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
 </div>
 
-<bazam-crear-papeleria id-logo="papeleriaCtrl.idLogo" estado="papeleriaCtrl.crearPapeleria" papelerias="papeleriaCtrl.papelerias"></bazam-crear-papeleria>
+<bazam-crear-papeleria id-logo="papeleriaCtrl.idLogo" ng-if="papeleriaCtrl.papelerias" estado="papeleriaCtrl.crearPapeleria" papelerias="papeleriaCtrl.papelerias"></bazam-crear-papeleria>
 
 <style>
-    .categorias-papeleria>div {
-        padding: 10px;
-        font-size: 25pt;
-        text-transform: capitalize;
-        flex: 1;
-        text-align: center;
-    }
-
     .categorias-papeleria {
         display: flex;
-        padding: 20px 0px;
-        height: 15%;
+        padding: 10px 0px;
+        height: 10%;
+    }
+
+    .categorias-papeleria .tab-papeleria {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: capitalize;
+        font-size: 18pt;
+        cursor: pointer;
+    }
+
+    .tab-papeleria.seleccionada {
+        color: #5981bc;
     }
 
     .contenedor-papelerias {
-        height: 75%;
-        display: flex;
+        height: 70%;
         overflow-y: scroll;
         overflow-x: hidden;
     }
 
-    .papeleria-ejemplos {
-        padding-left: 1%;
-    }
-
-    .papeleria-ejemplos span.accion,
+    .papeleria-ejemplos span.accion, .modelo-papeleria-crear span.accion,
     .papeleria-ejemplos span.comprar {
         opacity: 1;
     }
 
     .papeleria-ejemplos>div {
-        width: 32vw;
-        height: 21vw;
-        margin: 0;
-        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: left;
     }
 
-    .papeleria-ejemplos>div.hidden {
-        display: none;
+    .papeleria-ejemplos>div>div {
+        width: 30vw;
+        position: relative;
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .boton-crear-papeleria {
+        margin: auto !important;
+        display: block !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        color: black !important;
+        border: 1px solid !important;
+        border-radius: 5px;
+        font-size: 15pt;
+        padding: 5px 25px;
     }
 </style>
