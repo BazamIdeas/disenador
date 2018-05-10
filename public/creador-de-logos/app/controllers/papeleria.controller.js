@@ -36,7 +36,6 @@ angular.module("disenador-de-logos")
 		bz.descargarPieza = function(id){
 			angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
 			papeleriaService.piezas.descargar(id).then(function(res){
-				console.log(res)
 				var a = $document[0].createElement("a");
 				$document[0].body.appendChild(a);
 				a.style = "display:none";
