@@ -115,10 +115,9 @@ pieza.Guardar = (piezaData, callback) =>
             collection.insertOne(piezaData, (err, doc) => {
                 if (err) callback(err);
                 callback(null, {
-                    'insertId': doc.insertedId
+                    'insertId': doc.ops[0]
                 });
             });
-
         }
         
     })
@@ -133,7 +132,7 @@ pieza.Borrar = (_id, cliente, callback) =>
             '_id': objectId(_id),
             'cliente': cliente
         }, (err, doc) => {
-            if (err) throw err;
+            if (err) callback(err);
             callback(null, {
                 'affectedRow': doc.value
             });

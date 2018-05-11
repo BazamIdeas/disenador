@@ -101,7 +101,6 @@ angular.module("disenador-de-logos")
                         elemento.orientacion = 'right';
                         if (elemento.id) {
                             cambio('right');
-
                         }
                     }
 
@@ -114,7 +113,7 @@ angular.module("disenador-de-logos")
                     hook.fuente.nombre = fuente.nombre;
                     hook.fuente.url = fuente.url;
                     
-                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
+                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook, true);
                 }
 
             }],

@@ -2,6 +2,8 @@ const Pieza = require('../modelos/piezasModelo.js');
 const Modelo = require('../modelos/modelosModelo.js');
 const Tipo = require('../modelos/tiposModelo.js');
 const Logo = require('../modelos/logosModelo.js');
+const atributo = require('../modelos/atributosModelo.js');
+var elemento = require("../modelos/elementosModelo.js");
 const async = require("async");
 var pdf = require('html-pdf');
 var os = require('os');
@@ -89,7 +91,7 @@ exports.ObtenerPiezaPorUsuario = (req, res) => {
 exports.EliminarPieza = (req, res) => {
     const _id = req.params._id
 
-    Pieza.Eliminar(_id, req.idCliente, (err, data) => {
+    Pieza.Borrar(_id, req.idCliente, (err, data) => {
         if (data !== null && data.affectedRow) {
             res.status(200).json(data);
         } else {
@@ -136,7 +138,9 @@ exports.Guardar = (req, res) => {
 
         } else {
 
-            res.status(404).json({msg: "El logo no existe"});
+            res.status(404).json({
+                msg: "El logo no existe"
+            });
 
         }
     });
@@ -145,140 +149,218 @@ exports.Guardar = (req, res) => {
 
 exports.descargarPapeleria = function (req, res, next) {
 
-    const _id = req.body._id;
+    var par = [req.idCliente, req.body.idLogo];
 
-    var piezaUsuario;
+    var fuentesLogo = [];
 
-    Pieza.ObtenerPorIDyUsuario(_id, req.idCliente, (err, piezas) => {
-        if (piezas.length) {
+    Logo.getLogo(par, function (error, data) {
+        //si el pedido existe 
 
-            piezaUsuario = piezas;
+        if (typeof data !== "undefined" && data.length > 0) {
+            var datosLogo = data[0];
 
-            var papeleria = {
-                pieza: {
-                    caras: piezaUsuario[0].caras
-                },
-                tipo: piezaUsuario[0].tipo[0].tipo,
-                modelo: piezaUsuario[0].modelo[0].nombre
-            }
+            atributo.ObtenerPorLogo(req.body.idLogo, function (error, data) {
+                //console.log(data)
+                if (typeof data !== "undefined" && data.length > 0) {
+                    datosLogo["atributos"] = data;
+                    elemento.ListarFuentes(function (error, data) {
+                        if (typeof data !== "undefined" && data.length > 0) {
+                            data.forEach(fuente => {
+                                datosLogo['atributos'].forEach(attrLogo => {
+                                    if (fuente.idElemento == attrLogo.valor) {
+                                        fuentesLogo.push({
+                                            nombre: fuente.nombre,
+                                            url: fuente.url
+                                        });
+                                    }
+                                });
+                            });
 
-            papeleria.modelo = papeleria.modelo.replace(' ', '_');
-
-            /* Buscamos la plantilla a utilizar */
-
-            var ubicacionPlantilla = './plantillas-papeleria/' + papeleria.tipo + '/';
-
-            var template = fs.readFileSync(ubicacionPlantilla + 'index.html', 'utf8', (err, data) => {
-                if (err) throw err;
+                            ObtenerPieza();
+                        }
+                    });
+                }
+            });
+        }
+        //no existe
+        else {
+            res.status(404).json({
+                "msg": "No existe el logo o no le pertenece al cliente"
             });
 
-            /* Colocamos los datos en la plantilla de papeleria */
+        }
+    });
 
-            var caras =  papeleria.pieza.caras;
+    /* FUNCION PAPELERIA */
 
-            for (let i = 0; i < caras.length; i++) {
-                /* Si queremos saber el nombre de la cara */
-                //console.log(papeleria.pieza.caras[i].nombre)
+    const _id = req.body._id;
+    var piezaUsuario;
 
-                /* Colocamos las fuentes */
+    function ObtenerPieza() {
+        Pieza.ObtenerPorIDyUsuario(_id, req.idCliente, (err, piezas) => {
+            if (piezas.length) {
 
-                if(caras[i].hooks.length > 0){
-                    for (let e = 0; e < caras[i].hooks.length; e++) {
-                        var fuente = caras[i].hooks[e].fuente;
-                        var keyfonts = Object.keys(fuente);
-                        for (var key in keyfonts) {
-                            if(keyfonts[key] === 'url'){
-                                while (template.indexOf("${" + keyfonts[key] +'-'+ key + "-link}") != -1) {
+                piezaUsuario = piezas;
 
-                                    var tipo = fuente[keyfonts[key]].substr(-3);
-                                    switch (tipo) {
-                                        case 'ttf':
-                                            fuente[keyfonts[key]] = fuente[keyfonts[key]].replace('/fuentes/', '');
-                                            fuente[keyfonts[key]] = "url('"+fuente[keyfonts[key]] + "') format('truetype')";
-                                            break;
-                                    
-                                        default:
-                                            break;
-                                    }
+                var papeleria = {
+                    pieza: {
+                        caras: piezaUsuario[0].caras
+                    },
+                    tipo: piezaUsuario[0].tipo[0].tipo,
+                    modelo: piezaUsuario[0].modelo[0].nombre
+                }
 
-                                    template = template.replace("${" + keyfonts[key] +'-'+ key + "-link}", fuente[keyfonts[key]]);
+                papeleria.modelo = papeleria.modelo.replace(' ', '_');
+
+                /* Buscamos la plantilla a utilizar */
+
+                var ubicacionPlantilla = './plantillas-papeleria/' + papeleria.tipo + '/';
+
+                var template = fs.readFileSync(ubicacionPlantilla + 'index.html', 'utf8', (err, data) => {
+                    if (err) throw err;
+                });
+
+                /* Colocamos los datos en la plantilla de papeleria */
+
+                /* Colocamos las fuentes del logo */
+
+                for (let e = 0; e < fuentesLogo.length; e++) {
+                    var fuente = fuentesLogo[e];
+                    var keyfonts = Object.keys(fuente);
+
+                    for (var key in keyfonts) {
+                        if (keyfonts[key] === 'url') {
+                            while (template.indexOf("${" + keyfonts[key] + '-' + key + "-link-logo}") != -1) {
+
+                                var tipo = fuente[keyfonts[key]].substr(-3);
+                                fuente[keyfonts[key]] = fuente[keyfonts[key]].replace('/fuentes/', '');
+
+                                switch (tipo) {
+                                    case 'ttf':
+                                        fuente[keyfonts[key]] = "url('" + fuente[keyfonts[key]] + "') format('truetype')";
+                                        break;
+
+                                    default:
+                                        break;
                                 }
 
-                                while (template.indexOf("${" + keyfonts[key] +'-'+ key + "}") != -1) {
-                                    template = template.replace("${"+ keyfonts[key] +'-'+ key +"}", fuente['nombre']);
-                                }
+                                template = template.replace("${" + keyfonts[key] + '-' + key + "-link-logo}", fuente[keyfonts[key]]);
+                            }
+
+                            while (template.indexOf("${" + keyfonts[key] + '-' + key + "-logo}") != -1) {
+                                template = template.replace("${" + keyfonts[key] + '-' + key + "-logo}", fuente['nombre']);
                             }
                         }
                     }
                 }
 
-                /* Colocamos los svg */
+                var caras = papeleria.pieza.caras;
 
-                caras[i].tipo = papeleria.tipo;
-                var datos = caras[i];
+                for (let i = 0; i < caras.length; i++) {
+                    /* Si queremos saber el nombre de la cara */
+                    //console.log(papeleria.pieza.caras[i].nombre)
 
-                var keys = Object.keys(datos);
-                for (var key in keys) {
-                    if (keys[key] == 'svg') {
-                        while (template.indexOf("${" + keys[key] + '-' + datos[keys[1]] + "}") != -1) {
-                            template = template.replace("${" + keys[key] + '-' + datos[keys[1]] + "}", datos[keys[key]]);
+                    /* Colocamos las fuentes de la plantilla */
+
+                    if (caras[i].hooks.length > 0) {
+                        for (let e = 0; e < caras[i].hooks.length; e++) {
+                            var fuente = caras[i].hooks[e].fuente;
+                            var keyfonts = Object.keys(fuente);
+                            for (var key in keyfonts) {
+                                if (keyfonts[key] === 'url') {
+                                    while (template.indexOf("${" + keyfonts[key] + '-' + key + "-link}") != -1) {
+
+                                        var tipo = fuente[keyfonts[key]].substr(-3);
+                                        fuente[keyfonts[key]] = fuente[keyfonts[key]].replace('/fuentes/', '');
+
+                                        switch (tipo) {
+                                            case 'ttf':
+                                                fuente[keyfonts[key]] = "url('" + fuente[keyfonts[key]] + "') format('truetype')";
+                                                break;
+
+                                            default:
+                                                break;
+                                        }
+
+                                        template = template.replace("${" + keyfonts[key] + '-' + key + "-link}", fuente[keyfonts[key]]);
+                                    }
+
+                                    while (template.indexOf("${" + keyfonts[key] + '-' + key + "}") != -1) {
+                                        template = template.replace("${" + keyfonts[key] + '-' + key + "}", fuente['nombre']);
+                                    }
+                                }
+                            }
                         }
                     }
 
-                    while (template.indexOf("${" + keys[key] + "}") != -1) {
-                        template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
+                    /* Colocamos los svg */
+
+                    caras[i].tipo = papeleria.tipo;
+                    var datos = caras[i];
+
+                    var keys = Object.keys(datos);
+                    for (var key in keys) {
+                        if (keys[key] == 'svg') {
+                            while (template.indexOf("${" + keys[key] + '-' + datos[keys[1]] + "}") != -1) {
+                                template = template.replace("${" + keys[key] + '-' + datos[keys[1]] + "}", datos[keys[key]]);
+                            }
+                        }
+
+                        while (template.indexOf("${" + keys[key] + "}") != -1) {
+                            template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
+                        }
                     }
                 }
-            }
 
-           console.log(template)
+                //console.log(template)
 
-            /* ********************************* */
+                /* ********************************* */
 
-            url = __dirname.replace('controllers', '')
+                url = __dirname.replace('controllers', '')
 
-            url = 'file:///' + url + ubicacionPlantilla + '../../fuentes/';
+                url = 'file:///' + url + ubicacionPlantilla + '../../fuentes/';
 
-            var plataforma = os.platform();
+                var plataforma = os.platform();
 
-            var tamanosPapeleria = {
-                "tarjeta": {
-                    windows: {
-                        "height": "55mm",
-                        "width": "85mm",
-                        "base": url,
-                        "type": "pdf",
-                        "renderDelay": 3000,
-                        "border": "0"
+                var tamanosPapeleria = {
+                    "tarjeta": {
+                        windows: {
+                            "height": "55mm",
+                            "width": "85mm",
+                            "base": url,
+                            "type": "pdf",
+                            "renderDelay": 3000,
+                            "border": "0"
+                        }
                     }
-                }
-            };
-
-            if (plataforma != 'win32') {
-                template = template.replace('${zoom}', '0.75');
-            } else {
-                var configuracion = tamanosPapeleria[papeleria.tipo].windows;
-            }
-
-            papeleria.modelo = papeleria.modelo.replace(/[^a-zA-Z0-9-_]/g, '');
-            
-            var nombre = './public/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf';
-
-            pdf.create(template, configuracion).toFile(nombre, function (err, data) {
-
-                if (err) throw err;
-
-                data = {
-                    nombreArchivo: 'papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf',
-                    url: '/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '.pdf'
                 };
 
-                res.status(200).json(data)
-            });
-        } else {
-            res.status(404).json({
-                'msg': 'No hay piezas en la base de datos'
-            });
-        }
-    })
+                if (plataforma != 'win32') {
+                    template = template.replace('${zoom}', '0.75');
+                } else {
+                    var configuracion = tamanosPapeleria[papeleria.tipo].windows;
+                }
+
+                papeleria.modelo = papeleria.modelo.replace(/[^a-zA-Z0-9-_]/g, '');
+
+                var nombre = './public/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '-'+req.body.idLogo+'.pdf';
+
+                pdf.create(template, configuracion).toFile(nombre, function (err, data) {
+
+                    if (err) throw err;
+
+                    data = {
+                        nombreArchivo: 'papeleria-' + papeleria.tipo + '-' + papeleria.modelo +'-'+req.body.idLogo+'.pdf',
+                        url: '/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '-'+req.body.idLogo+'.pdf'
+                    };
+
+                    res.status(200).json(data)
+                });
+            } else {
+                res.status(404).json({
+                    'msg': 'No hay piezas en la base de datos'
+                });
+            }
+        })
+    }
 }

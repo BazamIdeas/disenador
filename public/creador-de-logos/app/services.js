@@ -2031,11 +2031,11 @@ angular.module("disenador-de-logos")
 				
 				return promise;
 			},
-			descargar: function(id){
+			descargar: function(id, idlogo){
 				var defered = $q.defer();
 				var promise = defered.promise;
 
-				let datos = {_id : id};
+				let datos = {_id : id, idLogo: idlogo};
 				
 				$http.post("/app/papeleria/descargar", datos)
 					.then(function(res){

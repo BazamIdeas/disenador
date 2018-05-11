@@ -8,8 +8,8 @@ angular.module("disenador-de-logos")
 		bz.logo = logoResolve;
 
 		elementosService.listarFuentes().then(function(res){
-			fontService.agregarGeneral(bz.fuentes);
-			bz.fuentes = res;			
+			bz.fuentes = res;		
+			fontService.agregarGeneral(bz.fuentes);	
 		});
 		
 		bz.papeleria = papeleriaResolve;	

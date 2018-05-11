@@ -155,10 +155,11 @@ exports.listaSegunTagCat = function (req, res) {
 
 			if (elementos.length < limit) {
 
-				elemento.getElementosIncat([categoria, 'ICONO', limit], (error, data) => {
-					
+				elemento.getElementsByTags(arr, 0, limit, (err, data) => {
+					let elementos = [];
+		
 					if (typeof data !== "undefined" && data.length > 0) {
-
+		
 						for (let i = data.length - 1; i >= 0; i--) {
 							let id = data[i].idElemento;
 							let into = 0;
@@ -168,16 +169,46 @@ exports.listaSegunTagCat = function (req, res) {
 									into = 1;
 								}
 							}
-
-							if (into == 0 && elementos.length < limit) {
+		
+							if (into == 0) {
 								elementos = elementos.concat(data[i]);
 							}
 						}
-
+		
 					}
 
-					res.status(200).json(elementos);
+					if (elementos.length < limit) {
 
+						elemento.getElementosIncat([categoria, 'ICONO', limit], (error, data) => {
+							
+							if (typeof data !== "undefined" && data.length > 0) {
+
+								for (let i = data.length - 1; i >= 0; i--) {
+									let id = data[i].idElemento;
+									let into = 0;
+									for (let j = elementos.length - 1; j >= 0; j--) {
+										let id2 = elementos[j].idElemento;
+										if (id == id2) {
+											into = 1;
+										}
+									}
+
+									if (into == 0 && elementos.length < limit) {
+										elementos = elementos.concat(data[i]);
+									}
+								}
+
+							}
+
+							res.status(200).json(elementos);
+
+						});
+
+					} else {
+
+						res.status(200).json(elementos);
+					
+					}
 				});
 
 			} else {
