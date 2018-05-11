@@ -108,8 +108,8 @@ pieza.Guardar = (piezaData, callback) =>
                 caras: piezaData.caras,
                 nombre: piezaData.nombre,
                 modelo: piezaData.modelo,
-                cliente: piezaData.cliente,
                 tipo: piezaData.tipo
+                logo: piezaData.logo
             };
 
             collection.insertOne(piezaData, (err, doc) => {
