@@ -1950,8 +1950,8 @@ angular.module("disenador-de-logos")
 							});
 						}
 					})
-					.catch(function () {
-						defered.reject();
+					.catch(function (res) {
+						defered.reject(res);
 					});
 
 			}
@@ -1965,7 +1965,8 @@ angular.module("disenador-de-logos")
 
 			angular.forEach(fuentes, function (fuente) {
 				fontService.preparar(fuente.nombre, fuente.url)
-					.catch(function () {
+					.catch(function (res) {
+						console.log(res)
 					});
 			});
 
