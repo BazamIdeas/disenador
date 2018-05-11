@@ -91,7 +91,7 @@ exports.ObtenerPiezaPorUsuario = (req, res) => {
 exports.EliminarPieza = (req, res) => {
     const _id = req.params._id
 
-    Pieza.Eliminar(_id, req.idCliente, (err, data) => {
+    Pieza.Borrar(_id, req.idCliente, (err, data) => {
         if (data !== null && data.affectedRow) {
             res.status(200).json(data);
         } else {

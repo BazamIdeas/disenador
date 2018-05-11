@@ -33,14 +33,14 @@
 
                         <div class="opciones-hook">
                             <span>
-                                <input type="color" ng-init="hook.fuente.fill" ng-model="hook.fuente.fill" ng-change="papeleriaEditor.modificarHook($parent.$index, $index)">
+                                <input type="color" ng-init="hook.fuente.fill" ng-model="hook.fuente.fill" ng-change="papeleriaEditor.modificarHook($parent.$index, $index, true)">
                             </span>
                             <span>
                                 <md-input-container style="width: 100%;">
                                     <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fuentes</md-tooltip>
                                     <md-select flex ng-model="hook.fuenteNueva" placeholder="Seleccione una fuente" ng-change="menuPapeleria.cambiarFuente(hook.fuenteNueva, $parent.$index, $index)"
                                         md-no-asterisk required>
-                                        <md-option ng-repeat="fuente in papeleriaEditor.fuentes track by $index" ng-value="fuente">{{fuente.nombre}}</md-option>
+                                        <md-option ng-repeat="fuente in papeleriaEditor.fuentes track by $index" ng-value="fuente"><span style="font-family:{{fuente.nombre}}">{{fuente.nombre}}</span></md-option>
                                     </md-select>
                                 </md-input-container>
                             </span>
@@ -73,11 +73,11 @@
                                         <md-tooltip md-direction="bottom">Agregar Icono</md-tooltip>
                                     </span>
                                     <input ng-if="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                        name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"
+                                        name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index, true)"
                                         required>
 
                                     <textarea ng-if="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                        name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index)"
+                                        name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index, true)"
                                         required></textarea>
                                 </span>
                                 <span ng-click="menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
