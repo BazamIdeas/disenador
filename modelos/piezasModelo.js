@@ -108,7 +108,7 @@ pieza.Guardar = (piezaData, callback) =>
                 caras: piezaData.caras,
                 nombre: piezaData.nombre,
                 modelo: piezaData.modelo,
-                tipo: piezaData.tipo
+                tipo: piezaData.tipo,
                 logo: piezaData.logo
             };
 
