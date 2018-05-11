@@ -480,7 +480,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 						/* VALIDACION DE PAPELERIA*/
 
 						var papeleria = {};
-					
+						
 						if ($stateParams.papeleria && $stateParams.papeleria.papeleria && $stateParams.papeleria.modelo) {
 
 							papeleria = $stateParams.papeleria.papeleria;

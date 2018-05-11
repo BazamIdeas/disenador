@@ -883,7 +883,13 @@ angular.module("disenador-de-logos")
 								}
 							}));
 
-							bz.datos.pieza._id = res.insertId;
+							if(res.insertId){
+								bz.datos.pieza._id = res.insertId._id;
+							} else if (res.affectedRow) {
+								bz.datos.pieza._id = res.affectedRow._id;
+							}
+
+							
 						})
 						.catch(function () {
 
