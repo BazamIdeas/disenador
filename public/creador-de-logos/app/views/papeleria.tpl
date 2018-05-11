@@ -5,29 +5,30 @@
 <div class="contenedor-papelerias" ng-show="papeleriaCtrl.papelerias">
     <div ng-repeat="papeleria in papeleriaCtrl.papelerias" class="papeleria-ejemplos" ng-show="papeleria.tipo == papeleriaCtrl.papeleriaActiva">
         <div ng-repeat="modelo in papeleria.modelos" ng-class="{'hidden': modelo.piezas == undefined}">
-            <div class="flip-container" ng-repeat="piezaUsuario in modelo.piezas" ng-class="{'hover': piezaActiva == $index && piezaUsuario.caras[1]}">
+            <div class="flip-container {{papeleria.tipo}}" ng-repeat="piezaUsuario in modelo.piezas" ng-class="{'hover': piezaActiva == $index && piezaUsuario.caras[1]}">
                 <div class="flipper">
+                    <div class='overlay b-gif' ng-show="(papeleriaCtrl.peticion && papeleriaCtrl.papeleriaIndexElemento == $index)"></div>
                     <div class="front">
                         <span class="modelo-papeleria" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[0].svg)"></span>
                         <div class="combinacion-box">
-                                <div ng-click="piezaActiva = (piezaActiva == $index) ? null : piezaActiva = $index" style="position: absolute; width: 100%; height: 100%; top: 0px; left:0px;"></div>
-                                <span class="accion" style="bottom: 75%;" ng-click="papeleriaCtrl.enviarEditor($parent.$parent.$index,$parent.$index,$index)">
-                                    <p>EDITAR</p>
-                                    <img src="assets/images/edit_white.svg" alt="">
-                                </span>
-                                <span class="accion" style="bottom: 54%;" ng-click="papeleriaCtrl.descargarPieza(piezaUsuario._id)">
-                                    <p>DESCARGAR</p>
-                                    <img src="assets/images/svg-icons/download.svg" alt="">
-                                </span>
-                                <span class="accion" style="bottom: 33%;" ng-click="papeleriaCtrl.duplicarPieza(papeleria.tipo, modelo, piezaUsuario)">
-                                    <p>DUPLICAR</p>
-                                    <img src="assets/images/duplicate.png" alt="">
-                                </span>
-                                <span class="accion" style="bottom: 11%;" ng-click="papeleriaCtrl.eliminarPieza(modelo.piezas, piezaUsuario, $index)">
-                                    <p>ELIMINAR</p>
-                                    <img src="assets/images/close.png" alt="">
-                                </span>
-                            </div>
+                            <div ng-click="piezaActiva = (piezaActiva == $index) ? null : piezaActiva = $index" style="position: absolute; width: 100%; height: 100%; top: 0px; left:0px;"></div>
+                            <span class="accion" style="bottom: 75%;" ng-click="papeleriaCtrl.papeleriaIndexElemento = $index;  papeleriaCtrl.enviarEditor($parent.$parent.$index,$parent.$index,$index)">
+                                <p>EDITAR</p>
+                                <img src="assets/images/edit_white.svg" alt="">
+                            </span>
+                            <span class="accion" style="bottom: 54%;" ng-click="papeleriaCtrl.descargarPieza(piezaUsuario._id)">
+                                <p>DESCARGAR</p>
+                                <img src="assets/images/svg-icons/download.svg" alt="">
+                            </span>
+                            <span class="accion" style="bottom: 33%;" ng-click=" papeleriaCtrl.duplicarPieza(papeleria.tipo, modelo, piezaUsuario)">
+                                <p>DUPLICAR</p>
+                                <img src="assets/images/duplicate.png" alt="">
+                            </span>
+                            <span class="accion" style="bottom: 11%;" ng-click=" papeleriaCtrl.papeleriaIndexElemento = $index; papeleriaCtrl.eliminarPieza(modelo.piezas, piezaUsuario, $index)">
+                                <p>ELIMINAR</p>
+                                <img src="assets/images/close.png" alt="">
+                            </span>
+                        </div>
                     </div>
                     <div class="back">
                         <span class="modelo-papeleria" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[1].svg)"></span>
@@ -62,7 +63,7 @@
 display: flex;
 justify-content: center;
 align-items: center;">
-    <img style="width: 20%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
+    <img style="width: 20%;" style="display: block; margin: auto;" src="assets/images/gifs/a.gif">
 </div>
 
 <bazam-crear-papeleria id-logo="papeleriaCtrl.idLogo" ng-if="papeleriaCtrl.papelerias" estado="papeleriaCtrl.crearPapeleria"
@@ -101,11 +102,10 @@ align-items: center;">
         opacity: 1;
         background: rgba(0, 0, 0, 0.5);
     }
-    
+
     .papeleria-ejemplos>div {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
         padding-right: 15px;
     }
 
@@ -138,6 +138,11 @@ align-items: center;">
         perspective: 1000px;
     }
 
+    .flip-container.tarjeta {
+        width: 320px;
+        height: 240px;
+    }
+
     /* flip the pane when hovered */
 
     .flip-container.hover .flipper {
@@ -155,7 +160,13 @@ align-items: center;">
         height: 100%;
     }
 
-    .flipper.tarjeta{
+    .flipper .overlay {
+        height: 86%;
+        width: 100%;
+        z-index: 3;
+    }
+
+    .flipper.tarjeta {
         width: 320px;
         height: 200px;
     }
@@ -165,15 +176,16 @@ align-items: center;">
     .front,
     .back {
         backface-visibility: hidden;
-        width: 100%;        position: absolute;
+        width: 100%;
+        position: absolute;
         top: 0;
         left: 0;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
     }
 
     .front:hover,
-    .back:hover{
-        box-shadow: 0 6px 6px -3px rgba(0,0,0,.2), 0 10px 14px 1px rgba(0,0,0,.14), 0 4px 18px 3px rgba(0,0,0,.12);
+    .back:hover {
+        box-shadow: 0 6px 6px -3px rgba(0, 0, 0, .2), 0 10px 14px 1px rgba(0, 0, 0, .14), 0 4px 18px 3px rgba(0, 0, 0, .12);
     }
 
     /* front pane, placed above back */

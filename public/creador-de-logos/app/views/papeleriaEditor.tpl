@@ -1,13 +1,17 @@
 <div style="display: flex;">
     <bazam-menu-papeleria></bazam-menu-papeleria>
-<div style="    flex: 1;
+    <div style="    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;">
+        <div ng-show="!papeleriaEditor.papelerias" style="    height: calc(100% - 60px); display: flex; justify-content: center; align-items: center;">
+            <img style="width: 20%;" style="display: block; margin: auto;" src="assets/images/gifs/a.gif">
+        </div>
+
         <bazam-papeleria></bazam-papeleria>
         <div>
-            <button ng-click="papeleriaEditor.guardar()">guardar</button>
+            <md-button ng-show="papeleriaEditor.papelerias" ng-click="papeleriaEditor.guardar()" class="md-primary md-raised boton-crear-papeleria">Crear Papeleria</md-button>
         </div>
     </div>
 </div>
