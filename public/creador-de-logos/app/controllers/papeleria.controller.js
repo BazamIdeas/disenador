@@ -14,6 +14,7 @@ angular.module("disenador-de-logos")
 				angular.forEach(papeleria.modelos, function(modelo){
 					if(modelo.piezas){
 						papeleria.tienePiezas = true;
+						
 					}
 				})
 			})
@@ -60,7 +61,7 @@ angular.module("disenador-de-logos")
 		bz.duplicarPieza = function(tipo, modelo, pieza){
 			if(bz.peticion) return;
 			bz.peticion = true;
-			
+
 			piezaNueva = angular.copy(pieza);
 			delete piezaNueva._id;
 			piezaNueva.logo = bz.idLogo;
