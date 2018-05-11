@@ -101,23 +101,18 @@ align-items: center;">
         opacity: 1;
         background: rgba(0, 0, 0, 0.5);
     }
-
-    .contenedor-papelerias > div {
-        height: 100%;
-    }
-
+    
     .papeleria-ejemplos>div {
         display: flex;
         flex-wrap: wrap;
-        justify-content: left;
-        margin: auto;
+        justify-content: space-between;
+        padding-right: 15px;
     }
 
     .papeleria-ejemplos>div>div {
-        width: 23%;
         position: relative;
-        margin-left: 20px;
-        margin-bottom: 20px;
+        margin-left: 15px;
+        margin-bottom: 15px;
     }
 
     .hidden {
@@ -160,13 +155,17 @@ align-items: center;">
         height: 100%;
     }
 
+    .flipper.tarjeta{
+        width: 320px;
+        height: 200px;
+    }
+
     /* hide back of pane during swap */
 
     .front,
     .back {
         backface-visibility: hidden;
-        width: 100%;
-        position: absolute;
+        width: 100%;        position: absolute;
         top: 0;
         left: 0;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
