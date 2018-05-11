@@ -312,7 +312,7 @@ exports.descargarPapeleria = function (req, res, next) {
                     }
                 }
 
-                //console.log(template)
+                console.log(template)
 
                 /* ********************************* */
 
