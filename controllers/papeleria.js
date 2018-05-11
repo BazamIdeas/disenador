@@ -22,53 +22,64 @@ exports.ObtenerTodos = (req, res) => {
     });
 }
 
-exports.ObtenerTodoPorUsuario = (req, res) => {
-    Tipo.ObtenerTodos((err, tipos) => {
-        if (tipos.length) {
+exports.ObtenerTodoPorLogo = (req, res) => {
 
-            async.forEachOf(tipos, (tipo, keyTipo, callback) => {
+    Logo.getLogo([req.idCliente, req.params.idLogo], (error, data) => {
+        if (typeof data !== "undefined" && data.length > 0) {
 
-                Modelo.ObtenerPorTipo(tipo._id, (err, modelos) => {
+            Tipo.ObtenerTodos((err, tipos) => {
+                if (tipos.length) {
 
-                    if (modelos.length) {
+                    async.forEachOf(tipos, (tipo, keyTipo, callback) => {
 
-                        async.forEachOf(modelos, (modelo, keyModelo, callback) => {
+                        Modelo.ObtenerPorTipo(tipo._id, (err, modelos) => {
 
-                            Pieza.ObtenerPorModeloyUsuario(modelo._id, req.idCliente, (err, piezas) => {
-                                if (piezas.length) {
+                            if (modelos.length) {
 
-                                    delete modelos[keyModelo]._id;
-                                    modelos[keyModelo].piezas = piezas;
-                                    callback();
+                                async.forEachOf(modelos, (modelo, keyModelo, callback) => {
 
-                                } else {
-                                    callback();
-                                }
-                            })
+                                    Pieza.ObtenerPorModeloyLogo(modelo._id, req.params.idLogo, (err, piezas) => {
+                                        if (piezas.length) {
 
-                        }, (err) => {
+                                            delete modelos[keyModelo]._id;
+                                            modelos[keyModelo].piezas = piezas;
+                                            callback();
 
-                            delete tipos[keyTipo]._id;
-                            tipos[keyTipo].modelos = modelos;
-                            callback()
+                                        } else {
+                                            callback();
+                                        }
+                                    })
 
+                                }, (err) => {
+
+                                    delete tipos[keyTipo]._id;
+                                    tipos[keyTipo].modelos = modelos;
+                                    callback()
+
+                                })
+
+                            } else {
+                                callback();
+                            }
                         })
 
-                    } else {
-                        callback();
-                    }
-                })
+                    }, (err) => {
 
-            }, (err) => {
+                        res.status(200).json(tipos);
 
-                res.status(200).json(tipos);
+                    })
 
+                } else {
+                    res.status(404).json({
+                        'msg': 'No hay modelos en la base de datos'
+                    });
+                }
             })
 
         } else {
-            res.status(404).json({
-                'msg': 'No hay modelos en la base de datos'
-            });
+
+            res.status(500).json(err);
+
         }
     })
 }
@@ -106,9 +117,8 @@ exports.Guardar = (req, res) => {
     const tipo = req.body.tipo;
     const modelo = req.body.modelo;
     const pieza = req.body.pieza;
-    pieza.cliente = req.idCliente;
     
-    Logo.getLogo([pieza.cliente, pieza.logo], (error, data) => {
+    Logo.getLogo([req.idCliente, pieza.logo], (error, data) => {
 		if (typeof data !== "undefined" && data.length > 0) {
 
             Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {

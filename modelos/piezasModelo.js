@@ -52,14 +52,14 @@ pieza.ObtenerPorIDyUsuario = (_id, cliente, callback) =>
     })
 }
 
-pieza.ObtenerPorModeloyUsuario = (modelo, cliente, callback) => 
+pieza.ObtenerPorModeloyLogo = (modelo, logo, callback) => 
 {
     Connection(db => {
         const collection = db.collection('piezas');
         collection.aggregate([{
             $match: {
                 'modelo': objectId(modelo),
-                'cliente': cliente
+                'logo': logo
             }
         }, { 
             $project : {

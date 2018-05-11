@@ -1015,7 +1015,7 @@ exports.descargar = (req, res) =>
 												archive_b.append(fs.createReadStream(svg), { name: "logo.svg" });
 				
 												archive_b.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.principal.url), { name: fuentes.principal.nombre+'.ttf' });
-				
+									
 												if (fuentes.eslogan) {
 													archive_b.append(fs.createReadStream(pathM.dirname(require.main.filename)+fuentes.eslogan.url), { name: fuentes.eslogan.nombre+'.ttf' });
 												}
