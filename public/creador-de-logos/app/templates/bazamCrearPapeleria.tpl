@@ -1,11 +1,11 @@
 <div ng-class="{'active':estado}" class="pop-papeleria-crear">
     <div class="categorias-papeleria" ng-show="papelerias">
-        <span class="tab-papeleria" ng-click="papeleriaActiva = papeleria; " ng-repeat="papeleria in papelerias" ng-class="{'seleccionada': papeleriaActiva == papeleria.tipo}">{{papeleria.tipo}}</span>
+        <span class="tab-papeleria" ng-click="$parent.papeleriaActiva = papeleria.tipo" ng-repeat="papeleria in papelerias" ng-class="{'seleccionada': papeleriaActiva == papeleria.tipo}">{{papeleria.tipo}}</span>
     </div>
     <div class="crear-directiva" ng-show="papelerias">
         <div ng-repeat="papeleria in papelerias" ng-show="papeleriaActiva == papeleria.tipo">
             <div ng-repeat="modelo in papeleria.modelos" class="modelo-papeleria-crear">
-                <span ng-bind-html="crearPapeleria.sce.trustAsHtml(modelo.caras[1].svg)"></span>
+                <span ng-bind-html="crearPapeleria.sce.trustAsHtml(papeleria.ejemplo)"></span>
                 <div class="combinacion-box">
                     <span class="accion" style="bottom: 81%;" ng-click="crearPapeleria.enviarEditor($parent.$index, $index)">
                         <p>Usar Diseño</p>
@@ -28,11 +28,11 @@
         overflow-y: scroll;
         overflow-x: hidden;
         width: 100vw;
-        transition: height 1s;
+        transition: height 0.5s;
     }
 
     .pop-papeleria-crear.active {
-        height: 100%;
+        height: 90%;
     }
 
     .crear-directiva {
@@ -44,6 +44,8 @@
     .crear-directiva>div {
         display: flex;
         flex-wrap: wrap;
+        width: 90%;
+        margin: auto;
     }
 
     .modelo-papeleria-crear {

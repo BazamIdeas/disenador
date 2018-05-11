@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.directive("bazamPapeleria", ["fontService", "$document", "$q", "papeleriaService", "$mdToast", function (fontService, $document, $q, papeleriaService,$mdToast) {
+	.directive("bazamPapeleria", ["fontService", "$document", "$q", "papeleriaService", "$mdToast", function (fontService, $document, $q, papeleriaService, $mdToast) {
 		return {
 			restrict: "AE",
 			scope: true,
@@ -8,7 +8,9 @@ angular.module("disenador-de-logos")
 
 			}],
 			link: function (scope, element) {
-
+				
+				//obtenemos el controlador padre
+				var bz = scope.$parent.papeleriaEditor;
 
 				////////////////////////////
 				//////COLOREAR LOS SVG//////
@@ -22,11 +24,11 @@ angular.module("disenador-de-logos")
 
 					//si el icono y el texto tienen el mismo color, se agrega como color secundario ele mismo con 0.5 opacity
 					if (bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]) {
-						
+
 						lienzo.find(".color-secundario").css("fill", lienzo.find(".color-primario").css("fill").replace("rgb", "rgba").replace(")", ", 0.5)"));
 
 					} else {
-						
+
 						lienzo.find(".color-secundario").css("fill", bz.logo.atributos["color-nombre"]);
 
 					}
@@ -37,8 +39,37 @@ angular.module("disenador-de-logos")
 				////APLICAR ALTERACIONES A LOS items/////
 				/////////////////////////////////////////
 				// color, posicion, tamano
-				function aplicarAlteraciones(item, hook, itemSvg){
-					//TODO:
+				function aplicarAlteraciones(item, indice, hookSvg) {
+					
+					var itemSvg = hookSvg.find("g[data-index="+indice+"]");
+					
+					angular.forEach(item.alteraciones, function(alteracion, llave){
+
+						switch(llave){
+
+							case "matrix":
+								
+								var matrix = alteracion;
+								
+								for (var i = 0; i < matrix.length; i++) {
+
+									matrix[i] = parseFloat(matrix[i]);
+			
+								}
+
+								var newMatrix = "matrix(" + matrix.join(" ") + ")";
+
+								itemSvg.attr("transform", newMatrix);
+
+								break;
+
+						}
+
+
+
+					});
+					
+					
 				}
 
 				/////////////////////////////////////////
@@ -49,15 +80,20 @@ angular.module("disenador-de-logos")
 
 					var defered = $q.defer();
 					var promise = defered.promise;
-			
+
 					fontService.preparar(hook.fuente.nombre, hook.fuente.url)
-						.finally(function(){
-							
+						.finally(function () {
+
 							var hookSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
 
 							hookSvg.attr("id", hook.id);
 
-							hookSvg.css({"font-family": hook.fuente.nombre, "fill": hook.fuente.fill})
+							hookSvg.addClass("hook");
+
+							hookSvg.css({
+								"font-family": hook.fuente.nombre,
+								"fill": hook.fuente.fill
+							})
 
 							hookSvg.append("<svg style='width:100%; height: 100%;'></svg>");
 
@@ -71,6 +107,10 @@ angular.module("disenador-de-logos")
 								agregarItem(item, indice, hook, hookSvg);
 							});
 							
+							angular.forEach(hook.items, function(item, indice){
+								aplicarAlteraciones(item, indice, hookSvg)
+							})
+
 							defered.resolve();
 						})
 
@@ -81,13 +121,15 @@ angular.module("disenador-de-logos")
 				/////////////////////////////////////////
 				//////AGREGAR LOS ITEMS A LOS HOOKS//////
 				/////////////////////////////////////////
-				function agregarItem(item, indice, hook, hookSvg) {
-				
+				function agregarItem(item, indice, hook, hookSvg, conservarAlteraciones) {
+
 					var itemSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "g"));
 
 					var textSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', item.tag))
 
 					itemSvg.append(textSvg);
+
+					itemSvg.attr("data-index", indice);
 
 					//REVISAR
 					hookSvg.children().append(itemSvg);
@@ -229,7 +271,7 @@ angular.module("disenador-de-logos")
 										contenedorIconoSvg.attr("y", "0");
 
 										//TODO: posicion del text guiado por el icono
-										
+
 
 									} else if (coordenadasContenedor.height <= tamanoLineas) { //si las lineas son mas grandes que el icono
 
@@ -249,7 +291,7 @@ angular.module("disenador-de-logos")
 													trozoTextSvg.attr("dy", "0");
 													alturaLinea = trozoTextSvg[0].getBBox().height;
 												} else {
-											
+
 													var coordenadasTrozo = trozoTextSvg[0].getBBox();
 													trozoTextSvg.attr("dy", alturaLinea);
 												}
@@ -310,7 +352,7 @@ angular.module("disenador-de-logos")
 
 										} else { //SI NO HAY ICONO ANTERIOR
 											*/
-											alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
 										//}
 
@@ -348,7 +390,7 @@ angular.module("disenador-de-logos")
 												trozoTextSvg.attr("dy", "0");
 												alturaLinea = trozoTextSvg[0].getBBox().height;
 											} else {
-	
+
 												var coordenadasTrozo = trozoTextSvg[0].getBBox();
 												trozoTextSvg.attr("dy", alturaLinea);
 											}
@@ -468,7 +510,7 @@ angular.module("disenador-de-logos")
 											textSvg.children().each(function (indiceTrozo) {
 
 												var trozoTextSvg = angular.element(this);
-												
+
 
 												if (indiceTrozo === 0) { // primera linea de texto
 
@@ -539,7 +581,7 @@ angular.module("disenador-de-logos")
 
 										} else { //SI NO HAY ICONO ANTEIOR */
 
-											alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
 										//}
 
@@ -577,7 +619,7 @@ angular.module("disenador-de-logos")
 												trozoTextSvg.attr("dy", "0");
 												alturaLinea = trozoTextSvg[0].getBBox().height;
 											} else {
-	
+
 												var coordenadasTrozo = trozoTextSvg[0].getBBox();
 												trozoTextSvg.attr("dy", alturaLinea);
 											}
@@ -693,16 +735,14 @@ angular.module("disenador-de-logos")
 				/////////COMIENZO////////
 				/////////////////////////
 
-				//obtenemos el controlador padre
-				var bz = scope.$parent.papeleriaEditor;
 
 				var promesasHooks = [];
 
 				var loader = angular.element("<div></div>");
 				loader.addClass("bazam-loader-papeleria");
 				element.append(loader);
-				
-				
+
+
 
 				angular.forEach(bz.papeleria.modelo.caras, function (cara, index) {
 
@@ -710,8 +750,11 @@ angular.module("disenador-de-logos")
 					caraSvg.addClass("cara");
 					caraSvg.attr("data-index", index);
 
-					if(index){
-						caraSvg.css({"visibiliy": "hidden", "z-index": "-1"})	
+					if (index) {
+						caraSvg.css({
+							"visibiliy": "hidden",
+							"z-index": "-1"
+						})
 					}
 
 					var estilos = angular.element("<style></style>");
@@ -749,25 +792,34 @@ angular.module("disenador-de-logos")
 				});
 
 				$q.all(promesasHooks)
-					.finally(function(){
+					.finally(function () {
 						element.html(element.html());
 						pintarLienzo(element);
-				
+
 						element.find(".bazam-loader-papeleria").remove();
-					
+
 					})
 
-				
-				bz.modificarHook = function (indiceCara, indiceHook) {
+
+				bz.modificarHook = function (indiceCara, indiceHook, preservarAlteraciones) {
+
+					preservarAlteraciones
 
 					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
+					
+					if(!preservarAlteraciones){
+						angular.forEach(hook.items, function(item, indice){
+							bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indice].alteraciones = {};
+						})
+					}				
+
 
 					var caraSvg = angular.element("bazam-papeleria svg:nth-child(" + (indiceCara + 1) + ")");
 
 					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 					hookSvg.remove();
 
-					agregarHook(hook, caraSvg).finally(function(){
+					agregarHook(hook, caraSvg).finally(function () {
 						pintarLienzo(element);
 					})
 
@@ -777,11 +829,11 @@ angular.module("disenador-de-logos")
 
 					element.find(".cara[data-index]").css("z-index", "-1");
 
-					element.find("[data-index="+indiceCara+"]").css("z-index", "1");
+					element.find("[data-index=" + indiceCara + "]").css("z-index", "1");
 				}
 
 
-				bz.elementoFocus = function(indiceCara, indiceHook, accion){
+				bz.elementoFocus = function (indiceCara, indiceHook, accion) {
 
 					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
@@ -789,8 +841,8 @@ angular.module("disenador-de-logos")
 
 					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 
-					if(accion){ //si hace hover
-						
+					if (accion) { //si hace hover
+
 						angular.element(".hook-seleccionado").removeClass("hook-seleccionado");
 						hookSvg.addClass("hook-seleccionado");
 
@@ -801,18 +853,19 @@ angular.module("disenador-de-logos")
 
 				}
 
-			
-				bz.guardar = function(){
+
+				bz.guardar = function () {
 
 					bz.datos.tipo = bz.papeleria.tipo;
 					bz.datos.modelo = bz.papeleria.modelo.nombre;
+					bz.datos.pieza.caras = [];
 
 					var caras = angular.copy(bz.papeleria.modelo.caras);
-					
-					angular.forEach(caras, function(cara, indice){
 
-						var svgCara = angular.element(".cara[data-index="+indice+"]")[0].outerHTML;
-					
+					angular.forEach(caras, function (cara, indice) {
+
+						var svgCara = angular.element(".cara[data-index=" + indice + "]")[0].outerHTML;
+
 						var nuevaCara = {
 							hooks: cara.hooks,
 							nombre: cara.nombre,
@@ -820,9 +873,9 @@ angular.module("disenador-de-logos")
 						}
 						bz.datos.pieza.caras.push(nuevaCara)
 					});
-					
+
 					papeleriaService.piezas.guardar(bz.datos.tipo, bz.datos.modelo, bz.datos.pieza)
-						.then(function(res){
+						.then(function (res) {
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "¡Ha guardado su pieza!",
@@ -830,9 +883,15 @@ angular.module("disenador-de-logos")
 								}
 							}));
 
-							bz.datos.pieza._id = res.insertId;
+							if(res.insertId){
+								bz.datos.pieza._id = res.insertId._id;
+							} else if (res.affectedRow) {
+								bz.datos.pieza._id = res.affectedRow._id;
+							}
+
+							
 						})
-						.catch(function(){
+						.catch(function () {
 
 							$mdToast.show($mdToast.base({
 								args: {
@@ -842,10 +901,137 @@ angular.module("disenador-de-logos")
 							}));
 
 						})
-						.finally(function(){
+						.finally(function () {
 
 						})
 				}
+
+				/////////////////////////////////////////////
+				///////////vigilamos el movimiento///////////
+				/////////////////////////////////////////////
+
+				var currentX = 0;
+				var currentY = 0;
+				var currentMatrix = [];
+
+				element.on("mousedown", ".hook g", function (evento) {
+		
+					var objetivo = angular.element(evento.currentTarget);
+
+					angular.element(".rect-bz").remove();		
+
+					var coordenadasObjetivo = objetivo[0].getBBox();
+
+					var rectangulo = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "rect"));
+
+					rectangulo.addClass("rect-bz");
+
+					rectangulo.css({					
+						"fill": "transparent",
+						"stroke": "black",
+						"stroke-width": "1px",
+						"stroke-dasharray": "3px"
+					})
+
+					
+					rectangulo.attr("height", coordenadasObjetivo.height);
+					rectangulo.attr("width", coordenadasObjetivo.width);
+					rectangulo.attr("x", coordenadasObjetivo.x);
+					rectangulo.attr("y", coordenadasObjetivo.y);
+					rectangulo.attr("transform", objetivo.attr("transform"));
+
+					var svgPadre = objetivo.parents(".hook svg");
+
+					svgPadre.append(rectangulo)
+	
+					if (!objetivo.attr("transform")) {
+
+						objetivo.attr("transform", "matrix(1 0 0 1 0 0)");
+
+					}
+
+					angular.element(objetivo).attr("movimiento-bz", true);
+
+					currentX = evento.clientX;
+
+					currentY = evento.clientY;
+
+					currentMatrix = objetivo.attr("transform").slice(7, -1).split(" ");
+
+					for (var i = 0; i < currentMatrix.length; i++) {
+
+						currentMatrix[i] = parseFloat(currentMatrix[i]);
+
+					}
+		
+				});
+
+
+				element.on("mousemove", ".rect-bz", function (evento) {
+
+					var objetivo = angular.element(evento.currentTarget);
+
+					if(!angular.element("[movimiento-bz]").length){
+						return;
+					}
+					
+					var dx = evento.clientX - currentX;
+					var dy = evento.clientY - currentY;
+
+					var svgPadre = objetivo.parents(".cara")[0];
+
+					var relacionX = (svgPadre.getClientRects()[0].width / parseFloat(element.children().attr("viewBox").split(" ")[2]));
+					var relacionY = (svgPadre.getClientRects()[0].height / parseFloat(element.children().attr("viewBox").split(" ")[3]));
+
+					currentMatrix[4] += (dx / relacionY);
+					currentMatrix[5] += (dy / relacionX);
+
+					var newMatrix = "matrix(" + currentMatrix.join(" ") + ")";
+
+					objetivo.attr("transform", newMatrix);
+					angular.element("[movimiento-bz]").attr("transform", newMatrix);
+					currentX = evento.clientX;
+					currentY = evento.clientY;
+
+
+
+				});
+
+				angular.element("body").mouseup(function () {
+
+					var objetivo = angular.element("[movimiento-bz]");
+
+					if(!objetivo.length){
+						return;
+					}
+
+					var indiceCara = objetivo.parents(".cara").data("index");
+					var idHook = objetivo.parents(".hook").attr("id");
+					var indiceItem = objetivo.data("index");
+
+					var indiceHook;
+					angular.forEach(bz.papeleria.modelo.caras[indiceCara].hooks, function(hookPapeleria, indice){
+
+						if(idHook == hookPapeleria.id){
+							indiceHook = indice;
+						}
+					});
+					
+					if(!bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones){ //si no existe una alteracion previa
+						bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones = {};
+					}
+
+					bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones.matrix = currentMatrix;
+
+					angular.element(".rect-bz").remove();
+					angular.element("[movimiento-bz]").removeAttr("movimiento-bz");
+
+					
+				
+				});
+
+
+
 			}
 		};
 	}]);

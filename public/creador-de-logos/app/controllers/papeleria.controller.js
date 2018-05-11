@@ -8,7 +8,7 @@ angular.module("disenador-de-logos")
     
 		bz.idLogo = logoResolve.id;
 
-		papeleriaService.listarPorCliente().then(function(res){
+		papeleriaService.listarPorClienteYlogo(bz.idLogo).then(function(res){
 			bz.papelerias = res;
 			angular.forEach(bz.papelerias, function(papeleria){
 				angular.forEach(papeleria.modelos, function(modelo){
@@ -21,7 +21,7 @@ angular.module("disenador-de-logos")
 		})
 
 		bz.enviarEditor = function (indicePapeleria, indiceModelo, indicePieza) {
-
+			if(bz.peticion) return;
 			var papeleria = angular.copy(bz.papelerias[indicePapeleria]);
 			delete papeleria.modelos;
 			var modelo = angular.copy(bz.papelerias[indicePapeleria].modelos[indiceModelo]);
@@ -56,4 +56,30 @@ angular.module("disenador-de-logos")
 				angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 			})
 		}
+
+		bz.duplicarPieza = function(tipo, modelo, pieza){
+			if(bz.peticion) return;
+			bz.peticion = true;
+
+			piezaNueva = angular.copy(pieza);
+			delete piezaNueva._id;
+			piezaNueva.logo = bz.idLogo;
+			modelo.piezas.push(piezaNueva);
+			indice = modelo.piezas.indexOf(piezaNueva);
+
+			papeleriaService.piezas.guardar(tipo, modelo.nombre, piezaNueva).then(function(res){
+				modelo.piezas[indice]._id = res.insertId._id;
+				bz.peticion = false;
+			});
+		}
+
+		bz.eliminarPieza = function(arr, pieza, index){
+			if(bz.peticion) return;
+			bz.peticion = true;
+			papeleriaService.piezas.eliminar(pieza._id).then(function(res){
+				arr.splice(index, 1);
+				bz.peticion = false;
+			});;
+		}
+
 	}]);
