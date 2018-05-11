@@ -10,6 +10,13 @@ angular.module("disenador-de-logos")
 
 		papeleriaService.listarPorCliente().then(function(res){
 			bz.papelerias = res;
+			angular.forEach(bz.papelerias, function(papeleria){
+				angular.forEach(papeleria.modelos, function(modelo){
+					if(modelo.piezas){
+						papeleria.tienePiezas = true;
+					}
+				})
+			})
 			bz.papeleriaActiva = bz.papelerias[0].tipo;
 		})
 
@@ -35,8 +42,7 @@ angular.module("disenador-de-logos")
 
 		bz.descargarPieza = function(id){
 			angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
-			papeleriaService.piezas.descargar(id).then(function(res){
-				console.log(res)
+			papeleriaService.piezas.descargar(id, bz.idLogo).then(function(res){
 				var a = $document[0].createElement("a");
 				$document[0].body.appendChild(a);
 				a.style = "display:none";
