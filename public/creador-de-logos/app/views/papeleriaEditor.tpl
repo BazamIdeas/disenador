@@ -5,13 +5,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;">
-        <div ng-show="!papeleriaEditor.papelerias" style="    height: calc(100% - 60px); display: flex; justify-content: center; align-items: center;">
-            <img style="width: 20%;" style="display: block; margin: auto;" src="assets/images/gifs/a.gif">
+        <div ng-show="!papeleriaEditor.papeleria" style="    height: calc(100% - 60px); display: flex; justify-content: center; align-items: center;">
+            <img style="width:100%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
         </div>
 
         <bazam-papeleria></bazam-papeleria>
         <div>
-            <md-button ng-show="papeleriaEditor.papelerias" ng-click="papeleriaEditor.guardar()" class="md-primary md-raised boton-crear-papeleria">Crear Papeleria</md-button>
+            <md-button ng-show="papeleriaEditor.papeleria" ng-click="papeleriaEditor.guardar()" class="md-primary md-raised boton-crear-papeleria">GUARDAR</md-button>
         </div>
     </div>
 </div>

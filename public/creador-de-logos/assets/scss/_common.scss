@@ -641,6 +641,15 @@ span {
     background-color: $WHITE;
 }
 
+.a-gif {
+    background-image: url(/assets/images/gifs/a.gif);
+    color: transparent !important;
+    background-size: auto 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: WHITE;
+}
+
 
 .b-gif {
     background-image: url(/assets/images/gifs/b.gif);

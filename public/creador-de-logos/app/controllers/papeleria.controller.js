@@ -8,13 +8,12 @@ angular.module("disenador-de-logos")
     
 		bz.idLogo = logoResolve.id;
 
-		papeleriaService.listarPorCliente().then(function(res){
+		papeleriaService.listarPorClienteYlogo(bz.idLogo).then(function(res){
 			bz.papelerias = res;
 			angular.forEach(bz.papelerias, function(papeleria){
 				angular.forEach(papeleria.modelos, function(modelo){
 					if(modelo.piezas){
 						papeleria.tienePiezas = true;
-
 					}
 				})
 			})

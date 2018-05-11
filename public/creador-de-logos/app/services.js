@@ -1992,6 +1992,24 @@ angular.module("disenador-de-logos")
 			return promise;
 		};
 
+		this.listarPorClienteYlogo =  function(id){
+			var defered = $q.defer();
+			var promise = defered.promise;
+				
+			$http.get("/app/papeleria/logo/"+id)
+				.then(function(res){
+					defered.resolve(res.data);
+				})
+				.catch(function(){
+					defered.reject();
+				})
+				.finally(function(){
+
+				});
+				
+			return promise;
+		};
+
 		this.piezas = {
 			guardar: function(tipo, modelo, pieza){
 				var defered = $q.defer();
