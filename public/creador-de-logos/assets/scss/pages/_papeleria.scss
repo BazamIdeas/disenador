@@ -49,14 +49,26 @@
 
 .boton-crear-papeleria {
     margin: auto !important;
-    display: block !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    color: black !important;
-    border: 1px solid !important;
+    display: block;
+    background-color: transparent;
+    box-shadow: none;
+    color: black ;
+    border: 1px solid ;
     border-radius: 5px;
     font-size: 15pt;
     padding: 5px 25px;
+}
+
+.papeleria-nueva-mensaje{
+    height: calc(100% - 60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.papeleria-nueva-mensaje .boton-crear-papeleria{
+    margin:0 !important;
 }
 
 
@@ -126,6 +138,10 @@
 
 /* back, initially hidden pane */
 
-.back {
+.back, .flip-container.hover.overlay{
     transform: rotateY(180deg);
+}
+
+.flipper span.accion{
+    z-index: 3;
 }

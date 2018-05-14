@@ -109,7 +109,8 @@ pieza.Guardar = (piezaData, callback) =>
                 nombre: piezaData.nombre,
                 modelo: piezaData.modelo,
                 tipo: piezaData.tipo,
-                logo: piezaData.logo
+                logo: piezaData.logo,
+                cliente: piezaData.cliente
             };
 
             collection.insertOne(piezaData, (err, doc) => {

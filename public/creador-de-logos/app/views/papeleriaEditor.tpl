@@ -11,7 +11,7 @@
 
         <bazam-papeleria></bazam-papeleria>
         <div>
-            <md-button ng-show="papeleriaEditor.papeleria" ng-click="papeleriaEditor.guardar()" class="md-primary md-raised boton-crear-papeleria">GUARDAR</md-button>
+            <md-button ng-disable="papeleriaEditor.peticion" ng-show="papeleriaEditor.papeleria" ng-click="papeleriaEditor.guardar()" class="boton-crear-papeleria">GUARDAR</md-button>
         </div>
     </div>
 </div>

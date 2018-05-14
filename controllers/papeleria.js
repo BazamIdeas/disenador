@@ -117,6 +117,7 @@ exports.Guardar = (req, res) => {
     const tipo = req.body.tipo;
     const modelo = req.body.modelo;
     const pieza = req.body.pieza;
+    pieza.cliente = req.idCliente;
     
     Logo.getLogo([req.idCliente, pieza.logo], (error, data) => {
 		if (typeof data !== "undefined" && data.length > 0) {
@@ -322,7 +323,7 @@ exports.descargarPapeleria = function (req, res, next) {
                     }
                 }
 
-                console.log(template)
+                //console.log(template)
 
                 /* ********************************* */
 

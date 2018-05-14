@@ -19,6 +19,7 @@ angular.module("disenador-de-logos")
 				angular.forEach(papeleria.modelos, function(modelo){
 					if(modelo.piezas){
 						papeleria.tienePiezas = true;
+						bz.tienePiezas = true;
 					}
 				})
 			})
@@ -84,8 +85,9 @@ angular.module("disenador-de-logos")
 			bz.peticion = true;
 			papeleriaService.piezas.eliminar(pieza._id).then(function(res){
 				arr.splice(index, 1);
+			}).finally(function(){
 				bz.peticion = false;
-			});;
+			});
 		}
 
 	}]);
