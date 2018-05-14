@@ -486,12 +486,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 							papeleria = $stateParams.papeleria.papeleria;
 							papeleria.modelo = $stateParams.papeleria.modelo;
 						
-
 							if($stateParams.papeleria.pieza){
 
 								angular.forEach($stateParams.papeleria.pieza.caras, function(cara, indiceCara){
 
 									papeleria.modelo.caras[indiceCara].hooks = cara.hooks;
+									papeleria.modelo.caras[indiceCara].logos = cara.logos;
 
 								});
 

@@ -39,33 +39,33 @@ angular.module("disenador-de-logos")
 				////APLICAR ALTERACIONES A LOS items/////
 				/////////////////////////////////////////
 				// color, posicion, tamano
-				function aplicarAlteraciones(item, indice, hookSvg) {
+				function aplicarAlteraciones(elemento, indice, elemento, elementoSvg) {
 					
-					var itemSvg = hookSvg.find("g[data-index="+indice+"]");
+					var elementoDOM;
 					
-					angular.forEach(item.alteraciones, function(alteracion, llave){
+					if(elemento == "item"){
+						elementoDOM = elementoSvg.find("g[data-index="+indice+"]");
+					} else if("logo"){
+						elementoDOM = elementoSvg;
+					};
+					
+					
+					angular.forEach(elemento.alteraciones, function(alteracion, llave){
 
 						switch(llave){
 
 							case "matrix":
-								
 								var matrix = alteracion;
 								
 								for (var i = 0; i < matrix.length; i++) {
-
 									matrix[i] = parseFloat(matrix[i]);
-			
 								}
 
 								var newMatrix = "matrix(" + matrix.join(" ") + ")";
-
-								itemSvg.attr("transform", newMatrix);
-
+								elementoDOM.attr("transform", newMatrix);
 								break;
 
 						}
-
-
 
 					});
 					
@@ -108,7 +108,7 @@ angular.module("disenador-de-logos")
 							});
 							
 							angular.forEach(hook.items, function(item, indice){
-								aplicarAlteraciones(item, indice, hookSvg)
+								aplicarAlteraciones(item, indice, "hook", hookSvg)
 							})
 
 							defered.resolve();
@@ -770,9 +770,9 @@ angular.module("disenador-de-logos")
 
 					element.append(caraSvg);
 
-					angular.forEach(cara.logos, function (logo) {
+					angular.forEach(cara.logos, function (logo, indiceLogo) {
 
-						var logoSvg = angular.element("<g class='contenedor-logo'>" + bz.base64.decode(bz.logo.logo) + "</g>");
+						var logoSvg = angular.element("<g class='contenedor-logo' data-index="+indiceLogo+">" + bz.base64.decode(bz.logo.logo) + "</g>");
 
 						angular.forEach(logo.caracteristicas, function (caracteristica, llave) {
 							logoSvg.children().attr(llave, caracteristica);
@@ -781,6 +781,8 @@ angular.module("disenador-de-logos")
 						angular.forEach(logo.clases, function (clase) {
 							logoSvg.addClass(clase);
 						});
+
+						aplicarAlteraciones(logo, indiceLogo, "logo", logoSvg);
 
 						caraSvg.append(logoSvg);
 
@@ -869,6 +871,7 @@ angular.module("disenador-de-logos")
 						var nuevaCara = {
 							hooks: cara.hooks,
 							nombre: cara.nombre,
+							logos: cara.logos,
 							svg: svgCara
 						}
 						bz.datos.pieza.caras.push(nuevaCara)
@@ -914,9 +917,11 @@ angular.module("disenador-de-logos")
 				var currentY = 0;
 				var currentMatrix = [];
 
-				element.on("mousedown", ".hook g", function (evento) {
+				element.on("mousedown", ".hook g, g.contenedor-logo", function (evento) {
 		
 					var objetivo = angular.element(evento.currentTarget);
+					
+					var svgPadre = objetivo.hasClass("contenedor-logo") ? objetivo.parents(".cara") : objetivo.parents(".hook svg");
 
 					angular.element(".rect-bz").remove();		
 
@@ -940,7 +945,6 @@ angular.module("disenador-de-logos")
 					rectangulo.attr("y", coordenadasObjetivo.y);
 					rectangulo.attr("transform", objetivo.attr("transform"));
 
-					var svgPadre = objetivo.parents(".hook svg");
 
 					svgPadre.append(rectangulo)
 	
@@ -1005,23 +1009,43 @@ angular.module("disenador-de-logos")
 						return;
 					}
 
-					var indiceCara = objetivo.parents(".cara").data("index");
-					var idHook = objetivo.parents(".hook").attr("id");
-					var indiceItem = objetivo.data("index");
-
-					var indiceHook;
-					angular.forEach(bz.papeleria.modelo.caras[indiceCara].hooks, function(hookPapeleria, indice){
-
-						if(idHook == hookPapeleria.id){
-							indiceHook = indice;
-						}
-					});
 					
-					if(!bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones){ //si no existe una alteracion previa
-						bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones = {};
-					}
+					var objetivoElemento = objetivo.hasClass("contenedor-logo") ? "logo" : "item";
 
-					bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones.matrix = currentMatrix;
+					if(objetivoElemento === "item"){
+
+						var indiceCara = objetivo.parents(".cara").data("index");
+						var idHook = objetivo.parents(".hook").attr("id");
+						var indiceItem = objetivo.data("index");
+	
+						var indiceHook;
+						angular.forEach(bz.papeleria.modelo.caras[indiceCara].hooks, function(hookPapeleria, indice){
+	
+							if(idHook == hookPapeleria.id){
+								indiceHook = indice;
+							}
+						});
+						
+						if(!bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones){ //si no existe una alteracion previa
+							bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones = {};
+						}
+	
+						bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones.matrix = currentMatrix;
+
+					} else if(objetivoElemento === "logo") {
+						var indiceCara = objetivo.parents(".cara").data("index");
+						var indiceLogo = objetivo.data("index");
+
+
+						
+						if(!bz.papeleria.modelo.caras[indiceCara].logos[indiceLogo].alteraciones){ //si no existe una alteracion previa
+							bz.papeleria.modelo.caras[indiceCara].logos[indiceLogo].alteraciones = {};
+						}
+	
+						bz.papeleria.modelo.caras[indiceCara].logos[indiceLogo].alteraciones.matrix = currentMatrix;
+
+					}
+				
 
 					angular.element(".rect-bz").remove();
 					angular.element("[movimiento-bz]").removeAttr("movimiento-bz");
