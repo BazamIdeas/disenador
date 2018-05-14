@@ -1288,6 +1288,54 @@ exports.Borrar = (req, res) =>
 	});
 };
 
+exports.favicon = function(req,res)
+{	
+	const idLogo = req.params.id;
+	const ancho = 48;
+	let fuentes = {};
+
+	logo.getLogoPorId(idLogo, (error, data) => {
+
+		if (typeof data !== "undefined" && data.length > 0) {
+			let nombre = "favicon-"+idLogo+".svg";
+
+			const path = "public/tmp/";
+
+			var buffer = new Buffer(base64.decode(data[0].logo).split('<g class="contenedor-icono">')[1].split("</svg>")[0]+"</svg>");
+
+			fs.open(path + nombre, "w", (err, fd) => {
+				if (err) throw "error al crear svg " + err;
+
+				fs.write(fd, buffer, 0, buffer.length, null, err => {
+					if (err) throw "error al escribir " + err;
+							
+					let svg = path + nombre;
+
+					var pngout = svg.replace("svg", "png");
+
+					fs.readFile(svg, (err, svgbuffer) => {
+						if (err) throw err;
+						svg2png(svgbuffer, { width: ancho})
+							.then(buffer => {
+								fs.writeFile(pngout, buffer, (err) => {
+									setTimeout(() => {
+										res.download(__dirname+"/../"+pngout);
+									}, 1000)
+								});
+							})
+							.catch(e => console.log('error'));
+					});
+					
+					fs.close(fd);
+				});
+			});
+
+		} else {
+			res.status(404).json({"msg":"No existe el logo o no le pertenece al cliente"});
+		}
+	});	
+};
+
 /*exports.htmlShare = (req, res) => 
 {
 	const idLogo = req.params.id;
