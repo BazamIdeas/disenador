@@ -1,22 +1,22 @@
+/****** VISTA PAPELERIA ******/
+
 .categorias-papeleria {
     display: flex;
     padding: 10px 0px;
     height: 10%;
-}
-
-.categorias-papeleria .tab-papeleria {
-    flex: 1;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-transform: capitalize;
-    font-size: 25pt;
-    cursor: pointer;
-}
-
-.tab-papeleria.seleccionada {
-    color: #5981bc;
+    .tab-papeleria {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: capitalize;
+        font-size: 25pt;
+        cursor: pointer;
+        &.seleccionada {
+            color: #5981bc;
+        }
+    }
 }
 
 .contenedor-papelerias {
@@ -52,96 +52,285 @@
     display: block;
     background-color: transparent;
     box-shadow: none;
-    color: black ;
-    border: 1px solid ;
+    color: black;
+    border: 1px solid;
     border-radius: 5px;
     font-size: 15pt;
     padding: 5px 25px;
 }
 
-.papeleria-nueva-mensaje{
+.papeleria-nueva-mensaje {
     height: calc(100% - 60px);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    .boton-crear-papeleria {
+        margin: 0 !important;
+    }
 }
 
-.papeleria-nueva-mensaje .boton-crear-papeleria{
-    margin:0 !important;
+textarea {
+    resize: none;
 }
-
 
 /* entire container, keeps perspective */
 
 .flip-container {
     perspective: 1000px;
+    .back,
+    &.hover .overlay {
+        transform: rotateY(180deg);
+    }
+    &.tarjeta {
+        width: 320px;
+        height: 210px;
+    }
+    &.hover .flipper {
+        transform: rotateY(180deg);
+    }
+    .flipper {
+        transition: 0.6s;
+        transform-style: preserve-3d;
+        position: relative;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        .overlay {
+            height: 86%;
+            width: 100%;
+            z-index: 3;
+        }
+        span.accion {
+            z-index: 3;
+        }
+        .front {
+            z-index: 2;
+            transform: rotateY(0deg);
+        }
+        .front,
+        .back {
+            backface-visibility: hidden;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
+            &:hover {
+                box-shadow: 0 6px 6px -3px rgba(0, 0, 0, .2), 0 10px 14px 1px rgba(0, 0, 0, .14), 0 4px 18px 3px rgba(0, 0, 0, .12);
+            }
+        }
+    }
 }
 
-.flip-container.tarjeta {
-    width: 320px;
-    height: 240px;
+/****** MENU PAPELERIA ******/
+
+bazam-menu-papeleria {
+    width: 30%;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
 }
 
-/* flip the pane when hovered */
-
-.flip-container.hover .flipper {
-    transform: rotateY(180deg);
+.tabs-p {
+    display: flex;
+    .tab {
+        padding: 8px;
+        flex: 1;
+        font-size: 15pt;
+        text-align: center;
+        background: white;
+        transition: initial;
+        text-transform: capitalize;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+        cursor: pointer;
+        &.active {
+            background: #5981bc;
+            color: white;
+        }
+    }
 }
 
-/* flip speed goes here */
-
-.flipper {
-    transition: 0.6s;
-    transform-style: preserve-3d;
-    position: relative;
-    cursor: pointer;
+.menuPapeleria {
     width: 100%;
     height: 100%;
-}
-
-.flipper .overlay {
-    height: 86%;
-    width: 100%;
-    z-index: 3;
-}
-
-.flipper.tarjeta {
-    width: 320px;
-    height: 200px;
-}
-
-/* hide back of pane during swap */
-
-.front,
-.back {
-    backface-visibility: hidden;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
-}
-
-.front:hover,
-.back:hover {
-    box-shadow: 0 6px 6px -3px rgba(0, 0, 0, .2), 0 10px 14px 1px rgba(0, 0, 0, .14), 0 4px 18px 3px rgba(0, 0, 0, .12);
-}
-
-/* front pane, placed above back */
-
-.front {
-    z-index: 2;
-    /* for firefox 31 */
-    transform: rotateY(0deg);
-}
-
-/* back, initially hidden pane */
-
-.back, .flip-container.hover.overlay{
-    transform: rotateY(180deg);
-}
-
-.flipper span.accion{
-    z-index: 3;
+    user-select: none;
+    .contenedor-principal-menu {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: 84%;
+        .mensaje-cara {
+            font-size: 18pt;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            text-align: center;
+        }
+        .contenedor-items {
+            width: 90%;
+            margin: 10px auto;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+            padding-bottom: 5px;
+            .nombre-contenedor {
+                padding: 2px;
+                font-size: 15pt;
+                margin-bottom: 10px;
+                border-bottom: 1px solid;
+                justify-content: space-between;
+                display: flex;
+            }
+            .opciones-hook {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                span {
+                    flex: 1;
+                }
+                input[type="color"] {
+                    padding: 0px;
+                    background: transparent;
+                    border: none;
+                    height: 34px;
+                    width: 60%;
+                    margin: auto;
+                    display: block;
+                }
+            }
+            &.ui-droppable-active {
+                border: 2px dashed var(--principal);
+            }
+            span.iconos-disponibles {
+                display: flex;
+                justify-content: center;
+            }
+            span.iconos-disponibles>span {
+                width: 50px;
+                display: inline-block;
+                margin-right: 5px;
+            }
+            .item {
+                font-size: 10pt;
+                padding: 8px;
+                display: inline-block;
+                margin-bottom: 10px;
+                text-transform: capitalize;
+                margin-right: 10px;
+                background: white;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+                &.ui-draggable-dragging {
+                    opacity: 0.5;
+                }
+                &:not(.colocado):hover {
+                    background: #f3f2f2;
+                    cursor: move;
+                    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
+                }
+                &.colocado {
+                    cursor: default;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    &:last-child:hover {
+                        box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
+                        border: 1px solid red;
+                        color: red;
+                    }
+                    span.controles-movimiento {
+                        width: 35px;
+                        margin-right: 8px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        &>span md-icon {
+                            cursor: pointer;
+                            color: black;
+                        }
+                    }
+                }
+                span.input-container-papeleria {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    span.icono.agregar-icono {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: black;
+                    }
+                    span.icono {
+                        width: 40px;
+                        .suprimirIcono {
+                            display: block;
+                            font-size: 8pt;
+                            padding-top: 8px;
+                            cursor: pointer;
+                        }
+                        &.icono-right {
+                            align-self: center;
+                            order: 1;
+                            margin-left: 10px;
+                        }
+                        &.icono-left {
+                            margin-right: 10px;
+                        }
+                    }
+                    input.input-papeleria {
+                        height: 30px !important;
+                        &::placeholder {
+                            text-transform: capitalize;
+                        }
+                    }
+                    input.input-papeleria,
+                    textarea {
+                        margin-bottom: 0;
+                    }
+                    textarea {
+                        &::placeholder {
+                            color: var(--principal);
+                        }
+                    }
+                }
+            }
+            .item.colocado> :last-child md-icon,
+            .nombre-contenedor> :last-child md-icon {
+                color: inherit;
+            }
+            .item.colocado> :last-child,
+            .nombre-contenedor .icono-nombre-hook {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                padding: 3px;
+                color: black;
+                border: 1px solid black;
+                margin-left: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 3px;
+                cursor: pointer;
+                box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+            }
+            .mensaje-items {
+                padding: 16px;
+                font-size: 18pt;
+                text-align: center;
+                font-family: 'nunito-sans-bold' !important;
+                letter-spacing: 2px;
+            }
+            .espacios-disponibles,
+            .validacion-papeleria {
+                text-align: center;
+                display: block;
+                font-size: 10pt;
+                margin-top: 8px;
+                font-family: 'nunito-sans-bold' !important;
+                font-weight: 800;
+            }
+        }
+    }
 }
