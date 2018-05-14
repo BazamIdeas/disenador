@@ -485,6 +485,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 
 							papeleria = $stateParams.papeleria.papeleria;
 							papeleria.modelo = $stateParams.papeleria.modelo;
+							papeleria.fuentes = $stateParams.papeleria.fuentes; 
 						
 							if($stateParams.papeleria.pieza){
 
@@ -499,7 +500,7 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 									papeleria.idPieza = $stateParams.papeleria.pieza._id;
 								}
 								
-							}							
+							}
 
 							return papeleria;
 
