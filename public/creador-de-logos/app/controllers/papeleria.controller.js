@@ -69,8 +69,8 @@ angular.module("disenador-de-logos")
 			bz.peticion = true;
 
 			papeleriaService.piezas.guardar(tipo, modelo.nombre, piezaNueva).then(function(res){
-
 				modelo.piezas.push(res);
+			}).finally(function(){
 				bz.peticion = false;
 			});
 		}

@@ -13,8 +13,12 @@ angular.module("disenador-de-logos")
 		{
 			nombre: "papeleria",
 			ancho: 300
-		}
-		];
+		},
+		{
+			nombre: "documento",
+			ancho: 300,
+			plantilla: 'plantilla_uno'
+		}];
 
 		bz.formatos = [{
 			nombre: "facebook",
@@ -239,7 +243,7 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.completado = true;
-		bz.descargar = function (nombre, ancho) {
+		bz.descargar = function (nombre, ancho, plantilla) {
 
 			if (bz.completado) {
 
@@ -247,7 +251,7 @@ angular.module("disenador-de-logos")
 
 				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-				logosService.descargarLogo(bz.logo.id, ancho, $filter("uppercase")(nombre), nombre)
+				logosService.descargarLogo(bz.logo.id, ancho, $filter("uppercase")(nombre), nombre, plantilla)
 
 					.then(function (res) {
 

@@ -1546,7 +1546,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.descargarLogo = function (idLogo, ancho, nombre, tipo) {
+		this.descargarLogo = function (idLogo, ancho, nombre, tipo, plantilla) {
 
 			var defered = $q.defer();
 
@@ -1556,7 +1556,8 @@ angular.module("disenador-de-logos")
 				idLogo: idLogo,
 				ancho: ancho,
 				descarga: nombre,
-				tipo: tipo
+				tipo: tipo,
+				plantilla: plantilla
 			};
 
 			$http.get("/app/logo/zip/", {

@@ -133,7 +133,7 @@
             </div>
 
             <div ng-if="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'" style="margin-top: 10px;">
-                <button class="boton-verde" style="width:49.5%; margin-top: 10px; margin-right: 0.5% !important;" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}}px)
+                <button class="boton-verde" style="width:49.5%; margin-top: 10px; margin-right: 0.5% !important;" ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho, descargar.formatoSeleccionado.plantilla)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}}px)
                 </button><!--
                 --><button style="width:49.5%; margin-top: 5px; margin-left: 0.5% !important;" ng-click="descargar.descargarTodo()">DESCARGAR TODO
                 </button>

@@ -851,18 +851,3 @@ exports.manualCliente = function (req, res, next) {
     }
 
 }
-
-
-exports.powerpoint = function (req, res, next) {
-
-    /* FUNCION POWERPOINT */
-
-    var ubicacionPlantilla = './plantillas-papeleria/Prueba2/Diapositiva1.BMP';
-
-    var template = fs.readFileSync(ubicacionPlantilla, 'utf8', (err, data) => {
-        if (err) throw err;
-    });
-
-    console.log(template)
-
-}

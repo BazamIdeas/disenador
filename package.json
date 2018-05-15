@@ -44,6 +44,7 @@
     "dynamic-watermark": "^1.0.0",
     "express": "^4.16.3",
     "fb": "^2.0.0",
+    "fs-extra": "^6.0.1",
     "gm": "^1.23.1",
     "html-pdf": "^2.2.0",
     "jquery": "^3.3.1",
