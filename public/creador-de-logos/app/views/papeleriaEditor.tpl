@@ -54,4 +54,18 @@
         -webkit-animation-iteration-count: infinite;
         -webkit-animation-fill-mode: both;
     }
+
+
+    bazam-papeleria > svg * {
+        overflow: visible !important;
+    }
+
+    bazam-papeleria > svg *:not(.rect-bz, .contenedor-logo) {
+        pointer-events: none; 
+    };
+
+    bazam-papeleria > svg .hook > svg *{
+        
+        pointer-events: bounding-box;
+    }
 </style>

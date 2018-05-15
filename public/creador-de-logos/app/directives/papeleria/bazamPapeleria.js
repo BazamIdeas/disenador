@@ -39,18 +39,17 @@ angular.module("disenador-de-logos")
 				////APLICAR ALTERACIONES A LOS items/////
 				/////////////////////////////////////////
 				// color, posicion, tamano
-				function aplicarAlteraciones(elemento, indice, elemento, elementoSvg) {
+				function aplicarAlteraciones(elementoData, indice, elemento, elementoSvg) {
 					
 					var elementoDOM;
 					
 					if(elemento == "item"){
 						elementoDOM = elementoSvg.find("g[data-index="+indice+"]");
-					} else if("logo"){
+					} else if(elemento == "logo"){
 						elementoDOM = elementoSvg;
 					};
 					
-					
-					angular.forEach(elemento.alteraciones, function(alteracion, llave){
+					angular.forEach(elementoData.alteraciones, function(alteracion, llave){
 
 						switch(llave){
 
@@ -917,13 +916,17 @@ angular.module("disenador-de-logos")
 				var currentY = 0;
 				var currentMatrix = [];
 
-				element.on("mousedown", ".hook g, g.contenedor-logo", function (evento) {
-		
-					var objetivo = angular.element(evento.currentTarget);
-					
-					var svgPadre = objetivo.hasClass("contenedor-logo") ? objetivo.parents(".cara") : objetivo.parents(".hook svg");
+				/*
+				Eventos sin mirror item
+				*/
 
-					angular.element(".rect-bz").remove();		
+				element.on("mouseenter", ".hook g, g.contenedor-logo", function (evento){
+
+					var objetivo = angular.element(evento.currentTarget);
+
+					objetivo.attr("movimiento-bz", "false");
+
+					angular.element(".rect-bz").remove();	
 
 					var coordenadasObjetivo = objetivo[0].getBBox();
 
@@ -938,23 +941,44 @@ angular.module("disenador-de-logos")
 						"stroke-dasharray": "3px"
 					})
 
-					
+					var cara = objetivo.parents(".cara");
+					var hook = objetivo.parents(".hook");
+
 					rectangulo.attr("height", coordenadasObjetivo.height);
 					rectangulo.attr("width", coordenadasObjetivo.width);
-					rectangulo.attr("x", coordenadasObjetivo.x);
-					rectangulo.attr("y", coordenadasObjetivo.y);
-					rectangulo.attr("transform", objetivo.attr("transform"));
 
+					if(hook.length){
+						rectangulo.attr("x", coordenadasObjetivo.x + parseFloat(hook.attr("x")));
+						rectangulo.attr("y", coordenadasObjetivo.y + parseFloat(hook.attr("y")));
+					} else {
+						rectangulo.attr("x", coordenadasObjetivo.x);
+						rectangulo.attr("y", coordenadasObjetivo.y);
+					}
+					
+					rectangulo.attr("transform", objetivo.attr("transform"))
 
-					svgPadre.append(rectangulo)
+					cara.append(rectangulo);
+				})
+
+				element.on("mouseleave", ".rect-bz", function (evento){
+					angular.element(".rect-bz").remove();
+					var objetivo = angular.element("[movimiento-bz]");
+					objetivo.removeAttr("movimiento-bz");
+				})
+
+				element.on("mousedown", ".rect-bz", function (evento) {
+		
+					var objetivo = angular.element("[movimiento-bz]");
+					objetivo.attr("movimiento-bz", "true")
+					//var svgPadre = objetivo.hasClass("contenedor-logo") ? objetivo.parents(".cara") : objetivo.parents(".hook svg");
+
 	
 					if (!objetivo.attr("transform")) {
 
 						objetivo.attr("transform", "matrix(1 0 0 1 0 0)");
 
 					}
-
-					angular.element(objetivo).attr("movimiento-bz", true);
+			
 
 					currentX = evento.clientX;
 
@@ -975,7 +999,7 @@ angular.module("disenador-de-logos")
 
 					var objetivo = angular.element(evento.currentTarget);
 
-					if(!angular.element("[movimiento-bz]").length){
+					if(!angular.element("[movimiento-bz=true]").length){
 						return;
 					}
 					
@@ -1047,8 +1071,11 @@ angular.module("disenador-de-logos")
 					}
 				
 
-					angular.element(".rect-bz").remove();
-					angular.element("[movimiento-bz]").removeAttr("movimiento-bz");
+					//angular.element(".rect-bz").remove();
+
+					//angular.element("")
+
+					angular.element("[movimiento-bz]").attr("movimiento-bz", "false");
 
 					
 				
