@@ -42,11 +42,14 @@ angular.module("disenador-de-logos")
 				function aplicarAlteraciones(elementoData, indice, elemento, elementoSvg) {
 					
 					var elementoDOM;
-					
+
 					if(elemento == "item"){
 						elementoDOM = elementoSvg.find("g[data-index="+indice+"]");
+						console.log("deberia ser item, es:")
 					} else if(elemento == "logo"){
 						elementoDOM = elementoSvg;
+						console.log("deberia ser logo, es:")
+						
 					};
 					
 					angular.forEach(elementoData.alteraciones, function(alteracion, llave){
@@ -61,6 +64,7 @@ angular.module("disenador-de-logos")
 								}
 
 								var newMatrix = "matrix(" + matrix.join(" ") + ")";
+								console.log(elemento)
 								elementoDOM.attr("transform", newMatrix);
 								break;
 
@@ -107,7 +111,7 @@ angular.module("disenador-de-logos")
 							});
 							
 							angular.forEach(hook.items, function(item, indice){
-								aplicarAlteraciones(item, indice, "hook", hookSvg)
+								aplicarAlteraciones(item, indice, "item", hookSvg)
 							})
 
 							defered.resolve();
