@@ -198,6 +198,8 @@ router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modi
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
 
 
+//MODULO PAPELERIA
+router.post("/cliente/powerpoint", controllers.clientes.powerpoint);
 
 //MODULO PAPELERIA
 router.get("/papeleria/logo/:idLogo", middleware.validarCliente, controllers.papeleria.ObtenerTodoPorLogo);

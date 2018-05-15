@@ -30,8 +30,14 @@
                                 <md-icon>swap_horiz</md-icon>
                             </span>
                         </div>
+                        <div ng-click="papeleriaEditor.mostrarOpciones = null" ng-show="papeleriaEditor.mostrarOpciones == hook.id" style="display: flex; justify-content: center; cursor: pointer;">
+                            <md-icon>keyboard_arrow_up</md-icon>
+                        </div>
+                        <div ng-click="papeleriaEditor.mostrarOpciones = hook.id" ng-show="papeleriaEditor.mostrarOpciones != hook.id" style="display: flex; justify-content: center; cursor: pointer;">
+                            <md-icon>keyboard_arrow_down</md-icon>
+                        </div>
 
-                        <div class="opciones-hook">
+                        <div class="opciones-hook" ng-show="papeleriaEditor.mostrarOpciones == hook.id">
                             <span>
                                 <input type="color" ng-init="hook.fuente.fill" ng-model="hook.fuente.fill" ng-change="papeleriaEditor.modificarHook($parent.$index, $index, true)">
                             </span>
@@ -98,9 +104,9 @@
                         <div class="mensaje-items" ng-if="hook.items.length == 0">
                             Agrega Elementos
                         </div>
-                        <div class="validacion-papeleria" ng-show="!formularioPapeleria.$valid && hook.items.length > 0">
+                        <!-- <div class="validacion-papeleria" ng-show="!formularioPapeleria.$valid && hook.items.length > 0">
                             Completa los campos correctamente
-                        </div>
+                        </div> -->
                         <span class="espacios-disponibles">Espacios disponibles {{hook.limite - hook.items.length }}</span>
                     </div>
                 </div>
