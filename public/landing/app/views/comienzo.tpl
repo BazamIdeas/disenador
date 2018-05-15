@@ -27,14 +27,15 @@
                         <md-input-container class="md-block">
                             <label>Actividad</label>
                             <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro
-                                                                            " name="cat" required>
+                                                                            " name="cat" >
                                 <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
                             </md-select>
-                            <!-- VALIDACION -->
+                            <!-- VALIDACION
                             <div ng-messages="form.cat.$error " style="color: #E91E63 !important; " role="alert ">
                                 <div ng-message="required" ng-show="form.cat.$touched && form.cat.$invalid || form.$submitted && form.cat.$invalid">Selecciona una actividad que le agrade.</div>
                                 </br>
                             </div>
+                             -->
                         </md-input-container>
                         <md-input-container class="md-block etiquetas" style="    margin-top: 50px;">
                             <label style="transform: none;">¿Que buscas?</label>

@@ -857,6 +857,9 @@ angular.module("disenador-de-logos")
 
 				bz.guardar = function () {
 
+					if(bz.peticion) return;
+					bz.peticion = true;
+
 					bz.datos.tipo = bz.papeleria.tipo;
 					bz.datos.modelo = bz.papeleria.modelo.nombre;
 					bz.datos.pieza.caras = [];
@@ -904,7 +907,7 @@ angular.module("disenador-de-logos")
 
 						})
 						.finally(function () {
-
+							bz.peticion = false;
 						})
 				}
 
