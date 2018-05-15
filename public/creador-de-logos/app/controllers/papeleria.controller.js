@@ -68,14 +68,9 @@ angular.module("disenador-de-logos")
 			if(bz.peticion) return;
 			bz.peticion = true;
 
-			piezaNueva = angular.copy(pieza);
-			delete piezaNueva._id;
-			piezaNueva.logo = bz.idLogo;
-			modelo.piezas.push(piezaNueva);
-			indice = modelo.piezas.indexOf(piezaNueva);
-
 			papeleriaService.piezas.guardar(tipo, modelo.nombre, piezaNueva).then(function(res){
-				modelo.piezas[indice]._id = res.insertId._id;
+
+				modelo.piezas.push(res);
 				bz.peticion = false;
 			});
 		}

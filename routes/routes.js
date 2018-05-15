@@ -199,6 +199,8 @@ router.get("/logo/borrar/:id", controllers.logos.Borrar);
 router.get("/logo/favicon/:id", middleware.validarCliente, controllers.logos.favicon);
 
 
+//MODULO PAPELERIA
+router.post("/cliente/powerpoint", controllers.clientes.powerpoint);
 
 //MODULO PAPELERIA
 router.get("/papeleria/logo/:idLogo", middleware.validarCliente, controllers.papeleria.ObtenerTodoPorLogo);

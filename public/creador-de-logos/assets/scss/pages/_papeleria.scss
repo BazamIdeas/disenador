@@ -127,7 +127,7 @@ textarea {
 
 bazam-menu-papeleria {
     width: 30%;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    /*box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);*/
 }
 
 .tabs-p {
@@ -173,6 +173,11 @@ bazam-menu-papeleria {
             padding: 15px;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
             padding-bottom: 5px;
+
+            &:nth-child(1) {
+                box-shadow: none !important;
+            }
+
             .nombre-contenedor {
                 padding: 2px;
                 font-size: 15pt;
@@ -180,14 +185,21 @@ bazam-menu-papeleria {
                 border-bottom: 1px solid;
                 justify-content: space-between;
                 display: flex;
+                align-items: center;
             }
             .opciones-hook {
                 display: flex;
-                justify-content: center;
+                justify-content: space-between;
                 align-items: center;
-                span {
-                    flex: 1;
+                &>:last-child {
+                    width: 65%;
+                    margin-right: 3%;
                 }
+
+                &>:first-child {
+                    width: 30%;
+                }
+
                 input[type="color"] {
                     padding: 0px;
                     background: transparent;
@@ -225,7 +237,6 @@ bazam-menu-papeleria {
                 &:not(.colocado):hover {
                     background: #f3f2f2;
                     cursor: move;
-                    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
                 }
                 &.colocado {
                     cursor: default;
@@ -233,6 +244,7 @@ bazam-menu-papeleria {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    box-shadow: none;
                     &:last-child:hover {
                         box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
                         border: 1px solid red;
