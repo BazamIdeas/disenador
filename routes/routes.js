@@ -196,6 +196,7 @@ router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.at
 
 router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
+router.get("/logo/favicon/:id", middleware.validarCliente, controllers.logos.favicon);
 
 
 //MODULO PAPELERIA
