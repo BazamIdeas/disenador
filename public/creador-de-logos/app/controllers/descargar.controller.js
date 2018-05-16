@@ -17,7 +17,7 @@ angular.module("disenador-de-logos")
 		{
 			nombre: "documento",
 			ancho: 300,
-			plantilla: 'plantilla_uno'
+			plantilla: {tipo: 'doc', nombre: 'plantilla_uno'}
 		}];
 
 		bz.formatos = [{

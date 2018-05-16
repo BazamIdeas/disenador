@@ -955,30 +955,65 @@ exports.zip = function (req, res) {
 
 	function descargarDocumento(imagen) {
 
-		var coloresTemas = {
-			fondo1: 'FFFFFF',
-			fondo2: '000000',
-			texto1: 'FFFFFF',
-			texto2: '000000',
-			enfasis1: toHexa(colores['color-icono']),
-			enfasis2: toHexa(colores['color-nombre']),
-			enfasis3: colores['color-eslogan'] ? toHexa(colores['color-eslogan']) : 'FFFFFF',
-			enfasis4: 'FFFFFF',
-			enfasis5: 'FFFFFF',
-			enfasis6: 'FFFFFF',
-		};
+		var plantillaParams = JSON.parse(plantilla);
+
+		var plantillas = {
+			ppt: {
+				urlBase: '/ppt',
+				plantilla_uno: {
+					coloresTema: {
+						fondo1: 'FFFFFF',
+						fondo2: '000000',
+						texto1: 'FFFFFF',
+						texto2: '000000',
+						enfasis1: toHexa(colores['color-icono']),
+						enfasis2: toHexa(colores['color-nombre']),
+						enfasis3: colores['color-eslogan'] ? toHexa(colores['color-eslogan']) : 'FFFFFF',
+						enfasis4: 'FFFFFF',
+						enfasis5: 'FFFFFF',
+						enfasis6: 'FFFFFF',
+					},
+					imagenLogo: 'image4.png',
+					ext: '.pptx'
+				},
+			},
+			doc: {
+				urlBase: '/word',
+				plantilla_uno: {
+					coloresTema: {
+						fondo1: 'FFFFFF',
+						fondo2: '000000',
+						texto1: 'FFFFFF',
+						texto2: '000000',
+						enfasis1: toHexa(colores['color-icono']),
+						enfasis2: toHexa(colores['color-nombre']),
+						enfasis3: colores['color-eslogan'] ? toHexa(colores['color-eslogan']) : 'FFFFFF',
+						enfasis4: 'FFFFFF',
+						enfasis5: 'FFFFFF',
+						enfasis6: 'FFFFFF',
+					},
+					imagenLogo: 'image1.png',
+					ext: '.docx',
+				}
+			}
+		}
 
 		/* FUNCION DOCUMENTOS */
 
-		var extensionPlantilla = '.pptx';
+		var datosPlantilla = plantillas[plantillaParams.tipo][plantillaParams.nombre];
+		var extensionPlantilla = datosPlantilla.ext;
+		var urlBase = plantillas[plantillaParams.tipo]['urlBase']; // Carpeta en donde se encuentran los archivos a cambiar
+		var coloresTemas = datosPlantilla.coloresTema;
+		var imagenAcambiar = datosPlantilla.imagenLogo;
 
-		var ubicacionFuente = __dirname.replace('controllers', '') + '/public/tmp/' + plantilla + extensionPlantilla;
+		var ubicacionFuente = __dirname.replace('controllers', '') + '/public/tmp/' + plantillaParams.nombre + extensionPlantilla;
 
-		fse.copy(__dirname.replace('controllers', '') + '/plantillas-documentos/' + plantilla + extensionPlantilla, ubicacionFuente, err => {
+		fse.copy(__dirname.replace('controllers', '') + '/plantillas-documentos/' + plantillaParams.nombre + extensionPlantilla, ubicacionFuente, err => {
 			if (err) return console.error(err)
 
 			/* CAMBIAMOS LOS COLORES DEL TEMA */
-			var template = fs.readFileSync(ubicacionFuente + '/ppt/theme/theme1.xml', 'utf8', (err, data) => {
+
+			var template = fs.readFileSync(ubicacionFuente + urlBase +'/theme/theme1.xml', 'utf8', (err, data) => {
 				if (err) throw err;
 			});
 
@@ -987,16 +1022,16 @@ exports.zip = function (req, res) {
 
 			for (var key in keys) {
 				while (template.indexOf("${" + keys[key] + "}") != -1) {
-					
+
 					template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
 				}
 			}
 
-			fs.writeFile(ubicacionFuente + '/ppt/theme/theme1.xml', template, (err) => {
+			fs.writeFile(ubicacionFuente + urlBase +'/theme/theme1.xml', template, (err) => {
 				if (err) throw err;
 
 				/* REMPLAZAR IMAGEN DEL LOGO */
-				fs.writeFile(ubicacionFuente + '/ppt/media/image4.png', imagen, (err) => {
+				fs.writeFile(ubicacionFuente + urlBase +'/media/'+imagenAcambiar, imagen, (err) => {
 					if (err) throw err;
 
 					/* COMPRIMIR DOCUMENTO Y DESCARGAR */
