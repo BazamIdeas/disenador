@@ -962,7 +962,7 @@ exports.zip = function (req, res) {
 			texto2: '000000',
 			enfasis1: toHexa(colores['color-icono']),
 			enfasis2: toHexa(colores['color-nombre']),
-			enfasis3: colores['color-eslogan'] ? toHexa(colores['color-eslogan']) : '#FFFFFF',
+			enfasis3: colores['color-eslogan'] ? toHexa(colores['color-eslogan']) : 'FFFFFF',
 			enfasis4: 'FFFFFF',
 			enfasis5: 'FFFFFF',
 			enfasis6: 'FFFFFF',
@@ -970,9 +970,11 @@ exports.zip = function (req, res) {
 
 		/* FUNCION DOCUMENTOS */
 
-		var ubicacionFuente = __dirname.replace('controllers', '') + '/public/tmp/' + plantilla + '.pptx';
+		var extensionPlantilla = '.pptx';
 
-		fse.copy(__dirname.replace('controllers', '') + '/plantillas-documentos/' + plantilla + '.pptx', ubicacionFuente, err => {
+		var ubicacionFuente = __dirname.replace('controllers', '') + '/public/tmp/' + plantilla + extensionPlantilla;
+
+		fse.copy(__dirname.replace('controllers', '') + '/plantillas-documentos/' + plantilla + extensionPlantilla, ubicacionFuente, err => {
 			if (err) return console.error(err)
 
 			/* CAMBIAMOS LOS COLORES DEL TEMA */
@@ -994,7 +996,7 @@ exports.zip = function (req, res) {
 				if (err) throw err;
 
 				/* REMPLAZAR IMAGEN DEL LOGO */
-				fs.writeFile(ubicacionFuente + '/ppt/media/image2.png', imagen, (err) => {
+				fs.writeFile(ubicacionFuente + '/ppt/media/image4.png', imagen, (err) => {
 					if (err) throw err;
 
 					/* COMPRIMIR DOCUMENTO Y DESCARGAR */
@@ -1015,15 +1017,15 @@ exports.zip = function (req, res) {
 
 					output.on('close', () => {
 						setTimeout(() => {
-							fs.rename(ubicacionArchivoNuevo, ubicacionArchivoNuevo.replace('.zip', '.pptx'), function (err) {
+							fs.rename(ubicacionArchivoNuevo, ubicacionArchivoNuevo.replace('.zip', extensionPlantilla), function (err) {
 								if (err) throw err;
-								fs.stat(ubicacionArchivoNuevo.replace('.zip', '.pptx'), function (err, stats) {
+								fs.stat(ubicacionArchivoNuevo.replace('.zip', extensionPlantilla), function (err, stats) {
 									if (err) throw err;
 									//console.log('stats: ' + JSON.stringify(stats));
 									fse.remove(ubicacionFuente, err => {
 										if (err) return console.error(err)
 
-										res.download(ubicacionArchivoNuevo.replace('.zip', '.pptx'));
+										res.download(ubicacionArchivoNuevo.replace('.zip', extensionPlantilla));
 									});
 								});
 							});
