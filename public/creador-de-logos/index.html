@@ -23,13 +23,9 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">-->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/jquery.scrollbar.css">
     <script src="assets/js/materialize.min.js"></script>
 
-
-
-
-    <!--Librerias core de angualarJS -->
+    <!--Librerias core de angularJS -->
     <script src="/angular/angular.min.js"></script>
     <script src="/angular-messages/angular-messages.min.js"></script>
     <script src="/angular-animate/angular-animate.min.js"></script>
@@ -42,14 +38,10 @@
     <script src="/angular-colorpicker-directive/js/color-picker.js"></script>
     <script src="/ng-file-upload/ng-file-upload-shim.min.js"></script>
     <script src="/ng-file-upload/ng-file-upload.min.js"></script>
-
-    <script src="/assets/js/scrollbars.js"></script>
-    <script src="/assets/js/jquery.scrollbar.js"></script>
     <script src="/angular-base64/angular-base64.min.js"></script>
     <script src="/angular-social/angular-socialshare.js"></script>
 
-    <!-- jqueryui -->
-
+    <!-- jqueryUi -->
     <link href="/assets/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css" />
     <script src="/assets/jquery-ui/jquery-ui.min.js"></script>
 
@@ -89,9 +81,21 @@
     <script src="app/directives/planes.js"></script>
     <script src="app/directives/papeleria/bazamMenuPapeleria.js"></script>
     <script src="app/directives/papeleria/bazamCrearPapeleria.js"></script>
-
-
     <script src="app/directives/jquery-ui.js"></script>
+
+    <!-- Service Worker -->
+    <script src="sw.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function () {
+                    navigator.serviceWorker.register('sw.js').catch(function (err) {
+                        console.log('Service Worker fallo', err);
+                    });
+                });
+            }
+        })
+    </script>
 
 </head>
 
