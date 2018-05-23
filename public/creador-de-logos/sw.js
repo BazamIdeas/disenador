@@ -1,8 +1,13 @@
 var d = new Date();
-var CACHE_NAME = 'disenador-cache-1-hour-' + d.getHours();
+var CACHE_NAME = 'disenador-cache-1-day-' + d.getDay();
 var urlsToCache = [
     '/index.html',
     '/assets/css/main.css',
+    '/assets/logo.pro.svg',
+    '/assets/css/materialize.min.css',
+    '/assets/css/responsive.css',
+    '/app/controllers/inicio.controller.js',
+    '/assets/images/gifs/c.gif',
     'app/app.js',
     'app/services.js'
 ];
