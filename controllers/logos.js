@@ -740,7 +740,6 @@ exports.zip = function (req, res) {
 							if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
 
 								async.forEachOf(dataAttrs, (row, key, callback) => {
-
 									if (row.clave == "principal" || row.clave == "eslogan") {
 
 										elemento.datosElemento(row.valor, (err, fuente) => {
@@ -830,7 +829,7 @@ exports.zip = function (req, res) {
 															descargarDocumento(buffer)
 
 														})
-														.catch(e => console.log('error'));
+														.catch(e => console.log(e));
 												});
 
 											} else if (tipo != "editable" && caracteristicas.png == '1') {
@@ -955,7 +954,9 @@ exports.zip = function (req, res) {
 
 	function descargarDocumento(imagen) {
 
-		var plantillaParams = JSON.parse(plantilla);
+		/**
+		 * DATOS PLANTILLAS
+		 */
 
 		var plantillas = {
 			ppt: {
@@ -966,16 +967,27 @@ exports.zip = function (req, res) {
 						fondo2: '000000',
 						texto1: 'FFFFFF',
 						texto2: '000000',
-						enfasis1: toHexa(colores['color-icono']),
-						enfasis2: toHexa(colores['color-nombre']),
+						enfasis1: colores['color-icono'] ? toHexa(colores['color-icono']) : 'FFFFFF',
+						enfasis2: colores['color-nombre'] ? toHexa(colores['color-nombre']) : 'FFFFFF',
 						enfasis3: colores['color-eslogan'] ? toHexa(colores['color-eslogan']) : 'FFFFFF',
 						enfasis4: 'FFFFFF',
 						enfasis5: 'FFFFFF',
 						enfasis6: 'FFFFFF',
 					},
-					imagenLogo: 'image4.png',
+					temas: ['theme1.xml'],
+					imagenes: ['image4.png'],
 					ext: '.pptx'
 				},
+				eglamour: {
+					coloresTema: {
+						enfasis1: colores['color-icono'] ? toHexa(colores['color-icono']) : 'FFFFFF',
+						enfasis2: colores['color-nombre'] ? toHexa(colores['color-nombre']) : 'FFFFFF',
+						enfasis3: colores['color-eslogan'] ? toHexa(colores['color-eslogan']) : 'FFFFFF',
+					},
+					temas: ['theme1.xml', 'theme2.xml'],
+					imagenes: ['image4.png'],
+					ext: '.pptx'
+				}
 			},
 			doc: {
 				urlBase: '/word',
@@ -985,93 +997,113 @@ exports.zip = function (req, res) {
 						fondo2: '000000',
 						texto1: 'FFFFFF',
 						texto2: '000000',
-						enfasis1: toHexa(colores['color-icono']),
-						enfasis2: toHexa(colores['color-nombre']),
+						enfasis1: colores['color-icono'] ? toHexa(colores['color-icono']) : 'FFFFFF',
+						enfasis2: colores['color-nombre'] ? toHexa(colores['color-nombre']) : 'FFFFFF',
 						enfasis3: colores['color-eslogan'] ? toHexa(colores['color-eslogan']) : 'FFFFFF',
 						enfasis4: 'FFFFFF',
 						enfasis5: 'FFFFFF',
 						enfasis6: 'FFFFFF',
 					},
-					imagenLogo: 'image1.png',
+					temas: ['theme1.xml'],
+					imagenes: ['image1.png'],
 					ext: '.docx',
 				}
 			}
 		}
 
-		/* FUNCION DOCUMENTOS */
+		/**
+		 * FUNCION DOCUMENTOS
+		 */
 
-		var datosPlantilla = plantillas[plantillaParams.tipo][plantillaParams.nombre];
+		var plantillaParametros = JSON.parse(plantilla);
+
+		var datosPlantilla = plantillas[plantillaParametros.tipo][plantillaParametros.nombre];
+
 		var extensionPlantilla = datosPlantilla.ext;
-		var urlBase = plantillas[plantillaParams.tipo]['urlBase']; // Carpeta en donde se encuentran los archivos a cambiar
-		var coloresTemas = datosPlantilla.coloresTema;
-		var imagenAcambiar = datosPlantilla.imagenLogo;
 
-		var ubicacionFuente = __dirname.replace('controllers', '') + '/public/tmp/' + plantillaParams.nombre + extensionPlantilla;
+		var urlBase = plantillas[plantillaParametros.tipo]['urlBase']; // Carpeta en donde se encuentran los archivos a cambiar
 
-		fse.copy(__dirname.replace('controllers', '') + '/plantillas-documentos/' + plantillaParams.nombre + extensionPlantilla, ubicacionFuente, err => {
+		var coloresTema = datosPlantilla.coloresTema;
+
+		var imagenes = datosPlantilla.imagenes;
+
+		var ubicacionFuente = __dirname.replace('controllers', '') + '/public/tmp/' + plantillaParametros.nombre + extensionPlantilla;
+
+		/**
+		 * Creamos una copia del la plantilla en la carpeta temporal 'tmp'
+		 */
+		fse.copy(__dirname.replace('controllers', '') + '/plantillas-documentos/' + plantillaParametros.nombre + extensionPlantilla, ubicacionFuente, err => {
 			if (err) return console.error(err)
 
-			/* CAMBIAMOS LOS COLORES DEL TEMA */
+			/**
+			 * CAMBIAMOS LOS COLORES DEL TEMA
+			 */
 
-			var template = fs.readFileSync(ubicacionFuente + urlBase +'/theme/theme1.xml', 'utf8', (err, data) => {
-				if (err) throw err;
-			});
+			for (let i = 0; i < datosPlantilla.temas.length; i++) {
 
-			var datos = coloresTemas;
-			var keys = Object.keys(datos);
+				let tema = datosPlantilla.temas[i];
 
-			for (var key in keys) {
-				while (template.indexOf("${" + keys[key] + "}") != -1) {
-
-					template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
-				}
-			}
-
-			fs.writeFile(ubicacionFuente + urlBase +'/theme/theme1.xml', template, (err) => {
-				if (err) throw err;
-
-				/* REMPLAZAR IMAGEN DEL LOGO */
-				fs.writeFile(ubicacionFuente + urlBase +'/media/'+imagenAcambiar, imagen, (err) => {
+				var template = fs.readFileSync(ubicacionFuente + urlBase + '/theme/' + tema, 'utf8', (err, data) => {
 					if (err) throw err;
-
-					/* COMPRIMIR DOCUMENTO Y DESCARGAR */
-
-					var ubicacionArchivoNuevo = __dirname.replace('controllers', '') + '/public/tmp/papeleria-' + moment().format("DD-MM-YYYY") + '-' + idLogo + '.zip';
-
-					var output = fs.createWriteStream(ubicacionArchivoNuevo);
-
-					var archive = archiver("zip", {
-						zlib: {
-							level: 9
-						}
-					});
-
-					archive.pipe(output);
-
-					archive.directory(ubicacionFuente, false);
-
-					output.on('close', () => {
-						setTimeout(() => {
-							fs.rename(ubicacionArchivoNuevo, ubicacionArchivoNuevo.replace('.zip', extensionPlantilla), function (err) {
-								if (err) throw err;
-								fs.stat(ubicacionArchivoNuevo.replace('.zip', extensionPlantilla), function (err, stats) {
-									if (err) throw err;
-									//console.log('stats: ' + JSON.stringify(stats));
-									fse.remove(ubicacionFuente, err => {
-										if (err) return console.error(err)
-
-										res.download(ubicacionArchivoNuevo.replace('.zip', extensionPlantilla));
-									});
-								});
-							});
-						}, 1000)
-					})
-
-					archive.finalize();
-
 				});
 
+				var datos = coloresTema;
+				var keys = Object.keys(datos);
+
+				for (var key in keys) {
+					while (template.indexOf("${" + keys[key] + "}") != -1) {
+
+						template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
+					}
+				}
+
+				fs.writeFileSync(ubicacionFuente + urlBase + '/theme/' + tema, template);
+
+			}
+
+			/**
+			 * REMPLAZAMOS LAS IMAGENES DEL DOCUMENTO
+			 */
+			
+			for (let i = 0; i < imagenes.length; i++) {
+				fs.writeFileSync(ubicacionFuente + urlBase + '/media/' + imagenes[i], imagen);
+			}
+
+			/**
+			 * COMPRIMIR DOCUMENTO Y DESCARGAR
+			 */
+
+			var ubicacionArchivoNuevo = __dirname.replace('controllers', '') + '/public/tmp/papeleria-' + moment().format("DD-MM-YYYY") + '-' + idLogo + '.zip';
+
+			var output = fs.createWriteStream(ubicacionArchivoNuevo);
+
+			var archive = archiver("zip", {
+				zlib: {
+					level: 9
+				}
 			});
+
+			archive.pipe(output);
+
+			archive.directory(ubicacionFuente, false);
+
+			output.on('close', () => {
+				setTimeout(() => {
+					fs.rename(ubicacionArchivoNuevo, ubicacionArchivoNuevo.replace('.zip', extensionPlantilla), function (err) {
+						if (err) throw err;
+						fs.stat(ubicacionArchivoNuevo.replace('.zip', extensionPlantilla), function (err, stats) {
+							if (err) throw err;
+							fse.remove(ubicacionFuente, err => {
+								if (err) return console.error(err)
+
+								res.download(ubicacionArchivoNuevo.replace('.zip', extensionPlantilla));
+							});
+						});
+					});
+				}, 1000)
+			})
+
+			archive.finalize();
 		})
 
 	}

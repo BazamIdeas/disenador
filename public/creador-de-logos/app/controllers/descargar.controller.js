@@ -17,7 +17,7 @@ angular.module("disenador-de-logos")
 		{
 			nombre: "documento",
 			ancho: 300,
-			plantilla: {tipo: 'doc', nombre: 'plantilla_uno'}
+			plantilla: {tipo: 'ppt', nombre: 'eglamour'}
 		}];
 
 		bz.formatos = [{
@@ -79,8 +79,6 @@ angular.module("disenador-de-logos")
 
 				bz.idPlan = res.idPlan;
 				
-			
-
 				planesService.aumentarPlan(bz.idPlan)
 					.then(function (res) {
 
