@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+    
+    <link rel="manifest" href="manifest.json">
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 
@@ -89,7 +91,9 @@
         document.addEventListener('DOMContentLoaded', function () {
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function () {
-                    navigator.serviceWorker.register('sw.js').catch(function (err) {
+                    navigator.serviceWorker.register('sw.js').then(reg => {
+                        //reg.update();
+                    }).catch(function (err) {
                         console.log('Service Worker fallo', err);
                     });
                 });

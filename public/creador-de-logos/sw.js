@@ -1,77 +1,84 @@
-var d = new Date();
-var CACHE_NAME = 'disenador-cache-1-day-' + d.getDay();
-var urlsToCache = [
-    '/index.html',
-    '/assets/css/main.css',
-    '/assets/logo.pro.svg',
-    '/assets/css/materialize.min.css',
-    '/assets/css/responsive.css',
-    '/app/controllers/inicio.controller.js',
-    '/assets/images/gifs/c.gif',
-    'app/app.js',
-    'app/services.js'
-];
+//var workbox = new Worker('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
 
-self.addEventListener('install', function (event) {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-        .then(function (cache) {
-            return cache.addAll(urlsToCache);
-        }).catch(function (res) {
-            console.log(res)
+if (workbox) {
+
+    //workbox.setConfig({ debug: false });
+    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.silent);
+    
+    workbox.core.setCacheNameDetails({
+        prefix: 'creador-de-logos',
+        suffix: 'v1',
+        precache: 'precargado'
+    });
+
+
+    workbox.precaching.precacheAndRoute([
+        '/index.html',
+        '/assets/css/main.css',
+        '/assets/logo.pro.svg',
+        '/assets/css/materialize.min.css',
+        '/assets/css/responsive.css',
+        '/app/controllers/inicio.controller.js',
+        '/assets/images/gifs/c.gif',
+        'app/app.js',
+        'app/services.js'
+    ]);
+
+    workbox.routing.registerRoute(
+        new RegExp('.*\.js'),
+        workbox.strategies.networkFirst()
+    );
+
+    workbox.routing.registerRoute(
+        /.*\.css/,
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'estilos-cache',
         })
     );
-});
 
-self.addEventListener('fetch', function (event) {
-    event.respondWith(
-        caches.match(event.request)
-        .then(function (response) {
-            // Cache hit - return response
-            if (response) {
-                return response;
-            }
-
-            var fetchRequest = event.request.clone();
-
-            return fetch(fetchRequest).then(
-                function (response) {
-                    // Check if we received a valid response
-                    if (!response || response.status !== 200 || response.type !== 'basic') {
-                        return response;
-                    }
-
-                    var responseToCache = response.clone();
-
-                    caches.open(CACHE_NAME)
-                        .then(function (cache) {
-                            if(event.request.method == 'POST')
-                            return 'Post Peticion';
-                            cache.put(event.request, responseToCache);
-                        });
-
-                    return response;
-                }
-            );
-        }).catch(function (res) {
-            console.log(res)
+    workbox.routing.registerRoute(
+        // Cache image files
+        /.*\.(?:png|jpg|jpeg|svg|gif)/,
+        // Use the cache if it's available
+        workbox.strategies.cacheFirst({
+            // Use a custom cache name
+            cacheName: 'imagenes-cache',
+            plugins: [
+                new workbox.expiration.Plugin({
+                    // Cache only 20 images
+                    maxEntries: 30,
+                    // Cache for a maximum of a week
+                    maxAgeSeconds: 7 * 24 * 60 * 60,
+                })
+            ],
         })
     );
-});
 
-self.addEventListener('activate', function(event) {
-
-    var cacheWhitelist = [CACHE_NAME];
-  
-    event.waitUntil(
-      caches.keys().then(function(cacheNames) {
-        return Promise.all(
-          cacheNames.map(function(cacheName) {
-            if (cacheWhitelist.indexOf(cacheName) === -1) {
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      })
+    workbox.routing.registerRoute(
+        'https://use.fontawesome.com/releases/v5.0.0/js/all.js',
+        workbox.strategies.staleWhileRevalidate(),
     );
-});
+
+    workbox.routing.registerRoute(
+        new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
+        workbox.strategies.cacheFirst({
+            cacheName: 'googleapis',
+            plugins: [
+                new workbox.expiration.Plugin({
+                    maxEntries: 30,
+                }),
+            ],
+        }),
+    );
+
+    workbox.routing.registerRoute(
+        /.*(?:googleapis|gstatic)\.com.*$/,
+        workbox.strategies.staleWhileRevalidate(),
+    );
+
+    workbox.googleAnalytics.initialize();
+
+} else {
+    console.log(`Boo! Workbox didn't load 😬`);
+}
