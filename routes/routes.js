@@ -101,7 +101,11 @@ router.get("/etiquetas/iconos/svg/:_id", controllers.etiquetas.ObtenerConIconos)
 router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
 router.get("/iconos/:id/etiquetas", controllers.etiquetas.ObtenerPorIcono);
 
+<<<<<<< HEAD
 
+=======
+router.get("/etiquetas/:id/iconos", controllers.etiquetas.ObtenerTodosConIconos);
+>>>>>>> f6521c7e0104b82a229e660361e5086ad1acb6b8
 
 //MODULO IDIOMAS
 router.get("/idiomas", controllers.idiomas.ObtenerTodos);
