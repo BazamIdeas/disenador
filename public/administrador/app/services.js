@@ -1080,12 +1080,12 @@ angular.module("administrador")
             return promise;
         }
 
-        this.listarEtiquetasConIconos = function () {
+        this.listarIconosEtiqueta = function (id) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/etiquetas/iconos').then(function (res) {
+            $http.get('/app/etiquetas/' + id + '/iconos').then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
