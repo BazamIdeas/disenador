@@ -3,8 +3,8 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox
 
 if (workbox) {
 
-    workbox.setConfig({ debug: true });
-    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
+    workbox.setConfig({ debug: false });
+    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.silent);
 
     workbox.core.setCacheNameDetails({
         prefix: 'landing'
@@ -33,6 +33,20 @@ if (workbox) {
         "app/app.js",
         "app/directives/jquery-ui.js",
     ]);
+
+    workbox.routing.registerRoute(
+        new RegExp('app/templates/(.*)'),
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'templates-cache',
+        }),
+    );
+
+    workbox.routing.registerRoute(
+        new RegExp('app/views/(.*)'),
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'views-cache',
+        }),
+    );
 
     workbox.routing.registerRoute(
         /.*\.css/,

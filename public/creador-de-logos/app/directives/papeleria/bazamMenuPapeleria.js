@@ -47,10 +47,9 @@ angular.module("disenador-de-logos")
                     }
 
                     /* Agregamos el elemento y actualizamos el scope */
-
                     $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items.push(itemAgregar);
-                    $scope.$apply();
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook)
+                    $scope.$apply();
 
                 }
 
@@ -72,7 +71,6 @@ angular.module("disenador-de-logos")
                     var indexes = [indiceElemento, nuevoIndice].sort();
 
                     elementos.splice(indexes[0], 2, elementos[indexes[1]], elementos[indexes[0]]);
-
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
 
                 }

@@ -3,8 +3,10 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox
 
 if (workbox) {
 
-    workbox.setConfig({ debug: true });
-    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
+    workbox.setConfig({
+        debug: false
+    });
+    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.silent);
 
     workbox.core.setCacheNameDetails({
         prefix: 'creador-de-logos'
@@ -12,6 +14,7 @@ if (workbox) {
 
     workbox.precaching.precacheAndRoute([
         '/index.html',
+        'app/views/inicio.tpl',
         '/assets/css/main.css',
         '/assets/logo.pro.svg',
         '/assets/css/materialize.min.css',
@@ -32,13 +35,34 @@ if (workbox) {
         "/assets/jquery-ui/jquery-ui.css",
         "/assets/jquery-ui/jquery-ui.min.js",
         "app/app.js",
-        "app/directives/jquery-ui.js",
+        "app/directives/jquery-ui.js"
     ]);
 
     workbox.routing.registerRoute(
         /.*\.css/,
         workbox.strategies.staleWhileRevalidate({
             cacheName: 'estilos-cache',
+        })
+    );
+
+    workbox.routing.registerRoute(
+        new RegExp('app/templates/(.*)'),
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'templates-cache',
+        }),
+    );
+
+    workbox.routing.registerRoute(
+        new RegExp('app/views/(.*)'),
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'views-cache',
+        }),
+    );
+
+    workbox.routing.registerRoute(
+        /.*\.tpl/,
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'templates-cache',
         })
     );
 
