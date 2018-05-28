@@ -98,7 +98,8 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none;
+  }
 
 *:not(i, text),
 button,
@@ -2059,11 +2060,13 @@ div.element-color-picker {
   z-index: 5;
   padding: 10px; }
   div.element-color-picker .title {
+    height: 37px;
     padding: 3%;
     text-align: center;
     font-family: 'Futura Black' !important;
     color: #000000;
-    cursor: move; }
+    cursor: move;
+    }
     div.element-color-picker .title span.close-color-picker {
       float: right;
       color: white;
