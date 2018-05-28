@@ -58,6 +58,18 @@ angular.module("disenador-de-logos")
 		},
 		];
 
+
+		bz.panelSeleccionado = 1;
+
+		bz.panelActivo = false;
+
+		bz.seleccionarPanel = function(index) {
+			bz.panelSeleccionado = index;
+			if (!bz.panelActivo) {
+				bz.panelActivo = true;
+			}
+		}
+
 		//bz.formatoSeleccionado = bz.formatos[0];
 
 		bz.logo = logoResolve;

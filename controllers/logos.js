@@ -779,7 +779,7 @@ exports.zip = function(req,res)
 								}, (err) => {
 									if (err) res.status(402).json({});
 									
-									var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",req.protocol + "://" + req.headers.host+"/fuentes/"));
+									var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/",gq.protocol + "://" + req.headers.host+"/fuentes/"));
 									
 									fs.open(path + nombre, "w", (err, fd) => {
 										if (err) throw "error al crear svg " + err;
