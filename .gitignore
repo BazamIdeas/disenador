@@ -31,3 +31,6 @@ avatares/*
 
 plantillas-documentos/*.pptx
 plantillas-documentos/*.docx
+public/creador-de-logos/built/*
+public/landing/built/*
+public/administrador/built/*
