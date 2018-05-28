@@ -99,7 +99,8 @@ router.post("/etiquetas/iconos", controllers.etiquetas.AsignarIconos);
 router.post("/etiquetas/:_id/iconos/desasignar", controllers.etiquetas.DesasignarIcono);
 router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
 router.get("/iconos/:id/etiquetas", controllers.etiquetas.ObtenerPorIcono);
-router.get("/etiquetas/iconos", controllers.etiquetas.ObtenerTodosConIconos);
+
+router.get("/etiquetas/iconos/svg", controllers.etiquetas.ObtenerTodosConIconos);
 
 //MODULO IDIOMAS
 router.get("/idiomas", controllers.idiomas.ObtenerTodos);

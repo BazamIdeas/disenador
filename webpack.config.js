@@ -1,6 +1,4 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
-
 
 module.exports = [{
     output: {

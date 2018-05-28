@@ -3,18 +3,36 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox
 
 if (workbox) {
 
-    //workbox.setConfig({ debug: false });
-    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.log);
-    
+    workbox.setConfig({ debug: true });
+    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
+
     workbox.core.setCacheNameDetails({
-        prefix: 'creador-de-logos',
-        suffix: 'v1',
+        prefix: 'landing'
     });
 
-    workbox.routing.registerRoute(
-        new RegExp('.*\.js'),
-        workbox.strategies.networkFirst()
-    );
+    workbox.precaching.precacheAndRoute([
+        '/index.html',
+        '/assets/css/main.css',
+        '/assets/logo.pro.svg',
+        '/assets/css/materialize.min.css',
+        '/assets/css/responsive.css',
+        "/angular/angular.min.js",
+        "/angular-messages/angular-messages.min.js",
+        "/angular-animate/angular-animate.min.js",
+        "/angular-aria/angular-aria.min.js",
+        "/angular-ui-router/angular-ui-router.min.js",
+        "/angular-material/angular-material.min.js",
+        "/angular-color-picker/angular-color-picker.js",
+        "/angular-colorpicker-directive/js/color-picker.js",
+        "/ng-file-upload/ng-file-upload-shim.min.js",
+        "/ng-file-upload/ng-file-upload.min.js",
+        "/angular-base64/angular-base64.min.js",
+        "/angular-social/angular-socialshare.js",
+        "/assets/jquery-ui/jquery-ui.css",
+        "/assets/jquery-ui/jquery-ui.min.js",
+        "app/app.js",
+        "app/directives/jquery-ui.js",
+    ]);
 
     workbox.routing.registerRoute(
         /.*\.css/,
@@ -24,17 +42,12 @@ if (workbox) {
     );
 
     workbox.routing.registerRoute(
-        // Cache image files
         /.*\.(?:png|jpg|jpeg|svg|gif)/,
-        // Use the cache if it's available
         workbox.strategies.cacheFirst({
-            // Use a custom cache name
             cacheName: 'imagenes-cache',
             plugins: [
                 new workbox.expiration.Plugin({
-                    // Cache only 20 images
                     maxEntries: 30,
-                    // Cache for a maximum of a week
                     maxAgeSeconds: 7 * 24 * 60 * 60,
                 })
             ],
