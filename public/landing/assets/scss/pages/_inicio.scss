@@ -336,8 +336,14 @@ button.md-button.md-primary.md-raised {
 
 /* CHIPS ETIQUETAS */
 
+.etiquetas input[type=search]:focus:not([readonly]) {
+    border-bottom: 1px solid $PRINCIPAL;
+    box-shadow: 0 1px 0 0 $PRINCIPAL;
+}
+
 .md-chips {
     padding: 0;
+    padding-bottom: 8px;
     md-chip {
         cursor: default;
         border-radius: 30px !important;

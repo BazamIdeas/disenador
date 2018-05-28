@@ -15,6 +15,19 @@ exports.ObtenerTodos = (req, res) =>
 	});
 }
 
+exports.ObtenerTodosConIconos = (req, res) => 
+{
+	Etiqueta.ObtenerTodos((err, data) => {
+		if (data.length > 0) {
+			res.status(200).json(data);
+		} else {
+			res.status(404).json({
+				'msg': 'No hay etiquetas en la base de datos'
+			});
+		}
+	});
+}
+
 exports.GuardarEtiquetas = (req, res) => 
 {
 	const etiquetas = req.body.etiquetas;

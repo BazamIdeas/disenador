@@ -78,7 +78,7 @@ pieza.Guardar = (piezaData, callback) =>
 {
     piezaData.modelo = objectId(piezaData.modelo);
     piezaData.tipo = objectId(piezaData.tipo);
-
+    
     Connection(db => {
 
         const collection = db.collection('piezas');

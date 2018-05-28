@@ -100,6 +100,8 @@ router.post("/etiquetas/:_id/iconos/desasignar", controllers.etiquetas.Desasigna
 router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
 router.get("/iconos/:id/etiquetas", controllers.etiquetas.ObtenerPorIcono);
 
+router.get("/etiquetas/iconos/svg", controllers.etiquetas.ObtenerTodosConIconos);
+
 //MODULO IDIOMAS
 router.get("/idiomas", controllers.idiomas.ObtenerTodos);
 router.post("/idiomas", controllers.idiomas.Guardar);
@@ -196,8 +198,7 @@ router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.at
 
 router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
-
-
+router.get("/logo/favicon/:id", middleware.validarCliente, controllers.logos.favicon);
 
 //MODULO PAPELERIA
 router.get("/papeleria/logo/:idLogo", middleware.validarCliente, controllers.papeleria.ObtenerTodoPorLogo);

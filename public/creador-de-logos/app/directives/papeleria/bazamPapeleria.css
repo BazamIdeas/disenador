@@ -1,0 +1,14 @@
+.total-blanco, .total-blanco * {
+    stroke: none !important;
+    fill: white !important;
+}
+
+.total-negro, .total-negro * {
+    stroke: none !important;
+    fill: black !important;
+}
+
+.total-gris, .total-gris * {
+    stroke: none !important;
+    fill: #e2e2e2 !important;
+}

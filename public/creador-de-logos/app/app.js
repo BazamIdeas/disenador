@@ -1,4 +1,4 @@
-angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "jQueryScrollbar", "720kb.socialshare", "ngFileUpload"])
+angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "720kb.socialshare", "ngFileUpload"])
 
 	.config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
 
@@ -487,12 +487,12 @@ angular.module("disenador-de-logos", ["ngMessages", "ui.router", "ngAnimate", "n
 							papeleria.modelo = $stateParams.papeleria.modelo;
 							papeleria.fuentes = $stateParams.papeleria.fuentes; 
 						
-
 							if($stateParams.papeleria.pieza){
 
 								angular.forEach($stateParams.papeleria.pieza.caras, function(cara, indiceCara){
 
 									papeleria.modelo.caras[indiceCara].hooks = cara.hooks;
+									papeleria.modelo.caras[indiceCara].logos = cara.logos;
 
 								});
 

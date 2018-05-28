@@ -27,3 +27,10 @@ avatares/*
 .vs/slnx.sqlite
 .vs/config/applicationhost.config
 .vs/ProjectSettings.json
+
+
+plantillas-documentos/*.pptx
+plantillas-documentos/*.docx
+public/creador-de-logos/built/*
+public/landing/built/*
+public/administrador/built/*

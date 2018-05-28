@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.directive("bazamPapeleria", ["fontService", "$document", "$q", "papeleriaService", "$mdToast", function (fontService, $document, $q, papeleriaService, $mdToast) {
+	.directive("bazamPapeleria", ["fontService", "$document", "$q", "papeleriaService", "$mdToast", "coloresPaletaValue", "$http", function (fontService, $document, $q, papeleriaService, $mdToast, coloresPaletaValue, $http) {
 		return {
 			restrict: "AE",
 			scope: true,
@@ -11,6 +11,63 @@ angular.module("disenador-de-logos")
 				
 				//obtenemos el controlador padre
 				var bz = scope.$parent.papeleriaEditor;
+
+		
+				var logoColors = [
+					"color-primario",
+					"total-blanco",
+					"total-negro",
+					"total-gris"
+				];
+
+
+
+				///////////////////////////
+				///////MIRROR RECTS////////
+				///////////////////////////
+
+				function crearMirrorRect (elementoData, identidad){
+					
+					var caraSvg = angular.element("svg.cara[data-index="+identidad.data.cara+"]");
+
+					var mirrorRect = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "rect"));
+						
+					mirrorRect.addClass("mirror-rect");
+					mirrorRect.attr("data-identidad", angular.toJson(identidad))
+					var coordenadasElemento;
+
+					if(identidad.tipo == "item"){
+						
+						var itemSvg = caraSvg.find(".hook#"+identidad.data.hook+" > svg > g[data-index="+identidad.data.item+"]");
+						
+						coordenadasElemento = itemSvg[0].getBBox();
+						
+						var padreSvg = itemSvg.parents(".hook");
+						
+						mirrorRect.attr("y", coordenadasElemento.y + parseFloat(padreSvg.attr("y")));
+						mirrorRect.attr("x", coordenadasElemento.x + parseFloat(padreSvg.attr("x")));
+
+						aplicarAlteraciones(elementoData, identidad.data.item, "mirror", mirrorRect);
+
+					} else if(identidad.tipo == "logo"){
+
+						var logoSvg = caraSvg.find(".contenedor-logo[data-index='"+identidad.data.logo+"']");
+
+						coordenadasElemento = logoSvg[0].getBBox();	
+
+						mirrorRect.attr("y", coordenadasElemento.y);
+						mirrorRect.attr("x", coordenadasElemento.x);
+						aplicarAlteraciones(elementoData, identidad.data.logo, "mirror", mirrorRect);
+
+					}
+
+					mirrorRect.css("fill", "transparent");
+					mirrorRect.attr("height", coordenadasElemento.height);
+					mirrorRect.attr("width", coordenadasElemento.width);
+										
+					caraSvg.append(mirrorRect);
+				}
+
 
 				////////////////////////////
 				//////COLOREAR LOS SVG//////
@@ -36,36 +93,35 @@ angular.module("disenador-de-logos")
 
 
 				/////////////////////////////////////////
-				////APLICAR ALTERACIONES A LOS items/////
+				////APLICAR ALTERACIONES A LOS ITEMS/////
 				/////////////////////////////////////////
 				// color, posicion, tamano
-				function aplicarAlteraciones(item, indice, hookSvg) {
+				function aplicarAlteraciones(elementoData, indice, elemento, elementoSvg) {
 					
-					var itemSvg = hookSvg.find("g[data-index="+indice+"]");
+					var elementoDOM;
+
+					if(elemento == "item"){
+						elementoDOM = elementoSvg.find("g[data-index="+indice+"]");
+					} else if(elemento == "logo" || elemento == "mirror"){
+						elementoDOM = elementoSvg;						
+					};
 					
-					angular.forEach(item.alteraciones, function(alteracion, llave){
+					angular.forEach(elementoData.alteraciones, function(alteracion, llave){
 
 						switch(llave){
 
 							case "matrix":
-								
 								var matrix = alteracion;
 								
 								for (var i = 0; i < matrix.length; i++) {
-
 									matrix[i] = parseFloat(matrix[i]);
-			
 								}
 
 								var newMatrix = "matrix(" + matrix.join(" ") + ")";
-
-								itemSvg.attr("transform", newMatrix);
-
+								elementoDOM.attr("transform", newMatrix);
 								break;
 
 						}
-
-
 
 					});
 					
@@ -108,7 +164,7 @@ angular.module("disenador-de-logos")
 							});
 							
 							angular.forEach(hook.items, function(item, indice){
-								aplicarAlteraciones(item, indice, hookSvg)
+								aplicarAlteraciones(item, indice, "item", hookSvg)
 							})
 
 							defered.resolve();
@@ -624,7 +680,6 @@ angular.module("disenador-de-logos")
 												trozoTextSvg.attr("dy", alturaLinea);
 											}
 
-
 										})
 
 									} else { //cualquier item despues del primero
@@ -759,20 +814,18 @@ angular.module("disenador-de-logos")
 
 					var estilos = angular.element("<style></style>");
 					estilos.addClass("estilos-cara");
-					estilos.text(
-						`.total-blanco, .total-blanco * {
-							stroke: white !important;
-							fill: white !important;
-						}`
-					);
+
+					$http.get("/creador-de-logos/app/directives/papeleria/bazamPapeleria.css").then(function(res){
+						estilos.text(res.data);
+					})
 
 					caraSvg.prepend(estilos);
 
 					element.append(caraSvg);
 
-					angular.forEach(cara.logos, function (logo) {
+					angular.forEach(cara.logos, function (logo, indiceLogo) {
 
-						var logoSvg = angular.element("<g class='contenedor-logo'>" + bz.base64.decode(bz.logo.logo) + "</g>");
+						var logoSvg = angular.element("<g class='contenedor-logo' data-index="+indiceLogo+">" + bz.base64.decode(bz.logo.logo) + "</g>");
 
 						angular.forEach(logo.caracteristicas, function (caracteristica, llave) {
 							logoSvg.children().attr(llave, caracteristica);
@@ -781,6 +834,8 @@ angular.module("disenador-de-logos")
 						angular.forEach(logo.clases, function (clase) {
 							logoSvg.addClass(clase);
 						});
+
+						aplicarAlteraciones(logo, indiceLogo, "logo", logoSvg);
 
 						caraSvg.append(logoSvg);
 
@@ -795,6 +850,35 @@ angular.module("disenador-de-logos")
 					.finally(function () {
 						element.html(element.html());
 						pintarLienzo(element);
+
+						angular.forEach(bz.papeleria.modelo.caras, function(cara, indiceCara){
+							
+							angular.forEach(cara.logos, function(logo, indiceLogo){
+								var identidadLogo = {
+									tipo: "logo",
+									data: {
+										cara: indiceCara,
+										logo: indiceLogo
+									}
+								}
+								crearMirrorRect(logo, identidadLogo);
+							});
+							
+							angular.forEach(cara.hooks, function(hook, indiceHook){
+								angular.forEach(hook.items, function(item, indiceItem){
+									var identidadItem = {
+										tipo: "item",
+										data: {
+											cara: indiceCara,
+											hook: hook.id,
+											item: indiceItem
+										}
+									}
+									crearMirrorRect(item, identidadItem);
+								});
+							});
+
+						});
 
 						element.find(".bazam-loader-papeleria").remove();
 
@@ -872,6 +956,7 @@ angular.module("disenador-de-logos")
 						var nuevaCara = {
 							hooks: cara.hooks,
 							nombre: cara.nombre,
+							logos: cara.logos,
 							svg: svgCara
 						}
 						bz.datos.pieza.caras.push(nuevaCara)
@@ -917,46 +1002,42 @@ angular.module("disenador-de-logos")
 				var currentY = 0;
 				var currentMatrix = [];
 
-				element.on("mousedown", ".hook g", function (evento) {
-		
-					var objetivo = angular.element(evento.currentTarget);
+				/*
+				Eventos sin mirror item
+				*/
 
-					angular.element(".rect-bz").remove();		
+				element.on("mouseenter", ".mirror-rect", function (evento){
+					var mirrorSvg = angular.element(this);
+					mirrorSvg.attr("movimiento-bz", "");
 
-					var coordenadasObjetivo = objetivo[0].getBBox();
+					var identidad = mirrorSvg.data("identidad");
+					angular.element(".cara[data-index="+identidad.data.cara+"] .mirror-rect:not([movimiento-bz])").remove();
+				})
 
-					var rectangulo = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "rect"));
+				element.on("mousedown", ".mirror-rect[movimiento-bz]", function (evento){
+					var mirrorSvg = angular.element(this);
+					mirrorSvg.attr("movimiento-bz", "true");
 
-					rectangulo.addClass("rect-bz");
+					var identidad = angular.fromJson(mirrorSvg.data("identidad"));
 
-					rectangulo.css({					
-						"fill": "transparent",
-						"stroke": "black",
-						"stroke-width": "1px",
-						"stroke-dasharray": "3px"
-					})
+					if (!mirrorSvg.attr("transform")) {
+						mirrorSvg.attr("transform", "matrix(1 0 0 1 0 0)");
+					};
 
-					
-					rectangulo.attr("height", coordenadasObjetivo.height);
-					rectangulo.attr("width", coordenadasObjetivo.width);
-					rectangulo.attr("x", coordenadasObjetivo.x);
-					rectangulo.attr("y", coordenadasObjetivo.y);
-					rectangulo.attr("transform", objetivo.attr("transform"));
+					var objetivo;
 
-					var svgPadre = objetivo.parents(".hook svg");
-
-					svgPadre.append(rectangulo)
-	
-					if (!objetivo.attr("transform")) {
-
-						objetivo.attr("transform", "matrix(1 0 0 1 0 0)");
-
+					if(identidad.tipo == "logo"){
+						objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
+						
+					} else if(identidad.tipo == "item") {
+						var objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .hook#"+identidad.data.hook+" g[data-index="+identidad.data.item+"]");
 					}
 
-					angular.element(objetivo).attr("movimiento-bz", true);
+					if(!objetivo.attr("transform")){
+						objetivo.attr("transform", "matrix(1 0 0 1 0 0)");
+					}
 
 					currentX = evento.clientX;
-
 					currentY = evento.clientY;
 
 					currentMatrix = objetivo.attr("transform").slice(7, -1).split(" ");
@@ -966,74 +1047,245 @@ angular.module("disenador-de-logos")
 						currentMatrix[i] = parseFloat(currentMatrix[i]);
 
 					}
-		
-				});
+
+				})
 
 
-				element.on("mousemove", ".rect-bz", function (evento) {
-
-					var objetivo = angular.element(evento.currentTarget);
-
-					if(!angular.element("[movimiento-bz]").length){
-						return;
-					}
+				element.on("mousemove", ".mirror-rect[movimiento-bz=true]", function (evento) {
 					
+					var mirrorSvg = angular.element(this);
+
+					var identidad = angular.fromJson(mirrorSvg.data("identidad"));
+
+					angular.element(".element-color-picker").remove();
+					
+					var objetivo;
+
+					if(identidad.tipo == "logo"){
+						objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
+						
+					} else if(identidad.tipo == "item") {
+						var objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .hook#"+identidad.data.hook+" g[data-index="+identidad.data.item+"]");
+					}
+
 					var dx = evento.clientX - currentX;
 					var dy = evento.clientY - currentY;
 
-					var svgPadre = objetivo.parents(".cara")[0];
+					var caraSvg = element.find(".cara[data-index="+identidad.data.cara+"]");
 
-					var relacionX = (svgPadre.getClientRects()[0].width / parseFloat(element.children().attr("viewBox").split(" ")[2]));
-					var relacionY = (svgPadre.getClientRects()[0].height / parseFloat(element.children().attr("viewBox").split(" ")[3]));
+					var relacionX = (caraSvg[0].getClientRects()[0].width / parseFloat(caraSvg.attr("viewBox").split(" ")[2]));
+					var relacionY = (caraSvg[0].getClientRects()[0].height / parseFloat(caraSvg.attr("viewBox").split(" ")[3]));
 
 					currentMatrix[4] += (dx / relacionY);
 					currentMatrix[5] += (dy / relacionX);
 
 					var newMatrix = "matrix(" + currentMatrix.join(" ") + ")";
 
+					mirrorSvg.attr("transform", newMatrix);
 					objetivo.attr("transform", newMatrix);
-					angular.element("[movimiento-bz]").attr("transform", newMatrix);
 					currentX = evento.clientX;
 					currentY = evento.clientY;
 
 
+					if(identidad.tipo == "logo"){
 
-				});
-
-				angular.element("body").mouseup(function () {
-
-					var objetivo = angular.element("[movimiento-bz]");
-
-					if(!objetivo.length){
-						return;
-					}
-
-					var indiceCara = objetivo.parents(".cara").data("index");
-					var idHook = objetivo.parents(".hook").attr("id");
-					var indiceItem = objetivo.data("index");
-
-					var indiceHook;
-					angular.forEach(bz.papeleria.modelo.caras[indiceCara].hooks, function(hookPapeleria, indice){
-
-						if(idHook == hookPapeleria.id){
-							indiceHook = indice;
+						if(!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones){ //si no existe una alteracion previa
+							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones = {};
 						}
+	
+						bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.matrix = currentMatrix;
+
+					} else if(identidad.tipo == "item"){
+
+						var indiceHook;
+						angular.forEach(bz.papeleria.modelo.caras[identidad.data.cara].hooks, function(hookPapeleria, indice){
+	
+							if(identidad.data.hook == hookPapeleria.id){
+								indiceHook = indice;
+							}
+						});
+
+						if(!bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones){ //si no existe una alteracion previa
+							bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones = {};
+						}
+	
+						bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones.matrix = currentMatrix;
+
+					}
+					
+				})
+
+				angular.element("body").mouseup(function (evento){
+					var mirrorSvg = element.find(".mirror-rect[movimiento-bz=true]");
+					mirrorSvg.attr("movimiento-bz", "");
+				})
+
+				element.on("mouseleave", ".mirror-rect", function (evento){
+					var mirrorSvg = angular.element(this);
+					
+					var identidad = angular.fromJson(mirrorSvg.data("identidad"));
+					mirrorSvg.remove();			
+					
+					var cara = bz.papeleria.modelo.caras[identidad.data.cara];
+
+					angular.forEach(cara.logos, function(logo, indiceLogo){
+						var identidadLogo = {
+							tipo: "logo",
+							data: {
+								cara: identidad.data.cara,
+								logo: indiceLogo
+							}
+						}
+						crearMirrorRect(logo, identidadLogo);
 					});
 					
-					if(!bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones){ //si no existe una alteracion previa
-						bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones = {};
+					angular.forEach(cara.hooks, function(hook, indiceHook){
+						angular.forEach(hook.items, function(item, indiceItem){
+							var identidadItem = {
+								tipo: "item",
+								data: {
+									cara: identidad.data.cara,
+									hook: hook.id,
+									item: indiceItem
+								}
+							}
+							crearMirrorRect(item, identidadItem);
+						});
+					});
+
+				})
+
+				element.on("contextmenu", ".mirror-rect", function(evento){
+
+					var mirrorSvg = angular.element(this);
+
+					var coordenadasMirror = mirrorSvg[0].getBoundingClientRect();
+
+					angular.element(".element-color-picker").remove();
+
+					var identidad = mirrorSvg.data("identidad");				
+
+					var colorPicker = angular.element("<div class='element-color-picker'><div class='title'>X</div>");
+					
+					colorPicker.attr("data-identidad", angular.toJson(identidad));
+
+					var posicionPicker = {
+						"position": "fixed",	
+						"background-color": "white",
+						"z-index": "2",
+					};
+
+					if(identidad.tipo == "item"){//si es un item perteneciente a un Hook se agrega una paleta de colores
+
+						colorPicker.find(".title").html("Color<span class='close-color-picker'><i class='material-icons cerrar'>clear</i></span></div>");
+
+						posicionPicker["left"] = coordenadasMirror.right;
+						posicionPicker["top"] = coordenadasMirror.top - 200;									
+						posicionPicker["width"] = "200px";
+						posicionPicker["height"] = "200px";
+
+						angular.forEach(coloresPaletaValue, function (color) {
+
+							var colorIndividual = angular.element("<div></div>");
+
+							colorIndividual.addClass("color");
+
+							colorIndividual.attr("data-color", color);
+
+							colorIndividual.css({
+								"background-color": color,
+								"width": "4.2%",
+								"height": "6.7%",
+								"display": "inline-block"
+							});
+
+							colorPicker.append(colorIndividual);
+
+						});
+					} else if (identidad.tipo == "logo") {
+						
+						colorPicker.find(".title").html("Estilos <span class='close-color-picker'><i class='material-icons cerrar'>clear</i></span></div>");
+
+						//colorPicker.append("<div></div>")
+
+						var multiLogoContainer = angular.element("<div></div>");
+						multiLogoContainer.addClass("multi-logo-color-container");
+						
+						angular.forEach(logoColors, function(color, indiceColor){
+							var logoContainer = angular.element("<div></div>");
+							logoContainer.addClass("logo-color-container");
+							logoContainer.addClass(color);
+
+							logoContainer.click(function(){
+								var logoSvg = element.find(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
+
+								angular.forEach(logoColors, function(colorIter){
+									if(logoSvg.hasClass(colorIter)){
+										logoSvg.removeClass(colorIter);
+									}
+								})
+
+								logoSvg.addClass(color);
+								
+
+								
+								console.log(bz.papeleria.modelo.caras[identidad.data.cara]);
+							})
+
+							logoContainer.append(bz.base64.decode(bz.logo.logo));
+							multiLogoContainer.append(logoContainer);
+						})
+
+						colorPicker.append(multiLogoContainer);
+
+						posicionPicker["left"] = coordenadasMirror.right;
+						posicionPicker["top"] = coordenadasMirror.top - 150;									
+						posicionPicker["width"] = "300px";
+						posicionPicker["height"] = "150px";
+
 					}
 
-					bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].alteraciones.matrix = currentMatrix;
 
-					angular.element(".rect-bz").remove();
-					angular.element("[movimiento-bz]").removeAttr("movimiento-bz");
+					colorPicker.css(posicionPicker);
+					colorPicker.addClass("color-picker-activo");
+
+
+
 
 					
-				
-				});
+					colorPicker.draggable({
+						revert:false
+						});
+					
+					colorPicker.find(".close-color-picker").click(function(){
+						colorPicker.remove();
+					});
 
+					colorPicker.find(".color").click(function(){
+						
+						if(identidad.tipo == "item"){
 
+							console.log("item");
+							/*
+							var indiceHook;
+							angular.forEach(bz.papeleria.modelo.caras[identidad.data.cara].hooks, function(hookPapeleria, indice){
+
+								if(identidad.data.hook == hookPapeleria.id){
+									indiceHook = indice;
+								}
+								
+							});
+							*/
+
+						} else if(identidad.tipo == "logo") {
+							console.log("logo");
+						}
+					})
+					
+
+					element.parent().append(colorPicker);
+					evento.preventDefault();
+				});				
 
 			}
 		};
