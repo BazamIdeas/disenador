@@ -36,6 +36,38 @@ etiqueta.ObtenerTodos = callback =>
     })
 }
 
+etiqueta.ObtenerTodosConIconos = callback => 
+{
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        }, {
+            $unwind: '$idioma'
+        }, {
+            $group: {
+                _id: '$_id',
+                traducciones: {
+                    $push: {
+                        idioma: '$idioma',
+                        valor: '$traducciones.valor'
+                    }
+                }
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+            callback(null, docs);
+        });
+    })
+}
+
 etiqueta.ObtenerPorIcono = (id, callback) => 
 {
     Connection(db => {

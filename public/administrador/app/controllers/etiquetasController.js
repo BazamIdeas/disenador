@@ -38,8 +38,9 @@ angular.module("administrador")
 			bz.peticion = false;
 		})
 
-		etiquetasService.listarEtiquetas().then(function (res) {
+		etiquetasService.listarEtiquetasConIconos().then(function (res) {
 			bz.etiquetas = res.data;
+			console.log(res.data)
 			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res.data);
 
 		}).catch(function (res) {
