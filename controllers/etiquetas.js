@@ -1,5 +1,6 @@
 const Etiqueta = require('../modelos/etiquetasModelo.js');
 const Idioma = require('../modelos/idiomasModelo.js');
+const Elemento = require('../modelos/elementosModelo.js');
 const async = require('async');
 
 exports.ObtenerTodos = (req, res) => 
@@ -15,11 +16,20 @@ exports.ObtenerTodos = (req, res) =>
 	});
 }
 
-exports.ObtenerTodosConIconos = (req, res) => 
+exports.ObtenerConIconos = (req, res) => 
 {
-	Etiqueta.ObtenerTodos((err, data) => {
+	Etiqueta.ObtenerConIconos(req.params._id, (err, data) => {
 		if (data.length > 0) {
-			res.status(200).json(data);
+
+			var etq = data[0];
+			
+			Elemento.ObtenerPorArrayIDS(etq.iconos, (err, datos) => {
+
+				etq.iconos = datos;
+
+				res.status(200).json(etq);
+			})
+
 		} else {
 			res.status(404).json({
 				'msg': 'No hay etiquetas en la base de datos'

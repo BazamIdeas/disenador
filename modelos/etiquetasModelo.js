@@ -36,11 +36,13 @@ etiqueta.ObtenerTodos = callback =>
     })
 }
 
-etiqueta.ObtenerTodosConIconos = callback => 
+etiqueta.ObtenerConIconos = (_id, callback) => 
 {
     Connection(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
+            $match: { _id : objectId(_id) }
+        },{
             $unwind: '$traducciones'
         }, {
             $lookup: {
@@ -50,7 +52,7 @@ etiqueta.ObtenerTodosConIconos = callback =>
                 as: 'idioma'
             }
         }, {
-            $unwind: '$idioma'
+            $unwind: '$idioma',
         }, {
             $group: {
                 _id: '$_id',
@@ -59,7 +61,11 @@ etiqueta.ObtenerTodosConIconos = callback =>
                         idioma: '$idioma',
                         valor: '$traducciones.valor'
                     }
+                },
+                iconos:  {
+                    $first: '$iconos'
                 }
+
             }
         }]).toArray((err, docs) => {
             if (err) throw err;
