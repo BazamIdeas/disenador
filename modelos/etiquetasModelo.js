@@ -172,7 +172,9 @@ etiqueta.DesasignarIcono = (_id, icono, callback) =>
             '_id': objectId(_id)
         }, {
             $pull: {
-                'iconos': icono
+                'iconos': {
+                    $in: icono
+                }
             }
         }, {
             multi: true,
