@@ -1,16 +1,16 @@
 <div class="row" style="min-height: 100vh;">
     <div class="padding-cero sidemenu" ng-class="{grande:sidenav.menuMostrar, pequeno:!sidenav.menuMostrar}">
-        <menu ng-class="{centrado:!sidenav.menuMostrar}" ng-if="sidenav.autorizado">
+        <menu ng-class="{centrado:!sidenav.menuMostrar}" ng-show="sidenav.autorizado">
             <md-toolbar>
                 <div class="md-toolbar-tools logo " md-whiteframe ui-sref="app.pedidos">
-                    <a ng-if="sidenav.menuMostrar" class="auto">{{sidenav.autorizado.nombre}}</a>
-                    <a ng-if="!sidenav.menuMostrar" class="auto">A</a>
+                    <a ng-show="sidenav.menuMostrar" class="auto">{{sidenav.autorizado.nombre}}</a>
+                    <a ng-show="!sidenav.menuMostrar" class="auto">A</a>
                 </div>
             </md-toolbar>
             <md-list ng-cloak layout="column" class="menu-scroll">
-                <md-item ng-repeat="vistas in sidenav.vistas" ng-class="{'activo': (vistas.url == sidenav.estado)}" class="menuItem" ui-sref="{{vistas.url}}">
+                <md-item ng-repeat="vistas in sidenav.vistas track by $index" ng-class="{'activo': (vistas.url == sidenav.estado)}" class="menuItem" ui-sref="{{vistas.url}}">
                     <md-icon>{{vistas.icono}}</md-icon>
-                    <span ng-if="sidenav.menuMostrar">{{vistas.nombre}}</span>
+                    <span>{{vistas.nombre}}</span>
                 </md-item>
             </md-list>
         </menu>
