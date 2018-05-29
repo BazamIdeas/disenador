@@ -18,14 +18,14 @@
                     </md-button>
                 </div>
                 <div>
-                    <div class="w3-responsive content-scroll" ng-if="ctrl.etiquetas.length > 0">
+                    <div style="   max-height: 77%;" class="w3-responsive content-scroll" ng-if="ctrl.etiquetas.length > 0">
                         <table class="w3-table w3-bordered">
                             <tr>
                                 <th>Etiqueta:</th>
                                 <th>Traducciones:</th>
                                 <th>Acciones:</th>
                             </tr>
-                            <tr ng-repeat="etiqueta in ctrl.etiquetas">
+                            <tr ng-repeat="etiqueta in ctrl.etiquetas | orderBy:'traducciones[0].valor'">
                                 <td>
                                     <div ng-repeat="traduccion in etiqueta.traducciones">
                                         <span ng-if="traduccion.idioma.codigo == 'ESP'">
@@ -33,7 +33,7 @@
                                         </span>
                                     </div>
                                 </td>
-                                <td>{{etiqueta.traducciones.length - 1}}</td>
+                                <td>{{etiqueta.traducciones.length}}</td>
                                 <td>
                                     <md-button class="md-fab md-mini md-warn" ng-click="ctrl.mostrar({op:'traducciones', index: $index, datosEtiqueta:etiqueta})">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Traducciones</md-tooltip>
@@ -107,7 +107,7 @@
     </div>
 
     <!-- ACCIONES VISTA -->
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-switch="ctrl.acciones">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-switch="ctrl.acciones">
         <div class="paneles md-whiteframe-2dp listar">
 
             <!-- CREAR ETIQUETAS -->
@@ -206,29 +206,41 @@
                         <md-icon>close</md-icon>
                     </md-button>
                 </div>
+                <div class="text-center" layout-padding ng-show="ctrl.iconosEtiqueta.iconos.length> 0" style="background: white;">
+                    <b>CANTIDAD DE ICONOS : {{ctrl.iconosEtiqueta.iconos.length}}</b>
+                </div>
                 <div class="elemento ">
-                    <div class="content-scroll elemento ">
-                        <div ng-show="ctrl.iconosEtiqueta.length> 0" layout layout-wrap layout-align="space-around">
-                            <span ng-repeat="icono in ctrl.iconosEtiqueta.iconos" flex="30" ng-click="icono.on = !icono.on" ng-class="{'md-whiteframe-2dp': icono.on}">
+                    <div class="content-scroll elemento " style="max-height:60%;">
+                        <div ng-show="ctrl.iconosEtiqueta.iconos.length> 0" layout layout-wrap layout-align="space-around">
+                            <span ng-repeat="icono in ctrl.iconosEtiqueta.iconos | limitTo:52:ctrl.actual" ng-click="icono.on = !icono.on"
+                                ng-class="{'md-whiteframe-2dp': icono.on}" style="    border: 1px solid; width: 22%; margin-bottom: 1%;">
                                 <div>
                                     <bazam-visualizar data-svg="ctrl.base64.decode(icono.svg)"></bazam-visualizar>
                                 </div>
                             </span>
                         </div>
-                        <div style="height: 30%;" ng-if="!ctrl.iconosEtiqueta" class="mensaje-resultado">
-                            <h4>NO TIENE ICONOS</h4>
-                        </div>
+
                     </div>
-                    <div ng-if="ctrl.iconosEtiqueta.length> 0">
-                        <div layout layout-align="center" ng-click="ctrl.desvincularIconos(ctrl.iconosEtiqueta)">
+                    
+                    <div layout layout-align="space-around center" ng-if="ctrl.iconosEtiqueta.iconos.length> 0">
+                        <div ng-click="ctrl.desvincularIconos(ctrl.iconosEtiqueta)">
                             <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">DESVINCULAR</md-button>
                         </div>
-                        <div class="text-center" layout-padding>
-                            <b>Debes seleccionar al menos un icono</b>
+                        <div layout layout-align="center center" ng-show="ctrl.iconosEtiqueta.iconos.length> 50">
+                            <md-button style="margin-right: 10px" ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.paginar(false,ctrl.actual, ctrl.iconosEtiqueta.iconos)"
+                                style="margin:0;">
+                                <md-tooltip md-direction="top" md-visible="tooltipVisible">Menos</md-tooltip>
+                                <md-icon>arrow_left</md-icon>
+                            </md-button>
+                            <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.paginar(true, ctrl.actual, ctrl.iconosEtiqueta.iconos)"
+                                style="margin:0;">
+                                <md-tooltip md-direction="top" md-visible="tooltipVisible">Mas</md-tooltip>
+                                <md-icon>arrow_right</md-icon>
+                            </md-button>
                         </div>
                     </div>
-
-                    <div style="height: 30%;" ng-if="ctrl.peticion" class="mensaje-resultado">
+                    
+                    <div style="height: 30%;" ng-if="!ctrl.iconosEtiqueta" class="mensaje-resultado">
                         <h4>CARGANDO ICONOS</h4>
                     </div>
                 </div>

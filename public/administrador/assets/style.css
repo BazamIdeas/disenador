@@ -56,12 +56,8 @@ menu *:not(md-icon) {
 }
 
 .pedido-logo {
-    width: 90%;
+    width: 50%;
     margin: auto;
-}
-
-.pedido-logo.pequeno {
-    width: 65%;
 }
 
 .pedido-logo.tabla {
@@ -133,6 +129,8 @@ menu *:not(md-icon) {
     background: var(--alternal-color);
     padding: 0;
     min-width: 40px !important;
+    min-height: 40px;
+    border-radius:50%;
 }
 
 .bordered {
@@ -197,6 +195,10 @@ body {
 }
 
 /* HEADER */
+
+header, .titulo-modulo,  .w3-table th, button{
+    user-select: none;
+}
 
 header md-toolbar,
 md-toolbar:not(.md-menu-toolbar) {
@@ -666,6 +668,7 @@ menu {
     height: 100%;
     padding: 0;
     background: var(--dark-color);
+    user-select: none;
 }
 
 menu.centrado .menuItem {

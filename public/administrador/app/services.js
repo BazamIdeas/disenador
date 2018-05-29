@@ -1085,7 +1085,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/etiquetas/' + id + '/iconos').then(function (res) {
+            $http.get('/app/etiquetas/iconos/svg/' + id).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
@@ -1166,16 +1166,12 @@ angular.module("administrador")
             return promise;
         }
 
-        this.desasignarEtiqueta = function (_id, idIcono) {
+        this.desvincularIconos = function (datos) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            var datos = {
-                idIcono: idIcono
-            };
-
-            $http.post('/app/etiquetas/' + _id + '/iconos/desasignar', datos).then(function (res) {
+            $http.post('/app/etiquetas/' + datos._id + '/iconos/desasignar', datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }

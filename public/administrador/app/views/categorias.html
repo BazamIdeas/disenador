@@ -16,18 +16,18 @@
                         <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" ng-click="::categorias.listarCategorias('FUENTE')">FUENTE</md-button>
                     </div>
                     <div ng-if="categorias.cats.length > 0 && categorias.f">
-                        <div layout class="elemento">
+                        <!--  <div layout class="elemento">
                             <md-input-container flex style="margin-bottom: 0;height: 35px;">
                                 <input type="text" ng-model="categorias.buscarC" class="md-block" aria-label="filtro" placeholder="Buscar:">
                             </md-input-container>
-                        </div>
+                        </div> -->
                         <div class="w3-responsive content-scroll">
                             <table class="w3-table w3-bordered">
                                 <tr>
                                     <th>Nombre:</th>
                                     <th>Acciones:</th>
                                 </tr>
-                                <tr ng-repeat="elemento in categorias.cats| filter:categorias.buscarC track by $index">
+                                <tr ng-repeat="elemento in categorias.cats | orderBy :  'nombreCategoria' | filter:categorias.buscarC  ">
                                     <td>{{elemento.nombreCategoria}}</td>
                                     <td>
                                         <md-button ng-disabled="categorias.peticion" class="md-fab md-mini md-warn" ng-click="categorias.datos.modCategoria = elemento; categorias.opcionesCategorias = 1; categorias.elementoActivoIndex = $index">
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <!-- LISTAR PREFERENCIAS -->
+            <!-- LISTAR PREFERENCIAS
             <div class="paneles individual md-whiteframe-2dp">
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="categorias.mostrarPre = !categorias.mostrarPre; categorias.opcionesCategorias= 0">LISTADO DE PREFERENCIAS</texto>
@@ -77,10 +77,11 @@
                     </div>
                 </div>
             </div>
+        -->
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-switch="categorias.opcionesCategorias">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-switch="categorias.opcionesCategorias">
         <div class="paneles md-whiteframe-2dp listar">
             <!-- MODIFICAR CATEGORIA -->
             <div ng-switch-when="1">
