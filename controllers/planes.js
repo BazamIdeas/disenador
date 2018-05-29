@@ -331,7 +331,7 @@ exports.PlanesSuperiores = (req, res) =>
 												});
 						
 											}, (err) => {
-												console.log(err)
+												
 												if (err) res.status(402).json(err);
 
 												json.planes.superiores = data_planes;

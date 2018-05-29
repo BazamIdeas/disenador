@@ -648,8 +648,6 @@ exports.modificarLogo = function (req, res) {
 									logos_idLogo: req.body.idLogo
 								};
 
-								console.log(atributosData)
-
 								atributo.Guardar(atributosData, function (error, data) {
 
 									if (!data && !data.insertId) {
@@ -868,8 +866,6 @@ exports.zip = function (req, res) {
 				} else {
 
 					if (ancho < 100) {
-
-						console.log('aqui')
 
 						atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
 							//console.log(dataAttrs)
@@ -1262,7 +1258,6 @@ exports.descargar = (req, res) => {
 																callback();
 															})
 															.catch(e => {
-																console.log(e)
 																callback(e)
 															});
 													});
