@@ -665,6 +665,11 @@ div[ng-messages] {
     top: 28px;
     font-size: 12px; }
 
+cerrar-pop {
+  position: absolute;
+  right: 1%;
+  top: 5%; }
+
 md-input-container .md-errors-spacer {
   float: right;
   min-height: 0px;

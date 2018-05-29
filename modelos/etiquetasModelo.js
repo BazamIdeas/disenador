@@ -36,6 +36,44 @@ etiqueta.ObtenerTodos = callback =>
     })
 }
 
+etiqueta.ObtenerConIconos = (_id, callback) => 
+{
+    Connection(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $match: { _id : objectId(_id) }
+        },{
+            $unwind: '$traducciones'
+        }, {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        }, {
+            $unwind: '$idioma',
+        }, {
+            $group: {
+                _id: '$_id',
+                traducciones: {
+                    $push: {
+                        idioma: '$idioma',
+                        valor: '$traducciones.valor'
+                    }
+                },
+                iconos:  {
+                    $first: '$iconos'
+                }
+
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+            callback(null, docs);
+        });
+    })
+}
+
 etiqueta.ObtenerPorIcono = (id, callback) => 
 {
     Connection(db => {
@@ -134,7 +172,9 @@ etiqueta.DesasignarIcono = (_id, icono, callback) =>
             '_id': objectId(_id)
         }, {
             $pull: {
-                'iconos': icono
+                'iconos': {
+                    $in: icono
+                }
             }
         }, {
             multi: true,

@@ -78,11 +78,11 @@
 
                                     </span>
 
-                                    <input ng-if="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
+                                    <input ng-show="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
                                         name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index, true)"
                                         required>
 
-                                    <textarea ng-if="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
+                                    <textarea ng-show="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
                                         name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index, true)"
                                         required></textarea>
 
@@ -101,7 +101,7 @@
                                     ng-click="menuPapeleria.mostrarIconosDisponibles.accion = false; menuPapeleria.elementoAgregarIcono.icono = icono; papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index)"></span>
                             </span>
                         </div>
-                        <div class="mensaje-items" ng-if="hook.items.length == 0">
+                        <div class="mensaje-items" ng-show="hook.items.length == 0">
                             Agrega Elementos
                         </div>
                         <!-- <div class="validacion-papeleria" ng-show="!formularioPapeleria.$valid && hook.items.length > 0">

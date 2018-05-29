@@ -35,17 +35,26 @@
     <script src="assets/js/materialize.min.js"></script>
 
     <!--Archivos App diseñador -->
-    <script src="/landing/app/app.js"></script>
-    <script src="/landing/app/directives.js"></script>
-    <script src="/landing/app/bazamPalettePicker.js"></script>
-    <script src="/landing/app/services.js"></script>
-
-    <!-- Controladores -->
-    <script src="/landing/app/controllers/comienzo.js"></script>
-    <script src="/landing/app/controllers/header.js"></script>
+    <script src="/landing/dist/app.js"></script>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
         crossorigin="anonymous">
+
+    <!-- Service Worker -->
+    <script src="/landing/sw.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function () {
+                    navigator.serviceWorker.register('/landing/sw.js').then(reg => {
+                        //reg.update();
+                    }).catch(function (err) {
+                        console.log('Service Worker fallo', err);
+                    });
+                });
+            }
+        })
+    </script>
 
 </head>
 

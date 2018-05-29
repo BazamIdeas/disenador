@@ -97,6 +97,7 @@ router.post("/etiquetas", controllers.etiquetas.GuardarEtiquetas);
 router.post("/etiquetas/modificar", controllers.etiquetas.Actualizar);
 router.post("/etiquetas/iconos", controllers.etiquetas.AsignarIconos);
 router.post("/etiquetas/:_id/iconos/desasignar", controllers.etiquetas.DesasignarIcono);
+router.get("/etiquetas/iconos/svg/:_id", controllers.etiquetas.ObtenerConIconos);
 router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
 router.get("/iconos/:id/etiquetas", controllers.etiquetas.ObtenerPorIcono);
 

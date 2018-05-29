@@ -39,6 +39,26 @@ elemento.ListarFuentes = function (callback) {
 	});
 };
 
+elemento.ObtenerPorArrayIDS = (arr, callback) => {
+
+	var q = "SELECT * FROM elementos WHERE elementos.idElemento IN (?) "; 
+	
+	var par = [arr]
+
+	DB.getConnection(function (err, connection) {
+
+		connection.query(q, par, function (err, rows) {
+
+			if (err) throw err;
+
+			else
+				callback(null, rows);
+			connection.release();
+		});
+
+
+	});
+};
 
 elemento.getElementsByTags = function (tags, idCat, limit, callback) {
 
