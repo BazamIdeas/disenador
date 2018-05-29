@@ -12,7 +12,7 @@ const mongo = {
             if (err) throw err;
             const db = client.db(datos.database);
             callback(db)
-            client.close();
+            //client.close();
         })
     },
     objectId: id => {
