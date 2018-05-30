@@ -429,7 +429,7 @@ angular.module("disenador-de-logos")
 		};
 
 		function createFilterFor(query) {
-			var lowercaseQuery = angular.lowercase(query);
+			var lowercaseQuery = query.toLowerCase();
 
 			return function filterFn(etiqueta) {
 				return (etiqueta.traduccion._lowername.indexOf(lowercaseQuery) === 0);
