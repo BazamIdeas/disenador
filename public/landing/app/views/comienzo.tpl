@@ -24,7 +24,7 @@
                                 <div ng-message="required">Escriba el nombre de su logo.</div>
                             </div>
                         </md-input-container>
-                        <md-input-container class="md-block">
+                        <md-input-container class="md-block" style="    padding-bottom: 20px;">
                             <label>Actividad</label>
                             <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro
                                                                             " name="cat" >
@@ -124,7 +124,7 @@
     </div>
 
     <div class="row seccion dos ">
-        <div class="col s12 ">
+        <div>
             <div class="caracteristicas">
                 <div class="caracteristicas__item {{caracteristica.icono[1]}}" ng-repeat="caracteristica in ctrl.estaticos.caracteristicas">
                     <div class="{{caracteristica.icono[0]}}"></div>
@@ -182,12 +182,11 @@
                 </div>
             </div>
         </div>
-
-    </div>
-    <div class="text-center" ng-click="ctrl.scrollTop()">
-        <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary boton-crear-logo">
-            CREAR LOGO AHORA
-        </md-button>
+        <div class="text-center">
+                <md-button  ng-click="ctrl.scrollTop()" ng-disabled="ctrl.peticion" class="md-raised md-primary boton-crear-logo">
+                    CREAR LOGO AHORA
+                </md-button>
+            </div>
     </div>
     <div class="row seccion cinco ">
         <div class="titulo-destacado text-green">

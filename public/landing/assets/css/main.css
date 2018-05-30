@@ -313,6 +313,17 @@ footer {
       color: white; }
 
 /*PAGES*/
+.testimonios .carousel-item .testimonios__carousel-item,
+.testimonios .carousel-item, .contenedor-planes, .seccion.uno form, .seccion.dos > div {
+  width: 80vw;
+  margin: auto; }
+
+.bazam-palette-picker {
+  width: 65%;
+  margin-left: auto;
+  margin-right: 12%;
+  display: block; }
+
 /* ICONOS */
 .bg-carac-1 {
   width: 101px;
@@ -445,7 +456,6 @@ md-radio-button[aria-checked="true"] .estilo-4 {
     .seccion.uno .titulo-inicio h4.subtitle {
       font-size: 20pt; }
   .seccion.uno form {
-    width: 85%;
     margin: auto; }
   .seccion.uno .label-form {
     color: #000000; }
@@ -521,10 +531,9 @@ button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
   width: 100%;
   height: 70vh; }
   .testimonios .carousel-item {
-    display: block;
-    width: 100%; }
+    display: inline-block !important;
+    margin-left: 10vw; }
     .testimonios .carousel-item .testimonios__carousel-item {
-      width: 98vw;
       height: 100%;
       display: -webkit-box;
       display: -ms-flexbox;
@@ -637,50 +646,48 @@ button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
       text-transform: capitalize; }
 
 /* SECCION DOS */
-.seccion.dos {
-  padding: 2% 8%; }
-  .seccion.dos h2.titulo {
-    text-align: center;
-    font-size: 43px;
-    margin: 0;
-    padding: 0 0 30px 0 !important; }
-  .seccion.dos .caracteristicas {
+.seccion.dos h2.titulo {
+  text-align: center;
+  font-size: 43px;
+  margin: 0;
+  padding: 0 0 30px 0 !important; }
+
+.seccion.dos .caracteristicas {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
+  .seccion.dos .caracteristicas .caracteristicas__item {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap; }
-    .seccion.dos .caracteristicas .caracteristicas__item {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      width: 50%; }
-      .seccion.dos .caracteristicas .caracteristicas__item > :last-child {
-        width: 60%;
-        margin-left: 30px; }
-        .seccion.dos .caracteristicas .caracteristicas__item > :last-child h4 {
-          font-size: 30pt; }
-      .seccion.dos .caracteristicas .caracteristicas__item.b-bottom {
-        border-bottom: 1px solid silver; }
-      .seccion.dos .caracteristicas .caracteristicas__item.b-right {
-        border-right: 1px solid silver; }
-      .seccion.dos .caracteristicas .caracteristicas__item.right-bottom {
-        border-bottom: 1px solid silver;
-        border-right: 1px solid silver; }
-    .seccion.dos .caracteristicas > :nth-child(2) > :nth-child(2) {
-      padding-left: 20px; }
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 50%; }
+    .seccion.dos .caracteristicas .caracteristicas__item > :last-child {
+      width: 60%;
+      margin-left: 30px; }
+      .seccion.dos .caracteristicas .caracteristicas__item > :last-child h4 {
+        font-size: 30pt; }
+    .seccion.dos .caracteristicas .caracteristicas__item.b-bottom {
+      border-bottom: 1px solid silver; }
+    .seccion.dos .caracteristicas .caracteristicas__item.b-right {
+      border-right: 1px solid silver; }
+    .seccion.dos .caracteristicas .caracteristicas__item.right-bottom {
+      border-bottom: 1px solid silver;
+      border-right: 1px solid silver; }
+  .seccion.dos .caracteristicas > :nth-child(2) > :nth-child(2) {
+    padding-left: 20px; }
 
 /* SECCION TRES */
 .seccion.tres {
-  background: #FFFFFF !important;
+  background: #fafafa !important;
   margin: 0;
-  padding-top: 4%;
   position: relative; }
 
 .titulo-destacado {
@@ -709,10 +716,10 @@ button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
 /********************/
 /* PLANES */
 .seccion.seis {
-  padding: 4% 0 0 0; }
+  padding: 4% 0 0 0;
+  background: #fafafa !important; }
 
 .contenedor-planes {
-  width: 80%;
   margin: auto;
   display: -webkit-box;
   display: -ms-flexbox;

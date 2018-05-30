@@ -1,6 +1,6 @@
 
 
-<svg style="width: 74%; margin-left: auto; margin-right: 8%; display: block;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 393 393" >
+<svg class="bazam-palette-picker" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 393 393" >
     <g id="Layer_2" data-name="Layer 2">
         <g id="Layer_1-2" data-name="Layer 1">
 
