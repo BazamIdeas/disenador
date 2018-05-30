@@ -1,4 +1,4 @@
-if (location.host != 'localhost:8080') {
+if (location.host != 'localhost:8080' && location.protocol != 'http:') {
     var workbox = new Worker('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
 
     inciar()

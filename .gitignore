@@ -28,6 +28,5 @@ avatares/*
 .vs/config/applicationhost.config
 .vs/ProjectSettings.json
 
-
 plantillas-documentos/*.pptx
 plantillas-documentos/*.docx
