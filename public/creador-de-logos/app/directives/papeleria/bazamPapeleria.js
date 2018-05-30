@@ -887,8 +887,6 @@ angular.module("disenador-de-logos")
 
 				bz.modificarHook = function (indiceCara, indiceHook, preservarAlteraciones) {
 
-					preservarAlteraciones
-
 					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 					
 					if(!preservarAlteraciones){
@@ -905,7 +903,20 @@ angular.module("disenador-de-logos")
 
 					agregarHook(hook, caraSvg).finally(function () {
 						pintarLienzo(element);
-					})
+						angular.forEach(hook.items, function(item, indiceItem){
+							var identidadItem = {
+								tipo: "item",
+								data: {
+									cara: indiceCara,
+									hook: hook.id,
+									item: indiceItem
+								}
+							}
+							crearMirrorRect(item, identidadItem);
+						});
+					});
+
+					
 
 				}
 
@@ -1179,10 +1190,10 @@ angular.module("disenador-de-logos")
 
 						colorPicker.find(".title").html("Color<span class='close-color-picker'><i class='material-icons cerrar'>clear</i></span></div>");
 
-						posicionPicker["left"] = coordenadasMirror.right;
-						posicionPicker["top"] = coordenadasMirror.top - 200;									
-						posicionPicker["width"] = "200px";
-						posicionPicker["height"] = "200px";
+						posicionPicker.left = coordenadasMirror.right;
+						posicionPicker.top = coordenadasMirror.top - 200;									
+						posicionPicker.width = "200px";
+						posicionPicker.height = "200px";
 
 						angular.forEach(coloresPaletaValue, function (color) {
 
@@ -1197,6 +1208,27 @@ angular.module("disenador-de-logos")
 								"width": "4.2%",
 								"height": "6.7%",
 								"display": "inline-block"
+							});
+
+							colorIndividual.click(function(){
+
+								var hooks = bz.papeleria.modelo.caras[identidad.data.cara].hooks;
+								var indexHook;
+								angular.forEach(hooks, function(hook, indiceHook){
+									
+									if(hook.id == identidad.data.hook){
+										indexHook = indiceHook;
+										bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].caracteristicas.fill = color;
+
+										console.log(bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].caracteristicas);
+									}
+									
+								})
+
+							
+
+								bz.modificarHook(identidad.data.cara, indexHook, true);
+								
 							});
 
 							colorPicker.append(colorIndividual);
@@ -1215,21 +1247,27 @@ angular.module("disenador-de-logos")
 							var logoContainer = angular.element("<div></div>");
 							logoContainer.addClass("logo-color-container");
 							logoContainer.addClass(color);
-
+							//logoContainer.attr("data-clase",color);
+							
 							logoContainer.click(function(){
+
 								var logoSvg = element.find(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
+								var colorAnterior;
 
 								angular.forEach(logoColors, function(colorIter){
 									if(logoSvg.hasClass(colorIter)){
 										logoSvg.removeClass(colorIter);
+										colorAnterior = colorIter;
 									}
 								})
 
-								logoSvg.addClass(color);
+								logoSvg.addClass(color);					
 								
+								var indiceClase = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].clases.indexOf(colorAnterior);
 
-								
-								console.log(bz.papeleria.modelo.caras[identidad.data.cara]);
+								indiceClase = indiceClase === -1 ? 0 : indiceClase;
+
+								bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].clases[indiceClase] = color;
 							})
 
 							logoContainer.append(bz.base64.decode(bz.logo.logo));
@@ -1261,7 +1299,7 @@ angular.module("disenador-de-logos")
 						colorPicker.remove();
 					});
 
-					colorPicker.find(".color").click(function(){
+					/*colorPicker.find(".color").click(function(){
 						
 						if(identidad.tipo == "item"){
 
@@ -1275,12 +1313,12 @@ angular.module("disenador-de-logos")
 								}
 								
 							});
-							*/
+							
 
 						} else if(identidad.tipo == "logo") {
 							console.log("logo");
 						}
-					})
+					})*/
 					
 
 					element.parent().append(colorPicker);

@@ -19,11 +19,7 @@ function inciar() {
     });
 
     workbox.precaching.precacheAndRoute([
-        '/index.html',
-        '/assets/css/main.css',
-        '/assets/logo.pro.svg',
-        '/assets/css/materialize.min.css',
-        '/assets/css/responsive.css',
+        '/assets/style.css',
         "/angular/angular.min.js",
         "/angular-messages/angular-messages.min.js",
         "/angular-animate/angular-animate.min.js",
@@ -38,15 +34,14 @@ function inciar() {
         "/angular-social/angular-socialshare.js",
         "/assets/jquery-ui/jquery-ui.css",
         "/assets/jquery-ui/jquery-ui.min.js",
-        "app/app.js",
-        "app/directives/jquery-ui.js",
+        "app/app.js"
     ]);
 
     workbox.routing.registerRoute(
-        new RegExp('app/templates/(.*)'),
+        /.*\.css/,
         workbox.strategies.staleWhileRevalidate({
-            cacheName: 'templates-cache',
-        }),
+            cacheName: 'estilos-cache',
+        })
     );
 
     workbox.routing.registerRoute(
@@ -54,13 +49,6 @@ function inciar() {
         workbox.strategies.staleWhileRevalidate({
             cacheName: 'views-cache',
         }),
-    );
-
-    workbox.routing.registerRoute(
-        /.*\.css/,
-        workbox.strategies.staleWhileRevalidate({
-            cacheName: 'estilos-cache',
-        })
     );
 
     workbox.routing.registerRoute(

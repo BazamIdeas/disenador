@@ -1,15 +1,20 @@
-//var workbox = new Worker('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
+if (location.host != 'localhost:8080') {
+    var workbox = new Worker('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
 
-if (workbox) {
+    inciar()
+} else {
+    importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
+    inciar()
+}
 
+function inciar() {
     workbox.setConfig({
         debug: false
     });
     workbox.core.setLogLevel(workbox.core.LOG_LEVELS.silent);
 
     workbox.core.setCacheNameDetails({
-        prefix: 'creador-de-logos'
+        prefix: 'logopro'
     });
 
     workbox.precaching.precacheAndRoute([
@@ -103,6 +108,4 @@ if (workbox) {
 
     workbox.googleAnalytics.initialize();
 
-} else {
-    console.log(`Boo! Workbox didn't load 😬`);
 }

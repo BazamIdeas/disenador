@@ -5,9 +5,9 @@
 <div class="contenedor-papelerias" ng-show="papeleriaCtrl.papelerias && papeleriaCtrl.tienePiezas">
     <div ng-repeat="papeleria in papeleriaCtrl.papelerias" class="papeleria-ejemplos" ng-show="papeleria.tipo == papeleriaCtrl.papeleriaActiva">
         <div ng-repeat="modelo in papeleria.modelos" ng-class="{'hidden': modelo.piezas == undefined}">
-            <div class="flip-container {{papeleria.tipo}}" ng-repeat="piezaUsuario in modelo.piezas" ng-class="{'hover': piezaActiva == $index && piezaUsuario.caras[1]}">
+            <div ng-show="true" class="flip-container {{papeleria.tipo}}" ng-repeat="piezaUsuario in modelo.piezas" ng-class="{'hover': piezaActiva == $index && piezaUsuario.caras[1]}">
                 <div class="flipper">
-                    <div class='overlay a-gif' ng-show="(papeleriaCtrl.peticion && papeleriaCtrl.papeleriaIndexElemento == $index)"></div>
+                    <div class='overlay a-gif' ng-show="papeleriaCtrl.peticion && papeleriaCtrl.papeleriaIndexElemento == $index"></div>
                     <div class="front">
                         <span class="modelo-papeleria" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[0].svg)"></span>
                         <div class="combinacion-box">
@@ -20,11 +20,11 @@
                                 <p>DESCARGAR</p>
                                 <img src="assets/images/svg-icons/download.svg" alt="">
                             </span>
-                            <span class="accion" style="bottom: 33%;" ng-click=" papeleriaCtrl.duplicarPieza(papeleria.tipo, modelo, piezaUsuario)">
+                            <span class="accion" style="bottom: 33%;" ng-click="  papeleriaCtrl.duplicarPieza(papeleria.tipo, modelo, piezaUsuario, $index)">
                                 <p>DUPLICAR</p>
                                 <img src="assets/images/duplicate.png" alt="">
                             </span>
-                            <span class="accion" style="bottom: 11%;" ng-click=" papeleriaCtrl.papeleriaIndexElemento = $index; papeleriaCtrl.eliminarPieza(modelo.piezas, piezaUsuario, $index)">
+                            <span class="accion" style="bottom: 11%;" ng-click="papeleriaCtrl.eliminarPieza(modelo.piezas, $index)">
                                 <p>ELIMINAR</p>
                                 <img src="assets/images/close.png" alt="">
                             </span>
@@ -42,11 +42,11 @@
                                 <p>DESCARGAR</p>
                                 <img src="assets/images/svg-icons/download.svg" alt="">
                             </span>
-                            <span class="accion" style="bottom: 33%;" ng-click=" papeleriaCtrl.duplicarPieza(papeleria.tipo, modelo, piezaUsuario)">
+                            <span class="accion" style="bottom: 33%;" ng-click="papeleriaCtrl.duplicarPieza(papeleria.tipo, modelo, piezaUsuario, $index)">
                                 <p>DUPLICAR</p>
                                 <img src="assets/images/duplicate.png" alt="">
                             </span>
-                            <span class="accion" style="bottom: 11%;" ng-click=" papeleriaCtrl.papeleriaIndexElemento = $index; papeleriaCtrl.eliminarPieza(modelo.piezas, piezaUsuario, $index)">
+                            <span class="accion" style="bottom: 11%;" ng-click=" papeleriaCtrl.eliminarPieza(modelo.piezas, $index)">
                                 <p>ELIMINAR</p>
                                 <img src="assets/images/close.png" alt="">
                             </span>

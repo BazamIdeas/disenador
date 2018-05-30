@@ -137,7 +137,7 @@ elemento.getElementosIncat = function (datos, callback) {
 
 
 elemento.getElementosCat = function (datos, callback) {
-	var q = "SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento";
+	var q = "SELECT * FROM elementos  WHERE elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento LIMIT 2000";
 
 	DB.getConnection(function (err, connection) { //cmienzo del for
 

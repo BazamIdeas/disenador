@@ -28,7 +28,7 @@ exports.login = function (req, res, next) {
         //si el usuario existe  
         if (typeof data !== 'undefined' && data.length > 0) {
 
-            console.log(data[0])
+            //console.log(data[0])
 
             if(passwordHash.verify(req.body.pass, data[0].pass)){
 
@@ -157,7 +157,7 @@ exports.listaClientesFreelancer = function (req, res) {
                                         }
                                     });
                                 }, function (err) {
-                                    if (err) console.error(err.message);
+                                   /* if (err) console.error(err.message);*/
 
                                     callback(null, [vendido, total, calificacionesAdmin, calificacionesCliente]);
 
@@ -642,8 +642,8 @@ exports.nuevoClienteRed = async function (req, res)
                         let email = new Email(emailOptions,{pass: pass});
                         email.setHtml("clienteRegistradoPorRedes.html")
                             .send((err,res) => {
-                                if(err) console.log(err);
-                                console.log(res);
+                                //if(err) console.log(err);
+                                //console.log(res);
                             });
 
                         res.status(200).json({

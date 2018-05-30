@@ -38,4 +38,23 @@ module.exports = [{
             })
         ]
     }
+}, {
+    output: {
+        filename: 'app.js',
+        path: __dirname + '/public/administrador/dist'
+    },
+    entry: './public/administrador/index.js',
+    mode: 'production',
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    beautify: false,
+                    compress: false,
+                    comments: false,
+                    mangle: false
+                }
+            })
+        ]
+    }
 }]

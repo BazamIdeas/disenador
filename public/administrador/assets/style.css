@@ -56,12 +56,8 @@ menu *:not(md-icon) {
 }
 
 .pedido-logo {
-    width: 90%;
+    width: 50%;
     margin: auto;
-}
-
-.pedido-logo.pequeno {
-    width: 65%;
 }
 
 .pedido-logo.tabla {
@@ -133,6 +129,8 @@ menu *:not(md-icon) {
     background: var(--alternal-color);
     padding: 0;
     min-width: 40px !important;
+    min-height: 40px;
+    border-radius:50%;
 }
 
 .bordered {
@@ -197,6 +195,10 @@ body {
 }
 
 /* HEADER */
+
+header, .titulo-modulo,  .w3-table th, button{
+    user-select: none;
+}
 
 header md-toolbar,
 md-toolbar:not(.md-menu-toolbar) {
@@ -266,7 +268,7 @@ md-icon {
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
     -webkit-transition: all 0.2s;
-    transition: all 0.2s;
+    transition: padding 0.2s;
 }
 
 .menuItem:hover,
@@ -274,6 +276,10 @@ md-icon {
 .menuItem md-icon:hover,
 .menuItem.activo {
     background-color: var(--alternal-color);
+}
+
+menu.centrado .menuItem > span {
+    display: none;
 }
 
 .listar h3 {
@@ -666,6 +672,7 @@ menu {
     height: 100%;
     padding: 0;
     background: var(--dark-color);
+    user-select: none;
 }
 
 menu.centrado .menuItem {
@@ -703,21 +710,22 @@ menu.centrado md-icon {
 }
 
 .menu-scroll {
-    height: 100vh;
-    overflow-x: scroll;
+    height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 /* Estilos Scroll Bar */
 
+
 .menu-scroll::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 15px;
+    width: 5px;
 }
 
 .menu-scroll::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
-    box-shadow: 0 0 1px rgb(255, 255, 255);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 .menu-scroll::-moz-scrollbar {
@@ -726,9 +734,8 @@ menu.centrado md-icon {
 }
 
 .menu-scroll::-moz-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
-    box-shadow: 0 0 1px rgb(255, 255, 255);
+    border-radius:0px;
+    background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 /* SIN FUNCIONES */

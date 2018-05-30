@@ -5,7 +5,7 @@ angular.module("administrador")
 		var bz = this;
 
 		/* DATOS */
-
+		bz.actual = 0;
 		bz.base64 = $base64;
 		bz.iconos = [];
 		bz.selectedItem = null;
@@ -73,38 +73,46 @@ angular.module("administrador")
 
 		bz.listarIconosEtiqueta = function (id) {
 			bz.peticion = true;
+			bz.acciones = 4;
 			etiquetasService.listarIconosEtiqueta(id).then(function (res) {
 				bz.iconosEtiqueta = {
 					_id: id,
-					iconos: res.data
+					iconos: res.data.iconos
 				};
 			}).catch(function (res) {
 				// console.log(res)
 			}).finally(function () {
-				bz.acciones = 4;
 				bz.peticion = false;
 			})
 		};
 
 		/* VINCULAR ETIQUETAS A ICONOS */
 
-		bz.desvincularIconos = function (datos) {
-			bz.peticion = true;
+		bz.desvincularIconos = function (params) {
+
 			var iconosAdesvincular = [];
 
-			angular.forEach(datos.iconos, (valor) => {
-				if (valor.on != undefined && valor.on === true) {
+			angular.forEach(params.iconos, (valor, key) => {
+				if (valor.on != undefined && valor.on == true) {
 					iconosAdesvincular.push(valor.idElemento);
-					valor.on = false;
+					params.iconos.splice(key, 1);
 				}
+			});
+
+			angular.forEach(params.iconos, (valor, key) => {
+				params.iconos[key].on = false;
 			});
 
 			if (iconosAdesvincular.length == 0) return notificacionService.mensaje('Seleccione algun icono por favor')
 
-			datos.iconos = iconosAdesvincular;
+			var datos = {
+				_id: params._id,
+				idIcono: iconosAdesvincular
+			}
 
 			iconosAdesvincular = [];
 
+			bz.peticion = true;
 			etiquetasService.desvincularIconos(datos).then(function (res) {
 
 				if (res == undefined) return notificacionService.mensaje('No se ha podido desvincular los iconos.');
@@ -279,6 +287,21 @@ angular.module("administrador")
 					break;
 				default:
 					break;
+			}
+		}
+
+		bz.paginar = function (accion, actual, array) {
+			console.log(actual)
+			if (accion) {
+				if (array[actual + 52] != undefined) {
+					bz.actual = bz.actual + 52;
+				} else {
+					return notificacionService.mensaje('Ya no hay mas iconos');
+				}
+			} else {
+				if (array[actual - 52] != undefined) {
+					bz.actual = bz.actual + 52;
+				}
 			}
 		}
 

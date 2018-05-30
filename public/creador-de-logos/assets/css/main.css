@@ -98,8 +98,7 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
-  }
+  user-select: none; }
 
 *:not(i, text),
 button,
@@ -1699,7 +1698,8 @@ section.body.pay {
 .contenedor-papelerias {
   height: 70%;
   overflow-y: scroll;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  padding-top: 16px; }
 
 .papeleria-ejemplos > div > div:hover span.accion,
 .modelo-papeleria-crear:hover span.accion {
@@ -1745,12 +1745,19 @@ textarea {
 /* entire container, keeps perspective */
 .flip-container {
   perspective: 1000px; }
+  .flip-container.ng-animate {
+    -webkit-transition: 0.3s linear all;
+    transition: 0.3s linear all; }
+  .flip-container.ng-enter-active {
+    left: 0px; }
   .flip-container .back,
   .flip-container.hover .overlay {
     transform: rotateY(180deg); }
   .flip-container.tarjeta {
     width: 320px;
     height: 210px; }
+    .flip-container.tarjeta.ng-enter {
+      left: -320px; }
   .flip-container.hover .flipper {
     transform: rotateY(180deg); }
   .flip-container .flipper {
@@ -1761,7 +1768,7 @@ textarea {
     width: 100%;
     height: 100%; }
     .flip-container .flipper .overlay {
-      height: 86%;
+      height: 100%;
       width: 100%;
       z-index: 3; }
     .flip-container .flipper span.accion {
@@ -2065,13 +2072,11 @@ div.element-color-picker {
   z-index: 5;
   padding: 10px; }
   div.element-color-picker .title {
-    height: 37px;
     padding: 3%;
     text-align: center;
     font-family: 'Futura Black' !important;
     color: #000000;
-    cursor: move;
-    }
+    cursor: move; }
     div.element-color-picker .title span.close-color-picker {
       float: right;
       color: white;
