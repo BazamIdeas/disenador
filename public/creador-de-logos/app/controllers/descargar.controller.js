@@ -259,7 +259,7 @@ angular.module("disenador-de-logos")
 
 				bz.completado = false;
 
-				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+				angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
 
 				logosService.descargarLogo(bz.logo.id, ancho, $filter("uppercase")(nombre), nombre, plantilla)
 
@@ -319,7 +319,7 @@ angular.module("disenador-de-logos")
 
 				bz.completado = false;
 
-				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+				angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
 
 				var formatos = {};
 				var formatosCopia = angular.copy(bz.formatos);
@@ -374,7 +374,7 @@ angular.module("disenador-de-logos")
 					.finally(function () {
 
 						bz.completado = true;
-						angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+						angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 
 					});
 
@@ -384,7 +384,7 @@ angular.module("disenador-de-logos")
 
 		bz.manualMarca = function (id) {
 			bz.esperaManual = true;
-			angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
+			angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
 
 			logosService.manualMarca(id).then(function (res) {
 
@@ -400,7 +400,7 @@ angular.module("disenador-de-logos")
 
 			}).finally(function () {
 				bz.esperaManual = false;
-				angular.element(document.querySelector(".full-overlay")).fadeOut(1000);
+				angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 			});
 
 		};

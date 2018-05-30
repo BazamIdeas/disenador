@@ -100,6 +100,4 @@ function inciar() {
 
     workbox.googleAnalytics.initialize();
 
-} else {
-    console.log(`Boo! Workbox didn't load 😬`);
 }

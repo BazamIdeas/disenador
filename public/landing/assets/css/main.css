@@ -221,6 +221,14 @@ button:focus {
   background: rgba(97, 39, 135, 0.4); }
 
 /**********************/
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: unset !important;
+  box-shadow: unset !important; }
+
+.md-button.md-default-theme.md-primary.md-fab:not([disabled]).md-focused, .md-button.md-primary.md-fab:not([disabled]).md-focused, .md-button.md-default-theme.md-primary.md-fab:not([disabled]):hover, .md-button.md-primary.md-fab:not([disabled]):hover, .md-button.md-default-theme.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-default-theme.md-primary.md-raised:not([disabled]):hover, .md-button.md-primary.md-raised:not([disabled]):hover {
+  background-color: #5980b7 !important;
+  color: white !important; }
+
 /* Header-Footer */
 header {
   cursor: default;
@@ -579,8 +587,13 @@ button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
             margin: 0; }
 
 /* CHIPS ETIQUETAS */
+.etiquetas input[type=search]:focus:not([readonly]) {
+  border-bottom: 1px solid #5980B7;
+  box-shadow: 0 1px 0 0 #5980B7; }
+
 .md-chips {
-  padding: 0; }
+  padding: 0;
+  padding-bottom: 8px; }
   .md-chips md-chip {
     cursor: default;
     border-radius: 30px !important;
