@@ -23,6 +23,7 @@
     height: 70%;
     overflow-y: scroll;
     overflow-x: hidden;
+    padding-top: 16px;
 }
 
 .papeleria-ejemplos>div>div:hover span.accion,
@@ -78,6 +79,13 @@ textarea {
 
 .flip-container {
     perspective: 1000px;
+    &.ng-animate {
+        -webkit-transition: 0.3s linear all;
+        transition: 0.3s linear all;
+    }
+    &.ng-enter-active {
+        left: 0px;
+    }
     .back,
     &.hover .overlay {
         transform: rotateY(180deg);
@@ -85,6 +93,9 @@ textarea {
     &.tarjeta {
         width: 320px;
         height: 210px;
+        &.ng-enter {
+            left: -320px;
+        }
     }
     &.hover .flipper {
         transform: rotateY(180deg);
@@ -97,7 +108,7 @@ textarea {
         width: 100%;
         height: 100%;
         .overlay {
-            height: 86%;
+            height: 100%;
             width: 100%;
             z-index: 3;
         }
@@ -173,11 +184,9 @@ bazam-menu-papeleria {
             padding: 15px;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
             padding-bottom: 5px;
-
             &:nth-child(1) {
                 box-shadow: none !important;
             }
-
             .nombre-contenedor {
                 padding: 2px;
                 font-size: 15pt;
@@ -195,11 +204,9 @@ bazam-menu-papeleria {
                     width: 65%;
                     margin-right: 3%;
                 }
-
                 &>:first-child {
                     width: 30%;
                 }
-
                 input[type="color"] {
                     padding: 0px;
                     background: transparent;

@@ -64,23 +64,30 @@ angular.module("disenador-de-logos")
 			})
 		}
 
-		bz.duplicarPieza = function(tipo, modelo, pieza){
+		bz.duplicarPieza = function(tipo, modelo, pieza, index){
 			if(bz.peticion) return;
+			bz.papeleriaIndexElemento = index;
 			bz.peticion = true;
 
-			papeleriaService.piezas.guardar(tipo, modelo.nombre, piezaNueva).then(function(res){
-				modelo.piezas.push(res);
-			}).finally(function(){
+			var piezaE = angular.copy(pieza);
+
+			delete piezaE._id;
+
+			papeleriaService.piezas.guardar(tipo, modelo.nombre, piezaE).then(function(res){
+				modelo.piezas.push(res.insertId);
 				bz.peticion = false;
 			});
 		}
 
-		bz.eliminarPieza = function(arr, pieza, index){
+		bz.eliminarPieza = function(arr, index){
 			if(bz.peticion) return;
+			bz.papeleriaIndexElemento = index;
 			bz.peticion = true;
+
+			pieza = arr[index];
+
 			papeleriaService.piezas.eliminar(pieza._id).then(function(res){
 				arr.splice(index, 1);
-			}).finally(function(){
 				bz.peticion = false;
 			});
 		}
