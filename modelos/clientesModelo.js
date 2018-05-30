@@ -125,7 +125,7 @@ cliente.insertCliente = function(clienteData,callback)
 
 				DB.getConnection(function(err, connection)
 				{
-					connection.query( qq , par , function(err, result){
+					var q = connection.query( qq , par , function(err, result){
 						
 						if(err)	throw err;
 
@@ -135,6 +135,8 @@ cliente.insertCliente = function(clienteData,callback)
 						connection.release();
 
 					});
+
+					console.log(q.sql);
 
 				});
 			} 
