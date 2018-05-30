@@ -1546,7 +1546,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.descargarLogo = function (idLogo, ancho, nombre, tipo) {
+		this.descargarLogo = function (idLogo, ancho, nombre, tipo, plantilla) {
 
 			var defered = $q.defer();
 
@@ -1556,7 +1556,8 @@ angular.module("disenador-de-logos")
 				idLogo: idLogo,
 				ancho: ancho,
 				descarga: nombre,
-				tipo: tipo
+				tipo: tipo,
+				plantilla: plantilla
 			};
 
 			$http.get("/app/logo/zip/", {
@@ -1950,8 +1951,8 @@ angular.module("disenador-de-logos")
 							});
 						}
 					})
-					.catch(function () {
-						defered.reject();
+					.catch(function (res) {
+						defered.reject(res);
 					});
 
 			}
@@ -1965,7 +1966,8 @@ angular.module("disenador-de-logos")
 
 			angular.forEach(fuentes, function (fuente) {
 				fontService.preparar(fuente.nombre, fuente.url)
-					.catch(function () {
+					.catch(function (res) {
+						//console.log(res)
 					});
 			});
 
@@ -1979,6 +1981,24 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 				
 			$http.get("/app/papeleria/usuario")
+				.then(function(res){
+					defered.resolve(res.data);
+				})
+				.catch(function(){
+					defered.reject();
+				})
+				.finally(function(){
+
+				});
+				
+			return promise;
+		};
+
+		this.listarPorClienteYlogo =  function(id){
+			var defered = $q.defer();
+			var promise = defered.promise;
+				
+			$http.get("/app/papeleria/logo/"+id)
 				.then(function(res){
 					defered.resolve(res.data);
 				})
@@ -2031,11 +2051,11 @@ angular.module("disenador-de-logos")
 				
 				return promise;
 			},
-			descargar: function(id){
+			descargar: function(id, idlogo){
 				var defered = $q.defer();
 				var promise = defered.promise;
 
-				let datos = {_id : id};
+				let datos = {_id : id, idLogo: idlogo};
 				
 				$http.post("/app/papeleria/descargar", datos)
 					.then(function(res){

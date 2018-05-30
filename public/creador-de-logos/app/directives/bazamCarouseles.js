@@ -203,7 +203,7 @@ angular.module("disenador-de-logos")
 				callback: "<",
 				logos: "<",
 				elegido: "=",
-				actual: "="
+				actual: "=?bind"
 			}
 		};
 

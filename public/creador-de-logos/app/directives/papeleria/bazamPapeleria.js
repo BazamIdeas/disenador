@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.directive("bazamPapeleria", ["fontService", "$document", "$q", "papeleriaService", "$mdToast", function (fontService, $document, $q, papeleriaService,$mdToast) {
+	.directive("bazamPapeleria", ["fontService", "$document", "$q", "papeleriaService", "$mdToast", "coloresPaletaValue", "$http", function (fontService, $document, $q, papeleriaService, $mdToast, coloresPaletaValue, $http) {
 		return {
 			restrict: "AE",
 			scope: true,
@@ -8,6 +8,65 @@ angular.module("disenador-de-logos")
 
 			}],
 			link: function (scope, element) {
+				
+				//obtenemos el controlador padre
+				var bz = scope.$parent.papeleriaEditor;
+
+		
+				var logoColors = [
+					"color-primario",
+					"total-blanco",
+					"total-negro",
+					"total-gris"
+				];
+
+
+
+				///////////////////////////
+				///////MIRROR RECTS////////
+				///////////////////////////
+
+				function crearMirrorRect (elementoData, identidad){
+					
+					var caraSvg = angular.element("svg.cara[data-index="+identidad.data.cara+"]");
+
+					var mirrorRect = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "rect"));
+						
+					mirrorRect.addClass("mirror-rect");
+					mirrorRect.attr("data-identidad", angular.toJson(identidad))
+					var coordenadasElemento;
+
+					if(identidad.tipo == "item"){
+						
+						var itemSvg = caraSvg.find(".hook#"+identidad.data.hook+" > svg > g[data-index="+identidad.data.item+"]");
+						
+						coordenadasElemento = itemSvg[0].getBBox();
+						
+						var padreSvg = itemSvg.parents(".hook");
+						
+						mirrorRect.attr("y", coordenadasElemento.y + parseFloat(padreSvg.attr("y")));
+						mirrorRect.attr("x", coordenadasElemento.x + parseFloat(padreSvg.attr("x")));
+
+						aplicarAlteraciones(elementoData, identidad.data.item, "mirror", mirrorRect);
+
+					} else if(identidad.tipo == "logo"){
+
+						var logoSvg = caraSvg.find(".contenedor-logo[data-index='"+identidad.data.logo+"']");
+
+						coordenadasElemento = logoSvg[0].getBBox();	
+
+						mirrorRect.attr("y", coordenadasElemento.y);
+						mirrorRect.attr("x", coordenadasElemento.x);
+						aplicarAlteraciones(elementoData, identidad.data.logo, "mirror", mirrorRect);
+
+					}
+
+					mirrorRect.css("fill", "transparent");
+					mirrorRect.attr("height", coordenadasElemento.height);
+					mirrorRect.attr("width", coordenadasElemento.width);
+										
+					caraSvg.append(mirrorRect);
+				}
 
 
 				////////////////////////////
@@ -22,16 +81,52 @@ angular.module("disenador-de-logos")
 
 					//si el icono y el texto tienen el mismo color, se agrega como color secundario ele mismo con 0.5 opacity
 					if (bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]) {
-						
+
 						lienzo.find(".color-secundario").css("fill", lienzo.find(".color-primario").css("fill").replace("rgb", "rgba").replace(")", ", 0.5)"));
 
 					} else {
-						
+
 						lienzo.find(".color-secundario").css("fill", bz.logo.atributos["color-nombre"]);
 
 					}
 				}
 
+
+				/////////////////////////////////////////
+				////APLICAR ALTERACIONES A LOS ITEMS/////
+				/////////////////////////////////////////
+				// color, posicion, tamano
+				function aplicarAlteraciones(elementoData, indice, elemento, elementoSvg) {
+					
+					var elementoDOM;
+
+					if(elemento == "item"){
+						elementoDOM = elementoSvg.find("g[data-index="+indice+"]");
+					} else if(elemento == "logo" || elemento == "mirror"){
+						elementoDOM = elementoSvg;						
+					};
+					
+					angular.forEach(elementoData.alteraciones, function(alteracion, llave){
+
+						switch(llave){
+
+							case "matrix":
+								var matrix = alteracion;
+								
+								for (var i = 0; i < matrix.length; i++) {
+									matrix[i] = parseFloat(matrix[i]);
+								}
+
+								var newMatrix = "matrix(" + matrix.join(" ") + ")";
+								elementoDOM.attr("transform", newMatrix);
+								break;
+
+						}
+
+					});
+					
+					
+				}
 
 				/////////////////////////////////////////
 				//////AGREGAR LOS HOOKS A LAS CARAS//////
@@ -41,15 +136,20 @@ angular.module("disenador-de-logos")
 
 					var defered = $q.defer();
 					var promise = defered.promise;
-			
+
 					fontService.preparar(hook.fuente.nombre, hook.fuente.url)
-						.finally(function(){
-							
+						.finally(function () {
+
 							var hookSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
 
 							hookSvg.attr("id", hook.id);
 
-							hookSvg.css({"font-family": hook.fuente.nombre, "fill": hook.fuente.fill})
+							hookSvg.addClass("hook");
+
+							hookSvg.css({
+								"font-family": hook.fuente.nombre,
+								"fill": hook.fuente.fill
+							})
 
 							hookSvg.append("<svg style='width:100%; height: 100%;'></svg>");
 
@@ -63,6 +163,10 @@ angular.module("disenador-de-logos")
 								agregarItem(item, indice, hook, hookSvg);
 							});
 							
+							angular.forEach(hook.items, function(item, indice){
+								aplicarAlteraciones(item, indice, "item", hookSvg)
+							})
+
 							defered.resolve();
 						})
 
@@ -73,13 +177,15 @@ angular.module("disenador-de-logos")
 				/////////////////////////////////////////
 				//////AGREGAR LOS ITEMS A LOS HOOKS//////
 				/////////////////////////////////////////
-				function agregarItem(item, indice, hook, hookSvg) {
-				
+				function agregarItem(item, indice, hook, hookSvg, conservarAlteraciones) {
+
 					var itemSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "g"));
 
 					var textSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', item.tag))
 
 					itemSvg.append(textSvg);
+
+					itemSvg.attr("data-index", indice);
 
 					//REVISAR
 					hookSvg.children().append(itemSvg);
@@ -221,7 +327,7 @@ angular.module("disenador-de-logos")
 										contenedorIconoSvg.attr("y", "0");
 
 										//TODO: posicion del text guiado por el icono
-										
+
 
 									} else if (coordenadasContenedor.height <= tamanoLineas) { //si las lineas son mas grandes que el icono
 
@@ -241,7 +347,7 @@ angular.module("disenador-de-logos")
 													trozoTextSvg.attr("dy", "0");
 													alturaLinea = trozoTextSvg[0].getBBox().height;
 												} else {
-											
+
 													var coordenadasTrozo = trozoTextSvg[0].getBBox();
 													trozoTextSvg.attr("dy", alturaLinea);
 												}
@@ -302,7 +408,7 @@ angular.module("disenador-de-logos")
 
 										} else { //SI NO HAY ICONO ANTERIOR
 											*/
-											alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
 										//}
 
@@ -340,7 +446,7 @@ angular.module("disenador-de-logos")
 												trozoTextSvg.attr("dy", "0");
 												alturaLinea = trozoTextSvg[0].getBBox().height;
 											} else {
-	
+
 												var coordenadasTrozo = trozoTextSvg[0].getBBox();
 												trozoTextSvg.attr("dy", alturaLinea);
 											}
@@ -460,7 +566,7 @@ angular.module("disenador-de-logos")
 											textSvg.children().each(function (indiceTrozo) {
 
 												var trozoTextSvg = angular.element(this);
-												
+
 
 												if (indiceTrozo === 0) { // primera linea de texto
 
@@ -531,7 +637,7 @@ angular.module("disenador-de-logos")
 
 										} else { //SI NO HAY ICONO ANTEIOR */
 
-											alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
 										//}
 
@@ -569,11 +675,10 @@ angular.module("disenador-de-logos")
 												trozoTextSvg.attr("dy", "0");
 												alturaLinea = trozoTextSvg[0].getBBox().height;
 											} else {
-	
+
 												var coordenadasTrozo = trozoTextSvg[0].getBBox();
 												trozoTextSvg.attr("dy", alturaLinea);
 											}
-
 
 										})
 
@@ -685,16 +790,14 @@ angular.module("disenador-de-logos")
 				/////////COMIENZO////////
 				/////////////////////////
 
-				//obtenemos el controlador padre
-				var bz = scope.$parent.papeleriaEditor;
 
 				var promesasHooks = [];
 
 				var loader = angular.element("<div></div>");
 				loader.addClass("bazam-loader-papeleria");
 				element.append(loader);
-				
-				
+
+
 
 				angular.forEach(bz.papeleria.modelo.caras, function (cara, index) {
 
@@ -702,26 +805,27 @@ angular.module("disenador-de-logos")
 					caraSvg.addClass("cara");
 					caraSvg.attr("data-index", index);
 
-					if(index){
-						caraSvg.css({"visibiliy": "hidden", "z-index": "-1"})	
+					if (index) {
+						caraSvg.css({
+							"visibiliy": "hidden",
+							"z-index": "-1"
+						})
 					}
 
 					var estilos = angular.element("<style></style>");
 					estilos.addClass("estilos-cara");
-					estilos.text(
-						`.total-blanco, .total-blanco * {
-							stroke: white !important;
-							fill: white !important;
-						}`
-					);
+
+					$http.get("/creador-de-logos/app/directives/papeleria/bazamPapeleria.css").then(function(res){
+						estilos.text(res.data);
+					})
 
 					caraSvg.prepend(estilos);
 
 					element.append(caraSvg);
 
-					angular.forEach(cara.logos, function (logo) {
+					angular.forEach(cara.logos, function (logo, indiceLogo) {
 
-						var logoSvg = angular.element("<g class='contenedor-logo'>" + bz.base64.decode(bz.logo.logo) + "</g>");
+						var logoSvg = angular.element("<g class='contenedor-logo' data-index="+indiceLogo+">" + bz.base64.decode(bz.logo.logo) + "</g>");
 
 						angular.forEach(logo.caracteristicas, function (caracteristica, llave) {
 							logoSvg.children().attr(llave, caracteristica);
@@ -730,6 +834,8 @@ angular.module("disenador-de-logos")
 						angular.forEach(logo.clases, function (clase) {
 							logoSvg.addClass(clase);
 						});
+
+						aplicarAlteraciones(logo, indiceLogo, "logo", logoSvg);
 
 						caraSvg.append(logoSvg);
 
@@ -741,27 +847,76 @@ angular.module("disenador-de-logos")
 				});
 
 				$q.all(promesasHooks)
-					.finally(function(){
+					.finally(function () {
 						element.html(element.html());
 						pintarLienzo(element);
-				
+
+						angular.forEach(bz.papeleria.modelo.caras, function(cara, indiceCara){
+							
+							angular.forEach(cara.logos, function(logo, indiceLogo){
+								var identidadLogo = {
+									tipo: "logo",
+									data: {
+										cara: indiceCara,
+										logo: indiceLogo
+									}
+								}
+								crearMirrorRect(logo, identidadLogo);
+							});
+							
+							angular.forEach(cara.hooks, function(hook, indiceHook){
+								angular.forEach(hook.items, function(item, indiceItem){
+									var identidadItem = {
+										tipo: "item",
+										data: {
+											cara: indiceCara,
+											hook: hook.id,
+											item: indiceItem
+										}
+									}
+									crearMirrorRect(item, identidadItem);
+								});
+							});
+
+						});
+
 						element.find(".bazam-loader-papeleria").remove();
-					
+
 					})
 
-				
-				bz.modificarHook = function (indiceCara, indiceHook) {
+
+				bz.modificarHook = function (indiceCara, indiceHook, preservarAlteraciones) {
 
 					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
+					
+					if(!preservarAlteraciones){
+						angular.forEach(hook.items, function(item, indice){
+							bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indice].alteraciones = {};
+						})
+					}				
+
 
 					var caraSvg = angular.element("bazam-papeleria svg:nth-child(" + (indiceCara + 1) + ")");
 
 					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 					hookSvg.remove();
 
-					agregarHook(hook, caraSvg).finally(function(){
+					agregarHook(hook, caraSvg).finally(function () {
 						pintarLienzo(element);
-					})
+						angular.forEach(hook.items, function(item, indiceItem){
+							var identidadItem = {
+								tipo: "item",
+								data: {
+									cara: indiceCara,
+									hook: hook.id,
+									item: indiceItem
+								}
+							}
+							crearMirrorRect(item, identidadItem);
+						});
+					});
+
+					
 
 				}
 
@@ -769,11 +924,11 @@ angular.module("disenador-de-logos")
 
 					element.find(".cara[data-index]").css("z-index", "-1");
 
-					element.find("[data-index="+indiceCara+"]").css("z-index", "1");
+					element.find("[data-index=" + indiceCara + "]").css("z-index", "1");
 				}
 
 
-				bz.elementoFocus = function(indiceCara, indiceHook, accion){
+				bz.elementoFocus = function (indiceCara, indiceHook, accion) {
 
 					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
@@ -781,8 +936,8 @@ angular.module("disenador-de-logos")
 
 					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 
-					if(accion){ //si hace hover
-						
+					if (accion) { //si hace hover
+
 						angular.element(".hook-seleccionado").removeClass("hook-seleccionado");
 						hookSvg.addClass("hook-seleccionado");
 
@@ -793,28 +948,33 @@ angular.module("disenador-de-logos")
 
 				}
 
-			
-				bz.guardar = function(){
+
+				bz.guardar = function () {
+
+					if(bz.peticion) return;
+					bz.peticion = true;
 
 					bz.datos.tipo = bz.papeleria.tipo;
 					bz.datos.modelo = bz.papeleria.modelo.nombre;
+					bz.datos.pieza.caras = [];
 
 					var caras = angular.copy(bz.papeleria.modelo.caras);
-					
-					angular.forEach(caras, function(cara, indice){
 
-						var svgCara = angular.element(".cara[data-index="+indice+"]")[0].outerHTML;
-					
+					angular.forEach(caras, function (cara, indice) {
+
+						var svgCara = angular.element(".cara[data-index=" + indice + "]")[0].outerHTML;
+
 						var nuevaCara = {
 							hooks: cara.hooks,
 							nombre: cara.nombre,
+							logos: cara.logos,
 							svg: svgCara
 						}
 						bz.datos.pieza.caras.push(nuevaCara)
 					});
-					
+
 					papeleriaService.piezas.guardar(bz.datos.tipo, bz.datos.modelo, bz.datos.pieza)
-						.then(function(res){
+						.then(function (res) {
 							$mdToast.show($mdToast.base({
 								args: {
 									mensaje: "¡Ha guardado su pieza!",
@@ -822,9 +982,15 @@ angular.module("disenador-de-logos")
 								}
 							}));
 
-							bz.datos.pieza._id = res.insertId;
+							if(res.insertId){
+								bz.datos.pieza._id = res.insertId._id;
+							} else if (res.affectedRow) {
+								bz.datos.pieza._id = res.affectedRow._id;
+							}
+
+							
 						})
-						.catch(function(){
+						.catch(function () {
 
 							$mdToast.show($mdToast.base({
 								args: {
@@ -834,10 +1000,331 @@ angular.module("disenador-de-logos")
 							}));
 
 						})
-						.finally(function(){
-
+						.finally(function () {
+							bz.peticion = false;
 						})
 				}
+
+				/////////////////////////////////////////////
+				///////////vigilamos el movimiento///////////
+				/////////////////////////////////////////////
+
+				var currentX = 0;
+				var currentY = 0;
+				var currentMatrix = [];
+
+				/*
+				Eventos sin mirror item
+				*/
+
+				element.on("mouseenter", ".mirror-rect", function (evento){
+					var mirrorSvg = angular.element(this);
+					mirrorSvg.attr("movimiento-bz", "");
+
+					var identidad = mirrorSvg.data("identidad");
+					angular.element(".cara[data-index="+identidad.data.cara+"] .mirror-rect:not([movimiento-bz])").remove();
+				})
+
+				element.on("mousedown", ".mirror-rect[movimiento-bz]", function (evento){
+					var mirrorSvg = angular.element(this);
+					mirrorSvg.attr("movimiento-bz", "true");
+
+					var identidad = angular.fromJson(mirrorSvg.data("identidad"));
+
+					if (!mirrorSvg.attr("transform")) {
+						mirrorSvg.attr("transform", "matrix(1 0 0 1 0 0)");
+					};
+
+					var objetivo;
+
+					if(identidad.tipo == "logo"){
+						objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
+						
+					} else if(identidad.tipo == "item") {
+						var objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .hook#"+identidad.data.hook+" g[data-index="+identidad.data.item+"]");
+					}
+
+					if(!objetivo.attr("transform")){
+						objetivo.attr("transform", "matrix(1 0 0 1 0 0)");
+					}
+
+					currentX = evento.clientX;
+					currentY = evento.clientY;
+
+					currentMatrix = objetivo.attr("transform").slice(7, -1).split(" ");
+
+					for (var i = 0; i < currentMatrix.length; i++) {
+
+						currentMatrix[i] = parseFloat(currentMatrix[i]);
+
+					}
+
+				})
+
+
+				element.on("mousemove", ".mirror-rect[movimiento-bz=true]", function (evento) {
+					
+					var mirrorSvg = angular.element(this);
+
+					var identidad = angular.fromJson(mirrorSvg.data("identidad"));
+
+					angular.element(".element-color-picker").remove();
+					
+					var objetivo;
+
+					if(identidad.tipo == "logo"){
+						objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
+						
+					} else if(identidad.tipo == "item") {
+						var objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .hook#"+identidad.data.hook+" g[data-index="+identidad.data.item+"]");
+					}
+
+					var dx = evento.clientX - currentX;
+					var dy = evento.clientY - currentY;
+
+					var caraSvg = element.find(".cara[data-index="+identidad.data.cara+"]");
+
+					var relacionX = (caraSvg[0].getClientRects()[0].width / parseFloat(caraSvg.attr("viewBox").split(" ")[2]));
+					var relacionY = (caraSvg[0].getClientRects()[0].height / parseFloat(caraSvg.attr("viewBox").split(" ")[3]));
+
+					currentMatrix[4] += (dx / relacionY);
+					currentMatrix[5] += (dy / relacionX);
+
+					var newMatrix = "matrix(" + currentMatrix.join(" ") + ")";
+
+					mirrorSvg.attr("transform", newMatrix);
+					objetivo.attr("transform", newMatrix);
+					currentX = evento.clientX;
+					currentY = evento.clientY;
+
+
+					if(identidad.tipo == "logo"){
+
+						if(!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones){ //si no existe una alteracion previa
+							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones = {};
+						}
+	
+						bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.matrix = currentMatrix;
+
+					} else if(identidad.tipo == "item"){
+
+						var indiceHook;
+						angular.forEach(bz.papeleria.modelo.caras[identidad.data.cara].hooks, function(hookPapeleria, indice){
+	
+							if(identidad.data.hook == hookPapeleria.id){
+								indiceHook = indice;
+							}
+						});
+
+						if(!bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones){ //si no existe una alteracion previa
+							bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones = {};
+						}
+	
+						bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones.matrix = currentMatrix;
+
+					}
+					
+				})
+
+				angular.element("body").mouseup(function (evento){
+					var mirrorSvg = element.find(".mirror-rect[movimiento-bz=true]");
+					mirrorSvg.attr("movimiento-bz", "");
+				})
+
+				element.on("mouseleave", ".mirror-rect", function (evento){
+					var mirrorSvg = angular.element(this);
+					
+					var identidad = angular.fromJson(mirrorSvg.data("identidad"));
+					mirrorSvg.remove();			
+					
+					var cara = bz.papeleria.modelo.caras[identidad.data.cara];
+
+					angular.forEach(cara.logos, function(logo, indiceLogo){
+						var identidadLogo = {
+							tipo: "logo",
+							data: {
+								cara: identidad.data.cara,
+								logo: indiceLogo
+							}
+						}
+						crearMirrorRect(logo, identidadLogo);
+					});
+					
+					angular.forEach(cara.hooks, function(hook, indiceHook){
+						angular.forEach(hook.items, function(item, indiceItem){
+							var identidadItem = {
+								tipo: "item",
+								data: {
+									cara: identidad.data.cara,
+									hook: hook.id,
+									item: indiceItem
+								}
+							}
+							crearMirrorRect(item, identidadItem);
+						});
+					});
+
+				})
+
+				element.on("contextmenu", ".mirror-rect", function(evento){
+
+					var mirrorSvg = angular.element(this);
+
+					var coordenadasMirror = mirrorSvg[0].getBoundingClientRect();
+
+					angular.element(".element-color-picker").remove();
+
+					var identidad = mirrorSvg.data("identidad");				
+
+					var colorPicker = angular.element("<div class='element-color-picker'><div class='title'>X</div>");
+					
+					colorPicker.attr("data-identidad", angular.toJson(identidad));
+
+					var posicionPicker = {
+						"position": "fixed",	
+						"background-color": "white",
+						"z-index": "2",
+					};
+
+					if(identidad.tipo == "item"){//si es un item perteneciente a un Hook se agrega una paleta de colores
+
+						colorPicker.find(".title").html("Color<span class='close-color-picker'><i class='material-icons cerrar'>clear</i></span></div>");
+
+						posicionPicker.left = coordenadasMirror.right;
+						posicionPicker.top = coordenadasMirror.top - 200;									
+						posicionPicker.width = "200px";
+						posicionPicker.height = "200px";
+
+						angular.forEach(coloresPaletaValue, function (color) {
+
+							var colorIndividual = angular.element("<div></div>");
+
+							colorIndividual.addClass("color");
+
+							colorIndividual.attr("data-color", color);
+
+							colorIndividual.css({
+								"background-color": color,
+								"width": "4.2%",
+								"height": "6.7%",
+								"display": "inline-block"
+							});
+
+							colorIndividual.click(function(){
+
+								var hooks = bz.papeleria.modelo.caras[identidad.data.cara].hooks;
+								var indexHook;
+								angular.forEach(hooks, function(hook, indiceHook){
+									
+									if(hook.id == identidad.data.hook){
+										indexHook = indiceHook;
+										bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].caracteristicas.fill = color;
+
+										console.log(bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].caracteristicas);
+									}
+									
+								})
+
+							
+
+								bz.modificarHook(identidad.data.cara, indexHook, true);
+								
+							});
+
+							colorPicker.append(colorIndividual);
+
+						});
+					} else if (identidad.tipo == "logo") {
+						
+						colorPicker.find(".title").html("Estilos <span class='close-color-picker'><i class='material-icons cerrar'>clear</i></span></div>");
+
+						//colorPicker.append("<div></div>")
+
+						var multiLogoContainer = angular.element("<div></div>");
+						multiLogoContainer.addClass("multi-logo-color-container");
+						
+						angular.forEach(logoColors, function(color, indiceColor){
+							var logoContainer = angular.element("<div></div>");
+							logoContainer.addClass("logo-color-container");
+							logoContainer.addClass(color);
+							//logoContainer.attr("data-clase",color);
+							
+							logoContainer.click(function(){
+
+								var logoSvg = element.find(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
+								var colorAnterior;
+
+								angular.forEach(logoColors, function(colorIter){
+									if(logoSvg.hasClass(colorIter)){
+										logoSvg.removeClass(colorIter);
+										colorAnterior = colorIter;
+									}
+								})
+
+								logoSvg.addClass(color);					
+								
+								var indiceClase = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].clases.indexOf(colorAnterior);
+
+								indiceClase = indiceClase === -1 ? 0 : indiceClase;
+
+								bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].clases[indiceClase] = color;
+							})
+
+							logoContainer.append(bz.base64.decode(bz.logo.logo));
+							multiLogoContainer.append(logoContainer);
+						})
+
+						colorPicker.append(multiLogoContainer);
+
+						posicionPicker["left"] = coordenadasMirror.right;
+						posicionPicker["top"] = coordenadasMirror.top - 150;									
+						posicionPicker["width"] = "300px";
+						posicionPicker["height"] = "150px";
+
+					}
+
+
+					colorPicker.css(posicionPicker);
+					colorPicker.addClass("color-picker-activo");
+
+
+
+
+					
+					colorPicker.draggable({
+						revert:false
+						});
+					
+					colorPicker.find(".close-color-picker").click(function(){
+						colorPicker.remove();
+					});
+
+					/*colorPicker.find(".color").click(function(){
+						
+						if(identidad.tipo == "item"){
+
+							console.log("item");
+							/*
+							var indiceHook;
+							angular.forEach(bz.papeleria.modelo.caras[identidad.data.cara].hooks, function(hookPapeleria, indice){
+
+								if(identidad.data.hook == hookPapeleria.id){
+									indiceHook = indice;
+								}
+								
+							});
+							
+
+						} else if(identidad.tipo == "logo") {
+							console.log("logo");
+						}
+					})*/
+					
+
+					element.parent().append(colorPicker);
+					evento.preventDefault();
+				});				
+
 			}
 		};
 	}]);

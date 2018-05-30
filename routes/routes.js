@@ -98,6 +98,7 @@ router.post("/etiquetas", controllers.etiquetas.GuardarEtiquetas);
 router.post("/etiquetas/modificar", controllers.etiquetas.Actualizar);
 router.post("/etiquetas/iconos", controllers.etiquetas.AsignarIconos);
 router.post("/etiquetas/:_id/iconos/desasignar", controllers.etiquetas.DesasignarIcono);
+router.get("/etiquetas/iconos/svg/:_id", controllers.etiquetas.ObtenerConIconos);
 router.get("/etiquetas/borrar/:_id", controllers.etiquetas.Borrar);
 router.get("/iconos/:id/etiquetas", controllers.etiquetas.ObtenerPorIcono);
 
@@ -197,16 +198,15 @@ router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.at
 
 router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
-
-
+router.get("/logo/favicon/:id", middleware.validarCliente, controllers.logos.favicon);
 
 //MODULO PAPELERIA
-router.get("/papeleria/usuario", middleware.validarCliente, controllers.papeleria.ObtenerTodoPorUsuario);
+router.get("/papeleria/logo/:idLogo", middleware.validarCliente, controllers.papeleria.ObtenerTodoPorLogo);
 router.get("/papeleria/pieza/:_id", middleware.validarCliente, controllers.papeleria.ObtenerPiezaPorUsuario);
 router.post("/papeleria/descargar",  middleware.validarCliente, controllers.papeleria.descargarPapeleria);
 router.get("/papeleria/tipos", controllers.tipos.ObtenerTodos);
 router.get("/papeleria/tipos/:id/modelos", controllers.modelos.ObtenerPorTipo);
-router.get("/papeleria/pieza/:_id/eliminar", controllers.papeleria.EliminarPieza);
+router.get("/papeleria/pieza/:_id/eliminar",middleware.validarCliente, controllers.papeleria.EliminarPieza);
 router.post("/papeleria/pieza", middleware.validarCliente ,controllers.papeleria.Guardar);
 
 //RECUPERAR CONTRASEÑA

@@ -52,14 +52,14 @@ pieza.ObtenerPorIDyUsuario = (_id, cliente, callback) =>
     })
 }
 
-pieza.ObtenerPorModeloyUsuario = (modelo, cliente, callback) => 
+pieza.ObtenerPorModeloyLogo = (modelo, logo, callback) => 
 {
     Connection(db => {
         const collection = db.collection('piezas');
         collection.aggregate([{
             $match: {
                 'modelo': objectId(modelo),
-                'cliente': cliente
+                'logo': logo
             }
         }, { 
             $project : {
@@ -78,46 +78,48 @@ pieza.Guardar = (piezaData, callback) =>
 {
     piezaData.modelo = objectId(piezaData.modelo);
     piezaData.tipo = objectId(piezaData.tipo);
-
+    
     Connection(db => {
 
         const collection = db.collection('piezas');
 
-        collection.count({
-            '_id': objectId(piezaData._id),
-            'cliente': cliente
-        }, (err, count) => {
-            if (count) {
+        if (piezaData._id) {
 
-                collection.findOneAndUpdate({
-                    '_id': objectId(piezaData._id)
-                }, {
-                    $set: {
-                        caras: piezaData.caras,
-                        nombre: piezaData.nombre,
-                        modelo: piezaData.modelo,
-                        tipo: piezaData.tipo
-                    }
-                }, (err, doc) => {
-                    if (err) throw err;
-                    callback(null, {
-                        'affectedRow': doc.value
-                    });
+            collection.findOneAndUpdate({
+                '_id': objectId(piezaData._id),
+                'cliente': piezaData.cliente
+            }, {
+                $set: {
+                    caras: piezaData.caras,
+                    nombre: piezaData.nombre,
+                    modelo: piezaData.modelo,
+                    tipo: piezaData.tipo
+                }
+            }, (err, doc) => {
+                if (err) throw err;
+                callback(null, {
+                    'affectedRow': doc.value
                 });
+            });
 
-            } else {
+        } else {
 
-                delete piezaData._id;
-            
-                collection.insertOne(piezaData, (err, doc) => {
-                    if (err) callback(err);
-                    callback(null, {
-                        'insertId': doc.insertedId
-                    });
+            piezaData = {
+                caras: piezaData.caras,
+                nombre: piezaData.nombre,
+                modelo: piezaData.modelo,
+                tipo: piezaData.tipo,
+                logo: piezaData.logo,
+                cliente: piezaData.cliente
+            };
+
+            collection.insertOne(piezaData, (err, doc) => {
+                if (err) callback(err);
+                callback(null, {
+                    'insertId': doc.ops[0]
                 });
-
-            } 
-        })
+            });
+        }
         
     })
 }
@@ -131,7 +133,7 @@ pieza.Borrar = (_id, cliente, callback) =>
             '_id': objectId(_id),
             'cliente': cliente
         }, (err, doc) => {
-            if (err) throw err;
+            if (err) callback(err);
             callback(null, {
                 'affectedRow': doc.value
             });

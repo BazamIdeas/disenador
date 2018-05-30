@@ -13,8 +13,12 @@ angular.module("disenador-de-logos")
 		{
 			nombre: "papeleria",
 			ancho: 300
-		}
-		];
+		},
+		{
+			nombre: "documento",
+			ancho: 300,
+			plantilla: {tipo: 'ppt', nombre: 'eglamour'}
+		}];
 
 		bz.formatos = [{
 			nombre: "facebook",
@@ -58,6 +62,18 @@ angular.module("disenador-de-logos")
 		},
 		];
 
+
+		bz.panelSeleccionado = 1;
+
+		bz.panelActivo = false;
+
+		bz.seleccionarPanel = function(index) {
+			bz.panelSeleccionado = index;
+			if (!bz.panelActivo) {
+				bz.panelActivo = true;
+			}
+		}
+
 		//bz.formatoSeleccionado = bz.formatos[0];
 
 		bz.logo = logoResolve;
@@ -75,8 +91,6 @@ angular.module("disenador-de-logos")
 
 				bz.idPlan = res.idPlan;
 				
-			
-
 				planesService.aumentarPlan(bz.idPlan)
 					.then(function (res) {
 
@@ -239,7 +253,7 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.completado = true;
-		bz.descargar = function (nombre, ancho) {
+		bz.descargar = function (nombre, ancho, plantilla) {
 
 			if (bz.completado) {
 
@@ -247,7 +261,7 @@ angular.module("disenador-de-logos")
 
 				angular.element(document.querySelector(".full-overlay")).fadeIn(1000);
 
-				logosService.descargarLogo(bz.logo.id, ancho, $filter("uppercase")(nombre), nombre)
+				logosService.descargarLogo(bz.logo.id, ancho, $filter("uppercase")(nombre), nombre, plantilla)
 
 					.then(function (res) {
 

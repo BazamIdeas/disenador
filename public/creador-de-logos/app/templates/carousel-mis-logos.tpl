@@ -59,6 +59,10 @@
                     <img src="assets/images/share.svg" alt="">
                 </span>
 
+                <span style="bottom: 55%" class="accion" ui-sref="papeleria({id: logo.idLogo})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'adquiridos'">
+                    <p>PAPELERIA</p> <img src="assets/images/layers.png" alt="">
+                </span>
+
                 <span style="bottom: 55%" class="accion"  ng-click="carouselMisLogos.callback[5]($index)" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'guardados'">
                     <p>COMPRAR</p> <img src="assets/images/shop.svg" alt="">
                 </span>

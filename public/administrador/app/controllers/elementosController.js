@@ -42,7 +42,6 @@ angular.module("administrador")
 			bz.registroFuente.datoPrefe = angular.copy(bz.preferencias);
 			bz.registroIcono.datoPrefe = angular.copy(bz.preferencias);
 			bz.modificar.preferencias = angular.copy(bz.preferencias);
-			bz.listar.preferencias = angular.copy(bz.preferencias);
 		})
 
 		bz.nuevaFuente = function (datos, v) {

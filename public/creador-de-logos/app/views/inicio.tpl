@@ -67,8 +67,8 @@
 
             <div class="gif row" style="margin-bottom:0;overflow-y: scroll; height: 100% ;width: 100%; display: flex; justify-content: center; align-items: center; background: white;"
                 ng-if="!inicio.logos.length">
-                <div style="width: 60%; height: 90%; display: flex; align-items: center">
-                    <img style="width: 100%;" src="assets/logo.pro.svg">
+                <div style="width: 60%; height: 90%; display: flex; align-items: center; justify-content: center;">
+                    <img style="width: 50%;" src="assets/images/gifs/c.gif">
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
 
                         <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
                             callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo,true)"></bazam-svg-text>
-                        <div class='overlay b-gif' ng-hide="logo.cargado"></div>
+                        <div class='overlay c-gif' ng-hide="logo.cargado"></div>
 
                         <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">
                             <p>GUARDAR</p>

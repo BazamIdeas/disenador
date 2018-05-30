@@ -5,7 +5,7 @@ angular.module("administrador")
 		var bz = this;
 
 		/* DATOS */
-
+		bz.actual = 0;
 		bz.base64 = $base64;
 		bz.iconos = [];
 		bz.selectedItem = null;
@@ -25,25 +25,17 @@ angular.module("administrador")
 
 		bz.promesas = [idiomasService.listarIdiomas(), categoriasService.listarCategorias({
 			tipo: 'ICONO'
-		})]
+		}), etiquetasService.listarEtiquetas()]
 
 		bz.peticion = true;
 
 		$q.all(bz.promesas).then(function (res) {
 			bz.idiomas = res[0];
 			bz.cats = res[1].data;
+			bz.etiquetas = res[2].data;
+			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res[2].data);
 		}).catch(function (res) {
 			//console.log(res)
-		}).finally(function () {
-			bz.peticion = false;
-		})
-
-		etiquetasService.listarEtiquetas().then(function (res) {
-			bz.etiquetas = res.data;
-			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res.data);
-
-		}).catch(function (res) {
-			console.log(res)
 		}).finally(function () {
 			bz.peticion = false;
 		})
@@ -51,7 +43,7 @@ angular.module("administrador")
 		/**********ICONOS***********/
 
 		bz.listarIconos = function (id) {
-
+			bz.listaL = false;
 			if (bz.logos.length > 0) {
 				angular.forEach(bz.logos, (valor) => {
 					if (valor.on != undefined && valor.on === true) {
@@ -70,13 +62,66 @@ angular.module("administrador")
 
 			etiquetasService.listarLogos(datos).then(function (res) {
 				bz.logos = res.data;
-				bz.listaL = !bz.listaL;
 			}).catch(function (res) {
+
 				console.log(res)
+			}).finally(function () {
+				bz.listaL = true;
+				bz.peticion = false;
+			})
+		};
+
+		bz.listarIconosEtiqueta = function (id) {
+			bz.peticion = true;
+			bz.acciones = 4;
+			etiquetasService.listarIconosEtiqueta(id).then(function (res) {
+				bz.iconosEtiqueta = {
+					_id: id,
+					iconos: res.data.iconos
+				};
+			}).catch(function (res) {
+				// console.log(res)
 			}).finally(function () {
 				bz.peticion = false;
 			})
 		};
+
+		/* VINCULAR ETIQUETAS A ICONOS */
+
+		bz.desvincularIconos = function (params) {
+
+			var iconosAdesvincular = [];
+
+			angular.forEach(params.iconos, (valor, key) => {
+				if (valor.on != undefined && valor.on == true) {
+					iconosAdesvincular.push(valor.idElemento);
+					params.iconos.splice(key, 1);
+				}
+			});
+
+			angular.forEach(params.iconos, (valor, key) => {
+				params.iconos[key].on = false;
+			});
+
+			if (iconosAdesvincular.length == 0) return notificacionService.mensaje('Seleccione algun icono por favor')
+
+			var datos = {
+				_id: params._id,
+				idIcono: iconosAdesvincular
+			}
+
+			iconosAdesvincular = [];
+
+			bz.peticion = true;
+			etiquetasService.desvincularIconos(datos).then(function (res) {
+
+				if (res == undefined) return notificacionService.mensaje('No se ha podido desvincular los iconos.');
+				return notificacionService.mensaje('Iconos desvinculados');
+
+			}).finally(function () {
+				bz.peticion = false;
+			})
+		}
 
 		/********ETIQUETAS**********/
 
@@ -214,28 +259,49 @@ angular.module("administrador")
 		}
 
 		bz.mostrar = function (params) {
-			if (params.op == 'traducciones') {
-				bz.acciones = 2;
-				bz.actualizarEtiquetaDatos = params.datosEtiqueta;
+			switch (params.op) {
+				case 'traducciones':
+					bz.acciones = 2;
+					bz.actualizarEtiquetaDatos = params.datosEtiqueta;
 
-				var etiqueta = angular.toJson(params.datosEtiqueta.traducciones);
+					var etiqueta = angular.toJson(params.datosEtiqueta.traducciones);
 
-				angular.forEach(bz.idiomas, function (valor, key) {
-					if (!etiqueta.includes(valor.codigo)) {
-						bz.actualizarEtiquetaDatos.traducciones.push({
-							idioma: valor,
-							valor: ''
-						});
+					angular.forEach(bz.idiomas, function (valor, key) {
+						if (!etiqueta.includes(valor.codigo)) {
+							bz.actualizarEtiquetaDatos.traducciones.push({
+								idioma: valor,
+								valor: ''
+							});
+						}
+					})
+
+					break;
+				case 'asignar-etiqueta':
+					if (params.ce) {
+						bz.asignarEtiqueta = false;
+						return bz.acciones = 0;
 					}
-				})
+					bz.asignarEtiqueta = !bz.asignarEtiqueta;
+					bz.acciones = 3;
 
-			} else if (params.op == 'asignar-etiqueta') {
-				if (params.ce) {
-					bz.asignarEtiqueta = false;
-					return bz.acciones = 0;
+					break;
+				default:
+					break;
+			}
+		}
+
+		bz.paginar = function (accion, actual, array) {
+			console.log(actual)
+			if (accion) {
+				if (array[actual + 52] != undefined) {
+					bz.actual = bz.actual + 52;
+				} else {
+					return notificacionService.mensaje('Ya no hay mas iconos');
 				}
-				bz.asignarEtiqueta = !bz.asignarEtiqueta;
-				bz.acciones = 3;
+			} else {
+				if (array[actual - 52] != undefined) {
+					bz.actual = bz.actual + 52;
+				}
 			}
 		}
 

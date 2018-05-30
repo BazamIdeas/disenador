@@ -4,11 +4,13 @@
   "description": "Diseñador de logos",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "node-sass --include-path public public/creador-de-logos/assets/scss -o public/creador-de-logos/assets/css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "build-css-landing": "node-sass --include-path public public/landing/assets/scss -o public/landing/assets/css",
-    "watch-css-landing": "nodemon -e scss -x \"npm run build-css-landing\""
+    "watch-css-landing": "nodemon -e scss -x \"npm run build-css-landing\"",
+    "start": "npm-run-all --parallel watch:server watch:build",
+    "watch:build": "webpack --watch --mode production --config webpack.config.js",
+    "watch:server": "nodemon app.js --watch \"./dist\""
   },
   "repository": {
     "type": "git",
@@ -44,6 +46,7 @@
     "dynamic-watermark": "^1.0.0",
     "express": "^4.16.3",
     "fb": "^2.0.0",
+    "fs-extra": "^6.0.1",
     "gm": "^1.23.1",
     "html-pdf": "^2.2.0",
     "jquery": "^3.3.1",
@@ -59,6 +62,7 @@
     "node-sass": "^4.9.0",
     "nodemailer": "^3.1.4",
     "nodemon": "^1.17.4",
+    "npm-run-all": "^4.1.3",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
@@ -73,6 +77,11 @@
     "tunnel-ssh": "^4.1.4"
   },
   "devDependencies": {
-    "@angular/cli": "^1.7.4"
+    "@angular/cli": "^1.7.4",
+    "npm-run-all": "^4.1.3",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.4",
+    "webpack-command": "^0.2.0"
   }
 }

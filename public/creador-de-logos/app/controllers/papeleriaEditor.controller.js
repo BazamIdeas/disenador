@@ -2,18 +2,13 @@ angular.module("disenador-de-logos")
 	.controller("papeleriaEditorController", ["papeleriaResolve", "logoResolve", "$base64", "$scope", "elementosService", "fontService", function (papeleriaResolve, logoResolve, $base64, $scope, elementosService, fontService) {
 
 		var bz = this;
-
+		
 		bz.base64 = $base64;
 
 		bz.logo = logoResolve;
-
-		elementosService.listarFuentes().then(function(res){
-			fontService.agregarGeneral(bz.fuentes);
-			bz.fuentes = res;			
-		});
 		
 		bz.papeleria = papeleriaResolve;	
-		
+		bz.fuentes = papeleriaResolve.fuentes;
 		
 		bz.datos = {
 			tipo: "",
@@ -21,9 +16,12 @@ angular.module("disenador-de-logos")
 			pieza: {
 				caras: [],
 				nombre: "",
-				_id: null
+				_id: "", //id de la pieza si esta existia
+				logo: 0 //id del logo
 			}
-		}
+		};
+
+		bz.datos.pieza.logo = bz.logo.id;
 
 		if(bz.papeleria.idPieza){
 			bz.datos.pieza._id = bz.papeleria.idPieza;

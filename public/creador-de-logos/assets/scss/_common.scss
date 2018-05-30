@@ -641,19 +641,38 @@ span {
     background-color: $WHITE;
 }
 
-.d-gif {
-    background-image: url(/assets/images/gifs/d.gif);
+.a-gif {
+    background-image: url(/assets/images/gifs/a.gif);
     color: transparent !important;
-    background-size: auto 40%;
+    background-size: auto 60%;
     background-repeat: no-repeat;
     background-position: center;
     background-color: WHITE;
 }
 
+
 .b-gif {
     background-image: url(/assets/images/gifs/b.gif);
     color: transparent !important;
     background-size: auto 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: WHITE;
+}
+
+.c-gif {
+    background-image: url(/assets/images/gifs/c.gif);
+    color: transparent !important;
+    background-size: auto 27%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: WHITE;
+}
+
+.d-gif {
+    background-image: url(/assets/images/gifs/d.gif);
+    color: transparent !important;
+    background-size: auto 40%;
     background-repeat: no-repeat;
     background-position: center;
     background-color: WHITE;
@@ -669,6 +688,12 @@ div[ng-messages] {
         top: 28px;
         font-size: 12px;
     }
+}
+
+cerrar-pop {
+    position: absolute;
+    right: 1%;
+    top: 5%; 
 }
 
 md-input-container .md-errors-spacer {

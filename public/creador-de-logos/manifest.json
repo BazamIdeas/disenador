@@ -1,0 +1,18 @@
+{
+    "short_name": "Logopro",
+    "name": "Logopro Tu logo en 3 minuntos",
+    "icons": [{
+        "src": "assets/logo.pro.png",
+        "type": "image/png",
+        "sizes": "48x48"
+    }, {
+        "src": "assets/logo.png",
+        "type": "image/png",
+        "sizes": "144x144"
+    }],
+    "start_url": "/",
+    "theme_color": "#2196F3",
+    "background_color": "#2196F3",
+    "display": "standalone",
+    "orientation": "portrait"
+}

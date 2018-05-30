@@ -2,10 +2,15 @@
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
         <div class="paneles principal md-whiteframe-2dp listar margen_inferior">
             <div layout layout-align="none center" layout-padding class="titulo-modulo">
-                <texto ng-click="ctrl.l = !ctrl.l">LISTAR ELEMENTOS</texto>
-                <md-button class="md-primary md-fab md-mini" ng-click="ctrl.mn = !ctrl.mn" style="margin:0;">
+                <texto ng-click="ctrl.l = !ctrl.l; ctrl.mn = false;">LISTAR ELEMENTOS</texto>
+                <md-button class="md-primary md-fab md-mini" ng-click="ctrl.mn = !ctrl.mn; ctrl.l = false;" style="margin:0;">
                     <md-icon>add</md-icon>
                 </md-button>
+            </div>
+            <div class="elemento"  layout layout-align="center center" ng-show="ctrl.mn">
+                <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" ng-click=" ctrl.listarCategorias('ICONO'); ctrl.acciones = 2; ctrl.mn = false">ICONO</md-button>
+                <span layout-padding><b>O</b></span>
+                <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" ng-click=" ctrl.listarCategorias('FUENTE'); ctrl.acciones = 2; ctrl.mn = false">FUENTE</md-button>
             </div>
 
             <div ng-if="ctrl.l">
@@ -53,7 +58,7 @@
                             <tr>
                                 <th ng-if="ctrl.listar.tipo == 'FUENTE'">Fuente:</th>
                                 <th ng-if="ctrl.listar.tipo == 'ICONO'">Icono:</th>
-                                <th colspan="2">Accion:</th>
+                                <th>Accion:</th>
                             </tr>
                             <tr ng-repeat="elemento in ctrl.elementos | filter:ctrl.$ | orderBy:'idElemento'">
                                 <style ng-if="elemento.tipo == 'FUENTE'">
@@ -68,21 +73,26 @@
                                 <td ng-if="elemento.tipo == 'ICONO'" class="pedido-logo tabla">
                                     <bazam-visualizar data-svg="ctrl.base64.decode(elemento.svg)"></bazam-visualizar>
                                 </td>
-                                <td colspan="2">
-                                    <md-button class="md-fab md-mini md-warn" ng-click="ctrl.accionesMostrar('modElemento', $index)">
+                                <td>
+                                   <!--  <md-button style="    margin-left: auto;
+                                    display: block;" class="md-fab md-mini md-warn" ng-click="ctrl.accionesMostrar('modElemento', $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar</md-tooltip>
                                         <md-icon class="material-icon">edit</md-icon>
-                                    </md-button>
+                                    </md-button> -->
 
-                                    <md-button ng-if="ctrl.listar.tipo == 'ICONO'" class="md-fab md-mini md-warn" ng-click="ctrl.accionesMostrar('modEtiquetas', $index)">
+                                    <!-- <md-button ng-if="ctrl.listar.tipo == 'ICONO'" class="md-fab md-mini md-warn" ng-click="ctrl.accionesMostrar('modEtiquetas', $index)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Etiquetas</md-tooltip>
                                         <md-icon class="material-icon">style</md-icon>
-                                    </md-button>
+                                    </md-button> -->
                                 </td>
                             </tr>
                         </table>
                     </div>
+                    <div class="text-center">
+                        <b>Cantidad: {{ctrl.elementos.length}}</b>
+                    </div>
                 </div>
+                
             </div>
         </div>
 
@@ -97,7 +107,7 @@
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>
             </div>
-            <div layout-padding class="formularios-login pasos">
+            <div layout-padding class="formularios-login pasos elemento">
                 <form id="formularioRegistro" name="formRegistro" ng-submit="ctrl.nuevaFuente(ctrl.registroFuente, formRegistro.$valid)"
                     novalidate>
                     <md-input-container class="md-block">
@@ -132,7 +142,7 @@
                         <div ng-message="required">La fuente es requerida.</div>
                     </div>
                     <br>
-                    <md-button ng-click="ctrl.regFmArchivos = !ctrl.regFmArchivos" class="md-raised md-primary">Multiples Fuentes</md-button>
+                    <md-button ng-click="ctrl.regFmArchivos = !ctrl.regFmArchivos" class="md-raised md-primary"><md-button class="md-raised md-primary">Multiple</md-button></md-button>
                     <!---->
                     <md-input-container class="md-block">
                         <label>CATEGORIA</label>
@@ -174,7 +184,7 @@
                     <md-icon>keyboard_arrow_left</md-icon>
                 </md-button>
             </div>
-            <div layout-padding class="formularios-login pasos">
+            <div layout-padding class="formularios-login pasos elemento">
                 <form id="formularioRegistro" name="formRegistro" ng-submit="ctrl.nuevoIcono(ctrl.registroIcono, formRegistro.$valid)" novalidate>
                     <md-input-container class="md-block">
                         <label>NOMBRE</label>
@@ -204,7 +214,7 @@
                             ng-disabled="ctrl.valMulIcons">attach_file</md-icon>
                     </div>
                     <br>
-                    <div class="padding" ng-click="ctrl.regImArchivos = !ctrl.regImArchivos">Multiple</div>
+                    <div class="padding" ng-click="ctrl.regImArchivos = !ctrl.regImArchivos"> <md-button class="md-raised md-primary">Multiple</md-button></div>
 
 
                     <!--Validacion-->
@@ -278,7 +288,7 @@
             </div>
         </div>
 
-        <!-- ADMINISTRAR ETIQUETAS -->
+        <!-- ADMINISTRAR ETIQUETAS 
 
         <div ng-switch-when="4" class="paneles principal md-whiteframe-2dp listar margen_inferior">
             <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
@@ -312,5 +322,7 @@
                 <h3>NO EXISTEN ETIQUETAS</h3>
             </div>
         </div>
+
+        -->
     </div>
 </div>
