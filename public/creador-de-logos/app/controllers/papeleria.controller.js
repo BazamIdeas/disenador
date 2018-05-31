@@ -5,6 +5,7 @@ angular.module("disenador-de-logos")
 
 		bz.base64 = $base64;
 		bz.sce = $sce;
+		bz.tienePiezas = false;
     
 		bz.idLogo = logoResolve.id;
 
@@ -23,6 +24,10 @@ angular.module("disenador-de-logos")
 					}
 				})
 			})
+
+			if(!bz.tienePiezas){
+				bz.crearPapeleria = true;
+			}
 			bz.papeleriaActiva = bz.papelerias[0].tipo;
 		})
 
@@ -91,5 +96,4 @@ angular.module("disenador-de-logos")
 				bz.peticion = false;
 			});
 		}
-
 	}]);

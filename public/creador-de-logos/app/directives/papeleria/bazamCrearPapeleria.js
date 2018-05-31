@@ -6,7 +6,8 @@ angular.module("disenador-de-logos")
             scope: {
                 estado: "=",
                 idLogo: "<",
-                papelerias: "="
+                papelerias: "=",
+                tiene: "="
 			},
             controller: ["$scope", "$mdToast", "$sce", "$stateParams", "$state", function ($scope, $mdToast, $sce, $stateParams, $state) {
                 var bz = this;

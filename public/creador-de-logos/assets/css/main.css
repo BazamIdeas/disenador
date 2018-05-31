@@ -1744,10 +1744,9 @@ textarea {
 
 /* entire container, keeps perspective */
 .flip-container {
-  perspective: 1000px; }
-  .flip-container.ng-animate {
-    -webkit-transition: 0.3s linear all;
-    transition: 0.3s linear all; }
+  perspective: 1000px;
+  -webkit-transition: 0.3s linear all;
+  transition: 0.3s linear all; }
   .flip-container.ng-enter-active {
     left: 0px; }
   .flip-container .back,
@@ -1757,7 +1756,7 @@ textarea {
     width: 320px;
     height: 210px; }
     .flip-container.tarjeta.ng-enter {
-      left: -320px; }
+      left: -335; }
   .flip-container.hover .flipper {
     transform: rotateY(180deg); }
   .flip-container .flipper {
