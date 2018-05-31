@@ -105,6 +105,8 @@ angular.module("disenador-de-logos")
 					} else if(elemento == "logo" || elemento == "mirror"){
 						elementoDOM = elementoSvg;						
 					};
+
+					newTransform = "";
 					
 					angular.forEach(elementoData.alteraciones, function(alteracion, llave){
 
@@ -118,12 +120,24 @@ angular.module("disenador-de-logos")
 								}
 
 								var newMatrix = "matrix(" + matrix.join(" ") + ")";
-								elementoDOM.attr("transform", newMatrix);
+								//elementoDOM.attr("transform", newMatrix);
+
+								newTransform = newTransform+" "+newMatrix;
+								break;
+
+							case "scale":
+								var scale = alteracion;
+
+								var newScale = "scale(" + scale + ")";
+								newTransform = newTransform+" "+newScale;
+								
 								break;
 
 						}
 
 					});
+
+					elementoDOM.attr("transform", newTransform);
 					
 					
 				}
@@ -954,6 +968,10 @@ angular.module("disenador-de-logos")
 					if(bz.peticion) return;
 					bz.peticion = true;
 
+					var defered = $q.defer();
+					var promise = defered.promise;
+
+
 					bz.datos.tipo = bz.papeleria.tipo;
 					bz.datos.modelo = bz.papeleria.modelo.nombre;
 					bz.datos.pieza.caras = [];
@@ -988,7 +1006,7 @@ angular.module("disenador-de-logos")
 								bz.datos.pieza._id = res.affectedRow._id;
 							}
 
-							
+							defered.resolve();
 						})
 						.catch(function () {
 
@@ -999,10 +1017,14 @@ angular.module("disenador-de-logos")
 								}
 							}));
 
+							defered.reject();
+
 						})
 						.finally(function () {
 							bz.peticion = false;
 						})
+
+					return promise;
 				}
 
 				/////////////////////////////////////////////
@@ -1235,11 +1257,12 @@ angular.module("disenador-de-logos")
 
 						});
 					} else if (identidad.tipo == "logo") {
+
+						var logoSvg = element.find(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
 						
 						colorPicker.find(".title").html("Estilos <span class='close-color-picker'><i class='material-icons cerrar'>clear</i></span></div>");
 
-						//colorPicker.append("<div></div>")
-
+						//Contenedor de logo en diferentes colores
 						var multiLogoContainer = angular.element("<div></div>");
 						multiLogoContainer.addClass("multi-logo-color-container");
 						
@@ -1250,8 +1273,7 @@ angular.module("disenador-de-logos")
 							//logoContainer.attr("data-clase",color);
 							
 							logoContainer.click(function(){
-
-								var logoSvg = element.find(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
+								
 								var colorAnterior;
 
 								angular.forEach(logoColors, function(colorIter){
@@ -1276,6 +1298,60 @@ angular.module("disenador-de-logos")
 
 						colorPicker.append(multiLogoContainer);
 
+
+						var growthContainer = angular.element("<div></div>");
+
+						var minusButton = angular.element("<div data-action='minus' class='minus'>-</div>");
+						var plusButton = angular.element("<div data-action='plus' class='plus'>+</div>");
+
+						var cambiarTamano =  function(){
+
+							//bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].clases[indiceClase] = color;
+
+							var buttonAction = angular.element(this).data("action");
+
+							
+							if(!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones){
+								bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones = {};
+							}
+
+
+							var escalaAnterior = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.scale;
+
+							var escala;
+
+							if(buttonAction == "minus") {
+
+								escala = escalaAnterior ? escalaAnterior - 0.1 : 0.9;	
+
+							} else if (buttonAction == "plus"){
+
+								escala = escalaAnterior ? escalaAnterior + 0.1 : 1.1;	
+
+							}
+
+							console.log(bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo])
+
+							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.scale = escala;
+
+							var logoData = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo];
+
+							aplicarAlteraciones(logoData, null, 'logo', logoSvg);
+
+							console.log(bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo])
+						}	
+
+						minusButton.click(cambiarTamano);
+						plusButton.click(cambiarTamano);
+
+
+						growthContainer.append(minusButton);
+						growthContainer.append(plusButton);
+
+						colorPicker.append(growthContainer);
+
+
+
 						posicionPicker["left"] = coordenadasMirror.right;
 						posicionPicker["top"] = coordenadasMirror.top - 150;									
 						posicionPicker["width"] = "300px";
@@ -1286,10 +1362,6 @@ angular.module("disenador-de-logos")
 
 					colorPicker.css(posicionPicker);
 					colorPicker.addClass("color-picker-activo");
-
-
-
-
 					
 					colorPicker.draggable({
 						revert:false
