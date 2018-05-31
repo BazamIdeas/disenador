@@ -79,10 +79,8 @@ textarea {
 
 .flip-container {
     perspective: 1000px;
-    &.ng-animate {
-        -webkit-transition: 0.3s linear all;
-        transition: 0.3s linear all;
-    }
+    -webkit-transition: 0.3s linear all;
+    transition: 0.3s linear all;
     &.ng-enter-active {
         left: 0px;
     }
@@ -94,7 +92,7 @@ textarea {
         width: 320px;
         height: 210px;
         &.ng-enter {
-            left: -320px;
+            left: -335;
         }
     }
     &.hover .flipper {
