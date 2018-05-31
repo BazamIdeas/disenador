@@ -30,3 +30,6 @@ avatares/*
 
 plantillas-documentos/*.pptx
 plantillas-documentos/*.docx
+public/creador-de-logos/dist
+public/administrador/dist
+public/landing/dist
