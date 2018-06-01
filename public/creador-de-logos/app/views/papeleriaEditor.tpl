@@ -5,15 +5,15 @@
             <img style="width:100%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
         </div>
 
-        <bazam-papeleria></bazam-papeleria>
+        <bazam-papeleria  ng-class="{'open': papeleriaEditor.selectorfuentes}"></bazam-papeleria>
         <div class="combinacion-box">
             <span class="accion" ng-disable="papeleriaEditor.peticion" ng-click="papeleriaEditor.guardar()" style="top: 5%;">
-                <p>GUARDAR</p>
+                <p ng-class="{'loading-white': papeleriaEditor.peticion}">GUARDAR</p>
                 <img src="assets/images/save.svg" alt="">
             </span>
 
             <span class="accion" ng-click="papeleriaEditor.descargarPieza()" style="top: 15%;">
-                <p>DESCARGAR</p>
+                <p ng-class="{'loading-white': papeleriaEditor.peticion}">DESCARGAR</p>
                 <img src="assets/images/file_download.svg" alt="">
             </span>
 
@@ -43,8 +43,14 @@
         height: calc(80% - 60px);
         position: relative;
         display: flex;
+        left: 0;
         justify-content: center;
         align-items: center;
+        transition: left 0.5s;
+    }
+
+    bazam-papeleria.open {
+        left: 11%;
     }
 
     .bazam-loader-papeleria {
@@ -134,5 +140,10 @@
 
     .papeleria-editor-container span.accion:hover {
         width: 180px !important;
+    }
+
+    span.accion:hover p {
+        background-color: transparent !important;
+        border: none !important;
     }
 </style>

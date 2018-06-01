@@ -33,3 +33,4 @@ plantillas-documentos/*.docx
 public/creador-de-logos/dist
 public/administrador/dist
 public/landing/dist
+public/administrador/dist/*.js

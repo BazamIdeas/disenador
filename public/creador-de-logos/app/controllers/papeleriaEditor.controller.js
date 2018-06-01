@@ -28,6 +28,7 @@ angular.module("disenador-de-logos")
 		}
 
 		bz.volver = function () {
+			if(bz.peticion) return;
 			$state.go('papeleria', {
 				id: bz.logo.id
 			})
@@ -35,6 +36,8 @@ angular.module("disenador-de-logos")
 
 		bz.descargarPieza = function (id) {
 			if(bz.peticion) return;
+
+			bz.peticion = true;
 
 			if (bz.datos.pieza._id != undefined) {
 				descargar(bz.datos.pieza._id);
@@ -58,6 +61,7 @@ angular.module("disenador-de-logos")
 					a.remove();
 				}).finally(function(){
 					angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
+					bz.peticion = false;
 				})
 			}
 		}

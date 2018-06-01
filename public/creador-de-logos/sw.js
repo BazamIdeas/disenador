@@ -49,28 +49,7 @@ function inciar() {
             cacheName: 'estilos-cache',
         })
     );
-
-    workbox.routing.registerRoute(
-        new RegExp('app/templates/(.*)'),
-        workbox.strategies.staleWhileRevalidate({
-            cacheName: 'templates-cache',
-        }),
-    );
-
-    workbox.routing.registerRoute(
-        new RegExp('app/views/(.*)'),
-        workbox.strategies.staleWhileRevalidate({
-            cacheName: 'views-cache',
-        }),
-    );
-
-    workbox.routing.registerRoute(
-        /.*\.tpl/,
-        workbox.strategies.staleWhileRevalidate({
-            cacheName: 'templates-cache',
-        })
-    );
-
+    
     workbox.routing.registerRoute(
         /.*\.(?:png|jpg|jpeg|svg|gif)/,
         workbox.strategies.cacheFirst({

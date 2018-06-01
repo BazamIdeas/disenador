@@ -149,7 +149,7 @@ bazam-menu-papeleria {
         background: white;
         transition: initial;
         text-transform: capitalize;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+        border-bottom: 2px solid #f6f6f6;
         cursor: pointer;
         &.active {
             background: #5981bc;
@@ -166,6 +166,7 @@ bazam-menu-papeleria {
         overflow-x: hidden;
         overflow-y: scroll;
         height: 84%;
+        background: #f4f2f2;
         .mensaje-cara {
             font-size: 18pt;
             height: 100%;
@@ -180,11 +181,8 @@ bazam-menu-papeleria {
             margin: 10px auto;
             background: white;
             padding: 15px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+            border: 1px solid #e6e6e6;
             padding-bottom: 5px;
-            &:nth-child(1) {
-                box-shadow: none !important;
-            }
             .nombre-contenedor {
                 padding: 2px;
                 font-size: 15pt;
@@ -193,6 +191,21 @@ bazam-menu-papeleria {
                 justify-content: space-between;
                 display: flex;
                 align-items: center;
+                >div {
+                    display: flex;
+                    flex: 1;
+                    justify-content: flex-end;
+                }
+                bazam-color-picker {
+                    margin-left: 10px;
+                    display: inline-block;
+                    .background-selector {
+                        background-color: rgb(0, 128, 192);
+                        border-radius: 50%;
+                        height: 35px;
+                        width: 35px;
+                    }
+                }
             }
             .opciones-hook {
                 display: flex;
@@ -235,7 +248,7 @@ bazam-menu-papeleria {
                 text-transform: capitalize;
                 margin-right: 10px;
                 background: white;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+                border: 1px solid #e6e6e6;
                 &.ui-draggable-dragging {
                     opacity: 0.5;
                 }
@@ -330,7 +343,6 @@ bazam-menu-papeleria {
                 align-items: center;
                 margin-bottom: 3px;
                 cursor: pointer;
-                box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
             }
             .mensaje-items {
                 padding: 16px;
@@ -350,4 +362,32 @@ bazam-menu-papeleria {
             }
         }
     }
+}
+
+bazam-menu-papeleria .fonts-container {
+    position: absolute;
+    width: 20%;
+    top: calc(60px + 7%) !important;
+    height: 84%;
+    left: 30%;
+    bottom: 0;
+    border-left: unset;
+    -webkit-transition: 0.3s all;
+    transition: 0.3s all;
+    opacity: 0;
+    &.open {
+        left: 30%;
+        z-index: 2;
+        opacity: 1;
+    }
+    .close {
+        right: -8%;
+        top: -4%;
+        padding: 5px;
+    }
+}
+
+bazam-papeleria {
+    left: 0;
+    transition: left 0.5s;
 }
