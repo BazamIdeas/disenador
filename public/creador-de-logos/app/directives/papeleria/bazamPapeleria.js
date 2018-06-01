@@ -807,9 +807,9 @@ angular.module("disenador-de-logos")
 
 				var promesasHooks = [];
 
-				var loader = angular.element("<div></div>");
+				var loader = angular.element("<div><img style='width: 20%;' style='display: block; margin: auto' src='assets/images/gifs/c.gif'></div>");
 				loader.addClass("bazam-loader-papeleria");
-				element.append(loader);
+				angular.element("body").append(loader);
 
 
 
@@ -891,10 +891,10 @@ angular.module("disenador-de-logos")
 									crearMirrorRect(item, identidadItem);
 								});
 							});
-
+							angular.element(".bazam-loader-papeleria").remove();
 						});
 
-						element.find(".bazam-loader-papeleria").remove();
+						
 
 					})
 
@@ -1070,27 +1070,65 @@ angular.module("disenador-de-logos")
 
 					var identidad = angular.fromJson(mirrorSvg.data("identidad"));
 
+					/*
 					if (!mirrorSvg.attr("transform")) {
 						mirrorSvg.attr("transform", "matrix(1 0 0 1 0 0)");
-					};
+					};*/
 
 					var objetivo;
+					var matrix;
 
-					if (identidad.tipo == "logo") {
-						objetivo = angular.element(".cara[data-index=" + identidad.data.cara + "] .contenedor-logo[data-index=" + identidad.data.logo + "]");
+					if(identidad.tipo == "logo"){
+						objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
+						
+						if(!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones){
+							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones = {};
+						}
 
-					} else if (identidad.tipo == "item") {
-						var objetivo = angular.element(".cara[data-index=" + identidad.data.cara + "] .hook#" + identidad.data.hook + " g[data-index=" + identidad.data.item + "]");
+						if(!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.matrix){ //si no existe una alteracion previa
+							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.matrix = [1, 0, 0, 1, 0, 0];
+						}
+
+						matrix = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.matrix;
+						
+
+						
+					} else if(identidad.tipo == "item") {
+
+						objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .hook#"+identidad.data.hook+" g[data-index="+identidad.data.item+"]");
+
+						var indiceHook;
+
+						angular.forEach(bz.papeleria.modelo.caras[identidad.data.cara].hooks, function (hookPapeleria, indice) {
+
+							if (identidad.data.hook == hookPapeleria.id) {
+								indiceHook = indice;
+							}
+						});
+
+						
+						if(!bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones){ //si no existe una alteracion previa
+							bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones = {};
+						}
+
+						if(!bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones.matrix){
+							bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones.matrix = [1, 0, 0, 1, 0, 0];
+						}
+
+						matrix = bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones.matrix;
+
+
 					}
-
-					if (!objetivo.attr("transform")) {
+					/*
+					if(!objetivo.attr("transform")){
 						objetivo.attr("transform", "matrix(1 0 0 1 0 0)");
-					}
+					}*/
 
 					currentX = evento.clientX;
 					currentY = evento.clientY;
 
-					currentMatrix = objetivo.attr("transform").slice(7, -1).split(" ");
+					//currentMatrix = objetivo.attr("transform").slice(7, -1).split(" ");
+					currentMatrix = matrix;
 
 					for (var i = 0; i < currentMatrix.length; i++) {
 
@@ -1353,7 +1391,6 @@ angular.module("disenador-de-logos")
 
 							aplicarAlteraciones(logoData, null, 'logo', logoSvg);
 
-							console.log(bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo])
 						}
 
 						minusButton.click(cambiarTamano);
