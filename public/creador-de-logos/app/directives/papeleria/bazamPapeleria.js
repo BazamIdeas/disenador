@@ -983,6 +983,7 @@ angular.module("disenador-de-logos")
 				bz.guardar = function () {
 
 					if (bz.peticion) return;
+					bz.selectorfuentes = false;
 					bz.peticion = true;
 
 					var defered = $q.defer();

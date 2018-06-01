@@ -19,7 +19,7 @@
             </span>
         </div>
         <div class="caras-miniaturas">
-            <div ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" ng-click="menuPapeleria.menuActivo = tabMenu.nombre; papeleriaEditor.cambiarCara($index)"
+            <div ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" ng-click="papeleriaEditor.selectorfuentes = false; menuPapeleria.menuActivo = tabMenu.nombre; papeleriaEditor.cambiarCara($index)"
                 ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}" class="caras-miniaturas-item-svg --pequena"
                 ng-bind-html="papeleriaEditor.sce.trustAsHtml(tabMenu.svg)">
             </div>

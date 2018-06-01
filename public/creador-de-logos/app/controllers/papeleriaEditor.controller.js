@@ -38,7 +38,7 @@ angular.module("disenador-de-logos")
 
 		bz.descargarPieza = function (id) {
 			if(bz.peticion) return;
-
+			bz.selectorfuentes = false;
 			bz.peticion = true;
 
 			if (bz.datos.pieza._id != undefined) {
