@@ -31,8 +31,8 @@ angular.module("disenador-de-logos")
 
                     if (hook.items.length == hook.limite) return $mdToast.show($mdToast.base({
                         args: {
-                            mensaje: "El contenedor ha llegado al limite de elementos. Elimine alguno o elija otro contenedor.",
-                            clase: "danger"
+                            mensaje: "Este espacio esta lleno. Elimine alguno elemento o elija otro contenedor.",
+                            clase: "warning"
                         }
                     }));
 
@@ -41,8 +41,8 @@ angular.module("disenador-de-logos")
                     for (var i = 0; i < hook.items.length; i++) {
                         if (hook.items[i].nombre == item.nombre) return $mdToast.show($mdToast.base({
                             args: {
-                                mensaje: "El contenedor ya contiene un elemento " + item.nombre + ", Elija otro elemento.",
-                                clase: "danger"
+                                mensaje: "El espacio contiene un elemento igual elija otro elemento.",
+                                clase: "warning"
                             }
                         }));
                     }
@@ -79,30 +79,8 @@ angular.module("disenador-de-logos")
 
                 /* Funcion para cambiar la direccion de un elemento en el contenedor o del contenedor propio */
 
-                bz.cambiarDireccionElemento = function (elemento, indiceCara, indiceHook) {
-
-                    var cambio = function (direccion) {
-                        if (elemento.items.length > 0) {
-                            angular.forEach(elemento.items, function (item) {
-                                if (item.icono != null) {
-                                    item.icono.orientacion = direccion;
-                                }
-                            })
-                        }
-                    }
-
-                    if (elemento.orientacion == 'right') {
-                        elemento.orientacion = 'left';
-                        if (elemento.id) {
-                            cambio('left');
-                        }
-                    } else {
-                        elemento.orientacion = 'right';
-                        if (elemento.id) {
-                            cambio('right');
-                        }
-                    }
-
+                bz.cambiarDireccionElemento = function (direccion, hook, indiceCara, indiceHook) {
+                    hook.orientacion = direccion;
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 

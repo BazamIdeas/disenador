@@ -135,25 +135,30 @@ textarea {
 /****** MENU PAPELERIA ******/
 
 bazam-menu-papeleria {
-    width: 30%;
-    /*box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);*/
+    width: 25%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100% - 60px);
+    background: #f4f2f2;
 }
 
-.tabs-p {
+.caras-miniaturas {
     display: flex;
-    .tab {
-        padding: 8px;
-        flex: 1;
-        font-size: 15pt;
-        text-align: center;
-        background: white;
-        transition: initial;
-        text-transform: capitalize;
-        border-bottom: 2px solid #f6f6f6;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    .caras-miniaturas-item-svg {
         cursor: pointer;
+        width: 100px;
+        margin-right: 20px;
+        svg {
+            display: block;
+            width: 100%;
+        }
         &.active {
-            background: #5981bc;
-            color: white;
+            border: 2px solid black;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
         }
     }
 }
@@ -163,31 +168,27 @@ bazam-menu-papeleria {
     height: 100%;
     user-select: none;
     .contenedor-principal-menu {
-        overflow-x: hidden;
-        overflow-y: scroll;
-        height: 84%;
-        background: #f4f2f2;
         .mensaje-cara {
-            font-size: 18pt;
+            font-size: 22pt;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: black;
+            color: silver;
             text-align: center;
         }
         .contenedor-items {
-            width: 90%;
-            margin: 10px auto;
+            width: 95%;
+            margin: 5px auto;
             background: white;
-            padding: 15px;
+            padding: 10px 15px 10px 15px !important;
             border: 1px solid #e6e6e6;
             padding-bottom: 5px;
             .nombre-contenedor {
                 padding: 2px;
-                font-size: 15pt;
+                font-size: 12pt;
                 margin-bottom: 10px;
-                border-bottom: 1px solid;
+                border-bottom: 1px solid silver;
                 justify-content: space-between;
                 display: flex;
                 align-items: center;
@@ -199,11 +200,11 @@ bazam-menu-papeleria {
                 bazam-color-picker {
                     margin-left: 10px;
                     display: inline-block;
+                    margin-top: 6px;
                     .background-selector {
-                        background-color: rgb(0, 128, 192);
                         border-radius: 50%;
-                        height: 35px;
-                        width: 35px;
+                        height: 25px;
+                        width: 25px;
                     }
                 }
             }
@@ -228,45 +229,51 @@ bazam-menu-papeleria {
                     display: block;
                 }
             }
+            &.ui-droppable-hover {
+                opacity: 1 !important;
+                border: 2px solid #5981bc96;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+            }
             &.ui-droppable-active {
-                border: 2px dashed var(--principal);
-            }
-            span.iconos-disponibles {
-                display: flex;
-                justify-content: center;
-            }
-            span.iconos-disponibles>span {
-                width: 50px;
-                display: inline-block;
-                margin-right: 5px;
+                opacity: 0.5;
             }
             .item {
                 font-size: 10pt;
-                padding: 8px;
                 display: inline-block;
                 margin-bottom: 10px;
                 text-transform: capitalize;
                 margin-right: 10px;
                 background: white;
-                border: 1px solid #e6e6e6;
                 &.ui-draggable-dragging {
                     opacity: 0.5;
                 }
-                &:not(.colocado):hover {
-                    background: #f3f2f2;
+                &:not(.colocado) {
+                    padding: 8px;
                     cursor: move;
+                    border-bottom: 1px solid #e6e6e6;
+                    &:hover {
+                        background: #f3f2f2;
+                    }
                 }
                 &.colocado {
                     cursor: default;
                     width: 100%;
+                    padding: 8px 0;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     box-shadow: none;
-                    &:last-child:hover {
-                        box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
-                        border: 1px solid red;
-                        color: red;
+                    border-bottom: 1px solid #e6e6e6;
+                    >:last-child.eliminar-input-x {
+                        font-size: 12pt;
+                        min-width: 20px;
+                        min-height: 20px;
+                        width: 20px;
+                        height: 20px;
+                        color: silver;
+                        &:hover {
+                            color: red;
+                        }
                     }
                     span.controles-movimiento {
                         width: 35px;
@@ -303,6 +310,7 @@ bazam-menu-papeleria {
                             align-self: center;
                             order: 1;
                             margin-left: 10px;
+                            display: none;
                         }
                         &.icono-left {
                             margin-right: 10px;
@@ -336,7 +344,6 @@ bazam-menu-papeleria {
                 border-radius: 50%;
                 padding: 3px;
                 color: black;
-                border: 1px solid black;
                 margin-left: 10px;
                 display: flex;
                 justify-content: center;
@@ -346,16 +353,16 @@ bazam-menu-papeleria {
             }
             .mensaje-items {
                 padding: 16px;
-                font-size: 18pt;
+                font-size: 13pt;
+                color: silver;
                 text-align: center;
                 font-family: 'nunito-sans-bold' !important;
                 letter-spacing: 2px;
             }
             .espacios-disponibles,
             .validacion-papeleria {
-                text-align: center;
                 display: block;
-                font-size: 10pt;
+                font-size: 7pt;
                 margin-top: 8px;
                 font-family: 'nunito-sans-bold' !important;
                 font-weight: 800;
@@ -367,23 +374,28 @@ bazam-menu-papeleria {
 bazam-menu-papeleria .fonts-container {
     position: absolute;
     width: 20%;
-    top: calc(60px + 7%) !important;
-    height: 84%;
-    left: 30%;
+    top: calc(60px) !important;
+    height: calc(100% - 60px);
+    left: 25%;
     bottom: 0;
     border-left: unset;
     -webkit-transition: 0.3s all;
     transition: 0.3s all;
     opacity: 0;
+    visibility: hidden;
+    z-index: -1;
     &.open {
-        left: 30%;
+        left: 25%;
         z-index: 2;
         opacity: 1;
+        visibility: visible;
     }
     .close {
-        right: -8%;
-        top: -4%;
+        right: 0%;
+        top: 0%;
         padding: 5px;
+        background: transparent;
+        color: black;
     }
 }
 

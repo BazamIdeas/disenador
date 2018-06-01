@@ -1,9 +1,11 @@
 angular.module("disenador-de-logos")
-	.controller("papeleriaEditorController", ["papeleriaResolve", "logoResolve", "$base64", "$scope", "elementosService", "fontService", "papeleriaService", "$document", "$state", function (papeleriaResolve, logoResolve, $base64, $scope, elementosService, fontService, papeleriaService, $document, $state) {
+	.controller("papeleriaEditorController", ["papeleriaResolve", "logoResolve", "$base64", "$scope", "elementosService", "fontService", "papeleriaService", "$document", "$state", "$sce", function (papeleriaResolve, logoResolve, $base64, $scope, elementosService, fontService, papeleriaService, $document, $state, $sce) {
 
 		var bz = this;
 
 		bz.base64 = $base64;
+
+		bz.sce = $sce;
 
 		bz.logo = logoResolve;
 
