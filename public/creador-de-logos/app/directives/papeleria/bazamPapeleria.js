@@ -934,6 +934,20 @@ angular.module("disenador-de-logos")
 
 				}
 
+				bz.decolorarHook = function(indiceCara, indiceHook){
+
+					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
+
+					angular.forEach(hook.items, function(item, indiceItem){
+
+						if(bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].caracteristicas.fill){
+							delete bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indiceItem].caracteristicas.fill;
+						}
+
+					})
+
+				}
+
 				bz.cambiarCara = function (indiceCara) {
 
 					element.find(".cara[data-index]").css("z-index", "-1");
@@ -1241,8 +1255,6 @@ angular.module("disenador-de-logos")
 									if(hook.id == identidad.data.hook){
 										indexHook = indiceHook;
 										bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].caracteristicas.fill = color;
-
-										console.log(bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].caracteristicas);
 									}
 									
 								})
