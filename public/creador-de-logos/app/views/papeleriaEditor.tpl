@@ -50,9 +50,13 @@
     .bazam-loader-papeleria {
         background-color: white;
         width: 100%;
-        height: 100%;
-        position: absolute;
+        top: 60px;
+        position: fixed;
         z-index: 2;
+        height: calc(100% - 60px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
     }
 
