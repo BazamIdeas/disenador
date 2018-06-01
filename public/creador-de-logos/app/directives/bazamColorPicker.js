@@ -13,11 +13,12 @@ angular.module("disenador-de-logos")
 											<i class='material-icons cerrar'>clear</i>\
 										</span>\
 									</div>\
-									<div ng-repeat='paletaColor in paletaColores track by $index' class='color' ng-style='jsonColor(paletaColor)' ng-click='$parent.color=paletaColor'></div>\
+									<div ng-repeat='paletaColor in paletaColores track by $index' class='color' ng-style='jsonColor(paletaColor)' ng-click='$parent.cambiarColor(paletaColor)'></div>\
 								</div>\
 						</div>",
 			scope: {
-				color: "="
+				color: "=",
+				callback:"<?"
 			},
 			controller: ["$scope", "coloresPaletaValue", function ($scope, coloresPaletaValue) {
 				$scope.paletaColores = coloresPaletaValue;
@@ -27,6 +28,14 @@ angular.module("disenador-de-logos")
 						"background-color": color
 					};
 				};
+
+				$scope.cambiarColor = function(colorNuevo){
+					$scope.color = colorNuevo;
+
+					if($scope.callback){
+						$scope.callback();
+					}
+				}
 
 				$scope.mostrarPicker = false;
 

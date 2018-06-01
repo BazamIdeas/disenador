@@ -7,16 +7,17 @@
     </div>
     <div class="contenedor-principal-menu">
         <form name="formularioPapeleria" novalidate>
-            <div ng-show="menuPapeleria.menuActivo == contenedor.nombre" ng-repeat="contenedor in papeleriaEditor.papeleria.modelo.caras">
+            <div ng-show="menuPapeleria.menuActivo == contenedor.nombre" ng-repeat="contenedor in papeleriaEditor.papeleria.modelo.caras"
+                style="    background: #f4f2f2;">
                 <div class="mensaje-cara" ng-show="contenedor.hooks.length == 0">
                     Esta cara de la papeleria no posee elementos
                 </div>
                 <div ng-show="contenedor.hooks.length > 0">
                     <div class="contenedor-items">
                         <div class="nombre-contenedor">
-                            <b>Items Disponibles</b>
+                            <b>Elementos disponibles</b>
                         </div>
-                        <span draggable="true" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index" indice="{{$index}}">
+                        <span ng-mouseleave="papeleriaEditor.agregarElemento = false" ng-mouseenter="papeleriaEditor.agregarElemento = true" draggable="true" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index" indice="{{$index}}">
                             {{::item.nombre}}
                         </span>
                     </div>
@@ -25,35 +26,27 @@
                         ng-mouseleave="papeleriaEditor.elementoFocus($parent.$index, $index, false)">
                         <div class="nombre-contenedor">
                             <b>{{::hook.id}}</b>
-                            <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento(hook, $parent.$index, $index)">
-                                <md-tooltip md-direction="bottom">Dirección</md-tooltip>
-                                <md-icon>swap_horiz</md-icon>
-                            </span>
+                            <div>
+                                <!-- DIRECCION -->
+                                <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento(hook, $parent.$index, $index)">
+                                    <md-tooltip md-direction="bottom">Dirección</md-tooltip>
+                                    <md-icon ng-show="hook.orientacion == 'right'">format_align_left</md-icon>
+                                    <md-icon ng-show="hook.orientacion == 'left'">format_align_right</md-icon>
+                                </span>
+                                <!-- COLOR -->
+                                <span>
+                                    <bazam-color-picker callback="menuPapeleria.cambiarColor($parent.$index, $index, true)" data-color="hook.fuente.fill" ></bazam-color-picker>
+                                </span>
+                                <!-- FUENTES -->
+                                <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarFuente(true, false, $parent.$index, $index)">
+                                    <md-tooltip md-direction="bottom">Fuentes</md-tooltip>
+                                    <md-icon>text_format</md-icon>
+                                </span>
+                            </div>
                         </div>
                         <div ng-click="papeleriaEditor.mostrarOpciones = null" ng-show="papeleriaEditor.mostrarOpciones == hook.id" style="display: flex; justify-content: center; cursor: pointer;">
                             <md-icon>keyboard_arrow_up</md-icon>
                         </div>
-                        <div ng-click="papeleriaEditor.mostrarOpciones = hook.id" ng-show="papeleriaEditor.mostrarOpciones != hook.id" style="display: flex; justify-content: center; cursor: pointer;">
-                            <md-icon>keyboard_arrow_down</md-icon>
-                        </div>
-
-                        <div class="opciones-hook" ng-show="papeleriaEditor.mostrarOpciones == hook.id">
-                            <span>
-                                <input type="color" ng-init="hook.fuente.fill" ng-model="hook.fuente.fill" ng-change="papeleriaEditor.modificarHook($parent.$index, $index, true)">
-                            </span>
-                            <span>
-                                <md-input-container style="width: 100%;">
-                                    <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fuentes</md-tooltip>
-                                    <md-select flex ng-model="hook.fuenteNueva" placeholder="Seleccione una fuente" ng-change="menuPapeleria.cambiarFuente(hook.fuenteNueva, $parent.$index, $index)"
-                                        md-no-asterisk required>
-                                        <md-option ng-repeat="fuente in papeleriaEditor.fuentes track by $index" ng-value="fuente">
-                                            <span style="font-family:{{fuente.nombre}}">{{fuente.nombre}}</span>
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </span>
-                        </div>
-
                         <div>
                             <span class="item colocado" ng-repeat="item_hook in hook.items track by $index">
                                 <span class="controles-movimiento" ng-show="hook.items.length > 1">
@@ -79,11 +72,11 @@
                                     </span>
 
                                     <input ng-show="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                        name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index, true)"
+                                        name="{{item_hook.nombre}}" type="{{item_hook.tipo}}" ng-change="papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index, true)"
                                         required>
 
                                     <textarea ng-show="item_hook.tipo == 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
-                                        name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$parent.$index, $parent.$parent.$index, true)"
+                                        name="{{item_hook.nombre}}-{{$index}}-pape" ng-list="&#10;" ng-trim="false" ng-change="papeleriaEditor.modificarHook($parent.$parent.$index, $parent.$index, true)"
                                         required></textarea>
 
                                     <span class="icono agregar-icono" ng-show="item_hook.icono == null || item_hook.icono == ''" ng-click="menuPapeleria.mostrarIconosDisponibles.accion = true; menuPapeleria.mostrarIconosDisponibles.idHook = hook.id; menuPapeleria.elementoAgregarIcono = item_hook">
@@ -102,7 +95,7 @@
                             </span>
                         </div>
                         <div class="mensaje-items" ng-show="hook.items.length == 0">
-                            Agrega Elementos
+                            Arrastra Elementos
                         </div>
                         <!-- <div class="validacion-papeleria" ng-show="!formularioPapeleria.$valid && hook.items.length > 0">
                             Completa los campos correctamente
@@ -112,5 +105,25 @@
                 </div>
             </div>
         </form>
+    </div>
+
+    <div class="fonts-container" ng-class="{'open': papeleriaEditor.selectorfuentes}">
+        <div class="close" ng-click="papeleriaEditor.selectorfuentes = false">
+            <i class="material-icons cerrar">clear</i>
+        </div>
+        <div class="row padding-bottom-0 margin-bottom-0">
+            <div class="col l12" style="position: relative; padding:0 !important; cursor:pointer; overflow-y: scroll;
+                max-height: 84vh;">
+
+                <!-- TEXTO PRINCIPAL LISTA DE FUENTES -->
+                <md-radio-group ng-model="menuPapeleria.fuenteSeleccionada" ng-change="menuPapeleria.cambiarFuente(false, menuPapeleria.fuenteSeleccionada)"
+                    class="md-primary">
+                    <md-radio-button class="font-option" ng-repeat="fuente in papeleriaEditor.fuentes track by $index" ng-value="{url:fuente.url, nombre: fuente.nombre}">
+                        <!--ng-disabled=" d.isDisabled "-->
+                        <span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuente.nombre == fuente.nombre ? 'color: var(--principal) !important;    transform: scale(1.2) !important' : 'color: black !important'}};     letter-spacing: 2px;">{{::fuente.nombre}}</span>
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+        </div>
     </div>
 </div>

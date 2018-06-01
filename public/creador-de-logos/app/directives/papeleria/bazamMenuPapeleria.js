@@ -12,10 +12,11 @@ angular.module("disenador-de-logos")
                 /* Colocamos predefinida la primera cara del modelo que posea contenedores */
 
                 bz.menuActivo = $scope.papeleriaEditor.papeleria.modelo.caras[0].nombre;
-                
+
                 /* Funcion para agregar un elemento al contenedor */
 
                 $scope.agregarElementoHook = function (indiceCara, indiceHook, indiceElemento) {
+                    if(!$scope.papeleriaEditor.agregarElemento) return;
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
                     var item = $scope.papeleriaEditor.papeleria.items[indiceElemento];
@@ -34,7 +35,7 @@ angular.module("disenador-de-logos")
                             clase: "danger"
                         }
                     }));
-                    
+
                     /* Si el contenedor ya posee un elemento igual detenemos la funcion */
 
                     for (var i = 0; i < hook.items.length; i++) {
@@ -105,13 +106,26 @@ angular.module("disenador-de-logos")
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 
-                bz.cambiarFuente = function(fuente, indiceCara, indiceHook){
-                    var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
+                $scope.papeleriaEditor.selectorfuentes = false;
+
+                bz.cambiarFuente = function (mostrar, fuente, indiceCara, indiceHook) {
+                    if (mostrar) {
+
+                        bz.hookActivo = {indiceCara: indiceCara, indiceHook: indiceHook};
+                        return  $scope.papeleriaEditor.selectorfuentes = !$scope.papeleriaEditor.selectorfuentes;
+
+                    }
+
+                    var hook = $scope.papeleriaEditor.papeleria.modelo.caras[bz.hookActivo.indiceCara].hooks[bz.hookActivo.indiceHook];
 
                     hook.fuente.nombre = fuente.nombre;
                     hook.fuente.url = fuente.url;
-                    
-                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook, true);
+
+                    $scope.papeleriaEditor.modificarHook(bz.hookActivo.indiceCara, bz.hookActivo.indiceHook, true);
+                }
+
+                bz.cambiarColor = function(indiceCara, indiceHook){
+                    $scope.papeleriaEditor.decolorarHook(indiceCara, indiceHook, true);  $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook, true)
                 }
 
             }],
