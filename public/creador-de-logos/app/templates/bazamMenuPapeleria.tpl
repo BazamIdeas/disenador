@@ -35,7 +35,7 @@
                                 </span>
                                 <!-- COLOR -->
                                 <span>
-                                    <bazam-color-picker callback="menuPapeleria.cambiarColor($parent.$index, $index, true)" data-color="hook.fuente.fill" ></bazam-color-picker>
+                                    <bazam-color-picker callback="menuPapeleria.cambiarColor" data-args="[$parent.$index, $index]" data-ctx="menuPapeleria" data-color="hook.fuente.fill"  data-titulo="'Color'"></bazam-color-picker>
                                 </span>
                                 <!-- FUENTES -->
                                 <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarFuente(true, false, $parent.$index, $index)">

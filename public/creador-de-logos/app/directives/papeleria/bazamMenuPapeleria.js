@@ -16,7 +16,7 @@ angular.module("disenador-de-logos")
                 /* Funcion para agregar un elemento al contenedor */
 
                 $scope.agregarElementoHook = function (indiceCara, indiceHook, indiceElemento) {
-                    if(!$scope.papeleriaEditor.agregarElemento) return;
+                    if (!$scope.papeleriaEditor.agregarElemento) return;
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
                     var item = $scope.papeleriaEditor.papeleria.items[indiceElemento];
@@ -111,8 +111,11 @@ angular.module("disenador-de-logos")
                 bz.cambiarFuente = function (mostrar, fuente, indiceCara, indiceHook) {
                     if (mostrar) {
 
-                        bz.hookActivo = {indiceCara: indiceCara, indiceHook: indiceHook};
-                        return  $scope.papeleriaEditor.selectorfuentes = !$scope.papeleriaEditor.selectorfuentes;
+                        bz.hookActivo = {
+                            indiceCara: indiceCara,
+                            indiceHook: indiceHook
+                        };
+                        return $scope.papeleriaEditor.selectorfuentes = !$scope.papeleriaEditor.selectorfuentes;
 
                     }
 
@@ -124,10 +127,11 @@ angular.module("disenador-de-logos")
                     $scope.papeleriaEditor.modificarHook(bz.hookActivo.indiceCara, bz.hookActivo.indiceHook, true);
                 }
 
-                bz.cambiarColor = function(indiceCara, indiceHook){
-                    $scope.papeleriaEditor.decolorarHook(indiceCara, indiceHook, true);  $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook, true)
-                }
+                bz.cambiarColor = function (indiceCara, indiceHook) {
 
+                    $scope.papeleriaEditor.cambiarColorHook(indiceCara, indiceHook, true);
+
+                }
             }],
             controllerAs: "menuPapeleria",
             templateUrl: 'app/templates/bazamMenuPapeleria.tpl'
