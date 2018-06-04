@@ -156,7 +156,7 @@ button.md-button.md-primary.md-raised.boton-plan,
 .titulo-destacado,
 .plan-nombre,
 div.acceder span,
-.tooltip-header {
+.tooltip-header, div[ng-message="required"] {
     font-family: 'nunito-sans-bold' !important;
 }
 
@@ -242,4 +242,38 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 .md-button.md-default-theme.md-primary.md-fab:not([disabled]).md-focused, .md-button.md-primary.md-fab:not([disabled]).md-focused, .md-button.md-default-theme.md-primary.md-fab:not([disabled]):hover, .md-button.md-primary.md-fab:not([disabled]):hover, .md-button.md-default-theme.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-default-theme.md-primary.md-raised:not([disabled]):hover, .md-button.md-primary.md-raised:not([disabled]):hover {
     background-color: rgb(89, 128, 183) !important;
     color: white !important;
+}
+
+md-select.categorias-select {
+    height: 31px;
+}
+
+md-select-menu md-option .md-text {
+    font-size: 12pt !important;
+}
+
+md-select.categorias-select md-select-value> :first-child {
+    height: 35px;
+}
+
+md-input-container input[type=text], md-chips.md-default-theme .md-chips {
+    border-bottom: 1px solid silver !important;
+    box-shadow: unset !important;
+}
+
+md-chips .md-chips.md-focused{
+    border-bottom: 2px solid $PRINCIPAL !important;
+    box-shadow: unset !important;
+}
+
+.md-chips .md-chip-input-container md-autocomplete input {
+    font-size: 16pt;
+}
+
+md-chips.md-default-theme md-chip.md-focused, md-chips md-chip.md-focused, md-chips.md-default-theme md-chip md-icon, md-chips md-chip md-icon,  md-chips md-chip.md-focused md-icon{
+    color: black;
+}
+
+div[ng-message="required"]{
+    font-size: 12px;
 }
