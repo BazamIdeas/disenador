@@ -1789,212 +1789,221 @@ textarea {
 
 /****** MENU PAPELERIA ******/
 bazam-menu-papeleria {
-  width: 30%;
-  /*box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);*/ }
+  width: 25%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: calc(100% - 60px);
+  background: #f4f2f2; }
 
-.tabs-p {
-  display: flex; }
-  .tabs-p .tab {
-    padding: 8px;
-    flex: 1;
-    font-size: 15pt;
-    text-align: center;
-    background: white;
-    transition: initial;
-    text-transform: capitalize;
-    border-bottom: 2px solid #f6f6f6;
-    cursor: pointer; }
-    .tabs-p .tab.active {
-      background: #5981bc;
-      color: white; }
+.caras-miniaturas {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 20px;
+  right: 20px; }
+  .caras-miniaturas .caras-miniaturas-item-svg {
+    cursor: pointer;
+    width: 100px;
+    margin-right: 20px; }
+    .caras-miniaturas .caras-miniaturas-item-svg svg {
+      display: block;
+      width: 100%; }
+    .caras-miniaturas .caras-miniaturas-item-svg.active {
+      border: 2px solid black;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12); }
 
 .menuPapeleria {
   width: 100%;
   height: 100%;
   user-select: none; }
-  .menuPapeleria .contenedor-principal-menu {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    height: 84%;
-    background: #f4f2f2; }
-    .menuPapeleria .contenedor-principal-menu .mensaje-cara {
-      font-size: 18pt;
-      height: 100%;
+  .menuPapeleria .contenedor-principal-menu .mensaje-cara {
+    font-size: 22pt;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: silver;
+    text-align: center; }
+  .menuPapeleria .contenedor-principal-menu .contenedor-items {
+    width: 95%;
+    margin: 5px auto;
+    background: white;
+    padding: 10px 15px 10px 5px !important;
+    border: 1px solid #e6e6e6;
+    border-left: 10px solid white;
+    padding-bottom: 5px; }
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor {
+      padding: 2px;
+      font-size: 12pt;
+      margin-bottom: 10px;
+      border-bottom: 1px solid silver;
+      justify-content: space-between;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      color: black;
-      text-align: center; }
-    .menuPapeleria .contenedor-principal-menu .contenedor-items {
-      width: 90%;
-      margin: 10px auto;
-      background: white;
-      padding: 15px;
-      border: 1px solid #e6e6e6;
-      padding-bottom: 5px; }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor {
-        padding: 2px;
-        font-size: 15pt;
-        margin-bottom: 10px;
-        border-bottom: 1px solid;
-        justify-content: space-between;
+      align-items: center; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor > div {
         display: flex;
-        align-items: center; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor > div {
-          display: flex;
-          flex: 1;
-          justify-content: flex-end; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor bazam-color-picker {
-          margin-left: 10px;
-          display: inline-block; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor bazam-color-picker .background-selector {
-            background-color: #0080c0;
-            border-radius: 50%;
-            height: 35px;
-            width: 35px; }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .opciones-hook {
-        display: flex;
-        justify-content: space-between;
-        align-items: center; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .opciones-hook > :last-child {
-          width: 65%;
-          margin-right: 3%; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .opciones-hook > :first-child {
-          width: 30%; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .opciones-hook input[type="color"] {
-          padding: 0px;
-          background: transparent;
-          border: none;
-          height: 34px;
-          width: 60%;
-          margin: auto;
-          display: block; }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items.ui-droppable-active {
-        border: 2px dashed var(--principal); }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items span.iconos-disponibles {
-        display: flex;
-        justify-content: center; }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items span.iconos-disponibles > span {
-        width: 50px;
-        display: inline-block;
-        margin-right: 5px; }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .item {
-        font-size: 10pt;
-        padding: 8px;
-        display: inline-block;
-        margin-bottom: 10px;
-        text-transform: capitalize;
-        margin-right: 10px;
-        background: white;
-        border: 1px solid #e6e6e6; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .item.ui-draggable-dragging {
-          opacity: 0.5; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .item:not(.colocado):hover {
-          background: #f3f2f2;
-          cursor: move; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado {
-          cursor: default;
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          box-shadow: none; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado:last-child:hover {
-            box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
-            border: 1px solid red;
-            color: red; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado span.controles-movimiento {
-            width: 35px;
-            margin-right: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center; }
-            .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado span.controles-movimiento > span md-icon {
-              cursor: pointer;
-              color: black; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria {
-          flex: 1;
-          display: flex;
-          align-items: center; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono.agregar-icono {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: black; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono {
-            width: 40px; }
-            .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono .suprimirIcono {
-              display: block;
-              font-size: 8pt;
-              padding-top: 8px;
-              cursor: pointer; }
-            .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono.icono-right {
-              align-self: center;
-              order: 1;
-              margin-left: 10px; }
-            .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono.icono-left {
-              margin-right: 10px; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria input.input-papeleria {
-            height: 30px !important; }
-            .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria input.input-papeleria::placeholder {
-              text-transform: capitalize; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria input.input-papeleria,
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria textarea {
-            margin-bottom: 0; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria textarea::placeholder {
-            color: var(--principal); }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado > :last-child md-icon,
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor > :last-child md-icon {
-        color: inherit; }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado > :last-child,
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor .icono-nombre-hook {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        padding: 3px;
-        color: black;
-        border: 1px solid black;
+        flex: 1;
+        justify-content: flex-end; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor bazam-color-picker {
         margin-left: 10px;
+        display: inline-block;
+        margin-top: 6px; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor bazam-color-picker .background-selector {
+          border-radius: 50%;
+          height: 25px;
+          width: 25px; }
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .opciones-hook {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .opciones-hook > :last-child {
+        width: 65%;
+        margin-right: 3%; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .opciones-hook > :first-child {
+        width: 30%; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .opciones-hook input[type="color"] {
+        padding: 0px;
+        background: transparent;
+        border: none;
+        height: 34px;
+        width: 60%;
+        margin: auto;
+        display: block; }
+    .menuPapeleria .contenedor-principal-menu .contenedor-items.ui-droppable-hover {
+      border-left: 10px solid #5980b7 !important; }
+    .menuPapeleria .contenedor-principal-menu .contenedor-items.ui-droppable-active {
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+      border-left: 10px solid #5980b780; }
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .item {
+      font-size: 10pt;
+      display: inline-block;
+      margin-bottom: 10px;
+      text-transform: capitalize;
+      margin-right: 10px;
+      background: white; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .item.ui-draggable-dragging {
+        opacity: 0.5; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .item:not(.colocado) {
+        padding: 8px;
+        cursor: move;
+        border: 1px solid #e6e6e6; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .item:not(.colocado):hover {
+          background: #f3f2f2; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado {
+        cursor: default;
+        width: 100%;
+        padding: 8px 0;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        margin-bottom: 3px;
-        cursor: pointer; }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .mensaje-items {
-        padding: 16px;
-        font-size: 18pt;
-        text-align: center;
-        font-family: 'nunito-sans-bold' !important;
-        letter-spacing: 2px; }
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .espacios-disponibles,
-      .menuPapeleria .contenedor-principal-menu .contenedor-items .validacion-papeleria {
-        text-align: center;
-        display: block;
-        font-size: 10pt;
-        margin-top: 8px;
-        font-family: 'nunito-sans-bold' !important;
-        font-weight: 800; }
+        box-shadow: none;
+        border-bottom: 1px solid #e6e6e6; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado > :last-child.eliminar-input-x {
+          font-size: 12pt;
+          min-width: 20px;
+          min-height: 20px;
+          width: 20px;
+          height: 20px;
+          color: silver; }
+          .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado > :last-child.eliminar-input-x:hover {
+            color: red; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado span.controles-movimiento {
+          width: 35px;
+          margin-right: 8px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center; }
+          .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado span.controles-movimiento > span md-icon {
+            cursor: pointer;
+            color: black; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria {
+        flex: 1;
+        display: flex;
+        align-items: center; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono.agregar-icono {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: black; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono {
+          width: 40px; }
+          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono .suprimirIcono {
+            display: block;
+            font-size: 8pt;
+            padding-top: 8px;
+            cursor: pointer; }
+          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono.icono-right {
+            align-self: center;
+            order: 1;
+            margin-left: 10px;
+            display: none; }
+          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono.icono-left {
+            margin-right: 10px; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria input.input-papeleria {
+          height: 30px !important; }
+          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria input.input-papeleria::placeholder {
+            text-transform: capitalize; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria input.input-papeleria,
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria textarea {
+          margin-bottom: 0; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria textarea::placeholder {
+          color: var(--principal); }
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado > :last-child md-icon,
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor > :last-child md-icon {
+      color: inherit; }
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado > :last-child,
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor .icono-nombre-hook {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      padding: 3px;
+      color: black;
+      margin-left: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 3px;
+      cursor: pointer; }
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .mensaje-items {
+      padding: 16px;
+      font-size: 13pt;
+      color: silver;
+      text-align: center;
+      font-family: 'nunito-sans-bold' !important;
+      letter-spacing: 2px; }
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .espacios-disponibles,
+    .menuPapeleria .contenedor-principal-menu .contenedor-items .validacion-papeleria {
+      display: block;
+      font-size: 7pt;
+      margin-top: 8px;
+      font-family: 'nunito-sans-bold' !important;
+      font-weight: 800; }
 
 bazam-menu-papeleria .fonts-container {
   position: absolute;
   width: 20%;
-  top: calc(60px + 7%) !important;
-  height: 84%;
-  left: 30%;
+  top: calc(60px) !important;
+  height: calc(100% - 60px);
+  left: 25%;
   bottom: 0;
   border-left: unset;
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
-  opacity: 0; }
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1; }
   bazam-menu-papeleria .fonts-container.open {
-    left: 30%;
+    left: 25%;
     z-index: 2;
-    opacity: 1; }
+    opacity: 1;
+    visibility: visible; }
   bazam-menu-papeleria .fonts-container .close {
-    right: -8%;
-    top: -4%;
-    padding: 5px; }
+    right: 0%;
+    top: 0%;
+    padding: 5px;
+    background: transparent;
+    color: black; }
 
 bazam-papeleria {
   left: 0;
