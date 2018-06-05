@@ -181,8 +181,9 @@ bazam-menu-papeleria {
             width: 95%;
             margin: 5px auto;
             background: white;
-            padding: 10px 15px 10px 15px !important;
+            padding: 10px 15px 10px 5px !important;
             border: 1px solid #e6e6e6;
+            border-left: 10px solid white;
             padding-bottom: 5px;
             .nombre-contenedor {
                 padding: 2px;
@@ -230,12 +231,11 @@ bazam-menu-papeleria {
                 }
             }
             &.ui-droppable-hover {
-                opacity: 1 !important;
-                border: 2px solid #5981bc96;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+                border-left: 10px solid #5980b7 !important;
             }
             &.ui-droppable-active {
-                opacity: 0.5;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+                border-left: 10px solid #5980b780;
             }
             .item {
                 font-size: 10pt;
@@ -250,7 +250,7 @@ bazam-menu-papeleria {
                 &:not(.colocado) {
                     padding: 8px;
                     cursor: move;
-                    border-bottom: 1px solid #e6e6e6;
+                    border: 1px solid #e6e6e6;
                     &:hover {
                         background: #f3f2f2;
                     }

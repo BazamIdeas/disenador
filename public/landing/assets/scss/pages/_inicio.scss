@@ -530,7 +530,7 @@ button.md-button.md-primary.md-raised {
     align-items: center;
     padding-top: 4%;
     .plan {
-        height: 90vh;
+        height: 700px;
         width: 33%;
         >div {
             width: 100%;
@@ -693,13 +693,9 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     }
 }
 
-@media (min-device-width:360px) and (max-device-width:639px),
-(min-width:360px) and (max-width:639px) {
-    .contenedor-planes .plan,
-    .contenedor-planes .plan>div {
-        height: auto;
-    }
-    .contenedor-planes .plan .plan-body{height: 35%;}
+@media (min-device-width:360px) and (max-device-width:640px),
+(min-width:360px) and (max-width:640px) {
+   
     .seccion.uno form label,
     .seccion.uno form md-select,
     .seccion.uno .label-form {
@@ -712,13 +708,11 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     md-select.categorias-select md-select-value> :first-child {
         height: auto;
     }
-    .contenedor-planes,
-    .seccion.uno .titulo-inicio> :first-child span {
+    .seccion.seis,
+    .seccion.uno .titulo-inicio> :first-child span , .bazam-previzualizar-container.one> :last-child{
         display: none
     }
-    .bazam-previzualizar-container.one> :last-child {
-        display: none !important;
-    }
+
     .bazam-previzualizar-container.one> :first-child {
         height: auto !important;
     }
@@ -805,22 +799,6 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     .seccion.dos {
         padding: 4% 2%;
     }
-    .contenedor-planes {
-        width: 100%;
-    }
-    .plan {
-        height: 50vh;
-        width: 33%;
-    }
-    .plan-body {
-        height: 65%;
-    }
-    ul.plan-lista li {
-        font-size: 16pt;
-        word-break: break-word;
-        margin-bottom: 14px;
-        padding: 0 16px;
-    }
     .input-tipografia {
         width: 70%;
     }
@@ -902,14 +880,23 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     }
 }
 
-@media (min-device-width:640px) and (max-device-width:1080px),
-(min-width:640px) and (max-width:1080px) {
+@media (min-device-width:641px) and (max-device-width:1080px),
+(min-width:641px) and (max-width:1080px) {
+
     .seccion.uno .titulo-inicio .titulo-principal {
         text-align: center;
         font-size: 32pt;
     }
+    .seccion.uno .titulo-inicio > :first-child span{
+        display:none;
+    }
+  
     .seccion.uno .titulo-inicio h4.subtitle {
         font-size: 17pt;
+        width: 70%;
+    }
+    .seccion.uno .titulo-inicio h4.subtitle br,  .seccion.uno .titulo-inicio .titulo-principal br {
+        display: none;
     }
     .caracteristicas .caracteristicas__item> :last-child h4 {
         font-size: 24pt;
@@ -917,10 +904,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     .contenedor-planes {
         width: 100%;
     }
-    .plan {
-        height: 50vh;
-        width: 33%;
-    }
+
 }
 
 /* selector de colores

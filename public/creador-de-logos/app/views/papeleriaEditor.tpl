@@ -137,6 +137,7 @@
 
     .combinacion-box .accion {
         opacity: 1;
+        z-index: 2;
     }
 
     .papeleria-editor-container span.accion:hover {

@@ -1,11 +1,10 @@
 angular.module("landing", ["ngMessages", "ngAnimate", "ngAria", "ngMaterial", "ui.carousel", "base64"])
-
-	.config(function (/*  $urlRouterProvider, $locationProvider, $mdToastProvider */) {
+	.config(function ( /*  $urlRouterProvider, $locationProvider, */ $mdToastProvider ) {
 
 		//$locationProvider.html5Mode(true);
 
 
-/* 		$mdToastProvider.addPreset("base", {
+ 		$mdToastProvider.addPreset("base", {
 			options: function () {
 				return {
 					templateUrl: "toast-base.html",
@@ -33,12 +32,9 @@ angular.module("landing", ["ngMessages", "ngAnimate", "ngAria", "ngMaterial", "u
 					clickOutsideToClose: true
 				};
 			}
-		}); */
-
-
-		/*------------------------ Ui router states ----------------------*/
-
-/* 		$stateProvider.state({
+		}); 
+		
+/*  		$stateProvider.state({
 				name: "comienzo",
 				url: "/",
 				templateUrl: "/landing/app/views/comienzo.tpl",
@@ -47,10 +43,10 @@ angular.module("landing", ["ngMessages", "ngAnimate", "ngAria", "ngMaterial", "u
 				name: "no-encontrado",
 				url: "/404/",
 				templateUrl: "/landing/app/views/404.tpl"
-			}); */
+			}); 
 
 
-/* 		$urlRouterProvider.rule(function ($injector, $location) {
+ 		$urlRouterProvider.rule(function ($injector, $location) {
 			var path = $location.url();
 
 			if ("/" === path[path.length - 1] || path.indexOf("/?") > -1) {
@@ -64,6 +60,6 @@ angular.module("landing", ["ngMessages", "ngAnimate", "ngAria", "ngMaterial", "u
 			return path + "/";
 		});
 
-		$urlRouterProvider.otherwise("/404/"); */
-
-	});
+		$urlRouterProvider.otherwise("/404/"); 
+ */
+	}); 
