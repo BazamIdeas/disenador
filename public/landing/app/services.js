@@ -342,7 +342,7 @@ angular.module("landing")
 			icono: ["bg-carac-6", ""]
 		}],
 		testimonios: [{
-			descripcion: "Es la segunda vez que me hago un logo y estoy super contento",
+			descripcion: "Es la segunda vez que hago un logo y estoy super contento",
 			logo: "/landing/assets/img/c4.png",
 				color: '#51a7f9',
 				client: {
@@ -692,7 +692,7 @@ angular.module("landing")
 		}
 
 		function createFilterFor(query) {
-			var lowercaseQuery = angular.lowercase(query);
+			var lowercaseQuery = query.toLowerCase();
 
 			return function filterFn(etiqueta) {
 				return (etiqueta.traduccion._lowername.indexOf(lowercaseQuery) === 0);

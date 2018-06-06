@@ -28,8 +28,9 @@ avatares/*
 .vs/config/applicationhost.config
 .vs/ProjectSettings.json
 
-
 plantillas-documentos/*.pptx
 plantillas-documentos/*.docx
-public/landing/dist
-public/creador-de-logos/dist
+
+public/creador-de-logos/built
+public/administrador/built
+public/landing/built

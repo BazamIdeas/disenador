@@ -58,7 +58,7 @@
     </div>
 </div>
 <div class="papeleria-nueva-mensaje" ng-if="papeleriaCtrl.papelerias && !papeleriaCtrl.tienePiezas">
-    <h2>No tienes papelerias?</h2>
+    <h2>¿Aun no posees papelerias?</h2>
     <md-button ng-show="papeleriaCtrl.papelerias" ng-click="papeleriaCtrl.crearPapeleria = !papeleriaCtrl.crearPapeleria" class="boton-crear-papeleria">Crear Papeleria</md-button>
 </div>
 <md-button ng-show="papeleriaCtrl.papelerias && papeleriaCtrl.tienePiezas" ng-click="papeleriaCtrl.crearPapeleria = !papeleriaCtrl.crearPapeleria"
@@ -71,5 +71,5 @@ align-items: center;">
     <img style="width: 20%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
 </div>
 
-<bazam-crear-papeleria id-logo="papeleriaCtrl.idLogo" ng-if="papeleriaCtrl.papelerias" estado="papeleriaCtrl.crearPapeleria"
+<bazam-crear-papeleria id-logo="papeleriaCtrl.idLogo" ng-if="papeleriaCtrl.papelerias" estado="papeleriaCtrl.crearPapeleria" tiene="papeleriaCtrl.tienePiezas"
     papelerias="papeleriaCtrl.papelerias"></bazam-crear-papeleria>

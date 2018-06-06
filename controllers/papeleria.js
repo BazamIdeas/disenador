@@ -9,6 +9,8 @@ var pdf = require('html-pdf');
 var os = require('os');
 var base64 = require("base-64");
 var fs = require('fs');
+var archiver = require("archiver");
+const fse = require('fs-extra')
 
 exports.ObtenerTodos = (req, res) => {
     Modelo.ObtenerTodos((err, data) => {
@@ -118,9 +120,9 @@ exports.Guardar = (req, res) => {
     const modelo = req.body.modelo;
     const pieza = req.body.pieza;
     pieza.cliente = req.idCliente;
-    
+
     Logo.getLogo([req.idCliente, pieza.logo], (error, data) => {
-		if (typeof data !== "undefined" && data.length > 0) {
+        if (typeof data !== "undefined" && data.length > 0) {
 
             Modelo.ObtenerPorNombreyTipo(modelo, tipo, (err, data) => {
 
@@ -354,19 +356,118 @@ exports.descargarPapeleria = function (req, res, next) {
 
                 papeleria.modelo = papeleria.modelo.replace(/[^a-zA-Z0-9-_]/g, '');
 
-                var nombre = './public/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '-'+req.body.idLogo+'.pdf';
+                var nombre = './public/tmp/' + papeleria.tipo + '-' + papeleria.modelo + '-' + req.body.idLogo + '.pdf';
+
+
+                var nombres = {
+                    papeleria: '',
+                    informacion: ''
+                };
 
                 pdf.create(template, configuracion).toFile(nombre, function (err, data) {
 
                     if (err) throw err;
 
                     data = {
-                        nombreArchivo: 'papeleria-' + papeleria.tipo + '-' + papeleria.modelo +'-'+req.body.idLogo+'.pdf',
-                        url: '/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '-'+req.body.idLogo+'.pdf'
+                        nombreArchivo:  papeleria.tipo + '-' + papeleria.modelo + '-' + req.body.idLogo + '.pdf',
+                        url: '/tmp/' + papeleria.tipo + '-' + papeleria.modelo + '-' + req.body.idLogo + '.pdf'
                     };
 
-                    res.status(200).json(data)
+                    //console.log('PDF1')
+                    nombres.papeleria = data;
+
+                    /**
+                     * CREAR DOCUMENTACION Y ZIP
+                     */
+
+                    var ubicacionPlantilla = './plantillas-papeleria/informacion/informacion.html';
+
+                    url = 'file:///' + __dirname.replace('controllers', '') + './plantillas-papeleria/informacion/';
+
+                    var template = fs.readFileSync(ubicacionPlantilla, 'utf8', (err, data) => {
+                        if (err) throw err;
+                    });
+
+                    /* REMPLAZAMO LAS VARIABLES */
+                    var keys = Object.keys(piezaUsuario[0].tipo[0]);
+                    for (var key in keys) {
+                        while (template.indexOf("${" + keys[key] + "}") != -1) {
+                           
+                            template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
+                        }
+                    }
+
+                    var nombre = './public/tmp/documentacion.pdf';
+
+                    pdf.create(template, {
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
+                    }).toFile(nombre, function (err, data) {
+
+                        if (err) throw err;
+
+                        data = {
+                            nombreArchivo: 'documentacion.pdf',
+                            url: '/tmp/documentacion.pdf'
+                        };
+
+                        //console.log('PDF2')
+
+                        nombres.informacion = data;
+
+                        /**
+                         * COMPRIMIR DOCUMENTO Y DESCARGAR
+                         */
+
+                        var ubicacionArchivoNuevo = __dirname.replace('controllers', '') + '/public/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '-' + req.body.idLogo + '.zip';
+
+                        var output = fs.createWriteStream(ubicacionArchivoNuevo);
+
+                        var archive = archiver("zip", {
+                            zlib: {
+                                level: 9
+                            }
+                        });
+
+                        archive.pipe(output);
+
+
+                        /**
+                         * Agregamos los pdfs al ZIP
+                         */
+
+                        archive.file(__dirname.replace('controllers', '') + '/public/' + nombres.informacion.url, {
+                            name: nombres.informacion.nombreArchivo
+                        });
+
+                        archive.file(__dirname.replace('controllers', '') + '/public/' + nombres.papeleria.url, {
+                            name: nombres.papeleria.nombreArchivo
+                        });
+
+                        output.on('close', () => {
+                            /**
+                             * Removemos los pdfs de la carpeta temporal
+                             */
+                            fse.removeSync(__dirname.replace('controllers', '') + '/public/'+nombres.informacion.url);
+                            fse.removeSync(__dirname.replace('controllers', '') + '/public/'+nombres.papeleria.url);
+
+                            data = {
+                                nombreArchivo: 'papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '-' + req.body.idLogo + '.zip',
+                                url: '/tmp/papeleria-' + papeleria.tipo + '-' + papeleria.modelo + '-' + req.body.idLogo + '.zip'
+                            };
+
+                            res.status(202).json(data);
+        
+                            //res.download(ubicacionArchivoNuevo);
+                        })
+
+                        archive.finalize();
+                    });
+
                 });
+
             } else {
                 res.status(404).json({
                     'msg': 'No hay piezas en la base de datos'

@@ -26,7 +26,7 @@
                                 </div>
                             </div>
 
-                            <form name="bazamLogin.loginForm" novalidate ng-submit="bazamLogin.login(bazamLogin.datosLogin, bazamLogin.loginForm.$valid)">
+                            <form name="bazamLogin.loginForm" novalidate ng-submit="bazamLogin.login(bazamLogin.datosLogin, bazamLogin.loginForm.$valid)" autocomplete="on">
                                 <div class="input-field col s12">
                                     <input name="correo" type="email" ng-model="bazamLogin.datosLogin.correo" required>
                                     <label for="correo">Correo</label>
@@ -92,7 +92,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <form name="bazamLogin.registroForm" novalidate ng-submit="bazamLogin.registrar(bazamLogin.datosRegistro, bazamLogin.registroForm.$valid)">
+                                    <form name="bazamLogin.registroForm" novalidate ng-submit="bazamLogin.registrar(bazamLogin.datosRegistro, bazamLogin.registroForm.$valid)" autocomplete="on">
                                         <div class="input-field col s12">
                                             <input type="text" name="nombreCliente" ng-model="bazamLogin.datosRegistro.nombreCliente" required>
                                             <label for="nombre2">Nombre</label>
@@ -184,7 +184,8 @@
                             </small>
                             <br>
                             <div ng-switch-default>
-                                <form name="olvido" ng-submit="bazamLogin.forgotPass(bazamLogin.olvido, olvido.$valid)" novalidate class="formulario-ingreso">
+                                <form name="olvido" ng-submit="bazamLogin.forgotPass(bazamLogin.olvido, olvido.$valid)" novalidate class="formulario-ingreso" autocomplete="on"
+                                >
                                     <div class="input-field col s12">
 
                                         <input type="email" ng-model="bazamLogin.olvido.correo" name="correo" required ng-minlength="5">
@@ -216,7 +217,7 @@
                             </div>
                         </div>
                         <div ng-switch-when="3">
-                            <form name="formRecuperar" ng-submit="bazamLogin.confirmarToken(true,formRecuperar.$valid)" novalidate>
+                            <form name="formRecuperar" ng-submit="bazamLogin.confirmarToken(true,formRecuperar.$valid)" novalidate autocomplete="on">
                                 <md-input-container class="md-block">
                                     <label>Nueva Contraseña:</label>
                                     <input type="password" style="margin-bottom:0;" ng-model="bazamLogin.olvido.pass" name="pass" required ng-minlength="6">

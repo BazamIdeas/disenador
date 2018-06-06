@@ -1,4 +1,4 @@
-if (location.host != 'localhost:8080') {
+if (location.host != 'localhost:8080' && location.protocol != 'http:') {
     var workbox = new Worker('https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js');
 
     inciar()
@@ -45,13 +45,6 @@ function inciar() {
     );
 
     workbox.routing.registerRoute(
-        new RegExp('app/views/(.*)'),
-        workbox.strategies.staleWhileRevalidate({
-            cacheName: 'views-cache',
-        }),
-    );
-
-    workbox.routing.registerRoute(
         /.*\.(?:png|jpg|jpeg|svg|gif)/,
         workbox.strategies.cacheFirst({
             cacheName: 'imagenes-cache',
@@ -88,6 +81,4 @@ function inciar() {
 
     workbox.googleAnalytics.initialize();
 
-} else {
-    console.log(`Boo! Workbox didn't load 😬`);
 }

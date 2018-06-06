@@ -5,6 +5,7 @@ angular.module("disenador-de-logos")
 
 		bz.base64 = $base64;
 		bz.sce = $sce;
+		bz.tienePiezas = false;
     
 		bz.idLogo = logoResolve.id;
 
@@ -23,6 +24,10 @@ angular.module("disenador-de-logos")
 					}
 				})
 			})
+
+			if(!bz.tienePiezas){
+				bz.crearPapeleria = true;
+			}
 			bz.papeleriaActiva = bz.papelerias[0].tipo;
 		})
 
@@ -50,6 +55,7 @@ angular.module("disenador-de-logos")
 		bz.descargarPieza = function(id){
 			angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
 			papeleriaService.piezas.descargar(id, bz.idLogo).then(function(res){
+				console.log(res)
 				var a = $document[0].createElement("a");
 				$document[0].body.appendChild(a);
 				a.style = "display:none";
@@ -91,5 +97,4 @@ angular.module("disenador-de-logos")
 				bz.peticion = false;
 			});
 		}
-
 	}]);
