@@ -18,28 +18,32 @@
                     justify-content: center;
                     align-items: center;
                     font-size: 30px;
-                    font-weight: bold;">L <br> <small>(logo)</small> </div>
+                    font-weight: bold;
+                    cursor: pointer;">L <br> <small>(logo)</small> </div>
                     <div class="col s12 p-none" ng-click="descargar.panelSeleccionado = 2" style="height: calc(25vh - 15px);    height: calc(25vh - 15px);
                     display: flex;
                     flex-flow: column;
                     justify-content: center;
                     align-items: center;
                     font-size: 30px;
-                    font-weight: bold;">S <br> <small>(sociales)</small> </div>
-                    <div class="col s12 p-none" style="height: calc(25vh - 15px);    height: calc(25vh - 15px);
+                    font-weight: bold;
+                    cursor: pointer;">S <br> <small>(sociales)</small> </div>
+                    <div class="col s12 p-none" ui-sref="papeleria({id: descargar.logo.id})" style="height: calc(25vh - 15px);    height: calc(25vh - 15px);
                     display: flex;
                     flex-flow: column;
                     justify-content: center;
                     align-items: center;
                     font-size: 30px;
-                    font-weight: bold;">P <br> <small>(papeleria)</small> </div>
+                    font-weight: bold;
+                    cursor: pointer;">P <br> <small>(papeleria)</small> </div>
                     <div class="col s12 p-none" ng-click="descargar.panelSeleccionado = 3" style="height: calc(25vh - 15px);    height: calc(25vh - 15px);
                     display: flex;
                     flex-flow: column;
                     justify-content: center;
                     align-items: center;
                     font-size: 30px;
-                    font-weight: bold;">D <br> <small>(documentos)</small> </div>
+                    font-weight: bold;
+                    cursor: pointer;">D <br> <small>(documentos)</small> </div>
                 </div>
             </div>
             <div class="col s10 p-none" style="padding-top: 50px !important;">
@@ -234,8 +238,20 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="descargar.panelSeleccionado == 2" class="row p-none" style="height: 100vh;"></div>
-                <div ng-if="descargar.panelSeleccionado == 3" class="row p-none" style="height: 100vh;"></div>
+                <div ng-if="descargar.panelSeleccionado == 2" class="row p-none" style="height: 100vh;">
+                    <div class="col-s12 p-none">
+                        <div class="row p-none">
+                            Sociales 
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="descargar.panelSeleccionado == 3" class="row p-none" style="height: 100vh;">
+                    <div class="col-s12 p-none">
+                        <div class="row p-none">
+                            Documentos
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
