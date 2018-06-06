@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <md-button ng-show="papelerias" ng-click="estado = false" class="boton-crear-papeleria">GUARDADAS</md-button>
+    <md-button ng-show="tiene" ng-click="estado = false" class="boton-crear-papeleria">GUARDADAS</md-button>
 </div>
 
 <style>

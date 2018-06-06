@@ -12,10 +12,11 @@ angular.module("disenador-de-logos")
                 /* Colocamos predefinida la primera cara del modelo que posea contenedores */
 
                 bz.menuActivo = $scope.papeleriaEditor.papeleria.modelo.caras[0].nombre;
-                
+
                 /* Funcion para agregar un elemento al contenedor */
 
                 $scope.agregarElementoHook = function (indiceCara, indiceHook, indiceElemento) {
+                    if (!$scope.papeleriaEditor.agregarElemento) return;
                     var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
 
                     var item = $scope.papeleriaEditor.papeleria.items[indiceElemento];
@@ -30,18 +31,18 @@ angular.module("disenador-de-logos")
 
                     if (hook.items.length == hook.limite) return $mdToast.show($mdToast.base({
                         args: {
-                            mensaje: "El contenedor ha llegado al limite de elementos. Elimine alguno o elija otro contenedor.",
-                            clase: "danger"
+                            mensaje: "Este espacio esta lleno. Elimine alguno elemento o elija otro contenedor.",
+                            clase: "warning"
                         }
                     }));
-                    
+
                     /* Si el contenedor ya posee un elemento igual detenemos la funcion */
 
                     for (var i = 0; i < hook.items.length; i++) {
                         if (hook.items[i].nombre == item.nombre) return $mdToast.show($mdToast.base({
                             args: {
-                                mensaje: "El contenedor ya contiene un elemento " + item.nombre + ", Elija otro elemento.",
-                                clase: "danger"
+                                mensaje: "El espacio contiene un elemento igual elija otro elemento.",
+                                clase: "warning"
                             }
                         }));
                     }
@@ -78,42 +79,37 @@ angular.module("disenador-de-logos")
 
                 /* Funcion para cambiar la direccion de un elemento en el contenedor o del contenedor propio */
 
-                bz.cambiarDireccionElemento = function (elemento, indiceCara, indiceHook) {
-
-                    var cambio = function (direccion) {
-                        if (elemento.items.length > 0) {
-                            angular.forEach(elemento.items, function (item) {
-                                if (item.icono != null) {
-                                    item.icono.orientacion = direccion;
-                                }
-                            })
-                        }
-                    }
-
-                    if (elemento.orientacion == 'right') {
-                        elemento.orientacion = 'left';
-                        if (elemento.id) {
-                            cambio('left');
-                        }
-                    } else {
-                        elemento.orientacion = 'right';
-                        if (elemento.id) {
-                            cambio('right');
-                        }
-                    }
-
+                bz.cambiarDireccionElemento = function (direccion, hook, indiceCara, indiceHook) {
+                    hook.orientacion = direccion;
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 
-                bz.cambiarFuente = function(fuente, indiceCara, indiceHook){
-                    var hook = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
+                $scope.papeleriaEditor.selectorfuentes = false;
+
+                bz.cambiarFuente = function (mostrar, fuente, indiceCara, indiceHook) {
+                    if (mostrar) {
+
+                        bz.hookActivo = {
+                            indiceCara: indiceCara,
+                            indiceHook: indiceHook
+                        };
+                        return $scope.papeleriaEditor.selectorfuentes = !$scope.papeleriaEditor.selectorfuentes;
+
+                    }
+
+                    var hook = $scope.papeleriaEditor.papeleria.modelo.caras[bz.hookActivo.indiceCara].hooks[bz.hookActivo.indiceHook];
 
                     hook.fuente.nombre = fuente.nombre;
                     hook.fuente.url = fuente.url;
-                    
-                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook, true);
+
+                    $scope.papeleriaEditor.modificarHook(bz.hookActivo.indiceCara, bz.hookActivo.indiceHook, true);
                 }
 
+                bz.cambiarColor = function (indiceCara, indiceHook) {
+
+                    $scope.papeleriaEditor.cambiarColorHook(indiceCara, indiceHook, true);
+
+                }
             }],
             controllerAs: "menuPapeleria",
             templateUrl: 'app/templates/bazamMenuPapeleria.tpl'

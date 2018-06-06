@@ -30,3 +30,7 @@ avatares/*
 
 plantillas-documentos/*.pptx
 plantillas-documentos/*.docx
+
+public/creador-de-logos/built
+public/administrador/built
+public/landing/built

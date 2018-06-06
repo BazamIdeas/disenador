@@ -45,13 +45,6 @@ function inciar() {
     );
 
     workbox.routing.registerRoute(
-        new RegExp('app/views/(.*)'),
-        workbox.strategies.staleWhileRevalidate({
-            cacheName: 'views-cache',
-        }),
-    );
-
-    workbox.routing.registerRoute(
         /.*\.(?:png|jpg|jpeg|svg|gif)/,
         workbox.strategies.cacheFirst({
             cacheName: 'imagenes-cache',
@@ -88,6 +81,4 @@ function inciar() {
 
     workbox.googleAnalytics.initialize();
 
-} else {
-    console.log(`Boo! Workbox didn't load 😬`);
 }

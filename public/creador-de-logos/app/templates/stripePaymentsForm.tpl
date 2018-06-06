@@ -68,5 +68,5 @@
       <div id="card-errors" role="alert"></div>
     </div>
   
-    <button class="boton-verde" ng-class="{'loading-white': !completadoPagar}" ng-click="pagar()">PAGAR</button>
+    <button class="boton-verde" ng-disable="!completadoPagar"  ng-class="{'loading-white': !completadoPagar}" ng-click="pagar()">PAGAR</button>
   </form>

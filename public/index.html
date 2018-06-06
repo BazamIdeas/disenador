@@ -23,25 +23,25 @@
     <!--Librerias core de angualarJS -->
     <script src="/jquery/jquery.min.js"></script>
     <script src="/angular/angular.min.js"></script>
-    <script src="/angular-messages/angular-messages.min.js"></script>
-    <script src="/angular-animate/angular-animate.min.js"></script>
+    <script src="/angular-messages/angular-messages.min.js" ></script>
+    <script src="/angular-animate/angular-animate.min.js" ></script>
     <script src="/angular-aria/angular-aria.min.js"></script>
     <script src="/angular-base64/angular-base64.min.js"></script>
-    <script src="/angular-ui-router/angular-ui-router.min.js"></script>
+<!--     <script src="/angular-ui-router/angular-ui-router.min.js"></script> -->
     <script src="/angular-material/angular-material.min.js"></script>
 
     <!--Librerias 3r party angularJS -->
-    <script src="/angular-ui-carousel/ui-carousel.min.js"></script>
-    <script src="assets/js/materialize.min.js"></script>
+    <script src="/angular-ui-carousel/ui-carousel.min.js" async></script>
+    <script src="assets/js/materialize.min.js" async></script>
 
     <!--Archivos App diseñador -->
-    <script src="/landing/dist/app.js"></script>
+    <script src="/landing/built/app.js" async></script>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
         crossorigin="anonymous">
 
     <!-- Service Worker -->
-    <script src="/landing/sw.js"></script>
+    <script src="/landing/sw.js" async></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             if ('serviceWorker' in navigator) {
@@ -56,79 +56,38 @@
         })
     </script>
 
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WCZ63JP');</script>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WCZ63JP');
+    </script>
 </head>
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WCZ63JP"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WCZ63JP" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <!-- header -->
-    <div ng-controller="headerController as h" style="background: white;">
-        <bazam-form-login mostrar="h.mostrarLogin" callback="h.callback" opcion="h.opcionMostrarLogin"></bazam-form-login>
-        <header class="header" id="comienzo" layout-padding>
-            <div layout layout-align="space-between">
-                <div class="logo grande" ui-sref="comienzo">
-                    <img src="/landing/assets/img/logo.pro.svg">
-                </div>
-                <div layout flex layout-align="end center">
-                    <div ng-switch="h.autorizado" class="login" ng-cloak>
-                        <div ng-switch-when="false" class="acceder not-ing" style="cursor: pointer">
-                            <span ng-click="h.opcionMostrarLogin = false; h.mostrarLogin = true">Acceder</span>
-                            <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">Registro</span>
-                        </div>
-                        <div ng-switch-default class="acceder" style="cursor: pointer">
-                            <span ng-click="h.navegar.cliente('')">
-                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
-                                <i class="material-icons">add_circle_outline</i>
-                            </span>
-                            <span ng-click="h.navegar.cliente('logos')">
-                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Tus logos</md-tooltip>
-                                <i class="material-icons">favorite</i>
-                            </span>
-                            <span ng-click="h.navegar.cliente('cuenta')">
-                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
-                                <i class="material-icons">account_circle</i>
-                            </span>
-                            <span ng-click="h.salir()">
-                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar Sesion</md-tooltip>
-                                <i class="material-icons">power_settings_new</i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-    </div>
+    <div ng-include="'/landing/app/views/header.tpl'"></div>
 
     <!-- contenedor principal -->
-    <md-content ui-view>
-
-    </md-content>
+    <div ng-include="'/landing/app/views/comienzo.tpl'"></div>
 
     <!-- Footer -->
-    <footer>
-        <div layout="row" layout-align="space-between center">
-            <div class="logo pequeno" ui-sref="comienzo">
-                <img src="/landing/assets/img/logo.pro.svg">
-            </div>
-            <div layout class="links-footer">
-                <a href="/terminos.html">Términos y condiciones</a>
-                <a href="/legales.html">Avisos Legales</a>
-                <a href="/blog.html">Blog</a>
-            </div>
-            <div class="iconos-sociales">
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-facebook"></i>
-            </div>
-        </div>
-    </footer>
+    <div ng-include="'/landing/app/views/footer.tpl'"></div>
 </body>
 
 <script type="text/ng-template" id="toast-base.html">

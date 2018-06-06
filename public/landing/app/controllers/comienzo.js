@@ -24,7 +24,7 @@ angular.module("landing")
 		}
 
 		bz.scrollTop = function () {
-			var top = angular.element('.titulo-inicio').offset().top;
+			var top = angular.element('#comienzo').offset().top;
 			angular.element('body').animate({
 				scrollTop: top
 			}, 1000);

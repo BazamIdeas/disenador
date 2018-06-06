@@ -8,25 +8,41 @@ angular.module("disenador-de-logos")
 							</div>\
 							<div class='background-color-picker' id='background-color-picker' ng-show='mostrarPicker'>\
 									<div class='title'>\
-										FONDO\
+										{{tituloPicker}}\
 										<span class='close-color-picker' ng-click='mostrarPicker = !mostrarPicker'>\
 											<i class='material-icons cerrar'>clear</i>\
 										</span>\
 									</div>\
-									<div ng-repeat='paletaColor in paletaColores track by $index' class='color' ng-style='jsonColor(paletaColor)' ng-click='$parent.color=paletaColor'></div>\
+									<div ng-repeat='paletaColor in paletaColores track by $index' class='color' ng-style='jsonColor(paletaColor)' ng-click='$parent.cambiarColor(paletaColor)'></div>\
 								</div>\
 						</div>",
 			scope: {
-				color: "="
+				color: "=",
+				callback: "=",
+				ctx: "=",
+				args: "=",
+				titulo:"="
 			},
-			controller: ["$scope", "coloresPaletaValue", function ($scope, coloresPaletaValue) {
+			controller: ["$scope", "coloresPaletaValue", "$timeout", function ($scope, coloresPaletaValue, $timeout) {
 				$scope.paletaColores = coloresPaletaValue;
+
+				$scope.tituloPicker = $scope.titulo ? 'Color' : 'FONDO';
 
 				$scope.jsonColor = function (color) {
 					return {
 						"background-color": color
 					};
 				};
+
+				$scope.cambiarColor = function (colorNuevo) {
+					$scope.color = colorNuevo;
+					$timeout(function() {
+						if ($scope.callback) {
+							$scope.callback(...$scope.args);
+						}
+					});
+
+				}
 
 				$scope.mostrarPicker = false;
 
@@ -37,9 +53,9 @@ angular.module("disenador-de-logos")
 				});
 
 				angular.element("#background-color-picker").draggable({
-					revert:false
+					revert: false
 				});
-				
+
 			}]
 		};
 	}]);

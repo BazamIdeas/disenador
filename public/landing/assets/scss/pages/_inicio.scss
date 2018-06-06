@@ -1,3 +1,22 @@
+//Ancho
+.testimonios .carousel-item .testimonios__carousel-item,
+.testimonios .carousel-item,
+.contenedor-planes,
+.seccion.dos>div {
+    width: 80vw;
+    margin: auto;
+}
+
+.bazam-palette-picker {
+    width: 80%;
+    margin: auto;
+    display: block;
+}
+
+.padding-top-4 {
+    padding-top: 4%;
+}
+
 /* ICONOS */
 
 .bg-carac-1 {
@@ -139,40 +158,54 @@ md-radio-button[aria-checked="true"] .estilo-4 {
     background-size: 100% 100%;
     margin-bottom: 0;
     .titulo-inicio {
-        border-left: 2rem solid $PRINCIPAL;
-        width: 98vw;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
         -webkit-box-pack: space-around;
         -ms-flex-pack: space-around;
         justify-content: space-around;
+        flex-direction: column;
+        >:first-child {
+            border-left: 2rem solid #5980B7;
+            flex-direction: column;
+            span {
+                color: transparent;
+                width: 20%;
+                background: #5980B7;
+                height: 10px;
+                margin-right: auto;
+                margin-left: 15%;
+                display: block;
+                border-radius: 30px;
+                margin-top: 5px;
+            }
+        }
         >div {
-            width: 40%;
+            width: 100%;
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
+            justify-content: center;
         }
         .titulo-principal {
-            text-align: center;
             font-size: 40pt;
         }
         h4.subtitle {
+            margin-top: 7%;
             font-size: 20pt;
         }
     }
     form {
-        width: 85%;
         margin: auto;
     }
     .label-form {
         color: $BLACK;
     }
     .input-tipografia {
-        width: 80%;
+        width: 70%;
         margin: auto;
         text-align: center;
     }
@@ -185,7 +218,7 @@ md-radio-button[aria-checked="true"] .estilo-4 {
 
 button.md-button.md-primary.md-raised {
     &.boton-formulario-generar {
-        margin: 5% auto;
+        margin: auto;
         display: block;
         color: $BLACK;
         background-color: $WHITE;
@@ -198,7 +231,6 @@ button.md-button.md-primary.md-raised {
     &.boton-formulario-generar:hover {
         background-color: $PRINCIPAL;
         color: $WHITE;
-        border-color: $WHITE;
     }
 }
 
@@ -210,8 +242,7 @@ button.md-button.md-primary.md-raised {
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
         justify-content: space-between;
-        padding: 16px 0;
-        margin-top: 8px;
+        margin-top: 15px;
     }
     md-radio-button {
         .md-label {
@@ -237,8 +268,8 @@ button.md-button.md-primary.md-raised {
             transition: transform 0.2s, -webkit-transform 0.2s;
             color: transparent;
             display: block;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background-repeat: no-repeat !important;
             background-size: 100% 100%;
@@ -246,7 +277,6 @@ button.md-button.md-primary.md-raised {
             &.seleccionado {
                 -webkit-transform: scale(1.1);
                 transform: scale(1.1);
-                
             }
         }
     }
@@ -256,10 +286,9 @@ button.md-button.md-primary.md-raised {
     width: 100%;
     height: 70vh;
     .carousel-item {
-        display: block;
-        width: 100%;
+        display: inline-block !important;
+        margin-left: 10vw;
         .testimonios__carousel-item {
-            width: 98vw;
             height: 100%;
             display: -webkit-box;
             display: -ms-flexbox;
@@ -387,7 +416,7 @@ button.md-button.md-primary.md-raised {
             border-bottom: none !important;
         }
         md-chip-template strong {
-            font-size: 15px !important;
+            font-size: 16pt !important;
             font-family: 'nunito-sans-semi';
             text-transform: capitalize;
         }
@@ -397,7 +426,9 @@ button.md-button.md-primary.md-raised {
 /* SECCION DOS */
 
 .seccion.dos {
-    padding: 2% 8%;
+    background: $BACKGROUND2 !important;
+    padding: 4% 0;
+    margin-bottom: 0;
     h2.titulo {
         text-align: center;
         font-size: 43px;
@@ -448,9 +479,7 @@ button.md-button.md-primary.md-raised {
 /* SECCION TRES */
 
 .seccion.tres {
-    background: $WHITE !important;
     margin: 0;
-    padding-top: 4%;
     position: relative;
 }
 
@@ -489,7 +518,6 @@ button.md-button.md-primary.md-raised {
 }
 
 .contenedor-planes {
-    width: 80%;
     margin: auto;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -502,7 +530,7 @@ button.md-button.md-primary.md-raised {
     align-items: center;
     padding-top: 4%;
     .plan {
-        height: 90vh;
+        height: 700px;
         width: 33%;
         >div {
             width: 100%;
@@ -627,18 +655,67 @@ button.md-button.md-primary.md-raised {
     padding: 0 0 4% 0;
 }
 
+md-input-container.md-input-focused .md-input,
+md-input-container.md-input-resized .md-input,
+md-input-container .md-input.ng-invalid.ng-dirty {
+    border-width: 1 !important;
+}
+
 /* MEDIAS */
 
 @media (min-device-height:700px) and (max-device-width:1300px) and (orientation:portrait),
 (min-height:700px) and (max-height:1300px) and (orientation:portrait) {
     .testimonios {
         width: 100%;
-        height: 25vh;
+        height: 35vh;
+    }
+    .bazam-previzualizar-container.one> :last-child> :first-child img {
+        height: auto !important;
+    }
+    .bazam-previzualizar-container.one> :first-child {
+        width: 50% !important;
+        height: auto !important;
+    }
+    ul.plan-lista {
+        font-size: 15pt;
+    }
+    .contenedor-planes .plan,
+    .contenedor-planes .plan>div {
+        height: auto;
+    }
+    .bazam-previzualizar-container.one> :last-child> :last-child,
+    .seccion.uno .titulo-inicio> :first-child span {
+        display: none;
+    }
+    md-select.categorias-select,
+    md-select.categorias-select md-select-value> :first-child {
+        height: auto;
     }
 }
 
-@media (min-device-width:360px) and (max-device-width:639px),
-(min-width:360px) and (max-width:639px) {
+@media (min-device-width:360px) and (max-device-width:640px),
+(min-width:360px) and (max-width:640px) {
+   
+    .seccion.uno form label,
+    .seccion.uno form md-select,
+    .seccion.uno .label-form {
+        font-size: 25pt;
+    }
+    h1.titulo-principal br {
+        display: none;
+    }
+    md-select.categorias-select,
+    md-select.categorias-select md-select-value> :first-child {
+        height: auto;
+    }
+    .seccion.seis,
+    .seccion.uno .titulo-inicio> :first-child span , .bazam-previzualizar-container.one> :last-child{
+        display: none
+    }
+
+    .bazam-previzualizar-container.one> :first-child {
+        height: auto !important;
+    }
     .logo.grande {
         width: 40%;
     }
@@ -646,12 +723,10 @@ button.md-button.md-primary.md-raised {
         vertical-align: top;
         font-size: 40pt;
     }
-
-    div.acceder:not(.not-ing) span{
-          width: 80px;
-          height: 80px;
+    div.acceder:not(.not-ing) span {
+        width: 80px;
+        height: 80px;
     }
-
     .seccion.uno .titulo-inicio {
         >div {
             width: 100%;
@@ -660,38 +735,25 @@ button.md-button.md-primary.md-raised {
             font-size: 50pt;
             width: 100%;
         }
-
-         h4.subtitle {
-             font-size: 17pt;
-         }
-
-         > :last-child {
-             display: none;
-         }
+        h4.subtitle {
+            font-size: 17pt;
+        }
+        > :last-child {
+            display: none;
+        }
     }
-
     .seccion.uno {
         min-height: auto;
-
         form {
             width: 90%;
             margin: auto;
-
             >div {
                 -ms-flex-wrap: wrap;
                 flex-wrap: wrap;
-
                 > :first-child {
                     width: 100%;
                     max-width: 100%;
                 }
-
-                > :nth-child(2),
-                > :nth-child(3) {
-                    width: 50%;
-                    max-width: 50%;
-                }
-
                 >div {
                     height: auto;
                     -webkit-box-flex: unset;
@@ -701,7 +763,6 @@ button.md-button.md-primary.md-raised {
             }
         }
     }
-    
     md-input-container.md-input-has-value .md-select-value>span:not(.md-select-icon) {
         -webkit-transform: none;
         transform: none;
@@ -737,22 +798,6 @@ button.md-button.md-primary.md-raised {
     }
     .seccion.dos {
         padding: 4% 2%;
-    }
-    .contenedor-planes {
-        width: 100%;
-    }
-    .plan {
-        height: 50vh;
-        width: 33%;
-    }
-    .plan-body {
-        height: 65%;
-    }
-    ul.plan-lista li {
-        font-size: 16pt;
-        word-break: break-word;
-        margin-bottom: 14px;
-        padding: 0 16px;
     }
     .input-tipografia {
         width: 70%;
@@ -835,14 +880,23 @@ button.md-button.md-primary.md-raised {
     }
 }
 
-@media (min-device-width:640px) and (max-device-width:1080px),
-(min-width:640px) and (max-width:1080px) {
+@media (min-device-width:641px) and (max-device-width:1080px),
+(min-width:641px) and (max-width:1080px) {
+
     .seccion.uno .titulo-inicio .titulo-principal {
         text-align: center;
         font-size: 32pt;
     }
+    .seccion.uno .titulo-inicio > :first-child span{
+        display:none;
+    }
+  
     .seccion.uno .titulo-inicio h4.subtitle {
         font-size: 17pt;
+        width: 70%;
+    }
+    .seccion.uno .titulo-inicio h4.subtitle br,  .seccion.uno .titulo-inicio .titulo-principal br {
+        display: none;
     }
     .caracteristicas .caracteristicas__item> :last-child h4 {
         font-size: 24pt;
@@ -850,10 +904,7 @@ button.md-button.md-primary.md-raised {
     .contenedor-planes {
         width: 100%;
     }
-    .plan {
-        height: 50vh;
-        width: 33%;
-    }
+
 }
 
 /* selector de colores
