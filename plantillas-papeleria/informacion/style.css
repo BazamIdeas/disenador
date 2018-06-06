@@ -1,0 +1,54 @@
+body,
+html,
+.page {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 !important;
+    background: transparent;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page {
+    position: relative;
+    display: block;
+    width: 210mm;
+    height: 100%;
+}
+
+header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;
+    padding: 15px 20px;
+    height: 63px;
+}
+
+#pageFooter {
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid silver;
+}
+#pageFooter a{
+    color: silver;
+    font-size: 13pt;
+    text-decoration: none;
+}
+
+header .logo img {
+    width: 150px;
+}
+
+.informacion ul {
+    padding: 0 40px;
+}
+
+.notas {
+    padding: 0 40px;
+    text-align: justify;
+}
+
+
+/* INFORMACION */

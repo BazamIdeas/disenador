@@ -4,8 +4,8 @@
             <img src="/landing/assets/img/logo.pro.svg">
         </div>
         <div layout class="links-footer">
-            <a ng-click="ctrl.mostrar('terminos')">Términos y condiciones</a>
-            <a ng-click="ctrl.mostrar('legales')">Avisos Legales</a>
+            <a ng-click="/terminos.html">Términos y condiciones</a>
+            <a ng-click="/legales.html">Avisos Legales</a>
             <a href="/blog.html">Blog</a>
         </div>
         <div class="iconos-sociales">

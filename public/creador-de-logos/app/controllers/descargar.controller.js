@@ -294,7 +294,7 @@ angular.module("disenador-de-logos")
 							var url = $window.URL.createObjectURL(blob);
 							a.href = url;
 							a.download = fileName;
-							a.target = "_blank";
+							/* a.target = "_blank"; */
 							a.click();
 							$window.URL.revokeObjectURL(url);
 							a.remove();
