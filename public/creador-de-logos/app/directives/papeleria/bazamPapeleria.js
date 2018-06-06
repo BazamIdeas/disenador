@@ -742,56 +742,56 @@ angular.module("disenador-de-logos")
 
 							}
 
-							/*if(iconoSvg){//si tiene icono
-											
-										contenedorIconoSvg.attr("height", tamanoIcono);
-										contenedorIconoSvg.attr("width", tamanoIcono);
+						/*if(iconoSvg){//si tiene icono
 										
-										iconoSvg.attr("height", "100%")
-										iconoSvg.attr("width", "100%")
+									contenedorIconoSvg.attr("height", tamanoIcono);
+									contenedorIconoSvg.attr("width", tamanoIcono);
+									
+									iconoSvg.attr("height", "100%")
+									iconoSvg.attr("width", "100%")
 
-										coordenadasContenedor = contenedorIconoSvg[0].getBBox();										
-										contenedorIconoSvg.attr("x", coordenadasHook.width - coordenadasContenedor.width)
+									coordenadasContenedor = contenedorIconoSvg[0].getBBox();										
+									contenedorIconoSvg.attr("x", coordenadasHook.width - coordenadasContenedor.width)
 
-										coordenadasContenedor = contenedorIconoSvg[0].getBBox();
+									coordenadasContenedor = contenedorIconoSvg[0].getBBox();
 
-										textSvg.attr("x", (coordenadasContenedor.x * 0.95));
-										textSvg.attr("text-anchor", "end");
+									textSvg.attr("x", (coordenadasContenedor.x * 0.95));
+									textSvg.attr("text-anchor", "end");
 
-										if(indice === 0){//si es el primer item de este contenedor
-								
-											textSvg.attr("y", coordenadasItem.height);
-			
-										} else {//cualquier item despues del primero
-											
-											itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
-											
-											var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
-											
-											textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
-			
-										}
+									if(indice === 0){//si es el primer item de este contenedor
+							
+										textSvg.attr("y", coordenadasItem.height);
+		
+									} else {//cualquier item despues del primero
 										
+										itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
+										
+										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+										
+										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+		
+									}
+									
 
-									} else {
+								} else {
 
-										//textSvg.attr("x", "100%");
-										//textSvg.attr("text-anchor", "end");
+									//textSvg.attr("x", "100%");
+									//textSvg.attr("text-anchor", "end");
 
-										if(indice === 0){//si es el primer item de este contenedor
-								
-											textSvg.attr("y", coordenadasItem.height);
-			
-										} else {//cualquier item despues del primero
-											
-											itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
-											
-											var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
-											
-											textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
-			
-										}
-									}*/
+									if(indice === 0){//si es el primer item de este contenedor
+							
+										textSvg.attr("y", coordenadasItem.height);
+		
+									} else {//cualquier item despues del primero
+										
+										itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
+										
+										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+										
+										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+		
+									}
+								}*/
 
 
 					};
@@ -894,7 +894,7 @@ angular.module("disenador-de-logos")
 							angular.element(".bazam-loader-papeleria").remove();
 						});
 
-						
+
 
 					})
 
@@ -1045,6 +1045,46 @@ angular.module("disenador-de-logos")
 					return promise;
 				}
 
+
+
+				
+				/////////////////////////////////////////////
+				///////// Reset mirror Rects ///////////////
+				/////////////////////////////////////////////
+
+
+
+				function resetMirrorRects(identidad){
+
+					var cara = bz.papeleria.modelo.caras[identidad.data.cara];
+
+					angular.forEach(cara.logos, function (logo, indiceLogo) {
+						var identidadLogo = {
+							tipo: "logo",
+							data: {
+								cara: identidad.data.cara,
+								logo: indiceLogo
+							}
+						}
+						crearMirrorRect(logo, identidadLogo);
+					});
+
+					angular.forEach(cara.hooks, function (hook, indiceHook) {
+						angular.forEach(hook.items, function (item, indiceItem) {
+							var identidadItem = {
+								tipo: "item",
+								data: {
+									cara: identidad.data.cara,
+									hook: hook.id,
+									item: indiceItem
+								}
+							}
+							crearMirrorRect(item, identidadItem);
+						});
+					});
+
+				}
+
 				/////////////////////////////////////////////
 				///////////vigilamos el movimiento///////////
 				/////////////////////////////////////////////
@@ -1079,24 +1119,24 @@ angular.module("disenador-de-logos")
 					var objetivo;
 					var matrix;
 
-					if(identidad.tipo == "logo"){
-						objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .contenedor-logo[data-index="+identidad.data.logo+"]");
-						
-						if(!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones){
+					if (identidad.tipo == "logo") {
+						objetivo = angular.element(".cara[data-index=" + identidad.data.cara + "] .contenedor-logo[data-index=" + identidad.data.logo + "]");
+
+						if (!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones) {
 							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones = {};
 						}
 
-						if(!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.matrix){ //si no existe una alteracion previa
+						if (!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.matrix) { //si no existe una alteracion previa
 							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.matrix = [1, 0, 0, 1, 0, 0];
 						}
 
 						matrix = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.matrix;
-						
 
-						
-					} else if(identidad.tipo == "item") {
 
-						objetivo = angular.element(".cara[data-index="+identidad.data.cara+"] .hook#"+identidad.data.hook+" g[data-index="+identidad.data.item+"]");
+
+					} else if (identidad.tipo == "item") {
+
+						objetivo = angular.element(".cara[data-index=" + identidad.data.cara + "] .hook#" + identidad.data.hook + " g[data-index=" + identidad.data.item + "]");
 
 						var indiceHook;
 
@@ -1107,12 +1147,12 @@ angular.module("disenador-de-logos")
 							}
 						});
 
-						
-						if(!bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones){ //si no existe una alteracion previa
+
+						if (!bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones) { //si no existe una alteracion previa
 							bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones = {};
 						}
 
-						if(!bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones.matrix){
+						if (!bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones.matrix) {
 							bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].alteraciones.matrix = [1, 0, 0, 1, 0, 0];
 						}
 
@@ -1217,30 +1257,7 @@ angular.module("disenador-de-logos")
 
 					var cara = bz.papeleria.modelo.caras[identidad.data.cara];
 
-					angular.forEach(cara.logos, function (logo, indiceLogo) {
-						var identidadLogo = {
-							tipo: "logo",
-							data: {
-								cara: identidad.data.cara,
-								logo: indiceLogo
-							}
-						}
-						crearMirrorRect(logo, identidadLogo);
-					});
-
-					angular.forEach(cara.hooks, function (hook, indiceHook) {
-						angular.forEach(hook.items, function (item, indiceItem) {
-							var identidadItem = {
-								tipo: "item",
-								data: {
-									cara: identidad.data.cara,
-									hook: hook.id,
-									item: indiceItem
-								}
-							}
-							crearMirrorRect(item, identidadItem);
-						});
-					});
+					resetMirrorRects(identidad);
 
 				})
 
@@ -1360,37 +1377,33 @@ angular.module("disenador-de-logos")
 
 						var cambiarTamano = function () {
 
-							//bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].clases[indiceClase] = color;
-
 							var buttonAction = angular.element(this).data("action");
+						
+							var caracteristicas = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].caracteristicas;
 
-
-							if (!bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones) {
-								bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones = {};
-							}
-
-
-							var escalaAnterior = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.scale;
-
-							var escala;
+							var altoLogo = caracteristicas.height;
+							var anchoLogo = caracteristicas.width;
 
 							if (buttonAction == "minus") {
 
-								escala = escalaAnterior ? escalaAnterior - 0.1 : 0.9;
+								altoLogo = altoLogo * 0.9;
+								anchoLogo = anchoLogo * 0.9;
 
 							} else if (buttonAction == "plus") {
 
-								escala = escalaAnterior ? escalaAnterior + 0.1 : 1.1;
+								altoLogo = altoLogo * 1.1;
+								anchoLogo = anchoLogo * 1.1;
 
 							}
 
-							console.log(bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo])
+							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].caracteristicas.height = altoLogo;
+							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].caracteristicas.width = anchoLogo;
 
-							bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].alteraciones.scale = escala;
-
-							var logoData = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo];
-
-							aplicarAlteraciones(logoData, null, 'logo', logoSvg);
+							logoSvg.children().attr("height", altoLogo);
+							logoSvg.children().attr("width", anchoLogo);
+							
+							angular.element(".cara[data-index=" + identidad.data.cara + "] .mirror-rect").remove();
+							resetMirrorRects(identidad)
 
 						}
 
