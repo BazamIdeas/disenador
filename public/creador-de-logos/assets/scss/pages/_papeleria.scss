@@ -197,6 +197,7 @@ bazam-menu-papeleria {
                     display: flex;
                     flex: 1;
                     justify-content: flex-end;
+                    position: relative;
                 }
                 bazam-color-picker {
                     margin-left: 10px;
@@ -206,6 +207,21 @@ bazam-menu-papeleria {
                         border-radius: 50%;
                         height: 25px;
                         width: 25px;
+                    }
+                }
+                .menuHook {
+                    position: absolute;
+                    background: white;
+                    display: flex;
+                    right: 2%;
+                    top: 10px;
+                    border: 1px solid silver;
+                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+                    transition: all 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05);
+                    visibility: hidden;
+                    &.open {
+                        top: 38px;
+                        visibility: visible;
                     }
                 }
             }
@@ -363,7 +379,7 @@ bazam-papeleria {
     transition: left 0.5s;
 }
 
-
-.item.colocado.gu-mirror span.eliminar-input-x, .item.colocado.gu-mirror .drag-indicator {
-    display:none !important;
+.item.colocado.gu-mirror span.eliminar-input-x,
+.item.colocado.gu-mirror .drag-indicator {
+    display: none !important;
 }

@@ -1,8 +1,7 @@
 <div class="menuPapeleria {{papeleriaEditor.papeleria.tipo}}">
     <div class="contenedor-principal-menu">
         <form name="formularioPapeleria" novalidate>
-            <div ng-show="menuPapeleria.menuActivo == contenedor.nombre" ng-repeat="contenedor in papeleriaEditor.papeleria.modelo.caras"
-               >
+            <div ng-show="menuPapeleria.menuActivo == contenedor.nombre" ng-repeat="contenedor in papeleriaEditor.papeleria.modelo.caras">
                 <div class="mensaje-cara" ng-show="contenedor.hooks.length == 0">
                     No disponible
                 </div>
@@ -12,10 +11,11 @@
                         <!-- <div class="nombre-contenedor">
                             <b>Elementos disponibles</b>
                         </div> -->
-                        <span ng-mouseleave="papeleriaEditor.agregarElemento = false" ng-mouseenter="papeleriaEditor.agregarElemento = true" draggable="true" class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index" indice="{{$index}}">
+                        <span ng-mouseleave="papeleriaEditor.agregarElemento = false" ng-mouseenter="papeleriaEditor.agregarElemento = true" draggable="true"
+                            class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index" indice="{{$index}}">
                             {{::item.nombre}}
                         </span>
-                        <span class="espacios-disponibles">Suelta los elementos en el espacio  que prefieras</span>
+                        <span class="espacios-disponibles">Suelta los elementos en el espacio que prefieras</span>
                     </div>
 
                     <!-- CONTENEDORES DE PAPELERIA-->
@@ -25,31 +25,44 @@
                         <div class="nombre-contenedor">
                             <b>{{::hook.id}}</b>
                             <div ng-show="hook.items.length > 0">
-                                <!-- DIRECCION -->
-                                <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento('left', hook, $parent.$index, $index)">
-                                    <md-tooltip md-direction="bottom">Alinear a la Izquierda</md-tooltip>
-                                    <md-icon>format_align_left</md-icon>
-                                </span>
-                                <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento('right', hook, $parent.$index, $index)">
-                                    <md-tooltip md-direction="bottom">Alinear a la Derecha</md-tooltip>
-                                    <md-icon>format_align_right</md-icon>
-                                </span>
-                                <!-- COLOR -->
-                                <span>
-                                    <bazam-color-picker callback="menuPapeleria.cambiarColor" data-args="[$parent.$index, $index]" data-ctx="menuPapeleria" data-color="hook.fuente.fill"  data-titulo="'Color'"></bazam-color-picker>
-                                </span>
-                                <!-- FUENTES -->
-                                <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarFuente(true, false, $parent.$index, $index)">
-                                    <md-tooltip md-direction="bottom">Fuentes</md-tooltip>
-                                    <md-icon>text_format</md-icon>
-                                </span>
+                                <div class="icono-nombre-hook" ng-click="mostrarMenu = !mostrarMenu">
+                                    <md-icon>menu</md-icon>
+                                </div>
+                                <div class="menuHook" ng-class="{open: mostrarMenu}" ng-show="mostrarMenu">
+                                    <!-- DIRECCION -->
+                                    <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento('left', hook, $parent.$index, $index)">
+                                        <md-tooltip md-direction="bottom">Alinear a la Izquierda</md-tooltip>
+                                        <md-icon>format_align_left</md-icon>
+                                    </span>
+
+                                    <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento('center', hook, $parent.$index, $index)">
+                                        <md-tooltip md-direction="bottom">Alinear al centro</md-tooltip>
+                                        <md-icon>format_align_center</md-icon>
+                                    </span>
+                                    <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento('right', hook, $parent.$index, $index)">
+                                        <md-tooltip md-direction="bottom">Alinear a la Derecha</md-tooltip>
+                                        <md-icon>format_align_right</md-icon>
+                                    </span>
+                                    <!-- COLOR -->
+                                    <span>
+                                        <bazam-color-picker callback="menuPapeleria.cambiarColor" data-args="[$parent.$index, $index]" data-ctx="menuPapeleria" data-color="hook.fuente.fill"
+                                            data-titulo="'Color'"></bazam-color-picker>
+                                    </span>
+                                    <!-- FUENTES -->
+                                    <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarFuente(true, false, $parent.$index, $index)">
+                                        <md-tooltip md-direction="bottom">Fuentes</md-tooltip>
+                                        <md-icon>text_format</md-icon>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                        <div  dragula="'hook'"  dragula-model='hook.items'>
+                        <div dragula="'hook'" dragula-model='hook.items'>
                             <span class="item colocado handle" ng-repeat="item_hook in hook.items track by $index">
                                 <!-- INPUT DE LA PAPELERIA -->
                                 <div class="drag-indicator" style="    margin-right: 10px;
-                                "><md-icon>drag_indicator</md-icon></div>
+                                ">
+                                    <md-icon>drag_indicator</md-icon>
+                                </div>
                                 <span class="input-container-papeleria">
 
                                     <input ng-show="item_hook.tipo != 'textarea'" class="input-papeleria" placeholder="{{item_hook.nombre}}" ng-model="item_hook.valor"
@@ -65,7 +78,7 @@
                                     <md-tooltip md-direction="bottom">Eliminar</md-tooltip>
                                     <md-icon>close</md-icon>
                                 </span>
-                                 
+
                             </span>
                         </div>
                         <div class="mensaje-items" ng-show="hook.items.length == 0">

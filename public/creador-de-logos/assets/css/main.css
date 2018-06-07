@@ -1843,7 +1843,8 @@ bazam-menu-papeleria {
       .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor > div {
         display: flex;
         flex: 1;
-        justify-content: flex-end; }
+        justify-content: flex-end;
+        position: relative; }
       .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor bazam-color-picker {
         margin-left: 10px;
         display: inline-block;
@@ -1852,6 +1853,19 @@ bazam-menu-papeleria {
           border-radius: 50%;
           height: 25px;
           width: 25px; }
+      .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor .menuHook {
+        position: absolute;
+        background: white;
+        display: flex;
+        right: 2%;
+        top: 10px;
+        border: 1px solid silver;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+        transition: all 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05);
+        visibility: hidden; }
+        .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor .menuHook.open {
+          top: 38px;
+          visibility: visible; }
     .menuPapeleria .contenedor-principal-menu .contenedor-items .opciones-hook {
       display: flex;
       justify-content: space-between;
@@ -1975,7 +1989,8 @@ bazam-papeleria {
   left: 0;
   transition: left 0.5s; }
 
-.item.colocado.gu-mirror span.eliminar-input-x, .item.colocado.gu-mirror .drag-indicator {
+.item.colocado.gu-mirror span.eliminar-input-x,
+.item.colocado.gu-mirror .drag-indicator {
   display: none !important; }
 
 /*DIRECTIVES*/
