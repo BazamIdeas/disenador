@@ -14,11 +14,11 @@ angular.module("disenador-de-logos")
 			nombre: "papeleria",
 			ancho: 300
 		},
-		{
+		/*{
 			nombre: "documento",
 			ancho: 300,
 			plantilla: {tipo: 'ppt', nombre: 'eglamour'}
-		}];
+		}¨*/];
 
 		bz.formatos = [{
 			nombre: "facebook",
