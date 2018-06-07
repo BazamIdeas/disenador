@@ -42,6 +42,7 @@ app.use('/ng-file-upload', express.static(__dirname + '/node_modules/ng-file-upl
 app.use('/angular-sweetalert', express.static(__dirname + '/node_modules/angular-sweetalert'))
 app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'))
 app.use('/angular-ui-carousel', express.static(__dirname + '/node_modules/angular-ui-carousel/dist'))
+app.use('/angularjs-dragula', express.static(__dirname + '/node_modules/angularjs-dragula/dist'))
 
 app.use('/app',rutas);
  

@@ -37,6 +37,7 @@
     "angular-sweetalert": "^1.1.2",
     "angular-ui-carousel": "^0.1.10",
     "angular-ui-router": "^0.4.2",
+    "angularjs-dragula": "^2.0.0",
     "archiver": "^2.1.1",
     "async": "^2.1.5",
     "base-64": "^0.1.0",

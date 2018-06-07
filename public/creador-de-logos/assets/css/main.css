@@ -1907,39 +1907,8 @@ bazam-menu-papeleria {
           color: silver; }
           .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado > :last-child.eliminar-input-x:hover {
             color: red; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado span.controles-movimiento {
-          width: 35px;
-          margin-right: 8px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item.colocado span.controles-movimiento > span md-icon {
-            cursor: pointer;
-            color: black; }
       .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria {
-        flex: 1;
-        display: flex;
-        align-items: center; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono.agregar-icono {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: black; }
-        .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono {
-          width: 40px; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono .suprimirIcono {
-            display: block;
-            font-size: 8pt;
-            padding-top: 8px;
-            cursor: pointer; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono.icono-right {
-            align-self: center;
-            order: 1;
-            margin-left: 10px;
-            display: none; }
-          .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria span.icono.icono-left {
-            margin-right: 10px; }
+        flex: 1; }
         .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria input.input-papeleria {
           height: 30px !important; }
           .menuPapeleria .contenedor-principal-menu .contenedor-items .item span.input-container-papeleria input.input-papeleria::placeholder {
@@ -1956,14 +1925,11 @@ bazam-menu-papeleria {
     .menuPapeleria .contenedor-principal-menu .contenedor-items .nombre-contenedor .icono-nombre-hook {
       width: 35px;
       height: 35px;
-      border-radius: 50%;
-      padding: 3px;
       color: black;
       margin-left: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 3px;
       cursor: pointer; }
     .menuPapeleria .contenedor-principal-menu .contenedor-items .mensaje-items {
       padding: 16px;
@@ -2008,6 +1974,9 @@ bazam-menu-papeleria .fonts-container {
 bazam-papeleria {
   left: 0;
   transition: left 0.5s; }
+
+.item.colocado.gu-mirror span.eliminar-input-x, .item.colocado.gu-mirror .drag-indicator {
+  display: none !important; }
 
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------

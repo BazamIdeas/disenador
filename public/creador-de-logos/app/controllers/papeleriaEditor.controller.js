@@ -41,7 +41,7 @@ angular.module("disenador-de-logos")
 			bz.selectorfuentes = false;
 			bz.peticion = true;
 
-			if (bz.datos.pieza._id != undefined) {
+			if (bz.datos.pieza._id != undefined && bz.datos.pieza._id != " ") {
 				descargar(bz.datos.pieza._id);
 			} else {
 				bz.guardar().then(function () {

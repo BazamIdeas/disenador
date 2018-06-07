@@ -4,7 +4,7 @@ angular.module("disenador-de-logos")
         return {
             restrict: "AE",
             scope: false,
-            controller: ["$scope", "$mdToast", "$sce", function ($scope, $mdToast, $sce) {
+            controller: ["$scope", "$mdToast", "$sce", "dragulaService", function ($scope, $mdToast, $sce, dragulaService) {
                 var bz = this;
 
                 bz.sce = $sce;
@@ -61,21 +61,18 @@ angular.module("disenador-de-logos")
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 
-                bz.move = function (accion, indiceCara, indiceHook, indiceElemento) {
+                dragulaService.options($scope, 'hook', {
+                    removeOnSpill: false
+                });
 
-                    var nuevoIndice = indiceElemento + accion;
+                $scope.$on('hook.drop', function (e, el, container) {
+                    let hook = el.scope().$parent;
+                    let indiceHook = hook.$index;
+                    let indiceCara = hook.$parent.$index;
 
-                    var elementos = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items;
-
-                    if (nuevoIndice < 0 || nuevoIndice == elementos.length) return;
-
-                    var indexes = [indiceElemento, nuevoIndice].sort();
-
-                    elementos.splice(indexes[0], 2, elementos[indexes[1]], elementos[indexes[0]]);
+                    $scope.$apply();
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
-
-                }
-
+                });
 
                 /* Funcion para cambiar la direccion de un elemento en el contenedor o del contenedor propio */
 
