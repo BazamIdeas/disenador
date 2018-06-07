@@ -32,22 +32,24 @@ angular.module("disenador-de-logos")
 
 					var mirrorRect = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "rect"));
 
-					mirrorRect.addClass("mirror-rect");
-					mirrorRect.attr("data-identidad", angular.toJson(identidad))
 					var coordenadasElemento;
 
 					if (identidad.tipo == "item") {
-
+						
 						var itemSvg = caraSvg.find(".hook#" + identidad.data.hook + " > svg > g[data-index=" + identidad.data.item + "]");
+						
+						if(!itemSvg.length){
+							console.log("no se crea el item");
+							console.log(bz.papeleria.modelo.caras[identidad.data.cara].hooks);
+							return;
+						}
 
 						coordenadasElemento = itemSvg[0].getBBox();
-
+						
 						var padreSvg = itemSvg.parents(".hook");
 
-						mirrorRect.attr("y", coordenadasElemento.y + parseFloat(padreSvg.attr("y")));
-						mirrorRect.attr("x", coordenadasElemento.x + parseFloat(padreSvg.attr("x")));
-
-						aplicarAlteraciones(elementoData, identidad.data.item, "mirror", mirrorRect);
+						coordenadasElemento.y = coordenadasElemento.y + parseFloat(padreSvg.attr("y"));
+						coordenadasElemento.x = coordenadasElemento.x + parseFloat(padreSvg.attr("x"));
 
 					} else if (identidad.tipo == "logo") {
 
@@ -55,12 +57,14 @@ angular.module("disenador-de-logos")
 
 						coordenadasElemento = logoSvg[0].getBBox();
 
-						mirrorRect.attr("y", coordenadasElemento.y);
-						mirrorRect.attr("x", coordenadasElemento.x);
-						aplicarAlteraciones(elementoData, identidad.data.logo, "mirror", mirrorRect);
-
 					}
 
+					aplicarAlteraciones(elementoData, identidad.data[identidad.tipo],"mirror", mirrorRect);
+
+					mirrorRect.attr("y", coordenadasElemento.y);
+					mirrorRect.attr("x", coordenadasElemento.x);
+					mirrorRect.addClass("mirror-rect");
+					mirrorRect.attr("data-identidad", angular.toJson(identidad))
 					mirrorRect.css("fill", "transparent");
 					mirrorRect.attr("height", coordenadasElemento.height);
 					mirrorRect.attr("width", coordenadasElemento.width);
@@ -74,7 +78,7 @@ angular.module("disenador-de-logos")
 				////////////////////////////
 
 				function pintarLienzo(lienzo) {
-
+					
 					lienzo.find(".color-primario").css({
 						"fill": bz.logo.atributos["color-icono"]
 					});
@@ -208,7 +212,8 @@ angular.module("disenador-de-logos")
 					var contenedorIconoSvg;
 					var iconoSvg;
 
-					if (item.icono) {
+					if (item.icono && hook.orientacion != 'center') {
+					//if (item.icono) {
 
 						var contenedorIconoSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
 
@@ -289,7 +294,6 @@ angular.module("disenador-de-logos")
 
 
 					switch (hook.orientacion) {
-
 						case "right":
 
 							textSvg.attr("text-anchor", "end");
@@ -388,7 +392,6 @@ angular.module("disenador-de-logos")
 
 													trozoTextSvg.attr("dy", alturaLinea);
 												}
-
 
 											})
 
@@ -742,58 +745,92 @@ angular.module("disenador-de-logos")
 
 							}
 
-						/*if(iconoSvg){//si tiene icono
-										
-									contenedorIconoSvg.attr("height", tamanoIcono);
-									contenedorIconoSvg.attr("width", tamanoIcono);
-									
-									iconoSvg.attr("height", "100%")
-									iconoSvg.attr("width", "100%")
+							break;
 
-									coordenadasContenedor = contenedorIconoSvg[0].getBBox();										
-									contenedorIconoSvg.attr("x", coordenadasHook.width - coordenadasContenedor.width)
-
-									coordenadasContenedor = contenedorIconoSvg[0].getBBox();
-
-									textSvg.attr("x", (coordenadasContenedor.x * 0.95));
-									textSvg.attr("text-anchor", "end");
-
-									if(indice === 0){//si es el primer item de este contenedor
+						case "center":
 							
-										textSvg.attr("y", coordenadasItem.height);
-		
-									} else {//cualquier item despues del primero
-										
-										itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
-										
-										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
-										
-										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
-		
-									}
-									
+							textSvg.attr("text-anchor", "middle");
 
-								} else {
+							if (multilineas) { //si es multilinea
 
-									//textSvg.attr("x", "100%");
-									//textSvg.attr("text-anchor", "end");
+								textSvg.children().attr("x", "150%")
 
-									if(indice === 0){//si es el primer item de este contenedor
+								if (indice === 0) { //si es el primer item de este contenedor
+
+									coordenadasTexto = textSvg[0].getBBox();
+
+									textSvg.attr("y", coordenadasTexto.height)
+									var alturaLinea = 0;
+									textSvg.children().each(function (indiceTrozo) {
+
+										var trozoTextSvg = angular.element(this);
+
+										if (indiceTrozo === 0) { // primera linea de texto
+											trozoTextSvg.attr("dy", "0");
+											alturaLinea = trozoTextSvg[0].getBBox().height;
+										} else {
+
+											var coordenadasTrozo = trozoTextSvg[0].getBBox();
+											trozoTextSvg.attr("dy", alturaLinea);
+										}
+
+									})
+
+								} else { //cualquier item despues del primero
+
+									var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+
+									var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+
+									textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+									var alturaLinea = 0;
+									textSvg.children().each(function (indiceTrozo) {
+
+										var trozoTextSvg = angular.element(this);
+
+										if (indiceTrozo === 0) { // primera linea de texto
+											trozoTextSvg.attr("dy", "0");
+											alturaLinea = trozoTextSvg[0].getBBox().height;
+
+										} else {
+
+											trozoTextSvg.attr("dy", alturaLinea);
+										}
+
+
+									})
+								}
+
+
+							} else { // si no es multilinea
+
+								textSvg.attr("x", "50%");
+
+								if (indice === 0) { //si es el primer item de este contenedor
+
+									textSvg.attr("y", coordenadasItem.height);
+
+								} else { //cualquier item despues del primero
+
+									itemSvgAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+
+									var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+
+									textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+
+								}
+
+							}
+
+						
 							
-										textSvg.attr("y", coordenadasItem.height);
-		
-									} else {//cualquier item despues del primero
-										
-										itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
-										
-										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
-										
-										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
-		
-									}
-								}*/
-
-
+					
+					
+						
+						
+						
+						
+						
 					};
 				}
 
@@ -829,9 +866,26 @@ angular.module("disenador-de-logos")
 					var estilos = angular.element("<style></style>");
 					estilos.addClass("estilos-cara");
 
-					$http.get("/creador-de-logos/app/directives/papeleria/bazamPapeleria.css").then(function (res) {
-						estilos.text(res.data);
-					})
+					//$http.get("/creador-de-logos/app/directives/papeleria/bazamPapeleria.css").then(function (res) {
+						
+						estilos.text(`
+						.total-blanco, .total-blanco * {
+							stroke: none !important;
+							fill: white !important;
+						}
+						
+						.total-negro, .total-negro * {
+							stroke: none !important;
+							fill: black !important;
+						}
+						
+						.total-gris, .total-gris * {
+							stroke: none !important;
+							fill: #e2e2e2 !important;
+						}
+						`);
+						//console.log(estilos.text());
+					//})
 
 					caraSvg.prepend(estilos);
 
@@ -926,6 +980,8 @@ angular.module("disenador-de-logos")
 									item: indiceItem
 								}
 							}
+
+							console.log(identidadItem);
 							crearMirrorRect(item, identidadItem);
 						});
 					});
