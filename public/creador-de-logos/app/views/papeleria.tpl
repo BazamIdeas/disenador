@@ -72,4 +72,4 @@ align-items: center;">
 </div>
 
 <bazam-crear-papeleria id-logo="papeleriaCtrl.idLogo" ng-if="papeleriaCtrl.papelerias" estado="papeleriaCtrl.crearPapeleria" tiene="papeleriaCtrl.tienePiezas"
-    papelerias="papeleriaCtrl.papelerias"></bazam-crear-papeleria>
+    papelerias="papeleriaCtrl.papelerias" fuentes="papeleriaCtrl.fuentes"></bazam-crear-papeleria>

@@ -1045,7 +1045,6 @@ angular.module("disenador-de-logos")
 					var defered = $q.defer();
 					var promise = defered.promise;
 
-
 					bz.datos.tipo = bz.papeleria.tipo;
 					bz.datos.modelo = bz.papeleria.modelo.nombre;
 					bz.datos.pieza.caras = [];

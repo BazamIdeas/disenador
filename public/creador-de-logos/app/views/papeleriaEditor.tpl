@@ -1,15 +1,15 @@
 <div style="display: flex;" ng-show="papeleriaEditor.papeleria">
-    <bazam-menu-papeleria></bazam-menu-papeleria>
+    <bazam-menu-papeleria ng-class="{'oculto': papeleriaEditor.caraSeleccionada.hooks.length == 0}"></bazam-menu-papeleria>
     <div class="papeleria-editor-container">
         <bazam-papeleria ng-class="{'open': papeleriaEditor.selectorfuentes}"></bazam-papeleria>
         <div class="combinacion-box">
-            <span class="accion" ng-disable="papeleriaEditor.peticion" ng-click="papeleriaEditor.guardar()" style="top: 5%;">
-                <p ng-class="{'loading-white': papeleriaEditor.peticion}">GUARDAR</p>
+            <span class="accion" ng-disable="!papeleriaEditor.peticion" ng-click="papeleriaEditor.guardar()" style="top: 5%;">
+                <p ng-class="{'loading-white': papeleriaEditor.peticionB}">GUARDAR</p>
                 <img src="assets/images/save.svg" alt="">
             </span>
 
-            <span class="accion" ng-click="papeleriaEditor.descargarPieza()" style="top: 15%;">
-                <p ng-class="{'loading-white': papeleriaEditor.peticion}">DESCARGAR</p>
+            <span class="accion" ng-disable="!papeleriaEditor.peticion" ng-click="papeleriaEditor.descargarPieza()" style="top: 15%;">
+                <p>DESCARGAR</p>
                 <img src="assets/images/file_download.svg" alt="">
             </span>
 
@@ -19,7 +19,7 @@
             </span>
         </div>
         <div class="caras-miniaturas">
-            <div ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" ng-click="papeleriaEditor.selectorfuentes = false; menuPapeleria.menuActivo = tabMenu.nombre; papeleriaEditor.cambiarCara($index)"
+            <div ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" ng-click="papeleriaEditor.selectorfuentes = false; papeleriaEditor.caraSeleccionada = tabMenu;  menuPapeleria.menuActivo = tabMenu.nombre; papeleriaEditor.cambiarCara($index); papeleriaEditor.mostrarMenuI = null;"
                 ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}" class="caras-miniaturas-item-svg --pequena"
                 ng-bind-html="papeleriaEditor.sce.trustAsHtml(tabMenu.svg)">
             </div>
@@ -30,12 +30,23 @@
 <style>
     .papeleria-editor-container {
         background: #f4f2f2;
-        flex: 1;
+        width: 75%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         position: relative;
+        min-height: calc(100% - 60px);
+        transition: width 0.3s;
+    }
+
+    
+    bazam-menu-papeleria.oculto {
+    width: 0;
+}
+
+    bazam-menu-papeleria.oculto + .papeleria-editor-container{
+        width:100%;
     }
 
 
@@ -49,6 +60,7 @@
         align-items: center;
         transition: left 0.5s;
     }
+
 
     bazam-papeleria.open {
         left: 11%;

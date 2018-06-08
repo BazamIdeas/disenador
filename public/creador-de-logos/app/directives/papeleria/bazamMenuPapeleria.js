@@ -62,7 +62,15 @@ angular.module("disenador-de-logos")
                 }
 
                 dragulaService.options($scope, 'hook', {
-                    removeOnSpill: false
+                    moves: function (el, source, handle, sibling) {
+                        if (handle.classList.contains('drag-indicator')) return true;
+                    },
+                    accepts: function (el, target, source, sibling) {
+                        if(target.classList[0] === source.classList[0]) return true;
+                    },
+                    direction: 'horizontal',
+                    removeOnSpill: false,
+                    copy: false
                 });
 
                 $scope.$on('hook.drop', function (e, el, container) {
