@@ -2,28 +2,29 @@
     <span class="tab-papeleria" ng-click="papeleriaCtrl.papeleriaActiva = papeleria.tipo" ng-class="{'seleccionada':papeleria.tipo == papeleriaCtrl.papeleriaActiva, 'hidden': !papeleria.tienePiezas}"
         ng-repeat="papeleria in papeleriaCtrl.papelerias">{{papeleria.tipo}}</span>
 </div>
-<div class="contenedor-papelerias" ng-show="papeleriaCtrl.tienePiezas">
+<div class="contenedor-papelerias" ng-show="papeleriaCtrl.papelerias && papeleriaCtrl.tienePiezas">
     <div ng-repeat="papeleria in papeleriaCtrl.papelerias" class="papeleria-ejemplos" ng-show="papeleria.tipo == papeleriaCtrl.papeleriaActiva">
-            <div class="flip-container {{papeleria.tipo}}" ng-repeat="piezaUsuario in papeleria.piezas" ng-class="{'hover': piezaActiva == piezaUsuario._id && piezaUsuario.caras[1]}">
+        <div ng-repeat="modelo in papeleria.modelos" ng-class="{'hidden': modelo.piezas == undefined}">
+            <div class="flip-container {{papeleria.tipo}}" ng-repeat="piezaUsuario in modelo.piezas" ng-class="{'hover': piezaActiva == piezaUsuario._id && piezaUsuario.caras[1]}">
                 <div class="flipper">
                     <div class='overlay a-gif' ng-show="papeleriaCtrl.peticion && papeleriaCtrl.papeleriaIndexElemento == piezaUsuario._id"></div>
                     <div class="front">
                         <span class="modelo-papeleria" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[0].svg)"></span>
                         <div class="combinacion-box">
                             <div ng-click="piezaActiva = (piezaActiva == piezaUsuario._id) ? null : piezaActiva = piezaUsuario._id" style="position: absolute; width: 100%; height: 100%; top: 0px; left:0px;     z-index: 3;"></div>
-                            <span class="accion" style="bottom: 75%;" ng-click="  papeleriaCtrl.enviarEditor(piezaUsuario.indicePapeleria,piezaUsuario.indiceModelo,$index)">
+                            <span class="accion" style="bottom: 75%;" ng-click="  papeleriaCtrl.enviarEditor($parent.$parent.$index,$parent.$index,$index)">
                                 <p>EDITAR</p>
                                 <img src="assets/images/edit_white.svg" alt="">
                             </span>
-                            <span class="accion" style="bottom: 51%;" ng-click="papeleriaCtrl.descargarPieza(piezaUsuario._id)">
+                            <span class="accion" style="bottom: 54%;" ng-click="papeleriaCtrl.descargarPieza(piezaUsuario._id)">
                                 <p>DESCARGAR</p>
                                 <img src="assets/images/svg-icons/download.svg" alt="">
                             </span>
-                            <span class="accion" style="bottom: 28%;" ng-click="  papeleriaCtrl.duplicarPieza(papeleria,piezaUsuario, $index)">
+                            <span class="accion" style="bottom: 33%;" ng-click="  papeleriaCtrl.duplicarPieza(papeleria.tipo, modelo, piezaUsuario, $index)">
                                 <p>DUPLICAR</p>
                                 <img src="assets/images/duplicate.png" alt="">
                             </span>
-                            <span class="accion" style="bottom: 4%;" ng-click="papeleriaCtrl.eliminarPieza(papeleria,$index)">
+                            <span class="accion" style="bottom: 11%;" ng-click="papeleriaCtrl.eliminarPieza(modelo.piezas, $index)">
                                 <p>ELIMINAR</p>
                                 <img src="assets/images/close.png" alt="">
                             </span>
@@ -33,19 +34,19 @@
                         <span class="modelo-papeleria" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[1].svg)"></span>
                         <div class="combinacion-box">
                             <div ng-click="piezaActiva = (piezaActiva == piezaUsuario._id) ? null : piezaActiva = piezaUsuario._id" style="position: absolute; width: 100%; height: 100%; top: 0px; left:0px;     z-index: 3;"></div>
-                            <span class="accion" style="bottom: 75%;" ng-click="  papeleriaCtrl.enviarEditor(piezaUsuario.indicePapeleria,piezaUsuario.indiceModelo,$index)">
+                            <span class="accion" style="bottom: 75%;" ng-click="  papeleriaCtrl.enviarEditor($parent.$parent.$index,$parent.$index,$index)">
                                 <p>EDITAR</p>
                                 <img src="assets/images/edit_white.svg" alt="">
                             </span>
-                            <span class="accion" style="bottom: 51%;" ng-click="papeleriaCtrl.descargarPieza(piezaUsuario._id)">
+                            <span class="accion" style="bottom: 54%;" ng-click="papeleriaCtrl.descargarPieza(piezaUsuario._id)">
                                 <p>DESCARGAR</p>
                                 <img src="assets/images/svg-icons/download.svg" alt="">
                             </span>
-                            <span class="accion" style="bottom: 28%;" ng-click="  papeleriaCtrl.duplicarPieza(papeleria, piezaUsuario, $index)">
+                            <span class="accion" style="bottom: 33%;" ng-click="papeleriaCtrl.duplicarPieza(papeleria.tipo, modelo, piezaUsuario, $index)">
                                 <p>DUPLICAR</p>
                                 <img src="assets/images/duplicate.png" alt="">
                             </span>
-                            <span class="accion" style="bottom: 4%;" ng-click="papeleriaCtrl.eliminarPieza(papeleria,$index)">
+                            <span class="accion" style="bottom: 11%;" ng-click=" papeleriaCtrl.eliminarPieza(modelo.piezas, $index)">
                                 <p>ELIMINAR</p>
                                 <img src="assets/images/close.png" alt="">
                             </span>
@@ -53,6 +54,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
 <div class="papeleria-nueva-mensaje" ng-if="papeleriaCtrl.papelerias && !papeleriaCtrl.tienePiezas">

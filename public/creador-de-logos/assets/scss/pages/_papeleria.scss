@@ -24,6 +24,10 @@
     overflow-y: scroll;
     overflow-x: hidden;
     padding-top: 16px;
+    > div {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
 
 .papeleria-ejemplos>div>div:hover span.accion,
@@ -32,16 +36,11 @@
     background: rgba(0, 0, 0, 0.5);
 }
 
-.papeleria-ejemplos>div {
+.papeleria-ejemplos > div {
     display: flex;
     flex-wrap: wrap;
-    padding-right: 15px;
-}
-
-.papeleria-ejemplos>div>div {
-    position: relative;
-    margin-left: 15px;
-    margin-bottom: 15px;
+    align-content: flex-start;
+    padding: 0;
 }
 
 .hidden {
@@ -89,8 +88,9 @@ textarea {
         transform: rotateY(180deg);
     }
     &.tarjeta {
-        width: 320px;
-        height: 210px;
+        width: calc((100vw - 75px) / 4);
+        height: calc(100vw / 7);
+        margin-left: 15px;
         &.ng-enter {
             left: -335;
         }
@@ -106,7 +106,7 @@ textarea {
         width: 100%;
         height: 100%;
         .overlay {
-            height: 100%;
+            height: 92%;
             width: 100%;
             z-index: 3;
         }
@@ -327,6 +327,9 @@ bazam-menu-papeleria {
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
+                &.seleccionado{
+                    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+                }
             }
             .mensaje-items {
                 padding: 16px;

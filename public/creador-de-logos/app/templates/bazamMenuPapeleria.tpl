@@ -29,16 +29,16 @@
                                 </div>
                                 <div class="menuHook" ng-class="{open: mostrarMenu && papeleriaEditor.mostrarMenuI == hook.id}" ng-show="mostrarMenu && papeleriaEditor.mostrarMenuI == hook.id">
                                     <!-- DIRECCION -->
-                                    <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento('left', hook, $parent.$index, $index)">
+                                    <span class="icono-nombre-hook" ng-class="{'seleccionado': hook.orientacion == 'left'}" ng-click="menuPapeleria.cambiarDireccionElemento('left', hook, $parent.$index, $index)">
                                         <md-tooltip md-direction="bottom">Alinear a la Izquierda</md-tooltip>
                                         <md-icon>format_align_left</md-icon>
                                     </span>
 
-                                    <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento('center', hook, $parent.$index, $index)">
+                                    <span class="icono-nombre-hook" ng-class="{'seleccionado': hook.orientacion == 'left'}"  ng-click="menuPapeleria.cambiarDireccionElemento('center', hook, $parent.$index, $index)">
                                         <md-tooltip md-direction="bottom">Alinear al centro</md-tooltip>
                                         <md-icon>format_align_center</md-icon>
                                     </span>
-                                    <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento('right', hook, $parent.$index, $index)">
+                                    <span class="icono-nombre-hook" ng-class="{'seleccionado': hook.orientacion == 'left'}"  ng-click="menuPapeleria.cambiarDireccionElemento('right', hook, $parent.$index, $index)">
                                         <md-tooltip md-direction="bottom">Alinear a la Derecha</md-tooltip>
                                         <md-icon>format_align_right</md-icon>
                                     </span>
