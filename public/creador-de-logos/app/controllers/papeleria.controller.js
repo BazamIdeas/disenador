@@ -6,12 +6,14 @@ angular.module("disenador-de-logos")
 		bz.base64 = $base64;
 		bz.sce = $sce;
 		bz.tienePiezas = false;
+		bz.peticion = true;
     
 		bz.idLogo = logoResolve.id;
 
 		elementosService.listarFuentes().then(function(res){
 			bz.fuentes = res;
 			fontService.agregarGeneral(res);
+			bz.peticion = false;
 		});
 
 		papeleriaService.listarPorClienteYlogo(bz.idLogo).then(function(res){

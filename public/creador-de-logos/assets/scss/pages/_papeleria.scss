@@ -140,6 +140,7 @@ bazam-menu-papeleria {
     overflow-y: scroll;
     height: calc(100% - 60px);
     background: #f4f2f2;
+    transition: width 0.3s;
 }
 
 .caras-miniaturas {
@@ -152,6 +153,7 @@ bazam-menu-papeleria {
         cursor: pointer;
         width: 100px;
         margin-right: 20px;
+        border: 2px solid silver;
         svg {
             display: block;
             width: 100%;
@@ -382,4 +384,8 @@ bazam-papeleria {
 .item.colocado.gu-mirror span.eliminar-input-x,
 .item.colocado.gu-mirror .drag-indicator {
     display: none !important;
+}
+
+.drag-indicator {
+    cursor: move;
 }

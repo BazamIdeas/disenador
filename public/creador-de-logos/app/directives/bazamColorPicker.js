@@ -52,7 +52,7 @@ angular.module("disenador-de-logos")
 
 				});
 
-				angular.element("#background-color-picker").draggable({
+				angular.element(".background-color-picker").draggable({
 					revert: false
 				});
 

@@ -11,6 +11,8 @@ angular.module("disenador-de-logos")
 
 		bz.papeleria = papeleriaResolve;
 		bz.fuentes = papeleriaResolve.fuentes;
+		bz.caraSeleccionada = bz.papeleria.modelo.caras[0];
+		bz.esquemaActivo = 'original';
 
 		bz.datos = {
 			tipo: "",
@@ -37,11 +39,10 @@ angular.module("disenador-de-logos")
 		}
 
 		bz.descargarPieza = function (id) {
-			if(bz.peticion) return;
 			bz.selectorfuentes = false;
-			bz.peticion = true;
+			bz.preticionB =true;
 
-			if (bz.datos.pieza._id != undefined && bz.datos.pieza._id != " ") {
+			if (bz.datos.pieza._id != undefined &&  bz.datos.pieza._id.length != 0) {
 				descargar(bz.datos.pieza._id);
 			} else {
 				bz.guardar().then(function () {
@@ -64,6 +65,7 @@ angular.module("disenador-de-logos")
 				}).finally(function(){
 					angular.element(document.querySelector(".overlay.full")).fadeOut(1000);
 					bz.peticion = false;
+					bz.preticionB =false;
 				})
 			}
 		}

@@ -1793,7 +1793,8 @@ bazam-menu-papeleria {
   overflow-x: hidden;
   overflow-y: scroll;
   height: calc(100% - 60px);
-  background: #f4f2f2; }
+  background: #f4f2f2;
+  transition: width 0.3s; }
 
 .caras-miniaturas {
   display: flex;
@@ -1804,7 +1805,8 @@ bazam-menu-papeleria {
   .caras-miniaturas .caras-miniaturas-item-svg {
     cursor: pointer;
     width: 100px;
-    margin-right: 20px; }
+    margin-right: 20px;
+    border: 2px solid silver; }
     .caras-miniaturas .caras-miniaturas-item-svg svg {
       display: block;
       width: 100%; }
@@ -1992,6 +1994,9 @@ bazam-papeleria {
 .item.colocado.gu-mirror span.eliminar-input-x,
 .item.colocado.gu-mirror .drag-indicator {
   display: none !important; }
+
+.drag-indicator {
+  cursor: move; }
 
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------

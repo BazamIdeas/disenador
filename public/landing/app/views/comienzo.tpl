@@ -47,7 +47,8 @@
                     <!-- ETIQUETAS -->
                     <div flex>
                         <md-input-container class="md-block etiquetas" style="    margin-top: 30px;">
-                            <label style="transform: none;     text-align: center;">¿Que buscas?</label>
+                            <label style="transform: none;     text-align: center; font-size: 20pt;
+                            ">¿Que buscas?</label>
                             <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                                 md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
                                 <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
@@ -64,7 +65,8 @@
                         </md-input-container>
                     </div>
                     <div class="label-form" style="    text-align: center;
-                            padding-bottom: 4%;">
+                            padding-bottom: 4%; font-size: 20pt;
+                            ">
                         Color y Tipografía
                     </div>
                     <div layout>

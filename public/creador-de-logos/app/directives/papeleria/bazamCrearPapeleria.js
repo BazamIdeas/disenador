@@ -7,7 +7,8 @@ angular.module("disenador-de-logos")
                 estado: "=",
                 idLogo: "<",
                 papelerias: "=",
-                tiene: "="
+                tiene: "=",
+                fuentes: "="
 			},
             controller: ["$scope", "$mdToast", "$sce", "$stateParams", "$state", function ($scope, $mdToast, $sce, $stateParams, $state) {
                 var bz = this;
@@ -28,7 +29,7 @@ angular.module("disenador-de-logos")
                         delete modelo.piezas;
                     }
 
-                    var datos = {papeleria: papeleria, modelo: modelo};
+                    var datos = {papeleria: papeleria, modelo: modelo, fuentes: $scope.fuentes};
 
                     $state.go('papeleriaEditor', { id: bz.idLogo, papeleria: datos});
                 }

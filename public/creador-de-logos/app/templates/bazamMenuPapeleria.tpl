@@ -2,16 +2,10 @@
     <div class="contenedor-principal-menu">
         <form name="formularioPapeleria" novalidate>
             <div ng-show="menuPapeleria.menuActivo == contenedor.nombre" ng-repeat="contenedor in papeleriaEditor.papeleria.modelo.caras">
-                <div class="mensaje-cara" ng-show="contenedor.hooks.length == 0">
-                    No disponible
-                </div>
                 <!-- ELEMENTOS ARRASTRABLES -->
                 <div ng-show="contenedor.hooks.length > 0">
                     <div class="contenedor-items">
-                        <!-- <div class="nombre-contenedor">
-                            <b>Elementos disponibles</b>
-                        </div> -->
-                        <span ng-mouseleave="papeleriaEditor.agregarElemento = false" ng-mouseenter="papeleriaEditor.agregarElemento = true" draggable="true"
+                        <span ng-click="papeleriaEditor.mostrarMenuI = null;" ng-mouseleave="papeleriaEditor.agregarElemento = false" ng-mouseenter="papeleriaEditor.agregarElemento = true" draggable="true"
                             class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index" indice="{{$index}}">
                             {{::item.nombre}}
                         </span>
@@ -25,10 +19,15 @@
                         <div class="nombre-contenedor">
                             <b>{{::hook.id}}</b>
                             <div ng-show="hook.items.length > 0">
-                                <div class="icono-nombre-hook" ng-click="mostrarMenu = !mostrarMenu">
+                                <!-- COLOR -->
+                                <span>
+                                        <bazam-color-picker callback="menuPapeleria.cambiarColor" data-args="[$parent.$index, $index]" data-ctx="menuPapeleria" data-color="hook.fuente.fill"
+                                            data-titulo="'Color'"></bazam-color-picker>
+                                    </span>
+                                <div class="icono-nombre-hook" ng-click="mostrarMenu = !mostrarMenu; papeleriaEditor.mostrarMenuI = hook.id">
                                     <md-icon>menu</md-icon>
                                 </div>
-                                <div class="menuHook" ng-class="{open: mostrarMenu}" ng-show="mostrarMenu">
+                                <div class="menuHook" ng-class="{open: mostrarMenu && papeleriaEditor.mostrarMenuI == hook.id}" ng-show="mostrarMenu && papeleriaEditor.mostrarMenuI == hook.id">
                                     <!-- DIRECCION -->
                                     <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarDireccionElemento('left', hook, $parent.$index, $index)">
                                         <md-tooltip md-direction="bottom">Alinear a la Izquierda</md-tooltip>
@@ -43,11 +42,7 @@
                                         <md-tooltip md-direction="bottom">Alinear a la Derecha</md-tooltip>
                                         <md-icon>format_align_right</md-icon>
                                     </span>
-                                    <!-- COLOR -->
-                                    <span>
-                                        <bazam-color-picker callback="menuPapeleria.cambiarColor" data-args="[$parent.$index, $index]" data-ctx="menuPapeleria" data-color="hook.fuente.fill"
-                                            data-titulo="'Color'"></bazam-color-picker>
-                                    </span>
+                                    
                                     <!-- FUENTES -->
                                     <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarFuente(true, false, $parent.$index, $index)">
                                         <md-tooltip md-direction="bottom">Fuentes</md-tooltip>
@@ -56,12 +51,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div dragula="'hook'" dragula-model='hook.items'>
-                            <span class="item colocado handle" ng-repeat="item_hook in hook.items track by $index">
+                        <div dragula="'hook'" class="hook-{{hook.id}}" dragula-model='hook.items'>
+                            <span class="item colocado" ng-repeat="item_hook in hook.items track by $index">
                                 <!-- INPUT DE LA PAPELERIA -->
-                                <div class="drag-indicator" style="    margin-right: 10px;
+                                <div ng-click="papeleriaEditor.mostrarMenuI = null;" style="    margin-right: 10px;
                                 ">
-                                    <md-icon>drag_indicator</md-icon>
+                                    <md-icon class="hook-{{hook.id}} drag-indicator  material-icons">drag_indicator</md-icon>
                                 </div>
                                 <span class="input-container-papeleria">
 
@@ -74,7 +69,7 @@
                                         required></textarea>
                                 </span>
                                 <!-- ELIMINAR PAPELERIA -->
-                                <span class="eliminar-input-x" ng-click="menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
+                                <span class="eliminar-input-x" ng-click="papeleriaEditor.mostrarMenuI = null; menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
                                     <md-tooltip md-direction="bottom">Eliminar</md-tooltip>
                                     <md-icon>close</md-icon>
                                 </span>
@@ -97,7 +92,7 @@
         </div>
         <div class="row padding-bottom-0 margin-bottom-0">
             <div class="col l12" style="position: relative; padding:0 !important; cursor:pointer; overflow-y: scroll;
-                max-height: 84vh;">
+                max-height: 91vh;">
 
                 <!-- TEXTO PRINCIPAL LISTA DE FUENTES -->
                 <md-radio-group ng-model="menuPapeleria.fuenteSeleccionada" ng-change="menuPapeleria.cambiarFuente(false, menuPapeleria.fuenteSeleccionada)"
