@@ -1,6 +1,19 @@
 <div style="display: flex;" ng-show="papeleriaEditor.papeleria">
     <bazam-menu-papeleria ng-class="{'oculto': papeleriaEditor.caraSeleccionada.hooks.length == 0}"></bazam-menu-papeleria>
     <div class="papeleria-editor-container">
+        <div class="esquema-colores">
+                <div class="esquema-color" ng-class="{'active': papeleriaEditor.esquemaActivo == 'original'}" ng-click="papeleriaEditor.esquemaActivo = 'original'" style="background: {{papeleriaEditor.logo.atributos['color-icono']}};
+                background: -moz-linear-gradient(-45deg,  {{papeleriaEditor.logo.atributos['color-icono']}} 50%,  {{papeleriaEditor.logo.atributos['color-nombre']}} 51%);
+                background: -webkit-linear-gradient(-45deg,  {{papeleriaEditor.logo.atributos['color-icono']}} 50%, {{papeleriaEditor.logo.atributos['color-nombre']}} 51%);
+                background: linear-gradient(135deg, {{papeleriaEditor.logo.atributos['color-icono']}} 50%, {{papeleriaEditor.logo.atributos['color-nombre']}} 51%);
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' {{papeleriaEditor.logo.atributos['color-icono']}}', endColorstr=' {{papeleriaEditor.logo.atributos['color-nombre']}}',GradientType=1 );"></div>
+            <div ng-repeat="esquema in papeleriaEditor.papeleria.modelo.esquemas" class="esquema-color" ng-class="{'active': papeleriaEditor.esquemaActivo == $index}" ng-click="papeleriaEditor.esquemaActivo = $index" style="background: {{esquema.primario}};
+                background: -moz-linear-gradient(-45deg, {{esquema.primario}} 50%, {{esquema.secundario}} 51%);
+                background: -webkit-linear-gradient(-45deg, {{esquema.primario}} 50%,{{esquema.secundario}} 51%);
+                background: linear-gradient(135deg,{{esquema.primario}} 50%,{{esquema.secundario}} 51%);
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{{esquema.primario}}', endColorstr='{{esquema.secundario}}',GradientType=1 );"></div>
+        </div>
+
         <bazam-papeleria ng-class="{'open': papeleriaEditor.selectorfuentes}"></bazam-papeleria>
         <div class="combinacion-box">
             <span class="accion" ng-disable="!papeleriaEditor.peticion" ng-click="papeleriaEditor.guardar()" style="top: 5%;">
@@ -40,13 +53,13 @@
         transition: width 0.3s;
     }
 
-    
-    bazam-menu-papeleria.oculto {
-    width: 0;
-}
 
-    bazam-menu-papeleria.oculto + .papeleria-editor-container{
-        width:100%;
+    bazam-menu-papeleria.oculto {
+        width: 0;
+    }
+
+    bazam-menu-papeleria.oculto+.papeleria-editor-container {
+        width: 100%;
     }
 
 
@@ -100,7 +113,7 @@
 
 
     bazam-papeleria>svg {
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     }
 
     bazam-papeleria>svg * {
@@ -163,5 +176,26 @@
     span.accion:hover p {
         background-color: transparent !important;
         border: none !important;
+    }
+
+    .esquema-colores {
+        position: absolute;
+        left: 0%;
+        top: 1%;
+    }
+
+    .esquema-color {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        margin-left: 10px;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+        border: 2px solid silver;
+        cursor: pointer;
+    }
+
+    .esquema-color.active {
+        border: 2px solid black;
     }
 </style>

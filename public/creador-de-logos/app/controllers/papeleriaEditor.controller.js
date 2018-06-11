@@ -12,6 +12,7 @@ angular.module("disenador-de-logos")
 		bz.papeleria = papeleriaResolve;
 		bz.fuentes = papeleriaResolve.fuentes;
 		bz.caraSeleccionada = bz.papeleria.modelo.caras[0];
+		bz.esquemaActivo = 'original';
 
 		bz.datos = {
 			tipo: "",
