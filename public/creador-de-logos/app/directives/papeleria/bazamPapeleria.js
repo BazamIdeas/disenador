@@ -1426,7 +1426,7 @@ angular.module("disenador-de-logos")
 						colorPicker.append(multiLogoContainer);
 
 
-						var growthContainer = angular.element("<div></div>");
+						var growthContainer = angular.element("<div class='text-styles text-styles-papeleria'></div>");
 
 						var minusButton = angular.element("<div data-action='minus' class='minus'>-</div>");
 						var plusButton = angular.element("<div data-action='plus' class='plus'>+</div>");
@@ -1477,7 +1477,7 @@ angular.module("disenador-de-logos")
 						posicionPicker["left"] = coordenadasMirror.right;
 						posicionPicker["top"] = coordenadasMirror.top - 150;
 						posicionPicker["width"] = "300px";
-						posicionPicker["height"] = "150px";
+						posicionPicker["height"] = "180px";
 
 					}
 
