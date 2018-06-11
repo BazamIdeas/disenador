@@ -178,6 +178,20 @@
         border: none !important;
     }
 
+    .text-styles.text-styles-papeleria {
+        margin-top: 20px;
+        justify-content: space-around;
+    }
+
+    .text-styles.text-styles-papeleria div {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+    }
+
+    .element-color-picker{
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
     .esquema-colores {
         position: absolute;
         left: 0%;
