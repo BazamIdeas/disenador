@@ -4,7 +4,7 @@
     </div>
     <div class="crear-directiva" ng-show="papelerias">
         <div ng-repeat="papeleria in papelerias" ng-show="papeleriaActiva == papeleria.tipo">
-            <div ng-repeat="modelo in papeleria.modelos | orderBy: 'nombre'" class="modelo-papeleria-crear">
+            <div ng-repeat="modelo in papeleria.modelos  track by $index" class="modelo-papeleria-crear">
                 <span ng-bind-html="crearPapeleria.sce.trustAsHtml(modelo.svg)"></span>
                 <div class="combinacion-box">
                     <span class="accion" style="bottom: 75%;" ng-click="crearPapeleria.enviarEditor($parent.$index, $index)">
