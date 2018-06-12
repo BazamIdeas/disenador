@@ -82,13 +82,6 @@ angular.module("disenador-de-logos")
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 });
 
-                /* Funcion para cambiar la direccion de un elemento en el contenedor o del contenedor propio */
-
-                bz.cambiarDireccionElemento = function (direccion, hook, indiceCara, indiceHook) {
-                    hook.orientacion = direccion;
-                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
-                }
-
                 $scope.papeleriaEditor.selectorfuentes = false;
 
                 bz.cambiarFuente = function (mostrar, fuente, indiceCara, indiceHook) {

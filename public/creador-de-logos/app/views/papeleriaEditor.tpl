@@ -14,7 +14,7 @@
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{{esquema.primario}}', endColorstr='{{esquema.secundario}}',GradientType=1 );"></div>
         </div>
 
-        <bazam-papeleria ng-class="{'open': papeleriaEditor.selectorfuentes}"></bazam-papeleria>
+        <bazam-papeleria class="{{papeleriaEditor.papeleria.tipo}}" ng-class="{'open': papeleriaEditor.selectorfuentes}"></bazam-papeleria>
         <div class="combinacion-box">
             <span class="accion" ng-disable="!papeleriaEditor.peticion" ng-click="papeleriaEditor.guardar()" style="top: 5%;">
                 <p ng-class="{'loading-white': papeleriaEditor.peticionB}">GUARDAR</p>
@@ -31,7 +31,7 @@
                 <md-icon style="color:white;">arrow_left</md-icon>
             </span>
         </div>
-        <div class="caras-miniaturas">
+        <div class="caras-miniaturas" ng-show="papeleriaEditor.papeleria.modelo.caras.length > 1">
             <div ng-repeat="tabMenu in papeleriaEditor.papeleria.modelo.caras track by $index" ng-click="papeleriaEditor.selectorfuentes = false; papeleriaEditor.caraSeleccionada = tabMenu;  menuPapeleria.menuActivo = tabMenu.nombre; papeleriaEditor.cambiarCara($index); papeleriaEditor.mostrarMenuI = null;"
                 ng-class="{'active': menuPapeleria.menuActivo == tabMenu.nombre}" class="caras-miniaturas-item-svg --pequena"
                 ng-bind-html="papeleriaEditor.sce.trustAsHtml(tabMenu.svg)">
@@ -64,16 +64,23 @@
 
 
     bazam-papeleria {
-        width: 14cm;
-        height: calc(80% - 60px);
         position: relative;
-        display: flex;
         left: 0;
-        justify-content: center;
-        align-items: center;
         transition: left 0.5s;
     }
 
+    bazam-papeleria.tarjeta {
+        width: 17cm;
+        height: 55%;
+    }
+
+    bazam-papeleria.hoja {
+        width: 19cm;
+        margin-top: 2%;
+        height: 12.8cm;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
 
     bazam-papeleria.open {
         left: 11%;
@@ -93,7 +100,6 @@
     }
 
     bazam-papeleria>svg {
-        margin-bottom: 10px;
         position: absolute;
     }
 

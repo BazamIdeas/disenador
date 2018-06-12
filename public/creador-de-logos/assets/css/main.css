@@ -289,7 +289,7 @@ textarea {
   border-radius: 0; }
 
 ::-webkit-scrollbar:window-inactive {
-  width: 0px; }
+  width: 8px; }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 0;
@@ -1681,8 +1681,7 @@ section.body.pay {
 /****** VISTA PAPELERIA ******/
 .categorias-papeleria {
   display: flex;
-  padding: 10px 0px;
-  height: 10%; }
+  height: 40px; }
   .categorias-papeleria .tab-papeleria {
     flex: 1;
     text-align: center;
@@ -1690,44 +1689,74 @@ section.body.pay {
     justify-content: center;
     align-items: center;
     text-transform: capitalize;
-    font-size: 25pt;
-    cursor: pointer; }
+    font-size: 20px;
+    cursor: pointer;
+    position: relative; }
     .categorias-papeleria .tab-papeleria.seleccionada {
       color: #5981bc; }
+    .categorias-papeleria .tab-papeleria:hover .ejemplo-tab {
+      top: 100%;
+      width: 100%;
+      visibility: visible; }
+    .categorias-papeleria .tab-papeleria .ejemplo-tab {
+      position: absolute;
+      visibility: hidden;
+      width: 0;
+      top: 100%;
+      background: #000000a6;
+      z-index: 4;
+      padding: 4% 0;
+      transition: all 0.3s ease; }
+      .categorias-papeleria .tab-papeleria .ejemplo-tab img {
+        display: block;
+        margin: auto;
+        width: 75%; }
+        .categorias-papeleria .tab-papeleria .ejemplo-tab img.hoja {
+          width: 40%; }
 
 .contenedor-papelerias {
-  height: 70%;
+  height: calc((100vh - 60px) - 30px);
   overflow-y: scroll;
   overflow-x: hidden;
-  padding-top: 16px; }
+  background-color: #eceff0; }
   .contenedor-papelerias > div {
     display: flex;
-    flex-wrap: wrap; }
+    flex-wrap: wrap;
+    justify-content: space-around; }
 
 .papeleria-ejemplos > div > div:hover span.accion,
 .modelo-papeleria-crear:hover span.accion {
   opacity: 1;
   background: rgba(0, 0, 0, 0.5); }
 
-.papeleria-ejemplos > div {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  padding: 0; }
+.hoja span.accion:hover, .hoja span.comprar {
+  width: 70%; }
+
+.hoja .combinacion-box > :nth-child(2), .hoja .combinacion-box > :nth-child(1) {
+  top: 5%; }
+
+.hoja .combinacion-box > :nth-child(3) {
+  top: 20%; }
+
+.hoja .combinacion-box > :nth-child(4) {
+  top: 35%; }
+
+.hoja .combinacion-box > :nth-child(5) {
+  top: 50%; }
 
 .hidden {
   display: none !important; }
 
 .boton-crear-papeleria {
-  margin: auto !important;
-  display: block;
-  background-color: transparent;
-  box-shadow: none;
-  color: black;
-  border: 1px solid;
-  border-radius: 5px;
-  font-size: 15pt;
-  padding: 5px 25px; }
+  position: absolute !important;
+  right: 3%;
+  bottom: 2%;
+  background-color: #438e46;
+  min-width: auto;
+  color: white;
+  padding: 5px 15px; }
+  .boton-crear-papeleria:hover {
+    background-color: #4CAF50 !important; }
 
 .papeleria-nueva-mensaje {
   height: calc(100% - 60px);
@@ -1742,50 +1771,17 @@ textarea {
   resize: none; }
 
 /* entire container, keeps perspective */
-.flip-container {
-  perspective: 1000px;
+.pieza {
   -webkit-transition: 0.3s linear all;
-  transition: 0.3s linear all; }
-  .flip-container.ng-enter-active {
-    left: 0px; }
-  .flip-container .back,
-  .flip-container.hover .overlay {
-    transform: rotateY(180deg); }
-  .flip-container.tarjeta {
-    width: calc((100vw - 75px) / 4);
-    height: calc(100vw / 7);
-    margin-left: 15px; }
-    .flip-container.tarjeta.ng-enter {
-      left: -335; }
-  .flip-container.hover .flipper {
-    transform: rotateY(180deg); }
-  .flip-container .flipper {
-    transition: 0.6s;
-    transform-style: preserve-3d;
-    position: relative;
-    cursor: pointer;
-    width: 100%;
-    height: 100%; }
-    .flip-container .flipper .overlay {
-      height: 92%;
-      width: 100%;
-      z-index: 3; }
-    .flip-container .flipper span.accion {
-      z-index: 3; }
-    .flip-container .flipper .front {
-      z-index: 2;
-      transform: rotateY(0deg); }
-    .flip-container .flipper .front,
-    .flip-container .flipper .back {
-      backface-visibility: hidden;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12); }
-      .flip-container .flipper .front:hover,
-      .flip-container .flipper .back:hover {
-        box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.2), 0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 4px 18px 3px rgba(0, 0, 0, 0.12); }
+  transition: 0.3s linear all;
+  margin: 20px 0;
+  position: relative;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12); }
+  .pieza .overlay {
+    z-index: 3;
+    display: block; }
+  .pieza span.accion {
+    z-index: 3; }
 
 /****** MENU PAPELERIA ******/
 bazam-menu-papeleria {
@@ -2000,6 +1996,9 @@ bazam-papeleria {
 
 .drag-indicator {
   cursor: move; }
+
+svg * {
+  overflow: visible !important; }
 
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------

@@ -2,8 +2,7 @@
 
 .categorias-papeleria {
     display: flex;
-    padding: 10px 0px;
-    height: 10%;
+    height: 40px;
     .tab-papeleria {
         flex: 1;
         text-align: center;
@@ -11,22 +10,49 @@
         justify-content: center;
         align-items: center;
         text-transform: capitalize;
-        font-size: 25pt;
+        font-size: 20px;
         cursor: pointer;
+        position: relative;
         &.seleccionada {
             color: #5981bc;
         }
+        &:hover .ejemplo-tab{
+            top: 100%;
+            width: 100%;
+            visibility: visible;
+        }
+        .ejemplo-tab {
+            position: absolute;
+            visibility: hidden;
+            width: 0;
+            top: 100%;
+            background: #000000a6;
+            z-index: 4;
+            padding: 4% 0;
+            transition:all 0.3s ease;
+
+            img {
+                display: block;
+                margin: auto;
+                width: 75%;
+                &.hoja{
+                    width: 40%;
+                }
+            }
+        }
+        
     }
 }
 
 .contenedor-papelerias {
-    height: 70%;
+    height: calc((100vh - 60px) - 30px);
     overflow-y: scroll;
     overflow-x: hidden;
-    padding-top: 16px;
+    background-color: #eceff0;
     > div {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-around;
     }
 }
 
@@ -35,28 +61,45 @@
     opacity: 1;
     background: rgba(0, 0, 0, 0.5);
 }
+.hoja{
+    span.accion:hover, span.comprar {
+        width: 70%;
+    }
 
-.papeleria-ejemplos > div {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    padding: 0;
+    .combinacion-box 
+    {
+        > :nth-child(2), > :nth-child(1) {
+        top: 5%;
+        }
+        > :nth-child(3) {
+            top: 20%;
+            }
+            > :nth-child(4) {
+                top: 35%;
+                }
+                > :nth-child(5) {
+                    top: 50%;
+                    }
+    }
 }
+
 
 .hidden {
     display: none !important;
 }
 
 .boton-crear-papeleria {
-    margin: auto !important;
-    display: block;
-    background-color: transparent;
-    box-shadow: none;
-    color: black;
-    border: 1px solid;
-    border-radius: 5px;
-    font-size: 15pt;
-    padding: 5px 25px;
+    position: absolute !important;
+    right: 3%;
+    bottom: 2%;
+    background-color: #438e46 ;
+
+    min-width: auto;
+    color: white;
+    padding: 5px 15px;
+    &:hover{
+        background-color: #4CAF50 !important;
+    }
 }
 
 .papeleria-nueva-mensaje {
@@ -76,60 +119,21 @@ textarea {
 
 /* entire container, keeps perspective */
 
-.flip-container {
-    perspective: 1000px;
+.pieza {
     -webkit-transition: 0.3s linear all;
     transition: 0.3s linear all;
-    &.ng-enter-active {
-        left: 0px;
+    margin: 20px 0;
+    position: relative;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+
+    .overlay {
+        z-index: 3;
+        display: block;
     }
-    .back,
-    &.hover .overlay {
-        transform: rotateY(180deg);
+    span.accion {
+        z-index: 3;
     }
-    &.tarjeta {
-        width: calc((100vw - 75px) / 4);
-        height: calc(100vw / 7);
-        margin-left: 15px;
-        &.ng-enter {
-            left: -335;
-        }
-    }
-    &.hover .flipper {
-        transform: rotateY(180deg);
-    }
-    .flipper {
-        transition: 0.6s;
-        transform-style: preserve-3d;
-        position: relative;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        .overlay {
-            height: 92%;
-            width: 100%;
-            z-index: 3;
-        }
-        span.accion {
-            z-index: 3;
-        }
-        .front {
-            z-index: 2;
-            transform: rotateY(0deg);
-        }
-        .front,
-        .back {
-            backface-visibility: hidden;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
-            &:hover {
-                box-shadow: 0 6px 6px -3px rgba(0, 0, 0, .2), 0 10px 14px 1px rgba(0, 0, 0, .14), 0 4px 18px 3px rgba(0, 0, 0, .12);
-            }
-        }
-    }
+
 }
 
 /****** MENU PAPELERIA ******/
@@ -391,4 +395,8 @@ bazam-papeleria {
 
 .drag-indicator {
     cursor: move;
+}
+
+svg * {
+    overflow: visible !important;
 }
