@@ -1,8 +1,7 @@
 <div ng-class="{'active':estado}" class="pop-papeleria-crear">
     <div class="categorias-papeleria" ng-show="papelerias">
-        <span class="tab-papeleria" ng-click="$parent.papeleriaActiva = papeleria.tipo" ng-repeat="papeleria in papelerias" ng-class="{'seleccionada': papeleriaActiva == papeleria.tipo}">{{papeleria.tipo}}
-            <div class="ejemplo-tab">
-                <img class="{{papeleria.tipo}}" src="assets/images/{{papeleria.tipo}}.svg">
+        <span class="tab-papeleria" ng-show="papeleria.modelos.length > 0"ng-click="$parent.papeleriaActiva = papeleria.tipo" ng-repeat="papeleria in papelerias" ng-class="{'seleccionada': papeleriaActiva == papeleria.tipo}">{{papeleria.label}}
+            <div class="ejemplo-tab" ng-bind-html="crearPapeleria.sce.trustAsHtml(papeleria.ejemplo)">
             </div>
         </span>
     </div>
@@ -54,11 +53,11 @@
         justify-content: space-around;
     }
     
-    .modelo-papeleria-crear.hoja, .pieza.hoja {
+    .modelo-papeleria-crear.hoja, .pieza.hoja, .modelo-papeleria-crear.etiqueta, .pieza.etiqueta {
         width: calc((100% / 4 ) - 40px);
     }
 
-    .modelo-papeleria-crear.tarjeta,.pieza.tarjeta{
+    .modelo-papeleria-crear.tarjeta,.pieza.tarjeta, .modelo-papeleria-crear.sobre-sin-ventana,.pieza.sobre-sin-ventana{
         width: calc((100% / 3 ) - 40px);
     }
 

@@ -7,14 +7,7 @@ angular.module("disenador-de-logos")
 		bz.sce = $sce;
 		bz.tienePiezas = false;
 		bz.peticion = true;
-    
 		bz.idLogo = logoResolve.id;
-
-		elementosService.listarFuentes().then(function(res){
-			bz.fuentes = res;
-			fontService.agregarGeneral(res);
-			bz.peticion = false;
-		});
 
 		papeleriaService.listarPorClienteYlogo(bz.idLogo).then(function(res){
 			bz.papelerias = res;
@@ -39,6 +32,12 @@ angular.module("disenador-de-logos")
 			}
 			bz.papeleriaActiva = bz.papelerias[0].tipo;
 		})
+
+		elementosService.listarFuentes().then(function(res){
+			bz.fuentes = res;
+			fontService.agregarGeneral(res);
+			bz.peticion = false;
+		});
 
 		bz.enviarEditor = function (indicePapeleria, indiceModelo, indicePieza) {
 			if(bz.peticion) return;

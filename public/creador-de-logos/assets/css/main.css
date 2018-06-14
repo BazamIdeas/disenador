@@ -1707,11 +1707,11 @@ section.body.pay {
       z-index: 4;
       padding: 4% 0;
       transition: all 0.3s ease; }
-      .categorias-papeleria .tab-papeleria .ejemplo-tab img {
+      .categorias-papeleria .tab-papeleria .ejemplo-tab svg {
         display: block;
         margin: auto;
         width: 75%; }
-        .categorias-papeleria .tab-papeleria .ejemplo-tab img.hoja {
+        .categorias-papeleria .tab-papeleria .ejemplo-tab svg.hoja {
           width: 40%; }
 
 .contenedor-papelerias {
@@ -1729,10 +1729,12 @@ section.body.pay {
   opacity: 1;
   background: rgba(0, 0, 0, 0.5); }
 
-.hoja span.accion:hover, .hoja span.comprar {
+.hoja span.accion:hover,
+.hoja span.comprar {
   width: 70%; }
 
-.hoja .combinacion-box > :nth-child(2), .hoja .combinacion-box > :nth-child(1) {
+.hoja .combinacion-box > :nth-child(2),
+.hoja .combinacion-box > :nth-child(1) {
   top: 5%; }
 
 .hoja .combinacion-box > :nth-child(3) {

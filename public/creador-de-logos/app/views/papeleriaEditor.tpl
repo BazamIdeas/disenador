@@ -69,7 +69,7 @@
         transition: left 0.5s;
     }
 
-    bazam-papeleria.tarjeta {
+    bazam-papeleria.tarjeta, bazam-papeleria.sobre-sin-ventana, bazam-papeleria:not(.hoja) {
         width: 17cm;
         height: 55%;
     }

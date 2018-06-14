@@ -36,17 +36,6 @@ angular.module("disenador-de-logos")
                         }
                     }));
 
-                    /* Si el contenedor ya posee un elemento igual detenemos la funcion */
-
-                    for (var i = 0; i < hook.items.length; i++) {
-                        if (hook.items[i].nombre == item.nombre) return $mdToast.show($mdToast.base({
-                            args: {
-                                mensaje: "El espacio contiene un elemento igual elija otro elemento.",
-                                clase: "warning"
-                            }
-                        }));
-                    }
-
                     /* Agregamos el elemento y actualizamos el scope */
                     $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items.push(itemAgregar);
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook)

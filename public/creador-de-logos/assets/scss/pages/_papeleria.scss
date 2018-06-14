@@ -16,7 +16,7 @@
         &.seleccionada {
             color: #5981bc;
         }
-        &:hover .ejemplo-tab{
+        &:hover .ejemplo-tab {
             top: 100%;
             width: 100%;
             visibility: visible;
@@ -29,18 +29,16 @@
             background: #000000a6;
             z-index: 4;
             padding: 4% 0;
-            transition:all 0.3s ease;
-
-            img {
+            transition: all 0.3s ease;
+            svg {
                 display: block;
                 margin: auto;
                 width: 75%;
-                &.hoja{
+                &.hoja {
                     width: 40%;
                 }
             }
         }
-        
     }
 }
 
@@ -49,7 +47,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: #eceff0;
-    > div {
+    >div {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
@@ -61,28 +59,28 @@
     opacity: 1;
     background: rgba(0, 0, 0, 0.5);
 }
-.hoja{
-    span.accion:hover, span.comprar {
+
+.hoja {
+    span.accion:hover,
+    span.comprar {
         width: 70%;
     }
-
-    .combinacion-box 
-    {
-        > :nth-child(2), > :nth-child(1) {
-        top: 5%;
+    .combinacion-box {
+        > :nth-child(2),
+        > :nth-child(1) {
+            top: 5%;
         }
         > :nth-child(3) {
             top: 20%;
-            }
-            > :nth-child(4) {
-                top: 35%;
-                }
-                > :nth-child(5) {
-                    top: 50%;
-                    }
+        }
+        > :nth-child(4) {
+            top: 35%;
+        }
+        > :nth-child(5) {
+            top: 50%;
+        }
     }
 }
-
 
 .hidden {
     display: none !important;
@@ -92,12 +90,11 @@
     position: absolute !important;
     right: 3%;
     bottom: 2%;
-    background-color: #438e46 ;
-
+    background-color: #438e46;
     min-width: auto;
     color: white;
     padding: 5px 15px;
-    &:hover{
+    &:hover {
         background-color: #4CAF50 !important;
     }
 }
@@ -125,7 +122,6 @@ textarea {
     margin: 20px 0;
     position: relative;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
-
     .overlay {
         z-index: 3;
         display: block;
@@ -133,7 +129,6 @@ textarea {
     span.accion {
         z-index: 3;
     }
-
 }
 
 /****** MENU PAPELERIA ******/
@@ -331,8 +326,8 @@ bazam-menu-papeleria {
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
-                &.seleccionado{
-                    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+                &.seleccionado {
+                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
                 }
             }
             .mensaje-items {

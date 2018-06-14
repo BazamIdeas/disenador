@@ -341,6 +341,14 @@ exports.descargarPapeleria = function (req, res, next) {
                             "type": "pdf",
                             "renderDelay": 3000,
                             "border": "0"
+                    },
+                    "hoja": {
+                        "height": "297mm",
+                        "width": "216mm",
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
                     }
                 };
                 var configuracion = tamanosPapeleria[papeleria.tipo];
