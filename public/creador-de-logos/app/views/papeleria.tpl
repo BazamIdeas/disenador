@@ -10,7 +10,6 @@
             <span class="modelo-papeleria" ng-show="piezaUsuario.caraActiva" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[1].svg)"></span>
 
             <div class="combinacion-box">
-                <div ng-click="piezaActiva = (piezaActiva == piezaUsuario._id) ? null : piezaActiva = piezaUsuario._id" style="position: absolute; width: 100%; height: 100%; top: 0px; left:0px;     z-index: 3;"></div>
                 <span class="accion" style="bottom: 75%;" ng-click="  papeleriaCtrl.enviarEditor(piezaUsuario.indicePapeleria,piezaUsuario.indiceModelo,$index)">
                     <p>EDITAR</p>
                     <img src="assets/images/edit_white.svg" alt="">
@@ -27,10 +26,11 @@
                     <p>ELIMINAR</p>
                     <img src="assets/images/close.png" alt="">
                 </span>
-            </div>
-            <!--                 <div class="voltear-cara">
+                <div class="voltear-cara" ng-click="piezaUsuario.caraActiva = !piezaUsuario.caraActiva">
                     <md-icon>flip</md-icon>
-                </div> -->
+                </div>
+            </div>
+
         </div>
 
     </div>

@@ -229,7 +229,7 @@ exports.descargarPapeleria = function (req, res, next) {
 
                 /* Buscamos la plantilla a utilizar */
 
-                var ubicacionPlantilla = './plantillas-papeleria/'+ papeleria.tipo + '.html';
+                var ubicacionPlantilla = './plantillas-papeleria/plantilla.html';
 
                 var template = fs.readFileSync(ubicacionPlantilla, 'utf8', (err, data) => {
                     if (err) throw err;
@@ -270,6 +270,7 @@ exports.descargarPapeleria = function (req, res, next) {
                 }
 
                 var caras = papeleria.pieza.caras;
+                var paginas = "";
 
                 for (let i = 0; i < caras.length; i++) {
                     /* Si queremos saber el nombre de la cara */
@@ -316,12 +317,12 @@ exports.descargarPapeleria = function (req, res, next) {
                     var keys = Object.keys(datos);
                     for (var key in keys) {
                         if (keys[key] == 'svg') {
-                            while (template.indexOf("${" + keys[key] + '-' + i + "}") != -1) {
-                                template = template.replace("${" + keys[key] + '-' + i + "}", datos[keys[key]]);
-                            }
+                            paginas += "<div class='page'>"+datos[keys[key]]+"</div>";
                         }
                     }
                 }
+
+                template = template.replace("${paginas}", paginas);
 
                 while (template.indexOf("url('/fuentes/") != -1) {
                     template = template.replace("url('/fuentes/", "url('");
@@ -356,6 +357,8 @@ exports.descargarPapeleria = function (req, res, next) {
                 if (plataforma != 'win32') {
                     template = template.replace('${zoom}', '0.75');
                 }
+
+                template = template.replace('${alto}', configuracion.height);
 
                 papeleria.modelo = papeleria.modelo.replace(/[^a-zA-Z0-9-_]/g, '');
 

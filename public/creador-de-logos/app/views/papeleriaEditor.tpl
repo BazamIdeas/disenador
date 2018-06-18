@@ -69,7 +69,12 @@
         transition: left 0.5s;
     }
 
-    bazam-papeleria.tarjeta, bazam-papeleria.sobre-sin-ventana, bazam-papeleria:not(.hoja) {
+    bazam-papeleria.etiqueta-para-productos, bazam-papeleria.etiqueta-para-precios {
+    width: 9cm;
+    height: 55%;
+    }
+
+    bazam-papeleria.tarjeta, bazam-papeleria.sobre-sin-ventana {
         width: 17cm;
         height: 55%;
     }

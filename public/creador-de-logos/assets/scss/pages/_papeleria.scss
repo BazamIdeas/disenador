@@ -2,7 +2,7 @@
 
 .categorias-papeleria {
     display: flex;
-    height: 40px;
+    height: 50px;
     .tab-papeleria {
         flex: 1;
         text-align: center;
@@ -14,7 +14,7 @@
         cursor: pointer;
         position: relative;
         &.seleccionada {
-            color: #5981bc;
+            color: $PRINCIPAL;
         }
         &:hover .ejemplo-tab {
             top: 100%;
@@ -43,7 +43,7 @@
 }
 
 .contenedor-papelerias {
-    height: calc((100vh - 60px) - 30px);
+    height: calc((100vh - 60px) - 50px);
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: #eceff0;
@@ -394,4 +394,16 @@ bazam-papeleria {
 
 svg * {
     overflow: visible !important;
+}
+
+.voltear-cara{
+    position:absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.voltear-cara md-icon {
+    color: silver;
 }

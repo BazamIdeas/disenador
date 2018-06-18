@@ -1681,7 +1681,7 @@ section.body.pay {
 /****** VISTA PAPELERIA ******/
 .categorias-papeleria {
   display: flex;
-  height: 40px; }
+  height: 50px; }
   .categorias-papeleria .tab-papeleria {
     flex: 1;
     text-align: center;
@@ -1693,7 +1693,7 @@ section.body.pay {
     cursor: pointer;
     position: relative; }
     .categorias-papeleria .tab-papeleria.seleccionada {
-      color: #5981bc; }
+      color: #5980B7; }
     .categorias-papeleria .tab-papeleria:hover .ejemplo-tab {
       top: 100%;
       width: 100%;
@@ -1715,7 +1715,7 @@ section.body.pay {
           width: 40%; }
 
 .contenedor-papelerias {
-  height: calc((100vh - 60px) - 30px);
+  height: calc((100vh - 60px) - 50px);
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #eceff0; }
@@ -2001,6 +2001,15 @@ bazam-papeleria {
 
 svg * {
   overflow: visible !important; }
+
+.voltear-cara {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2; }
+
+.voltear-cara md-icon {
+  color: silver; }
 
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------
