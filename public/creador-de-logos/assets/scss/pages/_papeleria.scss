@@ -2,10 +2,11 @@
 
 .categorias-papeleria {
     display: flex;
-    height: 50px;
+    flex-direction: column;
+    width: 70px;
     .tab-papeleria {
-        flex: 1;
-        text-align: center;
+        height: 70px;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -15,6 +16,8 @@
         position: relative;
         &.seleccionada {
             color: $PRINCIPAL;
+            background: #eceff0;
+            border: 1px solid #eceff0;
         }
         &:hover .ejemplo-tab {
             top: 100%;
@@ -22,31 +25,16 @@
             visibility: visible;
             height: 350px;
         }
-        .ejemplo-tab {
-            position: absolute;
-            visibility: hidden;
-            width: 0;
-            top: 100%;
-            background: #000000a6;
-            z-index: 4;
-            height:0px;
-            padding: 7%;
-            display: flex;
-            transition: all 0.3s;
-            svg {
-                display: block;
-                margin: auto;
-                width: 75%;
-                &.hoja {
-                    width: 40%;
-                }
-            }
+
+        img {
+            width: 30px;
         }
     }
 }
 
 .contenedor-papelerias {
-    height: calc((100vh - 60px) - 50px);
+    height: calc(100vh - 60px);
+    width: 95%;
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: #eceff0;
@@ -422,17 +410,20 @@ svg * {
     height: 0%;
     background-color: white;
     overflow: hidden;
-    width: 100vw;
+    width: 100%;
     transition: height 0.5s;
+    display: flex;
+    justify-content: space-between;
     &.active {
-        height: calc(100vh - 60px);
+        height: calc(100% - 60px);
     }
     .crear-directiva {
-        height: calc(100vh - 100px);
+        height:100%;
         overflow-y: scroll;
         overflow-x: hidden;
         padding: 1% 15px 1% 0%;
         background-color: #ECEFF0;
+        width: 95%;
         >div {
             display: flex;
             flex-wrap: wrap;
@@ -469,7 +460,7 @@ svg * {
 .pieza.etiqueta-para-precios,
 .modelo-papeleria-crear.etiqueta-para-productos,
 .pieza.etiqueta-para-productos {
-    height: 360px;
+    height: 330px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -479,9 +470,4 @@ svg * {
         display: block;
         width: 80%;
     }
-}
-
-.modelo-papeleria-crear.etiqueta-para-precios, .pieza.etiqueta-para-precios {
-    padding: 0% 4%;
-    height: 330px;
 }
