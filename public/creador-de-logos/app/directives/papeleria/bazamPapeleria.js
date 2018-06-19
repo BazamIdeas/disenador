@@ -753,7 +753,7 @@ angular.module("disenador-de-logos")
 
 							if (multilineas) { //si es multilinea
 
-								textSvg.children().attr("x", "150%")
+								textSvg.children().attr("x", "50%")
 
 								if (indice === 0) { //si es el primer item de este contenedor
 
