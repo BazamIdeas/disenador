@@ -26,7 +26,7 @@
                     <p>ELIMINAR</p>
                     <img src="assets/images/close.png" alt="">
                 </span>
-                <div class="voltear-cara" ng-click="piezaUsuario.caraActiva = !piezaUsuario.caraActiva">
+                <div class="voltear-cara" ng-show="piezaUsuario.caras.length > 1" ng-click="piezaUsuario.caraActiva = !piezaUsuario.caraActiva">
                     <md-icon>flip</md-icon>
                 </div>
             </div>

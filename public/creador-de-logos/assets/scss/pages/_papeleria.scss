@@ -20,6 +20,7 @@
             top: 100%;
             width: 100%;
             visibility: visible;
+            height: 350px;
         }
         .ejemplo-tab {
             position: absolute;
@@ -28,8 +29,10 @@
             top: 100%;
             background: #000000a6;
             z-index: 4;
-            padding: 4% 0;
-            transition: all 0.3s ease;
+            height:0px;
+            padding: 7%;
+            display: flex;
+            transition: all 0.3s;
             svg {
                 display: block;
                 margin: auto;
@@ -396,14 +399,89 @@ svg * {
     overflow: visible !important;
 }
 
-.voltear-cara{
-    position:absolute;
+.voltear-cara {
+    position: absolute;
     left: 0;
     bottom: 0;
     z-index: 2;
     cursor: pointer;
+    padding: 2px;
+    background: #000000d1;
 }
 
 .voltear-cara md-icon {
     color: silver;
+}
+
+/* CREAR PAPELERIA */
+
+.pop-papeleria-crear {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    height: 0%;
+    background-color: white;
+    overflow: hidden;
+    width: 100vw;
+    transition: height 0.5s;
+    &.active {
+        height: 100vh;
+    }
+    .crear-directiva {
+        height: calc(100vh - 40px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding: 1% 15px 1% 0%;
+        background-color: #ECEFF0;
+        >div {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: auto;
+            justify-content: space-around;
+            align-items: center;
+        }
+    }
+}
+
+.modelo-papeleria-crear {
+    position: relative;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    >span {
+        display: block;
+    }
+}
+
+.modelo-papeleria-crear,
+.pieza {
+    width: calc((100% / 4) - 40px);
+}
+
+.modelo-papeleria-crear.tarjeta,
+.pieza.tarjeta,
+.modelo-papeleria-crear.sobre-sin-ventana,
+.pieza.sobre-sin-ventana {
+    width: calc((100% / 3) - 40px);
+}
+
+.modelo-papeleria-crear.etiqueta-para-precios,
+.pieza.etiqueta-para-precios,
+.modelo-papeleria-crear.etiqueta-para-productos,
+.pieza.etiqueta-para-productos {
+    height: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    padding: 0% 4%;
+    > span {
+        display: block;
+        width: 80%;
+    }
+}
+
+.modelo-papeleria-crear.etiqueta-para-precios, .pieza.etiqueta-para-precios {
+    padding: 0% 4%;
+    height: 330px;
 }

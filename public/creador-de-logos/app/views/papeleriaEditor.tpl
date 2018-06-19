@@ -70,8 +70,8 @@
     }
 
     bazam-papeleria.etiqueta-para-productos, bazam-papeleria.etiqueta-para-precios {
-    width: 9cm;
-    height: 55%;
+        width: 6cm;
+    height: 56%;
     }
 
     bazam-papeleria.tarjeta, bazam-papeleria.sobre-sin-ventana {
@@ -123,9 +123,9 @@
     }
 
 
-    bazam-papeleria>svg {
+/*     bazam-papeleria>svg {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    }
+    } */
 
     bazam-papeleria>svg * {
         overflow: visible !important;

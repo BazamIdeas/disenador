@@ -350,6 +350,30 @@ exports.descargarPapeleria = function (req, res, next) {
                         "type": "pdf",
                         "renderDelay": 3000,
                         "border": "0"
+                    },
+                    "sobre-sin-ventana": {
+                        "height": "229mm",
+                        "width": "324mm",
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
+                    },
+                    "etiqueta-para-productos": {
+                        "height": "52mm",
+                        "width": "38mm",
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
+                    },
+                    "etiqueta-para-precios": {
+                        "height": "35mm",
+                        "width": "38mm",
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
                     }
                 };
                 var configuracion = tamanosPapeleria[papeleria.tipo];
