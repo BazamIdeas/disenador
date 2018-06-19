@@ -28,7 +28,7 @@
                     font-size: 30px;
                     font-weight: bold;
                     cursor: pointer;">S <br> <small>(sociales)</small> </div>
-                    <div class="col s12 p-none" ui-sref="papeleria({id: descargar.logo.id})" style="height: calc(25vh - 15px);    height: calc(25vh - 15px);
+                    <div class="col s12 p-none" ng-click="descargar.crearPapeleria = true" style="height: calc(25vh - 15px);    height: calc(25vh - 15px);
                     display: flex;
                     flex-flow: column;
                     justify-content: center;
@@ -342,9 +342,10 @@
                         
                         <stripe-payment-form data-pasarela="descargar.datosStripe.idStripe" data-logo="descargar.datosStripe.idLogo" data-precio="descargar.datosStripe.idPrecio"></stripe-payment-form>
                     </div>
-                    
-    
                 </div>
             </div>
         </div>
     </planes-superiores>
+
+    <bazam-crear-papeleria id-logo="descargar.logo.id" estado="descargar.crearPapeleria" boton-cerrar="true"></bazam-crear-papeleria>
+    
