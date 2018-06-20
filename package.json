@@ -12,7 +12,8 @@
     "start-dev": "npm-run-all --parallel watch:server watch:build-dev",
     "watch:build": "webpack --watch --mode production --config webpack.config.js",
     "watch:build-dev": "webpack --watch --mode development --config webpack.config.js",
-    "watch:server": "nodemon app.js --watch \"./dist\""
+    "watch:server": "nodemon app.js --watch \"./dist\"",
+    "mongo-express": "mongo-express -u disenador -p d1s3n4d0r -d disenador -H 45.32.148.99 -P 27017"
   },
   "repository": {
     "type": "git",

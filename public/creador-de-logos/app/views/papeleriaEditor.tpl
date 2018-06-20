@@ -27,7 +27,7 @@
             </span>
 
             <span class="accion" ng-click="papeleriaEditor.volver()" style="top: 25%;">
-                <p>VOLVER</p>
+                <p>PAPELERIAS</p>
                 <md-icon style="color:white;">arrow_left</md-icon>
             </span>
         </div>
