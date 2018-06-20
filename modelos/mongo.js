@@ -1,23 +1,26 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
-const tunnel = require('tunnel-ssh');
 
 const config = require("../configuracion/configuracion.js");
 
 const datos = config.mongo;
 
-const mongo = {
-    connection: callback => { 
-        MongoClient.connect(datos.url, (err, client) => {
-            if (err) throw err;
-            const db = client.db(datos.database);
-            callback(db)
-            //client.close();
-        })
-    },
-    objectId: id => {
-        return new ObjectId(id);
+function connect() {
+    return MongoClient.connect(datos.url, { poolSize: 10 })
+}
+
+exports.startConnection = async function() {
+    try {
+        let client = await connect();
+        const db = client.db(datos.database);
+        return function (cb) {
+            cb(db)
+        }
+    } catch (err) {
+        throw err
     }
 }
 
-module.exports = mongo;
+exports.objectId = id => {
+    return new ObjectId(id);
+}

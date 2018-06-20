@@ -1,12 +1,11 @@
-const Mongo = require('./mongo.js');
-const Connection = Mongo.connection;
-const objectId = Mongo.objectId;
+//const Connection = __mongoClient;
+const objectId = require('./mongo.js').objectId;
 
 let etiqueta = {}
 
 etiqueta.ObtenerTodos = callback => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
             $unwind: '$traducciones'
@@ -38,7 +37,7 @@ etiqueta.ObtenerTodos = callback =>
 
 etiqueta.ObtenerConIconos = (_id, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
             $match: { _id : objectId(_id) }
@@ -76,7 +75,7 @@ etiqueta.ObtenerConIconos = (_id, callback) =>
 
 etiqueta.ObtenerPorIcono = (id, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
             $match: {
@@ -104,7 +103,7 @@ etiqueta.Guardar = (etiquetaData, callback) =>
         etiquetaData.traducciones[key].idioma = objectId(traduccion.idioma);
     })
 
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.insertOne(etiquetaData, (err, doc) => {
             if (err) throw err;
@@ -126,7 +125,7 @@ etiqueta.Actualizar = (_id, etiquetaData, callback) =>
         etiquetaData.traducciones[key]._id = objectId(etiquetaData.traducciones[key]._id);
     })
 
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndUpdate({
             '_id': objectId(_id)
@@ -145,7 +144,7 @@ etiqueta.Actualizar = (_id, etiquetaData, callback) =>
 
 etiqueta.AsignarIconos = (_id, iconos, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndUpdate({
             '_id': objectId(_id)
@@ -166,7 +165,7 @@ etiqueta.AsignarIconos = (_id, iconos, callback) =>
 
 etiqueta.DesasignarIcono = (_id, icono, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndUpdate({
             '_id': objectId(_id)
@@ -189,7 +188,7 @@ etiqueta.DesasignarIcono = (_id, icono, callback) =>
 
 etiqueta.Borrar = (_id, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndDelete({
             '_id': objectId(_id)
@@ -206,7 +205,7 @@ etiqueta.Analizar = (tags, callback) =>
 {
     let iconos = [];
 
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
             $unwind: '$traducciones'
