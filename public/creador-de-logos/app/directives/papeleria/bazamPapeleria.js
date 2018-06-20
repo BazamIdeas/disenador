@@ -881,6 +881,17 @@ angular.module("disenador-de-logos")
 
 
 
+				bz.ramdom = 0;
+
+				angular.forEach(bz.papeleria.itemsDefault, function(item, indiceItem){
+					if(item.iconos.length > 0){
+						bz.ramdom = Math.floor((Math.random() * item.iconos.length) + 0);
+				
+						console.log(ramdom)
+					}
+
+				})
+
 				angular.forEach(bz.papeleria.modelo.caras, function (cara, index) {
 
 					var caraSvg = angular.element(cara.svg);
@@ -939,7 +950,21 @@ angular.module("disenador-de-logos")
 						caraSvg.append(logoSvg);
 
 					});
+
+				
 					angular.forEach(cara.hooks, function (hook) {
+						angular.forEach(hook.items, function(item, indiceItem){
+							angular.forEach(bz.papeleria.items, function(itemPapeleria, indiceItem) {
+								if(itemPapeleria.nombre == item.nombre && itemPapeleria.iconos.length > 0){
+									var icono = itemPapeleria.iconos[bz.ramdom];
+									item.icono = {
+										"orientacion" : "left",
+										"svg" : icono, 
+										"clases" : ["color-primario"]
+									};								
+								}
+							})
+						})
 						promesasHooks.push(agregarHook(hook, caraSvg));
 					});
 
