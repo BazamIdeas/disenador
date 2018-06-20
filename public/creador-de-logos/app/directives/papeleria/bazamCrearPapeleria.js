@@ -8,7 +8,8 @@ angular.module("disenador-de-logos")
                 idLogo: "<",
                 papelerias: "<",
                 fuentes: "<",
-                botonCerrar:"<"
+                botonCerrar:"<",
+                tiene:"<"
 			},
             controller: ["$scope", "$mdToast", "$sce", "$stateParams", "$state", "papeleriaService", "elementosService", "fontService", function ($scope, $mdToast, $sce, $stateParams, $state, papeleriaService, elementosService, fontService) {
                 var bz = this;

@@ -1681,10 +1681,11 @@ section.body.pay {
 /****** VISTA PAPELERIA ******/
 .categorias-papeleria {
   display: flex;
-  height: 50px; }
+  flex-direction: column;
+  width: 70px; }
   .categorias-papeleria .tab-papeleria {
-    flex: 1;
-    text-align: center;
+    height: 70px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1693,32 +1694,20 @@ section.body.pay {
     cursor: pointer;
     position: relative; }
     .categorias-papeleria .tab-papeleria.seleccionada {
-      color: #5980B7; }
+      color: #5980B7;
+      background: #eceff0;
+      border: 1px solid #eceff0; }
     .categorias-papeleria .tab-papeleria:hover .ejemplo-tab {
       top: 100%;
       width: 100%;
       visibility: visible;
       height: 350px; }
-    .categorias-papeleria .tab-papeleria .ejemplo-tab {
-      position: absolute;
-      visibility: hidden;
-      width: 0;
-      top: 100%;
-      background: #000000a6;
-      z-index: 4;
-      height: 0px;
-      padding: 7%;
-      display: flex;
-      transition: all 0.3s; }
-      .categorias-papeleria .tab-papeleria .ejemplo-tab svg {
-        display: block;
-        margin: auto;
-        width: 75%; }
-        .categorias-papeleria .tab-papeleria .ejemplo-tab svg.hoja {
-          width: 40%; }
+    .categorias-papeleria .tab-papeleria img {
+      width: 30px; }
 
 .contenedor-papelerias {
-  height: calc((100vh - 60px) - 50px);
+  height: calc(100vh - 60px);
+  width: 95%;
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #eceff0; }
@@ -2025,16 +2014,19 @@ svg * {
   height: 0%;
   background-color: white;
   overflow: hidden;
-  width: 100vw;
-  transition: height 0.5s; }
+  width: 100%;
+  transition: height 0.5s;
+  display: flex;
+  justify-content: space-between; }
   .pop-papeleria-crear.active {
-    height: calc(100vh - 60px); }
+    height: calc(100% - 60px); }
   .pop-papeleria-crear .crear-directiva {
-    height: calc(100vh - 100px);
+    height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 1% 15px 1% 0%;
-    background-color: #ECEFF0; }
+    background-color: #ECEFF0;
+    width: 95%; }
     .pop-papeleria-crear .crear-directiva > div {
       display: flex;
       flex-wrap: wrap;
@@ -2064,7 +2056,7 @@ svg * {
 .pieza.etiqueta-para-precios,
 .modelo-papeleria-crear.etiqueta-para-productos,
 .pieza.etiqueta-para-productos {
-  height: 360px;
+  height: 330px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2076,10 +2068,6 @@ svg * {
   .pieza.etiqueta-para-productos > span {
     display: block;
     width: 80%; }
-
-.modelo-papeleria-crear.etiqueta-para-precios, .pieza.etiqueta-para-precios {
-  padding: 0% 4%;
-  height: 330px; }
 
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------
