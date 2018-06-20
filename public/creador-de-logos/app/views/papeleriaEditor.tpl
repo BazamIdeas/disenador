@@ -2,12 +2,12 @@
     <bazam-menu-papeleria ng-class="{'oculto': papeleriaEditor.caraSeleccionada.hooks.length == 0}"></bazam-menu-papeleria>
     <div class="papeleria-editor-container">
         <div class="esquema-colores">
-                <div class="esquema-color" ng-class="{'active': papeleriaEditor.esquemaActivo == 'original'}" ng-click="papeleriaEditor.esquemaActivo = 'original'" style="background: {{papeleriaEditor.logo.atributos['color-icono']}};
+            <div class="esquema-color" ng-class="{'active': papeleriaEditor.esquemaActivo == 'original'}" ng-click="papeleriaEditor.rePintarLienzo(false)" style="background: {{papeleriaEditor.logo.atributos['color-icono']}};
                 background: -moz-linear-gradient(-45deg,  {{papeleriaEditor.logo.atributos['color-icono']}} 50%,  {{papeleriaEditor.logo.atributos['color-nombre']}} 51%);
                 background: -webkit-linear-gradient(-45deg,  {{papeleriaEditor.logo.atributos['color-icono']}} 50%, {{papeleriaEditor.logo.atributos['color-nombre']}} 51%);
                 background: linear-gradient(135deg, {{papeleriaEditor.logo.atributos['color-icono']}} 50%, {{papeleriaEditor.logo.atributos['color-nombre']}} 51%);
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' {{papeleriaEditor.logo.atributos['color-icono']}}', endColorstr=' {{papeleriaEditor.logo.atributos['color-nombre']}}',GradientType=1 );"></div>
-            <div ng-repeat="esquema in papeleriaEditor.papeleria.modelo.esquemas" class="esquema-color" ng-class="{'active': papeleriaEditor.esquemaActivo == $index}" ng-click="papeleriaEditor.esquemaActivo = $index" style="background: {{esquema.primario}};
+            <div ng-repeat="esquema in papeleriaEditor.papeleria.modelo.esquemas" class="esquema-color" ng-class="{'active': papeleriaEditor.esquemaActivo == $index}" ng-click="papeleriaEditor.rePintarLienzo($index)" style="background: {{esquema.primario}};
                 background: -moz-linear-gradient(-45deg, {{esquema.primario}} 50%, {{esquema.secundario}} 51%);
                 background: -webkit-linear-gradient(-45deg, {{esquema.primario}} 50%,{{esquema.secundario}} 51%);
                 background: linear-gradient(135deg,{{esquema.primario}} 50%,{{esquema.secundario}} 51%);
@@ -27,7 +27,7 @@
             </span>
 
             <span class="accion" ng-click="papeleriaEditor.volver()" style="top: 25%;">
-                <p>VOLVER</p>
+                <p>PAPELERIAS</p>
                 <md-icon style="color:white;">arrow_left</md-icon>
             </span>
         </div>

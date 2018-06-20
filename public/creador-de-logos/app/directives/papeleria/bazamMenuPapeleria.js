@@ -22,10 +22,21 @@ angular.module("disenador-de-logos")
                     var item = $scope.papeleriaEditor.papeleria.items[indiceElemento];
 
                     var itemAgregar = $scope.papeleriaEditor.papeleria.modelo.itemsDefaults[item.nombre];
-
+                    
                     itemAgregar.tag = item.tag;
                     itemAgregar.tipo = item.tipo;
                     itemAgregar.nombre = item.nombre;
+                    
+                    if(item.iconos.length > 0){
+                        var icono = item.iconos[$scope.papeleriaEditor.ramdom];
+                        
+                        console.log(icono)
+                        itemAgregar.icono = {
+                            "orientacion" : "left",
+                            "svg" : icono, 
+                            "clases" : ["color-primario"]
+                        };								
+                    }
 
                     /* Si el contenedor esta al limite de su capacidad de elemento detenemos la funcion */
 

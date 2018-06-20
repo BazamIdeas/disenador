@@ -36,13 +36,7 @@ angular.module("disenador-de-logos")
 
 					if (identidad.tipo == "item") {
 						
-						var itemSvg = caraSvg.find(".hook#" + identidad.data.hook + " > svg > g[data-index=" + identidad.data.item + "]");
-						
-						if(!itemSvg.length){
-							console.log("no se crea el item");
-							console.log(bz.papeleria.modelo.caras[identidad.data.cara].hooks);
-							return;
-						}
+						var itemSvg = caraSvg.find(".hook#" + identidad.data.hook + " > svg > g[data-index='" + identidad.data.item + "']");
 
 						coordenadasElemento = itemSvg[0].getBBox();
 						
@@ -79,6 +73,41 @@ angular.module("disenador-de-logos")
 
 				function pintarLienzo(lienzo) {
 					
+
+					var esquemaPieza = {primario: "", secundario: ""}
+
+					angular.forEach(bz.papeleria.modelo.esquemas, function(esquema, indiceEsquema){
+						if(esquema.activo){
+							esquemaPieza.primario = esquema.primario;
+
+							if(esquema.secundario){
+								esquemaPieza.secundario = esquema.secundario;
+							}
+						}
+					});
+
+
+					if(!esquemaPieza.primario){
+						esquemaPieza.primario = bz.logo.atributos["color-icono"];
+
+						if(bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]){
+							esquemaPieza.secundario = bz.logo.atributos["color-icono"].replace("#", "#80");
+							
+							//lienzo.find(".color-primario").css("fill").replace("rgb", "rgba").replace(")", ", 0.5)");
+
+
+						}
+					}
+
+					lienzo.find(".color-primario").css({
+						"fill": esquemaPieza.primario
+					});
+					lienzo.find(".color-secundario").css({
+						"fill": esquemaPieza.secundario
+					});
+
+
+					/*
 					lienzo.find(".color-primario").css({
 						"fill": bz.logo.atributos["color-icono"]
 					});
@@ -92,7 +121,9 @@ angular.module("disenador-de-logos")
 
 						lienzo.find(".color-secundario").css("fill", bz.logo.atributos["color-nombre"]);
 
-					}
+					}*/
+
+
 				}
 
 
@@ -154,7 +185,7 @@ angular.module("disenador-de-logos")
 
 					var defered = $q.defer();
 					var promise = defered.promise;
-
+					
 					fontService.preparar(hook.fuente.nombre, hook.fuente.url)
 						.finally(function () {
 
@@ -850,6 +881,17 @@ angular.module("disenador-de-logos")
 
 
 
+				bz.ramdom = 0;
+
+				angular.forEach(bz.papeleria.itemsDefault, function(item, indiceItem){
+					if(item.iconos.length > 0){
+						bz.ramdom = Math.floor((Math.random() * item.iconos.length) + 0);
+				
+						console.log(ramdom)
+					}
+
+				})
+
 				angular.forEach(bz.papeleria.modelo.caras, function (cara, index) {
 
 					var caraSvg = angular.element(cara.svg);
@@ -908,7 +950,21 @@ angular.module("disenador-de-logos")
 						caraSvg.append(logoSvg);
 
 					});
+
+				
 					angular.forEach(cara.hooks, function (hook) {
+						angular.forEach(hook.items, function(item, indiceItem){
+							angular.forEach(bz.papeleria.items, function(itemPapeleria, indiceItem) {
+								if(itemPapeleria.nombre == item.nombre && itemPapeleria.iconos.length > 0){
+									var icono = itemPapeleria.iconos[bz.ramdom];
+									item.icono = {
+										"orientacion" : "left",
+										"svg" : icono, 
+										"clases" : ["color-primario"]
+									};								
+								}
+							})
+						})
 						promesasHooks.push(agregarHook(hook, caraSvg));
 					});
 
@@ -956,15 +1012,16 @@ angular.module("disenador-de-logos")
 				bz.modificarHook = function (indiceCara, indiceHook, preservarAlteraciones) {
 
 					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
-
+					
 					if (!preservarAlteraciones) {
 						angular.forEach(hook.items, function (item, indice) {
 							bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indice].alteraciones = {};
 						})
 					}
+					
+					
 
-
-					var caraSvg = angular.element("bazam-papeleria svg:nth-child(" + (indiceCara + 1) + ")");
+					var caraSvg = angular.element("bazam-papeleria > svg:nth-child(" + (indiceCara + 1) + ")");
 
 					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 					hookSvg.remove();
@@ -981,7 +1038,7 @@ angular.module("disenador-de-logos")
 								}
 							}
 
-							console.log(identidadItem);
+							//console.log(identidadItem);
 							crearMirrorRect(item, identidadItem);
 						});
 					});
@@ -1033,6 +1090,31 @@ angular.module("disenador-de-logos")
 						hookSvg.removeClass("hook-seleccionado");
 					}
 
+				}
+
+
+				bz.rePintarLienzo = function(indice){
+					if(indice === false){
+						angular.forEach(bz.papeleria.modelo.esquemas, function(esquema, indiceEsquema){
+							if(esquema.activo){
+								bz.papeleria.modelo.esquemas[indiceEsquema].activo = false; 
+							}
+						});
+
+						bz.esquemaActivo = "original";
+
+					} else {
+						angular.forEach(bz.papeleria.modelo.esquemas, function(esquema, indiceEsquema){
+							if(esquema.activo){
+								bz.papeleria.modelo.esquemas[indiceEsquema].activo = false; 
+							}
+						});
+						bz.papeleria.modelo.esquemas[indice].activo = true;
+						bz.esquemaActivo = indice;
+						
+					}
+
+					pintarLienzo(element);
 				}
 
 

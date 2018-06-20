@@ -48,7 +48,7 @@
 <div ng-show="!papeleriaCtrl.papelerias" style="height: calc(100% - 60px);
 display: flex;
 justify-content: center;
-align-items: center;">
+align-items: center; width:100%;">
         <img style="width: 25%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
     </div>
 

@@ -13,11 +13,11 @@ angular.module("disenador-de-logos")
 			bz.papelerias = res;
 			angular.forEach(bz.papelerias, function(papeleria, indicePapeleria){
 				papeleria.piezas = [];
-
 				angular.forEach(papeleria.modelos, function(modelo, indiceModelo){
 					if(modelo.piezas){
 						papeleria.tienePiezas = true;
 						bz.tienePiezas = true;
+
 						angular.forEach(modelo.piezas, function(pieza){
 							pieza.indicePapeleria = indicePapeleria;
 							pieza.indiceModelo = indiceModelo;
