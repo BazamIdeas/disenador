@@ -1,9 +1,9 @@
-<div layout layout-align="space-between">
+<div class="bz-flex">
     <div class="categorias-papeleria" ng-show="papeleriaCtrl.papelerias && papeleriaCtrl.tienePiezas">
         <span class="tab-papeleria" ng-click="papeleriaCtrl.papeleriaActiva = papeleria.tipo" ng-class="{'seleccionada':papeleria.tipo == papeleriaCtrl.papeleriaActiva, 'hidden': papeleria.piezas.length == 0}"
             ng-repeat="papeleria in papeleriaCtrl.papelerias">
             <md-tooltip md-direction="right">{{papeleria.label}}</md-tooltip>
-            <img src="/assets/images/iconos-descarga/{{papeleria.tipo}}.png">
+            <img ng-src="/assets/images/iconos-descarga/{{papeleria.tipo}}.png">
         </span>
     </div>
     <div class="contenedor-papelerias" ng-show="papeleriaCtrl.tienePiezas">
