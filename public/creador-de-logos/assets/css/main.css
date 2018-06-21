@@ -1678,6 +1678,16 @@ section.body.pay {
 .aumentar-plan:hover {
   opacity: 1; }
 
+.tab-descarga {
+  height: calc(33.33vh - 20px);
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer; }
+
 /****** VISTA PAPELERIA ******/
 .categorias-papeleria {
   display: flex;
