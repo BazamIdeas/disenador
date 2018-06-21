@@ -676,7 +676,7 @@ exports.manualCliente = function (req, res, next) {
 
         if (typeof data !== "undefined" && data.length > 0) {
             var logo = data[0];
-
+            //logo.logo = "";
             atributo.ObtenerPorLogo(req.params.id, function (error, data) {
 
                 //console.log(data)
@@ -700,7 +700,7 @@ exports.manualCliente = function (req, res, next) {
                                 if (element.idElemento == logo.tieneEslogan) {
                                     logo["tipografia_s"] = {
                                         nombre: element.nombre,
-                                        url: element.url
+                                        url: element.url.replace('/fuentes', 'fuentes')
                                     };
                                 }
 
@@ -708,7 +708,7 @@ exports.manualCliente = function (req, res, next) {
 
                                     logo["tipografia_p"] = {
                                         nombre: element.nombre,
-                                        url: element.url
+                                        url: element.url.replace('/fuentes', 'fuentes')
                                     };
                                 }
 
@@ -761,51 +761,48 @@ exports.manualCliente = function (req, res, next) {
 
                             /* ********************************* */
 
-                            for (i = 0; i <= 6; i++) {
-                                template = template.replace('{#fuente_c_hexa_p#}', datos.fuente_c_hexa_p);
-                                template = template.replace('{#fuente_c_rgb_p#}', datos.fuente_c_rgb_p);
-                                template = template.replace('{#fuente_c_hexa_n#}', datos.fuente_c_hexa_n);
-                                template = template.replace('{#fuente_c_rgb_n#}', datos.fuente_c_rgb_n);
-                                template = template.replace('{#tipografia_p_url#}', datos.tipografia_p.url);
-                                template = template.replace('{#tipografia_p_nombre#}', datos.tipografia_p.nombre);
-                                template = template.replace('{#color_principal#}', datos.color_principal);
-                            }
+                            /* remplazamos los datos  */
 
-                            if (logo.tieneEslogan) {
-                                for (i = 0; i <= 6; i++) {
-                                    template = template.replace('{#tipografia_s_nombre#}', datos.tipografia_s.nombre);
-                                    template = template.replace('{#tipografia_s_url#}', datos.tipografia_s.url);
-                                    template = template.replace('{#fuente_c_hexa_e#}', datos.fuente_c_hexa_e);
-                                    template = template.replace('{#fuente_c_rgb_e#}', datos.fuente_c_rgb_e);
+                            var keys = Object.keys(datos);
+
+                            for (var key in keys) {
+                                if(keys[key] == 'tipografia_p' || keys[key] == 'tipografia_s'){
+                                    while (template.indexOf("{#" + keys[key] +  "_url#}") != -1) {
+                                        template = template.replace("{#" + keys[key] + "_url#}", datos[keys[key]].url);
+                                    }
+
+                                    while (template.indexOf("{#" + keys[key] + "_nombre#}") != -1) {
+                                        template = template.replace("{#" + keys[key] + "_nombre#}", datos[keys[key]].nombre);
+                                    }
+                                }
+                                while (template.indexOf("{#" + keys[key] + "#}") != -1) {
+                                    
+                                    template = template.replace("{#" + keys[key] + "#}", datos[keys[key]]);
                                 }
                             }
 
-                            for (i = 0; i <= 11; i++) {
-                                template = template.replace('{#logo#}', datos.logo);
-                            }
 
                             url = __dirname.replace('controllers', '')
 
-                            url = 'file:///' + url + "manual-marcas/assets";
+                            url = 'file:///' + url + "/";
+
+
+                            console.log(url)
+                            console.log(template)
+
 
                             var plataforma = os.platform();
 
+                            var configuracion = {
+                                "height": "11in",
+                                "width": "8.5in",
+                                "base": url,
+                                "type": "pdf",
+                                "renderDelay": 2000
+                            }
+
                             if (plataforma != 'win32') {
-                                var configuracion = {
-                                    "height": "14.66in",
-                                    "width": "11.305in",
-                                    "base": url,
-                                    "type": "pdf",
-                                    "renderDelay": 3000
-                                }
-                            } else {
-                                var configuracion = {
-                                    "height": "11in",
-                                    "width": "8.5in",
-                                    "base": url,
-                                    "type": "pdf",
-                                    "renderDelay": 2000
-                                }
+                                template = template.replace('${zoom}', '0.75');
                             }
 
                             var nombreManual = './public/tmp/manual-marcas-' + req.params.id + '.pdf';

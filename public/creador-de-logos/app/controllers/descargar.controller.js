@@ -15,6 +15,15 @@ angular.module("disenador-de-logos")
 			ancho: 300
 		}];
 
+		bz.documentos = [{
+			nombre: "word",
+			ancho: 400
+		},
+		{
+			nombre: "presentacion",
+			ancho: 300
+		}];
+
 		bz.formatos = [{
 			nombre: "facebook",
 			ancho: 180

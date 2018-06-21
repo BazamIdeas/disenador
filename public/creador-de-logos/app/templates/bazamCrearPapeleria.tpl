@@ -22,11 +22,10 @@
         </div>
     </div>
     <md-button ng-show="tiene" ng-click="estado = false" class="boton-crear-papeleria ">GUARDADOS</md-button>
-    <md-button ng-show="botonCerrar && papelerias" ng-click="estado = false" class="boton-crear-papeleria ">CERRAR</md-button>
     <div ng-show="!papelerias" style="height:100%;
 display: flex;
 justify-content: center;
-align-items: center;">
+align-items: center; width: 100%;">
         <img style="width: 25%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
     </div>
 </div>

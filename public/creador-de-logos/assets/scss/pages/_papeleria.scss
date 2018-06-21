@@ -406,6 +406,14 @@ svg * {
 bazam-crear-papeleria.pagina-descargar .pop-papeleria-crear {
     position: initial;
     z-index: 3;
+    .modelo-papeleria-crear{
+        margin: 10px 0;
+        width: calc((100% / 4) - 25px);
+    }
+
+    .modelo-papeleria-crear.tarjeta, .pieza.tarjeta, .modelo-papeleria-crear.sobre-sin-ventana, .pieza.sobre-sin-ventana {
+        width: calc((100% / 3) - 25px);
+    }
 }
 
 .pop-papeleria-crear {

@@ -9,7 +9,6 @@
             }
         </style>
         <div class="row">
-            
             <div class="col s1 p-none" style="border-right: 1px solid #eceff0;">
                 <div class="row">
                     <div class="col s12 p-none tab-descarga" ng-click="descargar.panelSeleccionado = 1"> 
@@ -20,7 +19,7 @@
                         <img src="assets/images/iconos-descarga/opcion-papeleria.png" width="50" alt=""> 
                         <h6 style="font-weight: bold;font-family: nunito-sans-bold;">Papeleria</h6> 
                     </div>-->
-                    <div class="col s12 p-none tab-descarga" ng-click="descargar.crearPapeleria = true" style="border-top: 1px solid #eceff0; border-bottom: 1px solid #eceff0;"> 
+                    <div class="col s12 p-none tab-descarga" ng-click="descargar.panelSeleccionado = 4;" style="border-top: 1px solid #eceff0; border-bottom: 1px solid #eceff0;"> 
                         <img src="assets/images/iconos-descarga/opcion-papeleria.png" width="50" alt=""> 
                         <h6 style="font-weight: bold;font-family: nunito-sans-bold;">Papeleria</h6> 
                     </div>
@@ -238,15 +237,37 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="descargar.panelSeleccionado == 3" class="row p-none" style="height: 100vh;">
-                    <div class="col-s12 p-none">
-                        <div class="row p-none">
-                            Documentos
+                <div ng-if="descargar.panelSeleccionado == 3" class="row p-none" class="row p-none" style="height: calc(100vh - 60px);display: flex;">
+                    <div class="categorias-papeleria">
+                            <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;"
+                            ng-click="descargar.documentosEjemplosMostrar = 'default'; descargar.manualMarca(descargar.logo.id)">
+                                <md-tooltip md-direction="right">Manual de marcas</md-tooltip>
+                                <img ng-src="assets/images/descarga/manual.svg"> 
+                            </span>
+                        <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;" ng-repeat="formato in descargar.documentos track by formato.nombre"
+                        ng-click="descargar.documentosEjemplosMostrar = formato.nombre">
+                            <md-tooltip md-direction="right">{{formato.nombre}}</md-tooltip>
+                            <img ng-src="/creador-de-logos/assets/images/descarga/{{::formato.nombre}}.svg"> 
+                        </span>
+                        
+                    </div>
+                    <div style="background-color: #ECEFF0; height: 100%; width: 100%; display: flex; flex-flow: row; justify-content: space-around; align-items: center;" ng-switch="descargar.documentosEjemplosMostrar">
+                        
+                        <div class="ejemplo-documento" ng-switch-default>
+                            <img src="assets/images/descarga/manual-ejemplo.jpg"
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div ng-show="descargar.panelSeleccionado == 4" class="row p-none" style="height: 100vh;">
+                    <div class="col-s12 p-none">
+                        <div class="row p-none">
+                            <bazam-crear-papeleria class="pagina-descargar" id-logo="descargar.logo.id" estado="true" boton-cerrar="true"></bazam-crear-papeleria>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     
     </section>
@@ -339,6 +360,4 @@
             </div>
         </div>
     </planes-superiores>
-
-    <bazam-crear-papeleria id-logo="descargar.logo.id" estado="descargar.crearPapeleria" boton-cerrar="true"></bazam-crear-papeleria>
     

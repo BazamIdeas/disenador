@@ -2020,6 +2020,11 @@ svg * {
 bazam-crear-papeleria.pagina-descargar .pop-papeleria-crear {
   position: initial;
   z-index: 3; }
+  bazam-crear-papeleria.pagina-descargar .pop-papeleria-crear .modelo-papeleria-crear {
+    margin: 10px 0;
+    width: calc((100% / 4) - 25px); }
+  bazam-crear-papeleria.pagina-descargar .pop-papeleria-crear .modelo-papeleria-crear.tarjeta, bazam-crear-papeleria.pagina-descargar .pop-papeleria-crear .pieza.tarjeta, bazam-crear-papeleria.pagina-descargar .pop-papeleria-crear .modelo-papeleria-crear.sobre-sin-ventana, bazam-crear-papeleria.pagina-descargar .pop-papeleria-crear .pieza.sobre-sin-ventana {
+    width: calc((100% / 3) - 25px); }
 
 .pop-papeleria-crear {
   position: absolute;
