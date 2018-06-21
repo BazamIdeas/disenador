@@ -1,12 +1,11 @@
-const Mongo = require('./mongo.js');
-const Connection = Mongo.connection;
-const objectId = Mongo.objectId;
+//const Connection = global.__mongoClient;
+const objectId = require('./mongo.js').objectId;
 
 let tipo = {}
 
 tipo.ObtenerTodos = callback => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('tipos');
         collection.find().toArray((err, docs) => {
             if (err) throw err;
