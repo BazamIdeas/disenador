@@ -116,6 +116,7 @@ angular.module("disenador-de-logos")
 		}];
 
 		bz.panelSeleccionado = 1;
+		bz.documentosEjemplosMostrar = 'default';
 
 		bz.panelActivo = false;
 

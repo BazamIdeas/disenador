@@ -787,8 +787,8 @@ exports.manualCliente = function (req, res, next) {
                             url = 'file:///' + url + "/";
 
 
-                            console.log(url)
-                            console.log(template)
+                            //console.log(url)
+                            //console.log(template)
 
 
                             var plataforma = os.platform();

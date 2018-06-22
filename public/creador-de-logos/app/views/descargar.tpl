@@ -240,21 +240,27 @@
                 <div ng-if="descargar.panelSeleccionado == 3" class="row p-none" class="row p-none" style="height: calc(100vh - 60px);display: flex;">
                     <div class="categorias-papeleria">
                             <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;"
-                            ng-click="descargar.documentosEjemplosMostrar = 'default'; descargar.manualMarca(descargar.logo.id)">
+                            ng-click="descargar.documentosEjemplosMostrar = 'default';" ng-class="{'seleccionada': descargar.documentosEjemplosMostrar == 'default'}">
                                 <md-tooltip md-direction="right">Manual de marcas</md-tooltip>
                                 <img ng-src="assets/images/descarga/manual.svg"> 
                             </span>
+                        <!-- ng-click="descargar.documentosEjemplosMostrar = formato.nombre"-->
                         <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;" ng-repeat="formato in descargar.documentos track by formato.nombre"
-                        ng-click="descargar.documentosEjemplosMostrar = formato.nombre">
-                            <md-tooltip md-direction="right">{{formato.nombre}}</md-tooltip>
+                         ng-class="{'seleccionada': descargar.documentosEjemplosMostrar == formato.nombre}">
+                            <md-tooltip md-direction="right">{{formato.nombre}} (Proximamente)</md-tooltip>
                             <img ng-src="/creador-de-logos/assets/images/descarga/{{::formato.nombre}}.svg"> 
                         </span>
                         
                     </div>
-                    <div style="background-color: #ECEFF0; height: 100%; width: 100%; display: flex; flex-flow: row; justify-content: space-around; align-items: center;" ng-switch="descargar.documentosEjemplosMostrar">
-                        
-                        <div class="ejemplo-documento" ng-switch-default>
-                            <img src="assets/images/descarga/manual-ejemplo.jpg"
+                    <div style="background-color: #ECEFF0; height: 100%; width: 100%; display: flex; flex-flow: row; justify-content: space-around; align-items: center;" ng-switch="descargar.documentosEjemplosMostrar"> 
+                        <div class="ejemplo-documento" ng-switch-default >
+                                <img style="    width: 80%; display: block; margin:  10px auto;" src="assets/images/descarga/ejemplo-manual.jpg"
+                            </div>
+                            <button class="boton-verde" style="    width: 80%;
+                            margin-top: 10px;
+                            margin: auto !important;
+                            display: block; " ng-click="descargar.manualMarca(descargar.logo.id)">DESCARGAR
+                            </button>
                         </div>
                     </div>
                 </div>
