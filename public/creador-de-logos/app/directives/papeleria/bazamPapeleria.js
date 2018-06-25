@@ -1475,7 +1475,7 @@ angular.module("disenador-de-logos")
 						var iconosOpciones = bz.papeleria.modelo.itemsDefaults[item.nombre].icono;
 						if(iconosOpciones.length){
 
-							var iconosContainer = angular.element("<div></div>");
+							var iconosContainer = angular.element("<div><p>Iconos</p></div>");
 							iconosContainer.addClass("icono-opcion-container")
 							angular.forEach(iconosOpciones, function(icono, indiceIcono){
 								
