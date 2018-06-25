@@ -4,7 +4,7 @@ angular.module("disenador-de-logos")
         return {
             restrict: "AE",
             scope: false,
-            controller: ["$scope", "$mdToast", "$sce", function ($scope, $mdToast, $sce) {
+            controller: ["$scope", "$mdToast", "$sce", "dragulaService", function ($scope, $mdToast, $sce, dragulaService) {
                 var bz = this;
 
                 bz.sce = $sce;
@@ -22,10 +22,21 @@ angular.module("disenador-de-logos")
                     var item = $scope.papeleriaEditor.papeleria.items[indiceElemento];
 
                     var itemAgregar = $scope.papeleriaEditor.papeleria.modelo.itemsDefaults[item.nombre];
-
+                    
                     itemAgregar.tag = item.tag;
                     itemAgregar.tipo = item.tipo;
                     itemAgregar.nombre = item.nombre;
+                    
+                    if(item.iconos.length > 0){
+                        var icono = item.iconos[$scope.papeleriaEditor.ramdom];
+                        
+                        console.log(icono)
+                        itemAgregar.icono = {
+                            "orientacion" : "left",
+                            "svg" : icono, 
+                            "clases" : ["color-primario"]
+                        };								
+                    }
 
                     /* Si el contenedor esta al limite de su capacidad de elemento detenemos la funcion */
 
@@ -35,17 +46,6 @@ angular.module("disenador-de-logos")
                             clase: "warning"
                         }
                     }));
-
-                    /* Si el contenedor ya posee un elemento igual detenemos la funcion */
-
-                    for (var i = 0; i < hook.items.length; i++) {
-                        if (hook.items[i].nombre == item.nombre) return $mdToast.show($mdToast.base({
-                            args: {
-                                mensaje: "El espacio contiene un elemento igual elija otro elemento.",
-                                clase: "warning"
-                            }
-                        }));
-                    }
 
                     /* Agregamos el elemento y actualizamos el scope */
                     $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items.push(itemAgregar);
@@ -61,28 +61,26 @@ angular.module("disenador-de-logos")
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
                 }
 
-                bz.move = function (accion, indiceCara, indiceHook, indiceElemento) {
+                dragulaService.options($scope, 'hook', {
+                    moves: function (el, source, handle, sibling) {
+                        if (handle.classList.contains('drag-indicator')) return true;
+                    },
+                    accepts: function (el, target, source, sibling) {
+                        if(target.classList[0] === source.classList[0]) return true;
+                    },
+                    direction: 'horizontal',
+                    removeOnSpill: false,
+                    copy: false
+                });
 
-                    var nuevoIndice = indiceElemento + accion;
+                $scope.$on('hook.drop', function (e, el, container) {
+                    let hook = el.scope().$parent;
+                    let indiceHook = hook.$index;
+                    let indiceCara = hook.$parent.$index;
 
-                    var elementos = $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items;
-
-                    if (nuevoIndice < 0 || nuevoIndice == elementos.length) return;
-
-                    var indexes = [indiceElemento, nuevoIndice].sort();
-
-                    elementos.splice(indexes[0], 2, elementos[indexes[1]], elementos[indexes[0]]);
+                    $scope.$apply();
                     $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
-
-                }
-
-
-                /* Funcion para cambiar la direccion de un elemento en el contenedor o del contenedor propio */
-
-                bz.cambiarDireccionElemento = function (direccion, hook, indiceCara, indiceHook) {
-                    hook.orientacion = direccion;
-                    $scope.papeleriaEditor.modificarHook(indiceCara, indiceHook);
-                }
+                });
 
                 $scope.papeleriaEditor.selectorfuentes = false;
 

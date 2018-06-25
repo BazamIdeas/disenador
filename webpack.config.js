@@ -89,7 +89,6 @@ module.exports = [{
             new UglifyJsPlugin({
                 uglifyOptions: {
                     minimize: false,
-                    beautify: false,
                     compress: false,
                     comments: false,
                     mangle: false

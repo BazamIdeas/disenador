@@ -1,12 +1,11 @@
-const Mongo = require('./mongo.js');
-const Connection = Mongo.connection;
-const objectId = Mongo.objectId;
+//const Connection = global.__MongoClient;
+const objectId = require('./mongo.js').objectId;
 
 let modelo = {}
 
 modelo.ObtenerTodos = callback => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('modelos');
         collection.aggregate([{
             $lookup: {
@@ -24,7 +23,7 @@ modelo.ObtenerTodos = callback =>
 
 modelo.ObtenerPorNombreyTipo = (nombre, tipo, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('modelos');
         collection.aggregate([{
             $match: {
@@ -51,7 +50,7 @@ modelo.ObtenerPorNombreyTipo = (nombre, tipo, callback) =>
 
 modelo.ObtenerPorTipo = (_id, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('modelos');
         collection.aggregate([{
             $match: {

@@ -32,22 +32,18 @@ angular.module("disenador-de-logos")
 
 					var mirrorRect = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "rect"));
 
-					mirrorRect.addClass("mirror-rect");
-					mirrorRect.attr("data-identidad", angular.toJson(identidad))
 					var coordenadasElemento;
 
 					if (identidad.tipo == "item") {
-
-						var itemSvg = caraSvg.find(".hook#" + identidad.data.hook + " > svg > g[data-index=" + identidad.data.item + "]");
+						
+						var itemSvg = caraSvg.find(".hook#" + identidad.data.hook + " > svg > g[data-index='" + identidad.data.item + "']");
 
 						coordenadasElemento = itemSvg[0].getBBox();
-
+						
 						var padreSvg = itemSvg.parents(".hook");
 
-						mirrorRect.attr("y", coordenadasElemento.y + parseFloat(padreSvg.attr("y")));
-						mirrorRect.attr("x", coordenadasElemento.x + parseFloat(padreSvg.attr("x")));
-
-						aplicarAlteraciones(elementoData, identidad.data.item, "mirror", mirrorRect);
+						coordenadasElemento.y = coordenadasElemento.y + parseFloat(padreSvg.attr("y"));
+						coordenadasElemento.x = coordenadasElemento.x + parseFloat(padreSvg.attr("x"));
 
 					} else if (identidad.tipo == "logo") {
 
@@ -55,12 +51,14 @@ angular.module("disenador-de-logos")
 
 						coordenadasElemento = logoSvg[0].getBBox();
 
-						mirrorRect.attr("y", coordenadasElemento.y);
-						mirrorRect.attr("x", coordenadasElemento.x);
-						aplicarAlteraciones(elementoData, identidad.data.logo, "mirror", mirrorRect);
-
 					}
 
+					aplicarAlteraciones(elementoData, identidad.data[identidad.tipo],"mirror", mirrorRect);
+
+					mirrorRect.attr("y", coordenadasElemento.y);
+					mirrorRect.attr("x", coordenadasElemento.x);
+					mirrorRect.addClass("mirror-rect");
+					mirrorRect.attr("data-identidad", angular.toJson(identidad))
 					mirrorRect.css("fill", "transparent");
 					mirrorRect.attr("height", coordenadasElemento.height);
 					mirrorRect.attr("width", coordenadasElemento.width);
@@ -74,7 +72,42 @@ angular.module("disenador-de-logos")
 				////////////////////////////
 
 				function pintarLienzo(lienzo) {
+					
 
+					var esquemaPieza = {primario: "", secundario: ""}
+
+					angular.forEach(bz.papeleria.modelo.esquemas, function(esquema, indiceEsquema){
+						if(esquema.activo){
+							esquemaPieza.primario = esquema.primario;
+
+							if(esquema.secundario){
+								esquemaPieza.secundario = esquema.secundario;
+							}
+						}
+					});
+
+
+					if(!esquemaPieza.primario){
+						esquemaPieza.primario = bz.logo.atributos["color-icono"];
+
+						if(bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]){
+							esquemaPieza.secundario = bz.logo.atributos["color-icono"] + "80";
+							
+							//lienzo.find(".color-primario").css("fill").replace("rgb", "rgba").replace(")", ", 0.5)");
+
+
+						}
+					}
+
+					lienzo.find(".color-primario").css({
+						"fill": esquemaPieza.primario
+					});
+					lienzo.find(".color-secundario").css({
+						"fill": esquemaPieza.secundario
+					});
+
+
+					/*
 					lienzo.find(".color-primario").css({
 						"fill": bz.logo.atributos["color-icono"]
 					});
@@ -88,7 +121,9 @@ angular.module("disenador-de-logos")
 
 						lienzo.find(".color-secundario").css("fill", bz.logo.atributos["color-nombre"]);
 
-					}
+					}*/
+
+
 				}
 
 
@@ -150,7 +185,7 @@ angular.module("disenador-de-logos")
 
 					var defered = $q.defer();
 					var promise = defered.promise;
-
+					
 					fontService.preparar(hook.fuente.nombre, hook.fuente.url)
 						.finally(function () {
 
@@ -208,7 +243,8 @@ angular.module("disenador-de-logos")
 					var contenedorIconoSvg;
 					var iconoSvg;
 
-					if (item.icono) {
+					if (item.icono && hook.orientacion != 'center') {
+					//if (item.icono) {
 
 						var contenedorIconoSvg = angular.element($document[0].createElementNS('http://www.w3.org/2000/svg', "foreignObject"));
 
@@ -282,14 +318,14 @@ angular.module("disenador-de-logos")
 					}
 
 					var coordenadasItem = itemSvg[0].getBBox();
-					var tamanoIcono = parseInt(hook.tamanoTexto) * 2;
+					var tamanoIcono = parseInt(hook.tamanoTexto) * 1.2;
 					var coordenadasHook = hookSvg[0].getBBox();
 					var coordenadasTexto = textSvg[0].getBBox();
 					var coordenadasContenedor;
+					var extraMargin = parseFloat(hook.tamanoTexto) * 0.25;
 
 
 					switch (hook.orientacion) {
-
 						case "right":
 
 							textSvg.attr("text-anchor", "end");
@@ -389,7 +425,6 @@ angular.module("disenador-de-logos")
 													trozoTextSvg.attr("dy", alturaLinea);
 												}
 
-
 											})
 
 										}
@@ -422,7 +457,7 @@ angular.module("disenador-de-logos")
 
 										} else { //SI NO HAY ICONO ANTERIOR
 											*/
-										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height + extraMargin;
 
 										//}
 
@@ -471,7 +506,7 @@ angular.module("disenador-de-logos")
 
 										var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
 
-										var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height + extraMargin;
 
 										textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
 										var alturaLinea = 0;
@@ -507,7 +542,7 @@ angular.module("disenador-de-logos")
 
 										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
 
-										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height + extraMargin);
 
 									}
 
@@ -602,7 +637,7 @@ angular.module("disenador-de-logos")
 
 											var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
-											textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+											textSvg.attr("y", alturaAnterior + coordenadasTexto.height + extraMargin);
 											var alturaLinea = 0;
 											textSvg.children().each(function (indiceTrozo) {
 
@@ -651,7 +686,7 @@ angular.module("disenador-de-logos")
 
 										} else { //SI NO HAY ICONO ANTEIOR */
 
-										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height + extraMargin;
 
 										//}
 
@@ -702,7 +737,7 @@ angular.module("disenador-de-logos")
 
 										var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
-										textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+										textSvg.attr("y", alturaAnterior + coordenadasTexto.height + extraMargin);
 										var alturaLinea = 0;
 										textSvg.children().each(function (indiceTrozo) {
 
@@ -734,7 +769,7 @@ angular.module("disenador-de-logos")
 
 										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
 
-										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height + extraMargin);
 
 									}
 
@@ -742,58 +777,92 @@ angular.module("disenador-de-logos")
 
 							}
 
-						/*if(iconoSvg){//si tiene icono
-										
-									contenedorIconoSvg.attr("height", tamanoIcono);
-									contenedorIconoSvg.attr("width", tamanoIcono);
-									
-									iconoSvg.attr("height", "100%")
-									iconoSvg.attr("width", "100%")
+							break;
 
-									coordenadasContenedor = contenedorIconoSvg[0].getBBox();										
-									contenedorIconoSvg.attr("x", coordenadasHook.width - coordenadasContenedor.width)
-
-									coordenadasContenedor = contenedorIconoSvg[0].getBBox();
-
-									textSvg.attr("x", (coordenadasContenedor.x * 0.95));
-									textSvg.attr("text-anchor", "end");
-
-									if(indice === 0){//si es el primer item de este contenedor
+						case "center":
 							
-										textSvg.attr("y", coordenadasItem.height);
-		
-									} else {//cualquier item despues del primero
-										
-										itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
-										
-										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
-										
-										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
-		
-									}
-									
+							textSvg.attr("text-anchor", "middle");
 
-								} else {
+							if (multilineas) { //si es multilinea
 
-									//textSvg.attr("x", "100%");
-									//textSvg.attr("text-anchor", "end");
+								textSvg.children().attr("x", "50%")
 
-									if(indice === 0){//si es el primer item de este contenedor
+								if (indice === 0) { //si es el primer item de este contenedor
+
+									coordenadasTexto = textSvg[0].getBBox();
+
+									textSvg.attr("y", coordenadasTexto.height)
+									var alturaLinea = 0;
+									textSvg.children().each(function (indiceTrozo) {
+
+										var trozoTextSvg = angular.element(this);
+
+										if (indiceTrozo === 0) { // primera linea de texto
+											trozoTextSvg.attr("dy", "0");
+											alturaLinea = trozoTextSvg[0].getBBox().height;
+										} else {
+
+											var coordenadasTrozo = trozoTextSvg[0].getBBox();
+											trozoTextSvg.attr("dy", alturaLinea);
+										}
+
+									})
+
+								} else { //cualquier item despues del primero
+
+									var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+
+									var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+
+									textSvg.attr("y", alturaAnterior + coordenadasTexto.height + extraMargin);
+									var alturaLinea = 0;
+									textSvg.children().each(function (indiceTrozo) {
+
+										var trozoTextSvg = angular.element(this);
+
+										if (indiceTrozo === 0) { // primera linea de texto
+											trozoTextSvg.attr("dy", "0");
+											alturaLinea = trozoTextSvg[0].getBBox().height;
+
+										} else {
+
+											trozoTextSvg.attr("dy", alturaLinea);
+										}
+
+
+									})
+								}
+
+
+							} else { // si no es multilinea
+
+								textSvg.attr("x", "50%");
+
+								if (indice === 0) { //si es el primer item de este contenedor
+
+									textSvg.attr("y", coordenadasItem.height);
+
+								} else { //cualquier item despues del primero
+
+									itemSvgAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
+
+									var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
+
+									textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height + extraMargin);
+
+								}
+
+							}
+
+						
 							
-										textSvg.attr("y", coordenadasItem.height);
-		
-									} else {//cualquier item despues del primero
-										
-										itemSvgAnterior = hookSvg.children().find("g:nth-child("+(indice)+")");
-										
-										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
-										
-										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
-		
-									}
-								}*/
-
-
+					
+					
+						
+						
+						
+						
+						
 					};
 				}
 
@@ -813,6 +882,17 @@ angular.module("disenador-de-logos")
 
 
 
+				bz.ramdom = 0;
+
+				angular.forEach(bz.papeleria.itemsDefault, function(item, indiceItem){
+					if(item.iconos.length > 0){
+						bz.ramdom = Math.floor((Math.random() * item.iconos.length) + 0);
+				
+						console.log(ramdom)
+					}
+
+				})
+
 				angular.forEach(bz.papeleria.modelo.caras, function (cara, index) {
 
 					var caraSvg = angular.element(cara.svg);
@@ -829,9 +909,26 @@ angular.module("disenador-de-logos")
 					var estilos = angular.element("<style></style>");
 					estilos.addClass("estilos-cara");
 
-					$http.get("/creador-de-logos/app/directives/papeleria/bazamPapeleria.css").then(function (res) {
-						estilos.text(res.data);
-					})
+					//$http.get("/creador-de-logos/app/directives/papeleria/bazamPapeleria.css").then(function (res) {
+						
+						estilos.text(`
+						.total-blanco, .total-blanco * {
+							stroke: none !important;
+							fill: white !important;
+						}
+						
+						.total-negro, .total-negro * {
+							stroke: none !important;
+							fill: black !important;
+						}
+						
+						.total-gris, .total-gris * {
+							stroke: none !important;
+							fill: #e2e2e2 !important;
+						}
+						`);
+						//console.log(estilos.text());
+					//})
 
 					caraSvg.prepend(estilos);
 
@@ -854,7 +951,21 @@ angular.module("disenador-de-logos")
 						caraSvg.append(logoSvg);
 
 					});
+
+				
 					angular.forEach(cara.hooks, function (hook) {
+						angular.forEach(hook.items, function(item, indiceItem){
+							angular.forEach(bz.papeleria.items, function(itemPapeleria, indiceItem) {
+								if(itemPapeleria.nombre == item.nombre && itemPapeleria.iconos.length > 0){
+									var icono = itemPapeleria.iconos[bz.ramdom];
+									item.icono = {
+										"orientacion" : "left",
+										"svg" : icono, 
+										"clases" : ["color-primario"]
+									};								
+								}
+							})
+						})
 						promesasHooks.push(agregarHook(hook, caraSvg));
 					});
 
@@ -902,15 +1013,16 @@ angular.module("disenador-de-logos")
 				bz.modificarHook = function (indiceCara, indiceHook, preservarAlteraciones) {
 
 					var hook = bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook];
-
+					
 					if (!preservarAlteraciones) {
 						angular.forEach(hook.items, function (item, indice) {
 							bz.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items[indice].alteraciones = {};
 						})
 					}
+					
+					
 
-
-					var caraSvg = angular.element("bazam-papeleria svg:nth-child(" + (indiceCara + 1) + ")");
+					var caraSvg = angular.element("bazam-papeleria > svg:nth-child(" + (indiceCara + 1) + ")");
 
 					var hookSvg = caraSvg.find("foreignObject#" + hook.id);
 					hookSvg.remove();
@@ -926,6 +1038,8 @@ angular.module("disenador-de-logos")
 									item: indiceItem
 								}
 							}
+
+							//console.log(identidadItem);
 							crearMirrorRect(item, identidadItem);
 						});
 					});
@@ -980,6 +1094,31 @@ angular.module("disenador-de-logos")
 				}
 
 
+				bz.rePintarLienzo = function(indice){
+					if(indice === false){
+						angular.forEach(bz.papeleria.modelo.esquemas, function(esquema, indiceEsquema){
+							if(esquema.activo){
+								bz.papeleria.modelo.esquemas[indiceEsquema].activo = false; 
+							}
+						});
+
+						bz.esquemaActivo = "original";
+
+					} else {
+						angular.forEach(bz.papeleria.modelo.esquemas, function(esquema, indiceEsquema){
+							if(esquema.activo){
+								bz.papeleria.modelo.esquemas[indiceEsquema].activo = false; 
+							}
+						});
+						bz.papeleria.modelo.esquemas[indice].activo = true;
+						bz.esquemaActivo = indice;
+						
+					}
+
+					pintarLienzo(element);
+				}
+
+
 				bz.guardar = function () {
 
 					if (bz.peticion) return;
@@ -988,7 +1127,6 @@ angular.module("disenador-de-logos")
 
 					var defered = $q.defer();
 					var promise = defered.promise;
-
 
 					bz.datos.tipo = bz.papeleria.tipo;
 					bz.datos.modelo = bz.papeleria.modelo.nombre;
@@ -1370,7 +1508,7 @@ angular.module("disenador-de-logos")
 						colorPicker.append(multiLogoContainer);
 
 
-						var growthContainer = angular.element("<div></div>");
+						var growthContainer = angular.element("<div class='text-styles text-styles-papeleria'></div>");
 
 						var minusButton = angular.element("<div data-action='minus' class='minus'>-</div>");
 						var plusButton = angular.element("<div data-action='plus' class='plus'>+</div>");
@@ -1421,7 +1559,7 @@ angular.module("disenador-de-logos")
 						posicionPicker["left"] = coordenadasMirror.right;
 						posicionPicker["top"] = coordenadasMirror.top - 150;
 						posicionPicker["width"] = "300px";
-						posicionPicker["height"] = "150px";
+						posicionPicker["height"] = "180px";
 
 					}
 

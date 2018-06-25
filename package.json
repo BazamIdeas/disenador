@@ -13,7 +13,8 @@
     "watch:build": "webpack --watch --mode production --config webpack.config.js",
     "build": "webpack --mode production --config webpack.config.js",
     "watch:build-dev": "webpack --watch --mode development --config webpack.config.js",
-    "watch:server": "nodemon app.js --watch \"./dist\""
+    "watch:server": "nodemon app.js --watch \"./dist\"",
+    "mongo-express": "mongo-express -u disenador -p d1s3n4d0r -d disenador -H 45.32.148.99 -P 27017"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "angular-sweetalert": "^1.1.2",
     "angular-ui-carousel": "^0.1.10",
     "angular-ui-router": "^0.4.2",
+    "angularjs-dragula": "^2.0.0",
     "archiver": "^2.1.1",
     "async": "^2.1.5",
     "base-64": "^0.1.0",

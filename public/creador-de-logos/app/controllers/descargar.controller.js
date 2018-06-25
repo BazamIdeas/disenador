@@ -13,12 +13,16 @@ angular.module("disenador-de-logos")
 		{
 			nombre: "papeleria",
 			ancho: 300
+		}];
+
+		bz.documentos = [{
+			nombre: "word",
+			ancho: 400
 		},
-		/*{
-			nombre: "documento",
-			ancho: 300,
-			plantilla: {tipo: 'ppt', nombre: 'eglamour'}
-		}¨*/];
+		{
+			nombre: "presentacion",
+			ancho: 300
+		}];
 
 		bz.formatos = [{
 			nombre: "facebook",
@@ -59,11 +63,60 @@ angular.module("disenador-de-logos")
 		{
 			nombre: "vimeo",
 			ancho: 300
-		},
-		];
+		}];
 
+
+		bz.todosLosFormatos = [{
+			nombre: "editable",
+			ancho: 400
+		},
+		{
+			nombre: "papeleria",
+			ancho: 300
+		},
+		{
+			nombre: "facebook",
+			ancho: 180
+		},
+		{
+			nombre: "whatsapp",
+			ancho: 300
+		},
+		{
+			nombre: "instagram",
+			ancho: 110
+		},
+		{
+			nombre: "google-plus",
+			ancho: 250
+		},
+		{
+			nombre: "youtube",
+			ancho: 200
+		},
+		{
+			nombre: "twitter",
+			ancho: 400
+		},
+		{
+			nombre: "linkedin",
+			ancho: 400
+		},
+		{
+			nombre: "pinterest",
+			ancho: 60
+		},
+		{
+			nombre: "telegram",
+			ancho: 300
+		},
+		{
+			nombre: "vimeo",
+			ancho: 300
+		}];
 
 		bz.panelSeleccionado = 1;
+		bz.documentosEjemplosMostrar = 'default';
 
 		bz.panelActivo = false;
 

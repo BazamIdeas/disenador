@@ -2,46 +2,75 @@
 
 .categorias-papeleria {
     display: flex;
-    padding: 10px 0px;
-    height: 10%;
+    flex-direction: column;
+    width: 70px;
     .tab-papeleria {
-        flex: 1;
-        text-align: center;
+        height: 70px;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         text-transform: capitalize;
-        font-size: 25pt;
+        font-size: 20px;
         cursor: pointer;
+        position: relative;
         &.seleccionada {
-            color: #5981bc;
+            color: $PRINCIPAL;
+            background: #eceff0;
+            border: 1px solid #eceff0;
+        }
+        &:hover .ejemplo-tab {
+            top: 100%;
+            width: 100%;
+            visibility: visible;
+            height: 350px;
+        }
+
+        img {
+            width: 30px;
         }
     }
 }
 
 .contenedor-papelerias {
-    height: 70%;
+    height: calc(100vh - 60px);
+    width: 95%;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding-top: 16px;
+    background-color: #eceff0;
+    >div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 }
 
-.papeleria-ejemplos>div>div:hover span.accion,
+.modelo-papeleria .conbinacion-box span.accion:hover,
 .modelo-papeleria-crear:hover span.accion {
     opacity: 1;
     background: rgba(0, 0, 0, 0.5);
 }
 
-.papeleria-ejemplos>div {
-    display: flex;
-    flex-wrap: wrap;
-    padding-right: 15px;
-}
-
-.papeleria-ejemplos>div>div {
-    position: relative;
-    margin-left: 15px;
-    margin-bottom: 15px;
+.hoja {
+    span.accion:hover,
+    span.comprar {
+        width: 70%;
+    }
+    .combinacion-box {
+        > :nth-child(2),
+        > :nth-child(1) {
+            top: 5%;
+        }
+        > :nth-child(3) {
+            top: 20%;
+        }
+        > :nth-child(4) {
+            top: 35%;
+        }
+        > :nth-child(5) {
+            top: 50%;
+        }
+    }
 }
 
 .hidden {
@@ -49,15 +78,16 @@
 }
 
 .boton-crear-papeleria {
-    margin: auto !important;
-    display: block;
-    background-color: transparent;
-    box-shadow: none;
-    color: black;
-    border: 1px solid;
-    border-radius: 5px;
-    font-size: 15pt;
-    padding: 5px 25px;
+    position: absolute !important;
+    right: 3%;
+    bottom: 2%;
+    background-color: #438e46;
+    min-width: auto;
+    color: white;
+    padding: 5px 15px;
+    &:hover {
+        background-color: #4CAF50 !important;
+    }
 }
 
 .papeleria-nueva-mensaje {
@@ -77,58 +107,18 @@ textarea {
 
 /* entire container, keeps perspective */
 
-.flip-container {
-    perspective: 1000px;
+.pieza {
     -webkit-transition: 0.3s linear all;
     transition: 0.3s linear all;
-    &.ng-enter-active {
-        left: 0px;
+    margin: 20px 0;
+    position: relative;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    .overlay {
+        z-index: 3;
+        display: block;
     }
-    .back,
-    &.hover .overlay {
-        transform: rotateY(180deg);
-    }
-    &.tarjeta {
-        width: 320px;
-        height: 210px;
-        &.ng-enter {
-            left: -335;
-        }
-    }
-    &.hover .flipper {
-        transform: rotateY(180deg);
-    }
-    .flipper {
-        transition: 0.6s;
-        transform-style: preserve-3d;
-        position: relative;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        .overlay {
-            height: 100%;
-            width: 100%;
-            z-index: 3;
-        }
-        span.accion {
-            z-index: 3;
-        }
-        .front {
-            z-index: 2;
-            transform: rotateY(0deg);
-        }
-        .front,
-        .back {
-            backface-visibility: hidden;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
-            &:hover {
-                box-shadow: 0 6px 6px -3px rgba(0, 0, 0, .2), 0 10px 14px 1px rgba(0, 0, 0, .14), 0 4px 18px 3px rgba(0, 0, 0, .12);
-            }
-        }
+    span.accion {
+        z-index: 3;
     }
 }
 
@@ -140,6 +130,7 @@ bazam-menu-papeleria {
     overflow-y: scroll;
     height: calc(100% - 60px);
     background: #f4f2f2;
+    transition: width 0.3s;
 }
 
 .caras-miniaturas {
@@ -152,6 +143,7 @@ bazam-menu-papeleria {
         cursor: pointer;
         width: 100px;
         margin-right: 20px;
+        border: 2px solid silver;
         svg {
             display: block;
             width: 100%;
@@ -197,6 +189,7 @@ bazam-menu-papeleria {
                     display: flex;
                     flex: 1;
                     justify-content: flex-end;
+                    position: relative;
                 }
                 bazam-color-picker {
                     margin-left: 10px;
@@ -206,6 +199,21 @@ bazam-menu-papeleria {
                         border-radius: 50%;
                         height: 25px;
                         width: 25px;
+                    }
+                }
+                .menuHook {
+                    position: absolute;
+                    background: white;
+                    display: flex;
+                    right: 2%;
+                    top: 10px;
+                    border: 1px solid silver;
+                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+                    transition: all 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05);
+                    visibility: hidden;
+                    &.open {
+                        top: 38px;
+                        visibility: visible;
                     }
                 }
             }
@@ -275,47 +283,9 @@ bazam-menu-papeleria {
                             color: red;
                         }
                     }
-                    span.controles-movimiento {
-                        width: 35px;
-                        margin-right: 8px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        &>span md-icon {
-                            cursor: pointer;
-                            color: black;
-                        }
-                    }
                 }
                 span.input-container-papeleria {
                     flex: 1;
-                    display: flex;
-                    align-items: center;
-                    span.icono.agregar-icono {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        color: black;
-                    }
-                    span.icono {
-                        width: 40px;
-                        .suprimirIcono {
-                            display: block;
-                            font-size: 8pt;
-                            padding-top: 8px;
-                            cursor: pointer;
-                        }
-                        &.icono-right {
-                            align-self: center;
-                            order: 1;
-                            margin-left: 10px;
-                            display: none;
-                        }
-                        &.icono-left {
-                            margin-right: 10px;
-                        }
-                    }
                     input.input-papeleria {
                         height: 30px !important;
                         &::placeholder {
@@ -341,15 +311,15 @@ bazam-menu-papeleria {
             .nombre-contenedor .icono-nombre-hook {
                 width: 35px;
                 height: 35px;
-                border-radius: 50%;
-                padding: 3px;
                 color: black;
                 margin-left: 10px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-bottom: 3px;
                 cursor: pointer;
+                &.seleccionado {
+                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+                }
             }
             .mensaje-items {
                 padding: 16px;
@@ -402,4 +372,311 @@ bazam-menu-papeleria .fonts-container {
 bazam-papeleria {
     left: 0;
     transition: left 0.5s;
+}
+
+.item.colocado.gu-mirror span.eliminar-input-x,
+.item.colocado.gu-mirror .drag-indicator {
+    display: none !important;
+}
+
+.drag-indicator {
+    cursor: move;
+}
+
+svg * {
+    overflow: visible !important;
+}
+
+.voltear-cara {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    cursor: pointer;
+    padding: 2px;
+    background: #000000d1;
+}
+
+.voltear-cara md-icon {
+    color: silver;
+}
+
+/* CREAR PAPELERIA */
+
+bazam-crear-papeleria.pagina-descargar .pop-papeleria-crear {
+    position: initial;
+    z-index: 3;
+    .modelo-papeleria-crear{
+        margin: 10px 0;
+        width: calc((100% / 4) - 25px);
+    }
+
+    .modelo-papeleria-crear.tarjeta, .pieza.tarjeta, .modelo-papeleria-crear.sobre-sin-ventana, .pieza.sobre-sin-ventana {
+        width: calc((100% / 3) - 25px);
+    }
+}
+
+.pop-papeleria-crear {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    height: 0%;
+    background-color: white;
+    overflow: hidden;
+    width: 100%;
+    transition: height 0.5s;
+    display: flex;
+    justify-content: space-between;
+    &.active {
+        height: calc(100% - 60px);
+    }
+    .crear-directiva {
+        height:100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding: 1% 15px 1% 0%;
+        background-color: #ECEFF0;
+        width: 95%;
+        >div {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: auto;
+            justify-content: space-around;
+            align-items: center;
+        }
+    }
+}
+
+.modelo-papeleria-crear {
+    position: relative;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    >span {
+        display: block;
+    }
+}
+
+.modelo-papeleria-crear,
+.pieza {
+    width: calc((100% / 4) - 40px);
+}
+
+.modelo-papeleria-crear.tarjeta,
+.pieza.tarjeta,
+.modelo-papeleria-crear.sobre-sin-ventana,
+.pieza.sobre-sin-ventana {
+    width: calc((100% / 3) - 40px);
+}
+
+.modelo-papeleria-crear.etiqueta-para-precios,
+.pieza.etiqueta-para-precios,
+.modelo-papeleria-crear.etiqueta-para-productos,
+.pieza.etiqueta-para-productos {
+    height: 330px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    padding: 0% 4%;
+    > span {
+        display: block;
+        width: 80%;
+    }
+}
+
+.bz-flex{
+    display: flex;
+}
+
+/* PAPELERIA EDITOR */
+
+.papeleria-editor-container {
+    background: #f4f2f2;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: calc(100% - 60px);
+    transition: width 0.3s;
+}
+
+
+bazam-menu-papeleria.oculto {
+    width: 0;
+}
+
+bazam-menu-papeleria.oculto+.papeleria-editor-container {
+    width: 100%;
+}
+
+bazam-papeleria {
+    position: relative;
+    left: 0;
+    transition: left 0.5s;
+
+    >svg *{
+        overflow: visible !important;
+    }
+    >svg {
+        position: absolute;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+
+    &.open {
+        left: 11%;
+    }
+    
+    &.etiqueta-para-productos, &.etiqueta-para-precios {
+        width: 30%;
+        max-height: 80%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+
+    &.tarjeta, &.sobre-sin-ventana {
+        width: 17cm;
+        height: 57%;
+    }
+
+    &.hoja {
+        width: 60%;
+        max-height: 70%;
+        margin-top: 2%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+    
+
+    &.etiqueta-para-productos, &.etiqueta-para-precios{
+        > svg{
+            box-shadow: unset;
+        }
+    }
+
+    &.etiqueta-para-productos, &.etiqueta-para-precios, &.hoja {
+        > svg {
+            position: initial;
+        }
+    }
+
+    .hook-seleccionado g {
+        animation-name: parpadeo;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-iteration-count: initial;
+        animation-fill-mode: both;
+        -webkit-animation-name: parpadeo;
+        -webkit-animation-duration: 1s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-fill-mode: both;
+    }    
+}
+
+.bazam-loader-papeleria {
+    background-color: white;
+    width: 100%;
+    top: 60px;
+    position: fixed;
+    z-index: 2;
+    height: calc(100% - 60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+[movimiento-bz] {
+    fill: transparent;
+    stroke: black;
+    stroke-width: 1px;
+    stroke-dasharray: 3px;
+}
+
+@keyframes picker-activo {
+    from {
+        transform: scale(0.1);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.papeleria-editor-container .element-color-picker.color-picker-activo {
+    animation-duration: 0.5s;
+    animation-name: picker-activo;
+    animation-fill-mode: forwards;
+}
+
+.multi-logo-color-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.logo-color-container {
+    background-color: #bcbcbc;
+    width: 18%;
+    display: inline-block;
+}
+
+
+.combinacion-box .accion {
+    opacity: 1;
+    z-index: 2;
+}
+
+.papeleria-editor-container span.accion:hover {
+    width: 180px !important;
+}
+
+span.accion:hover p {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.text-styles.text-styles-papeleria {
+    margin-top: 20px;
+    justify-content: space-around;
+}
+
+.text-styles.text-styles-papeleria div {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+}
+
+.element-color-picker{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.esquema-colores {
+    position: absolute;
+    left: 0%;
+    top: 1%;
+
+    .esquema-color {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        margin-left: 10px;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+        border: 2px solid silver;
+        cursor: pointer;
+        &.active {
+            border: 2px solid black;
+        }
+    }
+}
+
+bazam-papeleria>svg *:not(.rect-bz, .contenedor-logo) {
+    pointer-events: none;
+}
+
+bazam-papeleria>svg .hook>svg * {
+    pointer-events: bounding-box;
 }

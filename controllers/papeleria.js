@@ -223,13 +223,15 @@ exports.descargarPapeleria = function (req, res, next) {
                     modelo: piezaUsuario[0].modelo[0].nombre
                 }
 
+
+
                 papeleria.modelo = papeleria.modelo.replace(' ', '_');
 
                 /* Buscamos la plantilla a utilizar */
 
-                var ubicacionPlantilla = './plantillas-papeleria/' + papeleria.tipo + '/';
+                var ubicacionPlantilla = './plantillas-papeleria/plantilla.html';
 
-                var template = fs.readFileSync(ubicacionPlantilla + 'index.html', 'utf8', (err, data) => {
+                var template = fs.readFileSync(ubicacionPlantilla, 'utf8', (err, data) => {
                     if (err) throw err;
                 });
 
@@ -268,6 +270,7 @@ exports.descargarPapeleria = function (req, res, next) {
                 }
 
                 var caras = papeleria.pieza.caras;
+                var paginas = "";
 
                 for (let i = 0; i < caras.length; i++) {
                     /* Si queremos saber el nombre de la cara */
@@ -314,45 +317,72 @@ exports.descargarPapeleria = function (req, res, next) {
                     var keys = Object.keys(datos);
                     for (var key in keys) {
                         if (keys[key] == 'svg') {
-                            while (template.indexOf("${" + keys[key] + '-' + datos[keys[1]] + "}") != -1) {
-                                template = template.replace("${" + keys[key] + '-' + datos[keys[1]] + "}", datos[keys[key]]);
-                            }
-                        }
-
-                        while (template.indexOf("${" + keys[key] + "}") != -1) {
-                            template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
+                            paginas += "<div class='page'>"+datos[keys[key]]+"</div>";
                         }
                     }
                 }
 
-                //console.log(template)
+                template = template.replace("${paginas}", paginas);
+
+                while (template.indexOf("url('/fuentes/") != -1) {
+                    template = template.replace("url('/fuentes/", "url('");
+                }
 
                 /* ********************************* */
 
-                url = __dirname.replace('controllers', '')
-
-                url = 'file:///' + url + ubicacionPlantilla + '../../fuentes/';
+                url = 'file:///' + __dirname.replace('controllers', '')  + 'fuentes/';
 
                 var plataforma = os.platform();
 
                 var tamanosPapeleria = {
                     "tarjeta": {
-                        windows: {
                             "height": "55mm",
                             "width": "85mm",
                             "base": url,
                             "type": "pdf",
                             "renderDelay": 3000,
                             "border": "0"
-                        }
+                    },
+                    "hoja": {
+                        "height": "297mm",
+                        "width": "216mm",
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
+                    },
+                    "sobre-sin-ventana": {
+                        "height": "229mm",
+                        "width": "324mm",
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
+                    },
+                    "etiqueta-para-productos": {
+                        "height": "52mm",
+                        "width": "38mm",
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
+                    },
+                    "etiqueta-para-precios": {
+                        "height": "35mm",
+                        "width": "38mm",
+                        "base": url,
+                        "type": "pdf",
+                        "renderDelay": 3000,
+                        "border": "0"
                     }
                 };
+                var configuracion = tamanosPapeleria[papeleria.tipo];
 
                 if (plataforma != 'win32') {
                     template = template.replace('${zoom}', '0.75');
-                } else {
-                    var configuracion = tamanosPapeleria[papeleria.tipo].windows;
                 }
+
+                template = template.replace('${alto}', configuracion.height);
 
                 papeleria.modelo = papeleria.modelo.replace(/[^a-zA-Z0-9-_]/g, '');
 
@@ -395,6 +425,10 @@ exports.descargarPapeleria = function (req, res, next) {
                            
                             template = template.replace("${" + keys[key] + "}", datos[keys[key]]);
                         }
+                    }
+
+                    if (plataforma != 'win32') {
+                        template = template.replace('${zoom}', '0.75');
                     }
 
                     var nombre = './public/tmp/documentacion.pdf';

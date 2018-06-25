@@ -9,7 +9,18 @@
     <link rel="stylesheet" href="style.css">
     <style>
         html {
-            zoom:'${zoom}';
+            zoom:${zoom};
+        }
+
+        @font-face {
+            font-family: 'Abel';
+            src: url("Abel-Regular.ttf") format("truetype");
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        * {
+            font-family: 'Abel';
         }
     </style>
 </head>
@@ -46,8 +57,12 @@
             exercitationem libero. Rem ratione consequuntur suscipit nemo laboriosam, accusamus mollitia ut delectus repudiandae.
         </div>
 
-        <div id="pageFooter">
-            <a href="www.logo.pro">www.logo.pro</a>
+        <div style="border-top: 1px solid silver;
+        text-align: center;
+        margin-top: 100px;
+        padding: 16px;
+        width: 100%;">
+            <a href="www.logo.pro" style="text-align: center; font-family: 'Abel'; text-decoration: none; color: silver; font-size: 12pt;">www.logo.pro</a>
         </div>
     </div>
 </body>

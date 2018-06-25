@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/style.css">
     <style>
         html {
-            zoom:'${zoom}';
+            zoom:${zoom};
         }
 
         body,
@@ -32,7 +32,7 @@
         .cara,
         cara svg {
             display: block;
-            height:100%;
+            height:${alto};
             width:100%;
         }
 
@@ -70,14 +70,7 @@
 </head>
 
 <body>
-    <!-- 1 -->
-    <div class="page">
-            ${svg-delantera}
-    </div>
-    <!-- 2 -->
-    <div class="page">
-            ${svg-frontal}
-    </div>
+    ${paginas}
 </body>
 
 </html>

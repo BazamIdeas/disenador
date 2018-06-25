@@ -1,12 +1,11 @@
-const Mongo = require('./mongo.js');
-const Connection = Mongo.connection;
-const objectId = Mongo.objectId;
+//const Connection = global.__MongoClient;
+const objectId = require('./mongo.js').objectId;
 
 let pieza = {}
 
 pieza.ObtenerTodos = callback => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('piezas');
         collection.aggregate([{
             $lookup: {
@@ -24,7 +23,7 @@ pieza.ObtenerTodos = callback =>
 
 pieza.ObtenerPorIDyUsuario = (_id, cliente, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('piezas');
         collection.aggregate([{
             $match: {
@@ -54,7 +53,7 @@ pieza.ObtenerPorIDyUsuario = (_id, cliente, callback) =>
 
 pieza.ObtenerPorModeloyLogo = (modelo, logo, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('piezas');
         collection.aggregate([{
             $match: {
@@ -79,7 +78,7 @@ pieza.Guardar = (piezaData, callback) =>
     piezaData.modelo = objectId(piezaData.modelo);
     piezaData.tipo = objectId(piezaData.tipo);
     
-    Connection(db => {
+    __mongoClient(db => {
 
         const collection = db.collection('piezas');
 
@@ -127,7 +126,7 @@ pieza.Guardar = (piezaData, callback) =>
 
 pieza.Borrar = (_id, cliente, callback) => 
 {
-    Connection(db => {
+    __mongoClient(db => {
         const collection = db.collection('piezas');
         collection.findOneAndDelete({
             '_id': objectId(_id),
