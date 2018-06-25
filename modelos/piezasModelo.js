@@ -108,6 +108,7 @@ pieza.Guardar = (piezaData, callback) =>
                 caras: piezaData.caras,
                 nombre: piezaData.nombre,
                 modelo: piezaData.modelo,
+                esquemas: piezaData.esquemas,
                 tipo: piezaData.tipo,
                 logo: piezaData.logo,
                 cliente: piezaData.cliente

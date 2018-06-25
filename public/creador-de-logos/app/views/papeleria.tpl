@@ -14,7 +14,7 @@
                 <span class="modelo-papeleria" ng-show="piezaUsuario.caraActiva" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[1].svg)"></span>
 
                 <div class="combinacion-box">
-                    <span class="accion" style="bottom: 75%;" ng-click="  papeleriaCtrl.enviarEditor(piezaUsuario.indicePapeleria,piezaUsuario.indiceModelo,$index)">
+                    <span class="accion" style="bottom: 75%;" ng-click="  papeleriaCtrl.enviarEditor(piezaUsuario.indicePapeleria,piezaUsuario.indiceModelo, piezaUsuario)">
                         <p>EDITAR</p>
                         <img src="assets/images/edit_white.svg" alt="">
                     </span>

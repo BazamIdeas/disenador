@@ -39,13 +39,13 @@ angular.module("disenador-de-logos")
 			bz.peticion = false;
 		});
 
-		bz.enviarEditor = function (indicePapeleria, indiceModelo, indicePieza) {
+		bz.enviarEditor = function (indicePapeleria, indiceModelo, pieza) {
 			if(bz.peticion) return;
 			var papeleria = angular.copy(bz.papelerias[indicePapeleria]);
 			delete papeleria.modelos;
+
 			var modelo = angular.copy(bz.papelerias[indicePapeleria].modelos[indiceModelo]);
 			delete modelo.piezas;
-			var pieza = angular.copy(bz.papelerias[indicePapeleria].modelos[indiceModelo].piezas[indicePieza]);
 
 			bz.datos = {
 				papeleria: papeleria,
@@ -87,11 +87,12 @@ angular.module("disenador-de-logos")
 			papeleriaService.piezas.guardar(papeleria.tipo, papeleria.modelos[pieza.indiceModelo].nombre, piezaE).then(function(res){
 				res.insertId.indiceModelo = pieza.indiceModelo;
 				res.insertId.indicePapeleria = pieza.indicePapeleria;
+				console.log(res.insertId)
 				papeleria.piezas.push(res.insertId);
 				bz.peticion = false;
 			});
 		}
-
+		
 		bz.eliminarPieza = function(papeleria, index){
 			if(bz.peticion) return;
 			pieza = papeleria.piezas[index];

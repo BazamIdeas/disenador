@@ -488,8 +488,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 							papeleria = $stateParams.papeleria.papeleria;
 							papeleria.modelo = $stateParams.papeleria.modelo;
 							papeleria.fuentes = $stateParams.papeleria.fuentes; 
-							console.log($stateParams.papeleria);
-							console.log($stateParams.papeleria.pieza);
+							
 							if($stateParams.papeleria.pieza){
 
 								papeleria.modelo.esquemas = $stateParams.papeleria.pieza.esquemas;
