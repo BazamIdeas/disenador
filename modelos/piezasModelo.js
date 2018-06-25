@@ -91,6 +91,7 @@ pieza.Guardar = (piezaData, callback) =>
                 $set: {
                     caras: piezaData.caras,
                     nombre: piezaData.nombre,
+                    esquemas: piezaData.esquemas,
                     modelo: piezaData.modelo,
                     tipo: piezaData.tipo
                 }
