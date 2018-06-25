@@ -44,6 +44,13 @@
         .icono-opcion-container {
             display: flex;
             justify-content: space-around;
+            position: absolute;
+            bottom: -29%;
+            background: white;
+            width: 100%;
+            left: 0;
+            flex-wrap: wrap;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         }
         .papeleria-editor-container .icono-opcion-item {
             display: inline-block;
@@ -51,5 +58,13 @@
             width: 20px;
             margin: 5px;
         }
+
+        .icono-opcion-container > p {
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            padding: 5px 0;
+        }
+
     </style>
 </div>

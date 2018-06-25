@@ -29,8 +29,6 @@ angular.module("disenador-de-logos")
                     
                     if(item.iconos.length > 0){
                         var icono = item.iconos[$scope.papeleriaEditor.ramdom];
-                        
-                        console.log(icono)
                         itemAgregar.icono = {
                             "orientacion" : "left",
                             "svg" : icono, 
@@ -106,6 +104,8 @@ angular.module("disenador-de-logos")
                 bz.cambiarColor = function (indiceCara, indiceHook) {
 
                     $scope.papeleriaEditor.cambiarColorHook(indiceCara, indiceHook, true);
+
+                    
 
                 }
             }],

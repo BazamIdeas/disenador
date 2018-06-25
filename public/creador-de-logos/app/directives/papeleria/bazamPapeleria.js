@@ -1476,7 +1476,7 @@ angular.module("disenador-de-logos")
 
 						if(iconosOpciones && Array.isArray(iconosOpciones) && iconosOpciones.length){
 
-							var iconosContainer = angular.element("<div></div>");
+							var iconosContainer = angular.element("<div><p>Iconos</p></div>");
 							iconosContainer.addClass("icono-opcion-container")
 							angular.forEach(iconosOpciones, function(icono, indiceIcono){
 								
