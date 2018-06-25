@@ -38,4 +38,18 @@
             </div>
         </div>
     </div>
+
+    <style>
+
+        .icono-opcion-container {
+            display: flex;
+            justify-content: space-around;
+        }
+        .papeleria-editor-container .icono-opcion-item {
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            margin: 5px;
+        }
+    </style>
 </div>
