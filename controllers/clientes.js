@@ -676,7 +676,7 @@ exports.manualCliente = function (req, res, next) {
 
         if (typeof data !== "undefined" && data.length > 0) {
             var logo = data[0];
-            logo.logo = "";
+            //logo.logo = "";
             atributo.ObtenerPorLogo(req.params.id, function (error, data) {
 
                 //console.log(data)
