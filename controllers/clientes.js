@@ -724,13 +724,14 @@ exports.manualCliente = function (req, res, next) {
                             for (var attr in logo.atributos) {
                                 if (logo.atributos[attr].clave == 'color-icono') {
                                     datos.color_principal = logo.atributos[attr].valor
-                                    datos.fuente_c_hexa_p = toHexa(logo.atributos[attr].valor)
-                                    datos.fuente_c_rgb_p = logo.atributos[attr].valor
+                                    datos.fuente_c_hexa_p = toHexa(logo.atributos[attr].valor);
+
+                                    datos.fuente_c_rgb_p = hexToRGB(logo.atributos[attr].valor);
                                 }
 
                                 if (logo.atributos[attr].clave == 'color-nombre') {
-                                    datos.fuente_c_hexa_n = toHexa(logo.atributos[attr].valor)
-                                    datos.fuente_c_rgb_n = logo.atributos[attr].valor
+                                    datos.fuente_c_hexa_n = toHexa(logo.atributos[attr].valor);
+                                    datos.fuente_c_rgb_n = hexToRGB(logo.atributos[attr].valor);
                                 }
                             }
 
@@ -746,8 +747,9 @@ exports.manualCliente = function (req, res, next) {
 
                                 for (attr in logo.atributos) {
                                     if (logo.atributos[attr].clave == 'color-eslogan') {
-                                        datos.fuente_c_hexa_e = toHexa(logo.atributos[attr].valor),
-                                            datos.fuente_c_rgb_e = logo.atributos[attr].valor
+                                        datos.fuente_c_hexa_e = toHexa(logo.atributos[attr].valor);
+
+                                        datos.fuente_c_rgb_e = hexToRGB(logo.atributos[attr].valor);
                                     }
                                 }
 
@@ -849,5 +851,28 @@ exports.manualCliente = function (req, res, next) {
         var string = integer.toString(16).toUpperCase();
         return '#' + '000000'.substring(string.length) + string;
     }
+
+    const hexToRGB = hex => {
+        if(hex.startsWith('rgb')){
+            return hex;
+        }
+        let alpha = false,
+          h = hex.slice(hex.startsWith('#') ? 1 : 0);
+        if (h.length === 3) h = [...h].map(x => x + x).join('');
+        else if (h.length === 8) alpha = true;
+        h = parseInt(h, 16);
+        return (
+          'rgb' +
+          (alpha ? 'a' : '') +
+          '(' +
+          (h >>> (alpha ? 24 : 16)) +
+          ', ' +
+          ((h & (alpha ? 0x00ff0000 : 0x00ff00)) >>> (alpha ? 16 : 8)) +
+          ', ' +
+          ((h & (alpha ? 0x0000ff00 : 0x0000ff)) >>> (alpha ? 8 : 0)) +
+          (alpha ? `, ${h & 0x000000ff}` : '') +
+          ')'
+        );
+    };
 
 }
