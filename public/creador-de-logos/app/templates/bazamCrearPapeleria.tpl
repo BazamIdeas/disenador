@@ -3,7 +3,7 @@
         <span class="tab-papeleria" ng-show="papeleria.modelos.length > 0" ng-click="$parent.papeleriaActiva = papeleria.tipo" ng-repeat="papeleria in papelerias"
             ng-class="{'seleccionada': papeleriaActiva == papeleria.tipo}">
             <md-tooltip md-direction="right">{{papeleria.label}}</md-tooltip>
-            <img src="/assets/images/iconos-descarga/{{papeleria.tipo}}.png"> 
+            <img ng-src="/assets/images/iconos-descarga/{{papeleria.tipo}}.png"> 
         </span>
     </div>
     <div class="crear-directiva" ng-show="papelerias">
@@ -22,11 +22,10 @@
         </div>
     </div>
     <md-button ng-show="tiene" ng-click="estado = false" class="boton-crear-papeleria ">GUARDADOS</md-button>
-    <md-button ng-show="botonCerrar && papelerias" ng-click="estado = false" class="boton-crear-papeleria ">CERRAR</md-button>
     <div ng-show="!papelerias" style="height:100%;
 display: flex;
 justify-content: center;
-align-items: center;">
+align-items: center; width: 100%;">
         <img style="width: 25%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
     </div>
 </div>

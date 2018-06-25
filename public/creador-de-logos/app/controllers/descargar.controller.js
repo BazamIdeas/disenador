@@ -15,6 +15,15 @@ angular.module("disenador-de-logos")
 			ancho: 300
 		}];
 
+		bz.documentos = [{
+			nombre: "word",
+			ancho: 400
+		},
+		{
+			nombre: "presentacion",
+			ancho: 300
+		}];
+
 		bz.formatos = [{
 			nombre: "facebook",
 			ancho: 180
@@ -107,6 +116,7 @@ angular.module("disenador-de-logos")
 		}];
 
 		bz.panelSeleccionado = 1;
+		bz.documentosEjemplosMostrar = 'default';
 
 		bz.panelActivo = false;
 

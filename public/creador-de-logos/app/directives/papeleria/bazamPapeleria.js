@@ -91,7 +91,7 @@ angular.module("disenador-de-logos")
 						esquemaPieza.primario = bz.logo.atributos["color-icono"];
 
 						if(bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]){
-							esquemaPieza.secundario = bz.logo.atributos["color-icono"].replace("#", "#80");
+							esquemaPieza.secundario = bz.logo.atributos["color-icono"] + "80";
 							
 							//lienzo.find(".color-primario").css("fill").replace("rgb", "rgba").replace(")", ", 0.5)");
 
@@ -318,10 +318,11 @@ angular.module("disenador-de-logos")
 					}
 
 					var coordenadasItem = itemSvg[0].getBBox();
-					var tamanoIcono = parseInt(hook.tamanoTexto) * 2;
+					var tamanoIcono = parseInt(hook.tamanoTexto) * 1.2;
 					var coordenadasHook = hookSvg[0].getBBox();
 					var coordenadasTexto = textSvg[0].getBBox();
 					var coordenadasContenedor;
+					var extraMargin = parseFloat(hook.tamanoTexto) * 0.25;
 
 
 					switch (hook.orientacion) {
@@ -456,7 +457,7 @@ angular.module("disenador-de-logos")
 
 										} else { //SI NO HAY ICONO ANTERIOR
 											*/
-										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height + extraMargin;
 
 										//}
 
@@ -505,7 +506,7 @@ angular.module("disenador-de-logos")
 
 										var itemAnterior = hookSvg.children().find("g:nth-child(" + (indice) + ")");
 
-										var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height + extraMargin;
 
 										textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
 										var alturaLinea = 0;
@@ -541,7 +542,7 @@ angular.module("disenador-de-logos")
 
 										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
 
-										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height + extraMargin);
 
 									}
 
@@ -636,7 +637,7 @@ angular.module("disenador-de-logos")
 
 											var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
-											textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+											textSvg.attr("y", alturaAnterior + coordenadasTexto.height + extraMargin);
 											var alturaLinea = 0;
 											textSvg.children().each(function (indiceTrozo) {
 
@@ -685,7 +686,7 @@ angular.module("disenador-de-logos")
 
 										} else { //SI NO HAY ICONO ANTEIOR */
 
-										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
+										alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height + extraMargin;
 
 										//}
 
@@ -736,7 +737,7 @@ angular.module("disenador-de-logos")
 
 										var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
-										textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+										textSvg.attr("y", alturaAnterior + coordenadasTexto.height + extraMargin);
 										var alturaLinea = 0;
 										textSvg.children().each(function (indiceTrozo) {
 
@@ -768,7 +769,7 @@ angular.module("disenador-de-logos")
 
 										var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
 
-										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+										textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height + extraMargin);
 
 									}
 
@@ -813,7 +814,7 @@ angular.module("disenador-de-logos")
 
 									var alturaAnterior = alturaAnterior = itemAnterior[0].getBBox().y + itemAnterior[0].getBBox().height;
 
-									textSvg.attr("y", alturaAnterior + coordenadasTexto.height);
+									textSvg.attr("y", alturaAnterior + coordenadasTexto.height + extraMargin);
 									var alturaLinea = 0;
 									textSvg.children().each(function (indiceTrozo) {
 
@@ -847,7 +848,7 @@ angular.module("disenador-de-logos")
 
 									var coordenadasItemAnterior = itemSvgAnterior[0].getBBox();
 
-									textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height);
+									textSvg.attr("y", coordenadasItem.height + coordenadasItemAnterior.y + coordenadasItemAnterior.height + extraMargin);
 
 								}
 
