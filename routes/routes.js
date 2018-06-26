@@ -4,6 +4,9 @@ var controllers = require(".././controllers");
 var multipart = require("connect-multiparty");
 var multipartMiddleware = multipart();
 var middleware = require("./middleware");
+var compression = require('compression');
+
+router.use(compression());
 
 //MODULO CLIENTES
 //no espera parametros

@@ -264,11 +264,10 @@
                         </div>
                     </div>
                 </div>
-
                 <div ng-show="descargar.panelSeleccionado == 4" class="row p-none" style="height: 100vh;">
                     <div class="col-s12 p-none">
                         <div class="row p-none">
-                            <bazam-crear-papeleria class="pagina-descargar" id-logo="descargar.logo.id" estado="true" boton-cerrar="true"></bazam-crear-papeleria>
+                            <bazam-crear-papeleria plan-bajo="descargar.plan.papeleria.valor" class="pagina-descargar" id-logo="descargar.logo.id" estado="true" boton-cerrar="true"></bazam-crear-papeleria>
                         </div>
                     </div>
                 </div>
@@ -301,9 +300,9 @@
                 </div>
             -->
             <div class="col s12" style="padding: 0 40px;">
-                <div class="contenedor-planes" ng-if="descargar.mps">
+                <div class="contenedor-planes" ng-if="descargar.mps" style="    padding-top: 2%;">
                         <div class="plan" ng-repeat="plan in descargar.planes | filter: descargar.comprobarMonedas track by $index" ng-init="plan.indice = $index">
-                            <div style="    border-right: 1px solid silver;
+                            <div ng-class="{'has-one-plan': descargar.planes.lenght == 1}" style="    border-right: 1px solid silver;
                             border-left: 1px solid silver;">
                                 <div class="plan-header">
                                     <div class="plan-nombre">{{plan.plan}}</div>

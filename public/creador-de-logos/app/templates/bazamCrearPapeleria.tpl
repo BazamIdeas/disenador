@@ -13,9 +13,14 @@
                 data-index="{{modelo._id}}">
                 <span ng-bind-html="crearPapeleria.sce.trustAsHtml(modelo.svg)"></span>
                 <div class="combinacion-box">
-                    <span class="accion" style="bottom: 75%;" ng-click="crearPapeleria.enviarEditor($parent.$index, $index)">
+                    <span ng-hide="crearPapeleria.planBajo || crearPapeleria.planBajo == undefined" class="accion" style="bottom: 75%;" ng-click="crearPapeleria.enviarEditor($parent.$index, $index)">
                         <p>Usar Diseño</p>
                         <img src="assets/images/edit_white.svg" alt="">
+                    </span>
+
+                    <span ng-show="crearPapeleria.planBajo == '1' || crearPapeleria.planBajo == undefined" class="accion" style="bottom: 75%;" ng-click="crearPapeleria.activarPlanesSuperiores()">
+                        <p>Aumentar Plan</p>
+                        <img src="assets/images/payment.png" alt="">
                     </span>
                 </div>
             </div>

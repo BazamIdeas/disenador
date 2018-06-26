@@ -845,6 +845,10 @@ bazam-palette-picker svg path[data-index].color-checked {
   stroke-width: 1.5px !important;
   opacity: 1; }
 
+.has-one-plan {
+  border: 1px solid silver;
+  padding: 5% 0; }
+
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 ------HEADER SCSS--------------------------------------------------------------------------
@@ -2164,9 +2168,9 @@ bazam-papeleria {
 
 [movimiento-bz] {
   fill: transparent;
-  stroke: black;
-  stroke-width: 1px;
-  stroke-dasharray: 3px; }
+  cursor: crosshair;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing; }
 
 @keyframes picker-activo {
   from {

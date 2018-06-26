@@ -141,6 +141,7 @@ angular.module("disenador-de-logos")
 		planesService.porLogo(bz.logo.id)
 			.then(function (res) {
 				bz.plan = res.caracteristicas;
+				console.log(bz.plan)
 
 				bz.idPlan = res.idPlan;
 				

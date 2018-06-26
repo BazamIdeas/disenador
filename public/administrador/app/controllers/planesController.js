@@ -114,6 +114,11 @@ angular.module("administrador")
         bz.modificarNombreP = function (datos, v) {
             if (!v) return notificacionService.mensaje('Rellene los campos de forma correcta!');
 
+            angular.forEach(datos.caracteristicas, function(item){
+                if(item.valor == true) item.valor = '1';
+                if(item.valor == false) item.valor = '0';
+            })
+
             bz.peticion = true;
             administrarService.modificarNombrePlan(datos).then(function () {
                 bz.planes[bz.index] = datos;
@@ -173,6 +178,12 @@ angular.module("administrador")
 
                 angular.forEach(bz.planes, function (valor) {
                     if (valor.idPlan == datos) {
+                        string = JSON.stringify(valor.caracteristicas);
+                        angular.forEach(caracteristicasValue, function(item) {
+                            if(!string.includes(item.descripcion)){
+                                valor.caracteristicas.push(item);
+                            }
+                        })
                         bz.modificarNombrePlan = valor;
                     }
                 });

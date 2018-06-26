@@ -9,7 +9,8 @@ angular.module("disenador-de-logos")
                 papelerias: "<",
                 fuentes: "<",
                 botonCerrar:"<",
-                tiene:"<"
+                tiene:"<",
+                planBajo:"<"
 			},
             controller: ["$scope", "$mdToast", "$sce", "$stateParams", "$state", "papeleriaService", "elementosService", "fontService", function ($scope, $mdToast, $sce, $stateParams, $state, papeleriaService, elementosService, fontService) {
                 var bz = this;
@@ -17,6 +18,8 @@ angular.module("disenador-de-logos")
                 bz.sce = $sce;
 
                 bz.idLogo = $scope.idLogo;
+
+                bz.planBajo = $scope.planBajo;
 
                 if($scope.fuentes == undefined && $scope.papelerias == undefined){
                     papeleriaService.listarPorClienteYlogo(bz.idLogo).then(function(res){
@@ -46,6 +49,10 @@ angular.module("disenador-de-logos")
                     var datos = {papeleria: papeleria, modelo: modelo, fuentes: $scope.fuentes};
 
                     $state.go('papeleriaEditor', { id: bz.idLogo, papeleria: datos});
+                }
+
+                bz.activarPlanesSuperiores = function(){
+                    $scope.$parent.descargar.mostrarPlanesSuperiores = true;
                 }
 
             }],
