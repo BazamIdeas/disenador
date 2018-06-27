@@ -1713,6 +1713,10 @@ angular.module("administrador")
         clave: 'manual',
         valor: false,
         descripcion: 'Manual de marca.'
+    }, {
+        clave: 'papeleria',
+        valor: false,
+        descripcion: 'Papelería con increibles modelos a elegir.'
     }])
 
     .value("monedasValue", {

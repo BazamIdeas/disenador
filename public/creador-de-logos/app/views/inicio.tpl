@@ -133,7 +133,7 @@
                             <img src="assets/images/share.svg" alt="">
                         </span>
 
-                        <span ng-show="logo.cargado" class="comprar" style="bottom: 3%" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
+                        <span ng-show="logo.cargado" class="comprar" style="bottom: 3%;     right: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
                             <p>COMPRAR</p>
                             <img src="assets/images/shop.svg" alt="">
                         </span>

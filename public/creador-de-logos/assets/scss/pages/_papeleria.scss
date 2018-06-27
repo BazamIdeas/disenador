@@ -591,9 +591,9 @@ bazam-papeleria {
 
 [movimiento-bz] {
     fill: transparent;
-    stroke: black;
-    stroke-width: 1px;
-    stroke-dasharray: 3px;
+    cursor: crosshair;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
 }
 
 @keyframes picker-activo {
