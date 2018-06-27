@@ -741,7 +741,7 @@ exports.manualCliente = function (req, res, next) {
 
                             if (logo.tieneEslogan) {
 
-                                template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
+                                template = fs.readFileSync('./manual-marcas/index-eslogan.html', 'utf8', (err, data) => {
                                     if (err) throw err;
                                 });
 
@@ -756,7 +756,7 @@ exports.manualCliente = function (req, res, next) {
                                 datos.tipografia_s = logo.tipografia_s;
 
                             } else {
-                                template = fs.readFileSync('./manual-marcas/index.1.html', 'utf8', (err, data) => {
+                                template = fs.readFileSync('./manual-marcas/index.html', 'utf8', (err, data) => {
                                     if (err) throw err;
                                 });
                             }

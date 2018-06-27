@@ -120,7 +120,7 @@ angular.module("disenador-de-logos")
 
 		bz.panelActivo = false;
 
-		bz.seleccionarPanel = function(index) {
+		bz.seleccionarPanel = function (index) {
 			bz.panelSeleccionado = index;
 			if (!bz.panelActivo) {
 				bz.panelActivo = true;
@@ -135,15 +135,17 @@ angular.module("disenador-de-logos")
 		bz.planes = {};
 		bz.monedas = {};
 		bz.moneda = {};
-
+		bz.planBajo = false;
 		bz.mostrarAumento = false;
-		
+
 		planesService.porLogo(bz.logo.id)
 			.then(function (res) {
 				bz.plan = res.caracteristicas;
+			
+				if(bz.plan.papeleria) bz.planBajo = true;
 
 				bz.idPlan = res.idPlan;
-				
+
 				planesService.aumentarPlan(bz.idPlan)
 					.then(function (res) {
 
@@ -169,13 +171,13 @@ angular.module("disenador-de-logos")
 										};
 
 									}
-							
+
 								});
 
 							});
 							bz.mps = true; //mostrar Planes superiores = mps
-							
-							
+
+
 							pedidosService.listarPasarelas(bz.moneda.idMoneda).then(function (res) {
 								bz.pasarelas = res;
 							});
@@ -241,13 +243,13 @@ angular.module("disenador-de-logos")
 
 		};
 
-		
+
 
 
 
 		bz.paypal = function (idPaypal, plan) {
 
-			if(bz.peticion){
+			if (bz.peticion) {
 				return;
 			}
 
@@ -282,14 +284,14 @@ angular.module("disenador-de-logos")
 				bz.peticion = false;
 			});
 
-			
+
 
 		};
 
-		bz.mostrarStripe = function(idStripe, plan){
+		bz.mostrarStripe = function (idStripe, plan) {
 
 			var idPrecio;
-			
+
 			angular.forEach(plan.precios, function (valor) {
 				if (valor.moneda == bz.moneda.simbolo) {
 					idPrecio = valor.idPrecio;
@@ -297,7 +299,7 @@ angular.module("disenador-de-logos")
 			});
 
 			bz.datosStripe = {
-				idStripe: idStripe, 
+				idStripe: idStripe,
 				idPrecio: idPrecio,
 				idLogo: bz.logo.id
 			};
@@ -320,22 +322,22 @@ angular.module("disenador-de-logos")
 
 						//get the headers' content disposition
 						var cd = res.headers["content-disposition"];
-					
+
 						//get the file name with regex
 						var regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
 						var match = regex.exec(cd);
-					
+
 						//is there a fiel name?
 						var fileName = match[1] || "LogoPro.zip";
-					
+
 						//replace leading and trailing slashes that C# added to your file name
 						fileName = fileName.replace(/\"/g, "");
 						//determine the content type from the header or default to octect stream
 						var contentType = res.headers["content-type"];
-					
+
 						//finally, download it
-						var blob = new Blob([res.data], {type: contentType});
-				
+						var blob = new Blob([res.data], { type: contentType });
+
 						//downloading the file depends on the browser
 						//IE handles it differently than chrome/webkit
 						if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {
@@ -376,35 +378,35 @@ angular.module("disenador-de-logos")
 
 				var formatos = {};
 				var formatosCopia = angular.copy(bz.formatos);
-				
+
 				formatosCopia.push(bz.formatosNoSociales[1]);
 
-				angular.forEach(formatosCopia, function (formato){
+				angular.forEach(formatosCopia, function (formato) {
 					formatos[formato.nombre] = formato.ancho;
 				});
-				
+
 				logosService.descargarTodo(bz.logo.id, formatos)
 
 					.then(function (res) {
 
 						//get the headers' content disposition
 						var cd = res.headers["content-disposition"];
-					
+
 						//get the file name with regex
 						var regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
 						var match = regex.exec(cd);
-					
+
 						//is there a fiel name?
 						var fileName = match[1] || "LogoPro.zip";
-					
+
 						//replace leading and trailing slashes that C# added to your file name
 						fileName = fileName.replace(/\"/g, "");
 						//determine the content type from the header or default to octect stream
 						var contentType = res.headers["content-type"];
-					
+
 						//finally, download it
-						var blob = new Blob([res.data], {type: contentType});
-				
+						var blob = new Blob([res.data], { type: contentType });
+
 						//downloading the file depends on the browser
 						//IE handles it differently than chrome/webkit
 						if ($window.navigator && $window.navigator.msSaveOrOpenBlob) {

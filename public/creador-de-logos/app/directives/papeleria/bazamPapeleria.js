@@ -67,13 +67,11 @@ angular.module("disenador-de-logos")
 				}
 
 
-				////////////////////////////
-				//////COLOREAR LOS SVG//////
-				////////////////////////////
+				///////////////////////////
+				//////OBTENER COLORES//////
+				///////////////////////////
 
-				function pintarLienzo(lienzo) {
-					
-
+				function obtenerEsquema (){
 					var esquemaPieza = {primario: "", secundario: ""}
 
 					angular.forEach(bz.papeleria.modelo.esquemas, function(esquema, indiceEsquema){
@@ -92,12 +90,20 @@ angular.module("disenador-de-logos")
 
 						if(bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]){
 							esquemaPieza.secundario = bz.logo.atributos["color-icono"] + "80";
-							
-							//lienzo.find(".color-primario").css("fill").replace("rgb", "rgba").replace(")", ", 0.5)");
-
 
 						}
 					}
+
+					return esquemaPieza;
+				}
+
+				////////////////////////////
+				//////COLOREAR LOS SVG//////
+				////////////////////////////
+
+				function pintarLienzo(lienzo) {
+					
+					var esquemaPieza = obtenerEsquema();
 
 					lienzo.find(".color-primario").css({
 						"fill": esquemaPieza.primario
@@ -105,24 +111,6 @@ angular.module("disenador-de-logos")
 					lienzo.find(".color-secundario").css({
 						"fill": esquemaPieza.secundario
 					});
-
-
-					/*
-					lienzo.find(".color-primario").css({
-						"fill": bz.logo.atributos["color-icono"]
-					});
-
-					//si el icono y el texto tienen el mismo color, se agrega como color secundario ele mismo con 0.5 opacity
-					if (bz.logo.atributos["color-icono"] === bz.logo.atributos["color-nombre"]) {
-
-						lienzo.find(".color-secundario").css("fill", lienzo.find(".color-primario").css("fill").replace("rgb", "rgba").replace(")", ", 0.5)"));
-
-					} else {
-
-						lienzo.find(".color-secundario").css("fill", bz.logo.atributos["color-nombre"]);
-
-					}*/
-
 
 				}
 
@@ -884,11 +872,9 @@ angular.module("disenador-de-logos")
 
 				bz.ramdom = 0;
 
-				angular.forEach(bz.papeleria.itemsDefault, function(item, indiceItem){
-					if(item.iconos.length > 0){
-						bz.ramdom = Math.floor((Math.random() * item.iconos.length) + 0);
-				
-						console.log(ramdom)
+				angular.forEach(bz.papeleria.items, function(item, indiceItem){
+					if(item.iconos.length){
+						bz.ramdom = Math.floor (Math.random() * item.iconos.length) + 0;
 					}
 
 				})
@@ -955,7 +941,7 @@ angular.module("disenador-de-logos")
 				
 					angular.forEach(cara.hooks, function (hook) {
 						angular.forEach(hook.items, function(item, indiceItem){
-							angular.forEach(bz.papeleria.items, function(itemPapeleria, indiceItem) {
+							angular.forEach(bz.papeleria.items, function(itemPapeleria) {
 								if(itemPapeleria.nombre == item.nombre && itemPapeleria.iconos.length > 0){
 									var icono = itemPapeleria.iconos[bz.ramdom];
 									item.icono = {
@@ -963,6 +949,12 @@ angular.module("disenador-de-logos")
 										"svg" : icono, 
 										"clases" : ["color-primario"]
 									};								
+								}
+								
+								if(itemPapeleria.iconos.length){
+
+									bz.papeleria.modelo.itemsDefaults[itemPapeleria.nombre].icono = itemPapeleria.iconos;
+									
 								}
 							})
 						})
@@ -1130,10 +1122,16 @@ angular.module("disenador-de-logos")
 
 					bz.datos.tipo = bz.papeleria.tipo;
 					bz.datos.modelo = bz.papeleria.modelo.nombre;
+					// = bz.papeleria.modelo.esquemas;
+					
 					bz.datos.pieza.caras = [];
 
-					var caras = angular.copy(bz.papeleria.modelo.caras);
+					var esquemas = angular.copy(bz.papeleria.modelo.esquemas);
+					bz.datos.pieza.esquemas = esquemas;
 
+
+					var caras = angular.copy(bz.papeleria.modelo.caras);
+					
 					angular.forEach(caras, function (cara, indice) {
 
 						var svgCara = angular.element(".cara[data-index=" + indice + "]")[0].outerHTML;
@@ -1421,12 +1419,26 @@ angular.module("disenador-de-logos")
 
 					if (identidad.tipo == "item") { //si es un item perteneciente a un Hook se agrega una paleta de colores
 
-						colorPicker.find(".title").html("Color<span class='close-color-picker'><i class='material-icons cerrar'>clear</i></span></div>");
+
+						var hooks = bz.papeleria.modelo.caras[identidad.data.cara].hooks;
+						var indexHook;
+						angular.forEach(hooks, function (hook, indiceHook) {
+
+							if (hook.id == identidad.data.hook) {
+								indexHook = indiceHook;
+							}
+
+						})
+
+						colorPicker.find(".title").html("Elemento <span class='close-color-picker'><i class='material-icons cerrar'>clear</i></span></div>");
 
 						posicionPicker.left = coordenadasMirror.right;
 						posicionPicker.top = coordenadasMirror.top - 200;
-						posicionPicker.width = "200px";
-						posicionPicker.height = "200px";
+						posicionPicker.width = "240px";
+						posicionPicker.height = "240px";
+
+
+						/** COLORES **/
 
 						angular.forEach(coloresPaletaValue, function (color) {
 
@@ -1445,18 +1457,7 @@ angular.module("disenador-de-logos")
 
 							colorIndividual.click(function () {
 
-								var hooks = bz.papeleria.modelo.caras[identidad.data.cara].hooks;
-								var indexHook;
-								angular.forEach(hooks, function (hook, indiceHook) {
-
-									if (hook.id == identidad.data.hook) {
-										indexHook = indiceHook;
-										bz.papeleria.modelo.caras[identidad.data.cara].hooks[indiceHook].items[identidad.data.item].caracteristicas.fill = color;
-									}
-
-								})
-
-
+								bz.papeleria.modelo.caras[identidad.data.cara].hooks[indexHook].items[identidad.data.item].caracteristicas.fill = color;
 
 								bz.modificarHook(identidad.data.cara, indexHook, true);
 
@@ -1465,6 +1466,39 @@ angular.module("disenador-de-logos")
 							colorPicker.append(colorIndividual);
 
 						});
+
+						/** ICONOS **/
+						
+						//bz.papeleria.items
+
+						var item = hooks[indexHook].items[identidad.data.item];
+						var iconosOpciones = bz.papeleria.modelo.itemsDefaults[item.nombre].icono;
+
+						if(iconosOpciones && Array.isArray(iconosOpciones) && iconosOpciones.length){
+
+							var iconosContainer = angular.element("<div><p>Iconos</p></div>");
+							iconosContainer.addClass("icono-opcion-container")
+							angular.forEach(iconosOpciones, function(icono, indiceIcono){
+								
+								var iconoIndividual = angular.element("<div></div>");
+								iconoIndividual.addClass("icono-opcion-item");
+
+								svgIcono = angular.element(icono);	
+								svgIcono.attr("fill", obtenerEsquema().primario);
+								iconoIndividual.append(svgIcono);
+								iconoIndividual.click(function(){
+									bz.papeleria.modelo.caras[identidad.data.cara].hooks[indexHook].items[identidad.data.item].icono.svg = icono;
+									bz.modificarHook(identidad.data.cara, indexHook, true);
+								});
+								
+								iconosContainer.append(iconoIndividual);
+							})
+
+							colorPicker.append(iconosContainer);
+						}
+						
+
+
 					} else if (identidad.tipo == "logo") {
 
 						var logoSvg = element.find(".cara[data-index=" + identidad.data.cara + "] .contenedor-logo[data-index=" + identidad.data.logo + "]");

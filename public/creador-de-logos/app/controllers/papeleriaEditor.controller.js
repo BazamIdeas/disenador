@@ -29,7 +29,8 @@ angular.module("disenador-de-logos")
 				caras: [],
 				nombre: "",
 				_id: "", //id de la pieza si esta existia
-				logo: 0 //id del logo
+				logo: 0, //id del logo,
+				esquemas: []
 			}
 		};
 

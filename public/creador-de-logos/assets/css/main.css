@@ -529,7 +529,7 @@ span.accion, span.comprar {
 span.accion:hover, span.comprar {
   background: rgba(0, 0, 0, 0.4);
   color: white;
-  width: 50%; }
+  width: 180px; }
 
 span.accion img {
   width: 20px;
@@ -548,6 +548,9 @@ span.accion:hover p {
   display: block;
   opacity: 1;
   margin: 0 0 0 12px;
+  min-width: 180px;
+  position: absolute;
+  left: 0;
   width: 65%;
   -webkit-transition: opacity 1s, width 0.5s; }
 
@@ -844,6 +847,10 @@ bazam-palette-picker svg path[data-index].color-checked {
   stroke: black !important;
   stroke-width: 1.5px !important;
   opacity: 1; }
+
+.has-one-plan {
+  border: 1px solid silver;
+  padding: 5% 0; }
 
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
@@ -2164,9 +2171,9 @@ bazam-papeleria {
 
 [movimiento-bz] {
   fill: transparent;
-  stroke: black;
-  stroke-width: 1px;
-  stroke-dasharray: 3px; }
+  cursor: crosshair;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing; }
 
 @keyframes picker-activo {
   from {
