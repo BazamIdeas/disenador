@@ -529,7 +529,7 @@ span.accion, span.comprar {
 span.accion:hover, span.comprar {
   background: rgba(0, 0, 0, 0.4);
   color: white;
-  width: 50%; }
+  width: 180px; }
 
 span.accion img {
   width: 20px;
@@ -548,6 +548,9 @@ span.accion:hover p {
   display: block;
   opacity: 1;
   margin: 0 0 0 12px;
+  min-width: 180px;
+  position: absolute;
+  left: 0;
   width: 65%;
   -webkit-transition: opacity 1s, width 0.5s; }
 
