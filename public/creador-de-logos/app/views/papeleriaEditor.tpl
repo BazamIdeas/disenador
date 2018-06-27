@@ -28,7 +28,7 @@
 
             <span class="accion" ng-click="papeleriaEditor.volver()" style="top: 25%;">
                 <p>PAPELERIAS</p>
-                <md-icon style="color:white;">arrow_left</md-icon>
+                <img src="assets/images/arrow_left.png" alt="">
             </span>
         </div>
         <div class="caras-miniaturas" ng-show="papeleriaEditor.papeleria.modelo.caras.length > 1">

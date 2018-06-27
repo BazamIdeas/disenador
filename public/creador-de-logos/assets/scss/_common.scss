@@ -34,6 +34,10 @@ textarea {
     }
 }
 
+.without-placeholder input::placeholder {
+    color: transparent !important;
+}
+
 .plan-precio,
 button.md-button.md-primary.md-raised.boton-plan {
     font-family: 'nunito-sans-bolder' !important;

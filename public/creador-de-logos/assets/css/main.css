@@ -122,6 +122,9 @@ textarea {
   font-family: 'nunito-sans-bold' !important;
   font-weight: 800; }
 
+.without-placeholder input::placeholder {
+  color: transparent !important; }
+
 .plan-precio,
 button.md-button.md-primary.md-raised.boton-plan {
   font-family: 'nunito-sans-bolder' !important; }
@@ -1742,18 +1745,20 @@ section.body.pay {
 .hoja span.comprar {
   width: 70%; }
 
-.hoja .combinacion-box > :nth-child(2),
 .hoja .combinacion-box > :nth-child(1) {
   top: 5%; }
 
-.hoja .combinacion-box > :nth-child(3) {
+.hoja .combinacion-box > :nth-child(2) {
   top: 20%; }
 
-.hoja .combinacion-box > :nth-child(4) {
+.hoja .combinacion-box > :nth-child(3) {
   top: 35%; }
 
-.hoja .combinacion-box > :nth-child(5) {
+.hoja .combinacion-box > :nth-child(4) {
   top: 50%; }
+
+.hoja .combinacion-box > :nth-child(5) {
+  top: 65%; }
 
 .hidden {
   display: none !important; }
@@ -1792,7 +1797,7 @@ textarea {
     z-index: 3;
     display: block; }
   .pieza span.accion {
-    z-index: 3; }
+    z-index: 2; }
 
 /****** MENU PAPELERIA ******/
 bazam-menu-papeleria {
@@ -2239,6 +2244,20 @@ bazam-papeleria > svg *:not(.rect-bz, .contenedor-logo) {
 
 bazam-papeleria > svg .hook > svg * {
   pointer-events: bounding-box; }
+
+.cargando-papeleria {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  background: white;
+  height: calc(100% - 60px); }
+  .cargando-papeleria.--full-height {
+    height: 100%; }
 
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------

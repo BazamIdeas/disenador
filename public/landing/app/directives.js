@@ -21,12 +21,36 @@ angular.module("landing")
 			}
 		};
 
+	}).directive("bazamActualizar", function () {
+
+		return {
+			restrict: "AE",
+			scope: {
+
+				svg: "<svg"
+
+			},
+			link: function (scope, element) {
+
+				element.html(scope.svg);
+				element.html(element.html());
+
+				scope.$watch("svg", function () {
+					element.html(scope.svg);
+					element.html(element.html());
+				});
+
+
+
+			}
+		};
+
 	})
 	.directive("bazamFormLogin", [function () {
 
 		return {
 			restrict: "E",
-			templateUrl: "landing/app/templates/bazamFormLogin.tpl", 
+			templateUrl: "landing/app/templates/bazamFormLogin.tpl",
 			scope: {
 				callback: "<",
 				mostrar: "=",
@@ -193,7 +217,7 @@ angular.module("landing")
 						case 'fb':
 
 							socialAuth.facebook().then(function (res) {
-								
+
 								if (clientesService.autorizado(true)) {
 
 									$mdToast.show($mdToast.base({

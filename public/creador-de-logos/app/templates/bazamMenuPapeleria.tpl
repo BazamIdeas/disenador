@@ -79,7 +79,7 @@
                         <div class="mensaje-items" ng-show="hook.items.length == 0">
                             Suelta Elementos
                         </div>
-                        <span class="espacios-disponibles"> Limite de elementos : {{hook.limite}} </span>
+                        <!-- <span class="espacios-disponibles"> Limite de elementos : {{hook.limite}} </span> -->
                     </div>
                 </div>
             </div>
