@@ -71,10 +71,6 @@ angular.module("disenador-de-logos")
 			ancho: 400
 		},
 		{
-			nombre: "papeleria",
-			ancho: 300
-		},
-		{
 			nombre: "facebook",
 			ancho: 180
 		},

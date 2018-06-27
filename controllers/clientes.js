@@ -491,8 +491,6 @@ exports.Avatar = function (req, res, next) {
 
 exports.cambiarContrasena = function (req, res, next) {
 
-
-
     var datos = [
         passwordHash.generate(req.body.pass),
         req.idCliente
@@ -640,7 +638,7 @@ exports.nuevoClienteRed = async function (req, res)
                         }
 
                         let email = new Email(emailOptions,{pass: pass});
-                        email.setHtml("clienteRegistradoPorRedes.html")
+                        email.setHtml("registro-por-redes")
                             .send((err,res) => {
                                 //if(err) console.log(err);
                                 //console.log(res);

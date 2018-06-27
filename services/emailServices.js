@@ -19,21 +19,18 @@ class emailService {
     }
 
     setHtml(template) {
-        this.template = fs.readFileSync('./email-templates/'+template ,'utf8', (err) => {
-            if (err) throw err;
-        });
+
+        this.template = fs.readFileSync('./email-templates/header.html' ,'utf8');
+        this.template += fs.readFileSync('./email-templates/'+template+'/content.html' ,'utf8');
+        this.template += fs.readFileSync('./email-templates/footer.html' ,'utf8');
+
+        this.data.css = fs.readFileSync('./email-templates/'+template+'/styles.css' ,'utf8');
 
         this.data.baseurl = "http://test.logo.pro";
 
         this.message.html = this.template;
 
-        var keys = Object.keys(this.data);
-
-        for(var key in keys){
-            while(this.message.html.indexOf("${"+keys[key]+"}") != -1){
-                this.message.html = this.message.html.replace("${"+keys[key]+"}", this.data[keys[key]]);
-            }
-        }
+        this.replaceInTemplate()
 
         return this;
     } 
@@ -49,45 +46,17 @@ class emailService {
             return cb(null, info);
         });
     }
+
+    replaceInTemplate() {
+
+        var keys = Object.keys(this.data);
+
+        for(var key in keys){
+            while(this.message.html.indexOf("${"+keys[key]+"}") != -1){
+                this.message.html = this.message.html.replace("${"+keys[key]+"}", this.data[keys[key]]);
+            }
+        }
+    }
 }
 
 module.exports = emailService;
-
-/*exports.enviar = function(template, datos = {}, subject = "Hola desde liderlogo ", to = "jtorresdevelop@gmail.com", from = "'Liderlogo' <contacto@liderlogo.com>"){ 
-
-    // metodo para configurar SMTP
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'danieljtorres94@gmail.com',
-            pass: 'csxhngwmzjowufxs'
-        }               
-    });
-
-    var template = fs.readFileSync('./emailtemplates/'+template ,'utf8', (err, data) => {
-	  	if (err) throw err;
-	});
-
-    // var dummy = {uno : "Hola", dos: "Hola de nuevo"};
-
-    for(var key in datos){
-        template = template.replace('{#'+key+'#}', datos[key]);
-    }
-
-    // res.status(200).send(template);
-
-    // Configuracion de los datos del correo
-    var mailOptions = {
-        from: from, // remitente
-        to: to, // receptor o receptores
-        subject: subject, // Asunto del correo
-        // text: 'Hello world ?', // correo en texto plano
-        html: template // html body 
-       
-        // si se borra el atributo text se enviara tolo el html y viceversa
-        // si se colocan los 2 html es prioridad en el mensaje
-    };
-
-    // envio del correo
-    return transporter.sendMail(mailOptions);
-}*/

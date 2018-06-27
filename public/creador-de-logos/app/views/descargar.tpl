@@ -33,7 +33,7 @@
                 <div ng-if="descargar.panelSeleccionado == 1" class="row p-none" style="height: calc(100vh - 60px);display: flex;">
                 
                     <div class="categorias-papeleria">
-                        <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;" ng-repeat="formato in descargar.todosLosFormatos track by formato.nombre"
+                        <span class="tab-papeleria" style="height: calc(8.33333333333vh - 5px) !important;" ng-repeat="formato in descargar.todosLosFormatos track by formato.nombre"
                         ng-click="descargar.seleccionar(formato)" ng-class="{'seleccionada': descargar.formatoSeleccionado.nombre == formato.nombre }">
                             <md-tooltip md-direction="right">{{formato.nombre}}</md-tooltip>
                             <img src="/creador-de-logos/assets/images/descarga/{{::formato.nombre}}_normal.png"> 
