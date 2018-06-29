@@ -57,18 +57,21 @@
         width: 70%;
     }
     .combinacion-box {
-        > :nth-child(2),
+        
         > :nth-child(1) {
             top: 5%;
         }
-        > :nth-child(3) {
+        > :nth-child(2){
             top: 20%;
         }
-        > :nth-child(4) {
+        > :nth-child(3) {
             top: 35%;
         }
-        > :nth-child(5) {
+        > :nth-child(4) {
             top: 50%;
+        }
+        > :nth-child(5) {
+            top: 65%;
         }
     }
 }
@@ -118,7 +121,7 @@ textarea {
         display: block;
     }
     span.accion {
-        z-index: 3;
+        z-index: 2;
     }
 }
 
@@ -679,4 +682,20 @@ bazam-papeleria>svg *:not(.rect-bz, .contenedor-logo) {
 
 bazam-papeleria>svg .hook>svg * {
     pointer-events: bounding-box;
+}
+
+.cargando-papeleria{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    background: white;
+    height: calc(100% - 60px);
+    &.--full-height{
+        height:100%;
+    }
 }

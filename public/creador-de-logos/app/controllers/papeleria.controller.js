@@ -169,8 +169,6 @@ angular.module("disenador-de-logos")
 				})
 			})
 
-
-
 			if (!bz.tienePiezas) {
 				bz.crearPapeleria = true;
 			}

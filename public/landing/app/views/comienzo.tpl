@@ -23,7 +23,7 @@
                     <div flex layout>
                         <md-input-container class="md-block" flex style="    margin-right: 20px;">
                             <label>Nombre de su logo</label>
-                            <input style="margin-bottom: 0;" type="text" md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required>
+                            <input style="margin-bottom: 0;" type="text" md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required placeholder="Mi logo">
                             <!-- VALIDACION -->
                             <div ng-messages="form.nombre.$error " style="color: #E91E63 !important;  " role="alert " ng-show="form.nombre.$touched
                                             && form.nombre.$invalid || form.$submitted && form.nombre.$invalid">
@@ -34,7 +34,7 @@
                             <label>Actividad</label>
                             <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro
                                                                                         " name="cat">
-                                <md-option ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
+                                <md-option ng-selected="$first" ng-value="categoria.idCategoria" ng-repeat="categoria in ctrl.categoriasPosibles.iconos">{{categoria.nombreCategoria}}</md-option>
                             </md-select>
                             <!-- VALIDACION
                                         <div ng-messages="form.cat.$error " style="color: #E91E63 !important; " role="alert ">
@@ -46,13 +46,13 @@
                     </div>
                     <!-- ETIQUETAS -->
                     <div flex>
-                        <md-input-container class="md-block etiquetas" style="    margin-top: 30px;">
+                        <md-input-container class="md-block etiquetas" style="    margin-top: 30px;width: 100%;">
                             <label style="transform: none;     text-align: center; font-size: 20pt;
                             ">¿Que buscas?</label>
-                            <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                            <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" ng-class="{'without-placeholder':ctrl.datosCombinaciones.etiquetasSeleccionadas.length > 0}" md-separator-keys="[32,186,9,36,188,13,27]"
                                 md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
                                 <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
-                                    md-item-text="item.traduccion.valor" placeholder="Ejemplo: Perro">
+                                    md-item-text="item.traduccion.valor" placeholder="Ejemplo: Café">
                                     <span md-highlight-text="ctrl.searchText">{{item.traduccion.valor}}</span>
                                 </md-autocomplete>
                                 <md-chip-template>
@@ -162,25 +162,25 @@
                                     background-repeat: no-repeat;
                                         ">
                     <div style="    left: 43%;
-                                        padding-top: 21%;">
-                        <bazam-actualizar data-svg="logos.elegido"></bazam-actualizar>
+                                        padding-top: 28%;">
+                        <bazam-actualizar data-svg="ctrl.estaticos.logoSVG"></bazam-actualizar>
                     </div>
                 </div>
                 <div style="display: flex; flex-direction: column;padding-left: 5px;">
 
                     <div class="preview" style="padding-bottom:5px;    width: 100%;">
                         <div style="    transform: rotate(46deg);
-                                            padding-top: 15%;
-                                            left: 21%;">
-                            <bazam-actualizar data-svg="logos.elegido"></bazam-actualizar>
+                                            padding-top: 26%;
+                                            left: 24%;">
+                            <bazam-actualizar data-svg="ctrl.estaticos.logoSVG"></bazam-actualizar>
                         </div>
                         <img src="/landing/assets/img/mockup/card.png" width="100%" style=" height: calc(50vh - 5px); ">
                     </div>
                     <div class="preview" style="width: 100%;">
                         <div style="    transform: rotate(55deg);
-                                            padding-top: 14%;
-                                            left: 58%;">
-                            <bazam-actualizar data-svg="logos.elegido"></bazam-actualizar>
+                                            padding-top: 30%;
+                                            left: 63%;">
+                            <bazam-actualizar data-svg="ctrl.estaticos.logoSVG"></bazam-actualizar>
                         </div>
                         <img src="/landing/assets/img/mockup/leica.jpg" width="100%" style=" height:50vh; ">
                     </div>
@@ -254,12 +254,12 @@
         </div>
         <div class="preguntas-contenedor">
             <div class="preguntas">
-                <div ng-repeat="item in ctrl.estaticos.preguntas" ng-click="ctrl.preAct = $index">
+                <div ng-repeat="item in ctrl.estaticos.preguntas" ng-click="ctrl.preAct = $index" ng-class="{'activo': ctrl.preAct == $index}">
                     <h6>{{item.pregunta}}</h6>
                 </div>
             </div>
             <div class="respuestas">
-                <div ng-repeat="resp in ctrl.estaticos.preguntas" ng-class="{'activo': ctrl.preAct == $index}"> {{resp.respuesta}}</div>
+                <div ng-repeat="resp in ctrl.estaticos.preguntas" ng-class="{'activo': ctrl.preAct == $index}" ng-bind-html="ctrl.sce.trustAsHtml(resp.respuesta)"></div>
             </div>
         </div>
     </div>

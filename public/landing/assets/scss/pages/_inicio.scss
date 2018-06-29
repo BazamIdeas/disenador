@@ -7,6 +7,10 @@
     margin: auto;
 }
 
+.without-placeholder input::placeholder {
+    color: transparent !important;
+}
+
 .bazam-palette-picker {
     width: 80%;
     margin: auto;
@@ -210,7 +214,6 @@ md-radio-button[aria-checked="true"] .estilo-4 {
         text-align: center;
     }
     form label,
-    form md-select,
     .label-form {
         font-size: 16pt;
     }
@@ -601,6 +604,7 @@ button.md-button.md-primary.md-raised {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    padding: 2% 0;
     .preguntas,
     .respuestas {
         width: 50%;
@@ -608,10 +612,9 @@ button.md-button.md-primary.md-raised {
     .preguntas {
         >div {
             padding: 12px;
-            border-bottom: 1px solid silver;
             padding-left: 12%;
             cursor: pointer;
-            &:hover {
+            &:hover, &.activo {
                 background: #c0c0c075;
                 cursor: pointer;
             }
@@ -640,7 +643,7 @@ button.md-button.md-primary.md-raised {
                 display: block;
                 width: 80%;
                 font-size: 15pt;
-                text-align: center;
+                text-align: justify;
             }
         }
     }
@@ -862,7 +865,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         display: block;
         width: 83%;
         font-size: 20pt;
-        text-align: center;
+        text-align: justify;
     }
     .preguntas>div {
         padding-left: 7%;
