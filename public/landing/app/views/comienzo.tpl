@@ -52,7 +52,7 @@
                             <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" ng-class="{'without-placeholder':ctrl.datosCombinaciones.etiquetasSeleccionadas.length > 0}" md-separator-keys="[32,186,9,36,188,13,27]"
                                 md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
                                 <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
-                                    md-item-text="item.traduccion.valor" placeholder="Ejemplo: Cafe">
+                                    md-item-text="item.traduccion.valor" placeholder="Ejemplo: Café">
                                     <span md-highlight-text="ctrl.searchText">{{item.traduccion.valor}}</span>
                                 </md-autocomplete>
                                 <md-chip-template>

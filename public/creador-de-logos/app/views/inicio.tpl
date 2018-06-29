@@ -14,7 +14,7 @@
                     <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                         md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)"  ng-class="{'without-placeholder':inicio.datos.etiquetasSeleccionadas.length > 0}">
                         <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
-                            md-item-text="item.traduccion.valor" placeholder="Ejemplo: Cafe">
+                            md-item-text="item.traduccion.valor" placeholder="Ejemplo: Café">
                             <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
                         </md-autocomplete>
                         <md-chip-template>
