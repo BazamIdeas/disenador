@@ -6,9 +6,12 @@ var configuracion = require('./configuracion/configuracion.js');
 var compression = require('compression');
 var middleware = require("./routes/middleware.js");
 var rutas = require('./routes/routes.js');
+var views = require('./routes/views.js');
 
 
 var app = express();
+app.set('view engine', 'pug');
+
 
 var startConnection = require('./modelos/mongo').startConnection;
 
@@ -47,11 +50,18 @@ let init = async function() {
     app.use('/angularjs-dragula', express.static(__dirname + '/node_modules/angularjs-dragula/dist'))
     
     app.use('/app',rutas);
+
+    app.use('/',views);
      
     app.use(configuracion.base+'*', function(req, res, next) {
-      // Just send the index.html for other files to support HTML5Mode
       res.sendFile('/public/'+configuracion.base+'/index.html', { root: __dirname });
     });
+    
+/*     app.use('/logos-de-:categoria', function(req, res, next) {
+      // Just send the index.html for other files to support HTML5Mode
+      res.render('index', { root: __dirname, title: req.params.categoria, categorias: ['Prueba', 'Prueba 2'] })
+    });
+     */
     
     app.use('/m/*', function(req, res, next) {
       // Just send the index.html for other files to support HTML5Mode

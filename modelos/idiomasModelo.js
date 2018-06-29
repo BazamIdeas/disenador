@@ -1,12 +1,10 @@
-const Mongo = require('./mongo.js');
-const Connection = Mongo.connection;
-const objectId = Mongo.objectId;
+const objectId = require('./mongo.js').objectId;
 
 let idioma = {}
 
 idioma.ObtenerTodos = callback =>
 { 
-	Connection(db => {
+	__mongoClient(db => {
 		const collection = db.collection('idiomas');
 		collection.find({}).toArray((err, docs) => {
 			if(err)	throw err;
@@ -17,7 +15,7 @@ idioma.ObtenerTodos = callback =>
 
 idioma.Obtener = (_id, callback) =>
 { 
-	Connection(db => {
+	__mongoClient(db => {
 		const collection = db.collection('idiomas');
 		collection.findOne({'_id': objectId(_id) }, (err, doc) => {
             if(err)	throw err;
@@ -28,7 +26,7 @@ idioma.Obtener = (_id, callback) =>
 
 idioma.ObtenerPorCodigo = (codigo, callback) =>
 { 
-	Connection(db => {
+	__mongoClient(db => {
 		const collection = db.collection('idiomas');
 		collection.findOne({'codigo': codigo}, (err, doc) => {
             if(err)	throw err;
@@ -39,7 +37,7 @@ idioma.ObtenerPorCodigo = (codigo, callback) =>
  
 idioma.Guardar = (idiomaData, callback) =>
 {
-	Connection(db => {
+	__mongoClient(db => {
 		const collection = db.collection('idiomas');
 		collection.insertOne(idiomaData, (err, doc) => {
 			if(err)	throw err;
@@ -50,7 +48,7 @@ idioma.Guardar = (idiomaData, callback) =>
 
 idioma.Actualizar = (_id, idiomaData, callback) =>
 {
-	Connection(db => {
+	__mongoClient(db => {
 		const collection = db.collection('idiomas');
 		collection.findOneAndUpdate({ '_id': objectId(_id) }, { $set: idiomaData }, (err, doc) => {
 			if (err) throw err;
@@ -61,7 +59,7 @@ idioma.Actualizar = (_id, idiomaData, callback) =>
 
 idioma.Borrar = (_id, callback) =>
 {
-	Connection(db => {
+	__mongoClient(db => {
 		const collection = db.collection('idiomas');
 		collection.findOneAndDelete({ '_id': objectId(_id) }, (err, doc) => {
             if (err) throw err;

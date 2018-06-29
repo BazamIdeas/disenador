@@ -219,5 +219,4 @@ router.post("/cambiar-password", controllers.password.cambiar);
 //PARA PRUEBAS
 router.post("/prueba", middleware.pruebas);
 
-
 module.exports = router;
