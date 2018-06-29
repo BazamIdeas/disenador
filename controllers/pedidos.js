@@ -100,14 +100,15 @@ exports.PedidosCliente = function (req, res) {
 
 exports.nuevoPedido = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
-
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 22;
+	
 	var logoData = {
 		idLogo: null,
 		estado: "Editable",
 		logo: req.body.logo,
 		tipoLogo: req.body.tipoLogo,
 		clientes_idCliente: req.idCliente,
-		elementos_idElemento: req.body.idElemento
+		categorias_idCategoria: idCategoria
 	};
 
 
