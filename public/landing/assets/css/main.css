@@ -255,7 +255,7 @@ md-chips .md-chips.md-focused {
   box-shadow: unset !important; }
 
 .md-chips .md-chip-input-container md-autocomplete input {
-  font-size: 16pt; }
+  font-size: 14pt; }
 
 md-chips.md-default-theme md-chip.md-focused, md-chips md-chip.md-focused, md-chips.md-default-theme md-chip md-icon, md-chips md-chip md-icon, md-chips md-chip.md-focused md-icon {
   color: black; }
@@ -280,6 +280,9 @@ header {
     width: 250px; }
   .logo img {
     width: 100%; }
+
+.hidden {
+  display: none; }
 
 div.acceder span {
   padding: 7px 14px;
@@ -341,7 +344,8 @@ footer {
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     background: white;
-    width: 40px; }
+    width: 40px;
+    margin-right: 5px; }
     footer .iconos-sociales i:hover {
       background: #5980B7;
       color: white; }
@@ -1104,6 +1108,29 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
 }
 
 */
+.categorias header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.categorias footer > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.categorias ul.lista-categorias li.categoria {
+  text-align: center;
+  margin-bottom: 8px;
+  color: white;
+  font-size: 14px; }
+  .categorias ul.lista-categorias li.categoria p {
+    background: #5980b7;
+    padding: 8px;
+    margin: 0; }
+
+.categorias .logos-predisenados .--item img {
+  max-width: 100%; }
+
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------

@@ -12,8 +12,14 @@ exports.ViewCategorias = function(req, res)
 		//si el usuario existe 
 		if (typeof data !== "undefined" && data.length > 0)
 		{
-            data.categorias = data;
-            res.render('index', data);
+			let categorias = [];
+
+			for (let i = 0; i <= 5; i++) {
+				categorias.push(data[i])
+			}
+
+            data.categorias = categorias;
+            res.render('categorias', data);
 		}
 	});
 

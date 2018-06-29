@@ -1,0 +1,34 @@
+.categorias{
+    header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    footer{
+        > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+    ul.lista-categorias {
+        li.categoria {
+            text-align: center;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 14px;
+            p{
+                background: #5980b7;
+                padding: 8px;
+                margin: 0;
+            }
+        }
+    }
+
+    .logos-predisenados{
+        .--item img {
+            max-width: 100%;
+        }
+    
+    }
+}
