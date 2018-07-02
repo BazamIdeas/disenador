@@ -7,6 +7,33 @@
     margin: auto;
 }
 
+.logo-ejemplo{
+    width: 300px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    img{
+        display: block;
+        margin: auto;
+    }
+    .tags{
+        margin-top: 20px;
+        > span {
+            background: #607d8b75;
+            border-radius: 5px;
+            padding: 6px;
+            margin: 0 6px 6px 0;
+            font-weight: 300;
+            font-family: 'nunito-sans-semi' !important;
+            display: inline-block;
+            cursor: pointer;
+        }
+    } 
+}
+
 .without-placeholder input::placeholder {
     color: transparent !important;
 }

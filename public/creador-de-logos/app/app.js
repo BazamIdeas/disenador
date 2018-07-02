@@ -363,7 +363,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 			.state({
 				name: "login",
-				url: "/ingreso/",
+				url: "/ingreso/?accion",
 				templateUrl: "app/views/login.tpl",
 				controller: "loginController as login",
 				resolve: {

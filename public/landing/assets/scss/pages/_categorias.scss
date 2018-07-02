@@ -1,8 +1,18 @@
-.categorias{
+.no-landing{
     header{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        span{
+            a{
+                color: black;
+            }
+            &.boton-activo{
+                background: #5980B7;
+                color: white;
+            }
+        }
+
     }
     footer{
         > div {

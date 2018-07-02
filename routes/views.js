@@ -10,4 +10,12 @@ router.use(compression());
 
 router.use('/logos-de-:categoria', controllers.vistas.ViewCategorias);
 
+router.use('/terminos-y-condiciones', function(req, res) {
+    res.render('terminos.html');
+});
+
+router.use('/avisos-legales', function(req, res) {
+    res.render('legales.html');
+});
+
 module.exports = router;

@@ -8,8 +8,9 @@
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="designer.listarLogos()">LISTADO DE LOGOS</texto>
                 </div>
-                <div layout layout-align="space-between center" ng-if="designer.cal">
-                    <p>Calificacion:</p>
+                <div layout layout-align="space-between center" ng-if="designer.cal" style="    background: white;
+                border-bottom: 1px solid silver;">
+                    <h4>Calificacion:</h4>
                     <md-input-container flex>
                         <md-select ng-model="designer.logoCalificarA.calificacion" ng-change="designer.ponerCalificacion({idLogo:designer.logoCalificarA.idLogo, valor: designer.logoCalificarA.calificacion}, true, $index)"
                             class="md-block" aria-label="filtro">
@@ -60,7 +61,10 @@
                             </tr>
                         </table>
                     </div>
-                    <div style="height: 30%;" ng-if="designer.logos.length == 0" class="mensaje-resultado">
+                    <div style="height: 30%;" ng-if="designer.logos.length == 0  && designer.peticion == true" class="mensaje-resultado">
+                        <h3>CARGANDO LOGOS POR APROBAR</h3>
+                    </div>
+                    <div style="height: 30%;" ng-if="designer.logos.length == 0 && designer.peticion == false" class="mensaje-resultado">
                         <h3>NO EXISTEN LOGOS POR APROBAR</h3>
                     </div>
                 </div>
@@ -134,7 +138,11 @@
                         </div>
                     </div>
 
-                    <div style="height: 30%;" ng-if="designer.disenadores.length == 0" class="mensaje-resultado">
+                    <div style="height: 30%;" ng-if="designer.disenadores.length == 0   && designer.peticion == true" class="mensaje-resultado">
+                        <h3>CARGANDO DISENADORES</h3>
+                    </div>
+
+                    <div style="height: 30%;" ng-if="designer.disenadores.length == 0 && designer.peticion == false" class="mensaje-resultado">
                         <h3>NO HAY DISENADORES</h3>
                     </div>
                 </div>
@@ -153,7 +161,7 @@
                         <md-icon>keyboard_arrow_left</md-icon>
                     </md-button>
                 </div>
-                <div layout-padding class="content-scroll elemento">
+                <div class="content-scroll elemento">
                     <div layout layout-align="space-around start" layout-wrap>
                         <div flex="33" layout-padding class="margen_inferior" ng-repeat="logod in designer.logosDisenador">
                             <div md-whiteframe ng-click="designer.mod = !designer.mod;

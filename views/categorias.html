@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "head.html" %}
+
+<body class="no-landing">
+    <header class="header" id="comienzo" layout-padding>
+        <div class="logo grande">
+            <a href="/">
+                <img src="../landing/assets/img/logo.pro.svg">
+            </a>
+        </div>
+        <div>
+            <div class="login">
+                <div class="acceder mostrar-login not-ing" style="cursor: pointer">
+                    <span>
+                        <a href="/creador-de-logos/ingreso/">Acceder</a>
+                    </span>
+                    <span class="boton-activo">
+                        <a href="/creador-de-logos/ingreso/" style="color: white">Registro</a>
+                    </span>
+
+                    <div class="acceder hidden" style="cursor: pointer">
+                        <span>
+                            <i class="material-icons"> add_circle_outline</i>
+                        </span>
+                        <span>
+                            <i class="material-icons"> favorite</i>
+                        </span>
+                        <span>
+                            <i class="material-icons"> account_circle</i>
+                        </span>
+                        <span>
+                            <i class="material-icons">power_settings_new</i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <ul class='lista-categorias row'>
+            {% asyncEach cat in categorias %}
+            <li class='categoria col s4'>
+                <p>{{cat.nombreCategoria}}</p>
+            </li>
+            {% endeach %}
+        </ul>
+    </div>
+
+    <div class="logos-predisenados container">
+        <div class="row">
+            {% asyncEach logo in [1,2,3,4,5,6,7,8,9,10, 11, 12] %}
+            <div class='--item col s2'>
+                <img src="../landing/assets/img/c4.png" alt="LOGO">
+            </div>
+            {% endeach %}
+        </div>
+    </div>
+    </div>
+
+    {% include "foot.html" %}
+</body>
+
+
+
+</html>
