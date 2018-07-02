@@ -101,15 +101,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 					}
 				},
 				resolve: {
-					/*currentAuth: ["$q", "clientesService", function ($q, clientesService) {
-
-						if (!clientesService.autorizado()) {
-
-							return $q.reject("AUTH_REQUIRED");
-
-						}
-
-					}],*/
+					
 					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
 
 						var defered = $q.defer();
@@ -140,60 +132,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 				}
 			})
 
-			/* 
-			.state({
-				name: "planes",
-				url: "/planes/",
-				templateUrl: "app/views/planes.tpl",
-				controller: "planesController as planes",
-				params: {
-					status: null,
-					datos: {
-						logo: null,
-						idElemento: null,
-						tipo: null,
-						fuentes: null
-					}
-				},
-				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
-
-						if (!clientesService.autorizado()) {
-
-							return $q.reject("AUTH_REQUIRED");
-
-						}
-
-					}],
-					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
-
-						var defered = $q.defer();
-
-						var promise = defered.promise;
-
-						if ($stateParams.status) {
-
-							LS.definir("planes", $stateParams.datos);
-
-							defered.resolve($stateParams.datos);
-
-						} else if (LS.obtener("planes")) {
-
-							defered.resolve(LS.obtener("planes"));
-
-						} else {
-
-							defered.reject({
-								error: "FALLO_HISTORICO"
-							});
-						}
-
-						return promise;
-
-					}]
-				}
-			})
-*/
 			.state({
 				name: "pago",
 				url: "/pago/",
@@ -204,7 +142,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 					datos: {
 
 						logo: null,
-						idElemento: null,
+						idCategoria: null,//TODO: revisar
 						tipo: null,
 						plan: {
 							nombre: null,
@@ -248,24 +186,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						}
 
 						return promise;
-
-					}]
-				}
-			})
-
-			.state({
-				name: "pagoCompleto",
-				url: "/pago/completo/:id/",
-				templateUrl: "app/views/pagoCompleto.tpl",
-				controller: "pagoCompletoController as pagoCompleto",
-				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
-
-						if (!clientesService.autorizado()) {
-
-							return $q.reject("AUTH_REQUIRED");
-
-						}
 
 					}]
 				}
@@ -337,7 +257,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id,
-										idElemento: res.elementos_idElemento,
+										//idElemento: res.elementos_idElemento,//FIXME: Cambiar idElemento por idCategoria
 										tipo: res.tipoLogo
 									});
 								} else {
@@ -404,7 +324,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id,
-										idElemento: res.elementos_idElemento,
+										//idElemento: res.elementos_idElemento,//FIXME: Cambiar idElemento por idCategoria
 										tipo: res.tipoLogo,
 										atributos: arrayToJsonMetasFactory(res.atributos)
 									});
@@ -457,7 +377,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id,
-										idElemento: res.elementos_idElemento,
+										//idElemento: res.elementos_idElemento,//FIXME: Cambiar idElemento por idCategoria
 										tipo: res.tipoLogo,
 										atributos: arrayToJsonMetasFactory(res.atributos)
 									});

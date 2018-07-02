@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$stateParams", "$state", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "elementosService", "coloresFactory", "$q", "$window", "pedidosService", "fontService", "etiquetasService", function ($scope, $stateParams, $state, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, coloresFactory, $q, $window, pedidosService, fontService, etiquetasService) {
+	.controller("editorController", ["$scope", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "elementosService", "$q", "pedidosService", "fontService", "etiquetasService", function ($scope, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, $q, pedidosService, fontService, etiquetasService) {
 
 		var bz = this;
 
@@ -93,8 +93,8 @@ angular.module("disenador-de-logos")
 			}
 
 		});
-
-		bz.preGuardarLogo = function(logo, tipoLogo, idElemento, idFuentePrincipal, regresar){
+		
+		bz.preGuardarLogo = function(logo, tipoLogo, idCategoria, idFuentePrincipal, regresar){
 			
 			// Verificar si el usuario que esta logueado
 			if (!clientesService.autorizado()) {
@@ -103,13 +103,13 @@ angular.module("disenador-de-logos")
 				$rootScope.callback = false;
 				return;
 			}
-
-			bz.guardarLogo(logo, tipoLogo, idElemento, regresar);
+			
+			bz.guardarLogo(logo, tipoLogo, idCategoria, regresar);
 		};
 
 		bz.completadoGuardar = true;
-
-		bz.guardarLogo = function (logo, tipoLogo, idElemento, idFuentePrincipal, regresar) {
+		
+		bz.guardarLogo = function (logo, tipoLogo, idCategoria, idFuentePrincipal, regresar) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
@@ -139,7 +139,9 @@ angular.module("disenador-de-logos")
 				});
 
 				if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
-					logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre)
+
+					
+					logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre)
 
 						.then(function (res) {
 
@@ -259,7 +261,7 @@ angular.module("disenador-de-logos")
 			bz.datosComprar = {
 				logo: datos.svg,
 				idLogo: null,
-				idElemento: bz.logo.icono.idElemento,
+				idCategoria: bz.categoria,//TODO: revisar si funciona
 				tipo: "Logo y nombre",
 				fuentes: {
 					principal: idFuente,
@@ -451,7 +453,7 @@ angular.module("disenador-de-logos")
 				angular.forEach(bz.etiquetasSeleccionadas, function (valor) {
 					tags.push(valor.traduccion.valor);
 				});
-
+				//FIXME: Revisar
 				if (bz.iconos.length > 0) {
 					angular.forEach(bz.iconos, function (valor) {
 						iconos.push(valor.idElemento);
@@ -460,7 +462,7 @@ angular.module("disenador-de-logos")
 
 				bz.cerrarContenedores();
 				bz.contenedores.busquedaIconos = true;
-
+				//FIXME: Revisar
 				elementosService.listarIconosSegunTags(tags, idCategoria, iconos, 17).then(function (res) {
 					bz.iconos = [];
 					bz.iconos = res;

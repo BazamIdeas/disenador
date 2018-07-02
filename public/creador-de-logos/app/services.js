@@ -680,14 +680,14 @@ angular.module("disenador-de-logos")
 
 
 		this.pagar = {
-			paypal: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela) {
+			paypal: function (idCategoria, atributos, logo, idPrecio, tipoLogo, idPasarela) {//TODO: Verificar
 
 				var defered = $q.defer();
 
 				var promise = defered.promise;
 
 				var datos = {
-					idElemento: idElemento,
+					idCategoria: idCategoria,//TODO: Verificar
 					logo: logo,
 					idPrecio: idPrecio,
 					tipoLogo: tipoLogo,
@@ -709,14 +709,14 @@ angular.module("disenador-de-logos")
 				return promise;
 
 			},
-
-			stripe: function (idElemento, atributos, logo, idPrecio, tipoLogo, idPasarela, tokenStripe) {
+			
+			stripe: function (idCategoria, atributos, logo, idPrecio, tipoLogo, idPasarela, tokenStripe) {
 
 				var defered = $q.defer();
 				var promise = defered.promise;
 
 				var datos = {
-					idElemento: idElemento,
+					idCategoria: idCategoria,
 					logo: logo,
 					idPrecio: idPrecio,
 					tipoLogo: tipoLogo,
@@ -1395,7 +1395,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.guardarLogo = function (logo, tipoLogo, idElemento, fuentePrincipalId, fuenteEsloganId, logoPadreId) {
+		this.guardarLogo = function (logo, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId, logoPadreId) {
 
 			var defered = $q.defer();
 
@@ -1404,7 +1404,7 @@ angular.module("disenador-de-logos")
 			var datos = {
 				logo: logo,
 				tipoLogo: tipoLogo,
-				idElemento: idElemento,
+				idCategoria: idCategoria,
 				atributos: {
 					principal: fuentePrincipalId
 				}
