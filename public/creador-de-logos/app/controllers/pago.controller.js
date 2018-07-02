@@ -56,9 +56,9 @@ angular.module("disenador-de-logos")
 				angular.element(document.querySelector(".overlay.full")).fadeIn(1000);
 
 				switch (idPasarela) {
-
+					/*FIXME: Cambiar por idCategoria*/
 					case 1: //PAYPAL
-						pedidosService.pagar.paypal(bz.pedido.idElemento, bz.pedido.atributos, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
+						pedidosService.pagar.paypal(bz.pedido.idCategoria, bz.pedido.atributos, bz.base64.encode(bz.pedido.logo), bz.pedido.precio.idPrecio, bz.pedido.tipo, idPasarela)
 
 							.then(function (res) {
 

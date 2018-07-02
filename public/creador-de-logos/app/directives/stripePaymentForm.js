@@ -5,7 +5,7 @@ angular.module("disenador-de-logos")
 		return {
 			templateUrl: "app/templates/stripePaymentsForm.tpl",
 			scope: {
-				icono: "<",
+				categoria: "<",
 				atributos: "<",
 				svg: "<",
 				precio: "<",
@@ -55,7 +55,7 @@ angular.module("disenador-de-logos")
 									
 								} else {
 
-									pedidosService.pagar.stripe($scope.icono, $scope.atributos, $scope.svg, $scope.precio, "Logo y nombre", $scope.pasarela, res.token.id)
+									pedidosService.pagar.stripe($scope.categoria, $scope.atributos, $scope.svg, $scope.precio, "Logo y nombre", $scope.pasarela, res.token.id)
 										.then(function (res) {
 											$state.go("descargar", {
 												id: res.idLogo

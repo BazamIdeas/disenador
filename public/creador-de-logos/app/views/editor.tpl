@@ -266,7 +266,7 @@
 
 		<div class="principal-container editor col s7" ng-class="{'grid': editor.cuadricula}">
 				
-			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento, editor.logo.fuente.idElemento)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.categoria, editor.logo.fuente.idElemento)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
 			
 			<span class="accion" ng-click="::editor.buscarPlanes()" style="top: 15%;"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
 
@@ -374,7 +374,7 @@
 							</div>
 						</div>
 
-
+						<!--FIXME:-->
 						<div class="col l3 xl2 icon-option" ng-repeat="icono in editor.iconos track by icono.idElemento">
 							<div class="icon" ng-click="::editor.cerrarContenedores();editor.reemplazarIcono(icono);">
 								<img style="width:100%" src="assets/images/a.png" alt="">
