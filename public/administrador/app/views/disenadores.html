@@ -23,6 +23,15 @@
                     </md-input-container>
                 </div>
                 <div ng-show="designer.listaL">
+                    <div layout class="elemento">
+                        <md-input-container flex>
+                            <label>Estado:</label>
+                            <md-select ng-model="designer.categoriasFiltroActivo" class="md-block" aria-label="filtro">
+                                <md-option ng-value="">Todos</md-option>
+                                <md-option ng-value="categoria.nombreCategoria" ng-repeat="categoria in designer.categoriasFiltro | unique">{{categoria.nombreCategoria}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
                     <div class="w3-responsive content-scroll" ng-if="designer.logos.length > 0">
                         <table class="w3-table w3-bordered">
                             <tr>

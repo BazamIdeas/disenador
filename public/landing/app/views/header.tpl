@@ -1,6 +1,6 @@
 <div ng-controller="headerController as h" style="background: white;">
     <bazam-form-login mostrar="h.mostrarLogin" callback="h.callback" opcion="h.opcionMostrarLogin"></bazam-form-login>
-    <header class="header" id="comienzo" layout-padding>
+    <header class="header" id="comienzo">
         <div layout layout-align="space-between">
             <div class="logo grande" ui-sref="comienzo">
                 <img src="/landing/assets/img/logo.pro.svg">

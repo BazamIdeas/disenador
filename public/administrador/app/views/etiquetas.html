@@ -18,22 +18,18 @@
                     </md-button>
                 </div>
                 <div>
-                    <div style="   max-height: 77%;" class="w3-responsive content-scroll" ng-if="ctrl.etiquetas.length > 0">
+                    <div style="   max-height: 77%;" class="w3-responsive content-scroll" ng-show="ctrl.etiquetas.length > 0">
                         <table class="w3-table w3-bordered">
                             <tr>
                                 <th>Etiqueta:</th>
                                 <th>Traducciones:</th>
                                 <th>Acciones:</th>
                             </tr>
-                            <tr ng-repeat="etiqueta in ctrl.etiquetas | orderBy:'traducciones[0].valor'">
+                            <tr ng-repeat="etiqueta in ctrl.etiquetas | limitTo:50:ctrl.actualBloque">
                                 <td>
-                                    <div ng-repeat="traduccion in etiqueta.traducciones">
-                                        <span ng-if="traduccion.idioma.codigo == 'ESP'">
-                                            {{traduccion.valor}}
-                                        </span>
-                                    </div>
+                                    {{::etiqueta.traducciones[0].valor}}
                                 </td>
-                                <td>{{etiqueta.traducciones.length}}</td>
+                                <td>{{::etiqueta.traducciones.length}}</td>
                                 <td>
                                     <md-button class="md-fab md-mini md-warn" ng-click="ctrl.mostrar({op:'traducciones', index: $index, datosEtiqueta:etiqueta})">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Traducciones</md-tooltip>
@@ -52,6 +48,18 @@
                                 </td>
                             </tr>
                         </table>
+                    </div>
+                    <div layout layout-align="center center" ng-show="ctrl.etiquetas.length > 80">
+                        <md-button style="margin-right: 10px" ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.paginar(false, 'actualBloque', ctrl.etiquetas, 80)"
+                            style="margin:0;">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Menos</md-tooltip>
+                            <md-icon>arrow_left</md-icon>
+                        </md-button>
+                        <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.paginar(true, 'actualBloque',ctrl.etiquetas, 50)"
+                            style="margin:0;">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible">Mas</md-tooltip>
+                            <md-icon>arrow_right</md-icon>
+                        </md-button>
                     </div>
                     <div style="height: 30%;" ng-if="!ctrl.etiquetas" class="mensaje-resultado">
                         <h3>CARGANDO ETIQUETAS</h3>
@@ -227,12 +235,12 @@
                             <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">DESVINCULAR</md-button>
                         </div>
                         <div layout layout-align="center center" ng-show="ctrl.iconosEtiqueta.iconos.length> 50">
-                            <md-button style="margin-right: 10px" ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.paginar(false,ctrl.actual, ctrl.iconosEtiqueta.iconos)"
+                            <md-button style="margin-right: 10px" ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.paginar(false,'actual', ctrl.iconosEtiqueta.iconos, 52)"
                                 style="margin:0;">
                                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Menos</md-tooltip>
                                 <md-icon>arrow_left</md-icon>
                             </md-button>
-                            <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.paginar(true, ctrl.actual, ctrl.iconosEtiqueta.iconos)"
+                            <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.paginar(true, 'actual', ctrl.iconosEtiqueta.iconos, 52)"
                                 style="margin:0;">
                                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Mas</md-tooltip>
                                 <md-icon>arrow_right</md-icon>

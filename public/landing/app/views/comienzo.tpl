@@ -140,14 +140,14 @@
             <p style="margin: 20px;">GALERÍA DE LOGOS</p>
             <span>.</span>
         </div>
-        <div layout layout-align="space-around" layout-wrap ng-mouseenter="ctrl.detener()" ng-mouseleave="ctrl.continuar()">
-            <div class="logo-ejemplo" ng-repeat="val in ctrl.logosPredisenados | limitTo:8:ctrl.actual">
-                <div>
-                <img width="80%" src="/landing/assets/img/c4.png">
-            </div>
-                <!-- <bazam-actualizar data-svg=""></bazam-actualizar> -->
+        <div class="logos-predisenados">
+            <div class='--item' ng-repeat="val in ctrl.logosPredisenados | limitTo:8:ctrl.actual">
+                <a href="">
+                    <img width="80%" src="/landing/assets/img/c4.png">
+                    <!-- <bazam-actualizar data-svg=""></bazam-actualizar> -->
+                </a>
                 <div class="tags">
-                    <span>Categoria</span>
+                    <a href="#">Categoria</a>
                 </div>
             </div>
         </div>

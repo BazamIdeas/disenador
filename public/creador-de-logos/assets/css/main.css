@@ -880,14 +880,15 @@ bazam-palette-picker svg path[data-index].color-checked {
     justify-content: center;
     cursor: pointer; }
     .header div.logo div {
-      padding: 5px 16px;
       text-align: center;
       color: var(--secundario);
       width: 100%;
       margin: auto;
       display: -webkit-box;
       display: -ms-flexbox;
-      display: flex; }
+      display: flex;
+      width: 160px;
+      padding: 10px 0; }
       .header div.logo div img {
         width: 80%;
         height: 50px; }
