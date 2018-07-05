@@ -31,11 +31,11 @@
     <script src="/angular-material/angular-material.min.js"></script>
 
     <!--Librerias 3r party angularJS -->
-    <script src="/angular-ui-carousel/ui-carousel.min.js" async></script>
-    <script src="assets/js/materialize.min.js" async></script>
+    <script src="/angular-ui-carousel/ui-carousel.min.js" ></script>
+    <script src="assets/js/materialize.min.js" ></script>
 
     <!--Archivos App diseñador -->
-    <script src="/landing/built/app.js" async></script>
+    <script src="/landing/built/app.js" ></script>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
         crossorigin="anonymous">
@@ -56,23 +56,12 @@
         })
     </script>
     -->
-
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-WCZ63JP');
-    </script>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WCZ63JP');</script>
+        <!-- End Google Tag Manager -->
 </head>
 
 <body>
@@ -103,7 +92,7 @@
 <script>
     /* FACEBOOK */
 
-    window.fbAsyncInit = function () {
+    window.fbInit = function () {
         FB.init({
             appId: "152803392097078",
             autoLogAppEvents: true,
@@ -127,7 +116,7 @@
 
 <!-- GOOGLE -->
 
-<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=init"  defer></script>
 
 <script>
     function init() {

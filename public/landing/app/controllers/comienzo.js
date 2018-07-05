@@ -1,8 +1,10 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "$interval", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, $interval) {
 
 		var bz = this;
+
+		bz.sce = $sce;
 
 		/* DATOS */
 		bz.navegar = navegarFactory;
@@ -22,6 +24,23 @@ angular.module("landing")
 			etiquetasSeleccionadas: [],
 			colores: []
 		}
+
+		/* SLIDER PREDISENADOS */
+		bz.actual = 1;
+
+	bz.logosPredisenados = [];
+
+		for (let i = 0; i <= 40; i++) {
+			bz.logosPredisenados.push(i);
+		}
+/* 	
+		$interval(function () {
+			if (bz.actual + 8 >= bz.logosPredisenados.length) {
+				bz.actual = 0;
+			} else {
+				bz.actual = bz.actual + 8;
+			}
+		}, 5000); */
 
 		bz.scrollTop = function () {
 			var top = angular.element('#comienzo').offset().top;
@@ -117,9 +136,9 @@ angular.module("landing")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datosFuentes);
 
 				$q.all([
-						promesaIconos,
-						promesaFuentes
-					])
+					promesaIconos,
+					promesaFuentes
+				])
 					.then(function (res) {
 
 						datos.iconos = res[0];

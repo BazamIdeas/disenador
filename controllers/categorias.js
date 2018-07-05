@@ -3,7 +3,7 @@ var categoria=require("../modelos/categoriasModelo.js");
 exports.listaCategorias = function(req, res)
 {
 
-	var tipo = ["Iniciales", req.body.tipo];
+	var tipo = ["Sin categoria", req.body.tipo];
 
 	categoria.getCategorias(tipo,function(error, data)
 	{

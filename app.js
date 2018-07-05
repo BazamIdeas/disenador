@@ -7,14 +7,16 @@ var compression = require('compression');
 var middleware = require("./routes/middleware.js");
 var rutas = require('./routes/routes.js');
 var views = require('./routes/views.js');
-
+const expressNunjucks = require('express-nunjucks');
 
 var app = express();
-app.set('view engine', 'pug');
 
+const njk = expressNunjucks(app, {
+  watch: true,
+  noCache: true
+});
 
 var startConnection = require('./modelos/mongo').startConnection;
-
 
 let init = async function() {
   try {

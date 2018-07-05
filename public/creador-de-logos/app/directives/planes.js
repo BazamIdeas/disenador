@@ -112,7 +112,7 @@ angular.module("disenador-de-logos")
                     var plan = bz.planElegido;
 
                     bz.logo = $scope.datos.logo; //SVG del logo
-                    bz.idElemento = $scope.datos.idElemento;
+                    bz.idCategoria = $scope.datos.idCategoria;
                     bz.fuentes = {
                         principal: $scope.datos.fuentes.principal,
                         eslogan: $scope.datos.fuentes.eslogan
@@ -125,9 +125,8 @@ angular.module("disenador-de-logos")
                         var nombre = "gratis";
                         var ancho = 80;
 
-                        bz.compatirFacebook({
-                            url: ''
-                        }).then(function (res) {
+                        //TODO: TERMINAR Y DECIDIR QUE VA AQUI
+                        bz.compatirFacebook({url: ''}).then(function (res) {
 
                             if ($scope.datos.idLogo) {
                                 logosService.descargarLogo($scope.datos.idLogo, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
@@ -176,7 +175,7 @@ angular.module("disenador-de-logos")
 
                                 });
                             } else {
-                                bz.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.idElemento, $scope.datos.fuentes.principal, true).then(function (res) {
+                                logosService.guardarLogo(bz.logo, "Logo y nombre", $scope.datos.categoria, $scope.datos.fuentes.principal, true).then(function (res) {
 
                                     logosService.descargarLogo(res, ancho, $filter("uppercase")(nombre), nombre).then(function (res) {
 
@@ -277,7 +276,7 @@ angular.module("disenador-de-logos")
                                 status: true,
                                 datos: {
                                     logo: $scope.datos.logo,
-                                    idElemento: bz.idElemento,
+                                    idCategoria: bz.idCategoria ,
                                     tipo: "Logo y nombre",
                                     plan: {
                                         nombre: plan.plan,
@@ -344,7 +343,7 @@ angular.module("disenador-de-logos")
                 };
 
 
-                bz.guardarLogo = function (logo, tipoLogo, idElemento, idFuentePrincipal) {
+                /*bz.guardarLogo = function (logo, tipoLogo, idElemento, idFuentePrincipal) {
 
                     var defered = $q.defer();
                     var promise = defered.promise;
@@ -360,7 +359,7 @@ angular.module("disenador-de-logos")
 
                     return promise;
 
-                };
+                };*/
 
             }]
         };

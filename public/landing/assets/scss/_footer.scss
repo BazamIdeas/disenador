@@ -8,7 +8,7 @@ footer {
         margin-right: 30px;
         padding: 8px 8px 0px 0px;
         font-weight: bold;
-        font-size: 15pt;
+        font-size: 13pt;
     }
 
     .iconos-sociales i {
@@ -20,6 +20,7 @@ footer {
         transition: all 0.5s;
         background: white;
         width: 40px;
+        margin-right: 5px;
         &:hover {
             background: #5980B7;
             color: white;

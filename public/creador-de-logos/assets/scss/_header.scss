@@ -27,7 +27,6 @@
         cursor: pointer;
 
         div {
-            padding: 5px 16px;
             text-align: center;
             color: var(--secundario);
             width: 100%;
@@ -35,6 +34,8 @@
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
+            width: 160px;
+            padding: 10px 0;
 
             img {
                 width: 80%;

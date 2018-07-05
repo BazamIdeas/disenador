@@ -29,7 +29,7 @@
                                         </div>
                                     </div>
                                     <div class="input-field col s12" style="margin-top: 2rem;">
-                                        <input id="correo" name="correo" type="email" ng-model="bazamLogin.datosLogin.correo" required>
+                                        <input id="correo" name="correo" type="email" ng-model="bazamLogin.datosLogin.correo" required autocomplete="on">
                                         <label for="correo">Correo</label>
 
                                         <div ng-messages="bazamLogin.loginForm.correo.$error" ng-if="bazamLogin.loginForm.$submitted || bazamLogin.loginForm.correo.$dirty">
@@ -39,7 +39,7 @@
                                         
                                     </div>
                                     <div class="input-field col s12">
-                                        <input id="pass" name="pass" type="password" ng-model="bazamLogin.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required>
+                                        <input id="pass" name="pass" type="password" ng-model="bazamLogin.datosLogin.pass" ng-minlength="6" ng-maxlength="20" required autocomplete="on">
                                         <label for="pass">Contraseña</label>
 
                                         <div ng-messages="bazamLogin.loginForm.pass.$error" ng-if="bazamLogin.loginForm.$submitted || bazamLogin.loginForm.pass.$dirty">

@@ -226,7 +226,7 @@ button:focus {
 }
 
 ::-webkit-scrollbar:window-inactive {
-    width: 0px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -237,7 +237,7 @@ button:focus {
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(97, 39, 135, 0.4);
+    background: #5980B7;
 }
 
 /**********************/
@@ -263,7 +263,7 @@ md-select-menu md-option .md-text {
 }
 
 md-select.categorias-select md-select-value> :first-child {
-    height: 35px;
+    height: 17px;
 }
 
 md-input-container input[type=text], md-chips.md-default-theme .md-chips {
@@ -277,7 +277,7 @@ md-chips .md-chips.md-focused{
 }
 
 .md-chips .md-chip-input-container md-autocomplete input {
-    font-size: 14pt;
+    font-size: 12pt;
 }
 
 md-chips.md-default-theme md-chip.md-focused, md-chips md-chip.md-focused, md-chips.md-default-theme md-chip md-icon, md-chips md-chip md-icon,  md-chips md-chip.md-focused md-icon{
@@ -286,4 +286,13 @@ md-chips.md-default-theme md-chip.md-focused, md-chips md-chip.md-focused, md-ch
 
 div[ng-message="required"]{
     font-size: 12px;
+}
+
+
+.flex{
+    display: flex;
+    &.--center{
+        justify-content: center;
+        align-items: center;
+    }
 }

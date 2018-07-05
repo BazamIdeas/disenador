@@ -6,6 +6,7 @@ angular.module("administrador")
 
 		/* DATOS */
 		bz.actual = 0;
+		bz.actualBloque = 0;
 		bz.base64 = $base64;
 		bz.iconos = [];
 		bz.selectedItem = null;
@@ -33,7 +34,8 @@ angular.module("administrador")
 			bz.idiomas = res[0];
 			bz.cats = res[1].data;
 			bz.etiquetas = res[2].data;
-			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(res[2].data);
+			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(bz.etiquetas);
+			console.log(res[2])
 		}).catch(function (res) {
 			//console.log(res)
 		}).finally(function () {
@@ -290,17 +292,18 @@ angular.module("administrador")
 			}
 		}
 
-		bz.paginar = function (accion, actual, array) {
-			console.log(actual)
+		bz.paginar = function (accion, actual, array, cantidad) {
 			if (accion) {
-				if (array[actual + 52] != undefined) {
-					bz.actual = bz.actual + 52;
+				if (array[bz[actual] + cantidad] != undefined) {
+					bz[actual] = bz[actual] + cantidad;
+					console.log(bz[actual])
 				} else {
-					return notificacionService.mensaje('Ya no hay mas iconos');
+					return notificacionService.mensaje('Ya no hay mas elementos');
 				}
 			} else {
-				if (array[actual - 52] != undefined) {
-					bz.actual = bz.actual + 52;
+				if (array[bz[actual] - cantidad] != undefined) {
+					bz[actual] = bz[actual] + cantidad;
+					console.log(bz[actual])
 				}
 			}
 		}

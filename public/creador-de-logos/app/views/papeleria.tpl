@@ -1,14 +1,14 @@
 <div class="bz-flex">
-    <div class="categorias-papeleria" ng-show="papeleriaCtrl.papelerias && papeleriaCtrl.tienePiezas">
-        <span class="tab-papeleria" ng-click="papeleriaCtrl.papeleriaActiva = papeleria.tipo" ng-class="{'seleccionada':papeleria.tipo == papeleriaCtrl.papeleriaActiva, 'hidden': papeleria.piezas.length == 0}"
+    <div class="categorias-papeleria">
+        <span class="tab-papeleria" ng-click="papeleriaCtrl.papeleriaActiva = papeleria.tipo" ng-class="{'seleccionada':papeleria.tipo == papeleriaCtrl.papeleriaActiva, 'hidden': !papeleria.piezas.length}"
             ng-repeat="papeleria in papeleriaCtrl.papelerias">
-            <md-tooltip md-direction="right">{{papeleria.label}}</md-tooltip>
-            <img ng-src="/assets/images/iconos-descarga/{{papeleria.tipo}}.png">
+            <md-tooltip md-direction="right">{{::papeleria.label}}</md-tooltip>
+            <img ng-src="/assets/images/iconos-descarga/{{::papeleria.tipo}}.png">
         </span>
     </div>
-    <div class="contenedor-papelerias" ng-show="papeleriaCtrl.tienePiezas">
+    <div class="contenedor-papelerias">
         <div ng-repeat="papeleria in papeleriaCtrl.papelerias" class="papeleria-ejemplos" ng-show="papeleria.tipo == papeleriaCtrl.papeleriaActiva">
-            <div class="pieza {{papeleria.tipo}}" ng-repeat="piezaUsuario in papeleria.piezas" ng-class="{'hover': piezaActiva == piezaUsuario._id && piezaUsuario.caras[1]}">
+            <div class="pieza {{::papeleria.tipo}}" ng-repeat="piezaUsuario in papeleria.piezas" ng-class="{'hover': piezaActiva == piezaUsuario._id && piezaUsuario.caras[1]}">
                 <div class='overlay a-gif' ng-show="papeleriaCtrl.peticion && papeleriaCtrl.papeleriaIndexElemento == piezaUsuario._id"></div>
                 <span class="modelo-papeleria" ng-show="!piezaUsuario.caraActiva" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[0].svg)"></span>
                 <span class="modelo-papeleria" ng-show="piezaUsuario.caraActiva" ng-bind-html="papeleriaCtrl.sce.trustAsHtml(piezaUsuario.caras[1].svg)"></span>
@@ -45,10 +45,7 @@
 
 </div>
 
-<div ng-show="!papeleriaCtrl.papelerias" style="height: calc(100% - 60px);
-display: flex;
-justify-content: center;
-align-items: center; width:100%;">
+<div ng-show="!papeleriaCtrl.papelerias"  class="cargando-papeleria --full-height">
     <img style="width: 25%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
 </div>
 

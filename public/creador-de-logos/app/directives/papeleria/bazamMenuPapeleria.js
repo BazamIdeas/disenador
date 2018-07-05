@@ -36,7 +36,7 @@ angular.module("disenador-de-logos")
                         };								
                     }
 
-                    /* Si el contenedor esta al limite de su capacidad de elemento detenemos la funcion */
+                    /* Si el contenedor esta al limite de su capacidad de elemento detenemos la funcion 
 
                     if (hook.items.length == hook.limite) return $mdToast.show($mdToast.base({
                         args: {
@@ -44,6 +44,8 @@ angular.module("disenador-de-logos")
                             clase: "warning"
                         }
                     }));
+                    
+                    */
 
                     /* Agregamos el elemento y actualizamos el scope */
                     $scope.papeleriaEditor.papeleria.modelo.caras[indiceCara].hooks[indiceHook].items.push(itemAgregar);

@@ -96,6 +96,7 @@ router.get("/preferencia/borrar/:id", middleware.validarAdministrador, controlle
 
 //MODULO ETIQUETAS
 router.get("/etiquetas", controllers.etiquetas.ObtenerTodos);
+router.get("/iconos/:id/etiquetas", controllers.etiquetas.ObtenerPorIcono);
 router.post("/etiquetas", controllers.etiquetas.GuardarEtiquetas);
 router.post("/etiquetas/modificar", controllers.etiquetas.Actualizar);
 router.post("/etiquetas/iconos", controllers.etiquetas.AsignarIconos);
