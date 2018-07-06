@@ -397,11 +397,13 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
         secret: "58dd191936204d42885a5ab4de7a6663"
     })
 
-    icons = [];
+    let icons = [], salto = 0;
 
     while (icons.length < 12) {
 
-        let promises = [], salto = 0;
+        console.log('vuelta')
+
+        let promises = [];
 
         tags.map((tag) => {
             
@@ -410,7 +412,7 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
                 Nproject.getIconsByTerm(tag, { limit: 12 / tags.length, offset: salto, limit_to_public_domain: 0}, (err, data) => {
                     
                     if (!err && data && data.icons.length) {
-                        
+
                         resolve({data: data.icons})
                         
                     } else {
@@ -423,7 +425,7 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
                 
             });
 
-            salto = salto + 12 / tags.length
+            salto = salto + (12 / tags.length);
 
             promises.push(promise)
         });
@@ -433,8 +435,15 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
             
             let iconsCollections = await Promise.all(promises);
 
-            iconsCollections[0].data.forEach(icon => {
-                if (icon.icon_url && ids.indexOf(icon.id) == -1) icons.push(icon) ;
+            iconsCollections.forEach(coll => {
+
+                coll.data.forEach(icon => {
+
+                    if (icon.icon_url && ids.indexOf(icon.id) == -1) {
+                        ids.push(icon.id);
+                        icons.push(icon);
+                    }
+                })
             });
 
         } catch (error) {
