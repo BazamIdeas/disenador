@@ -257,7 +257,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id,
-										//idElemento: res.elementos_idElemento,//FIXME: Cambiar idElemento por idCategoria
 										tipo: res.tipoLogo
 									});
 								} else {
@@ -324,7 +323,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id,
-										//idElemento: res.elementos_idElemento,//FIXME: Cambiar idElemento por idCategoria
 										tipo: res.tipoLogo,
 										atributos: arrayToJsonMetasFactory(res.atributos)
 									});
@@ -377,7 +375,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id,
-										//idElemento: res.elementos_idElemento,//FIXME: Cambiar idElemento por idCategoria
 										tipo: res.tipoLogo,
 										atributos: arrayToJsonMetasFactory(res.atributos)
 									});

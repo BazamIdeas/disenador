@@ -565,7 +565,7 @@ angular.module("disenador-de-logos")
 
 			var promise = defered.promise;
 
-			$http.post("/app/elementos/busqueda/iconos", {
+			$http.post("/app/elementos/busqueda/iconos/noun", {
 				tags: tags,
 				categoria: idCategoria,
 				ids: ids,
@@ -2079,4 +2079,90 @@ angular.module("disenador-de-logos")
 		};
 
 
-	}]);
+	}])
+	
+
+	/***************************************/
+	/***************DISENADOR****************/
+	/***************************************/
+
+	.factory("disenadorDatosFactory", [function () {
+
+		var disenador = null;
+
+		return {
+			obtener: function () {
+
+				return disenador;
+
+			},
+			definir: function (objectoDisenador) {
+
+				disenador = objectoDisenador;
+
+			},
+			eliminar: function () {
+
+				disenador = null;
+
+			}
+		};
+
+	}])
+
+	.service("disenadorService", ["$q", "$http", "$window", "disenadorDatosFactory", function($q, $http, $window, disenadorDatosFactory){
+
+		this.login = function (usuario, contrasena) {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			var datosLogin = {
+				usuario: usuario, 
+				contrasena: contrasena
+			};
+			/*
+			$http.post("/app/cliente/login", datosLogin)
+
+				.then(function (res) {
+					
+					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+					clienteDatosFactory.definir(res.data);
+					defered.resolve();
+
+				})
+				.catch(function () {
+					$window.localStorage.removeItem("bzToken");
+					defered.reject();
+				});
+			*/
+
+			var data = {token: "unToken", nombre: "Disenador Arias"};
+			$window.localStorage.setItem("bzTokenDisenador", angular.toJson(data));
+			disenadorDatosFactory.definir(data);
+
+
+			defered.resolve();
+			return promise;
+
+		};
+
+		this.autorizado = function(){
+
+			if (disenadorDatosFactory.obtener()) {
+
+				return disenadorDatosFactory.obtener();
+			
+			} 
+
+			if ($window.localStorage.getItem("bzTokenDisenador")) {
+
+				disenadorDatosFactory.definir(angular.fromJson($window.localStorage.getItem("bzTokenDisenador")));
+
+				return disenadorDatosFactory.obtener();
+				
+			}
+
+			return false;
+		}
+	}])
