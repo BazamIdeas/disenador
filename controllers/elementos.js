@@ -223,6 +223,120 @@ exports.listaSegunTagCat = function (req, res) {
 
 };
 
+exports.listaSegunTagCatNOUN = function (req, res) {
+
+	const tags = req.body.tags ? req.body.tags : [];
+	const lang = req.body.lang ? req.body.lang.toLowerCase() : 'es';
+	const categoria = 0;
+	const limit = req.body.limit ? req.body.limit : 4;
+	const ids = req.body.ids ? req.body.ids : [0];
+
+	let tagsNormalize = [];
+
+	tags.forEach(el => tagsNormalize.push(helpers.normalize(el.toLowerCase())));
+
+	etiqueta.AnalizarNOUN(lang, tagsNormalize, (err, analasis) => {
+		// Aqui se registran las busquedas
+
+		if (err) return res.status(500).json(err);
+
+		let noExistentes = analasis.noExistentes;
+		let tagsIngles = analasis.ingles;
+
+		etiqueta.TraducirGuardar(noExistentes, lang, (err, tagsTraducidas) => {
+
+			//return res.status(200).json(tagsTraducidas);
+
+			if (err) return res.status(500).json(err);
+
+			//tagsTraducidas.forEach(tag => { tagsIngles.push(tag) });
+
+			etiqueta.BuscarIconosNOUN(tagsIngles, ids, (err, iconos) => {
+
+				if (err) return res.status(500).json(err);
+
+				etiqueta.TransformarSvg(iconos, (err, response) => {
+
+					if (err) return res.status(500).json(err);
+
+					res.status(200).json(response);
+					return
+
+				})
+			
+			})
+
+		})
+
+		
+		/*elemento.getElementsByTagsNOUN(arr, categoria, limit, (err, data) => {
+			let elementos = [];
+
+			if (typeof data !== "undefined" && data.length > 0) {
+
+				for (let i = data.length - 1; i >= 0; i--) {
+					let id = data[i].idElemento;
+					let into = 0;
+					for (let j = elementos.length - 1; j >= 0; j--) {
+						let id2 = elementos[j].idElemento;
+						if (id == id2) {
+							into = 1;
+						}
+					}
+
+					if (into == 0) {
+						elementos = elementos.concat(data[i]);
+					}
+				}
+
+			}
+
+			if (elementos.length < limit) {
+
+
+				caract = {
+					"ABSTRACTOS" : "abstractos"
+				}
+
+				elemento.getElementosIncatNOUN([categoria, limit], (error, data) => {
+					
+					if (typeof data !== "undefined" && data.length > 0) {
+
+						for (let i = data.length - 1; i >= 0; i--) {
+							let id = data[i].idElemento;
+							let into = 0;
+							for (let j = elementos.length - 1; j >= 0; j--) {
+								let id2 = elementos[j].idElemento;
+								if (id == id2) {
+									into = 1;
+								}
+							}
+
+							if (into == 0 && elementos.length < limit) {
+								elementos = elementos.concat(data[i]);
+							}
+						}
+
+					}
+
+					res.status(200).json(elementos);
+
+				});
+
+
+			} else {
+
+				res.status(200).json(elementos);
+			
+			}
+
+		})*/
+
+	});
+
+};
+
+
 exports.listaElemCat = function (req, res) {
 
 	var cat = [req.body.idCategoria, req.body.tipo];

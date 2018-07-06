@@ -1,6 +1,12 @@
 //const Connection = __mongoClient;
 const objectId = require('./mongo.js').objectId;
 
+const NounProject = require("the-noun-project")
+const translate = require('google-translate-api');
+const fetch = require('node-fetch');
+var base64 = require("base-64");
+
+
 let etiqueta = {}
 
 etiqueta.ObtenerTodos = callback => 
@@ -207,7 +213,14 @@ etiqueta.Analizar = (tags, callback) =>
 
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
-        collection.aggregate([{
+        collection.aggregate([ {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        },{
             $unwind: '$traducciones'
         }, {
             $match: {
@@ -251,5 +264,224 @@ etiqueta.Analizar = (tags, callback) =>
         })
     })
 }
+
+etiqueta.AnalizarNOUN = (lang, tags, callback) => 
+{
+    let tagsResponse = { noExistentes: [], ingles: [] };
+
+    __mongoClient(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        }, {
+            $unwind: '$idioma'
+        }, {
+            $addFields: {
+                'traducciones.idioma': '$idioma.codigo'
+            }
+        }, {
+            $group: {
+                _id: '$_id',
+                traducciones: {
+                    $addToSet: {
+                        idioma: '$idioma.codigo',
+                        valor: '$traducciones.valor'
+                    }
+                }
+            }
+        }, {
+            $match: {
+                'traducciones': {
+                    '$elemMatch': {
+                        'idioma': 'es',
+                        'valor': {
+                            '$in': tags
+                        }
+                    }
+                }
+            }
+        }, {
+            $project: {
+                iconos: false,
+                idioma: false
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+
+            else {
+
+                formatedDocs = {}
+
+                docs.forEach(doc => {
+                    doc.traducciones.forEach(tra => {
+                        if (formatedDocs[tra.idioma] == undefined) formatedDocs[tra.idioma] = [];
+                        formatedDocs[tra.idioma].push(tra.valor);
+                    })                    
+                });
+
+                tags.forEach(tag => {
+                    if (formatedDocs[lang].indexOf(tag) == -1) {
+                        tagsResponse.noExistentes.push(tag);
+                    }
+                });
+
+                tagsResponse.ingles = formatedDocs.en;
+                
+                callback(null, tagsResponse);
+
+                /*
+                Array.prototype.sortByFrequency = function() {
+                    return function () {
+                        var frequency = {};
+                    
+                        this.forEach(function(value) { frequency[value] = 0; });
+                    
+                        var uniques = this.filter(function(value) {
+                            return ++frequency[value] == 1;
+                        });
+                    
+                        return uniques.sort(function(a, b) {
+                            return frequency[b] - frequency[a];
+                        });
+                    }
+                }();
+                */
+            }
+        })
+    })
+}
+
+etiqueta.TraducirGuardar = async (tags, lang, callback) => {
+
+    let tagsTraducidas = [];
+
+    for (let tag of tags) {
+        
+        let trad = {}
+
+        try {
+            trad.en = await translate(tag, {from: lang, to: 'en'});
+            trad.es = await translate(tag, {from: lang, to: 'es'});
+            trad.pr = await translate(tag, {from: lang, to: 'pt'});
+        } catch (error) {
+            callback(error);
+            return
+        }
+        
+        if (trad[lang].from.language.iso == lang) {
+
+            if ( (trad.en.text === trad.es.text && trad.en.text === trad.pr.text) === false ) {
+
+                tagsTraducidas.push({ en: trad.en.text, es: trad.es.text, pr: trad.pr.text });
+
+            }
+
+        }
+
+    }
+    
+    callback(null, tagsTraducidas);
+}
+
+etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
+
+    let Nproject = new NounProject({
+        key: "049d89ea99f6415c837e7f0de9040b96",
+        secret: "58dd191936204d42885a5ab4de7a6663"
+    })
+
+    icons = [];
+
+    while (icons.length < 12) {
+
+        let promises = [], salto = 0;
+
+        tags.map((tag) => {
+            
+            const promise = new Promise((resolve) => {
+
+                Nproject.getIconsByTerm(tag, { limit: 12 / tags.length, offset: salto, limit_to_public_domain: 0}, (err, data) => {
+                    
+                    if (!err && data && data.icons.length) {
+                        
+                        resolve({data: data.icons})
+                        
+                    } else {
+
+                        resolve(false)
+                        
+                    }
+                    
+                });
+                
+            });
+
+            salto = salto + 12 / tags.length
+
+            promises.push(promise)
+        });
+
+
+        try {
+            
+            let iconsCollections = await Promise.all(promises);
+
+            iconsCollections[0].data.forEach(icon => {
+                if (icon.icon_url && ids.indexOf(icon.id) == -1) icons.push(icon) ;
+            });
+
+        } catch (error) {
+
+            callback(error);
+            return
+        }
+    }
+
+    callback(null, icons);
+}
+
+etiqueta.TransformarSvg = async (iconos , callback) => {
+
+    let promises = [];
+
+    iconos.forEach((icono) => {
+
+        let promise = fetch(icono.icon_url).then(res => {
+            return res.text(); 
+        }).then(body => {
+            return body;
+        });
+
+        promises.push(promise);
+    });
+
+    try {
+            
+        let svgCollection = await Promise.all(promises);
+
+        svgCollection.forEach( (svg, i) => {
+
+			var str = "<svg" + svg.split("<svg")[1];
+			var dd = str.replace(/fill=/gi, "nofill=");
+
+            iconos[i] = { idElemento : iconos[i].id, svg: base64.encode(dd) };
+        });
+
+    } catch (error) {
+        callback(error);
+        return
+    }
+
+
+    callback(null, iconos)
+}
+
 
 module.exports = etiqueta;

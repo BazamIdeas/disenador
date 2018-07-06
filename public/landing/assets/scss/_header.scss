@@ -3,19 +3,19 @@
 header {
     cursor: default;
     background: #FFFFFF;
-    width: 90%;
-    margin: auto;
+    width: 100%;
+    padding: 0 3%;
     z-index: 999;
+    top: 0;
+    left: 0;
 }
 
 .logo {
     padding: 16px;
     text-align: center;
     color: #5980B7;
-    width: 200px;
-    &.grande {
-        width: 250px;
-    }
+    width: 160px;
+    
     & img {
         width: 100%;
     }
