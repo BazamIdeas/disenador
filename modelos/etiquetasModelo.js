@@ -401,7 +401,7 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
 
     while (icons.length < 12) {
 
-        console.log('vuelta')
+        console.log('vuelta', 'iconos', icons.length)
 
         let promises = [];
 
@@ -409,7 +409,7 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
             
             const promise = new Promise((resolve) => {
 
-                Nproject.getIconsByTerm(tag, { limit: 12 / tags.length, offset: salto, limit_to_public_domain: 0}, (err, data) => {
+                Nproject.getIconsByTerm(tag, { limit: 50, offset: salto, limit_to_public_domain: 0}, (err, data) => {
                     
                     if (!err && data && data.icons.length) {
 
@@ -425,7 +425,7 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
                 
             });
 
-            salto = salto + (12 / tags.length);
+            salto = salto + 50;
 
             promises.push(promise)
         });
@@ -478,7 +478,8 @@ etiqueta.TransformarSvg = async (iconos , callback) => {
         svgCollection.forEach( (svg, i) => {
 
 			var str = "<svg" + svg.split("<svg")[1];
-			var dd = str.replace(/fill=/gi, "nofill=");
+            var dd = str.replace(/fill=/gi, "nofill=");
+            console.log(dd);
 
             iconos[i] = { idElemento : iconos[i].id, svg: base64.encode(dd) };
         });

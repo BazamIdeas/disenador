@@ -1149,7 +1149,7 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
   background-size: 100%;
   background-blend-mode: normal, overlay, multiply; }
   .no-landing .cabecera h1 {
-    font-size: 2.4em;
+    font-size: 2em;
     font-weight: 500;
     text-align: center;
     color: white;
