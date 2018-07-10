@@ -483,7 +483,8 @@ etiqueta.TransformarSvg = async (iconos , callback) => {
         svgCollection.forEach( (svg, i) => {
 
 			var str = "<svg" + svg.split("<svg")[1];
-			var dd = str.replace(/fill=/gi, "nofill=");
+            var dd = str.replace(/fill=/gi, "nofill=");
+            console.log(dd);
 
             iconos[i] = { idElemento : iconos[i].id, svg: base64.encode(dd) };
         });

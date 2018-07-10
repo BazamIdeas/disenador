@@ -565,7 +565,7 @@ angular.module("disenador-de-logos")
 
 			var promise = defered.promise;
 
-			$http.post("/app/elementos/busqueda/iconos", {
+			$http.post("/app/elementos/busqueda/iconos/noun", {
 				tags: tags,
 				categoria: idCategoria,
 				ids: ids,
