@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "elementosService", "$q", "$state", "crearLogoFactory", "clientesService", "$mdToast", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "$rootScope", "$location", "Socialshare", function (categoriasService, elementosService, $q, $state, crearLogoFactory, clientesService, $mdToast, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService,  $rootScope, $location, Socialshare) {
+	.controller("inicioController", ["categoriasService", "elementosService", "$q", "$state", "crearLogoFactory", "clientesService", "$mdToast", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "$rootScope", "$location", "Socialshare", "disenadorService", function (categoriasService, elementosService, $q, $state, crearLogoFactory, clientesService, $mdToast, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService,  $rootScope, $location, Socialshare, disenadorService) {
 
 		var bz = this;
 
@@ -40,7 +40,9 @@ angular.module("disenador-de-logos")
 
 		bz.completadoCompartirSocial = true;
 		bz.compartir = function(provider, logo) {
-
+			if(disenadorService.autorizado()) {
+				return;
+			}
 
 			if (!clientesService.autorizado()) {
 
@@ -133,6 +135,9 @@ angular.module("disenador-de-logos")
 
 
 		bz.compartirPorEmailUrl = function () {
+			if(disenadorService.autorizado()) {
+				return;
+			}
 
 			var datosFormat = angular.copy(bz.datos);
 
@@ -327,6 +332,11 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
+
+			if(disenadorService.autorizado()) {
+				return;
+			}
+
 			bz.datosComprar = {
 				logo: svg,
 				idLogo: idLogo,
@@ -354,6 +364,10 @@ angular.module("disenador-de-logos")
 
 
 		bz.preGuardarLogo = function (logo) {
+
+			if(disenadorService.autorizado()) {
+				return;
+			}
 
 			if (logo.idLogo) {
 				return;
@@ -394,7 +408,7 @@ angular.module("disenador-de-logos")
 
 		bz.completadoGuardar = true;
 
-		/*TODO: Cambiar por idCategoria */
+		
 		bz.guardarLogo = function (logo, tipoLogo, idCategoria, idFuentePrincipal) {
 
 			var defered = $q.defer();
@@ -403,7 +417,7 @@ angular.module("disenador-de-logos")
 			if (bz.completadoGuardar) {
 
 				bz.completadoGuardar = false;
-				/*TODO: Cambiar por idCategoria */
+				
 				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idCategoria, idFuentePrincipal)
 
 					.then(function (res) {
@@ -424,6 +438,10 @@ angular.module("disenador-de-logos")
 
 		bz.completadoCompartir = true;
 		bz.compartirPorEmail = function (email, logo, valido) {
+
+			if(disenadorService.autorizado()) {
+				return;
+			}
 
 			if (!clientesService.autorizado()) {
 
