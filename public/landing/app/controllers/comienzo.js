@@ -24,16 +24,13 @@ angular.module("landing")
 			etiquetasSeleccionadas: [],
 			colores: []
 		}
+		
+		bz.logosPredisenados = [];
 
 		/* SLIDER PREDISENADOS */
 		bz.actual = 1;
 
-	bz.logosPredisenados = [];
-
-		for (let i = 0; i <= 40; i++) {
-			bz.logosPredisenados.push(i);
-		}
-/* 	
+		/* 	
 		$interval(function () {
 			if (bz.actual + 8 >= bz.logosPredisenados.length) {
 				bz.actual = 0;
@@ -54,28 +51,34 @@ angular.module("landing")
 		bz.selectedItem = null;
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
-
 		bz.peticion = true;
 
-		bz.promesas = [
-			categoriasService.listaCategorias("ICONO"),
-			categoriasService.listaCategorias("FUENTE"),
-			preferenciasService.listaPreferencias()
-		]
+		categoriasService.listaCategorias("ICONO").then(function (categorias) {
+			bz.categoriasPosibles.iconos = categorias;
 
-		$q.all(bz.promesas).then(function (res) {
+			logosService.mostrarAprobados().then(function (res) {
+				
+				bz.logosPredisenados = res;
 
-			bz.categoriasPosibles.iconos = res[0];
-			bz.categoriasPosibles.fuentes = res[1];
-			angular.forEach(res[2], function (valor) {
+				angular.forEach(res, function (logo) {
+					angular.forEach(categorias, function (categoria) {
+						if (logo.categorias_idCategoria == categoria.idCategoria) {
+							bz.logosPredisenados.nombreCategoria = categoria.nombreCategoria;
+						}
+					})
+				})
+			})
+		})
+
+		categoriasService.listaCategorias("FUENTE").then(function (res) {
+			bz.categoriasPosibles.fuentes = res;
+		})
+
+		preferenciasService.listaPreferencias().then(function (res) {
+			angular.forEach(res, function (valor) {
 				valor.valor = 2;
 				bz.datosCombinaciones.preferencias.push(valor);
 			});
-
-		}).catch(function (res) {
-			console.log(res)
-		}).finally(function () {
-			bz.peticion = false;
 		})
 
 		etiquetasService.listarEtiquetas().then(function (res) {

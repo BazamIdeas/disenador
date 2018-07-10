@@ -289,22 +289,27 @@ exports.validarCategorias = function (req, res, next) {
 
 				req.body.categorias = response;
 
-				if(req.originalUrl != '/logos-destacados'){
+				if (req.originalUrl != '/logos-destacados') {
 					for (let i = 0; i < req.body.categorias.length; i++) {
 						if (req.params.categoria == req.body.categorias[i].categoriaFormateada) {
 							req.body.categoriaSeleccionada = req.body.categorias[i];
 							return next();
 						} else {
-							if (req.body.categorias[i].categoriaFormateada == 'sin-categoria'){
+							if (req.body.categorias[i].categoriaFormateada == 'sin-categoria') {
 								req.body.categoriaSeleccionada = req.body.categorias[i];
 								return res.redirect(301, '/logos-destacados');
 							}
-						}	
+						}
 					}
-				}else{
-					next();
+				} else {
+					for (let i = 0; i < req.body.categorias.length; i++) {
+						if (req.body.categorias[i].categoriaFormateada == 'sin-categoria') {
+							req.body.categoriaSeleccionada = req.body.categorias[i];
+							next();
+						}
+					}
 				}
-				
+
 			}
 		});
 

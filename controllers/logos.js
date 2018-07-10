@@ -56,14 +56,7 @@ exports.guardar = function (req, res) {
 				};
 
 				atributo.Guardar(atributosData, function (error, data) {
-
-					if (!data && !data.insertId) {
-
-						res.status(500).json({
-							"msg": "Algo ocurrio"
-						});
-
-					}
+					if (error)  console.log(err);
 
 				});
 
@@ -81,8 +74,9 @@ exports.guardar = function (req, res) {
 					if (err) return console.log(err);
 				});
 
-				res.status(200).json(data);
 			});
+
+			res.status(200).json(data);
 
 		} else {
 			res.status(500).json({

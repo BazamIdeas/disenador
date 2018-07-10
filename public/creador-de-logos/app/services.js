@@ -1367,7 +1367,7 @@ angular.module("disenador-de-logos")
 	/***** Logos *********/
 	/*********************/
 
-	.service("logosService", ["$http", "$q", "$httpParamSerializer", function ($http, $q, $httpParamSerializer) {
+	.service("logosService", ["$http", "$q", "$httpParamSerializer", "disenadorService", function ($http, $q, $httpParamSerializer, disenadorService) {
 
 		this.calificar = function (idLogo, calificacion, comentario) {
 
@@ -1395,7 +1395,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.guardarLogo = function (logo, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId, logoPadreId) {
+		this.guardarLogo = function (logo, noun, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId) {
 
 			var defered = $q.defer();
 
@@ -1405,6 +1405,7 @@ angular.module("disenador-de-logos")
 				logo: logo,
 				tipoLogo: tipoLogo,
 				idCategoria: idCategoria,
+				noun: noun,
 				atributos: {
 					principal: fuentePrincipalId
 				}
@@ -1414,9 +1415,14 @@ angular.module("disenador-de-logos")
 				datos.atributos.eslogan = fuenteEsloganId;
 			}
 
+			if(disenadorService.autorizado()){
+				datos.estado = "Por Aprobar";
+			}
+			/*
 			if (logoPadreId) {
 				datos.atributos.padre = logoPadreId;
 			}
+			*/
 
 			$http.post("/app/logo/guardar", datos).then(function (res) {
 
@@ -2079,4 +2085,90 @@ angular.module("disenador-de-logos")
 		};
 
 
-	}]);
+	}])
+	
+
+	/***************************************/
+	/***************DISENADOR****************/
+	/***************************************/
+
+	.factory("disenadorDatosFactory", [function () {
+
+		var disenador = null;
+
+		return {
+			obtener: function () {
+
+				return disenador;
+
+			},
+			definir: function (objectoDisenador) {
+
+				disenador = objectoDisenador;
+
+			},
+			eliminar: function () {
+
+				disenador = null;
+
+			}
+		};
+
+	}])
+
+	.service("disenadorService", ["$q", "$http", "$window", "disenadorDatosFactory", function($q, $http, $window, disenadorDatosFactory){
+
+		this.login = function (usuario, contrasena) {
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			var datosLogin = {
+				usuario: usuario, 
+				contrasena: contrasena
+			};
+			/*
+			$http.post("/app/cliente/login", datosLogin)
+
+				.then(function (res) {
+					
+					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+					clienteDatosFactory.definir(res.data);
+					defered.resolve();
+
+				})
+				.catch(function () {
+					$window.localStorage.removeItem("bzToken");
+					defered.reject();
+				});
+			*/
+
+			var data = {token: "unToken", nombre: "Disenador Arias"};
+			$window.localStorage.setItem("bzTokenDisenador", angular.toJson(data));
+			disenadorDatosFactory.definir(data);
+
+
+			defered.resolve();
+			return promise;
+
+		};
+
+		this.autorizado = function(){
+
+			if (disenadorDatosFactory.obtener()) {
+
+				return disenadorDatosFactory.obtener();
+			
+			} 
+
+			if ($window.localStorage.getItem("bzTokenDisenador")) {
+
+				disenadorDatosFactory.definir(angular.fromJson($window.localStorage.getItem("bzTokenDisenador")));
+
+				return disenadorDatosFactory.obtener();
+				
+			}
+
+			return false;
+		}
+	}])
