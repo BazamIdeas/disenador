@@ -489,13 +489,13 @@ angular.module("landing")
 	}])
 
 	.service("logosService", ["$http", "$q", function ($http, $q) {
-		this.mostrarDestacados = function () {
+		this.mostrarAprobados = function () {
 
 			var defered = $q.defer();
 
 			var promise = defered.promise;
 
-			$http.post("/app/logos/aprobados/destacados").then(function (res) {
+			$http.post("/app/logos/aprobados").then(function (res) {
 
 				defered.resolve(res.data);
 
