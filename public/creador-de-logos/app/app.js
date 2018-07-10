@@ -169,6 +169,15 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						}
 
 					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
+
+						}
+
+					}],
 					historicoResolve: ["$q", "$stateParams", function ($q, $stateParams) {
 
 						var defered = $q.defer();
@@ -197,11 +206,20 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 				templateUrl: "app/views/cuenta.tpl",
 				controller: "cuentaController as cuenta",
 				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
 						if (!clientesService.autorizado()) {
 
 							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
 
 						}
 
@@ -215,11 +233,20 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 				templateUrl: "app/views/logos.tpl",
 				controller: "logosController as logos",
 				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
 						if (!clientesService.autorizado()) {
 
 							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
 
 						}
 
@@ -237,7 +264,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 				},
 				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
 						if (!clientesService.autorizado()) {
 
@@ -246,7 +273,16 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						}
 
 					}],
-					logoResolve: ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
+
+						}
+
+					}],
+					"logoResolve": ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
 
 						if ($stateParams.id) {
 							var defered = $q.defer();
@@ -273,9 +309,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						} else {
 							return $q.reject("INVALID_LOGO");
 						}
-
-
-
 					}]
 				}
 			})
@@ -294,23 +327,41 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 						}
 
+					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
+
+						}
+
 					}]
 				}
 			})
-
+			/*
 			.state({
 				name: "logosGaleria",
 				url: "/logos-galeria/",
 				templateUrl: "app/views/logosGaleria.tpl",
 				controller: "logosGaleriaController as logosGaleria"
 			})
-
+			*/
 			.state({
 				name: "papeleria",
 				url: "/cliente/logos/papeleria/:id/",
 				templateUrl: "app/views/papeleria.tpl",
 				controller: "papeleriaController as papeleriaCtrl",
 				resolve: {
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
+
+						}
+
+					}],
 					"logoResolve": ["$q", "$stateParams", "logosService", "arrayToJsonMetasFactory", function ($q, $stateParams, logosService, arrayToJsonMetasFactory) {
 
 						
@@ -360,6 +411,15 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						if (!clientesService.autorizado()) {
 
 							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
 
 						}
 

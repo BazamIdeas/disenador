@@ -266,14 +266,12 @@
 
 		<div class="principal-container editor col s7" ng-class="{'grid': editor.cuadricula}">
 				
-			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.categoria, editor.logo.fuente.idElemento)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
 			
 			<span class="accion" ng-click="::editor.buscarPlanes()" style="top: 15%;"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
 
 			<div class="svg-container" style="position:relative" ng-style="{'background-color': editor.colorFondo}">
-				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
-					data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan"
-					data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto" ></bazam-svg>
+				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan" data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto" ></bazam-svg>
 				<div class='overlay-logo loading-purple' ng-hide="editor.svgFinal"></div>
 			</div>
 			<div class="overlay-top-bottom" ng-class="{'open': editor.contenedores.busquedaIconos }"></div>
@@ -503,5 +501,16 @@
 
 	</div>
 </section>
+
+<div ng-if="editor.mostrarFormDisenador" class="disenador-input-tags">
+	<span style="position: absolute; top: 5%; right: 5%;" ng-click="editor.mostrarFormDisenador = false;">X</span>
+	<form ng-submit="editor.guardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)">
+		
+		<textarea rows="5">Aqui van las tags</textarea>
+
+		<button>GUARDAR</button>
+	
+	</form>
+</div>
 
 <bazam-planes estado="editor.abrirPlanes" datos="editor.datosComprar" guardar-logo="editor.guardarLogo"></bazam-planes>

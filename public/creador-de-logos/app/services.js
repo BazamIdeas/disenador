@@ -1367,7 +1367,7 @@ angular.module("disenador-de-logos")
 	/***** Logos *********/
 	/*********************/
 
-	.service("logosService", ["$http", "$q", "$httpParamSerializer", function ($http, $q, $httpParamSerializer) {
+	.service("logosService", ["$http", "$q", "$httpParamSerializer", "disenadorService", function ($http, $q, $httpParamSerializer, disenadorService) {
 
 		this.calificar = function (idLogo, calificacion, comentario) {
 
@@ -1395,7 +1395,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.guardarLogo = function (logo, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId, logoPadreId) {
+		this.guardarLogo = function (logo, noun, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId) {
 
 			var defered = $q.defer();
 
@@ -1405,6 +1405,7 @@ angular.module("disenador-de-logos")
 				logo: logo,
 				tipoLogo: tipoLogo,
 				idCategoria: idCategoria,
+				noun: noun,
 				atributos: {
 					principal: fuentePrincipalId
 				}
@@ -1414,9 +1415,14 @@ angular.module("disenador-de-logos")
 				datos.atributos.eslogan = fuenteEsloganId;
 			}
 
+			if(disenadorService.autorizado()){
+				datos.estado = "Por Aprobar";
+			}
+			/*
 			if (logoPadreId) {
 				datos.atributos.padre = logoPadreId;
 			}
+			*/
 
 			$http.post("/app/logo/guardar", datos).then(function (res) {
 

@@ -41,6 +41,10 @@ angular.module("disenador-de-logos")
 					bz.mostrarFormDisenador = false;
 					bz.mostrarAccesoDisenador = false;
 
+					if(clientesService.autorizado()){
+						clientesService.salir(true, true);
+					}
+
 				})
 				.catch(function(){
 					$mdToast.show($mdToast.base({

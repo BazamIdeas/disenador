@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "elementosService", "$q", "pedidosService", "fontService", "etiquetasService", function ($scope, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, $q, pedidosService, fontService, etiquetasService) {
+	.controller("editorController", ["$scope", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "elementosService", "$q", "pedidosService", "fontService", "etiquetasService", "disenadorService", function ($scope, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, $q, pedidosService, fontService, etiquetasService, disenadorService) {
 
 		var bz = this;
 
@@ -94,22 +94,30 @@ angular.module("disenador-de-logos")
 
 		});
 		
-		bz.preGuardarLogo = function(logo, tipoLogo, idCategoria, idFuentePrincipal, regresar){
+		bz.preGuardarLogo = function(logo, noun, tipoLogo, idCategoria, regresar){
 			
+			var clienteAutorizado = clientesService.autorizado();
+			var disenadorAutorizado = disenadorService.autorizado();
+
 			// Verificar si el usuario que esta logueado
-			if (!clientesService.autorizado()) {
+			if (!clienteAutorizado && !disenadorAutorizado) {
 		
 				$rootScope.mostrarModalLogin = true;
 				$rootScope.callback = false;
 				return;
 			}
 			
-			bz.guardarLogo(logo, tipoLogo, idCategoria, regresar);
+			if(disenadorAutorizado){
+				bz.mostrarFormDisenador = true;
+				return;
+			}
+
+			bz.guardarLogo(logo, noun, tipoLogo, idCategoria, regresar);
 		};
 
 		bz.completadoGuardar = true;
 		
-		bz.guardarLogo = function (logo, tipoLogo, idCategoria, idFuentePrincipal, regresar) {
+		bz.guardarLogo = function (logo, noun, tipoLogo, idCategoria, regresar) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
@@ -139,9 +147,8 @@ angular.module("disenador-de-logos")
 				});
 
 				if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
-
-					
-					logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, bz.idLogoPadre)
+				
+					logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan)
 
 						.then(function (res) {
 
@@ -233,6 +240,10 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.buscarPlanes = function () {
+
+			if(disenadorService.autorizado()){
+				return;
+			}
 
 			$rootScope.$broadcast("editor:planes", true);
 

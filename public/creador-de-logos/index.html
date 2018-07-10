@@ -186,14 +186,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 margin-bottom: 20px;
             }
 
+            .disenador-input-tags {
+                width: 300px;
+                height: 200px;
+                background-color: white;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                position: fixed;
+                top: calc(50% - 150px);
+                left: calc(50% - 150px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .disenador-input-tags form {
+                text-align: center;
+                width: 80%;
+            }
+
         </style>
         <div class="acceso-disenador" ng-if="header.mostrarAccesoDisenador"> 
                 
-                <button ng-hide="bz.mostrarFormDisenador" ng-click="bz.mostrarFormDisenador = true;">Acceder como Diseñador</button>
+                <button ng-hide="header.mostrarFormDisenador" ng-click="bz.mostrarFormDisenador = true;">Acceder como Diseñador</button>
 
-                <div ng-show="bz.mostrarFormDisenador" class="form-disenador-container">
+                <div ng-show="header.mostrarFormDisenador" class="form-disenador-container">
                     <form name="header.datosDisenadorForm" ng-submit="header.loginDisenador(header.datosDisenador, header.datosDisenadorForm.$valid)">
-                        <span style="position: absolute; top: 5%; right: 5%;" ng-click="bz.mostrarFormDisenador = false;">X</span>
+                        <span style="position: absolute; top: 5%; right: 5%;" ng-click="header.mostrarFormDisenador = false;">X</span>
                         <input type="text" placeholder="Usuario" ng-model="header.datosDisenador.usuario" required/>
                         <input type="password" placeholder="Contraseña" ng-model="header.datosDisenador.contrasena" required/>
                         <button type="submit">Acceder</button>
@@ -202,7 +220,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="acceso-disenador" ng-if="header.mostrarBannerDisenador"> 
-            MODO DISEÑADOR
+            MODO DISEÑADOR <button>Cerrar Sesión</button>
         </div>
 
     </header>
