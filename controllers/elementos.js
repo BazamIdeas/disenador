@@ -226,111 +226,54 @@ exports.listaSegunTagCat = function (req, res) {
 exports.listaSegunTagCatNOUN = function (req, res) {
 
 	const tags = req.body.tags ? req.body.tags : [];
+	//const salto = req.body.salto ? req.body.salto : 0;
 	const lang = req.body.lang ? req.body.lang.toLowerCase() : 'es';
 	const categoria = 0;
-	const limit = req.body.limit ? req.body.limit : 4;
-	const ids = req.body.ids ? req.body.ids : [0];
+	//const ids = req.body.ids ? req.body.ids : [0];
 
-	let tagsNormalize = [];
+	let response = { tags: {} };
 
-	tags.forEach(el => tagsNormalize.push(helpers.normalize(el.toLowerCase())));
+	Object.keys(tags).forEach(el => response.tags[helpers.normalize(el.toLowerCase())] = { ori: el, salto: tags[el]} );
 
-	etiqueta.AnalizarNOUN(lang, tagsNormalize, (err, analasis) => {
+	etiqueta.AnalizarNOUN(lang, response.tags, (err, analasis) => {
 		// Aqui se registran las busquedas
 
 		if (err) return res.status(500).json(err);
 
-		let noExistentes = analasis.noExistentes;
-		let tagsIngles = analasis.ingles;
+		response.tags = analasis;
 
-		etiqueta.TraducirGuardar(noExistentes, lang, (err, tagsTraducidas) => {
-
-			//return res.status(200).json(tagsTraducidas);
+		etiqueta.TraducirGuardar(response.tags, lang, (err, tagsTraducidas) => {
 
 			if (err) return res.status(500).json(err);
 
-			//tagsTraducidas.forEach(tag => { tagsIngles.push(tag) });
+			response.tags = tagsTraducidas;
 
-			etiqueta.BuscarIconosNOUN(tagsIngles, ids, (err, iconos) => {
+			etiqueta.BuscarIconosNOUN(response.tags ,(err, busqueda) => {
 
 				if (err) return res.status(500).json(err);
 
-				etiqueta.TransformarSvg(iconos, (err, response) => {
+				response.tags = {};
+				response.iconos = busqueda.iconos;
+
+				Object.keys(busqueda.tags).map(tag => {
+					response.tags[busqueda.tags[tag].ori] = busqueda.tags[tag].salto;
+				});
+
+				res.status(200).json(response);
+
+				/*etiqueta.TransformarSvg(busqueda.iconos, (err, iconosTransformados) => {
 
 					if (err) return res.status(500).json(err);
 
-					res.status(200).json(response);
-					return
+					response.iconos = iconosTransformados;
 
-				})
+					res.status(200).json(response);
+
+				})*/
 			
 			})
 
 		})
-
-		
-		/*elemento.getElementsByTagsNOUN(arr, categoria, limit, (err, data) => {
-			let elementos = [];
-
-			if (typeof data !== "undefined" && data.length > 0) {
-
-				for (let i = data.length - 1; i >= 0; i--) {
-					let id = data[i].idElemento;
-					let into = 0;
-					for (let j = elementos.length - 1; j >= 0; j--) {
-						let id2 = elementos[j].idElemento;
-						if (id == id2) {
-							into = 1;
-						}
-					}
-
-					if (into == 0) {
-						elementos = elementos.concat(data[i]);
-					}
-				}
-
-			}
-
-			if (elementos.length < limit) {
-
-
-				caract = {
-					"ABSTRACTOS" : "abstractos"
-				}
-
-				elemento.getElementosIncatNOUN([categoria, limit], (error, data) => {
-					
-					if (typeof data !== "undefined" && data.length > 0) {
-
-						for (let i = data.length - 1; i >= 0; i--) {
-							let id = data[i].idElemento;
-							let into = 0;
-							for (let j = elementos.length - 1; j >= 0; j--) {
-								let id2 = elementos[j].idElemento;
-								if (id == id2) {
-									into = 1;
-								}
-							}
-
-							if (into == 0 && elementos.length < limit) {
-								elementos = elementos.concat(data[i]);
-							}
-						}
-
-					}
-
-					res.status(200).json(elementos);
-
-				});
-
-
-			} else {
-
-				res.status(200).json(elementos);
-			
-			}
-
-		})*/
 
 	});
 

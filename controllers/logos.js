@@ -61,6 +61,11 @@ exports.guardar = function (req, res) {
 
 				});
 
+				//Guardar tags y asignar a logo
+				if (req.disenador || true) {
+					console.log(req.body.tags);
+				}
+
 			}
 
 			cliente.getCliente(req.idCliente, function (error, dataCliente) {
