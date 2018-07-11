@@ -20,6 +20,14 @@ angular.module("disenador-de-logos")
 		bz.colorEslogan = "#000";
 		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[0] : "#000";
 		bz.svgFinal = "";
+		bz.disenador = {
+			searchText: ""
+		};
+
+		bz.datosDisenador = {
+			etiquetasSeleccionadas: []
+		};
+
 
 		bz.jqueryScrollbarOptions = {};
 
@@ -58,7 +66,7 @@ angular.module("disenador-de-logos")
 			.then(function (res) {
 				bz.fuentesCategorias = res;
 			})
-			.catch(function () {});
+			.catch(function () { });
 
 
 		elementosService.listarFuentes().then(function (res) {
@@ -96,21 +104,21 @@ angular.module("disenador-de-logos")
 			}
 
 		});
-		
-		bz.preGuardarLogo = function(logo, noun, tipoLogo, idCategoria, regresar){
-			
+
+		bz.preGuardarLogo = function (logo, noun, tipoLogo, idCategoria, regresar) {
+
 			var clienteAutorizado = clientesService.autorizado();
 			var disenadorAutorizado = disenadorService.autorizado();
 
 			// Verificar si el usuario que esta logueado
 			if (!clienteAutorizado && !disenadorAutorizado) {
-		
+
 				$rootScope.mostrarModalLogin = true;
 				$rootScope.callback = false;
 				return;
 			}
-			
-			if(disenadorAutorizado){
+
+			if (disenadorAutorizado) {
 				bz.mostrarFormDisenador = true;
 				return;
 			}
@@ -119,7 +127,7 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.completadoGuardar = true;
-		
+
 		bz.guardarLogo = function (logo, noun, tipoLogo, idCategoria, regresar) {
 
 			var defered = $q.defer();
@@ -150,7 +158,7 @@ angular.module("disenador-de-logos")
 				});
 
 				if (!bz.logo.idLogo) { //si nunca se ha guardado este logo
-				
+
 					logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan)
 
 						.then(function (res) {
@@ -229,11 +237,70 @@ angular.module("disenador-de-logos")
 		};
 
 
+		/****** Guardar Logo del Disenador  ******/
+		bz.guardarLogoDisenador = function (logo, noun, tipoLogo, idCategoria, tags, alt){
+
+			if (!bz.completadoGuardar || !bz.disenadorGuardarForm.$valid) {
+				return;
+			}
+
+			bz.completadoGuardar = false;
+
+			var fuentesId = {
+				principal: "",
+				eslogan: ""
+			};
+
+			angular.forEach(bz.fuentes, function (fuente) {
+
+				if (bz.logo.fuente && (bz.logo.fuente.url == fuente.url)) {
+
+					fuentesId.principal = fuente.idElemento;
+
+				}
+
+				if (bz.logo.fuenteEslogan && (bz.logo.fuenteEslogan.url == fuente.url)) {
+
+					fuentesId.eslogan = fuente.idElemento;
+
+				}
+			});
+
+			logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt)
+
+				.then(function (res) {
+
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Enviaste un logo a revision!",
+							clase: "success"
+						}
+					}));
+					
+				}).catch(function (res) {
+
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Un error ha ocurrido",
+							clase: "danger"
+						}
+					}));
+					
+
+				}).finally(function () {
+
+					bz.completadoGuardar = true;
+
+				});
+
+		}
+
+
 		bz.activarCuadricula = function () {
 
 			bz.cuadricula = !bz.cuadricula;
 
-			if(bz.cuadricula){
+			if (bz.cuadricula) {
 				bz.colorFondoAnterior = bz.colorFondo;
 				bz.colorFondo = 'transparent';
 			} else {
@@ -244,7 +311,7 @@ angular.module("disenador-de-logos")
 
 		bz.buscarPlanes = function () {
 
-			if(disenadorService.autorizado()){
+			if (disenadorService.autorizado()) {
 				return;
 			}
 
@@ -254,8 +321,8 @@ angular.module("disenador-de-logos")
 
 		$scope.$on("directiva:planes", function (evento, datos) {
 
-			var idFuente = null;
-			var idFuenteEslogan = null;
+			var idFuente;
+			var idFuenteEslogan;
 
 			angular.forEach(bz.fuentes, function (valor) {
 
@@ -336,8 +403,8 @@ angular.module("disenador-de-logos")
 			}
 		};
 
-		bz.quitarEsloganDefault = function(eslogan){
-			if(eslogan === "Mi eslogan aquí"){
+		bz.quitarEsloganDefault = function (eslogan) {
+			if (eslogan === "Mi eslogan aquí") {
 				bz.logo.eslogan = "";
 
 				bz.cambioTexto("", true);
@@ -449,7 +516,8 @@ angular.module("disenador-de-logos")
 
 		etiquetasService.listarEtiquetas().then(function (res) {
 			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-		}).catch(function () {});
+			//console.log('etiquetas cargadas', bz.etiquetas)
+		}).catch(function () { });
 
 		bz.etiquetasSeleccionadas = [];
 
@@ -482,7 +550,7 @@ angular.module("disenador-de-logos")
 					bz.iconos = res;
 
 				}).catch(function (res) {
-					console.log(res);
+					//console.log(res);
 				}).finally(function () {
 					bz.completadoBuscar = true;
 				});
@@ -626,21 +694,21 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.abrirContenedor = function(contenedor, noCerrar){
-			
-			if(!noCerrar && bz.contenedores[contenedor]) return bz.contenedores[contenedor] = false;
+		bz.abrirContenedor = function (contenedor, noCerrar) {
+
+			if (!noCerrar && bz.contenedores[contenedor]) return bz.contenedores[contenedor] = false;
 
 			bz.cerrarContenedores(contenedor);
 
 			bz.contenedores[contenedor] = true;
 		};
 
-		bz.cerrarContenedores = function(contenedor){
+		bz.cerrarContenedores = function (contenedor) {
 
 			$scope.$broadcast("editor:cerrarColorPickers", true);
 
-			angular.forEach(bz.contenedores, function(el, k){
-				if(contenedor == k) return;
+			angular.forEach(bz.contenedores, function (el, k) {
+				if (contenedor == k) return;
 				bz.contenedores[k] = false;
 			});
 		};

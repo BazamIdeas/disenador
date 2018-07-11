@@ -40,6 +40,7 @@ angular.module("disenador-de-logos")
 
 					bz.mostrarFormDisenador = false;
 					bz.mostrarAccesoDisenador = false;
+					bz.mostrarBannerDisenador = true;
 
 					if(clientesService.autorizado()){
 						clientesService.salir(true, true);
@@ -56,6 +57,13 @@ angular.module("disenador-de-logos")
 				})
 		
 		}
+
+		bz.cerrarSesionDisenador = function(){
+			disenadorService.salir();
+			bz.mostrarFormDisenador = false;
+			bz.mostrarAccesoDisenador = false;
+			bz.mostrarBannerDisenador = false;
+		}	
 
 		var params = $location.search();
 
@@ -76,6 +84,8 @@ angular.module("disenador-de-logos")
 			bz.mostrarBannerDisenador = true;
 		}
 		
+
+		/**** FIN DE DATOS FREELANCER ****/
 
 		$scope.$on("sesionExpiro", function () {
 

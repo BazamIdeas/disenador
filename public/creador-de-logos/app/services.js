@@ -1365,7 +1365,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.guardarLogo = function (logo, noun, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId) {
+		this.guardarLogo = function (logo, noun, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId, tags, descripcion) {
 
 			var defered = $q.defer();
 
@@ -1385,16 +1385,42 @@ angular.module("disenador-de-logos")
 				datos.atributos.eslogan = fuenteEsloganId;
 			}
 
-			if(disenadorService.autorizado()){
+			var config = {};
+			var datosDisenador = disenadorService.autorizado()
+			if(datosDisenador){
+				
+				datos.atributos.descripcion = descripcion;
+
+				datos.tags = {
+					existentes: [],
+					nuevas: []
+				};
+
+				angular.forEach(tags, function(tag){
+
+					if(tag._id){
+						datos.tags.existentes.push(tag._id);
+					} else {
+						datos.tags.nuevas.push(tag.traduccion.valor);
+					}					
+					
+				});
+				
 				datos.estado = "Por Aprobar";
+
+				config.headers = {
+					auth: datosDisenador.token
+				};
 			}
+		
 			/*
 			if (logoPadreId) {
 				datos.atributos.padre = logoPadreId;
 			}
 			*/
 
-			$http.post("/app/logo/guardar", datos).then(function (res) {
+			
+			$http.post("/app/logo/guardar", datos, config).then(function (res) {
 
 				defered.resolve(res.data.insertId);
 
@@ -2088,37 +2114,31 @@ angular.module("disenador-de-logos")
 
 	.service("disenadorService", ["$q", "$http", "$window", "disenadorDatosFactory", function($q, $http, $window, disenadorDatosFactory){
 
-		this.login = function (usuario, contrasena) {
+		this.login = function (correo, contrasena) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
 
 			var datosLogin = {
-				usuario: usuario, 
-				contrasena: contrasena
+				correo: correo, 
+				pass: contrasena
 			};
-			/*
+	
 			$http.post("/app/cliente/login", datosLogin)
 
 				.then(function (res) {
 					
-					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-					clienteDatosFactory.definir(res.data);
+					var data = res.data;
+					$window.localStorage.setItem("bzTokenDisenador", angular.toJson(data));
+					disenadorDatosFactory.definir(data);
 					defered.resolve();
 
 				})
 				.catch(function () {
-					$window.localStorage.removeItem("bzToken");
+					$window.localStorage.removeItem("bzTokenDisenador");
 					defered.reject();
 				});
-			*/
-
-			var data = {token: "unToken", nombre: "Disenador Arias"};
-			$window.localStorage.setItem("bzTokenDisenador", angular.toJson(data));
-			disenadorDatosFactory.definir(data);
-
-
-			defered.resolve();
+				
 			return promise;
 
 		};
@@ -2141,4 +2161,12 @@ angular.module("disenador-de-logos")
 
 			return false;
 		}
+
+		this.salir = function () {
+
+			$window.localStorage.removeItem("bzTokenDisenador");
+			disenadorDatosFactory.eliminar();
+		};
+
+
 	}])
