@@ -27,21 +27,21 @@
     <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
 
     <!--Librerias core de angualarJS -->
-    <script src="/jquery/jquery.min.js" ></script>
-    <script src="/angular/angular.min.js" ></script>
-    <script src="/angular-messages/angular-messages.min.js" ></script>
-    <script src="/angular-animate/angular-animate.min.js" ></script>
-    <script src="/angular-aria/angular-aria.min.js" ></script>
-    <script src="/angular-base64/angular-base64.min.js" ></script>
+    <script src="/jquery/jquery.min.js" defer></script>
+    <script src="/angular/angular.min.js" defer></script>
+    <script src="/angular-messages/angular-messages.min.js" defer></script>
+    <script src="/angular-animate/angular-animate.min.js" defer></script>
+    <script src="/angular-aria/angular-aria.min.js" defer></script>
+    <script src="/angular-base64/angular-base64.min.js" defer></script>
     <!--     <script src="/angular-ui-router/angular-ui-router.min.js"></script> -->
-    <script src="/angular-material/angular-material.min.js" ></script>
+    <script src="/angular-material/angular-material.min.js" defer></script>
 
     <!--Librerias 3r party angularJS -->
-    <script src="/angular-ui-carousel/ui-carousel.min.js" ></script>
-    <script src="assets/js/materialize.min.js" ></script>
+    <script src="/angular-ui-carousel/ui-carousel.min.js" defer></script>
+    <script src="assets/js/materialize.min.js" defer></script>
 
     <!--Archivos App diseñador -->
-    <script src="/landing/built/app.js" ></script>
+    <script src="/landing/built/app.js" defer></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"  >
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
@@ -50,7 +50,7 @@
     
     <link rel="manifest" href="/landing/manifest.json">
 
-    <!-- Service Worker -->
+    <!-- Service Worker 
     <script src="/landing/sw.js" async></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -65,6 +65,7 @@
             }
         })
     </script>
+    -->
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -173,7 +174,7 @@
                                 <label style="transform: none;     text-align: center; font-size: 20pt;
                                     ">¿Que buscas?</label>
                                 <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" ng-class="{'without-placeholder':ctrl.datosCombinaciones.etiquetasSeleccionadas.length > 0}"
-                                    md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
+                                    md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)"  aria-invalid="false">
                                     <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
                                         md-item-text="item.traduccion.valor" placeholder="Ejemplo: Café">
                                         <span md-highlight-text="ctrl.searchText">${item.traduccion.valor}$</span>
@@ -240,6 +241,7 @@
                 </form>
             </div>
         </div>
+        <!--
         <div class="seccion" ng-show="ctrl.logosPredisenados">
             <div class="titulo-destacado">
                 <p style="margin: 20px;">GALERÍA DE LOGOS</p>
@@ -260,6 +262,7 @@
                 {% endfor %}
             </div>
         </div>
+        -->
 
         <!-- CARACTERISTICAS -->
         <div class="row seccion dos ">
@@ -311,7 +314,7 @@
             </div>
         </div>
 
-        <!-- PREVIEW
+        <!-- PREVIEW -->
         <div>
             <div class="col s12 ver-logo-enorme estatico" id="previsualizar">
                 <div class="bazam-previzualizar-container one">
@@ -351,7 +354,7 @@
                 </div>
             </div>
         </div>
- -->
+
         <!-- PLANES -->
         <div class="row s12 seccion seis">
             <div class="titulo-destacado">
