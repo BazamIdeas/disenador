@@ -282,12 +282,12 @@ angular.module("disenador-de-logos")
 				])
 					.then(function (res) {
 
-						angular.forEach(res[0], function (icono) {
+						angular.forEach(res[0].iconos, function (icono) {
 							bz.iconos.push(icono.idElemento);
 						});
 
-						bz.combinar(res[0], res[1]);
-
+						tags_saltos = res[0].tags;
+						bz.combinar(res[0].iconos, res[1]);
 
 					})
 					.catch(function () {
