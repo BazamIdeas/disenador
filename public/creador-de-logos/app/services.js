@@ -569,13 +569,10 @@ angular.module("disenador-de-logos")
 					defered.reject(res);
 				});
 
-<<<<<<< HEAD
 			return promise;
 		};
 
 
-=======
->>>>>>> d0e468a0fa4ee5c3b486d45339f729a5f43f72dd
 		this.listarFuentes = function () {
 
 			var defered = $q.defer();
