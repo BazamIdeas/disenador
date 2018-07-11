@@ -187,16 +187,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
 
             .disenador-input-tags {
-                width: 300px;
-                height: 200px;
+                width: 400px;
+                min-height: 300px;
                 background-color: white;
                 box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
                 position: fixed;
-                top: calc(50% - 150px);
+                top: calc(30% - 150px);
                 left: calc(50% - 150px);
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                padding: 40px 0px;
             }
 
             .disenador-input-tags form {
@@ -204,10 +205,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 width: 80%;
             }
 
+
+            
+
         </style>
         <div class="acceso-disenador" ng-if="header.mostrarAccesoDisenador"> 
                 
-                <button ng-hide="header.mostrarFormDisenador" ng-click="bz.mostrarFormDisenador = true;">Acceder como Diseñador</button>
+                <button ng-hide="header.mostrarFormDisenador" ng-click="header.mostrarFormDisenador = true;">Acceder como Diseñador</button>
 
                 <div ng-show="header.mostrarFormDisenador" class="form-disenador-container">
                     <form name="header.datosDisenadorForm" ng-submit="header.loginDisenador(header.datosDisenador, header.datosDisenadorForm.$valid)">
@@ -220,7 +224,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="acceso-disenador" ng-if="header.mostrarBannerDisenador"> 
-            MODO DISEÑADOR <button>Cerrar Sesión</button>
+            MODO DISEÑADOR <button ng-click="header.cerrarSesionDisenador()">Cerrar Sesión</button>
         </div>
 
     </header>

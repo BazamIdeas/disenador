@@ -503,12 +503,35 @@
 </section>
 
 <div ng-if="editor.mostrarFormDisenador" class="disenador-input-tags">
-	<span style="position: absolute; top: 5%; right: 5%;" ng-click="editor.mostrarFormDisenador = false;">X</span>
-	<form ng-submit="editor.guardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)">
+	<span style="position: absolute; top: 5%; right: 5%; cursor: pointer;" ng-click="editor.mostrarFormDisenador = false;">X</span>
+	<!--<form ng-submit="editor.guardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)">-->
+	<form name="editor.disenadorGuardarForm" ng-submit="editor.guardarLogoDisenador(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.datosDisenador.idCategoria, editor.datosDisenador.etiquetasSeleccionadas, editor.datosDisenador.descripcion)">
 		
-		<textarea rows="5">Aqui van las tags</textarea>
 
-		<button>GUARDAR</button>
+		<input type="text" placeholder="Descripción" ng-model="editor.datosDisenador.descripcion" style="width: 87%;" required>
+
+		<md-input-container style="width:87%; padding: 0 0.75rem 0 0">
+			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del Logo</md-tooltip>
+			<md-select flex ng-model="editor.datosDisenador.idCategoria" placeholder="Buscar simbolos" md-no-asterisk required>
+				<md-option class="iconos" ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
+			</md-select>
+		</md-input-container>
+
+		<md-chips style="padding:0;" md-add-on-blur="true" ng-model="editor.datosDisenador.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+		md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" >
+			<label>Etiquetas</label>
+			<md-autocomplete md-selected-item="editor.disenador.selectedItem" md-search-text="editor.disenador.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.disenador.searchText, editor.etiquetas)" md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
+				<span md-highlight-text="editor.searchText">{{::item.traduccion.valor}}</span>
+			</md-autocomplete>
+			<md-chip-template>
+				<span>
+					<strong>{{$chip.traduccion.valor}}</strong>
+				</span>
+			</md-chip-template>
+		</md-chips>
+		
+
+		<button type="submit" style="margin-top: 25px !important;">GUARDAR</button>
 	
 	</form>
 </div>
