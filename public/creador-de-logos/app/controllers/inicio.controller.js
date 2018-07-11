@@ -253,6 +253,8 @@ angular.module("disenador-de-logos")
 			bz.combinar(landingResolve.iconos, landingResolve.fuentes);
 		}
 
+		var tags_saltos = {};
+
 		bz.solicitarElementos = function (inicial) {
 
 			if (bz.completado) {
@@ -261,13 +263,17 @@ angular.module("disenador-de-logos")
 
 				bz.completado = false;
 
-				var tags = [];
-
 				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
-					tags.push(tag.traduccion.valor);
+
+					var tag_existe = tags_saltos[tag.traduccion.valor];
+
+					if(tag_existe === undefined) {
+						tags_saltos[tag.traduccion.valor] = 0;
+					}
+
 				});
 
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags, bz.datos.categoria.icono, bz.iconos, 12);
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags_saltos);
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
 				$q.all([

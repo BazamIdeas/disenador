@@ -559,7 +559,7 @@ angular.module("disenador-de-logos")
 
 			return promise;
 		};
-
+		/*
 		this.listarIconosSegunTags = function (tags, idCategoria, ids, limit) {
 			var defered = $q.defer();
 
@@ -580,7 +580,25 @@ angular.module("disenador-de-logos")
 
 			return promise;
 		};
+		*/
 
+		this.listarIconosSegunTags = function (tags) {
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.post("/app/elementos/busqueda/iconos/noun", {
+				tags: tags
+			})
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+		};
 
 
 		this.listarFuentes = function () {
