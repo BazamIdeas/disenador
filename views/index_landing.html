@@ -1,0 +1,598 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es-es" lang="es-es" dir="ltr" ng-app="landing" ng-cloak>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <base href="/">
+    <title>Logopro | Tu logo en 3 minutos</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="logo online" />
+    <meta name="description" content="Descripcion" />
+
+    <meta property="og:title" content="LOGOPRO | Tu logo en 3 minutos" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/landing/assets/img/logo.pro.svg" />
+    <meta property="og:image:url" content="/landing/assets/img/logo.pro.svg" />
+    <meta property="og:description" content="Diseña tu logo" />
+    <meta property="og:site_name" content="logopro" />
+    <meta property="fb:app_id" content="152803392097078" />
+
+    <link href="/landing/assets/css/main.css" rel="stylesheet" >
+    <link href="/angular-material/angular-material.min.css" rel="stylesheet" >
+    <link rel="stylesheet" href="/landing/assets/css/materialize.min.css">
+ 
+<!--     <link href="/landing/assets/css/fuentes.css" rel="stylesheet" > -->
+    <!-- <link href="/landing/assets/animation.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
+
+    <!--Librerias core de angualarJS -->
+    <script src="/jquery/jquery.min.js" ></script>
+    <script src="/angular/angular.min.js" ></script>
+    <script src="/angular-messages/angular-messages.min.js" ></script>
+    <script src="/angular-animate/angular-animate.min.js" ></script>
+    <script src="/angular-aria/angular-aria.min.js" ></script>
+    <script src="/angular-base64/angular-base64.min.js" ></script>
+    <!--     <script src="/angular-ui-router/angular-ui-router.min.js"></script> -->
+    <script src="/angular-material/angular-material.min.js" ></script>
+
+    <!--Librerias 3r party angularJS -->
+    <script src="/angular-ui-carousel/ui-carousel.min.js" ></script>
+    <script src="assets/js/materialize.min.js" ></script>
+
+    <!--Archivos App diseñador -->
+    <script src="/landing/built/app.js" ></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"  >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+        crossorigin="anonymous" >
+
+    
+    <link rel="manifest" href="/landing/manifest.json">
+
+    <!-- Service Worker -->
+    <script src="/landing/sw.js" async></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function () {
+                    navigator.serviceWorker.register('/landing/sw.js').then(reg => {
+                        //reg.update();
+                    }).catch(function (err) {
+                        console.log('Service Worker fallo', err);
+                    });
+                });
+            }
+        })
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-WCZ63JP');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WCZ63JP" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- header -->
+    <div ng-controller="headerController as h" style="background: white;">
+        <bazam-form-login mostrar="h.mostrarLogin" callback="h.callback" opcion="h.opcionMostrarLogin"></bazam-form-login>
+        <header class="header" id="comienzo">
+            <div layout layout-align="space-between">
+                <div class="logo grande" ui-sref="comienzo">
+                    <img src="/landing/assets/img/logo.pro.svg" alt="logo.pro">
+                </div>
+                <div layout flex layout-align="end center">
+                    <div ng-switch="h.autorizado" class="login" ng-cloak>
+                        <div ng-switch-when="false" class="acceder not-ing" style="cursor: pointer">
+                            <span ng-click="h.opcionMostrarLogin = false; h.mostrarLogin = true">Acceder</span>
+                            <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">Registro</span>
+                        </div>
+                        <div ng-switch-default class="acceder" style="cursor: pointer">
+                            <span ng-click="h.navegar.cliente('')">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
+                                <i class="material-icons">add_circle_outline</i>
+                            </span>
+                            <span ng-click="h.navegar.cliente('logos')">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Tus logos</md-tooltip>
+                                <i class="material-icons">favorite</i>
+                            </span>
+                            <span ng-click="h.navegar.cliente('cuenta')">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
+                                <i class="material-icons">account_circle</i>
+                            </span>
+                            <span ng-click="h.salir()">
+                                <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar Sesion</md-tooltip>
+                                <i class="material-icons">power_settings_new</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <!-- contenedor principal -->
+    <div ng-controller="comienzoController as ctrl">
+        <div class="row seccion uno">
+            <!-- TITULO -->
+            <div class="col s12 m12 l6 no-padding">
+                <div class="titulo-inicio">
+                    <div>
+                        <h1 class="titulo-principal">Cree en segundos
+                            <br> un logo que amará</h1>
+                        <span>.</span>
+                    </div>
+                    <div>
+                        <h4 class="subtitle">Nuestro generador de logos utiliza
+                            <br/> aprendizaje automático para diseñar
+                            <br> conceptos llamativos y únicos</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- FORMULARIO -->
+            <div class="col l5 m10 no-padding offset-m1 offset-s1 s10">
+                <form name="form" ng-submit="ctrl.enviarComenzar(ctrl.datosCombinaciones, form.$valid)" novalidate>
+                    <div class="padding-top-4">
+                        <!-- NOMBRE LOGO && ACTIVIDAD -->
+                        <div flex layout>
+                            <md-input-container class="md-block" flex style="    margin-right: 20px;">
+                                <label>Nombre de su logo</label>
+                                <input style="margin-bottom: 0;" type="text" md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required
+                                    placeholder="Mi logo">
+                                <!-- VALIDACION -->
+                                <div ng-messages="form.nombre.$error " style="color: #E91E63 !important;  " role="alert " ng-show="form.nombre.$touched
+                                                    && form.nombre.$invalid || form.$submitted && form.nombre.$invalid">
+                                    <div ng-message="required">Escriba el nombre de su logo.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex>
+                                <label>Actividad</label>
+                                <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro"
+                                    name="cat">
+                                    <md-option value="0" selected>Selecciona</md-option>
+                                    {% for elemento in categorias %}
+                                    <md-option value="{{elemento.idCategoria}}">{{elemento.nombreCategoria}}</md-option>
+                                    {% endfor %}
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <!-- ETIQUETAS -->
+                        <div flex>
+                            <md-input-container class="md-block etiquetas" style="    margin-top: 30px;width: 100%;">
+                                <label style="transform: none;     text-align: center; font-size: 20pt;
+                                    ">¿Que buscas?</label>
+                                <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" ng-class="{'without-placeholder':ctrl.datosCombinaciones.etiquetasSeleccionadas.length > 0}"
+                                    md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
+                                    <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
+                                        md-item-text="item.traduccion.valor" placeholder="Ejemplo: Café">
+                                        <span md-highlight-text="ctrl.searchText">${item.traduccion.valor}$</span>
+                                    </md-autocomplete>
+                                    <md-chip-template>
+                                        <span>
+                                            <strong>${$chip.traduccion.valor}$</strong>
+                                        </span>
+                                    </md-chip-template>
+                                </md-chips>
+                                <br/>
+                            </md-input-container>
+                        </div>
+                        <div class="label-form" style="    text-align: center;
+                                    padding-bottom: 4%; font-size: 20pt;
+                                    ">
+                            Color y Tipografía
+                        </div>
+                        <div layout>
+                            <div flex="40">
+                                <bazam-palette-picker></bazam-palette-picker>
+                            </div>
+                            <div flex="60">
+                                <div class="input-tipografia" ng-show="ctrl.categoriasPosibles.fuentes.length > 0">
+                                    <div class="estilos-fuentes">
+                                        <md-radio-group name="font" required ng-model="ctrl.datosCombinaciones.idFuente" class="md-primary">
+                                            {% for estilo in categoriasFuentes %}
+                                            <md-radio-button value="{{estilo.idCategoria}}">
+                                                <md-tooltip md-direction="bottom">
+                                                    {{estilo.nombreCategoria}}</md-tooltip>
+                                                {% if estilo.nombreCategoria == 'Clásicas' %}
+
+                                                <span class="estilo estilo-1">.</span>
+
+                                                {% elif estilo.nombreCategoria == 'Moderna' %}
+
+                                                <span class="estilo estilo-4">.</span>
+
+                                                {% elif estilo.nombreCategoria == 'Llamativas' %}
+                                                <span class="estilo estilo-2">.</span>
+
+                                                {% elif estilo.nombreCategoria == 'Minimalista' %}
+                                                <span class="estilo estilo-3">.</span>
+                                                {% endif %}
+                                            </md-radio-button>
+                                            {% endfor %}
+                                        </md-radio-group>
+                                        <div ng-messages="form.font.$error " style="color: #E91E63 !important; " role="alert " ng-show="form.font.$touched && form.font.$invalid || form.$submitted">
+                                            <div ng-message="required">Selecciona un estilo de tipografía.</div>
+                                            </br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div layout-padding>
+                                    <md-button ng-class="{'loading-white': ctrl.peticion}" type="submit " ng-disabled="ctrl.peticion" class="md-raised md-primary boton-formulario-generar">
+                                        GENERAR LOGO
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="seccion" ng-show="ctrl.logosPredisenados">
+            <div class="titulo-destacado">
+                <p style="margin: 20px;">GALERÍA DE LOGOS</p>
+                <span>.</span>
+            </div>
+            <div class="logos-predisenados">
+                {% for elemento in categorias %}
+                <div class='--item'>
+                    <a href="/logos-de-{{elemento.categoriaFormateada}}">
+                        <span>
+                            <img src="/landing/assets/img/categorias/{{elemento.nombreCategoria}}.png" alt="logotipos de {{elemento.nombreCategoria}}">
+                        </span>
+                    </a>
+                    <div class="tags">
+                        <a href="/logos-de-{{elemento.categoriaFormateada}}">{{elemento.nombreCategoria}}</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- CARACTERISTICAS -->
+        <div class="row seccion dos ">
+            <div>
+                <div class="caracteristicas">
+                    <div class="caracteristicas__item right-bottom">
+                        <div class="bg-carac-1"></div>
+                        <div>
+                            <h4>De inmediato</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
+                        </div>
+                    </div>
+                    <div class="caracteristicas__item b-bottom">
+                        <div class="bg-carac-2"></div>
+                        <div>
+                            <h4>Más de 1 millon de logos</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
+                        </div>
+                    </div>
+                    <div class="caracteristicas__item right-bottom">
+                        <div class="bg-carac-3"></div>
+                        <div>
+                            <h4>Archivos en alta resolución</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
+                        </div>
+                    </div>
+                    <div class="caracteristicas__item b-bottom">
+                        <div class="bg-carac-4"></div>
+                        <div>
+                            <h4>Inteligencia artificial</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
+                        </div>
+                    </div>
+                    <div class="caracteristicas__item b-right">
+                        <div class="bg-carac-5"></div>
+                        <div>
+                            <h4>Gratis</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
+                        </div>
+                    </div>
+                    <div class="caracteristicas__item ">
+                        <div class="bg-carac-6"></div>
+                        <div>
+                            <h4>Múltiples aplicaciones</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREVIEW
+        <div>
+            <div class="col s12 ver-logo-enorme estatico" id="previsualizar">
+                <div class="bazam-previzualizar-container one">
+                    <div class="preview" style="width: 102%;
+                                            height: 100vh;
+                                            background-image: url(/landing/assets/img/mockup/shirt.png), url(/landing/assets/img/mockup/shirt_overlay.png), url(/landing/assets/img/mockup/shirt_multiply.png);
+                                            background-size: 100%;
+                                            background-blend-mode: normal, overlay, multiply;
+                                            background-color: ${datos.colores.fondo ? datos.colores.fondo : '#fcfcfc'}$;
+                                            background-repeat: no-repeat;
+                                                ">
+                        <div style="    left: 43%;
+                                                padding-top: 28%;">
+                            <img src="/landing/assets/img/logo.pro.svg" alt="logo camiseta">
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column;padding-left: 5px;">
+
+                        <div class="preview" style="padding-bottom:5px;    width: 100%;">
+                            <div style="    transform: rotate(46deg);
+                                                    padding-top: 26%;
+                                                    left: 24%;">
+                                <img src="/landing/assets/img/logo.pro.svg" alt="logo camiseta">
+                            </div>
+                            <img src="/landing/assets/img/mockup/card.png" width="100%" style=" height: calc(50vh - 5px); " alt="card">
+                        </div>
+                        <div class="preview" style="width: 100%;">
+                            <div style="    transform: rotate(55deg);
+                                                    padding-top: 30%;
+                                                    left: 63%;">
+                                <img src="/landing/assets/img/logo.pro.svg" alt="logo camiseta">
+                            </div>
+                            <img src="/landing/assets/img/mockup/leica.jpg" width="100%" style=" height:50vh; " alt="leica">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+ -->
+        <!-- PLANES -->
+        <div class="row s12 seccion seis">
+            <div class="titulo-destacado">
+                <p style="margin: 20px;">Escoja el mejor plan para usted</p>
+                <span>.</span>
+            </div>
+            <div class="contenedor-planes">
+                <div class="plan">
+                    <div>
+                        <div class="plan-header">
+                            <div class="plan-nombre">PLAN GRATUITO</div>
+                            <div class="plan-precio">GRATIS</div>
+                        </div>
+                        <div class="plan-body">
+                            <div>
+                                <ul class="plan-lista">
+                                    <li>Versión pequeña de su logo</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="text-center">
+                            <md-button ng-disabled="ctrl.peticion" ng-click="ctrl.scrollTop()" class="md-raised md-primary boton-plan">
+                                SELECCIONAR
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="plan">
+                    <div>
+                        <div class="plan-header">
+                            <div class="plan-nombre">Plan Básico</div>
+                            <div class="plan-precio">USD 9.9</div>
+                        </div>
+                        <div class="plan-body">
+                            <div>
+                                <ul class="plan-lista">
+                                    <li>Archivo Png Transparente.</li>
+                                    <li>Tamaño del logo adaptado a papeleria y redes sociales.</li>
+                                    <li>Copia de seguridad de por vida.</li>
+                                    <li>Licencia comercial.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="md-raised md-primary boton-crear-logo md-button md-ink-ripple" type="button" ng-disabled="ctrl.peticion" ng-click="ctrl.scrollTop()">
+                                SELECCIONAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="plan">
+                    <div>
+                        <div class="plan-header">
+                            <div class="plan-nombre">Plan Profesional</div>
+                            <div class="plan-precio">USD 36</div>
+                        </div>
+                        <div class="plan-body">
+                            <div>
+                                <ul class="plan-lista">
+                                    <li>Archivo editable con la tipografia incluida.</li>
+                                    <li>Logo en Alta Resolución.</li>
+                                    <li>Manual de marca.</li>
+                                    <li>Archivo Png Transparente.</li>
+                                    <li>Licencia comercial.</li>
+                                    <li>Copia de seguridad de por vida.</li>
+                                    <li>Tamaño del logo adaptado a papeleria y redes sociales.</li>
+                                    <li>Papeleria con increibles modelos a elegir</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="md-raised md-primary boton-crear-logo md-button md-ink-ripple" type="button" ng-disabled="ctrl.peticion" ng-click="ctrl.scrollTop()">
+                                SELECCIONAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <md-button ng-click="ctrl.scrollTop()" class="md-raised md-primary boton-crear-logo" style="background-color: #5980b7 !important; color: white !important;">
+                    CREAR LOGO AHORA
+                </md-button>
+            </div>
+        </div>
+
+        <!-- PREGUNTAS -->
+        <div class="row seccion cinco ">
+            <div class="titulo-destacado text-green">
+                <p style="margin: 20px;">Preguntas frecuentes</p>
+                <span>.</span>
+            </div>
+            <div class="preguntas-contenedor">
+                <div class="preguntas">
+                    <div ng-click="ctrl.preAct = 1" ng-class="{'activo': ctrl.preAct == 1}">
+                        <h6>¿Cuanto cuesta el servicio?</h6>
+                    </div>
+                    <div ng-click="ctrl.preAct = 2" ng-class="{'activo': ctrl.preAct == 2}">
+                        <h6>¿Cómo puedo pagarlo?</h6>
+                    </div>
+                    <div ng-click="ctrl.preAct = 3" ng-class="{'activo': ctrl.preAct == 3}">
+                        <h6>¿Puedo cambiar el diseño después de comprar?</h6>
+                    </div>
+                    <div ng-click="ctrl.preAct = 4" ng-class="{'activo': ctrl.preAct == 4}">
+                        <h6>¿Dónde lo puedo descargar?</h6>
+                    </div>
+                    <div ng-click="ctrl.preAct = 5" ng-class="{'activo': ctrl.preAct == 5}">
+                        <h6>¿En que formato puedo descargar el logo?</h6>
+                    </div>
+                    <div ng-click="ctrl.preAct = 6" ng-class="{'activo': ctrl.preAct == 6}">
+                        <h6>¿Poseo los derechos plenos de mi logotipo comprado?</h6>
+                    </div>
+                </div>
+                <div class="respuestas">
+                    <div ng-class="{'activo': ctrl.preAct == 1}">
+                        Logopro ofrece excelentes opciones de planes para la compra: el Plan básico de logotipo y el Plan Profesional.
+                        <br/>
+                        <br/> Puede comprar sus archivos de logotipo por $9.9 por logo como parte de nuestro Plan básico, o elija
+                        el Plan Profesional $36, que le ofrece nuestra completa solución de marca y contiene una amplia gama
+                        de increíbles herramientas , archivos y características, ¡lo que le permite impulsar, construir y
+                        mejorar su marca realmente!
+                        <br/>
+                        <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                        <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                        <br/>
+                    </div>
+
+                    <div ng-class="{'activo': ctrl.preAct == 2}">
+                        Logopro le da la facilidad mediante su tarjeta de credito o por paypal si asi lo desea.
+                        <br/>
+                        <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                        <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                        <br/>
+                    </div>
+                    <div ng-class="{'activo': ctrl.preAct == 3}">
+                        En sus logos guardados aparecerá el logo que acaba de comprar y podrá editarlo ilimitadamente.
+                        <br/>
+                        <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                        <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                        <br/>
+                    </div>
+                    <div ng-class="{'activo': ctrl.preAct == 4}">
+                        Igresando al sitio con su cuenta, podrá ir a sus logos comprados presionando el icono del menu.
+                        <br />
+                        <br />
+                        <div class='flex --row --center'>
+                            <img src='landing/assets/img/tus-logos.jpg' alt="tus-logos">
+                        </div>
+                        <br/>
+                        <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                        <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                        <br/>
+                    </div>
+                    <div ng-class="{'activo': ctrl.preAct == 5}">
+                        Al momento de descargar su logo, este viene dentro de un archivo comprimido en formato PNG y adecuado en varios tamaños listo
+                        para redes sociales, papeleria y publicidad.
+                        <br/>
+                        <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                        <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                        <br/>
+                    </div>
+                    <div ng-class="{'activo': ctrl.preAct == 6}">
+                        Usted es libre de usar su logotipo comprado para cualquier uso comercial o no comercial sin permiso adicional. Si desea colocar
+                        una marca comercial en su diseño, deberá hacerlo con la ayuda de un abogado familiarizado con las
+                        leyes de su estado o país en este momento.
+                        <br/>
+                        <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                        <a href="mailto:info@logo.pro">info@logo.pro</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div layout="row" layout-align="space-between center">
+            <div class="logo pequeno" ui-sref="comienzo">
+                <img src="/landing/assets/img/logo.pro.svg" alt="logo.pro">
+            </div>
+            <div layout class="links-footer">
+                <a href="/terminos-y-condiciones">Términos y condiciones</a>
+                <a href="/avisos-legales">Avisos Legales</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="iconos-sociales">
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-facebook"></i>
+            </div>
+        </div>
+    </footer>
+</body>
+
+<script type="text/ng-template" id="toast-base.html">
+    <md-toast class="${clase}$">
+        <span class="md-toast-text" flex>${mensaje}$</span>
+        <md-button ng-click="closeToast()">
+            <i class="material-icons">close</i>
+        </md-button>
+    </md-toast>
+</script>
+
+<script>
+    /* FACEBOOK */
+
+    window.fbInit = function () {
+        FB.init({
+            appId: "152803392097078",
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: "v2.12"
+        });
+    };
+
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, "script", "facebook-jssdk"));
+</script>
+
+<!-- GOOGLE -->
+
+<script src="https://apis.google.com/js/platform.js?onload=init" ></script>
+
+<script>
+    function init() {
+        gapi.load('auth2', function () {
+            gapi.auth2.init({
+                client_id: '40002776981-qd6lf3af4k69c64ibrelnurtsms2clon.apps.googleusercontent.com'
+            })
+        });
+    }
+</script>
+
+</html>

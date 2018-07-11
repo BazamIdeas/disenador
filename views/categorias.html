@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es-es" lang="es-es" dir="ltr">
 
 {% include "head.html" %}
 
@@ -64,47 +64,46 @@
     </div>
 
     {% if logosPredisenados %}
-        <div class="sub-cabecera">
-            {% if title == 'destacados' %}
-            <h3>Plantillas de diseños {{title}}</h3>
-            <p>
-                Todas estas plantillas pueden ayudarte a personalizar tus diseños {{title}} en minutos.
-            </p>
-            {% else %}
-            <h3>Plantillas de diseño de {{title}}</h3>
-            <p>
-                Todas estas plantillas pueden ayudarte a personalizar tus diseños de {{title}} en minutos.
-            </p>
-            {% endif %}
-        </div>
+    <div class="sub-cabecera">
+        {% if title == 'destacados' %}
+        <h3>Plantillas de diseños {{title}}</h3>
+        <p>
+            Todas estas plantillas pueden ayudarte a personalizar tus diseños {{title}} en minutos.
+        </p>
+        {% else %}
+        <h3>Plantillas de diseño de {{title}}</h3>
+        <p>
+            Todas estas plantillas pueden ayudarte a personalizar tus diseños de {{title}} en minutos.
+        </p>
+        {% endif %}
+    </div>
 
-        <div class="logos-predisenados">
-            {% for elemento in logosPredisenados %}
-            <div class='--item'>
-                <a href="#">
-                    <span>
-                        {{elemento.logo | safe}}
-                    </span>
-                </a>
-                <div class="tags">
-                    {% if title == 'destacados' %}
-                    <a href="#">Destacado</a>
-                    {% else %}
-                    <a href="#">{{elemento.nombreCategoria | capitalize }} </a>
-                    {% endif %}
-                </div>
+    <div class="logos-predisenados">
+        {% for elemento in logosPredisenados %}
+        <div class='--item'>
+            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-categoria="{{elemento.categorias_idCategoria}}" data-attrs="{{elemento.atributos | dump}}"
+                data-svg="{{elemento.logo}}">
+                <span>
+                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="logo de {{title}} - {{elemento.idLogo}}">
+                </span>
+            </a>
+            <div class="tags">
+                <a class="buscarEditor">Tag</a>
+                {% for tag in elemento.tags %}
+                <a class="buscarEditor">{{tag.valor}}</a>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-        {% if logosPredisenados.length > 11 %}
-            <div class="flex" style="margin-bottom: 3%">
-                <a style="    width: 24%;
+        {% endfor %}
+    </div>
+    {% if logosPredisenados.length > 11 %}
+    <div class="flex" style="margin-bottom: 3%">
+        <a style="    width: 24%;
                 text-align: center;" class="boton-formulario-generar ver-mas">
-                    MAS LOGOTIPOS
-                </a>
-            </div>
-        {% endif %} 
-    {% endif %}
+            MAS LOGOTIPOS
+        </a>
+    </div>
+    {% endif %} {% endif %}
     <div class="container-fluid" style="    padding: 3%;width: 100%;">
         <h3>Puede que también te interese</h3>
         <div class="lista-categorias">
@@ -127,18 +126,18 @@
             <div class="animacion">
                 <ul>
                     <li class="step_guide_image active" data-index="1" data-time="24000">
-                        <img src="../landing/assets/img/mockup1.png" data-index="1">
-                        <video id="video1" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video1.mp4" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="../landing/assets/img/mockup1.png" data-index="1" alt="mockup_uno">
+                        <video id="video1"  alt="paso uno" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video1.mp4" style="position: absolute; left: 0px; top: 0px;">
                         </video>
                     </li>
                     <li class="step_guide_image" data-index="2" data-time="18000">
-                        <img src="../landing/assets/img/mockup2.png">
-                        <video id="video2" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video2.mp4" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="../landing/assets/img/mockup2.png" alt="mockup_dos">
+                        <video id="video2"  alt="paso dos" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video2.mp4" style="position: absolute; left: 0px; top: 0px;">
                         </video>
                     </li>
                     <li class="step_guide_image" data-index="3" data-time="16000">
-                        <img src="../landing/assets/img/mockup3.png">
-                        <video id="video3" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video3.mp4" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="../landing/assets/img/mockup3.png" alt="mockup_tres">
+                        <video id="video3" alt="paso tres" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video3.mp4" style="position: absolute; left: 0px; top: 0px;">
                         </video>
                     </li>
                 </ul>

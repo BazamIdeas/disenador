@@ -723,8 +723,21 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     }
 }
 
-@media (min-device-width:360px) and (max-device-width:640px),
-(min-width:360px) and (max-width:640px) {
+@media (min-device-width:320px) and (max-device-width:640px),
+(min-width:320px) and (max-width:640px) {
+
+    .seccion.uno {
+        .titulo-inicio > :first-child {
+            border-left: 1rem solid #5980B7;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .titulo-principal {
+            font-size: 20px;
+            width: 100%;
+        }
+    }
    
     .seccion.uno form label,
     .seccion.uno form md-select,
@@ -762,7 +775,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
             width: 100%;
         }
         .titulo-principal {
-            font-size: 50pt;
+            font-size: 25pt;
             width: 100%;
         }
         h4.subtitle {
