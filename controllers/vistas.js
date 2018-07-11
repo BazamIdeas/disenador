@@ -16,7 +16,9 @@ exports.ViewCategorias = function (req, res) {
 		if (typeof data !== "undefined" && data.length > 0) {
 			async.forEachOf(data, (logo, key, callback) => {
 
-				logo.logo = base64.decode(logo.logo);
+				logo.svg = base64.decode(logo.logo);
+
+				logo.svg = logo.svg.replace(/"/g, "'");
 				
 				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
 
@@ -26,7 +28,6 @@ exports.ViewCategorias = function (req, res) {
 
 						if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
 							data[key]["atributos"] = dataAttrs;
-
 						}
 
 					} catch (e) {

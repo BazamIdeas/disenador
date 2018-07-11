@@ -51,10 +51,10 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 				templateUrl: "app/views/inicio.tpl",
 				controller: "inicioController as inicio",
 				resolve: {
-					landingResolve: ["LS", "$stateParams", function (LS, $stateParams) {
+					landingResolve: ["LS", "$stateParams", "coloresPaletteValue", function (LS, $stateParams, coloresPaletteValue) {
 
 						/* Si es un logo compartido por url */
-						
+
 						if ($stateParams.datos) {
 							return angular.fromJson(decodeURI($stateParams.datos));
 						}
@@ -64,22 +64,51 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						var datosLanding = LS.obtener("comenzar");
 
 						if (datosLanding) {
-
-							return {
-								datos: {
-									nombre: datosLanding.nombre,
-									categoria: {
-										icono: datosLanding.idCategoria,
-										fuente: datosLanding.idFuente
+							if (!datosLanding.paginaCategoria) {
+								return {
+									datos: {
+										nombre: datosLanding.nombre,
+										categoria: {
+											icono: datosLanding.idCategoria,
+											fuente: datosLanding.idFuente
+										},
+										tags: datosLanding.etiquetasParaBusqueda,
+										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas,
+										preferencias: datosLanding.preferencias
 									},
-									tags: datosLanding.etiquetasParaBusqueda,
-									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas,
-									preferencias: datosLanding.preferencias
-								},
-								palettesCopy: datosLanding.palettesCopy,
-								iconos: datosLanding.iconos,
-								fuentes: datosLanding.fuentes
-							};
+									palettesCopy: datosLanding.palettesCopy,
+									iconos: datosLanding.iconos,
+									fuentes: datosLanding.fuentes
+								};
+							} else {
+								let ramdomNivel = Math.floor(Math.random() * coloresPaletteValue.length) + 0;
+
+								let ramdomColor = Math.floor(Math.random() * coloresPaletteValue[ramdomNivel].length) + 0;
+
+								let palettesCopy = [
+									[false, false, false, false, false, false, false, false, false, false],
+									[false, false, false, false, false, false, false, false, false, false],
+									[false, false, false, false, false, false, false, false, false, false],
+									[false, false, false, false, false, false, false, false, false, false]
+								];
+
+								palettesCopy[ramdomNivel][ramdomColor] = true;
+
+								return {
+									datos: {
+										nombre: datosLanding.nombre,
+										categoria: {
+											icono: 0,
+											fuente: 2
+										},
+										tags: datosLanding.etiquetasParaBusqueda,
+										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
+									},
+									palettesCopy: palettesCopy,
+									iconos: datosLanding.iconos,
+									fuentes: datosLanding.fuentes
+								};
+							}
 						}
 
 						return false;
@@ -101,7 +130,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 					}
 				},
 				resolve: {
-					
+
 					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
 
 						var defered = $q.defer();
@@ -364,7 +393,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 					}],
 					"logoResolve": ["$q", "$stateParams", "logosService", "arrayToJsonMetasFactory", function ($q, $stateParams, logosService, arrayToJsonMetasFactory) {
 
-						
+
 						if ($stateParams.id) {
 							var defered = $q.defer();
 							var promise = defered.promise;
@@ -385,7 +414,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 								defered.reject("INVALID_LOGO");
 							});
 
-							
+
 							return promise;
 						} else {
 							return $q.reject("INVALID_LOGO");
@@ -425,7 +454,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 					}],
 					"logoResolve": ["$q", "$stateParams", "logosService", "arrayToJsonMetasFactory", function ($q, $stateParams, logosService, arrayToJsonMetasFactory) {
-						
+
 						if ($stateParams.id) {
 							var defered = $q.defer();
 							var promise = defered.promise;
@@ -459,27 +488,27 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						/* VALIDACION DE PAPELERIA*/
 
 						var papeleria = {};
-						
+
 						if ($stateParams.papeleria && $stateParams.papeleria.papeleria && $stateParams.papeleria.modelo) {
 
 							papeleria = $stateParams.papeleria.papeleria;
 							papeleria.modelo = $stateParams.papeleria.modelo;
-							papeleria.fuentes = $stateParams.papeleria.fuentes; 
-							
-							if($stateParams.papeleria.pieza){
+							papeleria.fuentes = $stateParams.papeleria.fuentes;
+
+							if ($stateParams.papeleria.pieza) {
 
 								papeleria.modelo.esquemas = $stateParams.papeleria.pieza.esquemas;
-								angular.forEach($stateParams.papeleria.pieza.caras, function(cara, indiceCara){
+								angular.forEach($stateParams.papeleria.pieza.caras, function (cara, indiceCara) {
 
 									papeleria.modelo.caras[indiceCara].hooks = cara.hooks;
 									papeleria.modelo.caras[indiceCara].logos = cara.logos;
 
 								});
 
-								if($stateParams.papeleria.pieza._id){
+								if ($stateParams.papeleria.pieza._id) {
 									papeleria.idPieza = $stateParams.papeleria.pieza._id;
 								}
-								
+
 							}
 
 							return papeleria;
@@ -491,11 +520,11 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						}
 
 					}],
-					
+
 				}
 			});
 
-	
+
 		$urlRouterProvider.rule(function ($injector, $location) {
 			var path = $location.url();
 
@@ -534,7 +563,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
-			
+
 
 			if (error === "AUTH_REQUIRED") {
 

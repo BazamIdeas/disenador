@@ -9,7 +9,7 @@ angular.module("landing")
 		/* DATOS */
 		bz.navegar = navegarFactory;
 		bz.estaticos = estaticosLandingValue;
-		bz.preAct = 0;
+		bz.preAct = 1;
 		bz.base64 = $base64;
 		bz.opcionesCarousel = {
 			autoPlay: true,
@@ -24,7 +24,7 @@ angular.module("landing")
 			etiquetasSeleccionadas: [],
 			colores: []
 		}
-		
+
 		bz.logosPredisenados = [];
 
 		/* SLIDER PREDISENADOS */
@@ -52,27 +52,6 @@ angular.module("landing")
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
 		bz.peticion = true;
-
-		categoriasService.listaCategorias("ICONO").then(function (categorias) {
-			bz.categoriasPosibles.iconos = categorias;
-
-			logosService.mostrarAprobados().then(function (res) {
-				
-				bz.logosPredisenados = res;
-
-				angular.forEach(res, function (logo) {
-					angular.forEach(categorias, function (categoria) {
-						if (logo.categorias_idCategoria == categoria.idCategoria) {
-							bz.logosPredisenados.nombreCategoria = categoria.nombreCategoria;
-						}
-					})
-				})
-			})
-		})
-
-		categoriasService.listaCategorias("FUENTE").then(function (res) {
-			bz.categoriasPosibles.fuentes = res;
-		})
 
 		preferenciasService.listaPreferencias().then(function (res) {
 			angular.forEach(res, function (valor) {
@@ -248,6 +227,5 @@ angular.module("landing")
 		};
 
 		*/
-
 
 	}]);

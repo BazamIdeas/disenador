@@ -101,4 +101,58 @@ jQuery(document).ready(function ($) {
 
   });
 
+  $('.enviar_editor').click(function(){
+
+    let data = {
+      predisenado: true,
+      fuentes: {
+        principal: null,
+        eslogan: null
+      },
+      logo: {
+        icono: {
+          idElemento: null,
+          svg: ''
+        },
+        idLogo: 0,
+        texto: 'Mi empresa'
+      }
+    };
+
+    var logo = $(this);
+
+    let atributos = JSON.parse(logo.attr('data-attrs'));
+
+    atributos.forEach(element => {
+        if(element.clave == 'principal'){
+          data.fuentes.principal = element.valor
+        }
+    });
+
+    data.logo.icono.svg = logo.attr('data-svg');
+
+    data.logo.idLogo = logo.attr('data-id');
+
+    data = JSON.stringify(data);
+
+    window.localStorage.setItem('editor', data);
+
+    window.location = '../creador-de-logos/editor/';
+
+  });
+
+  $('.buscarEditor').click(function(){
+
+    let data = {
+      etiquetasParaBusqueda: ['Null'],
+      etiquetaSeleccionadas: [{traduccion: {valor: "Prueba"}}],
+      nombre: 'Mi logo',
+      paginaCategoria: true
+    };
+
+     window.localStorage.setItem('comenzar', JSON.stringify(data));
+
+     window.location = '../creador-de-logos/';
+  });
+
 });

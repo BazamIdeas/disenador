@@ -21,4 +21,17 @@ router.use('/avisos-legales', function(req, res) {
     res.render('legales.html');
 });
 
+router.use('', middleware.userAgent, middleware.validarCategorias, function(req, res) {
+
+    let categorias = [];
+    
+    req.body.categorias.forEach(element => {
+        if(element.categoriasFormateada != 'sin-categoria' && categorias.length < 12){
+            categorias.push(element);
+        }
+    });
+    
+    res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes});
+});
+
 module.exports = router;
