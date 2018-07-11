@@ -37,7 +37,8 @@ exports.guardar = function (req, res) {
 		logo: req.body.logo,
 		tipoLogo: req.body.tipoLogo,
 		clientes_idCliente: req.idCliente,
-		categorias_idCategoria: idCategoria
+		categorias_idCategoria: idCategoria,
+		noun: req.body.noun
 	};
 
 	logo.insertLogo(logoData, function (error, data) {
@@ -59,6 +60,11 @@ exports.guardar = function (req, res) {
 					if (error)  console.log(err);
 
 				});
+
+				//Guardar tags y asignar a logo
+				if (req.disenador || true) {
+					console.log(req.body.tags);
+				}
 
 			}
 
