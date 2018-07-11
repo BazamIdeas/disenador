@@ -1395,7 +1395,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.guardarLogo = function (logo, noun, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId) {
+		this.guardarLogo = function (logo, noun, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId, tags, descripcion) {
 
 			var defered = $q.defer();
 
@@ -1415,16 +1415,42 @@ angular.module("disenador-de-logos")
 				datos.atributos.eslogan = fuenteEsloganId;
 			}
 
-			if(disenadorService.autorizado()){
+			var config = {};
+			var datosDisenador = disenadorService.autorizado()
+			if(datosDisenador){
+				
+				datos.atributos.descripcion = descripcion;
+
+				datos.tags = {
+					existentes: [],
+					nuevas: []
+				};
+
+				angular.forEach(tags, function(tag){
+
+					if(tag._id){
+						datos.tags.existentes.push(tag._id);
+					} else {
+						datos.tags.nuevas.push(tag.traduccion.valor);
+					}					
+					
+				});
+				
 				datos.estado = "Por Aprobar";
+
+				config.headers = {
+					auth: datosDisenador.token
+				};
 			}
+		
 			/*
 			if (logoPadreId) {
 				datos.atributos.padre = logoPadreId;
 			}
 			*/
 
-			$http.post("/app/logo/guardar", datos).then(function (res) {
+			
+			$http.post("/app/logo/guardar", datos, config).then(function (res) {
 
 				defered.resolve(res.data.insertId);
 
@@ -2171,4 +2197,12 @@ angular.module("disenador-de-logos")
 
 			return false;
 		}
+
+		this.salir = function () {
+
+			$window.localStorage.removeItem("bzTokenDisenador");
+			disenadorDatosFactory.eliminar();
+		};
+
+
 	}])
