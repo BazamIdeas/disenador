@@ -1393,7 +1393,8 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
   flex-wrap: wrap;
   justify-content: space-around;
   width: 90%;
-  margin: auto; }
+  margin: auto;
+  align-items: center; }
   .logos-predisenados > :last-child, .logos-predisenados > :nth-child(4n) {
     margin-right: 0 !important; }
   .logos-predisenados .--item {
@@ -1409,6 +1410,10 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
       padding: 5%;
       display: block;
       cursor: pointer; }
+      .logos-predisenados .--item > a > span {
+        max-width: 90%;
+        display: block;
+        margin: auto; }
     .logos-predisenados .--item img {
       max-width: 95%;
       display: block;
@@ -1436,6 +1441,10 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
           cursor: pointer; }
         .logos-predisenados .--item .tags a:hover {
           color: #5980B7; }
+    .logos-predisenados .--item bazam-actualizar {
+      display: block;
+      width: 80%;
+      margin: auto; }
 
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------

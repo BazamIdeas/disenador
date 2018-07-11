@@ -141,13 +141,13 @@
             <span>.</span>
         </div>
         <div class="logos-predisenados">
-            <div class='--item' ng-repeat="val in ctrl.logosPredisenados | limitTo:8:ctrl.actual">
+            <div class='--item' ng-repeat="logo in ctrl.logosPredisenados | limitTo:8:ctrl.actual">
                 <a href="">
-                    <img width="80%" src="/landing/assets/img/c4.png">
-                    <!-- <bazam-actualizar data-svg=""></bazam-actualizar> -->
+                    <bazam-actualizar width="80%" data-svg="ctrl.base64.decode(logo.logo)"></bazam-actualizar>
                 </a>
                 <div class="tags">
-                    <a href="#">Categoria</a>
+                    <a href="#" ng-show="!logo.nombreCategoria">Destacado</a>
+                    <a href="#" ng-show="logo.nombreCategoria">{{logo.nombreCategoria}}</a>
                 </div>
             </div>
         </div>

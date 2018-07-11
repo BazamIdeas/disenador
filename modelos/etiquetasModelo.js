@@ -401,15 +401,13 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
 
     while (icons.length < 12) {
 
-        console.log('vuelta', 'iconos', icons.length)
-
         let promises = [];
 
         tags.map((tag) => {
             
             const promise = new Promise((resolve) => {
 
-                Nproject.getIconsByTerm(tag, { limit: 50, offset: salto, limit_to_public_domain: 0}, (err, data) => {
+                Nproject.getIconsByTerm(tag, { limit: 30, offset: salto, limit_to_public_domain: 0}, (err, data) => {
                     
                     if (!err && data && data.icons.length) {
 
@@ -425,7 +423,7 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
                 
             });
 
-            salto = salto + 50;
+            salto = salto + 30;
 
             promises.push(promise)
         });
@@ -435,16 +433,23 @@ etiqueta.BuscarIconosNOUN = async (tags, ids, callback) => {
             
             let iconsCollections = await Promise.all(promises);
 
-            iconsCollections.forEach(coll => {
+            let i = 0
 
-                coll.data.forEach(icon => {
+            while(i < 30) {
 
-                    if (icon.icon_url && ids.indexOf(icon.id) == -1) {
-                        ids.push(icon.id);
-                        icons.push(icon);
+                console.log(i)
+
+                iconsCollections.forEach(coll => {
+
+                    if (coll.data[i].icon_url && ids.indexOf(coll.data[i].id) == -1) {
+                        ids.push(coll.data[i].id);
+                        icons.push(coll.data[i]);
                     }
-                })
-            });
+
+                });
+
+                i++;
+            }
 
         } catch (error) {
 
