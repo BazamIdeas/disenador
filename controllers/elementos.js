@@ -235,6 +235,11 @@ exports.listaSegunTagCatNOUN = function (req, res) {
 
 	Object.keys(tags).forEach(el => response.tags[helpers.normalize(el.toLowerCase())] = { ori: el, salto: tags[el]} );
 
+	if (!Object.keys(tags).length) {
+		response.iconos = [];
+		res.status(200).json(response);
+		return;
+	}
 	etiqueta.AnalizarNOUN(lang, response.tags, (err, analasis) => {
 		// Aqui se registran las busquedas
 
