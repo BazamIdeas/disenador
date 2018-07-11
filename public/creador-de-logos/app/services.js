@@ -2144,37 +2144,31 @@ angular.module("disenador-de-logos")
 
 	.service("disenadorService", ["$q", "$http", "$window", "disenadorDatosFactory", function($q, $http, $window, disenadorDatosFactory){
 
-		this.login = function (usuario, contrasena) {
+		this.login = function (correo, contrasena) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
 
 			var datosLogin = {
-				usuario: usuario, 
-				contrasena: contrasena
+				correo: correo, 
+				pass: contrasena
 			};
-			/*
+	
 			$http.post("/app/cliente/login", datosLogin)
 
 				.then(function (res) {
 					
-					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-					clienteDatosFactory.definir(res.data);
+					var data = res.data;
+					$window.localStorage.setItem("bzTokenDisenador", angular.toJson(data));
+					disenadorDatosFactory.definir(data);
 					defered.resolve();
 
 				})
 				.catch(function () {
-					$window.localStorage.removeItem("bzToken");
+					$window.localStorage.removeItem("bzTokenDisenador");
 					defered.reject();
 				});
-			*/
-
-			var data = {token: "unToken", nombre: "Disenador Arias"};
-			$window.localStorage.setItem("bzTokenDisenador", angular.toJson(data));
-			disenadorDatosFactory.definir(data);
-
-
-			defered.resolve();
+				
 			return promise;
 
 		};
