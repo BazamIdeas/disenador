@@ -7,6 +7,33 @@
     margin: auto;
 }
 
+.logo-ejemplo{
+    width: 300px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    img{
+        display: block;
+        margin: auto;
+    }
+    .tags{
+        margin-top: 20px;
+        > span {
+            background: #607d8b75;
+            border-radius: 5px;
+            padding: 6px;
+            margin: 0 6px 6px 0;
+            font-weight: 300;
+            font-family: 'nunito-sans-semi' !important;
+            display: inline-block;
+            cursor: pointer;
+        }
+    } 
+}
+
 .without-placeholder input::placeholder {
     color: transparent !important;
 }
@@ -492,7 +519,7 @@ button.md-button.md-primary.md-raised {
     padding: 0 0 30px 0 !important;
     text-align: center;
     color: $BLACK;
-    font-size: 40pt;
+    font-size: 36pt;
     span {
         color: transparent;
         width: 10%;
@@ -696,13 +723,35 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     }
 }
 
-@media (min-device-width:360px) and (max-device-width:640px),
-(min-width:360px) and (max-width:640px) {
+@media (min-device-width:320px) and (max-device-width:640px),
+(min-width:320px) and (max-width:640px) {
+
+    *{
+        transform: unset !important;
+    }
+
+    .seccion.uno {
+        .titulo-inicio > :first-child {
+            border-left: 1rem solid #5980B7;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .titulo-principal {
+            font-size: 20px;
+            width: 100%;
+        }
+    }
+
+    .seccion.uno form > div > :first-child {
+        flex-direction: column;
+    }
+
    
     .seccion.uno form label,
     .seccion.uno form md-select,
     .seccion.uno .label-form {
-        font-size: 25pt;
+        font-size: 16pt;
     }
     h1.titulo-principal br {
         display: none;
@@ -720,7 +769,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         height: auto !important;
     }
     .logo.grande {
-        width: 40%;
+        width: 160px;
     }
     div.acceder span i {
         vertical-align: top;
@@ -735,7 +784,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
             width: 100%;
         }
         .titulo-principal {
-            font-size: 50pt;
+            font-size: 18pt;
             width: 100%;
         }
         h4.subtitle {
@@ -778,7 +827,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         transform: none !important;
     }
     md-input-container:not(.md-input-has-value) input:not(:focus) {
-        font-size: 20pt;
+        font-size: 16pt;
     }
     input:not([type]),
     input[type=text],
@@ -794,7 +843,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     input[type=search],
     textarea.materialize-textarea {
         height: 3rem !important;
-        font-size: 2rem !important;
+        font-size: 1rem !important;
     }
     md-input-container .md-input-message-animation {
         display: none;
@@ -808,7 +857,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     .seccion.uno form label,
     .seccion.uno form md-select,
     .label-form {
-        font-size: 25pt;
+        font-size: 16pt;
     }
     md-input-container {
         margin: 40px 0;
@@ -818,7 +867,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         margin-top: 77px !important;
     }
     md-chip-template strong {
-        font-size: 26pt !important;
+        font-size: 16pt !important;
     }
     .etiquetas.md-chips md-chip {
         height: 60px;
@@ -845,7 +894,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     }
     button.md-button.md-primary.md-raised.boton-formulario-generar {
         padding: 20px 25px;
-        font-size: 25pt;
+        font-size: 16pt;
     }
     button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
         background-color: $PRINCIPAL;
@@ -880,6 +929,18 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     .md-autocomplete-suggestions {
         -webkit-transform: none !important;
         transform: none !important;
+    }
+
+    .titulo-destacado {
+        font-size: 23pt;
+    }
+
+    .seccion.dos .caracteristicas{
+        display: none;
+    }
+
+    .logos-predisenados .--item {
+        width: 45%;
     }
 }
 

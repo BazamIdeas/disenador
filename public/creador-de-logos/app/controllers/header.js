@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* header */
 
-	.controller("headerController", ["$state", "clientesService", "$rootScope", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", function ($state, clientesService, $rootScope, $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory) {
+	.controller("headerController", ["clientesService", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", "$location", "disenadorService", "$mdToast", function (clientesService,  $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory, $location, disenadorService, $mdToast) {
 
 		var bz = this;
 
@@ -14,8 +14,78 @@ angular.module("disenador-de-logos")
     
 		bz.autorizado = clientesService.autorizado();
         
-		bz.mostrarPasoPopAyuda = mostrarPasoPopAyudaFactory
+		bz.mostrarPasoPopAyuda = mostrarPasoPopAyudaFactory;
+
+
+		/**** DATOS FREELANCER ****/
+
+		bz.datosDisenador = {};
+
+		bz.loginDisenador = function(datos, valido){
+			
+			if(!valido) {
+				return;
+			}
+			
+			disenadorService.login(datos.usuario, datos.contrasena)
+				
+				.then(function(){
+
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Bienvenido",
+							clase: "success"
+						}
+					}));
+
+					bz.mostrarFormDisenador = false;
+					bz.mostrarAccesoDisenador = false;
+					bz.mostrarBannerDisenador = true;
+
+					if(clientesService.autorizado()){
+						clientesService.salir(true, true);
+					}
+
+				})
+				.catch(function(){
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "Un error ha ocurrido",
+							clase: "danger"
+						}
+					}));
+				})
 		
+		}
+
+		bz.cerrarSesionDisenador = function(){
+			disenadorService.salir();
+			bz.mostrarFormDisenador = false;
+			bz.mostrarAccesoDisenador = false;
+			bz.mostrarBannerDisenador = false;
+		}	
+
+		var params = $location.search();
+
+		bz.mostrarFormDisenador = false;
+		bz.mostrarAccesoDisenador = false;
+		bz.mostrarBannerDisenador = false;
+		
+		if(params.designer && !disenadorService.autorizado()){
+			bz.mostrarAccesoDisenador = true;
+
+			if(clientesService.autorizado()){
+				clientesService.salir(true, true);
+			}
+			
+		}
+
+		if(disenadorService.autorizado()){
+			bz.mostrarBannerDisenador = true;
+		}
+		
+
+		/**** FIN DE DATOS FREELANCER ****/
 
 		$scope.$on("sesionExpiro", function () {
 

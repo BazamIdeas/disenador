@@ -88,6 +88,33 @@ elemento.getElementsByTags = function (tags, idCat, limit, callback) {
 	});
 };
 
+elemento.getElementsByTagsNOUN = function (tags, idCat, limit, callback) {
+
+	var q = "SELECT * FROM elementos WHERE elementos.idElemento IN (?) "; 
+	
+	var par = [tags, limit]
+
+	if (idCat > 0) {
+		par.splice(1, 0, idCat);
+		q = q + "AND elementos.categorias_idCategoria = ? ";
+	}
+
+	q = q + "ORDER BY elementos.idElemento LIMIT ?";
+
+	DB.getConnection(function (err, connection) {
+
+		connection.query(q, par, function (err, rows) {
+
+			if (err) throw err;
+
+			else
+				callback(null, rows);
+			connection.release();
+		});
+
+
+	});
+};
 
 elemento.getElementos = function (datos, callback) {
 	var q = "SELECT * FROM elementos INNER JOIN elementos_has_preferencias ON elementos_has_preferencias.elementos_idElemento = elementos.idElemento WHERE elementos_has_preferencias.preferencias_idPreferencia = ? AND elementos_has_preferencias.valor = ? AND elementos.categorias_idCategoria = ? AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT ?";
@@ -108,6 +135,34 @@ elemento.getElementos = function (datos, callback) {
 };
 
 elemento.getElementosIncat = function (datos, callback) {
+
+
+	var q = "SELECT * FROM elementos  WHERE ";
+	
+	if (datos[0] > 0) {
+		q = q + "elementos.categorias_idCategoria = ? ";
+	} else {
+		q = q + "elementos.categorias_idCategoria != ? ";
+	}
+	
+	q = q + "AND elementos.tipo = ? GROUP BY idElemento ORDER BY RAND() LIMIT ?";
+
+	DB.getConnection(function (err, connection) { //cmienzo del for
+
+		connection.query(q, datos, function (err, rows) {
+
+			if (err) throw err;
+
+			else
+				callback(null, rows);
+			connection.release();
+		});
+
+
+	});
+};
+
+elemento.getElementosIncatNOUN = function (datos, callback) {
 
 
 	var q = "SELECT * FROM elementos  WHERE ";

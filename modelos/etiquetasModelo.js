@@ -1,6 +1,12 @@
 //const Connection = __mongoClient;
 const objectId = require('./mongo.js').objectId;
 
+const NounProject = require("the-noun-project")
+const translate = require('google-translate-api');
+const fetch = require('node-fetch');
+var base64 = require("base-64");
+
+
 let etiqueta = {}
 
 etiqueta.ObtenerTodos = callback => 
@@ -207,12 +213,19 @@ etiqueta.Analizar = (tags, callback) =>
 
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
-        collection.aggregate([{
+        collection.aggregate([ {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        },{
             $unwind: '$traducciones'
         }, {
             $match: {
                 'traducciones.valor': {
-                    '$in': tags
+                    '$in': Object.keys(tags)
                 }
             }
         }, {
@@ -251,5 +264,288 @@ etiqueta.Analizar = (tags, callback) =>
         })
     })
 }
+
+etiqueta.AnalizarNOUN = (lang, tags, callback) => 
+{
+    let tagsResponse = { noExistentes: [], ingles: [] };
+
+    __mongoClient(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        }, {
+            $unwind: '$idioma'
+        }, {
+            $addFields: {
+                'traducciones.idioma': '$idioma.codigo'
+            }
+        }, {
+            $group: {
+                _id: '$_id',
+                traducciones: {
+                    $addToSet: {
+                        idioma: '$idioma.codigo',
+                        valor: '$traducciones.valor'
+                    }
+                }
+            }
+        }, {
+            $match: {
+                'traducciones': {
+                    '$elemMatch': {
+                        'idioma': 'es',
+                        'valor': {
+                            '$in': Object.keys(tags)
+                        }
+                    }
+                }
+            }
+        }, {
+            $project: {
+                iconos: false,
+                idioma: false
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+
+            else {
+
+                formatedDocs = { en: [] };
+                formatedDocs[lang] = [];
+
+                docs.forEach((doc, index) => {
+                    let traducciones = {}
+                    doc.traducciones.forEach(tra => {
+                        traducciones[tra.idioma] = tra.valor;
+                    })
+                    docs[index].traducciones = traducciones;
+                });
+
+                Object.keys(tags).forEach(tag => {
+                    docs.map(doc => {
+                        if (doc.traducciones[lang] == tag) {
+                            tags[tag].en = doc.traducciones.en;
+                        }
+                    })
+                });
+                
+                callback(null, tags);
+            }
+        })
+    })
+}
+
+etiqueta.TraducirGuardar = async (tags, lang, callback) => {
+
+    let tagsTraducidas = [];
+
+    for (let tag of Object.keys(tags)) {
+        
+        if (tags[tag].en == undefined) {
+
+            let trad = {}
+
+            try {
+                trad.en = await translate(tag, {from: lang, to: 'en'});
+                trad.es = await translate(tag, {from: lang, to: 'es'});
+                trad.pr = await translate(tag, {from: lang, to: 'pt'});
+            } catch (error) {
+                callback(error);
+                return
+            }
+            
+            if (trad[lang].from.language.iso == lang) {
+
+                if ( (trad.en.text === trad.es.text && trad.en.text === trad.pr.text) === false ) {
+
+                    tagsTraducidas.push({ en: trad.en.text, es: trad.es.text, pr: trad.pr.text });
+                    tags[tag].en = trad.en.text;
+
+                }
+
+            }
+        }
+    }
+    // guardar tagsTraducidas
+    callback(null, tags);
+}
+
+etiqueta.BuscarIconosNOUN = async (tags, callback) => {
+
+
+    console.time('Busqueda de Iconos');
+
+    let Nproject = new NounProject({
+        key: "049d89ea99f6415c837e7f0de9040b96",
+        secret: "58dd191936204d42885a5ab4de7a6663"
+    })
+
+    let icons = [], vueltas = 1;
+
+    let next = true;
+
+    setTimeout(() => {
+        next = false;
+    }, 20000);
+
+    while (icons.length <= 11 && next) {
+
+        console.log({ vueltas: vueltas })
+
+        let promises = [];
+
+        Object.keys(tags).map((tag) => {
+
+            if (tags[tag].salto !== false) {
+
+                const promise = new Promise((resolve) => {
+
+                    Nproject.getIconsByTerm(tags[tag].en, { limit: 100, offset: tags[tag].salto, limit_to_public_domain: 0}, (err, data) => {
+
+                        if (!err && data && data.icons.length) {
+
+                            resolve({ tag: tag, icons: data.icons})
+
+                        } else {
+
+                            resolve({ tag: tag, icons: []})
+
+                        }
+
+                    });
+
+                });
+
+                promises.push(promise)
+
+            }
+        });
+
+
+        try {
+            console.time('Esperando coleccion');
+            let iconsCollections = await Promise.all(promises);
+            console.timeEnd('Esperando coleccion');
+            let i = 0
+
+            while(i < 100) {
+
+                if (icons.length <= 11) {
+
+                    for (let coll of iconsCollections) {
+
+                        if (coll.icons.length) {
+
+
+                            if (coll.icons[i] != undefined && coll.icons[i].icon_url) {
+
+                                try {
+                                    let svg = await fetch(coll.icons[i].icon_url).then(res => res.text()).then(body => body);
+
+                                    let str = "<svg" + svg.split("<svg")[1];
+                                    let dd = str.replace(/fill=/gi, "nofill=");
+
+                                    base64.encode(dd)
+                                    icons.push({ idElemento: coll.icons[i].id, svg: base64.encode(dd) });
+
+                                } catch (error) {
+                                    console.log(error);
+                                }
+                            }
+
+                        } else {
+                            tags[coll.tag].salto = false;
+                        }
+                    }
+
+                } else {
+
+                    Object.keys(tags).map((tag) => {
+                        tags[tag].salto = tags[tag].salto + i;
+                        console.log(icons.length, i, tag, tags[tag].salto)
+                    })
+                    break;
+
+                }
+
+                if (i == 99) {
+
+                    Object.keys(tags).map((tag) => {
+                        tags[tag].salto = tags[tag].salto + 100;
+                    })
+
+                }
+
+                i++;
+            }
+
+            console.log({nIcons: icons.length});
+
+        } catch (error) {
+            console.log(error)
+            callback(error);
+            return
+        }
+
+        vueltas++;
+    }
+
+    console.timeEnd('Busqueda de Iconos');
+    callback(null, { tags: tags, iconos: icons });
+}
+
+etiqueta.TransformarSvg = async (iconos , callback) => {
+
+    console.time('Descarga de Iconos')
+
+    let promises = [];
+
+    iconos.forEach((icono) => {
+
+        let promise = fetch(icono.icon_url).then(res => {
+            return res.text();
+        }).then(body => {
+            return body;
+        });
+        //catch promise
+
+        promises.push(promise);
+    });
+
+    try {
+            
+        let svgCollection = await Promise.all(promises);
+
+        svgCollection.forEach( (svg, i) => {
+
+			var str = "<svg" + svg.split("<svg")[1];
+            var dd = str.replace(/fill=/gi, "nofill=");
+
+            try {
+                base64.encode(dd)
+                iconos[i] = { idElemento: iconos[i].id, svg: base64.encode(dd) };
+            } catch (error) {
+                console.log(error);
+            }
+        });
+
+    } catch (error) {
+        console.log(error)
+        callback(error);
+        return
+    }
+
+    console.timeEnd('Descarga de Iconos')
+
+    callback(null, iconos)
+}
+
 
 module.exports = etiqueta;

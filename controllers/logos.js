@@ -19,7 +19,7 @@ const fse = require('fs-extra')
 //GUARDAR UN LOGO
 exports.guardar = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
-
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 22;
 	var estado = "Editable";
 
 	switch (req.body.estado) {
@@ -37,7 +37,8 @@ exports.guardar = function (req, res) {
 		logo: req.body.logo,
 		tipoLogo: req.body.tipoLogo,
 		clientes_idCliente: req.idCliente,
-		elementos_idElemento: req.body.idElemento
+		categorias_idCategoria: idCategoria,
+		noun: req.body.noun
 	};
 
 	logo.insertLogo(logoData, function (error, data) {
@@ -56,16 +57,14 @@ exports.guardar = function (req, res) {
 				};
 
 				atributo.Guardar(atributosData, function (error, data) {
-
-					if (!data && !data.insertId) {
-
-						res.status(500).json({
-							"msg": "Algo ocurrio"
-						});
-
-					}
+					if (error)  console.log(err);
 
 				});
+
+				//Guardar tags y asignar a logo
+				if (req.disenador || true) {
+					console.log(req.body.tags);
+				}
 
 			}
 
@@ -81,8 +80,9 @@ exports.guardar = function (req, res) {
 					if (err) return console.log(err);
 				});
 
-				res.status(200).json(data);
 			});
+
+			res.status(200).json(data);
 
 		} else {
 			res.status(500).json({

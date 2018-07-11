@@ -140,6 +140,93 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         </div>
 
+        <style>
+            .acceso-disenador{
+                position: fixed;
+                width: 83.3%;
+                left: 16.6666667%;
+                height: 60px;
+                bottom: 0px;
+                z-index: 2;
+                color: rgb(0, 0, 0);
+                background-color: hsla(215, 39%, 53%, 0.68);
+                display: flex;
+                justify-content: center;
+                align-items:center;
+                font-weight: bold;
+            }
+
+
+            .form-disenador-container{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                font-weight: normal;
+            }
+
+            .form-disenador-container form{
+
+                position: fixed;
+                width: 400px;
+                text-align: center;
+                top: calc(50% - 100px);
+                left: calc(50% - 200px);
+                background-color: rgb(255, 255, 255);
+                padding: 40px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+            }
+
+            .form-disenador-container form input {
+                display: block;
+                width: 200px;
+                margin: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .disenador-input-tags {
+                width: 400px;
+                min-height: 300px;
+                background-color: white;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                position: fixed;
+                top: calc(30% - 150px);
+                left: calc(50% - 150px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 40px 0px;
+            }
+
+            .disenador-input-tags form {
+                text-align: center;
+                width: 80%;
+            }
+
+
+            
+
+        </style>
+        <div class="acceso-disenador" ng-if="header.mostrarAccesoDisenador"> 
+                
+                <button ng-hide="header.mostrarFormDisenador" ng-click="header.mostrarFormDisenador = true;">Acceder como Diseñador</button>
+
+                <div ng-show="header.mostrarFormDisenador" class="form-disenador-container">
+                    <form name="header.datosDisenadorForm" ng-submit="header.loginDisenador(header.datosDisenador, header.datosDisenadorForm.$valid)">
+                        <span style="position: absolute; top: 5%; right: 5%;" ng-click="header.mostrarFormDisenador = false;">X</span>
+                        <input type="text" placeholder="Usuario" ng-model="header.datosDisenador.usuario" required/>
+                        <input type="password" placeholder="Contraseña" ng-model="header.datosDisenador.contrasena" required/>
+                        <button type="submit">Acceder</button>
+                    </form>
+                </div>
+        </div>
+
+        <div class="acceso-disenador" ng-if="header.mostrarBannerDisenador"> 
+            MODO DISEÑADOR <button ng-click="header.cerrarSesionDisenador()">Cerrar Sesión</button>
+        </div>
+
     </header>
 
 

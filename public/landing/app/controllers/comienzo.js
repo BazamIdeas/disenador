@@ -1,6 +1,6 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS","$sce", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "$interval", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, $interval) {
 
 		var bz = this;
 
@@ -9,7 +9,7 @@ angular.module("landing")
 		/* DATOS */
 		bz.navegar = navegarFactory;
 		bz.estaticos = estaticosLandingValue;
-		bz.preAct = 0;
+		bz.preAct = 1;
 		bz.base64 = $base64;
 		bz.opcionesCarousel = {
 			autoPlay: true,
@@ -25,6 +25,20 @@ angular.module("landing")
 			colores: []
 		}
 
+		bz.logosPredisenados = [];
+
+		/* SLIDER PREDISENADOS */
+		bz.actual = 1;
+
+		/* 	
+		$interval(function () {
+			if (bz.actual + 8 >= bz.logosPredisenados.length) {
+				bz.actual = 0;
+			} else {
+				bz.actual = bz.actual + 8;
+			}
+		}, 5000); */
+
 		bz.scrollTop = function () {
 			var top = angular.element('#comienzo').offset().top;
 			angular.element('body').animate({
@@ -37,28 +51,13 @@ angular.module("landing")
 		bz.selectedItem = null;
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
-
 		bz.peticion = true;
 
-		bz.promesas = [
-			categoriasService.listaCategorias("ICONO"),
-			categoriasService.listaCategorias("FUENTE"),
-			preferenciasService.listaPreferencias()
-		]
-
-		$q.all(bz.promesas).then(function (res) {
-
-			bz.categoriasPosibles.iconos = res[0];
-			bz.categoriasPosibles.fuentes = res[1];
-			angular.forEach(res[2], function (valor) {
+		preferenciasService.listaPreferencias().then(function (res) {
+			angular.forEach(res, function (valor) {
 				valor.valor = 2;
 				bz.datosCombinaciones.preferencias.push(valor);
 			});
-
-		}).catch(function (res) {
-			console.log(res)
-		}).finally(function () {
-			bz.peticion = false;
 		})
 
 		etiquetasService.listarEtiquetas().then(function (res) {
@@ -119,9 +118,9 @@ angular.module("landing")
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datosFuentes);
 
 				$q.all([
-						promesaIconos,
-						promesaFuentes
-					])
+					promesaIconos,
+					promesaFuentes
+				])
 					.then(function (res) {
 
 						datos.iconos = res[0];
@@ -228,6 +227,5 @@ angular.module("landing")
 		};
 
 		*/
-
 
 	}]);

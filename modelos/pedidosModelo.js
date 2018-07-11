@@ -6,7 +6,7 @@ var pedido = {};
 
 //obtenemos todos los pedidos
 pedido.getPedidos = function (callback) {
-	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela  INNER JOIN monedas ON monedas_idMoneda = idMoneda ORDER BY idPedido'
+	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela  INNER JOIN monedas ON monedas_idMoneda = idMoneda ORDER BY idPedido'
 
 	DB.getConnection(function (err, connection) {
 		connection.query(q, function (err, rows) {
@@ -24,7 +24,7 @@ pedido.getPedidos = function (callback) {
 }
 
 pedido.ListarPorPais = function (iso, callback) {
-	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan  INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela INNER JOIN monedas ON monedas_idMoneda = idMoneda WHERE pedidos.iso = ? ORDER BY idPedido'
+	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN  categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan  INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela INNER JOIN monedas ON monedas_idMoneda = idMoneda WHERE pedidos.iso = ? ORDER BY idPedido'
 
 	DB.getConnection(function (err, connection) {
 		connection.query(q, [iso], function (err, rows) {
@@ -47,7 +47,6 @@ pedido.getPedido = function (id, callback) {
 				FROM pedidos 
 				INNER JOIN logos ON logos_idLogo = idLogo 
 				INNER JOIN clientes ON clientes_idCliente = idCliente 
-				INNER JOIN elementos ON elementos_idElemento = idElemento 
 				INNER JOIN categorias ON categorias_idCategoria = idCategoria 
 				INNER JOIN precios ON precios_idPrecio = idPrecio 
 				INNER JOIN planes ON planes_idPlan = idPlan   
@@ -74,7 +73,7 @@ pedido.getPedido = function (id, callback) {
 
 //obtenemos los pedidos por id del cliente
 pedido.getPedidosCliente = function (id, callback) {
-	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN elementos ON elementos_idElemento = idElemento INNER JOIN categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela INNER JOIN monedas ON monedas_idMoneda = idMoneda WHERE idCliente = ? ORDER BY idPedido DESC'
+	var q = 'SELECT idPedido, fecha, pedidos.estado, precio, moneda, pedidos.impuesto, pedidos.descuento, pedidos.iso, plan, pasarela, idLogo, logo, nombreCategoria, idCliente, nombreCliente, correo, telefono, pais FROM pedidos INNER JOIN logos on logos_idLogo = idLogo INNER JOIN clientes on clientes_idCliente = idCliente INNER JOIN  categorias on categorias_idCategoria = idCategoria INNER JOIN precios on precios_idPrecio = idPrecio INNER JOIN planes on planes_idPlan = idPlan INNER JOIN pasarelas ON pasarelas_idPasarela = idPasarela INNER JOIN monedas ON monedas_idMoneda = idMoneda WHERE idCliente = ? ORDER BY idPedido DESC'
 	var par = [id] //parametros
 
 	DB.getConnection(function (err, connection) {

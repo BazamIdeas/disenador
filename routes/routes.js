@@ -115,6 +115,7 @@ router.get("/idiomas/borrar/:_id", controllers.idiomas.Borrar);
 //MODULO ELEMENTOS
 router.post("/elementos/busqueda/fuentes", controllers.elementos.listaSegunPref);
 router.post("/elementos/busqueda/iconos", controllers.elementos.listaSegunTagCat);
+router.post("/elementos/busqueda/iconos/noun", controllers.elementos.listaSegunTagCatNOUN);
 router.post("/elementos/categorias", controllers.elementos.listaElemCategoria); // iconos en editor
 router.post("/elementos/categoria", controllers.elementos.listaElemCat); //iconos back
 router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono
@@ -174,12 +175,6 @@ router.post("/precio/modificar", /*middleware.validarAdministrador,*/ controller
 router.get("/comisiones", controllers.pagos.ObtenerComisiones);
 
 //MODULO LOGOS
-router.post("/logos/estado", middleware.validarCliente, controllers.logos.listaLogosPorEstado);
-router.post("/logos/por-aprobar", middleware.validarAdministrador, controllers.logos.listaLogosPorAprobar);
-router.post("/logos/aprobados", controllers.logos.listaLogosAprobados);
-router.get("/logos/:id/aprobados", middleware.validarAdministrador, controllers.logos.listaLogosAprobadosPorCliente);
-router.get("/logos/:id/vendidos", controllers.logos.listaLogosVendidosPorCliente);
-router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobadosDestacados);
 router.post("/logos/guardados", middleware.validarCliente, controllers.logos.listaLogosGuardados);
 router.post("/logos/descargables", middleware.validarCliente, controllers.logos.listaLogosDescargables);
 router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
@@ -190,18 +185,31 @@ router.get("/logo/compartido/:id", controllers.logos.obtenerBinario);
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);
 router.post("/logo/plan/caracteristicas", middleware.validarCliente, controllers.caracteristicas.PlanConCaracteristicas);
-//Usuario diseñador
-router.post("/logo/por-aprobar", middleware.validarCliente, controllers.logos.porAprobar);
-//Administrador
-router.post("/logo/aprobar", middleware.validarAdministrador, controllers.logos.aprobar);
-router.post("/logo/destacar", middleware.validarAdministrador, controllers.logos.Destacar);
-
-router.post("/logo/calificar-admin", middleware.validarAdministrador, controllers.atributos.CalificarAdministrador);
-router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.atributos.CalificarCliente);
 
 router.post("/logo/modificar", middleware.validarCliente, controllers.logos.modificarLogo);
 router.get("/logo/borrar/:id", controllers.logos.Borrar);
 router.get("/logo/favicon/:id", middleware.validarCliente, controllers.logos.favicon);
+router.post("/logos/estado", middleware.validarCliente, controllers.logos.listaLogosPorEstado);
+
+///////////////////// LOGOS PREDISEÑADOS
+
+// lista aprobados por categoria si el idCategoria está incluido en la peticion
+router.post("/logos/aprobados", controllers.logos.listaLogosAprobados); 
+router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobadosDestacados);
+
+//Administrador
+router.post("/logos/por-aprobar", middleware.validarAdministrador, controllers.logos.listaLogosPorAprobar);
+router.get("/logos/:id/aprobados", middleware.validarAdministrador, controllers.logos.listaLogosAprobadosPorCliente);
+router.post("/logo/aprobar", middleware.validarAdministrador, controllers.logos.aprobar);
+router.post("/logo/destacar", middleware.validarAdministrador, controllers.logos.Destacar);
+router.post("/logo/calificar-admin", middleware.validarAdministrador, controllers.atributos.CalificarAdministrador);
+
+//Cliente diseñador
+//router.get("/logos/:id/vendidos", controllers.logos.listaLogosVendidosPorCliente);
+//router.post("/logo/por-aprobar", middleware.validarCliente, controllers.logos.porAprobar);
+//router.post("/logo/calificar-cliente", middleware.validarCliente, controllers.atributos.CalificarCliente);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 //MODULO PAPELERIA
 router.get("/papeleria/logo/:idLogo", middleware.validarCliente, controllers.papeleria.ObtenerTodoPorLogo);
@@ -219,6 +227,5 @@ router.post("/cambiar-password", controllers.password.cambiar);
 
 //PARA PRUEBAS
 router.post("/prueba", middleware.pruebas);
-
 
 module.exports = router;

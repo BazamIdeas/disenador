@@ -62,7 +62,13 @@ logo.getLogosPorAprobar = function(par,callback)
 
 logo.getLogosAprobados = function(id, idCategoria, callback)
 {
-	var q = 'SELECT logos.* FROM logos INNER JOIN elementos ON logos.elementos_idElemento = elementos.idElemento INNER JOIN categorias ON elementos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.destacado = 0 AND logos.idLogo > ? AND categorias.idCategoria > ? ORDER BY logos.idLogo LIMIT 12';  
+	if (idCategoria > 0) {
+		var q = 'SELECT logos.* FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.idCategoria = ? ORDER BY logos.idLogo LIMIT 12';  
+	} 
+
+	else {
+		var q = 'SELECT logos.* FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.idCategoria > ? ORDER BY logos.idLogo LIMIT 12';  
+	}
 
 	DB.getConnection(function(err, connection)
 	{

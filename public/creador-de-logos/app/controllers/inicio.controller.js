@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "preferenciasService", "elementosService", "$stateParams", "$q", "$scope", "$state", "crearLogoFactory", "clientesService", "$mdToast", "$timeout", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "pedidosService", "$rootScope", "$location", "Socialshare", function (categoriasService, preferenciasService, elementosService, $stateParams, $q, $scope, $state, crearLogoFactory, clientesService, $mdToast, $timeout, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService, pedidosService, $rootScope, $location, Socialshare) {
+	.controller("inicioController", ["categoriasService", "elementosService", "$q", "$state", "crearLogoFactory", "clientesService", "$mdToast", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "$rootScope", "$location", "Socialshare", "disenadorService", function (categoriasService, elementosService, $q, $state, crearLogoFactory, clientesService, $mdToast, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService,  $rootScope, $location, Socialshare, disenadorService) {
 
 		var bz = this;
 
@@ -40,7 +40,9 @@ angular.module("disenador-de-logos")
 
 		bz.completadoCompartirSocial = true;
 		bz.compartir = function(provider, logo) {
-
+			if(disenadorService.autorizado()) {
+				return;
+			}
 
 			if (!clientesService.autorizado()) {
 
@@ -57,8 +59,8 @@ angular.module("disenador-de-logos")
 				var compartirPromise = defered.promise;
 
 				if (!logo.idLogo) {
-
-					bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
+					
+					bz.guardarLogo(logo.cargado, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 						.then(function (res) {
 							logo.idLogo = res;
 
@@ -133,6 +135,9 @@ angular.module("disenador-de-logos")
 
 
 		bz.compartirPorEmailUrl = function () {
+			if(disenadorService.autorizado()) {
+				return;
+			}
 
 			var datosFormat = angular.copy(bz.datos);
 
@@ -248,6 +253,8 @@ angular.module("disenador-de-logos")
 			bz.combinar(landingResolve.iconos, landingResolve.fuentes);
 		}
 
+		var tags_saltos = {};
+
 		bz.solicitarElementos = function (inicial) {
 
 			if (bz.completado) {
@@ -256,13 +263,17 @@ angular.module("disenador-de-logos")
 
 				bz.completado = false;
 
-				var tags = [];
-
 				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
-					tags.push(tag.traduccion.valor);
+
+					var tag_existe = tags_saltos[tag.traduccion.valor];
+
+					if(tag_existe === undefined) {
+						tags_saltos[tag.traduccion.valor] = 0;
+					}
+
 				});
 
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags, bz.datos.categoria.icono, bz.iconos, 12);
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags_saltos);
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
 				$q.all([
@@ -271,12 +282,12 @@ angular.module("disenador-de-logos")
 				])
 					.then(function (res) {
 
-						angular.forEach(res[0], function (icono) {
+						angular.forEach(res[0].iconos, function (icono) {
 							bz.iconos.push(icono.idElemento);
 						});
 
-						bz.combinar(res[0], res[1]);
-
+						tags_saltos = res[0].tags;
+						bz.combinar(res[0].iconos, res[1]);
 
 					})
 					.catch(function () {
@@ -327,10 +338,15 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
+
+			if(disenadorService.autorizado()) {
+				return;
+			}
+
 			bz.datosComprar = {
 				logo: svg,
 				idLogo: idLogo,
-				idElemento: logo.icono.idElemento,
+				idCategoria: bz.datos.categoria.icono,
 				tipo: "Logo y nombre",
 				fuentes: {
 					principal: logo.fuente.idElemento
@@ -355,6 +371,10 @@ angular.module("disenador-de-logos")
 
 		bz.preGuardarLogo = function (logo) {
 
+			if(disenadorService.autorizado()) {
+				return;
+			}
+
 			if (logo.idLogo) {
 				return;
 			}
@@ -366,8 +386,7 @@ angular.module("disenador-de-logos")
 				return;
 			}
 
-
-			bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
+			bz.guardarLogo(logo.cargado, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 
 				.then(function (res) {
 
@@ -395,7 +414,8 @@ angular.module("disenador-de-logos")
 
 		bz.completadoGuardar = true;
 
-		bz.guardarLogo = function (logo, tipoLogo, idElemento, idFuentePrincipal) {
+		
+		bz.guardarLogo = function (logo, tipoLogo, idCategoria, idFuentePrincipal) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
@@ -403,8 +423,8 @@ angular.module("disenador-de-logos")
 			if (bz.completadoGuardar) {
 
 				bz.completadoGuardar = false;
-
-				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idElemento, idFuentePrincipal)
+				
+				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idCategoria, idFuentePrincipal)
 
 					.then(function (res) {
 						defered.resolve(res);
@@ -425,6 +445,10 @@ angular.module("disenador-de-logos")
 		bz.completadoCompartir = true;
 		bz.compartirPorEmail = function (email, logo, valido) {
 
+			if(disenadorService.autorizado()) {
+				return;
+			}
+
 			if (!clientesService.autorizado()) {
 
 				$rootScope.mostrarModalLogin = true;
@@ -440,8 +464,8 @@ angular.module("disenador-de-logos")
 				var emailPromise = defered.promise;
 
 				if (!logo.idLogo) {
-
-					bz.guardarLogo(logo.cargado, "Logo y nombre", logo.icono.idElemento, logo.fuente.idElemento)
+					
+					bz.guardarLogo(logo.cargado, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 						.then(function (res) {
 							logo.idLogo = res;
 							var url = bz.compartirPorEmailUrl();

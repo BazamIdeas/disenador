@@ -1,7 +1,10 @@
 angular.module("landing", ["ngMessages", "ngAnimate", "ngAria", "ngMaterial", "ui.carousel", "base64"])
-	.config(function ( /*  $urlRouterProvider, $locationProvider, */ $mdToastProvider ) {
+	.config(function ( /*  $urlRouterProvider, $locationProvider, */ $mdToastProvider , $interpolateProvider) {
 
 		//$locationProvider.html5Mode(true);
+
+		$interpolateProvider.startSymbol('${');
+		$interpolateProvider.endSymbol('}$');
 
 
  		$mdToastProvider.addPreset("base", {

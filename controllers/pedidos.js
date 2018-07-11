@@ -100,14 +100,15 @@ exports.PedidosCliente = function (req, res) {
 
 exports.nuevoPedido = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
-
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 22;
+	
 	var logoData = {
 		idLogo: null,
 		estado: "Editable",
 		logo: req.body.logo,
 		tipoLogo: req.body.tipoLogo,
 		clientes_idCliente: req.idCliente,
-		elementos_idElemento: req.body.idElemento
+		categorias_idCategoria: idCategoria
 	};
 
 
@@ -167,7 +168,7 @@ exports.nuevoPedido = function (req, res) {
 
 							if (typeof data !== "undefined" && data.length > 0) {
 								var plan = data;
-								elemento.datosElemento(req.body.idElemento, function (error, data) {
+								elemento.datosElemento(1, function (error, data) {
 
 									if (typeof data !== "undefined" && data.length > 0) {
 
@@ -185,7 +186,7 @@ exports.nuevoPedido = function (req, res) {
 														moneda: plan[0].moneda,
 														descripcion: "Diseño de Logo- " + plan[0].plan,
 														idLogo: idLogo,
-														idElemento: req.body.idElemento,
+														idElemento: 1,
 														impuesto: impuesto,
 														tipoElemento: tipoE,
 														token: req.headers.auth,
@@ -323,7 +324,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 				precio.datos(idPrecio, function (error, data) {
 					if (typeof data !== "undefined" && data.length > 0) {
 						var plan = data;
-						elemento.datosElemento(req.body.idElemento, function (error, data) {
+						elemento.datosElemento(1, function (error, data) {
 
 							if (typeof data !== "undefined" && data.length > 0) {
 
@@ -341,7 +342,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 												moneda: plan[0].moneda,
 												descripcion: "Diseño de Logo- " + plan[0].plan,
 												idLogo: idLogo,
-												idElemento: req.body.idElemento,
+												idElemento: 1,
 												impuesto: impuesto,
 												tipoElemento: tipoE,
 												token: req.headers.auth,
@@ -641,7 +642,7 @@ exports.aumentarPlan = function (req, res) {
 
 									if (typeof data !== "undefined" && data.length > 0) {
 
-										var idElemento = data[0].idElemento;
+										var idElemento = 1;
 										var tipoE = data[0].tipo.replace(" ", "");
 
 										pasarela.Obtener(idPasarela, function (error, data) {
@@ -656,7 +657,7 @@ exports.aumentarPlan = function (req, res) {
 														moneda: precioNuevo[0].moneda,
 														descripcion: "Diseño de Logo- " + precioNuevo[0].plan,
 														idLogo: idLogo,
-														idElemento: idElemento,
+														idElemento: 1,
 														impuesto: impuesto,
 														tipoElemento: tipoE,
 														token: req.headers.auth,

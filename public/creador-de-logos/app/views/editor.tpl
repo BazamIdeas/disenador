@@ -266,14 +266,12 @@
 
 		<div class="principal-container editor col s7" ng-class="{'grid': editor.cuadricula}">
 				
-			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, 'Logo y nombre', editor.logo.icono.idElemento, editor.logo.fuente.idElemento)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
+			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
 			
 			<span class="accion" ng-click="::editor.buscarPlanes()" style="top: 15%;"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
 
 			<div class="svg-container" style="position:relative" ng-style="{'background-color': editor.colorFondo}">
-				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
-					data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan"
-					data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto" ></bazam-svg>
+				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan" data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto" ></bazam-svg>
 				<div class='overlay-logo loading-purple' ng-hide="editor.svgFinal"></div>
 			</div>
 			<div class="overlay-top-bottom" ng-class="{'open': editor.contenedores.busquedaIconos }"></div>
@@ -374,7 +372,7 @@
 							</div>
 						</div>
 
-
+						<!--FIXME:-->
 						<div class="col l3 xl2 icon-option" ng-repeat="icono in editor.iconos track by icono.idElemento">
 							<div class="icon" ng-click="::editor.cerrarContenedores();editor.reemplazarIcono(icono);">
 								<img style="width:100%" src="assets/images/a.png" alt="">
@@ -503,5 +501,39 @@
 
 	</div>
 </section>
+
+<div ng-if="editor.mostrarFormDisenador" class="disenador-input-tags">
+	<span style="position: absolute; top: 5%; right: 5%; cursor: pointer;" ng-click="editor.mostrarFormDisenador = false;">X</span>
+	<!--<form ng-submit="editor.guardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)">-->
+	<form name="editor.disenadorGuardarForm" ng-submit="editor.guardarLogoDisenador(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.datosDisenador.idCategoria, editor.datosDisenador.etiquetasSeleccionadas, editor.datosDisenador.descripcion)">
+		
+
+		<input type="text" placeholder="Descripción" ng-model="editor.datosDisenador.descripcion" style="width: 87%;" required>
+
+		<md-input-container style="width:87%; padding: 0 0.75rem 0 0">
+			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del Logo</md-tooltip>
+			<md-select flex ng-model="editor.datosDisenador.idCategoria" placeholder="Buscar simbolos" md-no-asterisk required>
+				<md-option class="iconos" ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
+			</md-select>
+		</md-input-container>
+
+		<md-chips style="padding:0;" md-add-on-blur="true" ng-model="editor.datosDisenador.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+		md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" >
+			<label>Etiquetas</label>
+			<md-autocomplete md-selected-item="editor.disenador.selectedItem" md-search-text="editor.disenador.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.disenador.searchText, editor.etiquetas)" md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
+				<span md-highlight-text="editor.searchText">{{::item.traduccion.valor}}</span>
+			</md-autocomplete>
+			<md-chip-template>
+				<span>
+					<strong>{{$chip.traduccion.valor}}</strong>
+				</span>
+			</md-chip-template>
+		</md-chips>
+		
+
+		<button type="submit" style="margin-top: 25px !important;">GUARDAR</button>
+	
+	</form>
+</div>
 
 <bazam-planes estado="editor.abrirPlanes" datos="editor.datosComprar" guardar-logo="editor.guardarLogo"></bazam-planes>

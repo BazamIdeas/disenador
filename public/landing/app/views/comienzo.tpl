@@ -23,7 +23,8 @@
                     <div flex layout>
                         <md-input-container class="md-block" flex style="    margin-right: 20px;">
                             <label>Nombre de su logo</label>
-                            <input style="margin-bottom: 0;" type="text" md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required placeholder="Mi logo">
+                            <input style="margin-bottom: 0;" type="text" md-no-asterisk ng-model="ctrl.datosCombinaciones.nombre" name="nombre" required
+                                placeholder="Mi logo">
                             <!-- VALIDACION -->
                             <div ng-messages="form.nombre.$error " style="color: #E91E63 !important;  " role="alert " ng-show="form.nombre.$touched
                                             && form.nombre.$invalid || form.$submitted && form.nombre.$invalid">
@@ -49,8 +50,8 @@
                         <md-input-container class="md-block etiquetas" style="    margin-top: 30px;width: 100%;">
                             <label style="transform: none;     text-align: center; font-size: 20pt;
                             ">¿Que buscas?</label>
-                            <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" ng-class="{'without-placeholder':ctrl.datosCombinaciones.etiquetasSeleccionadas.length > 0}" md-separator-keys="[32,186,9,36,188,13,27]"
-                                md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
+                            <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" ng-class="{'without-placeholder':ctrl.datosCombinaciones.etiquetasSeleccionadas.length > 0}"
+                                md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
                                 <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
                                     md-item-text="item.traduccion.valor" placeholder="Ejemplo: Café">
                                     <span md-highlight-text="ctrl.searchText">{{item.traduccion.valor}}</span>
@@ -101,7 +102,7 @@
             </form>
         </div>
     </div>
-    <!-- TESTIMONIOS -->
+    <!-- TESTIMONIOS 
     <div class="row s12 seccion tres">
         <ui-carousel class="testimonios" slides="ctrl.estaticos.testimonios" slides-to-show="3" slides-to-scroll="1" initial-slide="1"
             autoplay="true" autoplay-speed="2000" dots="true">
@@ -132,6 +133,24 @@
                 </div>
             </carousel-item>
         </ui-carousel>
+    </div>
+    -->
+    <div class="seccion">
+        <div class="titulo-destacado">
+            <p style="margin: 20px;">GALERÍA DE LOGOS</p>
+            <span>.</span>
+        </div>
+        <div class="logos-predisenados">
+            <div class='--item' ng-repeat="logo in ctrl.logosPredisenados | limitTo:8:ctrl.actual">
+                <a href="">
+                    <bazam-actualizar width="80%" data-svg="ctrl.base64.decode(logo.logo)"></bazam-actualizar>
+                </a>
+                <div class="tags">
+                    <a href="#" ng-show="!logo.nombreCategoria">Destacado</a>
+                    <a href="#" ng-show="logo.nombreCategoria">{{logo.nombreCategoria}}</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- CARACTERISTICAS -->

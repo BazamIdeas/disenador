@@ -448,7 +448,7 @@ opcion-tabla md-icon {
 
 .content-scroll {
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     max-height: 50%;
 }
 

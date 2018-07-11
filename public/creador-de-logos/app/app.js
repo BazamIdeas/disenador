@@ -51,10 +51,10 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 				templateUrl: "app/views/inicio.tpl",
 				controller: "inicioController as inicio",
 				resolve: {
-					landingResolve: ["LS", "$stateParams", function (LS, $stateParams) {
+					landingResolve: ["LS", "$stateParams", "coloresPaletteValue", function (LS, $stateParams, coloresPaletteValue) {
 
 						/* Si es un logo compartido por url */
-						
+
 						if ($stateParams.datos) {
 							return angular.fromJson(decodeURI($stateParams.datos));
 						}
@@ -64,22 +64,51 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						var datosLanding = LS.obtener("comenzar");
 
 						if (datosLanding) {
-
-							return {
-								datos: {
-									nombre: datosLanding.nombre,
-									categoria: {
-										icono: datosLanding.idCategoria,
-										fuente: datosLanding.idFuente
+							if (!datosLanding.paginaCategoria) {
+								return {
+									datos: {
+										nombre: datosLanding.nombre,
+										categoria: {
+											icono: datosLanding.idCategoria,
+											fuente: datosLanding.idFuente
+										},
+										tags: datosLanding.etiquetasParaBusqueda,
+										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas,
+										preferencias: datosLanding.preferencias
 									},
-									tags: datosLanding.etiquetasParaBusqueda,
-									etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas,
-									preferencias: datosLanding.preferencias
-								},
-								palettesCopy: datosLanding.palettesCopy,
-								iconos: datosLanding.iconos,
-								fuentes: datosLanding.fuentes
-							};
+									palettesCopy: datosLanding.palettesCopy,
+									iconos: datosLanding.iconos,
+									fuentes: datosLanding.fuentes
+								};
+							} else {
+								let ramdomNivel = Math.floor(Math.random() * coloresPaletteValue.length) + 0;
+
+								let ramdomColor = Math.floor(Math.random() * coloresPaletteValue[ramdomNivel].length) + 0;
+
+								let palettesCopy = [
+									[false, false, false, false, false, false, false, false, false, false],
+									[false, false, false, false, false, false, false, false, false, false],
+									[false, false, false, false, false, false, false, false, false, false],
+									[false, false, false, false, false, false, false, false, false, false]
+								];
+
+								palettesCopy[ramdomNivel][ramdomColor] = true;
+
+								return {
+									datos: {
+										nombre: datosLanding.nombre,
+										categoria: {
+											icono: 0,
+											fuente: 2
+										},
+										tags: datosLanding.etiquetasParaBusqueda,
+										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
+									},
+									palettesCopy: palettesCopy,
+									iconos: datosLanding.iconos,
+									fuentes: datosLanding.fuentes
+								};
+							}
 						}
 
 						return false;
@@ -101,15 +130,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 					}
 				},
 				resolve: {
-					/*currentAuth: ["$q", "clientesService", function ($q, clientesService) {
 
-						if (!clientesService.autorizado()) {
-
-							return $q.reject("AUTH_REQUIRED");
-
-						}
-
-					}],*/
 					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
 
 						var defered = $q.defer();
@@ -140,60 +161,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 				}
 			})
 
-			/* 
-			.state({
-				name: "planes",
-				url: "/planes/",
-				templateUrl: "app/views/planes.tpl",
-				controller: "planesController as planes",
-				params: {
-					status: null,
-					datos: {
-						logo: null,
-						idElemento: null,
-						tipo: null,
-						fuentes: null
-					}
-				},
-				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
-
-						if (!clientesService.autorizado()) {
-
-							return $q.reject("AUTH_REQUIRED");
-
-						}
-
-					}],
-					historicoResolve: ["$q", "$stateParams", "LS", function ($q, $stateParams, LS) {
-
-						var defered = $q.defer();
-
-						var promise = defered.promise;
-
-						if ($stateParams.status) {
-
-							LS.definir("planes", $stateParams.datos);
-
-							defered.resolve($stateParams.datos);
-
-						} else if (LS.obtener("planes")) {
-
-							defered.resolve(LS.obtener("planes"));
-
-						} else {
-
-							defered.reject({
-								error: "FALLO_HISTORICO"
-							});
-						}
-
-						return promise;
-
-					}]
-				}
-			})
-*/
 			.state({
 				name: "pago",
 				url: "/pago/",
@@ -204,7 +171,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 					datos: {
 
 						logo: null,
-						idElemento: null,
+						idCategoria: null,//TODO: revisar
 						tipo: null,
 						plan: {
 							nombre: null,
@@ -227,6 +194,15 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						if (!clientesService.autorizado()) {
 
 							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
 
 						}
 
@@ -254,12 +230,12 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 			})
 
 			.state({
-				name: "pagoCompleto",
-				url: "/pago/completo/:id/",
-				templateUrl: "app/views/pagoCompleto.tpl",
-				controller: "pagoCompletoController as pagoCompleto",
+				name: "cuenta",
+				url: "/cliente/cuenta/",
+				templateUrl: "app/views/cuenta.tpl",
+				controller: "cuentaController as cuenta",
 				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
 						if (!clientesService.autorizado()) {
 
@@ -267,21 +243,12 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 						}
 
-					}]
-				}
-			})
+					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
 
-			.state({
-				name: "cuenta",
-				url: "/cliente/cuenta/",
-				templateUrl: "app/views/cuenta.tpl",
-				controller: "cuentaController as cuenta",
-				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+						if (disenadorService.autorizado()) {
 
-						if (!clientesService.autorizado()) {
-
-							return $q.reject("AUTH_REQUIRED");
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
 
 						}
 
@@ -295,11 +262,20 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 				templateUrl: "app/views/logos.tpl",
 				controller: "logosController as logos",
 				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
 						if (!clientesService.autorizado()) {
 
 							return $q.reject("AUTH_REQUIRED");
+
+						}
+
+					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
 
 						}
 
@@ -317,7 +293,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 				},
 				resolve: {
-					currentAuth: ["$q", "clientesService", function ($q, clientesService) {
+					"currentAuth": ["$q", "clientesService", function ($q, clientesService) {
 
 						if (!clientesService.autorizado()) {
 
@@ -326,7 +302,16 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						}
 
 					}],
-					logoResolve: ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
+
+						}
+
+					}],
+					"logoResolve": ["$q", "$stateParams", "logosService", function ($q, $stateParams, logosService) {
 
 						if ($stateParams.id) {
 							var defered = $q.defer();
@@ -337,7 +322,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id,
-										idElemento: res.elementos_idElemento,
 										tipo: res.tipoLogo
 									});
 								} else {
@@ -354,16 +338,13 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						} else {
 							return $q.reject("INVALID_LOGO");
 						}
-
-
-
 					}]
 				}
 			})
 
 			.state({
 				name: "login",
-				url: "/ingreso/",
+				url: "/ingreso/?accion",
 				templateUrl: "app/views/login.tpl",
 				controller: "loginController as login",
 				resolve: {
@@ -375,26 +356,44 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 						}
 
+					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
+
+						}
+
 					}]
 				}
 			})
-
+			/*
 			.state({
 				name: "logosGaleria",
 				url: "/logos-galeria/",
 				templateUrl: "app/views/logosGaleria.tpl",
 				controller: "logosGaleriaController as logosGaleria"
 			})
-
+			*/
 			.state({
 				name: "papeleria",
 				url: "/cliente/logos/papeleria/:id/",
 				templateUrl: "app/views/papeleria.tpl",
 				controller: "papeleriaController as papeleriaCtrl",
 				resolve: {
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
+
+						}
+
+					}],
 					"logoResolve": ["$q", "$stateParams", "logosService", "arrayToJsonMetasFactory", function ($q, $stateParams, logosService, arrayToJsonMetasFactory) {
 
-						
+
 						if ($stateParams.id) {
 							var defered = $q.defer();
 							var promise = defered.promise;
@@ -404,7 +403,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id,
-										idElemento: res.elementos_idElemento,
 										tipo: res.tipoLogo,
 										atributos: arrayToJsonMetasFactory(res.atributos)
 									});
@@ -416,7 +414,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 								defered.reject("INVALID_LOGO");
 							});
 
-							
+
 							return promise;
 						} else {
 							return $q.reject("INVALID_LOGO");
@@ -446,8 +444,17 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						}
 
 					}],
+					"designerAuth": ["$q", "disenadorService", function ($q, disenadorService) {
+
+						if (disenadorService.autorizado()) {
+
+							return $q.reject("DESIGNER_LOGUT_REQUIRED");
+
+						}
+
+					}],
 					"logoResolve": ["$q", "$stateParams", "logosService", "arrayToJsonMetasFactory", function ($q, $stateParams, logosService, arrayToJsonMetasFactory) {
-						
+
 						if ($stateParams.id) {
 							var defered = $q.defer();
 							var promise = defered.promise;
@@ -457,7 +464,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									defered.resolve({
 										logo: res.logo,
 										id: $stateParams.id,
-										idElemento: res.elementos_idElemento,
 										tipo: res.tipoLogo,
 										atributos: arrayToJsonMetasFactory(res.atributos)
 									});
@@ -482,27 +488,27 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						/* VALIDACION DE PAPELERIA*/
 
 						var papeleria = {};
-						
+
 						if ($stateParams.papeleria && $stateParams.papeleria.papeleria && $stateParams.papeleria.modelo) {
 
 							papeleria = $stateParams.papeleria.papeleria;
 							papeleria.modelo = $stateParams.papeleria.modelo;
-							papeleria.fuentes = $stateParams.papeleria.fuentes; 
-							
-							if($stateParams.papeleria.pieza){
+							papeleria.fuentes = $stateParams.papeleria.fuentes;
+
+							if ($stateParams.papeleria.pieza) {
 
 								papeleria.modelo.esquemas = $stateParams.papeleria.pieza.esquemas;
-								angular.forEach($stateParams.papeleria.pieza.caras, function(cara, indiceCara){
+								angular.forEach($stateParams.papeleria.pieza.caras, function (cara, indiceCara) {
 
 									papeleria.modelo.caras[indiceCara].hooks = cara.hooks;
 									papeleria.modelo.caras[indiceCara].logos = cara.logos;
 
 								});
 
-								if($stateParams.papeleria.pieza._id){
+								if ($stateParams.papeleria.pieza._id) {
 									papeleria.idPieza = $stateParams.papeleria.pieza._id;
 								}
-								
+
 							}
 
 							return papeleria;
@@ -514,11 +520,11 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						}
 
 					}],
-					
+
 				}
 			});
 
-	
+
 		$urlRouterProvider.rule(function ($injector, $location) {
 			var path = $location.url();
 
@@ -557,7 +563,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
-			
+
 
 			if (error === "AUTH_REQUIRED") {
 

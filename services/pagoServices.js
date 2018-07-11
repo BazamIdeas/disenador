@@ -23,7 +23,7 @@ exports.paypal = function(datos,callback)
 		return_url = configuracion.url+"/app/pedido/aumento/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/"+datos.idPedido+"/"+datos.idPedidoViejo+"/";
 	}
 
-	console.log(return_url)
+	//console.log(return_url)
 
 	var payment = {
 		"intent": "sale",

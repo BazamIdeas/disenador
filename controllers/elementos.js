@@ -223,6 +223,68 @@ exports.listaSegunTagCat = function (req, res) {
 
 };
 
+exports.listaSegunTagCatNOUN = function (req, res) {
+
+	const tags = req.body.tags ? req.body.tags : [];
+	//const salto = req.body.salto ? req.body.salto : 0;
+	const lang = req.body.lang ? req.body.lang.toLowerCase() : 'es';
+	const categoria = 0;
+	//const ids = req.body.ids ? req.body.ids : [0];
+
+	let response = { tags: {} };
+
+	Object.keys(tags).forEach(el => response.tags[helpers.normalize(el.toLowerCase())] = { ori: el, salto: tags[el]} );
+
+	if (!Object.keys(tags).length) {
+		response.iconos = [];
+		res.status(200).json(response);
+		return;
+	}
+	etiqueta.AnalizarNOUN(lang, response.tags, (err, analasis) => {
+		// Aqui se registran las busquedas
+
+		if (err) return res.status(500).json(err);
+
+		response.tags = analasis;
+
+		etiqueta.TraducirGuardar(response.tags, lang, (err, tagsTraducidas) => {
+
+			if (err) return res.status(500).json(err);
+
+			response.tags = tagsTraducidas;
+
+			etiqueta.BuscarIconosNOUN(response.tags ,(err, busqueda) => {
+
+				if (err) return res.status(500).json(err);
+
+				response.tags = {};
+				response.iconos = busqueda.iconos;
+
+				Object.keys(busqueda.tags).map(tag => {
+					response.tags[busqueda.tags[tag].ori] = busqueda.tags[tag].salto;
+				});
+
+				res.status(200).json(response);
+
+				/*etiqueta.TransformarSvg(busqueda.iconos, (err, iconosTransformados) => {
+
+					if (err) return res.status(500).json(err);
+
+					response.iconos = iconosTransformados;
+
+					res.status(200).json(response);
+
+				})*/
+			
+			})
+
+		})
+
+	});
+
+};
+
+
 exports.listaElemCat = function (req, res) {
 
 	var cat = [req.body.idCategoria, req.body.tipo];
