@@ -45,7 +45,9 @@
 /* Generales */
 body, html {
   margin: 0;
-  background: #FFFFFF; }
+  background: #FFFFFF;
+  font-size: 16px !important;
+  font-family: 'Times New Roman', Times, serif; }
 
 * {
   cursor: default;
@@ -941,7 +943,14 @@ md-input-container .md-input.ng-invalid.ng-dirty {
   md-select.categorias-select md-select-value > :first-child {
     height: auto; } }
 
-@media (min-device-width: 360px) and (max-device-width: 640px), (min-width: 360px) and (max-width: 640px) {
+@media (min-device-width: 320px) and (max-device-width: 640px), (min-width: 320px) and (max-width: 640px) {
+  .seccion.uno .titulo-inicio > :first-child {
+    border-left: 1rem solid #5980B7;
+    flex-direction: column;
+    text-align: center; }
+  .seccion.uno .titulo-principal {
+    font-size: 20px;
+    width: 100%; }
   .seccion.uno form label,
   .seccion.uno form md-select,
   .seccion.uno .label-form {
@@ -967,7 +976,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
   .seccion.uno .titulo-inicio > div {
     width: 100%; }
   .seccion.uno .titulo-inicio .titulo-principal {
-    font-size: 50pt;
+    font-size: 25pt;
     width: 100%; }
   .seccion.uno .titulo-inicio h4.subtitle {
     font-size: 17pt; }

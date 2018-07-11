@@ -11,6 +11,9 @@ angular.module("disenador-de-logos")
 			borradores: false,
 			fuentes: false
 		};
+
+		console.log(historicoResolve)
+
 		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[1] : "rgb(243, 243, 243)";
 		bz.colorFondoAnterior = bz.colorFondo;
 		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[0] : "#000";
