@@ -27,6 +27,7 @@ let init = async function() {
     app.use(cookieParser());
     
     app.use('', middleware.userAgent, express.static(path.join(__dirname, 'public')));
+    
     app.use(compression());
     app.enable('trust proxy');
     app.use(configuracion.base+'/fuentes', express.static(__dirname + '/fuentes'))

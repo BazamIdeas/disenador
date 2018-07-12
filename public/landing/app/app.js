@@ -1,7 +1,5 @@
-angular.module("landing", ["ngMessages", "ngAnimate", "ngAria", "ngMaterial", "ui.carousel", "base64"])
+angular.module("landing", ["ngMessages", "ngAnimate", "ngAria", "ngMaterial", "base64"])
 	.config(function ( /*  $urlRouterProvider, $locationProvider, */ $mdToastProvider , $interpolateProvider) {
-
-		//$locationProvider.html5Mode(true);
 
 		$interpolateProvider.startSymbol('${');
 		$interpolateProvider.endSymbol('}$');
@@ -37,32 +35,4 @@ angular.module("landing", ["ngMessages", "ngAnimate", "ngAria", "ngMaterial", "u
 			}
 		}); 
 		
-/*  		$stateProvider.state({
-				name: "comienzo",
-				url: "/",
-				templateUrl: "/landing/app/views/comienzo.tpl",
-				controller: "comienzoController as ctrl"
-			}).state({
-				name: "no-encontrado",
-				url: "/404/",
-				templateUrl: "/landing/app/views/404.tpl"
-			}); 
-
-
- 		$urlRouterProvider.rule(function ($injector, $location) {
-			var path = $location.url();
-
-			if ("/" === path[path.length - 1] || path.indexOf("/?") > -1) {
-				return;
-			}
-
-			if (path.indexOf("?") > -1) {
-				return path.replace("?", "/?");
-			}
-
-			return path + "/";
-		});
-
-		$urlRouterProvider.otherwise("/404/"); 
- */
 	}); 

@@ -649,6 +649,9 @@ button.md-button.md-primary.md-raised {
                 font-size: 15pt;
                 cursor: pointer
             }
+            > div{
+                display: none;
+            }
         }
         >:last-child {
             border: none;
@@ -725,10 +728,112 @@ md-input-container .md-input.ng-invalid.ng-dirty {
 
 @media (min-device-width:320px) and (max-device-width:640px),
 (min-width:320px) and (max-width:640px) {
+    
 
-    *{
-        transform: unset !important;
+    div.acceder a, div.acceder span {
+        margin: 0;
     }
+    
+    header#comienzo 
+    {
+            margin-bottom: 2%;
+            > div {
+            flex-wrap: wrap;
+            justify-content: center;
+            > div.logo.grande{
+                width: 200px;
+            }
+            > div:not(.logo) {
+                flex: auto;
+                display: flex;
+                justify-content: center;
+                div.acceder i {
+                    vertical-align: top;
+                    font-size: 25pt;
+                }
+
+                div.acceder i {
+                    vertical-align: top;
+                    font-size: 25pt;
+                }
+            }
+        }
+    }
+
+    footer > div {
+        flex-direction: column !important;
+        flex: auto;
+        > div {
+            width: 100%;
+        }
+
+        .links-footer a {
+            margin-right: 5px;
+            font-size: 11pt;
+            padding: 8px 5px 0px 0px;
+        }
+
+        .iconos-sociales {
+            display: flex;
+            justify-content: space-around;
+            height: 47px;
+            margin: 4% 0;
+        }
+    }
+
+    .bazam-palette-picker {
+        width: 60%;
+    }
+
+    .PREVIEW {
+        display:none;
+
+    }
+
+    .preguntas-contenedor{
+    
+        .respuestas {
+            display: none;
+        }
+
+        .preguntas {
+            width: 100%;
+            > div{
+                padding: 0;
+                padding-left: 0;
+                border-bottom: 1px solid silver;
+                h6 {
+                    font-size: 14pt !important;
+                    cursor: pointer;
+                    PADDING: 12PX;
+                    MARGIN: 0;
+                }
+                > div.activo{
+                    display: block;
+                    background: white;
+                    padding: 18px;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .seccion.uno .input-tipografia {
+        width: 100%;
+    }
+
+    md-input-container{
+        margin-bottom: 0px !important;
+    }
+
+    md-toast {
+        display: none;
+    }
+
+    .label-form {
+        padding-top: 5%;
+    }
+
 
     .seccion.uno {
         .titulo-inicio > :first-child {
@@ -751,7 +856,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     .seccion.uno form label,
     .seccion.uno form md-select,
     .seccion.uno .label-form {
-        font-size: 16pt;
+        font-size: 16pt !important;
     }
     h1.titulo-principal br {
         display: none;
@@ -768,16 +873,13 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     .bazam-previzualizar-container.one> :first-child {
         height: auto !important;
     }
-    .logo.grande {
-        width: 160px;
-    }
-    div.acceder span i {
+    div.acceder a i, div.acceder span i {
         vertical-align: top;
-        font-size: 40pt;
+        font-size: 25pt;
     }
-    div.acceder:not(.not-ing) span {
-        width: 80px;
-        height: 80px;
+    div.acceder:not(.not-ing) a, div.acceder:not(.not-ing) span {
+        width: 50px;
+        height: 50px;
     }
     .seccion.uno .titulo-inicio {
         >div {
@@ -811,10 +913,19 @@ md-input-container .md-input.ng-invalid.ng-dirty {
                     -webkit-box-flex: unset;
                     -ms-flex: auto;
                     flex: auto;
+                    flex-direction: column;
+                    justify-content: center;
+                    > div{
+                        flex: auto;
+                        max-width: 100%;
+                        width: 100%;
+                    }
                 }
             }
         }
     }
+
+
     md-input-container.md-input-has-value .md-select-value>span:not(.md-select-icon) {
         -webkit-transform: none;
         transform: none;
@@ -827,7 +938,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         transform: none !important;
     }
     md-input-container:not(.md-input-has-value) input:not(:focus) {
-        font-size: 16pt;
+        font-size: 16pt !important;
     }
     input:not([type]),
     input[type=text],
@@ -857,7 +968,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     .seccion.uno form label,
     .seccion.uno form md-select,
     .label-form {
-        font-size: 16pt;
+        font-size: 16pt !important;
     }
     md-input-container {
         margin: 40px 0;
@@ -873,10 +984,14 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         height: 60px;
     }
     .md-chips.md-removable md-chip {
-        padding-right: 60px;
-        height: 60px;
-        line-height: 60px;
+        line-height: 28px;
     }
+
+    .md-chips md-chip .md-chip-remove md-icon {
+        top: 23%;
+        left: 30%;
+    }
+
     .md-chips md-chip .md-chip-remove md-icon {
         height: 40px;
         width: 40px;
@@ -893,8 +1008,8 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         font-family: sans-serif !important;
     }
     button.md-button.md-primary.md-raised.boton-formulario-generar {
-        padding: 20px 25px;
-        font-size: 16pt;
+        padding: 7px 25px;
+        font-size: 16pt !important;
     }
     button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
         background-color: $PRINCIPAL;
@@ -935,29 +1050,49 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         font-size: 23pt;
     }
 
-    .seccion.dos .caracteristicas{
+    .seccion.dos{
         display: none;
     }
 
+    div.acceder > :last-child {
+        display: none;
+    }
+
+
     .logos-predisenados .--item {
-        width: 45%;
+        width: 46%   !important;
+        margin: 0  !important;
+        margin-bottom: 5%  !important;
+    }
+
+    .logos-predisenados > :nth-child(6) ~ div {
+        display: none;
+    }
+
+    .logos-predisenados .--item .tags {
+        word-wrap: break-word;
     }
 }
+
+
 
 @media (min-device-width:641px) and (max-device-width:1080px),
 (min-width:641px) and (max-width:1080px) {
 
     .seccion.uno .titulo-inicio .titulo-principal {
         text-align: center;
-        font-size: 32pt;
+        font-size: 26pt;
+        padding: 0 2%;
     }
     .seccion.uno .titulo-inicio > :first-child span{
         display:none;
     }
   
     .seccion.uno .titulo-inicio h4.subtitle {
+        text-align: center;
+        margin-bottom: 5%;
+        padding: 0 5%;
         font-size: 17pt;
-        width: 70%;
     }
     .seccion.uno .titulo-inicio h4.subtitle br,  .seccion.uno .titulo-inicio .titulo-principal br {
         display: none;
@@ -967,6 +1102,90 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     }
     .contenedor-planes {
         width: 100%;
+    }
+
+    .logos-predisenados .--item {
+        width: 31% !important;
+        margin: 0 !important;
+        margin-bottom: 3% !important;
+    }
+
+    .seccion.dos .caracteristicas .caracteristicas__item {
+        width: 100%;
+        border: unset !important;
+    }
+
+    .bazam-previzualizar-container > :last-child {
+        display: none !important;
+    }
+
+    .titulo-destacado {
+        font-size: 30pt;
+    }
+
+    .contenedor-planes .plan .plan-nombre {
+        font-size: 15pt;
+    }
+
+    .contenedor-planes .plan .plan-precio {
+        font-size: 33pt;
+    }
+    ul.plan-lista li {
+        font-size: 8pt;
+    }
+
+    .contenedor-planes .plan .plan-body {
+        height: 63%;
+    }
+
+    .contenedor-planes .plan {
+        height: 500px;
+    }
+
+    button.md-button.md-primary.md-raised.boton-plan, button.md-button.md-primary.md-raised.boton-crear-logo {
+        padding: 2px 20px;
+        font-size: 10pt;
+    }
+
+    .preguntas-contenedor .preguntas > div h6 {
+        font-size: 12pt;
+    }
+
+    .preguntas-contenedor .respuestas > div.activo {
+        font-size: 12pt;
+    }
+
+    footer > div {
+        flex-direction: column !important;
+        flex: auto;
+        justify-content: center;
+        > div {
+            width: 100%;
+        }
+
+        .links-footer{
+            justify-content: center;
+            a {
+                margin-right: 5px;
+                font-size: 11pt;
+                padding: 8px 5px 0px 0px;
+            }
+        } 
+
+        .iconos-sociales {
+            display: flex;
+            justify-content: space-around;
+            width: 53%;
+            height: 47px;
+            margin: 4% 0;
+            i{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 35px !important;
+                padding: 0;
+            }
+        }
     }
 
 }
