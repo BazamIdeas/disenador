@@ -101,22 +101,22 @@
                             <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">Registro</span>
                         </div>
                         <div ng-switch-default class=" iconos-menu acceder" style="cursor: pointer">
-                            <span ng-click="h.navegar.cliente('')">
+                            <a href="/creador-de-logos">
                                 <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
                                 <i class="material-icons">add_circle_outline</i>
-                            </span>
-                            <span ng-click="h.navegar.cliente('logos')">
+                            </a>
+                            <a href="/creador-de-logos/cliente/logos">
                                 <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Tus logos</md-tooltip>
                                 <i class="material-icons">favorite</i>
-                            </span>
-                            <span ng-click="h.navegar.cliente('cuenta')">
+                            </a>
+                            <a href="/creador-de-logos/cliente/cuenta">
                                 <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Mi cuenta</md-tooltip>
                                 <i class="material-icons">account_circle</i>
-                            </span>
-                            <span ng-click="h.salir()">
+                            </a>
+                            <a ng-click="h.salir()">
                                 <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cerrar Sesion</md-tooltip>
                                 <i class="material-icons">power_settings_new</i>
-                            </span>
+                            </a>
                         </div>
                     </div>
                 </div>

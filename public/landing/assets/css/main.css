@@ -291,24 +291,25 @@ header {
 .hidden {
   display: none; }
 
-div.acceder span {
+div.acceder a, div.acceder span {
   padding: 7px 14px;
   margin: 0 8px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   font-size: 16pt;
-  display: inline-block; }
-  div.acceder span:hover {
+  display: inline-block;
+  color: black; }
+  div.acceder a:hover, div.acceder span:hover {
     background: #5980B7;
     color: white;
     -webkit-box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
     cursor: pointer; }
-  div.acceder span i {
+  div.acceder a i, div.acceder span i {
     vertical-align: top;
     font-size: 28px; }
 
-div.acceder:not(.not-ing) span {
+div.acceder:not(.not-ing) a, div.acceder:not(.not-ing) span {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -956,10 +957,10 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         flex: auto;
         display: flex;
         justify-content: center; }
-        header#comienzo > div > div:not(.logo) div.acceder span i {
+        header#comienzo > div > div:not(.logo) div.acceder i {
           vertical-align: top;
           font-size: 25pt; }
-        header#comienzo > div > div:not(.logo) div.acceder span i {
+        header#comienzo > div > div:not(.logo) div.acceder i {
           vertical-align: top;
           font-size: 25pt; }
   footer > div {
@@ -1029,10 +1030,10 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     display: none; }
   .bazam-previzualizar-container.one > :first-child {
     height: auto !important; }
-  div.acceder span i {
+  div.acceder a i, div.acceder span i {
     vertical-align: top;
     font-size: 25pt; }
-  div.acceder:not(.not-ing) span {
+  div.acceder:not(.not-ing) a, div.acceder:not(.not-ing) span {
     width: 50px;
     height: 50px; }
   .seccion.uno .titulo-inicio > div {
@@ -1173,18 +1174,36 @@ md-input-container .md-input.ng-invalid.ng-dirty {
 @media (min-device-width: 641px) and (max-device-width: 1080px), (min-width: 641px) and (max-width: 1080px) {
   .seccion.uno .titulo-inicio .titulo-principal {
     text-align: center;
-    font-size: 32pt; }
+    font-size: 25pt; }
   .seccion.uno .titulo-inicio > :first-child span {
     display: none; }
   .seccion.uno .titulo-inicio h4.subtitle {
-    font-size: 17pt;
-    width: 70%; }
+    display: none; }
   .seccion.uno .titulo-inicio h4.subtitle br, .seccion.uno .titulo-inicio .titulo-principal br {
     display: none; }
   .caracteristicas .caracteristicas__item > :last-child h4 {
     font-size: 24pt; }
   .contenedor-planes {
-    width: 100%; } }
+    width: 100%; }
+  .logos-predisenados .--item {
+    width: 31%;
+    margin: 0;
+    margin-bottom: 3%; }
+  .seccion.dos .caracteristicas .caracteristicas__item {
+    width: 100%;
+    border: unset !important; }
+  .bazam-previzualizar-container > :last-child {
+    display: none !important; }
+  .titulo-destacado {
+    font-size: 30pt; }
+  .contenedor-planes .plan .plan-nombre {
+    font-size: 15pt; }
+  .contenedor-planes .plan .plan-precio {
+    font-size: 33pt; }
+  ul.plan-lista li {
+    font-size: 8pt; }
+  .contenedor-planes .plan .plan-body {
+    height: 45%; } }
 
 /* selector de colores
 
@@ -1387,12 +1406,12 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
     vertical-align: middle;
     background: url(../img/ftu_pc.png) center center no-repeat;
     position: relative;
-    background-size: 109% 89%; }
+    background-size: 110% 84%; }
     .tres-pasos .animacion ul {
       position: absolute;
-      top: 3.4em;
-      left: 6.58em;
-      width: 33.1em;
+      top: 4em;
+      left: 6.1em;
+      width: 31.1em;
       height: 19em;
       overflow: hidden;
       margin: 0; }

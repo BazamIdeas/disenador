@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var controllers = require(".././controllers");
-var multipart = require("connect-multiparty");
 var compression = require('compression');
 var middleware = require("./middleware");
 
@@ -21,7 +20,7 @@ router.use('/avisos-legales', function(req, res) {
     res.render('legales.html');
 });
 
-router.use('/', middleware.userAgent, middleware.validarLanding, function(req, res) {
+router.get('/', middleware.userAgent, middleware.validarLanding, function(req, res) {
 
     let categorias = [];
     

@@ -743,12 +743,12 @@ md-input-container .md-input.ng-invalid.ng-dirty {
                 flex: auto;
                 display: flex;
                 justify-content: center;
-                div.acceder span i {
+                div.acceder i {
                     vertical-align: top;
                     font-size: 25pt;
                 }
 
-                div.acceder span i {
+                div.acceder i {
                     vertical-align: top;
                     font-size: 25pt;
                 }
@@ -869,11 +869,11 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     .bazam-previzualizar-container.one> :first-child {
         height: auto !important;
     }
-    div.acceder span i {
+    div.acceder a i, div.acceder span i {
         vertical-align: top;
         font-size: 25pt;
     }
-    div.acceder:not(.not-ing) span {
+    div.acceder:not(.not-ing) a, div.acceder:not(.not-ing) span {
         width: 50px;
         height: 50px;
     }
@@ -1075,15 +1075,14 @@ md-input-container .md-input.ng-invalid.ng-dirty {
 
     .seccion.uno .titulo-inicio .titulo-principal {
         text-align: center;
-        font-size: 32pt;
+        font-size: 25pt;
     }
     .seccion.uno .titulo-inicio > :first-child span{
         display:none;
     }
   
     .seccion.uno .titulo-inicio h4.subtitle {
-        font-size: 17pt;
-        width: 70%;
+        display: none;
     }
     .seccion.uno .titulo-inicio h4.subtitle br,  .seccion.uno .titulo-inicio .titulo-principal br {
         display: none;
@@ -1095,6 +1094,39 @@ md-input-container .md-input.ng-invalid.ng-dirty {
         width: 100%;
     }
 
+    .logos-predisenados .--item {
+        width: 31%;
+        margin: 0;
+        margin-bottom: 3%;
+    }
+
+    .seccion.dos .caracteristicas .caracteristicas__item {
+        width: 100%;
+        border: unset !important;
+    }
+
+    .bazam-previzualizar-container > :last-child {
+        display: none !important;
+    }
+
+    .titulo-destacado {
+        font-size: 30pt;
+    }
+
+    .contenedor-planes .plan .plan-nombre {
+        font-size: 15pt;
+    }
+
+    .contenedor-planes .plan .plan-precio {
+        font-size: 33pt;
+    }
+    ul.plan-lista li {
+        font-size: 8pt;
+    }
+
+    .contenedor-planes .plan .plan-body {
+        height: 45%;
+    }
 }
 
 /* selector de colores
