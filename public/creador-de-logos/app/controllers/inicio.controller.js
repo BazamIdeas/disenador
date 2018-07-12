@@ -60,7 +60,7 @@ angular.module("disenador-de-logos")
 
 				if (!logo.idLogo) {
 					
-					bz.guardarLogo(logo.cargado, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
+					bz.guardarLogo(logo.cargado, logo.icono.idElemento, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 						.then(function (res) {
 							logo.idLogo = res;
 
@@ -310,6 +310,17 @@ angular.module("disenador-de-logos")
 
 						tags_saltos = res[0].tags;
 
+						if(!iconos_raw.length) {
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "La búsqueda no produjo resultados",
+									clase: "success"
+								}
+							}));
+							
+							return;
+						}
+
 						bz.combinar(iconos_raw, fuentes_raw);
 
 					})
@@ -368,7 +379,8 @@ angular.module("disenador-de-logos")
 
 			bz.datosComprar = {
 				logo: svg,
-				idLogo: idLogo,
+				idLogo: idLogo,	
+				noun: logo.icono.idElemento,
 				idCategoria: bz.datos.categoria.icono,
 				tipo: "Logo y nombre",
 				fuentes: {
@@ -409,7 +421,7 @@ angular.module("disenador-de-logos")
 				return;
 			}
 
-			bz.guardarLogo(logo.cargado, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
+			bz.guardarLogo(logo.cargado, logo.icono.idElemento, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 
 				.then(function (res) {
 
@@ -438,7 +450,7 @@ angular.module("disenador-de-logos")
 		bz.completadoGuardar = true;
 
 		
-		bz.guardarLogo = function (logo, tipoLogo, idCategoria, idFuentePrincipal) {
+		bz.guardarLogo = function (logo, noun, tipoLogo, idCategoria, idFuentePrincipal) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
@@ -447,7 +459,7 @@ angular.module("disenador-de-logos")
 
 				bz.completadoGuardar = false;
 				
-				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idCategoria, idFuentePrincipal)
+				logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, idFuentePrincipal)
 
 					.then(function (res) {
 						defered.resolve(res);
@@ -488,7 +500,7 @@ angular.module("disenador-de-logos")
 
 				if (!logo.idLogo) {
 					
-					bz.guardarLogo(logo.cargado, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
+					bz.guardarLogo(logo.cargado, logo.icono.idElemento, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 						.then(function (res) {
 							logo.idLogo = res;
 							var url = bz.compartirPorEmailUrl();

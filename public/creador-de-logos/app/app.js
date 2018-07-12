@@ -171,7 +171,8 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 					datos: {
 
 						logo: null,
-						idCategoria: null,//TODO: revisar
+						idCategoria: null,//TODO: revisar,
+						noun: null,
 						tipo: null,
 						plan: {
 							nombre: null,

@@ -58,7 +58,7 @@
 										<div ng-click="pasarela.mostrar = false" class="close-prev">
 											<md-icon>close</md-icon>
 										</div>
-										<stripe-payment-form data-pasarela="pasarela.idPasarela" data-categoria="pago.pedido.idCategoria" data-atributos="pago.pedido.atributos" data-svg="pago.base64.encode(pago.pedido.logo)" data-precio="pago.pedido.precio.idPrecio"></stripe-payment-form>
+										<stripe-payment-form data-pasarela="pasarela.idPasarela" data-categoria="pago.pedido.idCategoria" data-atributos="pago.pedido.atributos" data-svg="pago.base64.encode(pago.pedido.logo)" data-precio="pago.pedido.precio.idPrecio" data-noun="pago.pedido.noun"></stripe-payment-form>
 									</div>
 
 								</div>

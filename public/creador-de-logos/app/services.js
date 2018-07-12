@@ -700,7 +700,7 @@ angular.module("disenador-de-logos")
 
 			},
 			
-			stripe: function (idCategoria, atributos, logo, idPrecio, tipoLogo, idPasarela, tokenStripe) {
+			stripe: function (idCategoria, atributos, logo, idPrecio, tipoLogo, idPasarela, tokenStripe, noun) {
 
 				var defered = $q.defer();
 				var promise = defered.promise;
@@ -712,8 +712,12 @@ angular.module("disenador-de-logos")
 					tipoLogo: tipoLogo,
 					idPasarela: idPasarela,
 					atributos: atributos,
-					stripeToken: tokenStripe
+					stripeToken: tokenStripe,
 				};
+
+				if(noun){
+					datos.noun = noun;
+				}
 
 				$http.post("/app/pedido", datos)
 					.then(function (res) {
@@ -1386,9 +1390,10 @@ angular.module("disenador-de-logos")
 		};
 
 		this.guardarLogo = function (logo, noun, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId, tags, descripcion) {
+			console.info(arguments);
+			console.info(arguments[4]);
 
 			var defered = $q.defer();
-
 			var promise = defered.promise;
 
 			var datos = {
