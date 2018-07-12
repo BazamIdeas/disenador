@@ -22,35 +22,28 @@
  
 <!--     <link href="/landing/assets/css/fuentes.css" rel="stylesheet" > -->
     <!-- <link href="/landing/assets/animation.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
+<!--     <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css"> -->
 
     <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
 
     <!--Librerias core de angualarJS -->
-    <script src="/jquery/jquery.min.js" defer></script>
-    <script src="/angular/angular.min.js" defer></script>
-    <script src="/angular-messages/angular-messages.min.js" defer></script>
-    <script src="/angular-animate/angular-animate.min.js" defer></script>
-    <script src="/angular-aria/angular-aria.min.js" defer></script>
-    <script src="/angular-base64/angular-base64.min.js" defer></script>
+    <script src="/jquery/jquery.min.js" ></script>
+    <script src="/angular/angular.min.js" ></script>
+    <script src="/angular-messages/angular-messages.min.js" ></script>
+    <script src="/angular-animate/angular-animate.min.js" ></script>
+    <script src="/angular-aria/angular-aria.min.js" ></script>
+    <script src="/angular-base64/angular-base64.min.js" ></script>
     <!--     <script src="/angular-ui-router/angular-ui-router.min.js"></script> -->
-    <script src="/angular-material/angular-material.min.js" defer></script>
+    <script src="/angular-material/angular-material.min.js" ></script>
 
     <!--Librerias 3r party angularJS -->
-    <script src="/angular-ui-carousel/ui-carousel.min.js" defer></script>
-    <script src="assets/js/materialize.min.js" defer></script>
-
-    <!--Archivos App diseñador -->
-    <script src="/landing/built/app.js" defer></script>
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"  >
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
-        crossorigin="anonymous" >
+<!--     <script src="/angular-ui-carousel/ui-carousel.min.js" ></script> -->
 
     
-    <link rel="manifest" href="/landing/manifest.json">
+<!--     <link rel="manifest" href="/landing/manifest.json"> -->
 
-    <!-- Service Worker 
+        
+    <!-- Service Worker
     <script src="/landing/sw.js" async></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -65,8 +58,7 @@
             }
         })
     </script>
-    -->
-
+   -->
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
                 w[l] = w[l] || []; w[l].push({
@@ -198,7 +190,7 @@
                                 <bazam-palette-picker></bazam-palette-picker>
                             </div>
                             <div flex="60">
-                                <div class="input-tipografia" ng-show="ctrl.categoriasPosibles.fuentes.length > 0">
+                                <div class="input-tipografia">
                                     <div class="estilos-fuentes">
                                         <md-radio-group name="font" required ng-model="ctrl.datosCombinaciones.idFuente" class="md-primary">
                                             {% for estilo in categoriasFuentes %}
@@ -314,7 +306,7 @@
             </div>
         </div>
 
-        <!-- PREVIEW 
+        <!-- PREVIEW        -->
         <div>
             <div class="col s12 ver-logo-enorme estatico" id="previsualizar">
                 <div class="bazam-previzualizar-container one">
@@ -354,7 +346,7 @@
                 </div>
             </div>
         </div>
-        -->
+ 
 
         <!-- PLANES -->
         <div class="row s12 seccion seis">
@@ -550,6 +542,15 @@
         </div>
     </footer>
 </body>
+
+
+    <!--Archivos App diseñador -->
+    <script src="/landing/built/app.js" ></script>
+
+    <script src="assets/js/materialize.min.js" ></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"  >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
 
 <script type="text/ng-template" id="toast-base.html">
     <md-toast class="${clase}$">

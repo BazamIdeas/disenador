@@ -30,6 +30,8 @@ router.use('', middleware.userAgent, middleware.validarCategorias, function(req,
             categorias.push(element);
         }
     });
+
+    console.log(req.body.categoriasFuentes)
     
     res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes});
 });
