@@ -21,7 +21,7 @@ router.use('/avisos-legales', function(req, res) {
     res.render('legales.html');
 });
 
-router.use('', middleware.userAgent, middleware.validarCategorias, function(req, res) {
+router.use('/', middleware.userAgent, middleware.validarLanding, function(req, res) {
 
     let categorias = [];
     
