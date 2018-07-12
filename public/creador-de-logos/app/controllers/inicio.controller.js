@@ -263,6 +263,25 @@ angular.module("disenador-de-logos")
 
 				bz.completado = false;
 
+				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
+				
+					var remover_tag = true;
+
+					angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
+
+						if(indexSalto == tag.traduccion.valor){
+							remover_tag = false;
+						}
+
+					})
+
+					if(remover_tag){
+						delete tags_saltos[indexSalto];
+					}
+
+
+				})
+
 				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 
 					var tag_existe = tags_saltos[tag.traduccion.valor];
@@ -286,8 +305,12 @@ angular.module("disenador-de-logos")
 							bz.iconos.push(icono.idElemento);
 						});
 
+						var iconos_raw = res[0].iconos;
+						var fuentes_raw = res[1];
+
 						tags_saltos = res[0].tags;
-						bz.combinar(res[0].iconos, res[1]);
+
+						bz.combinar(iconos_raw, fuentes_raw);
 
 					})
 					.catch(function () {
