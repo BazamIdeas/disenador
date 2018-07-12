@@ -169,6 +169,46 @@ etiqueta.AsignarIconos = (_id, iconos, callback) =>
     })
 }
 
+etiqueta.AsignarLogos = (_ids, idLogo, callback) => {
+
+    _ids.forEach((e,i) => {
+        _ids[i] = objectId(e);
+    })
+
+    __mongoClient(db => {
+        const collection = db.collection('logos');
+        collection.findOneAndUpdate({
+            'idLogo': idLogo
+        }, {
+            $addToSet: {
+                'etiquetas': {
+                    $each: _ids
+                }
+            }
+        }, (err, doc) => {
+            if (err) throw err;
+
+            if (doc.value !== null) {
+                callback(null, {
+                    'affectedRow': doc.value
+                });
+            } else {
+
+                collection.insertOne({
+                    'idLogo': idLogo,
+                    'etiquetas': _ids
+                }, (err, doc) => {
+                    if (err) throw err;
+                    callback(null, {
+                        'insertId': doc.insertedId
+                    });
+                });
+
+            }
+        });
+    })
+}
+
 etiqueta.DesasignarIcono = (_id, icono, callback) => 
 {
     __mongoClient(db => {
@@ -343,6 +383,75 @@ etiqueta.AnalizarNOUN = (lang, tags, callback) =>
 }
 
 etiqueta.TraducirGuardar = async (tags, lang, callback) => {
+
+    let tagsTraducidas = [];
+
+    for (let tag of tags) {
+
+        let trad = {}
+
+        try {
+            trad.en = await translate(tag, { from: lang, to: 'en' });
+            trad.es = await translate(tag, { from: lang, to: 'es' });
+            trad.pr = await translate(tag, { from: lang, to: 'pt' });
+        } catch (error) {
+            callback(error);
+            return
+        }
+
+        if (trad[lang].from.language.iso == lang) {
+
+            if ((trad.en.text === trad.es.text && trad.en.text === trad.pr.text) === false) {
+
+                tagsTraducidas.push({ en: trad.en.text, es: trad.es.text, pr: trad.pr.text });
+
+            }
+
+        }
+    
+    }
+
+    __mongoClient(db => {
+        const idiomas = db.collection('idiomas');
+        idiomas.find({}).toArray((err, docs) => {
+            if (err) throw err;
+
+            let tagsParaGuardar = [];
+
+            for (let tag of tagsTraducidas) {
+
+                let tagLista = { traducciones: [], iconos: []};
+
+                let idiomas = Object.keys(tag);
+
+                for (let idioma of idiomas) {
+
+                    let _id
+
+                    docs.forEach(doc => {
+                        if (doc.codigo == idioma) {
+                            _id = doc._id;
+                        }
+                    });
+
+                    if (_id !== undefined) {
+                        tagLista.traducciones.push({ idioma: objectId(_id), valor: tag[idioma] });
+                    }
+                }
+                tagsParaGuardar.push(tagLista);
+            }
+
+            const etiquetas = db.collection('etiquetas');
+
+            etiquetas.insertMany(tagsParaGuardar, function (err, r) {
+                if (err) throw err;
+                callback(null, r.ops);
+            });
+        });
+    });
+}
+
+etiqueta.TraducirGuardarNOUN = async (tags, lang, callback) => {
 
     let tagsTraducidas = [];
 

@@ -15,6 +15,7 @@ var pathM = require("path");
 var async = require("async");
 var config = require("../configuracion/configuracion.js");
 const fse = require('fs-extra')
+const Etiqueta = require('../modelos/etiquetasModelo.js');
 
 //GUARDAR UN LOGO
 exports.guardar = function (req, res) {
@@ -61,28 +62,61 @@ exports.guardar = function (req, res) {
 
 				});
 
-				//Guardar tags y asignar a logo
-				if (req.disenador || true) {
-					console.log(req.body.tags);
-				}
-
 			}
 
-			cliente.getCliente(req.idCliente, function (error, dataCliente) {
+			if (req.disenador || true) {
 
-				const emailOptions = {
-					to: dataCliente[0].correo, // receptor o receptores
-					subject: "Logo guardado", // Asunto del correo
-				}
+				let etiquetasNuevas = req.body.tags.nuevas;
 
-				let email = new Email(emailOptions, {});
-				email.setHtml("logoGuardado.html").send((err, data) => {
-					if (err) return console.log(err);
+				Etiqueta.TraducirGuardar(etiquetasNuevas, req.cookies.lang || 'es', (err, tagsGuard) => {
+
+					let tags = req.body.tags.existentes;
+
+					console.log(tagsGuard)
+
+					if (tagsGuard.length) {
+						tagsGuard.forEach(el => {
+
+							let index;
+
+							el.traducciones.forEach(tra => {
+								index = etiquetasNuevas.indexOf(tra.valor);
+
+								if (index != -1) {
+									etiquetasNuevas[index] = { tag: etiquetasNuevas[index], _id: el._id }
+								}
+							});
+
+							tags.push(el._id);
+						});
+					}
+
+					Etiqueta.AsignarLogos(req.body.tags.existentes, data.insertId, (err, logoEti) => {
+						
+						res.status(200).json({ insertId: data.insertId, etiqetasGuardadas: etiquetasNuevas });
+
+					})
 				});
 
-			});
+			} else {
 
-			res.status(200).json(data);
+				cliente.getCliente(req.idCliente, function (error, dataCliente) {
+
+					const emailOptions = {
+						to: dataCliente[0].correo, // receptor o receptores
+						subject: "Logo guardado", // Asunto del correo
+					}
+
+					let email = new Email(emailOptions, {});
+					email.setHtml("logoGuardado.html").send((err, data) => {
+						if (err) return console.log(err);
+					});
+
+				});
+
+				res.status(200).json(data);
+
+			}
 
 		} else {
 			res.status(500).json({
