@@ -728,6 +728,33 @@ md-input-container .md-input.ng-invalid.ng-dirty {
 
 @media (min-device-width:320px) and (max-device-width:640px),
 (min-width:320px) and (max-width:640px) {
+    
+
+    header#comienzo 
+    {
+            margin-bottom: 2%;
+            > div {
+            flex-wrap: wrap;
+            justify-content: center;
+            > div.logo.grande{
+                width: 200px;
+            }
+            > div:not(.logo) {
+                flex: auto;
+                display: flex;
+                justify-content: center;
+                div.acceder span i {
+                    vertical-align: top;
+                    font-size: 25pt;
+                }
+
+                div.acceder span i {
+                    vertical-align: top;
+                    font-size: 25pt;
+                }
+            }
+        }
+    }
 
     footer > div {
         flex-direction: column !important;
@@ -842,16 +869,13 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     .bazam-previzualizar-container.one> :first-child {
         height: auto !important;
     }
-    .logo.grande {
-        width: 160px;
-    }
     div.acceder span i {
         vertical-align: top;
-        font-size: 40pt;
+        font-size: 25pt;
     }
     div.acceder:not(.not-ing) span {
-        width: 80px;
-        height: 80px;
+        width: 50px;
+        height: 50px;
     }
     .seccion.uno .titulo-inicio {
         >div {
