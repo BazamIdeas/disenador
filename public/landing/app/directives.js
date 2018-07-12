@@ -281,7 +281,7 @@ angular.module("landing")
 
 	}])
 
-	.directive("verticalCards", [function () {
+/* 	.directive("verticalCards", [function () {
 		return {
 			restrict: "E",
 			templateUrl: "landing/app/templates/verticalCards.tpl",
@@ -314,4 +314,4 @@ angular.module("landing")
 		};
 
 
-	}])
+	}]) */

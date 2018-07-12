@@ -16,41 +16,34 @@
     <meta property="og:site_name" content="logopro" />
     <meta property="fb:app_id" content="152803392097078" />
 
-    <link href="/landing/assets/css/main.css" rel="stylesheet" >
-    <link href="/angular-material/angular-material.min.css" rel="stylesheet" >
+    <link href="/landing/assets/css/main.css" rel="stylesheet">
+    <link href="/angular-material/angular-material.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/landing/assets/css/materialize.min.css">
- 
-<!--     <link href="/landing/assets/css/fuentes.css" rel="stylesheet" > -->
+
+    <!--     <link href="/landing/assets/css/fuentes.css" rel="stylesheet" > -->
     <!-- <link href="/landing/assets/animation.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css">
+    <!--     <link rel="stylesheet" href="/angular-ui-carousel/ui-carousel.min.css"> -->
 
     <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
 
     <!--Librerias core de angualarJS -->
-    <script src="/jquery/jquery.min.js" defer></script>
-    <script src="/angular/angular.min.js" defer></script>
-    <script src="/angular-messages/angular-messages.min.js" defer></script>
-    <script src="/angular-animate/angular-animate.min.js" defer></script>
-    <script src="/angular-aria/angular-aria.min.js" defer></script>
-    <script src="/angular-base64/angular-base64.min.js" defer></script>
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular-messages/angular-messages.min.js"></script>
+    <script src="/angular-animate/angular-animate.min.js"></script>
+    <script src="/angular-aria/angular-aria.min.js"></script>
+    <script src="/angular-base64/angular-base64.min.js"></script>
     <!--     <script src="/angular-ui-router/angular-ui-router.min.js"></script> -->
-    <script src="/angular-material/angular-material.min.js" defer></script>
+    <script src="/angular-material/angular-material.min.js"></script>
 
     <!--Librerias 3r party angularJS -->
-    <script src="/angular-ui-carousel/ui-carousel.min.js" defer></script>
-    <script src="assets/js/materialize.min.js" defer></script>
+    <!--     <script src="/angular-ui-carousel/ui-carousel.min.js" ></script> -->
 
-    <!--Archivos App diseñador -->
-    <script src="/landing/built/app.js" defer></script>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"  >
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
-        crossorigin="anonymous" >
+    <!--     <link rel="manifest" href="/landing/manifest.json"> -->
 
-    
-    <link rel="manifest" href="/landing/manifest.json">
 
-    <!-- Service Worker 
+    <!-- Service Worker
     <script src="/landing/sw.js" async></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -65,17 +58,25 @@
             }
         })
     </script>
-    -->
-
+   -->
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-                w[l] = w[l] || []; w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
-                }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-WCZ63JP');</script>
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WCZ63JP');</script>
     <!-- End Google Tag Manager -->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+
+    <!--Archivos App diseñador -->
+    <script src="/landing/built/app.js"></script>
+
+    <script src="assets/js/materialize.min.js"></script>
 
 </head>
 
@@ -99,7 +100,7 @@
                             <span ng-click="h.opcionMostrarLogin = false; h.mostrarLogin = true">Acceder</span>
                             <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">Registro</span>
                         </div>
-                        <div ng-switch-default class="acceder" style="cursor: pointer">
+                        <div ng-switch-default class=" iconos-menu acceder" style="cursor: pointer">
                             <span ng-click="h.navegar.cliente('')">
                                 <md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Crear logo</md-tooltip>
                                 <i class="material-icons">add_circle_outline</i>
@@ -174,7 +175,8 @@
                                 <label style="transform: none;     text-align: center; font-size: 20pt;
                                     ">¿Que buscas?</label>
                                 <md-chips md-add-on-blur="true" ng-model="ctrl.datosCombinaciones.etiquetasSeleccionadas" ng-class="{'without-placeholder':ctrl.datosCombinaciones.etiquetasSeleccionadas.length > 0}"
-                                    md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)"  aria-invalid="false">
+                                    md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)"
+                                    aria-invalid="false">
                                     <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
                                         md-item-text="item.traduccion.valor" placeholder="Ejemplo: Café">
                                         <span md-highlight-text="ctrl.searchText">${item.traduccion.valor}$</span>
@@ -198,7 +200,7 @@
                                 <bazam-palette-picker></bazam-palette-picker>
                             </div>
                             <div flex="60">
-                                <div class="input-tipografia" ng-show="ctrl.categoriasPosibles.fuentes.length > 0">
+                                <div class="input-tipografia">
                                     <div class="estilos-fuentes">
                                         <md-radio-group name="font" required ng-model="ctrl.datosCombinaciones.idFuente" class="md-primary">
                                             {% for estilo in categoriasFuentes %}
@@ -241,7 +243,7 @@
                 </form>
             </div>
         </div>
-        <!--
+        <!---->
         <div class="seccion" ng-show="ctrl.logosPredisenados">
             <div class="titulo-destacado">
                 <p style="margin: 20px;">GALERÍA DE LOGOS</p>
@@ -252,7 +254,8 @@
                 <div class='--item'>
                     <a href="/logos-de-{{elemento.categoriaFormateada}}">
                         <span>
-                            <img src="/landing/assets/img/categorias/{{elemento.nombreCategoria}}.png" alt="logotipos de {{elemento.nombreCategoria}}">
+                            <!--                             <img src="/landing/assets/img/categorias/{{elemento.nombreCategoria}}.png" alt="logotipos de {{elemento.nombreCategoria}}"> -->
+                            <img src="/landing/assets/img/categorias/abstractos.png" alt="logotipos de {{elemento.nombreCategoria}}">
                         </span>
                     </a>
                     <div class="tags">
@@ -262,7 +265,7 @@
                 {% endfor %}
             </div>
         </div>
-        -->
+
 
         <!-- CARACTERISTICAS -->
         <div class="row seccion dos ">
@@ -314,8 +317,8 @@
             </div>
         </div>
 
-        <!-- PREVIEW 
-        <div>
+        <!-- PREVIEW        -->
+        <div class="PREVIEW ">
             <div class="col s12 ver-logo-enorme estatico" id="previsualizar">
                 <div class="bazam-previzualizar-container one">
                     <div class="preview" style="width: 102%;
@@ -354,7 +357,7 @@
                 </div>
             </div>
         </div>
-        -->
+
 
         <!-- PLANES -->
         <div class="row s12 seccion seis">
@@ -453,21 +456,75 @@
                 <div class="preguntas">
                     <div ng-click="ctrl.preAct = 1" ng-class="{'activo': ctrl.preAct == 1}">
                         <h6>¿Cuanto cuesta el servicio?</h6>
+                        <div ng-class="{'activo': ctrl.preAct == 1}">
+                            Logopro ofrece excelentes opciones de planes para la compra: el Plan básico de logotipo y el Plan Profesional.
+                            <br/>
+                            <br/> Puede comprar sus archivos de logotipo por $9.9 por logo como parte de nuestro Plan básico,
+                            o elija el Plan Profesional $36, que le ofrece nuestra completa solución de marca y contiene
+                            una amplia gama de increíbles herramientas , archivos y características, ¡lo que le permite impulsar,
+                            construir y mejorar su marca realmente!
+                            <br/>
+                            <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                            <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                            <br/>
+                        </div>
                     </div>
                     <div ng-click="ctrl.preAct = 2" ng-class="{'activo': ctrl.preAct == 2}">
                         <h6>¿Cómo puedo pagarlo?</h6>
+                        <div ng-class="{'activo': ctrl.preAct == 2}">
+                            Logopro le da la facilidad mediante su tarjeta de credito o por paypal si asi lo desea.
+                            <br/>
+                            <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                            <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                            <br/>
+                        </div>
                     </div>
                     <div ng-click="ctrl.preAct = 3" ng-class="{'activo': ctrl.preAct == 3}">
                         <h6>¿Puedo cambiar el diseño después de comprar?</h6>
+                        <div ng-class="{'activo': ctrl.preAct == 3}">
+                            En sus logos guardados aparecerá el logo que acaba de comprar y podrá editarlo ilimitadamente.
+                            <br/>
+                            <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                            <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                            <br/>
+                        </div>
                     </div>
                     <div ng-click="ctrl.preAct = 4" ng-class="{'activo': ctrl.preAct == 4}">
                         <h6>¿Dónde lo puedo descargar?</h6>
+                        <div ng-class="{'activo': ctrl.preAct == 4}">
+                            Igresando al sitio con su cuenta, podrá ir a sus logos comprados presionando el icono del menu.
+                            <br />
+                            <br />
+                            <div class='flex --row --center'>
+                                <img src='landing/assets/img/tus-logos.jpg' alt="tus-logos">
+                            </div>
+                            <br/>
+                            <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                            <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                            <br/>
+                        </div>
                     </div>
                     <div ng-click="ctrl.preAct = 5" ng-class="{'activo': ctrl.preAct == 5}">
                         <h6>¿En que formato puedo descargar el logo?</h6>
+                        <div ng-class="{'activo': ctrl.preAct == 5}">
+                            Al momento de descargar su logo, este viene dentro de un archivo comprimido en formato PNG y adecuado en varios tamaños listo
+                            para redes sociales, papeleria y publicidad.
+                            <br/>
+                            <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                            <a href="mailto:info@logo.pro">info@logo.pro</a>.
+                            <br/>
+                        </div>
                     </div>
                     <div ng-click="ctrl.preAct = 6" ng-class="{'activo': ctrl.preAct == 6}">
                         <h6>¿Poseo los derechos plenos de mi logotipo comprado?</h6>
+                        <div ng-class="{'activo': ctrl.preAct == 6}">
+                            Usted es libre de usar su logotipo comprado para cualquier uso comercial o no comercial sin permiso adicional. Si desea colocar
+                            una marca comercial en su diseño, deberá hacerlo con la ayuda de un abogado familiarizado con
+                            las leyes de su estado o país en este momento.
+                            <br/>
+                            <br/> Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a
+                            <a href="mailto:info@logo.pro">info@logo.pro</a>
+                        </div>
                     </div>
                 </div>
                 <div class="respuestas">
@@ -563,11 +620,13 @@
 <script>
     /* FACEBOOK */
 
-    window.fbInit = function () {
+    window.fbAsyncInit = function () {
         FB.init({
             appId: "152803392097078",
             autoLogAppEvents: true,
             xfbml: true,
+            status: true,
+            cookie: true,
             version: "v2.12"
         });
     };
@@ -580,14 +639,15 @@
         }
         js = d.createElement(s);
         js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        js.src = "https://connect.facebook.net/es_LA/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, "script", "facebook-jssdk"));
 </script>
 
+
 <!-- GOOGLE -->
 
-<script src="https://apis.google.com/js/platform.js?onload=init" ></script>
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 
 <script>
     function init() {
@@ -598,5 +658,6 @@
         });
     }
 </script>
+
 
 </html>

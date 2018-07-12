@@ -46,8 +46,7 @@
 body, html {
   margin: 0;
   background: #FFFFFF;
-  font-size: 16px !important;
-  font-family: 'Times New Roman', Times, serif; }
+  font-size: 16px !important; }
 
 * {
   cursor: default;
@@ -889,6 +888,8 @@ button.md-button.md-primary.md-raised.boton-plan, button.md-button.md-primary.md
     .preguntas-contenedor .preguntas > div h6 {
       font-size: 15pt;
       cursor: pointer; }
+    .preguntas-contenedor .preguntas > div > div {
+      display: none; }
   .preguntas-contenedor .preguntas > :last-child {
     border: none; }
   .preguntas-contenedor .respuestas {
@@ -944,8 +945,50 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     height: auto; } }
 
 @media (min-device-width: 320px) and (max-device-width: 640px), (min-width: 320px) and (max-width: 640px) {
-  * {
-    transform: unset !important; }
+  footer > div {
+    flex-direction: column !important;
+    flex: auto; }
+    footer > div > div {
+      width: 100%; }
+    footer > div .links-footer a {
+      margin-right: 5px;
+      font-size: 11pt;
+      padding: 8px 5px 0px 0px; }
+    footer > div .iconos-sociales {
+      display: flex;
+      justify-content: space-around;
+      height: 47px;
+      margin: 4% 0; }
+  .bazam-palette-picker {
+    width: 60%; }
+  .PREVIEW {
+    display: none; }
+  .preguntas-contenedor .respuestas {
+    display: none; }
+  .preguntas-contenedor .preguntas {
+    width: 100%; }
+    .preguntas-contenedor .preguntas > div {
+      padding: 0;
+      padding-left: 0;
+      border-bottom: 1px solid silver; }
+      .preguntas-contenedor .preguntas > div h6 {
+        font-size: 14pt !important;
+        cursor: pointer;
+        PADDING: 12PX;
+        MARGIN: 0; }
+      .preguntas-contenedor .preguntas > div > div.activo {
+        display: block;
+        background: white;
+        padding: 18px;
+        width: 100%; }
+  .seccion.uno .input-tipografia {
+    width: 100%; }
+  md-input-container {
+    margin-bottom: 0px !important; }
+  md-toast {
+    display: none; }
+  .label-form {
+    padding-top: 5%; }
   .seccion.uno .titulo-inicio > :first-child {
     border-left: 1rem solid #5980B7;
     flex-direction: column;
@@ -958,7 +1001,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
   .seccion.uno form label,
   .seccion.uno form md-select,
   .seccion.uno .label-form {
-    font-size: 16pt; }
+    font-size: 16pt !important; }
   h1.titulo-principal br {
     display: none; }
   md-select.categorias-select,
@@ -1001,7 +1044,13 @@ md-input-container .md-input.ng-invalid.ng-dirty {
           height: auto;
           -webkit-box-flex: unset;
           -ms-flex: auto;
-          flex: auto; }
+          flex: auto;
+          flex-direction: column;
+          justify-content: center; }
+          .seccion.uno form > div > div > div {
+            flex: auto;
+            max-width: 100%;
+            width: 100%; }
   md-input-container.md-input-has-value .md-select-value > span:not(.md-select-icon) {
     -webkit-transform: none;
     transform: none; }
@@ -1011,7 +1060,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     -webkit-transform: none !important;
     transform: none !important; }
   md-input-container:not(.md-input-has-value) input:not(:focus) {
-    font-size: 16pt; }
+    font-size: 16pt !important; }
   input:not([type]),
   input[type=text],
   input[type=password],
@@ -1036,7 +1085,7 @@ md-input-container .md-input.ng-invalid.ng-dirty {
   .seccion.uno form label,
   .seccion.uno form md-select,
   .label-form {
-    font-size: 16pt; }
+    font-size: 16pt !important; }
   md-input-container {
     margin: 40px 0;
     margin-top: 50px !important; }
@@ -1047,9 +1096,10 @@ md-input-container .md-input.ng-invalid.ng-dirty {
   .etiquetas.md-chips md-chip {
     height: 60px; }
   .md-chips.md-removable md-chip {
-    padding-right: 60px;
-    height: 60px;
-    line-height: 60px; }
+    line-height: 28px; }
+  .md-chips md-chip .md-chip-remove md-icon {
+    top: 23%;
+    left: 30%; }
   .md-chips md-chip .md-chip-remove md-icon {
     height: 40px;
     width: 40px;
@@ -1063,8 +1113,8 @@ md-input-container .md-input.ng-invalid.ng-dirty {
   md-select-menu md-content md-option {
     font-family: sans-serif !important; }
   button.md-button.md-primary.md-raised.boton-formulario-generar {
-    padding: 20px 25px;
-    font-size: 16pt; }
+    padding: 7px 25px;
+    font-size: 16pt !important; }
   button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
     background-color: #5980B7;
     color: #FFFFFF;
@@ -1092,10 +1142,18 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     transform: none !important; }
   .titulo-destacado {
     font-size: 23pt; }
-  .seccion.dos .caracteristicas {
+  .seccion.dos {
+    display: none; }
+  div.acceder > :last-child {
     display: none; }
   .logos-predisenados .--item {
-    width: 45%; } }
+    width: 46%   !important;
+    margin: 0  !important;
+    margin-bottom: 5%  !important; }
+  .logos-predisenados > :nth-child(6) ~ div {
+    display: none; }
+  .logos-predisenados .--item .tags {
+    word-wrap: break-word; } }
 
 @media (min-device-width: 641px) and (max-device-width: 1080px), (min-width: 641px) and (max-width: 1080px) {
   .seccion.uno .titulo-inicio .titulo-principal {
@@ -1450,7 +1508,6 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
       padding: 6.94% 0 6.94% 5.5%;
       text-align: left;
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
       background: #fff; }
       .logos-predisenados .--item .tags a {

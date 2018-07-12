@@ -251,7 +251,7 @@ exports.userAgent = function (req, res, next) {
 	}
 }
 
-exports.validarCategorias = function (req, res, next) {
+exports.validarLanding = function (req, res, next) {
 
 	try {
 		var tipo = ["Iniciales", 'ICONO'];
@@ -335,7 +335,55 @@ exports.validarCategorias = function (req, res, next) {
 						res.status(400).json({ "Mensaje": "Categorias no encontradas" });
 					}
 
-				} else if (req.originalUrl != '/logos-destacados') {
+				}
+			}
+		});
+
+	} catch (e) {
+		res.status(400).json({ "Mensaje": "Categorias no encontradas" });
+	}
+
+}
+
+exports.validarCategorias = function (req, res, next) {
+
+	try {
+		var tipo = ["Iniciales", 'ICONO'];
+
+		categoria.getCategorias(tipo, function (error, response) {
+			if (typeof response !== "undefined" && response.length > 0) {
+
+				for (let i = 0; i < response.length; i++) {
+
+					let categoria = response[i].nombreCategoria;
+
+					while (categoria.indexOf(' ') != -1) {
+						categoria = categoria.replace(' ', '-');
+					}
+
+					var specialChars = "!@#$^&%*()+=[]\/{}|:<>?,.";
+
+					// Los eliminamos todos
+					for (let i = 0; i < specialChars.length; i++) {
+						categoria = categoria.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
+					}
+
+					categoria = categoria.replace(/á/gi, "a");
+					categoria = categoria.replace(/é/gi, "e");
+					categoria = categoria.replace(/í/gi, "i");
+					categoria = categoria.replace(/ó/gi, "o");
+					categoria = categoria.replace(/ú/gi, "u");
+					categoria = categoria.replace(/ñ/gi, "n");
+
+					categoria = categoria.toLowerCase();
+
+					response[i].categoriaFormateada = categoria;
+
+				}
+
+				req.body.categorias = response;
+
+				if (req.originalUrl != '/logos-destacados') {
 					for (let i = 0; i < req.body.categorias.length; i++) {
 						if (req.params.categoria == req.body.categorias[i].categoriaFormateada) {
 							req.body.categoriaSeleccionada = req.body.categorias[i];
