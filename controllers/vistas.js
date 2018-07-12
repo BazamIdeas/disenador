@@ -2,6 +2,8 @@ var logo = require("../modelos/logosModelo.js");
 var atributo = require("../modelos/atributosModelo.js");
 var async = require("async");
 var base64 = require("base-64");
+var fs = require('fs');
+const svg2png = require("svg2png");
 
 exports.ViewCategorias = function (req, res) {
 
@@ -17,25 +19,60 @@ exports.ViewCategorias = function (req, res) {
 			async.forEachOf(data, (logo, key, callback) => {
 
 				logo.svg = base64.decode(logo.logo);
-
 				logo.svg = logo.svg.replace(/"/g, "'");
-				
-				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+				let nombre = logo.idLogo + ".svg";
+				const path = "public/tmp/shared/";
+				let ancho = 200;
 
-					if (err) return callback(err);
+				var buffer = new Buffer(base64.decode(logo.logo).replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/"));
 
-					try {
+				fs.open(path + nombre, "w", (err, fd) => {
+					if (err) throw "error al crear svg " + err;
 
-						if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
-							data[key]["atributos"] = dataAttrs;
-						}
+					fs.write(fd, buffer, 0, buffer.length, null, err => {
+						if (err) throw "error al escribir " + err;
 
-					} catch (e) {
-						return callback(e);
-					}
+						let svg = path + nombre;
 
-					callback();
+						var pngout = svg.replace("svg", "jpg");
 
+						fs.readFile(svg, (err, svgbuffer) => {
+							if (err) throw err;
+							svg2png(svgbuffer, {
+								width: ancho
+							})
+								.then(buffer => {
+									fs.writeFile(pngout, buffer, (err) => {
+										setTimeout(() => {
+											logo.imgSrc = nombre.replace("svg", "jpg");
+
+											// __dirname + "/../" + path + 
+
+											atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+
+												if (err) return callback(err);
+
+												try {
+
+													if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+														data[key]["atributos"] = dataAttrs;
+													}
+
+												} catch (e) {
+													return callback(e);
+												}
+
+												callback();
+
+											});
+										}, 1000)
+									});
+								})
+								.catch(e => console.log('error'));
+						});
+
+						fs.close(fd);
+					});
 				});
 
 			}, (err) => {
@@ -43,10 +80,10 @@ exports.ViewCategorias = function (req, res) {
 				if (err) res.status(402).json(err);
 
 				dataEnviar.logosPredisenados = data;
-				
+
 				res.render('categorias.html', dataEnviar);
 			});
-		}else {
+		} else {
 
 			console.log("No hay logos aprobados");
 
