@@ -144,8 +144,8 @@ jQuery(document).ready(function ($) {
   $('.buscarEditor').click(function(){
 
     let data = {
-      etiquetasParaBusqueda: ['Null'],
-      etiquetaSeleccionadas: [{traduccion: {valor: "Prueba"}}],
+      etiquetasParaBusqueda: ['Decorativas', 'Espada'],
+      etiquetasSeleccionadas: [{traduccion: {valor: "Decorativas"}}, {traduccion: {valor: "Espada"}}],
       nombre: 'Mi logo',
       paginaCategoria: true
     };

@@ -84,13 +84,13 @@
             <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-categoria="{{elemento.categorias_idCategoria}}" data-attrs="{{elemento.atributos | dump}}"
                 data-svg="{{elemento.logo}}">
                 <span>
-                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="logo de {{title}} - {{elemento.idLogo}}">
+                    <img src="/tmp/shared/{{elemento.imgSrc}}" alt="logo de {{title}} - {{elemento.idLogo}}">
                 </span>
             </a>
             <div class="tags">
                 <a class="buscarEditor">Tag</a>
                 {% for tag in elemento.tags %}
-                <a class="buscarEditor">{{tag.valor}}</a>
+                <a class="buscarEditor" data-tag="{{tag}}">{{tag.valor}}</a>
                 {% endfor %}
             </div>
         </div>

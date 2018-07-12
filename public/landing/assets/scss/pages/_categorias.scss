@@ -81,6 +81,13 @@
         justify-content: space-between;
         align-items: center;
         box-shadow: rgba(0, 0, 0, 0.22) 0px 0px 3px 0px;
+        .acceder span:hover {
+            background: transparent;
+            box-shadow: none;
+            a{
+
+            }
+        }
         span{
             &:hover{
                 a{
@@ -90,9 +97,11 @@
             a{
                 color: black;
             }
-            &.boton-activo{
+            &.boton-activo a{
                 background: #5980B7;
                 color: white;
+                -webkit-box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
+                box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
             }
         }
     }
