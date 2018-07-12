@@ -29,8 +29,6 @@ router.get('/', middleware.userAgent, middleware.validarLanding, function(req, r
             categorias.push(element);
         }
     });
-
-    console.log(req.body.categoriasFuentes)
     
     res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes});
 });

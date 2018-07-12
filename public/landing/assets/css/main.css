@@ -946,6 +946,8 @@ md-input-container .md-input.ng-invalid.ng-dirty {
     height: auto; } }
 
 @media (min-device-width: 320px) and (max-device-width: 640px), (min-width: 320px) and (max-width: 640px) {
+  div.acceder a, div.acceder span {
+    margin: 0; }
   header#comienzo {
     margin-bottom: 2%; }
     header#comienzo > div {
@@ -1174,11 +1176,15 @@ md-input-container .md-input.ng-invalid.ng-dirty {
 @media (min-device-width: 641px) and (max-device-width: 1080px), (min-width: 641px) and (max-width: 1080px) {
   .seccion.uno .titulo-inicio .titulo-principal {
     text-align: center;
-    font-size: 25pt; }
+    font-size: 26pt;
+    padding: 0 2%; }
   .seccion.uno .titulo-inicio > :first-child span {
     display: none; }
   .seccion.uno .titulo-inicio h4.subtitle {
-    display: none; }
+    text-align: center;
+    margin-bottom: 5%;
+    padding: 0 5%;
+    font-size: 17pt; }
   .seccion.uno .titulo-inicio h4.subtitle br, .seccion.uno .titulo-inicio .titulo-principal br {
     display: none; }
   .caracteristicas .caracteristicas__item > :last-child h4 {
@@ -1186,9 +1192,9 @@ md-input-container .md-input.ng-invalid.ng-dirty {
   .contenedor-planes {
     width: 100%; }
   .logos-predisenados .--item {
-    width: 31%;
-    margin: 0;
-    margin-bottom: 3%; }
+    width: 31% !important;
+    margin: 0 !important;
+    margin-bottom: 3% !important; }
   .seccion.dos .caracteristicas .caracteristicas__item {
     width: 100%;
     border: unset !important; }
@@ -1203,7 +1209,40 @@ md-input-container .md-input.ng-invalid.ng-dirty {
   ul.plan-lista li {
     font-size: 8pt; }
   .contenedor-planes .plan .plan-body {
-    height: 45%; } }
+    height: 63%; }
+  .contenedor-planes .plan {
+    height: 500px; }
+  button.md-button.md-primary.md-raised.boton-plan, button.md-button.md-primary.md-raised.boton-crear-logo {
+    padding: 2px 20px;
+    font-size: 10pt; }
+  .preguntas-contenedor .preguntas > div h6 {
+    font-size: 12pt; }
+  .preguntas-contenedor .respuestas > div.activo {
+    font-size: 12pt; }
+  footer > div {
+    flex-direction: column !important;
+    flex: auto;
+    justify-content: center; }
+    footer > div > div {
+      width: 100%; }
+    footer > div .links-footer {
+      justify-content: center; }
+      footer > div .links-footer a {
+        margin-right: 5px;
+        font-size: 11pt;
+        padding: 8px 5px 0px 0px; }
+    footer > div .iconos-sociales {
+      display: flex;
+      justify-content: space-around;
+      width: 53%;
+      height: 47px;
+      margin: 4% 0; }
+      footer > div .iconos-sociales i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 35px !important;
+        padding: 0; } }
 
 /* selector de colores
 
@@ -1572,7 +1611,7 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
   position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: flex !important;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -1797,59 +1836,28 @@ button.boton-verde {
 .input-field {
   width: 100%; }
 
-@media (min-device-width: 360px) and (max-device-width: 639px), (min-width: 360px) and (max-width: 639px) {
+@media (min-device-width: 320px) and (max-device-width: 480px), (min-width: 320px) and (max-width: 480px) {
   .ventajas-loguear {
-    display: none; }
-  .parte-izquierda-form,
-  .login-form,
-  .login.olvido-contrasena {
+    display: none !important; }
+  .parte-izquierda-form, .login-form {
+    max-width: 100%;
     width: 100% !important;
-    margin-left: auto !important;
-    left: auto;
-    right: auto;
-    height: auto; }
-  .login.olvido-contrasena {
-    width: 80vw !important; }
-  .key-image {
-    display: none; }
-  .registro-form p.tercero,
-  .login-form p.tercero,
-  .olvido-contrasena p.tercero {
-    font-size: 32pt; }
-  .subtitle > b {
-    font-size: 18pt; }
-  .ingreso-redes-sociales > div {
-    width: 100px;
-    height: 100px;
-    font-size: 28pt; }
-  .input-field.col label {
-    font-size: 25pt;
-    color: black; }
-  .boton-verde.__block {
-    padding: 17px 0;
-    font-size: 27pt; }
-  .overlay.show > div > :first-child {
-    width: 80%;
-    margin: auto; }
-  .olvido-small-tag,
-  .login.olvido-contrasena label {
-    font-size: 21pt;
-    color: black; }
-  button.boton-verde {
-    font-size: 30pt; }
-  .registro-form {
-    width: 85vw !important;
-    margin-left: auto !important;
-    left: auto;
-    right: auto;
-    height: auto; }
-  .login-form,
-  .login.olvido-contrasena {
-    width: 50vw !important;
-    margin-left: auto !important;
-    left: auto;
-    right: auto;
-    height: auto; } }
+    margin: 0 !important; }
+  .login-form-flex input {
+    margin: 0 !important; }
+  bazam-form-login > :first-child > :first-child > :first-child {
+    width: 100%;
+    margin: 0; } }
+
+@media (min-device-width: 481px) and (max-device-width: 900px), (min-width: 481px) and (max-width: 900px) {
+  .ventajas-loguear {
+    display: none !important; }
+  .parte-izquierda-form, .login-form {
+    max-width: 100%;
+    width: 100% !important;
+    margin: 0 !important; }
+  .login-form-flex input {
+    margin: 0 !important; } }
 
 /*END LOGIN MODAL*/
 .bazam-previzualizar {
