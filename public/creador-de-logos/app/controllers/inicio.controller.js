@@ -31,8 +31,6 @@ angular.module("disenador-de-logos")
 			etiquetasSeleccionadas: []
 		};
 
-		console.log(landingResolve)
-
 		bz.urlCompartir = $location.port() != "80" ? $location.protocol() + "://" + $location.host() + ":" + $location.port() : $location.protocol() + "://" + $location.host();
 
 

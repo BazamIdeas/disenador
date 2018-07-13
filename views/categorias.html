@@ -88,9 +88,10 @@
                 </span>
             </a>
             <div class="tags">
-                <a class="buscarEditor">Tag</a>
-                {% for tag in elemento.tags %}
-                <a class="buscarEditor" data-tag="{{tag}}">{{tag.valor}}</a>
+                {% for tag in elemento.etiquetas %}
+                    {% for traduccion in tag.traducciones %}
+                        <a class="buscarEditor" data-tag="{{tag | dump }}">{{traduccion.valor}}</a>
+                    {% endfor %}
                 {% endfor %}
             </div>
         </div>
