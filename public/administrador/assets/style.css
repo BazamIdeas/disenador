@@ -119,7 +119,7 @@ menu *:not(md-icon) {
 .titulo-modulo {
     text-align: center;
     position: relative;
-    background: rgb(245, 245, 245);
+    background: white;
     border-bottom: 1px solid silver;
 }
 

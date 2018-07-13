@@ -372,19 +372,16 @@ angular.module("disenador-de-logos")
 
 		this.loadEtiquetas = function (arr) {
 
-			var etiquetas = [];
+			return arr.map(function (et) {
 
-			angular.forEach(arr, function (valor) {
-				etiquetas.push({
-					_id: valor._id,
-					traduccion: valor.traducciones[0]
-				});
-			});
-
-			return etiquetas.map(function (et) {
-				et.traduccion._lowername = et.traduccion.valor.toLowerCase();
+				for (let i = 0; i < et.traducciones.length; i++) {
+					const element = et.traducciones[i];
+					element._lowername = element.valor.toLowerCase();
+				}
+				
 				return et;
 			});
+			
 		};
 
 		this.transformChip = function (chip) {
@@ -396,7 +393,7 @@ angular.module("disenador-de-logos")
 
 			// Otherwise, create a new one
 			return {
-				traduccion: {
+				traduccion:{
 					valor: chip
 				}
 			};
@@ -412,7 +409,7 @@ angular.module("disenador-de-logos")
 			var lowercaseQuery = query.toLowerCase();
 
 			return function filterFn(etiqueta) {
-				return (etiqueta.traduccion._lowername.indexOf(lowercaseQuery) === 0);
+				return (etiqueta.traducciones[0]._lowername.indexOf(lowercaseQuery) === 0);
 			};
 
 		}
@@ -1450,11 +1447,21 @@ angular.module("disenador-de-logos")
 			}
 			*/
 
+
 			
 			$http.post("/app/logo/guardar", datos, config).then(function (res) {
+				
+				var respuesta = false;	
 
-				defered.resolve(res.data.insertId);
-
+				if(datosDisenador && res.data.etiqetasGuardadas){
+					respuesta = res.data.etiqetasGuardadas;
+				}
+				else{
+					respuesta = res.data.insertId;
+				}
+				
+				defered.resolve(respuesta);
+				
 			}).catch(function (res) {
 
 				defered.reject(res);

@@ -38,6 +38,8 @@ angular.module("administrador")
 			})
 		};
 
+		bz.listarLogos();
+
 		bz.aprobarLogo = function (i, datos, id) {
 			bz.peticion = true;
 			bz.cal = !bz.cal;
@@ -66,7 +68,7 @@ angular.module("administrador")
 				}
 
 				// Si no 
-				bz.listaL = !bz.listaL;
+				//bz.listaL = !bz.listaL;
 				bz.logos.splice(i, 1);
 				bz.logosDisenador.splice(i, 1);
 
@@ -108,6 +110,7 @@ angular.module("administrador")
 		};
 
 		bz.verLogo = function (logo, v) {
+			bz.logoVisualizar = false;
 			bz.logoVisualizar = bz.base64(logo);
 			bz.lda = v ? true : false;
 			bz.modfire = false;
@@ -226,6 +229,7 @@ angular.module("administrador")
 					bz.vista = 1;
 
 				}).catch(function (res) {
+					console.log(res)
 					notificacionService.mensaje(res);
 				}).finally(function () {
 					bz.peticion = false;

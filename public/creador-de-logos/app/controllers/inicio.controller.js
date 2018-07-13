@@ -11,7 +11,6 @@ angular.module("disenador-de-logos")
 		};
 
 		bz.colorRandom =  function (largoArray) {
-
 			var i = Math.floor(Math.random() * largoArray) + 0;
 			return i;
 		};
@@ -31,9 +30,6 @@ angular.module("disenador-de-logos")
 			},
 			etiquetasSeleccionadas: []
 		};
-
-
-		
 
 		bz.urlCompartir = $location.port() != "80" ? $location.protocol() + "://" + $location.host() + ":" + $location.port() : $location.protocol() + "://" + $location.host();
 
@@ -249,8 +245,9 @@ angular.module("disenador-de-logos")
 
 		// Si no es un logo compartido
 
-		if (landingResolve && !landingResolve.logoCompartido) {
-			bz.combinar(landingResolve.iconos, landingResolve.fuentes);
+		if (landingResolve && !landingResolve.logoCompartido && !landingResolve.paginaCategoria){
+
+				bz.combinar(landingResolve.iconos, landingResolve.fuentes);
 		}
 
 		var tags_saltos = {};
@@ -338,7 +335,7 @@ angular.module("disenador-de-logos")
 		};
 
 		// Si es un logo compartido 
-		if (landingResolve && landingResolve.logoCompartido) {
+		if (landingResolve && landingResolve.logoCompartido || landingResolve.paginaCategoria) {
 			bz.solicitarElementos();
 		}
 

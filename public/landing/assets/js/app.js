@@ -143,9 +143,11 @@ jQuery(document).ready(function ($) {
 
   $('.buscarEditor').click(function(){
 
+    let tag = JSON.parse($(this).attr('data-tag'));
+
     let data = {
-      etiquetasParaBusqueda: ['Null'],
-      etiquetaSeleccionadas: [{traduccion: {valor: "Prueba"}}],
+      etiquetasParaBusqueda: [tag.traducciones[0].valor],
+      etiquetasSeleccionadas: [{_id: tag._id, traduccion: {valor:tag.traducciones[0].valor}}],
       nombre: 'Mi logo',
       paginaCategoria: true
     };
