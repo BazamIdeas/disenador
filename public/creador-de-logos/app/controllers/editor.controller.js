@@ -342,7 +342,8 @@ angular.module("disenador-de-logos")
 			bz.datosComprar = {
 				logo: datos.svg,
 				idLogo: null,
-				idCategoria: bz.categoria,//TODO: revisar si funciona
+				noun: bz.logo.icono.idElemento,
+				idCategoria: bz.categoria,//FIXME: UNDEFINED
 				tipo: "Logo y nombre",
 				fuentes: {
 					principal: idFuente,
@@ -514,10 +515,12 @@ angular.module("disenador-de-logos")
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
 
-		etiquetasService.listarEtiquetas().then(function (res) {
-			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-			//console.log('etiquetas cargadas', bz.etiquetas)
-		}).catch(function () { });
+		etiquetasService.listarEtiquetas()
+			.then(function (res) {
+				bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
+				//console.log('etiquetas cargadas', bz.etiquetas)
+			})
+			.catch(function () { });
 
 		bz.etiquetasSeleccionadas = [];
 
