@@ -10,7 +10,8 @@ angular.module("disenador-de-logos")
 				svg: "<",
 				precio: "<",
 				pasarela: "<",
-				logo: "<?"
+				logo: "<?",
+				noun: "<?"
 			},
 			controller: ["$scope", "pedidosService", "$q", "$state", "$window", "planesService", function ($scope, pedidosService, $q, $state, $window, planesService) {
 				var defered = $q.defer();
@@ -55,7 +56,7 @@ angular.module("disenador-de-logos")
 									
 								} else {
 
-									pedidosService.pagar.stripe($scope.categoria, $scope.atributos, $scope.svg, $scope.precio, "Logo y nombre", $scope.pasarela, res.token.id)
+									pedidosService.pagar.stripe($scope.categoria, $scope.atributos, $scope.svg, $scope.precio, "Logo y nombre", $scope.pasarela, res.token.id, $scope.noun)
 										.then(function (res) {
 											$state.go("descargar", {
 												id: res.idLogo
