@@ -698,7 +698,7 @@ etiqueta.TransformarSvg = async (iconos , callback) => {
     callback(null, iconos)
 }
 
-etiqueta.ObtenerPorLogo = (data, callback) => {
+etiqueta.ObtenerPorLogo = (data, lang, callback) => {
 
     let promises = [];
 
@@ -719,12 +719,39 @@ etiqueta.ObtenerPorLogo = (data, callback) => {
                         let promisesEt = [];
 
                         doc.etiquetas.forEach(el => {
-                            let pr = etiquetas.findOne({ '_id': objectId(el) });
+                            let pr = etiquetas.aggregate([{
+                                $match: {
+                                    "_id": objectId(el)
+                                }
+                            }, {
+                                $unwind: '$traducciones'
+                            }, {
+                                $lookup: {
+                                    from: 'idiomas',
+                                    localField: 'traducciones.idioma',
+                                    foreignField: '_id',
+                                    as: 'idioma'
+                                }
+                            }, {
+                                $match: {
+                                    "idioma.codigo": lang
+                                }
+                            }, {
+                                $group: {
+                                    _id: '$_id',
+                                    traducciones: {
+                                        $push: {
+                                            idioma: '$idioma',
+                                            valor: '$traducciones.valor'
+                                        }
+                                    }
+                                }
+                            }]).toArray();
                             promisesEt.push(pr);
                         });
 
-                        Promise.all(promisesEt).then(res => { 
-                            logo.etiquetas = res
+                        Promise.all(promisesEt).then(res => {
+                            logo.etiquetas = res[0]
                             resolve(logo)
                         }).catch(err => { 
                             reject(err)
