@@ -159,4 +159,9 @@ jQuery(document).ready(function ($) {
      window.location = '../creador-de-logos/';
   });
 
+
+  $('.selector-de-idiomas > select').change(function(){
+    console.log("hola")
+  })
+
 });

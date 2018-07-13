@@ -1,4 +1,4 @@
-const langs = ["ES", "EN", "PR"];
+const langs = ["ES", "EN", "PT"];
 
 
 exports.getOrSetLang = (req, res, lowerCase) => {

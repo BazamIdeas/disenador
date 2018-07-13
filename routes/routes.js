@@ -13,7 +13,7 @@ router.use(compression());
 //no espera parametros
 router.get("/idioma/:lang", function(req, res) {
 
-    setLang(req.params.lang);
+    setLang(res, req.params.lang);
     res.status(200).json({ status: true })
 
 });

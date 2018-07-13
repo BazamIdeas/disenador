@@ -25,7 +25,7 @@ angular.module("landing")
 
 			var promise = defered.promise;
 
-			$http.get("/app/idioma"+ codigo).then(function (res) {
+			$http.get("/app/idioma/"+ codigo).then(function (res) {
 
 				defered.resolve(res.data);
 

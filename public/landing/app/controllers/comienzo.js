@@ -1,13 +1,13 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "$interval", "idiomaService", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, $interval, idiomaService) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "navegarFactory", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "idiomaService", function ($base64, estaticosLandingValue, navegarFactory, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, idiomaService) {
 
 		var bz = this;
 
 		bz.sce = $sce;
 
 		/* DATOS */
-		bz.idiomaActivo = 'es';
+		bz.idiomaActivo = '000000';
 		bz.navegar = navegarFactory;
 		bz.estaticos = estaticosLandingValue;
 		bz.preAct = 1;
@@ -29,9 +29,12 @@ angular.module("landing")
 		bz.logosPredisenados = [];
 
 		bz.cambiarIdioma = function(idioma){
-			idiomaService.idioma(bz.idiomaActivo).then(function(res) {
-				console.log('idioma cambiado: ', res);
-			})
+			console.log(idiomaService.idioma);
+			idiomaService.idioma(idioma)
+				.then(function(res) {
+					bz.scrollTop();
+					location.reload();
+				})
 		};
 
 		bz.scrollTop = function () {

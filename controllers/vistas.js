@@ -183,6 +183,7 @@ exports.ViewLanding = function(req, res) {
 
 						let lang = langs[req.lang];
 						let categorias = [];
+
 						
 						req.body.categorias.forEach(element => {
 							if(element.categoriasFormateada != 'sin-categoria' && categorias.length < 12){
@@ -192,7 +193,7 @@ exports.ViewLanding = function(req, res) {
 
 						lang.landing.secciones.seccion_cuatro.planes = json.planes;
 						
-						res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes, idioma: lang.landing});
+						res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes, idioma: lang.landing, lang: req.lang });
 					
 					});
 				

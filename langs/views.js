@@ -234,7 +234,8 @@ exports.langs = {
             },
             secciones: {
                 seccion_uno: {
-                    titulo: `Cree en segundos <br> un logo que amará`,
+                    titulo: `
+                    Create in seconds <br> a logo that will love`,
                     subtitulo: `Nuestro generador de logos utiliza<br>  aprendizaje automático para diseñar<br> conceptos llamativos y únicos`,
                     formulario: {
                         nombre: {
