@@ -361,7 +361,7 @@ angular.module("disenador-de-logos")
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.get("/app/etiquetas").then(function (res) {
+			$http.get("/app/etiquetas/idioma").then(function (res) {
 				defered.resolve(res);
 			}).catch(function (res) {
 				defered.reject(res.data.msg);

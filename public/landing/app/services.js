@@ -17,6 +17,29 @@ angular.module("landing")
 		}
 	})
 
+	.service("idiomaService", ["$http", "$q", function ($http, $q) {
+
+		this.idioma = function (codigo) {
+
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/idioma"+ codigo).then(function (res) {
+
+				defered.resolve(res.data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+			return promise;
+
+		};
+	}])
+
 	.factory("navegarFactory", ["rutasValue", "$window", "$httpParamSerializer", function (rutasValue, $window, $httpParamSerializer) {
 
 		var paramsFunction = function (params) {
@@ -715,7 +738,7 @@ angular.module("landing")
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.get('/app/etiquetas').then(function (res) {
+			$http.get('/app/etiquetas/idioma').then(function (res) {
 				if (res == undefined) {
 					return defered.reject(res);
 				}

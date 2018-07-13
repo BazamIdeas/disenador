@@ -270,6 +270,11 @@ div[ng-message="required"] {
     justify-content: center;
     align-items: center; }
 
+.selector-de-idiomas {
+  margin-right: 30px; }
+  .selector-de-idiomas select {
+    display: block; }
+
 /* Header-Footer */
 header {
   cursor: default;
@@ -291,9 +296,11 @@ header {
 .hidden {
   display: none; }
 
+div.acceder span {
+  margin: 0 8px; }
+
 div.acceder a, div.acceder span {
   padding: 7px 14px;
-  margin: 0 8px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   font-size: 16pt;
@@ -1569,6 +1576,10 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
         max-width: 90%;
         display: block;
         margin: auto; }
+      .logos-predisenados .--item > a span.descripcion {
+        color: #1e1e1ea8;
+        text-align: center;
+        text-transform: capitalize; }
     .logos-predisenados .--item img {
       max-width: 95%;
       display: block;
@@ -1590,7 +1601,8 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
       background: #fff; }
       .logos-predisenados .--item .tags a {
         color: #6f6f6f;
-        font-family: 'nunito-sans-semi' !important; }
+        font-family: 'nunito-sans-semi' !important;
+        text-transform: capitalize; }
         .logos-predisenados .--item .tags a > img {
           cursor: pointer; }
         .logos-predisenados .--item .tags a:hover {

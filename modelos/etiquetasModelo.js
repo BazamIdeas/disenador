@@ -546,12 +546,14 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
         next = false;
     }, 20000);
 
+    let tagsArray = Object.keys(tags);
+
     while (icons.length <= 11 && next) {
 
         //console.log({ vueltas: vueltas })
         let promises = [];
 
-        Object.keys(tags).map((tag) => {
+        tagsArray.map((tag) => {
 
             console.log(tags[tag]);
 
