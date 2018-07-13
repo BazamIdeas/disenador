@@ -16,7 +16,8 @@ exports.langs = {
                 lang: 'es-es',
             },
             header: {
-                botones: ['Acceder', 'Registro']
+                botones: ['Acceder', 'Registro'],
+                iconos:['Crear logo', 'Tus logos', 'Mi cuenta', 'Cerrar Sesion']
             },
             secciones: {
                 seccion_uno: {
@@ -25,7 +26,8 @@ exports.langs = {
                     formulario: {
                         nombre: {
                             label: 'Nombre de su logo',
-                            placeholder: 'Mi logo'
+                            placeholder: 'Mi logo',
+                            validacion:['Escriba el nombre de su logo.']
                         },
                         actividad: {
                             label: 'Actividad',
@@ -36,6 +38,7 @@ exports.langs = {
                         },
                         color: {
                             label: 'Color y Tipografía',
+                            validacion:['Selecciona un estilo de tipografía.']
                         },
                         boton: 'GENERAR LOGO'
                     }

@@ -5,9 +5,13 @@ var base64 = require("base-64");
 var fs = require('fs');
 const Etiqueta = require('../modelos/etiquetasModelo.js');
 const svg2png = require("svg2png");
-const langs = require("../langs/views.js");
-
-console.log(langs)
+const langs = require("../langs/views.js").langs;
+var pais     = require("../modelos/paisesModelo.js");
+var plan     = require("../modelos/planesModelo.js");
+var precio   = require("../modelos/preciosModelo.js");
+var caracteristica = require("../modelos/caracteristicasModelo.js");
+var services = require("../services");
+var async    = require("async");
 
 exports.ViewCategorias = function (req, res) {
 
@@ -110,13 +114,102 @@ exports.ViewCategorias = function (req, res) {
 
 exports.ViewLanding = function(req, res) {
 
-    let categorias = [];
-    
-    req.body.categorias.forEach(element => {
-        if(element.categoriasFormateada != 'sin-categoria' && categorias.length < 12){
-            categorias.push(element);
-        }
-    });
-    
-    res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes});
+	var iso = services.geoipServices.iso(req.headers["x-forwarder-for"]);
+
+	pais.ObtenerPorIso(iso, (err, pais) => {
+
+		if (err) res.status(400).json({});
+
+		if (pais.length) {
+
+			var json = pais[0];
+
+			json.monedaDefault = {idMoneda: json.idMoneda ,codigo : json.moneda};
+
+			delete json["idMoneda"]; 
+			delete json["moneda"]; 
+		
+			plan.ListarPorPais(json.idPais, (err, planes) => {
+
+				if (err) res.status(401).json({});
+
+				if (planes.length) {
+
+					json.planes = planes;
+
+					async.forEachOf(json.planes, (plan, key, callback) => {
+
+						precio.ListarPorPlan(json.idPais, plan.idPlan, (err, precios) => {
+							
+							if (err) return callback(err);
+
+							try {
+
+								if (precios.length) {
+
+									json.planes[key].precios = precios;
+								
+								}
+
+								caracteristica.ObtenerPorPlan(plan.idPlan, (err, caracteristicas) => {
+							
+									if (err) return callback(err);
+		
+									try {
+		
+										if (caracteristicas.length) {
+		
+											json.planes[key].caracteristicas = caracteristicas;
+										
+										}								
+									
+									} catch (e) {
+										return callback(e);
+									}
+		
+									callback();
+								});
+					
+							} catch (e) {
+								return callback(e);
+							}
+						});
+
+					}, (err) => {
+						
+						if (err) res.status(402).json({});
+						
+						let lang = langs.es;
+						let categorias = [];
+						
+						req.body.categorias.forEach(element => {
+							if(element.categoriasFormateada != 'sin-categoria' && categorias.length < 12){
+								categorias.push(element);
+							}
+						});
+
+						lang.landing.secciones.seccion_cuatro.planes = json.planes;
+						
+						res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes, idioma: lang.landing});
+					
+					});
+				
+				}else{
+
+					res.status(200).json({"msg": "No se encuentran planes para el pais"});
+
+				}
+			
+			});
+		
+		}else{
+
+			res.status(200).json({"msg": "No se encuentra el pais"});
+
+		}
+
+
+	
+	});
+
 };
