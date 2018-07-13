@@ -23,7 +23,44 @@ etiqueta.ObtenerTodos = callback =>
                 as: 'idioma'
             }
         }, {
+            $match: {
+                "idioma.codigo": "es"
+            }
+        }, {
+            $group: {
+                _id: '$_id',
+                traducciones: {
+                    $push: {
+                        idioma: '$idioma',
+                        valor: '$traducciones.valor'
+                    }
+                }
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+            callback(null, docs);
+        });
+    })
+}
+
+etiqueta.ObtenerTodoDeIdioma = (lang, callback) => {
+    __mongoClient(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        }, {
             $unwind: '$idioma'
+        }, {
+            $match: {
+                "idioma.codigo": lang
+            }
         }, {
             $group: {
                 _id: '$_id',
