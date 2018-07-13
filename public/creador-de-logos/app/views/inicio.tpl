@@ -96,7 +96,7 @@
                     <div class="combinacion-box" ng-style="{'background-color': logo.colores[logo.random]}">
 
                         <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
-                            callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo,true)"></bazam-svg-text>
+                            callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)"></bazam-svg-text>
                         <div class='overlay c-gif' ng-hide="logo.cargado"></div>
 
                         <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">

@@ -56,7 +56,7 @@ angular.module("disenador-de-logos")
 
 				if (!logo.idLogo) {
 					
-					bz.guardarLogo(logo.cargado, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
+					bz.guardarLogo(logo.cargado, logo.icono.idElemento, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 						.then(function (res) {
 							logo.idLogo = res;
 
@@ -260,6 +260,25 @@ angular.module("disenador-de-logos")
 
 				bz.completado = false;
 
+				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
+				
+					var remover_tag = true;
+
+					angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
+
+						if(indexSalto == tag.traduccion.valor){
+							remover_tag = false;
+						}
+
+					})
+
+					if(remover_tag){
+						delete tags_saltos[indexSalto];
+					}
+
+
+				})
+
 				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 
 					var tag_existe = tags_saltos[tag.traduccion.valor];
@@ -283,8 +302,23 @@ angular.module("disenador-de-logos")
 							bz.iconos.push(icono.idElemento);
 						});
 
+						var iconos_raw = res[0].iconos;
+						var fuentes_raw = res[1];
+
 						tags_saltos = res[0].tags;
-						bz.combinar(res[0].iconos, res[1]);
+
+						if(!iconos_raw.length) {
+							$mdToast.show($mdToast.base({
+								args: {
+									mensaje: "La búsqueda no produjo resultados",
+									clase: "success"
+								}
+							}));
+							
+							return;
+						}
+
+						bz.combinar(iconos_raw, fuentes_raw);
 
 					})
 					.catch(function () {
@@ -342,7 +376,8 @@ angular.module("disenador-de-logos")
 
 			bz.datosComprar = {
 				logo: svg,
-				idLogo: idLogo,
+				idLogo: idLogo,	
+				noun: logo.icono.idElemento,
 				idCategoria: bz.datos.categoria.icono,
 				tipo: "Logo y nombre",
 				fuentes: {
@@ -383,7 +418,7 @@ angular.module("disenador-de-logos")
 				return;
 			}
 
-			bz.guardarLogo(logo.cargado, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
+			bz.guardarLogo(logo.cargado, logo.icono.idElemento, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 
 				.then(function (res) {
 
@@ -412,7 +447,7 @@ angular.module("disenador-de-logos")
 		bz.completadoGuardar = true;
 
 		
-		bz.guardarLogo = function (logo, tipoLogo, idCategoria, idFuentePrincipal) {
+		bz.guardarLogo = function (logo, noun, tipoLogo, idCategoria, idFuentePrincipal) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
@@ -421,7 +456,7 @@ angular.module("disenador-de-logos")
 
 				bz.completadoGuardar = false;
 				
-				logosService.guardarLogo(bz.base64.encode(logo), tipoLogo, idCategoria, idFuentePrincipal)
+				logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, idFuentePrincipal)
 
 					.then(function (res) {
 						defered.resolve(res);
@@ -462,7 +497,7 @@ angular.module("disenador-de-logos")
 
 				if (!logo.idLogo) {
 					
-					bz.guardarLogo(logo.cargado, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
+					bz.guardarLogo(logo.cargado, logo.icono.idElemento, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 						.then(function (res) {
 							logo.idLogo = res;
 							var url = bz.compartirPorEmailUrl();
