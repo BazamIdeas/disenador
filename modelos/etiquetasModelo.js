@@ -443,10 +443,15 @@ etiqueta.TraducirGuardar = async (tags, lang, callback) => {
 
             const etiquetas = db.collection('etiquetas');
 
-            etiquetas.insertMany(tagsParaGuardar, function (err, r) {
-                if (err) throw err;
-                callback(null, r.ops);
-            });
+
+            if (tagsParaGuardar.length) {
+                etiquetas.insertMany(tagsParaGuardar, function (err, r) {
+                    if (err) throw err;
+                    callback(null, r.ops);
+                });
+            } else {
+                callback(null, []);
+            }
         });
     });
 }
@@ -655,6 +660,57 @@ etiqueta.TransformarSvg = async (iconos , callback) => {
 
     callback(null, iconos)
 }
+
+etiqueta.ObtenerPorLogo = (data, callback) => {
+
+    let promises = [];
+
+    data.forEach((logo, i) => {
+
+        let promise = new Promise((resolve, reject) =>{
+       
+            __mongoClient(db => {
+
+                const logos = db.collection('logos');
+                logos.findOne({ idLogo: logo.idLogo }, (err, doc) => {
+                    if (err) reject(err);
+
+                    if (doc) {
+
+                        const etiquetas = db.collection('etiquetas');
+
+                        let promisesEt = [];
+
+                        doc.etiquetas.forEach(el => {
+                            let pr = etiquetas.findOne({ '_id': objectId(el) });
+                            promisesEt.push(pr);
+                        });
+
+                        Promise.all(promisesEt).then(res => { 
+                            logo.etiquetas = res
+                            resolve(logo)
+                        }).catch(err => { 
+                            reject(err)
+                        });
+                    } else {
+                        logo.etiquetas = []
+                        resolve(logo)
+                    }
+                })
+            })
+        })
+
+        promises.push(promise);
+    });
+
+
+    Promise.all(promises).then(res => {
+        callback(null, res)
+    }).catch(err => {
+        callback(err)
+    });
+}
+
 
 
 module.exports = etiqueta;
