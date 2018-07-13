@@ -106,17 +106,17 @@ jQuery(document).ready(function ($) {
     let data = {
       predisenado: true,
       fuentes: {
-        principal: null,
-        eslogan: null
+        principal: '',
+        eslogan: ''
       },
       logo: {
         icono: {
-          idElemento: null,
+          idElemento: '',
           svg: ''
-        },
-        idLogo: 0,
-        texto: 'Mi empresa'
-      }
+        }, 
+
+      },
+      idLogoPadre: 0
     };
 
     var logo = $(this);
@@ -131,7 +131,9 @@ jQuery(document).ready(function ($) {
 
     data.logo.icono.svg = logo.attr('data-svg');
 
-    data.logo.idLogo = logo.attr('data-id');
+    data.idLogoPadre = logo.attr('data-id');
+
+    data.logo.icono.idElemento = logo.attr('data-noun');
 
     data = JSON.stringify(data);
 

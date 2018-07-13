@@ -1569,6 +1569,10 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
         max-width: 90%;
         display: block;
         margin: auto; }
+      .logos-predisenados .--item > a span.descripcion {
+        color: #1e1e1ea8;
+        text-align: center;
+        text-transform: capitalize; }
     .logos-predisenados .--item img {
       max-width: 95%;
       display: block;

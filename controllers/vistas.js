@@ -20,8 +20,8 @@ exports.ViewCategorias = function (req, res) {
 
 			Etiqueta.ObtenerPorLogo(data, (err, logos) => {
 
-				console.log('final', err)
-				console.log('final', logos)
+/* 				console.log('final', err)
+				console.log('final', logos) */
 
 				data = logos;
 

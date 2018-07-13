@@ -715,7 +715,7 @@ angular.module("landing")
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.get('/app/etiquetas').then(function (res) {
+			$http.get('/app/etiquetas/idioma').then(function (res) {
 				if (res == undefined) {
 					return defered.reject(res);
 				}

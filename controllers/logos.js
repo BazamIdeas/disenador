@@ -64,7 +64,7 @@ exports.guardar = function (req, res) {
 
 			}
 
-			if (req.disenador || true) {
+			if (req.disenador) {
 
 				let etiquetasNuevas = req.body.tags.nuevas;
 

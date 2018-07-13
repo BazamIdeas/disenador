@@ -525,7 +525,6 @@ angular.module("disenador-de-logos")
 		etiquetasService.listarEtiquetas().then(function (res) {
 			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
 
-			console.log('etiquetas cargadas', bz.etiquetas)
 		}).catch(function () { });
 
 		bz.etiquetasSeleccionadas = [];
