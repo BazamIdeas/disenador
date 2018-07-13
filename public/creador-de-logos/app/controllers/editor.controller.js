@@ -523,20 +523,12 @@ angular.module("disenador-de-logos")
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
 
-<<<<<<< HEAD
 		etiquetasService.listarEtiquetas()
 			.then(function (res) {
 				bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
 				//console.log('etiquetas cargadas', bz.etiquetas)
 			})
 			.catch(function () { });
-=======
-		etiquetasService.listarEtiquetas().then(function (res) {
-			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-
-			console.log('etiquetas cargadas', bz.etiquetas)
-		}).catch(function () { });
->>>>>>> 7b896b38b7ac9dd14d516e3ae501a9aceab82b6d
 
 		bz.etiquetasSeleccionadas = [];
 
