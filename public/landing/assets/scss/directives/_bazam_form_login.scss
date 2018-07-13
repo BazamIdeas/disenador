@@ -9,7 +9,7 @@
     position: absolute;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
+    display: flex !important;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -284,73 +284,40 @@ button.boton-verde {
     width: 100%;
 }
 
-@media (min-device-width:360px) and (max-device-width:639px),
-(min-width:360px) and (max-width:639px) {
+@media (min-device-width:320px) and (max-device-width:480px),
+(min-width:320px) and (max-width:480px) {
     .ventajas-loguear {
-        display: none;
+        display: none !important;
     }
-    .parte-izquierda-form,
-    .login-form,
-    .login.olvido-contrasena {
+    .parte-izquierda-form, .login-form  {
+        max-width: 100%;
         width: 100% !important;
-        margin-left: auto !important;
-        left: auto;
-        right: auto;
-        height: auto;
+        margin: 0 !important;
     }
-    .login.olvido-contrasena {
-        width: 80vw !important;
+
+    .login-form-flex input {
+        margin: 0 !important;
     }
-    .key-image {
-        display: none;
+    bazam-form-login > :first-child > :first-child > :first-child {
+        width: 100%;
+        margin: 0;
     }
-    .registro-form p.tercero,
-    .login-form p.tercero,
-    .olvido-contrasena p.tercero {
-        font-size: 32pt;
+}
+
+@media (min-device-width:481px) and (max-device-width:900px),
+(min-width:481px) and (max-width:900px) {
+    .ventajas-loguear {
+        display: none !important;
     }
-    .subtitle>b {
-        font-size: 18pt;
+
+    .parte-izquierda-form, .login-form  {
+        max-width: 100%;
+        width: 100% !important;
+        margin: 0 !important;
     }
-    .ingreso-redes-sociales>div {
-        width: 100px;
-        height: 100px;
-        font-size: 28pt;
-    }
-    .input-field.col label {
-        font-size: 25pt;
-        color: black;
-    }
-    .boton-verde.__block {
-        padding: 17px 0;
-        font-size: 27pt;
-    }
-    .overlay.show>div> :first-child {
-        width: 80%;
-        margin: auto;
-    }
-    .olvido-small-tag,
-    .login.olvido-contrasena label {
-        font-size: 21pt;
-        color: black;
-    }
-    button.boton-verde {
-        font-size: 30pt;
-    }
-    .registro-form {
-        width: 85vw !important;
-        margin-left: auto !important;
-        left: auto;
-        right: auto;
-        height: auto;
-    }
-    .login-form,
-    .login.olvido-contrasena {
-        width: 50vw !important;
-        margin-left: auto !important;
-        left: auto;
-        right: auto;
-        height: auto;
+
+    .login-form-flex input {
+        margin: 0 !important;
     }
 }
 

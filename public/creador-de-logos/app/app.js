@@ -81,6 +81,9 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									fuentes: datosLanding.fuentes
 								};
 							} else {
+
+								console.log('Es pagina categoria');
+
 								let ramdomNivel = Math.floor(Math.random() * coloresPaletteValue.length) + 0;
 
 								let ramdomColor = Math.floor(Math.random() * coloresPaletteValue[ramdomNivel].length) + 0;
@@ -105,8 +108,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
 									},
 									palettesCopy: palettesCopy,
-									iconos: datosLanding.iconos,
-									fuentes: datosLanding.fuentes
+									paginaCategoria: true
 								};
 							}
 						}
@@ -171,7 +173,8 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 					datos: {
 
 						logo: null,
-						idCategoria: null,//TODO: revisar
+						idCategoria: null,//TODO: revisar,
+						noun: null,
 						tipo: null,
 						plan: {
 							nombre: null,

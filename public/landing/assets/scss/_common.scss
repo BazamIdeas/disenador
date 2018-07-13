@@ -298,3 +298,10 @@ div[ng-message="required"]{
         align-items: center;
     }
 }
+
+.selector-de-idiomas {
+    margin-right: 30px;
+    select {
+        display: block;
+    }
+}

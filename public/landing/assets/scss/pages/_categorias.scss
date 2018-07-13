@@ -81,6 +81,13 @@
         justify-content: space-between;
         align-items: center;
         box-shadow: rgba(0, 0, 0, 0.22) 0px 0px 3px 0px;
+        .acceder span:hover {
+            background: transparent;
+            box-shadow: none;
+            a{
+
+            }
+        }
         span{
             &:hover{
                 a{
@@ -90,9 +97,11 @@
             a{
                 color: black;
             }
-            &.boton-activo{
+            &.boton-activo a{
                 background: #5980B7;
                 color: white;
+                -webkit-box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
+                box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12);
             }
         }
     }
@@ -182,12 +191,12 @@
         vertical-align: middle;
         background: url(../img/ftu_pc.png) center center no-repeat;
         position: relative;
-        background-size: 109% 89%;
+        background-size: 110% 84%;
         ul {
             position: absolute;
-            top: 3.4em;
-            left: 6.58em;
-            width: 33.1em;
+            top: 4em;
+            left: 6.1em;
+            width: 31.1em;
             height: 19em;
             overflow: hidden;
             margin: 0;
@@ -317,6 +326,11 @@
                 display: block;
                 margin: auto;
             }
+            span.descripcion {
+                color: #1e1e1ea8;
+                text-align: center;
+                text-transform: capitalize;
+            }
         }
         img{
             max-width: 95%;
@@ -325,6 +339,7 @@
             max-height: 240px;
             cursor: pointer;
         }
+
         width: 23%;
         box-shadow: 0 1px 1px 1px rgba(0,0,0,.1);
         margin: 2% 2% 0 0;
@@ -349,6 +364,7 @@
                     color: $PRINCIPAL
                 }
                 font-family: 'nunito-sans-semi' !important;
+                text-transform: capitalize;
             }
             display: inline-block;
             border-top: 1px solid #e4e4e4;

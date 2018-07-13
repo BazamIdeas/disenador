@@ -278,6 +278,7 @@ angular.module("disenador-de-logos")
                                     logo: $scope.datos.logo,
                                     idCategoria: bz.idCategoria ,
                                     tipo: "Logo y nombre",
+                                    noun: $scope.datos.noun,
                                     plan: {
                                         nombre: plan.plan,
                                         idPlan: plan.idPlan
@@ -299,6 +300,8 @@ angular.module("disenador-de-logos")
 
                                 }
                             };
+
+                            
 
 
                             if ($scope.datos.idPadre) {

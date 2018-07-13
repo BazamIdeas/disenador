@@ -81,17 +81,21 @@
     <div class="logos-predisenados">
         {% for elemento in logosPredisenados %}
         <div class='--item'>
-            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-categoria="{{elemento.categorias_idCategoria}}" data-attrs="{{elemento.atributos | dump}}"
+            <a class="enviar_editor" data-id="{{elemento.idLogo}}"  data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}" data-attrs="{{elemento.atributos | dump}}"
                 data-svg="{{elemento.logo}}">
+                {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
                 <span>
-                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="logo de {{title}} - {{elemento.idLogo}}">
+                    <img src="/tmp/shared/{{elemento.imgSrc}}" alt="{{atributo.valor}}">
                 </span>
+                <span class="descripcion">
+                    {{atributo.valor}}
+                </span>
+                {% endif %} {% endfor %}
             </a>
             <div class="tags">
-                <a class="buscarEditor">Tag</a>
-                {% for tag in elemento.tags %}
-                <a class="buscarEditor">{{tag.valor}}</a>
-                {% endfor %}
+                {% for tag in elemento.etiquetas %} {% for traduccion in tag.traducciones %}
+                <a class="buscarEditor" data-tag="{{tag | dump }}">{{traduccion.valor}}</a>
+                {% endfor %} {% endfor %}
             </div>
         </div>
         {% endfor %}
@@ -127,12 +131,12 @@
                 <ul>
                     <li class="step_guide_image active" data-index="1" data-time="24000">
                         <img src="../landing/assets/img/mockup1.png" data-index="1" alt="mockup_uno">
-                        <video id="video1"  alt="paso uno" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video1.mp4" style="position: absolute; left: 0px; top: 0px;">
+                        <video id="video1" alt="paso uno" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video1.mp4" style="position: absolute; left: 0px; top: 0px;">
                         </video>
                     </li>
                     <li class="step_guide_image" data-index="2" data-time="18000">
                         <img src="../landing/assets/img/mockup2.png" alt="mockup_dos">
-                        <video id="video2"  alt="paso dos" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video2.mp4" style="position: absolute; left: 0px; top: 0px;">
+                        <video id="video2" alt="paso dos" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video2.mp4" style="position: absolute; left: 0px; top: 0px;">
                         </video>
                     </li>
                     <li class="step_guide_image" data-index="3" data-time="16000">

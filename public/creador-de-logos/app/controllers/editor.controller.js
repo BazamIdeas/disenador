@@ -238,7 +238,7 @@ angular.module("disenador-de-logos")
 
 
 		/****** Guardar Logo del Disenador  ******/
-		bz.guardarLogoDisenador = function (logo, noun, tipoLogo, idCategoria, tags, alt){
+		bz.guardarLogoDisenador = function (logo, noun, tipoLogo, idCategoria, tags, alt) {
 
 			if (!bz.completadoGuardar || !bz.disenadorGuardarForm.$valid) {
 				return;
@@ -266,32 +266,40 @@ angular.module("disenador-de-logos")
 				}
 			});
 
-			logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt)
+			logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function (etiquetasGuardadas) {
 
-				.then(function (res) {
+				if (etiquetasGuardadas) {
 
-					$mdToast.show($mdToast.base({
-						args: {
-							mensaje: "Enviaste un logo a revision!",
-							clase: "success"
-						}
-					}));
-					
-				}).catch(function (res) {
+					angular.forEach(etiquetasGuardadas, function (element) {
+						bz.etiquetas.push({ _id: element._id, traducciones: [{ valor: element.tag, _lowername: element.tag.toLowerCase() } ]});
+					})
 
-					$mdToast.show($mdToast.base({
-						args: {
-							mensaje: "Un error ha ocurrido",
-							clase: "danger"
-						}
-					}));
-					
+					bz.etiquetas = etiquetasService.loadEtiquetas(bz.etiquetas);
+				}
 
-				}).finally(function () {
+				$mdToast.show($mdToast.base({
+					args: {
+						mensaje: "Enviaste un logo a revision!",
+						clase: "success"
+					}
+				}));
 
-					bz.completadoGuardar = true;
+			}).catch(function (e) {
 
-				});
+				console.log(e)
+				$mdToast.show($mdToast.base({
+					args: {
+						mensaje: "Un error ha ocurrido",
+						clase: "danger"
+					}
+				}));
+
+
+			}).finally(function () {
+
+				bz.completadoGuardar = true;
+
+			});
 
 		}
 
@@ -342,7 +350,8 @@ angular.module("disenador-de-logos")
 			bz.datosComprar = {
 				logo: datos.svg,
 				idLogo: null,
-				idCategoria: bz.categoria,//TODO: revisar si funciona
+				noun: bz.logo.icono.idElemento,
+				idCategoria: bz.categoria,//FIXME: UNDEFINED
 				tipo: "Logo y nombre",
 				fuentes: {
 					principal: idFuente,
@@ -354,9 +363,9 @@ angular.module("disenador-de-logos")
 				editor: true
 			};
 
-			if (bz.idLogoPadre) {
+			/*if (bz.idLogoPadre) {
 				bz.datosComprar.idPadre = bz.idLogoPadre;
-			}
+			}*/
 
 			if (bz.logo.idLogo) {
 				bz.datosComprar.idLogo = bz.logo.idLogo;
@@ -514,10 +523,12 @@ angular.module("disenador-de-logos")
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
 
-		etiquetasService.listarEtiquetas().then(function (res) {
-			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-			//console.log('etiquetas cargadas', bz.etiquetas)
-		}).catch(function () { });
+		etiquetasService.listarEtiquetas()
+			.then(function (res) {
+				bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
+				//console.log('etiquetas cargadas', bz.etiquetas)
+			})
+			.catch(function () { });
 
 		bz.etiquetasSeleccionadas = [];
 

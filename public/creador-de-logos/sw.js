@@ -8,6 +8,7 @@ if (location.host != 'localhost:8080' && location.protocol != 'http:') {
 }
 
 function inciar() {
+
     workbox.setConfig({
         debug: false
     });
@@ -18,13 +19,7 @@ function inciar() {
     });
 
     workbox.precaching.precacheAndRoute([
-        '/index.html',
-        'app/views/inicio.tpl',
-        '/assets/css/main.css',
-        '/assets/logo.pro.svg',
-        '/assets/css/materialize.min.css',
-        '/assets/css/responsive.css',
-        '/assets/images/gifs/c.gif',
+        '/assets/style.css',
         "/angular/angular.min.js",
         "/angular-messages/angular-messages.min.js",
         "/angular-animate/angular-animate.min.js",
@@ -39,8 +34,7 @@ function inciar() {
         "/angular-social/angular-socialshare.js",
         "/assets/jquery-ui/jquery-ui.css",
         "/assets/jquery-ui/jquery-ui.min.js",
-        "app/app.js",
-        "app/directives/jquery-ui.js"
+        "app/app.js"
     ]);
 
     workbox.routing.registerRoute(
@@ -49,7 +43,7 @@ function inciar() {
             cacheName: 'estilos-cache',
         })
     );
-    
+
     workbox.routing.registerRoute(
         /.*\.(?:png|jpg|jpeg|svg|gif)/,
         workbox.strategies.cacheFirst({

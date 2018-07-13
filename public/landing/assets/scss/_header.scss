@@ -26,13 +26,16 @@ header {
 }
 
 div.acceder {
-    span {
-        padding: 7px 14px;
+    span{
         margin: 0 8px;
+    }
+    a, span {
+        padding: 7px 14px;
         -webkit-transition: all 0.3s;
         transition: all 0.3s;
         font-size: 16pt;
         display: inline-block;
+        color: black;
 
         &:hover {
             background: #5980B7;
@@ -49,7 +52,7 @@ div.acceder {
         
     }
 
-    &:not(.not-ing) span {
+    &:not(.not-ing) a, &:not(.not-ing) span {
         display: -webkit-inline-box;
         display: -ms-inline-flexbox;
         display: inline-flex;

@@ -14,12 +14,12 @@
                     <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                         md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)"  ng-class="{'without-placeholder':inicio.datos.etiquetasSeleccionadas.length > 0}">
                         <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
-                            md-item-text="item.traduccion.valor" placeholder="Ejemplo: Café">
-                            <span md-highlight-text="inicio.searchText">{{::item.traduccion.valor}}</span>
+                            md-item-text="item.traducciones[0].valor" placeholder="Ejemplo: Café">
+                            <span md-highlight-text="inicio.searchText">{{::item.traducciones[0].valor}}</span>
                         </md-autocomplete>
                         <md-chip-template>
                             <span>
-                                <strong>{{$chip.traduccion.valor}}</strong>
+                                <strong>{{$chip.traducciones[0].valor}}</strong>
                             </span>
                         </md-chip-template>
                     </md-chips>
@@ -96,7 +96,7 @@
                     <div class="combinacion-box" ng-style="{'background-color': logo.colores[logo.random]}">
 
                         <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
-                            callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo,true)"></bazam-svg-text>
+                            callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)"></bazam-svg-text>
                         <div class='overlay c-gif' ng-hide="logo.cargado"></div>
 
                         <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">

@@ -17,6 +17,18 @@ exports.ObtenerTodos = (req, res) =>
 }
 
 
+exports.ObtenerTodosDeIdioma = (req, res) => {
+	Etiqueta.ObtenerTodoDeIdioma(req.lang.toLowerCase(), (err, data) => {
+		if (data.length > 0) {
+			res.status(200).json(data);
+		} else {
+			res.status(404).json({
+				'msg': 'No hay etiquetas en la base de datos'
+			});
+		}
+	});
+}
+
 exports.ObtenerPorIcono = (req, res) =>
 {
 	const id = req.params.id;

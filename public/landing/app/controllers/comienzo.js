@@ -1,12 +1,13 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "$interval", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, $interval) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "navegarFactory", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "idiomaService", function ($base64, estaticosLandingValue, navegarFactory, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, idiomaService) {
 
 		var bz = this;
 
 		bz.sce = $sce;
 
 		/* DATOS */
+		bz.idiomaActivo = '000000';
 		bz.navegar = navegarFactory;
 		bz.estaticos = estaticosLandingValue;
 		bz.preAct = 1;
@@ -27,17 +28,14 @@ angular.module("landing")
 
 		bz.logosPredisenados = [];
 
-		/* SLIDER PREDISENADOS */
-		bz.actual = 1;
-
-		/* 	
-		$interval(function () {
-			if (bz.actual + 8 >= bz.logosPredisenados.length) {
-				bz.actual = 0;
-			} else {
-				bz.actual = bz.actual + 8;
-			}
-		}, 5000); */
+		bz.cambiarIdioma = function(idioma){
+			console.log(idiomaService.idioma);
+			idiomaService.idioma(idioma)
+				.then(function(res) {
+					bz.scrollTop();
+					location.reload();
+				})
+		};
 
 		bz.scrollTop = function () {
 			var top = angular.element('#comienzo').offset().top;

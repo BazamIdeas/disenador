@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var controllers = require(".././controllers");
-var multipart = require("connect-multiparty");
 var compression = require('compression');
 var middleware = require("./middleware");
 
@@ -21,19 +20,6 @@ router.use('/avisos-legales', function(req, res) {
     res.render('legales.html');
 });
 
-router.use('/', middleware.userAgent, middleware.validarLanding, function(req, res) {
-
-    let categorias = [];
-    
-    req.body.categorias.forEach(element => {
-        if(element.categoriasFormateada != 'sin-categoria' && categorias.length < 12){
-            categorias.push(element);
-        }
-    });
-
-    console.log(req.body.categoriasFuentes)
-    
-    res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes});
-});
+router.get('/', middleware.userAgent, middleware.validarLanding, controllers.vistas.ViewLanding);
 
 module.exports = router;

@@ -10,21 +10,42 @@ if (location.host != 'localhost:8080' && location.protocol != 'http:') {
 function inciar() {
 
     workbox.setConfig({
-        debug: true
+        debug: false
     });
-    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
+    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.silent);
 
     workbox.core.setCacheNameDetails({
         prefix: 'logopro'
     });
 
-    workbox.routing.registerRoute(
-        /\.(?:js|css)$/,
-        workbox.strategies.cacheFirst(),
-      ); 
+    workbox.precaching.precacheAndRoute([
+        '/assets/style.css',
+        "/angular/angular.min.js",
+        "/angular-messages/angular-messages.min.js",
+        "/angular-animate/angular-animate.min.js",
+        "/angular-aria/angular-aria.min.js",
+        "/angular-ui-router/angular-ui-router.min.js",
+        "/angular-material/angular-material.min.js",
+        "/angular-color-picker/angular-color-picker.js",
+        "/angular-colorpicker-directive/js/color-picker.js",
+        "/ng-file-upload/ng-file-upload-shim.min.js",
+        "/ng-file-upload/ng-file-upload.min.js",
+        "/angular-base64/angular-base64.min.js",
+        "/angular-social/angular-socialshare.js",
+        "/assets/jquery-ui/jquery-ui.css",
+        "/assets/jquery-ui/jquery-ui.min.js",
+        "app/app.js"
+    ]);
 
     workbox.routing.registerRoute(
-        /.*\.(?:png|jpg|jpeg|svg|gif|ttf)/,
+        /.*\.css/,
+        workbox.strategies.staleWhileRevalidate({
+            cacheName: 'estilos-cache',
+        })
+    );
+
+    workbox.routing.registerRoute(
+        /.*\.(?:png|jpg|jpeg|svg|gif)/,
         workbox.strategies.cacheFirst({
             cacheName: 'imagenes-cache',
             plugins: [
@@ -44,14 +65,14 @@ function inciar() {
     workbox.routing.registerRoute(
         new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
         workbox.strategies.cacheFirst({
-          cacheName: 'google-fonts',
-          plugins: [
-            new workbox.cacheableResponse.Plugin({
-              statuses: [0, 200],
-            }),
-          ],
+            cacheName: 'googleapis',
+            plugins: [
+                new workbox.expiration.Plugin({
+                    maxEntries: 30,
+                }),
+            ],
         }),
-      ); 
+    );
 
     workbox.routing.registerRoute(
         /.*(?:googleapis|gstatic)\.com.*$/,
