@@ -18,7 +18,7 @@ exports.ObtenerTodos = (req, res) =>
 
 
 exports.ObtenerTodosDeIdioma = (req, res) => {
-	Etiqueta.ObtenerTodoDeIdioma(req.cookies.lang || 'es', (err, data) => {
+	Etiqueta.ObtenerTodoDeIdioma(req.lang , (err, data) => {
 		if (data.length > 0) {
 			res.status(200).json(data);
 		} else {
