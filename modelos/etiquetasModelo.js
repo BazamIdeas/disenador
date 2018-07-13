@@ -377,7 +377,7 @@ etiqueta.AnalizarNOUN = (lang, tags, callback) =>
             $match: {
                 'traducciones': {
                     '$elemMatch': {
-                        'idioma': 'es',
+                        'idioma': lang,
                         'valor': {
                             '$in': Object.keys(tags)
                         }
@@ -531,7 +531,7 @@ etiqueta.TraducirGuardarNOUN = async (tags, lang, callback) => {
 etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
 
-    console.time('Busqueda de Iconos');
+    //console.time('Busqueda de Iconos');
 
     let Nproject = new NounProject({
         key: "049d89ea99f6415c837e7f0de9040b96",
@@ -550,11 +550,12 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
     while (icons.length <= 11 && next) {
 
-        console.log({ vueltas: vueltas })
-
+        //console.log({ vueltas: vueltas })
         let promises = [];
 
         tagsArray.map((tag) => {
+
+            console.log(tags[tag]);
 
             if (tags[tag].salto !== false) {
 
@@ -583,9 +584,9 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
 
         try {
-            console.time('Esperando coleccion');
+            //console.time('Esperando coleccion');
             let iconsCollections = await Promise.all(promises);
-            console.timeEnd('Esperando coleccion');
+            //console.timeEnd('Esperando coleccion');
             let i = 0
 
             while(i < 100) {
@@ -609,7 +610,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
                                     icons.push({ idElemento: coll.icons[i].id, svg: base64.encode(dd) });
 
                                 } catch (error) {
-                                    console.log(error);
+                                    //console.log(error);
                                 }
                             }
 
@@ -621,8 +622,10 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
                 } else {
 
                     Object.keys(tags).map((tag) => {
-                        tags[tag].salto = tags[tag].salto + i;
-                        console.log(icons.length, i, tag, tags[tag].salto)
+                        if (tags[tag].salto !== false) {
+                            tags[tag].salto = tags[tag].salto + i;
+                        }
+                        //console.log(icons.length, i, tag, tags[tag].salto)
                     })
                     break;
 
@@ -631,7 +634,9 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
                 if (i == 99) {
 
                     Object.keys(tags).map((tag) => {
-                        tags[tag].salto = tags[tag].salto + 100;
+                        if (tags[tag].salto !== false) {
+                            tags[tag].salto = tags[tag].salto + 100;
+                        }
                     })
 
                 }
@@ -642,15 +647,27 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
             console.log({nIcons: icons.length});
 
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             callback(error);
             return
         }
 
         vueltas++;
+
+        let falses = 0;
+
+        Object.keys(tags).forEach((tag) => {
+            if (tags[tag].salto == false) falses++;
+
+            if (falses == Object.keys(tags).length) {
+                next = false
+            }
+
+            console.log(tag, falses);
+        })
     }
 
-    console.timeEnd('Busqueda de Iconos');
+    //console.timeEnd('Busqueda de Iconos');
     callback(null, { tags: tags, iconos: icons });
 }
 

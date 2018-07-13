@@ -25,7 +25,7 @@ exports.ViewCategorias = function (req, res) {
 
 		if (typeof data !== "undefined" && data.length > 0) {
 
-			Etiqueta.ObtenerPorLogo(data, req.cookies.lang || 'es', (err, logos) => {
+			Etiqueta.ObtenerPorLogo(data, req.lang, (err, logos) => {
 
 				console.log(logos)
 
