@@ -1,4 +1,4 @@
-export default idiomas = {
+exports.langs = {
     es: {
         creador_de_logos: {
             SEO: {
@@ -10,39 +10,40 @@ export default idiomas = {
         },
         landing: {
             SEO: {
-                title: '',
-                keywords: '',
-                description: '',
-                lang: '',
+                title: 'Logopro | Tu logo en 3 minutos',
+                keywords: 'creador de logos, diseño de logos, creador de logos online, generador de logos, Creador de logos gratis',
+                description: 'El creador de logos Logopro te ayuda a crear logotipos personalizados en minutos, sin necesidad de experiencia en diseño. ¡Prueba con millones de iconos y más de 100 fuentes inmediatamente!',
+                lang: 'es-es',
             },
             header: {
                 botones: ['Acceder', 'Registro']
             },
             secciones: {
                 seccion_uno: {
-                    titulo: '',
-                    subtitulo: '',
+                    titulo: `Cree en segundos <br> un logo que amará`,
+                    subtitulo: `Nuestro generador de logos utiliza<br>  aprendizaje automático para diseñar<br> conceptos llamativos y únicos`,
                     formulario: {
                         nombre: {
-                            label: '',
-                            placeholder: ''
+                            label: 'Nombre de su logo',
+                            placeholder: 'Mi logo'
                         },
                         actividad: {
-                            label: '',
-                            placeholder: ''
+                            label: 'Actividad',
                         },
                         etiquetas: {
-                            label: '',
-                            placeholder: ''
+                            label: '¿Que buscas?',
+                            placeholder: 'Ejemplo: Café'
                         },
                         color: {
-                            label: '',
-                            placeholder: ''
+                            label: 'Color y Tipografía',
                         },
-                        boton: ''
+                        boton: 'GENERAR LOGO'
                     }
                 },
                 seccion_dos: {
+                    titulo: `GALERÍA DE LOGOS`
+                },
+                seccion_tres: {
                     titulo: '',
                     caracteristicas: [{
                         titulo: "De inmediato",
@@ -70,13 +71,14 @@ export default idiomas = {
                         icono: ["bg-carac-6", ""]
                     }]
                 },
-                seccion_tres: {
+                seccion_cuatro: {
                     titulo: 'Escoja el mejor plan para usted',
                     planes: [
                     ],
-                    boton: ''
+                    boton_plan: 'SELECCIONAR',
+                    boton_final: 'CREAR LOGO AHORA'
                 },
-                seccion_cuatro: {
+                seccion_cinco: {
                     titulo: 'Preguntas Frecuentes',
                     preguntas: [{
                         pregunta: "¿Cuanto cuesta el servicio?",
@@ -118,7 +120,7 @@ export default idiomas = {
                         Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a 
                         <a href="mailto:info@logo.pro">info@logo.pro</a>`
                     }]
-                },
+                }
             },
             footer: {
                 linksInternos: [
@@ -192,11 +194,11 @@ export default idiomas = {
                 seccion_cuatro: {
                     titulo: '',
                     descripcion: '',
-                    pasos:[
+                    pasos: [
                         {
-                            titulo:'',
-                            descripcion:'',
-                            imagen_url:'',
+                            titulo: '',
+                            descripcion: '',
+                            imagen_url: '',
                             video_url: ''
                         }
                     ]
@@ -217,6 +219,12 @@ export default idiomas = {
         creadorDeLogos: {
         },
         landing: {
+            SEO: {
+                title: 'Logopro | Tu logo en 3 minutos',
+                keywords: 'logo maker, logo design, free, online, logo designer, free logo maker, online logo maker, logo creator, logo generator, create a logo, make a logo, design logo',
+                description: "Logopro's free logo maker helps you create custom logos in minutes, no design experience needed. Try with millions of icons and 100+ fonts immediately!",
+                lang: 'en-en',
+            },
         },
         categorias: {
         },
@@ -225,6 +233,12 @@ export default idiomas = {
         creadorDeLogos: {
         },
         landing: {
+            SEO: {
+                title: 'Logopro | Tu logo en 3 minutos',
+                keywords: 'criador de logo, criador de logo online, gerador de logo',
+                description: "O criador de logo grátis de DesignEvo ajuda-te a criar logótipos personalizados em poucos minutos, sem a necessidade de teres experiência em design. Experimenta imediatamente os seus milhões de ícones e +100 tipos de letra!",
+                lang: 'en-en',
+            },
         },
         categorias: {
         },
