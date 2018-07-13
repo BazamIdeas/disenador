@@ -178,8 +178,10 @@ exports.ViewLanding = function(req, res) {
 					}, (err) => {
 						
 						if (err) res.status(402).json({});
-						
-						let lang = langs.es;
+
+						req.lang = req.lang.toLowerCase();
+
+						let lang = langs[req.lang];
 						let categorias = [];
 						
 						req.body.categorias.forEach(element => {

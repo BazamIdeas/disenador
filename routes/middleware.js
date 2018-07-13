@@ -418,8 +418,8 @@ exports.langCookie = (req, res, next) => {
 
 	const langService = services.lang;
 
-	langService.getOrSetLang(req, res);
-	
+	req.lang = langService.getOrSetLang(req, res);
+
 	next();
 
 }
