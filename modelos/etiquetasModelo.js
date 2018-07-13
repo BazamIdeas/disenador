@@ -377,7 +377,7 @@ etiqueta.AnalizarNOUN = (lang, tags, callback) =>
             $match: {
                 'traducciones': {
                     '$elemMatch': {
-                        'idioma': 'es',
+                        'idioma': lang,
                         'valor': {
                             '$in': Object.keys(tags)
                         }

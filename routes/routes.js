@@ -5,11 +5,20 @@ var multipart = require("connect-multiparty");
 var multipartMiddleware = multipart();
 var middleware = require("./middleware");
 var compression = require('compression');
+var setLang = require('../services/lang').setLang;
 
 router.use(compression());
 
 //MODULO CLIENTES
 //no espera parametros
+router.get("/idioma/:lang", function(req, res) {
+
+    setLang(req.params.lang);
+    res.status(200).json({ status: true })
+
+});
+
+
 router.get("/clientes", middleware.validarAdministrador, controllers.clientes.listaClientes);
 router.get("/clientes/freelancer", middleware.validarAdministrador, controllers.clientes.listaClientesFreelancer);
 router.get("/clientes/freelancers", controllers.clientes.listaClientesFreelancer);

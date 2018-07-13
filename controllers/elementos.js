@@ -227,7 +227,7 @@ exports.listaSegunTagCatNOUN = function (req, res) {
 
 	const tags = req.body.tags ? req.body.tags : [];
 	//const salto = req.body.salto ? req.body.salto : 0;
-	const lang = req.body.lang ? req.body.lang.toLowerCase() : 'es';
+	const lang = req.lang ? req.lang.toLowerCase() : 'es';
 	const categoria = 0;
 	//const ids = req.body.ids ? req.body.ids : [0];
 
