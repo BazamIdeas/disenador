@@ -17,15 +17,18 @@
 					<span>T</span>
 				</div>
 			</div>
-			<div class="col s4 tab-title" ng-click="::editor.cerrarContenedores(); editor.menuSwitch = 2; " ng-class="{'active': editor.menuSwitch == 2}" bazam-ayuda data-titulo="Nombre y Eslogan" data-texto="Modifique el estilo del texto de su nombre o eslogan"
-			    data-clases="['corner-lt']" data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
+			<div class="col s4 tab-title" ng-click="::editor.cerrarContenedores(); editor.menuSwitch = 2; " ng-class="{'active': editor.menuSwitch == 2}"
+			 bazam-ayuda data-titulo="Nombre y Eslogan" data-texto="Modifique el estilo del texto de su nombre o eslogan" data-clases="['corner-lt']"
+			 data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
 				<div class="tab">
 					<span>t</span>
 				</div>
 			</div>
-			<div class="col s4 tab-title" ng-click="::editor.cerrarContenedores(); editor.menuSwitch = 3; " ng-class="{'active': editor.menuSwitch == 3}" >
+			<div class="col s4 tab-title" ng-click="::editor.cerrarContenedores(); editor.menuSwitch = 3; " ng-class="{'active': editor.menuSwitch == 3}">
 				<div class="tab">
-					<span><i class="fas fa-star"></i></span>
+					<span>
+						<i class="fas fa-star"></i>
+					</span>
 				</div>
 			</div>
 
@@ -35,7 +38,7 @@
 						<div class="input-field col s12" style="padding: 0 !important">
 							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Nombre del logo</md-tooltip>
 							<input id="nombre" type="text" name="fuente" maxlength="40" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}"
-								ng-change="editor.cambioTexto(editor.logo.texto)">
+							 ng-change="editor.cambioTexto(editor.logo.texto)">
 							<label style="padding:0 !important" for="nombre" class="active">Nombre</label>
 						</div>
 
@@ -45,8 +48,9 @@
 
 						<div class="estilos col s12" style="padding: 0 !important;position: relative">
 							<md-radio-group name="fuente" required ng-model="editor.categoriaTextoSeleccionada" ng-change="editor.categoriaEsloganSeleccionada = false"
-								class="md-primary">
-								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria" ng-click="::editor.abrirContenedor('fuentes', true)">
+							 class="md-primary">
+								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria"
+								 ng-click="::editor.abrirContenedor('fuentes', true)">
 									<md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
 									<span class="estilo" ng-class="{'estilo-1':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-2':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-3':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
 								</md-radio-button>
@@ -65,7 +69,7 @@
 						</div>
 
 						<div class="col s12 text-styles" style="padding:0;" bazam-ayuda data-titulo="Negrita, Cursiva, Tamaño" data-texto="Cambia a Negrita (N), Cursiva (C), Aumente (+) o disminuya (-) el tamaño del texto"
-						    data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
+						 data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
 							<div class="bold" ng-click="::editor.cambioPropiedad('bold')">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Negrita</md-tooltip>
 								N
@@ -98,8 +102,8 @@
 						<div ng-if="editor.esloganActivo">
 							<div class="input-field col s12" style="padding: 0 !important">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
-								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="100" ng-model="editor.logo.eslogan" ng-click="editor.quitarEsloganDefault(editor.logo.eslogan)" ng-model-options="{allowInvalid: true}"
-									ng-change="editor.cambioTexto(editor.logo.eslogan, true)" ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
+								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="100" ng-model="editor.logo.eslogan" ng-click="editor.quitarEsloganDefault(editor.logo.eslogan)"
+								 ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.eslogan, true)" ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
 								<label style="padding:0 !important" for="nombre" class="active">Eslogan</label>
 							</div>
 
@@ -109,8 +113,9 @@
 
 							<div class="estilos col s12" style="padding: 0 !important;position: relative">
 								<md-radio-group name="fuente" required ng-model="editor.categoriaEsloganSeleccionada" ng-change="editor.categoriaTextoSeleccionada = false"
-								    class="md-primary">
-									<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria" ng-click="::editor.abrirContenedor('fuentes', true)">
+								 class="md-primary">
+									<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria"
+									 ng-click="::editor.abrirContenedor('fuentes', true)">
 										<md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
 										<span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
 									</md-radio-button>
@@ -153,16 +158,16 @@
 				<div class="tab" ng-show="editor.menuSwitch == 3">
 					<div class="row">
 						<div class="col s12 no-padding">
-							<md-chips style="padding:0;" md-add-on-blur="true" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-							    md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" >
+							<md-chips style="padding:0;" md-add-on-blur="true" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
+							 ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
 								<label>Etiquetas</label>
 								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
-								    md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
-									<span md-highlight-text="editor.searchText">{{::item.traduccion.valor}}</span>
+								 md-item-text="item.traducciones[0].valor" placeholder="Etiquetas (Opcional)">
+									<span md-highlight-text="editor.searchText">{{::item.traducciones[0].valor}}</span>
 								</md-autocomplete>
 								<md-chip-template>
 									<span>
-										<strong>{{$chip.traduccion.valor}}</strong>
+										<strong>{{$chip.traducciones[0].valor}}</strong>
 									</span>
 								</md-chip-template>
 							</md-chips>
@@ -172,12 +177,12 @@
 							<md-input-container style="width:87%; padding: 0 0.75rem 0 0">
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
 								<md-select flex ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-								    md-no-asterisk>
+								 md-no-asterisk>
 									<md-option class="iconos" ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
 								</md-select>
 							</md-input-container>
 							<span class="refresh-icon" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)" ng-class="{ 'loading-white': !editor.completadoBuscar}"
-							    ng-disabled="!editor.completadoBuscar" style="margin-bottom: 8px;">
+							 ng-disabled="!editor.completadoBuscar" style="margin-bottom: 8px;">
 								<i class="material-icons">search</i>
 							</span>
 						</div>
@@ -242,14 +247,14 @@
 			<div class="col s12 background-grid" style="margin-bottom:10px;">
 
 				<div style="width:50%;">
-				    <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fondo</md-tooltip>
-				    <bazam-color-picker data-color="editor.colorFondo"></bazam-color-picker>
+					<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fondo</md-tooltip>
+					<bazam-color-picker data-color="editor.colorFondo"></bazam-color-picker>
 				</div>
 				<div style="width:50%;">
-				    <md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cuadricula</md-tooltip>
-				    <div class="grid-selector" ng-class="{'active': editor.cuadricula }" ng-click="::editor.activarCuadricula();">
-					    <i class="material-icons">apps</i>
-				   </div>
+					<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cuadricula</md-tooltip>
+					<div class="grid-selector" ng-class="{'active': editor.cuadricula }" ng-click="::editor.activarCuadricula();">
+						<i class="material-icons">apps</i>
+					</div>
 				</div>
 			</div>
 
@@ -265,13 +270,22 @@
 		</div>
 
 		<div class="principal-container editor col s7" ng-class="{'grid': editor.cuadricula}">
-				
-			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)" style="top: 5%;"> <p>GUARDAR</p><img src="assets/images/save.svg" alt=""></span>
-			
-			<span class="accion" ng-click="::editor.buscarPlanes()" style="top: 15%;"> <p>COMPRAR</p><img src="assets/images/shop.svg" alt=""></span>
+
+			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)"
+			 style="top: 5%;">
+				<p>GUARDAR</p>
+				<img src="assets/images/save.svg" alt="">
+			</span>
+
+			<span class="accion" ng-click="::editor.buscarPlanes()" style="top: 15%;">
+				<p>COMPRAR</p>
+				<img src="assets/images/shop.svg" alt="">
+			</span>
 
 			<div class="svg-container" style="position:relative" ng-style="{'background-color': editor.colorFondo}">
-				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente" data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan" data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto" ></bazam-svg>
+				<bazam-svg data-svg="editor.base64.decode(editor.logo.icono.svg)" data-texto="editor.logo.texto" data-fuente="editor.logo.fuente"
+				 data-svg-final="editor.svgFinal" data-id-logo="editor.logo.idLogo" data-id-padre="editor.idLogoPadre" data-eslogan="editor.logo.eslogan"
+				 data-color-icono="editor.colorIcono" data-color-texto="editor.colorTexto"></bazam-svg>
 				<div class='overlay-logo loading-purple' ng-hide="editor.svgFinal"></div>
 			</div>
 			<div class="overlay-top-bottom" ng-class="{'open': editor.contenedores.busquedaIconos }"></div>
@@ -288,7 +302,7 @@
 						<!-- TEXTO PRINCIPAL LISTA DE FUENTES -->
 						<md-radio-group ng-model="editor.logo.fuente" ng-change="editor.cambioFuente(editor.logo.fuente, 'texto')" class="md-primary">
 							<md-radio-button class="font-option" ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaTextoSeleccionada } track by fuente.idElemento"
-								ng-value="{url:fuente.url, nombre: fuente.nombre}">
+							 ng-value="{url:fuente.url, nombre: fuente.nombre}">
 								<!--ng-disabled=" d.isDisabled "-->
 								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuente.nombre == fuente.nombre ? 'color: var(--principal) !important;    transform: scale(1.2) !important' : 'color: black !important'}};     letter-spacing: 2px;">{{::fuente.nombre}}</span>
 							</md-radio-button>
@@ -296,9 +310,9 @@
 
 						<!-- ESLOGAN LISTA DE FUENTES -->
 						<md-radio-group class="font" ng-model="editor.logo.fuenteEslogan" ng-change="editor.cambioFuente(editor.logo.fuenteEslogan, 'eslogan')"
-							class="md-primary">
+						 class="md-primary">
 							<md-radio-button class="font-option" ng-repeat="fuente in editor.fuentes | filter: {'categorias_idCategoria': editor.categoriaEsloganSeleccionada } track by fuente.idElemento"
-								ng-value="{url:fuente.url, nombre: fuente.nombre}">
+							 ng-value="{url:fuente.url, nombre: fuente.nombre}">
 								<!--ng-disabled=" d.isDisabled "-->
 								<span style="{{'font-family:' + fuente.nombre + '!important'}}; {{editor.logo.fuenteEslogan.nombre == fuente.nombre ? 'color: var(--principal) !important;    transform: scale(1.2) !important' : 'color: black !important'}};     letter-spacing: 2px;">{{::fuente.nombre}}</span>
 							</md-radio-button>
@@ -389,7 +403,8 @@
 									flex-flow: column;top: 0;height: 100%;
 									justify-content: center; text-align:center; width:100%;color: white">
 										<i class="material-icons">search</i>
-										<span>CARGAR</span><span> MÁS</span>
+										<span>CARGAR</span>
+										<span> MÁS</span>
 									</div>
 								</div>
 							</div>
@@ -506,33 +521,35 @@
 	<span style="position: absolute; top: 5%; right: 5%; cursor: pointer;" ng-click="editor.mostrarFormDisenador = false;">X</span>
 	<!--<form ng-submit="editor.guardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)">-->
 	<form name="editor.disenadorGuardarForm" ng-submit="editor.guardarLogoDisenador(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.datosDisenador.idCategoria, editor.datosDisenador.etiquetasSeleccionadas, editor.datosDisenador.descripcion)">
-		
 
-		<input type="text" placeholder="Descripción" ng-model="editor.datosDisenador.descripcion" style="width: 87%;" required>
 
-		<md-input-container style="width:87%; padding: 0 0.75rem 0 0">
+		<div class="row">
+			<div class="col s12 no-padding">
+				<input type="text" placeholder="Descripción" ng-model="editor.datosDisenador.descripcion" required>
+			</div>
+		</div>
+		<md-input-container style="padding:0; width: 100%; text-align: left; color: black;">
 			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del Logo</md-tooltip>
-			<md-select flex ng-model="editor.datosDisenador.idCategoria" placeholder="Buscar simbolos" md-no-asterisk required>
+			<md-select flex ng-model="editor.datosDisenador.idCategoria" placeholder="Categorias:" md-no-asterisk required>
 				<md-option class="iconos" ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
 			</md-select>
 		</md-input-container>
-
-		<md-chips style="padding:0;" md-add-on-blur="true" ng-model="editor.datosDisenador.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-		md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)" >
+		<md-chips style="padding:0; width: 95%;" md-add-on-blur="true" ng-model="editor.datosDisenador.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+		 md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
 			<label>Etiquetas</label>
-			<md-autocomplete md-selected-item="editor.disenador.selectedItem" md-search-text="editor.disenador.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.disenador.searchText, editor.etiquetas)" md-item-text="item.traduccion.valor" placeholder="Etiquetas (Opcional)">
-				<span md-highlight-text="editor.searchText">{{::item.traduccion.valor}}</span>
+			<md-autocomplete md-selected-item="editor.disenador.selectedItem" md-search-text="editor.disenador.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.disenador.searchText, editor.etiquetas)"
+			 md-item-text="item.traducciones[0].valor" placeholder="Etiquetas (Opcional)">
+				<span md-highlight-text="editor.searchText">{{item.traducciones[0].valor}}</span>
 			</md-autocomplete>
 			<md-chip-template>
 				<span>
-					<strong>{{$chip.traduccion.valor}}</strong>
+					<strong>{{$chip.traducciones[0].valor}}</strong>
 				</span>
 			</md-chip-template>
 		</md-chips>
-		
 
 		<button type="submit" style="margin-top: 25px !important;">GUARDAR</button>
-	
+
 	</form>
 </div>
 

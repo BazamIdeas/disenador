@@ -247,7 +247,7 @@ exports.listaSegunTagCatNOUN = function (req, res) {
 
 		response.tags = analasis;
 
-		etiqueta.TraducirGuardar(response.tags, lang, (err, tagsTraducidas) => {
+		etiqueta.TraducirGuardarNOUN(response.tags, lang, (err, tagsTraducidas) => {
 
 			if (err) return res.status(500).json(err);
 
