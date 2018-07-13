@@ -363,9 +363,9 @@ angular.module("disenador-de-logos")
 				editor: true
 			};
 
-			if (bz.idLogoPadre) {
+			/*if (bz.idLogoPadre) {
 				bz.datosComprar.idPadre = bz.idLogoPadre;
-			}
+			}*/
 
 			if (bz.logo.idLogo) {
 				bz.datosComprar.idLogo = bz.logo.idLogo;
