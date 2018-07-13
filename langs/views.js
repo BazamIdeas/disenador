@@ -1,4 +1,4 @@
-export default idiomas = {
+exports.langs = {
     es: {
         creador_de_logos: {
             SEO: {
@@ -194,11 +194,11 @@ export default idiomas = {
                 seccion_cuatro: {
                     titulo: '',
                     descripcion: '',
-                    pasos:[
+                    pasos: [
                         {
-                            titulo:'',
-                            descripcion:'',
-                            imagen_url:'',
+                            titulo: '',
+                            descripcion: '',
+                            imagen_url: '',
                             video_url: ''
                         }
                     ]

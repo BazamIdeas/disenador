@@ -5,6 +5,9 @@ var base64 = require("base-64");
 var fs = require('fs');
 const Etiqueta = require('../modelos/etiquetasModelo.js');
 const svg2png = require("svg2png");
+const langs = require("../langs/views.js");
+
+console.log(langs)
 
 exports.ViewCategorias = function (req, res) {
 
@@ -103,4 +106,17 @@ exports.ViewCategorias = function (req, res) {
 		}
 	});
 
+};
+
+exports.ViewLanding = function(req, res) {
+
+    let categorias = [];
+    
+    req.body.categorias.forEach(element => {
+        if(element.categoriasFormateada != 'sin-categoria' && categorias.length < 12){
+            categorias.push(element);
+        }
+    });
+    
+    res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes});
 };
