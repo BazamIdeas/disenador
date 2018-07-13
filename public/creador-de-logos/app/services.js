@@ -393,9 +393,9 @@ angular.module("disenador-de-logos")
 
 			// Otherwise, create a new one
 			return {
-				traduccion:{
+				traducciones:[{
 					valor: chip
-				}
+				}]
 			};
 
 		};

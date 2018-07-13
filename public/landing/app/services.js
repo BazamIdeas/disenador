@@ -150,7 +150,7 @@ angular.module("landing")
 
 			var promise = defered.promise;
 
-			$http.post("/app/elementos/busqueda/iconos", datos)
+			$http.post("/app/elementos/busqueda/iconos/noun", datos)
 				.then(function (res) {
 					defered.resolve(res.data);
 				})
@@ -732,40 +732,33 @@ angular.module("landing")
 
 		/* ETIQUETAS*/
 
-
 		this.listarEtiquetas = function () {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.get('/app/etiquetas/idioma').then(function (res) {
-				if (res == undefined) {
-					return defered.reject(res);
-				}
+			$http.get("/app/etiquetas/idioma").then(function (res) {
 				defered.resolve(res);
 			}).catch(function (res) {
-				defered.reject(res);
-			})
+				defered.reject(res.data.msg);
+			});
 
 			return promise;
-		}
-
+		};
+		
 		this.loadEtiquetas = function (arr) {
 
-			var etiquetas = [];
+			return arr.map(function (et) {
 
-			angular.forEach(arr, function (valor) {
-				etiquetas.push({
-					_id: valor._id,
-					traduccion: valor.traducciones[0]
-				});
-			})
-
-			return etiquetas.map(function (et) {
-				et.traduccion._lowername = et.traduccion.valor.toLowerCase();
+				for (let i = 0; i < et.traducciones.length; i++) {
+					const element = et.traducciones[i];
+					element._lowername = element.valor.toLowerCase();
+				}
+				
 				return et;
 			});
-		}
+			
+		};
 
 		this.transformChip = function (chip) {
 
@@ -776,23 +769,23 @@ angular.module("landing")
 
 			// Otherwise, create a new one
 			return {
-				traduccion: {
+				traducciones:[{
 					valor: chip
-				}
-			}
+				}]
+			};
 
-		}
+		};
 
 		this.querySearch = function (query, etiquetas) {
 			var results = query ? etiquetas.filter(createFilterFor(query)) : [];
 			return results;
-		}
+		};
 
 		function createFilterFor(query) {
 			var lowercaseQuery = query.toLowerCase();
 
 			return function filterFn(etiqueta) {
-				return (etiqueta.traduccion._lowername.indexOf(lowercaseQuery) === 0);
+				return (etiqueta.traducciones[0]._lowername.indexOf(lowercaseQuery) === 0);
 			};
 
 		}

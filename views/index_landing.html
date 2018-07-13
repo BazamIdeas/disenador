@@ -175,12 +175,12 @@
                                     md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)"
                                     aria-invalid="false">
                                     <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
-                                        md-item-text="item.traduccion.valor" placeholder="{{idioma.secciones.seccion_uno.formulario.etiquetas.placeholder }}">
-                                        <span md-highlight-text="ctrl.searchText">${item.traduccion.valor}$</span>
+                                        md-item-text="item.traducciones[0].valor" placeholder="{{idioma.secciones.seccion_uno.formulario.etiquetas.placeholder }}">
+                                        <span md-highlight-text="ctrl.searchText">${item.traducciones[0].valor}$</span>
                                     </md-autocomplete>
                                     <md-chip-template>
                                         <span>
-                                            <strong>${$chip.traduccion.valor}$</strong>
+                                            <strong>${$chip.traducciones[0].valor}$</strong>
                                         </span>
                                     </md-chip-template>
                                 </md-chips>
