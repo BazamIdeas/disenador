@@ -93,7 +93,7 @@ exports.ViewCategorias = function (req, res) {
 				});
 
 			})
-			
+
 		} else {
 
 			console.log("No hay logos aprobados");

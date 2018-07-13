@@ -586,26 +586,36 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div layout="row" layout-align="space-between center">
-            <div class="logo pequeno" ui-sref="comienzo">
-                <img src="/landing/assets/img/logo.pro.svg" alt="logo.pro">
+        <!-- Footer -->
+        <footer>
+            <div layout="row" layout-align="space-between center">
+                <div class="logo pequeno" ui-sref="comienzo">
+                    <img src="/landing/assets/img/logo.pro.svg" alt="logo.pro">
+                </div>
+                <div layout class="links-footer">
+                        <a href="/terminos-y-condiciones">Términos y condiciones</a>
+                        <a href="/avisos-legales">Avisos Legales</a>
+                        <a href="#">Blog</a>
+                    </div>
+                <div class="layout-row layout-align-space-between-center ">
+                    
+                    <div class="selector-de-idiomas">
+                        <select ng-model="ctrl.idiomaActivo" ng-change="ctrl.cambiarIdioma()">
+                            <option ng-value="'es'" selected="true">Español</option>
+                            <option ng-value="'en'">Ingles</option>
+                            <option ng-value="'pt'">Portugués</option>
+                        </select>
+                    </div>
+                    <div class="iconos-sociales">
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                </div>
             </div>
-            <div layout class="links-footer">
-                <a href="/terminos-y-condiciones">Términos y condiciones</a>
-                <a href="/avisos-legales">Avisos Legales</a>
-                <a href="#">Blog</a>
-            </div>
-            <div class="iconos-sociales">
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-facebook"></i>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 </body>
 
 <script type="text/ng-template" id="toast-base.html">

@@ -26,9 +26,11 @@ header {
 }
 
 div.acceder {
+    span{
+        margin: 0 8px;
+    }
     a, span {
         padding: 7px 14px;
-        margin: 0 8px;
         -webkit-transition: all 0.3s;
         transition: all 0.3s;
         font-size: 16pt;
