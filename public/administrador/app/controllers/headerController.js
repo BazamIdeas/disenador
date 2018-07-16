@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('headerController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'SweetAlert', 'clientesService', '$rootScope', function ($state, $mdSidenav, $mdMenu, $scope, SweetAlert, clientesService, $rootScope) {
+    .controller('headerController', ["$state", '$scope', 'clientesService', '$rootScope', function ($state, $scope, clientesService, $rootScope) {
 
         var bz = this;
 

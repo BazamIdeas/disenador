@@ -1,10 +1,10 @@
 angular.module("administrador")
 
-    .controller('sidenavController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'clientesService', '$rootScope', function ($state, $mdSidenav, $mdDialog, $scope, clientesService, $rootScope) {
+    .controller('sidenavController', ["$state", '$scope', 'clientesService', '$rootScope', function ($state, $scope, clientesService, $rootScope) {
 
         var bz = this;
 
-        bz.menuMostrar = true;
+        bz.menuMostrar = false;
 
         bz.medidaP = bz.menuMostrar ? true : false;
         bz.medidaG = bz.menuMostrar ? false : true;
