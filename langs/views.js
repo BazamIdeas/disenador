@@ -570,74 +570,74 @@ exports.langs = {
             },
             header: {
                 botones: ['Acceder', 'Registro'],
-                iconos: ['Crear logo', 'Tus logos', 'Mi cuenta', 'Cerrar Sesion']
+                iconos: ['Criar logotipo', 'Seus logotipos', 'Minha conta', 'Fechar sessão']
             },
             secciones: {
                 seccion_uno: {
                     titulo: `Crie um logotipo em <br> segundos que você  <br> vai amar`,
-                    subtitulo: `Nuestro generador de logos utiliza<br>  aprendizaje automático para diseñar<br> conceptos llamativos y únicos`,
+                    subtitulo: `O nosso gerador de logótipos utiliza a<br> aprendizagem automática para <br>conceber conceitos marcantes e únicos`,
                     formulario: {
                         nombre: {
-                            label: 'Nombre de su logo',
-                            placeholder: 'Mi logo',
-                            validacion: ['Escriba el nombre de su logo.']
+                            label: 'Nome do seu logotipo',
+                            placeholder: 'Meu logotipo',
+                            validacion: ['Escreva o nome do seu logotipo.']
                         },
                         actividad: {
-                            label: 'Actividad',
+                            label: 'Atividade',
                         },
                         etiquetas: {
-                            label: '¿Que buscas?',
-                            placeholder: 'Ejemplo: Café'
+                            label: 'O que procura?',
+                            placeholder: 'Exemplo: Café'
                         },
                         color: {
-                            label: 'Color y Tipografía',
-                            validacion: ['Selecciona un estilo de tipografía.']
+                            label: 'Cor e Tipografia',
+                            validacion: ['Selecione um estilo de tipografia']
                         },
-                        boton: 'GENERAR LOGO'
+                        boton: 'GERAR LOGO'
                     }
                 },
                 seccion_dos: {
-                    titulo: `GALERÍA DE LOGOS`
+                    titulo: `GALERIA DE LOGOS`
                 },
                 seccion_tres: {
                     titulo: '',
                     caracteristicas: [{
-                        titulo: "De inmediato",
+                        titulo: "De imediato",
                         descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
                         icono: ["bg-carac-1", "right-bottom"]
                     }, {
-                        titulo: "Más de 1 millon de logos",
+                        titulo: "Mais de 1 milhão de logotipos",
                         descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
                         icono: ["bg-carac-2", "b-bottom"]
                     }, {
-                        titulo: "Archivos en alta resolución",
+                        titulo: "Arquivos em alta resolução",
                         descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
                         icono: ["bg-carac-3", "right-bottom"]
                     }, {
-                        titulo: "Inteligencia artificial",
+                        titulo: "Inteligência artificial",
                         descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
                         icono: ["bg-carac-4", "b-bottom"]
                     }, {
-                        titulo: "Gratis",
+                        titulo: "Grátis",
                         descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
                         icono: ["bg-carac-5", "b-right"]
                     }, {
-                        titulo: "Múltiples aplicaciones",
+                        titulo: "Múltiplas aplicações",
                         descripcion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh",
                         icono: ["bg-carac-6", ""]
                     }]
                 },
                 seccion_cuatro: {
-                    titulo: 'Escoja el mejor plan para usted',
+                    titulo: 'Escolha o melhor plano para você',
                     planes: [
                     ],
-                    boton_plan: 'SELECCIONAR',
-                    boton_final: 'CREAR LOGO AHORA'
+                    boton_plan: 'SELECIONAR',
+                    boton_final: 'CRIE LOGO AGORA'
                 },
                 seccion_cinco: {
-                    titulo: 'Preguntas Frecuentes',
+                    titulo: 'Perguntas frequentes',
                     preguntas: [{
-                        pregunta: "¿Cuanto cuesta el servicio?",
+                        pregunta: "Quanto custa o serviço?",
                         respuesta: `Logopro ofrece excelentes opciones de planes para la compra: el Plan básico de logotipo y el  Plan Profesional.<br/> <br/>
                     
                     Puede comprar sus archivos de logotipo por $9.9 por logo como parte de nuestro Plan básico, o elija el Plan Profesional $36, que le ofrece nuestra completa solución de marca y contiene una amplia gama de increíbles herramientas , archivos y características, ¡lo que le permite impulsar, construir y mejorar su marca realmente!
@@ -645,25 +645,25 @@ exports.langs = {
                     
                     Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a <a href="mailto:info@logo.pro">info@logo.pro</a>.<br/> `
                     }, {
-                        pregunta: "¿Cómo puedo pagarlo?",
+                        pregunta: "Como posso pagar?",
                         respuesta: `Logopro le da la facilidad mediante su tarjeta de credito o por paypal si asi lo desea.<br/> <br/>
                     
                     Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a <a href="mailto:info@logo.pro">info@logo.pro</a>.<br/> `
                     }, {
-                        pregunta: "¿Puedo cambiar el diseño después de comprar?",
+                        pregunta: " Posso mudar o design depois de comprar?",
                         respuesta: `
                     En sus logos guardados aparecerá el logo que acaba de comprar y podrá editarlo ilimitadamente. 
                     <br/> <br/>
                     
                     Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a <a href="mailto:info@logo.pro">info@logo.pro</a>.<br/> `
                     }, {
-                        pregunta: "¿Dónde lo puedo descargar?",
+                        pregunta: "Onde posso baixá-lo?",
                         respuesta: `Igresando al sitio con su cuenta, podrá ir a sus logos comprados presionando el icono del menu.<br /><br /><div class='flex --row --center'><img src='landing/assets/img/tus-logos.jpg'></div>
                     <br/> <br/>
                     Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a 
                     <a href="mailto:info@logo.pro">info@logo.pro</a>.<br/> `
                     }, {
-                        pregunta: "¿En que formato puedo descargar el logo?",
+                        pregunta: "Em qual formato posso baixar o logotipo?",
                         respuesta: `Al momento de descargar su logo, este viene dentro de
                     un archivo comprimido en formato PNG y adecuado en varios tamaños listo para redes sociales, papeleria y publicidad.<br/> <br/>
                     
@@ -671,7 +671,7 @@ exports.langs = {
                     <a href="mailto:info@logo.pro">info@logo.pro</a>.<br/> `
                     },
                     {
-                        pregunta: "¿Poseo los derechos plenos de mi logotipo comprado?",
+                        pregunta: "Eu tenho todos os direitos do meu logotipo comprado?",
                         respuesta: `Usted es libre de usar su logotipo comprado  para cualquier uso comercial o no comercial sin permiso adicional. Si desea colocar una marca comercial en su diseño, deberá hacerlo con la ayuda de un abogado familiarizado con las leyes de su estado o país en este momento.<br/> <br/>
                     Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a 
                     <a href="mailto:info@logo.pro">info@logo.pro</a>`

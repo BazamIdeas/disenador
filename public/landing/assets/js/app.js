@@ -159,25 +159,38 @@ jQuery(document).ready(function ($) {
     window.location = '../creador-de-logos/';
   });
 
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  let idiomaActivo = getCookie('logoLang').toLocaleLowerCase();
+
 
   $('.selector-de-idiomas > select').change(function () {
     let codigo = $(this).val();
+    
+    if(idiomaActivo != codigo){
+      document.cookie = "logoLang="+codigo.toUpperCase();
+      $('html').animate({
+        scrollTop: 0
+      }, 1000);
+      location.reload();
+    }else{
+      return;
+    }; 
 
-    $('html').animate({
-      scrollTop: 0
-    }, 1000);
-
-    var httpRequest = new XMLHttpRequest()
-    httpRequest.onreadystatechange = function (data) {
-      response = JSON.parse(data.target.response);
-
-      if (response.status == true) {
-        location.reload();
-      }
-    }
-
-    httpRequest.open('GET', '/app/idioma/' + codigo)
-    httpRequest.send()
   })
 
 });

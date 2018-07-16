@@ -16,8 +16,11 @@ var async    = require("async");
 exports.ViewCategorias = function (req, res) {
 
 	var nombreCategoria = req.body.categoriaSeleccionada.nombreCategoria != 'Sin categoria' ? req.body.categoriaSeleccionada.nombreCategoria : 'destacados';
+
+	console.log(req.body.categoriaSeleccionada);
+
 	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
-	var idCategoria = 6;
+	var idCategoria = req.body.categoriaSeleccionada ? req.body.categoriaSeleccionada.idCategoria : 0;
 	req.lang = req.lang.toLowerCase();
 	let lang = langs[req.lang];
 
@@ -60,6 +63,8 @@ exports.ViewCategorias = function (req, res) {
 										fs.writeFile(pngout, buffer, (err) => {
 											setTimeout(() => {
 												logo.imgSrc = nombre.replace("svg", "jpg");
+
+												//console.log(logo)
 
 												// __dirname + "/../" + path + 
 

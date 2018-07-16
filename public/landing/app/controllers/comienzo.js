@@ -12,7 +12,7 @@ angular.module("landing")
 			var name = cname + "=";
 			var decodedCookie = decodeURIComponent(document.cookie);
 			var ca = decodedCookie.split(';');
-			for(var i = 0; i <ca.length; i++) {
+			for (var i = 0; i < ca.length; i++) {
 				var c = ca[i];
 				while (c.charAt(0) == ' ') {
 					c = c.substring(1);
@@ -46,13 +46,18 @@ angular.module("landing")
 
 		bz.logosPredisenados = [];
 
-		bz.cambiarIdioma = function(idioma){
-			console.log(idiomaService.idioma);
-			idiomaService.idioma(idioma)
-				.then(function(res) {
-					bz.scrollTop();
-					location.reload();
-				})
+		bz.cambiarIdioma = function (idioma) {
+			idiomaCookie = getCookie('logoLang');
+			
+			if (bz.idiomaActivo != idioma.toUpperCase()) {
+				document.cookie = "logoLang=" + idioma.toUpperCase();
+				$('body').animate({
+					scrollTop: 0
+				}, 1000);
+				location.reload();
+			} else {
+				return;
+			};
 		};
 
 		bz.scrollTop = function () {
@@ -116,7 +121,7 @@ angular.module("landing")
 
 					var tag_existe = tags_saltos[tag.traducciones[0].valor];
 
-					if(tag_existe === undefined) {
+					if (tag_existe === undefined) {
 						tags_saltos[tag.traducciones[0].valor] = 0;
 					}
 
@@ -133,7 +138,7 @@ angular.module("landing")
 					limit: 12
 				};
 
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial, bz.datosIconos) : elementosService.listarIconosSegunTags({tags: tags_saltos});
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial, bz.datosIconos) : elementosService.listarIconosSegunTags({ tags: tags_saltos });
 
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datosFuentes);
 
