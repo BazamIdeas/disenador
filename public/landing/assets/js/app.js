@@ -101,7 +101,7 @@ jQuery(document).ready(function ($) {
 
   });
 
-  $('.enviar_editor').click(function(){
+  $('.enviar_editor').click(function () {
 
     let data = {
       predisenado: true,
@@ -113,7 +113,7 @@ jQuery(document).ready(function ($) {
         icono: {
           idElemento: '',
           svg: ''
-        }, 
+        },
 
       },
       idLogoPadre: 0
@@ -124,9 +124,9 @@ jQuery(document).ready(function ($) {
     let atributos = JSON.parse(logo.attr('data-attrs'));
 
     atributos.forEach(element => {
-        if(element.clave == 'principal'){
-          data.fuentes.principal = element.valor
-        }
+      if (element.clave == 'principal') {
+        data.fuentes.principal = element.valor
+      }
     });
 
     data.logo.icono.svg = logo.attr('data-svg');
@@ -143,25 +143,41 @@ jQuery(document).ready(function ($) {
 
   });
 
-  $('.buscarEditor').click(function(){
+  $('.buscarEditor').click(function () {
 
     let tag = JSON.parse($(this).attr('data-tag'));
 
     let data = {
       etiquetasParaBusqueda: [tag.traducciones[0].valor],
-      etiquetasSeleccionadas: [{_id: tag._id, traduccion: {valor:tag.traducciones[0].valor}}],
+      etiquetasSeleccionadas: [{ _id: tag._id, traduccion: { valor: tag.traducciones[0].valor } }],
       nombre: 'Mi logo',
       paginaCategoria: true
     };
 
-     window.localStorage.setItem('comenzar', JSON.stringify(data));
+    window.localStorage.setItem('comenzar', JSON.stringify(data));
 
-     window.location = '../creador-de-logos/';
+    window.location = '../creador-de-logos/';
   });
 
 
-  $('.selector-de-idiomas > select').change(function(){
-    console.log("hola")
+  $('.selector-de-idiomas > select').change(function () {
+    let codigo = $(this).val();
+
+    $('html').animate({
+      scrollTop: 0
+    }, 1000);
+
+    var httpRequest = new XMLHttpRequest()
+    httpRequest.onreadystatechange = function (data) {
+      response = JSON.parse(data.target.response);
+
+      if (response.status == true) {
+        location.reload();
+      }
+    }
+
+    httpRequest.open('GET', '/app/idioma/' + codigo)
+    httpRequest.send()
   })
 
 });

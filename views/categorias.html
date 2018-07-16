@@ -3,6 +3,7 @@
 
 {% include "head.html" %}
 
+
 <body class="no-landing">
     <header class="header" id="comienzo" layout-padding>
         <div class="logo grande">
@@ -14,10 +15,10 @@
             <div class="login">
                 <div class="acceder mostrar-login not-ing" style="cursor: pointer">
                     <span>
-                        <a href="/creador-de-logos/ingreso/">Acceder</a>
+                        <a href="/creador-de-logos/ingreso/">{{idioma.header.botones[0]}}</a>
                     </span>
                     <span class="boton-activo">
-                        <a href="/creador-de-logos/ingreso/" style="color: white">Registro</a>
+                        <a href="/creador-de-logos/ingreso/" style="color: white">{{idioma.header.botones[1]}}</a>
                     </span>
 
                     <div class="acceder hidden" style="cursor: pointer">
@@ -39,50 +40,28 @@
         </div>
     </header>
     <div class="cabecera">
-        {% if title == 'destacados' %}
-        <h1>Diseña logotipos {{title}} gratis</h1>
-        <p>Si necesitas un diseño {{title}}, Logopro es el creador de logotipos perfecto que estás buscando. Te proporciona
-            plantillas bien diseñadas que pueden ofrecerte una inspiración continua para obtener ideas para crear logotipos
-            de empresas. Las herramientas de edición fáciles de usar y los enormes recursos de arte, como los millones de
-            iconos y las preciosas fuentes, proporcionan un sinfín de posibilidades de personalización para que consigas
-            un logotipo de vehículo personalizado.</p>
-
-        {% else %}
-        <h1>Diseña logotipos de {{title}} gratis</h1>
-        <p>Si necesitas un diseño de {{title}}, Logopro es el creador de logotipos perfecto que estás buscando. Te proporciona
-            plantillas bien diseñadas que pueden ofrecerte una inspiración continua para obtener ideas para crear logotipos
-            de empresas de {{title}} y más creaciones. Las herramientas de edición fáciles de usar y los enormes recursos
-            de arte, como los millones de iconos y las preciosas fuentes, proporcionan un sinfín de posibilidades de personalización
-            para que consigas un logotipo de vehículo personalizado.</p>
-        {% endif %}
-
+        <h1>{{idioma.secciones.seccion_uno.titulo}} {{title}}</h1>
+        <p>{{idioma.secciones.seccion_uno.descripcion}} {{title}}</p>
         <div layout-padding>
             <a href="/creador-de-logos" class="boton-formulario-generar">
-                GENERAR LOGO
+                {{idioma.secciones.seccion_uno.boton}}
             </a>
         </div>
     </div>
 
     {% if logosPredisenados %}
     <div class="sub-cabecera">
-        {% if title == 'destacados' %}
-        <h3>Plantillas de diseños {{title}}</h3>
+        <h3>{{idioma.secciones.seccion_dos.titulo}} {{title}}</h3>
         <p>
-            Todas estas plantillas pueden ayudarte a personalizar tus diseños {{title}} en minutos.
+            {{idioma.secciones.seccion_dos.descripcion}} {{title}}
         </p>
-        {% else %}
-        <h3>Plantillas de diseño de {{title}}</h3>
-        <p>
-            Todas estas plantillas pueden ayudarte a personalizar tus diseños de {{title}} en minutos.
-        </p>
-        {% endif %}
     </div>
 
     <div class="logos-predisenados">
         {% for elemento in logosPredisenados %}
         <div class='--item'>
-            <a class="enviar_editor" data-id="{{elemento.idLogo}}"  data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}" data-attrs="{{elemento.atributos | dump}}"
-                data-svg="{{elemento.logo}}">
+            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}"
+                data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
                 {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
                 <span>
                     <img src="/tmp/shared/{{elemento.imgSrc}}" alt="{{atributo.valor}}">
@@ -104,12 +83,12 @@
     <div class="flex" style="margin-bottom: 3%">
         <a style="    width: 24%;
                 text-align: center;" class="boton-formulario-generar ver-mas">
-            MAS LOGOTIPOS
+            {{idioma.secciones.seccion_dos.boton}}
         </a>
     </div>
     {% endif %} {% endif %}
     <div class="container-fluid" style="    padding: 3%;width: 100%;">
-        <h3>Puede que también te interese</h3>
+        <h3>{{idioma.secciones.seccion_tres.titulo}}</h3>
         <div class="lista-categorias">
             {% asyncEach categoria in categorias %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
             <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
@@ -118,93 +97,64 @@
     </div>
 
     <div class="container-fluid" style=" padding: 1% 6% 7% 6%; width: 100%;">
-        {% if title == 'destacados' %}
-        <h3>Cómo diseñar en 3 pasos un logo</h3>
-        <p class="center">Sigue estos pasos para personalizar un logo perfecto con gran facilidad.</p>
-        {% else %}
-        <h3>Cómo diseñar en 3 pasos un {{title}}</h3>
-        <p class="center">Sigue estos pasos para personalizar un {{title}} perfecto con gran facilidad.</p>
-        {% endif %}
+        <h3>{{idioma.secciones.seccion_cuatro.titulo}} {{title}}</h3>
+        <p class="center">{{idioma.secciones.seccion_cuatro.descripcion}} {{title}} {{idioma.secciones.seccion_cuatro.descripcion_end}}</p>
 
         <div class="tres-pasos" cantidad-videos="3">
             <div class="animacion">
                 <ul>
-                    <li class="step_guide_image active" data-index="1" data-time="24000">
-                        <img src="../landing/assets/img/mockup1.png" data-index="1" alt="mockup_uno">
-                        <video id="video1" alt="paso uno" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video1.mp4" style="position: absolute; left: 0px; top: 0px;">
-                        </video>
-                    </li>
-                    <li class="step_guide_image" data-index="2" data-time="18000">
-                        <img src="../landing/assets/img/mockup2.png" alt="mockup_dos">
-                        <video id="video2" alt="paso dos" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video2.mp4" style="position: absolute; left: 0px; top: 0px;">
-                        </video>
-                    </li>
-                    <li class="step_guide_image" data-index="3" data-time="16000">
-                        <img src="../landing/assets/img/mockup3.png" alt="mockup_tres">
-                        <video id="video3" alt="paso tres" type="video/mp4" muted="muted" loop="loop" src="../landing/assets/img/video3.mp4" style="position: absolute; left: 0px; top: 0px;">
-                        </video>
-                    </li>
+                    {% for paso in idioma.secciones.seccion_cuatro.pasos %}
+                        {% if loop.first %}
+                            <li class="step_guide_image active" data-index="{{loop.index}}" data-time="24000">
+                                <img src="{{paso.imagen_url}}" data-index="{{loop.index}}" alt="mockup_uno">
+                                <video id="video1" alt="paso {{loop.index}}" type="video/mp4" muted="muted" loop="loop" src="{{paso.video_url}}" style="position: absolute; left: 0px; top: 0px;">
+                                </video>
+                            </li>
+                        {% else %}
+                            <li class="step_guide_image" data-index="{{loop.index}}" data-time="24000">
+                                <img src="{{paso.imagen_url}}" data-index="{{loop.index}}" alt="mockup_uno">
+                                <video id="video1" alt="paso {{loop.index}}" type="video/mp4" muted="muted" loop="loop" src="{{paso.video_url}}" style="position: absolute; left: 0px; top: 0px;">
+                                </video>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
             <div class="pasos">
-                {% if title == 'destacados' %}
-                <div class="step_ctn active">
-                    <h4 data-index="1">Elige una plantilla</h4>
-                    <p>Elige entre miles de plantillas para empezar a diseñar tu logo.</p>
-                </div>
-                <div class="step_ctn">
-                    <h4 data-index="2">Añade texto e icono</h4>
-                    <p>Personaliza tus logotipos {{title}} con millones de iconos, más de 100 fuentes y potentes herramientas
-                        de edición.</p>
-                </div>
-                <div class="step_ctn clear_margin_btm">
-                    <h4 data-index="3">Guarda</h4>
-                    <p>Guarda tus logotipos {{title}} en alta resolución.</p>
-                </div>
+                {% for paso in idioma.secciones.seccion_cuatro.pasos %} 
+                    {% if loop.first %}
+                    <div class="step_ctn active">
+                        <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
+                        <p>{{paso.descripcion}}</p>
+                    </div>
+                    {% elif loop.last %}
+                    <div class="step_ctn clear_margin_btm">
+                        <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
+                        <p>{{paso.descripcion}}</p>
+                    </div>
+                    {% else %}
+                    <div class="step_ctn">
+                        <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
+                        <p>{{paso.descripcion}}</p>
+                    </div>
+                    {% endif %} 
+                {% endfor %}
                 <div class="step_line">
                     <span class="active">1</span>
                     <span class="">2</span>
                     <span class="">3</span>
                     <i style="top: 0px;"></i>
                 </div>
-                {% else %}
-                <div class="step_ctn active">
-                    <h4 data-index="1">Elige una plantilla</h4>
-                    <p>Elige entre miles de plantillas para empezar a diseñar tu logo {{title}}..</p>
-                </div>
-                <div class="step_ctn">
-                    <h4 data-index="2">Añade texto e icono</h4>
-                    <p>Personaliza tu logotipo de {{title}} con millones de iconos, más de 100 fuentes y potentes herramientas
-                        de edición.</p>
-                </div>
-                <div class="step_ctn clear_margin_btm">
-                    <h4 data-index="3">Guarda</h4>
-                    <p>Guarda tu logotipo de {{title}} en alta resolución.</p>
-                </div>
-                <div class="step_line">
-                    <span class="active">1</span>
-                    <span class="">2</span>
-                    <span class="">3</span>
-                    <i style="top: 0px;"></i>
-                </div>
-                {% endif %}
             </div>
         </div>
     </div>
 
     <div class="pre-footer">
-        {% if title == 'destacados' %}
         <div class="--item">
-            <h2>Crea logotipos {{title}} online gratis </h2>
-            <p>Pruébalo gratis, sin descargas ni registros.</p>
+            <h2>{{idioma.secciones.seccion_cinco.titulo}} {{title}}</h2>
+            <p>{{idioma.secciones.seccion_cinco.descripcion}}</p>
         </div>
-        {% else %}
-        <div class="--item">
-            <h2>Crea logotipos online gratis de {{title}}</h2>
-            <p>Pruébalo gratis, sin descargas ni registros.</p>
-        </div>
-        {% endif %}
-        <a class="--link" href="#">Crea un logotipo gratis</a>
+        <a class="--link" href="/creador-de-logos">{{idioma.secciones.seccion_cinco.boton}}</a>
     </div>
 
 

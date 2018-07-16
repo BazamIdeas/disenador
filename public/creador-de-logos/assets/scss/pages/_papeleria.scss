@@ -698,3 +698,8 @@ bazam-papeleria>svg .hook>svg * {
         height:100%;
     }
 }
+
+.papeleria-editor-container:hover .accion,
+.contenedor-papelerias>div:hover .accion {
+    opacity: 1 !important;
+}

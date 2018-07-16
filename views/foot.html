@@ -4,14 +4,27 @@
             <img src="../landing/assets/img/logo.pro.svg">
         </div>
         <div class="links-footer">
-            <a href="/terminos-y-condiciones">Términos y condiciones</a>
-            <a href="/avisos-legales">Avisos Legales</a>
-            <a href="#"> Blog</a>
+            {% for link in idioma.footer.linksInternos %}
+            <a href="{{link.url}}">{{link.nombre}}</a>
+            {% endfor %}
         </div>
-        <div class="iconos-sociales">
-            <i class="fab fa-instagram"></i>
-            <i class="fab fa-twitter"></i>
-            <i class="fab fa-facebook"></i>
+        <div class="flex">
+            <div class="selector-de-idiomas">
+                <select class="idioma">
+                    {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
+                    <option value="{{idioma.valor}}"  selected>{{idioma.label}}</option>
+                    {% else %}
+                    <option value="{{idioma.valor}}">{{idioma.label}}</option>
+                    {% endif %} {% endfor %}
+                </select>
+            </div>
+            <div class="iconos-sociales">
+                {% for red in idioma.footer.redes %}
+                <a href="{{red.url}}" target="_new">
+                    <i class="{{red.awesomeIcon}}"></i>
+                </a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </footer>

@@ -18,16 +18,16 @@ exports.ViewCategorias = function (req, res) {
 	var nombreCategoria = req.body.categoriaSeleccionada.nombreCategoria != 'Sin categoria' ? req.body.categoriaSeleccionada.nombreCategoria : 'destacados';
 	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
 	var idCategoria = 6;
+	req.lang = req.lang.toLowerCase();
+	let lang = langs[req.lang];
 
-	let dataEnviar = { root: __dirname, title: nombreCategoria, categorias: req.body.categorias, categoriaSeleccionada: req.body.categoriaSeleccionada };
+	let dataEnviar = { root: __dirname, title: nombreCategoria, categorias: req.body.categorias, categoriaSeleccionada: req.body.categoriaSeleccionada, idioma: lang.categoria_pagina, lang:  req.lang};
 
 	logo.getLogosAprobados(idLogo, idCategoria, function (error, data) {
 
 		if (typeof data !== "undefined" && data.length > 0) {
 
 			Etiqueta.ObtenerPorLogo(data, req.lang, (err, logos) => {
-
-				console.log(logos)
 
 				data = logos;
 

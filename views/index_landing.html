@@ -346,7 +346,7 @@
                         </div>
                         <div class="text-center">
                             <md-button ng-disabled="ctrl.peticion" ng-click="ctrl.scrollTop()" class="md-raised md-primary boton-plan">
-                                SELECCIONAR
+                                {{idioma.secciones.seccion_cuatro.boton_plan}}
                             </md-button>
                         </div>
                     </div>
@@ -425,10 +425,9 @@
                 <div class="layout-row layout-align-space-between-center ">
                     <div class="selector-de-idiomas">
                         <select ng-model="ctrl.idiomaActivo" ng-change="ctrl.cambiarIdioma(ctrl.idiomaActivo)">
-                            <option value="000000">Idioma:</option>
                             {% for idioma in idioma.footer.idiomas %} 
                                 {% if lang == idioma.valor %}
-                                <option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>{{idioma.label}} {{idioma.valor}}</option>
+                                <option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>{{idioma.label}}</option>
                                 {% else %}
                                 <option ng-value="'{{idioma.valor}}'" ng-selected="false">{{idioma.label}}</option>
                                 {% endif %} 
