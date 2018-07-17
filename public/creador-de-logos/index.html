@@ -206,29 +206,69 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
 
 
+            .logos-disenador{
+                padding: 5 30px;
+                color: black;
+                position: fixed;
+                width: 90%;
+                height: 90%;
+                background-color: white;
+                top: 5%;
+                left: 5%;
+                z-index: 10;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                overflow: auto;
+            }
+
+            .logos-disenador .titulo-logos-disenador {
+                text-align: center;
+            }
+
+
             
 
         </style>
-        <div class="acceso-disenador" ng-if="header.mostrarAccesoDisenador"> 
-                
-                <button ng-hide="header.mostrarFormDisenador" ng-click="header.mostrarFormDisenador = true;">Acceder como Diseñador</button>
 
-                <div ng-show="header.mostrarFormDisenador" class="form-disenador-container">
-                    <form name="header.datosDisenadorForm" ng-submit="header.loginDisenador(header.datosDisenador, header.datosDisenadorForm.$valid)">
-                        <span style="position: absolute; top: 5%; right: 5%;" ng-click="header.mostrarFormDisenador = false;">X</span>
-                        <input type="text" placeholder="Usuario" ng-model="header.datosDisenador.usuario" required/>
-                        <input type="password" placeholder="Contraseña" ng-model="header.datosDisenador.contrasena" required/>
-                        <button type="submit">Acceder</button>
-                    </form>
+        <!----- cinta diseñador ---->
+        <div ng-cloak>
+            <div class="acceso-disenador" ng-if="header.mostrarAccesoDisenador"> 
+                    
+                    <button ng-hide="header.mostrarFormDisenador" ng-click="header.mostrarFormDisenador = true;">Acceder como Diseñador</button>
+
+                    <div ng-show="header.mostrarFormDisenador" class="form-disenador-container">
+                        <form name="header.datosDisenadorForm" ng-submit="header.loginDisenador(header.datosDisenador, header.datosDisenadorForm.$valid)">
+                            <span style="position: absolute; top: 5%; right: 5%;" ng-click="header.mostrarFormDisenador = false;">X</span>
+                            <input type="text" placeholder="Usuario" ng-model="header.datosDisenador.usuario" required/>
+                            <input type="password" placeholder="Contraseña" ng-model="header.datosDisenador.contrasena" required/>
+                            <button type="submit">Acceder</button>
+                        </form>
+                    </div>
+            </div>
+
+            <div class="acceso-disenador" ng-if="header.mostrarBannerDisenador"> 
+                <p style="margin-right: 12px;">MODO DISEÑADOR</p> 
+                <div>
+                    <button ng-click="header.mostrarLogosDisenador()" ng-class="{'loading-white': !header.logosDisenadorCargados}">Mis Logos</button> 
+                    <button ng-click="header.cerrarSesionDisenador()">Salir</button>
+                </div>                
+            </div>
+
+            <div class="logos-disenador" ng-if="header.mostrarLogosContenedorDisenador">
+
+                <span style="position: absolute; top: 5%; right: 5%; font-size: 20px;" ng-click="header.mostrarLogosContenedorDisenador = false">X</span>
+                <h5 class="titulo-logos-disenador">Mis logos aprobados</h5>
+                <div class="row listado-logos-disenador">
+                    <div class="col l3" ng-repeat="logo in header.logosDisenador | orderBy: $index">
+                        <div style="padding: 10px; -webkit-box-shadow: 0px 0px 3px 0px #c7c7c7; box-shadow: 0px 0px 3px 0px #c7c7c7;">
+                            
+                            <bazam-visualizar data-svg="header.base64.decode(logo.logo)"></bazam-visualizar>
+                        </div>
+                    </div>
                 </div>
-        </div>
-
-        <div class="acceso-disenador" ng-if="header.mostrarBannerDisenador"> 
-            <p style="margin-right: 12px;">MODO DISEÑADOR</p> <button ng-click="header.cerrarSesionDisenador()">Cerrar Sesión</button>
+            </div>
         </div>
 
     </header>
-
 
 
     <!-- contenedor principal -->
