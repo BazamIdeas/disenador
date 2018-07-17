@@ -531,7 +531,7 @@
 		<md-input-container style="padding:0; width: 100%; text-align: left; color: black;">
 			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del Logo</md-tooltip>
 			<md-select flex ng-model="editor.datosDisenador.idCategoria" placeholder="Categorias:" md-no-asterisk required>
-				<md-option class="iconos" ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
+				<md-option class="iconos" ng-repeat="categoria in editor.categoriasHijasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
 			</md-select>
 		</md-input-container>
 		<md-chips style="padding:0; width: 95%;" md-add-on-blur="true" ng-model="editor.datosDisenador.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
