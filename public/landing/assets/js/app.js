@@ -175,14 +175,14 @@ jQuery(document).ready(function ($) {
     return "";
   }
 
-  let idiomaActivo = getCookie('logoLang').toLocaleLowerCase();
+  let idiomaActivo = getCookie('logoLang');
 
 
   $('.selector-de-idiomas > select').change(function () {
     let codigo = $(this).val();
     
     if(idiomaActivo != codigo){
-      document.cookie = "logoLang="+codigo.toUpperCase();
+      document.cookie = "logoLang="+codigo;
       $('html').animate({
         scrollTop: 0
       }, 1000);

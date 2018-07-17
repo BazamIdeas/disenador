@@ -6,11 +6,12 @@ var multipartMiddleware = multipart();
 var middleware = require("./middleware");
 var compression = require('compression');
 var setLang = require('../services/lang').setLang;
+const traducciones = require("../langs");
 
 router.use(compression());
 
-//MODULO CLIENTES
-//no espera parametros
+// IDIOMAS
+
 router.get("/idioma/:lang", function(req, res) {
 
     setLang(res, req.params.lang);
@@ -18,7 +19,23 @@ router.get("/idioma/:lang", function(req, res) {
 
 });
 
+router.get("/idioma/:lang/json", function(req, res) {
 
+    setLang(res, req.params.lang);
+
+    let lang = req.params.lang.toLowerCase();
+    let data = {general: traducciones.views.langs[lang], planes: traducciones.planes.langs[lang], categorias: traducciones.categories.langs};
+
+    if(traducciones.views.langs[lang]){
+        res.status(200).json(data);
+    }else{
+        res.status(404).json({msg: 'No hay traducciones para ese idioma'});
+    }
+
+});
+
+//MODULO CLIENTES
+//no espera parametros
 router.get("/clientes", middleware.validarAdministrador, controllers.clientes.listaClientes);
 router.get("/clientes/freelancer", middleware.validarAdministrador, controllers.clientes.listaClientesFreelancer);
 router.get("/clientes/freelancers", controllers.clientes.listaClientesFreelancer);

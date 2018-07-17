@@ -99,6 +99,19 @@
                         <div ng-switch-when="false" class="acceder not-ing" style="cursor: pointer">
                             <span ng-click="h.opcionMostrarLogin = false; h.mostrarLogin = true">{{idioma.header.botones[0]}}</span>
                             <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">{{idioma.header.botones[1]}}</span>
+                            <div>
+                                <select ng-model="ctrl.idiomaActivo" ng-change="ctrl.cambiarIdioma(ctrl.idiomaActivo)">
+                                    {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
+                                    <option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>
+                                        <img src="{{idioma.valor}}" alt="{{idioma.label}}">
+                                    </option>
+                                    {% else %}
+                                    <option ng-value="'{{idioma.valor}}'" ng-selected="false">
+                                        <img src="{{idioma.valor}}" alt="{{idioma.label}}">
+                                    </option>
+                                    {% endif %} {% endfor %}
+                                </select>
+                            </div>
                         </div>
                         <div ng-switch-default class=" iconos-menu acceder" style="cursor: pointer">
                             <a href="/creador-de-logos">
@@ -249,14 +262,14 @@
             <div class="logos-predisenados">
                 {% for elemento in categorias %}
                 <div class='--item'>
-                    <a href="/logos-de-{{elemento.categoriaFormateada}}">
+                    <a href="/logos/{{elemento.categoriaFormateada}}">
                         <span>
                             <!--                             <img src="/landing/assets/img/categorias/{{elemento.nombreCategoria}}.png" alt="logotipos de {{elemento.nombreCategoria}}"> -->
                             <img src="/landing/assets/img/categorias/abstractos.png" alt="logotipos de {{elemento.nombreCategoria}}">
                         </span>
                     </a>
                     <div class="tags">
-                        <a href="/logos-de-{{elemento.categoriaFormateada}}">{{elemento.nombreCategoria}}</a>
+                        <a href="/logos/{{elemento.categoriaFormateada}}">{{elemento.nombreCategoria}}</a>
                     </div>
                 </div>
                 {% endfor %}
@@ -330,7 +343,7 @@
                 <span>.</span>
             </div>
             <div class="contenedor-planes">
-                <div class="plan">
+                <!-- <div class="plan">
                     <div>
                         <div class="plan-header">
                             <div class="plan-nombre">PLAN GRATUITO</div>
@@ -350,14 +363,18 @@
                             </md-button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 {% for elemento in idioma.secciones.seccion_cuatro.planes %}
                 <div class="plan">
                     <div>
                         <div class="plan-header">
                             <div class="plan-nombre">{{elemento.plan}}</div>
+                            {% if elemento.idPlan == 0 %}
+                            <div class="plan-precio">{{elemento.precios[0].precio}}</div>
+                            {% else %}
                             <div class="plan-precio">{{elemento.precios[0].precio}} USD</div>
+                            {% endif %}
                         </div>
                         <div class="plan-body">
                             <div>
@@ -425,13 +442,11 @@
                 <div class="layout-row layout-align-space-between-center ">
                     <div class="selector-de-idiomas">
                         <select ng-model="ctrl.idiomaActivo" ng-change="ctrl.cambiarIdioma(ctrl.idiomaActivo)">
-                            {% for idioma in idioma.footer.idiomas %} 
-                                {% if lang == idioma.valor %}
-                                <option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>{{idioma.label}}</option>
-                                {% else %}
-                                <option ng-value="'{{idioma.valor}}'" ng-selected="false">{{idioma.label}}</option>
-                                {% endif %} 
-                            {% endfor %}
+                            {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
+                            <option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>{{idioma.label}}</option>
+                            {% else %}
+                            <option ng-value="'{{idioma.valor}}'" ng-selected="false">{{idioma.label}}</option>
+                            {% endif %} {% endfor %}
                         </select>
                     </div>
                     <div class="iconos-sociales">

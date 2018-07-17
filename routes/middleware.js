@@ -413,7 +413,6 @@ exports.validarCategorias = function (req, res, next) {
 
 }
 
-
 exports.langCookie = (req, res, next) => {
 
 	const langService = services.lang;

@@ -1,5 +1,5 @@
 exports.langs = {
-    "es": {
+    "ES": {
         creador_de_logos: {
             SEO: {
                 title: '',
@@ -143,15 +143,15 @@ exports.langs = {
                 idiomas: [
                     {
                         label: 'Español',
-                        valor: 'es'
+                        valor: 'ES'
                     },
                     {
                         label: 'Ingles',
-                        valor: 'en'
+                        valor: 'EN'
                     },
                     {
                         label: 'Portugés',
-                        valor: 'pt'
+                        valor: 'PT'
                     }
                 ],
                 redes: [
@@ -195,7 +195,7 @@ exports.langs = {
                     boton: 'MAS LOGOTIPOS'
                 },
                 seccion_tres: {
-                    titulo: 'Puede que también te interese'
+                    titulo: 'Busquedas relacionadas'
                 },
                 seccion_cuatro: {
                     titulo: 'Cómo diseñar en 3 pasos un logo de',
@@ -227,6 +227,9 @@ exports.langs = {
                     descripcion: 'Pruébalo gratis, sin descargas ni registros.',
                     boton: 'Crea un logotipo gratis'
                 },
+                seccion_seis: {
+                    titulo: 'Puede que también te interese'
+                }
             },
             footer: {
                 linksInternos: [
@@ -246,15 +249,15 @@ exports.langs = {
                 idiomas: [
                     {
                         label: 'Español',
-                        valor: 'es'
+                        valor: 'ES'
                     },
                     {
                         label: 'Ingles',
-                        valor: 'en'
+                        valor: 'EN'
                     },
                     {
                         label: 'Portugés',
-                        valor: 'pt'
+                        valor: 'PT'
                     }
                 ],
                 redes: [
@@ -281,7 +284,7 @@ exports.langs = {
             fuente: []
         }
     },
-    "en": {
+    "EN": {
         creadorDeLogos: {
         },
         landing: {
@@ -420,15 +423,15 @@ exports.langs = {
                 idiomas: [
                     {
                         label: 'Spanish',
-                        valor: 'es'
+                        valor: 'ES'
                     },
                     {
                         label: 'English',
-                        valor: 'en'
+                        valor: 'EN'
                     },
                     {
                         label: 'Portuguese',
-                        valor: 'pt'
+                        valor: 'PT'
                     }
                 ],
                 redes: [
@@ -472,7 +475,7 @@ exports.langs = {
                     boton: 'MORE LOGO'
                 },
                 seccion_tres: {
-                    titulo: 'You may also be interested'
+                    titulo: 'Related searches'
                 },
                 seccion_cuatro: {
                     titulo: 'How to design a logo of 3 steps',
@@ -504,6 +507,9 @@ exports.langs = {
                     descripcion: 'Try it for free, without downloads or registrations.',
                     boton: 'Create a free logo'
                 },
+                seccion_seis: {
+                    titulo: 'You may also be interested'
+                }
             },
             footer: {
                 linksInternos: [
@@ -523,15 +529,15 @@ exports.langs = {
                 idiomas: [
                     {
                         label: 'Spanish',
-                        valor: 'es'
+                        valor: 'ES'
                     },
                     {
                         label: 'English',
-                        valor: 'en'
+                        valor: 'EN'
                     },
                     {
                         label: 'Portuguese',
-                        valor: 'pt'
+                        valor: 'PT'
                     }
                 ],
                 redes: [
@@ -558,7 +564,7 @@ exports.langs = {
             fuente: []
         }
     },
-    "pt": {
+    "PT": {
         creadorDeLogos: {
         },
         landing: {
@@ -696,15 +702,15 @@ exports.langs = {
                 idiomas: [
                     {
                         label: 'Espanhol',
-                        valor: 'es'
+                        valor: 'ES'
                     },
                     {
                         label: 'Inglês',
-                        valor: 'en'
+                        valor: 'EN'
                     },
                     {
                         label: 'Português',
-                        valor: 'pt'
+                        valor: 'PT'
                     }
                 ],
                 redes: [
@@ -748,7 +754,7 @@ exports.langs = {
                     boton: 'MAIS LOGO'
                 },
                 seccion_tres: {
-                    titulo: 'Você também pode estar interessado'
+                    titulo: 'Pesquisas relacionadas'
                 },
                 seccion_cuatro: {
                     titulo: 'Como projetar um logotipo de 3 passos',
@@ -780,6 +786,9 @@ exports.langs = {
                     descripcion: 'Experimente de graça, sem downloads ou registros.',
                     boton: 'Crie um logo grátis'
                 },
+                seccion_seis: {
+                    titulo: 'Você também pode estar interessado'
+                }
             },
             footer: {
                 linksInternos: [
@@ -799,15 +808,15 @@ exports.langs = {
                 idiomas: [
                     {
                         label: 'Espanhol',
-                        valor: 'es'
+                        valor: 'ES'
                     },
                     {
                         label: 'Inglês',
-                        valor: 'en'
+                        valor: 'EN'
                     },
                     {
                         label: 'Português',
-                        valor: 'pt'
+                        valor: 'PT'
                     }
                 ],
                 redes: [

@@ -1,4 +1,4 @@
-export default categorias = {
+exports.langs = {
     "7": {
         "tag": "animal",
         "traduccion": {

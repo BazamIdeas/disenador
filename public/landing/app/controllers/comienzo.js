@@ -1,6 +1,6 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "navegarFactory", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "idiomaService", function ($base64, estaticosLandingValue, navegarFactory, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, idiomaService) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "navegarFactory", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "idiomaService", "cookie", function ($base64, estaticosLandingValue, navegarFactory, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, idiomaService, cookie) {
 
 		var bz = this;
 
@@ -8,23 +8,7 @@ angular.module("landing")
 
 		/* DATOS */
 
-		function getCookie(cname) {
-			var name = cname + "=";
-			var decodedCookie = decodeURIComponent(document.cookie);
-			var ca = decodedCookie.split(';');
-			for (var i = 0; i < ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0) == ' ') {
-					c = c.substring(1);
-				}
-				if (c.indexOf(name) == 0) {
-					return c.substring(name.length, c.length);
-				}
-			}
-			return "";
-		}
-
-		bz.idiomaActivo = getCookie('logoLang').toLocaleLowerCase();
+		bz.idiomaActivo = cookie.getCookie('logoLang');
 
 		bz.navegar = navegarFactory;
 		bz.estaticos = estaticosLandingValue;
@@ -47,10 +31,10 @@ angular.module("landing")
 		bz.logosPredisenados = [];
 
 		bz.cambiarIdioma = function (idioma) {
-			idiomaCookie = getCookie('logoLang');
+			idiomaCookie = cookie.getCookie('logoLang');
 			
-			if (bz.idiomaActivo != idioma.toUpperCase()) {
-				document.cookie = "logoLang=" + idioma.toUpperCase();
+			if (bz.idiomaActivo != idiomaCookie) {
+				document.cookie = "logoLang=" + idioma;
 				$('body').animate({
 					scrollTop: 0
 				}, 1000);
