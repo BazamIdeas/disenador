@@ -12,19 +12,11 @@ router.use(compression());
 
 // IDIOMAS
 
-router.get("/idioma/:lang", function(req, res) {
+router.get("/idioma/json", function(req, res) {   
 
-    setLang(res, req.params.lang);
-    res.status(200).json({ status: true })
+    let lang = req.lang;
 
-});
-
-router.get("/idioma/:lang/json", function(req, res) {
-
-    setLang(res, req.params.lang);
-
-    let lang = req.params.lang.toLowerCase();
-    let data = {general: traducciones.views.langs[lang], planes: traducciones.planes.langs[lang], categorias: traducciones.categories.langs};
+    let data = {lang: lang, general: traducciones.views.langs[lang], planes: traducciones.planes.langs[lang], categorias: traducciones.categories.langs};
 
     if(traducciones.views.langs[lang]){
         res.status(200).json(data);
@@ -33,6 +25,15 @@ router.get("/idioma/:lang/json", function(req, res) {
     }
 
 });
+
+router.get("/idioma/:lang", function(req, res) {
+
+    setLang(res, req.params.lang);
+    res.status(200).json({ status: true })
+
+});
+
+
 
 //MODULO CLIENTES
 //no espera parametros
