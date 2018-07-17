@@ -6,7 +6,7 @@
 
             <div class="paneles individual md-whiteframe-2dp">
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
-                    <texto flex ng-click="designer.listarLogos()">LISTADO DE LOGOS</texto>
+                    <texto flex ng-click="designer.listarCategorias()">LISTADO DE LOGOS</texto>
                 </div>
                 <div layout layout-align="space-between center" ng-show="designer.cal && designer.logos.length > 0" style="    background: white;
                 border-bottom: 1px solid silver;">
@@ -36,7 +36,7 @@
                         <table class="w3-table w3-bordered">
                             <tr>
                                 <th>Logo:</th>
-                                <th>Estado:</th>
+                                <th>Información:</th>
                                 <th>Acciones:</th>
                             </tr>
                             <tr ng-repeat="logo in designer.logos">
@@ -45,7 +45,15 @@
                                         <bazam-visualizar data-svg="designer.base64(logo.logo)"></bazam-visualizar>
                                     </div>
                                 </td>
-                                <td>{{logo.estado}}</td>
+                                <td>
+                                    <div>
+                                        <b>Estado:</b><br><br>{{logo.estado}} 
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <b>Categoria:</b><br><br> {{logo.nombreCategoria}}
+                                    </div>
+                                </td>
                                 <td>
                                     <md-button ng-if="logo.estado == 'Por Aprobar'" class="md-fab md-mini md-warn" ng-click="designer.aprobarLogo($index, logo, logo.idLogo)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Aprobar</md-tooltip>
@@ -227,7 +235,7 @@
                 <div layout-padding class="elemento" ng-if="designer.logoVisualizar">
                     <div layout layout-align="center center" layout-wrap>
                         <div flex class="margen_inferior">
-                            <div class="pedido-logo elemento inside" md-whiteframe >
+                            <div class="pedido-logo elemento inside" md-whiteframe>
                                 <bazam-visualizar data-svg="designer.logoVisualizar"></bazam-visualizar>
                             </div>
                         </div>

@@ -6,6 +6,7 @@ var fs = require('fs');
 const Etiqueta = require('../modelos/etiquetasModelo.js');
 const svg2png = require("svg2png");
 const langs = require("../langs/views.js").langs;
+const PlanesLang = require("../langs/planes.js").langs;
 var pais     = require("../modelos/paisesModelo.js");
 var plan     = require("../modelos/planesModelo.js");
 var precio   = require("../modelos/preciosModelo.js");
