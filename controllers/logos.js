@@ -410,6 +410,55 @@ exports.listaLogosAprobados = function (req, res) {
 
 };
 
+
+exports.listaLogosAprobadosCatPadre = function (req, res) {
+
+	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 0;
+
+	logo.getLogosAprobadosCatPadre(idLogo, idCategoria, function (error, data) {
+
+		if (typeof data !== "undefined" && data.length > 0) {
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+							data[key]["atributos"] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}
+
+					callback();
+
+				});
+
+			}, (err) => {
+
+				if (err) res.status(402).json({});
+
+				res.status(200).json(data);
+
+			});
+		}
+		//no existe
+		else {
+			res.status(404).json({
+				"msg": "No hay logos aprobados"
+			});
+		}
+	});
+
+};
+
 //DEVUELVE LOGOS APROBADOS DE TODOS LOS CLIENTES
 exports.listaLogosAprobadosPorCliente = function (req, res) {
 

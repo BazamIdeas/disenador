@@ -83,6 +83,25 @@ logo.getLogosAprobados = function(id, idCategoria, callback)
 	});
 }
 
+
+logo.getLogosAprobadosCatPadre = function (id, idCategoria, callback) {
+
+	var q = 'SELECT logos.* FROM logos  INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.padre = ?';
+
+
+	DB.getConnection(function (err, connection) {
+		connection.query(q, [id, idCategoria], function (err, rows) {
+
+			if (err) throw err;
+
+			else callback(null, rows);
+
+			connection.release();
+		});
+	});
+}
+
+
 logo.getLogosAprobadosPorCliente = function(id,callback)
 {
 	var q = 'SELECT * FROM logos WHERE estado = "Aprobado" AND clientes_idCliente = ? ORDER BY idLogo';  
