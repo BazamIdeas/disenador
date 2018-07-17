@@ -20,6 +20,22 @@ exports.listaCategorias = function(req, res)
 	});
 };
 
+exports.listaCategoriasHijas = function (req, res) {
+
+	var conPadre = req.body.conPadre != undefined ? req.body.conPadre : false;
+
+	categoria.getCategoriasHijas(conPadre, function (error, data) {
+		//si el usuario existe 
+		if (typeof data !== "undefined" && data.length > 0) {
+			res.status(200).json(data);
+		}
+		//no existe
+		else {
+			res.status(404).json({ "msg": "No hay categorias en la base de datos" });
+		}
+	});
+};
+
 exports.ListarIconos = function(req,res) 
 {
 	categoria.ListarIconos(req.body.idCategoria,function(error, data)
