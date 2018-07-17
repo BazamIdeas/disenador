@@ -21,6 +21,8 @@ exports.ViewCategorias = function (req, res) {
 	let dataEnviar = { root: __dirname, title: nombreCategoria, categorias: req.body.categorias, categoriaSeleccionada: req.body.categoriaSeleccionada, idioma: lang.categoria_pagina, lang: req.lang };
 
 	if(req.params.subcategoria){
+		dataEnviar.mostraretiquetaslogo = true;
+		
 		logo.getLogosAprobados(idLogo, idCategoria, function (error, data) {
 
 			if (typeof data !== "undefined" && data.length > 0) {
