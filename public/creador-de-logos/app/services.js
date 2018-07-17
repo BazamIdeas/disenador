@@ -2206,5 +2206,33 @@ angular.module("disenador-de-logos")
 			disenadorDatosFactory.eliminar();
 		};
 
+		this.logosAprobados = function(){
+
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			var datosDisenador = this.autorizado();
+			
+			if(datosDisenador){
+				
+				$http.post("/app/logos/estado", {estado: "Aprobado"}, {
+					headers: {
+						auth: datosDisenador.token
+					}
+				})
+					.then(function (res) {
+						defered.resolve(res.data);
+					})
+					.catch(function () {
+						defered.reject();
+					});
+
+			} else {
+				defered.reject();
+			}
+
+			return promise;			
+
+		}
 
 	}])
