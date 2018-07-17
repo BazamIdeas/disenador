@@ -444,6 +444,23 @@ angular.module("disenador-de-logos")
 
 		};
 
+		this.listarCategoriasElementosHijas = function (){
+			
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			$http.get("/app/categorias/hijas")
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function () {
+					defered.reject();
+				});
+
+			return promise;
+		}
+
 
 		this.listaCategoriasElementos = function (idCategoria, tipo) {
 

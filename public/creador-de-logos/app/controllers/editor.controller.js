@@ -12,8 +12,6 @@ angular.module("disenador-de-logos")
 			fuentes: false
 		};
 
-		console.log(historicoResolve)
-
 		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[1] : "rgb(243, 243, 243)";
 		bz.colorFondoAnterior = bz.colorFondo;
 		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[0] : "#000";
@@ -66,7 +64,20 @@ angular.module("disenador-de-logos")
 			.then(function (res) {
 				bz.fuentesCategorias = res;
 			})
-			.catch(function () { });
+			.catch(function () { 
+				
+			});
+
+
+		bz.categoriasHijasPosibles = [];
+
+		categoriasService.listarCategoriasElementosHijas()
+			.then(function(res){
+				bz.categoriasHijasPosibles = res;
+			})
+			.catch(function(){
+
+			})
 
 
 		elementosService.listarFuentes().then(function (res) {
