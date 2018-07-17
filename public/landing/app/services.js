@@ -37,9 +37,7 @@ angular.module("landing")
 
 	}])
 
-	.service("idiomaService", ["$http", "$q", function ($http, $q) {
-
-
+	.service("idiomaService", ["$http", "$q", function ($http, $q, $window) {
 
 		this.idioma = function (codigo) {
 
@@ -48,26 +46,6 @@ angular.module("landing")
 			var promise = defered.promise;
 
 			$http.get("/app/idioma/" + codigo).then(function (res) {
-
-				defered.resolve(res.data);
-
-			}).catch(function (res) {
-
-				defered.reject(res);
-
-			});
-
-			return promise;
-
-		};
-
-		this.traducciones = function (codigo) {
-
-			var defered = $q.defer();
-
-			var promise = defered.promise;
-
-			$http.get("/app/idioma/" + codigo + "/json").then(function (res) {
 
 				defered.resolve(res.data);
 

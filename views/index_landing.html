@@ -27,6 +27,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
 
     <!--Librerias core de angualarJS -->
+    <script src="/app/idioma/cadena"></script>
     <script src="/jquery/jquery.min.js"></script>
     <script src="/angular/angular.min.js"></script>
     <script src="/angular-messages/angular-messages.min.js"></script>
@@ -77,7 +78,6 @@
     <script src="/landing/built/app.js"></script>
 
     <script src="assets/js/materialize.min.js"></script>
-
 </head>
 
 <body>
@@ -99,19 +99,6 @@
                         <div ng-switch-when="false" class="acceder not-ing" style="cursor: pointer">
                             <span ng-click="h.opcionMostrarLogin = false; h.mostrarLogin = true">{{idioma.header.botones[0]}}</span>
                             <span ng-click="h.opcionMostrarLogin = true;h.mostrarLogin = true">{{idioma.header.botones[1]}}</span>
-                            <div>
-                                <select ng-model="ctrl.idiomaActivo" ng-change="ctrl.cambiarIdioma(ctrl.idiomaActivo)">
-                                    {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
-                                    <option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>
-                                        <img src="/landing/assets/img/flags/{{idioma.valor}}" alt="{{idioma.label}}">
-                                    </option>
-                                    {% else %}
-                                    <option ng-value="'{{idioma.valor}}'" ng-selected="false">
-                                        <img src="/landing/assets/img/flags/{{idioma.valor}}" alt="{{idioma.label}}">
-                                    </option>
-                                    {% endif %} {% endfor %}
-                                </select>
-                            </div>
                         </div>
                         <div ng-switch-default class=" iconos-menu acceder" style="cursor: pointer">
                             <a href="/creador-de-logos">
@@ -132,6 +119,20 @@
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="selector-de-idiomas--flags">
+                    <md-select md-no-asterisk ng-model="h.idiomaActivo" ng-change="h.cambiarIdioma(h.idiomaActivo)"
+                        >
+                        {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
+                        <md-option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>
+                            <img src="/landing/assets/img/flags/{{idioma.valor}}.png">
+                        </md-option>
+                        {% else %}
+                        <md-option ng-value="'{{idioma.valor}}'" ng-selected="false">
+                            <img src="/landing/assets/img/flags/{{idioma.valor}}.png">
+                        </md-option>
+                        {% endif %} {% endfor %}
+                    </md-select>
                 </div>
             </div>
         </header>
@@ -262,14 +263,14 @@
             <div class="logos-predisenados">
                 {% for elemento in categorias %}
                 <div class='--item'>
-                    <a href="/logos/{{elemento.categoriaFormateada}}">
+                    <a href="/logos-de-{{elemento.categoriaFormateada}}">
                         <span>
                             <!--                             <img src="/landing/assets/img/categorias/{{elemento.nombreCategoria}}.png" alt="logotipos de {{elemento.nombreCategoria}}"> -->
                             <img src="/landing/assets/img/categorias/abstractos.png" alt="logotipos de {{elemento.nombreCategoria}}">
                         </span>
                     </a>
                     <div class="tags">
-                        <a href="/logos/{{elemento.categoriaFormateada}}">{{elemento.nombreCategoria}}</a>
+                        <a href="/logos-de-{{elemento.categoriaFormateada}}">{{elemento.nombreCategoria}}</a>
                     </div>
                 </div>
                 {% endfor %}

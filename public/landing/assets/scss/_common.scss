@@ -305,3 +305,31 @@ div[ng-message="required"]{
         display: block;
     }
 }
+
+
+.selector-de-idiomas--flags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    md-select {
+        margin: 0;
+        md-select-value {
+            border: none;
+            .md-select-icon{
+                display: none;
+            }
+
+            > span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+        }
+        
+    }
+
+    md-select.md-default-theme:not([disabled]):focus .md-select-value, md-select:not([disabled]):focus .md-select-value{
+        border-bottom-color: transparent !important;
+    }
+}

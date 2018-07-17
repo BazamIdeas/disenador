@@ -279,9 +279,83 @@ exports.langs = {
                 ]
             }
         },
-        categorias: {
-            icono: [],
-            fuente: []
+        login: {
+            registro: {
+                titulo: 'Crea una cuenta nueva',
+                subtitulo: 'Busca los mejores diseños y guardalos solo para ti',
+                form: {
+                    nombre: {
+                        label: 'Nombre',
+                        validaciones: ['Este campo es requerido.']
+                    },
+                    correo: {
+                        label: 'Correo',
+                        validaciones: ['Este campo es requerido.', 'Debe ser un email válido', 'Este email no esta disponible.', 'Verificando la disponibilidad del email.']
+                    },
+                    contrasena: {
+                        label: 'Contraseña',
+                        validaciones: ['Este campo es requerido.', 'Debe tener más de 5 carácteres.', 'Debe tener menos de 20 carácteres.']
+                    },
+                    boton_submit: 'ENVIAR',
+                    cuenta: 'Ya tienes una cuenta? Ingresa.'
+                },
+                imagenes: [
+                    {
+                        titulo: 'Ver tus logotipos ',
+                        descripcion: 'editarlos y crear nuevos diseños',
+                        url_imagen: '/landing/assets/img/iconos_login/eye.svg',
+                        class: 'eye-image'
+                    },
+                    {
+                        titulo: 'Guarda tus logos favoritos ',
+                        descripcion: 'y ve su diseño en tarjetas de visita, indumentaria, perfiles de redes sociales y mucho mas!',
+                        url_imagen: 'favorite_border',
+                        icon: true
+                    },
+                    {
+                        titulo: 'Personaliza tu logo',
+                        descripcion: 'cambiando las fuentes, los colores, los iconos, el espaciado y más',
+                        url_imagen: '/landing/assets/img/iconos_login/gear.svg',
+                        class: 'gear-image'
+                    }
+                ]
+            },
+            login: {
+                titulo: 'Ingresa a tu Cuenta',
+                subtitulo: 'Mira tus creaciones en cualquier momento',
+                form: {
+                    correo: {
+                        label: 'Correo',
+                        validaciones: ['Este campo es requerido.', 'Debe ser un email válido.']
+                    },
+                    contrasena: {
+                        label: 'Contraseña',
+                        validaciones: ['Este campo es requerido.', 'Debe tener más de 6 carácteres.', 'Debe tener menos de 20 carácteres.']
+                    },
+                    boton_submit: 'INGRESAR',
+                    cuenta: 'Aun no posees una cuenta? Registrate.',
+                    olvido_contrasena: 'Olvidaste tu contraseña?'
+                }
+            },
+            olvido: {
+                titulo: 'Olvido de Contraseña',
+                subtitulo: 'Segui los pasos y listo',
+                boton_submit: 'Enviar',
+                regresar: 'Regresar',
+                form: {
+                    correo: {
+                        label: 'Correo',
+                        validaciones: ['Este campo es requerido.', 'Debe ser un email válido.']
+                    },
+                    codigo: {
+                        label: 'Codigo'
+                    },
+                    contrasena: {
+                        label: 'Contraseña Nueva',
+                        validaciones: ['Este campo es requerido.', 'Debe tener más de 6 carácteres.']
+                    }
+                }
+            }
         }
     },
     "EN": {
@@ -559,9 +633,83 @@ exports.langs = {
                 ]
             }
         },
-        categorias: {
-            icono: [],
-            fuente: []
+        login: {
+            registro: {
+                titulo: 'Create a new account',
+                subtitulo: 'Find the best designs and save them just for you',
+                form: {
+                    nombre: {
+                        label: 'First name',
+                        validaciones: ['This field is required.']
+                    },
+                    correo: {
+                        label: 'Mail',
+                        validaciones: ['This field is required.', 'Must be a valid email', 'This email is not available.', 'Verifying email availability.']
+                    },
+                    contrasena: {
+                        label: 'Password',
+                        validaciones: ['This field is required.', 'Must have more than 5 characters.', 'Must have less than 20 characters.']
+                    },
+                    boton_submit: 'SING IN',
+                    cuenta: 'You have an account? Sing up'
+                },
+                imagenes: [
+                    {
+                        titulo: 'See your logos ',
+                        descripcion: 'edit them and create new designs',
+                        url_imagen: '/landing/assets/img/iconos_login/eye.svg',
+                        class: 'eye-image'
+                    },
+                    {
+                        titulo: 'Save your favorite logos',
+                        descripcion: 'and see its design on business cards, clothing, social network profiles and much more!',
+                        url_imagen: 'favorite_border',
+                        icon: true
+                    },
+                    {
+                        titulo: 'Customize your logo',
+                        descripcion: 'changing fonts, colors, icons, spacing and more',
+                        url_imagen: '/landing/assets/img/iconos_login/gear.svg',
+                        class: 'gear-image'
+                    }
+                ]
+            },
+            login: {
+                titulo: 'Log in to your account',
+                subtitulo: 'See your creations at any time',
+                form: {
+                    correo: {
+                        label: 'Mail',
+                        validaciones: ['This field is required.', 'Must be a valid email.']
+                    },
+                    contrasena: {
+                        label: 'Password',
+                        validaciones: ['This field is required.', 'Must have more than 6 characters.', 'Must have less than 20 characters.']
+                    },
+                    boton_submit: 'SING IN',
+                    cuenta: 'You do not have an account yet? Sign up',
+                    olvido_contrasena: 'Did you forget your password?'
+                }
+            },
+            olvido: {
+                titulo: 'Forget password',
+                subtitulo: 'Follow the steps and ready',
+                boton_submit: 'Submit',
+                regresar: 'Go Back',
+                form: {
+                    correo: {
+                        label: 'Mail',
+                        validaciones: ['This field is required.', 'Must be a valid email.']
+                    },
+                    codigo: {
+                        label: 'Code'
+                    },
+                    contrasena: {
+                        label: 'New password',
+                        validaciones: ['This field is required.', 'Must have more than 6 characters.']
+                    }
+                }
+            }
         }
     },
     "PT": {
@@ -838,9 +986,83 @@ exports.langs = {
                 ]
             }
         },
-        categorias: {
-            icono: [],
-            fuente: []
+        login: {
+            registro: {
+                titulo: 'Create a new account',
+                subtitulo: 'Encontre os melhores desenhos e salve-os só para você',
+                form: {
+                    nombre: {
+                        label: 'Nome',
+                        validaciones: ['Este campo é obrigatório.']
+                    },
+                    correo: {
+                        label: 'Mail',
+                        validaciones: ['Este campo é obrigatório.', 'Deve ser um e-mail válido', 'Este e-mail não está disponível.', 'Verificando a disponibilidade de e-mail'.]
+                    },
+                    contrasena: {
+                        label: 'Senha',
+                        validaciones: ['Este campo é obrigatório.', 'Deve ter mais de 5 caracteres.', 'Deve ter menos de 20 caracteres.']
+                    },
+                    boton_submit: 'ENVIAR',
+                    cuenta: 'Já tem uma conta? Entrar'
+                },
+                imagenes: [
+                    {
+                        titulo: 'Veja seus logotipos ',
+                        descripcion: 'Edite-os e crie novos designs',
+                        url_imagen: '/landing/assets/img/iconos_login/eye.svg',
+                        class: 'eye-image'
+                    },
+                    {
+                        titulo: 'Salve seus logotipos favoritos ',
+                        descripcion: 'e veja seu design em cartões de visita, roupas, perfis de redes sociais e muito mais!',
+                        url_imagen: 'favorite_border',
+                        icon: true
+                    },
+                    {
+                        titulo: 'Personalize seu logotipo',
+                        descripcion: 'mudança de fontes, cores, ícones, espaçamento e muito mais',
+                        url_imagen: '/landing/assets/img/iconos_login/gear.svg',
+                        class: 'gear-image'
+                    }
+                ]
+            },
+            login: {
+                titulo: 'Entre na sua conta',
+                subtitulo: 'Veja suas criações a qualquer momento',
+                form: {
+                    correo: {
+                        label: 'Mail',
+                        validaciones: ['Este campo é obrigatório.', 'Deve ser um email válido.']
+                    },
+                    contrasena: {
+                        label: 'Senha',
+                        validaciones: ['Este campo é obrigatório.', 'Deve ter mais de 6 caracteres.', 'Deve ter menos de 20 caracteres.']
+                    },
+                    boton_submit: 'ENTER',
+                    cuenta: 'Você ainda não tem uma conta? Cadastre-se',
+                    olvido_contrasena: 'Esqueceu sua senha?'
+                }
+            },
+            olvido: {
+                titulo: 'Esqueceu a Senha',
+                subtitulo: 'Siga os passos e pronto',
+                boton_submit: 'Enviar',
+                regresar: 'Retorno',
+                form: {
+                    correo: {
+                        label: 'Mail',
+                        validaciones: ['Este campo é obrigatório.', 'Deve ser um email válido.']
+                    },
+                    codigo: {
+                        label: 'Code'
+                    },
+                    contrasena: {
+                        label: 'Nova senha',
+                        validaciones: ['Este campo é obrigatório.', 'Deve ter mais de 6 caracteres.']
+                    }
+                }
+            }
         }
     }
 };

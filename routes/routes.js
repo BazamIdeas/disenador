@@ -12,14 +12,18 @@ router.use(compression());
 
 // IDIOMAS
 
-router.get("/idioma/json", function(req, res) {   
+router.get("/idioma/cadena", function(req, res) {   
 
     let lang = req.lang;
 
     let data = {lang: lang, general: traducciones.views.langs[lang], planes: traducciones.planes.langs[lang], categorias: traducciones.categories.langs};
 
+    let cadenaTraduccion = JSON.stringify(data);
+    let cadena = `var traducciones = ${cadenaTraduccion}`;
+
     if(traducciones.views.langs[lang]){
-        res.status(200).json(data);
+        res.type('text/javascript') 
+        res.send(cadena)
     }else{
         res.status(404).json({msg: 'No hay traducciones para ese idioma'});
     }
