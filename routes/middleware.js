@@ -348,7 +348,7 @@ exports.validarLanding = function (req, res, next) {
 exports.validarCategorias = function (req, res, next) {
 
 	if (req.params.subcategoria) {
-
+		next();
 	}
 
 	if (req.params.categoria) {

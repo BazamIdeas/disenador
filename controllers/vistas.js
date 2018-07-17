@@ -18,7 +18,7 @@ exports.ViewCategorias = function (req, res) {
 	req.lang = req.lang.toUpperCase();
 	let lang = langs[req.lang];
 
-	let dataEnviar = { root: __dirname, title: nombreCategoria, categorias: req.body.categorias, categoriaSeleccionada: req.body.categoriaSeleccionada, idioma: lang.categoria_pagina, lang: req.lang };
+	let dataEnviar = { root: __dirname, title: nombreCategoria, categorias: req.body.categorias, categoriaSeleccionada: req.body.categoriaSeleccionada, idioma: lang.categoria_pagina, lang: req.lang, mostraretiquetaslogo: false };
 
 	if(req.params.subcategoria){
 		dataEnviar.mostraretiquetaslogo = true;
@@ -44,6 +44,8 @@ exports.ViewCategorias = function (req, res) {
 			}
 		});
 	}else{
+
+		dataEnviar.mostrarRelacionados = true;
 
 		logo.getLogosAprobados(idLogo, idCategoria, function (error, data) {
 

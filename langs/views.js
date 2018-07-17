@@ -997,7 +997,7 @@ exports.langs = {
                     },
                     correo: {
                         label: 'Mail',
-                        validaciones: ['Este campo é obrigatório.', 'Deve ser um e-mail válido', 'Este e-mail não está disponível.', 'Verificando a disponibilidade de e-mail'.]
+                        validaciones: ['Este campo é obrigatório.', 'Deve ser um e-mail válido', 'Este e-mail não está disponível.', 'Verificando a disponibilidade de e-mail']
                     },
                     contrasena: {
                         label: 'Senha',
