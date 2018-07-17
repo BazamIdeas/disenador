@@ -7,7 +7,7 @@ var categoria = {};
 //obtenemos todos los clientes
 categoria.getCategorias = function(tipo,callback)
 {
-	var q = "SELECT idCategoria,nombreCategoria FROM categorias WHERE NOT(nombreCategoria = ?) AND tipo = ? ORDER BY idCategoria";
+	var q = "SELECT idCategoria,nombreCategoria FROM categorias WHERE NOT(nombreCategoria = ?) AND tipo = ? AND padre IS NULL ORDER BY idCategoria";
 
 	DB.getConnection(function(err, connection)
 	{
@@ -19,6 +19,27 @@ categoria.getCategorias = function(tipo,callback)
 				
 			connection.release();
 		});	
+	});
+};
+
+categoria.getCategoriasHijas = function (conPadre, callback) {
+	
+	
+	if (conPadre) {
+		var q = "SELECT A.idCategoria AS idCategoria, A.nombreCategoria, B.idCategoria AS idPadre, B.nombreCategoria AS nombrePadre FROM categorias A, categorias B WHERE A.idCategoria <> B.idCategoria NOT(A.nombreCategoria = 'Sin Categoria') AND A.tipo = 'ICONO' AND A.padre NOT NULL AND A.padre = B.idCategoria ORDER BY idCategoria"
+	} else {
+		var q = "SELECT idCategoria , nombreCategoria FROM categorias WHERE NOT(nombreCategoria = 'Sin Categoria') AND padre IS NOT NULL AND tipo = 'ICONO'  ORDER BY idCategoria";
+	}
+
+	DB.getConnection(function (err, connection) {
+		connection.query(q, function (err, rows) {
+
+			if (err) throw err;
+
+			else callback(null, rows);
+
+			connection.release();
+		});
 	});
 };
 

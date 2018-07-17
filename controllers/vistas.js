@@ -7,11 +7,6 @@ const Etiqueta = require('../modelos/etiquetasModelo.js');
 const svg2png = require("svg2png");
 const langs = require("../langs/views.js").langs;
 const planesLang = require("../langs/planes.js").langs;
-var pais = require("../modelos/paisesModelo.js");
-var plan = require("../modelos/planesModelo.js");
-var precio = require("../modelos/preciosModelo.js");
-var caracteristica = require("../modelos/caracteristicasModelo.js");
-var services = require("../services");
 var async = require("async");
 
 exports.ViewCategorias = function (req, res) {
@@ -23,10 +18,13 @@ exports.ViewCategorias = function (req, res) {
 	req.lang = req.lang.toUpperCase();
 	let lang = langs[req.lang];
 
-	let dataEnviar = { root: __dirname, title: nombreCategoria, categorias: req.body.categorias, categoriaSeleccionada: req.body.categoriaSeleccionada, idioma: lang.categoria_pagina, lang: req.lang };
+	let dataEnviar = { root: __dirname, title: nombreCategoria, categorias: req.body.categorias, categoriaSeleccionada: req.body.categoriaSeleccionada, idioma: lang.categoria_pagina, lang: req.lang, mostraretiquetaslogo: false };
 
-	if(req.params.etiqueta){
-		logo.getLogosAprobadosByTag([req.params.etiqueta], function (error, data) {
+	if(req.params.subcategoria){
+		dataEnviar.mostraretiquetaslogo = true;
+		
+		logo.getLogosAprobados(idLogo, idCategoria, function (error, data) {
+
 			if (typeof data !== "undefined" && data.length > 0) {
 	
 				Etiqueta.ObtenerPorLogo(data, req.lang, (err, logos) => {
@@ -46,6 +44,8 @@ exports.ViewCategorias = function (req, res) {
 			}
 		});
 	}else{
+
+		dataEnviar.mostrarRelacionados = true;
 
 		logo.getLogosAprobados(idLogo, idCategoria, function (error, data) {
 
@@ -102,8 +102,6 @@ exports.ViewCategorias = function (req, res) {
 										logo.imgSrc = nombre.replace("svg", "jpg");
 
 										//console.log(logo)
-
-										// __dirname + "/../" + path + 
 
 										atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
 

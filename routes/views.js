@@ -8,7 +8,9 @@ router.use(compression());
 
 // LANDING
 
-router.use('/logos/:categoria/:etiqueta?', middleware.validarCategorias, controllers.vistas.ViewCategorias);
+router.use('/logos-de-:categoria', middleware.validarCategorias, controllers.vistas.ViewCategorias);
+
+router.use('/logos/:subcategoria', middleware.validarCategorias, controllers.vistas.ViewCategorias);
 
 router.use('/logos-destacados', middleware.validarCategorias,  controllers.vistas.ViewCategorias);
 
