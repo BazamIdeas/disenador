@@ -10,6 +10,8 @@ router.use(compression());
 
 router.use('/logos-de-:categoria', middleware.validarCategorias, controllers.vistas.ViewCategorias);
 
+router.use('/logos/:subcategoria', middleware.validarCategorias, controllers.vistas.ViewCategorias);
+
 router.use('/logos-destacados', middleware.validarCategorias,  controllers.vistas.ViewCategorias);
 
 router.use('/terminos-y-condiciones', function(req, res) {

@@ -27,6 +27,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="landing/assets/img/favicon.ico" />
 
     <!--Librerias core de angualarJS -->
+    <script src="/app/idioma/cadena"></script>
     <script src="/jquery/jquery.min.js"></script>
     <script src="/angular/angular.min.js"></script>
     <script src="/angular-messages/angular-messages.min.js"></script>
@@ -77,7 +78,6 @@
     <script src="/landing/built/app.js"></script>
 
     <script src="assets/js/materialize.min.js"></script>
-
 </head>
 
 <body>
@@ -119,6 +119,20 @@
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="selector-de-idiomas--flags">
+                    <md-select md-no-asterisk ng-model="h.idiomaActivo" ng-change="h.cambiarIdioma(h.idiomaActivo)"
+                        >
+                        {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
+                        <md-option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>
+                            <img src="/landing/assets/img/flags/{{idioma.valor}}.png">
+                        </md-option>
+                        {% else %}
+                        <md-option ng-value="'{{idioma.valor}}'" ng-selected="false">
+                            <img src="/landing/assets/img/flags/{{idioma.valor}}.png">
+                        </md-option>
+                        {% endif %} {% endfor %}
+                    </md-select>
                 </div>
             </div>
         </header>
@@ -175,12 +189,12 @@
                                     md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)"
                                     aria-invalid="false">
                                     <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText, ctrl.etiquetas)"
-                                        md-item-text="item.traduccion.valor" placeholder="{{idioma.secciones.seccion_uno.formulario.etiquetas.placeholder }}">
-                                        <span md-highlight-text="ctrl.searchText">${item.traduccion.valor}$</span>
+                                        md-item-text="item.traducciones[0].valor" placeholder="{{idioma.secciones.seccion_uno.formulario.etiquetas.placeholder }}">
+                                        <span md-highlight-text="ctrl.searchText">${item.traducciones[0].valor}$</span>
                                     </md-autocomplete>
                                     <md-chip-template>
                                         <span>
-                                            <strong>${$chip.traduccion.valor}$</strong>
+                                            <strong>${$chip.traducciones[0].valor}$</strong>
                                         </span>
                                     </md-chip-template>
                                 </md-chips>
@@ -330,7 +344,7 @@
                 <span>.</span>
             </div>
             <div class="contenedor-planes">
-                <div class="plan">
+                <!-- <div class="plan">
                     <div>
                         <div class="plan-header">
                             <div class="plan-nombre">PLAN GRATUITO</div>
@@ -346,18 +360,22 @@
                         </div>
                         <div class="text-center">
                             <md-button ng-disabled="ctrl.peticion" ng-click="ctrl.scrollTop()" class="md-raised md-primary boton-plan">
-                                SELECCIONAR
+                                {{idioma.secciones.seccion_cuatro.boton_plan}}
                             </md-button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 {% for elemento in idioma.secciones.seccion_cuatro.planes %}
                 <div class="plan">
                     <div>
                         <div class="plan-header">
                             <div class="plan-nombre">{{elemento.plan}}</div>
+                            {% if elemento.idPlan == 0 %}
+                            <div class="plan-precio">{{elemento.precios[0].precio}}</div>
+                            {% else %}
                             <div class="plan-precio">{{elemento.precios[0].precio}} USD</div>
+                            {% endif %}
                         </div>
                         <div class="plan-body">
                             <div>
@@ -423,12 +441,13 @@
                     {% endfor %}
                 </div>
                 <div class="layout-row layout-align-space-between-center ">
-
                     <div class="selector-de-idiomas">
-                        <select ng-model="ctrl.idiomaActivo" ng-change="ctrl.cambiarIdioma()">
-                            {% for idioma in idioma.footer.idiomas %}
-                                <option ng-value="'{{idioma.valor}}'" selected="true">{{idioma.label}}</option>
-                            {% endfor %}
+                        <select ng-model="ctrl.idiomaActivo" ng-change="ctrl.cambiarIdioma(ctrl.idiomaActivo)">
+                            {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
+                            <option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>{{idioma.label}}</option>
+                            {% else %}
+                            <option ng-value="'{{idioma.valor}}'" ng-selected="false">{{idioma.label}}</option>
+                            {% endif %} {% endfor %}
                         </select>
                     </div>
                     <div class="iconos-sociales">

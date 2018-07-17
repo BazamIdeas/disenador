@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-	.controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", "etiquetasService", "idiomasService", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64, etiquetasService, idiomasService) {
+	.controller('elementosController', ['$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", "etiquetasService", "idiomasService", function ($scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64, etiquetasService, idiomasService) {
 
 		var bz = this;
 

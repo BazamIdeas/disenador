@@ -1,9 +1,8 @@
 <div ng-class="{'active':estado}" class="pop-papeleria-crear">
     <div class="categorias-papeleria" ng-show="papelerias">
-        <span class="tab-papeleria" ng-click="$parent.papeleriaActiva = papeleria.tipo" ng-repeat="papeleria in papelerias"
-            ng-class="{'seleccionada': papeleriaActiva == papeleria.tipo}">
+        <span class="tab-papeleria" ng-click="$parent.papeleriaActiva = papeleria.tipo" ng-repeat="papeleria in papelerias" ng-class="{'seleccionada': papeleriaActiva == papeleria.tipo}">
             <md-tooltip md-direction="right">{{papeleria.label}}</md-tooltip>
-            <img ng-src="/assets/images/iconos-descarga/{{papeleria.tipo}}.png"> 
+            <img ng-src="/assets/images/iconos-descarga/{{papeleria.tipo}}.png">
         </span>
     </div>
     <div class="crear-directiva" ng-show="papelerias">

@@ -266,7 +266,9 @@ angular.module("disenador-de-logos")
 
 					angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 
-						if(indexSalto == tag.traduccion.valor){
+						console.log(tag)
+
+						if(indexSalto == tag.traducciones[0].valor){
 							remover_tag = false;
 						}
 
@@ -281,10 +283,10 @@ angular.module("disenador-de-logos")
 
 				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 
-					var tag_existe = tags_saltos[tag.traduccion.valor];
+					var tag_existe = tags_saltos[tag.traducciones[0].valor];
 
 					if(tag_existe === undefined) {
-						tags_saltos[tag.traduccion.valor] = 0;
+						tags_saltos[tag.traducciones[0].valor] = 0;
 					}
 
 				});

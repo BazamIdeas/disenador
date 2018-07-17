@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-	.controller("etiquetasController", ["$state", "$scope", "notificacionService", "$base64", "etiquetasService", "categoriasService", "idiomasService", "$q", function ($state, $scope, notificacionService, $base64, etiquetasService, categoriasService, idiomasService, $q) {
+	.controller("etiquetasController", ["$scope", "notificacionService", "$base64", "etiquetasService", "categoriasService", "idiomasService", "$q", function ($scope, notificacionService, $base64, etiquetasService, categoriasService, idiomasService, $q) {
 
 		var bz = this;
 

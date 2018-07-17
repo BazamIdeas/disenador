@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller("clienteController", ["$state", "$mdSidenav", "clientesServiceAdmin", "$scope", "pedidosService", "SweetAlert", "$window", "notificacionService", "$base64", function ($state, $mdSidenav, clientesServiceAdmin, $scope, pedidosService, SweetAlert, $window, notificacionService, $base64) {
+    .controller("clienteController", ["clientesServiceAdmin", "$scope", "pedidosService", "notificacionService", "$base64", function (clientesServiceAdmin, $scope, pedidosService, notificacionService, $base64) {
         var bz = this;
         bz.filtrosActivos;
         bz.peticion = true;

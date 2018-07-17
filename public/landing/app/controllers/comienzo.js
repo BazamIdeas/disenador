@@ -1,13 +1,15 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "logosService", "navegarFactory", "clientesService", "arrayToJsonMetasFactory", "guardarLogoFactory", "categoriasService", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "$interval", "idiomaService", function ($base64, estaticosLandingValue, logosService, navegarFactory, clientesService, arrayToJsonMetasFactory, guardarLogoFactory, categoriasService, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, $interval, idiomaService) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "navegarFactory", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "idiomaService", "cookie", function ($base64, estaticosLandingValue, navegarFactory, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, idiomaService, cookie) {
 
 		var bz = this;
 
 		bz.sce = $sce;
 
 		/* DATOS */
-		bz.idiomaActivo = 'es';
+
+		bz.idiomaActivo = cookie.getCookie('logoLang');
+
 		bz.navegar = navegarFactory;
 		bz.estaticos = estaticosLandingValue;
 		bz.preAct = 1;
@@ -28,10 +30,18 @@ angular.module("landing")
 
 		bz.logosPredisenados = [];
 
-		bz.cambiarIdioma = function(idioma){
-			idiomaService.idioma(bz.idiomaActivo).then(function(res) {
-				console.log('idioma cambiado: ', res);
-			})
+		bz.cambiarIdioma = function (idioma) {
+			idiomaCookie = cookie.getCookie('logoLang');
+			
+			if (bz.idiomaActivo != idiomaCookie) {
+				document.cookie = "logoLang=" + idioma;
+				$('body').animate({
+					scrollTop: 0
+				}, 1000);
+				location.reload();
+			} else {
+				return;
+			};
 		};
 
 		bz.scrollTop = function () {
@@ -89,17 +99,21 @@ angular.module("landing")
 
 				});
 
-				angular.forEach(datos.etiquetasSeleccionadas, function (valor) {
-					datos.etiquetasParaBusqueda.push(valor.traduccion.valor)
-				})
+				var tags_saltos = {};
 
-				bz.datosIconos = {
-					tags: datos.etiquetasParaBusqueda,
-					categoria: datos.idCategoria,
-					preferencias: datos.preferencias,
-					tipo: "ICONO",
-					limit: 12
-				};
+				angular.forEach(datos.etiquetasSeleccionadas, function (tag) {
+
+					var tag_existe = tags_saltos[tag.traducciones[0].valor];
+
+					if (tag_existe === undefined) {
+						tags_saltos[tag.traducciones[0].valor] = 0;
+					}
+
+				});
+
+				angular.forEach(datos.etiquetasSeleccionadas, function (valor) {
+					datos.etiquetasParaBusqueda.push(valor.traducciones[0].valor)
+				})
 
 				bz.datosFuentes = {
 					categoria: datos.idFuente,
@@ -108,7 +122,7 @@ angular.module("landing")
 					limit: 12
 				};
 
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial, bz.datosIconos) : elementosService.listarIconosSegunTags(bz.datosIconos);
+				var promesaIconos = inicial ? elementosService.listarIniciales(inicial, bz.datosIconos) : elementosService.listarIconosSegunTags({ tags: tags_saltos });
 
 				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datosFuentes);
 
@@ -118,7 +132,7 @@ angular.module("landing")
 				])
 					.then(function (res) {
 
-						datos.iconos = res[0];
+						datos.iconos = res[0].iconos;
 						datos.fuentes = res[1];
 
 						LS.definir('comenzar', datos);

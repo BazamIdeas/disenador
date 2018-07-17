@@ -12,7 +12,7 @@
           </md-button>
         </div>
         <div ng-show="moneda.listaM">
-          <div layout class="elemento">
+          <div layout class="elemento" ng-hide="moneda.monedas.length == 0">
             <md-input-container flex style="margin-bottom: 0;height: 35px;">
               <input type="text" ng-model="moneda.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
             </md-input-container>

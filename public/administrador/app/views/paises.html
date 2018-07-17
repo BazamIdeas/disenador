@@ -12,13 +12,13 @@
                     </md-button>
                 </div>
                 <div ng-show="paises.listaP">
-                    <div layout class="elemento">
+                    <div layout class="elemento" ng-show="paises.paises.length">
                         <md-input-container flex style="margin-bottom: 0;height: 35px;">
                             <input type="text" ng-model="paises.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
                         </md-input-container>
                     </div>
 
-                    <div class="w3-responsive content-scroll">
+                    <div class="w3-responsive content-scroll" ng-show="paises.paises.length">
                         <table class="w3-table w3-bordered">
                             <tr>
                                 <th>Nombre:</th>

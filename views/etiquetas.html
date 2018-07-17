@@ -51,12 +51,10 @@
             {{idioma.secciones.seccion_dos.descripcion}} {{title}}
         </p>
     </div>
-
     <div class="logos-predisenados">
         {% for elemento in logosPredisenados %}
         <div class='--item'>
-            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}"
-                data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
+            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}" data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
                 <span>
                     <img src="/tmp/shared/{{elemento.imgSrc}}" alt="{{elemento.atributos[1].valor}}">
                 </span>
@@ -66,19 +64,11 @@
                 </span>
                 {% endif %} {% endfor %}
             </a>
-            {% if mostraretiquetaslogo %}
             <div class="tags">
                 {% for tag in elemento.etiquetas %} {% for traduccion in tag.traducciones %}
                 <a class="buscarEditor" data-tag="{{tag | dump }}">{{traduccion.valor}}</a>
                 {% endfor %} {% endfor %}
             </div>
-            {% endif %}
-
-            {% if mostraretiquetaslogo == false %}
-            <div class="tags">
-                <a href="/logos/prueba">CATEGORIA</a>
-            </div>
-            {% endif %}
         </div>
         {% endfor %}
     </div>
@@ -91,8 +81,7 @@
     </div>
     {% endif %} {% endif %}
 
-    <!-- PUEDE QUE TAMBIEN TE INTERESE -->
-    {% if mostrarRelacionados %}
+
     <div class="container-fluid" style="    padding: 3%;width: 100%;">
         <h3>{{idioma.secciones.seccion_tres.titulo}}</h3>
         <div class="lista-categorias">
@@ -101,7 +90,6 @@
             {% endif %} {% endeach %}
         </div>
     </div>
-    {% endif %}
 
     <div class="container-fluid" style=" padding: 1% 6% 7% 6%; width: 100%;">
         <h3>{{idioma.secciones.seccion_cuatro.titulo}} {{title}}</h3>
@@ -110,40 +98,42 @@
         <div class="tres-pasos" cantidad-videos="3">
             <div class="animacion">
                 <ul>
-                    {% for paso in idioma.secciones.seccion_cuatro.pasos %} {% if loop.first %}
-                    <li class="step_guide_image active" data-index="{{loop.index}}" data-time="24000">
-                        <img src="{{paso.imagen_url}}" data-index="{{loop.index}}" alt="mockup_uno">
-                        <video id="video{{loop.index}}" alt="paso {{loop.index}}" type="video/mp4" muted="muted" loop="loop" src="{{paso.video_url}}"
-                            style="position: absolute; left: 0px; top: 0px;">
-                        </video>
-                    </li>
-                    {% else %}
-                    <li class="step_guide_image" data-index="{{loop.index}}" data-time="24000">
-                        <img src="{{paso.imagen_url}}" data-index="{{loop.index}}" alt="mockup_uno">
-                        <video id="video{{loop.index}}" alt="paso {{loop.index}}" type="video/mp4" muted="muted" loop="loop" src="{{paso.video_url}}"
-                            style="position: absolute; left: 0px; top: 0px;">
-                        </video>
-                    </li>
-                    {% endif %} {% endfor %}
+                    {% for paso in idioma.secciones.seccion_cuatro.pasos %}
+                        {% if loop.first %}
+                            <li class="step_guide_image active" data-index="{{loop.index}}" data-time="24000">
+                                <img src="{{paso.imagen_url}}" data-index="{{loop.index}}" alt="mockup_uno">
+                                <video id="video{{loop.index}}" alt="paso {{loop.index}}" type="video/mp4" muted="muted" loop="loop" src="{{paso.video_url}}" style="position: absolute; left: 0px; top: 0px;">
+                                </video>
+                            </li>
+                        {% else %}
+                            <li class="step_guide_image" data-index="{{loop.index}}" data-time="24000">
+                                <img src="{{paso.imagen_url}}" data-index="{{loop.index}}" alt="mockup_uno">
+                                <video id="video{{loop.index}}" alt="paso {{loop.index}}" type="video/mp4" muted="muted" loop="loop" src="{{paso.video_url}}" style="position: absolute; left: 0px; top: 0px;">
+                                </video>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
             <div class="pasos">
-                {% for paso in idioma.secciones.seccion_cuatro.pasos %} {% if loop.first %}
-                <div class="step_ctn active">
-                    <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
-                    <p>{{paso.descripcion}}</p>
-                </div>
-                {% elif loop.last %}
-                <div class="step_ctn clear_margin_btm">
-                    <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
-                    <p>{{paso.descripcion}}</p>
-                </div>
-                {% else %}
-                <div class="step_ctn">
-                    <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
-                    <p>{{paso.descripcion}}</p>
-                </div>
-                {% endif %} {% endfor %}
+                {% for paso in idioma.secciones.seccion_cuatro.pasos %} 
+                    {% if loop.first %}
+                    <div class="step_ctn active">
+                        <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
+                        <p>{{paso.descripcion}}</p>
+                    </div>
+                    {% elif loop.last %}
+                    <div class="step_ctn clear_margin_btm">
+                        <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
+                        <p>{{paso.descripcion}}</p>
+                    </div>
+                    {% else %}
+                    <div class="step_ctn">
+                        <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
+                        <p>{{paso.descripcion}}</p>
+                    </div>
+                    {% endif %} 
+                {% endfor %}
                 <div class="step_line">
                     <span class="active">1</span>
                     <span class="">2</span>
@@ -160,6 +150,15 @@
             <p>{{idioma.secciones.seccion_cinco.descripcion}}</p>
         </div>
         <a class="--link" href="/creador-de-logos">{{idioma.secciones.seccion_cinco.boton}}</a>
+    </div>
+    
+    <div class="container-fluid" style="    padding: 3%;width: 100%;">
+        <h3>{{idioma.secciones.seccion_seis.titulo}}</h3>
+        <div class="lista-categorias">
+            {% asyncEach categoria in categorias %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
+            <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
+            {% endif %} {% endeach %}
+        </div>
     </div>
 
     {% include "foot.html" %}
