@@ -86,7 +86,7 @@ logo.getLogosAprobados = function(id, idCategoria, callback)
 
 logo.getLogosAprobadosCatPadre = function (id, idCategoria, callback) {
 
-	var q = 'SELECT logos.* FROM logos  INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.padre = ?';
+	var q = 'SELECT logos.*, categorias.idCategoria, categorias.nombreCategoria  FROM logos  INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.padre = ? ORDER BY logos.idLogo';
 
 
 	DB.getConnection(function (err, connection) {

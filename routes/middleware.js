@@ -347,78 +347,89 @@ exports.validarLanding = function (req, res, next) {
 
 exports.validarCategorias = function (req, res, next) {
 
-	if (req.params.subcategoria) {
-		next();
-	}
+	/**
+	 * Si es una categoria principal
+	 * Buscamos todas las categorias y sus sub-categorias
+	 */
 
-	if (req.params.categoria) {
-		var tipo = ["Iniciales", 'ICONO'];
-		try {
-			categoria.getCategorias(tipo, function (error, response) {
-				procesarRespuesta(response);
-			});
-		} catch (e) {
-			res.status(400).json({ "Mensaje": "Categorias no encontradas" });
-		}
+	const categoriasService = services.categorias;
 
-	}
+	console.log('Parametro categoria:', req.params.categoria);
 
-	function procesarRespuesta(response) {
-		if (typeof response !== "undefined" && response.length > 0) {
+	var tipo = ["Iniciales", 'ICONO'];
 
-			for (let i = 0; i < response.length; i++) {
+	try {
+		categoria.getCategorias(tipo, function (error, response) {
+			if (typeof response !== "undefined" && response.length > 0) {
 
-				let categoria = response[i].nombreCategoria;
+				/** Formateamos las categorias */
+				req.body.categoriasPadre = categoriasService.formatearCategorias(response);
 
-				while (categoria.indexOf(' ') != -1) {
-					categoria = categoria.replace(' ', '-');
-				}
+				/** Buscamos la categoria solicitada */
 
-				var specialChars = "!@#$^&%*()+=[]\/{}|:<>?,.";
-
-				// Los eliminamos todos
-				for (let i = 0; i < specialChars.length; i++) {
-					categoria = categoria.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-				}
-
-				categoria = categoria.replace(/á/gi, "a");
-				categoria = categoria.replace(/é/gi, "e");
-				categoria = categoria.replace(/í/gi, "i");
-				categoria = categoria.replace(/ó/gi, "o");
-				categoria = categoria.replace(/ú/gi, "u");
-				categoria = categoria.replace(/ñ/gi, "n");
-
-				categoria = categoria.toLowerCase();
-
-				response[i].categoriaFormateada = categoria;
-
-			}
-
-			req.body.categorias = response;
-
-			if (req.originalUrl != '/logos-destacados') {
-				for (let i = 0; i < req.body.categorias.length; i++) {
-					if (req.params.categoria == req.body.categorias[i].categoriaFormateada) {
-						req.body.categoriaSeleccionada = req.body.categorias[i];
-						return next();
-					} else {
-						if (req.body.categorias[i].categoriaFormateada == 'sin-categoria') {
-							req.body.categoriaSeleccionada = req.body.categorias[i];
-							return res.redirect(301, '/logos-destacados');
-						}
+				req.body.categoriasPadre.forEach(element => {
+					if (element.categoriaFormateada == req.params.categoria) {
+						req.body.categoriaSeleccionada = element;
 					}
-				}
-			} else {
-				for (let i = 0; i < req.body.categorias.length; i++) {
-					if (req.body.categorias[i].categoriaFormateada == 'sin-categoria') {
-						req.body.categoriaSeleccionada = req.body.categorias[i];
+				});
+
+				/** Obtenemos las categorias hijas */
+
+				categoria.getCategoriasHijas(req.body.categoriaSeleccionada.idCategoria, function (error, data) {
+
+					if (typeof data !== "undefined" && data.length > 0) {
+						
+						req.body.categorias = categoriasService.formatearCategorias(data);
 						next();
+						
 					}
-				}
-			}
+					else {
+						console.log("No hay categorias en la base de datos");
 
-		}
+						
+						
+					}
+
+				});
+			}
+		});
+
+	} catch (e) {
+		res.status(400).json({ "Mensaje": "Categorias no encontradas" });
 	}
+}
+
+exports.validarSubCategorias = function (req, res, next) {
+
+	/**
+	 * Si es una sub-categoria
+	 * Buscamos todas las sub catgorias
+	 */
+
+	const categoriasService = services.categorias;
+
+	console.log('Parametro sub categoria:', req.params.subcategoria);
+
+	try {
+		categoria.getCategoriasHijas(false, function (error, response) {
+			if (typeof response !== "undefined" && response.length > 0) {
+
+				req.body.categorias = categoriasService.formatearCategorias(response);
+
+				req.body.categorias.forEach(element => {
+					if (element.categoriaFormateada == req.params.subcategoria) {
+						req.body.categoriaSeleccionada = element;
+
+						next();
+
+					}
+				});
+			}
+		});
+	} catch (e) {
+		res.status(400).json({ "Mensaje": "Categorias no encontradas" });
+	}
+
 }
 
 exports.langCookie = (req, res, next) => {

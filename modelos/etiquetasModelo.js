@@ -738,11 +738,12 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
                         let promisesEt = [];
 
                         doc.etiquetas.forEach(el => {
+                            
                             let pr = etiquetas.aggregate([{
                                 $match: {
                                     "_id": objectId(el)
                                 }
-                            }, {
+                            } , {
                                 $unwind: '$traducciones'
                             }, {
                                 $lookup: {
