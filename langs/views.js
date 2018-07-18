@@ -1,11 +1,38 @@
-exports.langs = {
+module.exports = {
     "ES": {
-        creador_de_logos: {
-            SEO: {
-                title: '',
-                keywords: '',
-                description: '',
-                lang: '',
+        app_editor: {
+            secciones: {
+                inicio: {
+                    formulario: {
+                        nombre: {
+                            label: 'Nombre',
+                            value: 'Mi logo',
+                            placeholder: '',
+                            validacion: []
+                        },
+                        categorias: {
+                            label: 'Categorías',
+                            placeholder: 'Categorías',
+                            validacion: []
+                        },
+                        fuentes: {
+                            label: "Estilo de tipografía",
+                            placeholder: "",
+                            validacion: ["Debes elegir un estilo de Tipografía."]
+                        },
+                        etiquetas: {
+                            label: '¿Que buscas?',
+                            placeholder: 'Ejemplo: Café',
+                            validacion: []
+                        },
+                        color: {
+                            label: 'Seleccionar colores',
+                            placeholder: '',
+                            validacion: ['Debes elegir al menos un color.']
+                        },
+                        submit: ['CARGAR MÁS','BUSCAR']
+                    }  
+                }
             }
         },
         landing: {
@@ -140,20 +167,6 @@ exports.langs = {
                         nombre: 'Blog'
                     }
                 ],
-                idiomas: [
-                    {
-                        label: 'Español',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'Ingles',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Portugés',
-                        valor: 'PT'
-                    }
-                ],
                 redes: [
                     {
                         nombre: 'Instagram',
@@ -244,20 +257,6 @@ exports.langs = {
                     {
                         url: '',
                         nombre: 'Blog'
-                    }
-                ],
-                idiomas: [
-                    {
-                        label: 'Español',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'Ingles',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Portugés',
-                        valor: 'PT'
                     }
                 ],
                 redes: [
@@ -359,7 +358,44 @@ exports.langs = {
         }
     },
     "EN": {
-        creadorDeLogos: {
+        app_editor: {
+            secciones: {
+                inicio: {
+                    combinaciones: {
+                        guardar : "SAVE",
+                        editar: "EDIT"
+                    },
+                    formulario: {
+                        nombre: {
+                            label: 'Name',
+                            value: 'My logo',
+                            placeholder: '',
+                            validacion: []
+                        },
+                        categorias: {
+                            label: 'Categories',
+                            placeholder: 'Categories',
+                            validacion: []
+                        },
+                        fuentes: {
+                            label: "Estilo de tipografía",
+                            placeholder: "",
+                            validacion: ["Debes elegir un estilo de Tipografía."]
+                        },
+                        etiquetas: {
+                            label: 'What are you looking for?',
+                            placeholder: 'Example: Coffee',
+                            validacion: []
+                        },
+                        color: {
+                            label: 'Choose Colors',
+                            placeholder: '',
+                            validacion: ['You must choose a color.']
+                        },
+                        submit: ['LOAD MORE','SEARCH']
+                    }  
+                }
+            }
         },
         landing: {
             SEO: {
@@ -387,7 +423,7 @@ exports.langs = {
                             label: 'Activity',
                         },
                         etiquetas: {
-                            label: '¿What are you looking for?',
+                            label: 'What are you looking for?',
                             placeholder: 'Example: Coffee'
                         },
                         color: {
@@ -494,20 +530,6 @@ exports.langs = {
                         nombre: 'Blog'
                     }
                 ],
-                idiomas: [
-                    {
-                        label: 'Spanish',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'English',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Portuguese',
-                        valor: 'PT'
-                    }
-                ],
                 redes: [
                     {
                         nombre: 'Instagram',
@@ -598,20 +620,6 @@ exports.langs = {
                     {
                         url: '',
                         nombre: 'Blog'
-                    }
-                ],
-                idiomas: [
-                    {
-                        label: 'Spanish',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'English',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Portuguese',
-                        valor: 'PT'
                     }
                 ],
                 redes: [
@@ -713,7 +721,40 @@ exports.langs = {
         }
     },
     "PT": {
-        creadorDeLogos: {
+        app_editor: {
+            secciones: {
+                inicio: {
+                    formulario: {
+                        nombre: {
+                            label: 'Nombre',
+                            value: 'Mi logo',
+                            placeholder: '',
+                            validacion: []
+                        },
+                        categorias: {
+                            label: 'Categorías',
+                            placeholder: 'Categorías',
+                            validacion: []
+                        },
+                        fuentes: {
+                            label: "Estilo de tipografía",
+                            placeholder: "",
+                            validacion: ["Debes elegir un estilo de Tipografía."]
+                        },
+                        etiquetas: {
+                            label: '¿Que buscas?',
+                            placeholder: 'Ejemplo: Café',
+                            validacion: []
+                        },
+                        color: {
+                            label: 'Seleccionar colores',
+                            placeholder: '',
+                            validacion: ['Debes elegir al menos un color.']
+                        },
+                        submit: ['CARGAR MÁS','BUSCAR']
+                    }  
+                }
+            }
         },
         landing: {
             SEO: {
@@ -847,20 +888,6 @@ exports.langs = {
                         nombre: 'Blog'
                     }
                 ],
-                idiomas: [
-                    {
-                        label: 'Espanhol',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'Inglês',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Português',
-                        valor: 'PT'
-                    }
-                ],
                 redes: [
                     {
                         nombre: 'Instagram',
@@ -951,20 +978,6 @@ exports.langs = {
                     {
                         url: '',
                         nombre: 'Blog'
-                    }
-                ],
-                idiomas: [
-                    {
-                        label: 'Espanhol',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'Inglês',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Português',
-                        valor: 'PT'
                     }
                 ],
                 redes: [

@@ -2253,3 +2253,27 @@ angular.module("disenador-de-logos")
 		}
 
 	}])
+
+	.value("langValue", traducciones)
+
+	.factory("langFactory", ["langValue", "$state", function(langValue, $state){
+
+		return {
+
+			langsEstadoActual: function (){
+			
+				var langsPorEstados = langValue.general.app_editor.secciones;
+				var nombreEstado = $state.current.name;
+
+				var langsEstadoActual = langsPorEstados[nombreEstado];
+
+				if(!langsEstadoActual){
+					return false;
+				}
+
+				return langsEstadoActual;
+			}
+
+		}
+
+	}])

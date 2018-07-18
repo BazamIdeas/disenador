@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 /* header */
 
-	.controller("headerController", ["clientesService", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", "$location", "disenadorService", "$mdToast", "$base64", function (clientesService,  $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory, $location, disenadorService, $mdToast, $base64) {
+	.controller("headerController", ["clientesService", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", "$location", "disenadorService", "$mdToast", "$base64",  function (clientesService,  $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory, $location, disenadorService, $mdToast, $base64 ) {
 
 		var bz = this;
 
