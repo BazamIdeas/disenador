@@ -3,7 +3,6 @@ const objectId = require('./mongo.js').objectId;
 
 const NounProject = require("the-noun-project")
 const translate = require('google-translate-api');
-const fetch = require('node-fetch');
 var base64 = require("base-64");
 
 
