@@ -32,6 +32,12 @@ exports.guardar = function (req, res) {
 			break;
 	}
 
+	if (req.disenador && req.body.estado != "Por Aprobar"){
+			res.status(500).json({
+				"msg": "Error de validacion del tipo de usuario"
+			});
+	} 
+
 	var logoData = {
 		idLogo: null,
 		estado: estado,
@@ -64,7 +70,8 @@ exports.guardar = function (req, res) {
 
 			}
 
-			if (req.disenador) {
+			if (req.disenador || true) {
+
 
 				let etiquetasNuevas = req.body.tags.nuevas;
 

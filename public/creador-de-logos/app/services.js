@@ -1446,7 +1446,7 @@ angular.module("disenador-de-logos")
 					if(tag._id){
 						datos.tags.existentes.push(tag._id);
 					} else {
-						datos.tags.nuevas.push(tag.traduccion.valor);
+						datos.tags.nuevas.push(tag.traducciones[0].valor);
 					}					
 					
 				});

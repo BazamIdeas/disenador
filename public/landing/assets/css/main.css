@@ -1406,13 +1406,15 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
 
 .no-landing .lista-categorias {
   text-align: center; }
+  .no-landing .lista-categorias > :last-child::after {
+    display: none; }
   .no-landing .lista-categorias a {
     padding: 8px;
     display: inline-block;
     text-align: center; }
-    .no-landing .lista-categorias a::before {
+    .no-landing .lista-categorias a::after {
       content: '|';
-      margin-right: 18px;
+      margin-left: 18px;
       color: silver; }
 
 .no-landing .pre-footer {
