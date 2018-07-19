@@ -1591,6 +1591,8 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
       padding: 5%;
       display: block;
       cursor: pointer; }
+      .logos-predisenados .--item > a > :first-child {
+        min-height: 200px; }
       .logos-predisenados .--item > a > span {
         max-width: 90%;
         display: block;

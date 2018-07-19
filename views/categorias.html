@@ -71,7 +71,7 @@
             <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}"
                 data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
                 <span>
-                    <img src="/tmp/shared/{{elemento.imgSrc}}" alt="{{elemento.atributos[1].valor}}">
+                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{elemento.atributos[1].valor}}">
                 </span>
                 {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
                 <span class="descripcion">

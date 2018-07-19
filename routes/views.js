@@ -8,9 +8,9 @@ router.use(compression());
 
 // VISTAS DEL SERVIDOR
 
-router.use('/logos-de-:categoria', middleware.validarCategorias,controllers.vistas.ViewCategorias);
+router.get('/logos-de-:categoria', middleware.validarCategorias,controllers.vistas.ViewCategorias);
 
-router.use('/logos/:subcategoria', middleware.validarSubCategorias, controllers.vistas.ViewSubCategorias);
+router.get('/logos/:subcategoria', middleware.validarSubCategorias, controllers.vistas.ViewSubCategorias);
 
 router.get('/terminos-y-condiciones', function(req, res) {
     res.render('terminos.html');

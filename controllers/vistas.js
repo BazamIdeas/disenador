@@ -4,6 +4,10 @@ const langs = require("../langs/views.js").langs;
 const planesLang = require("../langs/planes.js").langs;
 var services = require('../services');
 
+var atributo = require("../modelos/atributosModelo.js");
+var base64 = require("base-64");
+var async = require("async");
+
 exports.ViewCategorias = function (req, res) {
 
 	const categoriasService = services.categorias;
@@ -13,13 +17,13 @@ exports.ViewCategorias = function (req, res) {
 	req.lang = req.lang.toUpperCase();
 	let lang = langs[req.lang];
 
-	let dataEnviar = { 
-		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria, 
-		categorias: req.body.categorias, 
-		categoriaSeleccionada: req.body.categoriaSeleccionada, 
-		idioma: lang.categoria_pagina, 
-		lang: req.lang, 
-		mostraretiquetaslogo: false, 
+	let dataEnviar = {
+		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
+		categorias: req.body.categorias,
+		categoriaSeleccionada: req.body.categoriaSeleccionada,
+		idioma: lang.categoria_pagina,
+		lang: req.lang,
+		mostraretiquetaslogo: false,
 		categoriasPadre: req.body.categoriasPadre
 	};
 
@@ -28,13 +32,47 @@ exports.ViewCategorias = function (req, res) {
 	logo.getLogosAprobadosCatPadre(idLogo, idCategoria, function (error, data) {
 		if (typeof data !== "undefined" && data.length > 0) {
 
-			//console.log('Logos encontrados')
-			dataEnviar.logosPredisenados = categoriasService.bufferAndAttrs(data);
-			res.render('categorias.html', dataEnviar);
+			async.forEachOf(data, (logo, key, callback) => {
+
+				logo.svg = base64.decode(logo.logo);
+				logo.svg = logo.svg.replace(/"/g, "'");
+
+				if (logo.nombreCategoria) {
+					logo.categoriaFormateada = categoriasService.formatearCategorias([{ nombreCategoria: logo.nombreCategoria }])[0].categoriaFormateada;
+				}
+
+				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+							data[key]["atributos"] = dataAttrs;
+						}
+
+					} catch (e) {
+						return callback(e);
+					}
+
+					callback();
+
+				});
+
+			}, (err) => {
+
+				if (err) res.status(402).json({});
+
+				dataEnviar.logosPredisenados = data;
+
+				res.render('categorias.html', dataEnviar);
+
+			});
 
 		} else {
 
 			console.log("No hay logos aprobados");
+			res.redirect('/creador-de-logos');
 
 		}
 	});
@@ -44,25 +82,24 @@ exports.ViewSubCategorias = function (req, res) {
 
 	const categoriasService = services.categorias;
 
-	var nombreCategoria = req.body.categoriaSeleccionada.nombreCategoria;
-
 	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
-
 	var idCategoria = req.body.categoriaSeleccionada.idCategoria;
-
 	req.lang = req.lang.toUpperCase();
+	let lang = langs[req.lang];
 
 	let dataEnviar = {
-		root: __dirname,
-		title: nombreCategoria, categorias: req.body.categorias, categoriaSeleccionada: req.body.categoriaSeleccionada,
-		idioma: req.lang.categoria_pagina,
-		lang: req.lang, mostraretiquetaslogo: false,
+		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
+		categorias: req.body.categorias,
+		categoriaSeleccionada: req.body.categoriaSeleccionada,
+		idioma: lang.categoria_pagina,
+		lang: req.lang,
+		mostraretiquetaslogo: true,
 		categoriasPadre: false
 	};
 
 	dataEnviar.mostraretiquetaslogo = true;
 
-	console.log('Buscar logos aprobados de ->  sub Categoria:', idCategoria);
+	//console.log('Buscar logos aprobados de ->  sub Categoria:', idCategoria);
 
 	logo.getLogosAprobados(idLogo, idCategoria, function (error, data) {
 
@@ -70,16 +107,49 @@ exports.ViewSubCategorias = function (req, res) {
 
 			Etiqueta.ObtenerPorLogo(data, req.lang.toLowerCase(), (err, logos) => {
 
-				dataEnviar.logosPredisenados = categoriasService.bufferAndAttrs(logos);
+				async.forEachOf(logos, (logo, key, callback) => {
 
-				res.render('categorias.html', dataEnviar);
+					logo.svg = base64.decode(logo.logo);
+					logo.svg = logo.svg.replace(/"/g, "'");
+
+					if (logo.nombreCategoria) {
+						logo.categoriaFormateada = formatearCategorias([{ nombreCategoria: logo.nombreCategoria }])[0].categoriaFormateada;
+					}
+
+					atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+
+						if (err) return callback(err);
+
+						try {
+
+							if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+								data[key]["atributos"] = dataAttrs;
+							}
+
+						} catch (e) {
+							return callback(e);
+						}
+
+						callback();
+
+					});
+
+				}, (err) => {
+
+					if (err) res.status(402).json({});
+
+					dataEnviar.logosPredisenados = data;
+
+					res.render('categorias.html', dataEnviar);
+
+				});
 
 			})
 
 		} else {
 
 			console.log("No hay logos aprobados");
-
+			res.redirect('/creador-de-logos');
 		}
 	});
 

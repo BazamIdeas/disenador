@@ -717,6 +717,8 @@ etiqueta.TransformarSvg = async (iconos , callback) => {
 }
 
 etiqueta.ObtenerPorLogo = (data, lang, callback) => {
+    
+
 
     let promises = [];
 
