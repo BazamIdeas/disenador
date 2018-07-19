@@ -29,6 +29,10 @@ exports.validarCliente = function (req, res, next) {
 			if (datos.tipo == "admin") {
 				req.idUsuario = datos.id
 			}
+
+			if (datos.disenador) {
+				req.disenador = true
+			}
 			//console.log(datos)
 			next()
 		} catch (e) {

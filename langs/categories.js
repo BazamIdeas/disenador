@@ -1,4 +1,4 @@
-exports.langs = {
+module.exports = {
     "7": {
         "tag": "animal",
         "traduccion": {

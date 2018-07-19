@@ -1,8 +1,12 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "elementosService", "$q", "$state", "crearLogoFactory", "clientesService", "$mdToast", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "$rootScope", "$location", "Socialshare", "disenadorService", function (categoriasService, elementosService, $q, $state, crearLogoFactory, clientesService, $mdToast, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService,  $rootScope, $location, Socialshare, disenadorService) {
+	.controller("inicioController", ["categoriasService", "elementosService", "$q", "$state", "crearLogoFactory", "clientesService", "$mdToast", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "$rootScope", "$location", "Socialshare", "disenadorService", "langFactory", function (categoriasService, elementosService, $q, $state, crearLogoFactory, clientesService, $mdToast, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService,  $rootScope, $location, Socialshare, disenadorService, langFactory) {
 
 		var bz = this;
+
+		bz.lang = langFactory.langsEstadoActual();
+
+		console.log(bz.lang);
 
 		bz.base64 = $base64;
 
@@ -22,7 +26,7 @@ angular.module("disenador-de-logos")
 		}
 
 		bz.datos = landingResolve ? landingResolve.datos : {
-			nombre: "Mi logo",
+			nombre: bz.lang.formulario.nombre.value,
 			preferencias: [],
 			categoria: {
 				icono: "",
