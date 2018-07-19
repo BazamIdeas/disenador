@@ -302,7 +302,7 @@ module.exports = {
                     {
                         titulo: 'Ver tus logotipos ',
                         descripcion: 'editarlos y crear nuevos diseños',
-                        url_imagen: '/landing/assets/img/iconos_login/eye.svg',
+                        url_imagen: 'eye.svg',
                         class: 'eye-image'
                     },
                     {
@@ -314,7 +314,7 @@ module.exports = {
                     {
                         titulo: 'Personaliza tu logo',
                         descripcion: 'cambiando las fuentes, los colores, los iconos, el espaciado y más',
-                        url_imagen: '/landing/assets/img/iconos_login/gear.svg',
+                        url_imagen: 'gear.svg',
                         class: 'gear-image'
                     }
                 ]
@@ -665,7 +665,7 @@ module.exports = {
                     {
                         titulo: 'See your logos ',
                         descripcion: 'edit them and create new designs',
-                        url_imagen: '/landing/assets/img/iconos_login/eye.svg',
+                        url_imagen: 'eye.svg',
                         class: 'eye-image'
                     },
                     {
@@ -677,7 +677,7 @@ module.exports = {
                     {
                         titulo: 'Customize your logo',
                         descripcion: 'changing fonts, colors, icons, spacing and more',
-                        url_imagen: '/landing/assets/img/iconos_login/gear.svg',
+                        url_imagen: 'gear.svg',
                         class: 'gear-image'
                     }
                 ]
@@ -1023,7 +1023,7 @@ module.exports = {
                     {
                         titulo: 'Veja seus logotipos ',
                         descripcion: 'Edite-os e crie novos designs',
-                        url_imagen: '/landing/assets/img/iconos_login/eye.svg',
+                        url_imagen: 'eye.svg',
                         class: 'eye-image'
                     },
                     {
@@ -1035,7 +1035,7 @@ module.exports = {
                     {
                         titulo: 'Personalize seu logotipo',
                         descripcion: 'mudança de fontes, cores, ícones, espaçamento e muito mais',
-                        url_imagen: '/landing/assets/img/iconos_login/gear.svg',
+                        url_imagen: 'gear.svg',
                         class: 'gear-image'
                     }
                 ]

@@ -1,7 +1,6 @@
 var logo = require("../modelos/logosModelo.js");
 const Etiqueta = require('../modelos/etiquetasModelo.js');
-const langs = require("../langs/views.js").langs;
-const planesLang = require("../langs/planes.js").langs;
+const langs = require("../langs");
 var services = require('../services');
 
 var atributo = require("../modelos/atributosModelo.js");
@@ -15,13 +14,15 @@ exports.ViewCategorias = function (req, res) {
 	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
 	var idCategoria = req.body.categoriaSeleccionada.idCategoria;
 	req.lang = req.lang.toUpperCase();
-	let lang = langs[req.lang];
+	let lang = langs.views[req.lang].categoria_pagina;
+	let idiomas = langs.langs[req.lang];
 
 	let dataEnviar = {
 		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
 		categorias: req.body.categorias,
 		categoriaSeleccionada: req.body.categoriaSeleccionada,
-		idioma: lang.categoria_pagina,
+		idioma: lang,
+		idiomas: idiomas,
 		lang: req.lang,
 		mostraretiquetaslogo: false,
 		categoriasPadre: req.body.categoriasPadre
@@ -85,13 +86,15 @@ exports.ViewSubCategorias = function (req, res) {
 	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
 	var idCategoria = req.body.categoriaSeleccionada.idCategoria;
 	req.lang = req.lang.toUpperCase();
-	let lang = langs[req.lang];
+	let lang = langs.views[req.lang].categoria_pagina;
+	let idiomas = langs.langs[req.lang];
 
 	let dataEnviar = {
 		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
 		categorias: req.body.categorias,
 		categoriaSeleccionada: req.body.categoriaSeleccionada,
-		idioma: lang.categoria_pagina,
+		idioma: lang,
+		idiomas: idiomas,
 		lang: req.lang,
 		mostraretiquetaslogo: true,
 		categoriasPadre: false
@@ -101,7 +104,11 @@ exports.ViewSubCategorias = function (req, res) {
 
 	//console.log('Buscar logos aprobados de ->  sub Categoria:', idCategoria);
 
+	// COLOCAR CATEGORIA PADRE
+
 	logo.getLogosAprobados(idLogo, idCategoria, function (error, data) {
+
+		console.log(data)
 
 		if (typeof data !== "undefined" && data.length > 0) {
 
@@ -159,12 +166,13 @@ exports.ViewLanding = function (req, res) {
 
 	req.lang = req.lang.toUpperCase();
 
-	let lang = langs[req.lang];
+	let lang = langs.views[req.lang].landing;
+
+	let idiomas = langs.langs[req.lang];
 
 	/* TRADUCCIONES PLANES */
+	lang.secciones.seccion_cuatro.planes = langs.planes[req.lang];
 
-	lang.landing.secciones.seccion_cuatro.planes = planesLang[req.lang];
-
-	res.render('index_landing.html', { categorias: req.body.categorias, categoriasFuentes: req.body.categoriasFuentes, idioma: lang.landing, lang: req.lang });
+	res.render('index_landing.html', { categorias: req.body.categorias, categoriasFuentes: req.body.categoriasFuentes, idioma: lang, lang: req.lang, idiomas: idiomas });
 
 };

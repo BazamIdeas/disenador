@@ -120,16 +120,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="selector-de-idiomas--flags">
-                    <md-select md-no-asterisk ng-model="h.idiomaActivo" ng-change="h.cambiarIdioma(h.idiomaActivo)"
-                        >
-                        {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
-                        <md-option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>
-                            <img src="/landing/assets/img/flags/{{idioma.valor}}.png">
+                <div class="selector-de-idiomas --flags">
+                    <md-select md-no-asterisk ng-model="h.idiomaActivo" ng-change="h.cambiarIdioma(h.idiomaActivo)">
+
+                        {% for clave, valor in idiomas %} {% if lang == clave %}
+                        <md-option ng-value="'{{clave}}'" ng-selected="true" selected>
+                            <img src="/landing/assets/img/flags/{{clave}}.png"> <span class="texto-on-select">{{valor}}</span>
                         </md-option>
                         {% else %}
-                        <md-option ng-value="'{{idioma.valor}}'" ng-selected="false">
-                            <img src="/landing/assets/img/flags/{{idioma.valor}}.png">
+                        <md-option ng-value="'{{clave}}'" ng-selected="false">
+                            <img src="/landing/assets/img/flags/{{clave}}.png"> <span class="texto-on-select">{{valor}}</span>
                         </md-option>
                         {% endif %} {% endfor %}
                     </md-select>
@@ -443,10 +443,11 @@
                 <div class="layout-row layout-align-space-between-center ">
                     <div class="selector-de-idiomas">
                         <select ng-model="ctrl.idiomaActivo" ng-change="ctrl.cambiarIdioma(ctrl.idiomaActivo)">
-                            {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
-                            <option ng-value="'{{idioma.valor}}'" ng-selected="true" selected>{{idioma.label}}</option>
+
+                            {% for clave, valor in idiomas %} {% if lang == clave %}
+                            <option ng-value="'{{clave}}'" ng-selected="true" selected>{{valor}}</option>
                             {% else %}
-                            <option ng-value="'{{idioma.valor}}'" ng-selected="false">{{idioma.label}}</option>
+                            <option ng-value="'{{clave}}'" ng-selected="false">{{valor}}</option>
                             {% endif %} {% endfor %}
                         </select>
                     </div>

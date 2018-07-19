@@ -153,7 +153,7 @@
                                     <div ng-repeat="imagen in textos.registro.imagenes">
                                         <md-icon ng-if="imagen.icon" style="display: block; margin-right: 38px; font-size: 50pt;">{{imagen.url_imagen}}</md-icon>
 
-                                        <img ng-if="!imagen.icon" class="{{imagen.class}}" src="{{imagen.url_imagen}}">
+                                        <img ng-if="!imagen.icon" class="{{imagen.class}}" src="/landing/assets/img/iconos_login/{{imagen.url_imagen}}">
                                         <span>
                                             <b>{{imagen.titulo}}</b>
                                             <br>

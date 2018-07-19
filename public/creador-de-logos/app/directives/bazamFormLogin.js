@@ -5,12 +5,16 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/bazamFormLogin.tpl",
-			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", "socialAuth", "$state", function ($scope, clientesService, $mdToast, paisesValue, $rootScope, socialAuth, $state) {
+			controller: ["$scope", "clientesService", "$mdToast", "paisesValue", "$rootScope", "socialAuth", "$state", "$window", function ($scope, clientesService, $mdToast, paisesValue, $rootScope, socialAuth, $state, $window) {
 
 				var bz = this;
 
 
 				bz.vistaActual = $state.current.name;
+
+				$scope.textos = $window.traducciones.general.login;
+
+				console.log($scope.textos)
 
 				$rootScope.$on('$stateChangeSuccess', function () {
 
