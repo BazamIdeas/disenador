@@ -1446,7 +1446,7 @@ angular.module("disenador-de-logos")
 					if(tag._id){
 						datos.tags.existentes.push(tag._id);
 					} else {
-						datos.tags.nuevas.push(tag.traduccion.valor);
+						datos.tags.nuevas.push(tag.traducciones[0].valor);
 					}					
 					
 				});
@@ -2249,6 +2249,30 @@ angular.module("disenador-de-logos")
 			}
 
 			return promise;			
+
+		}
+
+	}])
+
+	.value("langValue", traducciones)
+
+	.factory("langFactory", ["langValue", "$state", function(langValue, $state){
+
+		return {
+
+			langsEstadoActual: function (){
+			
+				var langsPorEstados = langValue.general.app_editor.secciones;
+				var nombreEstado = $state.current.name;
+
+				var langsEstadoActual = langsPorEstados[nombreEstado];
+
+				if(!langsEstadoActual){
+					return false;
+				}
+
+				return langsEstadoActual;
+			}
 
 		}
 

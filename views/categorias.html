@@ -11,7 +11,7 @@
                 <img src="../landing/assets/img/logo.pro.svg">
             </a>
         </div>
-        <div>
+        <div class="flex --center">
             <div class="login">
                 <div class="acceder mostrar-login not-ing" style="cursor: pointer">
                     <span>
@@ -55,10 +55,11 @@
     <div class="logos-predisenados">
         {% for elemento in logosPredisenados %}
         <div class='--item'>
-            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}"
+            {% if elemento.padre %}
+            <a class="enviar_editor" data-id="{{elemento.padre}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}"
                 data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
                 <span>
-                    <img src="/tmp/shared/{{elemento.imgSrc}}" alt="{{elemento.atributos[1].valor}}">
+                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{elemento.atributos[1].valor}}">
                 </span>
                 {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
                 <span class="descripcion">
@@ -66,17 +67,27 @@
                 </span>
                 {% endif %} {% endfor %}
             </a>
-            {% if mostraretiquetaslogo %}
+            {% else %}
+            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}"
+                data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
+                <span>
+                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{elemento.atributos[1].valor}}">
+                </span>
+                {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
+                <span class="descripcion">
+                    {{atributo.valor}}
+                </span>
+                {% endif %} {% endfor %}
+            </a>
+            {% endif %} {% if mostraretiquetaslogo %}
             <div class="tags">
                 {% for tag in elemento.etiquetas %} {% for traduccion in tag.traducciones %}
                 <a class="buscarEditor" data-tag="{{tag | dump }}">{{traduccion.valor}}</a>
                 {% endfor %} {% endfor %}
             </div>
-            {% endif %}
-
-            {% if mostraretiquetaslogo == false %}
+            {% endif %} {% if mostraretiquetaslogo == false %}
             <div class="tags">
-                <a href="/logos/prueba">CATEGORIA</a>
+                <a href="/logos/{{elemento.categoriaFormateada}}">{{elemento.nombreCategoria}}</a>
             </div>
             {% endif %}
         </div>
@@ -92,12 +103,12 @@
     {% endif %} {% endif %}
 
     <!-- PUEDE QUE TAMBIEN TE INTERESE -->
-    {% if mostrarRelacionados %}
+    {% if categorias %}
     <div class="container-fluid" style="    padding: 3%;width: 100%;">
         <h3>{{idioma.secciones.seccion_tres.titulo}}</h3>
         <div class="lista-categorias">
             {% asyncEach categoria in categorias %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
-            <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
+            <a href="/logos/{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
             {% endif %} {% endeach %}
         </div>
     </div>
@@ -162,7 +173,17 @@
         <a class="--link" href="/creador-de-logos">{{idioma.secciones.seccion_cinco.boton}}</a>
     </div>
 
-    {% include "foot.html" %}
+    <!-- PUEDE QUE TAMBIEN TE INTERESE -->
+    {% if categoriasPadre %}
+    <div class="container-fluid" style="    padding: 3%;width: 100%;">
+        <h3>{{idioma.secciones.seccion_seis.titulo}}</h3>
+        <div class="lista-categorias">
+            {% asyncEach categoria in categoriasPadre %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
+            <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
+            {% endif %} {% endeach %}
+        </div>
+    </div>
+    {% endif %} {% include "foot.html" %}
 </body>
 
 

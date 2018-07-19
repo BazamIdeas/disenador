@@ -37,6 +37,9 @@
     <!---jQuery -->
     <script src="/jquery/jquery.min.js"></script>
 
+    <!-- Idiomas-->
+    <script src="/app/idioma/cadena?section[]=app_editor&section[]=login"></script>
+
     <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css">
     <!--<link rel="stylesheet" type="text/css" href="assets/css/ghpages-materialize.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">-->
@@ -45,7 +48,6 @@
     <script src="assets/js/materialize.min.js"></script>
 
     <!--Librerias core de angularJS -->
-    <script src="/app/idioma/cadena"></script>
     <script src="/angular/angular.min.js"></script>
     <script src="/angular-messages/angular-messages.min.js"></script>
     <script src="/angular-animate/angular-animate.min.js"></script>
@@ -256,7 +258,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <div class="logos-disenador" ng-if="header.mostrarLogosContenedorDisenador">
 
-                <span style="position: absolute; top: 5%; right: 5%; font-size: 20px;" ng-click="header.mostrarLogosContenedorDisenador = false">X</span>
+                <span style="position: absolute; top: 5%; right: 5%; font-size: 20px; cursor: pointer;" ng-click="header.mostrarLogosContenedorDisenador = false">X</span>
                 <h5 class="titulo-logos-disenador">Mis logos aprobados</h5>
                 <div class="row listado-logos-disenador">
                     <div class="col l3" ng-repeat="logo in header.logosDisenador | orderBy: $index">

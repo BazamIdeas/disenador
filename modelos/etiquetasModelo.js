@@ -3,7 +3,6 @@ const objectId = require('./mongo.js').objectId;
 
 const NounProject = require("the-noun-project")
 const translate = require('google-translate-api');
-const fetch = require('node-fetch');
 var base64 = require("base-64");
 
 
@@ -718,6 +717,8 @@ etiqueta.TransformarSvg = async (iconos , callback) => {
 }
 
 etiqueta.ObtenerPorLogo = (data, lang, callback) => {
+    
+
 
     let promises = [];
 
@@ -738,11 +739,12 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
                         let promisesEt = [];
 
                         doc.etiquetas.forEach(el => {
+                            
                             let pr = etiquetas.aggregate([{
                                 $match: {
                                     "_id": objectId(el)
                                 }
-                            }, {
+                            } , {
                                 $unwind: '$traducciones'
                             }, {
                                 $lookup: {

@@ -11,10 +11,10 @@
         <div class="flex">
             <div class="selector-de-idiomas">
                 <select class="idioma">
-                    {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
-                    <option value="{{idioma.valor}}"  selected>{{idioma.label}}</option>
+                    {% for clave, valor in idiomas %}  {% if lang == clave %}
+                    <option value="{{clave}}"  selected>{{valor}}</option>
                     {% else %}
-                    <option value="{{idioma.valor}}">{{idioma.label}}</option>
+                    <option value="{{clave}}">{{valor}}</option>
                     {% endif %} {% endfor %}
                 </select>
             </div>

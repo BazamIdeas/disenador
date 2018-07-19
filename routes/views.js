@@ -6,19 +6,17 @@ var middleware = require("./middleware");
 
 router.use(compression());
 
-// LANDING
+// VISTAS DEL SERVIDOR
 
-router.use('/logos-de-:categoria', middleware.validarCategorias, controllers.vistas.ViewCategorias);
+router.get('/logos-de-:categoria', middleware.validarCategorias,controllers.vistas.ViewCategorias);
 
-router.use('/logos/:subcategoria', middleware.validarCategorias, controllers.vistas.ViewCategorias);
+router.get('/logos/:subcategoria', middleware.validarSubCategorias, controllers.vistas.ViewSubCategorias);
 
-router.use('/logos-destacados', middleware.validarCategorias,  controllers.vistas.ViewCategorias);
-
-router.use('/terminos-y-condiciones', function(req, res) {
+router.get('/terminos-y-condiciones', function(req, res) {
     res.render('terminos.html');
 });
 
-router.use('/avisos-legales', function(req, res) {
+router.get('/avisos-legales', function(req, res) {
     res.render('legales.html');
 });
 

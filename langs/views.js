@@ -1,11 +1,38 @@
-exports.langs = {
+module.exports = {
     "ES": {
-        creador_de_logos: {
-            SEO: {
-                title: '',
-                keywords: '',
-                description: '',
-                lang: '',
+        app_editor: {
+            secciones: {
+                inicio: {
+                    formulario: {
+                        nombre: {
+                            label: 'Nombre',
+                            value: 'Mi logo',
+                            placeholder: '',
+                            validacion: []
+                        },
+                        categorias: {
+                            label: 'Categorías',
+                            placeholder: 'Categorías',
+                            validacion: []
+                        },
+                        fuentes: {
+                            label: "Estilo de tipografía",
+                            placeholder: "",
+                            validacion: ["Debes elegir un estilo de Tipografía."]
+                        },
+                        etiquetas: {
+                            label: '¿Que buscas?',
+                            placeholder: 'Ejemplo: Café',
+                            validacion: []
+                        },
+                        color: {
+                            label: 'Seleccionar colores',
+                            placeholder: '',
+                            validacion: ['Debes elegir al menos un color.']
+                        },
+                        submit: ['CARGAR MÁS','BUSCAR']
+                    }  
+                }
             }
         },
         landing: {
@@ -140,20 +167,6 @@ exports.langs = {
                         nombre: 'Blog'
                     }
                 ],
-                idiomas: [
-                    {
-                        label: 'Español',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'Ingles',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Portugés',
-                        valor: 'PT'
-                    }
-                ],
                 redes: [
                     {
                         nombre: 'Instagram',
@@ -246,20 +259,6 @@ exports.langs = {
                         nombre: 'Blog'
                     }
                 ],
-                idiomas: [
-                    {
-                        label: 'Español',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'Ingles',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Portugés',
-                        valor: 'PT'
-                    }
-                ],
                 redes: [
                     {
                         nombre: 'Instagram',
@@ -303,7 +302,7 @@ exports.langs = {
                     {
                         titulo: 'Ver tus logotipos ',
                         descripcion: 'editarlos y crear nuevos diseños',
-                        url_imagen: '/landing/assets/img/iconos_login/eye.svg',
+                        url_imagen: 'eye.svg',
                         class: 'eye-image'
                     },
                     {
@@ -315,7 +314,7 @@ exports.langs = {
                     {
                         titulo: 'Personaliza tu logo',
                         descripcion: 'cambiando las fuentes, los colores, los iconos, el espaciado y más',
-                        url_imagen: '/landing/assets/img/iconos_login/gear.svg',
+                        url_imagen: 'gear.svg',
                         class: 'gear-image'
                     }
                 ]
@@ -359,7 +358,44 @@ exports.langs = {
         }
     },
     "EN": {
-        creadorDeLogos: {
+        app_editor: {
+            secciones: {
+                inicio: {
+                    combinaciones: {
+                        guardar : "SAVE",
+                        editar: "EDIT"
+                    },
+                    formulario: {
+                        nombre: {
+                            label: 'Name',
+                            value: 'My logo',
+                            placeholder: '',
+                            validacion: []
+                        },
+                        categorias: {
+                            label: 'Categories',
+                            placeholder: 'Categories',
+                            validacion: []
+                        },
+                        fuentes: {
+                            label: "Estilo de tipografía",
+                            placeholder: "",
+                            validacion: ["Debes elegir un estilo de Tipografía."]
+                        },
+                        etiquetas: {
+                            label: 'What are you looking for?',
+                            placeholder: 'Example: Coffee',
+                            validacion: []
+                        },
+                        color: {
+                            label: 'Choose Colors',
+                            placeholder: '',
+                            validacion: ['You must choose a color.']
+                        },
+                        submit: ['LOAD MORE','SEARCH']
+                    }  
+                }
+            }
         },
         landing: {
             SEO: {
@@ -387,7 +423,7 @@ exports.langs = {
                             label: 'Activity',
                         },
                         etiquetas: {
-                            label: '¿What are you looking for?',
+                            label: 'What are you looking for?',
                             placeholder: 'Example: Coffee'
                         },
                         color: {
@@ -494,20 +530,6 @@ exports.langs = {
                         nombre: 'Blog'
                     }
                 ],
-                idiomas: [
-                    {
-                        label: 'Spanish',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'English',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Portuguese',
-                        valor: 'PT'
-                    }
-                ],
                 redes: [
                     {
                         nombre: 'Instagram',
@@ -600,20 +622,6 @@ exports.langs = {
                         nombre: 'Blog'
                     }
                 ],
-                idiomas: [
-                    {
-                        label: 'Spanish',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'English',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Portuguese',
-                        valor: 'PT'
-                    }
-                ],
                 redes: [
                     {
                         nombre: 'Instagram',
@@ -657,7 +665,7 @@ exports.langs = {
                     {
                         titulo: 'See your logos ',
                         descripcion: 'edit them and create new designs',
-                        url_imagen: '/landing/assets/img/iconos_login/eye.svg',
+                        url_imagen: 'eye.svg',
                         class: 'eye-image'
                     },
                     {
@@ -669,7 +677,7 @@ exports.langs = {
                     {
                         titulo: 'Customize your logo',
                         descripcion: 'changing fonts, colors, icons, spacing and more',
-                        url_imagen: '/landing/assets/img/iconos_login/gear.svg',
+                        url_imagen: 'gear.svg',
                         class: 'gear-image'
                     }
                 ]
@@ -713,7 +721,40 @@ exports.langs = {
         }
     },
     "PT": {
-        creadorDeLogos: {
+        app_editor: {
+            secciones: {
+                inicio: {
+                    formulario: {
+                        nombre: {
+                            label: 'Nombre',
+                            value: 'Mi logo',
+                            placeholder: '',
+                            validacion: []
+                        },
+                        categorias: {
+                            label: 'Categorías',
+                            placeholder: 'Categorías',
+                            validacion: []
+                        },
+                        fuentes: {
+                            label: "Estilo de tipografía",
+                            placeholder: "",
+                            validacion: ["Debes elegir un estilo de Tipografía."]
+                        },
+                        etiquetas: {
+                            label: '¿Que buscas?',
+                            placeholder: 'Ejemplo: Café',
+                            validacion: []
+                        },
+                        color: {
+                            label: 'Seleccionar colores',
+                            placeholder: '',
+                            validacion: ['Debes elegir al menos un color.']
+                        },
+                        submit: ['CARGAR MÁS','BUSCAR']
+                    }  
+                }
+            }
         },
         landing: {
             SEO: {
@@ -847,20 +888,6 @@ exports.langs = {
                         nombre: 'Blog'
                     }
                 ],
-                idiomas: [
-                    {
-                        label: 'Espanhol',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'Inglês',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Português',
-                        valor: 'PT'
-                    }
-                ],
                 redes: [
                     {
                         nombre: 'Instagram',
@@ -953,20 +980,6 @@ exports.langs = {
                         nombre: 'Blog'
                     }
                 ],
-                idiomas: [
-                    {
-                        label: 'Espanhol',
-                        valor: 'ES'
-                    },
-                    {
-                        label: 'Inglês',
-                        valor: 'EN'
-                    },
-                    {
-                        label: 'Português',
-                        valor: 'PT'
-                    }
-                ],
                 redes: [
                     {
                         nombre: 'Instagram',
@@ -1010,7 +1023,7 @@ exports.langs = {
                     {
                         titulo: 'Veja seus logotipos ',
                         descripcion: 'Edite-os e crie novos designs',
-                        url_imagen: '/landing/assets/img/iconos_login/eye.svg',
+                        url_imagen: 'eye.svg',
                         class: 'eye-image'
                     },
                     {
@@ -1022,7 +1035,7 @@ exports.langs = {
                     {
                         titulo: 'Personalize seu logotipo',
                         descripcion: 'mudança de fontes, cores, ícones, espaçamento e muito mais',
-                        url_imagen: '/landing/assets/img/iconos_login/gear.svg',
+                        url_imagen: 'gear.svg',
                         class: 'gear-image'
                     }
                 ]

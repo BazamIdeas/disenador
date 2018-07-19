@@ -114,10 +114,13 @@
     }
     .lista-categorias {
         text-align: center;
+        > :last-child::after{
+            display: none;
+        }
         a {
-            &::before {
+            &::after {
                 content: '|';
-                margin-right: 18px;
+                margin-left: 18px;
                 color: silver;
             }
             padding: 8px;
@@ -321,6 +324,9 @@
             padding: 5%;
             display: block;
             cursor: pointer;
+            >:first-child{
+                min-height: 200px;
+            }
             > span{
                 max-width: 90%;
                 display: block;

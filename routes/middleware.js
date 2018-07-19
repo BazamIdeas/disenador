@@ -29,6 +29,10 @@ exports.validarCliente = function (req, res, next) {
 			if (datos.tipo == "admin") {
 				req.idUsuario = datos.id
 			}
+
+			if (datos.disenador) {
+				req.disenador = true
+			}
 			//console.log(datos)
 			next()
 		} catch (e) {
@@ -253,88 +257,31 @@ exports.userAgent = function (req, res, next) {
 
 exports.validarLanding = function (req, res, next) {
 
+	const categoriasService = services.categorias;
+
 	try {
 		var tipo = ["Iniciales", 'ICONO'];
 
 		categoria.getCategorias(tipo, function (error, response) {
 			if (typeof response !== "undefined" && response.length > 0) {
 
-				for (let i = 0; i < response.length; i++) {
+				req.body.categorias = categoriasService.formatearCategorias(response);
 
-					let categoria = response[i].nombreCategoria;
+				try {
+					var tipo = ["Iniciales", 'FUENTE'];
 
-					while (categoria.indexOf(' ') != -1) {
-						categoria = categoria.replace(' ', '-');
-					}
+					categoria.getCategorias(tipo, function (error, response) {
 
-					var specialChars = "!@#$^&%*()+=[]\/{}|:<>?,.";
+						if (typeof response !== "undefined" && response.length > 0) {
 
-					// Los eliminamos todos
-					for (let i = 0; i < specialChars.length; i++) {
-						categoria = categoria.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-					}
+							req.body.categoriasFuentes = categoriasService.formatearCategorias(response);
 
-					categoria = categoria.replace(/á/gi, "a");
-					categoria = categoria.replace(/é/gi, "e");
-					categoria = categoria.replace(/í/gi, "i");
-					categoria = categoria.replace(/ó/gi, "o");
-					categoria = categoria.replace(/ú/gi, "u");
-					categoria = categoria.replace(/ñ/gi, "n");
+							next();
+						}
 
-					categoria = categoria.toLowerCase();
-
-					response[i].categoriaFormateada = categoria;
-
-				}
-
-				req.body.categorias = response;
-
-				if (req.originalUrl == '/') {
-					try {
-						var tipo = ["Iniciales", 'FUENTE'];
-
-						categoria.getCategorias(tipo, function (error, response) {
-
-							if (typeof response !== "undefined" && response.length > 0) {
-
-								for (let i = 0; i < response.length; i++) {
-
-									let categoria = response[i].nombreCategoria;
-
-									while (categoria.indexOf(' ') != -1) {
-										categoria = categoria.replace(' ', '-');
-									}
-
-									var specialChars = "!@#$^&%*()+=[]\/{}|:<>?,.";
-
-									// Los eliminamos todos
-									for (let i = 0; i < specialChars.length; i++) {
-										categoria = categoria.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-									}
-
-									categoria = categoria.replace(/á/gi, "a");
-									categoria = categoria.replace(/é/gi, "e");
-									categoria = categoria.replace(/í/gi, "i");
-									categoria = categoria.replace(/ó/gi, "o");
-									categoria = categoria.replace(/ú/gi, "u");
-									categoria = categoria.replace(/ñ/gi, "n");
-
-									categoria = categoria.toLowerCase();
-
-									response[i].categoriaFormateada = categoria;
-
-								}
-
-								req.body.categoriasFuentes = response;
-
-								next();
-							}
-
-						});
-					} catch (e) {
-						res.status(400).json({ "Mensaje": "Categorias no encontradas" });
-					}
-
+					});
+				} catch (e) {
+					res.status(400).json({ "Mensaje": "Categorias no encontradas" });
 				}
 			}
 		});
@@ -347,78 +294,96 @@ exports.validarLanding = function (req, res, next) {
 
 exports.validarCategorias = function (req, res, next) {
 
-	if (req.params.subcategoria) {
-		next();
-	}
+	/**
+	 * Si es una categoria principal
+	 * Buscamos todas las categorias y sus sub-categorias
+	 */
 
-	if (req.params.categoria) {
-		var tipo = ["Iniciales", 'ICONO'];
-		try {
-			categoria.getCategorias(tipo, function (error, response) {
-				procesarRespuesta(response);
-			});
-		} catch (e) {
-			res.status(400).json({ "Mensaje": "Categorias no encontradas" });
-		}
+	const categoriasService = services.categorias;
 
-	}
+	//console.log('Parametro categoria:', req.params.categoria);
 
-	function procesarRespuesta(response) {
+	var tipo = ["Iniciales", 'ICONO'];
+
+	categoria.getCategorias(tipo, function (error, response) {
 		if (typeof response !== "undefined" && response.length > 0) {
 
-			for (let i = 0; i < response.length; i++) {
+			/** Formateamos las categorias */
+			req.body.categoriasPadre = categoriasService.formatearCategorias(response);
 
-				let categoria = response[i].nombreCategoria;
+			/** Buscamos la categoria solicitada */
 
-				while (categoria.indexOf(' ') != -1) {
-					categoria = categoria.replace(' ', '-');
+			req.body.categoriasPadre.forEach(element => {
+				if (element.categoriaFormateada == req.params.categoria) {
+					req.body.categoriaSeleccionada = element;
+				}
+			});
+
+			/** Obtenemos las categorias hijas */
+
+			categoria.getCategoriasHijas(req.body.categoriaSeleccionada.idCategoria, function (error, data) {
+
+				if (typeof data !== "undefined" && data.length > 0) {
+
+					req.body.categorias = categoriasService.formatearCategorias(data);
+					next();
+
+				}
+				else {
+					console.log("Categorias hijas no encontradas");
+					res.redirect('/');
+
 				}
 
-				var specialChars = "!@#$^&%*()+=[]\/{}|:<>?,.";
-
-				// Los eliminamos todos
-				for (let i = 0; i < specialChars.length; i++) {
-					categoria = categoria.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-				}
-
-				categoria = categoria.replace(/á/gi, "a");
-				categoria = categoria.replace(/é/gi, "e");
-				categoria = categoria.replace(/í/gi, "i");
-				categoria = categoria.replace(/ó/gi, "o");
-				categoria = categoria.replace(/ú/gi, "u");
-				categoria = categoria.replace(/ñ/gi, "n");
-
-				categoria = categoria.toLowerCase();
-
-				response[i].categoriaFormateada = categoria;
-
-			}
-
-			req.body.categorias = response;
-
-			if (req.originalUrl != '/logos-destacados') {
-				for (let i = 0; i < req.body.categorias.length; i++) {
-					if (req.params.categoria == req.body.categorias[i].categoriaFormateada) {
-						req.body.categoriaSeleccionada = req.body.categorias[i];
-						return next();
-					} else {
-						if (req.body.categorias[i].categoriaFormateada == 'sin-categoria') {
-							req.body.categoriaSeleccionada = req.body.categorias[i];
-							return res.redirect(301, '/logos-destacados');
-						}
-					}
-				}
-			} else {
-				for (let i = 0; i < req.body.categorias.length; i++) {
-					if (req.body.categorias[i].categoriaFormateada == 'sin-categoria') {
-						req.body.categoriaSeleccionada = req.body.categorias[i];
-						next();
-					}
-				}
-			}
-
+			});
+		} else {
+			console.log("Categorias padres no encontradas");
+			res.redirect('/');
 		}
-	}
+	});
+
+}
+
+exports.validarSubCategorias = function (req, res, next) {
+
+	/**
+	 * Si es una sub-categoria
+	 * Buscamos todas las sub catgorias
+	 */
+
+	const categoriasService = services.categorias;
+
+	//console.log('Parametro sub categoria:', req.params.subcategoria);
+
+	categoria.getCategoriasHijas(false, function (error, response) {
+		if (typeof response !== "undefined" && response.length > 0) {
+
+			req.body.categorias = categoriasService.formatearCategorias(response);
+
+			req.body.categorias.forEach(element => {
+				if (element.categoriaFormateada == req.params.subcategoria) {
+					req.body.categoriaSeleccionada = element;
+				}
+			});
+
+			categoria.getCategoriasHijas(req.body.categoriaSeleccionada.padre, function (error, data) {
+
+				if (typeof data !== "undefined" && data.length > 0) {
+					req.body.categorias = categoriasService.formatearCategorias(data);
+					next();
+				}
+				else {
+					console.log("Categorias hijas no encontradas");
+					res.redirect('/');
+				}
+			});
+
+		} else {
+			console.log("Categorias padres no encontradas");
+			res.redirect('/');
+		}
+	});
+
 }
 
 exports.langCookie = (req, res, next) => {
