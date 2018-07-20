@@ -58,6 +58,7 @@ module.exports = {
                         },
                         actividad: {
                             label: 'Actividad',
+                            default_Select: 'Selecciona'
                         },
                         etiquetas: {
                             label: '¿Que buscas?',
@@ -406,7 +407,7 @@ module.exports = {
                 lang: 'en-en',
             },
             header: {
-                botones: ['Acceder', 'Registro'],
+                botones: ['LOGIN', 'SING IN'],
                 iconos: ['Crear logo', 'Tus logos', 'Mi cuenta', 'Cerrar Sesion']
             },
             secciones: {
@@ -422,6 +423,7 @@ module.exports = {
                         },
                         actividad: {
                             label: 'Activity',
+                            default_Select: 'Select'
                         },
                         etiquetas: {
                             label: 'What are you looking for?',
@@ -559,7 +561,7 @@ module.exports = {
                 lang: 'es-es',
             },
             header: {
-                botones: ['Acceder', 'Registro']
+                botones: ['LOGIN', 'SING IN']
             },
             secciones: {
                 seccion_uno: {
@@ -766,7 +768,7 @@ module.exports = {
                 lang: 'pt-pt',
             },
             header: {
-                botones: ['Acceder', 'Registro'],
+                botones: ['Acesso', 'Registo'],
                 iconos: ['Criar logotipo', 'Seus logotipos', 'Minha conta', 'Fechar sessão']
             },
             secciones: {
@@ -781,6 +783,7 @@ module.exports = {
                         },
                         actividad: {
                             label: 'Atividade',
+                            default_Select: 'Selecione'
                         },
                         etiquetas: {
                             label: 'O que procura?',

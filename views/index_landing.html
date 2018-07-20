@@ -173,9 +173,9 @@
                                 <label>{{idioma.secciones.seccion_uno.formulario.actividad.label }}</label>
                                 <md-select md-no-asterisk ng-model="ctrl.datosCombinaciones.idCategoria" class="md-block  categorias-select" aria-label="filtro"
                                     name="cat">
-                                    <md-option value="0" selected>Selecciona</md-option>
+                                    <md-option value="0" selected>{{idioma.secciones.seccion_uno.formulario.actividad.label }}</md-option>
                                     {% for elemento in categorias %}
-                                    <md-option value="{{elemento.idCategoria}}">{{elemento.nombreCategoria}}</md-option>
+                                    <md-option value="{{elemento.idCategoria}}">{{elemento.traduccion.label}}</md-option>
                                     {% endfor %}
                                 </md-select>
                             </md-input-container>

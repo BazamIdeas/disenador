@@ -1,8 +1,22 @@
 $.noConflict();
 jQuery(document).ready(function ($) {
+
+  if (window.localStorage.getItem('bzToken')) {
+    $('.acceder.logeado').removeClass('hidden');
+    $('.acceder.mostrar-login').addClass('hidden');
+  }
+
+  $('a.salir').click(function () {
+    window.localStorage.removeItem('bzToken');
+    $('.acceder.mostrar-login').removeClass('hidden');
+    $('.acceder.logeado').addClass('hidden');
+  })
+
   $('.boton-formulario-generar.ver-mas').click(function () {
 
   });
+
+
 
   var repeticion;
   var repeticion2;
@@ -162,11 +176,17 @@ jQuery(document).ready(function ($) {
       ],
       nombre: 'Mi logo',
       idCategoria: elemento.attr('data-categoria'),
-      subcategoria: elemento.attr('data-subcategoria'),
       paginaCategoria: true
     };
 
     window.localStorage.setItem('comenzar', JSON.stringify(data));
+
+    var data = {
+      subCategoria: elemento.attr('data-subcategoria'),
+      tag: tag._id
+    };
+
+    window.localStorage.setItem('comenzarSub', JSON.stringify(data));
 
     window.location = '../creador-de-logos/';
   });
@@ -193,22 +213,22 @@ jQuery(document).ready(function ($) {
   $('.selector-de-idiomas > select').change(function () {
     let codigo = $(this).val();
 
-    urls_categorias = JSON.parse(urls_categorias);
-
     categoria = urls_categorias[codigo].labelFormateado;
 
-    url = '/'+ categoria;
+    url = '/logos/' + categoria;
 
-    switch (codigo) {
-      case 'ES':
-        url = '/logos-de-'+ categoria;
-        break;
-      case 'EN':
-        url = '/logos-of-'+ categoria;
-        break;
-      case 'PT':
-        url = '/logotipos-de-'+ categoria;
-        break;
+    if (!subcategoria) {
+      switch (codigo) {
+        case 'ES':
+          url = '/logos-de-' + categoria;
+          break;
+        case 'EN':
+          url = '/logos-of-' + categoria;
+          break;
+        case 'PT':
+          url = '/logotipos-de-' + categoria;
+          break;
+      }
     }
 
     if (idiomaActivo != codigo) {
