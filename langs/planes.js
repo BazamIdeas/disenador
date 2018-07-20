@@ -1,4 +1,4 @@
-exports.langs = {
+module.exports = {
     "ES": [
         {
             idPlan: 0,

@@ -16,17 +16,55 @@ router.get("/idioma/cadena", function(req, res) {
 
     let lang = req.lang;
 
-    let data = {lang: lang, general: traducciones.views.langs[lang], planes: traducciones.planes.langs[lang], categorias: traducciones.categories.langs};
+    let data = {
+        lang: lang, 
+        planes: traducciones.planes[lang], 
+        categorias: traducciones.categories, 
+        idiomas: traducciones.langs[lang],
+        general: {}
+    };
+
+    let views = traducciones.views[lang];
+
+    let sectionQuery = req.query.section;
+
+    if(sectionQuery){
+
+        if(typeof sectionQuery === "string" && views[sectionQuery]){
+
+            let view = views[sectionQuery];
+
+            if(view){
+                data.general[sectionQuery] = view;
+            }
+
+        } else if(Array.isArray(sectionQuery)) {
+
+            for(singleQuery of sectionQuery){
+
+                let view = views[singleQuery];
+                    
+                if(view){
+
+                    data.general[singleQuery] = view;
+
+                }
+            }
+                
+        }
+           
+    } else  {
+        data.general = views;
+    }
 
     let cadenaTraduccion = JSON.stringify(data);
     let cadena = `var traducciones = ${cadenaTraduccion}`;
 
-    if(traducciones.views.langs[lang]){
-        res.type('text/javascript') 
-        res.send(cadena)
-    }else{
+    //if(traducciones.views[lang]){
+    res.type('text/javascript').status(200).send(cadena);
+    /*}else{
         res.status(404).json({msg: 'No hay traducciones para ese idioma'});
-    }
+    }*/
 
 });
 
@@ -214,6 +252,7 @@ router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
 router.get("/logo/descargar", middleware.validarCliente, controllers.logos.descargar);
 router.post("/logo/compartir-email", middleware.validarCliente, controllers.logos.enviarPorEmail);
 router.get("/logo/compartido/:id", controllers.logos.obtenerBinario);
+router.get("/logo/predisenados/:id", controllers.logos.obtenerBinarioPredisenado);
 //router.get("/logo/compartir/:id", controllers.logos.htmlShare);
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);

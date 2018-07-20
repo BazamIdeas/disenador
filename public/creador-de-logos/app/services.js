@@ -14,6 +14,26 @@ angular.module("disenador-de-logos")
 		};
 	}])
 
+	.service("cookie", ["$window", function ($window) {
+
+		this.getCookie = function (cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+
+	}])
+
 	.value("paisesValue", {
 		"BD": "Bangladesh",
 		"BE": "Belgium",
@@ -2249,6 +2269,30 @@ angular.module("disenador-de-logos")
 			}
 
 			return promise;			
+
+		}
+
+	}])
+
+	.value("langValue", traducciones)
+
+	.factory("langFactory", ["langValue", "$state", function(langValue, $state){
+
+		return {
+
+			langsEstadoActual: function (){
+			
+				var langsPorEstados = langValue.general.app_editor.secciones;
+				var nombreEstado = $state.current.name;
+
+				var langsEstadoActual = langsPorEstados[nombreEstado];
+
+				if(!langsEstadoActual){
+					return false;
+				}
+
+				return langsEstadoActual;
+			}
 
 		}
 
