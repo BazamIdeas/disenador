@@ -1,38 +1,75 @@
-var atributo = require("../modelos/atributosModelo.js");
-var base64 = require("base-64");
-var async = require("async");
+const traducciones = require("../langs").categories;
 
-exports.formatearCategorias = (categorias) => {
+exports.formatearCategorias = (categorias, lang) => {
 
     /* Espera un array de categorias */
 
-    for (let i = 0; i < categorias.length; i++) {
+    categorias.forEach(categoria => {
 
-        let categoria = categorias[i].nombreCategoria;
+        let nombre;
 
-        while (categoria.indexOf(' ') != -1) {
-            categoria = categoria.replace(' ', '-');
+        if (traducciones[categoria.idCategoria]) {
+            categoria.traducciones = [];
+
+            var keys = Object.keys(traducciones[categoria.idCategoria]);
+            keys.forEach(function(key){
+
+                let t = traducciones[categoria.idCategoria][key].label;
+
+                
+                while (t.indexOf(' ') != -1) {
+                    t = t.replace(' ', '-');
+                }
+
+                var specialChars = "!@#$^&%*()+=[]\/{}|:<>?,.";
+
+                // Los eliminamos todos
+                for (let i = 0; i < specialChars.length; i++) {
+                    t = t.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
+                }
+
+                t = t.replace(/á/gi, "a");
+                t = t.replace(/é/gi, "e");
+                t = t.replace(/í/gi, "i");
+                t = t.replace(/ó/gi, "o");
+                t = t.replace(/ú/gi, "u");
+                t = t.replace(/ñ/gi, "n");
+
+                t = t.toLowerCase();
+
+                traducciones[categoria.idCategoria][key].formateado = t;
+
+                categoria.traducciones.push(traducciones[categoria.idCategoria][key]);
+
+            });
+
+            categoria.traduccion = traducciones[categoria.idCategoria][lang];
+            nombre = categoria.traduccion.label;
+
+            while (nombre.indexOf(' ') != -1) {
+                nombre = nombre.replace(' ', '-');
+            }
+
+            var specialChars = "!@#$^&%*()+=[]\/{}|:<>?,.";
+
+            // Los eliminamos todos
+            for (let i = 0; i < specialChars.length; i++) {
+                nombre = nombre.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
+            }
+
+            nombre = nombre.replace(/á/gi, "a");
+            nombre = nombre.replace(/é/gi, "e");
+            nombre = nombre.replace(/í/gi, "i");
+            nombre = nombre.replace(/ó/gi, "o");
+            nombre = nombre.replace(/ú/gi, "u");
+            nombre = nombre.replace(/ñ/gi, "n");
+
+            nombre = nombre.toLowerCase();
+
+            categoria.categoriaFormateada = nombre;
         }
 
-        var specialChars = "!@#$^&%*()+=[]\/{}|:<>?,.";
-
-        // Los eliminamos todos
-        for (let i = 0; i < specialChars.length; i++) {
-            categoria = categoria.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-        }
-
-        categoria = categoria.replace(/á/gi, "a");
-        categoria = categoria.replace(/é/gi, "e");
-        categoria = categoria.replace(/í/gi, "i");
-        categoria = categoria.replace(/ó/gi, "o");
-        categoria = categoria.replace(/ú/gi, "u");
-        categoria = categoria.replace(/ñ/gi, "n");
-
-        categoria = categoria.toLowerCase();
-
-        categorias[i].categoriaFormateada = categoria;
-
-    }
+    });
 
     return categorias;
 

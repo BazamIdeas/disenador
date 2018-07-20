@@ -71,7 +71,8 @@ module.exports = {
                     }
                 },
                 seccion_dos: {
-                    titulo: `GALERÍA DE LOGOS`
+                    titulo: `GALERÍA DE LOGOS`,
+                    url_categoria: '/logos-de-'
                 },
                 seccion_tres: {
                     titulo: '',
@@ -434,7 +435,8 @@ module.exports = {
                     }
                 },
                 seccion_dos: {
-                    titulo: `GALERY OF LOGOS`
+                    titulo: `GALERY OF LOGOS`,
+                    url_categoria: '/logos-of-'
                 },
                 seccion_tres: {
                     titulo: '',
@@ -792,7 +794,8 @@ module.exports = {
                     }
                 },
                 seccion_dos: {
-                    titulo: `GALERIA DE LOGOS`
+                    titulo: `GALERIA DE LOGOS`,
+                    url_categoria: '/logotipos-de-'
                 },
                 seccion_tres: {
                     titulo: '',

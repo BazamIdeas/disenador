@@ -39,7 +39,7 @@ exports.ViewCategorias = function (req, res) {
 				logo.svg = logo.svg.replace(/"/g, "'");
 
 				if (logo.nombreCategoria) {
-					logo.categoriaFormateada = categoriasService.formatearCategorias([{ nombreCategoria: logo.nombreCategoria }])[0].categoriaFormateada;
+					logo.categoriaFormateada = categoriasService.formatearCategorias([{ nombreCategoria: logo.nombreCategoria }], req.lang)[0].categoriaFormateada;
 				}
 
 				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {

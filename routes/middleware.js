@@ -4,6 +4,7 @@ var configuracion = require('../configuracion/configuracion.js');
 var categoria = require("../modelos/categoriasModelo.js");
 var services = require('../services');
 var fs = require('fs');
+const traducciones = require("../langs");
 
 exports.validarCliente = function (req, res, next) {
 
@@ -264,14 +265,14 @@ exports.validarLanding = function (req, res, next) {
 	categoria.getCategorias(tipo, function (error, response) {
 		if (typeof response !== "undefined" && response.length > 0) {
 
-			req.body.categorias = categoriasService.formatearCategorias(response);
+			req.body.categorias = categoriasService.formatearCategorias(response,  req.lang);
 			var tipo = ["Iniciales", 'FUENTE'];
 
 			categoria.getCategorias(tipo, function (error, response) {
 
 				if (typeof response !== "undefined" && response.length > 0) {
 
-					req.body.categoriasFuentes = categoriasService.formatearCategorias(response);
+					req.body.categoriasFuentes = categoriasService.formatearCategorias(response,  req.lang);
 
 					next();
 				} else {
@@ -291,6 +292,8 @@ exports.validarLanding = function (req, res, next) {
 
 exports.validarCategorias = function (req, res, next) {
 
+	var url_categoria = traducciones.views[req.lang].landing.secciones.seccion_dos.url_categoria;
+	
 	/**
 	 * Si es una categoria principal
 	 * Buscamos todas las categorias y sus sub-categorias
@@ -306,7 +309,7 @@ exports.validarCategorias = function (req, res, next) {
 		if (typeof response !== "undefined" && response.length > 0) {
 
 			/** Formateamos las categorias */
-			req.body.categoriasPadre = categoriasService.formatearCategorias(response);
+			req.body.categoriasPadre = categoriasService.formatearCategorias(response,  req.lang);
 
 			/** Buscamos la categoria solicitada */
 
@@ -316,13 +319,14 @@ exports.validarCategorias = function (req, res, next) {
 				}
 			});
 
+			
 			/** Obtenemos las categorias hijas */
 
 			categoria.getCategoriasHijas(req.body.categoriaSeleccionada.idCategoria, function (error, data) {
 
 				if (typeof data !== "undefined" && data.length > 0) {
 
-					req.body.categorias = categoriasService.formatearCategorias(data);
+					req.body.categorias = categoriasService.formatearCategorias(data,  req.lang);
 					next();
 
 				}

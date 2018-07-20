@@ -8,7 +8,18 @@ router.use(compression());
 
 // VISTAS DEL SERVIDOR
 
+// ES
+
 router.get('/logos-de-:categoria', middleware.validarCategorias,controllers.vistas.ViewCategorias);
+
+// EN
+
+router.get('/logos-of-:categoria', middleware.validarCategorias,controllers.vistas.ViewCategorias);
+
+// PT
+
+router.get('/logotipos-de-:categoria', middleware.validarCategorias,controllers.vistas.ViewCategorias);
+
 
 router.get('/logos/:subcategoria', middleware.validarSubCategorias, controllers.vistas.ViewSubCategorias);
 

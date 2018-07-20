@@ -263,14 +263,14 @@
             <div class="logos-predisenados">
                 {% for elemento in categorias %}
                 <div class='--item'>
-                    <a href="/logos-de-{{elemento.categoriaFormateada}}">
+                    <a href="{{idioma.secciones.seccion_dos.url_categoria}}{{elemento.categoriaFormateada}}">
                         <span>
                             <!--                             <img src="/landing/assets/img/categorias/{{elemento.nombreCategoria}}.png" alt="logotipos de {{elemento.nombreCategoria}}"> -->
                             <img src="/landing/assets/img/categorias/abstractos.png" alt="logotipos de {{elemento.nombreCategoria}}">
                         </span>
                     </a>
                     <div class="tags">
-                        <a href="/logos-de-{{elemento.categoriaFormateada}}">{{elemento.nombreCategoria}}</a>
+                        <a href="{{idioma.secciones.seccion_dos.url_categoria}}{{elemento.categoriaFormateada}}">{{elemento.traduccion.label}}</a>
                     </div>
                 </div>
                 {% endfor %}

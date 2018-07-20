@@ -41,7 +41,11 @@
     </header>
     <div class="cabecera">
         <h1>{{idioma.secciones.seccion_uno.titulo}} {{title}}</h1>
-        <p>{{idioma.secciones.seccion_uno.descripcion}} {{title}}</p>
+        {% if categoriasPadre %}
+        <p>{{categoriaSeleccionada.traduccion.descripcion}} {{title}}</p>
+        {% else %}
+        <h1>{{idioma.secciones.seccion_uno.descripcion}}</h1>
+        {% endif %}
     </div>
 
     {% if logosPredisenados %}
@@ -95,7 +99,7 @@
         <h3>{{idioma.secciones.seccion_tres.titulo}}</h3>
         <div class="lista-categorias">
             {% asyncEach categoria in categorias %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
-            <a href="/logos/{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
+            <a href="/logos/{{categoria.categoriaFormateada}}">{{categoria.traduccion.label}}</a>
             {% endif %} {% endeach %}
         </div>
     </div>
@@ -166,7 +170,7 @@
         <h3>{{idioma.secciones.seccion_seis.titulo}}</h3>
         <div class="lista-categorias">
             {% asyncEach categoria in categoriasPadre %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
-            <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
+            <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.traduccion.label}}</a>
             {% endif %} {% endeach %}
         </div>
     </div>

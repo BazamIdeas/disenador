@@ -1,5 +1,5 @@
 module.exports = {
-"530": {
+  "530": {
     "ES": {
       "label": "Figuras Geometricas y Abstractas",
       "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
@@ -3009,7 +3009,7 @@ module.exports = {
       "padre": "726"
     }
   },
-    "745": {
+  "745": {
     "ES": {
       "label": "S",
       "padre": "726"
@@ -3093,7 +3093,7 @@ module.exports = {
       "padre": "726"
     }
   },
-    "751": {
+  "751": {
     "ES": {
       "label": "Y",
       "padre": "726"
