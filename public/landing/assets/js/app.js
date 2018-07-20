@@ -193,12 +193,30 @@ jQuery(document).ready(function ($) {
   $('.selector-de-idiomas > select').change(function () {
     let codigo = $(this).val();
 
+    urls_categorias = JSON.parse(urls_categorias);
+
+    categoria = urls_categorias[codigo].labelFormateado;
+
+    url = '/'+ categoria;
+
+    switch (codigo) {
+      case 'ES':
+        url = '/logos-de-'+ categoria;
+        break;
+      case 'EN':
+        url = '/logos-of-'+ categoria;
+        break;
+      case 'PT':
+        url = '/logotipos-de-'+ categoria;
+        break;
+    }
+
     if (idiomaActivo != codigo) {
       document.cookie = "logoLang=" + codigo;
       $('html').animate({
         scrollTop: 0
       }, 1000);
-      location.reload();
+      window.location.replace(url);
     } else {
       return;
     };

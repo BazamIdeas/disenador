@@ -318,7 +318,6 @@ exports.validarCategorias = function (req, res, next) {
 					req.body.categoriaSeleccionada = element;
 				}
 			});
-
 			
 			/** Obtenemos las categorias hijas */
 

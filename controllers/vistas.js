@@ -17,6 +17,8 @@ exports.ViewCategorias = function (req, res) {
 	let lang = langs.views[req.lang].categoria_pagina;
 	let idiomas = langs.langs[req.lang];
 
+	let catTraducciones = JSON.stringify(req.body.categoriaSeleccionada.traducciones);
+
 	let dataEnviar = {
 		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
 		categorias: req.body.categorias,
@@ -25,7 +27,8 @@ exports.ViewCategorias = function (req, res) {
 		idiomas: idiomas,
 		lang: req.lang,
 		mostraretiquetaslogo: false,
-		categoriasPadre: req.body.categoriasPadre
+		categoriasPadre: req.body.categoriasPadre,
+		urls_categorias: catTraducciones
 	};
 
 	//console.log('Buscar logos aprobados de ->  idCategoria:', idCategoria);
