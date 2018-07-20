@@ -1489,18 +1489,53 @@ exports.obtenerBinario = function (req, res) {
 
 exports.obtenerBinarioPredisenado = function (req, res) {
 	const idLogo = req.params.id;
+	const lang = req.lang.toLowerCase();
 	const ancho = 200;
 	let fuentes = {};
+
+	let textos = {
+		es: ['Su empresa', 'Eslogan o pie de marca'],
+		en: ['Your Company', 'Slogan or brand taglines'],
+		pt: ['Sua empresa', 'Slogan ou pé de marca'],
+	}[lang]
 
 	logo.getLogoPorId(idLogo, (error, data) => {
 
 		if (typeof data !== "undefined" && data.length > 0) {
 
-			let nombre = idLogo + ".svg";
+			var decode = base64.decode(data[0].logo)
+			decode = decode.replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/");
+			
+			decode = decode.split('class="textoPrincipal"', 2);
+
+			var textoPrincipal = decode[0] + 'class="textoPrincipal"';
+
+			var i = decode[1].slice(0, decode[1].indexOf('>') + 1);
+			var j = decode[1].slice(decode[1].indexOf('<'), decode[1].length);
+
+			decode = textoPrincipal + i + textos[0] + j
+
+			var decode = decode.split('class="eslogan"', 2);
+
+			if (decode.length > 1) {
+
+				var eslogan = decode[0] + 'class="eslogan"';
+
+				i = decode[1].slice(0, decode[1].indexOf('>') + 1);
+				j = decode[1].slice(decode[1].indexOf('<'), decode[1].length);
+
+				decode = eslogan + i + textos[1] + j;
+
+			} else {
+
+				decode = decode[0];
+
+			}
+
+			let nombre = idLogo + '_' + lang + ".svg";
 			const path = "public/tmp/shared/";
 
-
-			if (fs.existsSync(__dirname + "/../" + path + nombre.replace("svg", "jpg") )) {
+			if (!fs.existsSync(__dirname + "/../" + path + nombre.replace("svg", "jpg") )) {
 
 				atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
 
@@ -1535,7 +1570,9 @@ exports.obtenerBinarioPredisenado = function (req, res) {
 						}, (err) => {
 							if (err) res.status(402).json({});
 
-							var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/"));
+							console.log(decode)
+
+							var buffer = new Buffer(decode);
 
 							fs.open(path + nombre, "w", (err, fd) => {
 								if (err) throw "error al crear svg " + err;
@@ -1544,7 +1581,6 @@ exports.obtenerBinarioPredisenado = function (req, res) {
 									if (err) throw "error al escribir " + err;
 
 									let svg = path + nombre;
-
 
 									var pngout = svg.replace("svg", "jpg");
 
@@ -1555,6 +1591,11 @@ exports.obtenerBinarioPredisenado = function (req, res) {
 										})
 											.then(buffer => {
 												fs.writeFile(pngout, buffer, (err) => {
+
+													fs.unlink(svg, (err) => {
+														console.log(err)
+													});
+
 													setTimeout(() => {
 														res.sendFile(nombre.replace("svg", "jpg"), {
 															root: __dirname + "/../" + path
