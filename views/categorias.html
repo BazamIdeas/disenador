@@ -55,8 +55,7 @@
     <div class="logos-predisenados">
         {% for elemento in logosPredisenados %}
         <div class='--item'>
-            {% if elemento.padre %}
-            <a class="enviar_editor" data-id="{{elemento.padre}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}"
+            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-subcategoria="{{elemento.categorias_idCategoria}}" data-categoria="{{elemento.padre}}"
                 data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
                 <span>
                     <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{elemento.atributos[1].valor}}">
@@ -67,22 +66,10 @@
                 </span>
                 {% endif %} {% endfor %}
             </a>
-            {% else %}
-            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}"
-                data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
-                <span>
-                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{elemento.atributos[1].valor}}">
-                </span>
-                {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
-                <span class="descripcion">
-                    {{atributo.valor}}
-                </span>
-                {% endif %} {% endfor %}
-            </a>
-            {% endif %} {% if mostraretiquetaslogo %}
+            {% if mostraretiquetaslogo %}
             <div class="tags">
                 {% for tag in elemento.etiquetas %} {% for traduccion in tag.traducciones %}
-                <a class="buscarEditor" data-tag="{{tag | dump }}">{{traduccion.valor}}</a>
+                <a class="buscarEditor" data-subcategoria="{{elemento.categorias_idCategoria}}" data-categoria="{{elemento.padre}}" data-tag="{{tag | dump }}">{{traduccion.valor}}</a>
                 {% endfor %} {% endfor %}
             </div>
             {% endif %} {% if mostraretiquetaslogo == false %}

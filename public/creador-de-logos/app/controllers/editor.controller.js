@@ -31,6 +31,8 @@ angular.module("disenador-de-logos")
 
 		bz.logo = historicoResolve.logo;
 
+		bz.categoriaIcono = historicoResolve.idCategoria;
+
 		if (!historicoResolve.idLogoGuardado && !historicoResolve.idLogoPadre) { //si no es un logo guardado
 
 			bz.logo.texto = historicoResolve.texto;
@@ -250,10 +252,13 @@ angular.module("disenador-de-logos")
 
 		/****** Guardar Logo del Disenador  ******/
 		bz.guardarLogoDisenador = function (logo, noun, tipoLogo, idCategoria, tags, alt) {
+			
 
 			if (!bz.completadoGuardar || !bz.disenadorGuardarForm.$valid) {
 				return;
 			}
+
+			if(!tags.length) return;
 
 			bz.completadoGuardar = false;
 
@@ -555,8 +560,11 @@ angular.module("disenador-de-logos")
 				var iconos = [];
 
 				angular.forEach(bz.etiquetasSeleccionadas, function (valor) {
-					tags.push(valor.traduccion.valor);
+					tags[valor.traducciones[0].valor] = 0;
 				});
+
+				
+
 				//FIXME: Revisar
 				if (bz.iconos.length > 0) {
 					angular.forEach(bz.iconos, function (valor) {
@@ -567,7 +575,8 @@ angular.module("disenador-de-logos")
 				bz.cerrarContenedores();
 				bz.contenedores.busquedaIconos = true;
 				//FIXME: Revisar
-				elementosService.listarIconosSegunTags(tags, idCategoria, iconos, 17).then(function (res) {
+
+				elementosService.listarIconosSegunTags(tags).then(function (res) {
 					bz.iconos = [];
 					bz.iconos = res;
 

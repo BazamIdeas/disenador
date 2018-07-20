@@ -592,7 +592,7 @@ bazam-papeleria {
     align-items: center;
 }
 
-[movimiento-bz] {
+[movimiento-bz]:not(.contenedor-icono) {
     fill: transparent;
     cursor: crosshair;
     cursor: -moz-grabbing;
