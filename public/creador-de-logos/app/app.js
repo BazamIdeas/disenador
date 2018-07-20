@@ -1,10 +1,12 @@
 var angularDragula = require('angularjs-dragula');
 
-angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "720kb.socialshare", "ngFileUpload"])
+angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "720kb.socialshare", "ngFileUpload", 'ngCookies'])
 
-	.config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
+	.config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider, $cookiesProvider) {
 
 		$locationProvider.html5Mode(true);
+
+		$cookiesProvider.defaults.path = '/';
 
 		/* INTERCEPTADOR */
 		$httpProvider.interceptors.push("AuthInterceptor");
@@ -72,13 +74,11 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 											icono: datosLanding.idCategoria,
 											fuente: datosLanding.idFuente
 										},
+										subcategoria: datosLanding.subCategoria,
 										tags: datosLanding.etiquetasParaBusqueda,
-										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas,
-										preferencias: datosLanding.preferencias
+										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
 									},
-									palettesCopy: datosLanding.palettesCopy,
-									iconos: datosLanding.iconos,
-									fuentes: datosLanding.fuentes
+									palettesCopy: datosLanding.palettesCopy
 								};
 							} else {
 
@@ -101,9 +101,10 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									datos: {
 										nombre: datosLanding.nombre,
 										categoria: {
-											icono: 0,
+											icono: datosLanding.idCategoria,
 											fuente: 2
 										},
+										subcategoria: datosLanding.subCategoria,
 										tags: datosLanding.etiquetasParaBusqueda,
 										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
 									},
@@ -128,7 +129,9 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						logo: null,
 						texto: null,
 						fuentes: null,
-						idLogoGuardado: null
+						idLogoGuardado: null,
+						idCategoria: null,
+						subcategoria: null
 					}
 				},
 				resolve: {

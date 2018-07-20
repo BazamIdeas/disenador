@@ -103,6 +103,8 @@ jQuery(document).ready(function ($) {
 
   $('.enviar_editor').click(function () {
 
+    var logo = $(this);
+
     let data = {
       predisenado: true,
       fuentes: {
@@ -116,10 +118,10 @@ jQuery(document).ready(function ($) {
         },
 
       },
-      idLogoPadre: 0
+      idLogoPadre: 0,
+      idCategoria: logo.attr('data-categoria'),
+      subcategoria: logo.attr('data-subcategoria'),
     };
-
-    var logo = $(this);
 
     let atributos = JSON.parse(logo.attr('data-attrs'));
 
@@ -145,12 +147,22 @@ jQuery(document).ready(function ($) {
 
   $('.buscarEditor').click(function () {
 
-    let tag = JSON.parse($(this).attr('data-tag'));
+    var elemento = $(this);
+
+    let tag = JSON.parse(elemento.attr('data-tag'));
 
     let data = {
       etiquetasParaBusqueda: [tag.traducciones[0].valor],
-      etiquetasSeleccionadas: [{ _id: tag._id, traduccion: { valor: tag.traducciones[0].valor } }],
+      etiquetasSeleccionadas: [
+        {
+          _id: tag._id, traducciones: [
+            { valor: tag.traducciones[0].valor }
+          ]
+        }
+      ],
       nombre: 'Mi logo',
+      idCategoria: elemento.attr('data-categoria'),
+      subcategoria: elemento.attr('data-subcategoria'),
       paginaCategoria: true
     };
 
@@ -163,7 +175,7 @@ jQuery(document).ready(function ($) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
       while (c.charAt(0) == ' ') {
         c = c.substring(1);
@@ -180,16 +192,16 @@ jQuery(document).ready(function ($) {
 
   $('.selector-de-idiomas > select').change(function () {
     let codigo = $(this).val();
-    
-    if(idiomaActivo != codigo){
-      document.cookie = "logoLang="+codigo;
+
+    if (idiomaActivo != codigo) {
+      document.cookie = "logoLang=" + codigo;
       $('html').animate({
         scrollTop: 0
       }, 1000);
       location.reload();
-    }else{
+    } else {
       return;
-    }; 
+    };
 
   })
 

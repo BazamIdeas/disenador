@@ -6,7 +6,7 @@ angular.module("disenador-de-logos")
 
 		bz.lang = langFactory.langsEstadoActual();
 
-		console.log(bz.lang);
+		//console.log(bz.lang);
 
 		bz.base64 = $base64;
 
@@ -247,13 +247,6 @@ angular.module("disenador-de-logos")
 
 		bz.completado = true;
 
-		// Si no es un logo compartido
-
-		if (landingResolve && !landingResolve.logoCompartido && !landingResolve.paginaCategoria){
-
-				bz.combinar(landingResolve.iconos, landingResolve.fuentes);
-		}
-
 		var tags_saltos = {};
 
 		bz.solicitarElementos = function (inicial) {
@@ -340,8 +333,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		// Si es un logo compartido 
-		if (landingResolve && landingResolve.logoCompartido || landingResolve.paginaCategoria) {
+		if (landingResolve){
 			bz.solicitarElementos();
 		}
 
@@ -373,6 +365,8 @@ angular.module("disenador-de-logos")
 			$state.go("editor", datos);
 
 		};
+
+		
 
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
 

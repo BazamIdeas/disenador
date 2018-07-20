@@ -11,7 +11,7 @@
                                 right: 23px;
                                 top: 5%;" class="material-icons cerrar-pop" ng-click="$parent.mostrar = false">clear</i>
                             <div>
-                                <img class="key-image" src="/landing/assets/img/iconos_login/keys.svg">
+                                <img class="key-image" ng-src="/landing/assets/img/iconos_login/keys.svg">
                                 <p class="text-center tercero">{{textos.login.titulo}}</p>
                                 <small class="subtitle">
                                     <B>{{textos.login.subtitulo}}</B>

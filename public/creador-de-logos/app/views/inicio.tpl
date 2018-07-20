@@ -5,9 +5,8 @@
 
                 <!-- NOMBRE-->
 
-                <div class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo"
-                    data-clases="['corner-lt']" data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1"
-                    bazam-pasos-ayuda>
+                <div class="input-field col s12" bazam-ayuda data-titulo="Nombre" data-texto="Ingrese el nombre para su logo" data-clases="['corner-lt']"
+                    data-identificador="ayuda-nombre-logo" data-orientacion="right" data-paso="1" bazam-pasos-ayuda>
                     <input id="nombre" type="text" ng-model="inicio.datos.nombre" maxlength="40" required>
                     <label style="padding:0 !important" for="nombre" class="active">{{::inicio.lang.formulario.nombre.label}}</label>
                 </div>
@@ -16,8 +15,8 @@
 
                 <md-input-container class="col s12">
                     <label>{{::inicio.lang.formulario.etiquetas.label}}</label>
-                    <md-chips style="padding:0;" md-add-on-blur="true" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-                        md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)"  ng-class="{'without-placeholder':inicio.datos.etiquetasSeleccionadas.length > 0}">
+                    <md-chips style="padding:0;" md-add-on-blur="true" md-max-chips="5" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                        md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" ng-class="{'without-placeholder':inicio.datos.etiquetasSeleccionadas.length > 0}">
                         <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
                             md-item-text="item.traducciones[0].valor" placeholder="{{::inicio.lang.formulario.etiquetas.placeholder}}">
                             <span md-highlight-text="inicio.searchText">{{::item.traducciones[0].valor}}</span>
@@ -53,7 +52,7 @@
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
                             <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria">
                                 <md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-                                <span class="estilo" ng-class="{'estilo-1':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-2':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-3':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
+                                <span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
                             </md-radio-button>
                         </md-radio-group>
 
@@ -85,7 +84,7 @@
 
                     <div class="share-email" ng-if="logo.mostrarCompartir" ng-form="inicio.compartirEmailForm">
                         <md-icon class="material-icons cerrar-compartir-email" role="img" aria-label="close" ng-click="logo.mostrarCompartir = false;">close</md-icon>
-                        
+
                         <div class="input-field">
                             <input name="correo" type="email" ng-model="logo.email" placeholder="Email" required/>
 
@@ -117,8 +116,8 @@
                         </span>
 
                         <span style="bottom: 45%" class="accion share">
-                    
-                    
+
+
                             <span ng-click="inicio.compartir('google', logo)">
                                 <i class="fab fa-google-plus-g"></i>
                             </span>
@@ -131,12 +130,12 @@
                             <span ng-click="inicio.compartir('pinterest', logo)">
                                 <i class="fab fa-pinterest"></i>
                             </span>
-                            <span ng-click="logo.mostrarCompartir = true"> 
+                            <span ng-click="logo.mostrarCompartir = true">
                                 <i class="fas fa-envelope"></i>
                             </span>
-                            
-                            
-                            
+
+
+
                             <img src="assets/images/share.svg" alt="">
                         </span>
 
@@ -144,7 +143,7 @@
                             <p>COMPRAR</p>
                             <img src="assets/images/shop.svg" alt="">
                         </span>
-                    
+
                     </div>
 
                 </div>

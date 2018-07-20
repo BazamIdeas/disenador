@@ -259,36 +259,33 @@ exports.validarLanding = function (req, res, next) {
 
 	const categoriasService = services.categorias;
 
-	try {
-		var tipo = ["Iniciales", 'ICONO'];
+	var tipo = ["Iniciales", 'ICONO'];
 
-		categoria.getCategorias(tipo, function (error, response) {
-			if (typeof response !== "undefined" && response.length > 0) {
+	categoria.getCategorias(tipo, function (error, response) {
+		if (typeof response !== "undefined" && response.length > 0) {
 
-				req.body.categorias = categoriasService.formatearCategorias(response);
+			req.body.categorias = categoriasService.formatearCategorias(response);
+			var tipo = ["Iniciales", 'FUENTE'];
 
-				try {
-					var tipo = ["Iniciales", 'FUENTE'];
+			categoria.getCategorias(tipo, function (error, response) {
 
-					categoria.getCategorias(tipo, function (error, response) {
+				if (typeof response !== "undefined" && response.length > 0) {
 
-						if (typeof response !== "undefined" && response.length > 0) {
+					req.body.categoriasFuentes = categoriasService.formatearCategorias(response);
 
-							req.body.categoriasFuentes = categoriasService.formatearCategorias(response);
-
-							next();
-						}
-
-					});
-				} catch (e) {
-					res.status(400).json({ "Mensaje": "Categorias no encontradas" });
+					next();
+				} else {
+					console.log("Categorias no encontradas");
+					res.render('404.html');
 				}
-			}
-		});
 
-	} catch (e) {
-		res.status(400).json({ "Mensaje": "Categorias no encontradas" });
-	}
+			});
+
+		} else {
+			console.log("Categorias no encontradas");
+			res.render('404.html');
+		}
+	});
 
 }
 

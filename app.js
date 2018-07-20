@@ -50,6 +50,7 @@ let init = async function() {
     app.use('/sweetalert', express.static(__dirname + '/node_modules/sweetalert/lib'))
     app.use('/angular-ui-carousel', express.static(__dirname + '/node_modules/angular-ui-carousel/dist'))
     app.use('/angularjs-dragula', express.static(__dirname + '/node_modules/angularjs-dragula/dist'))
+    app.use('/angular-cookies', express.static(__dirname + '/node_modules/angular-cookies'))
     
     app.use('/app',rutas);
 
