@@ -7,8 +7,8 @@
             <div class="row" ng-switch="logos.opcionMostrar">
 
                 <div class="tabs-logos col s12">
-                    <span ng-click="::logos.opcionMostrar='guardados'" ng-class="{'tab-active': logos.opcionMostrar=='guardados'}">GUARDADOS</span>
-                    <span ng-click="::logos.opcionMostrar='adquiridos'" ng-class="{'tab-active': logos.opcionMostrar=='adquiridos'}">COMPRADOS</span>
+                    <span ng-click="::logos.opcionMostrar='guardados'" ng-class="{'tab-active': logos.opcionMostrar=='guardados'}">{{logos.lang[0]}}</span>
+                    <span ng-click="::logos.opcionMostrar='adquiridos'" ng-class="{'tab-active': logos.opcionMostrar=='adquiridos'}">{{logos.lang[1]}}</span>
                 </div>
                 <!--PENDIENTES DE APROBACION-->
                 <div class="col s12" ng-switch-when="guardados">

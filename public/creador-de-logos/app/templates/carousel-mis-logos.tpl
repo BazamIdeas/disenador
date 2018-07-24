@@ -28,7 +28,7 @@
                 </div>
 
                 <span style="bottom: 85%" class="accion"  ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: logo.elementos_idElemento, svg:  logo.logo}}, idLogoGuardado: logo.idLogo, fuentes: {principal: carouselMisLogos.callback[2](logo.atributos, 'principal'), eslogan: carouselMisLogos.callback[2](logo.atributos,'eslogan')}}})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'guardados'">
-                    <p>EDITAR</p> <img src="assets/images/edit_white.svg" alt="">
+                    <p>{{carouselMisLogos.lang[3]}}</p> <img src="assets/images/edit_white.svg" alt="">
                 </span>
                 
                 <span style="bottom: 85%" class="accion"  ui-sref="descargar({id: logo.idLogo})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'adquiridos'">
@@ -60,15 +60,15 @@
                 </span>
 
                 <span style="bottom: 55%" class="accion" ui-sref="papeleria({id: logo.idLogo})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'adquiridos'">
-                    <p>PAPELERIA</p> <img src="assets/images/layers.png" alt="">
+                    <p>{{carouselMisLogos.lang[8]}}</p> <img src="assets/images/layers.png" alt="">
                 </span>
 
                 <span style="bottom: 55%" class="accion"  ng-click="carouselMisLogos.callback[5]($index)" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'guardados'">
-                    <p>COMPRAR</p> <img src="assets/images/shop.svg" alt="">
+                    <p>{{carouselMisLogos.lang[4]}}</p> <img src="assets/images/shop.svg" alt="">
                 </span>
 
                 <span style="bottom: 40%" class="accion" ng-click="carouselMisLogos.borrarSlider(logo.idLogo)"  ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'guardados'">
-                    <p>BORRAR</p> <img src="assets/images/delete.svg" alt="">
+                    <p>{{carouselMisLogos.lang[5]}}</p> <img src="assets/images/delete.svg" alt="">
                 </span>
                 
                 <bazam-visualizar style="width:100%" data-svg="carouselMisLogos.base64.decode(logo.logo)"></bazam-visualizar>
@@ -82,7 +82,7 @@
         <div class="logo-wrapper" ng-if="!logos.length">
             <div class="logo-container-m logo-active-m" style="height:40px; border: none;box-shadow:none;top:100px;">
                 <span class="seleccionar" style="opacity: 1; font-size: 15px; border: none; width:100%;justify-content: center;background:white;">
-                    AUN NO TIENE LOGOS {{::carouselMisLogos.callback[1].toUpperCase()}}
+                    {{carouselMisLogos.lang[2]}} {{::carouselMisLogos.callback[1].toUpperCase()}}
                 </span>
             </div>
         </div>

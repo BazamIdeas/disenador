@@ -4,9 +4,13 @@ angular.module("disenador-de-logos")
 			restrict: "AE",
 			scope: true,
 			templateUrl: "app/templates/bazamPalettePicker.tpl",
-			controller: ["$scope", "coloresPaletteValue", function ($scope, coloresPaletteValue){
+			controller: ["$scope", "coloresPaletteValue", "langFactory", function ($scope, coloresPaletteValue, langFactory){
 
 				var bz = $scope.$parent.inicio;
+
+				$scope.textos = langFactory.langsEstadoActual().formulario.color;
+
+				console.log('Directiva', bz.lang)
 
 				bz.palettes = coloresPaletteValue;
 

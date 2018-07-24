@@ -1431,8 +1431,6 @@ angular.module("disenador-de-logos")
 
 		this.guardarLogo = function (logo, noun, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId, tags, descripcion) {
 			console.info(arguments);
-			console.info(arguments[4]);
-
 			var defered = $q.defer();
 			var promise = defered.promise;
 

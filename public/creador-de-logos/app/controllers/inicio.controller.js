@@ -357,7 +357,7 @@ angular.module("disenador-de-logos")
 				datos: {
 					logo: logoSeleccionado,
 					texto: bz.datos.nombre,
-					categoria: logoSeleccionado.icono.categorias_idCategoria,
+					categoria: bz.datos.categoria.icono,
 					colores: [logoSeleccionado.colores[0], logoSeleccionado.colores[logoSeleccionado.random]]
 				}
 			};

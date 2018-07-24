@@ -1,8 +1,13 @@
 module.exports = {
     "ES": {
         app_editor: {
+            header: ['Acceder | Registro'],
             secciones: {
                 inicio: {
+                    combinaciones: {
+                        guardar: "SAVE",
+                        editar: "EDIT"
+                    },
                     formulario: {
                         nombre: {
                             label: 'Nombre',
@@ -30,9 +35,97 @@ module.exports = {
                             placeholder: '',
                             validacion: ['Debes elegir al menos un color.']
                         },
-                        submit: ['CARGAR MÁS','BUSCAR']
-                    }  
-                }
+                        submit: ['CARGAR MÁS', 'BUSCAR']
+                    }
+                },
+                logos: [
+                    'GUARDADOS', 
+                    'COMPRADOS',
+                    'AUN NO TIENES LOGOS',
+                    'EDITAR',
+                    'COMPRAR',
+                    'BORRAR',
+                    'El logo fue borrado exitosamente!',
+                    'Un error ha ocurrido',
+                    'PAPELERIA'
+                ],
+                cuenta: [
+                    'Correo',
+                    'Nombre',
+                    'Teléfono',
+                    'País',
+                    'Editar Datos',
+                    'Cambiar Contraseña',
+                    'Este campo es requerido.',
+                    'Guardar',
+                    'Cancelar',
+                    'Antigua contraseña',
+                    'Debe tener un minimo de 8 caracteres.',
+                    'Contraseña Nueva',
+                    'Cambiar',
+                    'N° de pedido', 
+                    'Fecha', 
+                    'Estado', 
+                    'Logo', 
+                    'Plan', 
+                    'Precio', 
+                    'Impuesto', 
+                    'TOTAL',
+                    'NO HA REALIZADO NINGUNA COMPRA'
+                ],
+                planes:[
+                    'ESCOJA EL MEJOR PLAN PARA USTED',
+                    'SELECCIONAR',
+                    'Planes',
+                    'GRACIAS POR TOMAR NUESTRO PLAN GRATIS',
+                    '¿Deseas elegir otro plan?',
+                    'ELEGIR OTRO PLAN',
+                    'SEGUIR EDITANDO MI LOGO'
+                ],
+                editor: [
+                    'Nombre',
+                    'Nombre del logo',
+                    'Estilo de tipografía',
+                    'Texto',
+                    'Negrita',
+                    'Cursiva',
+                    'Tamaño',
+                    'Disminuir Tamaño',
+                    'Anumentar Tamaño',
+                    'Agregar Eslogan',
+                    'Etiquetas (Opcional)',
+                    'Buscar simbolos',
+                    'Orientación',
+                    'Simbolo arriba',
+                    'Simbolo a la izquierda',
+                    'Fondo',
+                    'Cuadricula',
+                    'VOLVER',
+                    'Planes',
+                    'GUARDAR',
+                    'COMPRAR'
+                ],
+                pago: [
+                    'Resumen de su pedido',
+                    'Acepto los',
+                    'Términos de Condiciones y Uso',
+                    'Tarjeta de Crédito o Débito',
+                    'PAGAR',
+                ],
+                descargar:[
+                    'Mi logo',
+                    'Papeleria',
+                    'Documentos',
+                    'Zip (Todo)',
+                    'MEJORAR MI PLAN',
+                    'DESCARGAR',
+                    'Sociales',
+                    'Manual de marcas',
+                    '(Proximamente)',
+                    'AUMENTE SU PLAN Y OBTENGA MEJORES BENEFICIOS',
+                    'COMPRAR'
+                ]
+
             }
         },
         landing: {
@@ -364,7 +457,7 @@ module.exports = {
             secciones: {
                 inicio: {
                     combinaciones: {
-                        guardar : "SAVE",
+                        guardar: "SAVE",
                         editar: "EDIT"
                     },
                     formulario: {
@@ -394,8 +487,8 @@ module.exports = {
                             placeholder: '',
                             validacion: ['You must choose a color.']
                         },
-                        submit: ['LOAD MORE','SEARCH']
-                    }  
+                        submit: ['LOAD MORE', 'SEARCH']
+                    }
                 }
             }
         },
@@ -728,6 +821,10 @@ module.exports = {
         app_editor: {
             secciones: {
                 inicio: {
+                    combinaciones: {
+                        guardar: "SAVE",
+                        editar: "EDIT"
+                    },
                     formulario: {
                         nombre: {
                             label: 'Nombre',
@@ -755,8 +852,8 @@ module.exports = {
                             placeholder: '',
                             validacion: ['Debes elegir al menos un color.']
                         },
-                        submit: ['CARGAR MÁS','BUSCAR']
-                    }  
+                        submit: ['CARGAR MÁS', 'BUSCAR']
+                    }
                 }
             }
         },

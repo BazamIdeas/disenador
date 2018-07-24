@@ -103,13 +103,15 @@ angular.module("disenador-de-logos")
 		return {
 			restrict: "E",
 			templateUrl: "app/templates/carousel-mis-logos.tpl",
-			controller: ["$scope", "$base64", "arrayToJsonMetasFactory", "logosService", "$mdToast", "$location", function ($scope, $base64, arrayToJsonMetasFactory, logosService, $mdToast, $location) {
+			controller: ["$scope", "$base64", "arrayToJsonMetasFactory", "logosService", "$mdToast", "$location", "langFactory", function ($scope, $base64, arrayToJsonMetasFactory, logosService, $mdToast, $location, langFactory) {
 
 				var bz = this;
 
 				bz.callback = $scope.callback;
 				bz.elegido = $scope.elegido;
 				bz.logos = $scope.logos;
+
+				bz.lang = langFactory.langsEstadoActual();
 
 				bz.base64 = $base64;
 

@@ -1,10 +1,14 @@
 angular.module("disenador-de-logos")
 
-	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "pedidosService", "$window", "$document", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, pedidosService, $window, $document) {
+	.controller("descargarController", ["logoResolve", "logosService", "$state", "$scope", "$base64", "$filter", "planesService", "pedidosService", "$window", "$document", "langFactory", function (logoResolve, logosService, $state, $scope, $base64, $filter, planesService, pedidosService, $window, $document, langFactory) {
 
 		var bz = this;
 
 		bz.base64 = $base64;
+
+		bz.lang = langFactory.langsEstadoActual();
+
+		console.log(bz.lang)
 
 		bz.formatosNoSociales = [{
 			nombre: "editable",

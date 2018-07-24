@@ -135,13 +135,14 @@ angular.module("disenador-de-logos")
 				bz.mostrarFormDisenador = true;
 				return;
 			}
-
+			
 			bz.guardarLogo(logo, noun, tipoLogo, idCategoria, regresar);
 		};
 
 		bz.completadoGuardar = true;
 
 		bz.guardarLogo = function (logo, noun, tipoLogo, idCategoria, regresar) {
+			console.log(idCategoria)
 
 			var defered = $q.defer();
 			var promise = defered.promise;

@@ -6,13 +6,11 @@ angular.module("disenador-de-logos")
 
 		var bz = this;
 
-		bz.traducciones = $window.traducciones;
+		bz.texto = $window.traducciones.general.app_editor.header;
 
-		console.log(bz.traducciones)
+		bz.idiomas =  $window.traducciones.idiomas;
 
-		bz.idiomas = bz.traducciones.idiomas;
-
-		bz.idiomaActivo = bz.traducciones.lang
+		bz.idiomaActivo =  $window.traducciones.lang
 
 		bz.cambiarIdioma = function (idioma) {
 			idiomaCookie = $cookies.get('logoLang');

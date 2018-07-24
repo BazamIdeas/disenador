@@ -130,7 +130,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						texto: null,
 						fuentes: null,
 						idLogoGuardado: null,
-						idCategoria: null,
+						categoria: null,
 						subcategoria: null
 					}
 				},
