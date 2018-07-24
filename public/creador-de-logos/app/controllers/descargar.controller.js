@@ -8,8 +8,6 @@ angular.module("disenador-de-logos")
 
 		bz.lang = langFactory.langsEstadoActual();
 
-		console.log(bz.lang)
-
 		bz.formatosNoSociales = [{
 			nombre: "editable",
 			ancho: 400

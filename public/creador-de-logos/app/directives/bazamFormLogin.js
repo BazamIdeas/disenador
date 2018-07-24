@@ -14,8 +14,6 @@ angular.module("disenador-de-logos")
 
 				$scope.textos = $window.traducciones.general.login;
 
-				console.log($scope.textos)
-
 				$rootScope.$on('$stateChangeSuccess', function () {
 
 					bz.vistaActual = $state.current.name;

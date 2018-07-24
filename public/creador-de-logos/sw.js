@@ -12,11 +12,6 @@ function inciar() {
     workbox.setConfig({
         debug: false
     });
-    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.silent);
-
-    workbox.core.setCacheNameDetails({
-        prefix: 'logopro'
-    });
 
     workbox.precaching.precacheAndRoute([
         '/assets/style.css',

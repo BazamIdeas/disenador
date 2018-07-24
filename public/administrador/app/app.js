@@ -25,6 +25,15 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
                     }]
                 }
             }).state({
+                name: 'app.tablero',
+                url: '/tablero',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'app/views/tablero.html',
+                        controller: 'tableroController as tablero'
+                    }
+                }
+            }).state({
                 name: 'app.categorias',
                 url: '/categorias',
                 views: {

@@ -24,7 +24,7 @@
                     </div>
 
                     <button ng-click="carouselMisLogos.compartirPorEmail(logo.email, logo, carouselMisLogos.compartirEmailForm.$valid); carouselMisLogos.compartirEmailForm.$setSubmitted()"
-                        ng-class="{'loading-white':!carouselMisLogos.completadoCompartir }">ENVIAR</button>
+                        ng-class="{'loading-white':!carouselMisLogos.completadoCompartir }">{{carouselMisLogos.lang[10]}}</button>
                 </div>
 
                 <span style="bottom: 85%" class="accion"  ui-sref="editor({status: true, datos: {logo: {icono: {idElemento: logo.elementos_idElemento, svg:  logo.logo}}, idLogoGuardado: logo.idLogo, fuentes: {principal: carouselMisLogos.callback[2](logo.atributos, 'principal'), eslogan: carouselMisLogos.callback[2](logo.atributos,'eslogan')}}})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'guardados'">
@@ -32,7 +32,7 @@
                 </span>
                 
                 <span style="bottom: 85%" class="accion"  ui-sref="descargar({id: logo.idLogo})" ng-if="carouselMisLogos.actual == $index && carouselMisLogos.callback[1] == 'adquiridos'">
-                    <p>DESCARGAR</p> <img src="assets/images/file_download.svg" alt="">
+                    <p>{{carouselMisLogos.lang[9]}}</p> <img src="assets/images/file_download.svg" alt="">
                 </span>
 
                 <span style="bottom: 70%" class="accion share"  ng-click="carouselMisLogos.callback[2](logo.idLogo)" ng-if="carouselMisLogos.actual == $index && (carouselMisLogos.callback[1] == 'adquiridos' || carouselMisLogos.callback[1] == 'guardados')">

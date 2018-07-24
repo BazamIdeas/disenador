@@ -595,9 +595,11 @@ angular.module("disenador-de-logos")
 
 			var promise = defered.promise;
 
-			$http.post("/app/elementos/busqueda/iconos/noun", {
-				tags: tags
-			})
+			var data = {
+				tags : tags
+			}
+
+			$http.post("/app/elementos/busqueda/iconos/noun", data)
 				.then(function (res) {
 					defered.resolve(res.data);
 				})
@@ -1430,7 +1432,7 @@ angular.module("disenador-de-logos")
 		};
 
 		this.guardarLogo = function (logo, noun, tipoLogo, idCategoria, fuentePrincipalId, fuenteEsloganId, tags, descripcion) {
-			console.info(arguments);
+
 			var defered = $q.defer();
 			var promise = defered.promise;
 
@@ -2278,12 +2280,17 @@ angular.module("disenador-de-logos")
 
 		return {
 
-			langsEstadoActual: function (){
+			langsEstadoActual: function (estado){
 			
+				var langsEstadoActual = false; 
 				var langsPorEstados = langValue.general.app_editor.secciones;
 				var nombreEstado = $state.current.name;
 
-				var langsEstadoActual = langsPorEstados[nombreEstado];
+				if(estado){
+					langsEstadoActual = langsPorEstados[estado];
+				}else{
+					langsEstadoActual = langsPorEstados[nombreEstado];
+				}
 
 				if(!langsEstadoActual){
 					return false;

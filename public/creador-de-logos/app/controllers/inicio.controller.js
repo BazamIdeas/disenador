@@ -6,8 +6,6 @@ angular.module("disenador-de-logos")
 
 		bz.lang = langFactory.langsEstadoActual();
 
-		//console.log(bz.lang);
-
 		bz.base64 = $base64;
 
 		bz.obtenerColores = function(coloresArray){
@@ -133,7 +131,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-
 		bz.compartirPorEmailUrl = function () {
 			if(disenadorService.autorizado()) {
 				return;
@@ -228,6 +225,31 @@ angular.module("disenador-de-logos")
 			var logos = crearLogoFactory(iconos, fuentes);
 
 			bz.logos = logos;
+
+			
+
+
+			// Setear en el local
+
+			var etiquetasParaBusqueda = [];
+
+			angular.forEach(bz.datos.etiquetasSeleccionadas, function (valor) {
+				delete valor.$$hashKey;
+				etiquetasParaBusqueda.push(valor.traducciones[0].valor)
+			})
+
+			var datosLocal = {
+				colores: bz.datos.colores,
+				etiquetasParaBusqueda: etiquetasParaBusqueda,
+				etiquetasSeleccionadas: bz.datos.etiquetasSeleccionadas,
+				idCategoria: bz.datos.categoria.icono,
+				idFuente: bz.datos.categoria.fuente,
+				nombre: bz.datos.nombre,
+				palettesCopy: bz.palettesCopy
+			}
+
+			localStorage.setItem('comenzar', JSON.stringify(datosLocal));
+
 			/*
 			var cantidadLogos = logos.length;
 			
@@ -366,8 +388,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-		
-
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
 
 			if(disenadorService.autorizado()) {
@@ -399,7 +419,6 @@ angular.module("disenador-de-logos")
 		};
 
 		/* guardar logo */
-
 
 		bz.preGuardarLogo = function (logo) {
 
@@ -446,7 +465,6 @@ angular.module("disenador-de-logos")
 
 		bz.completadoGuardar = true;
 
-		
 		bz.guardarLogo = function (logo, noun, tipoLogo, idCategoria, idFuentePrincipal) {
 
 			var defered = $q.defer();

@@ -494,6 +494,22 @@ angular.module("administrador")
 
     }])
 
+    .service('tableroService', ['$http', '$q', function ($http, $q) {
+
+        this.estadisticas = function () {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get('/app/admin/estadisticas').then(function (res) {
+                defered.resolve(res);
+            }).catch(function (res) {
+                defered.reject(res);
+            })
+            return promise;
+        }
+
+    }])
+
     /* SERVICIO PARA ICONOS */
 
     .service('iconoFuente', ['$http', 'Upload', '$q', function ($http, Upload, $q) {

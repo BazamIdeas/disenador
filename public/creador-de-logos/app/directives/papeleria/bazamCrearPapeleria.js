@@ -13,8 +13,10 @@ angular.module("disenador-de-logos")
                 planBajo:"<",
                 mostrarPlanesSuperiores: "="
 			},
-            controller: ["$scope", "$mdToast", "$sce", "$stateParams", "$state", "papeleriaService", "elementosService", "fontService", function ($scope, $mdToast, $sce, $stateParams, $state, papeleriaService, elementosService, fontService) {
+            controller: ["$scope", "$mdToast", "$sce", "$stateParams", "$state", "papeleriaService", "elementosService", "fontService", "langFactory", function ($scope, $mdToast, $sce, $stateParams, $state, papeleriaService, elementosService, fontService, langFactory) {
                 var bz = this;
+
+                bz.lang = langFactory.langsEstadoActual('papeleria');
 
                 bz.sce = $sce;
 

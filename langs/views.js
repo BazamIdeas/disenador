@@ -5,8 +5,8 @@ module.exports = {
             secciones: {
                 inicio: {
                     combinaciones: {
-                        guardar: "SAVE",
-                        editar: "EDIT"
+                        guardar: "GUARDAR",
+                        editar: "EDITAR"
                     },
                     formulario: {
                         nombre: {
@@ -39,7 +39,7 @@ module.exports = {
                     }
                 },
                 logos: [
-                    'GUARDADOS', 
+                    'GUARDADOS',
                     'COMPRADOS',
                     'AUN NO TIENES LOGOS',
                     'EDITAR',
@@ -47,7 +47,9 @@ module.exports = {
                     'BORRAR',
                     'El logo fue borrado exitosamente!',
                     'Un error ha ocurrido',
-                    'PAPELERIA'
+                    'PAPELERIA',
+                    'DESCARGAR',
+                    'ENVIAR'
                 ],
                 cuenta: [
                     'Correo',
@@ -63,17 +65,17 @@ module.exports = {
                     'Debe tener un minimo de 8 caracteres.',
                     'Contraseña Nueva',
                     'Cambiar',
-                    'N° de pedido', 
-                    'Fecha', 
-                    'Estado', 
-                    'Logo', 
-                    'Plan', 
-                    'Precio', 
-                    'Impuesto', 
+                    'N° de pedido',
+                    'Fecha',
+                    'Estado',
+                    'Logo',
+                    'Plan',
+                    'Precio',
+                    'Impuesto',
                     'TOTAL',
                     'NO HA REALIZADO NINGUNA COMPRA'
                 ],
-                planes:[
+                planes: [
                     'ESCOJA EL MEJOR PLAN PARA USTED',
                     'SELECCIONAR',
                     'Planes',
@@ -83,27 +85,34 @@ module.exports = {
                     'SEGUIR EDITANDO MI LOGO'
                 ],
                 editor: [
-                    'Nombre',
                     'Nombre del logo',
+                    'Nombre',
                     'Estilo de tipografía',
+                    'Debes elegir un estilo de Tipografía.',
                     'Texto',
+                    'Tamaño',
                     'Negrita',
                     'Cursiva',
-                    'Tamaño',
                     'Disminuir Tamaño',
                     'Anumentar Tamaño',
                     'Agregar Eslogan',
+                    'Eslogan del logo',
+                    'Eslogan',
                     'Etiquetas (Opcional)',
+                    'Categoria del icono',
                     'Buscar simbolos',
                     'Orientación',
                     'Simbolo arriba',
                     'Simbolo a la izquierda',
+                    'TU LOGO',
                     'Fondo',
                     'Cuadricula',
                     'VOLVER',
                     'Planes',
                     'GUARDAR',
-                    'COMPRAR'
+                    'COMPRAR',
+                    'CARGAR',
+                    'MAS'
                 ],
                 pago: [
                     'Resumen de su pedido',
@@ -112,7 +121,7 @@ module.exports = {
                     'Tarjeta de Crédito o Débito',
                     'PAGAR',
                 ],
-                descargar:[
+                descargar: [
                     'Mi logo',
                     'Papeleria',
                     'Documentos',
@@ -124,8 +133,42 @@ module.exports = {
                     '(Proximamente)',
                     'AUMENTE SU PLAN Y OBTENGA MEJORES BENEFICIOS',
                     'COMPRAR'
+                ],
+                papeleria: [
+                    'GUARDAR',
+                    'DESCARGAR',
+                    'PAPELERIAS',
+                    'EDITAR',
+                    'DUPLICAR',
+                    'ELIMINAR',
+                    'COMPRAR',
+                    'Usar Diseño',
+                    'Crear Papeleria',
+                    'GUARDADOS',
+                    'Mejorar mi plan',
+                    'AUMENTE SU PLAN Y OBTENGA MEJORES BENEFICIOS',
+                ],
+                papeleriaEditor: [
+                    'GUARDAR',
+                    'DESCARGAR',
+                    'PAPELERIAS',
+                    'EDITAR',
+                    'DUPLICAR',
+                    'ELIMINAR',
+                    'COMPRAR',
+                    'Usar Diseño',
+                    'Crear Papeleria',
+                    'GUARDADOS',
+                    'Mejorar mi plan',
+                    'AUMENTE SU PLAN Y OBTENGA MEJORES BENEFICIOS',
+                    'Suelta los elementos en el espacio que prefieras',
+                    'Alinear a la Izquierda',
+                    'Alinear al centro',
+                    'Alinear a la Derecha',
+                    'Fuentes',
+                    'Eliminar',
+                    'Suelta Elementos'
                 ]
-
             }
         },
         landing: {
@@ -489,7 +532,137 @@ module.exports = {
                         },
                         submit: ['LOAD MORE', 'SEARCH']
                     }
-                }
+                },
+                logos: [
+                    'SAVED',
+                    'PURCHASED',
+                    'YOU DO NOT HAVE LOGOS YET',
+                    'EDIT',
+                    'BUY',
+                    'DELETE',
+                    'The logo was successfully deleted!',
+                    'An error has occurred',
+                    'STATIONERY',
+                    'DOWNLOAD',
+                    'SEND'
+                ],
+                cuenta: [
+                    'Mail',
+                    'First name',
+                    'Phone',
+                    'Country',
+                    'Edit Data',
+                    'Change Password',
+                    'This field is required.',
+                    'Save',
+                    'Cancel',
+                    'Old password',
+                    'Must have a minimum of 8 characters.',
+                    'New password',
+                    'Change',
+                    'Order number',
+                    'Date',
+                    'State',
+                    'Logo',
+                    'Plan',
+                    'Price',
+                    'Tax',
+                    'TOTAL',
+                    'HE HAS NOT MADE ANY PURCHASE'
+                ],
+                planes: [
+                    'CHOOSE THE BEST PLAN FOR YOU',
+                    'SELECT',
+                    'Plans',
+                    'THANK YOU FOR TAKING OUR FREE PLAN',
+                    'Do you want to choose another plan?',
+                    'CHOOSE ANOTHER PLAN',
+                    'FOLLOW EDITING MY LOGO'
+                ],
+                editor: [
+                    'Name of the logo', 'First name',
+                    'Typography style',
+                    'You must choose a Typography style.',
+                    'Text',
+                    'Size',
+                    'Bold font',
+                    'Italics',
+                    'Decrease Size',
+                    'Anumentar Size',
+                    'Add slogan',
+                    'Logo slogan',
+                    'Slogan',
+                    'Labels (Optional)',
+                    'Category of the icon',
+                    'Look for symbols',
+                    'Orientation',
+                    'Symbol above',
+                    'Symbol to the left',
+                    'YOUR LOGO',
+                    'Background',
+                    'Grid',
+                    'RETURN',
+                    'Plans',
+                    'SAVE',
+                    'BUY',
+                    'LOAD',
+                    'MORE'
+                ],
+                pago: [
+                    'Summary of your order',
+                    'I accept the',
+                    'Terms of Conditions and Use',
+                    'Credit or debit card',
+                    'PAY',
+                ],
+                descargar: [
+                    'My logo',
+                    'Stationery',
+                    'Documents',
+                    'Zip (All)',
+                    'IMPROVE MY PLAN',
+                    'DOWNLOAD',
+                    'Social',
+                    'Manual of marks',
+                    '(Coming soon)',
+                    'INCREASE YOUR PLAN AND OBTAIN BETTER BENEFITS',
+                    'TO BUY'
+                ],
+                papeleria: [
+                    'SAVE',
+                    'DOWNLOAD',
+                    'STATIONERY',
+                    'EDIT',
+                    'DOUBLE',
+                    'REMOVE',
+                    'BUY',
+                    'Use Design',
+                    'Create Stationery',
+                    'SAVED',
+                    'Improve my plan',
+                    'INCREASE YOUR PLAN AND OBTAIN BETTER BENEFITS',
+                ],
+                papeleriaEditor: [
+                    'SAVE',
+                    'DOWNLOAD',
+                    'STATIONERY',
+                    'EDIT',
+                    'DOUBLE',
+                    'REMOVE',
+                    'BUY',
+                    'Use Design',
+                    'Create Stationery',
+                    'SAVED',
+                    'Improve my plan',
+                    'INCREASE YOUR PLAN AND OBTAIN BETTER BENEFITS',
+                    'Drop the elements in the space you prefer',
+                    'Align to the left',
+                    'Align to the center',
+                    'To align to the right',
+                    'Sources',
+                    'Remove',
+                    'Drop Elements'
+                ]
             }
         },
         landing: {
@@ -822,8 +995,8 @@ module.exports = {
             secciones: {
                 inicio: {
                     combinaciones: {
-                        guardar: "SAVE",
-                        editar: "EDIT"
+                        guardar: "SALVAR",
+                        editar: "EDITAR"
                     },
                     formulario: {
                         nombre: {
@@ -854,7 +1027,138 @@ module.exports = {
                         },
                         submit: ['CARGAR MÁS', 'BUSCAR']
                     }
-                }
+                },
+                logos: [
+                    'SALVAR',
+                    'COMPRADO',
+                    'VOCÊ NÃO TEM LOGOS AINDA',
+                    'EDIT',
+                    'BUY',
+                    'DELETE',
+                    'O logotipo foi excluído com sucesso!',
+                    'Ocorreu um erro',
+                    'PAPERWORK',
+                    'DOWNLOAD',
+                    'SEND'
+                ],
+                cuenta: [
+                    'Mail',
+                    'Nome',
+                    'Telefone',
+                    'País',
+                    'Editar dados',
+                    'Alterar senha',
+                    'Este campo é obrigatório',
+                    'Salvar',
+                    'Cancelar',
+                    'Senha antiga',
+                    'Deve ter no mínimo 8 caracteres.',
+                    'Nova senha',
+                    'Change',
+                    'Número do pedido',
+                    'Data',
+                    'Estado',
+                    'Logo',
+                    'Plan',
+                    'Preço',
+                    'Imposto',
+                    "TOTAL",
+                    'ELE NÃO FEZ QUALQUER COMPRA'
+                ],
+                planes: [
+                    'ESCOLHA O MELHOR PLANO PARA VOCÊ',
+                    'SELECT',
+                    'Planos',
+                    "OBRIGADO POR TOMAR NOSSO PLANO LIVRE",
+                    'Você quer escolher outro plano?',
+                    "ESCOLHA OUTRO PLANO",
+                    'SIGA EDITANDO MEU LOGOTIPO'
+                ],
+                editor: [
+                    'Nome do logotipo',
+                    'Nome',
+                    'Tipografia',
+                    "Você deve escolher um estilo de tipografia.",
+                    'Text',
+                    'Tamanho',
+                    'Negrito',
+                    'Cursive',
+                    'Diminuir o tamanho',
+                    'Anumentar Size',
+                    'Adicionar slogan',
+                    'Slogan do logotipo',
+                    'Slogan',
+                    'Etiquetas (opcionais)',
+                    'Categoria do ícone',
+                    "Procure por símbolos",
+                    'Orientação',
+                    'Símbolo acima',
+                    "Símbolo à esquerda",
+                    'SEU LOGOTIPO',
+                    'Fundo',
+                    'Grid',
+                    'BACK',
+                    'Planos',
+                    'SALVAR',
+                    'BUY',
+                    'LOAD',
+                    'MAS'
+                ],
+                pago: [
+                    "Resumo do seu pedido",
+                    'Eu aceito o',
+                    'Termos de Condições e Uso',
+                    "Cartão de crédito ou débito",
+                    'PAY',
+                ],
+                descargar: [
+                    'Meu logotipo',
+                    'Papelaria',
+                    'Documentos',
+                    'Zip (todos)',
+                    'MELHORE MEU PLANO',
+                    'DOWNLOAD',
+                    'Social',
+                    'Manual of marks',
+                    '(Em breve)',
+                    'Aumentar o seu plano e obter melhores benefícios',
+                    'BUY'
+                ],
+                papeleria: [
+                    'SALVAR',
+                    'DOWNLOAD',
+                    'PAPELARIA',
+                    'EDIT',
+                    'DUPLICATE',
+                    'DELETE',
+                    'BUY',
+                    'Use Design',
+                    'Criar papel de carta',
+                    'SALVAR',
+                    'Melhore meu plano',
+                    'AUMENTE O SEU PLANO E OBTENHA MELHORES BENEFÍCIOS'
+                ],
+                papeleriaEditor: [
+                    'SALVAR',
+                    'DOWNLOAD',
+                    'PAPELARIA',
+                    'EDIT',
+                    'DUPLICATE',
+                    'DELETE',
+                    'BUY',
+                    'Use Design',
+                    'Criar papel de carta',
+                    'SALVAR',
+                    'Melhore meu plano',
+                    'Aumentar o seu plano e obter melhores benefícios',
+                    'Solte os elementos no espaço que você preferir',
+                    'Alinhar para a esquerda',
+                    'Alinhar ao centro',
+                    'Alinhar à direita',
+                    'Fontes',
+                    'Excluir',
+                    'Soltar Elementos'
+                ]
             }
         },
         landing: {

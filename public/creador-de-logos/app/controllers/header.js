@@ -17,6 +17,7 @@ angular.module("disenador-de-logos")
 			
 			if (bz.idiomaActivo != idiomaCookie) {
 				$cookies.put("logoLang", idioma);
+				localStorage.removeItem('comenzar');
 				$('body').animate({
 					scrollTop: 0
 				}, 1000);

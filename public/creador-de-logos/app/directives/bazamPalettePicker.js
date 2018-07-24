@@ -10,8 +10,6 @@ angular.module("disenador-de-logos")
 
 				$scope.textos = langFactory.langsEstadoActual().formulario.color;
 
-				console.log('Directiva', bz.lang)
-
 				bz.palettes = coloresPaletteValue;
 
 				if (bz.palettesCopy == undefined) {

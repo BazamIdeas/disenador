@@ -860,7 +860,8 @@ bazam-palette-picker svg path[data-index].color-checked {
   align-items: center;
   justify-content: space-around; }
 
-.texto-on-select {
+md-select-menu span.texto-on-select {
+  width: 85px;
   margin-left: 8px; }
 
 .selector-de-idiomas.--flags {
