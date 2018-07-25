@@ -268,6 +268,7 @@ router.post("/logos/estado", middleware.validarCliente, controllers.logos.listaL
 // lista aprobados por categoria si el idCategoria está incluido en la peticion
 router.post("/logos/aprobados", controllers.logos.listaLogosAprobados); 
 router.post("/logos/aprobados/cat-padre", controllers.logos.listaLogosAprobadosCatPadre); 
+router.post("/logos/aprobados/master", controllers.logos.listaLogosAprobadosPorTagCatSub)
 router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobadosDestacados);
 
 //Administrador

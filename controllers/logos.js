@@ -417,6 +417,53 @@ exports.listaLogosAprobados = function (req, res) {
 
 };
 
+exports.listaLogosAprobadosPorTagCatSub = function (req, res) {
+
+	var idTag = req.body.idTag ? req.body.idTag : null;
+	var idSubcategoria = req.body.idSubcategoria ? req.body.idLogo : null;
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : null;
+
+	logo.listaLogosAprobadosPorTagCatSub(idTag, idSubcategoria, idCategoria, function (error, data) {
+
+		if (typeof data !== "undefined" && data.length > 0) {
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+							data[key]["atributos"] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}
+
+					callback();
+
+				});
+
+			}, (err) => {
+
+				if (err) res.status(402).json({});
+
+				res.status(200).json(data);
+
+			});
+		
+		} else {
+			res.status(404).json({
+				"msg": "No hay logos aprobados"
+			});
+		}
+	});
+
+};
 
 exports.listaLogosAprobadosCatPadre = function (req, res) {
 
