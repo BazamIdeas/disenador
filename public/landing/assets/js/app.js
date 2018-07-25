@@ -1,8 +1,22 @@
 $.noConflict();
 jQuery(document).ready(function ($) {
+
+  if (window.localStorage.getItem('bzToken')) {
+    $('.acceder.logeado').removeClass('hidden');
+    $('.acceder.mostrar-login').addClass('hidden');
+  }
+
+  $('a.salir').click(function () {
+    window.localStorage.removeItem('bzToken');
+    $('.acceder.mostrar-login').removeClass('hidden');
+    $('.acceder.logeado').addClass('hidden');
+  })
+
   $('.boton-formulario-generar.ver-mas').click(function () {
 
   });
+
+
 
   var repeticion;
   var repeticion2;
@@ -103,6 +117,8 @@ jQuery(document).ready(function ($) {
 
   $('.enviar_editor').click(function () {
 
+    var logo = $(this);
+
     let data = {
       predisenado: true,
       fuentes: {
@@ -116,10 +132,10 @@ jQuery(document).ready(function ($) {
         },
 
       },
-      idLogoPadre: 0
+      idLogoPadre: 0,
+      idCategoria: logo.attr('data-categoria'),
+      subcategoria: logo.attr('data-subcategoria'),
     };
-
-    var logo = $(this);
 
     let atributos = JSON.parse(logo.attr('data-attrs'));
 
@@ -145,16 +161,32 @@ jQuery(document).ready(function ($) {
 
   $('.buscarEditor').click(function () {
 
-    let tag = JSON.parse($(this).attr('data-tag'));
+    var elemento = $(this);
+
+    let tag = JSON.parse(elemento.attr('data-tag'));
 
     let data = {
       etiquetasParaBusqueda: [tag.traducciones[0].valor],
-      etiquetasSeleccionadas: [{ _id: tag._id, traduccion: { valor: tag.traducciones[0].valor } }],
+      etiquetasSeleccionadas: [
+        {
+          _id: tag._id, traducciones: [
+            { valor: tag.traducciones[0].valor }
+          ]
+        }
+      ],
       nombre: 'Mi logo',
+      idCategoria: elemento.attr('data-categoria'),
       paginaCategoria: true
     };
 
     window.localStorage.setItem('comenzar', JSON.stringify(data));
+
+    var data = {
+      subCategoria: elemento.attr('data-subcategoria'),
+      tag: tag._id
+    };
+
+    window.localStorage.setItem('comenzarSub', JSON.stringify(data));
 
     window.location = '../creador-de-logos/';
   });
@@ -163,7 +195,7 @@ jQuery(document).ready(function ($) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
       while (c.charAt(0) == ' ') {
         c = c.substring(1);
@@ -180,16 +212,34 @@ jQuery(document).ready(function ($) {
 
   $('.selector-de-idiomas > select').change(function () {
     let codigo = $(this).val();
-    
-    if(idiomaActivo != codigo){
-      document.cookie = "logoLang="+codigo;
+
+    categoria = urls_categorias[codigo].labelFormateado;
+
+    url = '/logos/' + categoria;
+
+    if (!subcategoria) {
+      switch (codigo) {
+        case 'ES':
+          url = '/logos-de-' + categoria;
+          break;
+        case 'EN':
+          url = '/logos-of-' + categoria;
+          break;
+        case 'PT':
+          url = '/logotipos-de-' + categoria;
+          break;
+      }
+    }
+
+    if (idiomaActivo != codigo) {
+      document.cookie = "logoLang=" + codigo;
       $('html').animate({
         scrollTop: 0
       }, 1000);
-      location.reload();
-    }else{
+      window.location.replace(url);
+    } else {
       return;
-    }; 
+    };
 
   })
 

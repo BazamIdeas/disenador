@@ -1,12 +1,16 @@
 angular.module("disenador-de-logos")
 
-	.controller("cuentaController", ["$scope", "$state", "pedidosService", "clientesService", "$mdToast", "paisesValue", "verificarBase64Factory", "clienteDatosFactory", "$window", function ($scope, $state, pedidosService, clientesService, $mdToast, paisesValue, verificarBase64Factory, clienteDatosFactory, $window) {
+	.controller("cuentaController", ["$scope", "$state", "pedidosService", "clientesService", "$mdToast", "paisesValue", "verificarBase64Factory", "clienteDatosFactory", "$window", "langFactory", function ($scope, $state, pedidosService, clientesService, $mdToast, paisesValue, verificarBase64Factory, clienteDatosFactory, $window, langFactory) {
 
 		var bz = this;
 
 		bz.formulario = 1;
 
 		bz.paises = paisesValue;
+
+		bz.lang = langFactory.langsEstadoActual();
+
+		console.log(bz.lang)
 
 		bz.verificarBase64 = verificarBase64Factory;
 

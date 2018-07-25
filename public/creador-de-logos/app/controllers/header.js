@@ -2,9 +2,30 @@ angular.module("disenador-de-logos")
 
 /* header */
 
-	.controller("headerController", ["clientesService", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", "$location", "disenadorService", "$mdToast", "$base64",  function (clientesService,  $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory, $location, disenadorService, $mdToast, $base64 ) {
+	.controller("headerController", ["clientesService", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", "$location", "disenadorService", "$mdToast", "$base64","$window", "$cookies",  function (clientesService,  $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory, $location, disenadorService, $mdToast, $base64, $window, $cookies) {
 
 		var bz = this;
+
+		bz.texto = $window.traducciones.general.app_editor.header;
+
+		bz.idiomas =  $window.traducciones.idiomas;
+
+		bz.idiomaActivo =  $window.traducciones.lang
+
+		bz.cambiarIdioma = function (idioma) {
+			idiomaCookie = $cookies.get('logoLang');
+			
+			if (bz.idiomaActivo != idiomaCookie) {
+				$cookies.put("logoLang", idioma);
+				localStorage.removeItem('comenzar');
+				$('body').animate({
+					scrollTop: 0
+				}, 1000);
+				location.reload();
+			} else {
+				return;
+			};
+		};
 
 		bz.base64 = $base64;
 

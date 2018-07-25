@@ -275,21 +275,34 @@ div[ng-message="required"] {
   .selector-de-idiomas select {
     display: block; }
 
-.selector-de-idiomas--flags {
+.md-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-around; }
+
+.texto-on-select {
+  margin-left: 8px; }
+
+.selector-de-idiomas.--flags {
   display: flex;
   justify-content: center;
-  align-items: center; }
-  .selector-de-idiomas--flags md-select {
+  align-items: center;
+  margin: 0; }
+  .selector-de-idiomas.--flags select {
+    display: block; }
+  .selector-de-idiomas.--flags md-select {
     margin: 0; }
-    .selector-de-idiomas--flags md-select md-select-value {
+    .selector-de-idiomas.--flags md-select md-select-value {
       border: none; }
-      .selector-de-idiomas--flags md-select md-select-value .md-select-icon {
+      .selector-de-idiomas.--flags md-select md-select-value .md-select-icon {
         display: none; }
-      .selector-de-idiomas--flags md-select md-select-value > span {
+      .selector-de-idiomas.--flags md-select md-select-value .texto-on-select {
+        display: none; }
+      .selector-de-idiomas.--flags md-select md-select-value > span {
         display: flex;
         justify-content: center;
         align-items: center; }
-  .selector-de-idiomas--flags md-select.md-default-theme:not([disabled]):focus .md-select-value, .selector-de-idiomas--flags md-select:not([disabled]):focus .md-select-value {
+  .selector-de-idiomas.--flags md-select.md-default-theme:not([disabled]):focus .md-select-value, .selector-de-idiomas.--flags md-select:not([disabled]):focus .md-select-value {
     border-bottom-color: transparent !important; }
 
 /* Header-Footer */
@@ -1591,6 +1604,8 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
       padding: 5%;
       display: block;
       cursor: pointer; }
+      .logos-predisenados .--item > a > :first-child {
+        min-height: 200px; }
       .logos-predisenados .--item > a > span {
         max-width: 90%;
         display: block;

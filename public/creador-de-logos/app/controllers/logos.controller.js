@@ -1,12 +1,14 @@
 angular.module("disenador-de-logos")
 
-	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", "$location", "Socialshare","$q", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory, $location, Socialshare, $q) {
+	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", "$location", "Socialshare","$q", "langFactory", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory, $location, Socialshare, $q, langFactory) {
 
 		var bz = this;
 
 		bz.base64 = $base64;
 
 		bz.opcionMostrar = "guardados";
+
+		bz.lang = langFactory.langsEstadoActual();
 
 		bz.guardados = [];
 		bz.comprados = [];
@@ -32,7 +34,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.actual = 1;
+		bz.actual = 0;
 		
 		$scope.$watch("logos.actual", function (newValue, oldValue) {
 
@@ -129,7 +131,7 @@ angular.module("disenador-de-logos")
 
 						$mdToast.show($mdToast.base({
 							args: {
-								mensaje: "El logo fue borrado exitosamente!",
+								mensaje: bz.lang[7],
 								clase: "success"
 							}
 						}));
@@ -141,7 +143,7 @@ angular.module("disenador-de-logos")
 
 						$mdToast.show($mdToast.base({
 							args: {
-								mensaje: "Un error ha ocurrido",
+								mensaje: bz.lang[8],
 								clase: "danger"
 							}
 						}));
@@ -188,8 +190,7 @@ angular.module("disenador-de-logos")
 				idElemento: datos.elementos_idElemento,
 				tipo: "Logo y nombre",
 				fuentes: {
-					principal: datos.atributos.principal,
-					eslogan: datos.atributos.principal.eslogan
+					principal: datos.atributos.principal
 				},
 				colores: {
 					icono: datos.atributos["color-icono"],
@@ -199,6 +200,11 @@ angular.module("disenador-de-logos")
 				planes: bz.planes,
 				moneda: bz.moneda
 			};
+
+			if(datos.atributos.eslogan){
+					
+				bz.datosComprar.fuentes.eslogan = datos.atributos.eslogan;
+			}
 
 			if (datos.atributos["color-eslogan"]) {
 				bz.datosComprar.colores.eslogan = datos.atributos["color-eslogan"];

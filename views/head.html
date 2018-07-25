@@ -12,7 +12,7 @@
     <meta property="og:site_name" content="logopro">
     <meta property="fb:app_id" content="152803392097078">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    
+
     <base href="/logo-de-{{categoriaSeleccionada.categoriaFormateada}}" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" type="image/x-icon" href="/landing/assets/img/favicon.ico" />
@@ -25,4 +25,9 @@
     <script src='../landing/assets/js/app.js'></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
         crossorigin="anonymous">
+
+    <script>
+        var urls_categorias = {{urls_categorias | safe}};
+        var subcategoria = {{subcategoria | safe}};
+    </script>
 </head>

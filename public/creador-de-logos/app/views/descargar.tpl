@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col s12 p-none tab-descarga" ng-click="descargar.panelSeleccionado = 1">
                     <img src="assets/images/iconos-descarga/opcion-logo.png" width="50" alt="">
-                    <h6 style="font-weight: bold; font-family: nunito-sans-bold;">Mi logo</h6>
+                    <h6 style="font-weight: bold; font-family: nunito-sans-bold;">{{::descargar.lang[0]}}</h6>
                 </div>
                 <!--<div class="col s12 p-none tab-descarga" ng-click="descargar.panelSeleccionado = 2">
                         <img src="assets/images/iconos-descarga/opcion-papeleria.png" width="50" alt=""> 
@@ -21,11 +21,11 @@
                     </div>-->
                 <div class="col s12 p-none tab-descarga" ng-click="descargar.panelSeleccionado = 4;" style="border-top: 1px solid #eceff0; border-bottom: 1px solid #eceff0;">
                     <img src="assets/images/iconos-descarga/opcion-papeleria.png" width="50" alt="">
-                    <h6 style="font-weight: bold;font-family: nunito-sans-bold;">Papeleria</h6>
+                    <h6 style="font-weight: bold;font-family: nunito-sans-bold;">{{::descargar.lang[1]}}</h6>
                 </div>
                 <div class="col s12 p-none tab-descarga" ng-click="descargar.panelSeleccionado = 3">
                     <img src="assets/images/iconos-descarga/opcion-documentos.png" width="50" alt="">
-                    <h6 style="font-weight: bold;font-family: nunito-sans-bold;">Documentos</h6>
+                    <h6 style="font-weight: bold;font-family: nunito-sans-bold;">{{::descargar.lang[2]}}</h6>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                         <img src="/creador-de-logos/assets/images/descarga/{{::formato.nombre}}_normal.png">
                     </span>
                     <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;" ng-click="descargar.descargarTodo()">
-                        <md-tooltip md-direction="right">Zip (Todo)</md-tooltip>
+                        <md-tooltip md-direction="right">{{::descargar.lang[3]}}</md-tooltip>
                         <img src="assets/images/iconos-descarga/descargar-todo.png">
                     </span>
                 </div>
@@ -54,7 +54,7 @@
                                 <button class="boton-verde aumentar-plan" ng-if="descargar.mostrarAumento" ng-click="descargar.mostrarPlanesSuperiores = true"
                                     style="padding: 2px 15px;">
                                     <i class="material-icons" style="vertical-align: middle;">monetization_on</i>
-                                    <span style="vertical-align: middle;">MEJORAR MI PLAN</span>
+                                    <span style="vertical-align: middle;">{{::descargar.lang[4]}}</span>
                                 </button>
                             </div>
                         </div>
@@ -180,7 +180,7 @@
 
                         <div>
                             <div ng-show="descargar.plan.png.valor == '1' || descargar.plan.editable.valor == '1'" style="margin-top: 10px;">
-                                <button class="boton-verde" style="width:100%; margin-top: 10px; " ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">DESCARGAR {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}}px)
+                                <button class="boton-verde" style="width:100%; margin-top: 10px; " ng-click="descargar.descargar(descargar.formatoSeleccionado.nombre, descargar.formatoSeleccionado.ancho)">{{::descargar.lang[5]}} {{descargar.formatoSeleccionado.nombre | uppercase}} ({{descargar.formatoSeleccionado.ancho}}px)
                                 </button>
                             </div>
 
@@ -249,7 +249,7 @@
             <div ng-show="descargar.panelSeleccionado == 2" class="row p-none" style="height: 100vh;">
                 <div class="col-s12 p-none">
                     <div class="row p-none">
-                        Sociales
+                        {{::descargar.lang[6]}}
                     </div>
                 </div>
             </div>
@@ -257,13 +257,13 @@
                 <div class="categorias-papeleria">
                     <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;" ng-click="descargar.documentosEjemplosMostrar = 'default';"
                         ng-class="{'seleccionada': descargar.documentosEjemplosMostrar == 'default'}">
-                        <md-tooltip md-direction="right">Manual de marcas</md-tooltip>
+                        <md-tooltip md-direction="right">{{::descargar.lang[7]}}</md-tooltip>
                         <img ng-src="assets/images/descarga/manual.svg">
                     </span>
                     <!-- ng-click="descargar.documentosEjemplosMostrar = formato.nombre"-->
                     <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;" ng-repeat="formato in descargar.documentos track by formato.nombre"
                         ng-class="{'seleccionada': descargar.documentosEjemplosMostrar == formato.nombre}">
-                        <md-tooltip md-direction="right">{{formato.nombre}} (Proximamente)</md-tooltip>
+                        <md-tooltip md-direction="right">{{formato.nombre}} {{::descargar.lang[8]}}</md-tooltip>
                         <img ng-src="/creador-de-logos/assets/images/descarga/{{::formato.nombre}}.svg">
                     </span>
 
@@ -275,7 +275,7 @@
                         <button class="boton-verde" style="    width: 80%;
                             margin-top: 10px;
                             margin: auto !important;
-                            display: block; " ng-click="descargar.manualMarca(descargar.logo.id)">DESCARGAR
+                            display: block; " ng-click="descargar.manualMarca(descargar.logo.id)">{{::descargar.lang[5]}}
                         </button>
                     </div>
                 </div>
@@ -301,7 +301,7 @@
                 <md-icon>close</md-icon>
             </md-button>
         </cerrar-pop>
-        <h4 class="principal titulo-planes" style="text-align:center;">AUMENTE SU PLAN Y OBTENGA MEJORES BENEFICIOS</h4>
+        <h4 class="principal titulo-planes" style="text-align:center;">{{::descargar.lang[9]}}</h4>
     </div>
     <div class="row margin-bottom-0">
         <!--
@@ -359,10 +359,10 @@
 
                                 <div style="display: flex; align-items: center;">
                                     <button ng-if="plan.pasarelaElegida.pasarela == 'Paypal'" type="submit" ng-class="{'loading-white': !descargar.completado}"
-                                        ng-click="descargar.paypal(plan.pasarelaElegida.idPasarela, plan)">COMPRAR</button>
+                                        ng-click="descargar.paypal(plan.pasarelaElegida.idPasarela, plan)">{{::descargar.lang[10]}}</button>
 
                                     <button ng-if="plan.pasarelaElegida.pasarela == 'Stripe'" type="submit" ng-class="{'loading-white': !descargar.completado}"
-                                        ng-click="descargar.mostrarStripe(plan.pasarelaElegida.idPasarela, plan)">COMPRAR</button>
+                                        ng-click="descargar.mostrarStripe(plan.pasarelaElegida.idPasarela, plan)">{{::descargar.lang[10]}}</button>
                                 </div>
 
                             </div>

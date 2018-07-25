@@ -1,6 +1,6 @@
 angular.module("landing")
 
-	.controller("comienzoController", ["$base64", "estaticosLandingValue", "navegarFactory", "elementosService", "pedidosService", "etiquetasService", "preferenciasService", "$q", "LS", "$sce", "idiomaService", "cookie", function ($base64, estaticosLandingValue, navegarFactory, elementosService, pedidosService, etiquetasService, preferenciasService, $q, LS, $sce, idiomaService, cookie) {
+	.controller("comienzoController", ["$base64", "estaticosLandingValue", "navegarFactory", "etiquetasService", "LS", "$sce", "cookie", "$window", function ($base64, estaticosLandingValue, navegarFactory, etiquetasService,LS, $sce, cookie, $window) {
 
 		var bz = this;
 
@@ -9,6 +9,8 @@ angular.module("landing")
 		/* DATOS */
 
 		bz.idiomaActivo = cookie.getCookie('logoLang');
+
+		bz.textos = $window.traducciones.general.landing;
 
 		bz.navegar = navegarFactory;
 		bz.estaticos = estaticosLandingValue;
@@ -23,16 +25,16 @@ angular.module("landing")
 			iconos: []
 		};
 		bz.datosCombinaciones = {
-			preferencias: [],
 			etiquetasSeleccionadas: [],
-			colores: []
+			colores: [],
+			nombre: bz.textos.secciones.seccion_uno.formulario.nombre.placeholder
 		}
 
 		bz.logosPredisenados = [];
 
 		bz.cambiarIdioma = function (idioma) {
 			idiomaCookie = cookie.getCookie('logoLang');
-			
+
 			if (bz.idiomaActivo != idiomaCookie) {
 				document.cookie = "logoLang=" + idioma;
 				$('body').animate({
@@ -58,13 +60,6 @@ angular.module("landing")
 		bz.etiquetasFunciones = etiquetasService;
 		bz.peticion = true;
 
-		preferenciasService.listaPreferencias().then(function (res) {
-			angular.forEach(res, function (valor) {
-				valor.valor = 2;
-				bz.datosCombinaciones.preferencias.push(valor);
-			});
-		})
-
 		etiquetasService.listarEtiquetas().then(function (res) {
 
 			if (res != undefined) {
@@ -80,161 +75,41 @@ angular.module("landing")
 		/* FUNCIONES */
 
 		bz.enviarComenzar = function (datos, v) {
+			if (!v) return;
 
-			var inicial = false
+			bz.peticion = true;
+			datos.etiquetasParaBusqueda = [];
+			datos.palettesCopy = bz.palettesCopy;
 
-			if (v) {
-				bz.peticion = true;
-				datos.etiquetasParaBusqueda = [];
-				datos.palettesCopy = bz.palettesCopy;
+			angular.forEach(bz.palettesCopy, function (palettes, indicePalettes) {
+				angular.forEach(palettes, function (palette, indicePalette) {
 
-				angular.forEach(bz.palettesCopy, function (palettes, indicePalettes) {
-					angular.forEach(palettes, function (palette, indicePalette) {
-
-						if (palette) {
-							datos.colores.push(bz.palettes[indicePalettes][indicePalette]);
-						}
-
-					});
-
-				});
-
-				var tags_saltos = {};
-
-				angular.forEach(datos.etiquetasSeleccionadas, function (tag) {
-
-					var tag_existe = tags_saltos[tag.traducciones[0].valor];
-
-					if (tag_existe === undefined) {
-						tags_saltos[tag.traducciones[0].valor] = 0;
-					}
-
-				});
-
-				angular.forEach(datos.etiquetasSeleccionadas, function (valor) {
-					datos.etiquetasParaBusqueda.push(valor.traducciones[0].valor)
-				})
-
-				bz.datosFuentes = {
-					categoria: datos.idFuente,
-					preferencias: datos.preferencias,
-					tipo: "FUENTE",
-					limit: 12
-				};
-
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial, bz.datosIconos) : elementosService.listarIconosSegunTags({ tags: tags_saltos });
-
-				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datosFuentes);
-
-				$q.all([
-					promesaIconos,
-					promesaFuentes
-				])
-					.then(function (res) {
-
-						datos.iconos = res[0].iconos;
-						datos.fuentes = res[1];
-
-						LS.definir('comenzar', datos);
-
-						if (!v) return;
-
-						navegarFactory.cliente(false);
-
-
-					}).finally(function (res) {
-						bz.peticion = false;
-					})
-			}
-
-		};
-
-
-		/* PLANES */
-
-		bz.monedas = {};
-		bz.moneda = {};
-		bz.monedaDefault = {};
-		bz.planes = [];
-		bz.impuesto = 0;
-
-		pedidosService.listarPlanes().then(function (res) {
-
-			bz.monedaDefault = {
-				simbolo: res.monedaDefault.codigo,
-				idMoneda: res.monedaDefault.idMoneda
-			};
-
-			bz.impuesto = res.impuesto;
-
-			bz.planes = res.planes;
-
-			angular.forEach(res.planes, function (plan) {
-
-				angular.forEach(plan.precios, function (precio) {
-					if (!bz.monedas[precio.moneda]) {
-
-						bz.monedas[precio.moneda] = {
-							simbolo: precio.moneda,
-							idMoneda: precio.idMoneda
-						};
-
+					if (palette) {
+						datos.colores.push(bz.palettes[indicePalettes][indicePalette]);
 					}
 
 				});
 
 			});
 
-			bz.moneda = bz.monedaDefault;
-		});
+			var tags_saltos = {};
 
+			angular.forEach(datos.etiquetasSeleccionadas, function (tag) {
 
+				var tag_existe = tags_saltos[tag.traducciones[0].valor];
 
-		bz.precioSeleccionado = function (precios) {
-
-			var precioFinal = "";
-
-			angular.forEach(precios, function (valor) {
-
-				if (valor.moneda == bz.moneda.simbolo) {
-
-					precioFinal = valor.moneda + " " + valor.precio;
+				if (tag_existe === undefined) {
+					tags_saltos[tag.traducciones[0].valor] = 0;
 				}
 
 			});
 
-			return precioFinal;
+			angular.forEach(datos.etiquetasSeleccionadas, function (valor) {
+				datos.etiquetasParaBusqueda.push(valor.traducciones[0].valor)
+			})
 
+			LS.definir('comenzar', datos);
+			navegarFactory.cliente(false);
 		};
-
-
-		/*
-				logosService.mostrarDestacados().then(function (res) {
-					bz.destacados = res;
-				}).catch(function () {
-
-				}).finally(function () {
-
-				});
-
-
-		bz.irEditor = function (logo) {
-
-			var logoCopia = angular.copy(logo);
-			var atributos = arrayToJsonMetasFactory(logoCopia.atributos);
-			bz.callback = function () {
-				guardarLogoFactory(logoCopia, atributos);
-				navegarFactory.cliente("editor");
-			};
-
-			if (clientesService.autorizado()) {
-				bz.callback();
-			} else {
-				bz.mostrarLogin = true;
-			}
-
-		};
-
-		*/
 
 	}]);

@@ -11,7 +11,7 @@
                                 right: 23px;
                                 top: 5%;" class="material-icons cerrar-pop" ng-click="$parent.mostrar = false">clear</i>
                             <div>
-                                <img class="key-image" src="/landing/assets/img/iconos_login/keys.svg">
+                                <img class="key-image" ng-src="/landing/assets/img/iconos_login/keys.svg">
                                 <p class="text-center tercero">{{textos.login.titulo}}</p>
                                 <small class="subtitle">
                                     <B>{{textos.login.subtitulo}}</B>
@@ -153,7 +153,7 @@
                                     <div ng-repeat="imagen in textos.registro.imagenes">
                                         <md-icon ng-if="imagen.icon" style="display: block; margin-right: 38px; font-size: 50pt;">{{imagen.url_imagen}}</md-icon>
 
-                                        <img ng-if="!imagen.icon" class="{{imagen.class}}" src="{{imagen.url_imagen}}">
+                                        <img ng-if="!imagen.icon" class="{{imagen.class}}" ng-src="/landing/assets/img/iconos_login/{{imagen.url_imagen}}">
                                         <span>
                                             <b>{{imagen.titulo}}</b>
                                             <br>

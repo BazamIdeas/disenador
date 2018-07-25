@@ -11,7 +11,7 @@
                 <img src="../landing/assets/img/logo.pro.svg">
             </a>
         </div>
-        <div>
+        <div class="flex --center">
             <div class="login">
                 <div class="acceder mostrar-login not-ing" style="cursor: pointer">
                     <span>
@@ -20,41 +20,40 @@
                     <span class="boton-activo">
                         <a href="/creador-de-logos/ingreso/" style="color: white">{{idioma.header.botones[1]}}</a>
                     </span>
-
-                    <div class="acceder hidden" style="cursor: pointer">
-                        <span>
-                            <i class="material-icons"> add_circle_outline</i>
-                        </span>
-                        <span>
-                            <i class="material-icons"> favorite</i>
-                        </span>
-                        <span>
-                            <i class="material-icons"> account_circle</i>
-                        </span>
-                        <span>
-                            <i class="material-icons">power_settings_new</i>
-                        </span>
-                    </div>
+                    <span style="display: none;"></span>
                 </div>
-            </div>
-            <div class="selector-de-idiomas--flags">
-                <select>
-                    {% for idioma in idioma.footer.idiomas %} {% if lang == idioma.valor %}
-                    <option value="{{idioma.valor}}" selected>
-                        <img src="/landing/assets/img/flags/{{idioma.valor}}.png">
-                    </option>
-                    {% else %}
-                    <option value="{{idioma.valor}}">
-                        <img src="/landing/assets/img/flags/{{idioma.valor}}.png">
-                    </option>
-                    {% endif %} {% endfor %}
-                </select>
+                <div class="acceder hidden logeado" style="cursor: pointer">
+                    <span>
+                        <a href="/creador-de-logos/">
+                            <i class="material-icons"> add_circle_outline</i>
+                        </a>
+                    </span>
+                    <span>
+                        <a href="/creador-de-logos/cliente/logos/">
+                            <i class="material-icons"> favorite</i>
+                        </a>
+                    </span>
+                    <span>
+                        <a href="/creador-de-logos/cliente/cuenta/">
+                            <i class="material-icons"> account_circle</i>
+                        </a>
+                    </span>
+                    <span>
+                        <a class="salir">
+                            <i style="color: white;" class="material-icons">power_settings_new</i>
+                        </a>
+                    </span>
+                </div>
             </div>
         </div>
     </header>
     <div class="cabecera">
         <h1>{{idioma.secciones.seccion_uno.titulo}} {{title}}</h1>
+        {% if categoriasPadre %}
+        <p>{{categoriaSeleccionada.traduccion.descripcion}}</p>
+        {% else %}
         <p>{{idioma.secciones.seccion_uno.descripcion}} {{title}}</p>
+        {% endif %}
     </div>
 
     {% if logosPredisenados %}
@@ -68,10 +67,10 @@
     <div class="logos-predisenados">
         {% for elemento in logosPredisenados %}
         <div class='--item'>
-            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}"
-                data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
+            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-subcategoria="{{elemento.categorias_idCategoria}}"
+                data-categoria="{{elemento.padre}}" data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
                 <span>
-                    <img src="/tmp/shared/{{elemento.imgSrc}}" alt="{{elemento.atributos[1].valor}}">
+                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{elemento.atributos[1].valor}}">
                 </span>
                 {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
                 <span class="descripcion">
@@ -82,12 +81,12 @@
             {% if mostraretiquetaslogo %}
             <div class="tags">
                 {% for tag in elemento.etiquetas %} {% for traduccion in tag.traducciones %}
-                <a class="buscarEditor" data-tag="{{tag | dump }}">{{traduccion.valor}}</a>
+                <a class="buscarEditor" data-subcategoria="{{elemento.categorias_idCategoria}}" data-categoria="{{elemento.padre}}" data-tag="{{tag | dump }}">{{traduccion.valor}}</a>
                 {% endfor %} {% endfor %}
             </div>
             {% endif %} {% if mostraretiquetaslogo == false %}
             <div class="tags">
-                <a href="/logos/{{elemento.categoriaFormateada}}">{{elemento.nombreCategoria}}</a>
+                <a href="/logos/{{elemento.categoriaFormateada}}">{{elemento.traduccion}}</a>
             </div>
             {% endif %}
         </div>
@@ -108,7 +107,7 @@
         <h3>{{idioma.secciones.seccion_tres.titulo}}</h3>
         <div class="lista-categorias">
             {% asyncEach categoria in categorias %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
-            <a href="/logos/{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
+            <a href="/logos/{{categoria.categoriaFormateada}}">{{categoria.traduccion.label}}</a>
             {% endif %} {% endeach %}
         </div>
     </div>
@@ -179,13 +178,11 @@
         <h3>{{idioma.secciones.seccion_seis.titulo}}</h3>
         <div class="lista-categorias">
             {% asyncEach categoria in categoriasPadre %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
-            <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
+            <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.traduccion.label}}</a>
             {% endif %} {% endeach %}
         </div>
     </div>
-    {% endif %}
-
-    {% include "foot.html" %}
+    {% endif %} {% include "foot.html" %}
 </body>
 
 

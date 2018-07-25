@@ -84,9 +84,6 @@
         .acceder span:hover {
             background: transparent;
             box-shadow: none;
-            a{
-
-            }
         }
         span{
             &:hover{
@@ -324,6 +321,9 @@
             padding: 5%;
             display: block;
             cursor: pointer;
+            >:first-child{
+                min-height: 200px;
+            }
             > span{
                 max-width: 90%;
                 display: block;

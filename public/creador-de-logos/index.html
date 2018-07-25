@@ -54,7 +54,8 @@
     <script src="/angular-aria/angular-aria.min.js"></script>
 
     <!--Librerias 3r party angularJS -->
-    <script src="/angular-ui-router/angular-ui-router.min.js" ></script>
+    <script src="/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="/angular-cookies/angular-cookies.min.js"></script>
     <script src="/angular-material/angular-material.min.js"></script>
     <!--<script src="/angular-color-picker/angular-color-picker.js"></script>-->
     <script src="/angular-colorpicker-directive/js/color-picker.js"></script>
@@ -74,20 +75,24 @@
     <!--Archivos App diseñador -->
     <script src="built/app.js"></script>
 
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WCZ63JP');</script>
-<!-- End Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WCZ63JP');</script>
+    <!-- End Google Tag Manager -->
 
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WCZ63JP"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WCZ63JP" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <header class="header row" ng-controller="headerController as header">
 
@@ -104,7 +109,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <div ng-switch-when="false" class="items">
                     <span class="login mr-50" ui-sref="login">
-                        <i class="material-icons md-48">account_circle</i> &nbsp; Acceder | Registro
+                        <i class="material-icons md-48">account_circle</i> &nbsp; {{header.texto[0]}}
                     </span>
 
                     <span ui-sref="inicio">
@@ -139,12 +144,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 </div>
 
+                <div class="selector-de-idiomas --flags">
+                    <md-select md-no-asterisk ng-model="header.idiomaActivo" ng-change="header.cambiarIdioma(header.idiomaActivo)">
+                        <md-option ng-repeat="(clave, valor) in header.idiomas" ng-value="clave">
+                            <img ng-src="/landing/assets/img/flags/{{clave}}.png">
+                            <span class="texto-on-select">{{valor}}</span>
+                        </md-option>
+                    </md-select>
+                </div>
             </div>
-
         </div>
 
         <style>
-            .acceso-disenador{
+            .acceso-disenador {
                 position: fixed;
                 width: 83.3%;
                 left: 16.6666667%;
@@ -155,12 +167,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 background-color: hsla(215, 39%, 53%, 0.68);
                 display: flex;
                 justify-content: center;
-                align-items:center;
+                align-items: center;
                 font-weight: bold;
             }
 
 
-            .form-disenador-container{
+            .form-disenador-container {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -168,7 +180,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 font-weight: normal;
             }
 
-            .form-disenador-container form{
+            .form-disenador-container form {
 
                 position: fixed;
                 width: 400px;
@@ -177,7 +189,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 left: calc(50% - 200px);
                 background-color: rgb(255, 255, 255);
                 padding: 40px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
             }
 
@@ -193,7 +205,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 width: 400px;
                 min-height: 300px;
                 background-color: white;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
                 position: fixed;
                 top: calc(30% - 150px);
                 left: calc(50% - 150px);
@@ -209,7 +221,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
 
 
-            .logos-disenador{
+            .logos-disenador {
                 padding: 5 30px;
                 color: black;
                 position: fixed;
@@ -219,41 +231,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 top: 5%;
                 left: 5%;
                 z-index: 10;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
                 overflow: auto;
             }
 
             .logos-disenador .titulo-logos-disenador {
                 text-align: center;
             }
-
-
-            
-
         </style>
 
         <!----- cinta diseñador ---->
         <div ng-cloak>
-            <div class="acceso-disenador" ng-if="header.mostrarAccesoDisenador"> 
-                    
-                    <button ng-hide="header.mostrarFormDisenador" ng-click="header.mostrarFormDisenador = true;">Acceder como Diseñador</button>
+            <div class="acceso-disenador" ng-if="header.mostrarAccesoDisenador">
 
-                    <div ng-show="header.mostrarFormDisenador" class="form-disenador-container">
-                        <form name="header.datosDisenadorForm" ng-submit="header.loginDisenador(header.datosDisenador, header.datosDisenadorForm.$valid)">
-                            <span style="position: absolute; top: 5%; right: 5%;" ng-click="header.mostrarFormDisenador = false;">X</span>
-                            <input type="text" placeholder="Usuario" ng-model="header.datosDisenador.usuario" required/>
-                            <input type="password" placeholder="Contraseña" ng-model="header.datosDisenador.contrasena" required/>
-                            <button type="submit">Acceder</button>
-                        </form>
-                    </div>
+                <button ng-hide="header.mostrarFormDisenador" ng-click="header.mostrarFormDisenador = true;">Acceder como Diseñador</button>
+
+                <div ng-show="header.mostrarFormDisenador" class="form-disenador-container">
+                    <form name="header.datosDisenadorForm" ng-submit="header.loginDisenador(header.datosDisenador, header.datosDisenadorForm.$valid)">
+                        <span style="position: absolute; top: 5%; right: 5%;" ng-click="header.mostrarFormDisenador = false;">X</span>
+                        <input type="text" placeholder="Usuario" ng-model="header.datosDisenador.usuario" required/>
+                        <input type="password" placeholder="Contraseña" ng-model="header.datosDisenador.contrasena" required/>
+                        <button type="submit">Acceder</button>
+                    </form>
+                </div>
             </div>
 
-            <div class="acceso-disenador" ng-if="header.mostrarBannerDisenador"> 
-                <p style="margin-right: 12px;">MODO DISEÑADOR</p> 
+            <div class="acceso-disenador" ng-if="header.mostrarBannerDisenador">
+                <p style="margin-right: 12px;">MODO DISEÑADOR</p>
                 <div>
-                    <button ng-click="header.mostrarLogosDisenador()" ng-class="{'loading-white': !header.logosDisenadorCargados}">Mis Logos</button> 
+                    <button ng-click="header.mostrarLogosDisenador()" ng-class="{'loading-white': !header.logosDisenadorCargados}">Mis Logos</button>
                     <button ng-click="header.cerrarSesionDisenador()">Salir</button>
-                </div>                
+                </div>
             </div>
 
             <div class="logos-disenador" ng-if="header.mostrarLogosContenedorDisenador">
@@ -263,7 +271,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="row listado-logos-disenador">
                     <div class="col l3" ng-repeat="logo in header.logosDisenador | orderBy: $index">
                         <div style="padding: 10px; -webkit-box-shadow: 0px 0px 3px 0px #c7c7c7; box-shadow: 0px 0px 3px 0px #c7c7c7;">
-                            
+
                             <bazam-visualizar data-svg="header.base64.decode(logo.logo)"></bazam-visualizar>
                         </div>
                     </div>

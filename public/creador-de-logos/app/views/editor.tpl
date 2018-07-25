@@ -36,14 +36,14 @@
 				<div class="tab" ng-show="editor.menuSwitch == 1">
 					<div class="row">
 						<div class="input-field col s12" style="padding: 0 !important">
-							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Nombre del logo</md-tooltip>
+							<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{::editor.lang[0]}}</md-tooltip>
 							<input id="nombre" type="text" name="fuente" maxlength="40" ng-model="editor.logo.texto" ng-model-options="{allowInvalid: true}"
 							 ng-change="editor.cambioTexto(editor.logo.texto)">
-							<label style="padding:0 !important" for="nombre" class="active">Nombre</label>
+							<label style="padding:0 !important" for="nombre" class="active">{{::editor.lang[1]}}</label>
 						</div>
 
 						<div class="col s12 title-styles">
-							<p>Estilo de tipografia</p>
+							<p>{{::editor.lang[2]}}</p>
 						</div>
 
 						<div class="estilos col s12" style="padding: 0 !important;position: relative">
@@ -52,39 +52,39 @@
 								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria"
 								 ng-click="::editor.abrirContenedor('fuentes', true)">
 									<md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-									<span class="estilo" ng-class="{'estilo-1':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-2':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-3':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
+									<span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
 								</md-radio-button>
 							</md-radio-group>
 
 							<!-- VALIDACION -->
 							<div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
-								<div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
+								<div ng-message="required" style="top: 64px;">{{::editor.lang[3]}}</div>
 								</br>
 							</div>
 						</div>
 
 						<div class="col s12 title-styles">
-							<p>Texto</p>
-							<p>Tamaño</p>
+							<p>{{::editor.lang[4]}}</p>
+							<p>{{::editor.lang[5]}}</p>
 						</div>
 
 						<div class="col s12 text-styles" style="padding:0;" bazam-ayuda data-titulo="Negrita, Cursiva, Tamaño" data-texto="Cambia a Negrita (N), Cursiva (C), Aumente (+) o disminuya (-) el tamaño del texto"
 						 data-clases="['corner-lt']" data-identificador="ayuda-estilo-fuentes" data-orientacion="right" data-paso="9" bazam-pasos-ayuda>
 							<div class="bold" ng-click="::editor.cambioPropiedad('bold')">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Negrita</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[6]}}</md-tooltip>
 								N
 							</div>
 							<div class="curve" ng-click="::editor.cambioPropiedad('cursive')">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cursiva</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[7]}}</md-tooltip>
 								C
 							</div>
 
 							<div class="less" ng-click="::editor.cambioTamano('texto', false)">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Disminuir tamaño</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[8]}}</md-tooltip>
 								-
 							</div>
 							<div class="more" ng-click="::editor.cambioTamano('texto', true)">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Aumentar tamaño</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[9]}}</md-tooltip>
 								+
 							</div>
 						</div>
@@ -96,19 +96,19 @@
 						<div class=" col s12">
 							<button class="boton-verde" ng-if="!editor.esloganActivo" ng-click="::editor.agregarEslogan()" style="margin-top: 8px;
 							width: 100%;">
-								Agregar Eslogan
+							{{::editor.lang[10]}}
 							</button>
 						</div>
 						<div ng-if="editor.esloganActivo">
 							<div class="input-field col s12" style="padding: 0 !important">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Eslogan del logo</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{::editor.lang[11]}}</md-tooltip>
 								<input id="eslogan" type="text" name="fuenteEslogan" maxlength="100" ng-model="editor.logo.eslogan" ng-click="editor.quitarEsloganDefault(editor.logo.eslogan)"
 								 ng-model-options="{allowInvalid: true}" ng-change="editor.cambioTexto(editor.logo.eslogan, true)" ng-blur="editor.verificarEslogan(editor.logo.eslogan)">
-								<label style="padding:0 !important" for="nombre" class="active">Eslogan</label>
+								<label style="padding:0 !important" for="nombre" class="active">{{::editor.lang[12]}}</label>
 							</div>
 
 							<div class="col s12 title-styles">
-								<p>Estilo de tipografia</p>
+								<p>{{::editor.lang[2]}}</p>
 							</div>
 
 							<div class="estilos col s12" style="padding: 0 !important;position: relative">
@@ -123,31 +123,31 @@
 
 								<!-- VALIDACION -->
 								<div ng-messages="inicio.datosForm.fuente.$error " style="color:maroon;" role="alert " ng-show="inicio.datosForm.$submitted ">
-									<div ng-message="required" style="top: 64px;">Debes elegir un estilo de Tipografía.</div>
+									<div ng-message="required" style="top: 64px;">{{::editor.lang[3]}}</div>
 									</br>
 								</div>
 							</div>
 
 							<div class="col s12 title-styles">
-								<p>Texto</p>
-								<p>Tamaño</p>
+								<p>{{::editor.lang[4]}}</p>
+								<p>{{::editor.lang[5]}}</p>
 							</div>
 
 							<div class=" col s12 text-styles">
 								<div class="bold" ng-click="::editor.cambioPropiedad('bold', true)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Negrita</md-tooltip>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[6]}}</md-tooltip>
 									N
 								</div>
 								<div class="curve" ng-click="::editor.cambioPropiedad('cursive', true)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Cursiva</md-tooltip>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[7]}}</md-tooltip>
 									C
 								</div>
 								<div class="less" ng-click="::editor.cambioTamano('eslogan', false)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Disminuir tamaño</md-tooltip>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[8]}}</md-tooltip>
 									-
 								</div>
 								<div class="more" ng-click="::editor.cambioTamano('eslogan', true)">
-									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Aumentar tamaño</md-tooltip>
+									<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[9]}}</md-tooltip>
 									+
 								</div>
 							</div>
@@ -158,11 +158,11 @@
 				<div class="tab" ng-show="editor.menuSwitch == 3">
 					<div class="row">
 						<div class="col s12 no-padding">
-							<md-chips style="padding:0;" md-add-on-blur="true" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
+							<md-chips md-max-chips="8" style="padding:0;" md-add-on-blur="true" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
 							 ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
 								<label>Etiquetas</label>
 								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
-								 md-item-text="item.traducciones[0].valor" placeholder="Etiquetas (Opcional)">
+								 md-item-text="item.traducciones[0].valor" placeholder="{{::editor.lang[13]}}">
 									<span md-highlight-text="editor.searchText">{{::item.traducciones[0].valor}}</span>
 								</md-autocomplete>
 								<md-chip-template>
@@ -175,9 +175,9 @@
 						</div>
 						<div class="col s12 text-center no-padding" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
 							<md-input-container style="width:87%; padding: 0 0.75rem 0 0">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del icono</md-tooltip>
-								<md-select flex ng-model="editor.categoriaIcono" placeholder="Buscar simbolos" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-								 md-no-asterisk>
+								<!--ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"-->
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{::editor.lang[14]}}</md-tooltip>
+								<md-select flex ng-model="editor.categoriaIcono" placeholder="{{::editor.lang[15]}}" md-no-asterisk>
 									<md-option class="iconos" ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
 								</md-select>
 							</md-input-container>
@@ -188,16 +188,16 @@
 						</div>
 
 						<div class="col s6 title-styles" style="height: 37px; align-items: center;">
-							<p>Tamaño</p>
+							<p>{{::editor.lang[5]}}</p>
 						</div>
 
 						<div class=" col s6 text-styles" style="padding:0;">
 							<div class="less" ng-click="::editor.cambioTamano('icono', false)">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Disminuir tamaño</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[8]}}</md-tooltip>
 								-
 							</div>
 							<div class="more" ng-click="::editor.cambioTamano('icono', true)">
-								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">Aumentar tamaño</md-tooltip>
+								<md-tooltip class="tooltip-header" md-delay="2" md-direction="bottom">{{::editor.lang[9]}}</md-tooltip>
 								+
 							</div>
 						</div>
@@ -211,7 +211,7 @@
 			</div>
 
 			<div class="col s12 title-styles">
-				<p>Orientación</p>
+				<p>{{::editor.lang[16]}}</p>
 			</div>
 
 			<div class="col s12 cube-orientation">
@@ -219,22 +219,22 @@
 				<div class="vertical" ng-click="::editor.cambiarOrientacion('vertical')">
 					<svg viewbox="0 0 100 100"></svg>
 					<div>
-						<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo arriba</md-tooltip>
+						<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{::editor.lang[17]}}</md-tooltip>
 						<span>
 							<i class="material-icons">thumb_up</i>
 						</span>
-						<span>TU LOGO</span>
+						<span>{{::editor.lang[19]}}</span>
 					</div>
 				</div>
 
 				<div class="horizontal" ng-click="::editor.cambiarOrientacion('horizontal')">
 					<svg viewbox="0 0 100 100"></svg>
 					<div>
-						<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Simbolo a la izquierda</md-tooltip>
+						<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{::editor.lang[18]}}</md-tooltip>
 						<span style="margin-right: 5px;">
 							<i class="material-icons">thumb_up</i>
 						</span>
-						<span>TU LOGO</span>
+						<span>{{::editor.lang[19]}}</span>
 					</div>
 				</div>
 
@@ -247,11 +247,11 @@
 			<div class="col s12 background-grid" style="margin-bottom:10px;">
 
 				<div style="width:50%;">
-					<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Fondo</md-tooltip>
+					<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{::editor.lang[20]}}</md-tooltip>
 					<bazam-color-picker data-color="editor.colorFondo"></bazam-color-picker>
 				</div>
 				<div style="width:50%;">
-					<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Cuadricula</md-tooltip>
+					<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{::editor.lang[21]}}</md-tooltip>
 					<div class="grid-selector" ng-class="{'active': editor.cuadricula }" ng-click="::editor.activarCuadricula();">
 						<i class="material-icons">apps</i>
 					</div>
@@ -264,21 +264,21 @@
 
 			<div class=" col s12">
 				<md-button style="width:100%;" ui-sref="inicio">
-					VOLVER
+					{{::editor.lang[22]}}
 				</md-button>
 			</div>
 		</div>
 
 		<div class="principal-container editor col s7" ng-class="{'grid': editor.cuadricula}">
 
-			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria)"
+			<span class="accion" ng-click="editor.preGuardarLogo(editor.svgFinal, editor.logo.icono.idElemento, 'Logo y nombre', editor.categoria, false)"
 			 style="top: 5%;">
-				<p>GUARDAR</p>
+				<p>{{::editor.lang[24]}}</p>
 				<img src="assets/images/save.svg" alt="">
 			</span>
 
 			<span class="accion" ng-click="::editor.buscarPlanes()" style="top: 15%;">
-				<p>COMPRAR</p>
+				<p>{{::editor.lang[25]}}</p>
 				<img src="assets/images/shop.svg" alt="">
 			</span>
 
@@ -403,8 +403,8 @@
 									flex-flow: column;top: 0;height: 100%;
 									justify-content: center; text-align:center; width:100%;color: white">
 										<i class="material-icons">search</i>
-										<span>CARGAR</span>
-										<span> MÁS</span>
+										<span>{{::editor.lang[26]}}</span>
+										<span>{{::editor.lang[27]}}</span>
 									</div>
 								</div>
 							</div>
@@ -416,7 +416,7 @@
 
 			<button ng-click="::editor.buscarPlanes()" class="open-plans">
 				<md-icon>arrow_drop_up</md-icon>
-				Planes
+				{{::editor.lang[23]}}
 			</button>
 		</div>
 
@@ -529,16 +529,16 @@
 			</div>
 		</div>
 		<md-input-container style="padding:0; width: 100%; text-align: left; color: black;">
-			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">Categoria del Logo</md-tooltip>
+			<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{::editor.lang[14]}}</md-tooltip>
 			<md-select flex ng-model="editor.datosDisenador.idCategoria" placeholder="Categorias:" md-no-asterisk required>
 				<md-option class="iconos" ng-repeat="categoria in editor.categoriasHijasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
 			</md-select>
 		</md-input-container>
-		<md-chips style="padding:0; width: 95%;" md-add-on-blur="true" ng-model="editor.datosDisenador.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
-		 md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
+		<md-chips md-max-chips="8" ng-required="true" style="padding:0; width: 95%;" md-add-on-blur="true" ng-model="editor.datosDisenador.etiquetasSeleccionadas"
+		 md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-require-match="true" md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
 			<label>Etiquetas</label>
 			<md-autocomplete md-selected-item="editor.disenador.selectedItem" md-search-text="editor.disenador.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.disenador.searchText, editor.etiquetas)"
-			 md-item-text="item.traducciones[0].valor" placeholder="Etiquetas (Opcional)">
+			 md-item-text="item.traducciones[0].valor" placeholder="{{::editor.lang[13]}}">
 				<span md-highlight-text="editor.searchText">{{item.traducciones[0].valor}}</span>
 			</md-autocomplete>
 			<md-chip-template>
@@ -548,7 +548,7 @@
 			</md-chip-template>
 		</md-chips>
 
-		<button type="submit" style="margin-top: 25px !important;">GUARDAR</button>
+		<button type="submit" style="margin-top: 25px !important;">{{::editor.lang[24]}}</button>
 
 	</form>
 </div>
