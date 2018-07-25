@@ -6,8 +6,6 @@ angular.module("disenador-de-logos")
 
 		bz.lang = langFactory.langsEstadoActual();
 
-		console.log(bz.lang);
-
 		bz.base64 = $base64;
 
 		bz.obtenerColores = function(coloresArray){
@@ -258,85 +256,135 @@ angular.module("disenador-de-logos")
 
 		bz.solicitarElementos = function (inicial) {
 
-			if (bz.completado) {
+			if (!bz.completado) {
+				return;
+			}
 
-				if (bz.datosForm && !bz.datosForm.$valid && !landingResolve.logoCompartido) return;
+			if (bz.datosForm && !bz.datosForm.$valid && !landingResolve.logoCompartido){
+				return;
+			} 
 
-				bz.completado = false;
+			bz.completado = false;
 
-				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
-				
-					var remover_tag = true;
-
-					angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
-
-						console.log(tag)
-
-						if(indexSalto == tag.traducciones[0].valor){
-							remover_tag = false;
-						}
-
-					})
-
-					if(remover_tag){
-						delete tags_saltos[indexSalto];
-					}
-
-
-				})
+			angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
+			
+				var remover_tag = true;
 
 				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 
-					var tag_existe = tags_saltos[tag.traducciones[0].valor];
-
-					if(tag_existe === undefined) {
-						tags_saltos[tag.traducciones[0].valor] = 0;
+					if(indexSalto == tag.traducciones[0].valor){
+						remover_tag = false;
 					}
+
+				})
+
+				if(remover_tag){
+					delete tags_saltos[indexSalto];
+				}
+
+
+			})
+
+			angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
+
+				var tag_existe = tags_saltos[tag.traducciones[0].valor];
+
+				if(tag_existe === undefined) {
+					tags_saltos[tag.traducciones[0].valor] = 0;
+				}
+
+			});
+
+			var promesaIconos = elementosService.listarIconosSegunTags(tags_saltos);
+			var promesaIconosDescatados = logosService.obtenerDestacados();
+			var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
+
+			$q.all([
+				promesaIconos,
+				promesaFuentes,
+				promesaIconosDescatados
+			])
+				.then(function (res) {
+					var tags = res[0].tags;
+					var iconosNoun = res[0].iconos;
+					var fuentes = res[1];
+					var iconosDestacados = res[2];
+
+					angular.forEach(res[0].iconos, function (icono) {
+						bz.iconos.push(icono.idElemento);
+					});
+
+					//TODO: CALCULO DE LOGOS 
+					var logosMezclados = [];
+					var cantidadNoun = iconosNoun.length;
+
+				
+					if( cantidadNoun >= 6){
+
+						iconosNoun = iconosNoun.slice(0,6);
+						iconosDestacados = iconosDestacados.slice(0,6);
+						logosMezclados = iconosNoun.concat(iconosDestacados);
+
+					} else {
+						
+						var logosFaltantes = (12 - cantidadNoun);
+						iconosDestacados = iconosDestacados.slice(0,logosFaltantes);
+						logosMezclados = iconosNoun.concat( iconosDestacados);
+						
+					}
+
+
+					var logosMezcladosRandom = (function(array) {
+						var currentIndex = array.length, temporaryValue, randomIndex;
+					  
+						// While there remain elements to shuffle...
+						while (0 !== currentIndex) {
+					  
+						  // Pick a remaining element...
+						  randomIndex = Math.floor(Math.random() * currentIndex);
+						  currentIndex -= 1;
+					  
+						  // And swap it with the current element.
+						  temporaryValue = array[currentIndex];
+						  array[currentIndex] = array[randomIndex];
+						  array[randomIndex] = temporaryValue;
+						}
+					  
+						return array;
+					})(logosMezclados);
+					  
+
+
+					var iconos_raw = logosMezcladosRandom;
+					var fuentes_raw = fuentes;
+
+					tags_saltos = tags;
+
+					/*
+					if(!iconos_raw.length) {
+						$mdToast.show($mdToast.base({
+							args: {
+								mensaje: "La búsqueda no produjo resultados",
+								clase: "success"
+							}
+						}));
+						
+						return;
+					}*/
+
+					bz.combinar(iconos_raw, fuentes_raw);
+
+				})
+				.catch(function () {
+					//console.log(res)
+				})
+				.finally(function () {
+
+					bz.completado = true;
 
 				});
 
-				var promesaIconos = inicial ? elementosService.listarIniciales(inicial) : elementosService.listarIconosSegunTags(tags_saltos);
-				var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
-
-				$q.all([
-					promesaIconos,
-					promesaFuentes
-				])
-					.then(function (res) {
-
-						angular.forEach(res[0].iconos, function (icono) {
-							bz.iconos.push(icono.idElemento);
-						});
-
-						var iconos_raw = res[0].iconos;
-						var fuentes_raw = res[1];
-
-						tags_saltos = res[0].tags;
-
-						if(!iconos_raw.length) {
-							$mdToast.show($mdToast.base({
-								args: {
-									mensaje: "La búsqueda no produjo resultados",
-									clase: "success"
-								}
-							}));
-							
-							return;
-						}
-
-						bz.combinar(iconos_raw, fuentes_raw);
-
-					})
-					.catch(function () {
-						//console.log(res)
-					})
-					.finally(function () {
-
-						bz.completado = true;
-
-					});
-
-			}
+			
 
 		};
 

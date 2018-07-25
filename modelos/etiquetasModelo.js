@@ -614,7 +614,6 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
                                     icons.push({ idElemento: coll.icons[i].id, svg: base64.encode(dd) });
 
                                 } catch (error) {
-                                   
                                     //console.log(error);
                                 }
                             }
