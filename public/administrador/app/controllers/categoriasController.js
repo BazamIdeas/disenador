@@ -31,15 +31,18 @@ angular.module("administrador")
                 bz.peticion = false;
             })
         }
+        
+        bz.mostrarC = true;
+        bz.f = true;
 
-        categoriasService.listarPreferencias().then(function (res) {
+/*         categoriasService.listarPreferencias().then(function (res) {
             bz.prefs = res.data;
         }).catch(function (res) {
             notificacionService.mensaje(res);
         }).finally(function () {
             bz.peticion = false;
         })
-
+ */
 
         /* MODIFICAR */
 

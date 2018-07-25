@@ -34,6 +34,9 @@ angular.module("administrador")
 			})
 		}
 
+		bz.listarCategorias('FUENTE');
+		bz.l = true;
+
 		categoriasService.listarPreferencias().then(function (res) {
 			angular.forEach(res.data, function (valor) {
 				valor.valor = 2;

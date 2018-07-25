@@ -23,7 +23,7 @@
                     </md-input-container>
                 </div>
                 <div ng-show="designer.listaL">
-                    <div layout class="elemento" ng-show="designer.logos.length > 0">
+                    <!-- <div layout class="elemento" ng-show="designer.logos.length > 0">
                         <md-input-container flex>
                             <label>Estado:</label>
                             <md-select ng-model="designer.categoriasFiltroActivo" class="md-block" aria-label="filtro">
@@ -31,7 +31,7 @@
                                 <md-option ng-value="categoria.nombreCategoria" ng-repeat="categoria in designer.categoriasFiltro | unique">{{categoria.nombreCategoria}}</md-option>
                             </md-select>
                         </md-input-container>
-                    </div>
+                    </div> -->
                     <div class="w3-responsive content-scroll" ng-show="designer.logos.length > 0">
                         <table class="w3-table w3-bordered">
                             <tr>
@@ -80,9 +80,6 @@
                     </div>
                     <div style="height: 30%; background: white;" ng-if="designer.logos.length == 0  && designer.peticion == true" class="mensaje-resultado">
                         <h3>CARGANDO LOGOS POR APROBAR</h3>
-                    </div>
-                    <div style="height: 30%; background: white;" ng-if="designer.logos.length == 0 && designer.peticion == false" class="mensaje-resultado">
-                        <h3>NO EXISTEN LOGOS POR APROBAR</h3>
                     </div>
                 </div>
             </div>
@@ -157,10 +154,6 @@
 
                     <div style="height: 30%; background: white;" ng-if="designer.disenadores.length == 0   && designer.peticion == true" class="mensaje-resultado">
                         <h3>CARGANDO DISENADORES</h3>
-                    </div>
-
-                    <div style="height: 30%; background: white;" ng-if="designer.disenadores.length == 0 && designer.peticion == false" class="mensaje-resultado">
-                        <h3>NO HAY DISENADORES</h3>
                     </div>
                 </div>
             </div>
