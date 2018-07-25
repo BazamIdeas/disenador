@@ -425,6 +425,12 @@ exports.listaLogosAprobadosPorTagCatSub = function (req, res) {
 
 	logo.listaLogosAprobadosPorTagCatSub(idTag, idSubcategoria, idCategoria, function (error, data) {
 
+		if(error) {
+			console.log(error);
+			res.status(500).json();
+			return;
+		}
+
 		if (typeof data !== "undefined" && data.length > 0) {
 			async.forEachOf(data, (logo, key, callback) => {
 

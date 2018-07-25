@@ -1419,6 +1419,18 @@ angular.module("disenador-de-logos")
 
 			var response = [];
 
+
+			/*
+			$http.post("/logos/aprobados/master", datos)
+				.then(function (res) {
+
+				})
+				.catch(function(){
+					
+				})
+
+			*/
+
 			for(var i = 0;i <12; i++){
 				response.push({
 					svg: $base64.encode('<svg><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red"/></svg>'),
