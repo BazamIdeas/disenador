@@ -20,21 +20,29 @@
                     <span class="boton-activo">
                         <a href="/creador-de-logos/ingreso/" style="color: white">{{idioma.header.botones[1]}}</a>
                     </span>
-
-                    <div class="acceder hidden" style="cursor: pointer">
-                        <span>
+                    <span style="display: none;"></span>
+                </div>
+                <div class="acceder hidden logeado" style="cursor: pointer">
+                    <span>
+                        <a href="/creador-de-logos/">
                             <i class="material-icons"> add_circle_outline</i>
-                        </span>
-                        <span>
+                        </a>
+                    </span>
+                    <span>
+                        <a href="/creador-de-logos/cliente/logos/">
                             <i class="material-icons"> favorite</i>
-                        </span>
-                        <span>
+                        </a>
+                    </span>
+                    <span>
+                        <a href="/creador-de-logos/cliente/cuenta/">
                             <i class="material-icons"> account_circle</i>
-                        </span>
-                        <span>
-                            <i class="material-icons">power_settings_new</i>
-                        </span>
-                    </div>
+                        </a>
+                    </span>
+                    <span>
+                        <a class="salir">
+                            <i style="color: white;" class="material-icons">power_settings_new</i>
+                        </a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -42,9 +50,9 @@
     <div class="cabecera">
         <h1>{{idioma.secciones.seccion_uno.titulo}} {{title}}</h1>
         {% if categoriasPadre %}
-        <p>{{categoriaSeleccionada.traduccion.descripcion}} {{title}}</p>
+        <p>{{categoriaSeleccionada.traduccion.descripcion}}</p>
         {% else %}
-        <h1>{{idioma.secciones.seccion_uno.descripcion}}</h1>
+        <p>{{idioma.secciones.seccion_uno.descripcion}} {{title}}</p>
         {% endif %}
     </div>
 
@@ -59,8 +67,8 @@
     <div class="logos-predisenados">
         {% for elemento in logosPredisenados %}
         <div class='--item'>
-            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-subcategoria="{{elemento.categorias_idCategoria}}" data-categoria="{{elemento.padre}}"
-                data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
+            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-subcategoria="{{elemento.categorias_idCategoria}}"
+                data-categoria="{{elemento.padre}}" data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
                 <span>
                     <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{elemento.atributos[1].valor}}">
                 </span>
@@ -78,7 +86,7 @@
             </div>
             {% endif %} {% if mostraretiquetaslogo == false %}
             <div class="tags">
-                <a href="/logos/{{elemento.categoriaFormateada}}">{{elemento.nombreCategoria}}</a>
+                <a href="/logos/{{elemento.categoriaFormateada}}">{{elemento.traduccion}}</a>
             </div>
             {% endif %}
         </div>

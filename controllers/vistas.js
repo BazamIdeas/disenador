@@ -28,7 +28,8 @@ exports.ViewCategorias = function (req, res) {
 		lang: req.lang,
 		mostraretiquetaslogo: false,
 		categoriasPadre: req.body.categoriasPadre,
-		urls_categorias: catTraducciones
+		urls_categorias: catTraducciones,
+		subcategoria : false
 	};
 
 	//console.log('Buscar logos aprobados de ->  idCategoria:', idCategoria);
@@ -42,7 +43,10 @@ exports.ViewCategorias = function (req, res) {
 				logo.svg = logo.svg.replace(/"/g, "'");
 
 				if (logo.nombreCategoria) {
-					logo.categoriaFormateada = categoriasService.formatearCategorias([{ nombreCategoria: logo.nombreCategoria }], req.lang)[0].categoriaFormateada;
+					categoriaLogo = categoriasService.formatearCategorias([{idCategoria: logo.idCategoria, nombreCategoria: logo.nombreCategoria }], req.lang)[0];
+
+					logo.categoriaFormateada = categoriaLogo.categoriaFormateada;
+					logo.traduccion = categoriaLogo.traduccion.label;
 				}
 
 				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
@@ -92,6 +96,8 @@ exports.ViewSubCategorias = function (req, res) {
 	let lang = langs.views[req.lang].categoria_pagina;
 	let idiomas = langs.langs[req.lang];
 
+	let catTraducciones = JSON.stringify(req.body.categoriaSeleccionada.traducciones);
+
 	let dataEnviar = {
 		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
 		categorias: req.body.categorias,
@@ -100,7 +106,9 @@ exports.ViewSubCategorias = function (req, res) {
 		idiomas: idiomas,
 		lang: req.lang,
 		mostraretiquetaslogo: true,
-		categoriasPadre: false
+		categoriasPadre: false,
+		urls_categorias: catTraducciones,
+		subcategoria : true
 	};
 
 	dataEnviar.mostraretiquetaslogo = true;
@@ -110,8 +118,6 @@ exports.ViewSubCategorias = function (req, res) {
 	// COLOCAR CATEGORIA PADRE
 
 	logo.getLogosAprobados(idLogo, idCategoria, function (error, data) {
-
-		console.log(data)
 
 		if (typeof data !== "undefined" && data.length > 0) {
 

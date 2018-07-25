@@ -4,6 +4,7 @@ const objectId = require('./mongo.js').objectId;
 const NounProject = require("the-noun-project")
 const translate = require('google-translate-api');
 var base64 = require("base-64");
+const fetch = require('node-fetch');
 
 
 let etiqueta = {}

@@ -1,5 +1,5 @@
 <div style="text-align: center; margin-bottom: 10px;" ng-click="mostrarPalettePicker = !mostrarPalettePicker">
-    <button type="button" class="bazam-pallette-button" style="width: 100%; display:flex; align-items:center; justify-content: center;">Seleccionar colores
+    <button type="button" class="bazam-pallette-button" style="width: 100%; display:flex; align-items:center; justify-content: center;">{{textos.label}}
         <i class="material-icons">arrow_drop_down</i>
     </button>
 </div>
@@ -147,7 +147,7 @@
 
 <!-- VALIDACION -->
 <div ng-messages="paletteForm.$error" style="color:maroon; padding-bottom:20px; position:relative" role="alert" ng-if="paletteForm.$dirty || $parent.inicio.datosForm.$submitted">
-    <div ng-message="required" style="top:0px; padding-top: 10px;">Debes elegir al menos un color.</div>
+    <div ng-message="required" style="top:0px; padding-top: 10px;">{{textos.validacion[0]}}</div>
 </div>
 
 <div ng-form="paletteForm">

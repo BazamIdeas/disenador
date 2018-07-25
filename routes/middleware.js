@@ -358,7 +358,7 @@ exports.validarSubCategorias = function (req, res, next) {
 	categoria.getCategoriasHijas(false, function (error, response) {
 		if (typeof response !== "undefined" && response.length > 0) {
 
-			req.body.categorias = categoriasService.formatearCategorias(response);
+			req.body.categorias = categoriasService.formatearCategorias(response, req.lang);
 
 			req.body.categorias.forEach(element => {
 				if (element.categoriaFormateada == req.params.subcategoria) {
@@ -369,7 +369,7 @@ exports.validarSubCategorias = function (req, res, next) {
 			categoria.getCategoriasHijas(req.body.categoriaSeleccionada.padre, function (error, data) {
 
 				if (typeof data !== "undefined" && data.length > 0) {
-					req.body.categorias = categoriasService.formatearCategorias(data);
+					req.body.categorias = categoriasService.formatearCategorias(data, req.lang);
 					next();
 				}
 				else {

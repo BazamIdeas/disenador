@@ -1,7 +1,9 @@
 angular.module("disenador-de-logos")
-	.controller("papeleriaEditorController", ["papeleriaResolve", "logoResolve", "$base64", "$scope", "elementosService", "fontService", "papeleriaService", "$document", "$state", "$sce", function (papeleriaResolve, logoResolve, $base64, $scope, elementosService, fontService, papeleriaService, $document, $state, $sce) {
+	.controller("papeleriaEditorController", ["papeleriaResolve", "logoResolve", "$base64", "$scope", "elementosService", "fontService", "papeleriaService", "$document", "$state", "$sce", "langFactory", function (papeleriaResolve, logoResolve, $base64, $scope, elementosService, fontService, papeleriaService, $document, $state, $sce, langFactory) {
 
 		var bz = this;
+
+		bz.lang = langFactory.langsEstadoActual('papeleriaEditor');
 
 		bz.base64 = $base64;
 

@@ -12,19 +12,19 @@
                 <span ng-bind-html="crearPapeleria.sce.trustAsHtml(modelo.svg)"></span>
                 <div class="combinacion-box">
                     <span ng-show="$parent.$parent.planBajo" class="accion" style="bottom: 75%;" ng-click="crearPapeleria.enviarEditor($parent.$index, $index)">
-                        <p>Usar Diseño</p>
+                        <p>{{::crearPapeleria.lang[7]}}</p>
                         <img src="assets/images/edit_white.svg" alt="">
                     </span>
 
                     <span ng-show="!$parent.$parent.planBajo" class="accion" style="bottom: 75%;" ng-click="crearPapeleria.activarPlanesSuperiores()">
-                        <p>Mejorar mi plan</p>
+                        <p>{{::crearPapeleria.lang[10]}}</p>
                         <img src="assets/images/payment.png" alt="">
                     </span>
                 </div>
             </div>
         </div>
     </div>
-    <md-button ng-show="tiene" ng-click="estado = false" class="boton-crear-papeleria ">GUARDADOS</md-button>
+    <md-button ng-show="tiene" ng-click="estado = false" class="boton-crear-papeleria ">{{::crearPapeleria.lang[9]}}</md-button>
     <div ng-show="!papelerias" style="height:100%;
 display: flex;
 justify-content: center;

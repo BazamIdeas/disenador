@@ -8,7 +8,7 @@ angular.module("disenador-de-logos")
                 verlogo: "<",
                 promocion: "="
             },
-            controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", "clientesService", "$rootScope", "$document", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q, clientesService, $rootScope, $document) {
+            controller: ["pedidosService", "$scope", "$state", "$base64", "$window", "$http", "$mdToast", "facebookService", "logosService", "$filter", "$timeout", "$q", "clientesService", "$rootScope", "$document", "$window", function (pedidosService, $scope, $state, $base64, $window, $http, $mdToast, facebookService, logosService, $filter, $timeout, $q, clientesService, $rootScope, $document, $window) {
 
                 var bz = this;
 
@@ -17,6 +17,9 @@ angular.module("disenador-de-logos")
                 bz.estado = $scope.estado;
 
                 bz.promocion = $scope.promocion;
+
+                $scope.textos = $window.traducciones.planes;
+                $scope.boton_planes = $window.traducciones.general.app_editor.secciones.planes[1];
 
                 /* PLANES */
 
@@ -79,22 +82,29 @@ angular.module("disenador-de-logos")
 
                 bz.comprobarMonedas = function (plan) {
 
-                    var coincidencia = false;
+                    coincidencia = true;
+                    
+                    if(plan.idPlan != 0){
+                        var coincidencia = false;
 
-                    angular.forEach(plan.precios, function (valor) {
-
-                        if (valor.moneda == bz.moneda.simbolo) {
-
-                            coincidencia = true;
-                        }
-
-                    });
+                        angular.forEach(plan.precios, function (valor) {
+    
+                            if (valor.moneda == bz.moneda.simbolo) {
+    
+                                coincidencia = true;
+                            }
+    
+                        });
+    
+                    }
 
                     return coincidencia;
 
                 };
 
                 bz.verificarLogin = function (plan) {
+
+                    
                     bz.planElegido = plan;
                     // Verificar si el usuario que esta logueado
                     if (!clientesService.autorizado()) {
@@ -375,7 +385,15 @@ angular.module("disenador-de-logos")
             scope: {
                 datos: "=",
                 estado: "="
-            }
+            },
+			controller: ["$scope", "$window", function ($scope, $window) {
+
+                $scope.textos = $window.traducciones.general.app_editor.secciones.planes;
+                
+                //console.log($scope.textos)
+
+			}],
+			controllerAs: "ctrl",
         };
 
     }])

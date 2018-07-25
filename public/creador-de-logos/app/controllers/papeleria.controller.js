@@ -1,8 +1,10 @@
 angular.module("disenador-de-logos")
-	.controller("papeleriaController", ["$base64", "$scope", "$stateParams", "$sce", "logoResolve", "$state", "papeleriaService", "$document", "elementosService", "fontService", "planesService", "pedidosService", function ($base64, $scope, $stateParams, $sce, logoResolve, $state, papeleriaService, $document, elementosService, fontService, planesService, pedidosService) {
+	.controller("papeleriaController", ["$base64", "$scope", "$stateParams", "$sce", "logoResolve", "$state", "papeleriaService", "$document", "elementosService", "fontService", "planesService", "pedidosService", "langFactory",function ($base64, $scope, $stateParams, $sce, logoResolve, $state, papeleriaService, $document, elementosService, fontService, planesService, pedidosService, langFactory) {
 
 		var bz = this;
 
+		bz.lang = langFactory.langsEstadoActual('papeleria');
+		
 		bz.base64 = $base64;
 		bz.sce = $sce;
 		bz.tienePiezas = false;
@@ -159,6 +161,7 @@ angular.module("disenador-de-logos")
 					if (modelo.piezas) {
 						papeleria.tienePiezas = true;
 						bz.tienePiezas = true;
+						bz.papeleriaActiva = papeleria.tipo;
 
 						angular.forEach(modelo.piezas, function (pieza) {
 							pieza.indicePapeleria = indicePapeleria;
@@ -172,7 +175,6 @@ angular.module("disenador-de-logos")
 			if (!bz.tienePiezas) {
 				bz.crearPapeleria = true;
 			}
-			bz.papeleriaActiva = bz.papelerias[0].tipo;
 		})
 
 		elementosService.listarFuentes().then(function (res) {
@@ -229,7 +231,7 @@ angular.module("disenador-de-logos")
 			papeleriaService.piezas.guardar(papeleria.tipo, papeleria.modelos[pieza.indiceModelo].nombre, piezaE).then(function (res) {
 				res.insertId.indiceModelo = pieza.indiceModelo;
 				res.insertId.indicePapeleria = pieza.indicePapeleria;
-				console.log(res.insertId)
+				//console.log(res.insertId)
 				papeleria.piezas.push(res.insertId);
 				bz.peticion = false;
 			});

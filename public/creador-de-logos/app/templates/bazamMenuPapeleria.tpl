@@ -9,7 +9,7 @@
                             class="item" ng-repeat="item in papeleriaEditor.papeleria.items track by $index" indice="{{$index}}">
                             {{::item.nombre}}
                         </span>
-                        <span class="espacios-disponibles">Suelta los elementos en el espacio que prefieras</span>
+                        <span class="espacios-disponibles">{{::menuPapeleria.lang[12]}}</span>
                     </div>
 
                     <!-- CONTENEDORES DE PAPELERIA-->
@@ -30,22 +30,22 @@
                                 <div class="menuHook" ng-class="{open: mostrarMenu && papeleriaEditor.mostrarMenuI == hook.id}" ng-show="mostrarMenu && papeleriaEditor.mostrarMenuI == hook.id">
                                     <!-- DIRECCION -->
                                     <span class="icono-nombre-hook" ng-class="{'seleccionado': hook.orientacion == 'left'}" ng-click="hook.orientacion = 'left'; papeleriaEditor.modificarHook($parent.$index, $index)">
-                                        <md-tooltip md-direction="bottom">Alinear a la Izquierda</md-tooltip>
+                                        <md-tooltip md-direction="bottom">{{::menuPapeleria.lang[13]}}</md-tooltip>
                                         <md-icon>format_align_left</md-icon>
                                     </span>
 
                                     <span class="icono-nombre-hook" ng-class="{'seleccionado': hook.orientacion == 'center'}"  ng-click="hook.orientacion = 'center'; papeleriaEditor.modificarHook($parent.$index, $index)">
-                                        <md-tooltip md-direction="bottom">Alinear al centro</md-tooltip>
+                                        <md-tooltip md-direction="bottom">{{::menuPapeleria.lang[14]}}</md-tooltip>
                                         <md-icon>format_align_center</md-icon>
                                     </span>
                                     <span class="icono-nombre-hook" ng-class="{'seleccionado': hook.orientacion == 'right'}"  ng-click="hook.orientacion = 'right'; papeleriaEditor.modificarHook($parent.$index, $index)">
-                                        <md-tooltip md-direction="bottom">Alinear a la Derecha</md-tooltip>
+                                        <md-tooltip md-direction="bottom">{{::menuPapeleria.lang[15]}}</md-tooltip>
                                         <md-icon>format_align_right</md-icon>
                                     </span>
                                     
                                     <!-- FUENTES -->
                                     <span class="icono-nombre-hook" ng-click="menuPapeleria.cambiarFuente(true, false, $parent.$index, $index)">
-                                        <md-tooltip md-direction="bottom">Fuentes</md-tooltip>
+                                        <md-tooltip md-direction="bottom">{{::menuPapeleria.lang[16]}}</md-tooltip>
                                         <md-icon>text_format</md-icon>
                                     </span>
                                 </div>
@@ -70,14 +70,14 @@
                                 </span>
                                 <!-- ELIMINAR PAPELERIA -->
                                 <span class="eliminar-input-x" ng-click="papeleriaEditor.mostrarMenuI = null; menuPapeleria.eliminarItemHook($parent.$parent.$index, $parent.$index, $index)">
-                                    <md-tooltip md-direction="bottom">Eliminar</md-tooltip>
+                                    <md-tooltip md-direction="bottom">{{::menuPapeleria.lang[17]}}</md-tooltip>
                                     <md-icon>close</md-icon>
                                 </span>
 
                             </span>
                         </div>
                         <div class="mensaje-items" ng-show="hook.items.length == 0">
-                            Suelta Elementos
+                            {{::menuPapeleria.lang[18]}}
                         </div>
                         <!-- <span class="espacios-disponibles"> Limite de elementos : {{hook.limite}} </span> -->
                     </div>
