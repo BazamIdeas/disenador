@@ -225,9 +225,10 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 .icono-header {
-    font-size: 40px;
+    font-size: 30px;
     width: auto;
     height: auto;
+    padding: 0;
 }
 
 .menu-header p {
@@ -237,9 +238,8 @@ md-toolbar:not(.md-menu-toolbar) {
 }
 
 .paneles {
-    background: var(--light-color);
-    -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    background: white;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
 }
 
 .text-center {
@@ -445,7 +445,7 @@ opcion-tabla md-icon {
 .content-scroll {
     overflow-x: hidden;
     overflow-y: scroll;
-    max-height: 50%;
+    max-height: 80%;
 }
 
 .scroll {
@@ -456,11 +456,11 @@ opcion-tabla md-icon {
 
 ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 15px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
+    border-radius: 0px;
     background-color: rgba(0, 0, 0, .5) !important;
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
     box-shadow: 0 0 1px rgba(255, 255, 255, .0);
@@ -468,11 +468,11 @@ opcion-tabla md-icon {
 
 ::-moz-scrollbar {
     -webkit-appearance: none;
-    width: 4px;
+    width: 5px;
 }
 
 ::-moz-scrollbar-thumb {
-    border-radius: 4px;
+    border-radius: 0px;
     background-color: rgba(0, 0, 0, .0);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
     box-shadow: 0 0 1px rgba(255, 255, 255, .0);
@@ -480,8 +480,7 @@ opcion-tabla md-icon {
 
 /* PEDIDOS */
 
-.pedido.completado,
-.titulo-modulo {
+.pedido.completado{
     border-top: 6px solid #1caf9a;
 }
 
@@ -550,10 +549,19 @@ opcion-tabla md-icon {
     text-transform: capitalize;
 }
 
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar{
+    background: var(--alternal-color);
+    background-color: var(--alternal-color);
+}
+
+md-progress-linear._md-progress-linear-disabled {
+    visibility: visible !important;
+}
+
 /* CLIENTE */
 
 .titulo-modulo texto {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
     display: block;
     font-family: 'futura-heavy' !important;
@@ -761,7 +769,33 @@ menu.centrado .menuItem {
     background-color: #B2DFDB;
 }
 
+.acceso-rapido {
+    position: relative;
+}
 
+.urls-internas {
+    position: absolute;
+    font-size: 10pt;
+    display: flex;
+    top: 100%;
+    background: white;
+    flex-wrap: wrap;
+    width: 350px;
+    color: black;
+    justify-content: space-around;
+    border: 1px solid silver;
+    padding-bottom: 4px;
+}
+
+.urls-internas > span {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid white;
+}
+
+.urls-internas > span:hover, .urls-internas > span.activo {
+    border-bottom: 1px solid black;
+}
 
 
 @media (min-device-width:1024px) and (max-device-width:1180px), (min-width:1024px) and (max-width:1180px) {

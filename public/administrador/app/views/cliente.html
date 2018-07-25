@@ -1,6 +1,7 @@
 <div class="row start-xs">
     <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 margen_inferior">
         <div class="paneles principal md-whiteframe-2dp listar">
+            <md-progress-linear ng-disabled="!cliente.peticion" md-mode="indeterminate"></md-progress-linear>
             <div layout layout-align="space-between center" layout-padding class="titulo-modulo" ng-disabled="cliente.peticion">
                 <texto flex>LISTADO DE CLIENTES</texto>
             </div>

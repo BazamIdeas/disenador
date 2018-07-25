@@ -1,12 +1,12 @@
 <div class="row" style="min-height: 100vh;">
-    <div class="padding-cero sidemenu" ng-class="{grande:sidenav.menuMostrar, pequeno:!sidenav.menuMostrar}">
+    <!--  <div class="padding-cero sidemenu" ng-class="{grande:sidenav.menuMostrar, pequeno:!sidenav.menuMostrar}">
         <menu ng-class="{centrado:!sidenav.menuMostrar}" ng-show="sidenav.autorizado">
-            <!-- <md-toolbar>
+            <md-toolbar>
                 <div class="md-toolbar-tools logo " md-whiteframe ui-sref="app.pedidos">
                     <a ng-show="sidenav.menuMostrar" class="auto">{{sidenav.autorizado.nombre}}</a>
                     <a ng-show="!sidenav.menuMostrar" class="auto">A</a>
                 </div>
-            </md-toolbar> -->
+            </md-toolbar>
             <md-toolbar>
                 <div class="md-toolbar-tools" md-whiteframe>
                 </div>
@@ -20,23 +20,40 @@
                 </md-item>
             </md-list>
         </menu>
-    </div>
+    </div> -->
 
-    <div class="padding-cero sidemenu-menu" ng-class="{grande:!sidenav.menuMostrar, pequeno:sidenav.menuMostrar}">
+    <div class="padding-cero sidemenu-menu" style="width: 100%;" ng-class="{grande:!sidenav.menuMostrar, pequeno:sidenav.menuMostrar}">
         <div class="box">
             <header ng-controller="headerController as header" class="header">
                 <md-toolbar layout layout-align="none center">
-                    <div layout-padding ng-if="header.autorizado">
+                    <!-- <div layout-padding ng-if="header.autorizado">
                         <div ng-click="sidenav.cambiarMenu()" style="max-width:40px;">
                             <md-icon>menu</md-icon>
                         </div>
-                    </div>
-                    <div layout flex class="md-toolbar-tools text-white" layout-align="space-between center" layout-padding>
+                    </div> -->
+                    <div style="    height: 55px;
+                    max-height: 55px;" layout flex class="md-toolbar-tools text-white" layout-align="space-between center"
+                        layout-padding>
                         <div ng-if="!header.autorizado">
                             <div>LIDERLOGO</div>
                         </div>
+                        <!-- <div ng-if="header.autorizado" class="estado-actual">
+                            <div>{{header.estado}}</div>
+
+                        </div> -->
+                        <div ng-if="header.autorizado" ng-mouseenter="mad = !mad" ng-mouseleave="mad = !mad" class="acceso-rapido">
+                            <span>Menu</span>
+                            <div ng-show="mad" class="urls-internas">
+                                <span ng-repeat="vistas in sidenav.vistas track by $index" ng-class="{'activo': (vistas.url == sidenav.estado)}" ui-sref="{{vistas.url}}">
+                                    {{vistas.nombre}}
+                                </span>
+                            </div>
+
+
+                        </div>
                         <div ng-if="header.autorizado" class="estado-actual">
                             <div>{{header.estado}}</div>
+
                         </div>
                         <div ng-switch="header.autorizado" class="login_header">
                             <ingresar ng-switch-when="false" ui-sref="login" layout-padding>
@@ -44,8 +61,9 @@
                             </ingresar>
 
                             <ingresar ng-switch-default ng-click="header.hmenuMostrar = !header.hmenuMostrar">
-                                <div layout-padding>
+                                <div layout-padding layout layout-align="center center">
                                     <md-icon class="icono-header">account_circle</md-icon>
+                                    <span style="text-transform: capitalize;">{{header.autorizado.nombre}}</span>
                                 </div>
                                 <div ng-show="header.hmenuMostrar" class="menu-header">
                                     <div ng-click="header.salir()">

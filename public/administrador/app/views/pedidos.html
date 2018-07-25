@@ -1,14 +1,15 @@
 <div class="row start-xs">
 
     <!-- LISTAR PEDIDOS -->
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 margen_inferior">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
         <div class="paneles listar">
+            <md-progress-linear ng-disabled="pedidos.elementos.length > 0" md-mode="indeterminate"></md-progress-linear>
             <div layout-padding ng-click="pedidos.listaP()" ng-disabled="pedidos.peticion" class="titulo-modulo">
                 <texto layout-padding>LISTADO DE PEDIDOS</texto>
             </div>
-            <div ng-show="pedidos.mostrarP">
-                <div class="elemento preferencias-oculto w3-bordered" ng-click="pedidos.mp1 = !pedidos.mp1">
-                    <span>VER FILTROS</span>
+            <div ng-show="pedidos.elementos.length > 0">
+                <div  class="elemento preferencias-oculto w3-bordered" ng-click="pedidos.mp1 = !pedidos.mp1">
+                    <span>Filtros</span>
                     <md-icon style="color:black; margin:0; padding:0;" class="material-icon">keyboard_arrow_down</md-icon>
                 </div>
                 <div ng-if="pedidos.mp1">
@@ -50,10 +51,7 @@
                         </md-input-container>
                     </div>
                 </div>
-                <div ng-hide="pedidos.elementos.length > 0" class="mensaje-resultado pequeno" style="max-height:20%;">
-                    <h3>CARGANDO PEDIDOS</h3>
-                </div>
-                <div ng-hide="pedidos.elementos.length == 0" class="w3-responsive content-scroll">
+                <div class="w3-responsive content-scroll">
                     <table class="w3-table w3-bordered">
                         <tr>
                             <th>Fecha:</th>
@@ -82,8 +80,9 @@
     </div>
 
     <!-- DETALLES PEDIDOS -->
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-show="pedidos.mostrarD">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-show="pedidos.mostrarD">
         <div class="paneles principal md-whiteframe-2dp listar">
+            <md-progress-linear ng-disabled="pedidos.modInit != true" md-mode="indeterminate"></md-progress-linear>
             <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
                 <texto>DETALLES</texto>
                 <md-button ng-click="pedidos.mostrarD = false" style="margin:0;">
@@ -91,8 +90,8 @@
                 </md-button>
             </div>
             <div class="w3-responsive content-scroll">
-                <table class="w3-table-all" ng-if="pedidos.elementos.length > 0">
-                    <tr>
+                <table class="w3-table" ng-if="pedidos.elementos.length > 0">
+                    <!-- <tr>
                         <td>
                             <b>Fecha:</b>
                             <span>{{pedidos.pedidoDetalle.fecha | date : 'yy/M/d'}}</span>
@@ -101,52 +100,58 @@
                             <b>Cliente:</b>
                             <span>{{pedidos.pedidoDetalle.nombreCliente}}</span>
                         </td>
-                    </tr>
+                    </tr> -->
                     <tr>
-                        <td>Correo:</b>
+                        <td>
+                            <b>Correo:</b>
+                            <br>
                             <span>{{pedidos.pedidoDetalle.correo}}</span>
                         </td>
-                        <td>Telefono:</b>
+                        <td>
+                            <b>Telefono:</b>
+                            <br>
                             <span>{{pedidos.pedidoDetalle.telefono}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <b>Plan:</b>
+                            <br>
                             <span>{{pedidos.pedidoDetalle.plan}}</span>
                         </td>
                         <td>
                             <b>Precio:</b>
+                            <br>
                             <span>{{pedidos.pedidoDetalle.precio}} {{pedidoDetalle.moneda}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <b>Pais:</b>
+                            <br>
                             <span>{{pedidos.pedidoDetalle.pais}}</span>
                         </td>
                         <td>
                             <b>Categoria:</b>
+                            <br>
                             <span>{{pedidos.pedidoDetalle.nombreCategoria}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <b>Estado:</b>
+                            
                             <span>{{pedidos.pedidoDetalle.estado}}</span>
-                        </td>
-                        <td>
+
                             <md-button class="md-fab md-mini md-warn" ng-click="pedidos.modInit = !pedidos.modInit">
-                                <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Estado</md-tooltip>
+                                <md-tooltip md-direction="right" md-visible="tooltipVisible">Modificar Estado</md-tooltip>
                                 <md-icon class="material-icon">edit</md-icon>
 
                             </md-button>
                         </td>
-                    </tr>
-                    <tr ng-if="pedidos.modInit == true">
-                        <td colspan="2">
+                        <td colspan="1" ng-if="pedidos.modInit == true">
                             <md-input-container class="md-block" flex="100">
-                                <label>CAMBIAR ESTADO</label>
+                                <label style="color:black;">CambiarEstado</label>
                                 <md-select ng-disabled="pedidos.peticion" ng-model="pedidos.pedidoDetalle.estado" aria-label="estado" ng-change="pedidos.cambiarEstado(pedidos.pedidoDetalle.idPedido, pedidos.pedidoDetalle.estado)">
                                     <md-option ng-repeat="(key, value) in pedidos.estadoPedidos">
                                         {{value}}
@@ -154,15 +159,15 @@
                                 </md-select>
                             </md-input-container>
                         </td>
+
                     </tr>
-                    <tr>
+                    <!--                     <tr>
                         <td colspan="2">
                             <div layout layout-align="center">
-                                <h5 class="text-center margen-superior" style="font-family: 'futura-heavy' !important;   margin: 0; padding: 0;" layout-padding
-                                    ng-click="pedidos.pedidoDetalle.ver = !pedidos.pedidoDetalle.ver">VER PEDIDO</h5>
+                                <h6 class="margen-superior margen-inferior" style="font-family: 'futura-heavy' !important;   margin: 0; padding: 0;" layout-padding
+                                    ng-click="pedidos.pedidoDetalle.ver = !pedidos.pedidoDetalle.ver">Ver logo comprado</h6>
                                 <md-icon style="margin-left:8px; color:black; margin:0; padding:0;" class="material-icon">keyboard_arrow_down</md-icon>
                             </div>
-
                             <div ng-if="pedidos.pedidoDetalle.logo.length > 0 && pedidos.pedidoDetalle.ver">
                                 <br>
                                 <div class="pedido-logo elemento inside" md-whiteframe>
@@ -171,7 +176,7 @@
                                 <br>
                             </div>
                         </td>
-                    </tr>
+                    </tr> -->
                 </table>
             </div>
         </div>
