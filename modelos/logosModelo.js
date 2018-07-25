@@ -1,4 +1,5 @@
-var DB=require('./db.js');
+const DB = require('./db.js');
+const objectId = require('./mongo.js').objectId;
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var logo = {};
@@ -81,6 +82,89 @@ logo.getLogosAprobados = function(id, idCategoria, callback)
 		  	connection.release();
 	  	});
 	});
+}
+
+logo.listaLogosAprobadosPorTagCatSub = function (idTag, idSubcategoria, idCategoria) {
+
+	__mongoClient(db => {
+		const logos = db.collection('logos');
+
+		logos.aggregate([{
+			$match: {
+				'etiquetas': objectId(idTag)
+			}
+		}, {
+			$project: { idLogo: 1 }
+		}]).toArray((err, docs) => {
+			if (err) return callback(err);
+
+			if (docs.length) {
+				
+				docs = docs.map(el => el.idLogo);
+
+			}
+
+			DB.getConnection( (err, connection) => {
+
+				let query = 'SELECT * FROM logos WHERE idLogo IN (?) ORDER BY RAND() LIMIT 12'
+
+				connection.query(query, [docs], (err, logosPorID) => {
+					if (err) return callback(err);
+
+					if (logosPorID.length > 11) {
+
+						return callback(null, logosPorID);
+
+					} else {
+
+						let resto = logosPorID.length - 12;
+
+						query = 'SELECT * FROM logos WHERE ? IS NOT NULL and categorias_idCategoria = ? ORDER BY RAND() LIMIT ?'
+
+						connection.query(query, [idSubcategoria, idSubcategoria, resto], (err, logosPorSubCat) => {
+							if (err) return callback(err);
+
+							if (logosPorSubCat.length > resto - 1) {
+
+								return callback(null, logosPorID.concat(logosPorSubCat));
+							
+							} else {
+
+								let resto = logosPorSubCat.length - resto;
+
+								query = 'SELECT * FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.padre = ? ORDER BY RAND() LIMIT ?'
+
+								connection.query(query, [idCategoria, resto], (err, logosPorCat) => {
+									if (err) return callback(err);
+
+									if (logosPorCat.length > resto - 1) {
+
+										return callback(null, logosPorID.concat(logosPorSubCat).concat(logosPorCat));
+
+									} else {
+
+										return callback(null, logosPorID.concat(logosPorSubCat).concat(logosPorCat));
+
+									}
+
+									connection.release();
+								});
+
+							}
+
+							connection.release();
+						});
+
+					}
+
+					connection.release();
+				});
+
+			});
+
+		})
+	})
+
 }
 
 

@@ -524,7 +524,48 @@ etiqueta.TraducirGuardarNOUN = async (tags, lang, callback) => {
             }
         }
     }
-    // guardar tagsTraducidas
+
+    __mongoClient(db => {
+        const idiomas = db.collection('idiomas');
+        idiomas.find({}).toArray((err, docs) => {
+            if (err) throw err;
+
+            let tagsParaGuardar = [];
+
+            for (let tag of tagsTraducidas) {
+
+                let tagLista = { traducciones: [], iconos: [] };
+
+                let idiomas = Object.keys(tag);
+
+                for (let idioma of idiomas) {
+
+                    let _id
+
+                    docs.forEach(doc => {
+                        if (doc.codigo == idioma) {
+                            _id = doc._id;
+                        }
+                    });
+
+                    if (_id !== undefined) {
+                        tagLista.traducciones.push({ idioma: objectId(_id), valor: tag[idioma] });
+                    }
+                }
+                tagsParaGuardar.push(tagLista);
+            }
+
+            const etiquetas = db.collection('etiquetas');
+
+
+            if (tagsParaGuardar.length) {
+                etiquetas.insertMany(tagsParaGuardar, function (err, r) {
+                    if (err) throw err;
+                });
+            }
+        });
+    });
+
     callback(null, tags);
 }
 
