@@ -5,7 +5,7 @@ angular.module("disenador-de-logos")
 	//////EDICION DEL SVG/////////
 	//////////////////////////////
 
-	.directive("bazamSvg", ["$rootScope", "fontService", "$timeout", "$q", "coloresPaletaValue", function ($rootScope, fontService, $timeout, $q, coloresPaletaValue) {
+	.directive("bazamSvg", ["$rootScope", "fontService", "$timeout", "$q", "coloresPaletaValue", "disenadorService", function ($rootScope, fontService, $timeout, $q, coloresPaletaValue, disenadorService) {
 		return {
 			restrict: "AE",
 			scope: {
@@ -210,6 +210,7 @@ angular.module("disenador-de-logos")
 
 					//esperamos a que la fuente haya cargado
 					scope.svgPreparado.promise.finally(function () {
+
 
 						//reinsertamos el svg para permitir que se muestre
 						element.html(element.html());
@@ -889,7 +890,7 @@ angular.module("disenador-de-logos")
 						///////////REEMPLAZAR///////////
 						////////////////////////////////
 
-						scope.$on("editor:reemplazar", function (evento, icono) {
+						function reemplazarIcono(evento, icono) {
 
 							var iconoSVG = element.find("g.contenedor-icono > svg");
 
@@ -950,7 +951,9 @@ angular.module("disenador-de-logos")
 
 							obtenerSVGFinal();
 
-						});
+						}
+
+						scope.$on("editor:reemplazar", reemplazarIcono());
 
 
 						////////////////////////////////
@@ -1171,7 +1174,7 @@ angular.module("disenador-de-logos")
 						});
 
 
-						var obtenerSVGFinal = function () {
+						function obtenerSVGFinal() {
 
 							var elemento = element.clone();
 
@@ -1231,6 +1234,62 @@ angular.module("disenador-de-logos")
 
 						};
 
+						/******* DISENADOR ******/
+						if(disenadorService.autorizado()){
+
+							//creamos el boton para insertar imagen 
+							var botonInsertarImagen = angular.element("<input type='file' accept='image/svg+xml' style='display:none'>");
+							var botonMirror = angular.element("<button>Cargar Icono</button>");
+
+							botonMirror.click(function(){
+								botonInsertarImagen[0].click();
+							})
+
+							botonInsertarImagen.change(function(event){
+
+								var input = event.target;
+
+								var svgFile = input.files[0];
+								
+								if(svgFile.type != "image/svg+xml"){
+									botonInsertarImagen[0].value = '';
+									return;
+								}
+
+								var readerIconDisenador = new FileReader();
+
+								readerIconDisenador.onload = function(){
+
+									var svgInput = readerIconDisenador.result;
+									svgInput = "<svg" + svgInput.split("<svg")[1];
+									svgInput = svgInput.replace(/fill=/gi, "nofill=");
+
+									var svgInputElement = angular.element(svgInput);
+									
+									svgInputElement.removeAttr("width");
+									svgInputElement.removeAttr("height");
+
+									reemplazarIcono(false, svgInputElement[0].outerHTML);
+
+								};
+								
+								readerIconDisenador.readAsText(svgFile);
+
+							})
+
+							
+							botonMirror.css({
+								"postion": "fixed",
+								"top" : "0px",
+								"left":  "0px"
+							})
+
+							//insertamos el boton en el espacio del editor
+							var contenedorEditor = element.parents(".principal-container.editor");
+
+							contenedorEditor.prepend(botonMirror);
+
+						}
 					});
 
 				}
@@ -1238,6 +1297,9 @@ angular.module("disenador-de-logos")
 			}
 		};
 	}]);
+
+
+	
 
 
 		/*

@@ -1,10 +1,9 @@
 //const Connection = __mongoClient;
 const objectId = require('./mongo.js').objectId;
-
+const fetch = require("node-fetch");
 const NounProject = require("the-noun-project")
 const translate = require('google-translate-api');
 var base64 = require("base-64");
-const fetch = require('node-fetch');
 
 
 let etiqueta = {}
@@ -596,7 +595,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
         tagsArray.map((tag) => {
 
-            console.log(tags[tag]);
+            //console.log(tags[tag]);
 
             if (tags[tag].salto !== false) {
 
@@ -604,8 +603,13 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
                     Nproject.getIconsByTerm(tags[tag].en, { limit: 100, offset: tags[tag].salto, limit_to_public_domain: 0}, (err, data) => {
 
-                        if (!err && data && data.icons.length) {
+                        
+                        //console.log(data)
 
+                        
+
+                        if (!err && data && data.icons.length) {
+                         
                             resolve({ tag: tag, icons: data.icons})
 
                         } else {
@@ -638,7 +642,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
                         if (coll.icons.length) {
 
-
+                            
                             if (coll.icons[i] != undefined && coll.icons[i].icon_url) {
 
                                 try {
@@ -685,7 +689,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
                 i++;
             }
 
-            console.log({nIcons: icons.length});
+            //console.log({nIcons: icons.length});
 
         } catch (error) {
             //console.log(error)
@@ -704,7 +708,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
                 next = false
             }
 
-            console.log(tag, falses);
+            //console.log(tag, falses);
         })
     }
 
@@ -714,7 +718,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
 etiqueta.TransformarSvg = async (iconos , callback) => {
 
-    console.time('Descarga de Iconos')
+    //console.time('Descarga de Iconos')
 
     let promises = [];
 

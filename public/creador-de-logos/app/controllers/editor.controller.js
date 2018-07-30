@@ -283,7 +283,7 @@ angular.module("disenador-de-logos")
 				}
 			});
 
-			logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function (etiquetasGuardadas) {
+			logosService.guardarLogo(bz.base64.encode(logo), null, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function (etiquetasGuardadas) {
 
 				if (etiquetasGuardadas) {
 
@@ -303,7 +303,6 @@ angular.module("disenador-de-logos")
 
 			}).catch(function (e) {
 
-				console.log(e)
 				$mdToast.show($mdToast.base({
 					args: {
 						mensaje: "Un error ha ocurrido",

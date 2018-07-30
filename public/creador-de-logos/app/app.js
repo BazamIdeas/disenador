@@ -82,13 +82,11 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 								};
 							} else {
 
-								console.log('Es pagina categoria');
+								var ramdomNivel = Math.floor(Math.random() * coloresPaletteValue.length) + 0;
 
-								let ramdomNivel = Math.floor(Math.random() * coloresPaletteValue.length) + 0;
+								var ramdomColor = Math.floor(Math.random() * coloresPaletteValue[ramdomNivel].length) + 0;
 
-								let ramdomColor = Math.floor(Math.random() * coloresPaletteValue[ramdomNivel].length) + 0;
-
-								let palettesCopy = [
+								var palettesCopy = [
 									[false, false, false, false, false, false, false, false, false, false],
 									[false, false, false, false, false, false, false, false, false, false],
 									[false, false, false, false, false, false, false, false, false, false],
