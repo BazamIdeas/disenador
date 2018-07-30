@@ -3,7 +3,7 @@
         <div class="listar">
             <!-- LISTAR CATEGORIAS -->
             <md-progress-linear ng-disabled="!categorias.peticion" md-mode="indeterminate"></md-progress-linear>
-            <div class="paneles individual md-whiteframe-2dp">
+            <div class="paneles individual">
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="categorias.mostrarC =  !categorias.mostrarC; categorias.f = !categorias.f;">LISTADO DE CATEGORIAS</texto>
                     <md-button class="md-primary md-fab md-mini" ng-click="categorias.opcionesCategorias = 3" style="margin:0;">
@@ -11,7 +11,7 @@
                     </md-button>
                 </div>
                 <div>
-                    <div ng-show="categorias.mostrarC" class="elemento text-center" style="padding: 0 0 0 0; border-bottom: 1px solid silver;">
+                    <div ng-show="categorias.mostrarC" class="elemento text-center" style="padding: 0 0 0 0;">
                         <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" ng-click="::categorias.listarCategorias('ICONO')">ICONO</md-button>
                         <span>O </span>
                         <md-button ng-disabled="categorias.peticion" class="md-raised md-primary" ng-click="::categorias.listarCategorias('FUENTE')">FUENTE</md-button>
@@ -44,7 +44,7 @@
             </div>
 
             <!-- LISTAR PREFERENCIAS
-            <div class="paneles individual md-whiteframe-2dp">
+            <div class="paneles individual">
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="categorias.mostrarPre = !categorias.mostrarPre; categorias.opcionesCategorias= 0">LISTADO DE PREFERENCIAS</texto>
                     <md-button class="md-primary md-fab md-mini" ng-click="categorias.opcionesCategorias = 4" style="margin:0;">
@@ -83,11 +83,10 @@
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-switch="categorias.opcionesCategorias">
-        <div class="paneles md-whiteframe-2dp listar">
+        <div class="paneles listar switch">
             <!-- MODIFICAR CATEGORIA -->
             <div ng-switch-when="1">
-                <md-progress-linear ng-disabled="!categorias.peticion" md-mode="indeterminate"></md-progress-linear>
-                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo border-top-green">
                     <texto>Modificar Categoria</texto>
                     <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
                         <md-icon>keyboard_arrow_left</md-icon>
@@ -113,7 +112,7 @@
             </div>
             <!-- MODIFICAR PREFERENCIA -->
             <div ng-switch-when="2">
-                <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+                <div layout layout-align="space-around center" layout-padding class="titulo-modulo border-top-green">
                     <texto>Modificar Preferencia</texto>
                     <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
                         <md-icon>keyboard_arrow_left</md-icon>
@@ -153,7 +152,7 @@
             <!-- CREAR CATEGORIA -->
 
             <div ng-switch-when="3">
-                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo border-top-green">
                     <texto>Nueva Categoria</texto>
                     <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
                         <md-icon>keyboard_arrow_left</md-icon>
@@ -198,7 +197,7 @@
             <!-- CREAR PREFERENCIA -->
 
             <div ng-switch-when="4">
-                <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+                <div layout layout-align="space-between center" layout-padding class="titulo-modulo border-top-green">
                     <texto>Nueva Preferencia</texto>
                     <md-button ng-click="categorias.opcionesCategorias = 0" style="margin:0;">
                         <md-icon>keyboard_arrow_left</md-icon>

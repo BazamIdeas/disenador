@@ -120,7 +120,6 @@ menu *:not(md-icon) {
     text-align: center;
     position: relative;
     background: white;
-    border-bottom: 1px solid silver;
 }
 
 .titulo-modulo button {
@@ -237,9 +236,37 @@ md-toolbar:not(.md-menu-toolbar) {
     cursor: pointer;
 }
 
-.paneles {
+.paneles{
     background: white;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+}
+
+.paneles:not(.switch) {
+    border: 1px solid #c0c0c07d;
+}
+
+.paneles.switch .titulo-modulo{
+    border-top:5px solid var(--alternal-color);
+}
+
+.paneles.switch > div{
+    border: 1px solid #c0c0c07d;
+}
+
+table.w3-table.w3-bordered {
+    border-top: 1px solid #c0c0c07d;
+}
+
+
+.no-border{
+    border: none !important;
+}
+
+.border-top-green{
+    border-top:5px solid var(--alternal-color);
+}
+
+.border-top{
+    border: 1px solid #c0c0c07d;
 }
 
 .text-center {
@@ -327,7 +354,6 @@ table tr>th {
 
 .listar .elemento.inside {
     margin-bottom: 0px;
-    margin-top: 8px;
 }
 
 .listar .elemento.nopadding {
@@ -409,7 +435,6 @@ opcion-tabla md-icon {
 }
 
 .formularios-login {
-    background: var(--background-formularios);
     padding: 0px;
 }
 

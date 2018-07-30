@@ -1,13 +1,13 @@
 <div class="row start-xs">
     <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 margen_inferior">
-        <div class="paneles principal md-whiteframe-2dp listar">
+        <div class="paneles principal listar">
             <md-progress-linear ng-disabled="!cliente.peticion" md-mode="indeterminate"></md-progress-linear>
             <div layout layout-align="space-between center" layout-padding class="titulo-modulo" ng-disabled="cliente.peticion">
                 <texto flex>LISTADO DE CLIENTES</texto>
             </div>
-            <div ng-if="cliente.clientes.length > 0">
+            <div ng-if="cliente.clientes.length > 0" class="border-top">
                 <div layout class="elemento">
-                    <md-input-container flex style="margin-bottom: 0;height: 35px;">
+                    <md-input-container flex style="margin: 0;height: 35px;">
                         <input type="text" ng-model="cliente.buscar" class="md-block" aria-label="filtro" placeholder="Buscar:">
                     </md-input-container>
                 </div>
@@ -40,8 +40,8 @@
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-if="cliente.mostrarPedido">
-        <div class="paneles principal md-whiteframe-2dp listar">
-            <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+        <div class="paneles principal listar">
+            <div layout layout-align="space-between center" layout-padding class="titulo-modulo border-top-green">
                 <texto>PEDIDOS DEL CLIENTE</texto>
                 <md-button ng-click="cliente.mostrarPedido = false" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
@@ -50,7 +50,7 @@
             <div layout="column" class="content-scroll" style="max-height: 62%;">
                 <div ng-repeat="pedido in cliente.pedidosC" class="elemento nopadding pedido" ng-class="{ 'completado': (pedido.estado == 'COMPLETADO'), 'enproceso': (pedido.estado == 'EN PROCESO'), 'cancelado':
                 (pedido.estado == 'CANCELADO'), 'enespera': (pedido.estado == 'EN ESPERA'), 'activo': (pedidos.ac == pedido.idPedido),
-                }" style="margin: 12px 5px 15px 0; border-bottom: 1px solid silver;">
+                }" style="margin: 12px 5px 0px 0; border-bottom: 1px solid silver;">
                     <div layout layout-align="space-arund" layout-wrap class="datos-elemento" layout-padding>
                         <div flex="45">
                             <b>Fecha:</b> {{ pedido.fecha | date : 'M/d/yy h:mm a'}}</div>
@@ -61,28 +61,27 @@
                         <div flex="45">
                             <b>Precio:</b> {{pedido.precio}} {{pedido.moneda}}</div>
                         <div flex="45" layout layout-align="start center">
-                            <b>Estado:</b>
+                            <b>Estado: </b>
                             <texto class="{{pedido.estado}}"> {{pedido.estado}}</texto>
-                        </div>
-                        <div flex="45">
                             <md-button class="md-fab md-mini md-warn" ng-click="cliente.modfire = $index;
                             cliente.modInit = !cliente.modInit;">
                                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Modificar Estado</md-tooltip>
                                 <md-icon class="material-icon">edit</md-icon>
                             </md-button>
                         </div>
+                        <div flex="45"  ng-if="cliente.modfire == $index && cliente.modInit" class="elemento inside">
+                            <md-input-container class="md-block" flex="100">
+                                <label>CAMBIAR ESTADO</label>
+                                <md-select ng-disabled="cliente.peticion" ng-model="pedido.estado" aria-label="estado">
+                                    <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, value, cliente.modfire)" ng-repeat="(key, value) in cliente.estadoPedidos">
+                                        {{value}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
                     </div>
-                    <div ng-if="cliente.modfire == $index && cliente.modInit" class="elemento inside" md-whiteframe>
-                        <md-input-container class="md-block" flex="100">
-                            <label>CAMBIAR ESTADO</label>
-                            <md-select ng-disabled="cliente.peticion" ng-model="pedido.estado" aria-label="estado">
-                                <md-option ng-click="cliente.cambiarEstado(pedido.idPedido, value, cliente.modfire)" ng-repeat="(key, value) in cliente.estadoPedidos">
-                                    {{value}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
-                    </div>
-                    <div ng-click="pedido.ver = !pedido.ver" layout style="background-color: #f1f1f1;" layout-align="center">
+                   
+                   <!--  <div ng-click="pedido.ver = !pedido.ver" layout style="background-color: #f1f1f1;" layout-align="center">
                         <h5 style="font-family: 'futura-heavy' !important; cursor:pointer;">VER PEDIDO</h5>
                         <md-icon style="margin-left:8px; color:black; margin:0;" class="material-icon">keyboard_arrow_down</md-icon>
                     </div>
@@ -92,7 +91,7 @@
                             <bazam-visualizar data-svg="cliente.base64(pedido.logo)"></bazam-visualizar>
                         </div>
                         <br>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div ng-show="cliente.pedidosC.length == 0" class="mensaje-resultado pequeno">

@@ -1,6 +1,6 @@
 <div class="row start-xs">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
-        <div class="paneles principal md-whiteframe-2dp listar margen_inferior">
+        <div class="paneles principal listar margen_inferior">
             <md-progress-linear ng-disabled="!ctrl.peticion" md-mode="indeterminate"></md-progress-linear>
             <div layout layout-align="none center" layout-padding class="titulo-modulo">
                 
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div layout class="elemento">
+                <div layout class="elemento" ng-if="ctrl.categorias.length > 0">
                     <!-- <div layout>
                         <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" ng-click="::ctrl.listarCategorias('ICONO')">ICONO</md-button>
                         <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" ng-click="::ctrl.listarCategorias('FUENTE')">FUENTE</md-button>
@@ -104,8 +104,8 @@
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior" ng-switch="ctrl.acciones">
         <!-- REGISTRO FUENTE -->
-        <div class="paneles principal md-whiteframe-2dp listar margen_inferior" ng-switch-when="1">
-            <div layout layout-align="none center" layout-padding class="titulo-modulo">
+        <div class="paneles principal  listar margen_inferior border-top-green" ng-switch-when="1">
+            <div layout layout-align="none center" layout-padding class="titulo-modulo border-top-green">
                 <texto>REGISTRO FUENTE</texto>
                 <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
@@ -181,8 +181,8 @@
             </div>
         </div>
         <!-- REGISTRO ICONOS -->
-        <div class="paneles principal md-whiteframe-2dp listar" ng-switch-when="2">
-            <div layout layout-align="none center" layout-padding ng-click="ctrl.mostrar('ICONO')" class="titulo-modulo">
+        <div class="paneles principal listar" ng-switch-when="2">
+            <div layout layout-align="none center" layout-padding ng-click="ctrl.mostrar('ICONO')" class="titulo-modulo border-top-green">
                 <texto>REGISTRO ICONO</texto>
                 <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
@@ -264,8 +264,8 @@
         </div>
 
         <!-- MODIFICAR ELEMENTO-->
-        <div ng-switch-when="3" class="paneles principal md-whiteframe-2dp listar margen_inferior">
-            <div layout layout-align="none center" layout-padding class="titulo-modulo">
+        <div ng-switch-when="3" class="paneles principal listar margen_inferior border-top-green">
+            <div layout layout-align="none center" layout-padding class="titulo-modulo border-top-green">
                 <texto>MODIFICAR ELEMENTO</texto>
                 <md-button ng-click="ctrl.acciones = 0" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
@@ -294,7 +294,7 @@
 
         <!-- ADMINISTRAR ETIQUETAS 
 
-        <div ng-switch-when="4" class="paneles principal md-whiteframe-2dp listar margen_inferior">
+        <div ng-switch-when="4" class="paneles principal listar margen_inferior">
             <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
                 <texto>ETIQUETAS</texto>
                 <md-button ng-click="ctrl.acciones = 0" style="margin:0;">

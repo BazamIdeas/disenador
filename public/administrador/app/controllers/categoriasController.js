@@ -17,6 +17,7 @@ angular.module("administrador")
 
         bz.listarCategorias = function (tipoCategoria) {
             bz.peticion = true;
+            bz.opcionesCategorias = null;
             bz.cats = [];
             categoriasService.listarCategorias({
                 tipo: tipoCategoria

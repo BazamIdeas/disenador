@@ -4,7 +4,8 @@
 
             <!-- LISTAR PAISES -->
 
-            <div class="paneles individual md-whiteframe-2dp">
+            <div class="paneles individual">
+                <md-progress-linear ng-disabled="paises.paises.length > 0" md-mode="indeterminate"></md-progress-linear>
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="paises.listarPaises(); paises.acciones = 0" ng-disabled="paises.peticion">LISTADO DE PAISES</texto>
                     <md-button class="md-primary md-fab md-mini" ng-click="paises.acciones = 1" style="margin:0;">
@@ -54,7 +55,7 @@
 
     <!-- ACCIONES VISTA -->
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <div class="paneles md-whiteframe-2dp listar" ng-switch="paises.acciones">
+        <div class="paneles  switch listar" ng-switch="paises.acciones">
 
             <!-- CREAR PAIS -->
             <div ng-switch-when="1">
@@ -185,7 +186,7 @@
                     </div>
                 </div>
                 <div ng-hide="paises.paisMonedas.length > 0" class="mensaje-resultado pequeno" style="max-height:20%;">
-                    <h3>LISTANDO PAISES</h3>
+                    <h3>LISTANDO MONEDAS</h3>
                 </div>
             </div>
         </div>
