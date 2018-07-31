@@ -99,10 +99,11 @@
                             ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
                     </div>
 
-                    <div class="combinacion-box" ng-style="{'background-color': logo.colores[logo.random]}">
+                    <!-- NUEVO LOGO -->
+                    <div class="combinacion-box" ng-if="!logo.atributos" ng-style="{'background-color': logo.colores[logo.random]}">
 
-                        <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
-                            callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)"></bazam-svg-text>
+
+                        <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)"></bazam-svg-text>
                         <div class='overlay c-gif' ng-hide="logo.cargado"></div>
 
                         <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">
@@ -140,6 +141,52 @@
                         </span>
 
                         <span ng-show="logo.cargado" class="comprar" style="bottom: 3%;     right: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
+                            <p>COMPRAR</p>
+                            <img src="assets/images/shop.svg" alt="">
+                        </span>
+
+                    </div>
+
+                    <!-- LOGO PREDISEÑADO  -->
+                    <div class="combinacion-box" ng-if="logo.atributos" style="background-color: white;">
+                        
+                        <bazam-visualizar data-svg="inicio.base64.decode(logo.svg)"></bazam-visualizar>
+                        <!--
+                        <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">
+                            <p>{{::inicio.lang.combinaciones.guardar}}</p>
+                            <img ng-src="{{logo.idLogo ?'assets/images/save_active.svg' : 'assets/images/save.svg'}}" alt="">
+                        </span>
+                        -->
+                        <span class="accion" style="bottom: 63%;" ng-click="inicio.preAvanzar(logo, true)">
+                            <p>{{::inicio.lang.combinaciones.editar}}</p>
+                            <img src="assets/images/edit_white.svg" alt="">
+                        </span>
+
+                        <span style="bottom: 45%" class="accion share">
+
+
+                            <span ng-click="inicio.compartir('google', logo)">
+                                <i class="fab fa-google-plus-g"></i>
+                            </span>
+                            <span ng-click="inicio.compartir('facebook',logo)">
+                                <i class="fab fa-facebook-f"></i>
+                            </span>
+                            <span ng-click="inicio.compartir('twitter', logo)">
+                                <i class="fab fa-twitter"></i>
+                            </span>
+                            <span ng-click="inicio.compartir('pinterest', logo)">
+                                <i class="fab fa-pinterest"></i>
+                            </span>
+                            <span ng-click="logo.mostrarCompartir = true">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+
+
+
+                            <img src="assets/images/share.svg" alt="">
+                        </span>
+
+                        <span class="comprar" style="bottom: 3%;     right: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
                             <p>COMPRAR</p>
                             <img src="assets/images/shop.svg" alt="">
                         </span>

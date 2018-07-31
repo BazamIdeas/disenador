@@ -305,7 +305,7 @@ exports.listaLogosPorEstado = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -352,7 +352,7 @@ exports.listaLogosPorAprobar = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -401,7 +401,7 @@ exports.listaLogosAprobados = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -456,7 +456,7 @@ exports.listaLogosAprobadosPorTagCatSub = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -503,7 +503,7 @@ exports.listaLogosAprobadosCatPadre = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -551,7 +551,7 @@ exports.listaLogosAprobadosPorCliente = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -598,7 +598,7 @@ exports.listaLogosVendidosPorCliente = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -644,7 +644,7 @@ exports.listaLogosAprobadosDestacados = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -694,7 +694,7 @@ exports.listaLogosGuardados = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -743,7 +743,7 @@ exports.listaLogosDescargables = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -810,7 +810,7 @@ exports.modificarLogo = function (req, res) {
 
 						}, (err) => {
 
-							if (err) res.status(402).json({});
+							if (err) return res.status(402).json({});
 
 							res.status(200).json(data);
 

@@ -181,7 +181,7 @@ angular.module("disenador-de-logos")
 
 		bz.jqueryScrollbarOptions = {};
 
-		bz.iconos = [];
+		//bz.iconos = [];
 
 		bz.fuentes = [];
 
@@ -222,15 +222,7 @@ angular.module("disenador-de-logos")
 				});
 			});
 
-			var logos = crearLogoFactory(iconos, fuentes);
-
-			bz.logos = logos;
-
-			
-
-
 			// Setear en el local
-
 			var etiquetasParaBusqueda = [];
 
 			angular.forEach(bz.datos.etiquetasSeleccionadas, function (valor) {
@@ -238,6 +230,12 @@ angular.module("disenador-de-logos")
 				etiquetasParaBusqueda.push(valor.traducciones[0].valor)
 			})
 
+
+			var logos = crearLogoFactory(iconos, fuentes);
+
+			return logos;
+
+			/*
 			var datosLocal = {
 				colores: bz.datos.colores,
 				etiquetasParaBusqueda: etiquetasParaBusqueda,
@@ -249,7 +247,7 @@ angular.module("disenador-de-logos")
 			}
 
 			localStorage.setItem('comenzar', JSON.stringify(datosLocal));
-
+*/
 			/*
 			var cantidadLogos = logos.length;
 			
@@ -267,11 +265,15 @@ angular.module("disenador-de-logos")
 
 		};
 
+		bz.agregarDestacados = function(){
+
+		}
+
 		bz.completado = true;
 
 		var tags_saltos = {};
 
-		bz.solicitarElementos = function (inicial) {
+		bz.solicitarElementos = function () {
 
 			if (!bz.completado) {
 				return;
@@ -313,7 +315,7 @@ angular.module("disenador-de-logos")
 			});
 
 			var promesaIconos = elementosService.listarIconosSegunTags(tags_saltos);
-			var promesaIconosDescatados = logosService.obtenerDestacados();
+			var promesaIconosDescatados = logosService.obtenerDestacados(bz.datos.categoria.icono);
 			var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
 			$q.all([
@@ -325,28 +327,29 @@ angular.module("disenador-de-logos")
 					var tags = res[0].tags;
 					var iconosNoun = res[0].iconos;
 					var fuentes = res[1];
-					var iconosDestacados = res[2];
+					var logosDestacados = res[2];
 
-					angular.forEach(res[0].iconos, function (icono) {
-						bz.iconos.push(icono.idElemento);
-					});
+					var iconos_raw = iconosNoun;
+					var fuentes_raw = fuentes;
 
-					//TODO: CALCULO DE LOGOS 
+					tags_saltos = tags;
+
+					var logosNoun = bz.combinar(iconos_raw, fuentes_raw);
+
 					var logosMezclados = [];
-					var cantidadNoun = iconosNoun.length;
-
-				
+					var cantidadNoun = logosNoun.length;
+		
 					if( cantidadNoun >= 6){
 
-						iconosNoun = iconosNoun.slice(0,6);
-						iconosDestacados = iconosDestacados.slice(0,6);
-						logosMezclados = iconosNoun.concat(iconosDestacados);
+						logosNoun = logosNoun.slice(0,6);
+						logosDestacados = logosDestacados.slice(0,6);
+						logosMezclados = logosNoun.concat(logosDestacados);
 
 					} else {
 						
 						var logosFaltantes = (12 - cantidadNoun);
-						iconosDestacados = iconosDestacados.slice(0,logosFaltantes);
-						logosMezclados = iconosNoun.concat( iconosDestacados);
+						logosDestacados = logosDestacados.slice(0,logosFaltantes);
+						logosMezclados = logosNoun.concat(logosDestacados);
 						
 					}
 
@@ -369,13 +372,9 @@ angular.module("disenador-de-logos")
 					  
 						return array;
 					})(logosMezclados);
-					  
+					
 
-
-					var iconos_raw = logosMezcladosRandom;
-					var fuentes_raw = fuentes;
-
-					tags_saltos = tags;
+					bz.logos = logosMezcladosRandom;
 
 					/*
 					if(!iconos_raw.length) {
@@ -389,7 +388,6 @@ angular.module("disenador-de-logos")
 						return;
 					}*/
 
-					bz.combinar(iconos_raw, fuentes_raw);
 
 				})
 				.catch(function () {
@@ -409,13 +407,17 @@ angular.module("disenador-de-logos")
 			bz.solicitarElementos();
 		}
 
-		bz.preAvanzar = function (logo) {
+		bz.preAvanzar = function (logo, predisenado) {
 			bz.logoSeleccionado = bz.logos.indexOf(logo);
+
+			if(predisenado){
+				bz.avanzarPredisenado();
+				return;
+			}
 			bz.avanzar();
 		};
 
 		bz.avanzar = function () {
-
 
 			var logoSeleccionado = angular.copy(bz.logos[bz.logoSeleccionado]);
 
@@ -437,6 +439,35 @@ angular.module("disenador-de-logos")
 			$state.go("editor", datos);
 
 		};
+
+		bz.avanzarPredisenado = function(){
+
+			var logoSeleccionado = angular.copy(bz.logos[bz.logoSeleccionado]);
+
+			var dataEditor = {
+				status: true,
+				datos: {
+					fuentes: {
+						principal: logoSeleccionado.atributos.principal
+					},
+					logo: {
+						icono: {
+							idElemento: logoSeleccionado.noun, 
+							svg: logoSeleccionado.svg
+						},
+					},
+					idLogoPadre: logoSeleccionado.idLogo,
+					categoria: bz.datos.categoria.icono
+				}
+			};
+
+			if(logoSeleccionado.atributos.eslogan){
+				dataEditor.datos.fuentes.eslogan = logoSeleccionado.atributos.eslogan;
+			};
+
+			$state.go("editor", dataEditor);
+
+		}
 
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
 
@@ -469,7 +500,6 @@ angular.module("disenador-de-logos")
 		};
 
 		/* guardar logo */
-
 		bz.preGuardarLogo = function (logo) {
 
 			if(disenadorService.autorizado()) {

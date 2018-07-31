@@ -128,8 +128,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						texto: null,
 						fuentes: null,
 						idLogoGuardado: null,
-						categoria: null,
-						subcategoria: null
+						categoria: null
 					}
 				},
 				resolve: {

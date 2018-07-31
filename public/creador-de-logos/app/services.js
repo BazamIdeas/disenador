@@ -1344,9 +1344,9 @@ angular.module("disenador-de-logos")
 
 		return function (iconos, fuentes) {
 
+		
 			var logos = [];
-			/*
-			angular.forEach(fuentes, function (fuente) {
+			/*angular.forEach(fuentes, function (fuente) {
 
 				angular.forEach(iconos, function (icono) {
 
@@ -1361,9 +1361,7 @@ angular.module("disenador-de-logos")
 					//}
 				});
 
-			});
-
-			*/
+			});	*/
 
 			angular.forEach(iconos, function(icono, indice){
 
@@ -1403,7 +1401,7 @@ angular.module("disenador-de-logos")
 	/***** Logos *********/
 	/*********************/
 
-	.service("logosService", ["$http", "$q", "$httpParamSerializer", "disenadorService", "$base64", function ($http, $q, $httpParamSerializer, disenadorService, $base64) {
+	.service("logosService", ["$http", "$q", "disenadorService", 'arrayToJsonMetasFactory', function ($http, $q, disenadorService, arrayToJsonMetasFactory) {
 
 		this.obtenerDestacados = function(idCategoria, idSubcageoria, idTag){
 
@@ -1419,41 +1417,22 @@ angular.module("disenador-de-logos")
 
 			var response = [];
 
-
-			/*
-			$http.post("/logos/aprobados/master", datos)
+			$http.post("/app/logos/aprobados/master", datos)
 				.then(function (res) {
 
+					var iconosDestacados = res.data;
+
+					angular.forEach(iconosDestacados, function(iconosDestacado){
+						iconosDestacado.atributos = arrayToJsonMetasFactory(iconosDestacado.atributos);
+						response.push(iconosDestacado);
+					})
+
+					defered.resolve(iconosDestacados);
 				})
 				.catch(function(){
-					
+					defered.reject();
 				})
 
-			*/
-
-			for(var i = 0;i <12; i++){
-				response.push({
-					svg: $base64.encode('<svg><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red"/></svg>'),
-					idElemento:  null
-				})
-			}
-
-			setTimeout(function(){
-				defered.resolve(response);
-			}, 2000)
-
-		
-			/*$http.post("/app/logo/calificar-cliente", datos)
-				.then(function (res) {
-
-					defered.resolve(res.data);
-
-				}).catch(function (res) {
-
-					defered.reject(res);
-
-				});
-			*/
 			return promise;
 
 		}

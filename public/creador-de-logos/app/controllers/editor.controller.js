@@ -44,8 +44,9 @@ angular.module("disenador-de-logos")
 			bz.logo.idLogo = historicoResolve.idLogoGuardado;
 
 		} else if (historicoResolve.idLogoPadre) {
-
+			
 			bz.idLogoPadre = historicoResolve.idLogoPadre;
+			bz.categoria = historicoResolve.categoria;
 
 		}
 

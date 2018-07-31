@@ -133,8 +133,8 @@ jQuery(document).ready(function ($) {
 
       },
       idLogoPadre: 0,
-      idCategoria: logo.attr('data-categoria'),
-      subcategoria: logo.attr('data-subcategoria'),
+      categoria: logo.attr('data-categoria')
+      //subcategoria: logo.attr('data-subcategoria'),
     };
 
     let atributos = JSON.parse(logo.attr('data-attrs'));
@@ -182,6 +182,7 @@ jQuery(document).ready(function ($) {
     window.localStorage.setItem('comenzar', JSON.stringify(data));
 
     var data = {
+      categoria: elemento.attr('data-categoria'),
       subCategoria: elemento.attr('data-subcategoria'),
       tag: tag._id
     };
