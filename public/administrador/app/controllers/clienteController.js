@@ -24,8 +24,7 @@ angular.module("administrador")
 
             pedidosService.pedidosCliente(id).then(function (res) {
                 
-                if(res.msg == 'No Encontrado') return notificacionService.mensaje("No existen pedidos de este cliente.");
-                if (res != undefined) return bz.pedidosC = res.data;
+                bz.pedidosC = res.data;
                 bz.mostrarPedido = true;
             }).catch(function () {
                 bz.mostrarPedido = false;

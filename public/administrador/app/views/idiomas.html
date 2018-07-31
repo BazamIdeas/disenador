@@ -4,7 +4,8 @@
 
       <!-- LISTAR IDIOMAS -->
 
-      <div class="paneles individual md-whiteframe-2dp">
+      <div class="paneles individual ">
+        <md-progress-linear ng-disabled="ctrl.idiomas.length > 0" md-mode="indeterminate"></md-progress-linear>
         <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
           <texto flex ng-click="ctrl.listarMonedas()" ng-disabled="ctrl.peticion">LISTADO DE IDIOMAS</texto>
           <md-button class="md-primary md-fab md-mini" ng-click="ctrl.acciones = 1" style="margin:0;">
@@ -14,7 +15,7 @@
         <div>
           <div ng-if="ctrl.idiomas">
             <div layout class="elemento">
-              <md-input-container flex style="margin-bottom: 0;height: 35px;">
+              <md-input-container flex style="margin-top: 0; margin-bottom: 0;height: 35px;">
                 <input type="text" ng-model="ctrl.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
               </md-input-container>
             </div>
@@ -51,7 +52,7 @@
 
   <!-- ACCIONES VISTA -->
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    <div class="paneles md-whiteframe-2dp listar" ng-switch="ctrl.acciones">
+    <div class="paneles  listar switch" ng-switch="ctrl.acciones">
       <!-- CREAR MONEDA -->
       <div ng-switch-when="1">
         <div layout layout-align="space-between center" layout-padding class="titulo-modulo">

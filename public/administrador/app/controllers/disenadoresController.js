@@ -22,13 +22,10 @@ angular.module("administrador")
 
                 if (res == undefined) return notificacionService.mensaje('No hay categorias.');
 				bz.cats = res.data;
-				console.log(bz.cats)
 				bz.listarLogos();
 
             }).catch(function (res) {
                 notificacionService.mensaje(res);
-            }).finally(function () {
-                bz.peticion = false;
             })
 		}
 
@@ -40,8 +37,7 @@ angular.module("administrador")
 
 		bz.listarLogos = function () {
 			bz.logos = [];
-			bz.peticion = true;
-			//bz.listaL = !bz.listaL;
+			bz.listandoLogos = true;
 			designerService.listarLogos().then(function (res) {
 				angular.forEach(res, function (valor) {
 					angular.forEach(bz.cats, function(element){
@@ -61,9 +57,10 @@ angular.module("administrador")
 				});
 
 				bz.logos = res;
-				console.log(res)
-			}).finally(function () {
-				bz.peticion = false;
+			}).catch(function (res) {
+                notificacionService.mensaje('No hay logos por aprobar');
+            }).finally(function () {
+				bz.listandoLogos = false;
 			})
 		};
 
@@ -170,12 +167,14 @@ angular.module("administrador")
 		bz.listarDisenadores = function () {
 			bz.disenadores = [];
 			bz.peticion = true;
+			bz.listandoDisenadores = true;
 
 			bz.listaD = !bz.listaD;
 			designerService.listarDisenadores().then(function (res) {
-				if (res != undefined) return bz.disenadores = res;
+				if (res != undefined) {bz.disenadores = res;}
 			}).finally(function () {
 				bz.peticion = false;
+				bz.listandoDisenadores = false;
 			})
 		};
 

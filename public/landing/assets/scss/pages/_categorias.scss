@@ -358,6 +358,16 @@
         }
 
         .tags {
+            &.landing{
+                > a{
+                    color: black !important;
+                }
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                padding: 6.94% 0 6.94% 0 !important;
+            }
+            
             a{
                 > img{
                     cursor: pointer;

@@ -4,7 +4,8 @@
 
             <!-- LISTAR ETIQUETAS-->
 
-            <div class="paneles individual md-whiteframe-2dp">
+            <div class="paneles individual">
+                    <md-progress-linear ng-disabled="ctrl.etiquetas.length > 0" md-mode="indeterminate"></md-progress-linear>
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="etiqm = !etiqm">LISTADO DE ETIQUETAS</texto>
                     <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.incrementarEtiquetas();
@@ -74,8 +75,8 @@
 
             <!-- LISTAR ICONOS -->
 
-            <div class="paneles individual md-whiteframe-2dp ">
-                <div layout layout-align="space-around center " layout-padding class="titulo-modulo ">
+            <div class="paneles individual">
+                <div layout layout-align="space-around center " layout-padding class="titulo-modulo border-top-green">
                     <texto flex>LISTADO DE ICONOS</texto>
                     <md-button ng-click="ctrl.mostrar({op: 'asignar-etiqueta', ce: true}) " style="margin:0; ">
                         <md-icon>close</md-icon>
@@ -116,7 +117,7 @@
 
     <!-- ACCIONES VISTA -->
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-switch="ctrl.acciones">
-        <div class="paneles md-whiteframe-2dp listar">
+        <div class="paneles  listar switch">
 
             <!-- CREAR ETIQUETAS -->
             <div ng-switch-when="1">

@@ -1633,6 +1633,13 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
       overflow: hidden;
       text-overflow: ellipsis;
       background: #fff; }
+      .logos-predisenados .--item .tags.landing {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        padding: 6.94% 0 6.94% 0 !important; }
+        .logos-predisenados .--item .tags.landing > a {
+          color: black !important; }
       .logos-predisenados .--item .tags a {
         color: #6f6f6f;
         font-family: 'nunito-sans-semi' !important;

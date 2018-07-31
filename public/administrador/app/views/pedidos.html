@@ -80,8 +80,8 @@
     </div>
 
     <!-- DETALLES PEDIDOS -->
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-show="pedidos.mostrarD">
-        <div class="paneles principal md-whiteframe-2dp listar">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-if="pedidos.mostrarD">
+        <div class="paneles principal listar">
             <md-progress-linear ng-disabled="pedidos.modInit != true" md-mode="indeterminate"></md-progress-linear>
             <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
                 <texto>DETALLES</texto>

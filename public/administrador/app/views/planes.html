@@ -4,7 +4,8 @@
 
             <!-- LISTAR PLANES -->
 
-            <div class="paneles individual md-whiteframe-2dp">
+            <div class="paneles individual ">
+                <md-progress-linear ng-disabled="planes.planes.length > 0" md-mode="indeterminate"></md-progress-linear>
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-disabled="planes.peticion">LISTADO DE PLANES</texto>
                     <md-button class="md-primary md-fab md-mini" ng-click="planes.vista = 1" style="margin:0;">
@@ -66,7 +67,7 @@
 
     <!-- ACCIONES VISTA -->
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-switch="planes.vista">
-        <div class="paneles md-whiteframe-2dp listar">
+        <div class="paneles  listar switch">
             <!-- CREAR PLAN -->
             <div ng-switch-when="1">
                 <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
@@ -186,7 +187,7 @@
 
             <!-- VER PRECIOS DE UN PLAN -->
 
-            <div ng-switch-when="4" class="paneles md-whiteframe-2dp listar">
+            <div ng-switch-when="4" class="paneles  listar">
                 <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
                     <texto>DETALLES</texto>
                     <md-button ng-click="planes.vista = 0" style="margin:0;">
@@ -194,7 +195,7 @@
                     </md-button>
                 </div>
                 <div ng-if="planes.modInit && planes.planDatosPrecio">
-                    <div layout layout-align="space-between center" class="bordered" style="background: white;">
+                    <div layout layout-align="space-between center"  style="background: white;">
                         <md-input-container style="margin-bottom:0;" flex>
                             <label>Nuevo Precio</label>
                             <input type="number" ng-model="planes.planDatosPrecio.precio" name="NuevoPrecio">

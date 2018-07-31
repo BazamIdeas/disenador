@@ -14,8 +14,8 @@ angular.module("administrador")
         bz.ponerMoneda = {};
         bz.almacenDeMonedas = monedasValue;
 
-        bz.listarMonedas = function (v) {
-            if (!v) return bz.listaM = !bz.listaM;
+        bz.listarMonedas = function () {
+            bz.listaM = !bz.listaM;
             bz.peticion = true;
 
             monedasService.listarMonedas().then(function (res) {
@@ -25,7 +25,7 @@ angular.module("administrador")
             })
         }
 
-        bz.listarMonedas(true);
+        bz.listarMonedas();
 
 
         bz.guardarMoneda = function (datos, v) {

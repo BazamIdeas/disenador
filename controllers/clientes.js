@@ -68,7 +68,7 @@ exports.listaClientes = function (req, res) {
 }
 
 exports.listaClientesFreelancer = function (req, res) {
-    cliente.getClientes(function (error, clientes) {
+    cliente.getDisenadores(function (error, clientes) {
 
         if (typeof clientes !== 'undefined' && clientes.length > 0) {
 
