@@ -105,10 +105,19 @@
     {% if categorias %}
     <div class="container-fluid" style="    padding: 3%;width: 100%;">
         <h3>{{idioma.secciones.seccion_tres.titulo}}</h3>
-        <div class="lista-categorias">
-            {% asyncEach categoria in categorias %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
-            <a href="/logos/{{categoria.categoriaFormateada}}">{{categoria.traduccion.label}}</a>
-            {% endif %} {% endeach %}
+        <div class="logos-predisenados">
+            {% for elemento in categorias %}
+            <div class='--item'>
+                <a href="/logos/{{elemento.categoriaFormateada}}">
+                    <span>
+                        <img src="/landing/assets/img/subcategorias/{{elemento.categoriaFormateada | upper }}.svg" alt="logotipos de {{elemento.nombreCategoria}}">
+                    </span>
+                </a>
+                <div class="tags landing">
+                    <a href="/logos/{{elemento.categoriaFormateada}}">{{elemento.traduccion.label}}</a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
     {% endif %}

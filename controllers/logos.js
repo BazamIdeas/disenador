@@ -72,14 +72,11 @@ exports.guardar = function (req, res) {
 
 			if (req.disenador) {
 
-
-				let etiquetasNuevas = req.body.tags.snuevas;
+				let etiquetasNuevas = req.body.tags.nuevas;
 
 				Etiqueta.TraducirGuardar(etiquetasNuevas, req.cookies.lang || 'es', (err, tagsGuard) => {
 
 					let tags = req.body.tags.existentes;
-
-					console.log(tagsGuard)
 
 					if (tagsGuard.length) {
 						tagsGuard.forEach(el => {
@@ -99,7 +96,7 @@ exports.guardar = function (req, res) {
 					}
 
 					Etiqueta.AsignarLogos(req.body.tags.existentes, data.insertId, (err, logoEti) => {
-						
+
 						res.status(200).json({ insertId: data.insertId, etiqetasGuardadas: etiquetasNuevas });
 
 					})

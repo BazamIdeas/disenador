@@ -763,8 +763,6 @@ etiqueta.TransformarSvg = async (iconos , callback) => {
 }
 
 etiqueta.ObtenerPorLogo = (data, lang, callback) => {
-    
-
 
     let promises = [];
 
@@ -776,6 +774,7 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
 
                 const logos = db.collection('logos');
                 logos.findOne({ idLogo: logo.idLogo }, (err, doc) => {
+
                     if (err) reject(err);
 
                     if (doc) {

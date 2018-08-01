@@ -35,7 +35,7 @@ exports.login = function (req, res, next) {
                 res.status(200).json({
                     'nombre': data[0].nombreCliente,
                     'foto': data[0].foto,
-                    'token': services.authServices.crearToken(data[0].idCliente, "cliente"),
+                    'token': services.authServices.crearToken(data[0].idCliente, "cliente", data[0].disenador),
                     //'idCliente':data[0].idCliente
                 })
                 //res.status(200).json(data)
