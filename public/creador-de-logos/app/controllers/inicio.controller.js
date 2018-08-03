@@ -69,13 +69,13 @@ angular.module("disenador-de-logos")
 							};
 
 							switch (provider) {
-								case "twitter":
-									attrs.socialshareHashtags = "Liderlogo";
-									break;
+							case "twitter":
+								attrs.socialshareHashtags = "Liderlogo";
+								break;
 
-								case "pinterest":
-									attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
-									break;
+							case "pinterest":
+								attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+								break;
 							}
 
 							Socialshare.share({
@@ -105,13 +105,13 @@ angular.module("disenador-de-logos")
 					};
 
 					switch (provider) {
-						case "twitter":
-							attrs.socialshareHashtags = "Liderlogo";
-							break;
+					case "twitter":
+						attrs.socialshareHashtags = "Liderlogo";
+						break;
 
-						case "pinterest":
-							attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
-							break;
+					case "pinterest":
+						attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+						break;
 					}
 
 					Socialshare.share({
@@ -227,8 +227,8 @@ angular.module("disenador-de-logos")
 
 			angular.forEach(bz.datos.etiquetasSeleccionadas, function (valor) {
 				delete valor.$$hashKey;
-				bz.etiquetasParaBusqueda.push(valor.traducciones[0].valor)
-			})
+				bz.etiquetasParaBusqueda.push(valor.traducciones[0].valor);
+			});
 
 
 			var logos = crearLogoFactory(iconos, fuentes);
@@ -371,7 +371,7 @@ angular.module("disenador-de-logos")
 						palettesCopy: bz.palettesCopy
 					};
 
-					localStorage.setItem('comenzar', angular.toJson(datosLocal));
+					localStorage.setItem("comenzar", angular.toJson(datosLocal));
 
 
 				})
