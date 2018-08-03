@@ -227,8 +227,8 @@ angular.module("disenador-de-logos")
 
 			angular.forEach(bz.datos.etiquetasSeleccionadas, function (valor) {
 				delete valor.$$hashKey;
-				etiquetasParaBusqueda.push(valor.traducciones[0].valor)
-			})
+				etiquetasParaBusqueda.push(valor.traducciones[0].valor);
+			});
 
 
 			var logos = crearLogoFactory(iconos, fuentes);
@@ -265,10 +265,6 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.agregarDestacados = function(){
-
-		}
-
 		bz.completado = true;
 
 		var tags_saltos = {};
@@ -295,14 +291,14 @@ angular.module("disenador-de-logos")
 						remover_tag = false;
 					}
 
-				})
+				});
 
 				if(remover_tag){
 					delete tags_saltos[indexSalto];
 				}
 
 
-			})
+			});
 
 			angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 
@@ -356,20 +352,20 @@ angular.module("disenador-de-logos")
 
 					var logosMezcladosRandom = (function(array) {
 						var currentIndex = array.length, temporaryValue, randomIndex;
-					  
+						
 						// While there remain elements to shuffle...
 						while (0 !== currentIndex) {
-					  
-						  // Pick a remaining element...
-						  randomIndex = Math.floor(Math.random() * currentIndex);
-						  currentIndex -= 1;
-					  
-						  // And swap it with the current element.
-						  temporaryValue = array[currentIndex];
-						  array[currentIndex] = array[randomIndex];
-						  array[randomIndex] = temporaryValue;
+							
+							// Pick a remaining element...
+							randomIndex = Math.floor(Math.random() * currentIndex);
+							currentIndex -= 1;
+
+							// And swap it with the current element.
+							temporaryValue = array[currentIndex];
+							array[currentIndex] = array[randomIndex];
+							array[randomIndex] = temporaryValue;
 						}
-					  
+						
 						return array;
 					})(logosMezclados);
 					
@@ -463,11 +459,11 @@ angular.module("disenador-de-logos")
 
 			if(logoSeleccionado.atributos.eslogan){
 				dataEditor.datos.fuentes.eslogan = logoSeleccionado.atributos.eslogan;
-			};
+			}
 
 			$state.go("editor", dataEditor);
 
-		}
+		};
 
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
 

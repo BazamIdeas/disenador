@@ -10,7 +10,7 @@ angular.module("disenador-de-logos")
 
 	.factory("colorPickerCerrar", ["$rootScope", function ($rootScope) {
 		return function () {
-			$rootScope.$broadcast('editor:cerrarColorPickers');
+			$rootScope.$broadcast("editor:cerrarColorPickers");
 		};
 	}])
 
@@ -19,10 +19,10 @@ angular.module("disenador-de-logos")
 		this.getCookie = function (cname) {
 			var name = cname + "=";
 			var decodedCookie = decodeURIComponent(document.cookie);
-			var ca = decodedCookie.split(';');
+			var ca = decodedCookie.split(";");
 			for (var i = 0; i < ca.length; i++) {
 				var c = ca[i];
-				while (c.charAt(0) == ' ') {
+				while (c.charAt(0) == " ") {
 					c = c.substring(1);
 				}
 				if (c.indexOf(name) == 0) {
@@ -30,7 +30,7 @@ angular.module("disenador-de-logos")
 				}
 			}
 			return "";
-		}
+		};
 
 	}])
 
@@ -391,11 +391,11 @@ angular.module("disenador-de-logos")
 		};
 
 		this.loadEtiquetas = function (arr) {
-
+			//TODO: CAMBIAR PARA COMPATIBILIDAD
 			return arr.map(function (et) {
-
-				for (let i = 0; i < et.traducciones.length; i++) {
-					const element = et.traducciones[i];
+				var i;
+				for (i = 0; i < et.traducciones.length; i++) {
+					var element = et.traducciones[i];
 					element._lowername = element.valor.toLowerCase();
 				}
 				
@@ -479,7 +479,7 @@ angular.module("disenador-de-logos")
 				});
 
 			return promise;
-		}
+		};
 
 
 		this.listaCategoriasElementos = function (idCategoria, tipo) {
@@ -597,7 +597,7 @@ angular.module("disenador-de-logos")
 
 			var data = {
 				tags : tags
-			}
+			};
 
 			$http.post("/app/elementos/busqueda/iconos/noun", data)
 				.then(function (res) {
@@ -1401,7 +1401,7 @@ angular.module("disenador-de-logos")
 	/***** Logos *********/
 	/*********************/
 
-	.service("logosService", ["$http", "$q", "disenadorService", 'arrayToJsonMetasFactory', function ($http, $q, disenadorService, arrayToJsonMetasFactory) {
+	.service("logosService", ["$http", "$q", "disenadorService", "arrayToJsonMetasFactory", function ($http, $q, disenadorService, arrayToJsonMetasFactory) {
 
 		this.obtenerDestacados = function(idCategoria, idSubcageoria, idTag){
 
@@ -1425,17 +1425,17 @@ angular.module("disenador-de-logos")
 					angular.forEach(iconosDestacados, function(iconosDestacado){
 						iconosDestacado.atributos = arrayToJsonMetasFactory(iconosDestacado.atributos);
 						response.push(iconosDestacado);
-					})
+					});
 
 					defered.resolve(iconosDestacados);
 				})
 				.catch(function(){
 					defered.reject();
-				})
+				});
 
 			return promise;
 
-		}
+		};
 
 		this.calificar = function (idLogo, calificacion, comentario) {
 
@@ -1483,7 +1483,7 @@ angular.module("disenador-de-logos")
 			}
 
 			var config = {};
-			var datosDisenador = disenadorService.autorizado()
+			var datosDisenador = disenadorService.autorizado();
 			if(datosDisenador){
 				
 				datos.atributos.descripcion = descripcion;
@@ -2081,7 +2081,7 @@ angular.module("disenador-de-logos")
 
 			angular.forEach(fuentes, function (fuente) {
 				fontService.preparar(fuente.nombre, fuente.url)
-					.catch(function (res) {
+					.catch(function () {
 						//console.log(res)
 					});
 			});
@@ -2170,7 +2170,7 @@ angular.module("disenador-de-logos")
 				var defered = $q.defer();
 				var promise = defered.promise;
 
-				let datos = {_id : id, idLogo: idlogo};
+				var datos = {_id : id, idLogo: idlogo};
 				
 				$http.post("/app/papeleria/descargar", datos)
 					.then(function(res){
@@ -2267,7 +2267,7 @@ angular.module("disenador-de-logos")
 			}
 
 			return false;
-		}
+		};
 
 		this.salir = function () {
 
@@ -2302,7 +2302,7 @@ angular.module("disenador-de-logos")
 
 			return promise;			
 
-		}
+		};
 
 	}])
 
@@ -2331,6 +2331,6 @@ angular.module("disenador-de-logos")
 				return langsEstadoActual;
 			}
 
-		}
+		};
 
-	}])
+	}]);
