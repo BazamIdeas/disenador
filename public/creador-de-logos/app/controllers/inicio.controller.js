@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "elementosService", "$q", "$state", "crearLogoFactory", "clientesService", "$mdToast", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "$rootScope", "$location", "Socialshare", "disenadorService", "langFactory", function (categoriasService, elementosService, $q, $state, crearLogoFactory, clientesService, $mdToast, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService, $rootScope, $location, Socialshare, disenadorService, langFactory) {
+	.controller("inicioController", ["categoriasService", "elementosService", "$q", "$state", "crearLogoFactory", "clientesService", "$mdToast", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "$rootScope", "$location", "Socialshare", "disenadorService", "langFactory", "predisenadoResolve", function (categoriasService, elementosService, $q, $state, crearLogoFactory, clientesService, $mdToast, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService, $rootScope, $location, Socialshare, disenadorService, langFactory, predisenadoResolve) {
 
 		var bz = this;
 
@@ -31,6 +31,17 @@ angular.module("disenador-de-logos")
 				fuente: ""
 			},
 			etiquetasSeleccionadas: []
+		};
+
+		var datosPredisenado = predisenadoResolve;
+
+		bz.resetPredisenado = function (){
+
+			datosPredisenado = {
+				categoria:0,
+				subCategoria: 0,
+				tag:""
+			};
 		};
 
 		bz.urlCompartir = $location.port() != "80" ? $location.protocol() + "://" + $location.host() + ":" + $location.port() : $location.protocol() + "://" + $location.host();
@@ -69,13 +80,13 @@ angular.module("disenador-de-logos")
 							};
 
 							switch (provider) {
-								case "twitter":
-									attrs.socialshareHashtags = "Liderlogo";
-									break;
+							case "twitter":
+								attrs.socialshareHashtags = "Liderlogo";
+								break;
 
-								case "pinterest":
-									attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
-									break;
+							case "pinterest":
+								attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+								break;
 							}
 
 							Socialshare.share({
@@ -105,13 +116,13 @@ angular.module("disenador-de-logos")
 					};
 
 					switch (provider) {
-						case "twitter":
-							attrs.socialshareHashtags = "Liderlogo";
-							break;
+					case "twitter":
+						attrs.socialshareHashtags = "Liderlogo";
+						break;
 
-						case "pinterest":
-							attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
-							break;
+					case "pinterest":
+						attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+						break;
 					}
 
 					Socialshare.share({
@@ -227,8 +238,8 @@ angular.module("disenador-de-logos")
 
 			angular.forEach(bz.datos.etiquetasSeleccionadas, function (valor) {
 				delete valor.$$hashKey;
-				bz.etiquetasParaBusqueda.push(valor.traducciones[0].valor)
-			})
+				bz.etiquetasParaBusqueda.push(valor.traducciones[0].valor);
+			});
 
 
 			var logos = crearLogoFactory(iconos, fuentes);
@@ -298,7 +309,7 @@ angular.module("disenador-de-logos")
 			});
 
 			var promesaIconos = elementosService.listarIconosSegunTags(tags_saltos);
-			var promesaIconosDescatados = logosService.obtenerDestacados(bz.datos.categoria.icono);
+			var promesaIconosDescatados = logosService.obtenerDestacados(bz.datos.categoria.icono, datosPredisenado.subCategoria, datosPredisenado.tag);
 			var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
 			$q.all([
@@ -371,7 +382,7 @@ angular.module("disenador-de-logos")
 						palettesCopy: bz.palettesCopy
 					};
 
-					localStorage.setItem('comenzar', angular.toJson(datosLocal));
+					localStorage.setItem("comenzar", angular.toJson(datosLocal));
 
 
 				})

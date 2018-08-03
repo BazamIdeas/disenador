@@ -421,6 +421,11 @@ angular.module("disenador-de-logos")
 		};
 
 		this.querySearch = function (query, etiquetas) {
+
+			if(!etiquetas){
+				return [];
+			}
+
 			var results = query ? etiquetas.filter(createFilterFor(query)) : [];
 			return results;
 		};

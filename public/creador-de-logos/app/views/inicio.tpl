@@ -35,7 +35,7 @@
                     data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                     bazam-pasos-ayuda>
                     <label>{{::inicio.lang.formulario.categorias.label}}</label>
-                    <md-select ng-model="inicio.datos.categoria.icono" placeholder="{{::inicio.lang.formulario.categorias.placeholder}}" md-no-asterisk>
+                    <md-select ng-model="inicio.datos.categoria.icono" placeholder="{{::inicio.lang.formulario.categorias.placeholder}}" ng-change="inicio.resetPredisenado()" md-no-asterisk>
                         <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
                     </md-select>
                 </md-input-container>
