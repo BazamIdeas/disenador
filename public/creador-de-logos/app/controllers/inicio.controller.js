@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("inicioController", ["categoriasService", "elementosService", "$q", "$state", "crearLogoFactory", "clientesService", "$mdToast", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "$rootScope", "$location", "Socialshare", "disenadorService", "langFactory", function (categoriasService, elementosService, $q, $state, crearLogoFactory, clientesService, $mdToast, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService,  $rootScope, $location, Socialshare, disenadorService, langFactory) {
+	.controller("inicioController", ["categoriasService", "elementosService", "$q", "$state", "crearLogoFactory", "clientesService", "$mdToast", "logosService", "$base64", "coloresFactory", "landingResolve", "coloresPaletteValue", "etiquetasService", "$rootScope", "$location", "Socialshare", "disenadorService", "langFactory", function (categoriasService, elementosService, $q, $state, crearLogoFactory, clientesService, $mdToast, logosService, $base64, coloresFactory, landingResolve, coloresPaletteValue, etiquetasService, $rootScope, $location, Socialshare, disenadorService, langFactory) {
 
 		var bz = this;
 
@@ -8,11 +8,11 @@ angular.module("disenador-de-logos")
 
 		bz.base64 = $base64;
 
-		bz.obtenerColores = function(coloresArray){
+		bz.obtenerColores = function (coloresArray) {
 			return coloresFactory(angular.copy(coloresArray));
 		};
 
-		bz.colorRandom =  function (largoArray) {
+		bz.colorRandom = function (largoArray) {
 			var i = Math.floor(Math.random() * largoArray) + 0;
 			return i;
 		};
@@ -37,8 +37,8 @@ angular.module("disenador-de-logos")
 
 
 		bz.completadoCompartirSocial = true;
-		bz.compartir = function(provider, logo) {
-			if(disenadorService.autorizado()) {
+		bz.compartir = function (provider, logo) {
+			if (disenadorService.autorizado()) {
 				return;
 			}
 
@@ -49,15 +49,15 @@ angular.module("disenador-de-logos")
 				return;
 			}
 
-			if(bz.completadoCompartirSocial){
-				
+			if (bz.completadoCompartirSocial) {
+
 				bz.completadoCompartirSocial = false;
 
 				var defered = $q.defer();
 				var compartirPromise = defered.promise;
 
 				if (!logo.idLogo) {
-					
+
 					bz.guardarLogo(logo.cargado, logo.icono.idElemento, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 						.then(function (res) {
 							logo.idLogo = res;
@@ -69,13 +69,13 @@ angular.module("disenador-de-logos")
 							};
 
 							switch (provider) {
-							case "twitter":
-								attrs.socialshareHashtags = "Liderlogo";
-								break;
-					
-							case "pinterest":
-								attrs.socialshareMedia = bz.urlCompartir+"/app/logo/compartido/"+logo.idLogo; attrs.socialshareText = "Pinterest";
-								break;
+								case "twitter":
+									attrs.socialshareHashtags = "Liderlogo";
+									break;
+
+								case "pinterest":
+									attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+									break;
 							}
 
 							Socialshare.share({
@@ -96,8 +96,8 @@ angular.module("disenador-de-logos")
 							defered.resolve();
 						});
 
-				} else{
-					
+				} else {
+
 					var unix = Date.now();
 
 					var attrs = {
@@ -105,13 +105,13 @@ angular.module("disenador-de-logos")
 					};
 
 					switch (provider) {
-					case "twitter":
-						attrs.socialshareHashtags = "Liderlogo";
-						break;
-					
-					case "pinterest":
-						attrs.socialshareMedia = bz.urlCompartir+"/app/logo/compartido/"+logo.idLogo; attrs.socialshareText = "Pinterest";
-						break;
+						case "twitter":
+							attrs.socialshareHashtags = "Liderlogo";
+							break;
+
+						case "pinterest":
+							attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+							break;
 					}
 
 					Socialshare.share({
@@ -122,24 +122,24 @@ angular.module("disenador-de-logos")
 					defered.resolve();
 				}
 
-				compartirPromise.finally(function(){
+				compartirPromise.finally(function () {
 					bz.completadoCompartirSocial = true;
 				});
 
 			}
-			
+
 
 		};
 
 		bz.compartirPorEmailUrl = function () {
-			if(disenadorService.autorizado()) {
+			if (disenadorService.autorizado()) {
 				return;
 			}
 
 			var datosFormat = angular.copy(bz.datos);
 
-			angular.forEach(datosFormat.etiquetasSeleccionadas, function(valor){
-				if(valor.$$hashKey){
+			angular.forEach(datosFormat.etiquetasSeleccionadas, function (valor) {
+				if (valor.$$hashKey) {
 					delete valor.$$hashKey;
 				}
 			});
@@ -153,7 +153,7 @@ angular.module("disenador-de-logos")
 				logoCompartido: true
 			};
 
-			var url = bz.urlCompartir + $location.path() + "?datos="+ encodeURI(angular.toJson(datos));
+			var url = bz.urlCompartir + $location.path() + "?datos=" + encodeURI(angular.toJson(datos));
 
 			return url;
 		};
@@ -162,7 +162,7 @@ angular.module("disenador-de-logos")
 			.then(function (res) {
 				bz.datos.fuentes = res;
 			})
-			.catch(function () {});
+			.catch(function () { });
 
 		bz.coloresIguales = function (color) {
 
@@ -204,11 +204,11 @@ angular.module("disenador-de-logos")
 
 		categoriasService.listaCategorias("ICONO").then(function (res) {
 			bz.categoriasPosibles.iconos = res;
-		}).catch(function () {});
+		}).catch(function () { });
 
 		categoriasService.listaCategorias("FUENTE").then(function (res) {
 			bz.categoriasPosibles.fuentes = res;
-		}).catch(function () {});
+		}).catch(function () { });
 
 		bz.combinar = function (iconos, fuentes) {
 
@@ -223,11 +223,11 @@ angular.module("disenador-de-logos")
 			});
 
 			// Setear en el local
-			var etiquetasParaBusqueda = [];
+			bz.etiquetasParaBusqueda = [];
 
 			angular.forEach(bz.datos.etiquetasSeleccionadas, function (valor) {
 				delete valor.$$hashKey;
-				etiquetasParaBusqueda.push(valor.traducciones[0].valor)
+				bz.etiquetasParaBusqueda.push(valor.traducciones[0].valor)
 			})
 
 
@@ -235,19 +235,6 @@ angular.module("disenador-de-logos")
 
 			return logos;
 
-			/*
-			var datosLocal = {
-				colores: bz.datos.colores,
-				etiquetasParaBusqueda: etiquetasParaBusqueda,
-				etiquetasSeleccionadas: bz.datos.etiquetasSeleccionadas,
-				idCategoria: bz.datos.categoria.icono,
-				idFuente: bz.datos.categoria.fuente,
-				nombre: bz.datos.nombre,
-				palettesCopy: bz.palettesCopy
-			}
-
-			localStorage.setItem('comenzar', JSON.stringify(datosLocal));
-*/
 			/*
 			var cantidadLogos = logos.length;
 			
@@ -265,7 +252,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.agregarDestacados = function(){
+		bz.agregarDestacados = function () {
 
 		}
 
@@ -279,25 +266,25 @@ angular.module("disenador-de-logos")
 				return;
 			}
 
-			if (bz.datosForm && !bz.datosForm.$valid && !landingResolve.logoCompartido){
+			if (bz.datosForm && !bz.datosForm.$valid && !landingResolve.logoCompartido) {
 				return;
-			} 
+			}
 
 			bz.completado = false;
 
 			angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
-			
+
 				var remover_tag = true;
 
 				angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 
-					if(indexSalto == tag.traducciones[0].valor){
+					if (indexSalto == tag.traducciones[0].valor) {
 						remover_tag = false;
 					}
 
 				})
 
-				if(remover_tag){
+				if (remover_tag) {
 					delete tags_saltos[indexSalto];
 				}
 
@@ -308,7 +295,7 @@ angular.module("disenador-de-logos")
 
 				var tag_existe = tags_saltos[tag.traducciones[0].valor];
 
-				if(tag_existe === undefined) {
+				if (tag_existe === undefined) {
 					tags_saltos[tag.traducciones[0].valor] = 0;
 				}
 
@@ -338,55 +325,56 @@ angular.module("disenador-de-logos")
 
 					var logosMezclados = [];
 					var cantidadNoun = logosNoun.length;
-		
-					if( cantidadNoun >= 6){
 
-						logosNoun = logosNoun.slice(0,6);
-						logosDestacados = logosDestacados.slice(0,6);
+					if (cantidadNoun >= 6) {
+
+						logosNoun = logosNoun.slice(0, 6);
+						logosDestacados = logosDestacados.slice(0, 6);
 						logosMezclados = logosNoun.concat(logosDestacados);
 
 					} else {
-						
+
 						var logosFaltantes = (12 - cantidadNoun);
-						logosDestacados = logosDestacados.slice(0,logosFaltantes);
+						logosDestacados = logosDestacados.slice(0, logosFaltantes);
 						logosMezclados = logosNoun.concat(logosDestacados);
-						
+
 					}
 
 
-					var logosMezcladosRandom = (function(array) {
+					var logosMezcladosRandom = (function (array) {
 						var currentIndex = array.length, temporaryValue, randomIndex;
-					  
+
 						// While there remain elements to shuffle...
 						while (0 !== currentIndex) {
-					  
-						  // Pick a remaining element...
-						  randomIndex = Math.floor(Math.random() * currentIndex);
-						  currentIndex -= 1;
-					  
-						  // And swap it with the current element.
-						  temporaryValue = array[currentIndex];
-						  array[currentIndex] = array[randomIndex];
-						  array[randomIndex] = temporaryValue;
+
+							// Pick a remaining element...
+							randomIndex = Math.floor(Math.random() * currentIndex);
+							currentIndex -= 1;
+
+							// And swap it with the current element.
+							temporaryValue = array[currentIndex];
+							array[currentIndex] = array[randomIndex];
+							array[randomIndex] = temporaryValue;
 						}
-					  
+
 						return array;
 					})(logosMezclados);
-					
+
 
 					bz.logos = logosMezcladosRandom;
 
-					/*
-					if(!iconos_raw.length) {
-						$mdToast.show($mdToast.base({
-							args: {
-								mensaje: "La búsqueda no produjo resultados",
-								clase: "success"
-							}
-						}));
-						
-						return;
-					}*/
+
+					var datosLocal = {
+						colores: bz.datos.colores,
+						etiquetasParaBusqueda: bz.etiquetasParaBusqueda,
+						etiquetasSeleccionadas: bz.datos.etiquetasSeleccionadas,
+						idCategoria: bz.datos.categoria.icono,
+						idFuente: bz.datos.categoria.fuente,
+						nombre: bz.datos.nombre,
+						palettesCopy: bz.palettesCopy
+					}
+
+					localStorage.setItem('comenzar', angular.toJson(datosLocal));
 
 
 				})
@@ -399,18 +387,18 @@ angular.module("disenador-de-logos")
 
 				});
 
-			
+
 
 		};
 
-		if (landingResolve){
+		if (landingResolve) {
 			bz.solicitarElementos();
 		}
 
 		bz.preAvanzar = function (logo, predisenado) {
 			bz.logoSeleccionado = bz.logos.indexOf(logo);
 
-			if(predisenado){
+			if (predisenado) {
 				bz.avanzarPredisenado();
 				return;
 			}
@@ -421,8 +409,8 @@ angular.module("disenador-de-logos")
 
 			var logoSeleccionado = angular.copy(bz.logos[bz.logoSeleccionado]);
 
-			if(logoSeleccionado.idLogo){
-				logoSeleccionado.icono.svg = bz.base64.encode(logoSeleccionado.cargado); 
+			if (logoSeleccionado.idLogo) {
+				logoSeleccionado.icono.svg = bz.base64.encode(logoSeleccionado.cargado);
 
 			}
 
@@ -440,7 +428,7 @@ angular.module("disenador-de-logos")
 
 		};
 
-		bz.avanzarPredisenado = function(){
+		bz.avanzarPredisenado = function () {
 
 			var logoSeleccionado = angular.copy(bz.logos[bz.logoSeleccionado]);
 
@@ -452,7 +440,7 @@ angular.module("disenador-de-logos")
 					},
 					logo: {
 						icono: {
-							idElemento: logoSeleccionado.noun, 
+							idElemento: logoSeleccionado.noun,
 							svg: logoSeleccionado.svg
 						},
 					},
@@ -461,7 +449,7 @@ angular.module("disenador-de-logos")
 				}
 			};
 
-			if(logoSeleccionado.atributos.eslogan){
+			if (logoSeleccionado.atributos.eslogan) {
 				dataEditor.datos.fuentes.eslogan = logoSeleccionado.atributos.eslogan;
 			};
 
@@ -471,18 +459,16 @@ angular.module("disenador-de-logos")
 
 		bz.comprarLogo = function (svg, colores, logo, idLogo, v) {
 
-			if(disenadorService.autorizado()) {
-				return;
-			}
+			if (disenadorService.autorizado()) return;
 
 			bz.datosComprar = {
-				logo: svg,
-				idLogo: idLogo,	
-				noun: logo.icono.idElemento,
+				logo: bz.base64.decode(logo.svg),
+				idLogo: logo.idLogo ? logo.idLogo : 0,
+				noun: logo.icono ? logo.icono.idElemento : 0,
 				idCategoria: bz.datos.categoria.icono,
 				tipo: "Logo y nombre",
 				fuentes: {
-					principal: logo.fuente.idElemento
+					principal: logo.fuente ? logo.fuente.idElemento : logo.atributos.principal
 				},
 				colores: {
 					fondo: colores[1],
@@ -496,13 +482,14 @@ angular.module("disenador-de-logos")
 			if (v) {
 				return bz.verPrevisualizar = true;
 			}
+
 			bz.abrirPlanes = true;
 		};
 
 		/* guardar logo */
 		bz.preGuardarLogo = function (logo) {
 
-			if(disenadorService.autorizado()) {
+			if (disenadorService.autorizado()) {
 				return;
 			}
 
@@ -553,7 +540,7 @@ angular.module("disenador-de-logos")
 			if (bz.completadoGuardar) {
 
 				bz.completadoGuardar = false;
-				
+
 				logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, idFuentePrincipal)
 
 					.then(function (res) {
@@ -575,7 +562,7 @@ angular.module("disenador-de-logos")
 		bz.completadoCompartir = true;
 		bz.compartirPorEmail = function (email, logo, valido) {
 
-			if(disenadorService.autorizado()) {
+			if (disenadorService.autorizado()) {
 				return;
 			}
 
@@ -594,7 +581,7 @@ angular.module("disenador-de-logos")
 				var emailPromise = defered.promise;
 
 				if (!logo.idLogo) {
-					
+
 					bz.guardarLogo(logo.cargado, logo.icono.idElemento, "Logo y nombre", bz.datos.categoria.icono, logo.fuente.idElemento)
 						.then(function (res) {
 							logo.idLogo = res;

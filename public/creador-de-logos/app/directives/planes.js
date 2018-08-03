@@ -311,9 +311,6 @@ angular.module("disenador-de-logos")
                                 }
                             };
 
-                            
-
-
                             if ($scope.datos.idPadre) {
                                 datosPago.datos.atributos.padre = $scope.datos.idPadre;
                             }
