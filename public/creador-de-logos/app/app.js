@@ -1,12 +1,12 @@
-var angularDragula = require('angularjs-dragula');
+var angularDragula = require("angularjs-dragula");
 
-angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "720kb.socialshare", "ngFileUpload", 'ngCookies'])
+angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "720kb.socialshare", "ngFileUpload", "ngCookies"])
 
 	.config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider, $cookiesProvider) {
 
 		$locationProvider.html5Mode(true);
 
-		$cookiesProvider.defaults.path = '/';
+		$cookiesProvider.defaults.path = "/";
 
 		/* INTERCEPTADOR */
 		$httpProvider.interceptors.push("AuthInterceptor");
@@ -74,7 +74,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 											icono: datosLanding.idCategoria,
 											fuente: datosLanding.idFuente
 										},
-										subcategoria: datosLanding.subCategoria,
 										tags: datosLanding.etiquetasParaBusqueda,
 										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
 									},
@@ -113,6 +112,22 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						}
 
 						return false;
+					}],
+					predisenadoResolve: ["LS", "$stateParams", "$q",function (LS, $stateParams, $q){
+						
+						var datosPredisenado = LS.obtener("comenzarSub");
+
+						if(!datosPredisenado){
+							return {
+								categoria:0,
+								subCategoria: 0,
+								tag:""
+							};
+						}
+
+
+						return datosPredisenado;
+
 					}]
 				}
 			})
@@ -558,12 +573,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 		});
 
-		$rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
-
-			//Servicio para cerrar ayudas
-
-		});
-
 		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
 
@@ -683,7 +692,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						break;
 
 					default:
-						$state.go("inicio")
+						$state.go("inicio");
 
 				}
 
