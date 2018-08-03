@@ -17,17 +17,17 @@
         <bazam-papeleria class="{{papeleriaEditor.papeleria.tipo}}" ng-class="{'open': papeleriaEditor.selectorfuentes}"></bazam-papeleria>
         <div class="combinacion-box">
             <span class="accion" ng-disable="!papeleriaEditor.peticion" ng-click="papeleriaEditor.guardar()" style="top: 5%;">
-                <p ng-class="{'loading-white': papeleriaEditor.peticionB}">GUARDAR</p>
+                <p ng-class="{'loading-white': papeleriaEditor.peticionB}">{{::papeleriaEditor.lang[0]}}</p>
                 <img src="assets/images/save.svg" alt="">
             </span>
 
             <span class="accion" ng-disable="!papeleriaEditor.peticion" ng-click="papeleriaEditor.descargarPieza()" style="top: 15%;">
-                <p>DESCARGAR</p>
+                <p>{{::papeleriaEditor.lang[1]}}</p>
                 <img src="assets/images/file_download.svg" alt="">
             </span>
 
             <span class="accion" ng-click="papeleriaEditor.volver()" style="top: 25%;">
-                <p>PAPELERIAS</p>
+                <p>{{::papeleriaEditor.lang[2]}}</p>
                 <img src="assets/images/arrow_left.png" alt="">
             </span>
         </div>

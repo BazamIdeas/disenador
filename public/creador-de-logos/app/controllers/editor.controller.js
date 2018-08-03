@@ -1,8 +1,10 @@
 angular.module("disenador-de-logos")
 
-	.controller("editorController", ["$scope", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "elementosService", "$q", "pedidosService", "fontService", "etiquetasService", "disenadorService", function ($scope, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, $q, pedidosService, fontService, etiquetasService, disenadorService) {
+	.controller("editorController", ["$scope", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "elementosService", "$q", "pedidosService", "fontService", "etiquetasService", "disenadorService", "langFactory", function ($scope, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, $q, pedidosService, fontService, etiquetasService, disenadorService, langFactory) {
 
 		var bz = this;
+
+		bz.lang = langFactory.langsEstadoActual();
 
 		bz.base64 = $base64;
 		bz.cuadricula = false;
@@ -11,8 +13,6 @@ angular.module("disenador-de-logos")
 			borradores: false,
 			fuentes: false
 		};
-
-		console.log(historicoResolve)
 
 		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[1] : "rgb(243, 243, 243)";
 		bz.colorFondoAnterior = bz.colorFondo;
@@ -28,23 +28,25 @@ angular.module("disenador-de-logos")
 			etiquetasSeleccionadas: []
 		};
 
-
 		bz.jqueryScrollbarOptions = {};
 
 		bz.logo = historicoResolve.logo;
 
+		bz.categoriaIcono = historicoResolve.categoria;
+
 		if (!historicoResolve.idLogoGuardado && !historicoResolve.idLogoPadre) { //si no es un logo guardado
 
 			bz.logo.texto = historicoResolve.texto;
-			bz.categoria = historicoResolve.logo.icono.categorias_idCategoria;
+			bz.categoria = historicoResolve.categoria;
 
 		} else if (historicoResolve.idLogoGuardado) { // si es un logo previamente guardado
 
 			bz.logo.idLogo = historicoResolve.idLogoGuardado;
 
 		} else if (historicoResolve.idLogoPadre) {
-
+			
 			bz.idLogoPadre = historicoResolve.idLogoPadre;
+			bz.categoria = historicoResolve.categoria;
 
 		}
 
@@ -66,7 +68,20 @@ angular.module("disenador-de-logos")
 			.then(function (res) {
 				bz.fuentesCategorias = res;
 			})
-			.catch(function () { });
+			.catch(function () { 
+				
+			});
+
+
+		bz.categoriasHijasPosibles = [];
+
+		categoriasService.listarCategoriasElementosHijas()
+			.then(function(res){
+				bz.categoriasHijasPosibles = res;
+			})
+			.catch(function(){
+
+			})
 
 
 		elementosService.listarFuentes().then(function (res) {
@@ -122,7 +137,7 @@ angular.module("disenador-de-logos")
 				bz.mostrarFormDisenador = true;
 				return;
 			}
-
+			
 			bz.guardarLogo(logo, noun, tipoLogo, idCategoria, regresar);
 		};
 
@@ -239,10 +254,13 @@ angular.module("disenador-de-logos")
 
 		/****** Guardar Logo del Disenador  ******/
 		bz.guardarLogoDisenador = function (logo, noun, tipoLogo, idCategoria, tags, alt) {
+			
 
 			if (!bz.completadoGuardar || !bz.disenadorGuardarForm.$valid) {
 				return;
 			}
+
+			if(!tags.length) return;
 
 			bz.completadoGuardar = false;
 
@@ -266,7 +284,7 @@ angular.module("disenador-de-logos")
 				}
 			});
 
-			logosService.guardarLogo(bz.base64.encode(logo), noun, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function (etiquetasGuardadas) {
+			logosService.guardarLogo(bz.base64.encode(logo), null, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function (etiquetasGuardadas) {
 
 				if (etiquetasGuardadas) {
 
@@ -286,7 +304,6 @@ angular.module("disenador-de-logos")
 
 			}).catch(function (e) {
 
-				console.log(e)
 				$mdToast.show($mdToast.base({
 					args: {
 						mensaje: "Un error ha ocurrido",
@@ -351,7 +368,7 @@ angular.module("disenador-de-logos")
 				logo: datos.svg,
 				idLogo: null,
 				noun: bz.logo.icono.idElemento,
-				idCategoria: bz.categoria,//FIXME: UNDEFINED
+				idCategoria: bz.categoria,
 				tipo: "Logo y nombre",
 				fuentes: {
 					principal: idFuente,
@@ -532,6 +549,8 @@ angular.module("disenador-de-logos")
 
 		bz.etiquetasSeleccionadas = [];
 
+		var tags_saltos = {};
+
 		bz.buscarIconos = function (idCategoria, valido) {
 
 			bz.iconosForm.$setSubmitted();
@@ -540,12 +559,40 @@ angular.module("disenador-de-logos")
 
 				bz.completadoBuscar = false;
 
-				var tags = [];
+				
 				var iconos = [];
 
-				angular.forEach(bz.etiquetasSeleccionadas, function (valor) {
-					tags.push(valor.traduccion.valor);
+				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
+				
+					var remover_tag = true;
+
+					angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
+
+						console.log(tag)
+
+						if(indexSalto == tag.traducciones[0].valor){
+							remover_tag = false;
+						}
+
+					})
+
+					if(remover_tag){
+						delete tags_saltos[indexSalto];
+					}
+
+
+				})
+
+				angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
+
+					var tag_existe = tags_saltos[tag.traducciones[0].valor];
+
+					if(tag_existe === undefined) {
+						tags_saltos[tag.traducciones[0].valor] = 0;
+					}
+
 				});
+
 				//FIXME: Revisar
 				if (bz.iconos.length > 0) {
 					angular.forEach(bz.iconos, function (valor) {
@@ -555,10 +602,10 @@ angular.module("disenador-de-logos")
 
 				bz.cerrarContenedores();
 				bz.contenedores.busquedaIconos = true;
-				//FIXME: Revisar
-				elementosService.listarIconosSegunTags(tags, idCategoria, iconos, 17).then(function (res) {
+
+				elementosService.listarIconosSegunTags(tags_saltos).then(function (res) {
 					bz.iconos = [];
-					bz.iconos = res;
+					bz.iconos = res.iconos;
 
 				}).catch(function (res) {
 					//console.log(res);

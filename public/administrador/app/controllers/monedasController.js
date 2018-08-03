@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('monedasController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'Upload', 'notificacionService', 'monedasService', 'pasarelasService', 'monedasValue', function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, Upload, notificacionService, monedasService, pasarelasService, monedasValue) {
+    .controller('monedasController', ['$scope', 'notificacionService', 'monedasService', 'pasarelasService', 'monedasValue', function ($scope, notificacionService, monedasService, pasarelasService, monedasValue) {
 
         var bz = this;
 
@@ -14,8 +14,8 @@ angular.module("administrador")
         bz.ponerMoneda = {};
         bz.almacenDeMonedas = monedasValue;
 
-        bz.listarMonedas = function (v) {
-            if (!v) return bz.listaM = !bz.listaM;
+        bz.listarMonedas = function () {
+            bz.listaM = !bz.listaM;
             bz.peticion = true;
 
             monedasService.listarMonedas().then(function (res) {
@@ -25,7 +25,7 @@ angular.module("administrador")
             })
         }
 
-        bz.listarMonedas(true);
+        bz.listarMonedas();
 
 
         bz.guardarMoneda = function (datos, v) {

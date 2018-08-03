@@ -250,7 +250,7 @@ exports.listaSegunTagCatNOUN = function (req, res) {
 		etiqueta.TraducirGuardarNOUN(response.tags, lang, (err, tagsTraducidas) => {
 
 			if (err) return res.status(500).json(err);
-
+			
 			response.tags = tagsTraducidas;
 
 			etiqueta.BuscarIconosNOUN(response.tags ,(err, busqueda) => {

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es-es" lang="es-es" dir="ltr">
+
+{% include "head.html" %}
+
+
+<body class="no-landing">
+    <header class="header" id="comienzo" layout-padding>
+        <div class="logo grande">
+            <a href="/">
+                <img src="../landing/assets/img/logo.pro.svg">
+            </a>
+        </div>
+        <div>
+            <div class="login">
+                <div class="acceder mostrar-login not-ing" style="cursor: pointer">
+                    <span>
+                        <a href="/creador-de-logos/ingreso/">{{idioma.header.botones[0]}}</a>
+                    </span>
+                    <span class="boton-activo">
+                        <a href="/creador-de-logos/ingreso/" style="color: white">{{idioma.header.botones[1]}}</a>
+                    </span>
+
+                    <div class="acceder hidden" style="cursor: pointer">
+                        <span>
+                            <i class="material-icons"> add_circle_outline</i>
+                        </span>
+                        <span>
+                            <i class="material-icons"> favorite</i>
+                        </span>
+                        <span>
+                            <i class="material-icons"> account_circle</i>
+                        </span>
+                        <span>
+                            <i class="material-icons">power_settings_new</i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="cabecera">
+        <h1>{{idioma.secciones.seccion_uno.titulo}} {{title}}</h1>
+        <p>{{idioma.secciones.seccion_uno.descripcion}} {{title}}</p>
+    </div>
+
+    {% if logosPredisenados %}
+    <div class="sub-cabecera">
+        <h3>{{idioma.secciones.seccion_dos.titulo}} {{title}}</h3>
+        <p>
+            {{idioma.secciones.seccion_dos.descripcion}} {{title}}
+        </p>
+    </div>
+    <div class="logos-predisenados">
+        {% for elemento in logosPredisenados %}
+        <div class='--item'>
+            <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-categoria="{{elemento.categorias_idCategoria}}" data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
+                <span>
+                    <img src="/tmp/shared/{{elemento.imgSrc}}" alt="{{elemento.atributos[1].valor}}">
+                </span>
+                {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
+                <span class="descripcion">
+                    {{atributo.valor}}
+                </span>
+                {% endif %} {% endfor %}
+            </a>
+            <div class="tags">
+                {% for tag in elemento.etiquetas %} {% for traduccion in tag.traducciones %}
+                <a class="buscarEditor" data-tag="{{tag | dump }}">{{traduccion.valor}}</a>
+                {% endfor %} {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if logosPredisenados.length > 11 %}
+    <div class="flex" style="margin-bottom: 3%">
+        <a style="    width: 24%;
+                text-align: center;" class="boton-formulario-generar ver-mas">
+            {{idioma.secciones.seccion_dos.boton}}
+        </a>
+    </div>
+    {% endif %} {% endif %}
+
+
+    <div class="container-fluid" style="    padding: 3%;width: 100%;">
+        <h3>{{idioma.secciones.seccion_tres.titulo}}</h3>
+        <div class="lista-categorias">
+            {% asyncEach categoria in categorias %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
+            <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
+            {% endif %} {% endeach %}
+        </div>
+    </div>
+
+    <div class="container-fluid" style=" padding: 1% 6% 7% 6%; width: 100%;">
+        <h3>{{idioma.secciones.seccion_cuatro.titulo}} {{title}}</h3>
+        <p class="center">{{idioma.secciones.seccion_cuatro.descripcion}} {{title}} {{idioma.secciones.seccion_cuatro.descripcion_end}}</p>
+
+        <div class="tres-pasos" cantidad-videos="3">
+            <div class="animacion">
+                <ul>
+                    {% for paso in idioma.secciones.seccion_cuatro.pasos %}
+                        {% if loop.first %}
+                            <li class="step_guide_image active" data-index="{{loop.index}}" data-time="24000">
+                                <img src="{{paso.imagen_url}}" data-index="{{loop.index}}" alt="mockup_uno">
+                                <video id="video{{loop.index}}" alt="paso {{loop.index}}" type="video/mp4" muted="muted" loop="loop" src="{{paso.video_url}}" style="position: absolute; left: 0px; top: 0px;">
+                                </video>
+                            </li>
+                        {% else %}
+                            <li class="step_guide_image" data-index="{{loop.index}}" data-time="24000">
+                                <img src="{{paso.imagen_url}}" data-index="{{loop.index}}" alt="mockup_uno">
+                                <video id="video{{loop.index}}" alt="paso {{loop.index}}" type="video/mp4" muted="muted" loop="loop" src="{{paso.video_url}}" style="position: absolute; left: 0px; top: 0px;">
+                                </video>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="pasos">
+                {% for paso in idioma.secciones.seccion_cuatro.pasos %} 
+                    {% if loop.first %}
+                    <div class="step_ctn active">
+                        <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
+                        <p>{{paso.descripcion}}</p>
+                    </div>
+                    {% elif loop.last %}
+                    <div class="step_ctn clear_margin_btm">
+                        <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
+                        <p>{{paso.descripcion}}</p>
+                    </div>
+                    {% else %}
+                    <div class="step_ctn">
+                        <h4 data-index="{{loop.index}}">{{paso.titulo}}</h4>
+                        <p>{{paso.descripcion}}</p>
+                    </div>
+                    {% endif %} 
+                {% endfor %}
+                <div class="step_line">
+                    <span class="active">1</span>
+                    <span class="">2</span>
+                    <span class="">3</span>
+                    <i style="top: 0px;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pre-footer">
+        <div class="--item">
+            <h2>{{idioma.secciones.seccion_cinco.titulo}} {{title}}</h2>
+            <p>{{idioma.secciones.seccion_cinco.descripcion}}</p>
+        </div>
+        <a class="--link" href="/creador-de-logos">{{idioma.secciones.seccion_cinco.boton}}</a>
+    </div>
+    
+    <div class="container-fluid" style="    padding: 3%;width: 100%;">
+        <h3>{{idioma.secciones.seccion_seis.titulo}}</h3>
+        <div class="lista-categorias">
+            {% asyncEach categoria in categorias %} {% if categoria.categoriaFormateada != 'sin-categoria' %}
+            <a href="/logos-de-{{categoria.categoriaFormateada}}">{{categoria.nombreCategoria}}</a>
+            {% endif %} {% endeach %}
+        </div>
+    </div>
+
+    {% include "foot.html" %}
+</body>
+
+
+
+</html>

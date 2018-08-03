@@ -855,6 +855,37 @@ bazam-palette-picker svg path[data-index].color-checked {
   border: 1px solid silver;
   padding: 5% 0; }
 
+.md-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-around; }
+
+md-select-menu span.texto-on-select {
+  width: 85px;
+  margin-left: 8px; }
+
+.selector-de-idiomas.--flags {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0; }
+  .selector-de-idiomas.--flags select {
+    display: block; }
+  .selector-de-idiomas.--flags md-select {
+    margin: 0; }
+    .selector-de-idiomas.--flags md-select md-select-value {
+      border: none; }
+      .selector-de-idiomas.--flags md-select md-select-value .md-select-icon {
+        display: none; }
+      .selector-de-idiomas.--flags md-select md-select-value .texto-on-select {
+        display: none; }
+      .selector-de-idiomas.--flags md-select md-select-value > span {
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+  .selector-de-idiomas.--flags md-select.md-default-theme:not([disabled]):focus .md-select-value, .selector-de-idiomas.--flags md-select:not([disabled]):focus .md-select-value {
+    border-bottom-color: transparent !important; }
+
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 ------HEADER SCSS--------------------------------------------------------------------------
@@ -2175,7 +2206,7 @@ bazam-papeleria {
   justify-content: center;
   align-items: center; }
 
-[movimiento-bz] {
+[movimiento-bz]:not(.contenedor-icono) {
   fill: transparent;
   cursor: crosshair;
   cursor: -moz-grabbing;
@@ -2258,6 +2289,10 @@ bazam-papeleria > svg .hook > svg * {
   height: calc(100% - 60px); }
   .cargando-papeleria.--full-height {
     height: 100%; }
+
+.papeleria-editor-container:hover .accion,
+.contenedor-papelerias > div:hover .accion {
+  opacity: 1 !important; }
 
 /*DIRECTIVES*/
 /*-----------------------------------------------------------------------------------------
@@ -2415,7 +2450,7 @@ bazam-form-login {
   display: block;
   width: 100%;
   height: 100%;
-  background: rgba(3, 1, 4, 0.309804); }
+  background: rgba(158, 158, 158, 0.26); }
 
 .login-form > div,
 .olvido-contrasena > div {

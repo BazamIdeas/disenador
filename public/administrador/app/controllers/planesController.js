@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('planesController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'administrarService', 'paisesValue', 'monedasValue', 'notificacionService', 'monedasService', 'caracteristicasValue', function ($state, $mdSidenav, $mdMenu, $scope, administrarService, paisesValue, monedasValue, notificacionService, monedasService, caracteristicasValue) {
+    .controller('planesController', ['$scope', 'administrarService', 'paisesValue', 'monedasValue', 'notificacionService', 'monedasService', 'caracteristicasValue', function ($scope, administrarService, paisesValue, monedasValue, notificacionService, monedasService, caracteristicasValue) {
 
         var bz = this;
 

@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-	.controller("etiquetasController", ["$state", "$scope", "notificacionService", "$base64", "etiquetasService", "categoriasService", "idiomasService", "$q", function ($state, $scope, notificacionService, $base64, etiquetasService, categoriasService, idiomasService, $q) {
+	.controller("etiquetasController", ["$scope", "notificacionService", "$base64", "etiquetasService", "categoriasService", "idiomasService", "$q", function ($scope, notificacionService, $base64, etiquetasService, categoriasService, idiomasService, $q) {
 
 		var bz = this;
 
@@ -75,14 +75,16 @@ angular.module("administrador")
 
 		bz.listarIconosEtiqueta = function (id) {
 			bz.peticion = true;
-			bz.acciones = 4;
+
 			etiquetasService.listarIconosEtiqueta(id).then(function (res) {
+				bz.acciones = 4;
 				bz.iconosEtiqueta = {
 					_id: id,
 					iconos: res.data.iconos
 				};
 			}).catch(function (res) {
 				// console.log(res)
+				notificacionService.mensaje('La etiqueta no posee iconos.')
 			}).finally(function () {
 				bz.peticion = false;
 			})

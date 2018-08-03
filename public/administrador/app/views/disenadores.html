@@ -3,10 +3,10 @@
         <div class="listar">
 
             <!-- LISTAR LOGOS -->
-
-            <div class="paneles individual md-whiteframe-2dp">
+            <md-progress-linear ng-disabled="!designer.listandoLogos && !designer.logos.length" md-mode="indeterminate"></md-progress-linear>
+            <div class="paneles individual ">
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
-                    <texto flex ng-click="designer.listarLogos()">LISTADO DE LOGOS</texto>
+                    <texto flex ng-click="designer.listarCategorias()">LISTADO DE LOGOS</texto>
                 </div>
                 <div layout layout-align="space-between center" ng-show="designer.cal && designer.logos.length > 0" style="    background: white;
                 border-bottom: 1px solid silver;">
@@ -22,8 +22,8 @@
                         </md-select>
                     </md-input-container>
                 </div>
-                <div ng-show="designer.listaL">
-                    <div layout class="elemento" ng-show="designer.logos.length > 0">
+                <div ng-show="designer.logos.length > 0">
+                    <!-- <div layout class="elemento" ng-show="designer.logos.length > 0">
                         <md-input-container flex>
                             <label>Estado:</label>
                             <md-select ng-model="designer.categoriasFiltroActivo" class="md-block" aria-label="filtro">
@@ -31,12 +31,12 @@
                                 <md-option ng-value="categoria.nombreCategoria" ng-repeat="categoria in designer.categoriasFiltro | unique">{{categoria.nombreCategoria}}</md-option>
                             </md-select>
                         </md-input-container>
-                    </div>
+                    </div> -->
                     <div class="w3-responsive content-scroll" ng-show="designer.logos.length > 0">
                         <table class="w3-table w3-bordered">
                             <tr>
                                 <th>Logo:</th>
-                                <th>Estado:</th>
+                                <th>Información:</th>
                                 <th>Acciones:</th>
                             </tr>
                             <tr ng-repeat="logo in designer.logos">
@@ -45,7 +45,15 @@
                                         <bazam-visualizar data-svg="designer.base64(logo.logo)"></bazam-visualizar>
                                     </div>
                                 </td>
-                                <td>{{logo.estado}}</td>
+                                <td>
+                                    <div>
+                                        <b>Estado:</b><br><br>{{logo.estado}} 
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <b>Categoria:</b><br><br> {{logo.nombreCategoria}}
+                                    </div>
+                                </td>
                                 <td>
                                     <md-button ng-if="logo.estado == 'Por Aprobar'" class="md-fab md-mini md-warn" ng-click="designer.aprobarLogo($index, logo, logo.idLogo)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Aprobar</md-tooltip>
@@ -56,7 +64,7 @@
                                         <md-icon class="material-icon">remove_circle_outline</md-icon>
                                     </md-button>
 
-                                    <md-button ng-if="!logo.destacado" class="md-fab md-mini md-warn" ng-click="designer.destacado({idLogo: logo.idLogo,idCliente: logo.clientes_idCliente, i: $index})">
+                                    <md-button ng-if="logo.estado == 'Aprobado' && !logo.destacado" class="md-fab md-mini md-warn" ng-click="designer.destacado({idLogo: logo.idLogo,idCliente: logo.clientes_idCliente, i: $index})">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Destacado</md-tooltip>
                                         <md-icon class="material-icon">favorite</md-icon>
                                     </md-button>
@@ -73,22 +81,19 @@
                     <div style="height: 30%; background: white;" ng-if="designer.logos.length == 0  && designer.peticion == true" class="mensaje-resultado">
                         <h3>CARGANDO LOGOS POR APROBAR</h3>
                     </div>
-                    <div style="height: 30%; background: white;" ng-if="designer.logos.length == 0 && designer.peticion == false" class="mensaje-resultado">
-                        <h3>NO EXISTEN LOGOS POR APROBAR</h3>
-                    </div>
                 </div>
             </div>
 
             <!-- LISTAR DIEÑADORES -->
-
-            <div class="paneles individual md-whiteframe-2dp">
+            <md-progress-linear ng-disabled="!designer.listandoDisenadores" md-mode="indeterminate"></md-progress-linear>
+            <div class="paneles individual ">
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo" ng-click="designer.listarDisenadores()"
-                    ng-disabled="designer.peticion">
+                    >
                     <texto flex>LISTADO DE DISEÑADORES</texto>
                 </div>
                 <div ng-show="designer.listaD">
                     <div ng-if="designer.disenadores.length > 0">
-                        <div layout class="elemento">
+                        <!-- <div layout class="elemento">
                             <md-input-container flex style="margin-bottom: 0;height: 35px;">
                                 <input type="text" ng-model="designer.filtrosActivos.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
                             </md-input-container>
@@ -99,7 +104,7 @@
                                     <md-option ng-value="1">Bloqueado</md-option>
                                 </md-select>
                             </md-input-container>
-                        </div>
+                        </div> -->
                         <div layout layout-align="space-between center" ng-if="designer.metodoPagoi">
                             <p>Metodo de pago:</p>
                             <md-input-container flex>
@@ -112,16 +117,16 @@
                         <div class="w3-responsive content-scroll">
                             <table class="w3-table w3-bordered">
                                 <tr>
-                                    <th>Nombre:</th>
-                                    <th>Deuda:</th>
-                                    <th>Pais:</th>
+                                    <th>Correo:</th>
+                                    <!-- <th>Deuda:</th>
+                                    <th>Pais:</th> -->
                                     <th>Estado:</th>
                                     <th>Acciones:</th>
                                 </tr>
                                 <tr ng-repeat="d in designer.disenadores | filter:designer.filtrosActivos">
-                                    <td>{{d.nombreCliente}}</td>
-                                    <td>${{d.deuda.deuda}}</td>
-                                    <td>{{d.pais}}</td>
+                                    <td>{{d.correo}}</td>
+                                    <!-- <td>${{d.deuda.deuda}}</td>
+                                    <td>{{d.pais}}</td> -->
                                     <td ng-if="d.bloqueado == 0">Activo</td>
                                     <td ng-if="d.bloqueado == 1">Bloqueado</td>
                                     <td>
@@ -150,10 +155,6 @@
                     <div style="height: 30%; background: white;" ng-if="designer.disenadores.length == 0   && designer.peticion == true" class="mensaje-resultado">
                         <h3>CARGANDO DISENADORES</h3>
                     </div>
-
-                    <div style="height: 30%; background: white;" ng-if="designer.disenadores.length == 0 && designer.peticion == false" class="mensaje-resultado">
-                        <h3>NO HAY DISENADORES</h3>
-                    </div>
                 </div>
             </div>
         </div>
@@ -161,7 +162,7 @@
 
     <!-- ACCIONES VISTA -->
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-switch="designer.vista">
-        <div class="paneles md-whiteframe-2dp listar">
+        <div class="paneles  listar no-border">
             <!-- VER LOGOS DE UN DISEÑADOR-->
             <div ng-switch-when="1">
                 <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
@@ -227,7 +228,7 @@
                 <div layout-padding class="elemento" ng-if="designer.logoVisualizar">
                     <div layout layout-align="center center" layout-wrap>
                         <div flex class="margen_inferior">
-                            <div class="pedido-logo elemento inside" md-whiteframe >
+                            <div class="pedido-logo elemento inside" md-whiteframe>
                                 <bazam-visualizar data-svg="designer.logoVisualizar"></bazam-visualizar>
                             </div>
                         </div>

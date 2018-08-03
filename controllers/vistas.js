@@ -1,102 +1,165 @@
 var logo = require("../modelos/logosModelo.js");
-var atributo = require("../modelos/atributosModelo.js");
-var async = require("async");
-var base64 = require("base-64");
-var fs = require('fs');
 const Etiqueta = require('../modelos/etiquetasModelo.js');
-const svg2png = require("svg2png");
-const langs = require("../langs/views.js").langs;
-var pais     = require("../modelos/paisesModelo.js");
-var plan     = require("../modelos/planesModelo.js");
-var precio   = require("../modelos/preciosModelo.js");
-var caracteristica = require("../modelos/caracteristicasModelo.js");
-var services = require("../services");
-var async    = require("async");
+const langs = require("../langs");
+var services = require('../services');
+
+var atributo = require("../modelos/atributosModelo.js");
+var base64 = require("base-64");
+var async = require("async");
 
 exports.ViewCategorias = function (req, res) {
 
-	var nombreCategoria = req.body.categoriaSeleccionada.nombreCategoria != 'Sin categoria' ? req.body.categoriaSeleccionada.nombreCategoria : 'destacados';
-	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
-	var idCategoria = 6;
+	const categoriasService = services.categorias;
 
-	let dataEnviar = { root: __dirname, title: nombreCategoria, categorias: req.body.categorias, categoriaSeleccionada: req.body.categoriaSeleccionada };
+	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
+	var idCategoria = req.body.categoriaSeleccionada.idCategoria;
+	req.lang = req.lang.toUpperCase();
+	let lang = langs.views[req.lang].categoria_pagina;
+	let idiomas = langs.langs[req.lang];
+
+	let catTraducciones = JSON.stringify(req.body.categoriaSeleccionada.traducciones);
+
+	let dataEnviar = {
+		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
+		categorias: req.body.categorias,
+		categoriaSeleccionada: req.body.categoriaSeleccionada,
+		idioma: lang,
+		idiomas: idiomas,
+		lang: req.lang,
+		mostraretiquetaslogo: false,
+		categoriasPadre: req.body.categoriasPadre,
+		urls_categorias: catTraducciones,
+		subcategoria : false
+	};
+
+	//console.log('Buscar logos aprobados de ->  idCategoria:', idCategoria);
+
+	logo.getLogosAprobadosCatPadre(idLogo, idCategoria, function (error, data) {
+		if (typeof data !== "undefined" && data.length > 0) {
+
+			async.forEachOf(data, (logo, key, callback) => {
+
+				logo.svg = base64.decode(logo.logo);
+				logo.svg = logo.svg.replace(/"/g, "'");
+
+				if (logo.nombreCategoria) {
+					categoriaLogo = categoriasService.formatearCategorias([{idCategoria: logo.idCategoria, nombreCategoria: logo.nombreCategoria }], req.lang)[0];
+
+					logo.categoriaFormateada = categoriaLogo.categoriaFormateada;
+					logo.traduccion = categoriaLogo.traduccion.label;
+				}
+
+				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+							data[key]["atributos"] = dataAttrs;
+						}
+
+					} catch (e) {
+						return callback(e);
+					}
+
+					callback();
+
+				});
+
+			}, (err) => {
+
+				if (err) res.status(402).json({});
+
+				dataEnviar.logosPredisenados = data;
+
+				res.render('categorias.html', dataEnviar);
+
+			});
+
+		} else {
+
+			console.log("No hay logos aprobados");
+			res.redirect('/creador-de-logos');
+
+		}
+	});
+};
+
+exports.ViewSubCategorias = function (req, res) {
+
+	const categoriasService = services.categorias;
+
+	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
+	var idCategoria = req.body.categoriaSeleccionada.idCategoria;
+	req.lang = req.lang.toUpperCase();
+	let lang = langs.views[req.lang].categoria_pagina;
+	let idiomas = langs.langs[req.lang];
+
+	let catTraducciones = JSON.stringify(req.body.categoriaSeleccionada.traducciones);
+
+	let dataEnviar = {
+		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
+		categorias: req.body.categorias,
+		categoriaSeleccionada: req.body.categoriaSeleccionada,
+		idioma: lang,
+		idiomas: idiomas,
+		lang: req.lang,
+		mostraretiquetaslogo: true,
+		categoriasPadre: false,
+		urls_categorias: catTraducciones,
+		subcategoria : true
+	};
+
+	dataEnviar.mostraretiquetaslogo = true;
+
+	//console.log('Buscar logos aprobados de ->  sub Categoria:', idCategoria);
+
+	// COLOCAR CATEGORIA PADRE
 
 	logo.getLogosAprobados(idLogo, idCategoria, function (error, data) {
 
 		if (typeof data !== "undefined" && data.length > 0) {
 
-			Etiqueta.ObtenerPorLogo(data, req.lang, (err, logos) => {
+			Etiqueta.ObtenerPorLogo(data, req.lang.toLowerCase(), (err, logos) => {
 
-				console.log(logos)
-
-				data = logos;
-
-				async.forEachOf(data, (logo, key, callback) => {
+				async.forEachOf(logos, (logo, key, callback) => {
 
 					logo.svg = base64.decode(logo.logo);
 					logo.svg = logo.svg.replace(/"/g, "'");
-					let nombre = logo.idLogo + ".svg";
-					const path = "public/tmp/shared/";
-					let ancho = 200;
 
-					var buffer = new Buffer(base64.decode(logo.logo).replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/"));
+					if (logo.nombreCategoria) {
+						logo.categoriaFormateada = categoriasService.formatearCategorias([{ nombreCategoria: logo.nombreCategoria }])[0].categoriaFormateada;
+					}
 
-					fs.open(path + nombre, "w", (err, fd) => {
-						if (err) throw "error al crear svg " + err;
 
-						fs.write(fd, buffer, 0, buffer.length, null, err => {
-							if (err) throw "error al escribir " + err;
 
-							let svg = path + nombre;
+					atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
 
-							var pngout = svg.replace("svg", "jpg");
+						if (err) return callback(err);
 
-							fs.readFile(svg, (err, svgbuffer) => {
-								if (err) throw err;
-								svg2png(svgbuffer, {
-									width: ancho
-								})
-									.then(buffer => {
-										fs.writeFile(pngout, buffer, (err) => {
-											setTimeout(() => {
-												logo.imgSrc = nombre.replace("svg", "jpg");
+						try {
 
-												// __dirname + "/../" + path + 
+							if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+								data[key]["atributos"] = dataAttrs;
+							}
 
-												atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+						} catch (e) {
+							return callback(e);
+						}
 
-													if (err) return callback(err);
+						callback();
 
-													try {
-
-														if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
-															data[key]["atributos"] = dataAttrs;
-														}
-
-													} catch (e) {
-														return callback(e);
-													}
-
-													callback();
-
-												});
-											}, 1000)
-										});
-									})
-									.catch(e => console.log('error'));
-							});
-
-							fs.close(fd);
-						});
 					});
 
 				}, (err) => {
 
-					if (err) res.status(402).json(err);
+					if (err) res.status(402).json({});
 
 					dataEnviar.logosPredisenados = data;
 
 					res.render('categorias.html', dataEnviar);
+
 				});
 
 			})
@@ -104,115 +167,23 @@ exports.ViewCategorias = function (req, res) {
 		} else {
 
 			console.log("No hay logos aprobados");
-
-			res.redirect(301, '/logos-destacados');
-
+			res.redirect('/creador-de-logos');
 		}
 	});
 
 };
 
-exports.ViewLanding = function(req, res) {
+exports.ViewLanding = function (req, res) {
 
-	var iso = services.geoipServices.iso(req.headers["x-forwarder-for"]);
+	req.lang = req.lang.toUpperCase();
 
-	pais.ObtenerPorIso(iso, (err, pais) => {
+	let lang = langs.views[req.lang].landing;
 
-		if (err) res.status(400).json({});
+	let idiomas = langs.langs[req.lang];
 
-		if (pais.length) {
+	/* TRADUCCIONES PLANES */
+	lang.secciones.seccion_cuatro.planes = langs.planes[req.lang];
 
-			var json = pais[0];
-
-			json.monedaDefault = {idMoneda: json.idMoneda ,codigo : json.moneda};
-
-			delete json["idMoneda"]; 
-			delete json["moneda"]; 
-		
-			plan.ListarPorPais(json.idPais, (err, planes) => {
-
-				if (err) res.status(401).json({});
-
-				if (planes.length) {
-
-					json.planes = planes;
-
-					async.forEachOf(json.planes, (plan, key, callback) => {
-
-						precio.ListarPorPlan(json.idPais, plan.idPlan, (err, precios) => {
-							
-							if (err) return callback(err);
-
-							try {
-
-								if (precios.length) {
-
-									json.planes[key].precios = precios;
-								
-								}
-
-								caracteristica.ObtenerPorPlan(plan.idPlan, (err, caracteristicas) => {
-							
-									if (err) return callback(err);
-		
-									try {
-		
-										if (caracteristicas.length) {
-		
-											json.planes[key].caracteristicas = caracteristicas;
-										
-										}								
-									
-									} catch (e) {
-										return callback(e);
-									}
-		
-									callback();
-								});
-					
-							} catch (e) {
-								return callback(e);
-							}
-						});
-
-					}, (err) => {
-						
-						if (err) res.status(402).json({});
-
-						req.lang = req.lang.toLowerCase();
-
-						let lang = langs[req.lang];
-						let categorias = [];
-
-						
-						req.body.categorias.forEach(element => {
-							if(element.categoriasFormateada != 'sin-categoria' && categorias.length < 12){
-								categorias.push(element);
-							}
-						});
-
-						lang.landing.secciones.seccion_cuatro.planes = json.planes;
-						
-						res.render('index_landing.html', {categorias: categorias, categoriasFuentes: req.body.categoriasFuentes, idioma: lang.landing, lang: req.lang });
-					
-					});
-				
-				}else{
-
-					res.status(200).json({"msg": "No se encuentran planes para el pais"});
-
-				}
-			
-			});
-		
-		}else{
-
-			res.status(200).json({"msg": "No se encuentra el pais"});
-
-		}
-
-
-	
-	});
+	res.render('index_landing.html', { categorias: req.body.categorias, categoriasFuentes: req.body.categoriasFuentes, idioma: lang, lang: req.lang, idiomas: idiomas });
 
 };

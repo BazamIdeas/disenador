@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller("clienteController", ["$state", "$mdSidenav", "clientesServiceAdmin", "$scope", "pedidosService", "SweetAlert", "$window", "notificacionService", "$base64", function ($state, $mdSidenav, clientesServiceAdmin, $scope, pedidosService, SweetAlert, $window, notificacionService, $base64) {
+    .controller("clienteController", ["clientesServiceAdmin", "$scope", "pedidosService", "notificacionService", "$base64", function (clientesServiceAdmin, $scope, pedidosService, notificacionService, $base64) {
         var bz = this;
         bz.filtrosActivos;
         bz.peticion = true;
@@ -23,8 +23,9 @@ angular.module("administrador")
             bz.peticion = true;
 
             pedidosService.pedidosCliente(id).then(function (res) {
+                
+                bz.pedidosC = res.data;
                 bz.mostrarPedido = true;
-                if (res != undefined) return bz.pedidosC = res.data;
             }).catch(function () {
                 bz.mostrarPedido = false;
                 notificacionService.mensaje("No existen pedidos de este cliente.");

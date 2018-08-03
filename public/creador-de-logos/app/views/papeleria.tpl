@@ -15,19 +15,19 @@
 
                 <div class="combinacion-box">
                     <span class="accion" style="bottom: 75%;" ng-click="  papeleriaCtrl.enviarEditor(piezaUsuario.indicePapeleria,piezaUsuario.indiceModelo, piezaUsuario)">
-                        <p>EDITAR</p>
+                        <p>{{::papeleriaCtrl.lang[3]}}</p>
                         <img src="assets/images/edit_white.svg" alt="">
                     </span>
                     <span class="accion" style="bottom: 51%;" ng-click="papeleriaCtrl.descargarPieza(piezaUsuario._id)">
-                        <p>DESCARGAR</p>
+                        <p>{{::papeleriaCtrl.lang[1]}}</p>
                         <img src="assets/images/svg-icons/download.svg" alt="">
                     </span>
                     <span class="accion" style="bottom: 28%;" ng-click="  papeleriaCtrl.duplicarPieza(papeleria,piezaUsuario, $index)">
-                        <p>DUPLICAR</p>
+                        <p>{{::papeleriaCtrl.lang[4]}}</p>
                         <img src="assets/images/duplicate.png" alt="">
                     </span>
                     <span class="accion" style="bottom: 4%;" ng-click="papeleriaCtrl.eliminarPieza(papeleria,$index)">
-                        <p>ELIMINAR</p>
+                        <p>{{::papeleriaCtrl.lang[5]}}</p>
                         <img src="assets/images/close.png" alt="">
                     </span>
                     <div class="voltear-cara" ng-show="piezaUsuario.caras.length > 1" ng-click="piezaUsuario.caraActiva = !piezaUsuario.caraActiva">
@@ -40,12 +40,12 @@
         </div>
     </div>
     <md-button ng-show="papeleriaCtrl.papelerias && papeleriaCtrl.tienePiezas" ng-click="papeleriaCtrl.crearPapeleria = !papeleriaCtrl.crearPapeleria"
-        class=" boton-crear-papeleria">Crear Papeleria</md-button>
+        class=" boton-crear-papeleria">{{::papeleriaCtrl.lang[8]}}</md-button>
 
 
 </div>
 
-<div ng-show="!papeleriaCtrl.papelerias"  class="cargando-papeleria --full-height">
+<div ng-show="!papeleriaCtrl.papelerias" class="cargando-papeleria --full-height">
     <img style="width: 25%;" style="display: block; margin: auto;" src="assets/images/gifs/c.gif">
 </div>
 
@@ -53,17 +53,17 @@
     id-logo="papeleriaCtrl.idLogo" ng-if="papeleriaCtrl.papelerias" estado="papeleriaCtrl.crearPapeleria" tiene="papeleriaCtrl.tienePiezas"
     papelerias="papeleriaCtrl.papelerias" fuentes="papeleriaCtrl.fuentes"></bazam-crear-papeleria>
 
-    <planes-superiores ng-class="{'activo': papeleriaCtrl.mostrarPlanesSuperiores}">
-        <div style="padding: 2%;">
-            <cerrar-pop>
-                <md-button ng-click="papeleriaCtrl.mostrarPlanesSuperiores = false" class="back-principal md-primary md-fab md-mini">
-                    <md-icon>close</md-icon>
-                </md-button>
-            </cerrar-pop>
-            <h4 class="principal titulo-planes" style="text-align:center;">AUMENTE SU PLAN Y OBTENGA MEJORES BENEFICIOS</h4>
-        </div>
-        <div class="row margin-bottom-0">
-            <!--
+<planes-superiores ng-class="{'activo': papeleriaCtrl.mostrarPlanesSuperiores}">
+    <div style="padding: 2%;">
+        <cerrar-pop>
+            <md-button ng-click="papeleriaCtrl.mostrarPlanesSuperiores = false" class="back-principal md-primary md-fab md-mini">
+                <md-icon>close</md-icon>
+            </md-button>
+        </cerrar-pop>
+        <h4 class="principal titulo-planes" style="text-align:center;">{{::papeleriaCtrl.lang[11]}}</h4>
+    </div>
+    <div class="row margin-bottom-0">
+        <!--
                 <div class="col s3" style="padding: 0 40px;">
                     <p class="principal text-center">Cambiar moneda de pago:</p>
                     <md-input-container style="width:100%; padding: 10px;">
@@ -75,69 +75,69 @@
                     </md-input-container>
                 </div>
             -->
-            <div class="col s12" style="padding: 0 40px;">
-                <div class="contenedor-planes" ng-if="papeleriaCtrl.mps" style="    padding-top: 2%;">
-                        <div class="plan" ng-repeat="plan in papeleriaCtrl.planes | filter: papeleriaCtrl.comprobarMonedas track by $index" ng-init="plan.indice = $index">
-                            <div ng-class="{'has-one-plan': papeleriaCtrl.planes.lenght == 1}" style="    border-right: 1px solid silver;
+        <div class="col s12" style="padding: 0 40px;">
+            <div class="contenedor-planes" ng-if="papeleriaCtrl.mps" style="    padding-top: 2%;">
+                <div class="plan" ng-repeat="plan in papeleriaCtrl.planes | filter: papeleriaCtrl.comprobarMonedas track by $index" ng-init="plan.indice = $index">
+                    <div ng-class="{'has-one-plan': papeleriaCtrl.planes.lenght == 1}" style="    border-right: 1px solid silver;
                             border-left: 1px solid silver;">
-                                <div class="plan-header">
-                                    <div class="plan-nombre">{{plan.plan}}</div>
-                                    <div class="plan-precio">{{::papeleriaCtrl.precioSeleccionado(plan.precios, papeleriaCtrl.moneda)}}</div>
-                                </div>
-                                <div class="plan-body">
-                                    <div>
-                                        <ul class="plan-lista">
-                                            <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{::carac.descripcion}}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <!--<md-button ng-disabled="papeleriaCtrl.peticion" ng-class="{'loading-purple':papeleriaCtrl.peticion}" class="md-raised md-primary boton-crear-logo">
+                        <div class="plan-header">
+                            <div class="plan-nombre">{{plan.plan}}</div>
+                            <div class="plan-precio">{{::papeleriaCtrl.precioSeleccionado(plan.precios, papeleriaCtrl.moneda)}}</div>
+                        </div>
+                        <div class="plan-body">
+                            <div>
+                                <ul class="plan-lista">
+                                    <li ng-repeat="carac in plan.caracteristicas" ng-if="carac.valor == '1'">{{::carac.descripcion}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <!--<md-button ng-disabled="papeleriaCtrl.peticion" ng-class="{'loading-purple':papeleriaCtrl.peticion}" class="md-raised md-primary boton-crear-logo">
                                         <!--ng-click="papeleriaCtrl.aumentarPlan(plan, papeleriaCtrl.moneda)"
                                         SELECCIONAR
                                     </md-button>-->
-    
-                                    <div style="display: flex;justify-content: space-evenly;">
-    
-                                            <div class="metodos">
-                
-                                                <div ng-repeat="pasarela in papeleriaCtrl.pasarelas track by $index">
-                                                    <input type="radio" id="{{pasarela.pasarela}}{{plan.indice}}" ng-model="plan.pasarelaElegida" ng-value="pasarela"/>
-                                                    <label style="display: flex;" for="{{pasarela.pasarela}}{{plan.indice}}">
-                                                        
-                                                        <img  ng-if="pasarela.pasarela == 'Paypal'"  width="50" height="auto"  src="assets/images/svg-icons/paypal_color.svg">
-                
-                                                        <img  ng-if="pasarela.pasarela == 'Stripe'"  width="25" height="auto" src="assets/images/svg-icons/credit_black.svg">
-                
-                                                    </label>
-    
-                                                    
-                                                </div>
-                
-                                            </div>
-                
-                                            <div style="display: flex; align-items: center;">
-                                                <button ng-if="plan.pasarelaElegida.pasarela == 'Paypal'" type="submit" ng-click="papeleriaCtrl.paypal(plan.pasarelaElegida.idPasarela, plan)">COMPRAR</button>
-                
-                                                <button ng-if="plan.pasarelaElegida.pasarela == 'Stripe'" type="submit"  ng-click="papeleriaCtrl.mostrarStripe(plan.pasarelaElegida.idPasarela, plan)">COMPRAR</button>
-                                            </div>
-    
+
+                            <div style="display: flex;justify-content: space-evenly;">
+
+                                <div class="metodos">
+
+                                    <div ng-repeat="pasarela in papeleriaCtrl.pasarelas track by $index">
+                                        <input type="radio" id="{{pasarela.pasarela}}{{plan.indice}}" ng-model="plan.pasarelaElegida" ng-value="pasarela" />
+                                        <label style="display: flex;" for="{{pasarela.pasarela}}{{plan.indice}}">
+
+                                            <img ng-if="pasarela.pasarela == 'Paypal'" width="50" height="auto" src="assets/images/svg-icons/paypal_color.svg">
+
+                                            <img ng-if="pasarela.pasarela == 'Stripe'" width="25" height="auto" src="assets/images/svg-icons/credit_black.svg">
+
+                                        </label>
+
+
+                                    </div>
+
                                 </div>
+
+                                <div style="display: flex; align-items: center;">
+                                    <button ng-if="plan.pasarelaElegida.pasarela == 'Paypal'" type="submit" ng-click="papeleriaCtrl.paypal(plan.pasarelaElegida.idPasarela, plan)">{{::papeleriaCtrl.lang[6]}}</button>
+
+                                    <button ng-if="plan.pasarelaElegida.pasarela == 'Stripe'" type="submit" ng-click="papeleriaCtrl.mostrarStripe(plan.pasarelaElegida.idPasarela, plan)">{{::papeleriaCtrl.lang[6]}}</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-    
-    
-                    <!---STRIPE-->
-                    
-                    <div class="credit" ng-if="papeleriaCtrl.datosStripe" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index :10; background-color:#1a1a1a9e">
-                        <div ng-click="papeleriaCtrl.datosStripe = null" class="close-prev">
-                            <md-icon>close</md-icon>
-                        </div>
-                        
-                        <stripe-payment-form data-pasarela="papeleriaCtrl.datosStripe.idStripe" data-logo="papeleriaCtrl.datosStripe.idLogo" data-precio="papeleriaCtrl.datosStripe.idPrecio"></stripe-payment-form>
+                </div>
+
+
+                <!---STRIPE-->
+
+                <div class="credit" ng-if="papeleriaCtrl.datosStripe" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index :10; background-color:#1a1a1a9e">
+                    <div ng-click="papeleriaCtrl.datosStripe = null" class="close-prev">
+                        <md-icon>close</md-icon>
                     </div>
+
+                    <stripe-payment-form data-pasarela="papeleriaCtrl.datosStripe.idStripe" data-logo="papeleriaCtrl.datosStripe.idLogo" data-precio="papeleriaCtrl.datosStripe.idPrecio"></stripe-payment-form>
                 </div>
             </div>
         </div>
-    </planes-superiores>
+    </div>
+</planes-superiores>

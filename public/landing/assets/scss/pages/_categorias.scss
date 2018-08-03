@@ -33,7 +33,7 @@
             text-align: center;
             margin: 0 auto;
             line-height: 1.578em;
-            padding: 1.578em 0 4.526em;
+            padding: 1.578em 0 0em;
             font-weight: 400;
             color: rgba(255,255,255,.7);
         }
@@ -84,9 +84,6 @@
         .acceder span:hover {
             background: transparent;
             box-shadow: none;
-            a{
-
-            }
         }
         span{
             &:hover{
@@ -114,10 +111,13 @@
     }
     .lista-categorias {
         text-align: center;
+        > :last-child::after{
+            display: none;
+        }
         a {
-            &::before {
+            &::after {
                 content: '|';
-                margin-right: 18px;
+                margin-left: 18px;
                 color: silver;
             }
             padding: 8px;
@@ -321,6 +321,9 @@
             padding: 5%;
             display: block;
             cursor: pointer;
+            >:first-child{
+                min-height: 200px;
+            }
             > span{
                 max-width: 90%;
                 display: block;
@@ -355,6 +358,16 @@
         }
 
         .tags {
+            &.landing{
+                > a{
+                    color: black !important;
+                }
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                padding: 6.94% 0 6.94% 0 !important;
+            }
+            
             a{
                 > img{
                     cursor: pointer;

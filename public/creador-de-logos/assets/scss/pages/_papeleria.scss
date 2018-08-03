@@ -592,7 +592,7 @@ bazam-papeleria {
     align-items: center;
 }
 
-[movimiento-bz] {
+[movimiento-bz]:not(.contenedor-icono) {
     fill: transparent;
     cursor: crosshair;
     cursor: -moz-grabbing;
@@ -697,4 +697,9 @@ bazam-papeleria>svg .hook>svg * {
     &.--full-height{
         height:100%;
     }
+}
+
+.papeleria-editor-container:hover .accion,
+.contenedor-papelerias>div:hover .accion {
+    opacity: 1 !important;
 }

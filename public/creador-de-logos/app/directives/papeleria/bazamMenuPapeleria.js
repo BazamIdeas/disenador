@@ -4,8 +4,10 @@ angular.module("disenador-de-logos")
         return {
             restrict: "AE",
             scope: false,
-            controller: ["$scope", "$mdToast", "$sce", "dragulaService", function ($scope, $mdToast, $sce, dragulaService) {
+            controller: ["$scope", "$mdToast", "$sce", "dragulaService", "langFactory", function ($scope, $mdToast, $sce, dragulaService, langFactory) {
                 var bz = this;
+
+                bz.lang = langFactory.langsEstadoActual('papeleriaEditor');
 
                 bz.sce = $sce;
 
@@ -22,18 +24,18 @@ angular.module("disenador-de-logos")
                     var item = $scope.papeleriaEditor.papeleria.items[indiceElemento];
 
                     var itemAgregar = $scope.papeleriaEditor.papeleria.modelo.itemsDefaults[item.nombre];
-                    
+
                     itemAgregar.tag = item.tag;
                     itemAgregar.tipo = item.tipo;
                     itemAgregar.nombre = item.nombre;
-                    
-                    if(item.iconos.length > 0){
+
+                    if (item.iconos.length > 0) {
                         var icono = item.iconos[$scope.papeleriaEditor.ramdom];
                         itemAgregar.icono = {
-                            "orientacion" : "left",
-                            "svg" : icono, 
-                            "clases" : ["color-primario"]
-                        };								
+                            "orientacion": "left",
+                            "svg": icono,
+                            "clases": ["color-primario"]
+                        };
                     }
 
                     /* Si el contenedor esta al limite de su capacidad de elemento detenemos la funcion 
@@ -66,7 +68,7 @@ angular.module("disenador-de-logos")
                         if (handle.classList.contains('drag-indicator')) return true;
                     },
                     accepts: function (el, target, source, sibling) {
-                        if(target.classList[0] === source.classList[0]) return true;
+                        if (target.classList[0] === source.classList[0]) return true;
                     },
                     direction: 'horizontal',
                     removeOnSpill: false,
@@ -107,7 +109,7 @@ angular.module("disenador-de-logos")
 
                     $scope.papeleriaEditor.cambiarColorHook(indiceCara, indiceHook, true);
 
-                    
+
 
                 }
             }],

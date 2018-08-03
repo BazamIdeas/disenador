@@ -168,7 +168,9 @@ exports.nuevoPedido = function (req, res) {
 
 							if (typeof data !== "undefined" && data.length > 0) {
 								var plan = data;
-								elemento.datosElemento(1, function (error, data) {
+
+								// FIXME: ARREGLAR ALGUN DIA
+								elemento.datosElemento(2475, function (error, data) {
 
 									if (typeof data !== "undefined" && data.length > 0) {
 
@@ -324,7 +326,9 @@ exports.nuevoPedidoGuardado = function (req, res) {
 				precio.datos(idPrecio, function (error, data) {
 					if (typeof data !== "undefined" && data.length > 0) {
 						var plan = data;
-						elemento.datosElemento(1, function (error, data) {
+						
+						// FIXME: ARREGLAR ALGUN DIA
+						elemento.datosElemento(2475, function (error, data) {
 
 							if (typeof data !== "undefined" && data.length > 0) {
 

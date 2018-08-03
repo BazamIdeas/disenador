@@ -1,9 +1,8 @@
 //const Connection = __mongoClient;
 const objectId = require('./mongo.js').objectId;
-
+const fetch = require("node-fetch");
 const NounProject = require("the-noun-project")
 const translate = require('google-translate-api');
-const fetch = require('node-fetch');
 var base64 = require("base-64");
 
 
@@ -524,7 +523,48 @@ etiqueta.TraducirGuardarNOUN = async (tags, lang, callback) => {
             }
         }
     }
-    // guardar tagsTraducidas
+
+    __mongoClient(db => {
+        const idiomas = db.collection('idiomas');
+        idiomas.find({}).toArray((err, docs) => {
+            if (err) throw err;
+
+            let tagsParaGuardar = [];
+
+            for (let tag of tagsTraducidas) {
+
+                let tagLista = { traducciones: [], iconos: [] };
+
+                let idiomas = Object.keys(tag);
+
+                for (let idioma of idiomas) {
+
+                    let _id
+
+                    docs.forEach(doc => {
+                        if (doc.codigo == idioma) {
+                            _id = doc._id;
+                        }
+                    });
+
+                    if (_id !== undefined) {
+                        tagLista.traducciones.push({ idioma: objectId(_id), valor: tag[idioma] });
+                    }
+                }
+                tagsParaGuardar.push(tagLista);
+            }
+
+            const etiquetas = db.collection('etiquetas');
+
+
+            if (tagsParaGuardar.length) {
+                etiquetas.insertMany(tagsParaGuardar, function (err, r) {
+                    if (err) throw err;
+                });
+            }
+        });
+    });
+
     callback(null, tags);
 }
 
@@ -555,7 +595,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
         tagsArray.map((tag) => {
 
-            console.log(tags[tag]);
+            //console.log(tags[tag]);
 
             if (tags[tag].salto !== false) {
 
@@ -563,8 +603,13 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
                     Nproject.getIconsByTerm(tags[tag].en, { limit: 100, offset: tags[tag].salto, limit_to_public_domain: 0}, (err, data) => {
 
-                        if (!err && data && data.icons.length) {
+                        
+                        //console.log(data)
 
+                        
+
+                        if (!err && data && data.icons.length) {
+                         
                             resolve({ tag: tag, icons: data.icons})
 
                         } else {
@@ -597,7 +642,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
                         if (coll.icons.length) {
 
-
+                            
                             if (coll.icons[i] != undefined && coll.icons[i].icon_url) {
 
                                 try {
@@ -644,7 +689,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
                 i++;
             }
 
-            console.log({nIcons: icons.length});
+            //console.log({nIcons: icons.length});
 
         } catch (error) {
             //console.log(error)
@@ -663,7 +708,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
                 next = false
             }
 
-            console.log(tag, falses);
+            //console.log(tag, falses);
         })
     }
 
@@ -673,7 +718,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
 etiqueta.TransformarSvg = async (iconos , callback) => {
 
-    console.time('Descarga de Iconos')
+    //console.time('Descarga de Iconos')
 
     let promises = [];
 
@@ -729,6 +774,7 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
 
                 const logos = db.collection('logos');
                 logos.findOne({ idLogo: logo.idLogo }, (err, doc) => {
+
                     if (err) reject(err);
 
                     if (doc) {
@@ -738,11 +784,12 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
                         let promisesEt = [];
 
                         doc.etiquetas.forEach(el => {
+                            
                             let pr = etiquetas.aggregate([{
                                 $match: {
                                     "_id": objectId(el)
                                 }
-                            }, {
+                            } , {
                                 $unwind: '$traducciones'
                             }, {
                                 $lookup: {

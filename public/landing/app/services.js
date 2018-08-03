@@ -17,7 +17,27 @@ angular.module("landing")
 		}
 	})
 
-	.service("idiomaService", ["$http", "$q", function ($http, $q) {
+	.service("cookie", ["$window", function ($window) {
+
+		this.getCookie = function (cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+
+	}])
+
+	.service("idiomaService", ["$http", "$q", function ($http, $q, $window) {
 
 		this.idioma = function (codigo) {
 
@@ -25,7 +45,7 @@ angular.module("landing")
 
 			var promise = defered.promise;
 
-			$http.get("/app/idioma/"+ codigo).then(function (res) {
+			$http.get("/app/idioma/" + codigo).then(function (res) {
 
 				defered.resolve(res.data);
 
@@ -339,7 +359,7 @@ angular.module("landing")
 	])
 
 	.value("estaticosLandingValue", {
-		logoSVG:`<?xml version="1.0" encoding="utf-8"?>
+		logoSVG: `<?xml version="1.0" encoding="utf-8"?>
 		<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 			 viewBox="0 0 300 93.3" style="enable-background:new 0 0 300 93.3;" xml:space="preserve">
 		<style type="text/css">
@@ -417,12 +437,12 @@ angular.module("landing")
 		testimonios: [{
 			descripcion: "Es la segunda vez que hago un logo y estoy super contento",
 			logo: "/landing/assets/img/logo.pro.svg",
-				color: '#51a7f9',
-				client: {
-					name: 'Logo Pro',
-					ocupation: ''
-				}
+			color: '#51a7f9',
+			client: {
+				name: 'Logo Pro',
+				ocupation: ''
 			}
+		}
 		],
 		preguntas: [{
 			pregunta: "¿Cuanto cuesta el servicio?",
@@ -458,7 +478,7 @@ angular.module("landing")
 			Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a 
 			<a href="mailto:info@logo.pro">info@logo.pro</a>.<br/> `
 		},
-		 {
+		{
 			pregunta: "¿Poseo los derechos plenos de mi logotipo comprado?",
 			respuesta: `Usted es libre de usar su logotipo comprado  para cualquier uso comercial o no comercial sin permiso adicional. Si desea colocar una marca comercial en su diseño, deberá hacerlo con la ayuda de un abogado familiarizado con las leyes de su estado o país en este momento.<br/> <br/>
 			Para obtener más información, comuníquese con nuestro equipo de Atención al cliente a 
@@ -745,7 +765,7 @@ angular.module("landing")
 
 			return promise;
 		};
-		
+
 		this.loadEtiquetas = function (arr) {
 
 			return arr.map(function (et) {
@@ -754,10 +774,10 @@ angular.module("landing")
 					const element = et.traducciones[i];
 					element._lowername = element.valor.toLowerCase();
 				}
-				
+
 				return et;
 			});
-			
+
 		};
 
 		this.transformChip = function (chip) {
@@ -769,7 +789,7 @@ angular.module("landing")
 
 			// Otherwise, create a new one
 			return {
-				traducciones:[{
+				traducciones: [{
 					valor: chip
 				}]
 			};
@@ -802,12 +822,12 @@ angular.module("landing")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente", {
-					nombreCliente: nombreCliente,
-					correo: correo,
-					pass: pass,
-					telefono: telefono,
-					pais: pais
-				})
+				nombreCliente: nombreCliente,
+				correo: correo,
+				pass: pass,
+				telefono: telefono,
+				pais: pais
+			})
 				.then(function (res) {
 					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
 					clienteDatosFactory.definir(res.data);
@@ -1000,10 +1020,10 @@ angular.module("landing")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente/modificar", {
-					telefono: telefono,
-					nombreCliente: nombreCliente,
-					pais: pais
-				})
+				telefono: telefono,
+				nombreCliente: nombreCliente,
+				pais: pais
+			})
 
 				.then(function (res) {
 
@@ -1057,8 +1077,8 @@ angular.module("landing")
 			var promise = defered.promise;
 
 			$http.post("/app/cliente/email", {
-					email: correo
-				})
+				email: correo
+			})
 
 				.then(function () {
 					defered.reject();
@@ -1096,36 +1116,36 @@ angular.module("landing")
 					FB.login(function (response) {
 
 						$http.post("/app/cliente/social", {
-								origen: 'facebook',
-								token: response.authResponse.accessToken
-							}).then(function (res) {
+							origen: 'facebook',
+							token: response.authResponse.accessToken
+						}).then(function (res) {
 
-								$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-								clienteDatosFactory.definir(res.data);
-								defered.resolve(res);
+							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+							clienteDatosFactory.definir(res.data);
+							defered.resolve(res);
 
-							})
+						})
 							.catch(function (res) {
 								$window.localStorage.removeItem("bzToken");
 								defered.reject(res);
 							});
 					}, {
-						scope: 'email,user_friends,user_location'
-					});
+							scope: 'email,user_friends,user_location'
+						});
 
 					return promise;
 				}
 
 				$http.post("/app/cliente/social", {
-						origen: 'facebook',
-						token: datosUsuario.accessToken
-					}).then(function (res) {
+					origen: 'facebook',
+					token: datosUsuario.accessToken
+				}).then(function (res) {
 
-						$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-						clienteDatosFactory.definir(res.data);
-						defered.resolve(res);
+					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+					clienteDatosFactory.definir(res.data);
+					defered.resolve(res);
 
-					})
+				})
 					.catch(function (res) {
 						$window.localStorage.removeItem("bzToken");
 						defered.reject(res);
@@ -1148,14 +1168,14 @@ angular.module("landing")
 				GoogleAuth.signIn().then(function (res) {
 
 					$http.post("/app/cliente/social", {
-							origen: 'google',
-							token: res.Zi.id_token
-						}).then(function (res) {
-							$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-							clienteDatosFactory.definir(res.data);
-							defered.resolve(res);
+						origen: 'google',
+						token: res.Zi.id_token
+					}).then(function (res) {
+						$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+						clienteDatosFactory.definir(res.data);
+						defered.resolve(res);
 
-						})
+					})
 						.catch(function (res) {
 							$window.localStorage.removeItem("bzToken");
 							defered.reject(res);
@@ -1170,15 +1190,15 @@ angular.module("landing")
 			var datosUsuario = GoogleAuth.currentUser.get();
 
 			$http.post("/app/cliente/social", {
-					origen: 'google',
-					token: datosUsuario.Zi.id_token
-				}).then(function (res) {
+				origen: 'google',
+				token: datosUsuario.Zi.id_token
+			}).then(function (res) {
 
-					$window.localStorage.setItem("bzToken", angular.toJson(res.data));
-					clienteDatosFactory.definir(res.data);
-					defered.resolve(res);
+				$window.localStorage.setItem("bzToken", angular.toJson(res.data));
+				clienteDatosFactory.definir(res.data);
+				defered.resolve(res);
 
-				})
+			})
 				.catch(function (res) {
 					$window.localStorage.removeItem("bzToken");
 					defered.reject(res);

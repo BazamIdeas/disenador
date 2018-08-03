@@ -4,15 +4,15 @@
 
       <!-- LISTAR MONEDAS -->
 
-      <div class="paneles individual md-whiteframe-2dp">
-        <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+      <div class="paneles individual ">
+        <div layout layout-align="space-around center" layout-padding class="titulo-modulo border-top-green">
           <texto flex ng-click="moneda.listarMonedas()" ng-disabled="moneda.peticion">LISTADO DE MONEDAS</texto>
           <md-button class="md-primary md-fab md-mini" ng-click="moneda.acciones = 1" style="margin:0;">
             <md-icon>add</md-icon>
           </md-button>
         </div>
         <div ng-show="moneda.listaM">
-          <div layout class="elemento">
+          <div layout class="elemento" ng-hide="moneda.monedas.length == 0">
             <md-input-container flex style="margin-bottom: 0;height: 35px;">
               <input type="text" ng-model="moneda.$" class="md-block" aria-label="filtro" placeholder="Buscar:">
             </md-input-container>
@@ -47,8 +47,8 @@
 
       <!-- LISTAR PASARELAS -->
 
-      <div class="paneles individual md-whiteframe-2dp">
-        <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
+      <div class="paneles individual ">
+        <div layout layout-align="space-around center" layout-padding class="titulo-modulo border-top-green">
           <texto flex ng-click="moneda.listarPasarelas()" ng-disabled="moneda.peticion">LISTADO DE PASARELAS</texto>
           <md-button class="md-primary md-fab md-mini" ng-click="moneda.acciones = 3;" style="margin:0;">
             <md-icon>add</md-icon>
@@ -100,7 +100,7 @@
 
   <!-- ACCIONES VISTA -->
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    <div class="paneles md-whiteframe-2dp listar" ng-switch="moneda.acciones">
+    <div class="paneles  listar switch" ng-switch="moneda.acciones">
       <!-- CREAR MONEDA -->
       <div ng-switch-when="1">
         <div layout layout-align="space-between center" layout-padding class="titulo-modulo">

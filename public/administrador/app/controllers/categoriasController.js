@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('categoriasController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'categoriasService', 'SweetAlert', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, categoriasService, SweetAlert, notificacionService) {
+    .controller('categoriasController', ['$scope', 'categoriasService', 'notificacionService', function ($scope, categoriasService, notificacionService) {
 
         var bz = this;
 
@@ -17,6 +17,7 @@ angular.module("administrador")
 
         bz.listarCategorias = function (tipoCategoria) {
             bz.peticion = true;
+            bz.opcionesCategorias = null;
             bz.cats = [];
             categoriasService.listarCategorias({
                 tipo: tipoCategoria
@@ -31,15 +32,18 @@ angular.module("administrador")
                 bz.peticion = false;
             })
         }
+        
+        bz.mostrarC = true;
+        bz.f = true;
 
-        categoriasService.listarPreferencias().then(function (res) {
+/*         categoriasService.listarPreferencias().then(function (res) {
             bz.prefs = res.data;
         }).catch(function (res) {
             notificacionService.mensaje(res);
         }).finally(function () {
             bz.peticion = false;
         })
-
+ */
 
         /* MODIFICAR */
 

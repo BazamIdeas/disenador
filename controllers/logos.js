@@ -32,6 +32,12 @@ exports.guardar = function (req, res) {
 			break;
 	}
 
+	if (req.disenador && req.body.estado != "Por Aprobar"){
+			res.status(500).json({
+				"msg": "Error de validacion del tipo de usuario"
+			});
+	} 
+
 	var logoData = {
 		idLogo: null,
 		estado: estado,
@@ -72,8 +78,6 @@ exports.guardar = function (req, res) {
 
 					let tags = req.body.tags.existentes;
 
-					console.log(tagsGuard)
-
 					if (tagsGuard.length) {
 						tagsGuard.forEach(el => {
 
@@ -92,7 +96,7 @@ exports.guardar = function (req, res) {
 					}
 
 					Etiqueta.AsignarLogos(req.body.tags.existentes, data.insertId, (err, logoEti) => {
-						
+
 						res.status(200).json({ insertId: data.insertId, etiqetasGuardadas: etiquetasNuevas });
 
 					})
@@ -298,7 +302,7 @@ exports.listaLogosPorEstado = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -345,7 +349,7 @@ exports.listaLogosPorAprobar = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -394,7 +398,109 @@ exports.listaLogosAprobados = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
+
+				res.status(200).json(data);
+
+			});
+		}
+		//no existe
+		else {
+			res.status(404).json({
+				"msg": "No hay logos aprobados"
+			});
+		}
+	});
+
+};
+
+exports.listaLogosAprobadosPorTagCatSub = function (req, res) {
+
+	var idTag = req.body.idTag ? req.body.idTag : null;
+	var idSubcategoria = req.body.idSubcategoria ? req.body.idLogo : null;
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : null;
+
+	logo.listaLogosAprobadosPorTagCatSub(idTag, idSubcategoria, idCategoria, function (error, data) {
+
+		if(error) {
+			console.log(error);
+			res.status(500).json();
+			return;
+		}
+
+		if (typeof data !== "undefined" && data.length > 0) {
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+							data[key]["atributos"] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}
+
+					callback();
+
+				});
+
+			}, (err) => {
+
+				if (err) return res.status(402).json({});
+
+				res.status(200).json(data);
+
+			});
+		
+		} else {
+			res.status(404).json({
+				"msg": "No hay logos aprobados"
+			});
+		}
+	});
+
+};
+
+exports.listaLogosAprobadosCatPadre = function (req, res) {
+
+	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 0;
+
+	logo.getLogosAprobadosCatPadre(idLogo, idCategoria, function (error, data) {
+
+		if (typeof data !== "undefined" && data.length > 0) {
+			async.forEachOf(data, (logo, key, callback) => {
+
+
+				atributo.ObtenerPorLogo(logo.idLogo, function (err, dataAttrs) {
+
+					if (err) return callback(err);
+
+					try {
+
+						if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+							data[key]["atributos"] = dataAttrs;
+
+						}
+
+					} catch (e) {
+						return callback(e);
+					}
+
+					callback();
+
+				});
+
+			}, (err) => {
+
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -442,7 +548,7 @@ exports.listaLogosAprobadosPorCliente = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -489,7 +595,7 @@ exports.listaLogosVendidosPorCliente = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -535,7 +641,7 @@ exports.listaLogosAprobadosDestacados = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -585,7 +691,7 @@ exports.listaLogosGuardados = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -634,7 +740,7 @@ exports.listaLogosDescargables = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -701,7 +807,7 @@ exports.modificarLogo = function (req, res) {
 
 						}, (err) => {
 
-							if (err) res.status(402).json({});
+							if (err) return res.status(402).json({});
 
 							res.status(200).json(data);
 
@@ -1423,6 +1529,150 @@ exports.obtenerBinario = function (req, res) {
 				}
 
 			});
+		} else {
+			res.status(404).json({
+				"msg": "No existe el logo o no le pertenece al cliente"
+			});
+		}
+	});
+};
+
+exports.obtenerBinarioPredisenado = function (req, res) {
+	const idLogo = req.params.id;
+	const lang = req.lang.toLowerCase();
+	const ancho = 200;
+	let fuentes = {};
+
+	let textos = {
+		es: ['Su empresa', 'Eslogan o pie de marca'],
+		en: ['Your Company', 'Slogan or brand taglines'],
+		pt: ['Sua empresa', 'Slogan ou pé de marca'],
+	}[lang]
+
+	logo.getLogoPorId(idLogo, (error, data) => {
+
+		if (typeof data !== "undefined" && data.length > 0) {
+
+			var decode = base64.decode(data[0].logo)
+			decode = decode.replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/");
+			
+			decode = decode.split('class="textoPrincipal"', 2);
+
+			var textoPrincipal = decode[0] + 'class="textoPrincipal"';
+
+			var i = decode[1].slice(0, decode[1].indexOf('>') + 1);
+			var j = decode[1].slice(decode[1].indexOf('<'), decode[1].length);
+
+			decode = textoPrincipal + i + textos[0] + j
+
+			var decode = decode.split('class="eslogan"', 2);
+
+			if (decode.length > 1) {
+
+				var eslogan = decode[0] + 'class="eslogan"';
+
+				i = decode[1].slice(0, decode[1].indexOf('>') + 1);
+				j = decode[1].slice(decode[1].indexOf('<'), decode[1].length);
+
+				decode = eslogan + i + textos[1] + j;
+
+			} else {
+
+				decode = decode[0];
+
+			}
+
+			let nombre = idLogo + '_' + lang + ".svg";
+			const path = "public/tmp/shared/";
+
+			if (!fs.existsSync(__dirname + "/../" + path + nombre.replace("svg", "jpg") )) {
+
+				atributo.ObtenerPorLogo(data[0].idLogo, (err, dataAttrs) => {
+
+					if (typeof dataAttrs !== "undefined" && dataAttrs.length > 0) {
+
+						async.forEachOf(dataAttrs, (row, key, callback) => {
+
+							if (row.clave == "principal" || row.clave == "eslogan") {
+
+								elemento.datosElemento(row.valor, (err, fuente) => {
+
+									if (err) return callback(err);
+
+									try {
+
+										if (typeof fuente !== "undefined" && fuente.length > 0) {
+											fuentes[row.clave] = {
+												nombre: fuente[0].nombre,
+												url: fuente[0].url
+											};
+										}
+
+									} catch (e) {
+										return callback(e);
+									}
+
+									callback();
+								});
+							} else {
+								callback();
+							}
+						}, (err) => {
+							if (err) res.status(402).json({});
+
+							console.log(decode)
+
+							var buffer = new Buffer(decode);
+
+							fs.open(path + nombre, "w", (err, fd) => {
+								if (err) throw "error al crear svg " + err;
+
+								fs.write(fd, buffer, 0, buffer.length, null, err => {
+									if (err) throw "error al escribir " + err;
+
+									let svg = path + nombre;
+
+									var pngout = svg.replace("svg", "jpg");
+
+									fs.readFile(svg, (err, svgbuffer) => {
+										if (err) throw err;
+										svg2png(svgbuffer, {
+											width: ancho
+										})
+											.then(buffer => {
+												fs.writeFile(pngout, buffer, (err) => {
+
+													fs.unlink(svg, (err) => {
+														console.log(err)
+													});
+
+													setTimeout(() => {
+														res.sendFile(nombre.replace("svg", "jpg"), {
+															root: __dirname + "/../" + path
+														});
+													}, 1000)
+												});
+											})
+											.catch(e => console.log('error'));
+									});
+
+									fs.close(fd);
+								});
+							});
+
+						});
+
+					}
+
+				});
+
+			} else {
+
+				res.sendFile(nombre.replace("svg", "jpg"), {
+					root: __dirname + "/../" + path
+				});
+
+			}
 		} else {
 			res.status(404).json({
 				"msg": "No existe el logo o no le pertenece al cliente"

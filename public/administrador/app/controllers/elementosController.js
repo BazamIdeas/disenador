@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-	.controller('elementosController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", "etiquetasService", "idiomasService", function ($state, $mdSidenav, $mdDialog, $scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64, etiquetasService, idiomasService) {
+	.controller('elementosController', ['$scope', 'iconoFuente', 'categoriasService', 'notificacionService', "SweetAlert", "$base64", "etiquetasService", "idiomasService", function ($scope, iconoFuente, categoriasService, notificacionService, SweetAlert, $base64, etiquetasService, idiomasService) {
 
 		var bz = this;
 
@@ -33,6 +33,9 @@ angular.module("administrador")
 				bz.peticion = false;
 			})
 		}
+
+		bz.listarCategorias('FUENTE');
+		bz.l = true;
 
 		categoriasService.listarPreferencias().then(function (res) {
 			angular.forEach(res.data, function (valor) {

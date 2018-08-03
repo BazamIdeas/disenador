@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-	.controller("disenadoresController", ["$state", "$mdSidenav", "$scope", "administrarService", "notificacionService", "$base64", "designerService", function ($state, $mdSidenav, $scope, administrarService, notificacionService, $base64, designerService) {
+	.controller("disenadoresController", ["$scope", "notificacionService", "$base64", "designerService", "categoriasService", function ($scope, notificacionService, $base64, designerService, categoriasService) {
 
 		var bz = this;
 
@@ -11,16 +11,40 @@ angular.module("administrador")
 		bz.logosDisenador = [];
 		bz.vista = 0;
 
+		bz.listarCategorias = function () {
+            bz.peticion = true;
+			bz.cats = [];
+			bz.listaL = !bz.listaL;
+			
+            categoriasService.listarCategorias({
+                tipo: 'ICONO'
+            }).then(function (res) {
+
+                if (res == undefined) return notificacionService.mensaje('No hay categorias.');
+				bz.cats = res.data;
+				bz.listarLogos();
+
+            }).catch(function (res) {
+                notificacionService.mensaje(res);
+            })
+		}
+
+		bz.listarCategorias();
+		
 		/***************************/
 		/**********LOGOS***********/
 		/***************************/
 
 		bz.listarLogos = function () {
 			bz.logos = [];
-			bz.peticion = true;
-			bz.listaL = !bz.listaL;
+			bz.listandoLogos = true;
 			designerService.listarLogos().then(function (res) {
 				angular.forEach(res, function (valor) {
+					angular.forEach(bz.cats, function(element){
+						if(valor.categorias_idCategoria == element.idCategoria){
+							valor.nombreCategoria = element.nombreCategoria;
+						}
+					})
 					if (valor.atributos) {
 						if (valor.atributos.length > 0) {
 							angular.forEach(valor.atributos, function (valor2) {
@@ -33,12 +57,12 @@ angular.module("administrador")
 				});
 
 				bz.logos = res;
-			}).finally(function () {
-				bz.peticion = false;
+			}).catch(function (res) {
+                notificacionService.mensaje('No hay logos por aprobar');
+            }).finally(function () {
+				bz.listandoLogos = false;
 			})
 		};
-
-		bz.listarLogos();
 
 		bz.aprobarLogo = function (i, datos, id) {
 			bz.peticion = true;
@@ -143,12 +167,14 @@ angular.module("administrador")
 		bz.listarDisenadores = function () {
 			bz.disenadores = [];
 			bz.peticion = true;
+			bz.listandoDisenadores = true;
 
 			bz.listaD = !bz.listaD;
 			designerService.listarDisenadores().then(function (res) {
-				if (res != undefined) return bz.disenadores = res;
+				if (res != undefined) {bz.disenadores = res;}
 			}).finally(function () {
 				bz.peticion = false;
+				bz.listandoDisenadores = false;
 			})
 		};
 

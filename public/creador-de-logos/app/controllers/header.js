@@ -2,9 +2,32 @@ angular.module("disenador-de-logos")
 
 /* header */
 
-	.controller("headerController", ["clientesService", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", "$location", "disenadorService", "$mdToast", function (clientesService,  $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory, $location, disenadorService, $mdToast) {
+	.controller("headerController", ["clientesService", "$scope", "mostrarPasoPopAyudaFactory", "verificarBase64Factory", "$location", "disenadorService", "$mdToast", "$base64","$window", "$cookies",  function (clientesService,  $scope, mostrarPasoPopAyudaFactory, verificarBase64Factory, $location, disenadorService, $mdToast, $base64, $window, $cookies) {
 
 		var bz = this;
+
+		bz.texto = $window.traducciones.general.app_editor.header;
+
+		bz.idiomas =  $window.traducciones.idiomas;
+
+		bz.idiomaActivo =  $window.traducciones.lang
+
+		bz.cambiarIdioma = function (idioma) {
+			idiomaCookie = $cookies.get('logoLang');
+			
+			if (bz.idiomaActivo != idiomaCookie) {
+				$cookies.put("logoLang", idioma);
+				localStorage.removeItem('comenzar');
+				$('body').animate({
+					scrollTop: 0
+				}, 1000);
+				location.reload();
+			} else {
+				return;
+			};
+		};
+
+		bz.base64 = $base64;
 
 		bz.salir = function () {
 			clientesService.salir(true, true);
@@ -15,7 +38,6 @@ angular.module("disenador-de-logos")
 		bz.autorizado = clientesService.autorizado();
         
 		bz.mostrarPasoPopAyuda = mostrarPasoPopAyudaFactory;
-
 
 		/**** DATOS FREELANCER ****/
 
@@ -43,6 +65,7 @@ angular.module("disenador-de-logos")
 					bz.mostrarBannerDisenador = true;
 
 					if(clientesService.autorizado()){
+
 						clientesService.salir(true, true);
 					}
 
@@ -59,11 +82,13 @@ angular.module("disenador-de-logos")
 		}
 
 		bz.cerrarSesionDisenador = function(){
-			disenadorService.salir();
+			disenadorService.salir(true, true);
 			bz.mostrarFormDisenador = false;
 			bz.mostrarAccesoDisenador = false;
 			bz.mostrarBannerDisenador = false;
-		}	
+		}
+		
+
 
 		var params = $location.search();
 
@@ -82,6 +107,44 @@ angular.module("disenador-de-logos")
 
 		if(disenadorService.autorizado()){
 			bz.mostrarBannerDisenador = true;
+		}
+
+
+		bz.mostrarLogos = function(){
+			bz.mostrarLogosDisenador = true;
+		}
+
+		bz.logosDisenador = [];
+
+		bz.mostrarLogosContenedorDisenador = false;
+
+		bz.logosDisenadorCargados = true;
+
+		bz.mostrarLogosDisenador = function(){
+
+			if(!bz.logosDisenadorCargados){
+				return;
+			}
+
+			bz.logosDisenadorCargados = false;
+
+			disenadorService.logosAprobados()
+
+				.then(function(res){
+					bz.logosDisenador = res;
+					bz.mostrarLogosContenedorDisenador = true;
+				})
+				.catch(function(){
+					$mdToast.show($mdToast.base({
+						args: {
+							mensaje: "No tienes logos Aprobados",
+							clase: "Danger"
+						}
+					}));
+				})
+				.finally(function(){
+					bz.logosDisenadorCargados = true;					
+				})
 		}
 		
 

@@ -1,10 +1,12 @@
-var angularDragula = require('angularjs-dragula');
+var angularDragula = require("angularjs-dragula");
 
-angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "720kb.socialshare", "ngFileUpload"])
+angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui.router", "ngAnimate", "ngAria", "ngMaterial", "base64", "colorpicker", "720kb.socialshare", "ngFileUpload", "ngCookies"])
 
-	.config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider) {
+	.config(function ($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdToastProvider, $cookiesProvider) {
 
 		$locationProvider.html5Mode(true);
+
+		$cookiesProvider.defaults.path = "/";
 
 		/* INTERCEPTADOR */
 		$httpProvider.interceptors.push("AuthInterceptor");
@@ -73,22 +75,17 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 											fuente: datosLanding.idFuente
 										},
 										tags: datosLanding.etiquetasParaBusqueda,
-										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas,
-										preferencias: datosLanding.preferencias
+										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
 									},
-									palettesCopy: datosLanding.palettesCopy,
-									iconos: datosLanding.iconos,
-									fuentes: datosLanding.fuentes
+									palettesCopy: datosLanding.palettesCopy
 								};
 							} else {
 
-								console.log('Es pagina categoria');
+								var ramdomNivel = Math.floor(Math.random() * coloresPaletteValue.length) + 0;
 
-								let ramdomNivel = Math.floor(Math.random() * coloresPaletteValue.length) + 0;
+								var ramdomColor = Math.floor(Math.random() * coloresPaletteValue[ramdomNivel].length) + 0;
 
-								let ramdomColor = Math.floor(Math.random() * coloresPaletteValue[ramdomNivel].length) + 0;
-
-								let palettesCopy = [
+								var palettesCopy = [
 									[false, false, false, false, false, false, false, false, false, false],
 									[false, false, false, false, false, false, false, false, false, false],
 									[false, false, false, false, false, false, false, false, false, false],
@@ -101,9 +98,10 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 									datos: {
 										nombre: datosLanding.nombre,
 										categoria: {
-											icono: 0,
+											icono: datosLanding.idCategoria,
 											fuente: 2
 										},
+										subcategoria: datosLanding.subCategoria,
 										tags: datosLanding.etiquetasParaBusqueda,
 										etiquetasSeleccionadas: datosLanding.etiquetasSeleccionadas
 									},
@@ -114,6 +112,22 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						}
 
 						return false;
+					}],
+					predisenadoResolve: ["LS", "$stateParams", "$q",function (LS, $stateParams, $q){
+						
+						var datosPredisenado = LS.obtener("comenzarSub");
+
+						if(!datosPredisenado){
+							return {
+								categoria:0,
+								subCategoria: 0,
+								tag:""
+							};
+						}
+
+
+						return datosPredisenado;
+
 					}]
 				}
 			})
@@ -128,7 +142,8 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						logo: null,
 						texto: null,
 						fuentes: null,
-						idLogoGuardado: null
+						idLogoGuardado: null,
+						categoria: null
 					}
 				},
 				resolve: {
@@ -558,12 +573,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 
 		});
 
-		$rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
-
-			//Servicio para cerrar ayudas
-
-		});
-
 		$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
 
 
@@ -683,7 +692,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 						break;
 
 					default:
-						$state.go("inicio")
+						$state.go("inicio");
 
 				}
 

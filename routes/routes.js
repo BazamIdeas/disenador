@@ -6,11 +6,68 @@ var multipartMiddleware = multipart();
 var middleware = require("./middleware");
 var compression = require('compression');
 var setLang = require('../services/lang').setLang;
+const traducciones = require("../langs");
 
 router.use(compression());
 
-//MODULO CLIENTES
-//no espera parametros
+// IDIOMAS
+
+router.get("/idioma/cadena", function(req, res) {   
+
+    let lang = req.lang;
+
+    let data = {
+        lang: lang, 
+        planes: traducciones.planes[lang], 
+        categorias: traducciones.categories, 
+        idiomas: traducciones.langs[lang],
+        general: {}
+    };
+
+    let views = traducciones.views[lang];
+
+    let sectionQuery = req.query.section;
+
+    if(sectionQuery){
+
+        if(typeof sectionQuery === "string" && views[sectionQuery]){
+
+            let view = views[sectionQuery];
+
+            if(view){
+                data.general[sectionQuery] = view;
+            }
+
+        } else if(Array.isArray(sectionQuery)) {
+
+            for(singleQuery of sectionQuery){
+
+                let view = views[singleQuery];
+                    
+                if(view){
+
+                    data.general[singleQuery] = view;
+
+                }
+            }
+                
+        }
+           
+    } else  {
+        data.general = views;
+    }
+
+    let cadenaTraduccion = JSON.stringify(data);
+    let cadena = `var traducciones = ${cadenaTraduccion}`;
+
+    //if(traducciones.views[lang]){
+    res.type('text/javascript').status(200).send(cadena);
+    /*}else{
+        res.status(404).json({msg: 'No hay traducciones para ese idioma'});
+    }*/
+
+});
+
 router.get("/idioma/:lang", function(req, res) {
 
     setLang(res, req.params.lang);
@@ -19,6 +76,9 @@ router.get("/idioma/:lang", function(req, res) {
 });
 
 
+
+//MODULO CLIENTES
+//no espera parametros
 router.get("/clientes", middleware.validarAdministrador, controllers.clientes.listaClientes);
 router.get("/clientes/freelancer", middleware.validarAdministrador, controllers.clientes.listaClientesFreelancer);
 router.get("/clientes/freelancers", controllers.clientes.listaClientesFreelancer);
@@ -91,6 +151,7 @@ router.get("/pedido/no/pago/:tk", controllers.pedidos.noPago); // RUTAS INTERNAS
 
 //MODULO CATEGORIAS
 router.post("/categorias", controllers.categorias.listaCategorias);
+router.get("/categorias/hijas", controllers.categorias.listaCategoriasHijas);
 router.get("/categoria/iconos/:id", controllers.categorias.ListarIconos);
 router.get("/categoria/fuentes/:id", controllers.categorias.ListarFuentes);
 router.post("/categoria", middleware.validarAdministrador, controllers.categorias.nuevaCategoria);
@@ -191,6 +252,7 @@ router.get("/logo/zip", middleware.validarCliente, controllers.logos.zip);
 router.get("/logo/descargar", middleware.validarCliente, controllers.logos.descargar);
 router.post("/logo/compartir-email", middleware.validarCliente, controllers.logos.enviarPorEmail);
 router.get("/logo/compartido/:id", controllers.logos.obtenerBinario);
+router.get("/logo/predisenados/:id", controllers.logos.obtenerBinarioPredisenado);
 //router.get("/logo/compartir/:id", controllers.logos.htmlShare);
 router.get("/logo/:id", middleware.validarCliente, controllers.logos.datosLogo); //muestra los datos de un logo por su id
 router.post("/logo/guardar", middleware.validarCliente, controllers.logos.guardar);
@@ -205,6 +267,8 @@ router.post("/logos/estado", middleware.validarCliente, controllers.logos.listaL
 
 // lista aprobados por categoria si el idCategoria está incluido en la peticion
 router.post("/logos/aprobados", controllers.logos.listaLogosAprobados); 
+router.post("/logos/aprobados/cat-padre", controllers.logos.listaLogosAprobadosCatPadre); 
+router.post("/logos/aprobados/master", controllers.logos.listaLogosAprobadosPorTagCatSub)
 router.post("/logos/aprobados/destacados", controllers.logos.listaLogosAprobadosDestacados);
 
 //Administrador

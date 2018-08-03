@@ -1,6 +1,6 @@
 angular.module("administrador")
 
-    .controller('usuarioController', ["$state", "$mdSidenav", "$mdDialog", '$scope', 'clientesServiceAdmin', 'clientesService', 'SweetAlert', 'notificacionService', function ($state, $mdSidenav, $mdMenu, $scope, clientesServiceAdmin, clientesService, SweetAlert, notificacionService) {
+    .controller('usuarioController', ['$scope', 'clientesServiceAdmin', 'clientesService', 'SweetAlert', 'notificacionService', function ($scope, clientesServiceAdmin, clientesService, SweetAlert, notificacionService) {
 
         var bz = this;
         bz.loaderMostrar = true;

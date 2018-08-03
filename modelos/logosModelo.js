@@ -1,4 +1,5 @@
-var DB=require('./db.js');
+const DB = require('./db.js');
+const objectId = require('./mongo.js').objectId;
  
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var logo = {};
@@ -63,11 +64,11 @@ logo.getLogosPorAprobar = function(par,callback)
 logo.getLogosAprobados = function(id, idCategoria, callback)
 {
 	if (idCategoria > 0) {
-		var q = 'SELECT logos.* FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.idCategoria = ? ORDER BY logos.idLogo LIMIT 12';  
+		var q = 'SELECT logos.*, categorias.padre FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.idCategoria = ? ORDER BY logos.idLogo LIMIT 12';  
 	} 
 
 	else {
-		var q = 'SELECT logos.* FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.idCategoria > ? ORDER BY logos.idLogo LIMIT 12';  
+		var q = 'SELECT logos.*, categorias.padre  FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.idCategoria > ? ORDER BY logos.idLogo LIMIT 12';  
 	}
 
 	DB.getConnection(function(err, connection)
@@ -82,6 +83,303 @@ logo.getLogosAprobados = function(id, idCategoria, callback)
 	  	});
 	});
 }
+
+
+const getFeaturedByIDs = (ids) => {
+
+	let connPromise = new Promise((resolve, reject) => {
+
+		DB.getConnection( (err, connection) => {
+
+			if(err){
+				reject(err);
+				return;
+			}
+
+			resolve(connection);
+
+		});
+
+	})
+
+	let promise = new Promise( async (resolve, reject) => {
+
+		try {
+
+			let  connection = await connPromise;
+			
+			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos WHERE idLogo IN (?) ORDER BY RAND() LIMIT 12', [ids], (err, logosPorID) => {
+
+				connection.release();
+
+				if (err) {
+					reject(err);
+					return;
+				}
+
+				resolve(logosPorID);
+			});
+		} catch (e) {
+			reject(e);
+		}
+		
+	
+	})
+
+	return promise;
+
+}
+
+const getFeaturedBySubcat = (idSubcategoria, max) => {
+
+	let connPromise = new Promise((resolve, reject) => {
+
+		DB.getConnection( (err, connection) => {
+
+			if(err){
+				reject(err);
+				return;
+			}
+
+			resolve(connection);
+
+		});
+
+	})
+
+	let promise = new Promise( async (resolve, reject) => {
+
+		try {
+
+			if(!idSubcategoria){
+				resolve([]);
+				return;
+			}
+
+			let  connection = await connPromise;
+
+			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos WHERE ? IS NOT NULL and categorias_idCategoria = ? ORDER BY RAND() LIMIT ?', [idSubcategoria /*TODO:*/, idSubcategoria, max], (err, logosPorSubCat) => {
+
+				connection.release();
+
+				if (err) {
+					reject(err);
+					return;
+				}
+
+				resolve(logosPorSubCat);
+			});
+							
+		} catch (e) {
+			reject(e);
+		}
+		
+	
+	})
+
+	return promise;
+	
+}
+
+const getFeaturedByCat = (idCategoria, max) => {
+
+	let connPromise = new Promise((resolve, reject) => {
+
+		DB.getConnection( (err, connection) => {
+
+			if(err){
+				reject(err);
+				return;
+			}
+
+			resolve(connection);
+
+		});
+
+	})
+	
+	let promise = new Promise( async (resolve, reject) => {
+
+		try{
+
+			let connection = await connPromise;
+
+			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND categorias.padre = ? ORDER BY RAND() LIMIT ?', [idCategoria, max], (err, logosPorCat) => {
+
+				connection.release();
+	
+				if(err) {
+					reject(err);
+					return; 
+				}
+				
+				resolve(logosPorCat); 
+				
+			});
+
+
+		} catch(e) {
+
+			reject(e)
+		}
+		
+	})
+
+	return promise;
+	
+}
+
+
+
+logo.listaLogosAprobadosPorTagCatSub = function (idTag, idSubcategoria, idCategoria, callback) {
+
+	__mongoClient(db => {
+		const logos = db.collection('logos');
+
+		logos.aggregate([{
+			$match: {
+				'etiquetas': objectId(idTag)
+			}
+		}, {
+			$project: { idLogo: 1 }
+		}]).toArray( async (err, docs) => {
+			
+			if (err) return callback(err);
+
+			if (docs.length) {
+				
+				docs = docs.map(el => el.idLogo);
+
+			} else{
+
+				docs = [0];
+			}
+
+			try {
+
+				let logosPorID = await getFeaturedByIDs(docs);
+
+				if (logosPorID.length > 11) {
+
+					return callback(null, logosPorID);
+
+				}
+
+				let resto =  12 - logosPorID.length
+
+				let logosPorSubCat = await getFeaturedBySubcat(idSubcategoria, resto);
+
+				if (logosPorSubCat.length > resto - 1)  {
+
+					return callback(null, logosPorID.concat(logosPorSubCat));
+				}
+
+				resto -= logosPorSubCat.length;
+
+				let logosPorCat = await getFeaturedByCat(idCategoria, resto);
+
+
+				//if (logosPorCat.length > resto - 1) {
+
+				return callback(null, logosPorID.concat(logosPorSubCat).concat(logosPorCat));
+
+				//}
+
+
+			} catch (e){
+				
+				return callback(e);
+			}
+
+
+			/*
+			DB.getConnection( (err, connection) => {
+
+
+			
+				let query = 'SELECT * FROM logos WHERE idLogo IN (?) ORDER BY RAND() LIMIT 12'
+
+				connection.query(query, [docs], (err, logosPorID) => {
+					if (err) return callback(err);
+
+					if (logosPorID.length > 11) {
+
+						return callback(null, logosPorID);
+
+					} else {
+						/*
+						let resto =  12 - logosPorID.length
+
+						query = 'SELECT * FROM logos WHERE ? IS NOT NULL and categorias_idCategoria = ? ORDER BY RAND() LIMIT ?'
+
+						connection.query(query, [idCategoria, idSubcategoria, resto], (err, logosPorSubCat) => {
+							if (err) return callback(err);
+
+							if (logosPorSubCat.length > resto - 1) {
+
+								return callback(null, logosPorID.concat(logosPorSubCat));
+							
+							} else {
+								
+								resto = logosPorSubCat.length - resto;
+
+								query = 'SELECT * FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.padre = ? ORDER BY RAND() LIMIT ?'
+
+								connection.query(query, [idCategoria, resto], (err, logosPorCat) => {
+									if (err) return callback(err);
+
+									if (logosPorCat.length > resto - 1) {
+
+										return callback(null, logosPorID.concat(logosPorSubCat).concat(logosPorCat));
+
+									} else {
+
+										return callback(null, logosPorID.concat(logosPorSubCat).concat(logosPorCat));
+
+									}
+
+									connection.release();
+								});
+
+								
+
+							}
+
+							connection.release();
+						});
+					
+					}
+
+					connection.release();
+				});
+
+			});
+
+			*/
+
+		})
+	})
+
+}
+
+
+logo.getLogosAprobadosCatPadre = function (id, idCategoria, callback) {
+
+	var q = 'SELECT logos.*, categorias.idCategoria, categorias.nombreCategoria  FROM logos  INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.padre = ? ORDER BY logos.idLogo';
+
+
+	DB.getConnection(function (err, connection) {
+		connection.query(q, [id, idCategoria], function (err, rows) {
+
+			if (err) throw err;
+
+			else callback(null, rows);
+
+			connection.release();
+		});
+	});
+}
+
 
 logo.getLogosAprobadosPorCliente = function(id,callback)
 {

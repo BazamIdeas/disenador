@@ -120,7 +120,6 @@ menu *:not(md-icon) {
     text-align: center;
     position: relative;
     background: white;
-    border-bottom: 1px solid silver;
 }
 
 .titulo-modulo button {
@@ -217,16 +216,18 @@ md-toolbar:not(.md-menu-toolbar) {
     -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
     color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: sans-serif;
     font-size: 16px;
-    text-align: right;
-    width: 15%;
+    text-align: center;
+    text-transform: capitalize;
+    width: 11%;
 }
 
 .icono-header {
-    font-size: 40px;
+    font-size: 30px;
     width: auto;
     height: auto;
+    padding: 0;
 }
 
 .menu-header p {
@@ -235,15 +236,37 @@ md-toolbar:not(.md-menu-toolbar) {
     cursor: pointer;
 }
 
-.menu-header p:hover {
-    background: #0a1721;
-    color: white;
+.paneles{
+    background: white;
 }
 
-.paneles {
-    background: var(--light-color);
-    -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+.paneles:not(.switch) {
+    border: 1px solid #c0c0c07d;
+}
+
+.paneles.switch .titulo-modulo{
+    border-top:5px solid var(--alternal-color);
+}
+
+.paneles.switch > div{
+    border: 1px solid #c0c0c07d;
+}
+
+table.w3-table.w3-bordered {
+    border-top: 1px solid #c0c0c07d;
+}
+
+
+.no-border{
+    border: none !important;
+}
+
+.border-top-green{
+    border-top:5px solid var(--alternal-color);
+}
+
+.border-top{
+    border: 1px solid #c0c0c07d;
 }
 
 .text-center {
@@ -331,7 +354,6 @@ table tr>th {
 
 .listar .elemento.inside {
     margin-bottom: 0px;
-    margin-top: 8px;
 }
 
 .listar .elemento.nopadding {
@@ -413,7 +435,6 @@ opcion-tabla md-icon {
 }
 
 .formularios-login {
-    background: var(--background-formularios);
     padding: 0px;
 }
 
@@ -449,7 +470,7 @@ opcion-tabla md-icon {
 .content-scroll {
     overflow-x: hidden;
     overflow-y: scroll;
-    max-height: 50%;
+    max-height: 80%;
 }
 
 .scroll {
@@ -460,11 +481,11 @@ opcion-tabla md-icon {
 
 ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 15px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
+    border-radius: 0px;
     background-color: rgba(0, 0, 0, .5) !important;
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
     box-shadow: 0 0 1px rgba(255, 255, 255, .0);
@@ -472,11 +493,11 @@ opcion-tabla md-icon {
 
 ::-moz-scrollbar {
     -webkit-appearance: none;
-    width: 4px;
+    width: 5px;
 }
 
 ::-moz-scrollbar-thumb {
-    border-radius: 4px;
+    border-radius: 0px;
     background-color: rgba(0, 0, 0, .0);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .0);
     box-shadow: 0 0 1px rgba(255, 255, 255, .0);
@@ -484,8 +505,7 @@ opcion-tabla md-icon {
 
 /* PEDIDOS */
 
-.pedido.completado,
-.titulo-modulo {
+.pedido.completado{
     border-top: 6px solid #1caf9a;
 }
 
@@ -554,10 +574,19 @@ opcion-tabla md-icon {
     text-transform: capitalize;
 }
 
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar{
+    background: var(--alternal-color);
+    background-color: var(--alternal-color);
+}
+
+md-progress-linear._md-progress-linear-disabled {
+    visibility: visible !important;
+}
+
 /* CLIENTE */
 
 .titulo-modulo texto {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
     display: block;
     font-family: 'futura-heavy' !important;
@@ -676,21 +705,16 @@ menu {
 }
 
 menu.centrado .menuItem {
-    padding: 12% 0px;
     margin: auto;
     display: block;
-    width: 100%;
-}
-
-menu.centrado .material-icons {
-    font-size: 32px;
-    display: block;
-    margin: auto;
-}
-
-menu.centrado md-icon {
-    height: 30px;
-    width: 35px;
+    width: 50px;
+    height: 50px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 0;
 }
 
 .sidemenu-menu.grande {
@@ -770,7 +794,33 @@ menu.centrado md-icon {
     background-color: #B2DFDB;
 }
 
+.acceso-rapido {
+    position: relative;
+}
 
+.urls-internas {
+    position: absolute;
+    font-size: 10pt;
+    display: flex;
+    top: 100%;
+    background: white;
+    flex-wrap: wrap;
+    width: 350px;
+    color: black;
+    justify-content: space-around;
+    border: 1px solid silver;
+    padding-bottom: 4px;
+}
+
+.urls-internas > span {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid white;
+}
+
+.urls-internas > span:hover, .urls-internas > span.activo {
+    border-bottom: 1px solid black;
+}
 
 
 @media (min-device-width:1024px) and (max-device-width:1180px), (min-width:1024px) and (max-width:1180px) {

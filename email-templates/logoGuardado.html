@@ -1,9 +1,435 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
 <head>
+	<meta charset="utf-8">
+	<!-- utf-8 works for most cases -->
+	<meta name="viewport" content="width=device-width">
+	<!-- Forcing initial-scale shouldn't be necessary -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- Use the latest (edge) version of IE rendering engine -->
+	<meta name="x-apple-disable-message-reformatting">
+	<!-- Disable auto-scale in iOS 10 Mail entirely -->
 	<title></title>
+	<!-- The title tag shows in email notifications, like Android 4.4. -->
+
+	<!-- Web Font / @font-face : BEGIN -->
+
+	<!-- NOTE: If web fonts are not required, lines 10 - 27 can be safely removed. -->
+
+	<!-- Desktop Outlook chokes on web font references and defaults to Times New Roman, so we force a safe fallback font. -->
+	<!--[if mso]>
+        <style>
+            * {
+                font-family: sans-serif !important;
+            }
+        </style>
+    <![endif]-->
+
+	<!-- All other clients get the webfont reference; some will render the font and others will silently fail to the fallbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-support-in-email/ -->
+	<!--[if !mso]><!-->
+	<!-- insert web font reference, eg: <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800" rel="stylesheet" type='text/css'>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+	 crossorigin="anonymous" type='text/css'>
+	<!--<![endif]-->
+
+	<!-- Web Font / @font-face : END -->
+
+	<!-- CSS Reset : BEGIN -->
+
+	<style>
+		/* What it does: Remove spaces around the email design added by some email clients. */
+
+		/* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+
+		html,
+		body {
+			margin: 0 auto !important;
+			padding: 0 !important;
+			height: 100% !important;
+			width: 100% !important;
+		}
+
+		/* What it does: Stops email clients resizing small text. */
+
+		* {
+			-ms-text-size-adjust: 100%;
+			-webkit-text-size-adjust: 100%;
+		}
+
+		/* What it does: Centers email on Android 4.4 */
+
+		div[style*="margin: 16px 0"] {
+			margin: 0 !important;
+		}
+
+		/* What it does: Stops Outlook from adding extra spacing to tables. */
+
+		table,
+		td {
+			mso-table-lspace: 0pt !important;
+			mso-table-rspace: 0pt !important;
+		}
+
+		/* What it does: Fixes webkit padding issue. Fix for Yahoo mail table alignment bug. Applies table-layout to the first 2 tables then removes for anything nested deeper. */
+
+		table {
+			border-spacing: 0 !important;
+			border-collapse: collapse !important;
+			table-layout: fixed !important;
+			margin: 0 auto !important;
+		}
+
+		table table table {
+			table-layout: auto;
+		}
+
+		/* What it does: Uses a better rendering method when resizing images in IE. */
+
+		img {
+			-ms-interpolation-mode: bicubic;
+		}
+
+		/* What it does: A work-around for email clients meddling in triggered links. */
+
+		*[x-apple-data-detectors],
+		/* iOS */
+
+		.unstyle-auto-detected-links *,
+		.aBn {
+			border-bottom: 0 !important;
+			cursor: default !important;
+			color: inherit !important;
+			text-decoration: none !important;
+			font-size: inherit !important;
+			font-family: inherit !important;
+			font-weight: inherit !important;
+			line-height: inherit !important;
+		}
+
+		/* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
+
+		.a6S {
+			display: none !important;
+			opacity: 0.01 !important;
+		}
+
+		/* If the above doesn't work, add a .g-img class to any image in question. */
+
+		img.g-img+div {
+			display: none !important;
+		}
+
+		/* What it does: Prevents underlining the button text in Windows 10 */
+
+		.button-link {
+			text-decoration: none !important;
+		}
+
+		/* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+
+		/* Create one of these media queries for each additional viewport size you'd like to fix */
+
+		/* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
+
+		@media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+			.email-container {
+				min-width: 320px !important;
+			}
+		}
+
+		/* iPhone 6, 6S, 7, 8, and X */
+
+		@media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+			.email-container {
+				min-width: 375px !important;
+			}
+		}
+
+		/* iPhone 6+, 7+, and 8+ */
+
+		@media only screen and (min-device-width: 414px) {
+			.email-container {
+				min-width: 414px !important;
+			}
+		}
+	</style>
+	<!-- CSS Reset : END -->
+	<!-- Reset list spacing because Outlook ignores much of our inline CSS. -->
+	<!--[if mso]>
+	<style type="text/css">
+		ul,
+		ol {
+			margin: 0 !important;
+		}
+		li {
+			margin-left: 30px !important;
+		}
+		li.list-item-first {
+			margin-top: 0 !important;
+		}
+		li.list-item-last {
+			margin-bottom: 10px !important;
+		}
+	</style>
+	<![endif]-->
+
+	<!-- Progressive Enhancements : BEGIN -->
+	<style>
+		/* What it does: Hover styles for buttons */
+
+		a.link {
+			background: #ffffff;
+			color: #000000;
+
+		}
+
+		a.link:hover {
+			border: #5980B7 !important;
+			background: #5980B7;
+			color: #ffffff;
+		}
+
+		a.link:hover span {
+			color: #ffffff !important;
+		}
+
+		.video-wrapper {
+			display: none;
+		}
+
+		@supports (-webkit-overflow-scrolling:touch) and (color:#ffffffff) {
+			div[class^=video-wrapper] {
+				display: block !important;
+			}
+			div[class^=video-fallback] {
+				display: none !important;
+			}
+		}
+
+		@media (-webkit-min-device-pixel-ratio: 0) and (min-device-width:1024px) {
+			.video-wrapper {
+				display: block !important;
+			}
+			.video-fallback {
+				display: none !important;
+			}
+		}
+
+
+		/* Media Queries */
+
+		@media screen and (max-width: 600px) {
+
+			/* What it does: Adjust typography on small screens to improve readability */
+			.email-container p {
+				font-size: 17px !important;
+			}
+
+		}
+	</style>
+	<!-- Progressive Enhancements : END -->
+
+	<!-- What it does: Makes background images in 72ppi Outlook render at correct size. -->
+	<!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+
 </head>
-<body>
-	<h1>{#uno#} {#dos#}</h1>
+<!--
+	The email background color (#ffffff) is defined in three places:
+	1. body tag: for most email clients
+	2. center tag: for Gmail and Inbox mobile apps and web versions of Gmail, GSuite, Inbox, Yahoo, AOL, Libero, Comcast, freenet, Mail.ru, Orange.fr
+	3. mso conditional: For Windows 10 Mail
+-->
+
+<body width="100%" style="margin: 0; mso-line-height-rule: exactly; background-color: #ffffff;">
+	<center style="width: 100%; background-color: #ffffff; text-align: center;">
+		<!--[if mso | IE]>
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff;">
+    <tr>
+    <td>
+    <![endif]-->
+
+		<!-- Visually Hidden Preheader Text : BEGIN -->
+		<div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+			(Optional) This text will appear in the inbox preview, but not the email body. It can be used to supplement the email subject
+			line or even summarize the email's contents. Extended text preheaders (~490 characters) seems like a better UX for anyone
+			using a screenreader or voice-command apps like Siri to dictate the contents of an email. If this text is not included,
+			email clients will automatically populate it using the text (including image alt text) at the start of the email's body.
+		</div>
+		<!-- Visually Hidden Preheader Text : END -->
+
+		<!-- Create white space after the desired preview text so email clients don’t pull other distracting text into the inbox preview. Extend as necessary. -->
+		<!-- Preview Text Spacing Hack : BEGIN -->
+		<div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+			&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+		</div>
+		<!-- Preview Text Spacing Hack : END -->
+
+		<!--
+            Set the email width. Defined in two places:
+            1. max-width for all clients except Desktop Windows Outlook, allowing the email to squish on narrow but never go wider than 600px.
+            2. MSO tags for Desktop Windows Outlook enforce a 600px width.
+        -->
+		<div style="max-width: 100%; margin: auto; border: 1px solid #5980B7" class="email-container">
+			<!--[if mso]>
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" align="center">
+            <tr>
+            <td>
+            <![endif]-->
+
+			<!-- Email Header : BEGIN -->
+			<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 100%;">
+				<tr>
+					<td style="padding: 20px 0; text-align: center; background-color: #5980B7">
+
+					</td>
+				</tr>
+			</table>
+			<!-- Email Header : END -->
+
+			<!-- Email Body : BEGIN -->
+			<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 800px;">
+
+				<!-- Hero Image, Flush : BEGIN -->
+				<tr>
+					<td align="center" style="padding-top: 40px; font-size: 40px; font-weight: 800;font-family: 'Nunito Sans', sans-serif;">Bienvenido a</td>
+				</tr>
+				<tr>
+					<td align="center" style="background-color: transparent;">
+						<img src="http://test.logo.pro/creador-de-logos/assets/logo.pro.png" alt="alt_text" border="0" align="center" style="width: 400px; max-width: 100%; height: auto; background: #ffffff; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #ffffff; margin: auto;"
+						 class="g-img">
+					</td>
+				</tr>
+				<tr>
+					<td align="center" style="height: 50px;"></td>
+				</tr>
+				<tr>
+					<td align="center" style="font-size: 28px;font-family: 'Nunito Sans', sans-serif; font-weight: bold">Hola ${nombre}</td>
+				</tr>
+				<tr>
+					<td align="center" style="font-size: 28px;font-family: 'Nunito Sans', sans-serif;">Ya tienes tu diseño guardado en tu cuenta.</td>
+				</tr>
+				<tr>
+					<td align="center" style="padding: 50px 0px;">
+						<div style="width: 80%; height: 2px; background-color: #000000;"></div>
+					</td>
+				</tr>
+				<!-- Hero Image, Flush : END -->
+
+				<!-- 1 Column Text + Button : BEGIN -->
+				<tr>
+					<td style="background-color: #transparent;">
+						<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+							<tr>
+								<td style="padding: 30px 13%; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
+									<h1 style="margin: 0 0 10px 0; font-family: 'Nunito Sans', sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">Recuerda que además del logo puedes crear tarjetas, sobres y hojas membretadas, con un diseño profesional.</h1>
+								</td>
+							</tr>
+
+							<tr>
+								<td style="padding: 40px; font-family: 'Nunito Sans', sans-serif; font-size: 15px; line-height: 140%; color: #000000;">
+									<a class="link" style="padding: 10px 15px;border: 2px solid #000000; border-radius: 30px; text-decoration: none; font-weight: 800; color: #000000"
+									 href="${baseurl}/{noc}" target="_blank">
+										<span style="color: #000000;">VER MI DISEÑO GUARDADO</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<!-- 1 Column Text + Button : END -->
+
+				<!-- 1 Column Text : BEGIN -->
+				<tr>
+					<td style="background-color: transparent;">
+						<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+							<tr style="padding: 30px 13%; font-family: sans-serif; line-height: 140%; color: #000000;">
+								<td style="padding: 0 40px; font-family: 'Nunito Sans', sans-serif; font-size: 24px; line-height: 140%; color: #000000;">
+									<h1 style="margin: 0;">¡Saludos!</h1>
+									<p>El equipo de Logo.pro</p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<!-- 1 Column Text : END -->
+
+			</table>
+			<!-- Email Body : END -->
+
+			<!-- Email Footer : BEGIN -->
+			<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px;">
+				<tr>
+					<td style="padding: 25px;"></td>
+				</tr>
+				<tr>
+					<td style="padding: 40px 10px; font-family: sans-serif; font-size: 30px; line-height: 140%; text-align: center; color: #5980B7;">
+						<div style="height:30px;">
+							<a href="#" target="_blank" style="color: #5980B7; text-decoration:none;">
+								<img height="100%" src="http://test.logo.pro/creador-de-logos/assets/social/fb.png">
+							</a>
+						</div>
+					</td>
+					<td style="padding: 40px 10px; font-family: sans-serif; font-size: 30px; line-height: 140%; text-align: center; color: #5980B7;">
+						<div style="height:30px;">
+							<a href="#" target="_blank" style="color: #5980B7; text-decoration:none;">
+								<img height="100%" src="http://test.logo.pro/creador-de-logos/assets/social/tw.png">
+							</a>
+						</div>
+					</td>
+					<td style="padding: 40px 10px; font-family: sans-serif; font-size: 30px; line-height: 140%; text-align: center; color: #5980B7;">
+						<div style="height:30px;">
+							<a href="#" target="_blank" style="color: #5980B7; text-decoration:none;">
+								<img height="100%" src="http://test.logo.pro/creador-de-logos/assets/social/ig.png">
+							</a>
+						</div>
+					</td>
+					<td style="padding: 40px 10px; font-family: sans-serif; font-size: 30px; line-height: 140%; text-align: center; color: #5980B7;">
+						<div style="height:30px;">
+							<a href="#" target="_blank" style="color: #5980B7; text-decoration:none;">
+								<img height="100%" src="http://test.logo.pro/creador-de-logos/assets/social/gg.png">
+							</a>
+						</div>
+					</td>
+					<td style="padding: 40px 10px; font-family: sans-serif; font-size: 30px; line-height: 140%; text-align: center; color: #5980B7;">
+						<div style="height:30px;">
+							<a href="#" target="_blank" style="color: #5980B7; text-decoration:none;">
+								<img height="100%" src="http://test.logo.pro/creador-de-logos/assets/social/pr.png">
+							</a>
+						</div>
+					</td>
+					<td style="padding: 40px 10px; font-family: sans-serif; font-size: 30px; line-height: 140%; text-align: center; color: #5980B7;">
+						<div style="height:30px;">
+							<a href="#" target="_blank" style="color: #5980B7; text-decoration:none;">
+								<img height="100%" src="http://test.logo.pro/creador-de-logos/assets/social/ld.png">
+							</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<!-- Email Footer : END -->
+
+			<!--[if mso]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+		</div>
+
+		<!--[if mso | IE]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
+	</center>
 </body>
+
 </html>

@@ -1,14 +1,15 @@
 <div class="row start-xs">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 margen_inferior">
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 margen_inferior">
         <div class="listar">
 
             <!-- LISTAR USUARIOS -->
 
-            <div class="paneles individual md-whiteframe-2dp">
+            <div class="paneles individual">
+                <md-progress-linear ng-disabled="usuario.usuarios.length" md-mode="indeterminate"></md-progress-linear>
                 <div layout layout-align="none center" layout-padding ng-click="usuario.listarU()" class="titulo-modulo">
                     <texto>LISTAR USUARIOS</texto>
                 </div>
-                <div ng-show="usuario.mostrarU">
+                <div ng-show="usuario.mostrarU && usuario.usuarios.length">
                     <div layout class="elemento">
                         <md-input-container flex style="margin-bottom: 0;height: 35px;">
                             <input type="text" ng-model="usuario.buscar" class="md-block" aria-label="filtro" placeholder="Buscar:">
@@ -44,7 +45,8 @@
 
             <!-- REGISTRAR USUARIO -->
 
-            <div class="paneles individual md-whiteframe-2dp">
+            <div class="paneles individual ">
+                <md-progress-linear ng-disabled="!usuario.peticion" md-mode="indeterminate"></md-progress-linear>
                 <div layout layout-align="none center" layout-padding ng-click="usuario.mostrarR = !usuario.mostrarR" class="titulo-modulo">
                     <texto>REGISTRO USUARIO</texto>
                 </div>
@@ -83,21 +85,18 @@
                         <div layout>
                             <md-button ng-disabled="usuario.peticion" class="md-raised md-primary" type="submit">Registrar</md-button>
                         </div>
-                        <div layout layout-align="center" ng-show="usuario.loaderCargando" class="margen_superior">
-                            <md-progress-circular md-mode="indeterminate" md-diameter="40"></md-progress-circular>
-                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8" ng-show="usuario.mostrarMo">
-        <div class="paneles md-whiteframe-2dp listar">
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-show="usuario.mostrarMo">
+        <div class="paneles  listar">
 
             <!-- MODIFICAR USUARIOS -->
 
-            <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
+            <div layout layout-align="space-between center" layout-padding class="titulo-modulo border-top-green">
                 <texto>MODIFICAR USUARIO</texto>
                 <md-button ng-click="usuario.mostrarMo = false" style="margin:0;">
                     <md-icon>keyboard_arrow_left</md-icon>
