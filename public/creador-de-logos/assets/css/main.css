@@ -2211,7 +2211,7 @@ bazam-papeleria {
   justify-content: center;
   align-items: center; }
 
-[movimiento-bz]:not(.contenedor-icono) {
+[movimiento-bz]:not(.eslogan) {
   fill: transparent;
   cursor: crosshair;
   cursor: -moz-grabbing;
