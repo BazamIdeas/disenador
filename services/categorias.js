@@ -40,8 +40,14 @@ exports.formatearCategorias = (categorias, lang) => {
 
             categoria.traduccion = traducciones[categoria.idCategoria][lang];
 
-            nombre = categoria.traduccion.label;
+            nombre = limpiarlabel(categoria.traduccion.label);
+           
+            categoria.urlImagen = limpiarlabel(traducciones[categoria.idCategoria]['ES'].label);
 
+            return categoria.categoriaFormateada = nombre;
+        }
+
+        function limpiarlabel(nombre){
             while (nombre.indexOf(' ') != -1) {
                 nombre = nombre.replace(' ', '-');
             }
@@ -60,9 +66,7 @@ exports.formatearCategorias = (categorias, lang) => {
             nombre = nombre.replace(/ú/gi, "u");
             nombre = nombre.replace(/ñ/gi, "n");
 
-            nombre = nombre.toLowerCase();
-
-            return categoria.categoriaFormateada = nombre;
+            return nombre.toLowerCase();
         }
 
     });

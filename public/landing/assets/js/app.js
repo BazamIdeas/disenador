@@ -233,7 +233,7 @@ jQuery(document).ready(function ($) {
 		}
 
 		if (idiomaActivo != codigo) {
-			document.cookie = "logoLang=" + codigo;
+			document.cookie = "logoLang=" + codigo +'; Path=/';
 			$("html").animate({
 				scrollTop: 0
 			}, 1000);

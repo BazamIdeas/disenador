@@ -26,7 +26,7 @@ categoria.getCategoriasHijas = function (conPadre, callback) {
 	
 	if (conPadre) {
 		
-		var q = "SELECT idCategoria , nombreCategoria FROM categorias WHERE NOT(nombreCategoria = 'Sin Categoria') AND padre = ? AND tipo = 'ICONO'  ORDER BY idCategoria";
+		var q = "SELECT idCategoria , nombreCategoria, padre FROM categorias WHERE NOT(nombreCategoria = 'Sin Categoria') AND padre = ? AND tipo = 'ICONO'  ORDER BY idCategoria";
 
 	} else {
 		var q = "SELECT idCategoria , nombreCategoria, padre FROM categorias WHERE NOT(nombreCategoria = 'Sin Categoria') AND padre IS NOT NULL AND tipo = 'ICONO'  ORDER BY idCategoria";
