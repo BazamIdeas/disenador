@@ -1553,8 +1553,8 @@ angular.module("disenador-de-logos")
 						
 							var caracteristicas = bz.papeleria.modelo.caras[identidad.data.cara].logos[identidad.data.logo].caracteristicas;
 
-							var altoLogo = caracteristicas.height;
-							var anchoLogo = caracteristicas.width;
+							var altoLogo = parseInt(caracteristicas.height);
+							var anchoLogo = parseInt(caracteristicas.width);
 
 							if (buttonAction == "minus") {
 
