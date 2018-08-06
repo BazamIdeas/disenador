@@ -886,6 +886,11 @@ md-select-menu span.texto-on-select {
   .selector-de-idiomas.--flags md-select.md-default-theme:not([disabled]):focus .md-select-value, .selector-de-idiomas.--flags md-select:not([disabled]):focus .md-select-value {
     border-bottom-color: transparent !important; }
 
+.color-trans {
+  color: transparent !important;
+  background: url(../images/spinner-white.gif);
+  background-size: cover; }
+
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 ------HEADER SCSS--------------------------------------------------------------------------

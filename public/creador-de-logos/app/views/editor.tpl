@@ -162,7 +162,7 @@
 							 ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
 								<label>Etiquetas</label>
 								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
-								 md-item-text="item.traducciones[0].valor" placeholder="{{::editor.lang[13]}}">
+								 md-item-text="item.traducciones[0].valor" placeholder="{{::editor.lang[28]}}">
 									<span md-highlight-text="editor.searchText">{{::item.traducciones[0].valor}}</span>
 								</md-autocomplete>
 								<md-chip-template>
