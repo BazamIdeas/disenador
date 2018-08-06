@@ -173,11 +173,10 @@
 							</md-chips>
 							<br/>
 						</div>
-						<div class="col s12 text-center no-padding" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
+						<!-- <div class="col s12 text-center no-padding" ng-form="editor.iconosForm" style="display: flex;align-items: center;">
 							<md-input-container style="width:87%; padding: 0 0.75rem 0 0">
-								<!--ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"-->
 								<md-tooltip class="tooltip-header" md-delay="2" md-direction="top">{{::editor.lang[14]}}</md-tooltip>
-								<md-select flex ng-model="editor.categoriaIcono" placeholder="{{::editor.lang[15]}}" md-no-asterisk>
+								<md-select flex ng-model="editor.categoriaIcono" placeholder="{{::editor.lang[15]}}" md-no-asterisk  ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
 									<md-option class="iconos" ng-repeat="categoria in editor.categoriasPosibles track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
 								</md-select>
 							</md-input-container>
@@ -185,7 +184,7 @@
 							 ng-disabled="!editor.completadoBuscar" style="margin-bottom: 8px;">
 								<i class="material-icons">search</i>
 							</span>
-						</div>
+						</div> -->
 
 						<div class="col s6 title-styles" style="height: 37px; align-items: center;">
 							<p>{{::editor.lang[5]}}</p>
@@ -377,7 +376,8 @@
 						<div class="col l3 xl2 icon-option" ng-if="!editor.iconos.length" ng-repeat="icono in [1,2,3,4,5,6]">
 							<div class="icon loading-purple">
 								<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
-									<img style="width:100%" src="assets/images/a.png" alt="">
+									<img  ng-if="!$last" style="width:100%" src="assets/images/a.png" alt="">
+									<img ng-if="$last" style="width:100%" src="assets/images/spinner-purple.gif" alt="">
 									<div style="position:absolute;display: flex;
 										flex-flow: column;top: 0;height: 100%;
 										justify-content: center; text-align:center; width:100%;">

@@ -44,7 +44,7 @@ angular.module("disenador-de-logos")
 			bz.logo.idLogo = historicoResolve.idLogoGuardado;
 
 		} else if (historicoResolve.idLogoPadre) {
-			
+
 			bz.idLogoPadre = historicoResolve.idLogoPadre;
 			bz.categoria = historicoResolve.categoria;
 
@@ -68,18 +68,18 @@ angular.module("disenador-de-logos")
 			.then(function (res) {
 				bz.fuentesCategorias = res;
 			})
-			.catch(function () { 
-				
+			.catch(function () {
+
 			});
 
 
 		bz.categoriasHijasPosibles = [];
 
 		categoriasService.listarCategoriasElementosHijas()
-			.then(function(res){
+			.then(function (res) {
 				bz.categoriasHijasPosibles = res;
 			})
-			.catch(function(){
+			.catch(function () {
 
 			})
 
@@ -137,7 +137,7 @@ angular.module("disenador-de-logos")
 				bz.mostrarFormDisenador = true;
 				return;
 			}
-			
+
 			bz.guardarLogo(logo, noun, tipoLogo, idCategoria, regresar);
 		};
 
@@ -254,13 +254,13 @@ angular.module("disenador-de-logos")
 
 		/****** Guardar Logo del Disenador  ******/
 		bz.guardarLogoDisenador = function (logo, noun, tipoLogo, idCategoria, tags, alt) {
-			
+
 
 			if (!bz.completadoGuardar || !bz.disenadorGuardarForm.$valid) {
 				return;
 			}
 
-			if(!tags.length) return;
+			if (!tags.length) return;
 
 			bz.completadoGuardar = false;
 
@@ -289,7 +289,7 @@ angular.module("disenador-de-logos")
 				if (etiquetasGuardadas) {
 
 					angular.forEach(etiquetasGuardadas, function (element) {
-						bz.etiquetas.push({ _id: element._id, traducciones: [{ valor: element.tag, _lowername: element.tag.toLowerCase() } ]});
+						bz.etiquetas.push({ _id: element._id, traducciones: [{ valor: element.tag, _lowername: element.tag.toLowerCase() }] });
 					})
 
 					bz.etiquetas = etiquetasService.loadEtiquetas(bz.etiquetas);
@@ -553,30 +553,29 @@ angular.module("disenador-de-logos")
 
 		bz.buscarIconos = function (idCategoria, valido) {
 
-			bz.iconosForm.$setSubmitted();
+			/* bz.iconosForm.$setSubmitted(); */
 
-			if (valido && bz.completadoBuscar) {
+			if (/* valido &&  */bz.completadoBuscar) {
 
 				bz.completadoBuscar = false;
 
-				
 				var iconos = [];
 
+				if(bz.etiquetasSeleccionadas.length == 0) return;
+
 				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
-				
+
 					var remover_tag = true;
 
 					angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
 
-						console.log(tag)
-
-						if(indexSalto == tag.traducciones[0].valor){
+						if (indexSalto == tag.traducciones[0].valor) {
 							remover_tag = false;
 						}
 
 					})
 
-					if(remover_tag){
+					if (remover_tag) {
 						delete tags_saltos[indexSalto];
 					}
 
@@ -587,7 +586,7 @@ angular.module("disenador-de-logos")
 
 					var tag_existe = tags_saltos[tag.traducciones[0].valor];
 
-					if(tag_existe === undefined) {
+					if (tag_existe === undefined) {
 						tags_saltos[tag.traducciones[0].valor] = 0;
 					}
 
