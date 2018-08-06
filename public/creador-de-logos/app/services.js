@@ -1408,7 +1408,7 @@ angular.module("disenador-de-logos")
 
 	.service("logosService", ["$http", "$q", "disenadorService", "arrayToJsonMetasFactory", function ($http, $q, disenadorService, arrayToJsonMetasFactory) {
 
-		this.obtenerDestacados = function(idCategoria, idSubcageoria, idTag){
+		this.obtenerDestacados = function(idCategoria, idSubcategoria, idTag){
 
 			var defered = $q.defer();
 
@@ -1416,7 +1416,7 @@ angular.module("disenador-de-logos")
 
 			var datos = {
 				idCategoria: idCategoria,
-				idSubcageoria: 	idSubcageoria,
+				idSubcategoria: idSubcategoria,
 				idTag: idTag
 			};
 

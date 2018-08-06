@@ -14,13 +14,13 @@ exports.paypal = function(datos,callback)
 	var return_url = "";
 
 	if(!datos.idPedidoViejo){
-		return_url = configuracion.url+"/app/pedido/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/"+datos.idPedido+"/";
+		return_url = configuracion.url+"/app/pedido/pagado/"+datos.idLogo+"/"+datos.token+"/"+datos.idPedido+"/";
 
 		if(datos.padre){
 			return_url = return_url + datos.padre+"/";
 		}
 	}else{
-		return_url = configuracion.url+"/app/pedido/aumento/pagado/"+datos.idElemento+"/"+datos.idLogo+"/"+datos.tipoElemento+"/"+datos.token+"/"+datos.idPedido+"/"+datos.idPedidoViejo+"/";
+		return_url = configuracion.url+"/app/pedido/aumento/pagado/"+datos.idLogo+"/"+datos.token+"/"+datos.idPedido+"/"+datos.idPedidoViejo+"/";
 	}
 
 	//console.log(return_url)
