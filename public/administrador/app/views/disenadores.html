@@ -162,7 +162,7 @@
 
     <!-- ACCIONES VISTA -->
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-switch="designer.vista">
-        <div class="paneles  listar no-border">
+        <div class="paneles  listar no-border switch">
             <!-- VER LOGOS DE UN DISEÑADOR-->
             <div ng-switch-when="1">
                 <div layout layout-align="space-between center" layout-padding class="titulo-modulo">
@@ -185,12 +185,12 @@
                                         <md-icon class="material-icon">check</md-icon>
                                     </md-button>
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <md-button class="md-fab md-mini md-warn" ng-click="designer.verLogo(logod.logo, true)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver logo</md-tooltip>
                                         <md-icon class="material-icon">remove_red_eye</md-icon>
                                     </md-button>
-                                </div>
+                                </div> -->
                                 <div>
                                     <md-button class="md-fab md-mini md-warn" ng-disabled="designer.peticion" ng-click="designer.borrarLogo($index, logod.idLogo, true)">
                                         <md-tooltip md-direction="top" md-visible="tooltipVisible">No Aprobar</md-tooltip>

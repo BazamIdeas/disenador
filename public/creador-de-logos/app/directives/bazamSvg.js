@@ -225,7 +225,7 @@ angular.module("disenador-de-logos")
 						var paletaColores = coloresPaletaValue;
 
 						//evento para los hijos directos de seccion-icono
-						angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
+						angular.element("bazam-svg").on("contextmenu", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
 
 							/* COLOPICKER */
 							var coordenadasCon = angular.element(".svg-container")[0].getBoundingClientRect();
@@ -336,6 +336,7 @@ angular.module("disenador-de-logos")
 							crearPicker(id);
 
 							if (clicked.hasClass("textoPrincipal") || clicked.hasClass("eslogan")) {
+								e.preventDefault();
 								return;
 							}
 
@@ -356,7 +357,7 @@ angular.module("disenador-de-logos")
 
 							//definimos en true la seccion objetivo
 							scope.elementosIndices[indiceParte] = true;
-
+							e.preventDefault();
 						});
 
 						angular.element(".principal-container.editor").on("click", "#color-picker-icono, #color-picker-texto, #color-picker-eslogan", function (e) {
