@@ -892,7 +892,7 @@ angular.module("disenador-de-logos")
 						////////////////////////////////
 
 						function reemplazarIcono(evento, icono) {
-
+							console.log(evento, icono)
 							var iconoSVG = element.find("g.contenedor-icono > svg");
 
 							var x = iconoSVG.attr("x");
@@ -954,7 +954,7 @@ angular.module("disenador-de-logos")
 
 						}
 
-						scope.$on("editor:reemplazar", reemplazarIcono());
+						scope.$on("editor:reemplazar", reemplazarIcono);
 
 
 						////////////////////////////////

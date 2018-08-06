@@ -631,6 +631,7 @@ angular.module("disenador-de-logos")
 
 		bz.reemplazarIcono = function (icono) {
 
+			console.log(icono);
 			bz.logo.icono = icono;
 			$rootScope.$broadcast("editor:reemplazar", bz.base64.decode(icono.svg));
 

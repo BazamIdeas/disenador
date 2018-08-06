@@ -383,8 +383,8 @@ angular.module("disenador-de-logos")
 
 			$http.get("/app/etiquetas/idioma").then(function (res) {
 				defered.resolve(res);
-			}).catch(function (res) {
-				defered.reject(res.data.msg);
+			}).catch(function () {
+				defered.reject();
 			});
 
 			return promise;
