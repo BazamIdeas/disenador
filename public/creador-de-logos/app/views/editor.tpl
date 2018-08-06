@@ -159,7 +159,7 @@
 					<div class="row">
 						<div class="col s12 no-padding">
 							<md-chips md-max-chips="8" style="padding:0;" md-add-on-blur="true" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-							 ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
+							 ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap  md-require-match="true" md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
 								<label>Etiquetas</label>
 								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
 								 md-item-text="item.traducciones[0].valor" placeholder="{{::editor.lang[28]}}">
