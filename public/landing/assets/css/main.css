@@ -1585,10 +1585,11 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
   padding-bottom: 3%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   width: 90%;
   margin: auto;
   align-items: center; }
+  .logos-predisenados.-justify {
+    justify-content: space-around; }
   .logos-predisenados > :last-child, .logos-predisenados > :nth-child(4n) {
     margin-right: 0 !important; }
   .logos-predisenados .--item {
@@ -1600,12 +1601,18 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
     -moz-transition: all .3s;
     -webkit-transition: all .3s;
     -o-transition: all .3s; }
+    .logos-predisenados .--item.big > a {
+      padding: 0; }
+      .logos-predisenados .--item.big > a > span {
+        max-width: 100%;
+        margin: 0 !important; }
+    .logos-predisenados .--item.big img {
+      max-width: 100%;
+      max-height: 300px; }
     .logos-predisenados .--item > a {
       padding: 5%;
       display: block;
       cursor: pointer; }
-      .logos-predisenados .--item > a > :first-child {
-        min-height: 200px; }
       .logos-predisenados .--item > a > span {
         max-width: 90%;
         display: block;

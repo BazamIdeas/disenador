@@ -64,19 +64,15 @@
         </p>
     </div>
 
-    <div class="logos-predisenados">
+    <div class="logos-predisenados -justify">
         {% for elemento in logosPredisenados %}
-        <div class='--item'>
+        <div class='--item big'>
             <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-subcategoria="{{elemento.categorias_idCategoria}}"
                 data-categoria="{{elemento.padre}}" data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
                 <span>
-                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{elemento.atributos[1].valor}}">
+                    {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
+                    <img src="/app/logo/predisenados/{{elemento.idLogo}}" alt="{{atributo.valor}}"> {% endif %} {% endfor %}
                 </span>
-                {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
-                <span class="descripcion">
-                    {{atributo.valor}}
-                </span>
-                {% endif %} {% endfor %}
             </a>
             {% if mostraretiquetaslogo %}
             <div class="tags">
@@ -105,7 +101,11 @@
     {% if categorias %}
     <div class="container-fluid" style="    padding: 3%;width: 100%;">
         <h3>{{idioma.secciones.seccion_tres.titulo}}</h3>
+        {% if logosPredisenados.length > 4 %}
         <div class="logos-predisenados">
+        {% else %}
+        <div class="logos-predisenados -justify">
+        {% endif %}
             {% for elemento in categorias %}
             <div class='--item'>
                 <a href="/logos/{{elemento.categoriaFormateada}}">
