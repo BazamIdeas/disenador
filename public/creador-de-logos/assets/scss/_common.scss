@@ -976,3 +976,7 @@ md-select-menu span.texto-on-select {
     background: url(../images/spinner-white.gif);
     background-size: cover;
 }
+
+.no-buttons button{
+    display: none !important;
+}
