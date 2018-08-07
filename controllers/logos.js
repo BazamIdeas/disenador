@@ -917,11 +917,8 @@ exports.zip = function (req, res) {
 										decode = decode.replace("@font-face", "fuente");
 									}
 
-									else {
-										decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
-										decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
-									}
-
+									decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+									decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
 
 									var buffer = new Buffer(decode);
 									fs.open(path + nombre, "w", (err, fd) => {
@@ -946,7 +943,7 @@ exports.zip = function (req, res) {
 												archive.append(fs.createReadStream(svg), {
 													name: "logo.svg"
 												});
-
+												//console.log(fuentes)
 												archive.append(fs.createReadStream(pathM.dirname(require.main.filename) + fuentes.principal.url), {
 													name: fuentes.principal.nombre + '.ttf'
 												});
@@ -1003,6 +1000,12 @@ exports.zip = function (req, res) {
 														.catch(e => console.log('error'));
 												});
 
+											}
+											else {
+												console.log("El plan no posee esa caracteristica")
+												res.status(401).json({
+													"msg": "El plan no posee esa caracteristica"
+												});
 											}
 
 											fs.close(fd);
