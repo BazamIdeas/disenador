@@ -143,8 +143,8 @@ router.post("/pedido/aumentar", middleware.validarCliente, controllers.pedidos.a
 router.post("/pedido/guardado", middleware.validarCliente, controllers.pedidos.nuevoPedidoGuardado); //crea un pedido de un logo ya guardado
 router.post("/pedido/modificar", middleware.validarCliente, controllers.pedidos.modificarPedido); // modifica los datos de un pedido
 router.post("/pedido/cambiar", middleware.validarCliente, controllers.pedidos.cambiarEstado); // cambia de estado al pedido
-router.get("/pedido/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:padre?", controllers.pedidos.cambioEstadoPagado);
-router.get("/pedido/aumento/pagado/:idElemento/:idLogo/:tipo/:tk/:idPedido/:idPedidoViejo", controllers.pedidos.cambioEstadoPagadoAumentoPlan);
+router.get("/pedido/pagado/:idLogo/:tk/:idPedido/:padre?", controllers.pedidos.cambioEstadoPagado);
+router.get("/pedido/aumento/pagado/:idLogo/:tk/:idPedido/:idPedidoViejo", controllers.pedidos.cambioEstadoPagadoAumentoPlan);
 
 //RUTAS INTERNAS
 router.get("/pedido/no/pago/:tk", controllers.pedidos.noPago); // RUTAS INTERNAS

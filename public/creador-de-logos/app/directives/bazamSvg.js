@@ -225,7 +225,7 @@ angular.module("disenador-de-logos")
 						var paletaColores = coloresPaletaValue;
 
 						//evento para los hijos directos de seccion-icono
-						angular.element("bazam-svg").on("click", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
+						angular.element("bazam-svg").on("contextmenu", "g.contenedor-icono > svg :not(g), .textoPrincipal, .eslogan", function (e) {
 
 							/* COLOPICKER */
 							var coordenadasCon = angular.element(".svg-container")[0].getBoundingClientRect();
@@ -336,6 +336,7 @@ angular.module("disenador-de-logos")
 							crearPicker(id);
 
 							if (clicked.hasClass("textoPrincipal") || clicked.hasClass("eslogan")) {
+								e.preventDefault();
 								return;
 							}
 
@@ -356,7 +357,7 @@ angular.module("disenador-de-logos")
 
 							//definimos en true la seccion objetivo
 							scope.elementosIndices[indiceParte] = true;
-
+							e.preventDefault();
 						});
 
 						angular.element(".principal-container.editor").on("click", "#color-picker-icono, #color-picker-texto, #color-picker-eslogan", function (e) {
@@ -891,7 +892,7 @@ angular.module("disenador-de-logos")
 						////////////////////////////////
 
 						function reemplazarIcono(evento, icono) {
-
+							console.log(evento, icono)
 							var iconoSVG = element.find("g.contenedor-icono > svg");
 
 							var x = iconoSVG.attr("x");
@@ -953,7 +954,7 @@ angular.module("disenador-de-logos")
 
 						}
 
-						scope.$on("editor:reemplazar", reemplazarIcono());
+						scope.$on("editor:reemplazar", reemplazarIcono);
 
 
 						////////////////////////////////
@@ -1251,8 +1252,10 @@ angular.module("disenador-de-logos")
 
 								var svgFile = input.files[0];
 								
-								if(svgFile.type != "image/svg+xml"){
+								if(!input.files.length || svgFile.type != "image/svg+xml"){
 									botonInsertarImagen[0].value = '';
+
+									console.log(input.files)
 									return;
 								}
 
@@ -1266,6 +1269,7 @@ angular.module("disenador-de-logos")
 
 									var svgInputElement = angular.element(svgInput);
 									
+									console.log(svgInputElement[0].outerHTML)
 									svgInputElement.removeAttr("width");
 									svgInputElement.removeAttr("height");
 

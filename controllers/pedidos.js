@@ -100,7 +100,7 @@ exports.PedidosCliente = function (req, res) {
 
 exports.nuevoPedido = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
-	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 22;
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 532;
 	
 	var logoData = {
 		idLogo: null,
@@ -167,115 +167,102 @@ exports.nuevoPedido = function (req, res) {
 						precio.datos(idPrecio, function (error, data) {
 
 							if (typeof data !== "undefined" && data.length > 0) {
+								
 								var plan = data;
 
-								// FIXME: ARREGLAR ALGUN DIA
-								elemento.datosElemento(2475, function (error, data) {
+								pasarela.Obtener(idPasarela, function (error, data) {
 
 									if (typeof data !== "undefined" && data.length > 0) {
 
-										var tipoE = data[0].tipo.replace(" ", "");
+										/////ENVIAR PAGO a paypal
+										if (data[0].pasarela == "Paypal") {
 
-										pasarela.Obtener(idPasarela, function (error, data) {
+											var datosPago = {
+												precio: plan[0].precio,
+												moneda: plan[0].moneda,
+												descripcion: "Diseño de Logo- " + plan[0].plan,
+												idLogo: idLogo,
+												impuesto: impuesto,
+												token: req.headers.auth,
+												idPedido: idPedido
+											};
 
-											if (typeof data !== "undefined" && data.length > 0) {
-
-												/////ENVIAR PAGO a paypal
-												if (data[0].pasarela == "Paypal") {
-
-													var datosPago = {
-														precio: plan[0].precio,
-														moneda: plan[0].moneda,
-														descripcion: "Diseño de Logo- " + plan[0].plan,
-														idLogo: idLogo,
-														idElemento: 1,
-														impuesto: impuesto,
-														tipoElemento: tipoE,
-														token: req.headers.auth,
-														idPedido: idPedido
-													};
-
-													if (req.body.atributos.padre) {
-														datosPago.padre = req.body.atributos.padre;
-													}
-													//console.log(req.body);
-													services.pagoServices.paypal(datosPago, function (error, data) {
-														res.json(data.link);
-														//console.log(data.link)
-													});
-
-												} 
-												else if (data[0].pasarela == "Stripe") {
-
-													var datosPago = {
-														precio: plan[0].precio,
-														moneda: plan[0].moneda,
-														descripcion: "Diseño de Logo- " + plan[0].plan,
-														impuesto: impuesto,
-														stripeToken: req.body.stripeToken,
-														idPedido: idPedido
-													};
-
-													if (req.body.atributos.padre) {
-														datosPago.padre = req.body.atributos.padre;
-													}
-													//console.log(req.body);
-													services.pagoServices.stripe(datosPago, function (error, data) {
-														//console.log(data)
-														if (error)
-															res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
-														
-														else if (data && data.paid) {
-
-															var pedidoData = ["COMPLETADO", idPedido];
-
-															pedido.cambiarEstado(pedidoData, function (error, data) {
-
-																if (data) {
-																	//////cambiar estado al logo a descargable
-																	var logoData = ["Descargable", idLogo];
-
-																	logo.cambiarEstado(logoData, function (error) {
-
-																		if (!error) {
-
-																			var id = services.authServices.decodificar(req.headers.auth).id;
-
-																			cliente.getCliente(id, function (error, data) {
-
-																				//console.log(data);
-																				//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
-
-																			});
-																			res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
-																		} 
-
-																		else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
-																	});
-																}
-																else {
-																	res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
-																}
-															});
-
-														}
-
-														else 
-															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
-													});
-
-												}
-												else {
-													res.status(200).json({"msg": true});
-												}
-
-											} else {
-												res.status(404).json({"msg": "No existe el medio de pago"});
+											if (req.body.atributos.padre) {
+												datosPago.padre = req.body.atributos.padre;
 											}
-										});
-									} 
-									else {
-										res.status(404).json({"msg": "No existe el elemento"});
+											//console.log(req.body);
+											services.pagoServices.paypal(datosPago, function (error, data) {
+												res.json(data.link);
+												//console.log(data.link)
+											});
+
+										} 
+										else if (data[0].pasarela == "Stripe") {
+
+											var datosPago = {
+												precio: plan[0].precio,
+												moneda: plan[0].moneda,
+												descripcion: "Diseño de Logo- " + plan[0].plan,
+												impuesto: impuesto,
+												stripeToken: req.body.stripeToken,
+												idPedido: idPedido
+											};
+
+											if (req.body.atributos.padre) {
+												datosPago.padre = req.body.atributos.padre;
+											}
+											//console.log(req.body);
+											services.pagoServices.stripe(datosPago, function (error, data) {
+												//console.log(data)
+												if (error)
+													res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
+												
+												else if (data && data.paid) {
+
+													var pedidoData = ["COMPLETADO", idPedido];
+
+													pedido.cambiarEstado(pedidoData, function (error, data) {
+
+														if (data) {
+															//////cambiar estado al logo a descargable
+															var logoData = ["Descargable", idLogo];
+
+															logo.cambiarEstado(logoData, function (error) {
+
+																if (!error) {
+
+																	var id = services.authServices.decodificar(req.headers.auth).id;
+
+																	cliente.getCliente(id, function (error, data) {
+
+																		//console.log(data);
+																		//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+
+																	});
+																	res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
+																} 
+
+																else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
+															});
+														}
+														else {
+															res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+														}
+													});
+
+												}
+
+												else 
+													res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
+											});
+
+										}
+										else {
+											res.status(200).json({"msg": true});
+										}
+
+									} else {
+										res.status(404).json({"msg": "No existe el medio de pago"});
 									}
 								});
 							}
@@ -325,130 +312,113 @@ exports.nuevoPedidoGuardado = function (req, res) {
 				var idPedido = data.insertId;
 				precio.datos(idPrecio, function (error, data) {
 					if (typeof data !== "undefined" && data.length > 0) {
-						var plan = data;
 						
-						// FIXME: ARREGLAR ALGUN DIA
-						elemento.datosElemento(2475, function (error, data) {
+						var plan = data;
 
+						pasarela.Obtener(idPasarela, function (error, data) {
 							if (typeof data !== "undefined" && data.length > 0) {
 
-								var tipoE = data[0].tipo.replace(" ", "");
+								/////ENVIAR PAGO
+								if (data[0].pasarela == "Paypal") {
 
-								pasarela.Obtener(idPasarela, function (error, data) {
-									if (typeof data !== "undefined" && data.length > 0) {
+									var datosPago = {
+										precio: plan[0].precio,
+										moneda: plan[0].moneda,
+										descripcion: "Diseño de Logo- " + plan[0].plan,
+										idLogo: idLogo,
+										impuesto: impuesto,
+										token: req.headers.auth,
+										idPedido: idPedido
+									};
 
-										/////ENVIAR PAGO
-
-										if (data[0].pasarela == "Paypal") {
-
-											var datosPago = {
-												precio: plan[0].precio,
-												moneda: plan[0].moneda,
-												descripcion: "Diseño de Logo- " + plan[0].plan,
-												idLogo: idLogo,
-												idElemento: 1,
-												impuesto: impuesto,
-												tipoElemento: tipoE,
-												token: req.headers.auth,
-												idPedido: idPedido
-											};
-
-											if (req.body.atributos.padre) {
-												datosPago.padre = req.body.atributos.padre;
-											}
-
-											//console.log(req.body);
-
-											services.pagoServices.paypal(datosPago, function (error, data) {
-												res.json(data.link);
-												//console.log(data.link)
-											});
-
-										} 
-										
-										else if (data[0].pasarela == "Stripe") {
-
-											var datosPago = {
-												precio: plan[0].precio,
-												moneda: plan[0].moneda,
-												descripcion: "Diseño de Logo- " + plan[0].plan,
-												impuesto: impuesto,
-												stripeToken: req.body.stripeToken,
-												idPedido: idPedido
-											};
-
-											if (req.body.atributos.padre) {
-												datosPago.padre = req.body.atributos.padre;
-											}
-											services.pagoServices.stripe(datosPago, function (error, data) {
-												//console.log(data)
-												if (error)
-													res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
-												
-												else if (data && data.paid) {
-
-													var pedidoData = ["COMPLETADO", idPedido];
-
-													pedido.cambiarEstado(pedidoData, function (error, data) {
-
-														if (data) {
-															//////cambiar estado al logo a descargable
-															var logoData = ["Descargable", idLogo];
-
-															logo.cambiarEstado(logoData, function (error) {
-
-																if (!error) {
-
-																	var id = services.authServices.decodificar(req.headers.auth).id;
-
-																	cliente.getCliente(id, function (error) {
-
-																		//console.log(data);
-																		//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
-
-																	});
-																	res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
-																} 
-
-																else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
-															});
-														}
-
-														else {
-															res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
-														}
-													});
-														
-												}
-
-												else 
-													res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
-											});
-
-										}
-
-										else {
-											//falta Bloquear elemento
-											res.status(200).json({
-												"msg": true
-											});
-										}
-									} 
-									else {
-										res.status(404).json({
-											"msg": "No existe el medio de pago"
-										});
+									if (req.body.atributos.padre) {
+										datosPago.padre = req.body.atributos.padre;
 									}
 
-								});
+									//console.log(req.body);
 
-							} else {
+									services.pagoServices.paypal(datosPago, function (error, data) {
+										res.json(data.link);
+										//console.log(data.link)
+									});
+
+								} 
+								
+								else if (data[0].pasarela == "Stripe") {
+
+									var datosPago = {
+										precio: plan[0].precio,
+										moneda: plan[0].moneda,
+										descripcion: "Diseño de Logo- " + plan[0].plan,
+										impuesto: impuesto,
+										stripeToken: req.body.stripeToken,
+										idPedido: idPedido
+									};
+
+									if (req.body.atributos.padre) {
+										datosPago.padre = req.body.atributos.padre;
+									}
+									services.pagoServices.stripe(datosPago, function (error, data) {
+										//console.log(data)
+										if (error)
+											res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
+										
+										else if (data && data.paid) {
+
+											var pedidoData = ["COMPLETADO", idPedido];
+
+											pedido.cambiarEstado(pedidoData, function (error, data) {
+
+												if (data) {
+													//////cambiar estado al logo a descargable
+													var logoData = ["Descargable", idLogo];
+
+													logo.cambiarEstado(logoData, function (error) {
+
+														if (!error) {
+
+															var id = services.authServices.decodificar(req.headers.auth).id;
+
+															cliente.getCliente(id, function (error) {
+
+																//console.log(data);
+																//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+
+															});
+															res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
+														} 
+
+														else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
+													});
+												}
+
+												else {
+													res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+												}
+											});
+												
+										}
+
+										else 
+											res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
+									});
+
+								}
+
+								else {
+									//falta Bloquear elemento
+									res.status(200).json({
+										"msg": true
+									});
+								}
+							} 
+							else {
 								res.status(404).json({
-									"msg": "No existe el elemento"
+									"msg": "No existe el medio de pago"
 								});
 							}
-						});
 
+						});
 					}
 					//no existe
 					else {
@@ -456,7 +426,6 @@ exports.nuevoPedidoGuardado = function (req, res) {
 							"msg": "No existe el plan"
 						});
 					}
-
 				});
 			} else {
 				res.status(500).json({
@@ -642,131 +611,115 @@ exports.aumentarPlan = function (req, res) {
 								var precioNuevo = data;
 								var diferencia = precioNuevo[0].precio;
 
-								elemento.datosElementoPorLogo(idLogo, function (error, data) {
-
+								pasarela.Obtener(idPasarela, function (error, data) {
 									if (typeof data !== "undefined" && data.length > 0) {
 
-										var idElemento = 1;
-										var tipoE = data[0].tipo.replace(" ", "");
+										/////ENVIAR PAGO
 
-										pasarela.Obtener(idPasarela, function (error, data) {
-											if (typeof data !== "undefined" && data.length > 0) {
+										if (data[0].pasarela == "Paypal") {
 
-												/////ENVIAR PAGO
+											var datosPago = {
+												precio: diferencia,
+												moneda: precioNuevo[0].moneda,
+												descripcion: "Diseño de Logo- " + precioNuevo[0].plan,
+												idLogo: idLogo,
+												impuesto: impuesto,
+												token: req.headers.auth,
+												idPedido: idPedido,
+												idPedidoViejo: precioViejo[0].idPedido,
+												aumento: 1,
+											};
 
-												if (data[0].pasarela == "Paypal") {
+											services.pagoServices.paypal(datosPago, function (error, data) {
+												
+												res.json(data.link);
+											});
 
-													var datosPago = {
-														precio: diferencia,
-														moneda: precioNuevo[0].moneda,
-														descripcion: "Diseño de Logo- " + precioNuevo[0].plan,
-														idLogo: idLogo,
-														idElemento: 1,
-														impuesto: impuesto,
-														tipoElemento: tipoE,
-														token: req.headers.auth,
-														idPedido: idPedido,
-														idPedidoViejo: precioViejo[0].idPedido,
-														aumento: 1,
-													};
+										} 
 
-													services.pagoServices.paypal(datosPago, function (error, data) {
+										else if (data[0].pasarela == "Stripe") {
+
+											var datosPago = {
+												precio: diferencia,
+												moneda: precioNuevo[0].moneda,
+												descripcion: "Diseño de Logo- " + precioNuevo[0].plan,
+												impuesto: impuesto,
+												stripeToken: req.body.stripeToken,
+												idPedido: idPedido
+											};
+
+											
+											services.pagoServices.stripe(datosPago, function (error, data) {
+												//console.log(data)
+												if (error)
+													res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
+												
+												else if (data && data.paid) {
+
+													var pedidoData = ["COMPLETADO", idPedido];
+
+													pedido.cambiarEstado(pedidoData, function (error, data) {
 														
-														res.json(data.link);
-													});
+														if (data) {
 
-												} 
+															var pedidoDataV = ["AUMENTADO", precioViejo[0].idPedido];
 
-												else if (data[0].pasarela == "Stripe") {
+															pedido.cambiarEstado(pedidoDataV, function (error, data) {
 
-													var datosPago = {
-														precio: diferencia,
-														moneda: precioNuevo[0].moneda,
-														descripcion: "Diseño de Logo- " + precioNuevo[0].plan,
-														impuesto: impuesto,
-														stripeToken: req.body.stripeToken,
-														idPedido: idPedido
-													};
-
-													
-													services.pagoServices.stripe(datosPago, function (error, data) {
-														//console.log(data)
-														if (error)
-															res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
-														
-														else if (data && data.paid) {
-
-															var pedidoData = ["COMPLETADO", idPedido];
-
-															pedido.cambiarEstado(pedidoData, function (error, data) {
-																
 																if (data) {
+																	//////cambiar estado al logo a descargable
+																	var logoData = ["Descargable", idLogo];
 
-																	var pedidoDataV = ["AUMENTADO", precioViejo[0].idPedido];
+																	logo.cambiarEstado(logoData, function (error) {
 
-																	pedido.cambiarEstado(pedidoDataV, function (error, data) {
+																		if (!error) {
 
-																		if (data) {
-																			//////cambiar estado al logo a descargable
-																			var logoData = ["Descargable", idLogo];
+																			var id = services.authServices.decodificar(req.headers.auth).id;
 
-																			logo.cambiarEstado(logoData, function (error) {
+																			cliente.getCliente(id, function (error, data) {
 
-																				if (!error) {
+																				//console.log(data);
+																				//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
 
-																					var id = services.authServices.decodificar(req.headers.auth).id;
-
-																					cliente.getCliente(id, function (error, data) {
-
-																						//console.log(data);
-																						//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
-
-																					});
-																					res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
-																				} 
-
-																				else {
-																					res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});	
-																				}																			
 																			});
-																		}	
+																			res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
+																		} 
+
 																		else {
-																			res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido viejo"});
-																		}
-																	});	
-																}
+																			res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});	
+																		}																			
+																	});
+																}	
 																else {
-																	res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+																	res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido viejo"});
 																}
-															});
-																
+															});	
 														}
-
-														else 
-															res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
+														else {
+															res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+														}
 													});
-
-												}
-												else {
-													//falta Bloquear elemento
-													res.status(200).json({
-														"msg": true
-													});
+														
 												}
 
-											} else {
-												res.status(404).json({
-													"msg": "No existe el medio de pago"
-												});
-											}
+												else 
+													res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
+											});
 
-										});
+										}
+										else {
+											//falta Bloquear elemento
+											res.status(200).json({
+												"msg": true
+											});
+										}
 
 									} else {
 										res.status(404).json({
-											"msg": "No existe el elemento"
+											"msg": "No existe el medio de pago"
 										});
 									}
+
 								});
 
 							} else {

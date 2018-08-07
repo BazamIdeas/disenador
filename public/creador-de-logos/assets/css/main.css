@@ -886,6 +886,14 @@ md-select-menu span.texto-on-select {
   .selector-de-idiomas.--flags md-select.md-default-theme:not([disabled]):focus .md-select-value, .selector-de-idiomas.--flags md-select:not([disabled]):focus .md-select-value {
     border-bottom-color: transparent !important; }
 
+.color-trans {
+  color: transparent !important;
+  background: url(../images/spinner-white.gif);
+  background-size: cover; }
+
+.no-buttons button {
+  display: none !important; }
+
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 ------HEADER SCSS--------------------------------------------------------------------------
@@ -2206,7 +2214,7 @@ bazam-papeleria {
   justify-content: center;
   align-items: center; }
 
-[movimiento-bz]:not(.contenedor-icono) {
+[movimiento-bz]:not(.eslogan, .contenedor-icono) {
   fill: transparent;
   cursor: crosshair;
   cursor: -moz-grabbing;

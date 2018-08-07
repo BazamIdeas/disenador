@@ -15,7 +15,7 @@
 
                 <md-input-container class="col s12">
                     <label>{{::inicio.lang.formulario.etiquetas.label}}</label>
-                    <md-chips style="padding:0;" md-add-on-blur="true" md-max-chips="5" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                    <md-chips md-require-match="true" style="padding:0;" md-add-on-blur="true" md-max-chips="5" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                         md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" ng-class="{'without-placeholder':inicio.datos.etiquetasSeleccionadas.length > 0}">
                         <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
                             md-item-text="item.traducciones[0].valor" placeholder="{{::inicio.lang.formulario.etiquetas.placeholder}}">
@@ -35,7 +35,7 @@
                     data-clases="['corner-lt']" data-identificador="ayuda-categoria-icono" data-orientacion="right" data-paso="2"
                     bazam-pasos-ayuda>
                     <label>{{::inicio.lang.formulario.categorias.label}}</label>
-                    <md-select ng-model="inicio.datos.categoria.icono" placeholder="{{::inicio.lang.formulario.categorias.placeholder}}" md-no-asterisk>
+                    <md-select ng-model="inicio.datos.categoria.icono" placeholder="{{::inicio.lang.formulario.categorias.placeholder}}" ng-change="inicio.resetPredisenado()" md-no-asterisk>
                         <md-option class="iconos" ng-repeat="categoria in inicio.categoriasPosibles.iconos track by categoria.idCategoria" ng-value="::categoria.idCategoria">{{::categoria.nombreCategoria}}</md-option>
                     </md-select>
                 </md-input-container>
@@ -52,7 +52,7 @@
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
                             <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria">
                                 <md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-                                <span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
+                                <span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Minimalista', 'estilo-1':fuenteCategoria.nombreCategoria == 'Clásicas'}">.</span>
                             </md-radio-button>
                         </md-radio-group>
 
@@ -99,10 +99,11 @@
                             ng-class="{'loading-white':!inicio.completadoCompartir }">ENVIAR</button>
                     </div>
 
-                    <div class="combinacion-box" ng-style="{'background-color': logo.colores[logo.random]}">
+                    <!-- NUEVO LOGO -->
+                    <div class="combinacion-box" ng-if="!logo.atributos" ng-style="{'background-color': logo.colores[logo.random]}">
 
-                        <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre"
-                            callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)"></bazam-svg-text>
+
+                        <bazam-svg-text svg='inicio.base64.decode(logo.icono.svg)' url="logo.fuente.url" fuente="logo.fuente.nombre" texto="inicio.datos.nombre" callback="logo.cargado" color-texto="logo.colores[0]" color-icono="logo.colores[0]" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)"></bazam-svg-text>
                         <div class='overlay c-gif' ng-hide="logo.cargado"></div>
 
                         <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">
@@ -140,6 +141,52 @@
                         </span>
 
                         <span ng-show="logo.cargado" class="comprar" style="bottom: 3%;     right: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
+                            <p>COMPRAR</p>
+                            <img src="assets/images/shop.svg" alt="">
+                        </span>
+
+                    </div>
+
+                    <!-- LOGO PREDISEÑADO  -->
+                    <div class="combinacion-box" ng-if="logo.atributos" style="background-color: white;">
+                        
+                        <bazam-visualizar data-svg="inicio.base64.decode(logo.svg)" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)"></bazam-visualizar>
+                        <!--
+                        <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">
+                            <p>{{::inicio.lang.combinaciones.guardar}}</p>
+                            <img ng-src="{{logo.idLogo ?'assets/images/save_active.svg' : 'assets/images/save.svg'}}" alt="">
+                        </span>
+                        -->
+                        <span class="accion" style="bottom: 63%;" ng-click="inicio.preAvanzar(logo, true)">
+                            <p>{{::inicio.lang.combinaciones.editar}}</p>
+                            <img src="assets/images/edit_white.svg" alt="">
+                        </span>
+
+                        <span style="bottom: 45%" class="accion share">
+
+
+                            <span ng-click="inicio.compartir('google', logo)">
+                                <i class="fab fa-google-plus-g"></i>
+                            </span>
+                            <span ng-click="inicio.compartir('facebook',logo)">
+                                <i class="fab fa-facebook-f"></i>
+                            </span>
+                            <span ng-click="inicio.compartir('twitter', logo)">
+                                <i class="fab fa-twitter"></i>
+                            </span>
+                            <span ng-click="inicio.compartir('pinterest', logo)">
+                                <i class="fab fa-pinterest"></i>
+                            </span>
+                            <span ng-click="logo.mostrarCompartir = true">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+
+
+
+                            <img src="assets/images/share.svg" alt="">
+                        </span>
+
+                        <span class="comprar" style="bottom: 3%;     right: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
                             <p>COMPRAR</p>
                             <img src="assets/images/shop.svg" alt="">
                         </span>

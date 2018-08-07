@@ -36,7 +36,7 @@ angular.module("landing")
 			idiomaCookie = cookie.getCookie('logoLang');
 
 			if (bz.idiomaActivo != idiomaCookie) {
-				document.cookie = "logoLang=" + idioma;
+				document.cookie = "logoLang=" + idioma +'; Path=/';
 				$('body').animate({
 					scrollTop: 0
 				}, 1000);

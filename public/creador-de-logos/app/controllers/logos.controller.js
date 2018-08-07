@@ -1,6 +1,6 @@
 angular.module("disenador-de-logos")
 
-	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", "$location", "Socialshare","$q", "langFactory", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory, $location, Socialshare, $q, langFactory) {
+	.controller("logosController", ["$scope", "pedidosService", "$window", "$state", "logosService", "$base64", "$mdToast", "arrayToJsonMetasFactory", "$location", "Socialshare","$q", "langFactory", "elementosService", "fontService", function ($scope, pedidosService, $window, $state, logosService, $base64, $mdToast, arrayToJsonMetasFactory, $location, Socialshare, $q, langFactory, elementosService, fontService) {
 
 		var bz = this;
 
@@ -33,6 +33,14 @@ angular.module("disenador-de-logos")
 			guardados: false
 
 		};
+
+		elementosService.listarFuentes().then(function (res) {
+
+			bz.fuentes = res;
+
+			fontService.agregarGeneral(bz.fuentes);
+
+		});
 
 		bz.actual = 0;
 		

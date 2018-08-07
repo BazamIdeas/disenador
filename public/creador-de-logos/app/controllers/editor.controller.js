@@ -46,6 +46,7 @@ angular.module("disenador-de-logos")
 		} else if (historicoResolve.idLogoPadre) {
 
 			bz.idLogoPadre = historicoResolve.idLogoPadre;
+			bz.categoria = historicoResolve.categoria;
 
 		}
 
@@ -67,18 +68,18 @@ angular.module("disenador-de-logos")
 			.then(function (res) {
 				bz.fuentesCategorias = res;
 			})
-			.catch(function () { 
-				
+			.catch(function () {
+
 			});
 
 
 		bz.categoriasHijasPosibles = [];
 
 		categoriasService.listarCategoriasElementosHijas()
-			.then(function(res){
+			.then(function (res) {
 				bz.categoriasHijasPosibles = res;
 			})
-			.catch(function(){
+			.catch(function () {
 
 			})
 
@@ -136,7 +137,7 @@ angular.module("disenador-de-logos")
 				bz.mostrarFormDisenador = true;
 				return;
 			}
-			
+
 			bz.guardarLogo(logo, noun, tipoLogo, idCategoria, regresar);
 		};
 
@@ -255,13 +256,13 @@ angular.module("disenador-de-logos")
 
 		/****** Guardar Logo del Disenador  ******/
 		bz.guardarLogoDisenador = function (logo, noun, tipoLogo, idCategoria, tags, alt) {
-			
+
 
 			if (!bz.completadoGuardar || !bz.disenadorGuardarForm.$valid) {
 				return;
 			}
 
-			if(!tags.length) return;
+			if (!tags.length) return;
 
 			bz.completadoGuardar = false;
 
@@ -290,7 +291,7 @@ angular.module("disenador-de-logos")
 				if (etiquetasGuardadas) {
 
 					angular.forEach(etiquetasGuardadas, function (element) {
-						bz.etiquetas.push({ _id: element._id, traducciones: [{ valor: element.tag, _lowername: element.tag.toLowerCase() } ]});
+						bz.etiquetas.push({ _id: element._id, traducciones: [{ valor: element.tag, _lowername: element.tag.toLowerCase() }] });
 					})
 
 					bz.etiquetas = etiquetasService.loadEtiquetas(bz.etiquetas);
@@ -554,30 +555,30 @@ angular.module("disenador-de-logos")
 
 		bz.buscarIconos = function (idCategoria, valido) {
 
-			bz.iconosForm.$setSubmitted();
+			/* bz.iconosForm.$setSubmitted(); */
 
-			if (valido && bz.completadoBuscar) {
+			if (/* valido &&  */bz.completadoBuscar) {
 
 				bz.completadoBuscar = false;
 
-				
 				var iconos = [];
 
-				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
+				if(bz.etiquetasSeleccionadas.length == 0) return;
 				
+
+				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
+
 					var remover_tag = true;
 
 					angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
 
-						console.log(tag)
-
-						if(indexSalto == tag.traducciones[0].valor){
+						if (indexSalto == tag.traducciones[0].valor) {
 							remover_tag = false;
 						}
 
 					})
 
-					if(remover_tag){
+					if (remover_tag) {
 						delete tags_saltos[indexSalto];
 					}
 
@@ -588,18 +589,12 @@ angular.module("disenador-de-logos")
 
 					var tag_existe = tags_saltos[tag.traducciones[0].valor];
 
-					if(tag_existe === undefined) {
+					if (tag_existe === undefined) {
+						console.log('indefinido')
 						tags_saltos[tag.traducciones[0].valor] = 0;
 					}
 
 				});
-
-				//FIXME: Revisar
-				if (bz.iconos.length > 0) {
-					angular.forEach(bz.iconos, function (valor) {
-						iconos.push(valor.idElemento);
-					});
-				}
 
 				bz.cerrarContenedores();
 				bz.contenedores.busquedaIconos = true;
@@ -607,9 +602,17 @@ angular.module("disenador-de-logos")
 				elementosService.listarIconosSegunTags(tags_saltos).then(function (res) {
 					bz.iconos = [];
 					bz.iconos = res.iconos;
+					if(!bz.iconos.length){
+						return bz.cerrarContenedores();	
+					}
+					bz.contenedores.busquedaIconos = true;
+					var tags = res.tags;
+					tags_saltos = tags;
+
 
 				}).catch(function (res) {
 					//console.log(res);
+					bz.cerrarContenedores();
 				}).finally(function () {
 					bz.completadoBuscar = true;
 				});
@@ -630,6 +633,7 @@ angular.module("disenador-de-logos")
 
 		bz.reemplazarIcono = function (icono) {
 
+			console.log(icono);
 			bz.logo.icono = icono;
 			$rootScope.$broadcast("editor:reemplazar", bz.base64.decode(icono.svg));
 

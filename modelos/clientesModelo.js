@@ -4,7 +4,7 @@ var DB = require("./db.js");
 var cliente = {};
 
 cliente.verificarCliente = function (clienteData, callback) {
-	var q = "SELECT idCliente, nombreCliente, correo, pass, foto FROM clientes WHERE correo = ?";
+	var q = "SELECT idCliente, nombreCliente, correo, pass, foto, disenador FROM clientes WHERE correo = ?";
 
 	var correo = clienteData[0];
 

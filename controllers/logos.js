@@ -16,12 +16,14 @@ var async = require("async");
 var config = require("../configuracion/configuracion.js");
 const fse = require('fs-extra')
 const Etiqueta = require('../modelos/etiquetasModelo.js');
+var configuracion = require('./../configuracion/configuracion.js');
 
 //GUARDAR UN LOGO
 exports.guardar = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
-	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 22;
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 532;
 	var estado = "Editable";
+	var idNoun = req.body.noun ? req.body.noun : null;
 
 	switch (req.body.estado) {
 		case "Borrador":
@@ -45,7 +47,7 @@ exports.guardar = function (req, res) {
 		tipoLogo: req.body.tipoLogo,
 		clientes_idCliente: req.idCliente,
 		categorias_idCategoria: idCategoria,
-		noun: req.body.noun
+		noun: idNoun
 	};
 
 	logo.insertLogo(logoData, function (error, data) {
@@ -72,14 +74,11 @@ exports.guardar = function (req, res) {
 
 			if (req.disenador) {
 
-
-				let etiquetasNuevas = req.body.tags.snuevas;
+				let etiquetasNuevas = req.body.tags.nuevas;
 
 				Etiqueta.TraducirGuardar(etiquetasNuevas, req.cookies.lang || 'es', (err, tagsGuard) => {
 
 					let tags = req.body.tags.existentes;
-
-					console.log(tagsGuard)
 
 					if (tagsGuard.length) {
 						tagsGuard.forEach(el => {
@@ -99,7 +98,7 @@ exports.guardar = function (req, res) {
 					}
 
 					Etiqueta.AsignarLogos(req.body.tags.existentes, data.insertId, (err, logoEti) => {
-						
+
 						res.status(200).json({ insertId: data.insertId, etiqetasGuardadas: etiquetasNuevas });
 
 					})
@@ -305,7 +304,7 @@ exports.listaLogosPorEstado = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -352,7 +351,7 @@ exports.listaLogosPorAprobar = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -401,7 +400,7 @@ exports.listaLogosAprobados = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -456,7 +455,7 @@ exports.listaLogosAprobadosPorTagCatSub = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -503,7 +502,7 @@ exports.listaLogosAprobadosCatPadre = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -551,7 +550,7 @@ exports.listaLogosAprobadosPorCliente = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -598,7 +597,7 @@ exports.listaLogosVendidosPorCliente = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -644,7 +643,7 @@ exports.listaLogosAprobadosDestacados = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -694,7 +693,7 @@ exports.listaLogosGuardados = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -743,7 +742,7 @@ exports.listaLogosDescargables = function (req, res) {
 
 			}, (err) => {
 
-				if (err) res.status(402).json({});
+				if (err) return res.status(402).json({});
 
 				res.status(200).json(data);
 
@@ -810,7 +809,7 @@ exports.modificarLogo = function (req, res) {
 
 						}, (err) => {
 
-							if (err) res.status(402).json({});
+							if (err) return res.status(402).json({});
 
 							res.status(200).json(data);
 
@@ -1543,7 +1542,7 @@ exports.obtenerBinario = function (req, res) {
 exports.obtenerBinarioPredisenado = function (req, res) {
 	const idLogo = req.params.id;
 	const lang = req.lang.toLowerCase();
-	const ancho = 200;
+	const ancho = 300;
 	let fuentes = {};
 
 	let textos = {
@@ -1623,7 +1622,12 @@ exports.obtenerBinarioPredisenado = function (req, res) {
 						}, (err) => {
 							if (err) res.status(402).json({});
 
-							console.log(decode)
+														
+							decode = decode.replace("url('http://localhost:8080/fuentes/", "url('"+configuracion.url + '/fuentes/');
+							
+							decode = decode.replace("url('/fuentes/", "url('"+configuracion.url + '/fuentes/');
+
+							decode = decode.replace("url('/fuentes/", "url('"+configuracion.url + '/fuentes/');
 
 							var buffer = new Buffer(decode);
 
