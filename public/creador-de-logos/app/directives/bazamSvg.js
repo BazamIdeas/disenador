@@ -1252,8 +1252,10 @@ angular.module("disenador-de-logos")
 
 								var svgFile = input.files[0];
 								
-								if(svgFile.type != "image/svg+xml"){
+								if(!input.files.length || svgFile.type != "image/svg+xml"){
 									botonInsertarImagen[0].value = '';
+
+									console.log(input.files)
 									return;
 								}
 
@@ -1267,6 +1269,7 @@ angular.module("disenador-de-logos")
 
 									var svgInputElement = angular.element(svgInput);
 									
+									console.log(svgInputElement[0].outerHTML)
 									svgInputElement.removeAttr("width");
 									svgInputElement.removeAttr("height");
 
