@@ -52,7 +52,7 @@
 								<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria"
 								 ng-click="::editor.abrirContenedor('fuentes', true)">
 									<md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-									<span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
+									<span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Minimalista', 'estilo-1':fuenteCategoria.nombreCategoria == 'Clásicas'}">.</span>
 								</md-radio-button>
 							</md-radio-group>
 
@@ -117,7 +117,7 @@
 									<md-radio-button ng-repeat="fuenteCategoria in editor.fuentesCategorias track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria"
 									 ng-click="::editor.abrirContenedor('fuentes', true)">
 										<md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-										<span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
+										<span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Minimalista', 'estilo-1':fuenteCategoria.nombreCategoria == 'Clásicas'}">.</span>
 									</md-radio-button>
 								</md-radio-group>
 
@@ -159,10 +159,10 @@
 					<div class="row">
 						<div class="col s12 no-padding">
 							<md-chips md-max-chips="8" style="padding:0;" md-add-on-blur="true" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
-							 ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
+							 ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap  md-require-match="true" md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
 								<label>Etiquetas</label>
 								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
-								 md-item-text="item.traducciones[0].valor" placeholder="{{::editor.lang[13]}}">
+								 md-item-text="item.traducciones[0].valor" placeholder="{{::editor.lang[28]}}">
 									<span md-highlight-text="editor.searchText">{{::item.traducciones[0].valor}}</span>
 								</md-autocomplete>
 								<md-chip-template>

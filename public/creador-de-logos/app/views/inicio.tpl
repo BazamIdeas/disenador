@@ -15,7 +15,7 @@
 
                 <md-input-container class="col s12">
                     <label>{{::inicio.lang.formulario.etiquetas.label}}</label>
-                    <md-chips style="padding:0;" md-add-on-blur="true" md-max-chips="5" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                    <md-chips md-require-match="true" style="padding:0;" md-add-on-blur="true" md-max-chips="5" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                         md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" ng-class="{'without-placeholder':inicio.datos.etiquetasSeleccionadas.length > 0}">
                         <md-autocomplete md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText, inicio.etiquetas)"
                             md-item-text="item.traducciones[0].valor" placeholder="{{::inicio.lang.formulario.etiquetas.placeholder}}">
@@ -52,7 +52,7 @@
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
                             <md-radio-button ng-repeat="fuenteCategoria in inicio.datos.fuentes track by fuenteCategoria.idCategoria" ng-value="::fuenteCategoria.idCategoria">
                                 <md-tooltip md-direction="bottom">{{::fuenteCategoria.nombreCategoria}}</md-tooltip>
-                                <span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Clásicas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-1':fuenteCategoria.nombreCategoria == 'Minimalista'}">.</span>
+                                <span class="estilo" ng-class="{'estilo-2':fuenteCategoria.nombreCategoria == 'Llamativas', 'estilo-4':fuenteCategoria.nombreCategoria == 'Moderna', 'estilo-3':fuenteCategoria.nombreCategoria == 'Minimalista', 'estilo-1':fuenteCategoria.nombreCategoria == 'Clásicas'}">.</span>
                             </md-radio-button>
                         </md-radio-group>
 

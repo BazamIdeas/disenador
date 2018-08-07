@@ -98,7 +98,7 @@ module.exports = {
                     'Agregar Eslogan',
                     'Eslogan del logo',
                     'Eslogan',
-                    'Buscar iconos',
+                    'Etiquetas (Opcional)',
                     'Categoria del icono',
                     'Buscar simbolos',
                     'Orientación',
@@ -112,7 +112,8 @@ module.exports = {
                     'GUARDAR',
                     'COMPRAR',
                     'CARGAR',
-                    'MAS'
+                    'MAS',
+                    'Buscar iconos'
                 ],
                 pago: [
                     'Resumen de su pedido',
@@ -592,7 +593,7 @@ module.exports = {
                     'Add slogan',
                     'Logo slogan',
                     'Slogan',
-                    'Search icons',
+                    'Tags (Optional)',
                     'Category of the icon',
                     'Look for symbols',
                     'Orientation',
@@ -606,7 +607,8 @@ module.exports = {
                     'SAVE',
                     'BUY',
                     'LOAD',
-                    'MORE'
+                    'MORE',
+                    'Search icons'
                 ],
                 pago: [
                     'Summary of your order',
@@ -1088,7 +1090,7 @@ module.exports = {
                     'Adicionar slogan',
                     'Slogan do logotipo',
                     'Slogan',
-                    'Pesquisar ícones',
+                    'Tags (Opcional)',
                     'Categoria do ícone',
                     "Procure por símbolos",
                     'Orientação',
@@ -1102,7 +1104,8 @@ module.exports = {
                     'SALVAR',
                     'BUY',
                     'LOAD',
-                    'MAS'
+                    'MAS',
+                    'Pesquisar ícones'
                 ],
                 pago: [
                     "Resumo do seu pedido",
