@@ -70,13 +70,12 @@
             <a class="enviar_editor" data-id="{{elemento.idLogo}}" data-noun="{{elemento.noun}}" data-subcategoria="{{elemento.categorias_idCategoria}}"
                 data-categoria="{{elemento.padre}}" data-attrs="{{elemento.atributos | dump}}" data-svg="{{elemento.logo}}">
                 <span>
-                    <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{elemento.atributos[1].valor}}">
+                    {% for atributo in elemento.atributos %} 
+                        {% if atributo.clave == 'descripcion' %}
+                            <img src="/app/logo/compartido/{{elemento.idLogo}}" alt="{{atributo.valor}}"> 
+                        {% endif %} 
+                    {% endfor %}
                 </span>
-                {% for atributo in elemento.atributos %} {% if atributo.clave == 'descripcion' %}
-                <span class="descripcion">
-                    {{atributo.valor}}
-                </span>
-                {% endif %} {% endfor %}
             </a>
             {% if mostraretiquetaslogo %}
             <div class="tags">
