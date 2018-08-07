@@ -23,6 +23,7 @@ exports.guardar = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
 	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 22;
 	var estado = "Editable";
+	var idNoun = req.body.noun ? req.body.noun : null;
 
 	switch (req.body.estado) {
 		case "Borrador":
@@ -46,7 +47,7 @@ exports.guardar = function (req, res) {
 		tipoLogo: req.body.tipoLogo,
 		clientes_idCliente: req.idCliente,
 		categorias_idCategoria: idCategoria,
-		noun: req.body.noun
+		noun: idNoun
 	};
 
 	logo.insertLogo(logoData, function (error, data) {
