@@ -1540,7 +1540,7 @@ exports.obtenerBinario = function (req, res) {
 exports.obtenerBinarioPredisenado = function (req, res) {
 	const idLogo = req.params.id;
 	const lang = req.lang.toLowerCase();
-	const ancho = 200;
+	const ancho = 300;
 	let fuentes = {};
 
 	let textos = {
@@ -1619,8 +1619,6 @@ exports.obtenerBinarioPredisenado = function (req, res) {
 							}
 						}, (err) => {
 							if (err) res.status(402).json({});
-
-							console.log(decode)
 
 							var buffer = new Buffer(decode);
 

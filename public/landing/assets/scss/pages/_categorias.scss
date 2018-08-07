@@ -312,17 +312,34 @@
     margin: auto;
     align-items: center;
 
+    &.-justify{
+        justify-content: space-around;
+    }
+
     > :last-child, > :nth-child(4n) {
         margin-right: 0 !important;
     }
     .--item {
+
+        &.big{
+            >a {
+                padding: 0;
+                > span{
+                    max-width: 100%;
+                    margin: 0 !important;
+                }    
+            }
+
+            img{
+                max-width: 100%;
+                max-height: 300px;
+            }
+        }
+
         > a {
             padding: 5%;
             display: block;
             cursor: pointer;
-            >:first-child{
-                min-height: 200px;
-            }
             > span{
                 max-width: 90%;
                 display: block;
