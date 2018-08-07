@@ -150,7 +150,7 @@
                     <!-- LOGO PREDISEÑADO  -->
                     <div class="combinacion-box" ng-if="logo.atributos" style="background-color: white;">
                         
-                        <bazam-visualizar data-svg="inicio.base64.decode(logo.svg)"></bazam-visualizar>
+                        <bazam-visualizar data-svg="inicio.base64.decode(logo.svg)" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)"></bazam-visualizar>
                         <!--
                         <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">
                             <p>{{::inicio.lang.combinaciones.guardar}}</p>

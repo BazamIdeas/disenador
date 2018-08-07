@@ -470,7 +470,7 @@ angular.module("disenador-de-logos")
 			if (disenadorService.autorizado()) return;
 
 			bz.datosComprar = {
-				logo: bz.base64.decode(logo.svg),
+				logo: logo.svg ? bz.base64.decode(logo.svg) : bz.base64.decode(logo.icono.svg),
 				idLogo: logo.idLogo ? logo.idLogo : 0,
 				noun: logo.icono ? logo.icono.idElemento : 0,
 				idCategoria: bz.datos.categoria.icono,
