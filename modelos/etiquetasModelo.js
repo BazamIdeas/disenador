@@ -43,7 +43,7 @@ etiqueta.ObtenerTodos = callback =>
 }
 
 
-etiqueta.ObtenerTodosPorPalabra = (search, callback) => {
+etiqueta.ObtenerTodosPorPalabra = (search, lang, callback) => {
 
     var regex = new RegExp('^' + search );
 
@@ -60,7 +60,7 @@ etiqueta.ObtenerTodosPorPalabra = (search, callback) => {
             }
         }, {
             $match: {
-                "idioma.codigo": "es",
+                "idioma.codigo": lang,
                 "traducciones.valor": { $regex: regex }
             }
         }, {

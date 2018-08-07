@@ -58,20 +58,7 @@ angular.module("landing")
 		bz.selectedItem = null;
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
-		bz.peticion = true;
-
-		etiquetasService.listarEtiquetas().then(function (res) {
-
-			if (res != undefined) {
-				bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-			}
-
-		}).catch(function (res) {
-			//console.log(res)
-		}).finally(function () {
-			bz.peticion = false;
-		})
-
+		
 		/* FUNCIONES */
 
 		bz.enviarComenzar = function (datos, v) {

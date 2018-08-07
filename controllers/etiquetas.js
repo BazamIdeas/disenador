@@ -17,7 +17,7 @@ exports.ObtenerTodos = (req, res) =>
 }
 
 exports.ObtenerTodosPorPalabra = (req, res) => {
-	Etiqueta.ObtenerTodosPorPalabra(req.params.search, (err, data) => {
+	Etiqueta.ObtenerTodosPorPalabra(req.params.search, req.lang.toLowerCase(), (err, data) => {
 		if (data.length > 0) {
 			res.status(200).json(data);
 		} else {
