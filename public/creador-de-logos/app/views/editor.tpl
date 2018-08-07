@@ -161,7 +161,7 @@
 							<md-chips md-max-chips="8" style="padding:0;" md-add-on-blur="true" ng-change="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)"
 							 ng-model="editor.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap  md-require-match="true" md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
 								<label>Etiquetas</label>
-								<md-autocomplete md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText, editor.etiquetas)"
+								<md-autocomplete md-no-cache="true" md-min-length="3" md-selected-item="editor.selectedItem" md-search-text="editor.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.searchText)"
 								 md-item-text="item.traducciones[0].valor" placeholder="{{::editor.lang[28]}}">
 									<span md-highlight-text="editor.searchText">{{::item.traducciones[0].valor}}</span>
 								</md-autocomplete>
@@ -537,7 +537,7 @@
 		<md-chips md-max-chips="8" ng-required="true" style="padding:0; width: 95%;" md-add-on-blur="true" ng-model="editor.datosDisenador.etiquetasSeleccionadas"
 		 md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-require-match="true" md-transform-chip="editor.etiquetasFunciones.transformChip($chip)">
 			<label>Etiquetas</label>
-			<md-autocomplete md-selected-item="editor.disenador.selectedItem" md-search-text="editor.disenador.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.disenador.searchText, editor.etiquetas)"
+			<md-autocomplete md-no-cache="true" md-min-length="3" md-selected-item="editor.disenador.selectedItem" md-search-text="editor.disenador.searchText" md-items="item in editor.etiquetasFunciones.querySearch(editor.disenador.searchText)"
 			 md-item-text="item.traducciones[0].valor" placeholder="{{::editor.lang[13]}}">
 				<span md-highlight-text="editor.searchText">{{item.traducciones[0].valor}}</span>
 			</md-autocomplete>

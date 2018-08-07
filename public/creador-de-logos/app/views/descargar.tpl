@@ -7,6 +7,19 @@
         .logo bazam-visualizar svg {
             height: 100%;
         }
+
+.candado-bloqueado {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffffb3;
+}
     </style>
     <div class="row">
         <div class="col s1 p-none" style="border-right: 1px solid #eceff0;">
@@ -34,10 +47,23 @@
 
                 <div class="categorias-papeleria">
                     <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;" ng-repeat="formato in descargar.todosLosFormatos track by formato.nombre"
-                        ng-click="descargar.seleccionar(formato)" ng-class="{'seleccionada': descargar.formatoSeleccionado.nombre == formato.nombre }">
+                        ng-click="descargar.seleccionar(formato)" ng-class="{'seleccionada': descargar.formatoSeleccionado.nombre == formato.nombre }" 
+                        
+                        ng-if="(formato.nombre == 'editable' && descargar.plan.editable.valor == '1') || (formato.nombre == 'papeleria' && descargar.plan.png.valor
+                        == '1') || (formato.nombre != 'editable' && formato.nombre != 'papeleria' && descargar.plan.png.valor == '1')">
                         <md-tooltip md-direction="right">{{formato.nombre}}</md-tooltip>
                         <img src="/creador-de-logos/assets/images/descarga/{{::formato.nombre}}_normal.png">
                     </span>
+                    
+                    <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;" ng-repeat="formato in descargar.todosLosFormatos track by formato.nombre"
+                        ng-class="{'seleccionada': descargar.formatoSeleccionado.nombre == formato.nombre }" 
+                        
+                        ng-if="(formato.nombre == 'editable' && descargar.plan.editable.valor == '0') || (formato.nombre == 'papeleria' && descargar.plan.png.valor == '0') || (formato.nombre != 'editable' && formato.nombre != 'papeleria' && descargar.plan.png.valor == '0')">
+                        <md-tooltip md-direction="right">{{formato.nombre}}</md-tooltip>
+                        <img src="/creador-de-logos/assets/images/descarga/{{::formato.nombre}}_normal.png">
+                        <i class="material-icons candado-bloqueado">lock</i>
+                    </span>
+
                     <span class="tab-papeleria" style="height: calc(7.69230769231vh - 5px) !important;" ng-click="descargar.descargarTodo()">
                         <md-tooltip md-direction="right">{{::descargar.lang[3]}}</md-tooltip>
                         <img src="assets/images/iconos-descarga/descargar-todo.png">

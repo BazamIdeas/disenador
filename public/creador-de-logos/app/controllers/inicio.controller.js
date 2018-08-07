@@ -35,12 +35,12 @@ angular.module("disenador-de-logos")
 
 		var datosPredisenado = predisenadoResolve;
 
-		bz.resetPredisenado = function (){
+		bz.resetPredisenado = function () {
 
 			datosPredisenado = {
-				categoria:0,
+				categoria: 0,
 				subCategoria: 0,
-				tag:""
+				tag: ""
 			};
 		};
 
@@ -80,13 +80,13 @@ angular.module("disenador-de-logos")
 							};
 
 							switch (provider) {
-							case "twitter":
-								attrs.socialshareHashtags = "Liderlogo";
-								break;
+								case "twitter":
+									attrs.socialshareHashtags = "Liderlogo";
+									break;
 
-							case "pinterest":
-								attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
-								break;
+								case "pinterest":
+									attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+									break;
 							}
 
 							Socialshare.share({
@@ -116,13 +116,13 @@ angular.module("disenador-de-logos")
 					};
 
 					switch (provider) {
-					case "twitter":
-						attrs.socialshareHashtags = "Liderlogo";
-						break;
+						case "twitter":
+							attrs.socialshareHashtags = "Liderlogo";
+							break;
 
-					case "pinterest":
-						attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
-						break;
+						case "pinterest":
+							attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+							break;
 					}
 
 					Socialshare.share({
@@ -350,10 +350,10 @@ angular.module("disenador-de-logos")
 
 					var logosMezcladosRandom = (function (array) {
 						var currentIndex = array.length, temporaryValue, randomIndex;
-						
+
 						// While there remain elements to shuffle...
 						while (0 !== currentIndex) {
-							
+
 							// Pick a remaining element...
 							randomIndex = Math.floor(Math.random() * currentIndex);
 							currentIndex -= 1;
@@ -363,7 +363,7 @@ angular.module("disenador-de-logos")
 							array[currentIndex] = array[randomIndex];
 							array[randomIndex] = temporaryValue;
 						}
-						
+
 
 						return array;
 					})(logosMezclados);
@@ -470,7 +470,7 @@ angular.module("disenador-de-logos")
 			if (disenadorService.autorizado()) return;
 
 			bz.datosComprar = {
-				logo: logo.svg ? bz.base64.decode(logo.svg) : bz.base64.decode(logo.icono.svg),
+				logo: logo.svg ? bz.base64.decode(logo.svg) : svg,
 				idLogo: logo.idLogo ? logo.idLogo : 0,
 				noun: logo.icono ? logo.icono.idElemento : 0,
 				idCategoria: bz.datos.categoria.icono,
@@ -669,11 +669,5 @@ angular.module("disenador-de-logos")
 		bz.selectedItem = null;
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
-
-		etiquetasService.listarEtiquetas().then(function (res) {
-			bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-		}).catch(function () {
-			//console.log(res)
-		});
 
 	}]);

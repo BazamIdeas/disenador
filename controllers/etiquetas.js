@@ -16,6 +16,17 @@ exports.ObtenerTodos = (req, res) =>
 	});
 }
 
+exports.ObtenerTodosPorPalabra = (req, res) => {
+	Etiqueta.ObtenerTodosPorPalabra(req.params.search, req.lang.toLowerCase(), (err, data) => {
+		if (data.length > 0) {
+			res.status(200).json(data);
+		} else {
+			res.status(404).json({
+				'msg': 'No hay etiquetas en la base de datos'
+			});
+		}
+	});
+}
 
 exports.ObtenerTodosDeIdioma = (req, res) => {
 	Etiqueta.ObtenerTodoDeIdioma(req.lang.toLowerCase(), (err, data) => {

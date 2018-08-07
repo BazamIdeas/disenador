@@ -729,6 +729,8 @@ angular.module("landing")
 
 	.service('etiquetasService', ['$http', '$q', function ($http, $q) {
 
+		var bz = this;
+		
 		/***************************/
 		/**********LOGOS***********/
 		/***************************/
@@ -796,9 +798,24 @@ angular.module("landing")
 
 		};
 
-		this.querySearch = function (query, etiquetas) {
-			var results = query ? etiquetas.filter(createFilterFor(query)) : [];
-			return results;
+		this.querySearch = function (query) {
+
+			if (bz.peticion) return;
+			if (query.length < 3) return;
+			bz.peticion = true;
+
+			return $http.get("/app/etiquetas/" + query).then(function (res) {
+
+				var etiquetas = bz.loadEtiquetas(res.data);
+
+				var results = query ? etiquetas.filter(createFilterFor(query)) : [];
+
+				return results;
+
+			}).finally(function(){
+				bz.peticion = false;
+			});
+
 		};
 
 		function createFilterFor(query) {

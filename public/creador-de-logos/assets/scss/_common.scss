@@ -182,9 +182,6 @@ md-option {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center
 }
 
 .md-text {
@@ -975,4 +972,17 @@ md-select-menu span.texto-on-select {
     color: transparent !important;
     background: url(../images/spinner-white.gif);
     background-size: cover;
+}
+
+.no-buttons button{
+    display: none !important;
+}
+
+.md-container.md-mode-indeterminate .md-bar2, .md-container.md-mode-indeterminate .md-bar1 {
+    background: #5981bc !important;
+    height: 3px !important;
+}
+
+md-progress-linear .md-container, md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar, md-progress-linear{
+    height: 3px !important;
 }

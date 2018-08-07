@@ -165,6 +165,8 @@ angular.module("disenador-de-logos")
 
 					}
 
+
+					console.log(bz.logo.fuenteEslogan.url, fuente.url);
 					if (bz.logo.fuenteEslogan && (bz.logo.fuenteEslogan.url == fuente.url)) {
 
 						fuentesId.eslogan = fuente.idElemento;
@@ -286,7 +288,7 @@ angular.module("disenador-de-logos")
 
 			logosService.guardarLogo(bz.base64.encode(logo), null, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function (etiquetasGuardadas) {
 
-				if (etiquetasGuardadas) {
+/* 				if (etiquetasGuardadas) {
 
 					angular.forEach(etiquetasGuardadas, function (element) {
 						bz.etiquetas.push({ _id: element._id, traducciones: [{ valor: element.tag, _lowername: element.tag.toLowerCase() }] });
@@ -294,7 +296,7 @@ angular.module("disenador-de-logos")
 
 					bz.etiquetas = etiquetasService.loadEtiquetas(bz.etiquetas);
 				}
-
+ */
 				$mdToast.show($mdToast.base({
 					args: {
 						mensaje: "Enviaste un logo a revision!",
@@ -540,13 +542,6 @@ angular.module("disenador-de-logos")
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
 
-		etiquetasService.listarEtiquetas()
-			.then(function (res) {
-				bz.etiquetas = etiquetasService.loadEtiquetas(res.data);
-				//console.log('etiquetas cargadas', bz.etiquetas)
-			})
-			.catch(function () { });
-
 		bz.etiquetasSeleccionadas = [];
 
 		var tags_saltos = {};
@@ -561,8 +556,8 @@ angular.module("disenador-de-logos")
 
 				var iconos = [];
 
-				if(bz.etiquetasSeleccionadas.length == 0) return;
-				
+				if (bz.etiquetasSeleccionadas.length == 0) return;
+
 
 				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
 
@@ -600,8 +595,8 @@ angular.module("disenador-de-logos")
 				elementosService.listarIconosSegunTags(tags_saltos).then(function (res) {
 					bz.iconos = [];
 					bz.iconos = res.iconos;
-					if(!bz.iconos.length){
-						return bz.cerrarContenedores();	
+					if (!bz.iconos.length) {
+						return bz.cerrarContenedores();
 					}
 					bz.contenedores.busquedaIconos = true;
 					var tags = res.tags;

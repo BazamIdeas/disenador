@@ -352,6 +352,8 @@ angular.module("disenador-de-logos")
 
 	.service("etiquetasService", ["$http", "$q", function ($http, $q) {
 
+		var bz = this;
+
 		/***************************/
 		/**********LOGOS***********/
 		/***************************/
@@ -376,12 +378,12 @@ angular.module("disenador-de-logos")
 		/* ETIQUETAS*/
 
 
-		this.listarEtiquetas = function () {
+		this.listarEtiquetas = function (string) {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.get("/app/etiquetas/idioma").then(function (res) {
+			$http.get("/app/etiquetas/" + string).then(function (res) {
 				defered.resolve(res);
 			}).catch(function () {
 				defered.reject();
@@ -391,17 +393,15 @@ angular.module("disenador-de-logos")
 		};
 
 		this.loadEtiquetas = function (arr) {
-			//TODO: CAMBIAR PARA COMPATIBILIDAD
 			return arr.map(function (et) {
 				var i;
 				for (i = 0; i < et.traducciones.length; i++) {
 					var element = et.traducciones[i];
 					element._lowername = element.valor.toLowerCase();
 				}
-				
+
 				return et;
 			});
-			
 		};
 
 		this.transformChip = function (chip) {
@@ -413,21 +413,31 @@ angular.module("disenador-de-logos")
 
 			// Otherwise, create a new one
 			return {
-				traducciones:[{
+				traducciones: [{
 					valor: chip
 				}]
 			};
 
 		};
 
-		this.querySearch = function (query, etiquetas) {
+		this.querySearch = function (query) {
 
-			if(!etiquetas){
-				return [];
-			}
+			if (bz.peticion) return;
+			if (query.length < 3) return;
+			bz.peticion = true;
 
-			var results = query ? etiquetas.filter(createFilterFor(query)) : [];
-			return results;
+			return $http.get("/app/etiquetas/" + query).then(function (res) {
+
+				var etiquetas = bz.loadEtiquetas(res.data);
+
+				var results = query ? etiquetas.filter(createFilterFor(query)) : [];
+
+				return results;
+
+			}).finally(function(){
+				bz.peticion = false;
+			});
+
 		};
 
 		function createFilterFor(query) {
@@ -469,8 +479,8 @@ angular.module("disenador-de-logos")
 
 		};
 
-		this.listarCategoriasElementosHijas = function (){
-			
+		this.listarCategoriasElementosHijas = function () {
+
 			var defered = $q.defer();
 
 			var promise = defered.promise;
@@ -601,7 +611,7 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			var data = {
-				tags : tags
+				tags: tags
 			};
 
 			$http.post("/app/elementos/busqueda/iconos/noun", data)
@@ -728,7 +738,7 @@ angular.module("disenador-de-logos")
 					atributos: atributos
 				};
 
-				if(noun){
+				if (noun) {
 					datos.noun = noun;
 				}
 
@@ -746,7 +756,7 @@ angular.module("disenador-de-logos")
 				return promise;
 
 			},
-			
+
 			stripe: function (idCategoria, atributos, logo, idPrecio, tipoLogo, idPasarela, tokenStripe, noun) {
 
 				var defered = $q.defer();
@@ -762,7 +772,7 @@ angular.module("disenador-de-logos")
 					stripeToken: tokenStripe,
 				};
 
-				if(noun){
+				if (noun) {
 					datos.noun = noun;
 				}
 
@@ -864,8 +874,8 @@ angular.module("disenador-de-logos")
 						});
 
 					}, {
-						scope: "email,user_friends,user_location,user_likes"
-					});
+							scope: "email,user_friends,user_location,user_likes"
+						});
 
 					return promise;
 				}
@@ -964,15 +974,15 @@ angular.module("disenador-de-logos")
 						href: "http://test.logo.pro/",
 						source: "http://test.logo.pro/logo.pro.svg"
 					},
-					function (response) {
-						if (response && !response.error_code) {
-							if (typeof response != "undefined") {
-								defered.resolve();
+						function (response) {
+							if (response && !response.error_code) {
+								if (typeof response != "undefined") {
+									defered.resolve();
+								}
+							} else {
+								defered.reject(response);
 							}
-						} else {
-							defered.reject(response);
-						}
-					});
+						});
 				} else {
 					FB.login(function (response) {
 						FB.ui({
@@ -980,15 +990,15 @@ angular.module("disenador-de-logos")
 							href: "http://test.logo.pro/",
 							source: "http://test.logo.pro/"
 						},
-						function (response) {
-							if (response && !response.error_code) {
-								if (typeof response != "undefined") {
-									defered.resolve(response);
+							function (response) {
+								if (response && !response.error_code) {
+									if (typeof response != "undefined") {
+										defered.resolve(response);
+									}
+								} else {
+									defered.reject(response);
 								}
-							} else {
-								defered.reject(response);
-							}
-						});
+							});
 					});
 				}
 			});
@@ -1307,9 +1317,7 @@ angular.module("disenador-de-logos")
 
 					logos.comprar = valor;
 
-				} else if (tipo == "comparar")
-
-				{
+				} else if (tipo == "comparar") {
 					logos.comparar.push(valor);
 				}
 
@@ -1349,7 +1357,7 @@ angular.module("disenador-de-logos")
 
 		return function (iconos, fuentes) {
 
-		
+
 			var logos = [];
 			/*angular.forEach(fuentes, function (fuente) {
 
@@ -1368,7 +1376,7 @@ angular.module("disenador-de-logos")
 
 			});	*/
 
-			angular.forEach(iconos, function(icono, indice){
+			angular.forEach(iconos, function (icono, indice) {
 
 				var logo = {
 					icono: iconos[indice],
@@ -1408,7 +1416,7 @@ angular.module("disenador-de-logos")
 
 	.service("logosService", ["$http", "$q", "disenadorService", "arrayToJsonMetasFactory", function ($http, $q, disenadorService, arrayToJsonMetasFactory) {
 
-		this.obtenerDestacados = function(idCategoria, idSubcategoria, idTag){
+		this.obtenerDestacados = function (idCategoria, idSubcategoria, idTag) {
 
 			var defered = $q.defer();
 
@@ -1427,14 +1435,14 @@ angular.module("disenador-de-logos")
 
 					var iconosDestacados = res.data;
 
-					angular.forEach(iconosDestacados, function(iconosDestacado){
+					angular.forEach(iconosDestacados, function (iconosDestacado) {
 						iconosDestacado.atributos = arrayToJsonMetasFactory(iconosDestacado.atributos);
 						response.push(iconosDestacado);
 					});
 
 					defered.resolve(iconosDestacados);
 				})
-				.catch(function(){
+				.catch(function () {
 					defered.reject();
 				});
 
@@ -1489,8 +1497,8 @@ angular.module("disenador-de-logos")
 
 			var config = {};
 			var datosDisenador = disenadorService.autorizado();
-			if(datosDisenador){
-				
+			if (datosDisenador) {
+
 				datos.atributos.descripcion = descripcion;
 
 				datos.tags = {
@@ -1498,23 +1506,23 @@ angular.module("disenador-de-logos")
 					nuevas: []
 				};
 
-				angular.forEach(tags, function(tag){
+				angular.forEach(tags, function (tag) {
 
-					if(tag._id){
+					if (tag._id) {
 						datos.tags.existentes.push(tag._id);
 					} else {
 						datos.tags.nuevas.push(tag.traducciones[0].valor);
-					}					
-					
+					}
+
 				});
-				
+
 				datos.estado = "Por Aprobar";
 
 				config.headers = {
 					auth: datosDisenador.token
 				};
 			}
-		
+
 			/*
 			if (logoPadreId) {
 				datos.atributos.padre = logoPadreId;
@@ -1522,20 +1530,20 @@ angular.module("disenador-de-logos")
 			*/
 
 
-			
-			$http.post("/app/logo/guardar", datos, config).then(function (res) {
-				
-				var respuesta = false;	
 
-				if(datosDisenador && res.data.etiqetasGuardadas){
+			$http.post("/app/logo/guardar", datos, config).then(function (res) {
+
+				var respuesta = false;
+
+				if (datosDisenador && res.data.etiqetasGuardadas) {
 					respuesta = res.data.etiqetasGuardadas;
 				}
-				else{
+				else {
 					respuesta = res.data.insertId;
 				}
-				
+
 				defered.resolve(respuesta);
-				
+
 			}).catch(function (res) {
 
 				defered.reject(res);
@@ -2042,8 +2050,8 @@ angular.module("disenador-de-logos")
 
 		this.preparar = function (fuente, url) {
 
-			if(!url){
-				url = "/fuentes/"+fuente+".ttf";
+			if (!url) {
+				url = "/fuentes/" + fuente + ".ttf";
 			}
 
 			var defered = $q.defer();
@@ -2094,107 +2102,107 @@ angular.module("disenador-de-logos")
 		};
 
 	}])
-	.service("papeleriaService", ["$q", "$http",  function($q, $http){
+	.service("papeleriaService", ["$q", "$http", function ($q, $http) {
 
-		this.listarPorCliente =  function(){
+		this.listarPorCliente = function () {
 			var defered = $q.defer();
 			var promise = defered.promise;
-				
+
 			$http.get("/app/papeleria/usuario")
-				.then(function(res){
+				.then(function (res) {
 					defered.resolve(res.data);
 				})
-				.catch(function(){
+				.catch(function () {
 					defered.reject();
 				})
-				.finally(function(){
+				.finally(function () {
 
 				});
-				
+
 			return promise;
 		};
 
-		this.listarPorClienteYlogo =  function(id){
+		this.listarPorClienteYlogo = function (id) {
 			var defered = $q.defer();
 			var promise = defered.promise;
-				
-			$http.get("/app/papeleria/logo/"+id)
-				.then(function(res){
+
+			$http.get("/app/papeleria/logo/" + id)
+				.then(function (res) {
 					defered.resolve(res.data);
 				})
-				.catch(function(){
+				.catch(function () {
 					defered.reject();
 				})
-				.finally(function(){
+				.finally(function () {
 
 				});
-				
+
 			return promise;
 		};
 
 		this.piezas = {
-			guardar: function(tipo, modelo, pieza){
+			guardar: function (tipo, modelo, pieza) {
 				var defered = $q.defer();
 				var promise = defered.promise;
-				
+
 				$http.post("/app/papeleria/pieza", {
 					tipo: tipo,
 					modelo: modelo,
 					pieza: pieza
 				})
-					.then(function(res){
+					.then(function (res) {
 						defered.resolve(res.data);
 					})
-					.catch(function(){
+					.catch(function () {
 						defered.reject();
 					})
-					.finally(function(){
+					.finally(function () {
 
 					});
-				
-				return promise;
-			},
-			eliminar: function(idPieza){
-				var defered = $q.defer();
-				var promise = defered.promise;
-				
-				$http.get("/app/papeleria/pieza/"+idPieza+"/eliminar")
-					.then(function(res){
-						defered.resolve(res.data);
-					})
-					.catch(function(){
-						defered.reject();
-					})
-					.finally(function(){
 
-					});
-				
 				return promise;
 			},
-			descargar: function(id, idlogo){
+			eliminar: function (idPieza) {
 				var defered = $q.defer();
 				var promise = defered.promise;
 
-				var datos = {_id : id, idLogo: idlogo};
-				
+				$http.get("/app/papeleria/pieza/" + idPieza + "/eliminar")
+					.then(function (res) {
+						defered.resolve(res.data);
+					})
+					.catch(function () {
+						defered.reject();
+					})
+					.finally(function () {
+
+					});
+
+				return promise;
+			},
+			descargar: function (id, idlogo) {
+				var defered = $q.defer();
+				var promise = defered.promise;
+
+				var datos = { _id: id, idLogo: idlogo };
+
 				$http.post("/app/papeleria/descargar", datos)
-					.then(function(res){
+					.then(function (res) {
 						defered.resolve(res.data);
 					})
-					.catch(function(){
+					.catch(function () {
 						defered.reject();
 					})
-					.finally(function(){
+					.finally(function () {
 
 					});
-				
+
 				return promise;
 			}
 		};
 
 
 	}])
-	
+
 
 	/***************************************/
 	/***************DISENADOR****************/
@@ -2224,7 +2232,7 @@ angular.module("disenador-de-logos")
 
 	}])
 
-	.service("disenadorService", ["$q", "$http", "$window", "disenadorDatosFactory", function($q, $http, $window, disenadorDatosFactory){
+	.service("disenadorService", ["$q", "$http", "$window", "disenadorDatosFactory", function ($q, $http, $window, disenadorDatosFactory) {
 
 		this.login = function (correo, contrasena) {
 
@@ -2232,14 +2240,14 @@ angular.module("disenador-de-logos")
 			var promise = defered.promise;
 
 			var datosLogin = {
-				correo: correo, 
+				correo: correo,
 				pass: contrasena
 			};
-	
+
 			$http.post("/app/cliente/login", datosLogin)
 
 				.then(function (res) {
-					
+
 					var data = res.data;
 					$window.localStorage.setItem("bzTokenDisenador", angular.toJson(data));
 					disenadorDatosFactory.definir(data);
@@ -2250,25 +2258,25 @@ angular.module("disenador-de-logos")
 					$window.localStorage.removeItem("bzTokenDisenador");
 					defered.reject();
 				});
-				
+
 			return promise;
 
 		};
 
-		this.autorizado = function(){
+		this.autorizado = function () {
 
 			if (disenadorDatosFactory.obtener()) {
 
 				return disenadorDatosFactory.obtener();
-			
-			} 
+
+			}
 
 			if ($window.localStorage.getItem("bzTokenDisenador")) {
 
 				disenadorDatosFactory.definir(angular.fromJson($window.localStorage.getItem("bzTokenDisenador")));
 
 				return disenadorDatosFactory.obtener();
-				
+
 			}
 
 			return false;
@@ -2280,16 +2288,16 @@ angular.module("disenador-de-logos")
 			disenadorDatosFactory.eliminar();
 		};
 
-		this.logosAprobados = function(){
+		this.logosAprobados = function () {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
 
 			var datosDisenador = this.autorizado();
-			
-			if(datosDisenador){
-				
-				$http.post("/app/logos/estado", {estado: "Aprobado"}, {
+
+			if (datosDisenador) {
+
+				$http.post("/app/logos/estado", { estado: "Aprobado" }, {
 					headers: {
 						auth: datosDisenador.token
 					}
@@ -2305,7 +2313,7 @@ angular.module("disenador-de-logos")
 				defered.reject();
 			}
 
-			return promise;			
+			return promise;
 
 		};
 
@@ -2313,23 +2321,23 @@ angular.module("disenador-de-logos")
 
 	.value("langValue", traducciones)
 
-	.factory("langFactory", ["langValue", "$state", function(langValue, $state){
+	.factory("langFactory", ["langValue", "$state", function (langValue, $state) {
 
 		return {
 
-			langsEstadoActual: function (estado){
-			
-				var langsEstadoActual = false; 
+			langsEstadoActual: function (estado) {
+
+				var langsEstadoActual = false;
 				var langsPorEstados = langValue.general.app_editor.secciones;
 				var nombreEstado = $state.current.name;
 
-				if(estado){
+				if (estado) {
 					langsEstadoActual = langsPorEstados[estado];
-				}else{
+				} else {
 					langsEstadoActual = langsPorEstados[nombreEstado];
 				}
 
-				if(!langsEstadoActual){
+				if (!langsEstadoActual) {
 					return false;
 				}
 

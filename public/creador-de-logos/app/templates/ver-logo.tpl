@@ -1,4 +1,4 @@
-<div class="bazam-previzualizar" ng-class="{'active' : estado}">
+<div class="bazam-previzualizar -logo-previsualizar" ng-class="{'active' : estado}">
     <div ng-click="estado = false" class="close-prev">
         <md-icon>close</md-icon>
     </div>
@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="ver-logo-planes">
+    <div class="ver-logo-planes no-buttons">
         <bazam-listar-planes datos="datos" guardar-logo="guardarLogo" data-id="id" verlogo="true"></bazam-listar-planes>
     </div>
 
