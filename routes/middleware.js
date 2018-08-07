@@ -323,9 +323,11 @@ exports.validarCategorias = function (req, res, next) {
 
 			categoria.getCategoriasHijas(req.body.categoriaSeleccionada.idCategoria, function (error, data) {
 
+
 				if (typeof data !== "undefined" && data.length > 0) {
 
 					req.body.categorias = categoriasService.formatearCategorias(data,  req.lang);
+
 					next();
 
 				}

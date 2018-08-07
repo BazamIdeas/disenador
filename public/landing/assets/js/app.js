@@ -129,8 +129,7 @@ jQuery(document).ready(function ($) {
 				icono: {
 					idElemento: "",
 					svg: ""
-				},
-
+				}
 			},
 			idLogoPadre: 0,
 			categoria: logo.attr("data-categoria")

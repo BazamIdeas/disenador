@@ -16,11 +16,12 @@ var async = require("async");
 var config = require("../configuracion/configuracion.js");
 const fse = require('fs-extra')
 const Etiqueta = require('../modelos/etiquetasModelo.js');
+var configuracion = require('./../configuracion/configuracion.js');
 
 //GUARDAR UN LOGO
 exports.guardar = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
-	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 22;
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 532;
 	var estado = "Editable";
 	var idNoun = req.body.noun ? req.body.noun : null;
 
@@ -1620,6 +1621,13 @@ exports.obtenerBinarioPredisenado = function (req, res) {
 							}
 						}, (err) => {
 							if (err) res.status(402).json({});
+
+														
+							decode = decode.replace("url('http://localhost:8080/fuentes/", "url('"+configuracion.url + '/fuentes/');
+							
+							decode = decode.replace("url('/fuentes/", "url('"+configuracion.url + '/fuentes/');
+
+							decode = decode.replace("url('/fuentes/", "url('"+configuracion.url + '/fuentes/');
 
 							var buffer = new Buffer(decode);
 

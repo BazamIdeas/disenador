@@ -321,7 +321,8 @@ header {
   color: #5980B7;
   width: 160px; }
   .logo img {
-    width: 100%; }
+    width: 100%;
+    cursor: pointer; }
 
 .hidden {
   display: none; }
@@ -1608,7 +1609,7 @@ md-select[multiple] md-select-value span>div.md-text>*:not(:first-child) {
         margin: 0 !important; }
     .logos-predisenados .--item.big img {
       max-width: 100%;
-      max-height: 300px; }
+      max-height: unset; }
     .logos-predisenados .--item > a {
       padding: 5%;
       display: block;
