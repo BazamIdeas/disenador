@@ -164,6 +164,8 @@ angular.module("disenador-de-logos")
 
 					}
 
+
+					console.log(bz.logo.fuenteEslogan.url, fuente.url);
 					if (bz.logo.fuenteEslogan && (bz.logo.fuenteEslogan.url == fuente.url)) {
 
 						fuentesId.eslogan = fuente.idElemento;

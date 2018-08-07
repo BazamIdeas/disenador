@@ -42,6 +42,44 @@ etiqueta.ObtenerTodos = callback =>
     })
 }
 
+
+etiqueta.ObtenerTodosPorPalabra = (search, callback) => {
+
+    var regex = new RegExp('^' + search );
+
+    __mongoClient(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        }, {
+            $match: {
+                "idioma.codigo": "es",
+                "traducciones.valor": { $regex: regex }
+            }
+        }, {
+            $group: {
+                _id: '$_id',
+                traducciones: {
+                    $push: {
+                        idioma: '$idioma',
+                        valor: '$traducciones.valor'
+                    }
+                }
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+            callback(null, docs);
+        });
+    })
+}
+
 etiqueta.ObtenerTodoDeIdioma = (lang, callback) => {
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
