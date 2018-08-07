@@ -910,8 +910,20 @@ exports.zip = function (req, res) {
 								}, (err) => {
 									if (err) res.status(402).json({});
 
-									var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/"));
+									var decode = base64.decode(data[0].logo)
 
+									if (tipo == "editable" && caracteristicas.editable == '1') {
+										decode = decode.replace("@font-face", "fuente");
+										decode = decode.replace("@font-face", "fuente");
+									}
+
+									else {
+										decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+										decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+									}
+
+
+									var buffer = new Buffer(decode);
 									fs.open(path + nombre, "w", (err, fd) => {
 										if (err) throw "error al crear svg " + err;
 
@@ -1042,7 +1054,11 @@ exports.zip = function (req, res) {
 								}, (err) => {
 									if (err) res.status(402).json({});
 
-									var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/"));
+									var decode = base64.decode(data[0].logo)
+									decode = decode.replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/");
+									decode = decode.replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/");
+
+									var buffer = new Buffer(decode);
 
 									fs.open(path + nombre, "w", (err, fd) => {
 										if (err) throw "error al crear svg " + err;
@@ -1330,7 +1346,11 @@ exports.descargar = (req, res) => {
 								}, (err) => {
 									if (err) res.status(402).json({});
 
-									var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/"));
+									var decode = base64.decode(data[0].logo)
+									decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+									decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+									
+									var buffer = new Buffer(decode);
 
 									fs.open(path + nombre, "w", (err, fd) => {
 										if (err) throw "error al crear svg " + err;
@@ -1492,7 +1512,11 @@ exports.obtenerBinario = function (req, res) {
 					}, (err) => {
 						if (err) res.status(402).json({});
 
-						var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/"));
+						var decode = base64.decode(data[0].logo)
+						decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+						decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+						
+						var buffer = new Buffer(decode);
 
 						fs.open(path + nombre, "w", (err, fd) => {
 							if (err) throw "error al crear svg " + err;
@@ -1556,7 +1580,8 @@ exports.obtenerBinarioPredisenado = function (req, res) {
 		if (typeof data !== "undefined" && data.length > 0) {
 
 			var decode = base64.decode(data[0].logo)
-			decode = decode.replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/");
+			decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+			decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
 			
 			decode = decode.split('class="textoPrincipal"', 2);
 
@@ -1621,13 +1646,6 @@ exports.obtenerBinarioPredisenado = function (req, res) {
 							}
 						}, (err) => {
 							if (err) res.status(402).json({});
-
-														
-							decode = decode.replace("url('http://localhost:8080/fuentes/", "url('"+configuracion.url + '/fuentes/');
-							
-							decode = decode.replace("url('/fuentes/", "url('"+configuracion.url + '/fuentes/');
-
-							decode = decode.replace("url('/fuentes/", "url('"+configuracion.url + '/fuentes/');
 
 							var buffer = new Buffer(decode);
 
@@ -1735,8 +1753,12 @@ exports.enviarPorEmail = function (req, res) {
 						}
 					}, (err) => {
 						if (err) res.status(402).json({});
-
-						var buffer = new Buffer(base64.decode(data[0].logo).replace("/fuentes/", req.protocol + "://" + req.headers.host + "/fuentes/"));
+						
+						var decode = base64.decode(data[0].logo)
+						decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+						decode = decode.replace("url('/fuentes/", "url('"+ req.protocol + "://" + req.headers.host + "/fuentes/");
+						
+						var buffer = new Buffer(decode);
 
 						fs.open(path + nombre, "w", (err, fd) => {
 							if (err) throw "error al crear svg " + err;
