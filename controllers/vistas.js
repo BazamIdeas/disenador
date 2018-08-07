@@ -41,6 +41,7 @@ exports.ViewCategorias = function (req, res) {
 
 				logo.svg = base64.decode(logo.logo);
 				logo.svg = logo.svg.replace(/"/g, "'");
+				logo.padre = idCategoria;
 
 				if (logo.nombreCategoria) {
 					categoriaLogo = categoriasService.formatearCategorias([{idCategoria: logo.idCategoria, nombreCategoria: logo.nombreCategoria }], req.lang)[0];
