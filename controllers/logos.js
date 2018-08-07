@@ -21,7 +21,7 @@ var configuracion = require('./../configuracion/configuracion.js');
 //GUARDAR UN LOGO
 exports.guardar = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
-	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 22;
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 532;
 	var estado = "Editable";
 	var idNoun = req.body.noun ? req.body.noun : null;
 
