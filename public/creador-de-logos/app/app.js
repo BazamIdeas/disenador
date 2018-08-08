@@ -99,7 +99,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 										nombre: datosLanding.nombre,
 										categoria: {
 											icono: datosLanding.idCategoria,
-											fuente: 2
+											fuente: 4
 										},
 										subcategoria: datosLanding.subCategoria,
 										tags: datosLanding.etiquetasParaBusqueda,
