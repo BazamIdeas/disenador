@@ -99,7 +99,7 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 										nombre: datosLanding.nombre,
 										categoria: {
 											icono: datosLanding.idCategoria,
-											fuente: 2
+											fuente: 4
 										},
 										subcategoria: datosLanding.subCategoria,
 										tags: datosLanding.etiquetasParaBusqueda,
@@ -186,9 +186,8 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 				params: {
 					status: null,
 					datos: {
-
 						logo: null,
-						idCategoria: null,//TODO: revisar,
+						idCategoria: null,
 						noun: null,
 						tipo: null,
 						plan: {
@@ -203,7 +202,6 @@ angular.module("disenador-de-logos", [angularDragula(angular), "ngMessages", "ui
 							monto: null,
 							idPrecio: null
 						}
-
 					}
 				},
 				resolve: {

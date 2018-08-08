@@ -487,6 +487,10 @@ angular.module("disenador-de-logos")
 				moneda: bz.moneda
 			};
 
+			if(logo.atributos){
+				bz.datosComprar.colores.fondo = "#F4F4F4";
+			}
+
 			if (v) {
 				return bz.verPrevisualizar = true;
 			}

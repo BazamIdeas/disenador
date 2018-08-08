@@ -191,10 +191,11 @@ angular.module("disenador-de-logos")
 
 			var datos = angular.copy(bz.guardados[index]);
 			datos.atributos = arrayToJsonMetasFactory(datos.atributos);
-			/*FIXME: Cambiar por idCategoria*/
+
 			bz.datosComprar = {
 				idLogo: datos.idLogo,
 				logo: bz.base64.decode(datos.logo),
+				idCategoria: datos.categorias_idCategoria,
 				idElemento: datos.elementos_idElemento,
 				tipo: "Logo y nombre",
 				fuentes: {

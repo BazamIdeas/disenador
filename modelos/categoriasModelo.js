@@ -11,6 +11,8 @@ categoria.getCategorias = function(tipo,callback)
 
 	DB.getConnection(function(err, connection)
 	{
+		if (err) return connection.send(400);
+		
 		connection.query( q , tipo, function(err, rows){
 			
 			if(err)	throw err;
@@ -33,6 +35,7 @@ categoria.getCategoriasHijas = function (conPadre, callback) {
 	}
 
 	DB.getConnection(function (err, connection) {
+		
 		connection.query(q, [conPadre], function (err, rows) {
 
 			if (err) throw err;
@@ -50,6 +53,8 @@ categoria.ListarIconos = function(idCategoria,callback)
 
 	DB.getConnection(function(err, connection)
 	{
+		if (err) return connection.send(400);
+
 		connection.query( q ,  function(err, rows){
 			
 			if(err)	throw err;
@@ -67,6 +72,8 @@ categoria.ListarFuentes = function(idCategoria,callback)
 
 	DB.getConnection(function(err, connection)
 	{
+		if (err) return connection.send(400);
+
 		connection.query( q ,  function(err, rows){
 		
 			if(err)	throw err;
@@ -85,6 +92,8 @@ categoria.getCategoria = function(id,callback)
 
 	DB.getConnection(function(err, connection)
 	{
+		if (err) return connection.send(400);
+
 		connection.query( q , par , function(err, row){
 		
 			if(err)	throw err;
@@ -104,6 +113,8 @@ categoria.insertCategoria= function(categoriaData,callback)
 
 	DB.getConnection(function(err, connection)
 	{
+		if (err) return connection.send(400);
+
 		connection.query( q , par , function(err, result){
 		
 			if(err)	throw err;
@@ -125,6 +136,8 @@ categoria.updateCategoria = function(categoriaData, callback)
 
 	DB.getConnection(function(err, connection)
 	{
+		if (err) return connection.send(400);
+
 		connection.query( q , par , function(err){
 		
 			if(err)	throw err;
@@ -146,6 +159,8 @@ categoria.deleteCategoria = function(id, callback)
 
 	DB.getConnection(function(err, connection)
 	{
+		if (err) return connection.send(400);
+		
 		connection.query( q , par , function(err, row)
 		{
 			//si existe la id del cliente a eliminar

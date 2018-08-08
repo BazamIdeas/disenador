@@ -44,15 +44,8 @@
     -webkit-font-smoothing: antialiased;
 }
 
-@font-face {
-    font-family: 'futura-heavy';
-    src: url("fonts/futura/FuturaStd-Heavy.ttf?v=2.025") format("truetype");
-    font-weight: 800;
-    font-style: normal;
-}
-
 menu *:not(md-icon) {
-    font-family: 'futura-heavy' !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
 .pedido-logo {
@@ -175,6 +168,10 @@ md-tooltip {
 .w3-table-all td,
 .w3-table-all th {
     vertical-align: middle !important;
+}
+
+md-icon.alternal{
+    color:var(--alternal-color) !important;
 }
 
 /* INDEX */
@@ -354,6 +351,11 @@ table tr>th {
 
 .listar .elemento.inside {
     margin-bottom: 0px;
+    width: 100%;
+}
+
+.w3-table td, .w3-table th, .w3-table-all td, .w3-table-all th{
+    font-size: 12px !important;
 }
 
 .listar .elemento.nopadding {
@@ -406,13 +408,13 @@ opcion-tabla md-icon {
 }
 
 .cont-form * {
-    font-family: 'futura-heavy';
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
 .login-title {
     font-size: 19px;
     margin-bottom: 20px;
-    font-family: 'futura-heavy';
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
 .logo-login {
@@ -586,14 +588,15 @@ md-progress-linear._md-progress-linear-disabled {
 /* CLIENTE */
 
 .titulo-modulo texto {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: bold;
     display: block;
-    font-family: 'futura-heavy' !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     letter-spacing: 2px;
     text-align: center;
     width: 100%;
     text-transform: uppercase;
+    padding: 0 !important;
 }
 
 .botones-logos-disenadores button {
@@ -822,6 +825,58 @@ menu.centrado .menuItem {
     border-bottom: 1px solid black;
 }
 
+.botones-logos-disenadores {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.relative{
+    position: relative;
+}
+
+.md-toolbar-tools {
+    font-size: 18px;
+}
+
+.logo-predisenado{
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
+    margin: 2% 2% 0 0;
+    -webkit-box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.icono-detalles-lp{
+    color: black !important;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #ffffff;
+    border-radius: 5px;
+    z-index: 99;
+}
+
+detalles-lp {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #0000007a;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    user-select: none;
+}
+
+detalles-lp span {
+    color: white;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
 
 @media (min-device-width:1024px) and (max-device-width:1180px), (min-width:1024px) and (max-width:1180px) {
     

@@ -114,10 +114,17 @@ jQuery(document).ready(function ($) {
 		}, $(".step_guide_image[data-index=\"" + $(this).attr("data-index") + "\"]").attr("data-time"));
 
 	});
+	
 
 	$(".enviar_editor").click(function () {
 
 		var logo = $(this);
+
+		var textos = {
+			ES: ["Su empresa", "Eslogan o pie de marca"],
+			EN: ["Your Company", "Slogan or brand taglines"],
+			PT: ["Sua empresa", "Slogan ou pé de marca"],
+		}[idioma];
 
 		var data = {
 			predisenado: true,
@@ -129,18 +136,20 @@ jQuery(document).ready(function ($) {
 				icono: {
 					idElemento: "",
 					svg: ""
-				}
+				},
+				texto: textos[0],
+				eslogan: textos[1],
 			},
 			idLogoPadre: 0,
 			categoria: logo.attr("data-categoria")
-			//subcategoria: logo.attr('data-subcategoria'),
+			//subcategoria: logo.attr("data-subcategoria"),
 		};
 
 		var atributos = JSON.parse(logo.attr("data-attrs"));
 
 		atributos.forEach(function(element) {
-			if (element.clave == "principal") {
-				data.fuentes.principal = element.valor;
+			if (element.clave == "principal" || element.clave == "eslogan") {
+				data.fuentes[element.clave] = element.valor;
 			}
 		});
 
@@ -232,7 +241,7 @@ jQuery(document).ready(function ($) {
 		}
 
 		if (idiomaActivo != codigo) {
-			document.cookie = "logoLang=" + codigo +'; Path=/';
+			document.cookie = "logoLang=" + codigo +"; Path=/";
 			$("html").animate({
 				scrollTop: 0
 			}, 1000);

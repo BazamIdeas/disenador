@@ -36,6 +36,8 @@ angular.module("disenador-de-logos")
 
 		if (!historicoResolve.idLogoGuardado && !historicoResolve.idLogoPadre) { //si no es un logo guardado
 
+			console.log(historicoResolve.texto)
+
 			bz.logo.texto = historicoResolve.texto;
 			bz.categoria = historicoResolve.categoria;
 
