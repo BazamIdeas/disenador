@@ -233,10 +233,19 @@ exports.nuevoPedido = function (req, res) {
 
 																	var id = services.authServices.decodificar(req.headers.auth).id;
 
-																	cliente.getCliente(id, function (error, data) {
+																	cliente.getCliente(id, function (error, dataCliente) {
 
-																		//console.log(data);
-																		//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+																		const emailOptions = {
+																			to: dataCliente.correo,
+																			subject: 'LOGOPRO | Su pedido ha sido procesado.', // Asunto del correo
+																		}
+
+																		let email = new Email(emailOptions, { total: datosPago.precio, plan: plan[0].plan, nombre: dataCliente.nombreCliente });
+																		email.setHtml("pedidoPago.html")
+																			.send((err, res) => {
+																				//if(err) console.log(err);
+																				//console.log(res);
+																			});
 
 																	});
 																	res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
@@ -379,10 +388,19 @@ exports.nuevoPedidoGuardado = function (req, res) {
 
 															var id = services.authServices.decodificar(req.headers.auth).id;
 
-															cliente.getCliente(id, function (error) {
+															cliente.getCliente(id, function (error, dataCliente) {
 
-																//console.log(data);
-																//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+																const emailOptions = {
+																	to: dataCliente.correo,
+																	subject: 'LOGOPRO | Su pedido ha sido procesado.', // Asunto del correo
+																}
+
+																let email = new Email(emailOptions, { total: datosPago.precio, plan: plan[0].plan, nombre: dataCliente.nombreCliente });
+																email.setHtml("pedidoPago.html")
+																	.send((err, res) => {
+																		//if(err) console.log(err);
+																		//console.log(res);
+																	});
 
 															});
 															res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
@@ -676,10 +694,19 @@ exports.aumentarPlan = function (req, res) {
 
 																			var id = services.authServices.decodificar(req.headers.auth).id;
 
-																			cliente.getCliente(id, function (error, data) {
+																			cliente.getCliente(id, function (error, dataCliente) {
 
-																				//console.log(data);
-																				//services.emailServices.enviar("pedidoPago.html", {}, "Pedido pagado", data.correo);
+																				const emailOptions = {
+																					to: dataCliente.correo,
+																					subject: 'LOGOPRO | Su pedido ha sido procesado.', // Asunto del correo
+																				}
+
+																				let email = new Email(emailOptions, { total: datosPago.precio, plan: plan[0].plan, nombre: dataCliente.nombreCliente });
+																				email.setHtml("pedidoPago.html")
+																					.send((err, res) => {
+																						//if(err) console.log(err);
+																						//console.log(res);
+																					});
 
 																			});
 																			res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 

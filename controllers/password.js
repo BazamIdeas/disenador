@@ -21,7 +21,7 @@ exports.enviarToken =  function(req,res)
 					subject: 'LOGOPRO - Cambiar contraseña', // Asunto del correo
 				}
 
-				let email = new Email(emailOptions,{"token": token});
+				let email = new Email(emailOptions, { token: token, nombre: data[0].nombreCliente });
 				email.setHtml(req.body.tipo+"CambiarContrasena.html")
 					.send((err,data) => {
 						if(err) res.status(500).json({msg:err});
