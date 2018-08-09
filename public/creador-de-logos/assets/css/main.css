@@ -1141,7 +1141,6 @@ div.combinaciones {
       display: block; }
     div.combinaciones div.combinacion-box {
       cursor: pointer;
-      opacity: 0.7;
       -webkit-box-shadow: 0px 0px 3px 0px #c7c7c7;
       box-shadow: 0px 0px 3px 0px #c7c7c7; }
     div.combinaciones div.combinacion-box:hover {

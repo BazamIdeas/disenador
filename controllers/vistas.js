@@ -12,25 +12,32 @@ exports.ViewCategorias = function (req, res) {
 	const categoriasService = services.categorias;
 
 	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
-	var idCategoria = req.body.categoriaSeleccionada.idCategoria;
-	req.lang = req.lang.toUpperCase();
-	let lang = langs.views[req.lang].categoria_pagina;
-	let idiomas = langs.langs[req.lang];
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 0;
+	let dataEnviar;
 
-	let catTraducciones = JSON.stringify(req.body.categoriaSeleccionada.traducciones);
+	if (!req.body.idLogo && !req.body.idCategoria) {
 
-	let dataEnviar = {
-		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
-		categorias: req.body.categorias,
-		categoriaSeleccionada: req.body.categoriaSeleccionada,
-		idioma: lang,
-		idiomas: idiomas,
-		lang: req.lang,
-		mostraretiquetaslogo: false,
-		categoriasPadre: req.body.categoriasPadre,
-		urls_categorias: catTraducciones,
-		subcategoria : false
-	};
+		idCategoria = req.body.categoriaSeleccionada.idCategoria;
+		req.lang = req.lang.toUpperCase();
+		let lang = langs.views[req.lang].categoria_pagina;
+		let idiomas = langs.langs[req.lang];
+
+		let catTraducciones = JSON.stringify(req.body.categoriaSeleccionada.traducciones);
+
+		dataEnviar = {
+			root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
+			categorias: req.body.categorias,
+			categoriaSeleccionada: req.body.categoriaSeleccionada,
+			idioma: lang,
+			idiomas: idiomas,
+			lang: req.lang,
+			mostraretiquetaslogo: false,
+			categoriasPadre: req.body.categoriasPadre,
+			urls_categorias: catTraducciones,
+			subcategoria: false
+		};
+
+	}
 
 	//console.log('Buscar logos aprobados de ->  idCategoria:', idCategoria);
 
@@ -44,7 +51,7 @@ exports.ViewCategorias = function (req, res) {
 				logo.padre = idCategoria;
 
 				if (logo.nombreCategoria) {
-					categoriaLogo = categoriasService.formatearCategorias([{idCategoria: logo.idCategoria, nombreCategoria: logo.nombreCategoria }], req.lang)[0];
+					categoriaLogo = categoriasService.formatearCategorias([{ idCategoria: logo.idCategoria, nombreCategoria: logo.nombreCategoria }], req.lang)[0];
 
 					logo.categoriaFormateada = categoriaLogo.categoriaFormateada;
 					logo.traduccion = categoriaLogo.traduccion.label;
@@ -72,17 +79,22 @@ exports.ViewCategorias = function (req, res) {
 
 				if (err) res.status(402).json({});
 
-				dataEnviar.logosPredisenados = data;
+				if (!req.body.idLogo && !req.body.idCategoria) {
+					dataEnviar.logosPredisenados = data;
 
-				res.render('categorias.html', dataEnviar);
+					res.render('categorias.html', dataEnviar);
+				} else {
+					res.status(200).json(data);
+				}
 
 			});
-
 		} else {
 
-			console.log("No hay logos aprobados");
-			res.redirect('/creador-de-logos');
-
+			if (!req.body.idLogo && !req.body.idCategoria) {
+				res.redirect('/creador-de-logos');
+			} else {
+				res.status(404).json({ msg: "No hay logos aprobados" });
+			}
 		}
 	});
 };
@@ -92,27 +104,32 @@ exports.ViewSubCategorias = function (req, res) {
 	const categoriasService = services.categorias;
 
 	var idLogo = req.body.idLogo ? req.body.idLogo : 0;
-	var idCategoria = req.body.categoriaSeleccionada.idCategoria;
-	req.lang = req.lang.toUpperCase();
-	let lang = langs.views[req.lang].categoria_pagina;
-	let idiomas = langs.langs[req.lang];
+	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 0;
+	let dataEnviar;
 
-	let catTraducciones = JSON.stringify(req.body.categoriaSeleccionada.traducciones);
+	if (!req.body.idLogo && !req.body.idCategoria) {
 
-	let dataEnviar = {
-		root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
-		categorias: req.body.categorias,
-		categoriaSeleccionada: req.body.categoriaSeleccionada,
-		idioma: lang,
-		idiomas: idiomas,
-		lang: req.lang,
-		mostraretiquetaslogo: true,
-		categoriasPadre: false,
-		urls_categorias: catTraducciones,
-		subcategoria : true
-	};
+		idCategoria = req.body.categoriaSeleccionada.idCategoria;
+		req.lang = req.lang.toUpperCase();
+		let lang = langs.views[req.lang].categoria_pagina;
+		let idiomas = langs.langs[req.lang];
 
-	dataEnviar.mostraretiquetaslogo = true;
+		let catTraducciones = JSON.stringify(req.body.categoriaSeleccionada.traducciones);
+
+		dataEnviar = {
+			root: __dirname, title: req.body.categoriaSeleccionada.nombreCategoria,
+			categorias: req.body.categorias,
+			categoriaSeleccionada: req.body.categoriaSeleccionada,
+			idioma: lang,
+			idiomas: idiomas,
+			lang: req.lang,
+			mostraretiquetaslogo: true,
+			categoriasPadre: false,
+			urls_categorias: catTraducciones,
+			subcategoria: true
+		};
+
+	}
 
 	//console.log('Buscar logos aprobados de ->  sub Categoria:', idCategoria);
 
@@ -157,9 +174,13 @@ exports.ViewSubCategorias = function (req, res) {
 
 					if (err) res.status(402).json({});
 
-					dataEnviar.logosPredisenados = data;
+					if (!req.body.idLogo && !req.body.idCategoria) {
+						dataEnviar.logosPredisenados = data;
 
-					res.render('categorias.html', dataEnviar);
+						res.render('categorias.html', dataEnviar);
+					} else {
+						res.status(200).json(data);
+					}
 
 				});
 
@@ -167,8 +188,11 @@ exports.ViewSubCategorias = function (req, res) {
 
 		} else {
 
-			console.log("No hay logos aprobados");
-			res.redirect('/creador-de-logos');
+			if (!req.body.idLogo && !req.body.idCategoria) {
+				res.redirect('/creador-de-logos');
+			} else {
+				res.status(404).json({ msg: "No hay logos aprobados" });
+			}
 		}
 	});
 

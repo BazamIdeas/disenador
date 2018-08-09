@@ -163,7 +163,7 @@ angular.module("disenador-de-logos")
 
 							var svgIcono = element[0].children[0].children[0].children[0];
 
-							svgIcono.setAttribute("height", (tamanoBase / 2) + "px");
+							svgIcono.setAttribute("height", (tamanoBase / 3) + "px");
 							svgIcono.setAttribute("fill", scope.colorIcono);
 
 							/////////////////////////////////////////
