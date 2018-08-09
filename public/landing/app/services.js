@@ -804,7 +804,7 @@ angular.module("landing")
 			if (query.length < 3) return;
 			bz.peticion = true;
 
-			return $http.get("/app/etiquetas/" + query).then(function (res) {
+			return $http.get("/app/etiquetas/" + query.toLowerCase()).then(function (res) {
 
 				var etiquetas = bz.loadEtiquetas(res.data);
 
