@@ -196,6 +196,8 @@ angular.module("disenador-de-logos")
 
 		bz.fuentes = [];
 
+		bz.idsExcluidos = [0];
+
 		bz.logos = [];
 
 		bz.aprobados = [];
@@ -309,91 +311,103 @@ angular.module("disenador-de-logos")
 			});
 
 			var promesaIconos = elementosService.listarIconosSegunTags(tags_saltos);
-			var promesaIconosDescatados = logosService.obtenerDestacados(bz.datos.categoria.icono, datosPredisenado.subCategoria, datosPredisenado.tag);
+			var promesaIconosDescatados = logosService.obtenerDestacados(bz.idsExcluidos, bz.datos.categoria.icono, datosPredisenado.subCategoria, datosPredisenado.tag);
 			var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
-			$q.all([
-				promesaIconos,
-				promesaFuentes,
-				promesaIconosDescatados
-			])
-				.then(function (res) {
-					var tags = res[0].tags;
-					var iconosNoun = res[0].iconos;
-					var fuentes = res[1];
-					var logosDestacados = res[2];
+			promesaIconosDescatados.then(function(logosDestacados) {
 
-					var iconos_raw = iconosNoun;
-					var fuentes_raw = fuentes;
+				bz.logos = [];
 
-					tags_saltos = tags;
-
-					var logosNoun = bz.combinar(iconos_raw, fuentes_raw);
-
-					var logosMezclados = [];
-					var cantidadNoun = logosNoun.length;
-
-					if (cantidadNoun >= 6) {
-
-						logosNoun = logosNoun.slice(0, 6);
-						logosDestacados = logosDestacados.slice(0, 6);
-						logosMezclados = logosNoun.concat(logosDestacados);
-
-					} else {
-
-						var logosFaltantes = (12 - cantidadNoun);
-						logosDestacados = logosDestacados.slice(0, logosFaltantes);
-						logosMezclados = logosNoun.concat(logosDestacados);
-
-					}
-
-
-					var logosMezcladosRandom = (function (array) {
-						var currentIndex = array.length, temporaryValue, randomIndex;
-
-						// While there remain elements to shuffle...
-						while (0 !== currentIndex) {
-
-							// Pick a remaining element...
-							randomIndex = Math.floor(Math.random() * currentIndex);
-							currentIndex -= 1;
-
-							// And swap it with the current element.
-							temporaryValue = array[currentIndex];
-							array[currentIndex] = array[randomIndex];
-							array[randomIndex] = temporaryValue;
-						}
-
-
-						return array;
-					})(logosMezclados);
-
-
-					bz.logos = logosMezcladosRandom;
-
-
-					var datosLocal = {
-						colores: bz.datos.colores,
-						etiquetasParaBusqueda: bz.etiquetasParaBusqueda,
-						etiquetasSeleccionadas: bz.datos.etiquetasSeleccionadas,
-						idCategoria: bz.datos.categoria.icono,
-						idFuente: bz.datos.categoria.fuente,
-						nombre: bz.datos.nombre,
-						palettesCopy: bz.palettesCopy
-					};
-
-					localStorage.setItem("comenzar", angular.toJson(datosLocal));
-
-
-				})
-				.catch(function () {
-					//console.log(res)
-				})
-				.finally(function () {
-
-					bz.completado = true;
-
+				logosDestacados.forEach(function (ele) {
+					bz.idsExcluidos.push(ele.idLogo);
+					bz.logos.unshift(ele);
 				});
+
+				$q.all([
+					promesaIconos,
+					promesaFuentes
+				])
+					.then(function (res) {
+						var tags = res[0].tags;
+						var iconosNoun = res[0].iconos;
+						var fuentes = res[1];
+
+						var iconos_raw = iconosNoun;
+						var fuentes_raw = fuentes;
+
+						tags_saltos = tags;
+
+						var logosNoun = bz.combinar(iconos_raw, fuentes_raw);
+
+						var logosMezclados = [];
+						var cantidadNoun = logosNoun.length;
+
+						/*if (cantidadNoun >= 6) {
+
+							logosNoun = logosNoun.slice(0, 6);
+							logosMezclados = logosNoun;
+
+						} else {
+
+							var logosFaltantes = (12 - cantidadNoun);
+							logosDestacados = logosDestacados.slice(0, logosFaltantes);
+							logosMezclados = logosNoun.concat(logosDestacados);
+
+						}*/
+
+						logosMezclados = logosNoun;
+
+						var logosMezcladosRandom = (function (array) {
+							var currentIndex = array.length, temporaryValue, randomIndex;
+
+							// While there remain elements to shuffle...
+							while (0 !== currentIndex) {
+
+								// Pick a remaining element...
+								randomIndex = Math.floor(Math.random() * currentIndex);
+								currentIndex -= 1;
+
+								// And swap it with the current element.
+								temporaryValue = array[currentIndex];
+								array[currentIndex] = array[randomIndex];
+								array[randomIndex] = temporaryValue;
+							}
+
+
+							return array;
+						})(logosMezclados);
+
+						logosMezcladosRandom.forEach(function(ele) {
+							bz.logos.unshift(ele);
+						});
+
+
+						var datosLocal = {
+							colores: bz.datos.colores,
+							etiquetasParaBusqueda: bz.etiquetasParaBusqueda,
+							etiquetasSeleccionadas: bz.datos.etiquetasSeleccionadas,
+							idCategoria: bz.datos.categoria.icono,
+							idFuente: bz.datos.categoria.fuente,
+							nombre: bz.datos.nombre,
+							palettesCopy: bz.palettesCopy
+						};
+
+						localStorage.setItem("comenzar", angular.toJson(datosLocal));
+
+
+					})
+					.catch(function () {
+						//console.log(res)
+					})
+					.finally(function () {
+
+						bz.completado = true;
+
+					});
+
+			}).catch(function () {
+				//console.log(res)
+			})
 
 
 

@@ -1416,13 +1416,14 @@ angular.module("disenador-de-logos")
 
 	.service("logosService", ["$http", "$q", "disenadorService", "arrayToJsonMetasFactory", function ($http, $q, disenadorService, arrayToJsonMetasFactory) {
 
-		this.obtenerDestacados = function (idCategoria, idSubcategoria, idTag) {
+		this.obtenerDestacados = function (idsExcluidos, idCategoria, idSubcategoria, idTag) {
 
 			var defered = $q.defer();
 
 			var promise = defered.promise;
 
 			var datos = {
+				idsExcluidos: idsExcluidos,
 				idCategoria: idCategoria,
 				idSubcategoria: idSubcategoria,
 				idTag: idTag

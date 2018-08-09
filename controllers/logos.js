@@ -421,8 +421,9 @@ exports.listaLogosAprobadosPorTagCatSub = function (req, res) {
 	var idTag = req.body.idTag ? req.body.idTag : null;
 	var idSubcategoria = req.body.idSubcategoria ? req.body.idLogo : null;
 	var idCategoria = req.body.idCategoria ? req.body.idCategoria : null;
+	var excludeIds = req.body.idsExcluidos ? req.body.idsExcluidos : [0];
 
-	logo.listaLogosAprobadosPorTagCatSub(idTag, idSubcategoria, idCategoria, function (error, data) {
+	logo.listaLogosAprobadosPorTagCatSub(excludeIds, idTag, idSubcategoria, idCategoria, function (error, data) {
 
 		if(error) {
 			console.log(error);
@@ -462,9 +463,7 @@ exports.listaLogosAprobadosPorTagCatSub = function (req, res) {
 			});
 		
 		} else {
-			res.status(404).json({
-				"msg": "No hay logos aprobados"
-			});
+			res.status(200).json([]);
 		}
 	});
 
