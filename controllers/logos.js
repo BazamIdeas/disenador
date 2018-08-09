@@ -113,7 +113,7 @@ exports.guardar = function (req, res) {
 						subject: "Logo guardado", // Asunto del correo
 					}
 
-					let email = new Email(emailOptions, {});
+					let email = new Email(emailOptions, { nombre: dataCliente[0].nombreCliente });
 					email.setHtml("logoGuardado.html").send((err, data) => {
 						if (err) return console.log(err);
 					});
@@ -1781,29 +1781,32 @@ exports.enviarPorEmail = function (req, res) {
 											if (err) { //console.log(err);
 											}
 
-											const emailOptions = {
-												to: to, // receptor o receptores
-												subject: "Logo compatido", // Asunto del correo
-											}
+											cliente.getCliente(req.idCliente, function (error, dataCliente) {
 
-											let email = new Email(emailOptions, {
-												urlImagen: urlImagen,
-												msg: "te han compartido este logo (prueba de envio de logo por email)"
-											});
-											email.setHtml("logoCompartido.html")
-												.setAttachs([{ // stream as an attachment
-													filename: 'logo.png',
-													content: fs.createReadStream(__dirname + "/../" + pngout),
-													cid: "logo-compartido"
-												}]).send((err, data) => {
-													if (err) return res.status(500).json({
-														msg: err
-													})
+												const emailOptions = {
+													to: to, // receptor o receptores
+													subject: "Logo compatido", // Asunto del correo
+												}
 
-													return res.status(200).json({
-														msg: "Enviado"
-													})
+												let email = new Email(emailOptions, {
+													urlImagen: urlImagen,
+													nombre: dataCliente[0].nombreCliente
 												});
+												email.setHtml("logoCompartido.html")
+													.setAttachs([{ // stream as an attachment
+														filename: 'logo.png',
+														content: fs.createReadStream(__dirname + "/../" + pngout),
+														cid: "logo-compartido"
+													}]).send((err, data) => {
+														if (err) return res.status(500).json({
+															msg: err
+														})
+
+														return res.status(200).json({
+															msg: "Enviado"
+														})
+													});
+											})
 
 										})
 									}).catch(e => console.log('error'));

@@ -41,9 +41,9 @@ angular.module("administrador")
 
             $http.post("/app/usuario", datos).then(function (res) {
 
-                    defered.resolve(res);
+                defered.resolve(res);
 
-                })
+            })
                 .catch(function (res) {
 
                     defered.reject(res);
@@ -367,6 +367,24 @@ angular.module("administrador")
             var promise = defered.promise;
 
             $http.post("/app/categorias", datos).then(function (res) {
+
+                defered.resolve(res);
+
+            }).catch(function (res) {
+
+                defered.reject(res.data.msg);
+
+            })
+            return promise;
+        }
+
+        /* CATEGORIAS */
+
+        this.listarSubCategorias = function (datos) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http.get("/app/categorias/hijas").then(function (res) {
 
                 defered.resolve(res);
 

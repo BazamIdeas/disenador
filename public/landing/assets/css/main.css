@@ -245,7 +245,7 @@ md-select-menu md-option .md-text {
   font-size: 12pt !important; }
 
 md-select.categorias-select md-select-value > :first-child {
-  height: 17px; }
+  height: 22px; }
 
 md-input-container input[type=text], md-chips.md-default-theme .md-chips {
   border-bottom: 1px solid silver !important;

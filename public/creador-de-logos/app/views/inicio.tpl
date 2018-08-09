@@ -46,7 +46,7 @@
                 <br>
                 <div class="input select-tipografia col s12">
                     <div class="label-form" style="margin-bottom: 8px;">
-                        {{::inicio.lang.formulario.categorias.label}}
+                        {{::inicio.lang.formulario.fuentes.label}}
                     </div>
                     <div class="estilos" style="position: relative">
                         <md-radio-group name="fuente" required ng-model="inicio.datos.categoria.fuente" class="md-primary">
@@ -140,10 +140,10 @@
                             <img src="assets/images/share.svg" alt="">
                         </span>
 
-                        <span ng-show="logo.cargado" class="comprar" style="bottom: 3%;     right: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
+                        <!-- <span ng-show="logo.cargado" class="comprar" style="bottom: 3%;     right: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
                             <p>COMPRAR</p>
                             <img src="assets/images/shop.svg" alt="">
-                        </span>
+                        </span> -->
 
                     </div>
 
@@ -186,10 +186,10 @@
                             <img src="assets/images/share.svg" alt="">
                         </span>
 
-                        <span class="comprar" style="bottom: 3%;     right: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
+                        <!-- <span class="comprar" style="bottom: 3%;     right: 15%;" ng-click="inicio.comprarLogo(logo.cargado,logo.colores,  logo, logo.idLogo )">
                             <p>COMPRAR</p>
                             <img src="assets/images/shop.svg" alt="">
-                        </span>
+                        </span> -->
 
                     </div>
 

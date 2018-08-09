@@ -16,8 +16,8 @@ module.exports = {
                             validacion: []
                         },
                         categorias: {
-                            label: 'Categorías',
-                            placeholder: 'Categorías',
+                            label: 'Actividad o sector',
+                            placeholder: 'Actividad o sector',
                             validacion: []
                         },
                         fuentes: {
@@ -181,7 +181,7 @@ module.exports = {
             },
             header: {
                 botones: ['Acceder', 'Registro'],
-                iconos: ['Crear logo', 'Tus logos', 'Mi cuenta', 'Cerrar Sesion']
+                iconos: ['Crear logo', 'Mis logos', 'Mi cuenta', 'Cerrar Sesion']
             },
             secciones: {
                 seccion_uno: {
@@ -194,7 +194,7 @@ module.exports = {
                             validacion: ['Escriba el nombre de su logo.']
                         },
                         actividad: {
-                            label: 'Actividad',
+                            label: 'Actividad o sector',
                             default_Select: 'Selecciona'
                         },
                         etiquetas: {
@@ -512,14 +512,14 @@ module.exports = {
                             validacion: []
                         },
                         categorias: {
-                            label: 'Categories',
-                            placeholder: 'Categories',
+                            label: 'Activity or sector',
+                            placeholder: 'Activity or sector',
                             validacion: []
                         },
                         fuentes: {
-                            label: "Estilo de tipografía",
+                            label: "Typography style",
                             placeholder: "",
-                            validacion: ["Debes elegir un estilo de Tipografía."]
+                            validacion: ["You must choose a Typography style."]
                         },
                         etiquetas: {
                             label: 'What are you looking for?',
@@ -669,14 +669,14 @@ module.exports = {
         },
         landing: {
             SEO: {
-                title: 'Logopro | Tu logo en 3 minutos',
+                title: 'Logopro | Your logo in 3 minutes',
                 keywords: 'logo maker, logo design, free, online, logo designer, free logo maker, online logo maker, logo creator, logo generator, create a logo, make a logo, design logo',
                 description: "Logopro's free logo maker helps you create custom logos in minutes, no design experience needed. Try with millions of icons and 100+ fonts immediately!",
                 lang: 'en-en',
             },
             header: {
                 botones: ['LOGIN', 'SING IN'],
-                iconos: ['Crear logo', 'Tus logos', 'Mi cuenta', 'Cerrar Sesion']
+                iconos: ['Create logo', 'My logos', 'My account', 'Sign out']
             },
             secciones: {
                 seccion_uno: {
@@ -690,7 +690,7 @@ module.exports = {
                             validacion: ['Write the name of your logo.']
                         },
                         actividad: {
-                            label: 'Activity',
+                            label: 'Activity or sector',
                             default_Select: 'Select'
                         },
                         etiquetas: {
@@ -1002,13 +1002,13 @@ module.exports = {
                     },
                     formulario: {
                         nombre: {
-                            label: 'Nombre',
-                            value: 'Mi logo',
+                            label: 'Nome',
+                            value: 'Meu logotipo',
                             placeholder: '',
                             validacion: []
                         },
                         categorias: {
-                            label: 'Categorías',
+                            label: 'Atividade ou setor',
                             placeholder: 'Categorías',
                             validacion: []
                         },
@@ -1166,14 +1166,14 @@ module.exports = {
         },
         landing: {
             SEO: {
-                title: 'Logopro | Tu logo en 3 minutos',
+                title: 'Logopro | Seu logotipo em 3 minutos',
                 keywords: 'criador de logo, criador de logo online, gerador de logo',
                 description: "O criador de logo grátis de DesignEvo ajuda-te a criar logótipos personalizados em poucos minutos, sem a necessidade de teres experiência em design. Experimenta imediatamente os seus milhões de ícones e +100 tipos de letra!",
                 lang: 'pt-pt',
             },
             header: {
                 botones: ['Acesso', 'Registo'],
-                iconos: ['Criar logotipo', 'Seus logotipos', 'Minha conta', 'Fechar sessão']
+                iconos: ['Criar logotipo', 'Meu logotipos', 'Minha conta', 'Fechar sessão']
             },
             secciones: {
                 seccion_uno: {
@@ -1186,7 +1186,7 @@ module.exports = {
                             validacion: ['Escreva o nome do seu logotipo.']
                         },
                         actividad: {
-                            label: 'Atividade',
+                            label: 'Atividade ou setor',
                             default_Select: 'Selecione'
                         },
                         etiquetas: {

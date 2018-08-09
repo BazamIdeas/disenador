@@ -393,6 +393,19 @@ exports.nuevoCliente = function (req, res, next) {
     cliente.insertCliente(clienteData, function (error, data) {
         //si el cliente se ha insertado correctamente mostramos su info
         if (data && data.insertId) {
+            
+            const emailOptions = {
+                to: clienteData.correo, // receptor o receptores
+                subject: 'Bienvenido a LogoPro', // Asunto del correo
+            }
+
+            let email = new Email(emailOptions, { nombre: dataCliente.nombreCliente });
+            email.setHtml("clienteRegistrado.html")
+                .send((err, res) => {
+                    //if(err) console.log(err);
+                    //console.log(res);
+                });
+            
             res.status(200).json({
                 'nombre': req.body.nombreCliente,
                 'foto': req.body.foto,
@@ -639,7 +652,7 @@ exports.nuevoClienteRed = async function (req, res)
                             subject: 'Bienvenido a LogoPro (Registro por "'+origen+'")', // Asunto del correo
                         }
 
-                        let email = new Email(emailOptions,{pass: pass});
+                        let email = new Email(emailOptions, { pass: pass, nombre: dataCliente.nombreCliente });
                         email.setHtml("clienteRegistradoPorRedes.html")
                             .send((err,res) => {
                                 //if(err) console.log(err);

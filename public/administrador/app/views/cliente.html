@@ -25,9 +25,7 @@
                             <td>{{elemento.correo}}</td>
                             <td>{{elemento.telefono}}</td>
                             <td>
-                                <md-button class="md-fab md-mini md-warn" ng-click="cliente.pedidosCliente(elemento.idCliente, $index)" ng-disabled="cliente.peticion">
-                                    <md-icon class="material-icon">arrow_forward</md-icon>
-                                </md-button>
+                                <md-icon class="material-icon" ng-click="cliente.pedidosCliente(elemento.idCliente, $index)" ng-disabled="cliente.peticion" style="color: #1caf9a">edit</md-icon>
                             </td>
                         </tr>
                     </table>
@@ -69,7 +67,7 @@
                                 <md-icon class="material-icon">edit</md-icon>
                             </md-button>
                         </div>
-                        <div flex="45"  ng-if="cliente.modfire == $index && cliente.modInit" class="elemento inside">
+                        <div flex="45" ng-if="cliente.modfire == $index && cliente.modInit" class="elemento inside">
                             <md-input-container class="md-block" flex="100">
                                 <label>CAMBIAR ESTADO</label>
                                 <md-select ng-disabled="cliente.peticion" ng-model="pedido.estado" aria-label="estado">
@@ -80,8 +78,8 @@
                             </md-input-container>
                         </div>
                     </div>
-                   
-                   <!--  <div ng-click="pedido.ver = !pedido.ver" layout style="background-color: #f1f1f1;" layout-align="center">
+
+                    <!--  <div ng-click="pedido.ver = !pedido.ver" layout style="background-color: #f1f1f1;" layout-align="center">
                         <h5 style="font-family: 'futura-heavy' !important; cursor:pointer;">VER PEDIDO</h5>
                         <md-icon style="margin-left:8px; color:black; margin:0;" class="material-icon">keyboard_arrow_down</md-icon>
                     </div>
