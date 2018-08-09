@@ -378,12 +378,12 @@ angular.module("disenador-de-logos")
 		/* ETIQUETAS*/
 
 
-		this.listarEtiquetas = function (string) {
+		this.listarEtiquetas = function () {
 
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			$http.get("/app/etiquetas/" + string).then(function (res) {
+			$http.get("/app/etiquetas/").then(function (res) {
 				defered.resolve(res);
 			}).catch(function () {
 				defered.reject();
@@ -426,7 +426,7 @@ angular.module("disenador-de-logos")
 			if (query.length < 3) return;
 			bz.peticion = true;
 
-			return $http.get("/app/etiquetas/" + query).then(function (res) {
+			return $http.get("/app/etiquetas/" + query.toLowerCase()).then(function (res) {
 
 				var etiquetas = bz.loadEtiquetas(res.data);
 
