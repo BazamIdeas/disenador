@@ -85,7 +85,7 @@ logo.getLogosAprobados = function(id, idCategoria, callback)
 }
 
 
-const getFeaturedByIDs = (ids) => {
+const getFeaturedByIDs = (ids, excludeIds) => {
 
 	let connPromise = new Promise((resolve, reject) => {
 
@@ -108,7 +108,7 @@ const getFeaturedByIDs = (ids) => {
 
 			let  connection = await connPromise;
 			
-			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos WHERE idLogo IN (?) ORDER BY RAND() LIMIT 12', [ids], (err, logosPorID) => {
+			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos WHERE idLogo IN (?) AND logos.idLogo NOT IN (?) LIMIT 6', [ids, excludeIds], (err, logosPorID) => {
 
 				connection.release();
 
@@ -130,7 +130,7 @@ const getFeaturedByIDs = (ids) => {
 
 }
 
-const getFeaturedBySubcat = (idSubcategoria, max) => {
+const getFeaturedBySubcat = (idSubcategoria, max, excludeIds) => {
 
 	let connPromise = new Promise((resolve, reject) => {
 
@@ -158,7 +158,7 @@ const getFeaturedBySubcat = (idSubcategoria, max) => {
 
 			let  connection = await connPromise;
 
-			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos WHERE ? IS NOT NULL and categorias_idCategoria = ? ORDER BY RAND() LIMIT ?', [idSubcategoria /*TODO:*/, idSubcategoria, max], (err, logosPorSubCat) => {
+			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos WHERE ? IS NOT NULL and categorias_idCategoria = ? AND logos.idLogo NOT IN (?) LIMIT ?', [idSubcategoria /*TODO:*/, idSubcategoria, excludeIds, max], (err, logosPorSubCat) => {
 
 				connection.release();
 
@@ -181,7 +181,7 @@ const getFeaturedBySubcat = (idSubcategoria, max) => {
 	
 }
 
-const getFeaturedByCat = (idCategoria, max) => {
+const getFeaturedByCat = (idCategoria, max, excludeIds) => {
 
 	let connPromise = new Promise((resolve, reject) => {
 
@@ -204,7 +204,7 @@ const getFeaturedByCat = (idCategoria, max) => {
 
 			let connection = await connPromise;
 
-			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND categorias.padre = ? ORDER BY RAND() LIMIT ?', [idCategoria, max], (err, logosPorCat) => {
+			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND categorias.padre = ? AND logos.idLogo NOT IN (?) LIMIT ?', [idCategoria, excludeIds, max], (err, logosPorCat) => {
 
 				connection.release();
 	
@@ -231,7 +231,7 @@ const getFeaturedByCat = (idCategoria, max) => {
 
 
 
-logo.listaLogosAprobadosPorTagCatSub = function (idTag, idSubcategoria, idCategoria, callback) {
+logo.listaLogosAprobadosPorTagCatSub = function (ids, idTag, idSubcategoria, idCategoria, callback) {
 
 	__mongoClient(db => {
 		const logos = db.collection('logos');
@@ -257,17 +257,17 @@ logo.listaLogosAprobadosPorTagCatSub = function (idTag, idSubcategoria, idCatego
 
 			try {
 
-				let logosPorID = await getFeaturedByIDs(docs);
+				let logosPorID = await getFeaturedByIDs(docs, ids);
 
-				if (logosPorID.length > 11) {
+				if (logosPorID.length > 6) {
 
-					return callback(null, logosPorID);
+					return callback(null, logosPorID.slice(0,6));
 
 				}
 
-				let resto =  12 - logosPorID.length
+				let resto =  6 - logosPorID.length
 
-				let logosPorSubCat = await getFeaturedBySubcat(idSubcategoria, resto);
+				let logosPorSubCat = await getFeaturedBySubcat(idSubcategoria, resto, ids);
 
 				if (logosPorSubCat.length > resto - 1)  {
 
@@ -276,15 +276,9 @@ logo.listaLogosAprobadosPorTagCatSub = function (idTag, idSubcategoria, idCatego
 
 				resto -= logosPorSubCat.length;
 
-				let logosPorCat = await getFeaturedByCat(idCategoria, resto);
-
-
-				//if (logosPorCat.length > resto - 1) {
+				let logosPorCat = await getFeaturedByCat(idCategoria, resto, ids);
 
 				return callback(null, logosPorID.concat(logosPorSubCat).concat(logosPorCat));
-
-				//}
-
 
 			} catch (e){
 				
@@ -365,7 +359,7 @@ logo.listaLogosAprobadosPorTagCatSub = function (idTag, idSubcategoria, idCatego
 
 logo.getLogosAprobadosCatPadre = function (id, idCategoria, callback) {
 
-	var q = 'SELECT logos.*, categorias.idCategoria, categorias.nombreCategoria  FROM logos  INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.padre = ? ORDER BY logos.idLogo';
+	var q = 'SELECT logos.*, categorias.idCategoria, categorias.nombreCategoria  FROM logos  INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND logos.idLogo > ? AND categorias.padre = ? ORDER BY logos.idLogo LIMIT 12';
 
 
 	DB.getConnection(function (err, connection) {
