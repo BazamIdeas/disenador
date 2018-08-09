@@ -114,9 +114,11 @@ jQuery(document).ready(function ($) {
 		}, $(".step_guide_image[data-index=\"" + $(this).attr("data-index") + "\"]").attr("data-time"));
 
 	});
-	
 
-	$(".enviar_editor").click(function () {
+
+	$(".enviar_editor").click(enviarEditor);
+
+	function enviarEditor() {
 
 		var logo = $(this);
 
@@ -147,7 +149,7 @@ jQuery(document).ready(function ($) {
 
 		var atributos = JSON.parse(logo.attr("data-attrs"));
 
-		atributos.forEach(function(element) {
+		atributos.forEach(function (element) {
 			if (element.clave == "principal" || element.clave == "eslogan") {
 				data.fuentes[element.clave] = element.valor;
 			}
@@ -165,9 +167,11 @@ jQuery(document).ready(function ($) {
 
 		window.location = "../creador-de-logos/editor/";
 
-	});
+	}
 
-	$(".buscarEditor").click(function () {
+	$(".buscarEditor").click(buscarEditor);
+
+	function buscarEditor() {
 
 		var elemento = $(this);
 
@@ -198,6 +202,76 @@ jQuery(document).ready(function ($) {
 		window.localStorage.setItem("comenzarSub", JSON.stringify(data));
 
 		window.location = "../creador-de-logos/";
+	}
+
+	$(".ver-mas").click(function () {
+
+		var ruta = "/logos/";
+
+		var contenedor = $(".logos-predisenados.para-busqueda");
+
+		// PREVENIR
+
+		var logo = contenedor.find("> :last-child a");
+
+		var data = {
+			idLogo: logo.data("id"),
+			idCategoria: logo.data("categoria")
+		};
+
+		var idSubCategoria = logo.data("subcategoria");
+
+		if (!mostraretiquetaslogo) {
+			ruta = ruta + "categoria";
+		} else {
+			data.idCategoria = idSubCategoria;
+			ruta = ruta + "subcategoria";
+		}
+
+		$.ajax({
+			type: "POST",
+			url: ruta,
+			data: data,
+			success: function (res) {
+				contenedor.empty();
+				$.each(res, function (i, val) {
+					var elemento = $(`
+					<div class='--item big'>
+						<a class="enviar_editor" data-id="${val.idLogo}" data-noun="${val.noun}" data-subcategoria="${val.categorias_idCategoria}"
+							data-categoria="${val.padre}" data-attrs='${JSON.stringify(val.atributos)}' data-svg="${val.logo}">
+							<span>
+								<img src="/app/logo/predisenados/${val.idLogo}"> 
+							</span>
+						</a>
+						<div class="tags">
+							
+						</div>
+					</div>`);
+
+					if(mostraretiquetaslogo){
+						for (var i = 0; i <  val.etiquetas.length; i++) {
+							var el = val.etiquetas[i];
+	
+							var etiqueta = $("<a class='buscarEditor' data-subcategoria='"+ val.categorias_idCategoria +"' data-categoria='"+ val.padre +"' data-tag='"+ JSON.stringify(el) +"'>"+ el.traducciones[0].valor +"</a>");
+	
+							etiqueta.click(buscarEditor);
+							elemento.find('.tags').append(etiqueta);
+						}
+					}else{
+						var categoria = $('<a href="/logos/'+ val.categoriaFormateada +'">'+val.traduccion+'</a>');
+						elemento.find('.tags').append(categoria);
+					}
+
+					elemento.find('> a.enviar_editor').click(enviarEditor);
+
+					contenedor.append(elemento);
+
+				});
+			},
+			error : function(res){
+				console.log(res.responseJSON)
+			}
+		});
 	});
 
 	function getCookie(cname) {
@@ -228,20 +302,20 @@ jQuery(document).ready(function ($) {
 
 		if (!subcategoria) {
 			switch (codigo) {
-			case "ES":
-				url = "/logos-de-" + categoria;
-				break;
-			case "EN":
-				url = "/logos-of-" + categoria;
-				break;
-			case "PT":
-				url = "/logotipos-de-" + categoria;
-				break;
+				case "ES":
+					url = "/logos-de-" + categoria;
+					break;
+				case "EN":
+					url = "/logos-of-" + categoria;
+					break;
+				case "PT":
+					url = "/logotipos-de-" + categoria;
+					break;
 			}
 		}
 
 		if (idiomaActivo != codigo) {
-			document.cookie = "logoLang=" + codigo +"; Path=/";
+			document.cookie = "logoLang=" + codigo + "; Path=/";
 			$("html").animate({
 				scrollTop: 0
 			}, 1000);

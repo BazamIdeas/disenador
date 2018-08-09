@@ -237,7 +237,15 @@ angular.module("administrador")
 				designerService.logosDisenador(id).then(function (res) {
 
 					// Verificamos si tiene la calificacion del administrador
+
 					angular.forEach(res, function (valor) {
+
+						angular.forEach(bz.cats, function(element){
+							if(valor.categorias_idCategoria == element.idCategoria){
+								valor.nombreCategoria = element.nombreCategoria;
+							}
+						});
+
 						if (valor.atributos.length > 0) {
 							angular.forEach(valor.atributos, function (valor2) {
 								if (valor2.clave == "calificacion-admin") {
