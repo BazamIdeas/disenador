@@ -61,7 +61,7 @@
                             <th>Acciones:</th>
                         </tr>
                         <tr ng-repeat="elemento in pedidos.elementos | filter:pedidos.filtrosActivos | orderBy:'idPedido'" ng-click="pedidos.pedidoDetalles(elemento.idPedido, $index)"
-                            ng-class="{ 'completado': (elemento.estado == 'COMPLETADO'), 'enproceso': (elemento.estado == 'EN PROCESO'), 'cancelado': (elemento.estado == 'CANCELADO'), 'enespera': (elemento.estado == 'EN ESPERA'), 'activo': (pedidos.ac == elemento.idPedido),  }"
+                            ng-class="{ 'completado': (elemento.estado == 'COMPLETADO'), 'enproceso': (elemento.estado == 'EN PROCESO'), 'cancelado': (elemento.estado == 'CANCELADO'), 'enespera': (elemento.estado == 'EN ESPERA'), 'activo': (pedidos.ac == elemento.idPedido), 'aumentado': (elemento.estado == 'AUMENTADO') }"
                             class="pedido">
                             <td>{{elemento.fecha | date : 'yy/M/d'}}</td>
                             <td>{{elemento.nombreCliente}}</td>

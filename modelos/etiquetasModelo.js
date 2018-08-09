@@ -22,10 +22,6 @@ etiqueta.ObtenerTodos = callback =>
                 as: 'idioma'
             }
         }, {
-            $match: {
-                "idioma.codigo": "es"
-            }
-        }, {
             $group: {
                 _id: '$_id',
                 traducciones: {

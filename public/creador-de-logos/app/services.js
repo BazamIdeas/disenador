@@ -432,9 +432,9 @@ angular.module("disenador-de-logos")
 
 				var results = query ? etiquetas.filter(createFilterFor(query)) : [];
 
-				return results;
+				return limitOne(results, 'traducciones');
 
-			}).finally(function(){
+			}).finally(function () {
 				bz.peticion = false;
 			});
 
@@ -448,6 +448,42 @@ angular.module("disenador-de-logos")
 			};
 
 		}
+
+		function limitOne(items, filterOn) {
+
+			if (filterOn === false) {
+				return items;
+			}
+
+			if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+				newItems = [];
+
+				var extractValueToCompare = function (item) {
+					if (angular.isObject(item) && angular.isString(filterOn)) {
+						return item[filterOn];
+					} else {
+						return item;
+					}
+				};
+
+				angular.forEach(items, function (item) {
+					var isDuplicate = false;
+
+					for (var i = 0; i < newItems.length; i++) {
+						if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+							isDuplicate = true;
+							break;
+						}
+					}
+					if (!isDuplicate) {
+						newItems.push(item);
+					}
+
+				});
+				items = newItems;
+			}
+			return items;
+		};
 
 	}])
 

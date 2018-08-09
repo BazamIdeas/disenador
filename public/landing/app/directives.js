@@ -65,8 +65,6 @@ angular.module("landing")
 				bz.ingresar = $scope.opcion;
 				$scope.textos = $window.traducciones.general.login;
 
-				console.log($scope.textos)
-
 				bz.olvido = {
 					tipo: 'cliente'
 				};
