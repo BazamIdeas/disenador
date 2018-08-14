@@ -898,6 +898,65 @@ md-select-menu span.texto-on-select {
 md-progress-linear .md-container, md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar, md-progress-linear {
   height: 3px !important; }
 
+bazam-ayudas {
+  position: absolute;
+  z-index: 99999;
+  left: 0;
+  top: 60px;
+  background: white;
+  height: 0;
+  width: 100%;
+  -webkit-transition: height 1s;
+  transition: height 1s;
+  overflow: hidden; }
+  bazam-ayudas * {
+    color: black; }
+  bazam-ayudas.active {
+    height: calc(100% - 60px);
+    overflow: hidden; }
+  bazam-ayudas .flow-text {
+    font-size: 1rem;
+    padding: 0 16px; }
+  bazam-ayudas .bold {
+    font-weight: bold; }
+  bazam-ayudas .help-wrapper .col {
+    margin-bottom: 10px;
+    margin-left: 10px !important;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    height: 50px; }
+    bazam-ayudas .help-wrapper .col.activo {
+      height: auto; }
+      bazam-ayudas .help-wrapper .col.activo h6 {
+        background: #5980b7;
+        color: white; }
+  bazam-ayudas .help-wrapper h6 {
+    cursor: pointer;
+    margin: 0;
+    padding: 16px; }
+  bazam-ayudas .temas ul {
+    padding: 0;
+    margin: 0; }
+    bazam-ayudas .temas ul.activo > :first-child {
+      background-color: rgba(50, 50, 50, 0.06); }
+    bazam-ayudas .temas ul h6 {
+      margin: 0; }
+    bazam-ayudas .temas ul li {
+      padding: 8px 10px; }
+      bazam-ayudas .temas ul li:hover {
+        background-color: rgba(50, 50, 50, 0.06); }
+    bazam-ayudas .temas ul ul li {
+      padding-left: 20px; }
+      bazam-ayudas .temas ul ul li:hover, bazam-ayudas .temas ul ul li.activo {
+        background-color: #5980b7;
+        font-weight: 500;
+        color: white; }
+  bazam-ayudas .scroll {
+    height: calc(100% - 60px);
+    overflow-y: scroll;
+    overflow-x: hidden; }
+
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 ------HEADER SCSS--------------------------------------------------------------------------

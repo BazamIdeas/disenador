@@ -7,7 +7,7 @@
     <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
 
-    <link rel="manifest" href="manifest.json">
+    <!-- <link rel="manifest" href="manifest.json"> -->
 
     <!-- Service Worker
     <script src="sw.js"></script>
@@ -41,8 +41,6 @@
     <script src="/app/idioma/cadena?section[]=app_editor&section[]=login"></script>
 
     <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css">
-    <!--<link rel="stylesheet" type="text/css" href="assets/css/ghpages-materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">-->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <!--     <link rel="stylesheet" type="text/css" href="assets/css/responsive.css"> -->
     <script src="assets/js/materialize.min.js"></script>
@@ -142,6 +140,10 @@
                         <i class="material-icons">power_settings_new</i>
                     </span>
 
+                </div>
+
+                <div ng-click="header.mostrarAyudas = !header.mostrarAyudas">
+                    <md-icon style="color: black;">help_outline</md-icon>
                 </div>
 
                 <div class="selector-de-idiomas --flags">
@@ -279,6 +281,7 @@
             </div>
         </div>
 
+        <bazam-ayudas ng-class="{'active': header.mostrarAyudas}"></bazam-ayudas>
     </header>
 
 
