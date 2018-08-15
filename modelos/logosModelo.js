@@ -108,7 +108,7 @@ const getFeaturedByIDs = (ids, excludeIds) => {
 
 			let  connection = await connPromise;
 			
-			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos WHERE idLogo IN (?) AND logos.idLogo NOT IN (?) LIMIT 6', [ids, excludeIds], (err, logosPorID) => {
+			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos WHERE idLogo IN (?) AND logos.idLogo NOT IN (?) LIMIT 8', [ids, excludeIds], (err, logosPorID) => {
 
 				connection.release();
 
@@ -259,13 +259,13 @@ logo.listaLogosAprobadosPorTagCatSub = function (ids, idTag, idSubcategoria, idC
 
 				let logosPorID = await getFeaturedByIDs(docs, ids);
 
-				if (logosPorID.length > 6) {
+				if (logosPorID.length > 8) {
 
-					return callback(null, logosPorID.slice(0,6));
+					return callback(null, logosPorID.slice(0,8));
 
 				}
 
-				let resto =  6 - logosPorID.length
+				let resto =  8 - logosPorID.length
 
 				let logosPorSubCat = await getFeaturedBySubcat(idSubcategoria, resto, ids);
 
@@ -283,6 +283,7 @@ logo.listaLogosAprobadosPorTagCatSub = function (ids, idTag, idSubcategoria, idC
 			} catch (e){
 				
 				return callback(e);
+				
 			}
 
 

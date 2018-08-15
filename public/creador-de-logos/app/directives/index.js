@@ -1,4 +1,5 @@
 import Ayuda from './bazamAyuda.js'
+import Ayudas from './bazamAyudas.js'
 import Carouseles from './bazamCarouseles.js'
 import ColorPicker from './bazamColorPicker.js'
 import Formlogin from './bazamFormLogin.js'
