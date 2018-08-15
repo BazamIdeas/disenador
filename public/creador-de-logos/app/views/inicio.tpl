@@ -195,6 +195,16 @@
 
                 </div>
 
+                <div class="col l3 combinacion" ng-repeat="logo in inicio.logosFantasmas">
+
+                    <!-- NUEVO LOGO -->
+                    <div class="combinacion-box">
+                        <svg viewBox="0 0 100 100"></svg>
+                        <div class='overlay c-gif'></div>
+                    </div>
+
+                </div>
+
             </div>
 
 

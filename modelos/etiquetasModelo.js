@@ -592,7 +592,7 @@ etiqueta.TraducirGuardarNOUN = async (tags, lang, callback) => {
                 tagsParaGuardar.push(tagLista);
             }
 
-            const etiquetas = db.collection('etiquetas');
+            const etiquetas = db.collection('busquedas');
 
 
             if (tagsParaGuardar.length) {
@@ -626,7 +626,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
     let tagsArray = Object.keys(tags);
 
-    while (icons.length <= 6 && next) {
+    while (icons.length <= 8 && next) {
 
         //console.log({ vueltas: vueltas })
         let promises = [];
@@ -674,7 +674,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
             while(i < 100) {
 
-                if (icons.length <= 6) {
+                if (icons.length <= 8) {
 
                     for (let coll of iconsCollections) {
 

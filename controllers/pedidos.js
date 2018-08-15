@@ -713,8 +713,8 @@ exports.aumentarPlan = function (req, res) {
 																		} 
 
 																		else {
-																			res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});	
-																		}																			
+																			res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});
+																		}
 																	});
 																}	
 																else {
