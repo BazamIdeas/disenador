@@ -74,7 +74,7 @@
             <div class="gif row" style="margin-bottom:0;overflow-y: scroll; height: 100% ;width: 100%; display: flex; justify-content: center; align-items: center; background: white;"
                 ng-if="!inicio.logos.length">
                 <div style="width: 60%; height: 90%; display: flex; align-items: center; justify-content: center;">
-                    <img style="width: 50%;" src="assets/images/gifs/c.gif">
+                    <img style="width: 40%;" src="assets/images/gifs/d.gif">
                 </div>
             </div>
 

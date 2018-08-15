@@ -11,7 +11,7 @@ module.exports = {
                     formulario: {
                         nombre: {
                             label: 'Nombre',
-                            value: 'Mi logo',
+                            value: 'Su empresa',
                             placeholder: '',
                             validacion: []
                         },
@@ -190,7 +190,7 @@ module.exports = {
                     formulario: {
                         nombre: {
                             label: 'Nombre de su logo',
-                            placeholder: 'Mi logo',
+                            placeholder: 'Su empresa',
                             validacion: ['Escriba el nombre de su logo.']
                         },
                         actividad: {
@@ -507,7 +507,7 @@ module.exports = {
                     formulario: {
                         nombre: {
                             label: 'Name',
-                            value: 'My logo',
+                            value: 'Your company',
                             placeholder: '',
                             validacion: []
                         },
@@ -686,7 +686,7 @@ module.exports = {
                     formulario: {
                         nombre: {
                             label: 'Name of your logo',
-                            placeholder: 'My logo',
+                            placeholder: 'Your company',
                             validacion: ['Write the name of your logo.']
                         },
                         actividad: {
@@ -1003,7 +1003,7 @@ module.exports = {
                     formulario: {
                         nombre: {
                             label: 'Nome',
-                            value: 'Meu logotipo',
+                            value: 'Sua empresa',
                             placeholder: '',
                             validacion: []
                         },
@@ -1182,7 +1182,7 @@ module.exports = {
                     formulario: {
                         nombre: {
                             label: 'Nome do seu logotipo',
-                            placeholder: 'Meu logotipo',
+                            placeholder: 'Sua empresa',
                             validacion: ['Escreva o nome do seu logotipo.']
                         },
                         actividad: {

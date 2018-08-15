@@ -35,7 +35,6 @@ angular.module("administrador")
 			bz.cats = res[1].data;
 			bz.etiquetas = res[2].data;
 			bz.etiquetasParaVincular = etiquetasService.loadEtiquetas(bz.etiquetas);
-			console.log(res[2])
 		}).catch(function (res) {
 			//console.log(res)
 		}).finally(function () {

@@ -986,3 +986,105 @@ md-select-menu span.texto-on-select {
 md-progress-linear .md-container, md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar, md-progress-linear{
     height: 3px !important;
 }
+
+bazam-ayudas {
+    position: absolute;
+    z-index: 99999;
+    left: 0;
+    top: 60px;
+    background: white;
+    height: 0;
+    width: 100%;
+    -webkit-transition: height 1s;
+    transition: height 1s;
+    overflow: hidden;
+
+    *{
+        color: black;
+    }
+
+    &.active {
+        height: calc(100% - 60px);
+        overflow: hidden;
+    }
+
+    .flow-text{
+        font-size: 1rem;
+        padding: 0 16px;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+    
+    .help-wrapper{
+        > .col:not(:first-of-type){
+            background: #e5e3e317;
+        }
+        > .col{
+            
+            margin-bottom: 10px;
+            margin-left: 10px !important;
+            cursor: pointer;
+            padding: 0;
+            overflow: hidden;
+            height: 50px;
+            &.activo{
+                height: auto;
+                h6 {
+                    background: #5980b7;
+                    color: white;
+                }
+            }
+        }
+        h6 {
+            cursor: pointer;
+            margin: 0;
+            padding: 16px;
+        }
+    }
+    
+    .temas{
+        ul{
+            padding: 0 !important;
+            margin: 0;
+            &.activo{
+                >:first-child{
+                    background-color: rgba(50,50,50,0.06);
+                }
+                ul{
+                    display: block;
+                }
+            }
+
+            h6{
+                margin: 0;
+            }
+    
+            li{
+                padding: 8px 10px;
+                &:hover{
+                    background-color: rgba(50,50,50,0.06); 
+                }
+            }
+    
+            ul{
+                display: none;
+               li{
+                    padding-left: 20px;
+                    &:hover, &.activo{
+                        background-color: #5980b7;
+                        font-weight: 500;
+                        color: white;
+                    }
+               }          
+            }
+        }
+    }
+    .scroll{
+        height: calc(100% - 60px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+}
+

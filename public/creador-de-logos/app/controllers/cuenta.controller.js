@@ -10,8 +10,6 @@ angular.module("disenador-de-logos")
 
 		bz.lang = langFactory.langsEstadoActual();
 
-		console.log(bz.lang)
-
 		bz.verificarBase64 = verificarBase64Factory;
 
 		bz.pedidos = [];
