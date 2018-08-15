@@ -21,6 +21,7 @@ router.get("/idioma/cadena", function(req, res) {
         planes: traducciones.planes[lang], 
         categorias: traducciones.categories, 
         idiomas: traducciones.langs[lang],
+        ayudas: traducciones.ayudas[lang],
         general: {}
     };
 
