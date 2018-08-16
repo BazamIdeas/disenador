@@ -399,7 +399,7 @@ exports.nuevoCliente = function (req, res, next) {
                 subject: 'Bienvenido a LogoPro', // Asunto del correo
             }
 
-            let email = new Email(emailOptions, { nombre: dataCliente.nombreCliente });
+            let email = new Email(emailOptions, { nombre: clienteData.nombreCliente });
             email.setHtml("clienteRegistrado.html")
                 .send((err, res) => {
                     //if(err) console.log(err);

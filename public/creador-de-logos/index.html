@@ -68,6 +68,7 @@
     <!-- jqueryUi -->
     <link href="/assets/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css" />
     <script src="/assets/jquery-ui/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
 
 
     <!--Archivos App diseñador -->
@@ -117,7 +118,7 @@
 
                 <div ng-switch-default class="items">
 
-                    <span class="mr-50" ui-sref="cuenta">
+                    <span class="mr-50" ui-sref="cuenta" ng-click="header.mostrarAyudas = false">
                         <i ng-if="!header.autorizado.foto" class="material-icons">account_circle</i>
                         <span ng-if="header.autorizado.foto && header.verificarBase64(header.autorizado.foto)">
                             <img class="user-avatar" ng-src="{{'data:image/png;base64,' + header.autorizado.foto}}">
@@ -128,15 +129,15 @@
                         {{header.autorizado.nombre}}
                     </span>
 
-                    <span ui-sref="inicio">
+                    <span ui-sref="inicio" ng-click="header.mostrarAyudas = false">
                         <i class="material-icons">add_circle_outline</i>
                     </span>
 
-                    <span class="logos" ui-sref="logos">
+                    <span class="logos" ui-sref="logos" ng-click="header.mostrarAyudas = false">
                         <i class="material-icons">favorite</i>
                     </span>
 
-                    <span ng-click="header.salir()">
+                    <span ng-click="header.salir(); header.mostrarAyudas = false">
                         <i class="material-icons">power_settings_new</i>
                     </span>
 
@@ -281,7 +282,7 @@
             </div>
         </div>
 
-        <bazam-ayudas ng-class="{'active': header.mostrarAyudas}"></bazam-ayudas>
+        <bazam-ayudas estado = "header.mostrarAyudas" ng-class="{'active': header.mostrarAyudas}"></bazam-ayudas>
     </header>
 
 

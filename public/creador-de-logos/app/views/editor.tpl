@@ -14,20 +14,20 @@
 
 			<div class="col s4 tab-title" ng-click="::editor.cerrarContenedores(); editor.menuSwitch = 1;" ng-class="{'active': editor.menuSwitch == 1}">
 				<div class="tab">
-					<span>T</span>
+					<span style="font-size:11px;">{{::editor.lang[29]}}</span>
 				</div>
 			</div>
 			<div class="col s4 tab-title" ng-click="::editor.cerrarContenedores(); editor.menuSwitch = 2; " ng-class="{'active': editor.menuSwitch == 2}"
 			 bazam-ayuda data-titulo="Nombre y Eslogan" data-texto="Modifique el estilo del texto de su nombre o eslogan" data-clases="['corner-lt']"
 			 data-identificador="ayuda-nombre-eslogan" data-orientacion="right" data-paso="7" bazam-pasos-ayuda>
 				<div class="tab">
-					<span>t</span>
+					<span style="font-size:11px;">{{::editor.lang[30]}}</span>
 				</div>
 			</div>
 			<div class="col s4 tab-title" ng-click="::editor.cerrarContenedores(); editor.menuSwitch = 3; " ng-class="{'active': editor.menuSwitch == 3}">
 				<div class="tab">
-					<span>
-						<i class="fas fa-star"></i>
+					<span style="font-size:11px;">
+						{{::editor.lang[31]}}
 					</span>
 				</div>
 			</div>

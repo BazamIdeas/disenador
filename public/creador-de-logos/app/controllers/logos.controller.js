@@ -137,24 +137,10 @@ angular.module("disenador-de-logos")
 
 						defered.resolve(true);
 
-						$mdToast.show($mdToast.base({
-							args: {
-								mensaje: bz.lang[7],
-								clase: "success"
-							}
-						}));
-
 					})
 					.catch(function () {
 
 						defered.reject();
-
-						$mdToast.show($mdToast.base({
-							args: {
-								mensaje: bz.lang[8],
-								clase: "danger"
-							}
-						}));
 
 					})
 					.finally(function () {
