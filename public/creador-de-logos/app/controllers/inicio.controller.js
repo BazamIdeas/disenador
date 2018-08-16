@@ -199,6 +199,7 @@ angular.module("disenador-de-logos")
 		bz.idsExcluidos = [0];
 
 		bz.logos = [];
+		bz.logosFantasmas = [];
 
 		bz.aprobados = [];
 
@@ -323,6 +324,10 @@ angular.module("disenador-de-logos")
 					bz.logos.unshift(ele);
 				});
 
+				for (let index = 0; index < 16 - logosDestacados.length; index++) {
+					bz.logosFantasmas.push(index);
+				}
+
 				$q.all([
 					promesaIconos,
 					promesaFuentes
@@ -381,6 +386,9 @@ angular.module("disenador-de-logos")
 							bz.logos.unshift(ele);
 						});
 
+						bz.logosFantasmas = [];
+
+						console.log(bz.logos);
 
 						var datosLocal = {
 							colores: bz.datos.colores,
