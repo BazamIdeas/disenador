@@ -942,7 +942,8 @@ bazam-ayudas {
       background: #5980b7;
       color: white; }
     bazam-ayudas .help-wrapper > .col img {
-      max-width: 100%; }
+      max-width: 100%;
+      border: 1px solid silver; }
   bazam-ayudas .help-wrapper h6 {
     cursor: pointer;
     margin: 0;

@@ -138,8 +138,6 @@ cliente.insertCliente = function (clienteData, callback) {
 
 					});
 
-					console.log(q.sql);
-
 				});
 			}
 			connection.release();

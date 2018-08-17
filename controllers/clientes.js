@@ -13,9 +13,9 @@ var async = require('async');
 var pdf = require('html-pdf');
 var base64 = require("base-64");
 var FB = require('fb').Facebook;
-const https = require("https");
+var https = require("https");
 var passwordHash = require('password-hash');
-const os = require('os');
+var os = require('os');
 
 
 

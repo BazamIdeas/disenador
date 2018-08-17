@@ -1,4 +1,4 @@
-const Modelo = require('../modelos/modelosModelo.js');
+var Modelo = require('../modelos/modelosModelo.js');
 
 exports.ObtenerTodos = (req, res) =>
 {

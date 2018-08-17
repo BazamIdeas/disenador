@@ -4,7 +4,7 @@ var facturacion = {};
 
 facturacion.ObtenerPorCliente = function(idCliente, callback) {
     
-    var q = `SELECT * FROM facturacion WHERE clientes_idCliente = ? AND borrado IS NULL`;
+    var q = "SELECT * FROM facturacion WHERE clientes_idCliente = ? AND borrado IS NULL";
     var par = [idCliente];
 
 	DB.getConnection(function(err, connection)
@@ -20,7 +20,7 @@ facturacion.ObtenerPorCliente = function(idCliente, callback) {
 
 facturacion.Nuevo = function(datosFacturacion, callback) {
     
-    var q = `INSERT INTO facturacion SET ?`;
+    var q = "INSERT INTO facturacion SET ?";
     var par = datosFacturacion;
 
     DB.getConnection(function(err, connection)

@@ -145,7 +145,7 @@ usuario.insertUsuario = function (usuarioData, callback) {
 usuario.updateUsuario = function (body, callback) {
 	if (typeof body.passActual !== 'undefined' && body.passActual.length > 0 && typeof body.pass !== 'undefined' && body.pass.length > 0) {
 
-		var q = `SELECT * FROM usuarios WHERE idUsuario = ?`;
+		var q = 'SELECT * FROM usuarios WHERE idUsuario = ?';
 		var par = [body.idUsuario]
 
 		DB.getConnection(function (err, connection) {
