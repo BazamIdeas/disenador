@@ -113,7 +113,10 @@ module.exports = {
                     'COMPRAR',
                     'CARGAR',
                     'MAS',
-                    'Buscar iconos'
+                    'Buscar iconos',
+                    'Nombre',
+                    'Eslogan',
+                    'Icono'
                 ],
                 pago: [
                     'Resumen de su pedido',
@@ -608,7 +611,10 @@ module.exports = {
                     'BUY',
                     'LOAD',
                     'MORE',
-                    'Search icons'
+                    'Search icons',
+                    'Name',
+                    'Slogan',
+                    'Icon'
                 ],
                 pago: [
                     'Summary of your order',
@@ -1105,7 +1111,10 @@ module.exports = {
                     'BUY',
                     'LOAD',
                     'MAS',
-                    'Pesquisar ícones'
+                    'Pesquisar ícones',
+                    'Nome',
+                    'Slogan',
+                    'Icono'
                 ],
                 pago: [
                     "Resumo do seu pedido",

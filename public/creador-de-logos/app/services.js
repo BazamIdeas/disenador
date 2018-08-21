@@ -2,8 +2,10 @@ angular.module("disenador-de-logos")
 
 	.factory("coloresFactory", [function () {
 		return function (coloresArrays) {
-			var i = Math.floor(Math.random() * coloresArrays.length) + 0;
-			return coloresArrays[i];
+			if(coloresArrays){
+				var i = Math.floor(Math.random() * coloresArrays.length) + 0;
+				return coloresArrays[i];
+			}
 		};
 
 	}])
@@ -14,7 +16,7 @@ angular.module("disenador-de-logos")
 		};
 	}])
 
-	.service("cookie", ["$window", function ($window) {
+	.service("cookie", [function () {
 
 		this.getCookie = function (cname) {
 			var name = cname + "=";

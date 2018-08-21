@@ -13,9 +13,9 @@ var async = require('async');
 var pdf = require('html-pdf');
 var base64 = require("base-64");
 var FB = require('fb').Facebook;
-const https = require("https");
+var https = require("https");
 var passwordHash = require('password-hash');
-const os = require('os');
+var os = require('os');
 
 
 
@@ -399,7 +399,7 @@ exports.nuevoCliente = function (req, res, next) {
                 subject: 'Bienvenido a LogoPro', // Asunto del correo
             }
 
-            let email = new Email(emailOptions, { nombre: dataCliente.nombreCliente });
+            let email = new Email(emailOptions, { nombre: clienteData.nombreCliente });
             email.setHtml("clienteRegistrado.html")
                 .send((err, res) => {
                     //if(err) console.log(err);

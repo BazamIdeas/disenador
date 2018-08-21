@@ -5,7 +5,7 @@
             <!-- LISTAR ETIQUETAS-->
 
             <div class="paneles individual">
-                    <md-progress-linear ng-disabled="ctrl.etiquetas.length > 0" md-mode="indeterminate"></md-progress-linear>
+                <md-progress-linear ng-disabled="ctrl.etiquetas.length > 0" md-mode="indeterminate"></md-progress-linear>
                 <div layout layout-align="space-around center" layout-padding class="titulo-modulo">
                     <texto flex ng-click="etiqm = !etiqm">LISTADO DE ETIQUETAS</texto>
                     <md-button ng-disabled="ctrl.peticion" class="md-primary md-fab md-mini" ng-click="ctrl.incrementarEtiquetas();
@@ -221,8 +221,8 @@
                 <div class="elemento ">
                     <div class="content-scroll elemento " style="max-height:60%;">
                         <div ng-show="ctrl.iconosEtiqueta.iconos.length> 0" layout layout-wrap layout-align="space-around">
-                            <span ng-repeat="icono in ctrl.iconosEtiqueta.iconos | limitTo:52:ctrl.actual" ng-click="icono.on = !icono.on"
-                                ng-class="{'md-whiteframe-2dp': icono.on}" style="    border: 1px solid; width: 22%; margin-bottom: 1%;">
+                            <span ng-repeat="icono in ctrl.iconosEtiqueta.iconos | limitTo:52:ctrl.actual" ng-click="icono.on = !icono.on" ng-class="{'md-whiteframe-2dp': icono.on}"
+                                style="    border: 1px solid; width: 22%; margin-bottom: 1%;">
                                 <div>
                                     <bazam-visualizar data-svg="ctrl.base64.decode(icono.svg)"></bazam-visualizar>
                                 </div>
@@ -230,7 +230,7 @@
                         </div>
 
                     </div>
-                    
+
                     <div layout layout-align="space-around center" ng-if="ctrl.iconosEtiqueta.iconos.length> 0">
                         <div ng-click="ctrl.desvincularIconos(ctrl.iconosEtiqueta)">
                             <md-button ng-disabled="ctrl.peticion" class="md-raised md-primary" type="submit">DESVINCULAR</md-button>
@@ -248,7 +248,7 @@
                             </md-button>
                         </div>
                     </div>
-                    
+
                     <div style="height: 30%;" ng-if="!ctrl.iconosEtiqueta" class="mensaje-resultado">
                         <h4>CARGANDO ICONOS</h4>
                     </div>
@@ -256,3 +256,4 @@
             </div>
         </div>
     </div>
+</div>

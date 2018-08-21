@@ -293,6 +293,7 @@ a.md-button {
     padding: 4px 8px;
     font-family: 'nunito-sans-bold' !important;
     margin: 0 !important;
+    line-height: 30px;
 }
 
 
@@ -795,8 +796,8 @@ md-input-container .md-errors-spacer {
 
 .hr hr {
     margin: 10px 8px;
-    background-color: $PRINCIPAL;
-    height: 2px;
+    background-color: #c5c5c5;
+    height: 1px;
     border: none;
 }
 
@@ -986,3 +987,127 @@ md-select-menu span.texto-on-select {
 md-progress-linear .md-container, md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar, md-progress-linear{
     height: 3px !important;
 }
+
+bazam-ayudas {
+    position: absolute;
+    z-index: 99999;
+    left: 0;
+    top: 60px;
+    background: white;
+    height: 0;
+    width: 100%;
+    -webkit-transition: height 1s;
+    transition: height 1s;
+    overflow: hidden;
+
+    cerrar {
+        position: absolute;
+        right: 30px;
+        font-size: 16pt;
+        cursor: pointer;
+        BORDER-RADIUS: 50%;
+        BACKGROUND: #c0c0c070;
+        PADDING: 6PX;
+    }
+
+    *{
+        color: black;
+    }
+
+    &.active {
+        height: calc(100% - 60px);
+        overflow: hidden;
+    }
+
+    .flow-text{
+        padding: 0 16px;
+        margin-top: 0;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+    
+    .help-wrapper{
+        > .col:not(:first-of-type){
+            background: #e5e3e317;
+        }
+        > .col{
+            
+            margin-bottom: 10px;
+            margin-left: 10px !important;
+            cursor: pointer;
+            padding: 0;
+            overflow: hidden;
+            &.activo{
+                h6 {
+                    background: #5980b7;
+                    color: white;
+                }
+            }
+
+            img {
+                max-width: 100%;
+                border: 1px solid silver;
+            }
+        }
+        h6 {
+            cursor: pointer;
+            margin: 0;
+            padding: 16px;
+        }
+
+        .valign-wrapper{
+            flex-wrap: wrap;
+        }
+
+        .mt-1{
+            margin-top: 30px;
+        }
+    }
+    
+    .temas{
+        ul{
+            padding: 0 !important;
+            margin: 0;
+            &.activo{
+                >:first-child{
+                    background-color: rgba(50,50,50,0.06);
+                }
+                ul{
+                    display: block;
+                }
+            }
+
+            h6{
+                margin: 0;
+            }
+    
+            li{
+                padding: 8px 10px;
+                &:hover{
+                    background-color: rgba(50,50,50,0.06); 
+                }
+            }
+    
+            ul{
+                display: none;
+               li{
+                    padding-left: 20px;
+                    &:hover{
+                        background-color: rgba(50,50,50,0.06);
+                        font-weight: 500;
+                    }
+               }          
+            }
+        }
+    }
+    .scroll{
+        height: calc(100% - 60px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+}
+

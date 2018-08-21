@@ -9,13 +9,13 @@ var Email = require("../services/emailServices.js");
 var fs = require("pn/fs");
 var moment = require("moment");
 var base64 = require("base-64");
-const svg2png = require("svg2png");
+var svg2png = require("svg2png");
 var archiver = require("archiver");
 var pathM = require("path");
 var async = require("async");
 var config = require("../configuracion/configuracion.js");
-const fse = require('fs-extra')
-const Etiqueta = require('../modelos/etiquetasModelo.js');
+var fse = require('fs-extra')
+var Etiqueta = require('../modelos/etiquetasModelo.js');
 var configuracion = require('./../configuracion/configuracion.js');
 
 //GUARDAR UN LOGO
@@ -74,7 +74,7 @@ exports.guardar = function (req, res) {
 
 			if (req.disenador) {
 
-				let etiquetasNuevas = req.body.tags.nuevas;
+				var etiquetasNuevas = req.body.tags.nuevas;
 
 				Etiqueta.TraducirGuardar(etiquetasNuevas, req.cookies.lang || 'es', (err, tagsGuard) => {
 

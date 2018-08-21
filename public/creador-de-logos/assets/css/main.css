@@ -334,7 +334,8 @@ a.md-button {
   color: #000000;
   padding: 4px 8px;
   font-family: 'nunito-sans-bold' !important;
-  margin: 0 !important; }
+  margin: 0 !important;
+  line-height: 30px; }
 
 .bazam-pallette-button:focus, button:focus, button:hover, a.md-button:hover, .md-button:not([disabled]):hover {
   background-color: rgba(158, 158, 158, 0.2);
@@ -755,8 +756,8 @@ md-input-container .md-errors-spacer {
 
 .hr hr {
   margin: 10px 8px;
-  background-color: #5980B7;
-  height: 2px;
+  background-color: #c5c5c5;
+  height: 1px;
   border: none; }
 
 small {
@@ -897,6 +898,84 @@ md-select-menu span.texto-on-select {
 
 md-progress-linear .md-container, md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar, md-progress-linear {
   height: 3px !important; }
+
+bazam-ayudas {
+  position: absolute;
+  z-index: 99999;
+  left: 0;
+  top: 60px;
+  background: white;
+  height: 0;
+  width: 100%;
+  -webkit-transition: height 1s;
+  transition: height 1s;
+  overflow: hidden; }
+  bazam-ayudas cerrar {
+    position: absolute;
+    right: 30px;
+    font-size: 16pt;
+    cursor: pointer;
+    BORDER-RADIUS: 50%;
+    BACKGROUND: #c0c0c070;
+    PADDING: 6PX; }
+  bazam-ayudas * {
+    color: black; }
+  bazam-ayudas.active {
+    height: calc(100% - 60px);
+    overflow: hidden; }
+  bazam-ayudas .flow-text {
+    padding: 0 16px;
+    margin-top: 0;
+    font-size: 14px;
+    margin-bottom: 30px; }
+  bazam-ayudas .bold {
+    font-weight: bold; }
+  bazam-ayudas .help-wrapper > .col:not(:first-of-type) {
+    background: #e5e3e317; }
+  bazam-ayudas .help-wrapper > .col {
+    margin-bottom: 10px;
+    margin-left: 10px !important;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden; }
+    bazam-ayudas .help-wrapper > .col.activo h6 {
+      background: #5980b7;
+      color: white; }
+    bazam-ayudas .help-wrapper > .col img {
+      max-width: 100%;
+      border: 1px solid silver; }
+  bazam-ayudas .help-wrapper h6 {
+    cursor: pointer;
+    margin: 0;
+    padding: 16px; }
+  bazam-ayudas .help-wrapper .valign-wrapper {
+    flex-wrap: wrap; }
+  bazam-ayudas .help-wrapper .mt-1 {
+    margin-top: 30px; }
+  bazam-ayudas .temas ul {
+    padding: 0 !important;
+    margin: 0; }
+    bazam-ayudas .temas ul.activo > :first-child {
+      background-color: rgba(50, 50, 50, 0.06); }
+    bazam-ayudas .temas ul.activo ul {
+      display: block; }
+    bazam-ayudas .temas ul h6 {
+      margin: 0; }
+    bazam-ayudas .temas ul li {
+      padding: 8px 10px; }
+      bazam-ayudas .temas ul li:hover {
+        background-color: rgba(50, 50, 50, 0.06); }
+    bazam-ayudas .temas ul ul {
+      display: none; }
+      bazam-ayudas .temas ul ul li {
+        padding-left: 20px; }
+        bazam-ayudas .temas ul ul li:hover {
+          background-color: rgba(50, 50, 50, 0.06);
+          font-weight: 500; }
+  bazam-ayudas .scroll {
+    height: calc(100% - 60px);
+    overflow-y: scroll;
+    overflow-x: hidden; }
 
 /*-----------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
@@ -1232,12 +1311,12 @@ div.combinaciones {
     height: 40px;
     border-radius: 50%;
     border: 2px solid #000000;
-    font-size: 25px;
+    font-size: 17px;
     font-family: "nunito-sans-bold" !important; }
   .text-styles .bold {
     font-weight: 800; }
   .text-styles .more, .text-styles .less {
-    font-size: 35px; }
+    font-size: 25px; }
   .text-styles .curve {
     font-style: italic;
     padding-right: 5px; }
