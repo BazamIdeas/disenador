@@ -1,137 +1,123 @@
-var DB=require('./db.js');
- 
+var DB = require('./db.js');
+
 //creamos un objeto para ir almacenando todo lo que necesitemos
 var impuesto = {};
- 
+
 
 //obtenemos todos las Etiquetas
-impuesto.getImpuestos = function(callback)
-{
+impuesto.getImpuestos = function (callback) {
 	var q = 'SELECT * FROM impuestos ORDER BY localidad';
 
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q ,  function(err, rows){
-	  	
-		  	if(err)	throw err;
-		  	
-		  	else callback(null, rows);
-		  	connection.release();
-	  	});
+	DB.getConnection(function (err, connection) {
+		connection.query(q, function (err, rows) {
 
-	  
+			if (err) throw err;
+
+			else callback(null, rows);
+			connection.release();
+		});
+
+
 	});
 
-}
+};
 
-impuesto.insertImpuesto = function(impuestoData,callback)
-{
-	var q = 'INSERT INTO impuestos SET ? ' 
-	var par = impuestoData //parametros
+impuesto.insertImpuesto = function (impuestoData, callback) {
+	var q = 'INSERT INTO impuestos SET ? ';
+	var par = impuestoData; //parametros
 
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err){
-	  	
-		  	if(err)	throw err;
+	DB.getConnection(function (err, connection) {
+		connection.query(q, par, function (err) {
 
-		  	//devolvemos la última id insertada
-		  	else callback(null,{"result" : true}); 
-	  		
-	  		connection.release();
-	  	});
+			if (err) throw err;
 
-	  
+			//devolvemos la última id insertada
+			else callback(null, { "result": true });
+
+			connection.release();
+		});
+
+
 	});
 }
 
 
-impuesto.getImpuesto = function(localidad,callback)
-{
-	var par = ([localidad]) ? [localidad] : ["null"] //parametro
+impuesto.getImpuesto = function (localidad, callback) {
+	var par = ([localidad]) ? [localidad] : ["null"]; //parametro
 	var q = 'SELECT * FROM impuestos WHERE localidad = ?';
 
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par,  function(err, row){ 
-	  	
-		  	if(err)	throw err;
-		  	
-		  	else callback(null, row);
+	DB.getConnection(function (err, connection) {
+		connection.query(q, par, function (err, row) {
 
-		  	connection.release();
-	  	
-	  	});
+			if (err) throw err;
 
-	  
+			else callback(null, row);
+
+			connection.release();
+
+		});
+
+
 	});
 
 }
- 
 
 
 
 
-impuesto.updateImpuesto = function(impuestoData, callback)
-{
+
+impuesto.updateImpuesto = function (impuestoData, callback) {
 	var q = 'UPDATE impuestos SET impuesto = ? WHERE localidad = ?';
-	var par = impuestoData //parametros
+	var par = impuestoData; //parametros
 
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, row){
-	  	
-		  	if(err)	throw err;
+	DB.getConnection(function (err, connection) {
+		connection.query(q, par, function (err, row) {
 
-		  	else callback(null,{"msg" : row }); 
+			if (err) throw err;
 
-		  	connection.release();
-	  	
-	 	 });
+			else callback(null, { "msg": row });
 
-	  
+			connection.release();
+
+		});
+
+
 	});
 }
 
 
 
 
-impuesto.deleteImpuesto = function(id, callback)
-{
+impuesto.deleteImpuesto = function (id, callback) {
 	var q = 'SELECT * FROM impuestos WHERE localidad = ?';
-	var par = [id] //parametros
+	var par = [id]; //parametros
 
-	DB.getConnection(function(err, connection)
-	{
-		connection.query( q , par , function(err, row)
-		{
-	  	 	//si existe la id del cliente a eliminar
-		  	if (typeof row !== 'undefined' && row.length > 0)
-		  	{
-		  		var qq = 'DELETE FROM impuestos WHERE localidad = ?';
-		  		DB.getConnection(function(err, connection)
-		  		{
-					connection.query( qq , par , function(err)
-					{
-				  	
-				  		if(err)	throw err;
+	DB.getConnection(function (err, connection) {
+		connection.query(q, par, function (err, row) {
+			//si existe la id del cliente a eliminar
+			if (typeof row !== 'undefined' && row.length > 0) {
+				var qq = 'DELETE FROM impuestos WHERE localidad = ?';
+				DB.getConnection(function (err, connection) {
+					connection.query(qq, par, function (err) {
 
-					  	//devolvemos el última id insertada
-					  	else callback(null,{"msg" : 'eliminado'}); 
-				  		
-				  		connection.release();
-				 	});
+						if (err) throw err;
 
-				  	
+						//devolvemos el última id insertada
+						else callback(null, { "msg": 'eliminado' });
+
+						connection.release();
+					});
+
+
 				});
 
-		  	}
-		  	else callback(null,{"msg":"no existe esta Etiqueta"});
+			}
+			else callback(null, { "msg": "no existe esta Etiqueta" });
 
-		  	connection.release();
-	  	});
+			connection.release();
+		});
 
-	  
+
 	});
 }
 

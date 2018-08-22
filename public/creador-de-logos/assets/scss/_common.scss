@@ -293,6 +293,7 @@ a.md-button {
     padding: 4px 8px;
     font-family: 'nunito-sans-bold' !important;
     margin: 0 !important;
+    line-height: 30px;
 }
 
 
@@ -795,8 +796,8 @@ md-input-container .md-errors-spacer {
 
 .hr hr {
     margin: 10px 8px;
-    background-color: $PRINCIPAL;
-    height: 2px;
+    background-color: #c5c5c5;
+    height: 1px;
     border: none;
 }
 
@@ -999,6 +1000,16 @@ bazam-ayudas {
     transition: height 1s;
     overflow: hidden;
 
+    cerrar {
+        position: absolute;
+        right: 30px;
+        font-size: 16pt;
+        cursor: pointer;
+        BORDER-RADIUS: 50%;
+        BACKGROUND: #c0c0c070;
+        PADDING: 6PX;
+    }
+
     *{
         color: black;
     }
@@ -1009,8 +1020,10 @@ bazam-ayudas {
     }
 
     .flow-text{
-        font-size: 1rem;
         padding: 0 16px;
+        margin-top: 0;
+        font-size: 14px;
+        margin-bottom: 30px;
     }
 
     .bold{
@@ -1028,19 +1041,30 @@ bazam-ayudas {
             cursor: pointer;
             padding: 0;
             overflow: hidden;
-            height: 50px;
             &.activo{
-                height: auto;
                 h6 {
                     background: #5980b7;
                     color: white;
                 }
+            }
+
+            img {
+                max-width: 100%;
+                border: 1px solid silver;
             }
         }
         h6 {
             cursor: pointer;
             margin: 0;
             padding: 16px;
+        }
+
+        .valign-wrapper{
+            flex-wrap: wrap;
+        }
+
+        .mt-1{
+            margin-top: 30px;
         }
     }
     
@@ -1072,10 +1096,9 @@ bazam-ayudas {
                 display: none;
                li{
                     padding-left: 20px;
-                    &:hover, &.activo{
-                        background-color: #5980b7;
+                    &:hover{
+                        background-color: rgba(50,50,50,0.06);
                         font-weight: 500;
-                        color: white;
                     }
                }          
             }

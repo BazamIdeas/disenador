@@ -9,7 +9,7 @@ var pais = require("../modelos/paisesModelo.js");
 var precio = require("../modelos/preciosModelo.js");
 var pasarela = require("../modelos/pasarelasModelo.js");
 var atributo = require("../modelos/atributosModelo.js");
-
+var Email     = require("../services/emailServices.js");
 
 exports.listaPedidos = function (req, res) {
 
@@ -101,7 +101,7 @@ exports.PedidosCliente = function (req, res) {
 exports.nuevoPedido = function (req, res) {
 	//creamos un objeto con los datos a insertar del pedido
 	var idCategoria = req.body.idCategoria ? req.body.idCategoria : 532;
-	
+
 	var logoData = {
 		idLogo: null,
 		estado: "Editable",
@@ -167,7 +167,7 @@ exports.nuevoPedido = function (req, res) {
 						precio.datos(idPrecio, function (error, data) {
 
 							if (typeof data !== "undefined" && data.length > 0) {
-								
+
 								var plan = data;
 
 								pasarela.Obtener(idPasarela, function (error, data) {
@@ -196,7 +196,7 @@ exports.nuevoPedido = function (req, res) {
 												//console.log(data.link)
 											});
 
-										} 
+										}
 										else if (data[0].pasarela == "Stripe") {
 
 											var datosPago = {
@@ -215,8 +215,8 @@ exports.nuevoPedido = function (req, res) {
 											services.pagoServices.stripe(datosPago, function (error, data) {
 												//console.log(data)
 												if (error)
-													res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
-												
+													res.status(400).json({ "res": error, "msg": "Hubo un error al realizar el pago" });
+
 												else if (data && data.paid) {
 
 													var pedidoData = ["COMPLETADO", idPedido];
@@ -248,47 +248,47 @@ exports.nuevoPedido = function (req, res) {
 																			});
 
 																	});
-																	res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
-																} 
+																	res.status(200).json({ "res": data.paid, "msg": "Pago realizado", "idLogo": idLogo });
+																}
 
-																else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
+																else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo" }); }
 															});
 														}
 														else {
-															res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+															res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido" });
 														}
 													});
 
 												}
 
-												else 
-													res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
+												else
+													res.status(400).json({ "res": data, "msg": "Hubo un error al realizar el pago" });
 											});
 
 										}
 										else {
-											res.status(200).json({"msg": true});
+											res.status(200).json({ "msg": true });
 										}
 
 									} else {
-										res.status(404).json({"msg": "No existe el medio de pago"});
+										res.status(404).json({ "msg": "No existe el medio de pago" });
 									}
 								});
 							}
 							//no existe
 							else {
-								res.status(404).json({"msg": "No existe el plan" });
+								res.status(404).json({ "msg": "No existe el plan" });
 							}
 						});
-					} 
+					}
 					else {
-						res.status(500).json({ "msg": "Algo ocurrio al crear pedido"});
+						res.status(500).json({ "msg": "Algo ocurrio al crear pedido" });
 					}
 				});
 			});
-		} 
+		}
 		else {
-			res.status(500).json({ "msg": "Algo ocurrio"});
+			res.status(500).json({ "msg": "Algo ocurrio" });
 		}
 	});
 
@@ -321,7 +321,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 				var idPedido = data.insertId;
 				precio.datos(idPrecio, function (error, data) {
 					if (typeof data !== "undefined" && data.length > 0) {
-						
+
 						var plan = data;
 
 						pasarela.Obtener(idPasarela, function (error, data) {
@@ -351,8 +351,8 @@ exports.nuevoPedidoGuardado = function (req, res) {
 										//console.log(data.link)
 									});
 
-								} 
-								
+								}
+
 								else if (data[0].pasarela == "Stripe") {
 
 									var datosPago = {
@@ -370,8 +370,8 @@ exports.nuevoPedidoGuardado = function (req, res) {
 									services.pagoServices.stripe(datosPago, function (error, data) {
 										//console.log(data)
 										if (error)
-											res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
-										
+											res.status(400).json({ "res": error, "msg": "Hubo un error al realizar el pago" });
+
 										else if (data && data.paid) {
 
 											var pedidoData = ["COMPLETADO", idPedido];
@@ -403,22 +403,22 @@ exports.nuevoPedidoGuardado = function (req, res) {
 																	});
 
 															});
-															res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
-														} 
+															res.status(200).json({ "res": data.paid, "msg": "Pago realizado", "idLogo": idLogo });
+														}
 
-														else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});																				}
+														else { res.status(404).json({ "msg": "Algo ocurrio en cambio de logo" }); }
 													});
 												}
 
 												else {
-													res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+													res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido" });
 												}
 											});
-												
+
 										}
 
-										else 
-											res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
+										else
+											res.status(400).json({ "res": data, "msg": "Hubo un error al realizar el pago" });
 									});
 
 								}
@@ -429,7 +429,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 										"msg": true
 									});
 								}
-							} 
+							}
 							else {
 								res.status(404).json({
 									"msg": "No existe el medio de pago"
@@ -454,9 +454,7 @@ exports.nuevoPedidoGuardado = function (req, res) {
 	});
 };
 
-exports.cambioEstadoPagado = function (req, res)
-
-{
+exports.cambioEstadoPagado = function (req, res) {
 	//console.log(req.params)
 	var pedidoData = ["COMPLETADO", req.params.idPedido];
 
@@ -625,7 +623,7 @@ exports.aumentarPlan = function (req, res) {
 
 						precio.datos(idPrecioNuevo, function (error, data) {
 							if (typeof data !== "undefined" && data.length > 0) {
-								
+
 								var precioNuevo = data;
 								var diferencia = precioNuevo[0].precio;
 
@@ -649,11 +647,11 @@ exports.aumentarPlan = function (req, res) {
 											};
 
 											services.pagoServices.paypal(datosPago, function (error, data) {
-												
+
 												res.json(data.link);
 											});
 
-										} 
+										}
 
 										else if (data[0].pasarela == "Stripe") {
 
@@ -666,18 +664,18 @@ exports.aumentarPlan = function (req, res) {
 												idPedido: idPedido
 											};
 
-											
+
 											services.pagoServices.stripe(datosPago, function (error, data) {
 												//console.log(data)
 												if (error)
-													res.status(400).json({"res":error,"msg":"Hubo un error al realizar el pago"});
-												
+													res.status(400).json({ "res": error, "msg": "Hubo un error al realizar el pago" });
+
 												else if (data && data.paid) {
 
 													var pedidoData = ["COMPLETADO", idPedido];
 
 													pedido.cambiarEstado(pedidoData, function (error, data) {
-														
+
 														if (data) {
 
 															var pedidoDataV = ["AUMENTADO", precioViejo[0].idPedido];
@@ -709,28 +707,28 @@ exports.aumentarPlan = function (req, res) {
 																					});
 
 																			});
-																			res.status(200).json({"res":data.paid,"msg":"Pago realizado", "idLogo" : idLogo}); 
-																		} 
+																			res.status(200).json({ "res": data.paid, "msg": "Pago realizado", "idLogo": idLogo });
+																		}
 
 																		else {
 																			res.status(404).json({ "msg": "Algo ocurrio en cambio de logo"});
 																		}
 																	});
-																}	
-																else {
-																	res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido viejo"});
 																}
-															});	
+																else {
+																	res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido viejo" });
+																}
+															});
 														}
 														else {
-															res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido"});
+															res.status(404).json({ "msg": "Algo ocurrio en cambio de pedido" });
 														}
 													});
-														
+
 												}
 
-												else 
-													res.status(400).json({"res":data,"msg":"Hubo un error al realizar el pago"});
+												else
+													res.status(400).json({ "res": data, "msg": "Hubo un error al realizar el pago" });
 											});
 
 										}
@@ -775,15 +773,14 @@ exports.aumentarPlan = function (req, res) {
 
 };
 
-exports.cambioEstadoPagadoAumentoPlan = function (req, res) 
-{
+exports.cambioEstadoPagadoAumentoPlan = function (req, res) {
 	var pedidoData = ["COMPLETADO", req.params.idPedido];
 	var peditoViejoData = ["AUMENTADO", req.params.idPedidoViejo];
 
 	pedido.cambiarEstado(pedidoData, function (error, data) {
 
 		if (data) {
-			
+
 			pedido.cambiarEstado(peditoViejoData, function (error, data) {
 
 				if (data) {
