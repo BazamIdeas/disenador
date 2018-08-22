@@ -1206,9 +1206,13 @@ div.combinaciones {
       display: block; }
     div.combinaciones div.combinacion-box {
       cursor: pointer;
+      z-index: 100;
+      transition: all 0.25s;
+      position: relative;
       -webkit-box-shadow: 0px 0px 3px 0px #c7c7c7;
       box-shadow: 0px 0px 3px 0px #c7c7c7; }
     div.combinaciones div.combinacion-box:hover {
+      transform: translateY(-15px);
       /*border: 3px solid rgba(0, 0, 0, 0.2);*/
       opacity: 1; }
       div.combinaciones div.combinacion-box:hover span.accion, div.combinaciones div.combinacion-box:hover span.comprar {
