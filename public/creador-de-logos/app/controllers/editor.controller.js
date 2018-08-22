@@ -550,16 +550,14 @@ angular.module("disenador-de-logos")
 
 		bz.buscarIconos = function (idCategoria, valido) {
 
+			
+			if (bz.etiquetasSeleccionadas.length == 0) return;
+
 			/* bz.iconosForm.$setSubmitted(); */
 
 			if (/* valido &&  */bz.completadoBuscar) {
 
 				bz.completadoBuscar = false;
-
-				var iconos = [];
-
-				if (bz.etiquetasSeleccionadas.length == 0) return;
-
 
 				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
 
@@ -571,21 +569,20 @@ angular.module("disenador-de-logos")
 							remover_tag = false;
 						}
 
-					})
+					});
 
 					if (remover_tag) {
 						delete tags_saltos[indexSalto];
 					}
 
 
-				})
+				});
 
 				angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
 
 					var tag_existe = tags_saltos[tag.traducciones[0].valor];
 
 					if (tag_existe === undefined) {
-						console.log('indefinido')
 						tags_saltos[tag.traducciones[0].valor] = 0;
 					}
 
@@ -595,18 +592,17 @@ angular.module("disenador-de-logos")
 				bz.contenedores.busquedaIconos = true;
 
 				elementosService.listarIconosSegunTags(tags_saltos).then(function (res) {
-					bz.iconos = [];
-					bz.iconos = res.iconos;
-					if (!bz.iconos.length) {
+
+					if (!res.iconos.length) {
 						return bz.cerrarContenedores();
 					}
+					
+					bz.iconos = [];
+					bz.iconos = res.iconos;
 					bz.contenedores.busquedaIconos = true;
-					var tags = res.tags;
-					tags_saltos = tags;
-
+					tags_saltos = res.tags;
 
 				}).catch(function (res) {
-					//console.log(res);
 					bz.cerrarContenedores();
 				}).finally(function () {
 					bz.completadoBuscar = true;
@@ -628,7 +624,6 @@ angular.module("disenador-de-logos")
 
 		bz.reemplazarIcono = function (icono) {
 
-			console.log(icono);
 			bz.logo.icono = icono;
 			$rootScope.$broadcast("editor:reemplazar", bz.base64.decode(icono.svg));
 
