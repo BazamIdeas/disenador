@@ -317,15 +317,32 @@ angular.module("disenador-de-logos")
 
 			promesaIconosDescatados.then(function(logosDestacados) {
 
-				bz.logos = [];
+				if (logosDestacados.length) {
+					bz.logos = [];
 
-				logosDestacados.forEach(function (ele) {
-					bz.idsExcluidos.push(ele.idLogo);
-					bz.logos.unshift(ele);
-				});
+					logosDestacados.forEach(function (ele) {
+						bz.idsExcluidos.push(ele.idLogo);
+						bz.logos.unshift(ele);
+					});
 
-				for (let index = 0; index < 16 - logosDestacados.length; index++) {
-					bz.logosFantasmas.push(index);
+					for (let index = 0; index < 16 - logosDestacados.length; index++) {
+						bz.logosFantasmas.push(index);
+					}
+				} else {
+					var logosAnteriores = [];
+
+					bz.logos.forEach(function (ele, index) {
+						if(ele.idLogo != undefined) {
+							logosAnteriores.push(ele)
+						}
+					});
+
+					bz.logos = logosAnteriores;
+
+					for (let index = 0; index < 16 - bz.logos.length; index++) {
+						bz.logosFantasmas.push(index);
+					}
+
 				}
 
 				$q.all([
@@ -388,7 +405,6 @@ angular.module("disenador-de-logos")
 
 						bz.logosFantasmas = [];
 
-						console.log(bz.logos);
 
 						var datosLocal = {
 							colores: bz.datos.colores,

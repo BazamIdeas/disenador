@@ -622,7 +622,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
     let tagsArray = Object.keys(tags);
 
-    while (icons.length <= 8 && next) {
+    while (icons.length < 8 && next) {
 
         //console.log({ vueltas: vueltas })
         let promises = [];
@@ -670,7 +670,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
             while(i < 100) {
 
-                if (icons.length <= 8) {
+                if (icons.length < 8) {
 
                     for (let coll of iconsCollections) {
 
