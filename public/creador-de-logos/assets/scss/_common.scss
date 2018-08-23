@@ -662,7 +662,7 @@ span {
     background-size: auto 60%;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: WHITE;
+    background-color: WHITE !important;
 }
 
 .c-gif {
@@ -671,7 +671,7 @@ span {
     background-size: auto 27%;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: WHITE;
+    background-color: WHITE !important;
 }
 
 .d-gif {
@@ -680,7 +680,11 @@ span {
     background-size: auto 40%;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: WHITE;
+    background-color: WHITE !important;
+
+    * {
+        color: transparent;
+    }
 }
 
 div[ng-messages] {

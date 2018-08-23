@@ -375,9 +375,8 @@
 
 						<div class="col l3 xl2 icon-option" ng-if="!editor.iconos.length" ng-repeat="icono in [1,2,3,4,5,6]">
 							<div class="icon loading-purple">
-								<div class="agregar" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
-									<img  ng-if="!$last" style="width:100%" src="assets/images/a.png" alt="">
-									<img ng-if="$last" style="width:100%" src="assets/images/spinner-purple.gif" alt="">
+								<div style="background-size: auto 30%;" class="agregar d-gif" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
+									<img style="width:100%" src="assets/images/a.png" alt="">
 									<div style="position:absolute;display: flex;
 										flex-flow: column;top: 0;height: 100%;
 										justify-content: center; text-align:center; width:100%;">
@@ -396,10 +395,10 @@
 						</div>
 
 						<div class="col l3 xl2 icon-option" ng-if="editor.iconos.length">
-							<div class="opcion-icon" ng-class="{ 'loading-purple': !editor.completadoBuscar}">
-								<div class="add" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
+							<div class="opcion-icon" >
+								<div class="add" style="background-size: auto 30%;" ng-class="{ 'd-gif': !editor.completadoBuscar}" ng-click="editor.buscarIconos(editor.categoriaIcono, editor.iconosForm.$valid)">
 									<img style="width:100%" src="assets/images/a.png" alt="">
-									<div ng-class="{'color-trans': !editor.completadoBuscar}" style="position:absolute;display: flex;
+									<div style="position:absolute;display: flex;
 									flex-flow: column;top: 0;height: 100%;
 									justify-content: center; text-align:center; width:100%;color: white">
 										<i class="material-icons">search</i>

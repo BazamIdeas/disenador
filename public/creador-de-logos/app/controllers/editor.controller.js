@@ -594,7 +594,12 @@ angular.module("disenador-de-logos")
 				elementosService.listarIconosSegunTags(tags_saltos).then(function (res) {
 
 					if (!res.iconos.length) {
-						return bz.cerrarContenedores();
+						return $mdToast.show($mdToast.base({
+							args: {
+								mensaje: "no han habido resultados, intenta con otro tipo de iconos!",
+								clase: "success"
+							}
+						}));
 					}
 					
 					bz.iconos = [];
