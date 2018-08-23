@@ -233,7 +233,9 @@ exports.listaSegunTagCatNOUN = function (req, res) {
 
 	let response = { tags: {} };
 
-	Object.keys(tags).forEach(el => response.tags[helpers.normalize(el.toLowerCase())] = { ori: el, salto: tags[el]} );
+	Object.keys(tags).forEach(el => {
+		response.tags[helpers.normalize(el.toLowerCase())] = { ori: el, salto: tags[el]}
+	});
 
 	if (!Object.keys(tags).length) {
 		response.iconos = [];
