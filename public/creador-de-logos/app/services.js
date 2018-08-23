@@ -2,7 +2,7 @@ angular.module("disenador-de-logos")
 
 	.factory("coloresFactory", [function () {
 		return function (coloresArrays) {
-			if(coloresArrays){
+			if (coloresArrays) {
 				var i = Math.floor(Math.random() * coloresArrays.length) + 0;
 				return coloresArrays[i];
 			}
@@ -423,23 +423,23 @@ angular.module("disenador-de-logos")
 		};
 
 		this.querySearch = function (query) {
+			if (!bz.peticion) {
+				bz.peticion = true;
 
-			if (bz.peticion) return;
-			if (query.length < 3) return;
-			bz.peticion = true;
+				return $http.get("/app/etiquetas/" + query.toLowerCase()).then(function (res) {
 
-			return $http.get("/app/etiquetas/" + query.toLowerCase()).then(function (res) {
+					var etiquetas = bz.loadEtiquetas(res.data);
 
-				var etiquetas = bz.loadEtiquetas(res.data);
+					var results = query ? etiquetas.filter(createFilterFor(query)) : [];
 
-				var results = query ? etiquetas.filter(createFilterFor(query)) : [];
+					return limitOne(results, 'traducciones');
 
-				return limitOne(results, 'traducciones');
-
-			}).finally(function () {
-				bz.peticion = false;
-			});
-
+				}).catch(function () {
+					return [];
+				}).finally(function () {
+					bz.peticion = false;
+				});
+			}
 		};
 
 		function createFilterFor(query) {
