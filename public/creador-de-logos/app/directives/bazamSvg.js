@@ -892,7 +892,7 @@ angular.module("disenador-de-logos")
 						////////////////////////////////
 
 						function reemplazarIcono(evento, icono) {
-							console.log(evento, icono)
+							//console.log(evento, icono)
 							var iconoSVG = element.find("g.contenedor-icono > svg");
 
 							var x = iconoSVG.attr("x");
@@ -1255,7 +1255,7 @@ angular.module("disenador-de-logos")
 								if(!input.files.length || svgFile.type != "image/svg+xml"){
 									botonInsertarImagen[0].value = '';
 
-									console.log(input.files)
+									//console.log(input.files)
 									return;
 								}
 
@@ -1269,7 +1269,7 @@ angular.module("disenador-de-logos")
 
 									var svgInputElement = angular.element(svgInput);
 									
-									console.log(svgInputElement[0].outerHTML)
+									//console.log(svgInputElement[0].outerHTML)
 									svgInputElement.removeAttr("width");
 									svgInputElement.removeAttr("height");
 

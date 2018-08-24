@@ -640,7 +640,7 @@ span.comprar {
   background-size: auto 60%;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: WHITE; }
+  background-color: WHITE !important; }
 
 .c-gif {
   background-image: url(/assets/images/gifs/c.gif);
@@ -648,7 +648,7 @@ span.comprar {
   background-size: auto 27%;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: WHITE; }
+  background-color: WHITE !important; }
 
 .d-gif {
   background-image: url(/assets/images/gifs/d.gif);
@@ -656,7 +656,9 @@ span.comprar {
   background-size: auto 40%;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: WHITE; }
+  background-color: WHITE !important; }
+  .d-gif * {
+    color: transparent; }
 
 div[ng-messages] {
   position: relative;
