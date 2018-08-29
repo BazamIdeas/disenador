@@ -25,7 +25,11 @@ angular.module("administrador")
 			url: "app.elementos",
 			nombre: "Elementos",
 			icono: "stars"
-		}, */ {
+		}, */  {
+			url: "app.iconos",
+			nombre: "Iconos",
+			icono: "icon"
+		},{
 			url: "app.monedas",
 			nombre: "Monedas y pasarelas",
 			icono: "attach_money"

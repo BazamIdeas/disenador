@@ -421,7 +421,7 @@ button.md-button.md-primary.md-raised {
         cursor: default;
         border-radius: 30px !important;
         height: 32px !important;
-        line-height: 28px;
+        line-height: 30px;
         background: $WHITE !important;
         color: $BLACK;
         border: 2px solid $BLACK !important;
@@ -446,7 +446,7 @@ button.md-button.md-primary.md-raised {
             border-bottom: none !important;
         }
         md-chip-template strong {
-            font-size: 16pt !important;
+            font-size: 14pt !important;
             font-family: 'nunito-sans-semi';
             text-transform: capitalize;
         }

@@ -1,0 +1,45 @@
+<div class="row start-xs" id="toast">
+    <div class="col-xs-12 margen_inferior">
+        <div flex layout>
+            <form flex="33" ng-submit="$event.preventDefault()">
+                <md-autocomplete md-selected-item-change="ctrl.solicitarElementos()" md-delay="2000" md-no-cache="true" md-min-length="3" md-selected-item="ctrl.selectedItemAutocomplete" md-search-text="ctrl.searchTextAutocomplete"
+                    md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchTextAutocomplete)" md-item-text="item.traducciones[0].valor"
+                    placeholder="Buscar iconos por etiqueta">
+                    <span md-highlight-text="ctrl.searchTextAutocomplete">{{::item.traducciones[0].valor}}</span>
+                </md-autocomplete>
+            </form>
+
+            <div flex="23"  layout style="    margin-left: 20px;">
+                <md-chips md-add-on-blur="false" md-max-chips="5" ng-model="ctrl.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
+                    md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)" ng-class="{'without-placeholder':ctrl.datos.etiquetasSeleccionadas.length > 0}">
+                    <md-autocomplete md-delay="2000" class="md-whiteframe-1dp" md-no-cache="true" md-min-length="3" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText"
+                        md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText)" md-item-text="item.traducciones[0].valor"
+                        placeholder="Buscar en nount project">
+                        <span md-highlight-text="ctrl.searchText">{{::item.traducciones[0].valor}}</span>
+                    </md-autocomplete>
+                    <md-chip-template>
+                        <span>
+                            <strong>{{$chip.traducciones[0].valor}}</strong>
+                        </span>
+                    </md-chip-template>
+                </md-chips>
+                <span ng-click="ctrl.solicitarElementosNoun()" style="    width: 41px;
+                        height: 41px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: white;
+                        margin-left: 8px;
+                        border: 1px solid silver;">
+                    <md-icon style="color: black;">search</md-icon>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div>
+            <img src="icono" ng-repeat="icono in ctrl.iconos">
+        </div>
+    </div>
+</div>
