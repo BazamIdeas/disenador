@@ -189,6 +189,8 @@ router.get("/idiomas/borrar/:_id", controllers.idiomas.Borrar);
 router.post("/elementos/busqueda/fuentes", controllers.elementos.listaSegunPref);
 router.post("/elementos/busqueda/iconos", controllers.elementos.listaSegunTagCat);
 router.post("/elementos/busqueda/iconos/noun", controllers.elementos.listaSegunTagCatNOUN);
+router.post("/elementos/busqueda/iconos/mongo", controllers.elementos.listaSegunTagCatMONGO);
+router.post("/elementos/inportar/iconos", controllers.elementos.importarIconoNOUN);
 router.post("/elementos/categorias", controllers.elementos.listaElemCategoria); // iconos en editor
 router.post("/elementos/categoria", controllers.elementos.listaElemCat); //iconos back
 router.post("/elemento/icono", multipartMiddleware, controllers.elementos.nuevoElementoIcono); //ruta para icono

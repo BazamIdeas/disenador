@@ -255,7 +255,7 @@ exports.listaSegunTagCatNOUN = function (req, res) {
 			
 			response.tags = tagsTraducidas;
 
-			etiqueta.BuscarIconosNOUN(response.tags ,(err, busqueda) => {
+			etiqueta.BuscarIconosMONGO(response.tags ,(err, busqueda) => {
 
 				if (err) return res.status(500).json(err);
 
@@ -267,16 +267,6 @@ exports.listaSegunTagCatNOUN = function (req, res) {
 				});
 
 				res.status(200).json(response);
-
-				/*etiqueta.TransformarSvg(busqueda.iconos, (err, iconosTransformados) => {
-
-					if (err) return res.status(500).json(err);
-
-					response.iconos = iconosTransformados;
-
-					res.status(200).json(response);
-
-				})*/
 			
 			})
 
@@ -286,6 +276,77 @@ exports.listaSegunTagCatNOUN = function (req, res) {
 
 };
 
+
+exports.listaSegunTagCatMONGO = function (req, res) {
+
+	const tags = req.body.tags ? req.body.tags : [];
+	const excluidos = req.body.idsIconos ? req.body.idsIconos : [];
+	//const salto = req.body.salto ? req.body.salto : 0;
+	const lang = req.lang ? req.lang.toLowerCase() : 'es';
+	const categoria = 0;
+	//const ids = req.body.ids ? req.body.ids : [0];
+
+	let response = { tags: [] };
+
+	tags.forEach(el => {
+		response.tags[helpers.normalize(el.toLowerCase())] = { ori: el }
+	});
+
+	if (!tags.length) {
+		response.iconos = [];
+		res.status(200).json(response);
+		return;
+	}
+	etiqueta.AnalizarMONGO(lang, response.tags, (err, analasis) => {
+		// Aqui se registran las busquedas
+
+		if (err) return res.status(500).json(err);
+
+		response.tags = analasis.tags;
+
+		etiqueta.TraducirGuardarNOUN(response.tags, lang, (err, tagsTraducidas) => {
+
+			if (err) return res.status(500).json(err);
+			
+			response.tags = tagsTraducidas;
+
+			etiqueta.BuscarIconosMONGO(analasis.iconos, excluidos ,(err, busqueda) => {
+
+				if (err) return res.status(500).json(err);
+
+				response.tags = [];
+				response.idsIconos = busqueda.idsIconos;
+				response.iconos = busqueda.iconos;
+
+				Object.keys(analasis.tags).map(tag => {
+					response.tags.push(analasis.tags[tag].ori);
+				});
+
+				res.status(200).json(response);
+			
+			})
+
+		})
+
+	});
+
+};
+
+exports.importarIconoNOUN = function (req, res) {
+
+	const idtTag = req.body.idTag ? req.body.idTag : null;
+	const svgs = req.body.svgs ? req.body.svgs : [];
+
+	etiqueta.importarIconos(idTag, svgs, (err, response) => {
+		// Aqui se registran las busquedas
+
+		if (err) return res.status(500).json(err);
+
+		res.status(200).json(data);
+
+	});
+
+};
 
 exports.listaElemCat = function (req, res) {
 

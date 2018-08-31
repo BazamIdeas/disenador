@@ -404,7 +404,8 @@ etiqueta.AnalizarNOUN = (lang, tags, callback) =>
                         idioma: '$idioma.codigo',
                         valor: '$traducciones.valor'
                     }
-                }
+                },
+
             }
         }, {
             $match: {
@@ -447,6 +448,94 @@ etiqueta.AnalizarNOUN = (lang, tags, callback) =>
                 });
                 
                 callback(null, tags);
+            }
+        })
+    })
+}
+
+etiqueta.AnalizarMONGO = (lang, tags, callback) => 
+{
+
+    __mongoClient(db => {
+        const collection = db.collection('etiquetas');
+        collection.aggregate([{
+            $unwind: '$traducciones'
+        }, {
+            $lookup: {
+                from: 'idiomas',
+                localField: 'traducciones.idioma',
+                foreignField: '_id',
+                as: 'idioma'
+            }
+        }, {
+            $unwind: '$idioma'
+        }, {
+            $addFields: {
+                'traducciones.idioma': '$idioma.codigo'
+            }
+        }, {
+            $group: {
+                _id: '$_id',
+                traducciones: {
+                    $addToSet: {
+                        idioma: '$idioma.codigo',
+                        valor: '$traducciones.valor'
+                    }
+                },
+                iconos: {
+                    $push: { iconos: '$iconos' }
+                }
+            }
+        }, {
+            $match: {
+                'traducciones': {
+                    '$elemMatch': {
+                        'idioma': lang,
+                        'valor': {
+                            '$in': Object.keys(tags)
+                        }
+                    }
+                }
+            }
+        }, {
+            $project: {
+                idioma: false
+            }
+        }]).toArray((err, docs) => {
+            if (err) throw err;
+
+            else {
+
+                var formatedDocs = { en: [] };
+                formatedDocs[lang] = [];
+
+                iconos = [] 
+                
+                docs.forEach((doc, index) => {
+                    let traducciones = {}
+                    doc.traducciones.forEach(tra => {
+                        traducciones[tra.idioma] = tra.valor;
+                    })
+
+                    doc.iconos.forEach(arr_iconos => {                        
+                        arr_iconos.iconos.forEach(icono => {
+                            if(iconos.indexOf(icono) == -1) iconos.push(icono);
+                        })
+                    })
+                    docs[index].traducciones = traducciones;
+                });
+
+                
+
+                Object.keys(tags).forEach(tag => {
+                    docs.map(doc => {
+                        if (doc.traducciones[lang] == tag) {
+                            tags[tag].en = doc.traducciones.en;
+                        }
+                    })
+                });
+
+                callback(null, { tags: tags, iconos: iconos});
             }
         })
     })
@@ -750,6 +839,40 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
     callback(null, { tags: tags, iconos: icons });
 }
 
+etiqueta.BuscarIconosMONGO = async (iconos, excluidos, callback) => {
+
+    var iconosRamdon = []
+    var i = 1;
+    var length = iconos.length;
+    while (i < 17) {
+        var random = Math.floor(Math.random() * (length + 1));
+        if (iconos.length && iconosRamdon.indexOf(iconos[random]) == -1) {
+            
+            if (excluidos.indexOf(iconos[random]) == -1) {
+                iconosRamdon.push(iconos[random]);
+                i++;
+            }
+
+            iconos.splice(random, 1);
+            length = iconos.length;
+        } else if (!iconos.length) {
+            break;
+        }
+    }
+
+    __mongoClient(db => {
+        const iconos = db.collection('iconos');
+        iconos.find({ idNoun : { $in: iconosRamdon }}).toArray((err, docs) => {
+            
+            iconosRamdon = iconosRamdon.concat(excluidos);
+
+            callback(null, { idsIconos: iconosRamdon, iconos: docs });
+
+        })
+    })
+
+}
+
 etiqueta.TransformarSvg = async (iconos , callback) => {
 
     //console.time('Descarga de Iconos')
@@ -875,6 +998,50 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
     });
 }
 
+etiqueta.importarIconos = function(idTag, svgs callback) {
+    
+    idsNoun = [];
 
+    svgs.forEach(svg => {
+        idsNoun.push(svg.idNoun);
+    });
+
+    if (idsNoun.length) {
+
+        __mongoClient(db => {
+
+            const etiquetas = db.collection('etiquetas');
+
+            etiquetas.updateOne({ _id: objectId(idTag) }, {
+                $push: {
+                    scores: {
+                        $each: idsNoun
+                    }
+                }
+            },
+            function (err, result) {
+                if (err) return callback(err);
+
+                if (result.result.nModified) {
+                    
+                    const iconos = db.collection('iconos');
+
+                    iconos.insertMany(svgs, function (err, r) {
+                        if (err) return callback(err);
+
+                        callback(null, { insertedCount: r.insertedCount });
+                        
+                        db.close();
+                    });
+
+                } else {
+                    callback(null, { nModified: result.result.nModified });
+                }
+                
+            });
+            
+        })
+    }
+}
 
 module.exports = etiqueta;
