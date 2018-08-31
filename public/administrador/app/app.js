@@ -79,6 +79,15 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 					}
 				}
 			}).state({
+				name: "app.iconos",
+				url: "/iconos",
+				views: {
+					"menuContent": {
+						templateUrl: "app/views/iconos.html",
+						controller: "iconosController as ctrl",
+					}
+				}
+			}).state({
 				name: "app.monedas",
 				url: "/monedas",
 				views: {

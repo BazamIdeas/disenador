@@ -1,4 +1,5 @@
 import Categorias from './categoriasController.js'
+import Iconos from './iconosController.js'
 import Cliente from './clienteController.js'
 import Disenadores from './disenadoresController.js'
 import Elementos from './elementosController.js'

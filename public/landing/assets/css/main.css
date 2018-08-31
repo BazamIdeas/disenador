@@ -230,10 +230,6 @@ button:focus {
   background: #5980B7; }
 
 /**********************/
-input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: unset !important;
-  box-shadow: unset !important; }
-
 .md-button.md-default-theme.md-primary.md-fab:not([disabled]).md-focused, .md-button.md-primary.md-fab:not([disabled]).md-focused, .md-button.md-default-theme.md-primary.md-fab:not([disabled]):hover, .md-button.md-primary.md-fab:not([disabled]):hover, .md-button.md-default-theme.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-primary.md-raised:not([disabled]).md-focused, .md-button.md-default-theme.md-primary.md-raised:not([disabled]):hover, .md-button.md-primary.md-raised:not([disabled]):hover {
   background-color: #5980b7;
   color: white; }
@@ -743,7 +739,7 @@ button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
     cursor: default;
     border-radius: 30px !important;
     height: 32px !important;
-    line-height: 28px;
+    line-height: 30px;
     background: #FFFFFF !important;
     color: #000000;
     border: 2px solid #000000 !important; }
@@ -765,7 +761,7 @@ button.md-button.md-primary.md-raised.boton-formulario-generar:hover {
       margin-bottom: 8px !important;
       border-bottom: none !important; }
     .md-chips md-chip md-chip-template strong {
-      font-size: 16pt !important;
+      font-size: 14pt !important;
       font-family: 'nunito-sans-semi';
       text-transform: capitalize; }
 
