@@ -150,13 +150,13 @@
                     <!-- LOGO PREDISEÑADO  -->
                     <div class="combinacion-box" ng-if="logo.atributos" style="background-color: white;">
                         
-                        <bazam-visualizar data-svg="inicio.base64.decode(logo.svg)" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)"></bazam-visualizar>
+                        <bazam-visualizar data-title="inicio.datos.nombre" data-svg="inicio.base64.decode(logo.svg)" ng-click="inicio.comprarLogo(logo.cargado, [logo.colores[0], logo.colores[logo.random]],  logo, logo.idLogo, true)" cargado="logo.cargado"></bazam-visualizar>
                         <!--
                         <span class="accion" style="bottom: 81%;" ng-click="inicio.preGuardarLogo(logo)">
                             <p>{{::inicio.lang.combinaciones.guardar}}</p>
                             <img ng-src="{{logo.idLogo ?'assets/images/save_active.svg' : 'assets/images/save.svg'}}" alt="">
                         </span>
-                        -->
+                        --> 
                         <span class="accion" style="bottom: 63%;" ng-click="inicio.preAvanzar(logo, true)">
                             <p>{{::inicio.lang.combinaciones.editar}}</p>
                             <img src="assets/images/edit_white.svg" alt="">

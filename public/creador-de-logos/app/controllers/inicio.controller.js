@@ -487,7 +487,7 @@ angular.module("disenador-de-logos")
 					logo: {
 						icono: {
 							idElemento: logoSeleccionado.noun,
-							svg: logoSeleccionado.svg
+							svg: logoSeleccionado.cargado //logoSeleccionado.svg
 						},
 					},
 					idLogoPadre: logoSeleccionado.idLogo,
