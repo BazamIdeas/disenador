@@ -50,10 +50,6 @@ angular.module("administrador")
 			nombre: "Diseñadores",
 			icono: "face"
 		}, {
-			url: "app.busquedas",
-			nombre: "Busquedas",
-			icono: "style"
-		}, {
 			url: "app.etiquetas",
 			nombre: "Etiquetas",
 			icono: "style"

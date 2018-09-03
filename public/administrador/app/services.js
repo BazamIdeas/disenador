@@ -380,7 +380,7 @@ angular.module("administrador")
 
         /* CATEGORIAS */
 
-        this.listarSubCategorias = function (datos) {
+        this.listarSubCategorias = function () {
             var defered = $q.defer();
             var promise = defered.promise;
 
@@ -1310,6 +1310,27 @@ angular.module("administrador")
 				});
 
 			return promise;
+        };
+        
+        this.listarIconosMONGO = function (tags, idsIconos) {
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			var data = {
+                tags: tags,
+                idsIconos: idsIconos
+			};
+
+			$http.post("/app/elementos/busqueda/iconos/mongo", data)
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
 		};
 
 		this.loadEtiquetas = function (arr) {
@@ -1812,7 +1833,7 @@ angular.module("administrador")
             }
 
             if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-                newItems = [];
+                var newItems = [];
 
                 var extractValueToCompare = function (item) {
                     if (angular.isObject(item) && angular.isString(filterOn)) {

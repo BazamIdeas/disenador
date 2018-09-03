@@ -1,8 +1,9 @@
 angular.module("administrador")
 
-    .controller("iconosController", ["$state", "$scope", "clientesService", "$rootScope", "inconsSearchByTag", function ($state, $scope, clientesService, $rootScope, inconsSearchByTag) {
+    .controller("iconosController", ["$state", "$scope", "clientesService", "$rootScope", "inconsSearchByTag", "$base64", function ($state, $scope, clientesService, $rootScope, inconsSearchByTag, $base64) {
 
         var bz = this;
+        bz.base64 = $base64;
 
         /* Etiquetas */
 
@@ -10,13 +11,9 @@ angular.module("administrador")
         bz.searchText = null;
         bz.etiquetasFunciones = inconsSearchByTag;
         bz.datos = { etiquetasSeleccionadas: [] };
-        
-        bz.solicitarElementos = function(){
-
-        };
 
         /**
-         * Solicitar elementos
+         * Solicitar elementos NOUN
          */
 
         bz.completado = true;
@@ -78,5 +75,34 @@ angular.module("administrador")
             });
 
         };
+
+        
+        /**
+         * Solicitar elementos MONGO
+         */
+
+        bz.solicitarElementosMONGO = function () {
+
+            if (!bz.completado) {
+                return;
+            }
+
+            bz.completado = false;
+
+            var tags = [bz.searchTextAutocomplete];
+
+            inconsSearchByTag.listarIconosMONGO(tags, bz.idsExcluidosMONGO).then(function (res) {
+                if (res.iconos.length) {
+                    bz.iconosMONGO = res.iconos;
+                    bz.idsExcluidosMONGO = res.idsIconos;
+                }
+            }).catch(function () {
+                //console.log(res)
+            }).finally(function () {
+                bz.completado = true;
+            });
+
+        };
+
 
     }]);

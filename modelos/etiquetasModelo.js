@@ -8,8 +8,7 @@ var base64 = require("base-64");
 
 let etiqueta = {}
 
-etiqueta.ObtenerTodos = callback => 
-{
+etiqueta.ObtenerTodos = callback => {
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
@@ -41,7 +40,7 @@ etiqueta.ObtenerTodos = callback =>
 
 etiqueta.ObtenerTodosPorPalabra = (search, lang, callback) => {
 
-    var regex = new RegExp('^' + search );
+    var regex = new RegExp('^' + search);
 
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
@@ -111,13 +110,12 @@ etiqueta.ObtenerTodoDeIdioma = (lang, callback) => {
     })
 }
 
-etiqueta.ObtenerConIconos = (_id, callback) => 
-{
+etiqueta.ObtenerConIconos = (_id, callback) => {
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
-            $match: { _id : objectId(_id) }
-        },{
+            $match: { _id: objectId(_id) }
+        }, {
             $unwind: '$traducciones'
         }, {
             $lookup: {
@@ -137,7 +135,7 @@ etiqueta.ObtenerConIconos = (_id, callback) =>
                         valor: '$traducciones.valor'
                     }
                 },
-                iconos:  {
+                iconos: {
                     $first: '$iconos'
                 }
 
@@ -149,8 +147,7 @@ etiqueta.ObtenerConIconos = (_id, callback) =>
     })
 }
 
-etiqueta.ObtenerPorIcono = (id, callback) => 
-{
+etiqueta.ObtenerPorIcono = (id, callback) => {
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.aggregate([{
@@ -173,8 +170,7 @@ etiqueta.ObtenerPorIcono = (id, callback) =>
     })
 }
 
-etiqueta.Guardar = (etiquetaData, callback) => 
-{
+etiqueta.Guardar = (etiquetaData, callback) => {
     etiquetaData.traducciones.forEach((traduccion, key) => {
         etiquetaData.traducciones[key].idioma = objectId(traduccion.idioma);
     })
@@ -190,8 +186,7 @@ etiqueta.Guardar = (etiquetaData, callback) =>
     })
 }
 
-etiqueta.Actualizar = (_id, etiquetaData, callback) => 
-{
+etiqueta.Actualizar = (_id, etiquetaData, callback) => {
     delete etiquetaData._id;
 
     etiquetaData.traducciones.forEach((el, key) => {
@@ -206,42 +201,41 @@ etiqueta.Actualizar = (_id, etiquetaData, callback) =>
         collection.findOneAndUpdate({
             '_id': objectId(_id)
         }, {
-            $set: {
-                traducciones: etiquetaData.traducciones
-            }
-        }, (err, doc) => {
-            if (err) throw err;
-            callback(null, {
-                'affectedRow': doc.value
+                $set: {
+                    traducciones: etiquetaData.traducciones
+                }
+            }, (err, doc) => {
+                if (err) throw err;
+                callback(null, {
+                    'affectedRow': doc.value
+                });
             });
-        });
     })
 }
 
-etiqueta.AsignarIconos = (_id, iconos, callback) => 
-{
+etiqueta.AsignarIconos = (_id, iconos, callback) => {
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndUpdate({
             '_id': objectId(_id)
         }, {
-            $addToSet: {
-                'iconos': {
-                    $each: iconos
+                $addToSet: {
+                    'iconos': {
+                        $each: iconos
+                    }
                 }
-            }
-        }, (err, doc) => {
-            if (err) throw err;
-            callback(null, {
-                'affectedRow': doc.value
+            }, (err, doc) => {
+                if (err) throw err;
+                callback(null, {
+                    'affectedRow': doc.value
+                });
             });
-        });
     })
 }
 
 etiqueta.AsignarLogos = (_ids, idLogo, callback) => {
 
-    _ids.forEach((e,i) => {
+    _ids.forEach((e, i) => {
         _ids[i] = objectId(e);
     })
 
@@ -250,60 +244,58 @@ etiqueta.AsignarLogos = (_ids, idLogo, callback) => {
         collection.findOneAndUpdate({
             'idLogo': idLogo
         }, {
-            $addToSet: {
-                'etiquetas': {
-                    $each: _ids
+                $addToSet: {
+                    'etiquetas': {
+                        $each: _ids
+                    }
                 }
-            }
-        }, (err, doc) => {
-            if (err) throw err;
+            }, (err, doc) => {
+                if (err) throw err;
 
-            if (doc.value !== null) {
-                callback(null, {
-                    'affectedRow': doc.value
-                });
-            } else {
-
-                collection.insertOne({
-                    'idLogo': idLogo,
-                    'etiquetas': _ids
-                }, (err, doc) => {
-                    if (err) throw err;
+                if (doc.value !== null) {
                     callback(null, {
-                        'insertId': doc.insertedId
+                        'affectedRow': doc.value
                     });
-                });
+                } else {
 
-            }
-        });
+                    collection.insertOne({
+                        'idLogo': idLogo,
+                        'etiquetas': _ids
+                    }, (err, doc) => {
+                        if (err) throw err;
+                        callback(null, {
+                            'insertId': doc.insertedId
+                        });
+                    });
+
+                }
+            });
     })
 }
 
-etiqueta.DesasignarIcono = (_id, icono, callback) => 
-{
+etiqueta.DesasignarIcono = (_id, icono, callback) => {
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndUpdate({
             '_id': objectId(_id)
         }, {
-            $pull: {
-                'iconos': {
-                    $in: icono
+                $pull: {
+                    'iconos': {
+                        $in: icono
+                    }
                 }
-            }
-        }, {
-            multi: true,
-        }, (err, doc) => {
-            if (err) throw err;
-            callback(null, {
-                'affectedRow': doc.value
+            }, {
+                multi: true,
+            }, (err, doc) => {
+                if (err) throw err;
+                callback(null, {
+                    'affectedRow': doc.value
+                });
             });
-        });
     })
 }
 
-etiqueta.Borrar = (_id, callback) => 
-{
+etiqueta.Borrar = (_id, callback) => {
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
         collection.findOneAndDelete({
@@ -317,20 +309,19 @@ etiqueta.Borrar = (_id, callback) =>
     })
 }
 
-etiqueta.Analizar = (tags, callback) => 
-{
+etiqueta.Analizar = (tags, callback) => {
     let iconos = [];
 
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
-        collection.aggregate([ {
+        collection.aggregate([{
             $lookup: {
                 from: 'idiomas',
                 localField: 'traducciones.idioma',
                 foreignField: '_id',
                 as: 'idioma'
             }
-        },{
+        }, {
             $unwind: '$traducciones'
         }, {
             $match: {
@@ -353,17 +344,17 @@ etiqueta.Analizar = (tags, callback) =>
 
                 docs.forEach(doc => doc.iconos.forEach(i => iconos.push(i)))
 
-                Array.prototype.sortByFrequency = function() {
+                Array.prototype.sortByFrequency = function () {
                     return function () {
                         var frequency = {};
-                    
-                        this.forEach(function(value) { frequency[value] = 0; });
-                    
-                        var uniques = this.filter(function(value) {
+
+                        this.forEach(function (value) { frequency[value] = 0; });
+
+                        var uniques = this.filter(function (value) {
                             return ++frequency[value] == 1;
                         });
-                    
-                        return uniques.sort(function(a, b) {
+
+                        return uniques.sort(function (a, b) {
                             return frequency[b] - frequency[a];
                         });
                     }
@@ -375,8 +366,7 @@ etiqueta.Analizar = (tags, callback) =>
     })
 }
 
-etiqueta.AnalizarNOUN = (lang, tags, callback) => 
-{
+etiqueta.AnalizarNOUN = (lang, tags, callback) => {
     let tagsResponse = { noExistentes: [], ingles: [] };
 
     __mongoClient(db => {
@@ -446,15 +436,14 @@ etiqueta.AnalizarNOUN = (lang, tags, callback) =>
                         }
                     })
                 });
-                
+
                 callback(null, tags);
             }
         })
     })
 }
 
-etiqueta.AnalizarMONGO = (lang, tags, callback) => 
-{
+etiqueta.AnalizarMONGO = (lang, tags, callback) => {
 
     __mongoClient(db => {
         const collection = db.collection('etiquetas');
@@ -509,23 +498,28 @@ etiqueta.AnalizarMONGO = (lang, tags, callback) =>
                 var formatedDocs = { en: [] };
                 formatedDocs[lang] = [];
 
-                iconos = [] 
-                
+                iconos = []
+
                 docs.forEach((doc, index) => {
                     let traducciones = {}
                     doc.traducciones.forEach(tra => {
                         traducciones[tra.idioma] = tra.valor;
                     })
 
-                    doc.iconos.forEach(arr_iconos => {                        
-                        arr_iconos.iconos.forEach(icono => {
-                            if(iconos.indexOf(icono) == -1) iconos.push(icono);
+                    if (doc.iconos.length) {
+                        doc.iconos.forEach(arr_iconos => {
+                            if (arr_iconos.iconos.length) {
+                                arr_iconos.iconos.forEach(icono => {
+                                    if (iconos.indexOf(icono) == -1) iconos.push(icono);
+                                })
+                            }
                         })
-                    })
+                    }
+
                     docs[index].traducciones = traducciones;
                 });
 
-                
+
 
                 Object.keys(tags).forEach(tag => {
                     docs.map(doc => {
@@ -535,7 +529,7 @@ etiqueta.AnalizarMONGO = (lang, tags, callback) =>
                     })
                 });
 
-                callback(null, { tags: tags, iconos: iconos});
+                callback(null, { tags: tags, iconos: iconos });
             }
         })
     })
@@ -567,7 +561,7 @@ etiqueta.TraducirGuardar = async (tags, lang, callback) => {
             }
 
         }
-    
+
     }
 
     __mongoClient(db => {
@@ -579,7 +573,7 @@ etiqueta.TraducirGuardar = async (tags, lang, callback) => {
 
             for (let tag of tagsTraducidas) {
 
-                let tagLista = { traducciones: [], iconos: []};
+                let tagLista = { traducciones: [], iconos: [] };
 
                 let idiomas = Object.keys(tag);
 
@@ -620,23 +614,23 @@ etiqueta.TraducirGuardarNOUN = async (tags, lang, callback) => {
     let tagsTraducidas = [];
 
     for (let tag of Object.keys(tags)) {
-        
+
         if (tags[tag].en == undefined) {
 
             let trad = {}
 
             try {
-                trad.en = await translate(tag, {from: lang, to: 'en'});
-                trad.es = await translate(tag, {from: lang, to: 'es'});
-                trad.pr = await translate(tag, {from: lang, to: 'pt'});
+                trad.en = await translate(tag, { from: lang, to: 'en' });
+                trad.es = await translate(tag, { from: lang, to: 'es' });
+                trad.pr = await translate(tag, { from: lang, to: 'pt' });
             } catch (error) {
                 callback(error);
                 return
             }
-            
+
             if (trad[lang].from.language.iso == lang) {
 
-                if ( (trad.en.text === trad.es.text && trad.en.text === trad.pr.text) === false ) {
+                if ((trad.en.text === trad.es.text && trad.en.text === trad.pr.text) === false) {
 
                     tagsTraducidas.push({ en: trad.en.text, es: trad.es.text, pr: trad.pr.text });
                     tags[tag].en = trad.en.text;
@@ -724,20 +718,20 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
                 const promise = new Promise((resolve) => {
 
-                    Nproject.getIconsByTerm(tags[tag].en, { limit: 100, offset: tags[tag].salto, limit_to_public_domain: 0}, (err, data) => {
+                    Nproject.getIconsByTerm(tags[tag].en, { limit: 100, offset: tags[tag].salto, limit_to_public_domain: 0 }, (err, data) => {
 
-                        
+
                         //console.log(data)
 
-                        
+
 
                         if (!err && data && data.icons.length) {
-                         
-                            resolve({ tag: tag, icons: data.icons})
+
+                            resolve({ tag: tag, icons: data.icons })
 
                         } else {
 
-                            resolve({ tag: tag, icons: []})
+                            resolve({ tag: tag, icons: [] })
 
                         }
 
@@ -757,7 +751,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
             //console.timeEnd('Esperando coleccion');
             let i = 0
 
-            while(i < 100) {
+            while (i < 100) {
 
                 if (icons.length < 8) {
 
@@ -765,7 +759,7 @@ etiqueta.BuscarIconosNOUN = async (tags, callback) => {
 
                         if (coll.icons.length) {
 
-                            
+
                             if (coll.icons[i] != undefined && coll.icons[i].icon_url) {
 
                                 try {
@@ -847,7 +841,7 @@ etiqueta.BuscarIconosMONGO = async (iconos, excluidos, callback) => {
     while (i < 17) {
         var random = Math.floor(Math.random() * (length + 1));
         if (iconos.length && iconosRamdon.indexOf(iconos[random]) == -1) {
-            
+
             if (excluidos.indexOf(iconos[random]) == -1) {
                 iconosRamdon.push(iconos[random]);
                 i++;
@@ -862,8 +856,8 @@ etiqueta.BuscarIconosMONGO = async (iconos, excluidos, callback) => {
 
     __mongoClient(db => {
         const iconos = db.collection('iconos');
-        iconos.find({ idNoun : { $in: iconosRamdon }}).toArray((err, docs) => {
-            
+        iconos.find({ idNoun: { $in: iconosRamdon } }).toArray((err, docs) => {
+
             iconosRamdon = iconosRamdon.concat(excluidos);
 
             callback(null, { idsIconos: iconosRamdon, iconos: docs });
@@ -873,7 +867,7 @@ etiqueta.BuscarIconosMONGO = async (iconos, excluidos, callback) => {
 
 }
 
-etiqueta.TransformarSvg = async (iconos , callback) => {
+etiqueta.TransformarSvg = async (iconos, callback) => {
 
     //console.time('Descarga de Iconos')
 
@@ -892,12 +886,12 @@ etiqueta.TransformarSvg = async (iconos , callback) => {
     });
 
     try {
-            
+
         let svgCollection = await Promise.all(promises);
 
-        svgCollection.forEach( (svg, i) => {
+        svgCollection.forEach((svg, i) => {
 
-			var str = "<svg" + svg.split("<svg")[1];
+            var str = "<svg" + svg.split("<svg")[1];
             var dd = str.replace(/fill=/gi, "nofill=");
 
             try {
@@ -925,8 +919,8 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
 
     data.forEach((logo, i) => {
 
-        let promise = new Promise((resolve, reject) =>{
-       
+        let promise = new Promise((resolve, reject) => {
+
             __mongoClient(db => {
 
                 const logos = db.collection('logos');
@@ -941,12 +935,12 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
                         let promisesEt = [];
 
                         doc.etiquetas.forEach(el => {
-                            
+
                             let pr = etiquetas.aggregate([{
                                 $match: {
                                     "_id": objectId(el)
                                 }
-                            } , {
+                            }, {
                                 $unwind: '$traducciones'
                             }, {
                                 $lookup: {
@@ -976,7 +970,7 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
                         Promise.all(promisesEt).then(res => {
                             logo.etiquetas = res[0]
                             resolve(logo)
-                        }).catch(err => { 
+                        }).catch(err => {
                             reject(err)
                         });
                     } else {
@@ -998,8 +992,8 @@ etiqueta.ObtenerPorLogo = (data, lang, callback) => {
     });
 }
 
-etiqueta.importarIconos = function(idTag, svgs callback) {
-    
+etiqueta.importarIconos = function (idTag, svgs, callback) {
+
     idsNoun = [];
 
     svgs.forEach(svg => {
@@ -1019,27 +1013,27 @@ etiqueta.importarIconos = function(idTag, svgs callback) {
                     }
                 }
             },
-            function (err, result) {
-                if (err) return callback(err);
+                function (err, result) {
+                    if (err) return callback(err);
 
-                if (result.result.nModified) {
-                    
-                    const iconos = db.collection('iconos');
+                    if (result.result.nModified) {
 
-                    iconos.insertMany(svgs, function (err, r) {
-                        if (err) return callback(err);
+                        const iconos = db.collection('iconos');
 
-                        callback(null, { insertedCount: r.insertedCount });
-                        
-                        db.close();
-                    });
+                        iconos.insertMany(svgs, function (err, r) {
+                            if (err) return callback(err);
 
-                } else {
-                    callback(null, { nModified: result.result.nModified });
-                }
-                
-            });
-            
+                            callback(null, { insertedCount: r.insertedCount });
+
+                            db.close();
+                        });
+
+                    } else {
+                        callback(null, { nModified: result.result.nModified });
+                    }
+
+                });
+
         })
     }
 }

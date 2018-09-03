@@ -43,15 +43,6 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 					}
 				}
 			}).state({
-				name: "app.busquedas",
-				url: "/busquedas",
-				views: {
-					"menuContent": {
-						templateUrl: "app/views/busquedas.html",
-						controller: "busquedasController as ctrl"
-					}
-				}
-			}).state({
 				name: "app.etiquetas",
 				url: "/etiquetas",
 				views: {
