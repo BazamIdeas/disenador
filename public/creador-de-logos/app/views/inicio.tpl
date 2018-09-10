@@ -17,7 +17,7 @@
                     <label>{{::inicio.lang.formulario.etiquetas.label}}</label>
                     <md-chips md-require-match="true" style="padding:0;" md-add-on-blur="false" md-max-chips="5" ng-model="inicio.datos.etiquetasSeleccionadas" md-separator-keys="[32,186,9,36,188,13,27]"
                         md-autocomplete-snap md-transform-chip="inicio.etiquetasFunciones.transformChip($chip)" ng-class="{'without-placeholder':inicio.datos.etiquetasSeleccionadas.length > 0}">
-                        <md-autocomplete md-no-cache="true" md-min-length="3" md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText)"
+                        <md-autocomplete md-delay="500" md-no-cache="true" md-min-length="3" md-selected-item="inicio.selectedItem" md-search-text="inicio.searchText" md-items="item in inicio.etiquetasFunciones.querySearch(inicio.searchText)"
                             md-item-text="item.traducciones[0].valor" placeholder="{{::inicio.lang.formulario.etiquetas.placeholder}}">
                             <span md-highlight-text="inicio.searchText">{{::item.traducciones[0].valor}}</span>
                         </md-autocomplete>

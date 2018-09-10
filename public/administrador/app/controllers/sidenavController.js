@@ -4,6 +4,8 @@ angular.module("administrador")
 
 		var bz = this;
 
+		document.cookie = "logoLang=ES'; Path=/'";
+
 		bz.menuMostrar = false;
 
 		bz.medidaP = bz.menuMostrar ? true : false;

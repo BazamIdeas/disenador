@@ -1331,6 +1331,27 @@ angular.module("administrador")
 				});
 
 			return promise;
+        };
+        
+        this.importar = function (idTag, nounIcons) {
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			var data = {
+                idTag: idTag,
+                svgs: nounIcons
+			};
+
+			$http.post("/app/elementos/inportar/iconos", data)
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
 		};
 
 		this.loadEtiquetas = function (arr) {

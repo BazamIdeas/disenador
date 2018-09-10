@@ -192,7 +192,7 @@
                                     ng-class="{'without-placeholder':ctrl.datosCombinaciones.etiquetasSeleccionadas.length > 0}"
                                     md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)"
                                     aria-invalid="false">
-                                    <md-autocomplete md-no-cache="true" md-min-length="3" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText"
+                                    <md-autocomplete md-delay="500" md-no-cache="true" md-min-length="3" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText"
                                         md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText)" md-item-text="item.traducciones[0].valor"
                                         placeholder="{{idioma.secciones.seccion_uno.formulario.etiquetas.placeholder }}">
                                         <span md-highlight-text="ctrl.searchText">${item.traducciones[0].valor}$</span>

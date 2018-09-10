@@ -10,7 +10,8 @@ angular.module("administrador")
         bz.selectedItem = null;
         bz.searchText = null;
         bz.etiquetasFunciones = inconsSearchByTag;
-        bz.datos = { etiquetasSeleccionadas: [] };
+        bz.etiquetasSeleccionadas = [];
+        bz.etiquetasSeleccionadasMongo = [];
 
         /**
          * Solicitar elementos NOUN
@@ -18,23 +19,26 @@ angular.module("administrador")
 
         bz.completado = true;
         bz.idsExcluidos = [];
+        bz.nounIcons = [];
 
         var tags_saltos = {};
         
 
         bz.solicitarElementosNoun = function () {
 
-            if (!bz.completado) {
+            if (bz.findingNOUN) {
                 return;
             }
 
-            bz.completado = false;
+            if(!bz.etiquetasSeleccionadas.length) return;
+
+            bz.findingNOUN = true;
 
             angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
 
                 var remover_tag = true;
 
-                angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
+                angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
 
                     if (indexSalto == tag.traducciones[0].valor) {
                         remover_tag = false;
@@ -48,7 +52,7 @@ angular.module("administrador")
 
             });
 
-            angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
+            angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
 
                 var tag_existe = tags_saltos[tag.traducciones[0].valor];
 
@@ -64,14 +68,15 @@ angular.module("administrador")
                     bz.iconos = [];
 
                     res.iconos.forEach(function (ele) {
-                        bz.idsExcluidos.push(ele.idLogo);
+                        bz.idsExcluidos.push(ele.idElemento);
                         bz.iconos.unshift(ele);
+                        
                     });
                 }
             }).catch(function () {
                 //console.log(res)
             }).finally(function () {
-                bz.completado = true;
+                bz.findingNOUN = false;
             });
 
         };
@@ -83,13 +88,15 @@ angular.module("administrador")
 
         bz.solicitarElementosMONGO = function () {
 
-            if (!bz.completado) {
+            if (bz.findingMONGO) {
                 return;
             }
 
-            bz.completado = false;
+            if(!bz.etiquetasSeleccionadasMongo.length) return;
 
-            var tags = [bz.searchTextAutocomplete];
+            bz.findingMONGO = true;
+
+            var tags = [bz.etiquetasSeleccionadasMongo[0].traducciones[0].valor];
 
             inconsSearchByTag.listarIconosMONGO(tags, bz.idsExcluidosMONGO).then(function (res) {
                 if (res.iconos.length) {
@@ -99,10 +106,43 @@ angular.module("administrador")
             }).catch(function () {
                 //console.log(res)
             }).finally(function () {
-                bz.completado = true;
+                bz.findingMONGO = false;
             });
 
         };
 
+        bz.importar = function(){
+
+            if (bz.peticion) {
+                return;
+            }
+
+            bz.nounIcons = [];
+
+            bz.peticion = true;
+
+            bz.iconos.forEach(function (ele) {
+               
+                if(ele.seleccionado){
+                    var iconToImport = {
+                        svg : $base64.decode(ele.svg),
+                        idNoun: ele.idElemento
+                    };
+    
+                    bz.nounIcons.push(iconToImport);
+                }
+
+            });
+
+            var idTag = bz.etiquetasSeleccionadas[0]._id;
+
+            //return console.log(idTag, bz.nounIcons);
+
+            inconsSearchByTag.importar(idTag, bz.nounIcons).then(function(res){
+                console.log(res)
+            }).finally(function(){
+                bz.peticion = false;
+            });
+        };
 
     }]);

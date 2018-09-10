@@ -255,13 +255,13 @@ exports.listaSegunTagCatNOUN = function (req, res) {
 			
 			response.tags = tagsTraducidas;
 
-			etiqueta.BuscarIconosMONGO(response.tags ,(err, busqueda) => {
+			etiqueta.BuscarIconosNOUN(response.tags , (err, busqueda) => {
 
 				if (err) return res.status(500).json(err);
 
 				response.tags = {};
 				response.iconos = busqueda.iconos;
-
+				
 				Object.keys(busqueda.tags).map(tag => {
 					response.tags[busqueda.tags[tag].ori] = busqueda.tags[tag].salto;
 				});
@@ -334,7 +334,7 @@ exports.listaSegunTagCatMONGO = function (req, res) {
 
 exports.importarIconoNOUN = function (req, res) {
 
-	const idtTag = req.body.idTag ? req.body.idTag : null;
+	const idTag = req.body.idTag ? req.body.idTag : null;
 	const svgs = req.body.svgs ? req.body.svgs : [];
 
 	etiqueta.importarIconos(idTag, svgs, (err, response) => {
@@ -342,7 +342,7 @@ exports.importarIconoNOUN = function (req, res) {
 
 		if (err) return res.status(500).json(err);
 
-		res.status(200).json(data);
+		res.status(200).json(response);
 
 	});
 

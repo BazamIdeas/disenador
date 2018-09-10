@@ -901,6 +901,10 @@ input[type="search"]::placeholder {
     font-size: 14px;
 }
 
+bazam-visualizar {
+    display: block;
+}
+
 @media (min-device-width:1024px) and (max-device-width:1180px), (min-width:1024px) and (max-width:1180px) {
     
     .contenedor-planes {

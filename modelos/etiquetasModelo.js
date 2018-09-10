@@ -1025,7 +1025,6 @@ etiqueta.importarIconos = function (idTag, svgs, callback) {
 
                             callback(null, { insertedCount: r.insertedCount });
 
-                            db.close();
                         });
 
                     } else {
@@ -1033,8 +1032,9 @@ etiqueta.importarIconos = function (idTag, svgs, callback) {
                     }
 
                 });
-
         })
+
+
     }
 }
 
