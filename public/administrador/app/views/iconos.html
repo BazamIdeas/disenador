@@ -59,26 +59,30 @@
 <div class="row start-xs">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
         <div class="row content-scroll" style="    max-height: 75%;">
+            <div class="col-xs-12 text-center" ng-show="ctrl.findingMONGO">Buscando Iconos</div>
             <div class="col-xs-3" layout-padding ng-repeat="icono in ctrl.iconosMONGO">
                 <bazam-visualizar ng-class="{'md-whiteframe-4dp': icono.seleccionado }" ng-click="icono.seleccionado = !icono.seleccionado"
                     style="border:1px solid silver" style="background:white; display:block;" data-svg="ctrl.base64.decode(icono.svg)"></bazam-visualizar>
             </div>
-            <div class="col-xs-12 text-center" ng-show="ctrl.findingMONGO">Buscando Iconos</div>
         </div>
         <div class="row control-panel" ng-show="ctrl.iconosMONGO.length">
-            <md-button class="md-raised md-primary">Remover Seleccionados</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.desvincularIconos()">Remover Iconos Seleccionados</md-button>
+
+            <md-button class="md-raised md-primary" ng-click="ctrl.limpiarBusqueda('mgo')">Limpiar Busqueda</md-button>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <div class="row content-scroll"  style="    max-height: 75%;">
+            <div class="col-xs-12 text-center" ng-show="ctrl.findingNOUN">Buscando Iconos</div>
             <div class="col-xs-3" layout-padding ng-repeat="icono in ctrl.iconos">
                 <bazam-visualizar style="border:1px solid silver" ng-click="icono.seleccionado = !icono.seleccionado" ng-class="{'md-whiteframe-4dp': icono.seleccionado }"
                     style="background:white; display:block;" data-svg="ctrl.base64.decode(icono.svg)"></bazam-visualizar>
             </div>
-            <div class="col-xs-12 text-center" ng-show="ctrl.findingNOUN">Buscando Iconos</div>
+            
         </div>
         <div class="row control-panel" ng-show="ctrl.iconos.length && ctrl.etiquetasSeleccionadasMongo.length">
-            <md-button class="md-raised md-primary" ng-click="ctrl.importar()">Agregar Seleccionados</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.importar()">Agregar Iconos Seleccionados</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.limpiarBusqueda('noun')">Limpiar Busqueda</md-button>
         </div>
     </div>
 </div>

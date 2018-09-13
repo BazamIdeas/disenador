@@ -1345,6 +1345,7 @@ angular.module("administrador")
 
 			$http.post("/app/elementos/inportar/iconos", data)
 				.then(function (res) {
+                    if(res == undefined) return defered.reject("svg too large");
 					defered.resolve(res.data);
 				})
 				.catch(function (res) {

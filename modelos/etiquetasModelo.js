@@ -1008,7 +1008,7 @@ etiqueta.importarIconos = function (idTag, svgs, callback) {
 
             etiquetas.updateOne({ _id: objectId(idTag) }, {
                 $push: {
-                    scores: {
+                    iconos: {
                         $each: idsNoun
                     }
                 }
