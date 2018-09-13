@@ -1,0 +1,88 @@
+<div class="row start-xs" id="toast">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+
+        <div class="row">
+            <md-chips class="col-xs-10" md-require-match="true" md-add-on-blur="false" md-max-chips="1" ng-model="ctrl.etiquetasSeleccionadasMongo" ng-change="ctrl.solicitarElementosMONGO()"
+                md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)">
+                <md-autocomplete md-delay="500" class="md-whiteframe-1dp" md-no-cache="true" md-min-length="3" md-selected-item="ctrl.selectedItemMongo"
+                    md-search-text="ctrl.searchTextAutocomplete" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchTextAutocomplete)"
+                    md-item-text="item.traducciones[0].valor" placeholder="Buscar en la base de datos">
+                    <span md-highlight-text="ctrl.searchTextAutocomplete">{{::item.traducciones[0].valor}}</span>
+                </md-autocomplete>
+                <md-chip-template>
+                    <span>
+                        <strong>{{$chip.traducciones[0].valor}}</strong>
+                    </span>
+                </md-chip-template>
+            </md-chips>
+
+            <span ng-disable="ctrl.findingMONGO" ng-click="ctrl.solicitarElementosMONGO()" style="    width: 41px;
+                                        height: 41px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        background: white;
+                                        border: 1px solid silver;">
+                <md-icon style="color: black;">search</md-icon>
+            </span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="row">
+            <md-chips class="col-xs-10" md-add-on-blur="false" md-max-chips="1" ng-model="ctrl.etiquetasSeleccionadas" ng-change="ctrl.solicitarElementosNoun()"
+                md-separator-keys="[32,186,9,36,188,13,27]" md-autocomplete-snap md-transform-chip="ctrl.etiquetasFunciones.transformChip($chip)"
+                ng-class="{'without-placeholder':ctrl.etiquetasSeleccionadas.length > 0}">
+                <md-autocomplete md-delay="500" class="md-whiteframe-1dp" md-no-cache="true" md-min-length="3" md-selected-item="ctrl.selectedItem"
+                    md-search-text="ctrl.searchText" md-items="item in ctrl.etiquetasFunciones.querySearch(ctrl.searchText)"
+                    md-item-text="item.traducciones[0].valor" placeholder="Buscar en nount project">
+                    <span md-highlight-text="ctrl.searchText">{{::item.traducciones[0].valor}}</span>
+                </md-autocomplete>
+                <md-chip-template>
+                    <span>
+                        <strong>{{$chip.traducciones[0].valor}}</strong>
+                    </span>
+                </md-chip-template>
+            </md-chips>
+            <span ng-click="ctrl.solicitarElementosNoun()" style="    width: 41px;
+                                    height: 41px;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    background: white;
+                                    border: 1px solid silver;">
+                <md-icon style="color: black;">search</md-icon>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="row start-xs">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margen_inferior">
+        <div class="row content-scroll" style="    max-height: 75%;">
+            <div class="col-xs-12 text-center" ng-show="ctrl.findingMONGO">Buscando Iconos</div>
+            <div class="col-xs-3" layout-padding ng-repeat="icono in ctrl.iconosMONGO">
+                <bazam-visualizar ng-class="{'md-whiteframe-4dp': icono.seleccionado }" ng-click="icono.seleccionado = !icono.seleccionado"
+                    style="border:1px solid silver" style="background:white; display:block;" data-svg="ctrl.base64.decode(icono.svg)"></bazam-visualizar>
+            </div>
+        </div>
+        <div class="row control-panel" ng-show="ctrl.iconosMONGO.length">
+            <md-button class="md-raised md-primary" ng-click="ctrl.desvincularIconos()">Remover Iconos Seleccionados</md-button>
+
+            <md-button class="md-raised md-primary" ng-click="ctrl.limpiarBusqueda('mgo')">Limpiar Busqueda</md-button>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="row content-scroll"  style="    max-height: 75%;">
+            <div class="col-xs-12 text-center" ng-show="ctrl.findingNOUN">Buscando Iconos</div>
+            <div class="col-xs-3" layout-padding ng-repeat="icono in ctrl.iconos">
+                <bazam-visualizar style="border:1px solid silver" ng-click="icono.seleccionado = !icono.seleccionado" ng-class="{'md-whiteframe-4dp': icono.seleccionado }"
+                    style="background:white; display:block;" data-svg="ctrl.base64.decode(icono.svg)"></bazam-visualizar>
+            </div>
+            
+        </div>
+        <div class="row control-panel" ng-show="ctrl.iconos.length && ctrl.etiquetasSeleccionadasMongo.length">
+            <md-button class="md-raised md-primary" ng-click="ctrl.importar()">Agregar Iconos Seleccionados</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.limpiarBusqueda('noun')">Limpiar Busqueda</md-button>
+        </div>
+    </div>
+</div>

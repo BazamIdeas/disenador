@@ -11,7 +11,7 @@ angular.module("administrador")
 		bz.logosDisenador = [];
 		bz.vista = 0;
 		bz.peticion = true;
-		bz.listandoTexto = "APROBADOS";
+		bz.listandoTexto = "POR APROBAR";
 
 		categoriasService.listarSubCategorias().then(function (res) {
 

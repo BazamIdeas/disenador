@@ -43,15 +43,6 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 					}
 				}
 			}).state({
-				name: "app.busquedas",
-				url: "/busquedas",
-				views: {
-					"menuContent": {
-						templateUrl: "app/views/busquedas.html",
-						controller: "busquedasController as ctrl"
-					}
-				}
-			}).state({
 				name: "app.etiquetas",
 				url: "/etiquetas",
 				views: {
@@ -76,6 +67,15 @@ angular.module("administrador", ["ngMessages", "ui.router", "ngAnimate", "ngAria
 					"menuContent": {
 						templateUrl: "app/views/elementos.html",
 						controller: "elementosController as ctrl",
+					}
+				}
+			}).state({
+				name: "app.iconos",
+				url: "/iconos",
+				views: {
+					"menuContent": {
+						templateUrl: "app/views/iconos.html",
+						controller: "iconosController as ctrl",
 					}
 				}
 			}).state({

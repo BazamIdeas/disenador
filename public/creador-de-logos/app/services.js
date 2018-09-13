@@ -350,8 +350,6 @@ angular.module("disenador-de-logos")
 	/********ETIQUETAS****/
 	/*********************/
 
-	/* SERVICIO PARA ETIQUETAS */
-
 	.service("etiquetasService", ["$http", "$q", function ($http, $q) {
 
 		var bz = this;

@@ -4,6 +4,8 @@ angular.module("administrador")
 
 		var bz = this;
 
+		document.cookie = "logoLang=ES'; Path=/'";
+
 		bz.menuMostrar = false;
 
 		bz.medidaP = bz.menuMostrar ? true : false;
@@ -25,7 +27,11 @@ angular.module("administrador")
 			url: "app.elementos",
 			nombre: "Elementos",
 			icono: "stars"
-		}, */ {
+		}, */  {
+			url: "app.iconos",
+			nombre: "Iconos",
+			icono: "icon"
+		},{
 			url: "app.monedas",
 			nombre: "Monedas y pasarelas",
 			icono: "attach_money"
@@ -45,10 +51,6 @@ angular.module("administrador")
 			url: "app.disenadores",
 			nombre: "Diseñadores",
 			icono: "face"
-		}, {
-			url: "app.busquedas",
-			nombre: "Busquedas",
-			icono: "style"
 		}, {
 			url: "app.etiquetas",
 			nombre: "Etiquetas",

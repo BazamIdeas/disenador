@@ -36,7 +36,6 @@ angular.module("disenador-de-logos")
 		var datosPredisenado = predisenadoResolve;
 
 		bz.resetPredisenado = function () {
-
 			datosPredisenado = {
 				categoria: 0,
 				subCategoria: 0,

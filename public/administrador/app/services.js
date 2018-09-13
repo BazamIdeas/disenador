@@ -26,11 +26,11 @@ angular.module("administrador")
                 cliente = null;
 
             }
-        }
+        };
 
     }])
 
-    .service('clientesService', ['$http', '$q', '$window', '$rootScope', 'SweetAlert', "clienteDatosFactory", "$state", function ($http, $q, $window, $rootScope, SweetAlert, clienteDatosFactory, $state) {
+    .service("clientesService", ["$http", "$q", "$window", "$rootScope", "SweetAlert", "clienteDatosFactory", "$state", function ($http, $q, $window, $rootScope, SweetAlert, clienteDatosFactory, $state) {
 
 
         this.registrar = function (datos) {
@@ -47,11 +47,11 @@ angular.module("administrador")
                 .catch(function (res) {
 
                     defered.reject(res);
-                })
+                });
 
             return promise;
 
-        }
+        };
 
         this.login = function (datos) {
 
@@ -63,20 +63,20 @@ angular.module("administrador")
 
                 .then(function (res) {
 
-                    $window.localStorage.setItem('bzTokenAdmin', angular.toJson(res.data));
+                    $window.localStorage.setItem("bzTokenAdmin", angular.toJson(res.data));
                     clienteDatosFactory.definir(res.data);
                     defered.resolve();
 
                 })
                 .catch(function () {
-                    $window.localStorage.removeItem('bzTokenAdmin');
-                    defered.reject()
-                })
+                    $window.localStorage.removeItem("bzTokenAdmin");
+                    defered.reject();
+                });
 
 
             return promise;
 
-        }
+        };
 
         this.forgotPass = function (datos) {
 
@@ -89,12 +89,12 @@ angular.module("administrador")
                     defered.resolve(res);
                 })
                 .catch(function (res) {
-                    defered.reject(res)
-                })
+                    defered.reject(res);
+                });
 
             return promise;
 
-        }
+        };
 
         this.confirmarToken = function (datos) {
 
@@ -107,12 +107,12 @@ angular.module("administrador")
                     defered.resolve(res);
                 })
                 .catch(function (res) {
-                    defered.reject(res)
-                })
+                    defered.reject(res);
+                });
 
             return promise;
 
-        }
+        };
 
         this.cambiarContrasena = function (datos) {
 
@@ -125,12 +125,12 @@ angular.module("administrador")
                     defered.resolve(res);
                 })
                 .catch(function (res) {
-                    defered.reject(res)
-                })
+                    defered.reject(res);
+                });
 
             return promise;
 
-        }
+        };
 
         this.modificarU = function (datos) {
 
@@ -143,12 +143,12 @@ angular.module("administrador")
                     defered.resolve(res);
                 })
                 .catch(function (res) {
-                    defered.reject(res)
-                })
+                    defered.reject(res);
+                });
 
             return promise;
 
-        }
+        };
 
         this.autorizado = function () {
 
@@ -158,9 +158,9 @@ angular.module("administrador")
 
             } else {
 
-                if ($window.localStorage.getItem('bzTokenAdmin')) {
+                if ($window.localStorage.getItem("bzTokenAdmin")) {
 
-                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzTokenAdmin')));
+                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem("bzTokenAdmin")));
 
                     return clienteDatosFactory.obtener();
 
@@ -172,32 +172,32 @@ angular.module("administrador")
 
             }
 
-        }
+        };
 
         this.salir = function (desactivarAlerta) {
 
-            $window.localStorage.removeItem('bzTokenAdmin')
+            $window.localStorage.removeItem("bzTokenAdmin");
             clienteDatosFactory.eliminar();
 
             if (!desactivarAlerta) {
                 SweetAlert.swal("¡Ups!", "Tu sesion ha expirado", "warning");
-                $state.go('login')
+                $state.go("login");
             }
-        }
+        };
 
 
     }])
 
     /* SERVICIO PARA PROCESO DE CLIENTES */
 
-    .service('clientesServiceAdmin', ['$http', '$q', function ($http, $q) {
+    .service("clientesServiceAdmin", ["$http", "$q", function ($http, $q) {
 
         /* MODULO DE CLIENTES */
         this.listarClientes = function () {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/clientes').then(function (res) {
+            $http.get("/app/clientes").then(function (res) {
 
                 defered.resolve(res);
 
@@ -205,10 +205,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.borrarCliente = function (id) {
 
@@ -216,7 +216,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post('/app/cliente/bloquear/' + id).then(function (res) {
+            $http.post("/app/cliente/bloquear/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -224,10 +224,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.borrarUsuario = function (id) {
 
@@ -235,7 +235,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.get('/app/usuario/borrar/' + id).then(function (res) {
+            $http.get("/app/usuario/borrar/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -243,10 +243,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         /* MODULO DE USUARIOS */
 
@@ -254,7 +254,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/usuarios').then(function (res) {
+            $http.get("/app/usuarios").then(function (res) {
 
                 defered.resolve(res);
 
@@ -262,16 +262,16 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
     }])
 
     /* SERVICIO PARA PROCESO DE PEDIDOS */
 
 
-    .service('pedidosService', ['$http', '$q', function ($http, $q) {
+    .service("pedidosService", ["$http", "$q", function ($http, $q) {
 
         /* LISTAR TODOS LOS PEDIDOS */
 
@@ -279,7 +279,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/pedidos').then(function (res) {
+            $http.get("/app/pedidos").then(function (res) {
 
                 defered.resolve(res);
 
@@ -287,9 +287,9 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
         /* DATOS DE UN PEDIDO */
 
@@ -297,7 +297,7 @@ angular.module("administrador")
 
             var defered = $q.defer();
             var promise = defered.promise;
-            $http.get('/app/pedido/' + id).then(function (res) {
+            $http.get("/app/pedido/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -305,9 +305,9 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
         /* LISTAR LOS PEDIDOS DE UN CLIENTE */
 
@@ -316,7 +316,7 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/pedidos/cliente/' + id).then(function (res) {
+            $http.get("/app/pedidos/cliente/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -324,9 +324,9 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         /* CAMBIAR ESTADO DE UN PEDIDO */
 
@@ -338,9 +338,9 @@ angular.module("administrador")
             var datos = {
                 idPedido: id,
                 estado: estadoP,
-            }
+            };
 
-            $http.post('/app/pedido/cambiar/', datos).then(function (res) {
+            $http.post("/app/pedido/cambiar/", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -348,9 +348,9 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
 
     }])
@@ -358,7 +358,7 @@ angular.module("administrador")
     /* SERVICIO PARA PROCESO DE CATEGORIAS */
 
 
-    .service('categoriasService', ['$http', '$q', function ($http, $q) {
+    .service("categoriasService", ["$http", "$q", function ($http, $q) {
 
         /* CATEGORIAS */
 
@@ -374,13 +374,13 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
         /* CATEGORIAS */
 
-        this.listarSubCategorias = function (datos) {
+        this.listarSubCategorias = function () {
             var defered = $q.defer();
             var promise = defered.promise;
 
@@ -392,15 +392,15 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.modificarCategoria = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/categoria/modificar/', datos).then(function (res) {
+            $http.post("/app/categoria/modificar/", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -408,15 +408,15 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.nuevaCategoria = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/categoria', datos).then(function (res) {
+            $http.post("/app/categoria", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -424,15 +424,15 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.eliminarCategoria = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/categoria/borrar/' + id).then(function (res) {
+            $http.get("/app/categoria/borrar/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -440,9 +440,9 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         /* PREFERENCIAS */
 
@@ -458,15 +458,15 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.modificarPreferencia = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/preferencia/modificar/', datos).then(function (res) {
+            $http.post("/app/preferencia/modificar/", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -474,15 +474,15 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.nuevaPreferencia = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/preferencia', datos).then(function (res) {
+            $http.post("/app/preferencia", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -490,15 +490,15 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.eliminarPreferencia = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/preferencia/borrar/' + id).then(function (res) {
+            $http.get("/app/preferencia/borrar/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -506,31 +506,31 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
     }])
 
-    .service('tableroService', ['$http', '$q', function ($http, $q) {
+    .service("tableroService", ["$http", "$q", function ($http, $q) {
 
         this.estadisticas = function () {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/admin/estadisticas').then(function (res) {
+            $http.get("/app/admin/estadisticas").then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
     }])
 
     /* SERVICIO PARA ICONOS */
 
-    .service('iconoFuente', ['$http', 'Upload', '$q', function ($http, Upload, $q) {
+    .service("iconoFuente", ["$http", "Upload", "$q", function ($http, Upload, $q) {
 
         this.listar = function (datos) {
             var defered = $q.defer();
@@ -538,7 +538,7 @@ angular.module("administrador")
 
             datos.idCategoria = datos.categoria;
 
-            $http.post('/app/elementos/categoria', datos).then(function (res) {
+            $http.post("/app/elementos/categoria", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -546,15 +546,15 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.modificarPreferencias = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/elemento/preferencias/modificar', datos).then(function (res) {
+            $http.post("/app/elemento/preferencias/modificar", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -562,9 +562,9 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.nuevoIcono = function (datos) {
 
@@ -576,8 +576,8 @@ angular.module("administrador")
             */
 
             Upload.upload({
-                url: '/app/elemento/icono/',
-                method: 'POST',
+                url: "/app/elemento/icono/",
+                method: "POST",
                 file: {
                     misvg: datos.misvg
                 },
@@ -590,9 +590,9 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.nuevaFuente = function (datos) {
 
@@ -605,8 +605,8 @@ angular.module("administrador")
             */
 
             Upload.upload({
-                url: '/app/elemento/fuente/',
-                method: 'POST',
+                url: "/app/elemento/fuente/",
+                method: "POST",
                 file: {
                     mifuente: datos.mifuente
                 },
@@ -619,17 +619,17 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.subidaMasiva = function (datos) {
 
             var defered = $q.defer();
 
             Upload.upload({
-                url: '/app/elemento/masivo',
-                method: 'POST',
+                url: "/app/elemento/masivo",
+                method: "POST",
                 data: datos
             }).then(function (res) {
 
@@ -639,9 +639,9 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
 
-        }
+        };
 
     }])
 
@@ -650,63 +650,63 @@ angular.module("administrador")
     /**********IDIOMAS**********/
     /***************************/
 
-    .service('idiomasService', ['$http', '$q', function ($http, $q) {
+    .service("idiomasService", ["$http", "$q", function ($http, $q) {
 
 
         this.listarIdiomas = function () {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/idiomas').then(function (res) {
+            $http.get("/app/idiomas").then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.guardarIdioma = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/idiomas/', datos).then(function (res) {
+            $http.post("/app/idiomas/", datos).then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.modificarIdioma = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/idiomas/modificar', datos).then(function (res) {
+            $http.post("/app/idiomas/modificar", datos).then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.borrarIdioma = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/idiomas/borrar/' + id).then(function (res) {
+            $http.get("/app/idiomas/borrar/" + id).then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
     }])
 
 
     /* SERVICIO PARA ADMINISTRAR */
 
-    .service('administrarService', ['$http', '$q', function ($http, $q) {
+    .service("administrarService", ["$http", "$q", function ($http, $q) {
 
         /***************************/
         /**********PLANES***********/
@@ -716,13 +716,13 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/planes/').then(function (res) {
+            $http.get("/app/planes/").then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.agregarPlan = function (datos) {
             var defered = $q.defer();
@@ -730,7 +730,7 @@ angular.module("administrador")
 
             var datosn = datos;
 
-            $http.post('/app/plan', datosn).then(function (res) {
+            $http.post("/app/plan", datosn).then(function (res) {
 
                 angular.forEach(datosn.caracteristicas, function (valor) {
                     valor.idPlan = res.data.insertId;
@@ -738,7 +738,7 @@ angular.module("administrador")
 
                 datosn.idPlan = res.data.insertId;
 
-                $http.post('/app/plan/caracteristicas/', datosn).then(function () {
+                $http.post("/app/plan/caracteristicas/", datosn).then(function () {
 
                     defered.resolve(datosn);
 
@@ -746,21 +746,21 @@ angular.module("administrador")
 
                     defered.reject(res);
 
-                })
+                });
 
             }).catch(function (res) {
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.agregarPrecioPlan = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/precio', datos).then(function (res) {
+            $http.post("/app/precio", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -768,27 +768,27 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.listarPreciosPlan = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/plan/precios/' + id).then(function (res) {
+            $http.get("/app/plan/precios/" + id).then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.modificarNombrePlan = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/plan/modificar', datos).then(function (res) {
+            $http.post("/app/plan/modificar", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -796,16 +796,16 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.modificarPrecioPlan = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/precio/modificar', datos).then(function (res) {
+            $http.post("/app/precio/modificar", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -813,16 +813,16 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.borrarPrecioPlan = function (opcion, id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/precio/borrar/' + id).then(function (res) {
+            $http.get("/app/precio/borrar/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -830,21 +830,21 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.bloquearPlan = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/plan/bloquear', datos).then(function (res) {
+            $http.post("/app/plan/bloquear", datos).then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         /***************************/
         /********IMPUESTOS**********/
@@ -854,19 +854,19 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/impuestos').then(function (res) {
+            $http.get("/app/impuestos").then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.agregarImpuesto = function (opcion, datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/impuesto', datos).then(function (res) {
+            $http.post("/app/impuesto", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -874,15 +874,15 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.modificar = function (opcion, datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/impuesto/modificar/', datos).then(function (res) {
+            $http.post("/app/impuesto/modificar/", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -890,16 +890,16 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.borrarImpuesto = function (opcion, id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/impuesto/borrar/' + id).then(function (res) {
+            $http.get("/app/impuesto/borrar/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -907,15 +907,15 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
     }])
 
     /* SERVICIO PARA DISEÑADORES */
 
-    .service('designerService', ['$http', '$q', function ($http, $q) {
+    .service("designerService", ["$http", "$q", function ($http, $q) {
 
         /***************************/
         /**********LOGOS***********/
@@ -926,17 +926,17 @@ angular.module("administrador")
             var promise = defered.promise;
 
             var datos = {
-                estado: 'Por Aprobar'
-            }
+                estado: "Por Aprobar"
+            };
 
-            $http.post('/app/logos/por-aprobar', datos).then(function (res) {
+            $http.post("/app/logos/por-aprobar", datos).then(function (res) {
                 if (res == undefined) return defered.reject(res);
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.aprobarLogo = function (id) {
             var defered = $q.defer();
@@ -944,40 +944,40 @@ angular.module("administrador")
 
             var datos = {
                 idLogo: id
-            }
+            };
 
-            $http.post('/app/logo/aprobar', datos).then(function (res) {
+            $http.post("/app/logo/aprobar", datos).then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
 
-        }
+        };
 
         this.borrarLogo = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/logo/borrar/' + id).then(function (res) {
+            $http.get("/app/logo/borrar/" + id).then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.destacado = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/logo/destacar', datos).then(function (res) {
+            $http.post("/app/logo/destacar", datos).then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
 
         this.calificarLogo = function (datos) {
@@ -985,16 +985,16 @@ angular.module("administrador")
             var promise = defered.promise;
 
             // idLogo, valor
-            $http.post('/app/logo/calificar-admin/', datos).then(function (res) {
+            $http.post("/app/logo/calificar-admin/", datos).then(function (res) {
                 defered.resolve(res);
 
             }).catch(function (res) {
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         /* DISENADORES */
 
@@ -1002,43 +1002,43 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/clientes/freelancer').then(function (res) {
+            $http.get("/app/clientes/freelancer").then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.logosDisenador = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/logos/' + id + '/aprobados').then(function (res) {
+            $http.get("/app/logos/" + id + "/aprobados").then(function (res) {
                 defered.resolve(res.data);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.historialDisenador = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/cliente/' + id + '/pagos').then(function (res) {
+            $http.get("/app/cliente/" + id + "/pagos").then(function (res) {
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
             return promise;
-        }
+        };
 
         this.notificarPago = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/cliente/pago', datos).then(function (res) {
+            $http.post("/app/cliente/pago", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1046,15 +1046,15 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
             return promise;
-        }
+        };
 
         this.bloquearDisenador = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/cliente/bloquear/' + id).then(function (res) {
+            $http.get("/app/cliente/bloquear/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1062,16 +1062,16 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
     }])
 
     /* SERVICIO PARA ETIQUETAS */
 
-    .service('etiquetasService', ['$http', '$q', function ($http, $q) {
+    .service("etiquetasService", ["$http", "$q", function ($http, $q) {
 
         /***************************/
         /**********LOGOS***********/
@@ -1082,17 +1082,17 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/elementos/categoria', datos).then(function (res) {
+            $http.post("/app/elementos/categoria", datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
 
             return promise;
-        }
+        };
 
         /* ETIQUETAS*/
 
@@ -1102,51 +1102,51 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/etiquetas').then(function (res) {
+            $http.get("/app/etiquetas").then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.listarIconosEtiqueta = function (id) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/etiquetas/iconos/svg/' + id).then(function (res) {
+            $http.get("/app/etiquetas/iconos/svg/" + id).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.obtenerPorIcono = function (id) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/iconos/' + id + '/etiquetas').then(function (res) {
+            $http.get("/app/iconos/" + id + "/etiquetas").then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
 
             return promise;
-        }
+        };
 
 
         this.guardarEtiqueta = function (datos) {
@@ -1154,85 +1154,85 @@ angular.module("administrador")
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/etiquetas', datos).then(function (res) {
+            $http.post("/app/etiquetas", datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.guardarEtiquetaIconos = function (datos) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/etiquetas/iconos', datos).then(function (res) {
+            $http.post("/app/etiquetas/iconos", datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.borrarEtiqueta = function (id) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/etiquetas/borrar/' + id).then(function (res) {
+            $http.get("/app/etiquetas/borrar/" + id).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.desvincularIconos = function (datos) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/etiquetas/' + datos._id + '/iconos/desasignar', datos).then(function (res) {
+            $http.post("/app/etiquetas/" + datos._id + "/iconos/desasignar", datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.actualizarEtiqueta = function (datos) {
 
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/etiquetas/modificar', datos).then(function (res) {
+            $http.post("/app/etiquetas/modificar", datos).then(function (res) {
                 if (res == undefined) {
                     return defered.reject(res);
                 }
                 defered.resolve(res);
             }).catch(function (res) {
                 defered.reject(res);
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.loadEtiquetas = function (arr) {
 
@@ -1243,13 +1243,13 @@ angular.module("administrador")
                     _id: valor._id,
                     traduccion: valor.traducciones[0]
                 });
-            })
+            });
 
             return etiquetas.map(function (et) {
                 et.traduccion._lowername = et.traduccion.valor.toLowerCase();
                 return et;
             });
-        }
+        };
 
         this.transformChip = function (chip) {
 
@@ -1261,14 +1261,14 @@ angular.module("administrador")
             // Otherwise, create a new one
             return {
                 valor: chip
-            }
+            };
 
-        }
+        };
 
         this.querySearch = function (query, etiquetas) {
             var results = query ? etiquetas.filter(createFilterFor(query)) : [];
             return results;
-        }
+        };
 
         function createFilterFor(query) {
             var lowercaseQuery = query.toLowerCase();
@@ -1284,29 +1284,195 @@ angular.module("administrador")
 
     }])
 
+    /*********************/
+	/********ETIQUETAS****/
+	/*********************/
+
+	.service("inconsSearchByTag", ["$http", "$q", function ($http, $q) {
+
+        var bz = this;
+        
+        this.listarIconosSegunTags = function (tags) {
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			var data = {
+				tags: tags
+			};
+
+			$http.post("/app/elementos/busqueda/iconos/noun", data)
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+        };
+        
+        this.listarIconosMONGO = function (tags, idsIconos) {
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			var data = {
+                tags: tags,
+                idsIconos: idsIconos
+			};
+
+			$http.post("/app/elementos/busqueda/iconos/mongo", data)
+				.then(function (res) {
+					defered.resolve(res.data);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+        };
+        
+        this.importar = function (idTag, nounIcons) {
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			var data = {
+                idTag: idTag,
+                svgs: nounIcons
+			};
+
+			$http.post("/app/elementos/inportar/iconos", data)
+				.then(function (res) {
+                    if(res == undefined) return defered.reject("svg too large");
+					defered.resolve(res.data);
+				})
+				.catch(function (res) {
+					defered.reject(res);
+				});
+
+			return promise;
+		};
+
+		this.loadEtiquetas = function (arr) {
+			return arr.map(function (et) {
+				var i;
+				for (i = 0; i < et.traducciones.length; i++) {
+					var element = et.traducciones[i];
+					element._lowername = element.valor.toLowerCase();
+				}
+
+				return et;
+			});
+		};
+
+		this.transformChip = function (chip) {
+
+			// If it is an object, it's already a known chip
+			if (angular.isObject(chip)) {
+				return chip;
+			}
+
+			// Otherwise, create a new one
+			return {
+				traducciones: [{
+					valor: chip
+				}]
+			};
+
+		};
+
+		this.querySearch = function (query) {
+			if (!bz.peticion) {
+				bz.peticion = true;
+
+				return $http.get("/app/etiquetas/" + query.toLowerCase()).then(function (res) {
+
+					var etiquetas = bz.loadEtiquetas(res.data);
+
+					var results = query ? etiquetas.filter(createFilterFor(query)) : [];
+
+					return limitOne(results, "traducciones");
+
+				}).catch(function () {
+					return [];
+				}).finally(function () {
+					bz.peticion = false;
+				});
+			}
+		};
+
+		function createFilterFor(query) {
+			var lowercaseQuery = query.toLowerCase();
+
+			return function filterFn(etiqueta) {
+				return (etiqueta.traducciones[0]._lowername.indexOf(lowercaseQuery) === 0);
+			};
+
+		}
+
+		function limitOne(items, filterOn) {
+
+			if (filterOn === false) {
+				return items;
+			}
+
+			if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+				var newItems = [];
+
+				var extractValueToCompare = function (item) {
+					if (angular.isObject(item) && angular.isString(filterOn)) {
+						return item[filterOn];
+					} else {
+						return item;
+					}
+				};
+
+				angular.forEach(items, function (item) {
+					var isDuplicate = false;
+
+					for (var i = 0; i < newItems.length; i++) {
+						if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+							isDuplicate = true;
+							break;
+						}
+					}
+					if (!isDuplicate) {
+						newItems.push(item);
+					}
+
+				});
+				items = newItems;
+			}
+			return items;
+		}
+
+	}])
+
     /* NOTIFICACION */
 
-    .service('notificacionService', ['$http', '$q', '$mdToast', function ($http, $q, $mdToast) {
+    .service("notificacionService", ["$http", "$q", "$mdToast", function ($http, $q, $mdToast) {
         this.mensaje = function (mensaje) {
-            $mdToast.show($mdToast.simple().textContent(mensaje).position('bottom right').hideDelay(3000));
-        }
+            $mdToast.show($mdToast.simple().textContent(mensaje).position("bottom right").hideDelay(3000));
+        };
     }])
 
-    .factory('AuthInterceptor', function ($window, $q, $rootScope, clienteDatosFactory) {
+    .factory("AuthInterceptor", function ($window, $q, $rootScope, clienteDatosFactory) {
         function salir() {
             $rootScope.$broadcast("sesionExpiro");
         }
 
         function autorizado() {
             if (clienteDatosFactory.obtener()) {
-                $rootScope.$broadcast('sesionInicio', "true")
+                $rootScope.$broadcast("sesionInicio", "true");
                 return clienteDatosFactory.obtener();
             } else {
-                if ($window.localStorage.getItem('bzTokenAdmin')) {
+                if ($window.localStorage.getItem("bzTokenAdmin")) {
 
 
-                    $rootScope.$broadcast('sesionInicio', "true")
-                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem('bzToken')));
+                    $rootScope.$broadcast("sesionInicio", "true");
+                    clienteDatosFactory.definir(angular.fromJson($window.localStorage.getItem("bzToken")));
                     return clienteDatosFactory.obtener();
                 } else {
                     return false;
@@ -1316,7 +1482,7 @@ angular.module("administrador")
         return {
             request: function (config) {
 
-                if (config.url == 'http://ip-api.com/json/') {
+                if (config.url == "http://ip-api.com/json/") {
                     return config;
                 } else {
                     config.headers = config.headers || {};
@@ -1345,14 +1511,14 @@ angular.module("administrador")
         };
     })
 
-    .service('paisesService', ['$http', '$q', function ($http, $q) {
+    .service("paisesService", ["$http", "$q", function ($http, $q) {
 
         /* MODULO DE CLIENTES */
         this.listarPaises = function () {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/paises').then(function (res) {
+            $http.get("/app/paises").then(function (res) {
 
                 defered.resolve(res);
 
@@ -1360,17 +1526,17 @@ angular.module("administrador")
 
                 defered.reject(res);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         /* MODULO DE CLIENTES */
         this.borrarPais = function (id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/pais/borrar/' + id).then(function (res) {
+            $http.get("/app/pais/borrar/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1378,10 +1544,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.modificarPais = function (datos) {
 
@@ -1389,7 +1555,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post('/app/pais/modificar', datos).then(function (res) {
+            $http.post("/app/pais/modificar", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1397,10 +1563,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.guardarPais = function (datos) {
 
@@ -1408,7 +1574,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post('/app/pais', datos).then(function (res) {
+            $http.post("/app/pais", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1416,10 +1582,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.asignarMoneda = function (datos) {
 
@@ -1427,7 +1593,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post('/app/pais/moneda', datos).then(function (res) {
+            $http.post("/app/pais/moneda", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1435,10 +1601,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.desasignarMoneda = function (datos) {
 
@@ -1446,7 +1612,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post('/app/pais/moneda/desasignar', datos).then(function (res) {
+            $http.post("/app/pais/moneda/desasignar", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1454,10 +1620,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
 
         this.paisMonedas = function (id) {
@@ -1466,7 +1632,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.get('/app/pais/monedas/' + id).then(function (res) {
+            $http.get("/app/pais/monedas/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1474,22 +1640,22 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
 
     }])
 
-    .service('monedasService', ['$http', '$q', function ($http, $q) {
+    .service("monedasService", ["$http", "$q", function ($http, $q) {
 
         /* MODULO DE CLIENTES */
         this.listarMonedas = function () {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/monedas').then(function (res) {
+            $http.get("/app/monedas").then(function (res) {
 
                 defered.resolve(res);
 
@@ -1497,17 +1663,17 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         /* MODULO DE CLIENTES */
         this.guardarMoneda = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/moneda', datos).then(function (res) {
+            $http.post("/app/moneda", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1515,10 +1681,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.modificarMoneda = function (datos) {
 
@@ -1526,7 +1692,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post('/app/moneda/modificar', datos).then(function (res) {
+            $http.post("/app/moneda/modificar", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1534,10 +1700,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.borrarMoneda = function (id) {
 
@@ -1545,7 +1711,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.get('/app/moneda/borrar' + id).then(function (res) {
+            $http.get("/app/moneda/borrar" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1553,22 +1719,22 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
 
     }])
 
-    .service('pasarelasService', ['$http', '$q', function ($http, $q) {
+    .service("pasarelasService", ["$http", "$q", function ($http, $q) {
 
         /* MODULO DE CLIENTES */
         this.listarPasarelas = function () {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/app/pasarelas').then(function (res) {
+            $http.get("/app/pasarelas").then(function (res) {
 
                 defered.resolve(res);
 
@@ -1576,17 +1742,17 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         /* MODULO DE CLIENTES */
         this.guardarPasarela = function (datos) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/app/pasarela', datos).then(function (res) {
+            $http.post("/app/pasarela", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1594,10 +1760,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.modificarPasarela = function (datos) {
 
@@ -1605,7 +1771,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post('/app/pasarela/modificar', datos).then(function (res) {
+            $http.post("/app/pasarela/modificar", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1613,10 +1779,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.asignarMoneda = function (datos) {
 
@@ -1624,7 +1790,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post('/app/pasarela/moneda', datos).then(function (res) {
+            $http.post("/app/pasarela/moneda", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1632,10 +1798,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
         this.desasignarMoneda = function (datos) {
 
@@ -1643,7 +1809,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.post('/app/pasarela/moneda/desasignar', datos).then(function (res) {
+            $http.post("/app/pasarela/moneda/desasignar", datos).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1651,10 +1817,10 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
 
         this.pasarelaMonedas = function (id) {
@@ -1663,7 +1829,7 @@ angular.module("administrador")
 
             var promise = defered.promise;
 
-            $http.get('/app/pasarela/monedas/' + id).then(function (res) {
+            $http.get("/app/pasarela/monedas/" + id).then(function (res) {
 
                 defered.resolve(res);
 
@@ -1671,16 +1837,16 @@ angular.module("administrador")
 
                 defered.reject(res.data.msg);
 
-            })
+            });
 
             return promise;
-        }
+        };
 
 
 
     }])
 
-    .filter('unique', function () {
+    .filter("unique", function () {
 
         return function (items, filterOn) {
 
@@ -1689,7 +1855,7 @@ angular.module("administrador")
             }
 
             if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-                newItems = [];
+                var newItems = [];
 
                 var extractValueToCompare = function (item) {
                     if (angular.isObject(item) && angular.isString(filterOn)) {
@@ -1720,37 +1886,37 @@ angular.module("administrador")
     })
 
     .value("caracteristicasValue", [{
-        clave: 'resolucion',
+        clave: "resolucion",
         valor: false,
-        descripcion: 'Logo en Alta Resolución.'
+        descripcion: "Logo en Alta Resolución."
     }, {
-        clave: 'png',
+        clave: "png",
         valor: false,
-        descripcion: 'Archivo Png Transparente.'
+        descripcion: "Archivo Png Transparente."
     }, {
-        clave: 'licencia',
+        clave: "licencia",
         valor: false,
-        descripcion: 'Licencia comercial.'
+        descripcion: "Licencia comercial."
     }, {
-        clave: 'copia',
+        clave: "copia",
         valor: false,
-        descripcion: 'Copia de seguridad de por vida.'
+        descripcion: "Copia de seguridad de por vida."
     }, {
-        clave: 'tamanios',
+        clave: "tamanios",
         valor: false,
-        descripcion: 'Tamaño del logo adaptado a papeleria y redes sociales.'
+        descripcion: "Tamaño del logo adaptado a papeleria y redes sociales."
     }, {
-        clave: 'editable',
+        clave: "editable",
         valor: false,
-        descripcion: 'Archivo editable con la  tipografia incluida.'
+        descripcion: "Archivo editable con la  tipografia incluida."
     }, {
-        clave: 'manual',
+        clave: "manual",
         valor: false,
-        descripcion: 'Manual de marca.'
+        descripcion: "Manual de marca."
     }, {
-        clave: 'papeleria',
+        clave: "papeleria",
         valor: false,
-        descripcion: 'Papelería con increibles modelos a elegir.'
+        descripcion: "Papelería con increibles modelos a elegir."
     }])
 
     .value("monedasValue", {
@@ -2904,7 +3070,7 @@ angular.module("administrador")
         }
     })
 
-    .value('paisesValue', {
+    .value("paisesValue", {
         "BD": "Bangladesh",
         "BE": "Belgium",
         "BF": "Burkina Faso",

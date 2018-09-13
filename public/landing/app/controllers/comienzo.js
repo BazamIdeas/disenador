@@ -26,9 +26,8 @@ angular.module("landing")
 		};
 		bz.datosCombinaciones = {
 			etiquetasSeleccionadas: [],
-			colores: [],
-			nombre: bz.textos.secciones.seccion_uno.formulario.nombre.placeholder
-		}
+			colores: []
+		};
 
 		bz.logosPredisenados = [];
 
