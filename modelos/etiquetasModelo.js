@@ -288,9 +288,15 @@ etiqueta.DesasignarIcono = (_id, icono, callback) => {
                 multi: true,
             }, (err, doc) => {
                 if (err) throw err;
-                callback(null, {
-                    'affectedRow': doc.value
-                });
+                const iconos = db.collection('iconos');
+
+                iconos.deleteMany({ 'idNoun': { '$in': icono } }, (err, result) => {
+                    if (err) throw err;
+
+                    callback(null, {
+                        'affectedRow': doc.value
+                    });
+                })
             });
     })
 }
