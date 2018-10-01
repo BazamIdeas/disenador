@@ -1,6 +1,6 @@
-angular.module("administrador")
+angular.module('administrador')
 
-    .controller("iconosController", ["$state", "$scope", "clientesService", "$rootScope", "inconsSearchByTag", "$base64", "etiquetasService", "notificacionService", function ($state, $scope, clientesService, $rootScope, inconsSearchByTag, $base64, etiquetasService, notificacionService) {
+    .controller('iconosController', ['$state', '$scope', 'clientesService', '$rootScope', 'inconsSearchByTag', '$base64', 'etiquetasService', 'notificacionService', function ($state, $scope, clientesService, $rootScope, inconsSearchByTag, $base64, etiquetasService, notificacionService) {
 
         var bz = this;
         bz.base64 = $base64;
@@ -87,7 +87,7 @@ angular.module("administrador")
          */
 
         bz.iconosMONGO = [];
-        bz.BusquedaAnterior = "";
+        bz.BusquedaAnterior = '';
 
         bz.solicitarElementosMONGO = function () {
 
@@ -178,13 +178,13 @@ angular.module("administrador")
                         bz.iconosMONGO.unshift({idNoun: ele.idNoun,svg:ele.svg});
                         bz.idsExcluidosMONGO.push(ele.idNoun);
                     });
-                    return notificacionService.mensaje("Iconos agregados");
+                    return notificacionService.mensaje('Iconos agregados');
                 }
             }).catch(function(res){
-                if (res == "svg too large"){
+                if (res == 'svg too large'){
                     bz.iconos = [];
 
-                    return notificacionService.mensaje("Svg demasiado pesado");
+                    return notificacionService.mensaje('Svg demasiado pesado');
                 }
             }).finally(function(){
                 bz.peticion = false;
@@ -205,7 +205,7 @@ angular.module("administrador")
                 
             });
             
-			if (desvincularIcons.length == 0) return notificacionService.mensaje("Seleccione algun icono por favor");
+			if (desvincularIcons.length == 0) return notificacionService.mensaje('Seleccione algun icono por favor');
 
             var datos = {
                 _id: bz.etiquetasSeleccionadasMongo[0]._id,
@@ -214,14 +214,14 @@ angular.module("administrador")
 
             etiquetasService.desvincularIconos(datos).then(function(res){
 
-                if (res == undefined) return notificacionService.mensaje("No se ha podido desvincular los iconos.");
+                if (res == undefined) return notificacionService.mensaje('No se ha podido desvincular los iconos.');
                 
-				return notificacionService.mensaje("Iconos desvinculados");
+				return notificacionService.mensaje('Iconos desvinculados');
             });
         };
 
         bz.limpiarBusqueda = function(option){
-            if (option == "mgo"){
+            if (option == 'mgo'){
                 bz.etiquetasSeleccionadasMongo = [];
                 bz.iconosMONGO = [];
             }else{

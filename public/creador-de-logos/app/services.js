@@ -704,6 +704,28 @@ angular.module("disenador-de-logos")
 
 		};
 
+		this.listarIconosMONGO = function(tags, idsIconos) {
+			var defered = $q.defer();
+
+			var promise = defered.promise;
+
+			var data = {
+				tags: tags,
+				idsIconos: idsIconos
+			};
+
+			$http
+				.post("/app/elementos/busqueda/iconos/mongo", data)
+				.then(function(res) {
+					defered.resolve(res.data);
+				})
+				.catch(function(res) {
+					defered.reject(res);
+				});
+
+			return promise;
+		};
+
 	}])
 
 
