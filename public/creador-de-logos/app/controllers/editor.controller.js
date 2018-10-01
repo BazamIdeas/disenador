@@ -36,7 +36,7 @@ angular.module("disenador-de-logos")
 
 		if (!historicoResolve.idLogoGuardado && !historicoResolve.idLogoPadre) { //si no es un logo guardado
 
-			console.log(historicoResolve.texto)
+			//console.log(historicoResolve.texto)
 
 			bz.logo.texto = historicoResolve.texto;
 			bz.categoria = historicoResolve.categoria;
@@ -168,7 +168,7 @@ angular.module("disenador-de-logos")
 					}
 
 
-					console.log(bz.logo.fuenteEslogan.url, fuente.url);
+					//console.log(bz.logo.fuenteEslogan.url, fuente.url);
 					if (bz.logo.fuenteEslogan && (bz.logo.fuenteEslogan.url == fuente.url)) {
 
 						fuentesId.eslogan = fuente.idElemento;
@@ -288,7 +288,7 @@ angular.module("disenador-de-logos")
 				}
 			});
 
-			logosService.guardarLogo(bz.base64.encode(logo), null, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function (etiquetasGuardadas) {
+			logosService.guardarLogo(bz.base64.encode(logo), null, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function () {
 
 /* 				if (etiquetasGuardadas) {
 
@@ -306,7 +306,7 @@ angular.module("disenador-de-logos")
 					}
 				}));
 
-			}).catch(function (e) {
+			}).catch(function () {
 
 				$mdToast.show($mdToast.base({
 					args: {
@@ -331,7 +331,7 @@ angular.module("disenador-de-logos")
 
 			if (bz.cuadricula) {
 				bz.colorFondoAnterior = bz.colorFondo;
-				bz.colorFondo = 'transparent';
+				bz.colorFondo = "transparent";
 			} else {
 				bz.colorFondo = bz.colorFondoAnterior;
 			}
@@ -535,94 +535,52 @@ angular.module("disenador-de-logos")
 		////////////////////////////////////////
 
 		bz.iconos = [];
-
 		bz.completadoBuscar = true;
-
-		/* Etiquetas */
-
 		bz.selectedItem = null;
 		bz.searchText = null;
 		bz.etiquetasFunciones = etiquetasService;
-
 		bz.etiquetasSeleccionadas = [];
+		bz.idsExcluidosMONGO = []
 
-		var tags_saltos = {};
+		var tags = []
 
-		bz.buscarIconos = function (idCategoria, valido) {
-
-			
+		bz.buscarIconos = function () {
 			if (bz.etiquetasSeleccionadas.length == 0) return;
 
-			/* bz.iconosForm.$setSubmitted(); */
-
-			if (/* valido &&  */bz.completadoBuscar) {
-
+			if (bz.completadoBuscar) {
 				bz.completadoBuscar = false;
-
-				angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
-
-					var remover_tag = true;
-
-					angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
-
-						if (indexSalto == tag.traducciones[0].valor) {
-							remover_tag = false;
-						}
-
-					});
-
-					if (remover_tag) {
-						delete tags_saltos[indexSalto];
-					}
-
-
-				});
+				tags = []
 
 				angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
-
-					var tag_existe = tags_saltos[tag.traducciones[0].valor];
-
-					if (tag_existe === undefined) {
-						tags_saltos[tag.traducciones[0].valor] = 0;
-					}
-
+					tags.push(tag.traducciones[0].valor);
 				});
 
 				bz.cerrarContenedores();
 				bz.contenedores.busquedaIconos = true;
 
-				elementosService.listarIconosSegunTags(tags_saltos).then(function (res) {
-
+				elementosService.listarIconosMONGO(tags, bz.idsExcluidosMONGO)	.then(function(res) {
 					if (!res.iconos.length) {
-						return $mdToast.show($mdToast.base({
-							args: {
-								mensaje: "no han habido resultados, intenta con otro tipo de iconos!",
-								clase: "success"
-							}
-						}));
+						return $mdToast.show(
+							$mdToast.base({
+								args: {
+									mensaje:
+										"no han habido resultados, intenta con otro tipo de iconos!",
+									clase: "success"
+								}
+							})
+						);
 					}
-					
+
 					bz.iconos = [];
 					bz.iconos = res.iconos;
 					bz.contenedores.busquedaIconos = true;
-					tags_saltos = res.tags;
-
-				}).catch(function (res) {
+					bz.idsExcluidosMONGO = res.idsIconos;
+				}).catch(function() {
 					bz.cerrarContenedores();
-				}).finally(function () {
+				}).finally(function() {
 					bz.completadoBuscar = true;
 				});
-				/*
-				categoriasService.listaCategoriasElementos(idCategoria, "ICONO")
-					.then(function (res) {
-						bz.iconos = [];
-						bz.iconos = res;
-					}).finally(function () {
-						bz.completadoBuscar = true;
-					});
-					*/
 			}
-
 		};
 
 
