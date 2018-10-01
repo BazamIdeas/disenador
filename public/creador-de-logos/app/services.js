@@ -430,7 +430,7 @@ angular.module("disenador-de-logos")
 
 					var results = query ? etiquetas.filter(createFilterFor(query)) : [];
 
-					return limitOne(results, 'traducciones');
+					return limitOne(results, "traducciones");
 
 				}).catch(function () {
 					return [];
@@ -456,7 +456,7 @@ angular.module("disenador-de-logos")
 			}
 
 			if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-				newItems = [];
+				var newItems = [];
 
 				var extractValueToCompare = function (item) {
 					if (angular.isObject(item) && angular.isString(filterOn)) {
@@ -483,7 +483,7 @@ angular.module("disenador-de-logos")
 				items = newItems;
 			}
 			return items;
-		};
+		}
 
 	}])
 
@@ -1042,7 +1042,7 @@ angular.module("disenador-de-logos")
 							}
 						});
 				} else {
-					FB.login(function (response) {
+					FB.login(function () {
 						FB.ui({
 							method: "share",
 							href: "http://test.logo.pro/",

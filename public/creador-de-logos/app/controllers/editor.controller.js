@@ -1,6 +1,6 @@
-angular.module('disenador-de-logos')
+angular.module("disenador-de-logos")
 
-	.controller('editorController', ['$scope', '$base64', 'categoriasService', 'logosService', 'clientesService', 'historicoResolve', '$rootScope', '$mdToast', 'elementosService', '$q', 'pedidosService', 'fontService', 'etiquetasService', 'disenadorService', 'langFactory', function ($scope, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, $q, pedidosService, fontService, etiquetasService, disenadorService, langFactory) {
+	.controller("editorController", ["$scope", "$base64", "categoriasService", "logosService", "clientesService", "historicoResolve", "$rootScope", "$mdToast", "elementosService", "$q", "pedidosService", "fontService", "etiquetasService", "disenadorService", "langFactory", function ($scope, $base64, categoriasService, logosService, clientesService, historicoResolve, $rootScope, $mdToast, elementosService, $q, pedidosService, fontService, etiquetasService, disenadorService, langFactory) {
 
 		var bz = this;
 
@@ -14,14 +14,14 @@ angular.module('disenador-de-logos')
 			fuentes: false
 		};
 
-		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[1] : 'rgb(243, 243, 243)';
+		bz.colorFondo = historicoResolve.colores ? historicoResolve.colores[1] : "rgb(243, 243, 243)";
 		bz.colorFondoAnterior = bz.colorFondo;
-		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[0] : '#000';
-		bz.colorEslogan = '#000';
-		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[0] : '#000';
-		bz.svgFinal = '';
+		bz.colorTexto = historicoResolve.colores ? historicoResolve.colores[0] : "#000";
+		bz.colorEslogan = "#000";
+		bz.colorIcono = historicoResolve.colores ? historicoResolve.colores[0] : "#000";
+		bz.svgFinal = "";
 		bz.disenador = {
-			searchText: ''
+			searchText: ""
 		};
 
 		bz.datosDisenador = {
@@ -36,7 +36,7 @@ angular.module('disenador-de-logos')
 
 		if (!historicoResolve.idLogoGuardado && !historicoResolve.idLogoPadre) { //si no es un logo guardado
 
-			console.log(historicoResolve.texto)
+			//console.log(historicoResolve.texto)
 
 			bz.logo.texto = historicoResolve.texto;
 			bz.categoria = historicoResolve.categoria;
@@ -56,7 +56,7 @@ angular.module('disenador-de-logos')
 
 		bz.categoriasPosibles = [];
 
-		categoriasService.listaCategorias('ICONO').then(function (res) {
+		categoriasService.listaCategorias("ICONO").then(function (res) {
 
 			angular.forEach(res, function (valor) {
 
@@ -66,7 +66,7 @@ angular.module('disenador-de-logos')
 
 		});
 
-		categoriasService.listaCategorias('FUENTE')
+		categoriasService.listaCategorias("FUENTE")
 			.then(function (res) {
 				bz.fuentesCategorias = res;
 			})
@@ -168,7 +168,7 @@ angular.module('disenador-de-logos')
 					}
 
 
-					console.log(bz.logo.fuenteEslogan.url, fuente.url);
+					//console.log(bz.logo.fuenteEslogan.url, fuente.url);
 					if (bz.logo.fuenteEslogan && (bz.logo.fuenteEslogan.url == fuente.url)) {
 
 						fuentesId.eslogan = fuente.idElemento;
@@ -187,8 +187,8 @@ angular.module('disenador-de-logos')
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
 									args: {
-										mensaje: 'Su logo ha sido guardado con exito!',
-										clase: 'success'
+										mensaje: "Su logo ha sido guardado con exito!",
+										clase: "success"
 									}
 								}));
 							} else {
@@ -200,8 +200,8 @@ angular.module('disenador-de-logos')
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
 									args: {
-										mensaje: 'Un error ha ocurrido',
-										clase: 'danger'
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
 									}
 								}));
 							} else {
@@ -221,8 +221,8 @@ angular.module('disenador-de-logos')
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
 									args: {
-										mensaje: 'Su logo ha sido guardado con exito!',
-										clase: 'success'
+										mensaje: "Su logo ha sido guardado con exito!",
+										clase: "success"
 									}
 								}));
 							} else {
@@ -234,8 +234,8 @@ angular.module('disenador-de-logos')
 							if (!regresar) {
 								$mdToast.show($mdToast.base({
 									args: {
-										mensaje: 'Un error ha ocurrido',
-										clase: 'danger'
+										mensaje: "Un error ha ocurrido",
+										clase: "danger"
 									}
 								}));
 							} else {
@@ -269,8 +269,8 @@ angular.module('disenador-de-logos')
 			bz.completadoGuardar = false;
 
 			var fuentesId = {
-				principal: '',
-				eslogan: ''
+				principal: "",
+				eslogan: ""
 			};
 
 			angular.forEach(bz.fuentes, function (fuente) {
@@ -288,7 +288,7 @@ angular.module('disenador-de-logos')
 				}
 			});
 
-			logosService.guardarLogo(bz.base64.encode(logo), null, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function (etiquetasGuardadas) {
+			logosService.guardarLogo(bz.base64.encode(logo), null, tipoLogo, idCategoria, fuentesId.principal, fuentesId.eslogan, tags, alt).then(function () {
 
 /* 				if (etiquetasGuardadas) {
 
@@ -301,17 +301,17 @@ angular.module('disenador-de-logos')
  */
 				$mdToast.show($mdToast.base({
 					args: {
-						mensaje: 'Enviaste un logo a revision!',
-						clase: 'success'
+						mensaje: "Enviaste un logo a revision!",
+						clase: "success"
 					}
 				}));
 
-			}).catch(function (e) {
+			}).catch(function () {
 
 				$mdToast.show($mdToast.base({
 					args: {
-						mensaje: 'Un error ha ocurrido',
-						clase: 'danger'
+						mensaje: "Un error ha ocurrido",
+						clase: "danger"
 					}
 				}));
 
@@ -331,7 +331,7 @@ angular.module('disenador-de-logos')
 
 			if (bz.cuadricula) {
 				bz.colorFondoAnterior = bz.colorFondo;
-				bz.colorFondo = 'transparent';
+				bz.colorFondo = "transparent";
 			} else {
 				bz.colorFondo = bz.colorFondoAnterior;
 			}
@@ -344,11 +344,11 @@ angular.module('disenador-de-logos')
 				return;
 			}
 
-			$rootScope.$broadcast('editor:planes', true);
+			$rootScope.$broadcast("editor:planes", true);
 
 		};
 
-		$scope.$on('directiva:planes', function (evento, datos) {
+		$scope.$on("directiva:planes", function (evento, datos) {
 
 			var idFuente;
 			var idFuenteEslogan;
@@ -373,7 +373,7 @@ angular.module('disenador-de-logos')
 				idLogo: null,
 				noun: bz.logo.icono.idElemento,
 				idCategoria: bz.categoria,
-				tipo: 'Logo y nombre',
+				tipo: "Logo y nombre",
 				fuentes: {
 					principal: idFuente,
 					eslogan: idFuenteEslogan
@@ -403,7 +403,7 @@ angular.module('disenador-de-logos')
 
 		bz.cambioColor = function (color, objetivo) {
 
-			$rootScope.$broadcast('editor:color', {
+			$rootScope.$broadcast("editor:color", {
 				color: color,
 				objetivo: objetivo
 			});
@@ -418,7 +418,7 @@ angular.module('disenador-de-logos')
 
 		bz.cambioTexto = function (texto, eslogan) {
 
-			$rootScope.$broadcast('editor:texto', {
+			$rootScope.$broadcast("editor:texto", {
 				texto: texto,
 				eslogan: eslogan
 			});
@@ -426,18 +426,18 @@ angular.module('disenador-de-logos')
 		};
 
 		bz.verificarEslogan = function (eslogan) {
-			if (eslogan === '') {
+			if (eslogan === "") {
 				bz.esloganActivo = false;
 				bz.logo.fuenteEslogan = null;
-				$rootScope.$broadcast('editor:eliminarEslogan');
+				$rootScope.$broadcast("editor:eliminarEslogan");
 			}
 		};
 
 		bz.quitarEsloganDefault = function (eslogan) {
-			if (eslogan === 'Mi eslogan aquí') {
-				bz.logo.eslogan = '';
+			if (eslogan === "Mi eslogan aquí") {
+				bz.logo.eslogan = "";
 
-				bz.cambioTexto('', true);
+				bz.cambioTexto("", true);
 			}
 		};
 
@@ -449,7 +449,7 @@ angular.module('disenador-de-logos')
 
 		bz.cambioFuente = function (fuente, objetivo) {
 
-			$rootScope.$broadcast('editor:fuente', {
+			$rootScope.$broadcast("editor:fuente", {
 				fuente: angular.copy(fuente),
 				objetivo: objetivo
 			});
@@ -462,7 +462,7 @@ angular.module('disenador-de-logos')
 
 		bz.cambioPropiedad = function (propiedad, eslogan) {
 
-			$rootScope.$broadcast('editor:propiedad', {
+			$rootScope.$broadcast("editor:propiedad", {
 				propiedad: propiedad,
 				eslogan: eslogan
 			});
@@ -475,7 +475,7 @@ angular.module('disenador-de-logos')
 
 		bz.cambioTamano = function (objetivo, accion) {
 
-			$rootScope.$broadcast('editor:tamano', {
+			$rootScope.$broadcast("editor:tamano", {
 				objetivo: objetivo,
 				accion: accion
 			});
@@ -490,11 +490,11 @@ angular.module('disenador-de-logos')
 
 		bz.realizarComparacion = function () {
 
-			$rootScope.$broadcast('editor:comparar', true);
+			$rootScope.$broadcast("editor:comparar", true);
 
 		};
 
-		$scope.$on('directiva:comparar', function (evento, valor) {
+		$scope.$on("directiva:comparar", function (evento, valor) {
 
 			if (bz.comparaciones.length <= 10) {
 				bz.comparaciones.push(valor);
@@ -515,7 +515,7 @@ angular.module('disenador-de-logos')
 
 		bz.cambiarOrientacion = function (orientacion) {
 
-			$rootScope.$broadcast('editor:orientacion', orientacion);
+			$rootScope.$broadcast("editor:orientacion", orientacion);
 
 		};
 
@@ -550,7 +550,7 @@ angular.module('disenador-de-logos')
 			if (bz.completadoBuscar) {
 				bz.completadoBuscar = false;
 				tags = []
-				
+
 				angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
 					tags.push(tag.traducciones[0].valor);
 				});
@@ -564,8 +564,8 @@ angular.module('disenador-de-logos')
 							$mdToast.base({
 								args: {
 									mensaje:
-										'no han habido resultados, intenta con otro tipo de iconos!',
-									clase: 'success'
+										"no han habido resultados, intenta con otro tipo de iconos!",
+									clase: "success"
 								}
 							})
 						);
@@ -588,11 +588,11 @@ angular.module('disenador-de-logos')
 		bz.reemplazarIcono = function (icono) {
 
 			bz.logo.icono = icono;
-			$rootScope.$broadcast('editor:reemplazar', bz.base64.decode(icono.svg));
+			$rootScope.$broadcast("editor:reemplazar", bz.base64.decode(icono.svg));
 
 		};
 
-		$scope.$on('directiva:restaurarEslogan', function (evento, datos) {
+		$scope.$on("directiva:restaurarEslogan", function (evento, datos) {
 
 			if (datos.accion) {
 
@@ -613,7 +613,7 @@ angular.module('disenador-de-logos')
 				bz.logo.fuenteEslogan = fuenteElegida;
 				bz.esloganActivo = true;
 			} else {
-				bz.logo.eslogan = '';
+				bz.logo.eslogan = "";
 				bz.logo.fuenteEslogan = null;
 				bz.esloganActivo = false;
 			}
@@ -623,10 +623,10 @@ angular.module('disenador-de-logos')
 
 		bz.agregarEslogan = function () {
 
-			bz.logo.eslogan = 'Mi eslogan aquí';
+			bz.logo.eslogan = "Mi eslogan aquí";
 			bz.logo.fuenteEslogan = bz.logo.fuente;
 
-			$rootScope.$broadcast('editor:agregarEslogan', {
+			$rootScope.$broadcast("editor:agregarEslogan", {
 				eslogan: bz.logo.eslogan,
 				fuente: bz.logo.fuenteEslogan
 			});
@@ -641,7 +641,7 @@ angular.module('disenador-de-logos')
 
 		bz.restaurarComparacion = function (comparacion) {
 
-			$rootScope.$broadcast('editor:restaurar', comparacion);
+			$rootScope.$broadcast("editor:restaurar", comparacion);
 
 		};
 
@@ -695,13 +695,13 @@ angular.module('disenador-de-logos')
 
 		bz.precioSeleccionado = function (precios) {
 
-			var precioFinal = '';
+			var precioFinal = "";
 
 			angular.forEach(precios, function (valor) {
 
 				if (valor.moneda == bz.moneda.simbolo) {
 
-					precioFinal = valor.moneda + ' ' + valor.precio;
+					precioFinal = valor.moneda + " " + valor.precio;
 				}
 
 			});
@@ -721,7 +721,7 @@ angular.module('disenador-de-logos')
 
 		bz.cerrarContenedores = function (contenedor) {
 
-			$scope.$broadcast('editor:cerrarColorPickers', true);
+			$scope.$broadcast("editor:cerrarColorPickers", true);
 
 			angular.forEach(bz.contenedores, function (el, k) {
 				if (contenedor == k) return;
