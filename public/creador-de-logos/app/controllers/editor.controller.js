@@ -549,7 +549,7 @@ angular.module("disenador-de-logos")
 
 			if (bz.completadoBuscar) {
 				bz.completadoBuscar = false;
-				tags = []
+				tags = [];
 
 				angular.forEach(bz.etiquetasSeleccionadas, function (tag) {
 					tags.push(tag.traducciones[0].valor);

@@ -267,10 +267,10 @@ angular.module("disenador-de-logos")
 
 		bz.completado = true;
 
-		var tags_saltos = {};
-
+		//var tags_saltos = {};
+		
 		bz.solicitarElementos = function () {
-
+			
 			if (!bz.completado) {
 				return;
 			}
@@ -280,8 +280,10 @@ angular.module("disenador-de-logos")
 			}
 
 			bz.completado = false;
+			
+			
 
-			angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
+			/* 	angular.forEach(tags_saltos, function (tag_salto, indexSalto) {
 
 				var remover_tag = true;
 
@@ -298,23 +300,28 @@ angular.module("disenador-de-logos")
 				}
 
 
-			});
+			}); */
+
+			var tagsBusqueda = [];
 
 			angular.forEach(bz.datos.etiquetasSeleccionadas, function (tag) {
 
-				var tag_existe = tags_saltos[tag.traducciones[0].valor];
+				tagsBusqueda.push(tag.traducciones[0].valor);
+
+				/* var tag_existe = tags_saltos[tag.traducciones[0].valor];
 
 				if (tag_existe === undefined) {
 					tags_saltos[tag.traducciones[0].valor] = 0;
-				}
+				} */
 
 			});
-
-			var promesaIconos = elementosService.listarIconosMongo(["ojo", "arbol", "perro", "gato"]);
+			
+			var promesaIconos = elementosService.listarIconosMongo(tagsBusqueda);
 			//var promesaIconos = elementosService.listarIconosSegunTags(tags_saltos);
 			var promesaIconosDescatados = logosService.obtenerDestacados(bz.idsExcluidos, bz.datos.categoria.icono, datosPredisenado.subCategoria, datosPredisenado.tag);
 			var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
+			
 			promesaIconosDescatados.then(function(logosDestacados) {
 				var index;
 
@@ -324,7 +331,8 @@ angular.module("disenador-de-logos")
 
 					logosDestacados.forEach(function (ele) {
 						bz.idsExcluidos.push(ele.idLogo);
-						bz.logos.unshift(ele);
+						var logoCopy = angular.copy(ele);
+						bz.logos.unshift(logoCopy);
 					});
 
 					for (index = 0; index < 16 - logosDestacados.length; index++) {
@@ -337,7 +345,9 @@ angular.module("disenador-de-logos")
 
 					bz.logos.forEach(function (ele) {
 						if(ele.idLogo != undefined) {
-							logosAnteriores.push(ele);
+
+							var logoCopy = angular.copy(ele);
+							logosAnteriores.push(logoCopy);
 						}
 					});
 
@@ -346,22 +356,23 @@ angular.module("disenador-de-logos")
 					for (index = 0; index < 16 - bz.logos.length; index++) {
 						bz.logosFantasmas.push(index);
 					}
-
+					
 				}
-
+				
 				$q.all([
 					promesaIconos,
 					promesaFuentes
 				])
 					.then(function (res) {
-						var tags = res[0].tags;
+						//var tags = res[0].tags;
+
 						var iconosNoun = res[0].iconos;
 						var fuentes = res[1];
 
 						var iconos_raw = iconosNoun;
 						var fuentes_raw = fuentes;
 
-						tags_saltos = tags;
+						//tags_saltos = tags;
 
 						var logosNoun = bz.combinar(iconos_raw, fuentes_raw);
 
@@ -382,7 +393,7 @@ angular.module("disenador-de-logos")
 						}*/
 
 						logosMezclados = logosNoun;
-
+						
 						var logosMezcladosRandom = (function (array) {
 							var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -421,7 +432,7 @@ angular.module("disenador-de-logos")
 						};
 
 						localStorage.setItem("comenzar", angular.toJson(datosLocal));
-
+						
 
 					})
 					.catch(function () {
@@ -441,9 +452,9 @@ angular.module("disenador-de-logos")
 
 		};
 
-		if (landingResolve) {
+		/* if (landingResolve) {
 			bz.solicitarElementos();
-		}
+		} */
 
 		bz.preAvanzar = function (logo, predisenado) {
 			bz.logoSeleccionado = bz.logos.indexOf(logo);

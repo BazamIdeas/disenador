@@ -735,6 +735,8 @@ angular.module("disenador-de-logos")
 
 			});
 
+			return promise
+
 		}
 
 		this.listarIconosMONGO = function(tags, idsIconos) {
