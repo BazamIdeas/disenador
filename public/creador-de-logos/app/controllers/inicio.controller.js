@@ -79,13 +79,13 @@ angular.module("disenador-de-logos")
 							};
 
 							switch (provider) {
-								case "twitter":
-									attrs.socialshareHashtags = "Liderlogo";
-									break;
+							case "twitter":
+								attrs.socialshareHashtags = "Liderlogo";
+								break;
 
-								case "pinterest":
-									attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
-									break;
+							case "pinterest":
+								attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+								break;
 							}
 
 							Socialshare.share({
@@ -115,13 +115,13 @@ angular.module("disenador-de-logos")
 					};
 
 					switch (provider) {
-						case "twitter":
-							attrs.socialshareHashtags = "Liderlogo";
-							break;
+					case "twitter":
+						attrs.socialshareHashtags = "Liderlogo";
+						break;
 
-						case "pinterest":
-							attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
-							break;
+					case "pinterest":
+						attrs.socialshareMedia = bz.urlCompartir + "/app/logo/compartido/" + logo.idLogo; attrs.socialshareText = "Pinterest";
+						break;
 					}
 
 					Socialshare.share({
@@ -310,13 +310,16 @@ angular.module("disenador-de-logos")
 
 			});
 
-			var promesaIconos = elementosService.listarIconosSegunTags(tags_saltos);
+			var promesaIconos = elementosService.listarIconosMongo(["ojo", "arbol", "perro", "gato"]);
+			//var promesaIconos = elementosService.listarIconosSegunTags(tags_saltos);
 			var promesaIconosDescatados = logosService.obtenerDestacados(bz.idsExcluidos, bz.datos.categoria.icono, datosPredisenado.subCategoria, datosPredisenado.tag);
 			var promesaFuentes = elementosService.listaFuentesSegunPref(bz.datos.categoria.fuente, bz.datos.preferencias, 12);
 
 			promesaIconosDescatados.then(function(logosDestacados) {
+				var index;
 
 				if (logosDestacados.length) {
+					
 					bz.logos = [];
 
 					logosDestacados.forEach(function (ele) {
@@ -324,21 +327,23 @@ angular.module("disenador-de-logos")
 						bz.logos.unshift(ele);
 					});
 
-					for (let index = 0; index < 16 - logosDestacados.length; index++) {
+					for (index = 0; index < 16 - logosDestacados.length; index++) {
 						bz.logosFantasmas.push(index);
 					}
+
 				} else {
+
 					var logosAnteriores = [];
 
-					bz.logos.forEach(function (ele, index) {
+					bz.logos.forEach(function (ele) {
 						if(ele.idLogo != undefined) {
-							logosAnteriores.push(ele)
+							logosAnteriores.push(ele);
 						}
 					});
 
 					bz.logos = logosAnteriores;
 
-					for (let index = 0; index < 16 - bz.logos.length; index++) {
+					for (index = 0; index < 16 - bz.logos.length; index++) {
 						bz.logosFantasmas.push(index);
 					}
 
@@ -361,7 +366,7 @@ angular.module("disenador-de-logos")
 						var logosNoun = bz.combinar(iconos_raw, fuentes_raw);
 
 						var logosMezclados = [];
-						var cantidadNoun = logosNoun.length;
+						//var cantidadNoun = logosNoun.length;
 
 						/*if (cantidadNoun >= 6) {
 
@@ -430,7 +435,7 @@ angular.module("disenador-de-logos")
 
 			}).catch(function () {
 				//console.log(res)
-			})
+			});
 
 
 
@@ -456,7 +461,6 @@ angular.module("disenador-de-logos")
 
 			if (logoSeleccionado.idLogo) {
 				logoSeleccionado.icono.svg = bz.base64.encode(logoSeleccionado.cargado);
-
 			}
 
 			var datos = {
@@ -509,7 +513,7 @@ angular.module("disenador-de-logos")
 			bz.datosComprar = {
 				logo: logo.svg ? bz.base64.decode(logo.svg) : svg,
 				idLogo: logo.idLogo ? logo.idLogo : 0,
-				noun: logo.icono ? logo.icono.idElemento : 0,
+				//noun: logo.icono ? logo.icono.idElemento : 0,
 				idCategoria: bz.datos.categoria.icono,
 				tipo: "Logo y nombre",
 				fuentes: {

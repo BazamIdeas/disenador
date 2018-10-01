@@ -430,7 +430,7 @@ angular.module("disenador-de-logos")
 
 					var results = query ? etiquetas.filter(createFilterFor(query)) : [];
 
-					return limitOne(results, 'traducciones');
+					return limitOne(results, "traducciones");
 
 				}).catch(function () {
 					return [];
@@ -456,7 +456,7 @@ angular.module("disenador-de-logos")
 			}
 
 			if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-				newItems = [];
+				var newItems = [];
 
 				var extractValueToCompare = function (item) {
 					if (angular.isObject(item) && angular.isString(filterOn)) {
@@ -483,7 +483,7 @@ angular.module("disenador-de-logos")
 				items = newItems;
 			}
 			return items;
-		};
+		}
 
 	}])
 
@@ -704,6 +704,40 @@ angular.module("disenador-de-logos")
 
 		};
 
+
+		this.listarIconosMongo = function(tags, iconosIds){
+			
+			var defered = $q.defer();
+			var promise = defered.promise;
+
+			$http.post("/app/elementos/busqueda/iconos/mongo", {
+				tags: tags,
+				idsIconos: iconosIds
+			}).then(function (res) {
+				
+				var data = {
+					idsIconos: res.data.idsIconos,
+					iconos: []
+				};
+
+				angular.forEach(res.data.iconos, function(icono){
+					data.iconos.push({
+						idElemento: icono._id,
+						svg: icono.svg
+					});
+				});
+
+				defered.resolve(data);
+
+			}).catch(function (res) {
+
+				defered.reject(res);
+
+			});
+
+			return promise;
+		};
+
 	}])
 
 
@@ -910,8 +944,8 @@ angular.module("disenador-de-logos")
 						});
 
 					}, {
-							scope: "email,user_friends,user_location,user_likes"
-						});
+						scope: "email,user_friends,user_location,user_likes"
+					});
 
 					return promise;
 				}
@@ -1010,31 +1044,31 @@ angular.module("disenador-de-logos")
 						href: "http://test.logo.pro/",
 						source: "http://test.logo.pro/logo.pro.svg"
 					},
-						function (response) {
-							if (response && !response.error_code) {
-								if (typeof response != "undefined") {
-									defered.resolve();
-								}
-							} else {
-								defered.reject(response);
+					function (response) {
+						if (response && !response.error_code) {
+							if (typeof response != "undefined") {
+								defered.resolve();
 							}
-						});
+						} else {
+							defered.reject(response);
+						}
+					});
 				} else {
-					FB.login(function (response) {
+					FB.login(function () {
 						FB.ui({
 							method: "share",
 							href: "http://test.logo.pro/",
 							source: "http://test.logo.pro/"
 						},
-							function (response) {
-								if (response && !response.error_code) {
-									if (typeof response != "undefined") {
-										defered.resolve(response);
-									}
-								} else {
-									defered.reject(response);
+						function (response) {
+							if (response && !response.error_code) {
+								if (typeof response != "undefined") {
+									defered.resolve(response);
 								}
-							});
+							} else {
+								defered.reject(response);
+							}
+						});
 					});
 				}
 			});
@@ -1522,7 +1556,7 @@ angular.module("disenador-de-logos")
 				logo: logo,
 				tipoLogo: tipoLogo,
 				idCategoria: idCategoria,
-				noun: noun,
+				//noun: noun,
 				atributos: {
 					principal: fuentePrincipalId
 				}
