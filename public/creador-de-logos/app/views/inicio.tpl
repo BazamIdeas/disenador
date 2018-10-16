@@ -80,7 +80,7 @@
 
             <div class="combinaciones row" ng-if="inicio.logos.length">
 
-                <div class="col l3 combinacion" ng-repeat="logo in inicio.logos | orderBy: $index : true" ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores); logo.random = (1 + inicio.colorRandom(4))">
+                <div class="col l3 combinacion" ng-repeat="logo in inicio.logos " ng-init="logo.colores = inicio.obtenerColores(inicio.datos.colores); logo.random = (1 + inicio.colorRandom(4))">
 
                     <div class="share-email" ng-if="logo.mostrarCompartir" ng-form="inicio.compartirEmailForm">
                         <md-icon class="material-icons cerrar-compartir-email" role="img" aria-label="close" ng-click="logo.mostrarCompartir = false;">close</md-icon>
@@ -195,7 +195,7 @@
 
                 </div>
 
-                <div class="col l3 combinacion" ng-repeat="logo in inicio.logosFantasmas">
+                <div class="col l3 combinacion" ng-repeat="logo in inicio.logosFantasmas track by $index">
 
                     <!-- NUEVO LOGO -->
                     <div class="combinacion-box">
