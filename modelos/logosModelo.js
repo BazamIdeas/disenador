@@ -136,6 +136,8 @@ const getFeaturedBySubcat = (idSubcategoria, max, excludeIds) => {
 
 		DB.getConnection( (err, connection) => {
 
+			connection.release();
+
 			if(err){
 				reject(err);
 				return;
@@ -205,9 +207,9 @@ const getFeaturedByCat = (idCategoria, max, excludeIds) => {
 			let connection = await connPromise;
 
 			connection.query('SELECT logos.idLogo, logos.logo AS svg, logos.noun FROM logos INNER JOIN categorias ON logos.categorias_idCategoria = categorias.idCategoria WHERE logos.estado = "Aprobado" AND categorias.padre = ? AND logos.idLogo NOT IN (?) LIMIT ?', [idCategoria, excludeIds, max], (err, logosPorCat) => {
+				
+				connection.release()
 
-				connection.release();
-	
 				if(err) {
 					reject(err);
 					return; 

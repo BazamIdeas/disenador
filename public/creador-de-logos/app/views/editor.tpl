@@ -386,7 +386,7 @@
 						</div>
 
 						<!--FIXME:-->
-						<div class="col l3 xl2 icon-option" ng-repeat="icono in editor.iconos track by icono.idElemento">
+						<div class="col l3 xl2 icon-option" ng-repeat="icono in editor.iconos track by icono._id">
 							<div class="icon" ng-click="::editor.cerrarContenedores();editor.reemplazarIcono(icono);">
 								<img style="width:100%" src="assets/images/a.png" alt="">
 								<bazam-visualizar data-svg="::editor.base64.decode(icono.svg)">
